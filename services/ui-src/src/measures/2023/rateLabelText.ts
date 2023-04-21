@@ -1150,9 +1150,9 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Advising Smokers and Tobacco Users to Quit",
-                "text": "Advising Smokers and Tobacco Users to Quit",
-                "id": "AdvisingSmokersandTobaccoUserstoQuit"
+                "label": "Percentage of Current Smokers and Tobacco Users",
+                "text": "Percentage of Current Smokers and Tobacco Users",
+                "id": "PercentageofCurrentSmokersandTobaccoUsers"
             },
             {
                 "label": "Discussing Cessation Medications",
@@ -1165,9 +1165,9 @@ export const data = {
                 "id": "DiscussingCessationStrategies"
             },
             {
-                "label": "Percentage of Current Smokers and Tobacco Users",
-                "text": "Percentage of Current Smokers and Tobacco Users",
-                "id": "PercentageofCurrentSmokersandTobaccoUsers"
+                "label": "Advising Smokers and Tobacco Users to Quit",
+                "text": "Advising Smokers and Tobacco Users to Quit",
+                "id": "AdvisingSmokersandTobaccoUserstoQuit"
             }
         ]
     },
