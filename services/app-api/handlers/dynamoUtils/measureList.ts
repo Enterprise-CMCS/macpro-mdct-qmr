@@ -779,7 +779,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "HPC-AD",
+      measure: "HBD-AD",
     },
     {
       type: "A",

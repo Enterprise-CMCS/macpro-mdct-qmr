@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "HPC-AD";
+const measureAbbr = "HBD-AD";
 const coreSet = "ACS";
 const state = "AL";
 const year = 2023;
