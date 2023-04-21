@@ -137,20 +137,21 @@ export const DeviationFromMeasureSpec = ({
       const topLvlOptions: TopLevelOptions = [];
       const { rates } = watchPerformanceMeasure;
 
-      if (rates.singleCategory) {
-        // handle for PCR-XX measures
+      //by this point in the system, there should be at least 1 key in rates
+      //if there are no categories, the key singleCategory will be used instead
+      if (Object.keys(rates).length == 1) {
+        let rate = Object(Object.values(rates)[0]);
+
         if (["PCR-AD", "PCR-HH"].includes(measureName)) {
-          const quals = rates.singleCategory.filter((r: any) => r.value !== "");
+          const quals = rate.filter((r: any) => r.value !== "");
           if (quals.length > 0) {
             return getRateTextAreaOptions(DC.DEVIATIONS);
           }
         }
         // A total category should have the label "Total", per the Figma design.
-        const totalIndex = rates.singleCategory.findIndex(
-          (cat: any) => cat?.isTotal === true
-        );
+        const totalIndex = rate.findIndex((cat: any) => cat?.isTotal === true);
         if (totalIndex >= 0) {
-          rates.singleCategory[totalIndex].label = `${
+          rate[totalIndex].label = `${
             customTotalLabel ? `${customTotalLabel}` : "Total"
           }`;
         }
@@ -159,8 +160,8 @@ export const DeviationFromMeasureSpec = ({
         return getLowLvlDeviationOptions({
           qualifiers:
             measureName === "AIF-HH"
-              ? rates.singleCategory.filter(complexNumDenExistInRate)
-              : rates.singleCategory.filter(numDenExistInRate),
+              ? rate.filter(complexNumDenExistInRate)
+              : rate.filter(numDenExistInRate),
           name: DC.DEVIATIONS,
         });
       } else {
