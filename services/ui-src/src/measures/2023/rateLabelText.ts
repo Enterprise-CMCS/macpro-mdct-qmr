@@ -18,7 +18,7 @@ export const data = {
                 "id": "Age65andOlder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"AAB-AD-CAT-A", "label": "", "text":""}]
     },
     "ADD-CH": {
         "qualifiers": [
@@ -30,10 +30,10 @@ export const data = {
             {
                 "label": "Continuation and Maintenance (C&M) Phase",
                 "text": "Continuation and Maintenance (C&M) Phase",
-                "id": "ContinuationandMaintenanceCMPhase"
+                "id": "ContinuationandMaintenancePhase"
             }
         ],
-        "categories": []
+        "categories": [{"id":"ADD-CH-CAT-A", "label": "", "text":""}]
     },
     "AIF-HH": {
         "qualifiers": [
@@ -60,10 +60,10 @@ export const data = {
             {
                 "label": "Total (Age 18 and older)",
                 "text": "Total (Age 18 and older)",
-                "id": "Total (Age 18 and older)"
+                "id": "Total"
             }
         ],
-        "categories": []
+        "categories": [{"id":"AIF-HH-CAT-A", "label": "", "text":""}]
     },
     "AMB-CH": {
         "qualifiers": [
@@ -93,7 +93,7 @@ export const data = {
                 "id": "TotalAges1to19"
             }
         ],
-        "categories": []
+        "categories": [{"id":"AMB-CH-CAT-A", "label": "", "text":""}]
     },
     "AMB-HH": {
         "qualifiers": [
@@ -123,7 +123,7 @@ export const data = {
                 "id": "TotalAllAges"
             }
         ],
-        "categories": []
+        "categories": [{"id":"AMB-HH-CAT-A", "label": "", "text":""}]
     },
     "AMM-AD": {
         "qualifiers": [
@@ -142,12 +142,12 @@ export const data = {
             {
                 "label": "Effective Acute Phase Treatment",
                 "text": "Effective Acute Phase Treatment",
-                "id": "EffectiveAcutePhaseTreatment"
+                "id": "AMM-AD-CAT-A"
             },
             {
                 "label": "Effective Continuation Phase Treatment",
                 "text": "Effective Continuation Phase Treatment",
-                "id": "EffectiveContinuationPhaseTreatment"
+                "id": "AMM-AD-CAT-B"
             }
         ]
     },
@@ -169,7 +169,7 @@ export const data = {
                 "id": "TotalAges19to64"
             }
         ],
-        "categories": []
+        "categories": [{"id":"AMR-AD-CAT-A", "label": "", "text":""}]
     },
     "AMR-CH": {
         "qualifiers": [
@@ -189,7 +189,7 @@ export const data = {
                 "id": "TotalAges5to18"
             }
         ],
-        "categories": []
+        "categories": [{"id":"AMR-CH-CAT-A", "label": "", "text":""}]
     },
     "APM-CH": {
         "qualifiers": [
@@ -213,17 +213,17 @@ export const data = {
             {
                 "label": "Blood Glucose",
                 "text": "Blood Glucose",
-                "id": "BloodGlucose"
+                "id": "APM-CH-CAT-A"
             },
             {
                 "label": "Cholesterol",
                 "text": "Cholesterol",
-                "id": "Cholesterol"
+                "id": "APM-CH-CAT-B"
             },
             {
                 "label": "Blood Glucose and Cholesterol",
                 "text": "Blood Glucose and Cholesterol",
-                "id": "BloodGlucoseandCholesterol"
+                "id": "APM-CH-CAT-C"
             }
         ]
     },
@@ -245,7 +245,7 @@ export const data = {
                 "id": "TotalAges1to17"
             }
         ],
-        "categories": []
+        "categories": [{"id":"APP-CH-CAT-A", "label": "", "text":""}]
     },
     "BCS-AD": {
         "qualifiers": [
@@ -260,7 +260,7 @@ export const data = {
                 "id": "Ages65to74"
             }
         ],
-        "categories": []
+        "categories": [{"id":"BCS-AD-CAT-A", "label": "", "text":""}]
     },
     "CBP-AD": {
         "qualifiers": [
@@ -275,7 +275,7 @@ export const data = {
                 "id": "Ages65to85"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CBP-AD-CAT-A", "label": "", "text":""}]
     },
     "CBP-HH": {
         "qualifiers": [
@@ -295,7 +295,7 @@ export const data = {
                 "id": "TotalAges18to85"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CBP-HH-CAT-A", "label": "", "text":""}]
     },
     "CCP-AD": {
         "qualifiers": [
@@ -314,12 +314,12 @@ export const data = {
             {
                 "label": "Most effective or moderately effective method of contraception",
                 "text": "Most effective or moderately effective method of contraception",
-                "id": "EffectiveContraception"
+                "id": "CCP-AD-CAT-A"
             },
             {
                 "label": "Long-acting reversible method of contraception (LARC)",
                 "text": "Long-acting reversible method of contraception (LARC)",
-                "id": "ReversibleContraception"
+                "id": "CCP-AD-CAT-B"
             }
         ]
     },
@@ -340,12 +340,12 @@ export const data = {
             {
                 "label": "Most effective or moderately effective method of contraception",
                 "text": "Most effective or moderately effective method of contraception",
-                "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception"
+                "id": "CCP-CH-CAT-A"
             },
             {
                 "label": "Long-acting reversible method of contraception (LARC)",
                 "text": "Long-acting reversible method of contraception (LARC)",
-                "id": "LongactingreversiblemethodofcontraceptionLARC"
+                "id": "CCP-CH-CAT-B"
             }
         ]
     },
@@ -357,7 +357,7 @@ export const data = {
                 "id": "Percentageofwomenages21to64screened"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CCS-AD-CAT-A", "label": "", "text":""}]
     },
     "CCW-AD": {
         "qualifiers": [
@@ -371,12 +371,12 @@ export const data = {
             {
                 "label": "Most effective or moderately effective method of contraception",
                 "text": "Most effective or moderately effective method of contraception",
-                "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception"
+                "id": "-CAT-A"
             },
             {
                 "label": "Long-acting reversible method of contraception (LARC)",
                 "text": "Long-acting reversible method of contraception (LARC)",
-                "id": "LongactingreversiblemethodofcontraceptionLARC"
+                "id": "CCW-AD-CAT-B"
             }
         ]
     },
@@ -393,7 +393,7 @@ export const data = {
                 "id": "LongactingreversiblemethodofcontraceptionLARC"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CCW-CH-CAT-A", "label": "", "text":""}]
     },
     "CDF-AD": {
         "qualifiers": [
@@ -408,7 +408,7 @@ export const data = {
                 "id": "Age65andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CDF-AD-CAT-A", "label": "", "text":""}]
     },
     "CDF-CH": {
         "qualifiers": [
@@ -418,7 +418,7 @@ export const data = {
                 "id": "Ages12to17"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CDF-CH-CAT-A", "label": "", "text":""}]
     },
     "CDF-HH": {
         "qualifiers": [
@@ -443,7 +443,7 @@ export const data = {
                 "id": "TotalAge12andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CDF-HH-CAT-A", "label": "", "text":""}]
     },
     "CHL-AD": {
         "qualifiers": [
@@ -453,7 +453,7 @@ export const data = {
                 "id": "Ages21to24"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CHL-AD-CAT-A", "label": "", "text":""}]
     },
     "CHL-CH": {
         "qualifiers": [
@@ -463,7 +463,7 @@ export const data = {
                 "id": "Ages16to20"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CHL-CH-CAT-A", "label": "", "text":""}]
     },
     "CIS-CH": {
         "qualifiers": [
@@ -533,7 +533,7 @@ export const data = {
                 "id": "Combo10"
             }
         ],
-        "categories": []
+        "categories": [{"id":"CIS-CH-CAT-A", "label": "", "text":""}]
     },
     "COB-AD": {
         "qualifiers": [
@@ -548,7 +548,7 @@ export const data = {
                 "id": "Age65andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"COB-AD-CAT-A", "label": "", "text":""}]
     },
     "COL-AD": {
         "qualifiers": [
@@ -568,7 +568,7 @@ export const data = {
                 "id": "Ages65to75"
             }
         ],
-        "categories": []
+        "categories": [{"id":"COL-AD-CAT-A", "label": "", "text":""}]
     },
     "COL-HH": {
         "qualifiers": [
@@ -583,7 +583,7 @@ export const data = {
                 "id": "Ages65to75"
             }
         ],
-        "categories": []
+        "categories": [{"id":"COL-HH-CAT-A", "label": "", "text":""}]
     },
     "DEV-CH": {
         "qualifiers": [
@@ -608,7 +608,7 @@ export const data = {
                 "id": "ChildrenTotal"
             }
         ],
-        "categories": []
+        "categories": [{"id":"DEV-CH-CAT-A", "label": "", "text":""}]
     },
     "FUA-AD": {
         "qualifiers": [
@@ -627,12 +627,12 @@ export const data = {
             {
                 "label": "Follow-up within 30 days of ED visit",
                 "text": "Follow-up within 30 days of ED visit",
-                "id": "Followupwithin30daysofEDvisit"
+                "id": "FUA-AD-CAT-A"
             },
             {
                 "label": "Follow-up within 7 days of ED visit",
                 "text": "Follow-up within 7 days of ED visit",
-                "id": "Followupwithin7daysofEDvisit"
+                "id": "FUA-AD-CAT-B"
             }
         ]
     },
@@ -648,12 +648,12 @@ export const data = {
             {
                 "label": "Follow-up within 30 days of ED visit",
                 "text": "Follow-up within 30 days of ED visit",
-                "id": "Followupwithin30daysofEDvisit"
+                "id": "FUA-CH-CAT-A"
             },
             {
                 "label": "Follow-up within 7 days of ED visit",
                 "text": "Follow-up within 7 days of ED visit",
-                "id": "Followupwithin7daysofEDvisit"
+                "id": "FUA-CH-CAT-B"
             }
         ]
     },
@@ -684,12 +684,12 @@ export const data = {
             {
                 "label": "Follow-up within 30 days of ED visit",
                 "text": "Follow-up within 30 days of ED visit",
-                "id": "Followupwithin30daysofEDvisit"
+                "id": "FUA-HH-CAT-A"
             },
             {
                 "label": "Follow-up within 7 days of ED visit",
                 "text": "Follow-up within 7 days of ED visit",
-                "id": "Followupwithin7daysofEDvisit"
+                "id": "FUA-HH-CAT-B"
             }
         ]
     },
@@ -710,12 +710,12 @@ export const data = {
             {
                 "label": "Follow-Up within 30 days after discharge",
                 "text": "Follow-Up within 30 days after discharge",
-                "id": "FollowUpwithin30daysafterdischarge"
+                "id": "FUH-AD-CAT-A"
             },
             {
                 "label": "Follow-Up within 7 days after discharge",
                 "text": "Follow-Up within 7 days after discharge",
-                "id": "FollowUpwithin7daysafterdischarge"
+                "id": "FUH-AD-CAT-B"
             }
         ]
     },
@@ -731,12 +731,12 @@ export const data = {
             {
                 "label": "Follow-Up within 30 days after discharge",
                 "text": "Follow-Up within 30 days after discharge",
-                "id": "FollowUpwithin30daysafterdischarge"
+                "id": "FUH-CH-CAT-A"
             },
             {
                 "label": "Follow-Up within 7 days after discharge",
                 "text": "Follow-Up within 7 days after discharge",
-                "id": "FollowUpwithin7daysafterdischarge"
+                "id": "FUH-CH-CAT-B"
             }
         ]
     },
@@ -767,12 +767,12 @@ export const data = {
             {
                 "label": "Follow-up within 30 days after discharge",
                 "text": "Follow-up within 30 days after discharge",
-                "id": "Followupwithin30daysafterdischarge"
+                "id": "FUH-HH-CAT-A"
             },
             {
                 "label": "Follow-up within 7 days after discharge",
                 "text": "Follow-up within 7 days after discharge",
-                "id": "Followupwithin7daysafterdischarge"
+                "id": "FUH-HH-CAT-B"
             }
         ]
     },
@@ -793,12 +793,12 @@ export const data = {
             {
                 "label": "30-day follow-up after ED visit for mental illness",
                 "text": "30-day follow-up after ED visit for mental illness",
-                "id": "30dayfollowupafterEDvisitformentalillness"
+                "id": "FUM-AD-CAT-A"
             },
             {
                 "label": "7-day follow-up after ED visit for mental illness",
                 "text": "7-day follow-up after ED visit for mental illness",
-                "id": "7dayfollowupafterEDvisitformentalillness"
+                "id": "FUM-AD-CAT-B"
             }
         ]
     },
@@ -814,12 +814,12 @@ export const data = {
             {
                 "label": "30-day follow-up after ED visit for mental illness",
                 "text": "30-day follow-up after ED visit for mental illness",
-                "id": "30dayfollowupafterEDvisitformentalillness"
+                "id": "FUM-CH-CAT-A"
             },
             {
                 "label": "7-day follow-up after ED visit for mental illness",
                 "text": "7-day follow-up after ED visit for mental illness",
-                "id": "7dayfollowupafterEDvisitformentalillness"
+                "id": "FUM-CH-CAT-B"
             }
         ]
     },
@@ -850,12 +850,12 @@ export const data = {
             {
                 "label": "30-day follow-up after ED visit for mental illness",
                 "text": "30-day follow-up after ED visit for mental illness",
-                "id": "30dayfollowupafterEDvisitformentalillness"
+                "id": "FUM-HH-CAT-A"
             },
             {
                 "label": "7-day follow-up after ED visit for mental illness",
                 "text": "7-day follow-up after ED visit for mental illness",
-                "id": "7dayfollowupafterEDvisitformentalillness"
+                "id": "FUM-HH-CAT-B"
             }
         ]
     },
@@ -867,7 +867,7 @@ export const data = {
                 "id": "Ages18to64"
             }
         ],
-        "categories": []
+        "categories": [{"id":"FVA-AD-CAT-A", "label": "", "text":""}]
     },
     "HBD-AD": {
         "qualifiers": [
@@ -886,12 +886,12 @@ export const data = {
             {
                 "label": "HbA1c control (<8.0%)",
                 "text": "HbA1c control (<8.0%)",
-                "id":"HbA1ccontrol8"
+                "id":"HBD-AD-CAT-A"
             },
             {
                 "label": "HbA1c poor control (>9.0%)",
                 "text": "HbA1c poor control (>9.0%)",
-                "id":"HbA1cpoorcontrol9"
+                "id":"HBD-AD-CAT-B"
             }
         ]
     },
@@ -908,7 +908,7 @@ export const data = {
                 "id": "Ages65to75"
             }
         ],
-        "categories": []
+        "categories": [{"id":"HPCMI-AD-CAT-A", "label": "", "text":""}]
     },
     "HVL-AD": {
         "qualifiers": [
@@ -923,7 +923,7 @@ export const data = {
                 "id": "Age65andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"HVL-AD-CAT-A", "label": "", "text":""}]
     },
     "IET-AD": {
         "qualifiers": [
@@ -942,42 +942,42 @@ export const data = {
             {
                 "label": "Initiation of SUD Treatment: Alcohol Use Disorder",
                 "text": "Initiation of SUD Treatment: Alcohol Use Disorder",
-                "id": "InitiationofSUDTreatmentAlcoholUseDisorder"
+                "id": "IET-AD-CAT-A"
             },
             {
                 "label": "Engagement of SUD Treatment: Alcohol Use Disorder",
                 "text": "Engagement of SUD Treatment: Alcohol Use Disorder",
-                "id": "EngagementofSUDTreatmentAlcoholUseDisorder"
+                "id": "IET-AD-CAT-B"
             },
             {
                 "label": "Initiation of SUD Treatment: Opioid Use Disorder",
                 "text": "Initiation of SUD Treatment: Opioid Use Disorder",
-                "id": "InitiationofSUDTreatmentOpioidUseDisorder"
+                "id": "IET-AD-CAT-C"
             },
             {
                 "label": "Engagement of SUD Treatment: Opioid Use Disorder",
                 "text": "Engagement of SUD Treatment: Opioid Use Disorder",
-                "id": "EngagementofSUDTreatmentOpioidUseDisorder"
+                "id": "IET-AD-CAT-D"
             },
             {
                 "label": "Initiation of SUD Treatment: Other Substance Use Disorder",
                 "text": "Initiation of SUD Treatment: Other Substance Use Disorder",
-                "id": "InitiationofSUDTreatmentOtherDrugAbuseorDependence"
+                "id": "IET-AD-CAT-E"
             },
             {
                 "label": "Engagement of SUD Treatment: Other Substance Use Disorder",
                 "text": "Engagement of SUD Treatment: Other Substance Use Disorder",
-                "id": "EngagementofSUDTreatmentOtherSubstanceUseDisorder"
+                "id": "IET-AD-CAT-F"
             },
             {
                 "label": "Initiation of SUD Treatment: Total",
                 "text": "Initiation of SUD Treatment: Total",
-                "id": "InitiationofSUDTreatmentTotal"
+                "id": "IET-AD-CAT-G"
             },
             {
                 "label": "Engagement of SUD Treatment: Total",
                 "text": "Engagement of SUD Treatment: Total",
-                "id": "EngagementofSUDTreatmentTotal"
+                "id": "IET-AD-CAT-H"
             }
         ]
     },
@@ -1008,42 +1008,42 @@ export const data = {
             {
                 "label": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
                 "text": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                "id": "InitiationofAODTreatmentAlcoholAbuseorDependence"
+                "id": "IET-HH-CAT-A"
             },
             {
                 "label": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
                 "text": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                "id": "EngagementofAODTreatmentAlcoholAbuseorDependence"
+                "id": "IET-HH-CAT-B"
             },
             {
                 "label": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
                 "text": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-                "id": "InitiationofAODTreatmentOpioidAbuseorDependence"
+                "id": "IET-HH-CAT-C"
             },
             {
                 "label": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
                 "text": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-                "id": "EngagementofAODTreatmentOpioidAbuseorDependence"
+                "id": "IET-HH-CAT-D"
             },
             {
                 "label": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
                 "text": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-                "id": "InitiationofAODTreatmentOtherDrugAbuseorDependence"
+                "id": "IET-HH-CAT-E"
             },
             {
                 "label": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
                 "text": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-                "id": "EngagementofAODTreatmentOtherDrugAbuseorDependence"
+                "id": "IET-HH-CAT-F"
             },
             {
                 "label": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
                 "text": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-                "id": "InitiationofAODTreatmentTotalAODAbuseorDependence"
+                "id": "IET-HH-CAT-G"
             },
             {
                 "label": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
                 "text": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
-                "id": "EngagementofAODTreatmentTotalAODAbuseorDependence"
+                "id": "IET-HH-CAT-H"
             }
         ]
     },
@@ -1075,7 +1075,7 @@ export const data = {
                 "id": "Combination2MeningococcalTdapHPV"
             }
         ],
-        "categories": []
+        "categories": [{"id":"IMA-CH-CAT-A", "label": "", "text":""}]
     },
     "IU-HH": {
         "qualifiers": [
@@ -1109,27 +1109,27 @@ export const data = {
             {
                 "label": "Inpatient",
                 "text": "Inpatient",
-                "id": "Inpatient"
+                "id": "IU-HH-CAT-A"
             },
             {
                 "label": "Maternity",
                 "text": "Maternity",
-                "id": "Maternity"
+                "id": "IU-HH-CAT-B"
             },
             {
                 "label": "Mental and Behavioral Disorders",
                 "text": "Mental and Behavioral Disorders",
-                "id": "MentalandBehavioralDisorders"
+                "id": "IU-HH-CAT-C"
             },
             {
                 "label": "Surgery",
                 "text": "Surgery",
-                "id": "Surgery"
+                "id": "IU-HH-CAT-D"
             },
             {
                 "label": "Medicine",
                 "text": "Medicine",
-                "id": "Medicine"
+                "id": "IU-HH-CAT-E"
             }
         ]
     },
@@ -1150,22 +1150,22 @@ export const data = {
             {
                 "label": "Advising Smokers and Tobacco Users to Quit",
                 "text": "Advising Smokers and Tobacco Users to Quit",
-                "id": "AdvisingSmokersandTobaccoUserstoQuit"
+                "id": "MSC-AD-CAT-A"
             },
             {
                 "label": "Discussing Cessation Medications",
                 "text": "Discussing Cessation Medications",
-                "id": "DiscussingCessationMedications"
+                "id": "MSC-AD-CAT-B"
             },
             {
                 "label": "Discussing Cessation Strategies",
                 "text": "Discussing Cessation Strategies",
-                "id": "DiscussingCessationStrategies"
+                "id": "MSC-AD-CAT-C"
             },
             {
                 "label": "Percentage of Current Smokers and Tobacco Users",
                 "text": "Percentage of Current Smokers and Tobacco Users",
-                "id": "PercentageofCurrentSmokersandTobaccoUsers"
+                "id": "MSC-AD-CAT-D"
             }
         ]
     },
@@ -1222,7 +1222,7 @@ export const data = {
                 "id": "Totalages1to20"
             }
         ],
-        "categories": []
+        "categories": [{"id":"OEV-CH-CAT-A", "label": "", "text":""}]
     },
     "OHD-AD": {
         "qualifiers": [
@@ -1237,7 +1237,7 @@ export const data = {
                 "id": "Age65andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"OHD-AD-CAT-A", "label": "", "text":""}]
     },
     "OUD-AD": {
         "qualifiers": [
@@ -1267,7 +1267,7 @@ export const data = {
                 "id": "Methadone"
             }
         ],
-        "categories": []
+        "categories": [{"id":"OUD-AD-CAT-A", "label": "", "text":""}]
     },
     "OUD-HH": {
         "qualifiers": [
@@ -1297,7 +1297,7 @@ export const data = {
                 "id": "Methadone"
             }
         ],
-        "categories": []
+        "categories": [{"id":"OUD-HH-CAT-A", "label": "", "text":""}]
     },
     "PCR-AD": {
         "qualifiers": [
@@ -1347,7 +1347,7 @@ export const data = {
                 "id": "OutlierRateNumberofOutliersCountofBeneficiariesinMedicaidPopulationx1000"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PCR-AD-CAT-A", "label": "", "text":""}]
     },
     "PCR-HH": {
         "qualifiers": [
@@ -1397,7 +1397,7 @@ export const data = {
                 "id": "OutlierRateNumberofOutliersCountofEnrolleesinHealthHomePopulationx1000"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PCR-HH-CAT-A", "label": "", "text":""}]
     },
     "PPC-AD": {
         "qualifiers": [
@@ -1407,7 +1407,7 @@ export const data = {
                 "id": "Postpartumvisitbetween7and84days"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PPC-AD-CAT-A", "label": "", "text":""}]
     },
     "PPC-CH": {
         "qualifiers": [
@@ -1417,7 +1417,7 @@ export const data = {
                 "id": "Prenatalcarevisitinthefirsttrimesteronorbeforetheenrollmentstartdateorwithin42daysofenrollmentinMedicaidCHIP"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PPC-CH-CAT-A", "label": "", "text":""}]
     },
     "PQI01-AD": {
         "qualifiers": [
@@ -1432,7 +1432,7 @@ export const data = {
                 "id": "Age65andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PQI01-AD-CAT-A", "label": "", "text":""}]
     },
     "PQI05-AD": {
         "qualifiers": [
@@ -1447,7 +1447,7 @@ export const data = {
                 "id": "Age65andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PQI05-AD-CAT-A", "label": "", "text":""}]
     },
     "PQI08-AD": {
         "qualifiers": [
@@ -1462,7 +1462,7 @@ export const data = {
                 "id": "Age65andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PQI08-AD-CAT-A", "label": "", "text":""}]
     },
     "PQI15-AD": {
         "qualifiers": [
@@ -1472,7 +1472,7 @@ export const data = {
                 "id": "Ages18to39"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PQI15-AD-CAT-A", "label": "", "text":""}]
     },
     "PQI92-HH": {
         "qualifiers": [
@@ -1492,7 +1492,7 @@ export const data = {
                 "id": "TotalAge18andolder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"PQI92-HH-CAT-A", "label": "", "text":""}]
     },
     "SAA-AD": {
         "qualifiers": [
@@ -1502,7 +1502,7 @@ export const data = {
                 "id": "BeneficiariesAge18andOlder"
             }
         ],
-        "categories": []
+        "categories": [{"id":"SAA-AD-CAT-A", "label": "", "text":""}]
     },
     "SFM-CH": {
         "qualifiers": [
@@ -1517,7 +1517,7 @@ export const data = {
                 "id": "Rate2AllFourMolarsSealed"
             }
         ],
-        "categories": []
+        "categories": [{"id":"SFM-CH-CAT-A", "label": "", "text":""}]
     },
     "SSD-AD": {
         "qualifiers": [
@@ -1527,7 +1527,7 @@ export const data = {
                 "id": "PercentageofBeneficiariesAges18to64"
             }
         ],
-        "categories": []
+        "categories": [{"id":"SSD-AD-CAT-A", "label": "", "text":""}]
     },
     "TFL-CH": {
         "qualifiers": [
@@ -1581,17 +1581,17 @@ export const data = {
             {
                 "label": "Dental or oral health services",
                 "text": "Dental or oral health services",
-                "id": "Dentalororalhealthservices"
+                "id": "TFL-CH-CAT-A"
             },
             {
                 "label": "Dental services",
                 "text": "Dental services",
-                "id": "Dentalservices"
+                "id": "TFL-CH-CAT-B"
             },
             {
                 "label": "Oral health services",
                 "text": "Oral health services",
-                "id": "Oralhealthservices"
+                "id": "TFL-CH-CAT-C"
             }
         ]
     },
@@ -1608,7 +1608,7 @@ export const data = {
                 "id": "Rate2Twoormorewellchildvisitsforages15monthsto30months"
             }
         ],
-        "categories": []
+        "categories": [{"id":"W30-CH-CAT-A", "label": "", "text":""}]
     },
     "WCC-CH": {
         "qualifiers": [
@@ -1632,17 +1632,17 @@ export const data = {
             {
                 "label": "Body mass index (BMI) percentile documentation",
                 "text": "Body mass index (BMI) percentile documentation",
-                "id": "BodymassindexBMIpercentiledocumentation"
+                "id": "WCC-CH-CAT-A"
             },
             {
                 "label": "Counseling for Nutrition",
                 "text": "Counseling for Nutrition",
-                "id": "CounselingforNutrition"
+                "id": "WCC-CH-CAT-B"
             },
             {
                 "label": "Counseling for Physical Activity",
                 "text": "Counseling for Physical Activity",
-                "id": "CounselingforPhysicalActivity"
+                "id": "WCC-CH-CAT-C"
             }
         ]
     },
@@ -1669,7 +1669,7 @@ export const data = {
                 "id": "TotalAges3to21"
             }
         ],
-        "categories": []
+        "categories": [{"id":"WCV-CH-CAT-A", "label": "", "text":""}]
     }
 }
 
