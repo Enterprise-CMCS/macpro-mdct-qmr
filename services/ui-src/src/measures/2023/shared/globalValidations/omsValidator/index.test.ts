@@ -4,7 +4,7 @@ import {
   generateOmsQualifierRateData,
   simpleRate,
   generateOmsFormData,
-} from "utils/testUtils/validationHelpers-2023";
+} from "utils/testUtils/2023/validationHelpers";
 import { DefaultFormData } from "measures/2023/shared/CommonQuestions/types";
 import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
 

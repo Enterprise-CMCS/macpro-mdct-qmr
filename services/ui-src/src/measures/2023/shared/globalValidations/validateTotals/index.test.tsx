@@ -1,6 +1,6 @@
 import { validateTotalNDR, validateOMSTotalNDR } from ".";
 
-import * as VH from "utils/testUtils/validationHelpers-2023";
+import * as VH from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing PM/OMS Total Validations", () => {
   describe("PM validation", () => {

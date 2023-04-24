@@ -11,7 +11,7 @@ import {
   doubleRate,
   simpleRate,
   partialRate,
-} from "utils/testUtils/validationHelpers-2023";
+} from "utils/testUtils/2023/validationHelpers";
 import { LabelData } from "utils";
 
 describe("Testing Qualifier Denominator Higher Than Other Validation", () => {

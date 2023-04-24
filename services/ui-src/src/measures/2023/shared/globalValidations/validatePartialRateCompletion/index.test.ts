@@ -9,7 +9,7 @@ import {
   locationDictionary,
   simpleRate,
   partialRate,
-} from "utils/testUtils/validationHelpers-2023";
+} from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing Partial Rate Validation", () => {
   const categories = [

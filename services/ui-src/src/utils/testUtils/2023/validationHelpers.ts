@@ -1,3 +1,8 @@
+/**  
+NOTE: This validationHelper was cloned when categories & qualifiers were updated to use Array<LabelData> as type instead of string[]
+This should be the file used for some of the unit test from year 2023 onward
+*/
+
 import * as DC from "dataConstants";
 import * as Types from "measures/2023/shared/CommonQuestions/types";
 import {
