@@ -76,7 +76,7 @@ export const PerformanceMeasure = ({
         formLabelProps={{ fontWeight: 700 }}
         {...register(DC.OPM_EXPLAINATION)}
       />
-      {hybridMeasure && (
+      {hybridMeasure && pheIsCurrent && (
         <CUI.Box my="5">
           <CUI.Text>
             CMS recognizes that social distancing will make onsite medical chart
@@ -86,13 +86,11 @@ export const PerformanceMeasure = ({
             voluntary, CMS encourages states that can collect information safely
             to continue reporting the measures they have reported in the past.
           </CUI.Text>
-          {pheIsCurrent && (
-            <QMR.TextArea
-              formLabelProps={{ mt: 5 }}
-              {...register(DC.OPM_HYBRID_EXPLANATION)}
-              label="Describe any COVID-related difficulties encountered while collecting this data:"
-            />
-          )}
+          <QMR.TextArea
+            formLabelProps={{ mt: 5 }}
+            {...register(DC.OPM_HYBRID_EXPLANATION)}
+            label="Describe any COVID-related difficulties encountered while collecting this data:"
+          />
         </CUI.Box>
       )}
 

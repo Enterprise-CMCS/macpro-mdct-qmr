@@ -1,4 +1,3 @@
-import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
@@ -9,16 +8,15 @@ const HEDISChildren = () => {
 
   return (
     <>
-      <CUI.Text key="measureSpecDescriptor" size="sm" pb="3">
-        NCQA, the measure steward, changed its naming convention. HEDIS MY 2020
-        refers to a different federal fiscal year (FFY) than HEDIS 2020. Please
-        note the FFY Core Set specification below.
-      </CUI.Text>
       <QMR.Select
         {...register(DC.MEASUREMENT_SPECIFICATION_HEDIS)}
         label="Specify the version of HEDIS measurement year used:"
         placeholder="Select option"
         options={[
+          {
+            displayValue: "HEDIS MY 2022 (FFY 2023 Core Set Reporting)",
+            value: DC.HEDIS_MY_2022,
+          },
           {
             displayValue: "HEDIS MY 2021 (FFY 2022 Core Set Reporting)",
             value: DC.HEDIS_MY_2021,
@@ -26,10 +24,6 @@ const HEDISChildren = () => {
           {
             displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
             value: DC.HEDIS_MY_2020,
-          },
-          {
-            displayValue: "HEDIS 2020 (FFY 2020 Core Set Reporting)",
-            value: DC.HEDIS_2020,
           },
         ]}
       />
