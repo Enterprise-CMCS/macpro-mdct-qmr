@@ -130,7 +130,7 @@ const TotalNDRSets = ({
       <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />
       {categories.length > 0 && (
         <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-          {totalQual}
+          {totalQual.label}
         </CUI.Heading>
       )}
       <CUI.Box>{rateArray}</CUI.Box>
@@ -322,7 +322,10 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
-  const rateArrays = !categories.length ? qualRates : standardRates;
+  const rateArrays =
+    !categories.length || !categories?.filter((item) => item.label).length
+      ? qualRates
+      : standardRates;
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);

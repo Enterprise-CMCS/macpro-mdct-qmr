@@ -88,7 +88,7 @@ const CategoryNdrSets = ({
               ndrFormulas={ndrFormulas}
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
-              categoryName={item}
+              categoryName={item.label}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}
@@ -106,9 +106,12 @@ const CategoryNdrSets = ({
   );
 };
 
-/** If no categories, we still need a rate for the PM */
+/** If no categories, we still need a rate for the PM
+ * 2023 and onward, categories are expected to have at least object filled for creating uid in database
+ */
 const QualifierNdrSets = ({
   rateReadOnly,
+  categories = [],
   qualifiers = [],
   measureName,
   inputFieldNames,
@@ -124,10 +127,11 @@ const QualifierNdrSets = ({
   rateCalc,
 }: NdrSetProps) => {
   const register = useCustomRegister();
+  const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
     label: item.label,
-    uid: item.id, //this uid is used to map to the N/D/R data's id key in the database
+    uid: `${categoryID}.${item.id}`, //this uid is used to map to the N/D/R data's id key in the database
     id: idx,
   }));
   return (
@@ -148,9 +152,7 @@ const QualifierNdrSets = ({
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
         }
-        {...register(
-          `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${DC.SINGLE_CATEGORY}`
-        )}
+        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
       />
     </>
   );
@@ -160,7 +162,10 @@ const QualifierNdrSets = ({
 const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   let ndrSets;
 
-  if (props.categories?.length) {
+  if (
+    props.categories?.length &&
+    props.categories?.filter((item) => item.label).length
+  ) {
     ndrSets = <CategoryNdrSets {...props} />;
   } else if (props.qualifiers?.length) {
     ndrSets = <QualifierNdrSets {...props} />;
