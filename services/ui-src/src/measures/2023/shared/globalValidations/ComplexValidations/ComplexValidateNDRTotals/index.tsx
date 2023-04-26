@@ -1,4 +1,5 @@
 import { LabelData } from "utils";
+import * as DC from "dataConstants";
 
 interface NDRforumla {
   numerator: number;
@@ -28,6 +29,7 @@ export const ComplexValidateNDRTotalsOMS = (
   const qualifierObj = { ...rateData };
   delete qualifierObj["Total"];
   const totalData = rateData["Total"];
+  const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];
@@ -49,13 +51,13 @@ export const ComplexValidateNDRTotalsOMS = (
   } else {
     let row = [];
     for (const q in qualifierObj) {
-      const qual = qualifierObj[q]?.["singleCategory"]?.[0] ?? {};
+      const qual = qualifierObj[q]?.[categoryID]?.[0] ?? {};
       if (qual) {
         row.push(qual);
       }
     }
     if (row) {
-      row.push(totalData["singleCategory"][0]);
+      row.push(totalData[categoryID][0]);
       performanceMeasureArray.push(row);
     }
   }

@@ -277,7 +277,7 @@ export const useTotalAutoCalculation = ({
     }.${cleanedCategory}`;
     const nonTotalQualifiers = qualifiers.slice(0, -1);
     const includedNames = nonTotalQualifiers.map(
-      (s) => `${name}.rates.${s}.${cleanedCategory}`
+      (s) => `${name}.rates.${s.id}.${cleanedCategory}`
     );
 
     const subscription = watch((values, { name: fieldName, type }) => {

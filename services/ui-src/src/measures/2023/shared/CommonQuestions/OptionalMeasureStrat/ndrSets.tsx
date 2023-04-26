@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "../types";
 import * as QMR from "components";
-import { cleanString, getLabelText } from "utils";
+import { LabelData, cleanString, getLabelText } from "utils";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { useTotalAutoCalculation } from "./omsUtil";
@@ -14,7 +14,7 @@ interface NdrProps {
 interface TotalProps {
   name: string;
   componentFlag: ComponentFlagType;
-  qualifier?: string;
+  qualifier?: LabelData;
   category?: string;
 }
 
@@ -31,6 +31,7 @@ const TotalNDR = ({
   qualifier,
 }: TotalProps) => {
   const {
+    categories,
     qualifiers,
     measureName,
     inputFieldNames,
@@ -45,11 +46,14 @@ const TotalNDR = ({
     rateCalculation,
   } = usePerformanceMeasureContext();
 
-  const lastQualifier = qualifier ?? qualifiers.slice(-1)[0].label;
-  const cleanedQualifier = cleanString(lastQualifier);
-  const cleanedCategory = cleanString(category);
+  const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
+  const cleanedQualifier = lastQualifier.id;
+  const cleanedCategory = categories[0]?.id
+    ? categories[0].id
+    : DC.SINGLE_CATEGORY;
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
-  const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
+  const label =
+    category === DC.SINGLE_CATEGORY ? lastQualifier.label : category;
 
   useTotalAutoCalculation({ name, cleanedCategory, componentFlag });
 
@@ -100,7 +104,7 @@ const TotalNDRSets = ({
   const { qualifiers, categories } = usePerformanceMeasureContext();
   const totalQual = qualifiers.slice(-1)[0];
 
-  if (categories.length) {
+  if (categories.length && categories?.filter((item) => item.label).length) {
     categories.forEach((cat, idx) => {
       rateArray.push(
         <CUI.Box key={`${name}.${idx}.totalWrapper`}>
@@ -108,7 +112,7 @@ const TotalNDRSets = ({
             name={name}
             category={cat.label}
             componentFlag={componentFlag}
-            qualifier={totalQual.label}
+            qualifier={totalQual}
           />
         </CUI.Box>
       );
@@ -128,11 +132,12 @@ const TotalNDRSets = ({
   return (
     <CUI.Box>
       <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />
-      {categories.length > 0 && (
-        <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-          {totalQual.label}
-        </CUI.Heading>
-      )}
+      {categories.length > 0 &&
+        categories?.filter((item) => item.label).length > 0 && (
+          <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
+            {totalQual.label}
+          </CUI.Heading>
+        )}
       <CUI.Box>{rateArray}</CUI.Box>
     </CUI.Box>
   );
@@ -236,6 +241,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
 /** Creates Rate Components for each Qualifier if filled in PM */
 const useQualRateArray: RateArrayBuilder = (name) => {
   const {
+    categories,
     qualifiers,
     measureName,
     inputFieldNames,
@@ -256,9 +262,12 @@ const useQualRateArray: RateArrayBuilder = (name) => {
   const rateArrays: React.ReactElement[][] = [];
 
   quals?.forEach((singleQual, qualIndex) => {
-    if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
-      const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
+    const categoryID = categories[0]?.id
+      ? categories[0].id
+      : DC.SINGLE_CATEGORY;
+    const cleanedName = `${name}.rates.${singleQual.id}.${categoryID}`;
 
+    if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
       rateArrays.push([
         <QMR.Rate
           readOnly={rateReadOnly}
@@ -278,7 +287,6 @@ const useQualRateArray: RateArrayBuilder = (name) => {
       ]);
     } else if (AIFHHPerformanceMeasureArray) {
       AIFHHPerformanceMeasureArray?.forEach((measure) => {
-        const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
         //Confirm that there is at least 1 rate complete
         const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
         const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
