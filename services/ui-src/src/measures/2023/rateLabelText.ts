@@ -1148,8 +1148,8 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Advising Smokers and Tobacco Users to Quit",
-                "text": "Advising Smokers and Tobacco Users to Quit",
+                "label": "Percentage of Current Smokers and Tobacco Users",
+                "text": "Percentage of Current Smokers and Tobacco Users",
                 "id": "MSC-AD-CAT-A"
             },
             {
@@ -1163,8 +1163,8 @@ export const data = {
                 "id": "MSC-AD-CAT-C"
             },
             {
-                "label": "Percentage of Current Smokers and Tobacco Users",
-                "text": "Percentage of Current Smokers and Tobacco Users",
+                "label": "Advising Smokers and Tobacco Users to Quit",
+                "text": "Advising Smokers and Tobacco Users to Quit",
                 "id": "MSC-AD-CAT-D"
             }
         ]
