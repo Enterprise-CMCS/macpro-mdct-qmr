@@ -21,12 +21,16 @@ const _validation: UVF = ({
   const locationArray: string[] = [];
   const denominatorArray: string[] = [];
 
+  console.log(qualifiers?.length);
+
   for (const [i, rateSet] of rateData.entries()) {
     for (const [j, rate] of rateSet.entries()) {
       if (rate && rate.denominator) {
         denominatorArray.push(rate.denominator);
         locationArray.push(
-          !!categories?.length && categories[0].label !== SINGLE_CATEGORY
+          !!categories?.length &&
+            categories[0].label !== SINGLE_CATEGORY &&
+            categories?.filter((item) => item.label).length
             ? categories![i].label
             : qualifiers![j].label
         );

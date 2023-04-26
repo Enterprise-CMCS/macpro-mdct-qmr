@@ -10,12 +10,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and Older",
                 "text": "Age 65 and Older",
-                "id": "Age65andOlder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"AAB-AD-CAT-A", "label": "", "text":""}]
@@ -25,12 +25,12 @@ export const data = {
             {
                 "label": "Initiation Phase",
                 "text": "Initiation Phase",
-                "id": "InitiationPhase"
+                "id": "QUAL-A"
             },
             {
                 "label": "Continuation and Maintenance (C&M) Phase",
                 "text": "Continuation and Maintenance (C&M) Phase",
-                "id": "ContinuationandMaintenancePhase"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"ADD-CH-CAT-A", "label": "", "text":""}]
@@ -40,22 +40,22 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 65 to 74",
                 "text": "Ages 65 to 74",
-                "id": "Ages65to74"
+                "id": "QUAL-B"
             },
             {
                 "label": "Ages 75 to 84",
                 "text": "Ages 75 to 84",
-                "id": "Ages75to84"
+                "id": "QUAL-C"
             },
             {
                 "label": "Age 85 and older",
                 "text": "Age 85 and older",
-                "id": "Age85andolder"
+                "id": "QUAL-D"
             },
             {
                 "label": "Total (Age 18 and older)",
@@ -70,27 +70,27 @@ export const data = {
             {
                 "label": "< Age 1",
                 "text": "< Age 1",
-                "id": "Age1"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 1 to 9",
                 "text": "Ages 1 to 9",
-                "id": "Ages1to9"
+                "id": "QUAL-B"
             },
             {
                 "label": "Ages 10 to 19",
                 "text": "Ages 10 to 19",
-                "id": "Ages10to19"
+                "id": "QUAL-C"
             },
             {
                 "label": "Ages unknown",
                 "text": "Ages unknown",
-                "id": "Agesunknown"
+                "id": "QUAL-D"
             },
             {
                 "label": "Total (Ages <1 to 19)",
                 "text": "Total (Ages <1 to 19)",
-                "id": "TotalAges1to19"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"AMB-CH-CAT-A", "label": "", "text":""}]
@@ -100,27 +100,27 @@ export const data = {
             {
                 "label": "Ages 0 to 17",
                 "text": "Ages 0 to 17",
-                "id": "Ages0to17"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-C"
             },
             {
                 "label": "Ages unknown",
                 "text": "Ages unknown",
-                "id": "Agesunknown"
+                "id": "QUAL-D"
             },
             {
                 "label": "Total (All Ages)",
                 "text": "Total (All Ages)",
-                "id": "TotalAllAges"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"AMB-HH-CAT-A", "label": "", "text":""}]
@@ -130,12 +130,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -156,17 +156,17 @@ export const data = {
             {
                 "label": "Ages 19 to 50",
                 "text": "Ages 19 to 50",
-                "id": "Ages19to50"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 51 to 64",
                 "text": "Ages 51 to 64",
-                "id": "Ages51to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Total (Ages 19 to 64)",
                 "text": "Total (Ages 19 to 64)",
-                "id": "TotalAges19to64"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"AMR-AD-CAT-A", "label": "", "text":""}]
@@ -176,17 +176,17 @@ export const data = {
             {
                 "label": "Ages 5 to 11",
                 "text": "Ages 5 to 11",
-                "id": "Ages5to11"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 12 to 18",
                 "text": "Ages 12 to 18",
-                "id": "Ages12to18"
+                "id": "QUAL-B"
             },
             {
                 "label": "Total (Ages 5 to 18)",
                 "text": "Total (Ages 5 to 18)",
-                "id": "TotalAges5to18"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"AMR-CH-CAT-A", "label": "", "text":""}]
@@ -196,17 +196,17 @@ export const data = {
             {
                 "label": "Ages 1 to 11",
                 "text": "Ages 1 to 11",
-                "id": "Ages1to11"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "Ages12to17"
+                "id": "QUAL-B"
             },
             {
                 "label": "Total (Ages 1 to 17)",
                 "text": "Total (Ages 1 to 17)",
-                "id": "TotalAges1to17"
+                "id": "Total"
             }
         ],
         "categories": [
@@ -232,17 +232,17 @@ export const data = {
             {
                 "label": "Ages 1 to 11",
                 "text": "Ages 1 to 11",
-                "id": "Ages1to11"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "Ages12to17"
+                "id": "QUAL-B"
             },
             {
                 "label": "Total (Ages 1 to 17)",
                 "text": "Total (Ages 1 to 17)",
-                "id": "TotalAges1to17"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"APP-CH-CAT-A", "label": "", "text":""}]
@@ -252,12 +252,12 @@ export const data = {
             {
                 "label": "Ages 50 to 64",
                 "text": "Ages 50 to 64",
-                "id": "Ages50to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 65 to 74",
                 "text": "Ages 65 to 74",
-                "id": "Ages65to74"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"BCS-AD-CAT-A", "label": "", "text":""}]
@@ -267,12 +267,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 65 to 85",
                 "text": "Ages 65 to 85",
-                "id": "Ages65to85"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"CBP-AD-CAT-A", "label": "", "text":""}]
@@ -282,17 +282,17 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 65 to 85",
                 "text": "Ages 65 to 85",
-                "id": "Ages65to85"
+                "id": "QUAL-B"
             },
             {
                 "label": "Total (Ages 18 to 85)",
                 "text": "Total (Ages 18 to 85)",
-                "id": "TotalAges18to85"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"CBP-HH-CAT-A", "label": "", "text":""}]
@@ -302,12 +302,12 @@ export const data = {
             {
                 "label": "Three Days Postpartum Rate",
                 "text": "Three Days Postpartum Rate",
-                "id": "ThreeDaysPostpartumRate"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ninety Days Postpartum Rate",
                 "text": "Ninety Days Postpartum Rate",
-                "id": "NinetyDaysPostpartumRate"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -328,12 +328,12 @@ export const data = {
             {
                 "label": "Three Days Postpartum Rate",
                 "text": "Three Days Postpartum Rate",
-                "id": "ThreeDaysPostpartumRate"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ninety Days Postpartum Rate",
                 "text": "Ninety Days Postpartum Rate",
-                "id": "NinetyDaysPostpartumRate"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -354,7 +354,7 @@ export const data = {
             {
                 "label": "Percentage of women ages 21 to 64 screened",
                 "text": "Percentage of women ages 21 to 64 screened",
-                "id": "Percentageofwomenages21to64screened"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"CCS-AD-CAT-A", "label": "", "text":""}]
@@ -364,14 +364,14 @@ export const data = {
             {
                 "label": "All Women Ages 21 to 44",
                 "text": "All Women Ages 21 to 44",
-                "id": "AllWomenAges21to44"
+                "id": "QUAL-A"
             }
         ],
         "categories": [
             {
                 "label": "Most effective or moderately effective method of contraception",
                 "text": "Most effective or moderately effective method of contraception",
-                "id": "-CAT-A"
+                "id": "CCW-AD-CAT-A"
             },
             {
                 "label": "Long-acting reversible method of contraception (LARC)",
@@ -385,12 +385,12 @@ export const data = {
             {
                 "label": "Most effective or moderately effective method of contraception",
                 "text": "Most effective or moderately effective method of contraception",
-                "id": "Mosteffectiveormoderatelyeffectivemethodofcontraception"
+                "id": "QUAL-A"
             },
             {
                 "label": "Long-acting reversible method of contraception (LARC)",
                 "text": "Long-acting reversible method of contraception (LARC)",
-                "id": "LongactingreversiblemethodofcontraceptionLARC"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"CCW-CH-CAT-A", "label": "", "text":""}]
@@ -400,12 +400,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"CDF-AD-CAT-A", "label": "", "text":""}]
@@ -415,7 +415,7 @@ export const data = {
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "Ages12to17"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"CDF-CH-CAT-A", "label": "", "text":""}]
@@ -425,22 +425,22 @@ export const data = {
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "Ages12to17"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-C"
             },
             {
                 "label": "Total (Age 12 and older)",
                 "text": "Total (Age 12 and older)",
-                "id": "TotalAge12andolder"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"CDF-HH-CAT-A", "label": "", "text":""}]
@@ -450,7 +450,7 @@ export const data = {
             {
                 "label": "Ages 21 to 24",
                 "text": "Ages 21 to 24",
-                "id": "Ages21to24"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"CHL-AD-CAT-A", "label": "", "text":""}]
@@ -460,7 +460,7 @@ export const data = {
             {
                 "label": "Ages 16 to 20",
                 "text": "Ages 16 to 20",
-                "id": "Ages16to20"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"CHL-CH-CAT-A", "label": "", "text":""}]
@@ -470,67 +470,67 @@ export const data = {
             {
                 "label": "DTaP",
                 "text": "DTaP",
-                "id": "DTaP"
+                "id": "QUAL-A"
             },
             {
                 "label": "IPV",
                 "text": "IPV",
-                "id": "IPV"
+                "id": "QUAL-B"
             },
             {
                 "label": "MMR",
                 "text": "MMR",
-                "id": "MMR"
+                "id": "QUAL-C"
             },
             {
                 "label": "HiB",
                 "text": "HiB",
-                "id": "HiB"
+                "id": "QUAL-D"
             },
             {
                 "label": "Hep B",
                 "text": "Hep B",
-                "id": "HepB"
+                "id": "QUAL-E"
             },
             {
                 "label": "VZV",
                 "text": "VZV",
-                "id": "VZV"
+                "id": "QUAL-F"
             },
             {
                 "label": "PCV",
                 "text": "PCV",
-                "id": "PCV"
+                "id": "QUAL-G"
             },
             {
                 "label": "Hep A",
                 "text": "Hep A",
-                "id": "HepA"
+                "id": "QUAL-H"
             },
             {
                 "label": "RV",
                 "text": "RV",
-                "id": "RV"
+                "id": "QUAL-I"
             },
             {
                 "label": "Flu",
                 "text": "Flu",
-                "id": "Flu"
+                "id": "QUAL-J"
             },
             {
                 "label": "Combo 3",
                 "text": "Combo 3",
-                "id": "Combo3"
+                "id": "QUAL-K"
             },
             {
                 "label": "Combo 7",
                 "text": "Combo 7",
-                "id": "Combo7"
+                "id": "QUAL-L"
             },
             {
                 "label": "Combo 10",
                 "text": "Combo 10",
-                "id": "Combo10"
+                "id": "QUAL-M"
             }
         ],
         "categories": [{"id":"CIS-CH-CAT-A", "label": "", "text":""}]
@@ -540,12 +540,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"COB-AD-CAT-A", "label": "", "text":""}]
@@ -555,17 +555,17 @@ export const data = {
             {
                 "label": "Ages 46 to 49",
                 "text": "Ages 46 to 49",
-                "id": "Ages46to49"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 50 to 64",
                 "text": "Ages 50 to 64",
-                "id": "Ages50to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Ages 65 to 75",
                 "text": "Ages 65 to 75",
-                "id": "Ages65to75"
+                "id": "QUAL-C"
             }
         ],
         "categories": [{"id":"COL-AD-CAT-A", "label": "", "text":""}]
@@ -575,12 +575,12 @@ export const data = {
             {
                 "label": "Ages 50 to 64",
                 "text": "Ages 50 to 64",
-                "id": "Ages50to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 65 to 75",
                 "text": "Ages 65 to 75",
-                "id": "Ages65to75"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"COL-HH-CAT-A", "label": "", "text":""}]
@@ -590,22 +590,22 @@ export const data = {
             {
                 "label": "Children screened by 12 months of age",
                 "text": "Children screened by 12 months of age",
-                "id": "Childrenscreenedby12monthsofage"
+                "id": "QUAL-A"
             },
             {
                 "label": "Children screened by 24 months of age",
                 "text": "Children screened by 24 months of age",
-                "id": "Childrenscreenedby24monthsofage"
+                "id": "QUAL-B"
             },
             {
                 "label": "Children screened by 36 months of age",
                 "text": "Children screened by 36 months of age",
-                "id": "Childrenscreenedby36monthsofage"
+                "id": "QUAL-C"
             },
             {
                 "label": "Children Total",
                 "text": "Children Total",
-                "id": "ChildrenTotal"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"DEV-CH-CAT-A", "label": "", "text":""}]
@@ -615,12 +615,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -641,7 +641,7 @@ export const data = {
             {
                 "label": "Ages 13 to 17",
                 "text": "Ages 13 to 17",
-                "id": "Ages13to17"
+                "id": "QUAL-A"
             }
         ],
         "categories": [
@@ -662,17 +662,17 @@ export const data = {
             {
                 "label": "Ages 13 to 17",
                 "text": "Ages 13 to 17",
-                "id": "Ages13to17"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-C"
             },
             {
                 "label": "Total (Age 13 and older)",
@@ -698,12 +698,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -724,7 +724,7 @@ export const data = {
             {
                 "label": "Ages 6 to 17",
                 "text": "Ages 6 to 17",
-                "id": "Ages6to17"
+                "id": "QUAL-A"
             }
         ],
         "categories": [
@@ -745,22 +745,22 @@ export const data = {
             {
                 "label": "Ages 6 to 17",
                 "text": "Ages 6 to 17",
-                "id": "Ages6to17"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-C"
             },
             {
                 "label": "Total (Age 6 and older)",
                 "text": "Total (Age 6 and older)",
-                "id": "TotalAge6andolder"
+                "id": "Total"
             }
         ],
         "categories": [
@@ -781,12 +781,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -807,7 +807,7 @@ export const data = {
             {
                 "label": "Ages 6 to 17",
                 "text": "Ages 6 to 17",
-                "id": "Ages6to17"
+                "id": "QUAL-A"
             }
         ],
         "categories": [
@@ -828,22 +828,22 @@ export const data = {
             {
                 "label": "Ages 6 to 17",
                 "text": "Ages 6 to 17",
-                "id": "Ages6to17"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-C"
             },
             {
                 "label": "Total (Age 6 and older)",
                 "text": "Total (Age 6 and older)",
-                "id": "TotalAge6andolder"
+                "id": "Total"
             }
         ],
         "categories": [
@@ -864,7 +864,7 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"FVA-AD-CAT-A", "label": "", "text":""}]
@@ -874,12 +874,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 65 to 75",
                 "text": "Ages 65 to 75",
-                "id": "Ages65to75"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -900,12 +900,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 65 to 75",
                 "text": "Ages 65 to 75",
-                "id": "Ages65to75"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"HPCMI-AD-CAT-A", "label": "", "text":""}]
@@ -915,12 +915,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"HVL-AD-CAT-A", "label": "", "text":""}]
@@ -930,12 +930,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -986,22 +986,22 @@ export const data = {
             {
                 "label": "Ages 13 to 17",
                 "text": "Ages 13 to 17",
-                "id": "Ages13to17"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-C"
             },
             {
                 "label": "Total (age 13 and older)",
                 "text": "Total (age 13 and older)",
-                "id": "Totalage13andolder"
+                "id": "Total"
             }
         ],
         "categories": [
@@ -1052,27 +1052,27 @@ export const data = {
             {
                 "label": "Meningococcal",
                 "text": "Meningococcal",
-                "id": "Meningococcal"
+                "id": "QUAL-A"
             },
             {
                 "label": "Tdap",
                 "text": "Tdap",
-                "id": "Tdap"
+                "id": "QUAL-B"
             },
             {
                 "label": "Human Papillomavirus (HPV)",
                 "text": "Human Papillomavirus (HPV)",
-                "id": "HumanPapillomavirusHPV"
+                "id": "QUAL-C"
             },
             {
                 "label": "Combination 1 (Meningococcal, Tdap)",
                 "text": "Combination 1 (Meningococcal, Tdap)",
-                "id": "Combination1MeningococcalTdap"
+                "id": "QUAL-D"
             },
             {
                 "label": "Combination 2 (Meningococcal, Tdap, HPV)",
                 "text": "Combination 2 (Meningococcal, Tdap, HPV)",
-                "id": "Combination2MeningococcalTdapHPV"
+                "id": "QUAL-E"
             }
         ],
         "categories": [{"id":"IMA-CH-CAT-A", "label": "", "text":""}]
@@ -1082,22 +1082,22 @@ export const data = {
             {
                 "label": "Ages 0 to 17",
                 "text": "Ages 0 to 17",
-                "id": "Ages0to17"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-B"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-C"
             },
             {
                 "label": "Ages unknown",
                 "text": "Ages unknown",
-                "id": "Agesunknown"
+                "id": "QUAL-D"
             },
             {
                 "label": "Total",
@@ -1138,12 +1138,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [
@@ -1174,52 +1174,52 @@ export const data = {
             {
                 "label": "Age <1",
                 "text": "Age <1",
-                "id": "Age1"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 1 to 2",
                 "text": "Ages 1 to 2",
-                "id": "Ages1to2"
+                "id": "QUAL-B"
             },
             {
                 "label": "Ages 3 to 5",
                 "text": "Ages 3 to 5",
-                "id": "Ages3to5"
+                "id": "QUAL-C"
             },
             {
                 "label": "Ages 6 to 7",
                 "text": "Ages 6 to 7",
-                "id": "Ages6to7"
+                "id": "QUAL-D"
             },
             {
                 "label": "Ages 8 to 9",
                 "text": "Ages 8 to 9",
-                "id": "Ages8to9"
+                "id": "QUAL-E"
             },
             {
                 "label": "Ages 10 to 11",
                 "text": "Ages 10 to 11",
-                "id": "Ages10to11"
+                "id": "QUAL-F"
             },
             {
                 "label": "Ages 12 to 14",
                 "text": "Ages 12 to 14",
-                "id": "Ages12to14"
+                "id": "QUAL-G"
             },
             {
                 "label": "Ages 15 to 18",
                 "text": "Ages 15 to 18",
-                "id": "Ages15to18"
+                "id": "QUAL-H"
             },
             {
                 "label": "Ages 19 to 20",
                 "text": "Ages 19 to 20",
-                "id": "Ages19to20"
+                "id": "QUAL-I"
             },
             {
                 "label": "Total ages <1 to 20",
                 "text": "Total ages <1 to 20",
-                "id": "Totalages1to20"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"OEV-CH-CAT-A", "label": "", "text":""}]
@@ -1229,12 +1229,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"OHD-AD-CAT-A", "label": "", "text":""}]
@@ -1244,27 +1244,27 @@ export const data = {
             {
                 "label": "Total Rate",
                 "text": "Total Rate",
-                "id": "TotalRate"
+                "id": "QUAL-A"
             },
             {
                 "label": "Buprenorphine",
                 "text": "Buprenorphine",
-                "id": "Buprenorphine"
+                "id": "QUAL-B"
             },
             {
                 "label": "Oral naltrexone",
                 "text": "Oral naltrexone",
-                "id": "Oralnaltrexone"
+                "id": "QUAL-C"
             },
             {
                 "label": "Long-acting, injectable naltrexone",
                 "text": "Long-acting, injectable naltrexone",
-                "id": "Longactinginjectablenaltrexone"
+                "id": "QUAL-D"
             },
             {
                 "label": "Methadone",
                 "text": "Methadone",
-                "id": "Methadone"
+                "id": "QUAL-E"
             }
         ],
         "categories": [{"id":"OUD-AD-CAT-A", "label": "", "text":""}]
@@ -1274,27 +1274,27 @@ export const data = {
             {
                 "label": "Total Rate",
                 "text": "Total Rate",
-                "id": "TotalRate"
+                "id": "QUAL-A"
             },
             {
                 "label": "Buprenorphine",
                 "text": "Buprenorphine",
-                "id": "Buprenorphine"
+                "id": "QUAL-B"
             },
             {
                 "label": "Oral naltrexone",
                 "text": "Oral naltrexone",
-                "id": "Oralnaltrexone"
+                "id": "QUAL-C"
             },
             {
                 "label": "Long-acting, injectable naltrexone",
                 "text": "Long-acting, injectable naltrexone",
-                "id": "Longactinginjectablenaltrexone"
+                "id": "QUAL-D"
             },
             {
                 "label": "Methadone",
                 "text": "Methadone",
-                "id": "Methadone"
+                "id": "QUAL-E"
             }
         ],
         "categories": [{"id":"OUD-HH-CAT-A", "label": "", "text":""}]
@@ -1304,47 +1304,47 @@ export const data = {
             {
                 "label": "Count of Index Hospital Stays",
                 "text": "Count of Index Hospital Stays",
-                "id": "CountofIndexHospitalStays"
+                "id": "QUAL-A"
             },
             {
                 "label": "Count of Observed 30-Day Readmissions",
                 "text": "Count of Observed 30-Day Readmissions",
-                "id": "CountofObserved30DayReadmissions"
+                "id": "QUAL-B"
             },
             {
                 "label": "Observed Readmission Rate",
                 "text": "Observed Readmission Rate",
-                "id": "ObservedReadmissionRate"
+                "id": "QUAL-C"
             },
             {
                 "label": "Count of Expected 30-Day Readmissions",
                 "text": "Count of Expected 30-Day Readmissions",
-                "id": "CountofExpected30DayReadmissions"
+                "id": "QUAL-D"
             },
             {
                 "label": "Expected Readmission Rate",
                 "text": "Expected Readmission Rate",
-                "id": "ExpectedReadmissionRate"
+                "id": "QUAL-E"
             },
             {
                 "label": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
                 "text": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
-                "id": "OERatioCountofObserved30DayReadmissionsCountofExpected30DayReadmissions"
+                "id": "QUAL-F"
             },
             {
                 "label": "Count of Beneficiaries in Medicaid Population",
                 "text": "Count of Beneficiaries in Medicaid Population",
-                "id": "CountofBeneficiariesinMedicaidPopulation"
+                "id": "QUAL-G"
             },
             {
                 "label": "Number of Outliers",
                 "text": "Number of Outliers",
-                "id": "NumberofOutliers"
+                "id": "QUAL-H"
             },
             {
                 "label": "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000",
                 "text": "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000",
-                "id": "OutlierRateNumberofOutliersCountofBeneficiariesinMedicaidPopulationx1000"
+                "id": "QUAL-I"
             }
         ],
         "categories": [{"id":"PCR-AD-CAT-A", "label": "", "text":""}]
@@ -1354,47 +1354,47 @@ export const data = {
             {
                 "label": "Count of Index Hospital Stays",
                 "text": "Count of Index Hospital Stays",
-                "id": "CountofIndexHospitalStays"
+                "id": "QUAL-A"
             },
             {
                 "label": "Count of Observed 30-Day Readmissions",
                 "text": "Count of Observed 30-Day Readmissions",
-                "id": "CountofObserved30DayReadmissions"
+                "id": "QUAL-B"
             },
             {
                 "label": "Observed Readmission Rate",
                 "text": "Observed Readmission Rate",
-                "id": "ObservedReadmissionRate"
+                "id": "QUAL-C"
             },
             {
                 "label": "Count of Expected 30-Day Readmissions",
                 "text": "Count of Expected 30-Day Readmissions",
-                "id": "CountofExpected30DayReadmissions"
+                "id": "QUAL-D"
             },
             {
                 "label": "Expected Readmission Rate",
                 "text": "Expected Readmission Rate",
-                "id": "ExpectedReadmissionRate"
+                "id": "QUAL-E"
             },
             {
                 "label": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
                 "text": "O/E Ratio (Count of Observed 30-Day Readmissions/Count of Expected 30-Day Readmissions)",
-                "id": "OERatioCountofObserved30DayReadmissionsCountofExpected30DayReadmissions"
+                "id": "QUAL-F"
             },
             {
                 "label": "Count of Enrollees in Health Home Population",
                 "text": "Count of Enrollees in Health Home Population",
-                "id": "CountofEnrolleesinHealthHomePopulation"
+                "id": "QUAL-G"
             },
             {
                 "label": "Number of Outliers",
                 "text": "Number of Outliers",
-                "id": "NumberofOutliers"
+                "id": "QUAL-H"
             },
             {
                 "label": "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000",
                 "text": "Outlier Rate (Number of Outliers/Count of Enrollees in Health Home Population) x 1,000",
-                "id": "OutlierRateNumberofOutliersCountofEnrolleesinHealthHomePopulationx1000"
+                "id": "QUAL-I"
             }
         ],
         "categories": [{"id":"PCR-HH-CAT-A", "label": "", "text":""}]
@@ -1404,7 +1404,7 @@ export const data = {
             {
                 "label": "Postpartum visit between 7 and 84 days",
                 "text": "Postpartum visit between 7 and 84 days",
-                "id": "Postpartumvisitbetween7and84days"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"PPC-AD-CAT-A", "label": "", "text":""}]
@@ -1414,7 +1414,7 @@ export const data = {
             {
                 "label": "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
                 "text": "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
-                "id": "Prenatalcarevisitinthefirsttrimesteronorbeforetheenrollmentstartdateorwithin42daysofenrollmentinMedicaidCHIP"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"PPC-CH-CAT-A", "label": "", "text":""}]
@@ -1424,12 +1424,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"PQI01-AD-CAT-A", "label": "", "text":""}]
@@ -1439,12 +1439,12 @@ export const data = {
             {
                 "label": "Ages 40 to 64",
                 "text": "Ages 40 to 64",
-                "id": "Ages40to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"PQI05-AD-CAT-A", "label": "", "text":""}]
@@ -1454,12 +1454,12 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"PQI08-AD-CAT-A", "label": "", "text":""}]
@@ -1469,7 +1469,7 @@ export const data = {
             {
                 "label": "Ages 18 to 39",
                 "text": "Ages 18 to 39",
-                "id": "Ages18to39"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"PQI15-AD-CAT-A", "label": "", "text":""}]
@@ -1479,17 +1479,17 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Ages18to64"
+                "id": "QUAL-A"
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "Age65andolder"
+                "id": "QUAL-B"
             },
             {
                 "label": "Total (Age 18 and older)",
                 "text": "Total (Age 18 and older)",
-                "id": "TotalAge18andolder"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"PQI92-HH-CAT-A", "label": "", "text":""}]
@@ -1499,7 +1499,7 @@ export const data = {
             {
                 "label": "Beneficiaries Age 18 and Older",
                 "text": "Beneficiaries Age 18 and Older",
-                "id": "BeneficiariesAge18andOlder"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"SAA-AD-CAT-A", "label": "", "text":""}]
@@ -1509,12 +1509,12 @@ export const data = {
             {
                 "label": "Rate 1 - At Least One Sealant",
                 "text": "Rate 1 - At Least One Sealant",
-                "id": "Rate1AtLeastOneSealant"
+                "id": "QUAL-A"
             },
             {
                 "label": "Rate 2 - All Four Molars Sealed",
                 "text": "Rate 2 - All Four Molars Sealed",
-                "id": "Rate2AllFourMolarsSealed"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"SFM-CH-CAT-A", "label": "", "text":""}]
@@ -1524,7 +1524,7 @@ export const data = {
             {
                 "label": "Percentage of Beneficiaries Ages 18 to 64",
                 "text": "Percentage of Beneficiaries Ages 18 to 64",
-                "id": "PercentageofBeneficiariesAges18to64"
+                "id": "QUAL-A"
             }
         ],
         "categories": [{"id":"SSD-AD-CAT-A", "label": "", "text":""}]
@@ -1534,47 +1534,47 @@ export const data = {
             {
                 "label": "Ages 1 to 2",
                 "text": "Ages 1 to 2",
-                "id": "Ages1to2"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 3 to 5",
                 "text": "Ages 3 to 5",
-                "id": "Ages3to5"
+                "id": "QUAL-B"
             },
             {
                 "label": "Ages 6 to 7",
                 "text": "Ages 6 to 7",
-                "id": "Ages6to7"
+                "id": "QUAL-C"
             },
             {
                 "label": "Ages 8 to 9",
                 "text": "Ages 8 to 9",
-                "id": "Ages8to9"
+                "id": "QUAL-D"
             },
             {
                 "label": "Ages 10 to 11",
                 "text": "Ages 10 to 11",
-                "id": "Ages10to11"
+                "id": "QUAL-E"
             },
             {
                 "label": "Ages 12 to 14",
                 "text": "Ages 12 to 14",
-                "id": "Ages12to14"
+                "id": "QUAL-F"
             },
             {
                 "label": "Ages 15 to 18",
                 "text": "Ages 15 to 18",
-                "id": "Ages15to18"
+                "id": "QUAL-G"
             },
             {
                 "label": "Ages 19 to 20",
                 "text": "Ages 19 to 20",
-                "id": "Ages19to20"
+                "id": "QUAL-H"
             },
             {
                 "label": "Total Ages 1 through 20",
                 "text": "Total Ages 1 through 20",
-                "id": "TotalAges1through20"
+                "id": "Total"
             }
         ],
         "categories": [
@@ -1600,12 +1600,12 @@ export const data = {
             {
                 "label": "Rate 1 - Six or more well-child visits in the first 15 months ",
                 "text": "Rate 1 - Six or more well-child visits in the first 15 months ",
-                "id": "Rate1Sixormorewellchildvisitsinthefirst15months"
+                "id": "QUAL-A"
             },
             {
                 "label": "Rate 2 - Two or more well-child visits for ages 15 months to 30 months",
                 "text": "Rate 2 - Two or more well-child visits for ages 15 months to 30 months",
-                "id": "Rate2Twoormorewellchildvisitsforages15monthsto30months"
+                "id": "QUAL-B"
             }
         ],
         "categories": [{"id":"W30-CH-CAT-A", "label": "", "text":""}]
@@ -1615,17 +1615,17 @@ export const data = {
             {
                 "label": "Ages 3 to 11",
                 "text": "Ages 3 to 11",
-                "id": "Ages3to11"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "Ages12to17"
+                "id": "QUAL-B"
             },
             {
                 "label": "Total (Ages 3 to 17)",
                 "text": "Total (Ages 3 to 17)",
-                "id": "TotalAges3to17"
+                "id": "Total"
             }
         ],
         "categories": [
@@ -1651,22 +1651,22 @@ export const data = {
             {
                 "label": "Ages 3 to 11",
                 "text": "Ages 3 to 11",
-                "id": "Ages3to11"
+                "id": "QUAL-A"
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "Ages12to17"
+                "id": "QUAL-B"
             },
             {
                 "label": "Ages 18 to 21",
                 "text": "Ages 18 to 21",
-                "id": "Ages18to21"
+                "id": "QUAL-C"
             },
             {
                 "label": "Total (Ages 3 to 21)",
                 "text": "Total (Ages 3 to 21)",
-                "id": "TotalAges3to21"
+                "id": "Total"
             }
         ],
         "categories": [{"id":"WCV-CH-CAT-A", "label": "", "text":""}]

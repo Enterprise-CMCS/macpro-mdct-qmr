@@ -83,7 +83,9 @@ const IETValidation = (data: FormData) => {
         (qual) =>
           `Denominators must be the same for ${locationDictionary([
             qual,
-          ])} for ${PMD.categories[i]} and ${PMD.categories[i + 1]}.`
+          ])} for ${PMD.categories[i].label} and ${
+            PMD.categories[i + 1].label
+          }.`
       ),
     ];
   }
