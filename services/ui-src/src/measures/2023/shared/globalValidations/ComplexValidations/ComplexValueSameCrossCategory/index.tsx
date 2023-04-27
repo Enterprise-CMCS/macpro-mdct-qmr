@@ -1,4 +1,4 @@
-import { LabelData, cleanString } from "utils";
+import { LabelData } from "utils";
 
 export const ComplexValueSameCrossCategoryOMS = (
   rateData: any,
@@ -78,7 +78,7 @@ export const ComplexValueSameCrossCategory = ({
     } = {};
     for (const category of rateData) {
       for (const qualifier of category.slice(0, -1)) {
-        const cleanQual = cleanString(qualifier.label);
+        const cleanQual = qualifier.id;
         if (tempValues[cleanQual]?.value) {
           if (
             qualifier.fields[fieldIndex]?.value &&

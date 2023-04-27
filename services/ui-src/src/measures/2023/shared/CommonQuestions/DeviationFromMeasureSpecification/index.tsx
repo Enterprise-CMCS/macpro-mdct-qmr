@@ -3,7 +3,6 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { cleanString } from "utils/cleanString";
 import { LabelData, getLabelText } from "utils";
 
 interface GetTopLvlDeviationOptions {
@@ -95,7 +94,7 @@ export const getLowLvlDeviationOptions = ({
   return qualifiers
     .sort((a: any, b: any) => b.label! - a.label!)
     .map((item) => {
-      const value = `${item.label && cleanString(item.label)}`;
+      const value = `${item.label && item.uid}`;
       return {
         displayValue: labelText?.[item.label!] || item.label,
         value,
