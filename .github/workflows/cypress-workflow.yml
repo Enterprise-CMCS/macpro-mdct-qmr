@@ -35,7 +35,7 @@ jobs:
     name: Setup Cypress Test Matrix
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - id: set-test-matrix
         run: |
           echo "test-matrix=$(ls -1 tests/cypress/cypress/integration/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
@@ -50,7 +50,7 @@ jobs:
       matrix:
         containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: set path
