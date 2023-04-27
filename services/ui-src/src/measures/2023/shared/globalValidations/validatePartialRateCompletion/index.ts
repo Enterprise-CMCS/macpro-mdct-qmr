@@ -129,7 +129,11 @@ export const validatePartialRateCompletionOMS =
               ...label,
             ])}`,
             rateData: rateData?.[singleValueFieldFlag],
-            categories: !!(isOPM || categories[0].label === SINGLE_CATEGORY)
+            categories: !!(
+              isOPM ||
+              categories[0].label === SINGLE_CATEGORY ||
+              !categories[0].label
+            )
               ? undefined
               : categories,
             qualifiers: !!isOPM ? undefined : qualifiers,
@@ -145,7 +149,11 @@ export const validatePartialRateCompletionOMS =
               qualifiers,
               rateData
             ),
-            categories: !!(isOPM || categories[0].label === SINGLE_CATEGORY)
+            categories: !!(
+              isOPM ||
+              categories[0].label === SINGLE_CATEGORY ||
+              !categories[0].label
+            )
               ? undefined
               : categories,
             qualifiers: !!isOPM ? undefined : qualifiers,
