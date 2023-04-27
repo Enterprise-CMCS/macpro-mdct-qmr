@@ -6,7 +6,7 @@ export const { categories, qualifiers } = getCatQualLabels("COL-HH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of health home enrollees ages 50 to 75 who had appropriate screening for colorectal cancer.",
+    "Percentage of health home enrollees ages 45 to 75 who had appropriate screening for colorectal cancer.",
   ],
   categories,
   qualifiers,
@@ -32,6 +32,10 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
           ],
         },
       ],
+    },
+    {
+      value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
+      description: true,
     },
     {
       value: DC.ELECTRONIC_HEALTH_RECORDS,
