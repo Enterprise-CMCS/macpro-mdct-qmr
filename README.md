@@ -1,8 +1,8 @@
 # MDCT QMR (Quality Measure Reporting)
 
 [![CodeQL](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/083b18b2ce64bd653fe9/maintainability)](https://codeclimate.com/repos/6403e46c0252f128457cf09a/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/083b18b2ce64bd653fe9/test_coverage)](https://codeclimate.com/repos/6403e46c0252f128457cf09a/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/07b73163d1474a114cb9/maintainability)](https://codeclimate.com/repos/644971d1d763981eff6ed851/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/07b73163d1474a114cb9/test_coverage)](https://codeclimate.com/repos/644971d1d763981eff6ed851/test_coverage)
 
 QMR is the CMCS MDCT application for collecting state data for related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
