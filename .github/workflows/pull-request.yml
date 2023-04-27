@@ -1,6 +1,6 @@
 name: Pull Request
 
-on: [pull-request]
+on: [pull_request]
 
 jobs:
   assignAuthor:
