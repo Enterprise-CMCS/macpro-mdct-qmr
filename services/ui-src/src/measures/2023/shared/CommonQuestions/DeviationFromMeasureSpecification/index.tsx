@@ -94,7 +94,8 @@ export const getLowLvlDeviationOptions = ({
   return qualifiers
     .sort((a: any, b: any) => b.label! - a.label!)
     .map((item) => {
-      const value = `${item.label && item.uid}`;
+      //the item only wants the qualifer id so we split the uid to get the qualifier id
+      const value = `${item.label && item.uid?.split(".")[1]}`;
       return {
         displayValue: labelText?.[item.label!] || item.label,
         value,
