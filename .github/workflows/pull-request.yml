@@ -1,28 +1,40 @@
 name: Pull Request
 
-on:
-  pull_request:
-    branches:
-      - "master"
+on: [pull_request]
 
 permissions:
   id-token: write
   contents: read
   actions: read
+  pull-requests: write
 
 jobs:
+  assignAuthor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Assign PR to Creator
+        run: |
+          if [ "$PR_AUTHOR_TYPE" != "Bot" ]
+            then
+              gh pr edit $PRNUM --add-assignee $PR_AUTHOR
+            fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRNUM: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
   unit-tests:
     name: Unit Tests
     uses: ./.github/workflows/unittest-workflow.yml
     secrets:
       CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-      CODE_CLIMATE_CMS_ID: ${{ secrets.CODE_CLIMATE_CMS_ID }}
   e2e-tests-init:
     name: Initialize End To End Tests
     if: ${{ github.ref != 'refs/heads/prod' && github.ref != 'refs/heads/val' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
       - name: set branch_name
         run: |
           if [[ "$GITHUB_HEAD_REF" =~ ^dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
