@@ -42,7 +42,7 @@ const ndrFormulas = [
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "The number of admissions to an institutional facility among health home enrollees age 18 and older residing in the community for at least one month. The number of short-, medium-, or long-term admissions is reported per 1,000 enrollee months. Enrollee months reflect the total number of months each enrollee is enrolled in the program and residing in the community for at least one day of the month.",
+    "The number of admissions to a facility among enrollees age 18 and older residing in the community for at least one month. The number of short-term, medium-term, or long-term admissions is reported per 1,000 enrollee months. Enrollee months reflect the total number of months each enrollee is enrolled in the program and residing in the community for at least one day of the month. ",
   ],
   questionListItems: [
     " The rate of admissions resulting in a short-term stay (1 to 20 days) per 1,000 enrollee months.",
@@ -51,7 +51,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   ],
   questionListTitles: ["Short-Term Stay", "Medium-Term Stay", "Long-Term Stay"],
   questionSubtext: [
-    "The following three rates are reported across four age groups (ages 18 to 64, ages 65 to 74, ages 75 to 84, and age 85 and older):",
+    "The following three performance rates are reported across four age groups (ages 18 to 64, ages 65 to 74, ages 75 to 84, and age 85 and older):",
   ],
   measureName,
   inputFieldNames,
