@@ -7,6 +7,7 @@ import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
+import { AABRateCalculation } from "utils/rateFormulas";
 
 export const AABCH = ({
   name,
@@ -49,10 +50,7 @@ export const AABCH = ({
             <>
               <CMQ.PerformanceMeasure
                 data={PMD.data}
-                calcTotal
-                customMask={mask}
-                rateScale={rateScale}
-                allowNumeratorGreaterThanDenominator
+                rateCalc={AABRateCalculation}
               />
               <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
             </>

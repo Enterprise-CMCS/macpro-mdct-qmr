@@ -5,33 +5,24 @@ import { FormData } from "./types";
 import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
 
 const AABCHValidation = (data: FormData) => {
-  const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-  const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
+  const OPM = data[DC.OPM_RATES];
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const dateRange = data[DC.DATE_RANGE];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
-  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations
   );
-  const dateRange = data[DC.DATE_RANGE];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  let errorArray: any[] = [];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
+  let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-  const validateDualPopInformationArray = [
-    performanceMeasureArray?.[0].filter((pm) => {
-      return pm?.label === "Age 65 and older";
-    }),
-  ];
-
-  const age65PlusIndex = 0;
 
   errorArray = [
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
@@ -40,16 +31,11 @@ const AABCHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      ageGroups,
+      PMD.categories
     ),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateDualPopInformationPM(
-      validateDualPopInformationArray,
-      OPM,
-      age65PlusIndex,
-      definitionOfDenominator
-    ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
@@ -57,6 +43,11 @@ const AABCHValidation = (data: FormData) => {
       didCalculationsDeviate
     ),
     ...GV.validateTotalNDR(performanceMeasureArray),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
 
     // OMS Validations
     ...GV.omsValidations({
@@ -69,9 +60,10 @@ const AABCHValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateRateZeroOMS(),
-        GV.validateRateNotZeroOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOMSTotalNDR(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
       ],
     }),
   ];
