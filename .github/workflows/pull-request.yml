@@ -90,8 +90,12 @@ jobs:
           export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
           echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
           echo "Application endpoint: $APPLICATION_ENDPOINT"
-          if [-z $APPLICATION_ENDPOINT ]; then echo "No endpoint set, Exiting" | exit 1; fi
           popd
+      - name: Verify Endpoint
+        if: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT == ''}}
+        run: |
+          echo "No endpoint set, Check if the deploy workflow was successful."
+          exit 1
     outputs:
       APPLICATION_ENDPOINT: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT}}
 
