@@ -575,6 +575,11 @@ export const data = {
     "COL-HH": {
         "qualifiers": [
             {
+                "label": "Ages 46 to 49",
+                "text": "Ages 46 to 49",
+                "id": "Ages46to49"
+            },
+            {
                 "label": "Ages 50 to 64",
                 "text": "Ages 50 to 64",
                 "id": "Ages50to64"
@@ -1008,43 +1013,43 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
+                "label": "Initiation of SUD Treatment: Alcohol Use Disorder",
+                "text": "Initiation of SUD Treatment: Alcohol Use Disorder",
                 "id": "InitiationofAODTreatmentAlcoholAbuseorDependence"
             },
             {
-                "label": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
+                "label": "Engagement of SUD Treatment: Alcohol Use Disorder",
+                "text": "Engagement of SUD Treatment: Alcohol Use Disorder",
                 "id": "EngagementofAODTreatmentAlcoholAbuseorDependence"
             },
             {
-                "label": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
+                "label": "Initiation of SUD Treatment: Opioid Use Disorder",
+                "text": "Initiation of SUD Treatment: Opioid Use Disorder",
                 "id": "InitiationofAODTreatmentOpioidAbuseorDependence"
             },
             {
-                "label": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
+                "label": "Engagement of SUD Treatment: Opioid Use Disorder",
+                "text": "Engagement of SUD Treatment: Opioid Use Disorder",
                 "id": "EngagementofAODTreatmentOpioidAbuseorDependence"
             },
             {
-                "label": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
+                "label": "Initiation of SUD Treatment: Other Substance Use Disorder",
+                "text": "Initiation of SUD Treatment: Other Substance Use Disorder",
                 "id": "InitiationofAODTreatmentOtherDrugAbuseorDependence"
             },
             {
-                "label": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
+                "label": "Engagement of SUD Treatment: Other Substance Use Disorder",
+                "text": "Engagement of SUD Treatment: Other Substance Use Disorder",
                 "id": "EngagementofAODTreatmentOtherDrugAbuseorDependence"
             },
             {
-                "label": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
+                "label": "Initiation of SUD Treatment: Total",
+                "text": "Initiation of SUD Treatment: Total",
                 "id": "InitiationofAODTreatmentTotalAODAbuseorDependence"
             },
             {
-                "label": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
+                "label": "Engagement of SUD Treatment: Total",
+                "text": "Engagement of SUD Treatment: Total",
                 "id": "EngagementofAODTreatmentTotalAODAbuseorDependence"
             }
         ]
@@ -1112,11 +1117,6 @@ export const data = {
                 "label": "Inpatient",
                 "text": "Inpatient",
                 "id": "Inpatient"
-            },
-            {
-                "label": "Maternity",
-                "text": "Maternity",
-                "id": "Maternity"
             },
             {
                 "label": "Mental and Behavioral Disorders",
