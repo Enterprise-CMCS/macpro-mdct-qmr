@@ -281,7 +281,7 @@ export const measureDescriptions: MeasureList = {
     "WCV-CH": "Child and Adolescent Well-Care Visits",
 
     // Health Home
-    "AIF-HH": "Admission to an Institution from the Community",
+    "AIF-HH": "Admission to a Facility from the Community",
     "AMB-HH": "Ambulatory Care: Emergency Department (ED) Visits",
     "CBP-HH": "Controlling High Blood Pressure",
     "CDF-HH": "Screening for Depression and Follow-Up Plan",
