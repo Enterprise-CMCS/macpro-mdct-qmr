@@ -286,8 +286,7 @@ export const measureDescriptions: MeasureList = {
     "CBP-HH": "Controlling High Blood Pressure",
     "CDF-HH": "Screening for Depression and Follow-Up Plan",
     "COL-HH": "Colorectal Cancer Screening",
-    "FUA-HH":
-      "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+    "FUA-HH": "Follow-Up After Emergency Department Visit for Substance Use",
     "FUH-HH": "Follow-Up After Hospitalization for Mental Illness",
     "IET-HH":
       "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
