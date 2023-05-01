@@ -139,7 +139,7 @@ export const DeviationFromMeasureSpec = ({
 
       //by this point in the system, there should be at least 1 key in rates
       //if there are no categories, the key singleCategory will be used instead
-      if (Object.keys(rates).length == 1) {
+      if (Object.keys(rates).length === 1) {
         let rate = Object(Object.values(rates)[0]);
 
         if (["PCR-AD", "PCR-HH"].includes(measureName)) {
