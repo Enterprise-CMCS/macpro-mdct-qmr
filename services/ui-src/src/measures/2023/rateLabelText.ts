@@ -22,6 +22,21 @@ export const data = {
         ],
         "categories": [{"id":"SU6HXz", "label": "", "text":""}]
     },
+    "AAB-CH": {
+        "qualifiers": [
+            {
+                "label": "Ages 18 to 64",
+                "text": "Ages 18 to 64",
+                "id": "Ages18to64"
+            },
+            {
+                "label": "Age 65 and Older",
+                "text": "Age 65 and Older",
+                "id": "Age65andOlder"
+            }
+        ],
+        "categories": []
+    },
     "ADD-CH": {
         "qualifiers": [
             {

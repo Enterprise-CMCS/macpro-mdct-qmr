@@ -8,6 +8,9 @@ the key should be the measure id as a string (with '-XX' included)
 const AABAD = lazy(() =>
   import("./AABAD").then((module) => ({ default: module.AABAD }))
 );
+const AABCH = lazy(() =>
+  import("./AABCH").then((module) => ({ default: module.AABCH }))
+);
 const ADDCH = lazy(() =>
   import("./ADDCH").then((module) => ({ default: module.ADDCH }))
 );
@@ -224,6 +227,7 @@ const WCVCH = lazy(() =>
 
 const twentyTwentyThreeMeasures = {
   "AAB-AD": AABAD,
+  "AAB-CH": AABCH,
   "ADD-CH": ADDCH,
   "AIF-HH": AIFHH,
   "AMB-CH": AMBCH,
