@@ -288,8 +288,7 @@ export const measureDescriptions: MeasureList = {
     "COL-HH": "Colorectal Cancer Screening",
     "FUA-HH": "Follow-Up After Emergency Department Visit for Substance Use",
     "FUH-HH": "Follow-Up After Hospitalization for Mental Illness",
-    "IET-HH":
-      "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
+    "IET-HH": "Initiation and Engagement of Substance Use Disorder Treatment",
     "IU-HH": "Inpatient Utilization",
     "OUD-HH": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-HH": "Plan All-Cause Readmissions",
