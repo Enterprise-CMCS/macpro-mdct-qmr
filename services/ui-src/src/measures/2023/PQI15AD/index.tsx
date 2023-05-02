@@ -51,7 +51,7 @@ export const PQI15AD = ({
                 allowNumeratorGreaterThanDenominator
                 customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && (
