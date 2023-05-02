@@ -53,6 +53,7 @@ const IUHHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateOPMRates(OPM),
     ...GV.ComplexValidateDualPopInformation(
       performanceMeasureArray,
       OPM,
