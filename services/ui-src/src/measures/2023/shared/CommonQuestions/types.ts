@@ -185,6 +185,7 @@ export interface DeviationFields {
   [DC.DENOMINATOR]: string;
   [DC.NUMERATOR]: string;
   [DC.OTHER]: string;
+  [DC.REASON]: string;
 }
 
 export interface OtherRatesFields {
@@ -270,7 +271,7 @@ export interface OptionalMeasureStratification {
 }
 export interface DeviationFromMeasureSpecification {
   [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
-  [DC.DEVIATION_OPTIONS]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected
+  [DC.DEVIATION_REASON]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected
   [DC.DEVIATIONS]: {
     // the DEVIATION_OPTIONS will map the DEVIATIONS
     [option: string]: {

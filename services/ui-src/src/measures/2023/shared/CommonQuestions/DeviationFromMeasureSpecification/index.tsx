@@ -3,6 +3,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
+
 export const DeviationFromMeasureSpec = () => {
   const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
 
@@ -24,7 +25,7 @@ export const DeviationFromMeasureSpec = () => {
             value: DC.YES,
             children: [
               <QMR.TextArea
-                {...register(DC.DEVIATION_OPTIONS)}
+                {...register(DC.DEVIATION_REASON)}
                 label="Explain the deviation(s):"
                 formLabelProps={{
                   fontWeight: "normal",
