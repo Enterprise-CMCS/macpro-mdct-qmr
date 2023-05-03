@@ -6,7 +6,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { LabelData, getLabelText } from "utils";
 
 interface GetTopLvlDeviationOptions {
-  categories: Array<LabelData>;
+  categories: LabelData[];
   customTotalLabel?: string;
 }
 
@@ -17,7 +17,7 @@ type TopLevelOptions = {
 }[];
 
 interface Props {
-  categories: Array<LabelData>;
+  categories: LabelData[];
   customTotalLabel?: string;
   measureName?: string;
 }

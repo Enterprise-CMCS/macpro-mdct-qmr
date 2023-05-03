@@ -12,8 +12,8 @@ import { LabelData } from "utils";
 
 interface OmsValidationProps {
   data: DefaultFormData;
-  qualifiers: Array<LabelData>;
-  categories: Array<LabelData>;
+  qualifiers: LabelData[];
+  categories: LabelData[];
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
@@ -30,8 +30,8 @@ export const omsValidations = ({
   customTotalLabel,
   dataSource,
 }: OmsValidationProps) => {
-  const opmCats: Array<LabelData> = [{ id: "OPM", text: "OPM", label: "OPM" }];
-  const opmQuals: Array<LabelData> = [];
+  const opmCats: LabelData[] = [{ id: "OPM", text: "OPM", label: "OPM" }];
+  const opmQuals: LabelData[] = [];
   let isOPM = false;
   if (
     data.MeasurementSpecification === "Other" &&
@@ -72,8 +72,8 @@ export const omsValidations = ({
 const validateNDRs = (
   data: DefaultFormData,
   callbackArr: OmsValidationCallback[],
-  qualifiers: Array<LabelData>,
-  categories: Array<LabelData>,
+  qualifiers: LabelData[],
+  categories: LabelData[],
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,

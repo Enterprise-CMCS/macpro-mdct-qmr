@@ -2,8 +2,8 @@ import { LabelData } from "utils";
 
 export const ComplexValueSameCrossCategoryOMS = (
   rateData: any,
-  categories: Array<LabelData>,
-  qualifiers: Array<LabelData>,
+  categories: LabelData[],
+  qualifiers: LabelData[],
   errorLocation: string
 ) => {
   // Using a subset of rateData as iterator to be sure that Total

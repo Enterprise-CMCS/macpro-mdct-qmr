@@ -69,8 +69,8 @@ const _validation = ({
 interface SVVProps {
   location: string;
   rateData: any;
-  categories?: Array<LabelData>;
-  qualifiers?: Array<LabelData>;
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   locationDictionary: (s: string[]) => string;
   errorMessageFunc?: ErrorMessageFunc;
 }
@@ -173,8 +173,8 @@ export const validatePartialRateCompletionOMS =
 export const validatePartialRateCompletionPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  qualifiers: Array<LabelData>,
-  categories?: Array<LabelData>,
+  qualifiers: LabelData[],
+  categories?: LabelData[],
   errorMessageFunc?: ErrorMessageFunc
 ) => {
   return [

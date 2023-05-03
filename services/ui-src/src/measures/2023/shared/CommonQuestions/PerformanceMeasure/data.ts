@@ -2,8 +2,8 @@ import { ndrFormula } from "types";
 import { LabelData } from "utils";
 
 export interface PerformanceMeasureData {
-  qualifiers?: Array<LabelData>; // age ranges, etc
-  categories?: Array<LabelData>; //performance measure descriptions
+  qualifiers?: LabelData[]; // age ranges, etc
+  categories?: LabelData[]; //performance measure descriptions
   measureName?: string;
   inputFieldNames?: string[];
   ndrFormulas?: ndrFormula[];

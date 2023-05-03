@@ -26,8 +26,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: Array<LabelData>;
-  qualifiers?: Array<LabelData>;
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   measureName?: string;
   inputFieldNames?: string[];
   ndrFormulas?: ndrFormula[];

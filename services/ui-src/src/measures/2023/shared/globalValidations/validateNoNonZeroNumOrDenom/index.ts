@@ -108,7 +108,7 @@ export const validateRateNotZeroOMS: OmsValidationCallback = ({
 export const validateNoNonZeroNumOrDenomPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  _qualifiers: Array<LabelData>,
+  _qualifiers: LabelData[],
   data: Types.DefaultFormData
 ) => {
   const errorArray: FormError[] = [];

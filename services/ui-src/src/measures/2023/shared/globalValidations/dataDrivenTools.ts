@@ -49,8 +49,8 @@ export const getOtherPerformanceMeasureRateArray = (
 
 /** Utility function for converting oms data to be the same as returned performance measure. Encourages shared validations. */
 export const convertOmsDataToRateArray = (
-  categories: Array<LabelData>,
-  qualifiers: Array<LabelData>,
+  categories: LabelData[],
+  qualifiers: LabelData[],
   rateData: RateData
 ) => {
   const rateArray: PM[][] = [];
@@ -90,8 +90,8 @@ export const performanceMeasureErrorLocationDicitonary = (
  */
 export const omsLocationDictionary = (
   renderData: DDT.OptionalMeasureStrat,
-  qualifiers?: Array<LabelData>,
-  categories?: Array<LabelData>
+  qualifiers?: LabelData[],
+  categories?: LabelData[]
 ) => {
   const dictionary: { [cleanedLabel: string]: string } = {};
   const checkNode = (node: DDT.SingleOmsNode) => {

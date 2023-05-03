@@ -23,7 +23,7 @@ interface TotalCalcHookProps {
 interface CalcOmsTotalProp {
   watchOMS: any;
   cleanedCategory: string;
-  qualifiers: Array<LabelData>;
+  qualifiers: LabelData[];
   rateMultiplicationValue?: number;
   numberOfDecimals: number;
   componentFlag?: any;

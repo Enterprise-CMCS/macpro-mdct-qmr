@@ -1,5 +1,5 @@
 /**  
-NOTE: This validationHelper was cloned when categories & qualifiers were updated to use Array<LabelData> as type instead of string[]
+NOTE: This validationHelper was cloned when categories & qualifiers were updated to use LabelData[] as type instead of string[]
 This should be the file used for some of the unit test from year 2023 onward
 */
 
@@ -88,8 +88,8 @@ export const emptyRate: RateFields = {
  * @note testData MUST be the same length as chosen qualifiers
  */
 export const generateOmsQualifierRateData = (
-  categories: Array<LabelData>,
-  qualifiers: Array<LabelData>,
+  categories: LabelData[],
+  qualifiers: LabelData[],
   testData: RateFields[]
 ) => {
   if (testData.length !== qualifiers.length) {
@@ -123,8 +123,8 @@ export const generateOmsQualifierRateData = (
  * @note testData MUST be the same length as chosen categories
  */
 export const generateOmsCategoryRateData = (
-  categories: Array<LabelData>,
-  qualifiers: Array<LabelData>,
+  categories: LabelData[],
+  qualifiers: LabelData[],
   testData: RateFields[]
 ) => {
   if (testData.length !== categories.length) {

@@ -71,7 +71,7 @@ export const validateEqualQualifierDenominatorsOMS =
  */
 export const validateEqualQualifierDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
-  qualifiers: Array<LabelData>,
+  qualifiers: LabelData[],
   errorMessage?: string,
   errorMessageFunc?: (qualifier: string) => string
 ) => {
