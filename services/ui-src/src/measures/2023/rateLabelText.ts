@@ -1672,6 +1672,10 @@ export const data = {
             }
         ],
         "categories": []
+    },
+    "LSC-CH": {
+        "qualifiers": [],
+        "categories": []
     }
 }
 

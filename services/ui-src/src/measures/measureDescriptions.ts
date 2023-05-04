@@ -271,6 +271,7 @@ export const measureDescriptions: MeasureList = {
     "IMA-CH": "Immunizations for Adolescents",
     "LBW-CH": "Live Births Weighing Less Than 2,500 Grams",
     "LRCD-CH": "Low-Risk Cesarean Delivery",
+    "LSC-CH": "Lead Screening in Children",
     "OEV-CH": "Oral Evaluation, Dental Services",
     "PPC-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",
