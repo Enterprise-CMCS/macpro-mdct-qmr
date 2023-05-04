@@ -105,7 +105,7 @@ Default assumption is that this is run for Performance Measure unless specified.
 export const validateTotalNDR = (
   performanceMeasureArray: FormRateField[][],
   errorLocation = "Performance Measure",
-  categories?: Array<LabelData>,
+  categories?: LabelData[],
   errorMessageFunc = validateTotalNDRErrorMessage
 ): FormError[] => {
   let errorArray: FormError[] = [];

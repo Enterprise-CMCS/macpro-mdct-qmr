@@ -5,8 +5,8 @@ import { validatePartialRateCompletionPM } from "../validatePartialRateCompletio
 export const validateAtLeastOneRateComplete = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  qualifiers: Array<LabelData>,
-  categories?: Array<LabelData>,
+  qualifiers: LabelData[],
+  categories?: LabelData[],
   errorMessage?: string
 ) => {
   const errorArray: FormError[] = [];

@@ -17,8 +17,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: Array<LabelData>;
-  qualifiers?: Array<LabelData>;
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   rateReadOnly: boolean;
   calcTotal: boolean;
   rateScale?: number;

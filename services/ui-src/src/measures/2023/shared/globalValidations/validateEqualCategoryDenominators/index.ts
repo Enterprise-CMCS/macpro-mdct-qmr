@@ -66,8 +66,8 @@ export const validateEqualCategoryDenominatorsOMS =
 /** Checks all rates have the same denominator for both categories and qualifiers. NOTE: only pass qualifiers if category is empty */
 export const validateEqualCategoryDenominatorsPM = (
   data: Types.PerformanceMeasure,
-  categories: Array<LabelData>,
-  qualifiers?: Array<LabelData>,
+  categories: LabelData[],
+  qualifiers?: LabelData[],
   errorMessage?: string
 ) => {
   return _validation({

@@ -26,7 +26,7 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
   const singleCat = [
     { label: SINGLE_CATEGORY, text: SINGLE_CATEGORY, id: SINGLE_CATEGORY },
   ];
-  const noCat: Array<LabelData> = [];
+  const noCat: LabelData[] = [];
 
   const baseOMSInfo = {
     categories,

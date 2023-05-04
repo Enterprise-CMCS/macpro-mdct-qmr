@@ -18,8 +18,8 @@ export interface RateData extends OMS.OmsRateFields {
 }
 
 export interface UnifiedValFuncProps {
-  categories?: Array<LabelData>;
-  qualifiers?: Array<LabelData>;
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   rateData: FormRateField[][];
   location: string;
   errorMessage?: string;
@@ -31,8 +31,8 @@ export type UnifiedValidationFunction = (
 
 export type OmsValidationCallback = (data: {
   rateData: RateData;
-  qualifiers: Array<LabelData>;
-  categories: Array<LabelData>;
+  qualifiers: LabelData[];
+  categories: LabelData[];
   label: string[];
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;

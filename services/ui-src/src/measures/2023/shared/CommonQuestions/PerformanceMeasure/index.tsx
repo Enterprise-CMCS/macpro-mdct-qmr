@@ -26,8 +26,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: Array<LabelData>;
-  qualifiers?: Array<LabelData>;
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   measureName?: string;
   inputFieldNames?: string[];
   ndrFormulas?: ndrFormula[];
@@ -162,10 +162,7 @@ const QualifierNdrSets = ({
 const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   let ndrSets;
 
-  if (
-    props.categories?.length &&
-    props.categories.some((item) => item.label)
-  ) {
+  if (props.categories?.length && props.categories.some((item) => item.label)) {
     ndrSets = <CategoryNdrSets {...props} />;
   } else if (props.qualifiers?.length) {
     ndrSets = <QualifierNdrSets {...props} />;

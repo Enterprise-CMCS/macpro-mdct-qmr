@@ -20,7 +20,7 @@ interface Field {
 /* At least one NDR set must be complete (OMS) */
 export const ComplexValidateNDRTotalsOMS = (
   rateData: any,
-  categories: Array<LabelData>,
+  categories: LabelData[],
   ndrFormulas: NDRforumla[],
   errorLocation: string
 ) => {
@@ -77,7 +77,7 @@ export const ComplexValidateNDRTotalsOMS = (
  */
 export const ComplexValidateNDRTotals = (
   performanceMeasureArray: any,
-  categories: Array<LabelData>,
+  categories: LabelData[],
   ndrFormulas: NDRforumla[],
   errorLocation: string = "Performance Measure Total"
 ) => {

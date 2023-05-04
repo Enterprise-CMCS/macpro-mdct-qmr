@@ -6,7 +6,7 @@ import { LabelData } from "utils";
 // Then the user must complete at least one NDR set in the Deviation of measure specification.
 export const validateAtLeastOneDeviationFieldFilled = (
   performanceMeasureArray: FormRateField[][],
-  ageGroups: Array<LabelData>,
+  ageGroups: LabelData[],
   deviationArray: Types.DeviationFields[] | any,
   didCalculationsDeviate: boolean,
   errorMessage?: string

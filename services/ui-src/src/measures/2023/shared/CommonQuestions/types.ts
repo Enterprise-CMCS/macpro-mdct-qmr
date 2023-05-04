@@ -255,11 +255,11 @@ export namespace OmsNodes {
 }
 
 export interface Qualifiers {
-  [DC.QUALIFIERS]?: Array<LabelData>;
+  [DC.QUALIFIERS]?: LabelData[];
 }
 
 export interface Categories {
-  [DC.CATEGORIES]?: Array<LabelData>;
+  [DC.CATEGORIES]?: LabelData[];
 }
 
 export interface OptionalMeasureStratification {

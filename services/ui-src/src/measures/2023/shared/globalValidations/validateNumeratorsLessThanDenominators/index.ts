@@ -67,7 +67,7 @@ export const validateNumeratorLessThanDenominatorOMS =
 export const validateNumeratorsLessThanDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  qualifiers: Array<LabelData>,
+  qualifiers: LabelData[],
   errorMessage?: string
 ) => {
   const location = `Performance Measure/Other Performance Measure`;

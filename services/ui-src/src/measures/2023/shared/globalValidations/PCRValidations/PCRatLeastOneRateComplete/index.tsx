@@ -5,7 +5,7 @@ import { validatePartialRateCompletionPM } from "../../validatePartialRateComple
 export const PCRatLeastOneRateComplete = (
   performanceMeasureArray: any,
   OPM: any,
-  ageGroups: Array<LabelData>,
+  ageGroups: LabelData[],
   errorLocation: string = "Performance Measure/Other Performance Measure",
   omsFlag = false
 ) => {

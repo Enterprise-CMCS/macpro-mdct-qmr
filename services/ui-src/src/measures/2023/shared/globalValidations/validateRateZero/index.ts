@@ -74,7 +74,7 @@ export const validateRateZeroOMS =
 export const validateRateZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  _qualifiers: Array<LabelData>,
+  _qualifiers: LabelData[],
   data: Types.DefaultFormData,
   errorMessage?: string
 ): FormError[] => {

@@ -14,7 +14,7 @@ import {
 } from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing Equal Denominators For All Qualifiers Validation", () => {
-  const noCat: Array<LabelData> = [];
+  const noCat: LabelData[] = [];
   const categories = [
     { label: "TestCat1", text: "TestCat1", id: "TestCat1" },
     { label: "TestCat2", text: "TestCat2", id: "TestCat2" },

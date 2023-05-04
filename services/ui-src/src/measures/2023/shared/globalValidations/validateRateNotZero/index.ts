@@ -55,7 +55,7 @@ export const validateRateNotZeroOMS =
 export const validateRateNotZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  _qualifiers: Array<LabelData>,
+  _qualifiers: LabelData[],
   errorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
