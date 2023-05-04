@@ -34,7 +34,6 @@ export const LSCCH = ({
         measureName={name}
         measureAbbreviation={measureId}
       />
-
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
