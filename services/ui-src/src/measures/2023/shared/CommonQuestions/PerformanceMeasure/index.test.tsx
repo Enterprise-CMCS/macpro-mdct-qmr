@@ -124,7 +124,6 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(PCR-XX) Ensure component renders", () => {
     // modifying data to be easier to check
-    // PCRData.qualifiers = PCRData.qualifiers!.map((qual) => `qual ${qual}`);  //ORIGINAL
     PCRData.qualifiers = PCRData.qualifiers!.map((qual) => ({
       id: qual.id,
       text: `qual ${qual.label}`,

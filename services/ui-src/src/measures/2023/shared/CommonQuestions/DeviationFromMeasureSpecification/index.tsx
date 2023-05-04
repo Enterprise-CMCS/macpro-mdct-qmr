@@ -91,22 +91,21 @@ export const getLowLvlDeviationOptions = ({
     return getRateTextAreaOptions(name);
   }
 
-  return qualifiers
-    .sort((a: any, b: any) => b.label! - a.label!)
-    .map((item) => {
-      //the item only wants the qualifer id so we split the uid to get the qualifier id
-      const value = `${item.label && item.uid?.split(".")[1]}`;
-      return {
-        displayValue: labelText?.[item.label!] || item.label,
-        value,
-        children: [
-          <DeviationsSelectedCheckbox
-            name={`${name}.${value}`}
-            key={`${name}.${value}`}
-          />,
-        ],
-      };
-    });
+  //note: qualifier use to have a sort where it subtracted the labels, removed because it didn't do anything, but something to note if there's an issue here
+  return qualifiers.map((item) => {
+    //the item only wants the qualifer id so we split the uid to get the qualifier id
+    const value = `${item.label && item.uid?.split(".")[1]}`;
+    return {
+      displayValue: labelText?.[item.label!] || item.label,
+      value,
+      children: [
+        <DeviationsSelectedCheckbox
+          name={`${name}.${value}`}
+          key={`${name}.${value}`}
+        />,
+      ],
+    };
+  });
 };
 
 export const PCRADgetLowLvlDeviationOptions = ({
