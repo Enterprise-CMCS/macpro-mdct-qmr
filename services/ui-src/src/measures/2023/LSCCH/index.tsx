@@ -6,6 +6,7 @@ import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations"
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
+import { PerformanceMeasure } from "./questions/PerformanceMeasure";
 
 export const LSCCH = ({
   name,
@@ -34,6 +35,7 @@ export const LSCCH = ({
         measureName={name}
         measureAbbreviation={measureId}
       />
+
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
@@ -43,7 +45,7 @@ export const LSCCH = ({
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} calcTotal hybridMeasure />
+              <PerformanceMeasure hybridMeasure />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.categories}
                 customTotalLabel={PMD.qualifiers.slice(-1)[0]} // use the actual Total label

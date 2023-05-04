@@ -909,7 +909,6 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "LSC-CH",
-      autocompleteOnCreation: true,
     },
     {
       type: "C",
