@@ -104,7 +104,7 @@ const TotalNDRSets = ({
   const { qualifiers, categories } = usePerformanceMeasureContext();
   const totalQual = qualifiers.slice(-1)[0];
 
-  if (categories.length && categories?.filter((item) => item.label).length) {
+  if (categories.length && categories.some((item) => item.label)) {
     categories.forEach((cat, idx) => {
       rateArray.push(
         <CUI.Box key={`${name}.${idx}.totalWrapper`}>
@@ -133,7 +133,7 @@ const TotalNDRSets = ({
     <CUI.Box>
       <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />
       {categories.length > 0 &&
-        categories?.filter((item) => item.label).length > 0 && (
+        categories.some((item) => item.label) && (
           <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
             {totalQual.label}
           </CUI.Heading>
@@ -331,7 +331,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
   const rateArrays =
-    !categories.length || !categories?.filter((item) => item.label).length
+    !categories.length || !categories.some((item) => item.label)
       ? qualRates
       : standardRates;
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;

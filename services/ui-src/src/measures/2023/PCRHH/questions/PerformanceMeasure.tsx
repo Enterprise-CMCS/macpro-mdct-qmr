@@ -100,7 +100,7 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   //if there is a category and the category labels are filled out, create the NDR using the categories array
   if (
     props.categories?.length &&
-    props.categories?.filter((item) => item.label).length
+    props.categories?.some((item) => item.label)
   ) {
     ndrSets = <CategoryNdrSets {...props} />;
   } else if (props.qualifiers?.length) {

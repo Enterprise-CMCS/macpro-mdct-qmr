@@ -82,7 +82,7 @@ export const emptyRate: RateFields = {
  * Helper function to prep oms validation test data  by slotting test data in qualifier order
  *
  * @param categories should always at least contain "singleCategory"
- * @param qualifiers a non-negotiable string array
+ * @param qualifiers a non-negotiable LabelData array
  * @param testData what test data to place in the qualifier location in rate data
  *
  * @note testData MUST be the same length as chosen qualifiers
@@ -117,7 +117,7 @@ export const generateOmsQualifierRateData = (
  * Helper function to prep oms validation test data  by slotting test data in category order
  *
  * @param categories should be longer than just singleCategory
- * @param qualifiers a non-negotiable string array
+ * @param qualifiers a non-negotiable LabelData array
  * @param testData what test data to place in the category location in rate data
  *
  * @note testData MUST be the same length as chosen categories
