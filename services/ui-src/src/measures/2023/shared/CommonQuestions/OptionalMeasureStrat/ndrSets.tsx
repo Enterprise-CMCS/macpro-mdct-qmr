@@ -15,7 +15,7 @@ interface TotalProps {
   name: string;
   componentFlag: ComponentFlagType;
   qualifier?: LabelData;
-  category?: string;
+  category?: LabelData;
 }
 
 type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
@@ -27,11 +27,14 @@ type RateArrayBuilder = (name: string) => React.ReactElement[][];
 const TotalNDR = ({
   name,
   componentFlag,
-  category = DC.SINGLE_CATEGORY,
+  category = {
+    id: DC.SINGLE_CATEGORY,
+    label: DC.SINGLE_CATEGORY,
+    text: DC.SINGLE_CATEGORY,
+  },
   qualifier,
 }: TotalProps) => {
   const {
-    categories,
     qualifiers,
     measureName,
     inputFieldNames,
@@ -48,12 +51,12 @@ const TotalNDR = ({
 
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
   const cleanedQualifier = lastQualifier.id;
-  const cleanedCategory = categories[0]?.id
-    ? categories[0].id
-    : DC.SINGLE_CATEGORY;
+  const cleanedCategory = category.id;
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
   const label =
-    category === DC.SINGLE_CATEGORY ? lastQualifier.label : category;
+    category.label === DC.SINGLE_CATEGORY
+      ? lastQualifier.label
+      : category.label;
 
   useTotalAutoCalculation({ name, cleanedCategory, componentFlag });
 
@@ -110,7 +113,7 @@ const TotalNDRSets = ({
         <CUI.Box key={`${name}.${idx}.totalWrapper`}>
           <TotalNDR
             name={name}
-            category={cat.label}
+            category={cat}
             componentFlag={componentFlag}
             qualifier={totalQual}
           />
@@ -122,6 +125,7 @@ const TotalNDRSets = ({
       <CUI.Box key={`${name}.totalWrapper`}>
         <TotalNDR
           name={name}
+          category={categories[0]?.id ? categories[0] : undefined}
           componentFlag={componentFlag}
           key={`${name}.TotalWrapper`}
         />{" "}
