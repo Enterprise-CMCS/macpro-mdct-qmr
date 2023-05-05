@@ -41,33 +41,23 @@ describe("Measure: HBD-AD", () => {
 
     cy.get('[data-cy="DateRange.endDate-year"]').click({ force: true });
     cy.get('[data-cy="DateRange.endDate-year"]').type("2023");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).type("0");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "0.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').type(
-      "5"
-    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').type("5");
     cy.get('[data-cy="Validate Measure"]').click();
 
     /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').type(
-      "5"
-    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').type("5");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="The measure has been validated successfully"] > .chakra-text'
@@ -86,61 +76,47 @@ describe("Measure: HBD-AD", () => {
     cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
 
     // Rate calculation should be = (N/D*100)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).type("10");
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
+      "10"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "50.0"
     );
 
     // Ensure that auto calculate rate displays 1 decimal (even if the value is zero)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).type("8");
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').type("8");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "80.0"
     );
 
     // Ensure that numerical value after decimal is rounded up/down for auto calculated rate (up)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).type("9");
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
+      "9"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "88.9"
     );
 
     // Ensure that numerical value after decimal is rounded up/down for auto calculated rate (down)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).type("18");
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
+      "18"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "44.4"
     );
 
     // Ensure that user cannot manually enter rates if admin data is selected - (already selected)
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.attr",
       "readonly"
     );
@@ -150,31 +126,25 @@ describe("Measure: HBD-AD", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).type("10");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).type("20");
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').type(
+      "10"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "50.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "not.have.attr",
       "readonly"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').type(
-      "48.1"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').type("48.1");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "48.1"
     );
@@ -186,26 +156,18 @@ describe("Measure: HBD-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[id="DataSource0-checkbox"]').uncheck({ force: true });
     cy.get('[id="DataSource2-checkbox"]').check({ force: true });
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).type("0");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "0.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').type(
-      "5"
-    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').type("5");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Manually entered rate should be 0 if numerator is 0"]'
@@ -226,28 +188,20 @@ describe("Measure: HBD-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[id="DataSource0-checkbox"]').uncheck({ force: true });
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).clear({
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').clear({
       force: true,
     });
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
       "have.value",
       "100.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.rate"]').type(
-      "0"
-    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').type("0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
@@ -271,84 +225,72 @@ describe("Measure: HBD-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"]').click();
     cy.get("#DataSource0-checkbox").check();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.numerator"]'
-    ).type("2");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.0.denominator"]'
-    ).type("3");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.1.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.1.numerator"]'
-    ).type("3");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.1.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.HBD-AD-CAT-A.1.denominator"]'
-    ).type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').type("2");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
+      "3"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.1.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.1.numerator"]').type("3");
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.1.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.1.denominator"]').type(
+      "4"
+    );
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
     cy.get("#DeviationOptions0-checkbox").check();
     cy.get(
-      '[data-cy="Deviations.HBD-AD-CAT-A.SelectedOptions0"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.F9V8xD.SelectedOptions0"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#Deviations\\.HBD-AD-CAT-A\\.SelectedOptions0-checkbox").check();
+    cy.get("#Deviations\\.F9V8xD\\.SelectedOptions0-checkbox").check();
     cy.get(
-      '[data-cy="Deviations.HBD-AD-CAT-A.QUAL-A.RateDeviationsSelected0"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.F9V8xD.clYQr0.RateDeviationsSelected0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.HBD-AD-CAT-A\\.QUAL-A\\.RateDeviationsSelected0-checkbox"
+      "#Deviations\\.F9V8xD\\.clYQr0\\.RateDeviationsSelected0-checkbox"
     ).check();
-    cy.get('[data-cy="Deviations.HBD-AD-CAT-A.QUAL-A.numerator"]').type("10");
+    cy.get('[data-cy="Deviations.F9V8xD.clYQr0.numerator"]').type("10");
     cy.get(
-      '[data-cy="Deviations.HBD-AD-CAT-A.QUAL-A.RateDeviationsSelected1"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.F9V8xD.clYQr0.RateDeviationsSelected1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.HBD-AD-CAT-A\\.QUAL-A\\.RateDeviationsSelected1-checkbox"
+      "#Deviations\\.F9V8xD\\.clYQr0\\.RateDeviationsSelected1-checkbox"
     ).check();
-    cy.get('[data-cy="Deviations.HBD-AD-CAT-A.QUAL-A.denominator"]').type("10");
+    cy.get('[data-cy="Deviations.F9V8xD.clYQr0.denominator"]').type("10");
     cy.get(
-      '[data-cy="Deviations.HBD-AD-CAT-A.QUAL-A.RateDeviationsSelected2"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.F9V8xD.clYQr0.RateDeviationsSelected2"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.HBD-AD-CAT-A\\.QUAL-A\\.RateDeviationsSelected2-checkbox"
+      "#Deviations\\.F9V8xD\\.clYQr0\\.RateDeviationsSelected2-checkbox"
     ).check();
-    cy.get('[data-cy="Deviations.HBD-AD-CAT-A.QUAL-A.other"]').type("10");
+    cy.get('[data-cy="Deviations.F9V8xD.clYQr0.other"]').type("10");
 
     cy.get(
-      '[data-cy="Deviations.HBD-AD-CAT-A.SelectedOptions1"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.F9V8xD.SelectedOptions1"] > .chakra-checkbox__control'
     ).click();
-    cy.get("#Deviations\\.HBD-AD-CAT-A\\.SelectedOptions1-checkbox").check();
+    cy.get("#Deviations\\.F9V8xD\\.SelectedOptions1-checkbox").check();
     cy.get(
-      '[data-cy="Deviations.HBD-AD-CAT-A.QUAL-B.RateDeviationsSelected0"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.F9V8xD.chkl7n.RateDeviationsSelected0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.HBD-AD-CAT-A\\.QUAL-B\\.RateDeviationsSelected0-checkbox"
+      "#Deviations\\.F9V8xD\\.chkl7n\\.RateDeviationsSelected0-checkbox"
     ).check();
-    cy.get('[data-cy="Deviations.HBD-AD-CAT-A.QUAL-B.numerator"]').type("10");
+    cy.get('[data-cy="Deviations.F9V8xD.chkl7n.numerator"]').type("10");
     cy.get(
-      '[data-cy="Deviations.HBD-AD-CAT-A.QUAL-B.RateDeviationsSelected1"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.F9V8xD.chkl7n.RateDeviationsSelected1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.HBD-AD-CAT-A\\.QUAL-B\\.RateDeviationsSelected1-checkbox"
+      "#Deviations\\.F9V8xD\\.chkl7n\\.RateDeviationsSelected1-checkbox"
     ).check();
-    cy.get('[data-cy="Deviations.HBD-AD-CAT-A.QUAL-B.denominator"]').type("10");
+    cy.get('[data-cy="Deviations.F9V8xD.chkl7n.denominator"]').type("10");
     cy.get(
-      '[data-cy="Deviations.HBD-AD-CAT-A.QUAL-B.RateDeviationsSelected2"] > .chakra-checkbox__control'
+      '[data-cy="Deviations.F9V8xD.chkl7n.RateDeviationsSelected2"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#Deviations\\.HBD-AD-CAT-A\\.QUAL-B\\.RateDeviationsSelected2-checkbox"
+      "#Deviations\\.F9V8xD\\.chkl7n\\.RateDeviationsSelected2-checkbox"
     ).check();
-    cy.get('[data-cy="Deviations.HBD-AD-CAT-A.QUAL-B.other"]').type("10");
+    cy.get('[data-cy="Deviations.F9V8xD.chkl7n.other"]').type("10");
   });
 
   // if Other measure spec is selected each age range/ custom description for which there are n/d/r
