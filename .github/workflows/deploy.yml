@@ -16,10 +16,8 @@ jobs:
   unit-tests:
     name: Unit Tests
     uses: ./.github/workflows/unittest-workflow.yml
-    if: github.ref == 'refs/heads/master'
     secrets:
       CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-      CODE_CLIMATE_CMS_ID: ${{ secrets.CODE_CLIMATE_CMS_ID }}
   deploy:
     runs-on: ubuntu-latest
     env:
@@ -32,7 +30,7 @@ jobs:
           else
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           fi
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Validate branch name
         run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
       - name: set branch specific variable names
