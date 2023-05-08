@@ -55,7 +55,7 @@ export const AMBHH = ({
               />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.categories}
-                customTotalLabel={PMD.qualifiers[4]}
+                customTotalLabel={PMD.qualifiers[4].label}
               />
             </>
           )}
