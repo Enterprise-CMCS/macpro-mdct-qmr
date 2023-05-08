@@ -1,3 +1,4 @@
+import { LabelData } from "utils";
 import {
   validateEqualCategoryDenominatorsOMS,
   validateEqualCategoryDenominatorsPM,
@@ -10,12 +11,18 @@ import {
   simpleRate,
   partialRate,
   generatePmQualifierRateData,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing Equal Denominators For All Qualifiers Validation", () => {
-  const noCat: string[] = [];
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const noCat: LabelData[] = [];
+  const categories = [
+    { label: "TestCat1", text: "TestCat1", id: "TestCat1" },
+    { label: "TestCat2", text: "TestCat2", id: "TestCat2" },
+  ];
+  const qualifiers = [
+    { label: "TestQual1", text: "TestQual1", id: "TestQual1" },
+    { label: "TestQual2", text: "TestQual2", id: "TestQual2" },
+  ];
   const pmd = { categories, qualifiers };
 
   const baseOMSInfo = {
@@ -49,8 +56,8 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
       expect(errors[0].errorMessage).toBe(
         `The following categories must have the same denominator:`
       );
-      expect(errors[0].errorList).toContain(categories[0]);
-      expect(errors[0].errorList).toContain(categories[1]);
+      expect(errors[0].errorList).toContain(categories[0].label);
+      expect(errors[0].errorList).toContain(categories[1].label);
     });
 
     it("should have error, with qualifiers listed", () => {
@@ -69,8 +76,8 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
       expect(errors[0].errorMessage).toBe(
         `The following categories must have the same denominator:`
       );
-      expect(errors[0].errorList).toContain(qualifiers[0]);
-      expect(errors[0].errorList).toContain(qualifiers[1]);
+      expect(errors[0].errorList).toContain(qualifiers[0].label);
+      expect(errors[0].errorList).toContain(qualifiers[1].label);
     });
 
     it("should NOT have error from empty rate value", () => {
@@ -146,8 +153,8 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
       expect(errors[0].errorMessage).toBe(
         `The following categories must have the same denominator:`
       );
-      expect(errors[0].errorList).toContain(categories[0]);
-      expect(errors[0].errorList).toContain(categories[1]);
+      expect(errors[0].errorList).toContain(categories[0].label);
+      expect(errors[0].errorList).toContain(categories[1].label);
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
   });

@@ -229,8 +229,7 @@ export const measureDescriptions: MeasureList = {
     "HVL-AD": "HIV Viral Load Suppression",
     "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
     "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
-    "NCIDDS-AD":
-      "National Core Indicators Survey-Intellectual and Developmental Disabilities",
+    "NCIDDS-AD": "National Core Indicators Survey",
     "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
@@ -281,15 +280,14 @@ export const measureDescriptions: MeasureList = {
     "WCV-CH": "Child and Adolescent Well-Care Visits",
 
     // Health Home
-    "AIF-HH": "Admission to an Institution from the Community",
+    "AIF-HH": "Admission to a Facility from the Community",
     "AMB-HH": "Ambulatory Care: Emergency Department (ED) Visits",
     "CBP-HH": "Controlling High Blood Pressure",
     "CDF-HH": "Screening for Depression and Follow-Up Plan",
     "COL-HH": "Colorectal Cancer Screening",
     "FUA-HH": "Follow-Up After Emergency Department Visit for Substance Use",
     "FUH-HH": "Follow-Up After Hospitalization for Mental Illness",
-    "IET-HH":
-      "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
+    "IET-HH": "Initiation and Engagement of Substance Use Disorder Treatment",
     "IU-HH": "Inpatient Utilization",
     "OUD-HH": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-HH": "Plan All-Cause Readmissions",

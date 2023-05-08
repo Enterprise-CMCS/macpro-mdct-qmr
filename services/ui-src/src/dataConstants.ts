@@ -186,6 +186,7 @@ export const START_DATE = "startDate";
 export const SUB_CATS = "additionalSubCategories";
 export const SUB_CAT_OPTIONS = "subCatOptions";
 export const TOTAL = "total";
+export const UID = "uid";
 export const VITAL_DATA_SOURCE = "Vital Records";
 export const WHY_ARE_YOU_NOT_REPORTING = "WhyAreYouNotReporting";
 export const WHY_ARE_YOU_NOT_REPORTING_OTHER = "WhyAreYouNotReporting-Other";
