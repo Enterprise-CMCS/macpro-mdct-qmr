@@ -18,8 +18,6 @@ export const validateOPMRates = (
       item.description.trim()
     );
 
-    console.log(formattedDescriptions);
-
     const hasDuplicates = formattedDescriptions.some((desc: any, index) => {
       return formattedDescriptions.indexOf(desc) !== index;
     });
