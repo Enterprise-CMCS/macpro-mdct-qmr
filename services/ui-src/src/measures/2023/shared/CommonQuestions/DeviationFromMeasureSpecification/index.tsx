@@ -3,11 +3,10 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { cleanString } from "utils/cleanString";
-import { getLabelText } from "utils";
+import { LabelData, getLabelText } from "utils";
 
 interface GetTopLvlDeviationOptions {
-  categories: string[];
+  categories: LabelData[];
   customTotalLabel?: string;
 }
 
@@ -18,7 +17,7 @@ type TopLevelOptions = {
 }[];
 
 interface Props {
-  categories: string[];
+  categories: LabelData[];
   customTotalLabel?: string;
   measureName?: string;
 }
@@ -92,21 +91,21 @@ export const getLowLvlDeviationOptions = ({
     return getRateTextAreaOptions(name);
   }
 
-  return qualifiers
-    .sort((a: any, b: any) => b.label! - a.label!)
-    .map((item) => {
-      const value = `${item.label && cleanString(item.label)}`;
-      return {
-        displayValue: labelText?.[item.label!] || item.label,
-        value,
-        children: [
-          <DeviationsSelectedCheckbox
-            name={`${name}.${value}`}
-            key={`${name}.${value}`}
-          />,
-        ],
-      };
-    });
+  //note: qualifier use to have a sort where it subtracted the labels, removed because it didn't do anything, but something to note if there's an issue here
+  return qualifiers.map((item) => {
+    //the item only wants the qualifer id so we split the uid to get the qualifier id
+    const value = `${item.label && item.uid?.split(".")[1]}`;
+    return {
+      displayValue: labelText?.[item.label!] || item.label,
+      value,
+      children: [
+        <DeviationsSelectedCheckbox
+          name={`${name}.${value}`}
+          key={`${name}.${value}`}
+        />,
+      ],
+    };
+  });
 };
 
 export const PCRADgetLowLvlDeviationOptions = ({
@@ -137,20 +136,21 @@ export const DeviationFromMeasureSpec = ({
       const topLvlOptions: TopLevelOptions = [];
       const { rates } = watchPerformanceMeasure;
 
-      if (rates.singleCategory) {
-        // handle for PCR-XX measures
+      //by this point in the system, there should be at least 1 key in rates
+      //if there are no categories, the key singleCategory will be used instead
+      if (Object.keys(rates).length === 1) {
+        let rate = Object(Object.values(rates)[0]);
+
         if (["PCR-AD", "PCR-HH"].includes(measureName)) {
-          const quals = rates.singleCategory.filter((r: any) => r.value !== "");
+          const quals = rate.filter((r: any) => r.value !== "");
           if (quals.length > 0) {
             return getRateTextAreaOptions(DC.DEVIATIONS);
           }
         }
         // A total category should have the label "Total", per the Figma design.
-        const totalIndex = rates.singleCategory.findIndex(
-          (cat: any) => cat?.isTotal === true
-        );
+        const totalIndex = rate.findIndex((cat: any) => cat?.isTotal === true);
         if (totalIndex >= 0) {
-          rates.singleCategory[totalIndex].label = `${
+          rate[totalIndex].label = `${
             customTotalLabel ? `${customTotalLabel}` : "Total"
           }`;
         }
@@ -159,13 +159,13 @@ export const DeviationFromMeasureSpec = ({
         return getLowLvlDeviationOptions({
           qualifiers:
             measureName === "AIF-HH"
-              ? rates.singleCategory.filter(complexNumDenExistInRate)
-              : rates.singleCategory.filter(numDenExistInRate),
+              ? rate.filter(complexNumDenExistInRate)
+              : rate.filter(numDenExistInRate),
           name: DC.DEVIATIONS,
         });
       } else {
         categories.forEach((cat) => {
-          const key = cleanString(cat);
+          const key = cat.id;
           // if some of the rates have both num and den
           const deviations =
             measureName === "IU-HH"
@@ -180,7 +180,7 @@ export const DeviationFromMeasureSpec = ({
             // add the rates that have num and den to topLvlOptions along with its display value from categories
             topLvlOptions.push({
               rates: deviationRates,
-              displayValue: labelText[cat] || cat,
+              displayValue: labelText[cat.label] || cat,
               key,
             });
           }
