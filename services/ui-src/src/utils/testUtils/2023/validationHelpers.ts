@@ -1,20 +1,21 @@
 /**  
-NOTE: legacy file used for 2021 & 2022 unit test
-Use folder testUtils/2023/validationHelpers.ts for unit test 2023 and later
+NOTE: This validationHelper was cloned when categories & qualifiers were updated to use LabelData[] as type instead of string[]
+This should be the file used for some of the unit test from year 2023 onward
 */
+
 import * as DC from "dataConstants";
-import * as Types from "measures/2021/CommonQuestions/types";
+import * as Types from "measures/2023/shared/CommonQuestions/types";
 import {
   OMSData,
   OmsNode,
-} from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
-import { cleanString } from "utils";
+} from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { LabelData, cleanString } from "utils";
 import {
   RateFields,
   OmsNodes as OMS,
   DataDrivenTypes as DDT,
   PerformanceMeasure,
-} from "measures/2021/CommonQuestions/types";
+} from "measures/2023/shared/CommonQuestions/types";
 
 // Test Rate Objects
 export const partialRate: RateFields = {
@@ -81,14 +82,14 @@ export const emptyRate: RateFields = {
  * Helper function to prep oms validation test data  by slotting test data in qualifier order
  *
  * @param categories should always at least contain "singleCategory"
- * @param qualifiers a non-negotiable string array
+ * @param qualifiers a non-negotiable LabelData array
  * @param testData what test data to place in the qualifier location in rate data
  *
  * @note testData MUST be the same length as chosen qualifiers
  */
 export const generateOmsQualifierRateData = (
-  categories: string[],
-  qualifiers: string[],
+  categories: LabelData[],
+  qualifiers: LabelData[],
   testData: RateFields[]
 ) => {
   if (testData.length !== qualifiers.length) {
@@ -96,11 +97,13 @@ export const generateOmsQualifierRateData = (
     return {};
   }
   const rateData: OMS.OmsRateFields = {};
-  const cats = categories.length ? categories : [DC.SINGLE_CATEGORY];
-  rateData.options = qualifiers.map((s) => cleanString(s));
+  const cats = categories.length
+    ? categories.map((item) => item.id)
+    : [DC.SINGLE_CATEGORY];
+  rateData.options = qualifiers.map((s) => s.id);
 
-  for (const [i, q] of qualifiers.map((q) => cleanString(q)).entries()) {
-    for (const c of cats.map((c) => cleanString(c))) {
+  for (const [i, q] of qualifiers.map((q) => q.id).entries()) {
+    for (const c of cats) {
       rateData.rates ??= {};
       rateData.rates[q] ??= {};
       rateData.rates[q][c] = [testData[i]];
@@ -114,14 +117,14 @@ export const generateOmsQualifierRateData = (
  * Helper function to prep oms validation test data  by slotting test data in category order
  *
  * @param categories should be longer than just singleCategory
- * @param qualifiers a non-negotiable string array
+ * @param qualifiers a non-negotiable LabelData array
  * @param testData what test data to place in the category location in rate data
  *
  * @note testData MUST be the same length as chosen categories
  */
 export const generateOmsCategoryRateData = (
-  categories: string[],
-  qualifiers: string[],
+  categories: LabelData[],
+  qualifiers: LabelData[],
   testData: RateFields[]
 ) => {
   if (testData.length !== categories.length) {
@@ -130,10 +133,10 @@ export const generateOmsCategoryRateData = (
   }
 
   const rateData: OMS.OmsRateFields = {};
-  rateData.options = qualifiers.map((s) => cleanString(s));
+  rateData.options = qualifiers.map((s) => s.id);
 
-  for (const [i, c] of categories.map((c) => cleanString(c)).entries()) {
-    for (const q of qualifiers.map((q) => cleanString(q))) {
+  for (const [i, c] of categories.map((c) => c.id).entries()) {
+    for (const q of qualifiers.map((q) => q.id)) {
       rateData.rates ??= {};
       rateData.rates[q] ??= {};
       rateData.rates[q][c] = [testData[i]];
@@ -158,10 +161,12 @@ export const generatePmQualifierRateData = (
     return {};
   }
   const rateData: PerformanceMeasure = { PerformanceMeasure: { rates: {} } };
-  const cats = pmd.categories?.length ? pmd.categories : [DC.SINGLE_CATEGORY];
+  const cats = pmd.categories?.length
+    ? pmd.categories.map((item) => item.id)
+    : [DC.SINGLE_CATEGORY];
 
   for (let i = 0; i < pmd.qualifiers.length; i++) {
-    for (const c of cats?.map((c) => cleanString(c)) ?? []) {
+    for (const c of cats ?? []) {
       rateData.PerformanceMeasure!.rates![c] ??= [];
       rateData?.PerformanceMeasure?.rates?.[c]?.push(testData[i]);
     }
@@ -187,7 +192,7 @@ export const generatePmCategoryRateData = (
 
   const rateData: PerformanceMeasure = { PerformanceMeasure: { rates: {} } };
 
-  for (const [i, c] of pmd.categories.map((c) => cleanString(c)).entries()) {
+  for (const [i, c] of pmd.categories.map((c) => c.id).entries()) {
     pmd.qualifiers?.forEach(() => {
       rateData.PerformanceMeasure!.rates![c] ??= [];
       rateData?.PerformanceMeasure?.rates?.[c]?.push(testData[i]);
