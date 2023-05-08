@@ -1169,7 +1169,6 @@ export const data = {
                 "text": "Discussing Cessation Strategies",
                 "id": "xiXN7R"
             }
-            }
         ]
     },
     "OEV-CH": {
