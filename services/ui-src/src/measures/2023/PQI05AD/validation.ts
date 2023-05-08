@@ -45,7 +45,7 @@ const PQI05Validation = (data: FormData) => {
       validateDualPopInformationArray,
       OPM,
       1,
-      ageGroups
+      ageGroups.map((item) => item.label)
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

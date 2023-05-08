@@ -1,9 +1,9 @@
-import { cleanString } from "utils";
+import { LabelData } from "utils";
 
 export const ComplexValueSameCrossCategoryOMS = (
   rateData: any,
-  categories: string[],
-  qualifiers: string[],
+  categories: LabelData[],
+  qualifiers: LabelData[],
   errorLocation: string
 ) => {
   // Using a subset of rateData as iterator to be sure that Total
@@ -14,17 +14,15 @@ export const ComplexValueSameCrossCategoryOMS = (
 
   const qualifierLabels: any = {};
   for (const q of qualifiers) {
-    const qCleaned = cleanString(q);
-    qualifierLabels[qCleaned] = q;
+    qualifierLabels[q.id] = q.label;
   }
-  const cleanedCategories = categories.map((cat) => cleanString(cat));
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];
-  for (const cat of cleanedCategories) {
+  for (const cat of categories) {
     let row = [];
     for (const q in qualifierObj) {
-      const qual = qualifierObj[q]?.[cat]?.[0];
+      const qual = qualifierObj[q]?.[cat.id]?.[0];
       if (qual) {
         qual.label = qualifierLabels[q];
         row.push(qual);
@@ -32,7 +30,7 @@ export const ComplexValueSameCrossCategoryOMS = (
     }
     // only need to add total data if other data exists
     if (row.length > 0) {
-      const catTotal = { ...totalData[cat][0] };
+      const catTotal = { ...totalData[cat.id][0] };
       catTotal.label = "Total";
       row.push(catTotal);
       performanceMeasureArray.push(row);
@@ -80,7 +78,7 @@ export const ComplexValueSameCrossCategory = ({
     } = {};
     for (const category of rateData) {
       for (const qualifier of category.slice(0, -1)) {
-        const cleanQual = cleanString(qualifier.label);
+        const cleanQual = qualifier.id;
         if (tempValues[cleanQual]?.value) {
           if (
             qualifier.fields[fieldIndex]?.value &&

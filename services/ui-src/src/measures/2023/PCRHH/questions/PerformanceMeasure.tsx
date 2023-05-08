@@ -5,6 +5,8 @@ import { PerformanceMeasureData } from "measures/2023/shared/CommonQuestions/Per
 import { PCRRate } from "components/PCRRate";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useWatch } from "react-hook-form";
+import { LabelData } from "utils";
+import * as DC from "dataConstants";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -15,8 +17,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: string[];
-  qualifiers?: string[];
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   rateReadOnly: boolean;
   calcTotal: boolean;
   rateScale?: number;
@@ -37,25 +39,24 @@ const CategoryNdrSets = ({
     <>
       {categories.map((item) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat,
+          label: cat.label,
+          uid: `${item.id}.${cat.id}`,
           id: idx,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = item.replace(/[^\w]/g, "");
-
         return (
           <>
-            <CUI.Text key={item} fontWeight="bold" my="5">
-              {item}
+            <CUI.Text key={item.id} fontWeight="bold" my="5">
+              {item.label}
             </CUI.Text>
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
-              {...register(`PerformanceMeasure.rates.${cleanedName}`)}
+              {...register(`PerformanceMeasure.rates.${item.id}`)}
             />
           </>
         );
@@ -64,16 +65,21 @@ const CategoryNdrSets = ({
   );
 };
 
-/** If no categories, we still need a rate for the PM */
+/** If no categories, we still need a rate for the PM
+ * 2023 and onward, categories should have 1 LabelData object filled for creating uid in database
+ */
 const QualifierNdrSets = ({
   rateReadOnly,
+  categories = [],
   qualifiers = [],
   customMask,
 }: NdrSetProps) => {
   const register = useCustomRegister();
+  const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
-    label: item,
+    label: item.label,
+    uid: `${categoryID}.${item.id}`,
     id: idx,
   }));
 
@@ -82,7 +88,7 @@ const QualifierNdrSets = ({
       rates={rates}
       readOnly={rateReadOnly}
       customMask={customMask}
-      {...register("PerformanceMeasure.rates.singleCategory")}
+      {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
     />
   );
 };
@@ -91,7 +97,11 @@ const QualifierNdrSets = ({
 const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   let ndrSets;
 
-  if (props.categories?.length) {
+  //if there is a category and the category labels are filled out, create the NDR using the categories array
+  if (
+    props.categories?.length &&
+    props.categories?.some((item) => item.label)
+  ) {
     ndrSets = <CategoryNdrSets {...props} />;
   } else if (props.qualifiers?.length) {
     ndrSets = <QualifierNdrSets {...props} />;

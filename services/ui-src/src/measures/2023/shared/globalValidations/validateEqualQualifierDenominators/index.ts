@@ -4,6 +4,7 @@ import {
   UnifiedValFuncProps as UVFP,
 } from "../types";
 import { convertOmsDataToRateArray } from "../dataDrivenTools";
+import { LabelData } from "utils";
 
 interface ValProps extends UVFP {
   locationFunc?: (qualifier: string) => string;
@@ -35,8 +36,8 @@ const _validation = ({
     const error = !denominators.every((v) => !v || v === denominators[0]);
     if (error) {
       errorArray.push({
-        errorLocation: locationFunc ? locationFunc(qual) : location,
-        errorMessage: errorMessage ?? errorMessageFunc(qual),
+        errorLocation: locationFunc ? locationFunc(qual.label) : location,
+        errorMessage: errorMessage ?? errorMessageFunc(qual.label),
       });
     }
   }
@@ -70,7 +71,7 @@ export const validateEqualQualifierDenominatorsOMS =
  */
 export const validateEqualQualifierDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
-  qualifiers: string[],
+  qualifiers: LabelData[],
   errorMessage?: string,
   errorMessageFunc?: (qualifier: string) => string
 ) => {

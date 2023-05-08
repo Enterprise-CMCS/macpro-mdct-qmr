@@ -8,12 +8,12 @@ import {
   DefaultFormData,
 } from "measures/2023/shared/CommonQuestions/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
-import { cleanString } from "utils";
+import { LabelData } from "utils";
 
 interface OmsValidationProps {
   data: DefaultFormData;
-  qualifiers: string[];
-  categories: string[];
+  qualifiers: LabelData[];
+  categories: LabelData[];
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
@@ -30,8 +30,8 @@ export const omsValidations = ({
   customTotalLabel,
   dataSource,
 }: OmsValidationProps) => {
-  const opmCats: string[] = ["OPM"];
-  const opmQuals: string[] = [];
+  const opmCats: LabelData[] = [{ id: "OPM", text: "OPM", label: "OPM" }];
+  const opmQuals: LabelData[] = [];
   let isOPM = false;
   if (
     data.MeasurementSpecification === "Other" &&
@@ -39,12 +39,23 @@ export const omsValidations = ({
   ) {
     isOPM = true;
     opmQuals.push(
-      ...data["OtherPerformanceMeasure-Rates"].map(
-        (rate) => rate.description ?? "Fill out description"
-      )
+      ...data["OtherPerformanceMeasure-Rates"].map((rate) => ({
+        id: "",
+        label: rate.description ?? "Fill out description",
+        text: "",
+      }))
     );
   }
-  const cats = categories.length === 0 ? ["singleCategory"] : categories;
+  const cats =
+    categories.length === 0
+      ? [
+          {
+            id: "singleCategory",
+            text: "singleCategory",
+            label: "singleCategory",
+          },
+        ]
+      : categories;
   return validateNDRs(
     data,
     validationCallbacks,
@@ -61,8 +72,8 @@ export const omsValidations = ({
 const validateNDRs = (
   data: DefaultFormData,
   callbackArr: OmsValidationCallback[],
-  qualifiers: string[],
-  categories: string[],
+  qualifiers: LabelData[],
+  categories: LabelData[],
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,
@@ -130,6 +141,7 @@ const validateNDRs = (
         })
       );
     }
+
     if (checkIsFilled) {
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
 
@@ -200,10 +212,10 @@ const validateNDRs = (
     if (rateData?.["pcr-rate"]) {
       return rateData["pcr-rate"].every((o) => !!o?.value);
     }
-    for (const qual of qualifiers.map((s) => cleanString(s))) {
-      for (const cat of categories.map((s) => cleanString(s))) {
-        if (rateData.rates?.[qual]?.[cat]) {
-          const temp = rateData.rates[qual][cat][0];
+    for (const qual of qualifiers) {
+      for (const cat of categories) {
+        if (rateData.rates?.[qual.id]?.[cat.id]) {
+          const temp = rateData.rates[qual.id][cat.id][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
             return true;
           }
@@ -225,14 +237,14 @@ const validateNDRs = (
     }
 
     // default check
-    for (const qual of qualifiers.map((s) => cleanString(s))) {
-      for (const cat of categories.map((s) => cleanString(s))) {
-        if (rateData.rates?.[qual]?.[cat]) {
-          const temp = rateData.rates[qual][cat][0];
+    for (const qual of qualifiers) {
+      for (const cat of categories) {
+        if (rateData.rates?.[qual.id]?.[cat.id]) {
+          const temp = rateData.rates[qual.id][cat.id][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
-            isDeepFilled[`${location}-${qual}`] ??= true;
+            isDeepFilled[`${location}-${qual.id}`] ??= true;
           } else {
-            isDeepFilled[`${location}-${qual}`] = false;
+            isDeepFilled[`${location}-${qual.id}`] = false;
           }
         }
       }

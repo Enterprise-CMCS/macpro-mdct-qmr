@@ -1,6 +1,6 @@
 import { validateTotalNDR, validateOMSTotalNDR } from ".";
 
-import * as VH from "utils/testUtils/validationHelpers";
+import * as VH from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing PM/OMS Total Validations", () => {
   describe("PM validation", () => {
@@ -109,9 +109,20 @@ describe("Testing PM/OMS Total Validations", () => {
 
   describe("OMS validation", () => {
     const label = ["TestLabel"];
-    const noCategories = ["singleCategory"];
-    const categories = ["test1", "test2", "test3"];
-    const qualifiers = ["test1", "test2", "testTotal"];
+
+    const noCategories = [
+      { label: "singleCategory", text: "singleCategory", id: "singleCategory" },
+    ];
+    const categories = [
+      { label: "test1", text: "test1", id: "test1" },
+      { label: "test2", text: "test2", id: "test2" },
+      { label: "test3", text: "test3", id: "test3" },
+    ];
+    const qualifiers = [
+      { label: "test1", text: "test1", id: "test1" },
+      { label: "test2", text: "test2", id: "test2" },
+      { label: "testTotal", text: "testTotal", id: "testTotal" },
+    ];
 
     const locationDictionary = (s: string[]) => {
       return s[0];
