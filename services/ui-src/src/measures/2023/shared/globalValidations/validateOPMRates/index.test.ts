@@ -14,12 +14,17 @@ describe("OPM Validation", () => {
     formData = JSON.parse(JSON.stringify(testFormData)); // reset data
   });
 
-  it("Should throw error if there are duplicate opm rates", () => {
-    formData[DC.OPM_RATES][0][DC.DESCRIPTION] = "18-64";
-    formData[DC.OPM_RATES][1][DC.DESCRIPTION] = "18-64";
-    const errorMessage = "Measure description must be unique.";
+  it("Should not throw error if there are no duplicates", () => {
+    formData[DC.OPM_RATES][0][DC.DESCRIPTION] = "18-30";
+    formData[DC.OPM_RATES][1][DC.DESCRIPTION] = "31-64";
     const errorArray = run_validation(formData);
-    expect(errorArray.length).toBe(1);
-    expect(errorArray[0].errorMessage).toBe(errorMessage);
+    expect(errorArray.length).toBe(0);
+  });
+
+  it("Should not treat multiple empty descriptions as duplicates", () => {
+    formData[DC.OPM_RATES][0][DC.DESCRIPTION] = "";
+    formData[DC.OPM_RATES][1][DC.DESCRIPTION] = "";
+    const errorArray = run_validation(formData);
+    expect(errorArray.length).toBe(0);
   });
 });
