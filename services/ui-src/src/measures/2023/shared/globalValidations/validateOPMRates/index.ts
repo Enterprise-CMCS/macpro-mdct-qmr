@@ -10,11 +10,18 @@ export const validateOPMRates = (
   const errorArray: FormError[] = [];
 
   if (otherPerformanceMeasure) {
-    const opm_descriptions = otherPerformanceMeasure.map(
-      (item) => item.description
+    const opm_descriptions = otherPerformanceMeasure.filter(
+      (item: any) => item.description !== ""
     );
-    const hasDuplicates = opm_descriptions.some((desc, index) => {
-      return opm_descriptions.indexOf(desc) !== index;
+
+    const formattedDescriptions = opm_descriptions.map((item: any) =>
+      item.description.trim()
+    );
+
+    console.log(formattedDescriptions);
+
+    const hasDuplicates = formattedDescriptions.some((desc: any, index) => {
+      return formattedDescriptions.indexOf(desc) !== index;
     });
 
     if (hasDuplicates) {
