@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "../types";
 import * as QMR from "components";
-import { cleanString, getLabelText } from "utils";
+import { LabelData, cleanString, getLabelText } from "utils";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { useTotalAutoCalculation } from "./omsUtil";
@@ -14,8 +14,8 @@ interface NdrProps {
 interface TotalProps {
   name: string;
   componentFlag: ComponentFlagType;
-  qualifier?: string;
-  category?: string;
+  qualifier?: LabelData;
+  category?: LabelData;
 }
 
 type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
@@ -27,7 +27,11 @@ type RateArrayBuilder = (name: string) => React.ReactElement[][];
 const TotalNDR = ({
   name,
   componentFlag,
-  category = DC.SINGLE_CATEGORY,
+  category = {
+    id: DC.SINGLE_CATEGORY,
+    label: DC.SINGLE_CATEGORY,
+    text: DC.SINGLE_CATEGORY,
+  },
   qualifier,
 }: TotalProps) => {
   const {
@@ -46,10 +50,13 @@ const TotalNDR = ({
   } = usePerformanceMeasureContext();
 
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
-  const cleanedQualifier = cleanString(lastQualifier);
-  const cleanedCategory = cleanString(category);
+  const cleanedQualifier = lastQualifier.id;
+  const cleanedCategory = category.id;
   const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
-  const label = category === DC.SINGLE_CATEGORY ? lastQualifier : category;
+  const label =
+    category.label === DC.SINGLE_CATEGORY
+      ? lastQualifier.label
+      : category.label;
 
   useTotalAutoCalculation({ name, cleanedCategory, componentFlag });
 
@@ -100,7 +107,7 @@ const TotalNDRSets = ({
   const { qualifiers, categories } = usePerformanceMeasureContext();
   const totalQual = qualifiers.slice(-1)[0];
 
-  if (categories.length) {
+  if (categories.length && categories.some((item) => item.label)) {
     categories.forEach((cat, idx) => {
       rateArray.push(
         <CUI.Box key={`${name}.${idx}.totalWrapper`}>
@@ -118,6 +125,7 @@ const TotalNDRSets = ({
       <CUI.Box key={`${name}.totalWrapper`}>
         <TotalNDR
           name={name}
+          category={categories[0]?.id ? categories[0] : undefined}
           componentFlag={componentFlag}
           key={`${name}.TotalWrapper`}
         />{" "}
@@ -128,9 +136,9 @@ const TotalNDRSets = ({
   return (
     <CUI.Box>
       <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />
-      {categories.length > 0 && (
+      {categories.length > 0 && categories.some((item) => item.label) && (
         <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-          {totalQual}
+          {totalQual.label}
         </CUI.Heading>
       )}
       <CUI.Box>{rateArray}</CUI.Box>
@@ -170,8 +178,8 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
         if (idx === 1) {
           category = [{}, category[0], {}, category[1], category[2]];
         }
-        const cleanQual = cleanString(singleQual);
-        const cleanCat = cleanString(categories[idx]);
+        const cleanQual = singleQual.id;
+        const cleanCat = categories[idx].id;
         const cleanedName = `${name}.rates.${cleanQual}.${cleanCat}`;
 
         // Confirm that there is at least 1 rate complete
@@ -190,7 +198,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx],
+                  label: categories[idx].label,
                 },
               ]}
               categoryName={""}
@@ -201,9 +209,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     } else if (performanceMeasureArray) {
       performanceMeasureArray?.forEach((measure, idx) => {
         if (measure?.[qualIndex]?.rate) {
-          const adjustedName = `${name}.rates.${cleanString(
-            singleQual
-          )}.${cleanString(categories[idx])}`;
+          const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx]?.id}`;
 
           ndrSets.push(
             <QMR.Rate
@@ -222,7 +228,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx],
+                  label: categories[idx]?.label,
                 },
               ]}
             />
@@ -238,6 +244,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
 /** Creates Rate Components for each Qualifier if filled in PM */
 const useQualRateArray: RateArrayBuilder = (name) => {
   const {
+    categories,
     qualifiers,
     measureName,
     inputFieldNames,
@@ -258,11 +265,12 @@ const useQualRateArray: RateArrayBuilder = (name) => {
   const rateArrays: React.ReactElement[][] = [];
 
   quals?.forEach((singleQual, qualIndex) => {
-    if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
-      const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
-        DC.SINGLE_CATEGORY
-      }`;
+    const categoryID = categories[0]?.id
+      ? categories[0].id
+      : DC.SINGLE_CATEGORY;
+    const cleanedName = `${name}.rates.${singleQual.id}.${categoryID}`;
 
+    if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
       rateArrays.push([
         <QMR.Rate
           readOnly={rateReadOnly}
@@ -282,9 +290,6 @@ const useQualRateArray: RateArrayBuilder = (name) => {
       ]);
     } else if (AIFHHPerformanceMeasureArray) {
       AIFHHPerformanceMeasureArray?.forEach((measure) => {
-        const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
-          DC.SINGLE_CATEGORY
-        }`;
         //Confirm that there is at least 1 rate complete
         const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
         const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
@@ -328,7 +333,10 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
-  const rateArrays = !categories.length ? qualRates : standardRates;
+  const rateArrays =
+    !categories.length || !categories.some((item) => item.label)
+      ? qualRates
+      : standardRates;
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
@@ -339,13 +347,12 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
 
   quals?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
-      const cleanedLabel = cleanString(value);
       const ageGroupCheckBox = {
-        value: cleanedLabel,
-        displayValue: labelText[value] ?? value,
+        value: value.id,
+        displayValue: labelText[value.label] ?? value,
         children: [
           <CUI.Heading
-            key={`${name}.rates.${cleanedLabel}Header`}
+            key={`${name}.rates.${value.id}Header`}
             size={"sm"}
             dangerouslySetInnerHTML={{
               __html:
@@ -356,7 +363,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
           />,
           <CUI.Heading
             pt="1"
-            key={`${name}.rates.${cleanedLabel}HeaderHelper`}
+            key={`${name}.rates.${value.id}HeaderHelper`}
             size={"sm"}
             hidden={!shouldDisplay}
           >
@@ -441,7 +448,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
   const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
   const rates = qualifiers.map((qual, i) => {
-    return { label: qual, id: i };
+    return { label: qual.label, id: i };
   });
   // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();
