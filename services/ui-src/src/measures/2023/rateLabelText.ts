@@ -587,6 +587,21 @@ export const data = {
         ],
         "categories": []
     },
+    "CPU-AD": {
+        "qualifiers": [
+            {
+                "label": "Care Plan with Core Elements Documented",
+                "text": "Care Plan with Core Elements Documented",
+                "id": "CarePlanwithCoreElementsDocumented",
+            },
+            {
+                "label": "Care Plan with Supplemental Elements Documented",
+                "text": "Care Plan with Supplemental Elements Documented",
+                "id": "CarePlanwithSupplementalElementsDocumented",
+            },
+        ],
+        "categories": []
+    },
     "DEV-CH": {
         "qualifiers": [
             {

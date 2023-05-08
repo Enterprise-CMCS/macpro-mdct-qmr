@@ -763,6 +763,10 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "CPU-AD",
+    },
+    {
+      type: "A",
       measure: "FUA-AD",
     },
     {
