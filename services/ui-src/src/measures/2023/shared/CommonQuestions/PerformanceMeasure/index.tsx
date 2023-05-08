@@ -5,7 +5,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { cleanString, getLabelText } from "utils";
+import { LabelData, getLabelText } from "utils";
 import { ndrFormula } from "types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
@@ -26,8 +26,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: string[];
-  qualifiers?: string[];
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   measureName?: string;
   inputFieldNames?: string[];
   ndrFormulas?: ndrFormula[];
@@ -68,18 +68,17 @@ const CategoryNdrSets = ({
     <>
       {categories.map((item) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat,
+          label: cat.label,
+          uid: item.id + "." + cat.id,
           id: idx,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = cleanString(item);
-
         return (
-          <CUI.Box key={item}>
+          <CUI.Box key={item.id}>
             <CUI.Text fontWeight="bold" my="5">
-              {labelText[item] ?? item}
+              {labelText[item.label] ?? item.label}
             </CUI.Text>
             <RateComponent
               readOnly={rateReadOnly}
@@ -89,15 +88,13 @@ const CategoryNdrSets = ({
               ndrFormulas={ndrFormulas}
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
-              categoryName={item}
+              categoryName={item.label}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               rateCalc={rateCalc}
-              {...register(
-                `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cleanedName}`
-              )}
+              {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${item.id}`)}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }
@@ -109,9 +106,12 @@ const CategoryNdrSets = ({
   );
 };
 
-/** If no categories, we still need a rate for the PM */
+/** If no categories, we still need a rate for the PM
+ * 2023 and onward, categories are expected to have at least object filled for creating uid in database
+ */
 const QualifierNdrSets = ({
   rateReadOnly,
+  categories = [],
   qualifiers = [],
   measureName,
   inputFieldNames,
@@ -127,9 +127,11 @@ const QualifierNdrSets = ({
   rateCalc,
 }: NdrSetProps) => {
   const register = useCustomRegister();
+  const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
-    label: item,
+    label: item.label,
+    uid: `${categoryID}.${item.id}`, //this uid is used to map to the N/D/R data's id key in the database
     id: idx,
   }));
   return (
@@ -150,9 +152,7 @@ const QualifierNdrSets = ({
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
         }
-        {...register(
-          `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${DC.SINGLE_CATEGORY}`
-        )}
+        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
       />
     </>
   );
@@ -162,7 +162,7 @@ const QualifierNdrSets = ({
 const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   let ndrSets;
 
-  if (props.categories?.length) {
+  if (props.categories?.length && props.categories.some((item) => item.label)) {
     ndrSets = <CategoryNdrSets {...props} />;
   } else if (props.qualifiers?.length) {
     ndrSets = <QualifierNdrSets {...props} />;
@@ -267,7 +267,7 @@ export const PerformanceMeasure = ({
           {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
         />
       )}
-      {hybridMeasure && (
+      {hybridMeasure && pheIsCurrent && (
         <CUI.Box my="5">
           <CUI.Text>
             CMS recognizes that social distancing will make onsite medical chart
@@ -277,13 +277,11 @@ export const PerformanceMeasure = ({
             voluntary, CMS encourages states that can collect information safely
             to continue reporting the measures they have reported in the past.
           </CUI.Text>
-          {pheIsCurrent && (
-            <QMR.TextArea
-              formLabelProps={{ mt: 5 }}
-              {...register("PerformanceMeasure.hybridExplanation")}
-              label="Describe any COVID-related difficulties encountered while collecting this data:"
-            />
-          )}
+          <QMR.TextArea
+            formLabelProps={{ mt: 5 }}
+            {...register("PerformanceMeasure.hybridExplanation")}
+            label="Describe any COVID-related difficulties encountered while collecting this data:"
+          />
         </CUI.Box>
       )}
       <CUI.Text

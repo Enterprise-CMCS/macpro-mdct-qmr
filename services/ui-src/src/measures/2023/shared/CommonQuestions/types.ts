@@ -1,3 +1,4 @@
+import { LabelData } from "utils";
 import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
@@ -15,7 +16,7 @@ export interface MeasurementSpecification {
     | typeof DC.HRSA
     | typeof DC.PQA;
   [DC.MEASUREMENT_SPECIFICATION_HEDIS]: // if Measure Spec is NCQA/HEDIS -> which version are they using
-  typeof DC.HEDIS_MY_2021 | typeof DC.HEDIS_MY_2020 | typeof DC.HEDIS_2020;
+  typeof DC.HEDIS_MY_2022 | typeof DC.HEDIS_MY_2021 | typeof DC.HEDIS_MY_2020;
   [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION]: string; // If user selects OTHER in MEASUREMENT_SPECIFICATION -> this is the description
   [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD]: File; // If user selects OTHER in MEASUREMENT_SPECIFICATION -> this is optional file upload
 }
@@ -173,6 +174,7 @@ export interface RateFields {
   [DC.NUMERATOR]?: string;
   [DC.DENOMINATOR]?: string;
   [DC.RATE]?: string;
+  [DC.UID]?: string;
 }
 
 export interface complexRateFields {
@@ -253,11 +255,11 @@ export namespace OmsNodes {
 }
 
 export interface Qualifiers {
-  [DC.QUALIFIERS]?: string[];
+  [DC.QUALIFIERS]?: LabelData[];
 }
 
 export interface Categories {
-  [DC.CATEGORIES]?: string[];
+  [DC.CATEGORIES]?: LabelData[];
 }
 
 export interface OptionalMeasureStratification {

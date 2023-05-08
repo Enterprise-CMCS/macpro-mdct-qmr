@@ -3,10 +3,7 @@ on:
   workflow_call:
     secrets:
       CODE_CLIMATE_ID:
-        description: "Default Code Climate ID"
-        required: false
-      CODE_CLIMATE_CMS_ID:
-        description: "CMS Code Climate ID"
+        description: "Code Climate ID"
         required: false
 
 jobs:
@@ -14,12 +11,11 @@ jobs:
     name: Unit Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: set variable values
         run: ./.github/build_vars.sh set_values
         env:
           CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-          CODE_CLIMATE_CMS_ID: ${{ secrets.CODE_CLIMATE_CMS_ID }}
       - name: read .nvmrc
         id: node_version
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
@@ -38,6 +34,7 @@ jobs:
       - name: run unit tests
         run: ./test-unit.sh
       - name: publish test coverage to code climate
+        if: env.CODE_CLIMATE_ID != ''
         uses: paambaati/codeclimate-action@v2.7.5
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
@@ -45,7 +42,7 @@ jobs:
           coverageLocations: |
             ${{github.workspace}}/services/app-api/coverage/lcov.info:lcov
             ${{github.workspace}}/services/ui-src/coverage/lcov.info:lcov
-      - name: Store unit test reults
+      - name: Store unit test results
         uses: actions/upload-artifact@v2
         with:
           name: unit_test_results

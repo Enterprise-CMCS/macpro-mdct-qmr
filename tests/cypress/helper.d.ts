@@ -18,6 +18,9 @@ declare namespace Cypress {
     // by passing in a user (not including the @test.com) ex. cy.login('bouser')
     loginHealthHome(user?: string, password?: string): Chainable<Element>;
 
+    //Select Reporting Year
+    selectYear(year: string): Chainable<Element>;
+
     // Visit Adult Core Set Measures
     goToAdultMeasures(): Chainable<Element>;
 

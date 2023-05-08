@@ -10,17 +10,23 @@ import {
   higherRate,
   lowerRate,
   partialRate,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing Category Rate Higher Than Other Validation", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const expandedCategories = [
-    "Test Cat 1",
-    "Test Cat 2",
-    "Test Cat 3",
-    "Test Cat 4",
+  const categories = [
+    { label: "TestCat1", text: "TestCat1", id: "TestCat1" },
+    { label: "TestCat2", text: "TestCat2", id: "TestCat2" },
   ];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const expandedCategories = [
+    { label: "TestCat1", text: "TestCat1", id: "TestCat1" },
+    { label: "TestCat2", text: "TestCat2", id: "TestCat2" },
+    { label: "TestCat3", text: "TestCat3", id: "TestCat3" },
+    { label: "TestCat4", text: "TestCat4", id: "TestCat4" },
+  ];
+  const qualifiers = [
+    { label: "TestQual1", text: "TestQual1", id: "TestQual1" },
+    { label: "TestQual2", text: "TestQual2", id: "TestQual2" },
+  ];
 
   const baseOMSInfo = {
     categories,
@@ -58,7 +64,7 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
       expect(errors).toHaveLength(2);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `${categories[1]} Rate should not be higher than ${categories[0]} Rate for ${qualifiers[0]} Rates.`
+        `${categories[1].label} Rate should not be higher than ${categories[0].label} Rate for ${qualifiers[0].label} Rates.`
       );
     });
 
@@ -94,7 +100,7 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
       expect(errors).toHaveLength(4);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `${categories[1]} Rate should not be higher than ${categories[0]} Rate for ${qualifiers[0]} Rates.`
+        `${categories[1].label} Rate should not be higher than ${categories[0].label} Rate for ${qualifiers[0].label} Rates.`
       );
     });
 
@@ -126,7 +132,11 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
       expect(errors).toHaveLength(4);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        errorMessageFunc(categories[0], categories[1], qualifiers[0])
+        errorMessageFunc(
+          categories[0].label,
+          categories[1].label,
+          qualifiers[0].label
+        )
       );
     });
   });
@@ -167,7 +177,7 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
 
       expect(errors).toHaveLength(2);
       expect(errors[0].errorMessage).toBe(
-        `${categories[1]} Rate should not be higher than ${categories[0]} Rates.`
+        `${categories[1].label} Rate should not be higher than ${categories[0].label} Rates.`
       );
     });
 
@@ -190,7 +200,7 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
 
       expect(errors).toHaveLength(4);
       expect(errors[0].errorMessage).toBe(
-        `${categories[1]} Rate should not be higher than ${categories[0]} Rates.`
+        `${categories[1].label} Rate should not be higher than ${categories[0].label} Rates.`
       );
     });
   });
@@ -215,7 +225,7 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
 
     expect(errors).toHaveLength(2);
     expect(errors[0].errorMessage).toBe(
-      errorMessageFunc(categories[0], categories[1])
+      errorMessageFunc(categories[0].label, categories[1].label)
     );
   });
 });

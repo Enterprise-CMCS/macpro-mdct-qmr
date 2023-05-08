@@ -4,15 +4,6 @@ describe("Measurement Specification/Definition of Population/Validation text cha
     cy.goToAdultMeasures();
   });
 
-  it("Ensure that highlighted word changes from Above to Below", () => {
-    cy.goToMeasure("AMR-AD");
-    cy.get("#MeasurementSpecification-NCQAHEDIS").click({ force: true });
-    cy.get("body").should(
-      "include.text",
-      "NCQA, the measure steward, changed its naming convention. HEDIS MY 2020 refers to a different federal fiscal year (FFY) than HEDIS 2020. Please note the FFY Core Set specification below."
-    );
-  });
-
   it("Ensure that What number of your measure-eligible population are included in the measure? is changed to What is the size of the measure-eligible population?", () => {
     cy.goToMeasure("CBP-AD");
     cy.get("#DidReport-yes").click({ force: true });

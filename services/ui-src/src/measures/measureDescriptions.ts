@@ -223,15 +223,13 @@ export const measureDescriptions: MeasureList = {
       "Follow-Up After Emergency Department Visit for Mental Illness: Age 18 and Older",
     "FUM-HH": "Follow-Up After Emergency Department Visit for Mental Illness",
     "FVA-AD": "Flu Vaccinations for Adults Ages 18 to 64",
-    "HPC-AD":
-      "Comprehensive Diabetes Care: Hemoglobin A1c (HbA1c) Poor Control (> 9.0%)",
+    "HBD-AD": "Hemoglobin A1c Control for Patients with Diabetes",
     "HPCMI-AD":
       "Diabetes Care for People with Serious Mental Illness: Hemoglobin A1C (HbA1c) Poor Control (>9.0%)",
     "HVL-AD": "HIV Viral Load Suppression",
     "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
     "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
-    "NCIDDS-AD":
-      "National Core Indicators Survey-Intellectual and Developmental Disabilities",
+    "NCIDDS-AD": "National Core Indicators Survey",
     "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
@@ -264,7 +262,7 @@ export const measureDescriptions: MeasureList = {
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items",
     "DEV-CH": "Developmental Screening in the First Three Years of Life",
     "FUA-CH":
-      "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence: Ages 13 to 17",
+      "Follow-Up After Emergency Department Visit for Substance Use: Ages 13 to 17",
     "FUH-CH":
       "Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17",
     "FUM-CH":
@@ -282,16 +280,14 @@ export const measureDescriptions: MeasureList = {
     "WCV-CH": "Child and Adolescent Well-Care Visits",
 
     // Health Home
-    "AIF-HH": "Admission to an Institution from the Community",
+    "AIF-HH": "Admission to a Facility from the Community",
     "AMB-HH": "Ambulatory Care: Emergency Department (ED) Visits",
     "CBP-HH": "Controlling High Blood Pressure",
     "CDF-HH": "Screening for Depression and Follow-Up Plan",
     "COL-HH": "Colorectal Cancer Screening",
-    "FUA-HH":
-      "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+    "FUA-HH": "Follow-Up After Emergency Department Visit for Substance Use",
     "FUH-HH": "Follow-Up After Hospitalization for Mental Illness",
-    "IET-HH":
-      "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
+    "IET-HH": "Initiation and Engagement of Substance Use Disorder Treatment",
     "IU-HH": "Inpatient Utilization",
     "OUD-HH": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-HH": "Plan All-Cause Readmissions",

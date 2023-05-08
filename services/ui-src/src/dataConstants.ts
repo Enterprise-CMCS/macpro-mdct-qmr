@@ -109,6 +109,7 @@ export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
 export const HEDIS_MY_2021 = "HEDIS MY 2021";
+export const HEDIS_MY_2022 = "HEDIS MY 2022";
 export const HRSA = "HRSA";
 export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
   "HybridAdministrativeandMedicalRecordsData";
@@ -185,6 +186,7 @@ export const START_DATE = "startDate";
 export const SUB_CATS = "additionalSubCategories";
 export const SUB_CAT_OPTIONS = "subCatOptions";
 export const TOTAL = "total";
+export const UID = "uid";
 export const VITAL_DATA_SOURCE = "Vital Records";
 export const WHY_ARE_YOU_NOT_REPORTING = "WhyAreYouNotReporting";
 export const WHY_ARE_YOU_NOT_REPORTING_OTHER = "WhyAreYouNotReporting-Other";

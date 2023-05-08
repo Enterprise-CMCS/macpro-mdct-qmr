@@ -69,6 +69,11 @@ const SFMCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...filteredSameDenominatorErrors,
+    ...GV.validateEqualCategoryDenominatorsPM(
+      data,
+      PMD.categories,
+      PMD.qualifiers
+    ),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -81,6 +86,7 @@ const SFMCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateOneQualRateHigherThanOtherQualOMS(),
         GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateEqualCategoryDenominatorsOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
       ],

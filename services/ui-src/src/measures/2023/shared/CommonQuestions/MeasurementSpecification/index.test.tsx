@@ -117,19 +117,6 @@ describe("all specification types", () => {
       expect(
         screen.getByText(specifications[spec].displayValue)
       ).toBeInTheDocument();
-
-      if (spec === "HEDIS") {
-        const radio = await screen.getByLabelText(
-          "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)"
-        );
-        fireEvent.click(radio);
-
-        expect(
-          screen.getByText(
-            "NCQA, the measure steward, changed its naming convention. HEDIS MY 2020 refers to a different federal fiscal year (FFY) than HEDIS 2020. Please note the FFY Core Set specification below."
-          )
-        ).toBeInTheDocument();
-      }
     });
   }
 });
