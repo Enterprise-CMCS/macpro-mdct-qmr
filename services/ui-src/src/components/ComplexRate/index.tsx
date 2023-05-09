@@ -141,6 +141,7 @@ export const ComplexRate = ({
       if (prevRate[index] === undefined) {
         prevRate[index] = {
           label: rate.label,
+          uid: rate.uid,
           fields: inputFieldNames.map((label) => {
             return {
               label,
@@ -150,6 +151,7 @@ export const ComplexRate = ({
         };
       }
       prevRate[index]["label"] = rate.label ?? undefined;
+      prevRate[index]["uid"] = rate.uid ?? undefined;
     });
 
     prevRate[prevRate.length - 1]["isTotal"] = true;

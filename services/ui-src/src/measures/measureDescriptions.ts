@@ -231,8 +231,7 @@ export const measureDescriptions: MeasureList = {
     "HVL-AD": "HIV Viral Load Suppression",
     "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
     "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
-    "NCIDDS-AD":
-      "National Core Indicators Survey-Intellectual and Developmental Disabilities",
+    "NCIDDS-AD": "National Core Indicators Survey",
     "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",

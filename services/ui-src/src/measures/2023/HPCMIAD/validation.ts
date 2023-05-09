@@ -39,7 +39,7 @@ const HPCMIADValidation = (data: FormData) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
-      PMD.qualifiers[1]
+      PMD.qualifiers[1].label
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
@@ -51,6 +51,7 @@ const HPCMIADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

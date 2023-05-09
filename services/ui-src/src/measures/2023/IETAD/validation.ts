@@ -1,7 +1,6 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2023/shared/globalValidations";
 import * as PMD from "./data";
-import { cleanString } from "utils/cleanString";
 import { FormData } from "./types";
 import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
 
@@ -17,13 +16,13 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   if (isOPM) return [];
   const errorArray: FormError[] = [];
 
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
+  for (const qual of qualifiers) {
     for (let initiation = 0; initiation < categories.length; initiation += 2) {
       const engagement = initiation + 1;
       const initRate =
-        rateData.rates?.[qual]?.[cleanString(categories[initiation])]?.[0];
+        rateData.rates?.[qual.id]?.[categories[initiation].id]?.[0];
       const engageRate =
-        rateData.rates?.[qual]?.[cleanString(categories[engagement])]?.[0];
+        rateData.rates?.[qual.id]?.[categories[engagement].id]?.[0];
 
       if (
         initRate &&
@@ -32,11 +31,11 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
       ) {
         errorArray.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qual]
+            [...label, qual.id]
           )}`,
           errorMessage: `Denominators must be the same for ${locationDictionary(
-            [categories[initiation]]
-          )} and ${locationDictionary([categories[engagement]])}.`,
+            [categories[initiation].label]
+          )} and ${locationDictionary([categories[engagement].label])}.`,
         });
       }
     }
@@ -84,7 +83,9 @@ const IETValidation = (data: FormData) => {
         (qual) =>
           `Denominators must be the same for ${locationDictionary([
             qual,
-          ])} for ${PMD.categories[i]} and ${PMD.categories[i + 1]}.`
+          ])} for ${PMD.categories[i].label} and ${
+            PMD.categories[i + 1].label
+          }.`
       ),
     ];
   }
@@ -139,6 +140,7 @@ const IETValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

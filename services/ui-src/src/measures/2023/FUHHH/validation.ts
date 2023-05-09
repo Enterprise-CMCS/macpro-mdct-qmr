@@ -36,6 +36,7 @@ const FUHHHValidation = (data: FormData) => {
   errorArray = [
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,

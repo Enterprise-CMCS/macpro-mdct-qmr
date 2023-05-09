@@ -9,11 +9,17 @@ import {
   doubleRate,
   simpleRate,
   partialRate,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing Equal Qualifier Denominators Across Category Validation", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const categories = [
+    { label: "TestCat1", text: "TestCat1", id: "TestCat1" },
+    { label: "TestCat2", text: "TestCat2", id: "TestCat2" },
+  ];
+  const qualifiers = [
+    { label: "TestQual1", text: "TestQual1", id: "TestQual1" },
+    { label: "TestQual2", text: "TestQual2", id: "TestQual2" },
+  ];
 
   const baseOMSInfo = {
     categories,
@@ -46,7 +52,7 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
       expect(errors).toHaveLength(2);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `Denominators must be the same for each category of performance measures for ${qualifiers[0]}`
+        `Denominators must be the same for each category of performance measures for ${qualifiers[0].label}`
       );
     });
 
@@ -93,8 +99,12 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
       );
 
       expect(errorArray).toHaveLength(2);
-      expect(errorArray[0].errorMessage).toBe(errorMessageFunc(qualifiers[0]));
-      expect(errorArray[1].errorMessage).toBe(errorMessageFunc(qualifiers[1]));
+      expect(errorArray[0].errorMessage).toBe(
+        errorMessageFunc(qualifiers[0].label)
+      );
+      expect(errorArray[1].errorMessage).toBe(
+        errorMessageFunc(qualifiers[1].label)
+      );
     });
   });
 
@@ -145,7 +155,7 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith([
         "TestLabel",
-        qualifiers[0],
+        qualifiers[0].label,
       ]);
     });
   });

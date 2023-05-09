@@ -17,6 +17,7 @@ import {
 export interface IRate {
   label?: string;
   id: number;
+  uid?: string;
   isTotal?: boolean;
 }
 
@@ -67,7 +68,7 @@ export const Rate = ({
   }
 
   /*
-  On component render, verify that all NDRs have a label and isTotal value.
+  On component render, verify that all NDRs have a label, id and isTotal value.
   This is required for accurate data representation in DB and to calculateTotals().
   */
   useEffect(() => {
@@ -77,6 +78,7 @@ export const Rate = ({
         prevRate[index] = {};
       }
       prevRate[index]["label"] = rate.label ?? undefined;
+      prevRate[index]["uid"] = rate.uid ?? undefined;
     });
 
     if (calcTotal) {

@@ -44,6 +44,7 @@ const AMBCHValidation = (data: FormData) => {
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateOPMRates(OPM),
 
     // OMS Validations
     ...GV.omsValidations({

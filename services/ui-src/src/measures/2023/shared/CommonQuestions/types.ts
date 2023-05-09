@@ -1,3 +1,4 @@
+import { LabelData } from "utils";
 import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
@@ -173,6 +174,7 @@ export interface RateFields {
   [DC.NUMERATOR]?: string;
   [DC.DENOMINATOR]?: string;
   [DC.RATE]?: string;
+  [DC.UID]?: string;
 }
 
 export interface complexRateFields {
@@ -253,11 +255,11 @@ export namespace OmsNodes {
 }
 
 export interface Qualifiers {
-  [DC.QUALIFIERS]?: string[];
+  [DC.QUALIFIERS]?: LabelData[];
 }
 
 export interface Categories {
-  [DC.CATEGORIES]?: string[];
+  [DC.CATEGORIES]?: LabelData[];
 }
 
 export interface OptionalMeasureStratification {
