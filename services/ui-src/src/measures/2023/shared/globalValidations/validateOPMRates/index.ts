@@ -11,7 +11,7 @@ export const validateOPMRates = (
 
   if (otherPerformanceMeasure) {
     const opm_descriptions = otherPerformanceMeasure.filter(
-      (item: any) => item.description !== ""
+      (item: any) => !!item.description
     );
 
     const formattedDescriptions = opm_descriptions.map((item: any) =>
