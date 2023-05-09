@@ -126,6 +126,10 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
+    expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("measurement-specification")
+    ).toBeInTheDocument();
     expect(
       screen.queryByTestId("deviation-from-measure-specification")
     ).toBeInTheDocument();
