@@ -233,6 +233,31 @@ const notReportingData = {
 const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
 
 const completedMeasureData = {
+  performanceMeasure: {
+    rates: {
+      singleCategory: [
+        {
+          label: "Ages 19 to 50",
+          rate: "100.0",
+          numerator: "55",
+          denominator: "55",
+        },
+        {
+          label: "Ages 51 to 64",
+          rate: "100.0",
+          numerator: "55",
+          denominator: "55",
+        },
+        {
+          label: "Total",
+          isTotal: true,
+          rate: "100.0",
+          numerator: "110",
+          denominator: "110",
+        },
+      ],
+    },
+  },
   MeasurementSpecification: "NCQA/HEDIS",
   DidReport: "yes",
 };
