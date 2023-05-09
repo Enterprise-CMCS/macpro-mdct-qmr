@@ -245,6 +245,8 @@ export const measureDescriptions: MeasureList = {
       "Diabetes Screening for People with Schizophrenia or Bipolar Disorder Who Are Using Antipsychotic Medications",
 
     // Child
+    "AAB-CH":
+      "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Ages 3 Months to 17 Years",
     "ADD-CH":
       "Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication",
     "AMB-CH": "Ambulatory Care: Emergency Department (ED) Visits",
