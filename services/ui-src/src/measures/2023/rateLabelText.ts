@@ -1674,8 +1674,30 @@ export const data = {
     "categories": [{"id":"WCV-CH-CAT-A", "label": "", "text":""}]
     },
     "LSC-CH": {
-        "qualifiers": [],
-        "categories": []
+        "qualifiers": [
+            {
+                "label": "Ages 3 to 11",
+                "text": "Ages 3 to 11",
+                "id": "AtXKXx"
+            },
+            {
+                "label": "Ages 12 to 17",
+                "text": "Ages 12 to 17",
+                "id": "iqbQvK"
+            },
+            {
+                "label": "Ages 18 to 21",
+                "text": "Ages 18 to 21",
+                "id": "pJmWDY"
+            },
+            {
+                "label": "Total (Ages 3 to 21)",
+                "text": "Total (Ages 3 to 21)",
+                "id": "Total"
+            }
+            
+        ],
+        "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
     }
 }
 
