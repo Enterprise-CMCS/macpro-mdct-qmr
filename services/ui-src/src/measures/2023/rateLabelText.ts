@@ -597,15 +597,15 @@ export const data = {
             {
                 "label": "Care Plan with Core Elements Documented",
                 "text": "Care Plan with Core Elements Documented",
-                "id": "CarePlanwithCoreElementsDocumented",
+                "id": "T6dADz",
             },
             {
                 "label": "Care Plan with Supplemental Elements Documented",
                 "text": "Care Plan with Supplemental Elements Documented",
-                "id": "CarePlanwithSupplementalElementsDocumented",
+                "id": "NBz553",
             },
         ],
-        "categories": []
+        "categories": [{"id":"HLXNLW", "label": "", "text":""}]
     },
     "DEV-CH": {
         "qualifiers": [
