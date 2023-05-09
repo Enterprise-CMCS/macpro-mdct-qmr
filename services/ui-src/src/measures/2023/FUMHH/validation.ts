@@ -38,6 +38,7 @@ const FUMHHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateOPMRates(OPM),
 
     // Performance Measure Validations
     ...GV.validateAtLeastOneDeviationFieldFilled(

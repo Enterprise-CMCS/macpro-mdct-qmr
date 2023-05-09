@@ -109,6 +109,7 @@ const AMMADValidation = (data: FormData) => {
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(

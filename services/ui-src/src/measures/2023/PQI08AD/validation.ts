@@ -38,6 +38,7 @@ const PQI08Validation = (data: FormData) => {
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,

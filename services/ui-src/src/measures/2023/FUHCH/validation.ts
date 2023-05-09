@@ -61,6 +61,7 @@ const FUHValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
