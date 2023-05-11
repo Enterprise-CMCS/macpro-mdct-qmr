@@ -95,6 +95,9 @@ const CPAAD = lazy(() =>
 const CPCCH = lazy(() =>
   import("./CPCCH").then((module) => ({ default: module.CPCCH }))
 );
+const CPUAD = lazy(() =>
+  import("./CPUAD").then((module) => ({ default: module.CPUAD }))
+);
 const DEVCH = lazy(() =>
   import("./DEVCH").then((module) => ({ default: module.DEVCH }))
 );
@@ -256,6 +259,7 @@ const twentyTwentyThreeMeasures = {
   "COL-HH": COLHH,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
+  "CPU-AD": CPUAD,
   "DEV-CH": DEVCH,
   "FUA-AD": FUAAD,
   "FUA-CH": FUACH,

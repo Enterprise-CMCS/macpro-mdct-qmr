@@ -602,6 +602,21 @@ export const data = {
         ],
         "categories": [{"id":"sYNAsL", "label": "", "text":""}]
     },
+    "CPU-AD": {
+        "qualifiers": [
+            {
+                "label": "Care Plan with Core Elements Documented",
+                "text": "Care Plan with Core Elements Documented",
+                "id": "T6dADz",
+            },
+            {
+                "label": "Care Plan with Supplemental Elements Documented",
+                "text": "Care Plan with Supplemental Elements Documented",
+                "id": "NBz553",
+            },
+        ],
+        "categories": [{"id":"HLXNLW", "label": "", "text":""}]
+    },
     "DEV-CH": {
         "qualifiers": [
             {

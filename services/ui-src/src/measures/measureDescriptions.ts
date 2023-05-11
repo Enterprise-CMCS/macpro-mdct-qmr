@@ -215,6 +215,8 @@ export const measureDescriptions: MeasureList = {
     "COL-AD": "Colorectal Cancer Screening",
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
+    "CPU-AD":
+      "Long-Term Services and Supports Comprehensive Care Plan and Update",
     "FUA-AD":
       "Follow-up After Emergency Department Visit for Substance Use: Age 18 and Older",
     "FUH-AD":
