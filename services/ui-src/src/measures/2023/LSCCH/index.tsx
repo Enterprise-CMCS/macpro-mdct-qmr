@@ -23,6 +23,7 @@ export const LSCCH = ({
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   useEffect(() => {
+    console.log(data);
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
