@@ -187,7 +187,7 @@ export const IETRate = ({
     let categoryType = categoryName ? categoryName.split(":")[0] : "";
     let sorted = Object.keys(allRates)
       .map((item) => {
-        const qualCategory = categories?.find((cat) => cat.id == item)?.label;
+        const qualCategory = categories?.find((cat) => cat.id === item)?.label;
         return allRates[item]?.find(
           (qual) =>
             qual.label === rate["label"] && qualCategory?.includes(categoryType)
