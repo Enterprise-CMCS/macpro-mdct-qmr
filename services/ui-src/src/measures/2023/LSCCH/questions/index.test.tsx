@@ -79,21 +79,19 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     });
   });
 
-  it("should be readOnly rates when admin data source is selected ", async () => {
-    apiData.useGetMeasureValues.data.Item.data = readOnlyRates1;
+  it("should be readOnly rates when admin data source is selected as string", async () => {
+    apiData.useGetMeasureValues.data.Item.data = readOnlyRatesArray;
     useApiMock(apiData);
     renderWithHookForm(component);
-    //screen.debug(renderWithHookForm(component).container, Infinity)
     const rateTextBox = screen.queryAllByLabelText("Rate")[0];
     fireEvent.type(rateTextBox, "99.9");
     expect(rateTextBox).not.toHaveDisplayValue("99.9");
   });
 
   it("should be readOnly rates when no data source is selected ", async () => {
-    apiData.useGetMeasureValues.data.Item.data = readOnlyRates2;
+    apiData.useGetMeasureValues.data.Item.data = readOnlyRatesEmptyArray;
     useApiMock(apiData);
     renderWithHookForm(component);
-    //screen.debug(renderWithHookForm(component).container, Infinity)
     const rateTextBox = screen.queryAllByLabelText("Rate")[0];
     fireEvent.type(rateTextBox, "99.9");
     expect(rateTextBox).toHaveDisplayValue("99.9");
@@ -103,14 +101,13 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = editableRates;
     useApiMock(apiData);
     renderWithHookForm(component);
-    //screen.debug(renderWithHookForm(component).container, Infinity)
     const rateTextBox = screen.queryAllByLabelText("Rate")[0];
     fireEvent.type(rateTextBox, "99.9");
     expect(rateTextBox).toHaveDisplayValue("99.9");
   });
 });
 
-const readOnlyRates1 = {
+const readOnlyRatesArray = {
   DataSource: ["AdministrativeData"],
   "OtherPerformanceMeasure-Rates": [
     {
@@ -129,7 +126,7 @@ const readOnlyRates1 = {
   DidReport: "yes",
 };
 
-const readOnlyRates2 = {
+const readOnlyRatesEmptyArray = {
   DataSource: [],
   "OtherPerformanceMeasure-Rates": [
     {
