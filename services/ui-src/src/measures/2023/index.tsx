@@ -161,6 +161,9 @@ const LRCDCH = lazy(() =>
 const MSCAD = lazy(() =>
   import("./MSCAD").then((module) => ({ default: module.MSCAD }))
 );
+const LSCCH = lazy(() =>
+  import("./LSCCH").then((module) => ({ default: module.LSCCH }))
+);
 const NCIDDSAD = lazy(() =>
   import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
 );
@@ -281,6 +284,7 @@ const twentyTwentyThreeMeasures = {
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
+  "LSC-CH": LSCCH,
   "NCIDDS-AD": NCIDDSAD,
   "OEV-CH": OEVCH,
   "OHD-AD": OHDAD,

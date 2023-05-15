@@ -916,6 +916,10 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      measure: "LSC-CH",
+    },
+    {
+      type: "C",
       measure: "LBW-CH",
       autocompleteOnCreation: true,
     },
