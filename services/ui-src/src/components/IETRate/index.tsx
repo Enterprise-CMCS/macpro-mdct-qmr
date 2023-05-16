@@ -61,10 +61,12 @@ export const IETRate = ({
     control,
     defaultValue: [],
   });
-  //Using a watch to keep track of the rate changes as we need rates from each category to calculate the total
+  //Using a watch to get all the rate changes as we need rates from all the categories to calculate the total
+  //the current system only looks at rates in the qualifier level of the current category
   const { watch } = useFormContext<Types.DefaultFormData>();
   const data = watch();
 
+  //determining whether the current rates is used to capture the total value
   if (calcTotal) {
     rates.map((rate) => {
       if (
@@ -77,7 +79,7 @@ export const IETRate = ({
   }
 
   /*
-  On component render, verify that all NDRs have a label, id and isTotal value.
+  On component render, verify that all NDRs have a label, uid and isTotal value.
   This is required for accurate data representation in DB and to calculateTotalsByCategory().
   */
   useEffect(() => {
@@ -175,17 +177,16 @@ export const IETRate = ({
     field.onChange([...prevRate]);
   };
 
-  //function will get call when the category has the word total in the name
-  //the only category to pay attention to is the one that says total
+  //function is called when there are categories being used
   const calculateTotalsByCategory = (rate: any) => {
     const allRates = data.PerformanceMeasure
       ?.rates as Types.PerformanceMeasureRate;
 
     if (!allRates) return;
 
-    //using the first half of the category name as a key to sort the performance rate data
+    //using the first half of the category name as a key to grab the performance rate data
     let categoryType = categoryName ? categoryName.split(":")[0] : "";
-    let sorted = Object.keys(allRates)
+    let cleanedRates = Object.keys(allRates)
       .map((item) => {
         const qualCategory = categories?.find((cat) => cat.id === item)?.label;
         return allRates[item]?.find(
@@ -195,14 +196,14 @@ export const IETRate = ({
       })
       .filter((item) => !!item);
 
-    //due to the delay in update, rateData is actually 1 input behind
-    //we want to swap the the good data in and remove the delayed rate in sorted
-    if (sorted) {
-      const index = sorted.findIndex((qual) =>
+    //due to the delay in update, allRates is actually 1 onChange behind
+    //we want to swap the the good data in and remove the delayed rate in cleanedRates
+    if (cleanedRates) {
+      const totalIndex = cleanedRates.findIndex((qual) =>
         qual?.uid?.includes(rate["uid"])
       );
-      if (index > -1) sorted[index] = rate;
-      calculate(sorted);
+      if (totalIndex > -1) cleanedRates[totalIndex] = rate;
+      calculate(cleanedRates);
     }
   };
 
@@ -240,6 +241,7 @@ export const IETRate = ({
       } else {
         totalQual["rate"] = "";
       }
+      // console.log(totalQual);
     }
   };
 
