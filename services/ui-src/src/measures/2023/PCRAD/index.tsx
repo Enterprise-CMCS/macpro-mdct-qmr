@@ -1,10 +1,7 @@
 import * as CMQ from "measures/2023/shared/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { FormData } from "./types";
-import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
-import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 
@@ -18,16 +15,11 @@ export const PCRAD = ({
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
 }: QMR.MeasureWrapperProps) => {
-  const { watch } = useFormContext<FormData>();
-  const data = watch();
-
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
-
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   return (
     <>
@@ -56,15 +48,7 @@ export const PCRAD = ({
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
-          {showOptionalMeasureStrat && (
-            <CMQ.OptionalMeasureStrat
-              performanceMeasureArray={performanceMeasureArray}
-              qualifiers={PMD.qualifiers}
-              categories={PMD.categories}
-              componentFlag={"PCR"}
-              adultMeasure
-            />
-          )}
+          {showOptionalMeasureStrat && <CMQ.NotCollectingOMS />}
         </>
       )}
       <CMQ.AdditionalNotes />

@@ -103,6 +103,7 @@ export const ENTIRE_POP_NOT_COVERED = "EntirePopulationNotCovered";
 export const ELECTRONIC_CLINIC_DATA_SYSTEMS =
   "Electronic Clinical Data Systems (ECDS)";
 export const ELECTRONIC_HEALTH_RECORDS = "Electronic Health Records";
+export const EXCLUDE_FROM_OMS = "excludeFromOMS";
 export const EXPLAINATION = "explanation";
 export const FFS = "FFS";
 export const HEALTH_HOME_QUALIFIER_FILE_UPLOAD = "costSavingsFile";
