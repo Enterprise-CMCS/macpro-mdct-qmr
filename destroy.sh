@@ -120,7 +120,9 @@ done
 
 echo "Removing certificate from stage"
 
-restApiId=$(aws apigateway get-rest-apis | jq -r '.[] | .[] |  select(.name=="fix-destroy-issues-app-api") | .id|tostring')
+restApiName=$stage-app-api
+
+restApiId=$(aws apigateway get-rest-apis | jq -r ".[] | .[] |  select(.name==\"$restApiName\") | .id|tostring")
 
 aws apigateway update-stage \
   --rest-api-id $restApiId \
