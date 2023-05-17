@@ -49,10 +49,7 @@ export const PCRHH = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <PCRHHPerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec
-                categories={PMD.qualifiers}
-                measureName={measureId}
-              />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

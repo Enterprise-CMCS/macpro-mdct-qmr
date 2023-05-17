@@ -182,13 +182,15 @@ export interface complexRateFields {
   fields?: { [DC.LABEL]?: string; value: string | undefined }[];
 }
 
-export interface DeviationFields {
-  [DC.OPTIONS]: string[];
-  [DC.DENOMINATOR]: string;
-  [DC.NUMERATOR]: string;
-  [DC.OTHER]: string;
+// export interface DeviationFields {
+//   [DC.OPTIONS]: string[];
+//   [DC.DENOMINATOR]: string;
+//   [DC.NUMERATOR]: string;
+//   [DC.OTHER]: string;
+// }
+export interface DeviationField {
+  [DC.DEVIATION_REASON]: string;
 }
-
 export interface OtherRatesFields {
   [DC.DESCRIPTION]?: string;
   [DC.RATE]?: RateFields[];
@@ -273,17 +275,21 @@ export interface OptionalMeasureStratification {
 export interface DeviationFromMeasureSpecification {
   [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
   [DC.DEVIATION_OPTIONS]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected
-  [DC.DEVIATIONS]: {
+  [DC.DEVIATION_REASON]: string;
+  // TODO: CHANGE THESE, no longer looking for options, just single reason string
+ // does DEVIATION_OPTIONS turn into DEVIATION_REASON? 
+ // Or keep it and turn options into singular reason?  
+  // [DC.DEVIATIONS]: {
     // the DEVIATION_OPTIONS will map the DEVIATIONS
-    [option: string]: {
-      [DC.RATE_DEVIATIONS_SELECTED]: Array<
-        typeof DC.NUMERATOR | typeof DC.DENOMINATOR | typeof DC.OTHER
-      >; // deviations selected for the given option
-      [DC.NUMERATOR]: string; // if NUMERATOR selected for RATE_DEVIATIONS_SELECTED -> an explaination
-      [DC.DENOMINATOR]: string; // if DENOMINATOR selected for RATE_DEVIATIONS_SELECTED -> an explaination
-      [DC.OTHER]: string; // if OTHER selected for RATE_DEVIATIONS_SELECTED -> an explaination
-    };
-  };
+    // [option: string]: {
+      // [DC.RATE_DEVIATIONS_SELECTED]: Array<
+      //   typeof DC.NUMERATOR | typeof DC.DENOMINATOR | typeof DC.OTHER
+      // >; // deviations selected for the given option
+      // [DC.NUMERATOR]: string; // if NUMERATOR selected for RATE_DEVIATIONS_SELECTED -> an explaination
+      // [DC.DENOMINATOR]: string; // if DENOMINATOR selected for RATE_DEVIATIONS_SELECTED -> an explaination
+      // [DC.OTHER]: string; // if OTHER selected for RATE_DEVIATIONS_SELECTED -> an explaination
+    // };
+  // };
 }
 
 export namespace DataDrivenTypes {

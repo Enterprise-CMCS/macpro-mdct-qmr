@@ -68,8 +68,6 @@ const AIFHHValidation = (data: FormData) => {
     ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
     ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrFormulas),
     ...GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ndrFormulas,
       deviationArray,
       didCalculationsDeviate
     ),

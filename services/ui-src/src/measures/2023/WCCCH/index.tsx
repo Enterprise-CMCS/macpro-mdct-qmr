@@ -46,7 +46,7 @@ export const WCCCH = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal hybridMeasure />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

@@ -1,5 +1,4 @@
 import * as DC from "dataConstants";
-import { test_setup } from "../testHelpers/_helper";
 import { testFormData } from "../testHelpers/_testFormData";
 import { getDeviationNDRArray } from "measures/2023/shared/globalValidations";
 import { validateAtLeastOneDeviationFieldFilled } from ".";
@@ -13,7 +12,6 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     noPM?: boolean,
     errorMessage?: string
   ): FormError[] => {
-    const { ageGroups, performanceMeasureArray } = test_setup(data);
     const deviationArray = getDeviationNDRArray(
       data.DeviationOptions,
       data.Deviations,
@@ -22,8 +20,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
     return [
       ...validateAtLeastOneDeviationFieldFilled(
-        noPM ? [[]] : performanceMeasureArray,
-        ageGroups,
+        noPM ? [[]] :
         deviationArray,
         didCalculationsDeviate,
         errorMessage

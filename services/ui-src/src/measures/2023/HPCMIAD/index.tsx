@@ -46,7 +46,7 @@ export const HPCMIAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

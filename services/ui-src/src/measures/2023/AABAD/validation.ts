@@ -19,11 +19,6 @@ const AABADValidation = (data: FormData) => {
     return errorArray;
   }
 
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
@@ -52,8 +47,6 @@ const AABADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      ageGroups,
-      deviationArray,
       didCalculationsDeviate
     ),
 

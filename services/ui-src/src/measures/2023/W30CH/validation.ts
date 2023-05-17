@@ -58,8 +58,6 @@ const W30CHValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),

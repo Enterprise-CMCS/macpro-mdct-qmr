@@ -94,6 +94,7 @@ export const DENOMINATOR_INC_OTHER = "DenominatorIncOther";
 export const DESCRIPTION = "description";
 export const DEVIATIONS = "Deviations";
 export const DEVIATION_OPTIONS = "DeviationOptions";
+export const DEVIATION_REASON = "DeviationReason";
 export const DID_CALCS_DEVIATE = "DidCalculationsDeviate";
 export const DID_COLLECT = "DidCollect";
 export const DID_REPORT = "DidReport";

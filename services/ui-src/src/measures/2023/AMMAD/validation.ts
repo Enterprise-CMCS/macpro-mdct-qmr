@@ -113,8 +113,6 @@ const AMMADValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),

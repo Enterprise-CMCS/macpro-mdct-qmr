@@ -64,8 +64,6 @@ const IUHHValidation = (data: FormData) => {
     ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
     ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
     ...GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ndrForumlas,
       deviationArray,
       didCalculationsDeviate
     ),
