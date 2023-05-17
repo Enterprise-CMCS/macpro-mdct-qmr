@@ -135,12 +135,9 @@ const TotalNDRSets = ({
 
   return (
     <CUI.Box>
-      <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />
-      {categories.length > 0 && categories.some((item) => item.label) && (
-        <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-          {totalQual.label}
-        </CUI.Heading>
-      )}
+      <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
+        {totalQual.label}
+      </CUI.Heading>
       <CUI.Box>{rateArray}</CUI.Box>
     </CUI.Box>
   );
@@ -209,30 +206,32 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     } else if (performanceMeasureArray) {
       performanceMeasureArray?.forEach((measure, idx) => {
         if (measure?.[qualIndex]?.rate) {
-          const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx]?.id}`;
+          if (categories[idx]?.id) {
+            const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx]?.id}`;
 
-          ndrSets.push(
-            <QMR.Rate
-              readOnly={rateReadOnly}
-              name={adjustedName}
-              key={adjustedName}
-              rateMultiplicationValue={rateMultiplicationValue}
-              allowNumeratorGreaterThanDenominator={
-                allowNumeratorGreaterThanDenominator
-              }
-              customNumeratorLabel={customNumeratorLabel}
-              customDenominatorLabel={customDenominatorLabel}
-              customRateLabel={customRateLabel}
-              customMask={customMask}
-              rateCalc={rateCalculation}
-              rates={[
-                {
-                  id: 0,
-                  label: categories[idx]?.label,
-                },
-              ]}
-            />
-          );
+            ndrSets.push(
+              <QMR.Rate
+                readOnly={rateReadOnly}
+                name={adjustedName}
+                key={adjustedName}
+                rateMultiplicationValue={rateMultiplicationValue}
+                allowNumeratorGreaterThanDenominator={
+                  allowNumeratorGreaterThanDenominator
+                }
+                customNumeratorLabel={customNumeratorLabel}
+                customDenominatorLabel={customDenominatorLabel}
+                customRateLabel={customRateLabel}
+                customMask={customMask}
+                rateCalc={rateCalculation}
+                rates={[
+                  {
+                    id: 0,
+                    label: categories[idx]?.label,
+                  },
+                ]}
+              />
+            );
+          }
         }
       });
     }

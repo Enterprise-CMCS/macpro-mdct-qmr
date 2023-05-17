@@ -111,12 +111,6 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
-        ...GV.ComplexValidateNDRTotalsOMS(
-          rateData?.["iuhh-rate"]?.rates ?? {},
-          PMD.categories,
-          ndrForumlas,
-          `Optional Measure Stratification: ${locationDictionary(label)} Total`
-        ),
         ...GV.ComplexValueSameCrossCategoryOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},
           PMD.categories,

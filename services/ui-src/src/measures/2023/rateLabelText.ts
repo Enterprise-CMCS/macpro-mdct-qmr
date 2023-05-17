@@ -1213,17 +1213,20 @@ export const data = {
             {
                 "label": "Mental and Behavioral Disorders",
                 "text": "Mental and Behavioral Disorders",
-                "id": "VX9uaf"
+                "id": "VX9uaf",
+                "excludeFromOMS": true
             },
             {
                 "label": "Surgery",
                 "text": "Surgery",
-                "id": "QzuJDR"
+                "id": "QzuJDR",
+                "excludeFromOMS": true
             },
             {
                 "label": "Medicine",
                 "text": "Medicine",
-                "id": "ioz7ed"
+                "id": "ioz7ed",
+                "excludeFromOMS": true
             }
         ]
     },
@@ -1736,12 +1739,14 @@ export const data = {
             {
                 "label": "Ages 3 to 11",
                 "text": "Ages 3 to 11",
-                "id": "iWwR8Z"
+                "id": "iWwR8Z",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "BFwD7g"
+                "id": "BFwD7g",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 3 to 17)",
@@ -1772,17 +1777,20 @@ export const data = {
             {
                 "label": "Ages 3 to 11",
                 "text": "Ages 3 to 11",
-                "id": "AtXKXf"
+                "id": "AtXKXf",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "iqbQvH"
+                "id": "iqbQvH",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 21",
                 "text": "Ages 18 to 21",
-                "id": "pJmWDB"
+                "id": "pJmWDB",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 3 to 21)",
@@ -1793,29 +1801,7 @@ export const data = {
     "categories": [{"id":"WCV-CH-CAT-A", "label": "", "text":""}]
     },
     "LSC-CH": {
-        "qualifiers": [
-            {
-                "label": "Ages 3 to 11",
-                "text": "Ages 3 to 11",
-                "id": "AtXKXx"
-            },
-            {
-                "label": "Ages 12 to 17",
-                "text": "Ages 12 to 17",
-                "id": "iqbQvK"
-            },
-            {
-                "label": "Ages 18 to 21",
-                "text": "Ages 18 to 21",
-                "id": "pJmWDY"
-            },
-            {
-                "label": "Total (Ages 3 to 21)",
-                "text": "Total (Ages 3 to 21)",
-                "id": "Total"
-            }
-            
-        ],
+        "qualifiers": [{"label": "", "text": "", "id": "AtXKXx"}],
         "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
     }
 }
