@@ -171,6 +171,7 @@ export const QUALIFIERS = "qualifiers";
 export const RATE = "rate";
 export const RATES = "rates";
 export const RATE_DEVIATIONS_SELECTED = "RateDeviationsSelected";
+export const REASON = "Reason";
 export const REPORTING_FINAL_DATA = "ReportingFinalData";
 export const REPORTING_PROVISIONAL_DATA = "ReportingProvisionalData";
 export const REQUIRES_DATA_LINKAGE = "RequireDataLinkage";

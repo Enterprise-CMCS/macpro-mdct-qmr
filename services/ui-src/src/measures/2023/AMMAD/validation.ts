@@ -78,10 +78,8 @@ const AMMADValidation = (data: FormData) => {
     }
   });
 
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
+  const deviationArray = GV.getDeviationReason(
+    data.DeviationReason,
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 

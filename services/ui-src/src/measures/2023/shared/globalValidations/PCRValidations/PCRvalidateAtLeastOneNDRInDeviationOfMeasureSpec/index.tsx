@@ -1,3 +1,4 @@
+import { DEVIATION_REASON } from "dataConstants";
 import * as Types from "measures/2023/shared/CommonQuestions/types";
 
 interface NDRforumla {
@@ -13,7 +14,6 @@ interface NDRforumla {
 export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: any,
   ndrFormulas: NDRforumla[],
-  deviationArray: Types.DeviationFields[] | any,
   didCalculationsDeviate: boolean
 ) => {
   let errorArray: FormError[] = [];
@@ -34,15 +34,11 @@ export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
       }
     });
 
-    let deviationArrayLength = 0;
-    deviationArray.forEach((itm: string) => {
-      if (itm) deviationArrayLength++;
-    });
 
     if (ndrCount > 0) {
-      const atLeastOneDevSection = deviationArrayLength > 0 ? true : false;
-
-      if (!atLeastOneDevSection) {
+      const deviationReason = DEVIATION_REASON ?? false;
+      console.log(deviationReason);
+      if (!deviationReason) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",
           errorMessage:

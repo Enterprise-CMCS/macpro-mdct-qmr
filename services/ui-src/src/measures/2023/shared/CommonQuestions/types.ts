@@ -182,6 +182,7 @@ export interface complexRateFields {
   fields?: { [DC.LABEL]?: string; value: string | undefined }[];
 }
 
+<<<<<<< HEAD
 // export interface DeviationFields {
 //   [DC.OPTIONS]: string[];
 //   [DC.DENOMINATOR]: string;
@@ -190,6 +191,14 @@ export interface complexRateFields {
 // }
 export interface DeviationField {
   [DC.DEVIATION_REASON]: string;
+=======
+export interface DeviationFields {
+  [DC.OPTIONS]: string[];
+  [DC.DENOMINATOR]: string;
+  [DC.NUMERATOR]: string;
+  [DC.OTHER]: string;
+  [DC.REASON]: string;
+>>>>>>> 04d032e6b2a7a05ffdde9a8cb3dc6dc96fdae334
 }
 export interface OtherRatesFields {
   [DC.DESCRIPTION]?: string;
@@ -274,12 +283,17 @@ export interface OptionalMeasureStratification {
 }
 export interface DeviationFromMeasureSpecification {
   [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
+<<<<<<< HEAD
   [DC.DEVIATION_OPTIONS]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected
   [DC.DEVIATION_REASON]: string;
   // TODO: CHANGE THESE, no longer looking for options, just single reason string
  // does DEVIATION_OPTIONS turn into DEVIATION_REASON? 
  // Or keep it and turn options into singular reason?  
   // [DC.DEVIATIONS]: {
+=======
+  [DC.DEVIATION_REASON]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected
+  [DC.DEVIATIONS]: {
+>>>>>>> 04d032e6b2a7a05ffdde9a8cb3dc6dc96fdae334
     // the DEVIATION_OPTIONS will map the DEVIATIONS
     // [option: string]: {
       // [DC.RATE_DEVIATIONS_SELECTED]: Array<
