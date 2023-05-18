@@ -125,7 +125,7 @@ export const omsLocationDictionary = (
 
 export const getDeviationReason = (
   deviationOptions: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_OPTIONS],
-  data: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_REASON],
+  data: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_REASON]
 ) => {
   let deviationReason: string = "";
   if (deviationOptions) {
