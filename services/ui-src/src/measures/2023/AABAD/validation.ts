@@ -13,7 +13,8 @@ const AABADValidation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
-
+  const deviationReason = data[DC.DEVIATION_REASON];
+  console.log(deviationReason);
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
@@ -47,7 +48,8 @@ const AABADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
 
     // OMS Validations

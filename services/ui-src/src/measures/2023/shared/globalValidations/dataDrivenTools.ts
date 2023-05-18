@@ -130,7 +130,6 @@ export const getDeviationReason = (
   let deviationReason: string = "";
   if (deviationOptions) {
     deviationReason = data;
-    console.log(deviationReason);
   }
   return deviationReason;
 };

@@ -37,7 +37,6 @@ export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
 
     if (ndrCount > 0) {
       const deviationReason = DEVIATION_REASON ?? false;
-      console.log(deviationReason);
       if (!deviationReason) {
         errorArray.push({
           errorLocation: "Deviations from Measure Specifications",

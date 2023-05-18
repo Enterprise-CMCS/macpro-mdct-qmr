@@ -13,7 +13,6 @@ export const ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec = (
 
   if (didCalculationsDeviate) {
     if (!!deviationReason) {
-      console.log(deviationReason)
       return deviationReason;
     } else {
       errorArray.push({
