@@ -8,19 +8,16 @@ export const validateAtLeastOneDeviationFieldFilled = (
   let reasonGiven: boolean = false;
 
   if (didCalculationsDeviate) {
-          if (!!deviationReason)
-           {
-            reasonGiven = true;
-          };
+    if (!!deviationReason) {
+      reasonGiven = true;
+    }
 
-      if (!reasonGiven) {
-        errorArray.push({
-          errorLocation: "Deviations from Measure Specifications",
-          errorMessage:
-            errorMessage ??
-            "Deviation(s) must be explained",
-        });
-      }
+    if (!reasonGiven) {
+      errorArray.push({
+        errorLocation: "Deviations from Measure Specifications",
+        errorMessage: errorMessage ?? "Deviation(s) must be explained",
+      });
+    }
   }
   return errorArray;
 };

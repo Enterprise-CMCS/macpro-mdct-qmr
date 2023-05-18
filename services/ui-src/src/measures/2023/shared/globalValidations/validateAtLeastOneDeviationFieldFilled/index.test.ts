@@ -6,11 +6,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   let formData: any = {};
   let errorArray: FormError[];
 
-  const _run_validation = (
-    data: any,
-    errorMessage?: string
-  ): FormError[] => {
-
+  const _run_validation = (data: any, errorMessage?: string): FormError[] => {
     const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
     const deviationReason = data[DC.DEVIATION_REASON];
     return [
@@ -30,7 +26,6 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   beforeEach(() => {
     formData = JSON.parse(JSON.stringify(testFormData)); // reset data
     errorArray = [];
-    console.log(formData, 'form data');
   });
 
   it("Default Form Data", () => {
