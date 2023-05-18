@@ -12,6 +12,7 @@ const FUMADValidation = (data: FormData) => {
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const dateRange = data[DC.DATE_RANGE];
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   let errorArray: any[] = [];
   if (data["DidReport"] === DC.NO) {
@@ -60,6 +61,7 @@ const FUMADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
     ...GV.validateOPMRates(OPM),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

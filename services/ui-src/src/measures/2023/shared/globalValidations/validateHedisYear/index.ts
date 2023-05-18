@@ -4,7 +4,10 @@ export const validateHedisYear = (
 ) => {
   const errorArray: FormError[] = [];
 
-  if (measurementSpecificationHedis === "") {
+  if (
+    measurementSpecificationHedis === "" ||
+    measurementSpecificationHedis === undefined
+  ) {
     errorArray.push({
       errorLocation: "Measure Specification",
       errorMessage:
