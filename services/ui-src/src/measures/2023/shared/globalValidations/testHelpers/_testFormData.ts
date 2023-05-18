@@ -332,7 +332,7 @@ export const testFormData: DefaultFormData = {
   },
   [DC.DID_CALCS_DEVIATE]: "no",
   [DC.DEVIATION_OPTIONS]: [],
-  [DC.DEVIATIONS]: {},
+  [DC.DEVIATION_REASON]: "This age group does not have enough data",
 
   [DC.DATA_SOURCE]: [DC.ADMINISTRATIVE_DATA],
   [DC.DATA_SOURCE_SELECTIONS]: {

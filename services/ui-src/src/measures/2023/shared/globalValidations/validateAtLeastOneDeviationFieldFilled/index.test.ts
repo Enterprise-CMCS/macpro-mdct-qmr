@@ -1,6 +1,5 @@
 import * as DC from "dataConstants";
 import { testFormData } from "../testHelpers/_testFormData";
-import { getDeviationNDRArray } from "measures/2023/shared/globalValidations";
 import { validateAtLeastOneDeviationFieldFilled } from ".";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
@@ -9,27 +8,22 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
 
   const _run_validation = (
     data: any,
-    noPM?: boolean,
     errorMessage?: string
   ): FormError[] => {
-    const deviationArray = getDeviationNDRArray(
-      data.DeviationOptions,
-      data.Deviations,
-      true
-    );
+
     const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+    const deviationReason = data[DC.DEVIATION_REASON];
     return [
       ...validateAtLeastOneDeviationFieldFilled(
-        noPM ? [[]] :
-        deviationArray,
         didCalculationsDeviate,
+        deviationReason,
         errorMessage
       ),
     ];
   };
 
-  const _check_errors = (data: any, numErrors: number, noPM?: boolean) => {
-    errorArray = _run_validation(data, noPM);
+  const _check_errors = (data: any, numErrors: number) => {
+    errorArray = _run_validation(data);
     expect(errorArray.length).toBe(numErrors);
   };
 
@@ -44,7 +38,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
 
   it("Calculations deviated, but somehow no performance measure data", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
-    _check_errors(formData, 0, true);
+    _check_errors(formData, 0);
   });
 
   it("Calculations deviated, but no answer given", () => {
@@ -125,7 +119,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   it("Error message text should match provided errorMessage", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     const errorMessage = "Another one bites the dust.";
-    errorArray = _run_validation(formData, undefined, errorMessage);
+    errorArray = _run_validation(formData, errorMessage);
     expect(errorArray.length).toBe(1);
     expect(errorArray[0].errorMessage).toBe(errorMessage);
   });

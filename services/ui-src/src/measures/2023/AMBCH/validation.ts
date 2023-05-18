@@ -7,13 +7,8 @@ import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStr
 const AMBCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -35,10 +30,8 @@ const AMBCHValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),

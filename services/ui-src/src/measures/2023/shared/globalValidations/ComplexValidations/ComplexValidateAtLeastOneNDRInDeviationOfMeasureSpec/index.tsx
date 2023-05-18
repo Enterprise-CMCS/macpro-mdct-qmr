@@ -1,27 +1,26 @@
-import * as Types from "measures/2023/shared/CommonQuestions/types";
-
 /*
- * If the user indicates that there is a deviation from the measure spec, they must
- * indicate where the deviation is.
+ * If the user indicates that there is a deviation from the measure spec, they 
+ * must explain the deviation(s)
  */
 export const ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec = (
-  deviationReason: Types.DeviationField[] | any,
-
-  didCalculationsDeviate: boolean
+  didCalculationsDeviate: boolean,
+  deviationReason: string,
+  errorMessage?: string
 ) => {
   let errorArray: FormError[] = [];
+  let reasonGiven: boolean = false;
 
   if (didCalculationsDeviate) {
     if (!!deviationReason) {
-      return deviationReason;
-    } else {
+      reasonGiven = true;
+    }
+
+    if (!reasonGiven) {
       errorArray.push({
         errorLocation: "Deviations from Measure Specifications",
-        errorMessage:
-          "Deviation(s) must be explained",
+        errorMessage: errorMessage ?? "Deviation(s) must be explained",
       });
     }
   }
-
   return errorArray;
 };

@@ -9,10 +9,7 @@ const PQI15Validation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations
-  );
+  const deviationReason = data[DC.DEVIATION_REASON];
   const dateRange = data[DC.DATE_RANGE];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
@@ -37,10 +34,8 @@ const PQI15Validation = (data: FormData) => {
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      PMD.qualifiers,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.omsValidations({
       data,

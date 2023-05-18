@@ -1,5 +1,4 @@
 import { DEVIATION_REASON } from "dataConstants";
-import * as Types from "measures/2023/shared/CommonQuestions/types";
 
 interface NDRforumla {
   numerator: number;
