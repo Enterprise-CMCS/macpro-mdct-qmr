@@ -30,14 +30,10 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   beforeEach(() => {
     formData = JSON.parse(JSON.stringify(testFormData)); // reset data
     errorArray = [];
+    console.log(formData, 'form data');
   });
 
   it("Default Form Data", () => {
-    _check_errors(formData, 0);
-  });
-
-  it("Calculations deviated, but somehow no performance measure data", () => {
-    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     _check_errors(formData, 0);
   });
 
@@ -46,64 +42,10 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     _check_errors(formData, 1);
   });
 
-  it("Calculations deviated, but partial answer given", () => {
+  it("Calculations deviated, reason given", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     formData[DC.DEVIATION_OPTIONS] = ["Test"];
-    formData[DC.DEVIATIONS] = {
-      Test: {
-        [DC.RATE_DEVIATIONS_SELECTED]: ["numerator"],
-      },
-    };
-    _check_errors(formData, 1);
-  });
-
-  it("Calculations deviated, only numerator filled", () => {
-    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
-    formData[DC.DEVIATION_OPTIONS] = ["Test"];
-    formData[DC.DEVIATIONS] = {
-      Test: {
-        [DC.RATE_DEVIATIONS_SELECTED]: ["numerator"],
-        numerator: "testString",
-      },
-    };
-    _check_errors(formData, 0);
-  });
-
-  it("Calculations deviated, only denominator filled", () => {
-    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
-    formData[DC.DEVIATION_OPTIONS] = ["Test"];
-    formData[DC.DEVIATIONS] = {
-      Test: {
-        [DC.RATE_DEVIATIONS_SELECTED]: ["denominator"],
-        denominator: "testString",
-      },
-    };
-    _check_errors(formData, 0);
-  });
-
-  it("Calculations deviated, only other filled", () => {
-    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
-    formData[DC.DEVIATION_OPTIONS] = ["Test"];
-    formData[DC.DEVIATIONS] = {
-      Test: {
-        [DC.RATE_DEVIATIONS_SELECTED]: ["Other"],
-        other: "testString",
-      },
-    };
-    _check_errors(formData, 0);
-  });
-
-  it("Calculations deviated all fields filled", () => {
-    formData[DC.DID_CALCS_DEVIATE] = DC.YES;
-    formData[DC.DEVIATION_OPTIONS] = ["Test"];
-    formData[DC.DEVIATIONS] = {
-      Test: {
-        [DC.RATE_DEVIATIONS_SELECTED]: ["numerator", "denominator", "Other"],
-        numerator: "testString",
-        denominator: "testString",
-        other: "testString",
-      },
-    };
+    formData[DC.DEVIATION_REASON] = "Deviation Reason Here";
     _check_errors(formData, 0);
   });
 
@@ -111,9 +53,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     errorArray = _run_validation(formData);
     expect(errorArray.length).toBe(1);
-    expect(errorArray[0].errorMessage).toBe(
-      "At least one item must be selected and completed (Numerator, Denominator, or Other)"
-    );
+    expect(errorArray[0].errorMessage).toBe("Deviation(s) must be explained");
   });
 
   it("Error message text should match provided errorMessage", () => {
