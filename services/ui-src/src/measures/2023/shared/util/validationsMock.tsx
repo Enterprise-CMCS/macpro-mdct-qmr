@@ -18,7 +18,6 @@ import * as PCRatLeastOneRateComplete from "measures/2023/shared/globalValidatio
 import * as PCRnoNonZeroNumOrDenom from "measures/2023/shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
 import * as ComplexAtLeastOneRateComplete from "measures/2023/shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "measures/2023/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
-import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexValidateNDRTotals from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 import * as ComplexValueSameCrossCategory from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
@@ -143,10 +142,6 @@ export const validationsMockObj: any = {
   ComplexNoNonZeroNumOrDenom: jest.spyOn(
     ComplexNoNonZeroNumOrDenom,
     "ComplexNoNonZeroNumOrDenom"
-  ),
-  ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec: jest.spyOn(
-    ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
-    "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"
   ),
   ComplexValidateNDRTotals: jest.spyOn(
     ComplexValidateNDRTotals,
