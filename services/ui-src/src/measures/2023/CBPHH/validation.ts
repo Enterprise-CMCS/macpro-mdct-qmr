@@ -14,7 +14,6 @@ const CBPValidation = (data: FormData) => {
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const deviationReason = data[DC.DEVIATION_REASON];
 
-
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];

@@ -18,7 +18,7 @@ const CHLValidation = (data: FormData) => {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
- 
+
   errorArray = [
     ...errorArray,
     ...GV.validateAtLeastOneRateComplete(
