@@ -13,6 +13,7 @@ const CBPValidation = (data: FormData) => {
   const dateRange = data[DC.DATE_RANGE];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const deviationReason = data[DC.DEVIATION_REASON];
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -46,6 +47,7 @@ const CBPValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
     ...GV.validateOPMRates(OPM),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.omsValidations({

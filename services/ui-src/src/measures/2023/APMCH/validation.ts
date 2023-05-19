@@ -11,6 +11,7 @@ const APMCHValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -57,6 +58,7 @@ const APMCHValidation = (data: FormData) => {
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
     ...GV.validateOPMRates(OPM),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(

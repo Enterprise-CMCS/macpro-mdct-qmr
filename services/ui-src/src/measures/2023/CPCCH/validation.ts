@@ -1,10 +1,12 @@
 import { FormData } from "./types";
 import { validateReasonForNotReporting } from "measures/2023/shared/globalValidations";
+import * as GV from "measures/2023/shared/globalValidations";
 import * as DC from "dataConstants";
 
 const CPCCHValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const whyDidYouNotCollect = data["WhyDidYouNotCollect"];
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   if (data["DidCollect"] === undefined) {
     errorArray.push({
@@ -18,6 +20,8 @@ const CPCCHValidation = (data: FormData) => {
     errorArray = [...validateReasonForNotReporting(whyDidYouNotCollect, true)];
     return errorArray;
   }
+
+  errorArray = [...errorArray, ...GV.validateHedisYear(measureSpecifications)];
 
   return errorArray;
 };

@@ -8,6 +8,8 @@ const CPUADValidation = (data: FormData) => {
   const carePlans = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
+
   let errorArray: any[] = [];
   const OPM = data[DC.OPM_RATES];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
@@ -38,6 +40,7 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
 
