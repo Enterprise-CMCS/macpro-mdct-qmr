@@ -20,6 +20,7 @@ export * from "./validateRequiredRadioButtonForCombinedRates";
 export * from "./validateTotals";
 export * from "./validateYearFormat";
 export * from "./validateOPMRates";
+export * from "./validateHedisYear";
 
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "./PCRValidations/PCRatLeastOneRateComplete";
