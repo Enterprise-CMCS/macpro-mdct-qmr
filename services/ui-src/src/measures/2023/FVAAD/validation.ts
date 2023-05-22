@@ -11,6 +11,7 @@ const FVAADValidation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
@@ -44,6 +45,8 @@ const FVAADValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       ageGroups,

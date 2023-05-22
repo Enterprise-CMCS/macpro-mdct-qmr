@@ -13,6 +13,7 @@ const AABADValidation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
@@ -48,6 +49,7 @@ const AABADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

@@ -39,6 +39,7 @@ const CCWCHValidation = (data: FormData) => {
     ),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
     ...GV.omsValidations({
       data,

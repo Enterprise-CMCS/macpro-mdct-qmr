@@ -215,6 +215,8 @@ export const measureDescriptions: MeasureList = {
     "COL-AD": "Colorectal Cancer Screening",
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
+    "CPU-AD":
+      "Long-Term Services and Supports Comprehensive Care Plan and Update",
     "FUA-AD":
       "Follow-up After Emergency Department Visit for Substance Use: Age 18 and Older",
     "FUH-AD":
@@ -245,6 +247,8 @@ export const measureDescriptions: MeasureList = {
       "Diabetes Screening for People with Schizophrenia or Bipolar Disorder Who Are Using Antipsychotic Medications",
 
     // Child
+    "AAB-CH":
+      "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Ages 3 Months to 17 Years",
     "ADD-CH":
       "Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication",
     "AMB-CH": "Ambulatory Care: Emergency Department (ED) Visits",
@@ -270,6 +274,7 @@ export const measureDescriptions: MeasureList = {
     "IMA-CH": "Immunizations for Adolescents",
     "LBW-CH": "Live Births Weighing Less Than 2,500 Grams",
     "LRCD-CH": "Low-Risk Cesarean Delivery",
+    "LSC-CH": "Lead Screening in Children",
     "OEV-CH": "Oral Evaluation, Dental Services",
     "PPC-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",

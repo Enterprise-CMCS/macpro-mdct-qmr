@@ -13,6 +13,7 @@ const COLHHValidation = (data: FormData) => {
   const dateRange = data[DC.DATE_RANGE];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const errorReplacementText = "Ages 65 to 75";
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -53,6 +54,8 @@ const COLHHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
+    ...GV.validateOPMRates(OPM),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

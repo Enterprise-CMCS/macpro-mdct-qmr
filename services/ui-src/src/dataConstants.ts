@@ -12,6 +12,7 @@ export const AHRQ = "AHRQ";
 export const AHRQ_NCQA = "AHRQ-NCQA";
 export const AMOUNT_OF_POP_NOT_COVERED = "AmountOfPopulationNotCovered";
 export const BUDGET_CONSTRAINTS = "BudgetConstraints";
+export const CASE_MANAGEMENT_RECORD_REVIEW = "Case management record review";
 export const CATEGORIES = "categories";
 export const CDC = "CDC";
 export const CHANGE_IN_POP_EXPLANATION = "ChangeInPopulationExplanation";

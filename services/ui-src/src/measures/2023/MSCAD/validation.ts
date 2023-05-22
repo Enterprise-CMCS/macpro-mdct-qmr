@@ -13,6 +13,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -47,6 +48,8 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
+    ...GV.validateOPMRates(OPM),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateAtLeastOneDataSource(data),

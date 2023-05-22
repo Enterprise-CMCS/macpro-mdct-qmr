@@ -12,6 +12,7 @@ const FUAADValidation = (data: FormData) => {
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -56,6 +57,8 @@ const FUAADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(measureSpecifications),
+    ...GV.validateOPMRates(OPM),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
