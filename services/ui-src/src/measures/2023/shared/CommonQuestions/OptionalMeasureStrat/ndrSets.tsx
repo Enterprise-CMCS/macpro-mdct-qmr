@@ -204,34 +204,41 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
         }
       });
     } else if (performanceMeasureArray) {
-      performanceMeasureArray?.forEach((measure, idx) => {
+      // The list of categories from the performance measure array
+      // may not match up to the list available for OMS,
+      // due to the excludeFromOMS property.
+      // Only create <QMR.Rate> elements for the categories that are not excluded.
+      // This relies on the measure UID having been formed by concatenation from the category ID.
+      const nonExcludedPerformanceMeasures = performanceMeasureArray.filter(
+        (measure) =>
+          categories.some((cat) => measure[0]?.uid?.startsWith(cat.id))
+      );
+      nonExcludedPerformanceMeasures.forEach((measure, idx) => {
         if (measure?.[qualIndex]?.rate) {
-          if (categories[idx]?.id) {
-            const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx]?.id}`;
+          const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx]?.id}`;
 
-            ndrSets.push(
-              <QMR.Rate
-                readOnly={rateReadOnly}
-                name={adjustedName}
-                key={adjustedName}
-                rateMultiplicationValue={rateMultiplicationValue}
-                allowNumeratorGreaterThanDenominator={
-                  allowNumeratorGreaterThanDenominator
-                }
-                customNumeratorLabel={customNumeratorLabel}
-                customDenominatorLabel={customDenominatorLabel}
-                customRateLabel={customRateLabel}
-                customMask={customMask}
-                rateCalc={rateCalculation}
-                rates={[
-                  {
-                    id: 0,
-                    label: categories[idx]?.label,
-                  },
-                ]}
-              />
-            );
-          }
+          ndrSets.push(
+            <QMR.Rate
+              readOnly={rateReadOnly}
+              name={adjustedName}
+              key={adjustedName}
+              rateMultiplicationValue={rateMultiplicationValue}
+              allowNumeratorGreaterThanDenominator={
+                allowNumeratorGreaterThanDenominator
+              }
+              customNumeratorLabel={customNumeratorLabel}
+              customDenominatorLabel={customDenominatorLabel}
+              customRateLabel={customRateLabel}
+              customMask={customMask}
+              rateCalc={rateCalculation}
+              rates={[
+                {
+                  id: 0,
+                  label: categories[idx]?.label,
+                },
+              ]}
+            />
+          );
         }
       });
     }
