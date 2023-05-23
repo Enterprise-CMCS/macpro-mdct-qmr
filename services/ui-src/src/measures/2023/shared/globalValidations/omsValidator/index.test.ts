@@ -89,7 +89,7 @@ describe("Testing OMS validation processor", () => {
       validationCallbacks: [],
     });
 
-    expect(errors.length).toBe(134);
+    expect(errors.length).toBe(140);
     expect(
       errors.some((e) =>
         e.errorMessage.includes("Must fill out at least one NDR set.")
@@ -125,6 +125,6 @@ describe("Testing OMS validation processor", () => {
       ],
     });
 
-    expect(errors.length).toBe(74);
+    expect(errors.length).toBe(76);
   });
 });
