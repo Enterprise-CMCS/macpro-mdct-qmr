@@ -8,6 +8,9 @@ the key should be the measure id as a string (with '-XX' included)
 const AABAD = lazy(() =>
   import("./AABAD").then((module) => ({ default: module.AABAD }))
 );
+const AABCH = lazy(() =>
+  import("./AABCH").then((module) => ({ default: module.AABCH }))
+);
 const ADDCH = lazy(() =>
   import("./ADDCH").then((module) => ({ default: module.ADDCH }))
 );
@@ -92,6 +95,9 @@ const CPAAD = lazy(() =>
 const CPCCH = lazy(() =>
   import("./CPCCH").then((module) => ({ default: module.CPCCH }))
 );
+const CPUAD = lazy(() =>
+  import("./CPUAD").then((module) => ({ default: module.CPUAD }))
+);
 const DEVCH = lazy(() =>
   import("./DEVCH").then((module) => ({ default: module.DEVCH }))
 );
@@ -154,6 +160,9 @@ const LRCDCH = lazy(() =>
 );
 const MSCAD = lazy(() =>
   import("./MSCAD").then((module) => ({ default: module.MSCAD }))
+);
+const LSCCH = lazy(() =>
+  import("./LSCCH").then((module) => ({ default: module.LSCCH }))
 );
 const NCIDDSAD = lazy(() =>
   import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
@@ -224,6 +233,7 @@ const WCVCH = lazy(() =>
 
 const twentyTwentyThreeMeasures = {
   "AAB-AD": AABAD,
+  "AAB-CH": AABCH,
   "ADD-CH": ADDCH,
   "AIF-HH": AIFHH,
   "AMB-CH": AMBCH,
@@ -252,6 +262,7 @@ const twentyTwentyThreeMeasures = {
   "COL-HH": COLHH,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
+  "CPU-AD": CPUAD,
   "DEV-CH": DEVCH,
   "FUA-AD": FUAAD,
   "FUA-CH": FUACH,
@@ -273,6 +284,7 @@ const twentyTwentyThreeMeasures = {
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
+  "LSC-CH": LSCCH,
   "NCIDDS-AD": NCIDDSAD,
   "OEV-CH": OEVCH,
   "OHD-AD": OHDAD,

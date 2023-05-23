@@ -15,6 +15,8 @@ const AMBHHValidation = (data: FormData) => {
     data.Deviations
   );
   const dateRange = data[DC.DATE_RANGE];
+  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
+
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   let errorArray: any[] = [];
 
@@ -35,7 +37,8 @@ const AMBHHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-
+    ...GV.validateOPMRates(OPM),
+    ...GV.validateHedisYear(measureSpecifications),
     // Performance Measure Validations
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
