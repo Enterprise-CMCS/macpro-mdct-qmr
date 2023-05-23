@@ -1710,12 +1710,14 @@ export const data = {
             {
                 "label": "Dental services",
                 "text": "Dental services",
-                "id": "1gVqJh"
+                "id": "1gVqJh",
+                "excludeFromOMS": true
             },
             {
                 "label": "Oral health services",
                 "text": "Oral health services",
-                "id": "0NPmzO"
+                "id": "0NPmzO",
+                "excludeFromOMS": true
             }
         ]
     },
