@@ -187,9 +187,6 @@ export interface DeviationField {
 }
 export interface DeviationFields {
   [DC.OPTIONS]: string[];
-  [DC.DENOMINATOR]: string;
-  [DC.NUMERATOR]: string;
-  [DC.OTHER]: string;
   [DC.REASON]: string;
 }
 export interface OtherRatesFields {
