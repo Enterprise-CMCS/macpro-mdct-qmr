@@ -241,7 +241,6 @@ export const IETRate = ({
       } else {
         totalQual["rate"] = "";
       }
-      // console.log(totalQual);
     }
   };
 
