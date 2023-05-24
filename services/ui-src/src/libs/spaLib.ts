@@ -275,7 +275,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Chronic Care Management for Individuals with Serious and Persistent Mental Health Conditions",
     },
     { id: "18-0007", state: "DC", name: "Chronic Conditions" },
-    { id: "20-0010", state: "IA", name: "Iowa Health Home Services" },
+    { id: "22-0003", state: "IA", name: "Iowa Health Home Services" },
     {
       id: "20-0011",
       state: "IA",
@@ -298,7 +298,7 @@ export const SPA: { [year: string]: SPAi[] } = {
     },
     { id: "18-0002", state: "ME", name: "Maine Behavioral Health Home" },
     {
-      id: "18-0032",
+      id: "22-0018",
       state: "ME",
       name: "Maine Health Home for Beneficiaries Receiving Medication Assisted Treatment for Opioid Addiction",
     },
@@ -309,7 +309,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Chronic Care Model for Individuals with Serious and Persistent Mental Health Conditions",
     },
     { id: "15-2000", state: "MI", name: "Michigan Care Team" },
-    { id: "20-1501", state: "MI", name: "Opioid Health Home" },
+    { id: "22-1501", state: "MI", name: "Opioid Health Home" },
     { id: "19-0015", state: "MN", name: "Minnesota Behavioral Health Homes" },
     {
       id: "19-0020",
@@ -329,11 +329,11 @@ export const SPA: { [year: string]: SPAi[] } = {
     },
     { id: "18-0002", state: "NM", name: "CareLink New Mexico" },
     {
-      id: "20-0054",
+      id: "21-0072",
       state: "NY",
       name: "Health Home for High-Cost, High-Needs Enrollees ",
     },
-    { id: "17-0025", state: "NY", name: "New York I/DD Health Home Services" },
+    { id: "22-0073", state: "NY", name: "New York I/DD Health Home Services" },
     { id: "14-0012", state: "OK", name: "Oklahoma Health Home (Adults)" },
     { id: "14-0011", state: "OK", name: "Oklahoma Health Home (Children)" },
     {
@@ -347,7 +347,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Community Mental Health Organizations Health Home",
     },
     {
-      id: "16-006",
+      id: "21-0025",
       state: "RI",
       name: "Rhode Island Opioid Treatment Program Health Home Services",
     },

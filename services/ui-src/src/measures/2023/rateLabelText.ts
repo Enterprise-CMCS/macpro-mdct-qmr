@@ -22,6 +22,16 @@ export const data = {
         ],
         "categories": [{"id":"SU6HXz", "label": "", "text":""}]
     },
+    "AAB-CH": {
+        "qualifiers": [
+            {
+                "label": "Ages 3 months to 17 years",
+                "text": "Ages 3 months to 17 years",
+                "id": "xS5HMm"
+            },
+        ],
+        "categories": [{"id":"ZCy3XP", "label": "", "text":""}]
+    },
     "ADD-CH": {
         "qualifiers": [
             {
@@ -575,6 +585,11 @@ export const data = {
     "COL-HH": {
         "qualifiers": [
             {
+                "label": "Ages 46 to 49",
+                "text": "Ages 46 to 49",
+                "id": "RHlNkr"
+            },
+            {
                 "label": "Ages 50 to 64",
                 "text": "Ages 50 to 64",
                 "id": "u1n5QA"
@@ -586,6 +601,21 @@ export const data = {
             }
         ],
         "categories": [{"id":"sYNAsL", "label": "", "text":""}]
+    },
+    "CPU-AD": {
+        "qualifiers": [
+            {
+                "label": "Care Plan with Core Elements Documented",
+                "text": "Care Plan with Core Elements Documented",
+                "id": "T6dADz",
+            },
+            {
+                "label": "Care Plan with Supplemental Elements Documented",
+                "text": "Care Plan with Supplemental Elements Documented",
+                "id": "NBz553",
+            },
+        ],
+        "categories": [{"id":"HLXNLW", "label": "", "text":""}]
     },
     "DEV-CH": {
         "qualifiers": [
@@ -1008,43 +1038,43 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Alcohol Abuse or Dependence",
+                "label": "Initiation of SUD Treatment: Alcohol Use Disorder",
+                "text": "Initiation of SUD Treatment: Alcohol Use Disorder",
                 "id": "SzkEgT"
             },
             {
-                "label": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Alcohol Abuse or Dependence",
+                "label": "Engagement of SUD Treatment: Alcohol Use Disorder",
+                "text": "Engagement of SUD Treatment: Alcohol Use Disorder",
                 "id": "fBjzVK"
             },
             {
-                "label": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Opioid Abuse or Dependence",
+                "label": "Initiation of SUD Treatment: Opioid Use Disorder",
+                "text": "Initiation of SUD Treatment: Opioid Use Disorder",
                 "id": "XcV5kx"
             },
             {
-                "label": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Opioid Abuse or Dependence",
+                "label": "Engagement of SUD Treatment: Opioid Use Disorder",
+                "text": "Engagement of SUD Treatment: Opioid Use Disorder",
                 "id": "TbEkhJ"
             },
             {
-                "label": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Other Drug Abuse or Dependence",
+                "label": "Initiation of SUD Treatment: Other Substance Use Disorder",
+                "text": "Initiation of SUD Treatment: Other Substance Use Disorder",
                 "id": "DNIllr"
             },
             {
-                "label": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Other Drug Abuse or Dependence",
+                "label": "Engagement of SUD Treatment: Other Substance Use Disorder",
+                "text": "Engagement of SUD Treatment: Other Substance Use Disorder",
                 "id": "J2Kfn5"
             },
             {
-                "label": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
-                "text": "Initiation of AOD Treatment: Total AOD Abuse or Dependence",
+                "label": "Initiation of SUD Treatment: Total",
+                "text": "Initiation of SUD Treatment: Total",
                 "id": "QpzHSf"
             },
             {
-                "label": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
-                "text": "Engagement of AOD Treatment: Total AOD Abuse or Dependence",
+                "label": "Engagement of SUD Treatment: Total",
+                "text": "Engagement of SUD Treatment: Total",
                 "id": "AVY2yg"
             }
         ]
@@ -1112,11 +1142,6 @@ export const data = {
                 "label": "Inpatient",
                 "text": "Inpatient",
                 "id": "895Rzk"
-            },
-            {
-                "label": "Maternity",
-                "text": "Maternity",
-                "id": "rtWfdd"
             },
             {
                 "label": "Mental and Behavioral Disorders",
@@ -1671,7 +1696,33 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"WCV-CH-CAT-A", "label": "", "text":""}]
+    "categories": [{"id":"WCV-CH-CAT-A", "label": "", "text":""}]
+    },
+    "LSC-CH": {
+        "qualifiers": [
+            {
+                "label": "Ages 3 to 11",
+                "text": "Ages 3 to 11",
+                "id": "AtXKXx"
+            },
+            {
+                "label": "Ages 12 to 17",
+                "text": "Ages 12 to 17",
+                "id": "iqbQvK"
+            },
+            {
+                "label": "Ages 18 to 21",
+                "text": "Ages 18 to 21",
+                "id": "pJmWDY"
+            },
+            {
+                "label": "Total (Ages 3 to 21)",
+                "text": "Total (Ages 3 to 21)",
+                "id": "Total"
+            }
+            
+        ],
+        "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
     }
 }
 

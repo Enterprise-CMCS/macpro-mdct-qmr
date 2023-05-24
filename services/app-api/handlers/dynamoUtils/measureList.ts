@@ -763,6 +763,10 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "CPU-AD",
+    },
+    {
+      type: "A",
       measure: "FUA-AD",
     },
     {
@@ -844,6 +848,10 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      measure: "AAB-CH",
+    },
+    {
+      type: "C",
       measure: "ADD-CH",
     },
     {
@@ -905,6 +913,10 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "IMA-CH",
+    },
+    {
+      type: "C",
+      measure: "LSC-CH",
     },
     {
       type: "C",
