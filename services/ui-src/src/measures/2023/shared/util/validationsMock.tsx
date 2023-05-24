@@ -16,10 +16,8 @@ import * as validateRequiredRadioButtonForCombinedRates from "measures/2023/shar
 import * as validateTotals from "measures/2023/shared/globalValidations/validateTotals";
 import * as PCRatLeastOneRateComplete from "measures/2023/shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 import * as PCRnoNonZeroNumOrDenom from "measures/2023/shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
-import * as PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec from "measures/2023/shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexAtLeastOneRateComplete from "measures/2023/shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "measures/2023/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
-import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexValidateNDRTotals from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 import * as ComplexValueSameCrossCategory from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
@@ -137,10 +135,6 @@ export const validationsMockObj: any = {
     PCRnoNonZeroNumOrDenom,
     "PCRnoNonZeroNumOrDenom"
   ),
-  PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec: jest.spyOn(
-    PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec,
-    "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"
-  ),
   ComplexAtLeastOneRateComplete: jest.spyOn(
     ComplexAtLeastOneRateComplete,
     "ComplexAtLeastOneRateComplete"
@@ -148,10 +142,6 @@ export const validationsMockObj: any = {
   ComplexNoNonZeroNumOrDenom: jest.spyOn(
     ComplexNoNonZeroNumOrDenom,
     "ComplexNoNonZeroNumOrDenom"
-  ),
-  ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec: jest.spyOn(
-    ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
-    "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"
   ),
   ComplexValidateNDRTotals: jest.spyOn(
     ComplexValidateNDRTotals,

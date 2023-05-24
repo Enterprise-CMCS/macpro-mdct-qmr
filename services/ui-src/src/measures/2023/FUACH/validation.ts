@@ -11,18 +11,13 @@ const FUACHValidation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
   const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   if (data[DC.DID_REPORT] === DC.NO) {
     return [...GV.validateReasonForNotReporting(whyNotReporting)];
   }
-
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   let errorArray: any[] = [
     ...GV.validateEqualQualifierDenominatorsPM(
@@ -49,10 +44,8 @@ const FUACHValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
 

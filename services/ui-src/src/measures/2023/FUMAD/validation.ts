@@ -12,6 +12,8 @@ const FUMADValidation = (data: FormData) => {
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const dateRange = data[DC.DATE_RANGE];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
   const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   let errorArray: any[] = [];
@@ -19,13 +21,6 @@ const FUMADValidation = (data: FormData) => {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   let sameDenominatorError = [
     ...GV.validateEqualQualifierDenominatorsPM(
@@ -66,10 +61,8 @@ const FUMADValidation = (data: FormData) => {
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      PMD.qualifiers,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.omsValidations({
       data,

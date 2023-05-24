@@ -40,7 +40,7 @@ export const MSCAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} rateReadOnly={false} />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {/* Show Other Performance Measures when isHedis is not true  */}
