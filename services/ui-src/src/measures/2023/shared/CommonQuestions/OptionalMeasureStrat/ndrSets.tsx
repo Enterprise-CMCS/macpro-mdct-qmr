@@ -208,7 +208,11 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
       });
     } else if (performanceMeasureArray) {
       const quals = performanceMeasureArray.flatMap((arr) =>
-        arr.filter((rate) => rate.uid?.includes(cat.id))
+        arr.filter(
+          (rate) =>
+            rate.uid?.includes(cat.id) &&
+            (calcTotal ? !rate.uid?.includes("Total") : true)
+        )
       );
 
       quals?.forEach((qual) => {
