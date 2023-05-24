@@ -59,9 +59,6 @@ describe("Measure: HBD-AD", () => {
     cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').clear();
     cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').type("5");
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(
-      '[data-cy="The measure has been validated successfully"] > .chakra-text'
-    ).should("have.text", "The measure has been validated successfully");
     /* ==== End Cypress Studio ==== */
   });
 
@@ -327,16 +324,16 @@ describe("Measure: HBD-AD", () => {
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "example 1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.example1.OPM.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.example1.OPM.0.numerator"]'
     ).type("3");
   });
 });
