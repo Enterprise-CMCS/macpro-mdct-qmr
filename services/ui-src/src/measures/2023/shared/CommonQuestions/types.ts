@@ -254,12 +254,20 @@ export namespace OmsNodes {
   }
 }
 
+export interface QualifierLabelData extends LabelData {
+  [DC.EXCLUDE_FROM_OMS]?: boolean;
+}
+
 export interface Qualifiers {
-  [DC.QUALIFIERS]?: LabelData[];
+  [DC.QUALIFIERS]?: QualifierLabelData[];
+}
+
+export interface CategoryLabelData extends LabelData {
+  [DC.EXCLUDE_FROM_OMS]?: boolean;
 }
 
 export interface Categories {
-  [DC.CATEGORIES]?: LabelData[];
+  [DC.CATEGORIES]?: CategoryLabelData[];
 }
 
 export interface OptionalMeasureStratification {

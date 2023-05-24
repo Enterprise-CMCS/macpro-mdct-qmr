@@ -135,12 +135,9 @@ const TotalNDRSets = ({
 
   return (
     <CUI.Box>
-      <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />
-      {categories.length > 0 && categories.some((item) => item.label) && (
-        <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-          {totalQual.label}
-        </CUI.Heading>
-      )}
+      <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
+        {totalQual.label}
+      </CUI.Heading>
       <CUI.Box>{rateArray}</CUI.Box>
     </CUI.Box>
   );
@@ -207,7 +204,16 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
         }
       });
     } else if (performanceMeasureArray) {
-      performanceMeasureArray?.forEach((measure, idx) => {
+      // The list of categories from the performance measure array
+      // may not match up to the list available for OMS,
+      // due to the excludeFromOMS property.
+      // Only create <QMR.Rate> elements for the categories that are not excluded.
+      // This relies on the measure UID having been formed by concatenation from the category ID.
+      const nonExcludedPerformanceMeasures = performanceMeasureArray.filter(
+        (measure) =>
+          categories.some((cat) => measure[0]?.uid?.startsWith(cat.id))
+      );
+      nonExcludedPerformanceMeasures.forEach((measure, idx) => {
         if (measure?.[qualIndex]?.rate) {
           const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx]?.id}`;
 

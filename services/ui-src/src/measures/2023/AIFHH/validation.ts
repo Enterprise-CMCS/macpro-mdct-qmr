@@ -111,12 +111,6 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
-        ...GV.ComplexValidateNDRTotalsOMS(
-          rateData?.["aifhh-rate"]?.rates ?? {},
-          PMD.categories,
-          ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)} Total`
-        ),
       ]
     : [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
