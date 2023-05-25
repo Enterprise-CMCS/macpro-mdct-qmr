@@ -1,12 +1,9 @@
-import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 import * as CMQ from "measures/2023/shared/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
 import { validationFunctions } from "./validation";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
-import { FormData } from "./types";
 
 export const PCRHH = ({
   name,
@@ -18,16 +15,11 @@ export const PCRHH = ({
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
 }: QMR.MeasureWrapperProps) => {
-  const { watch } = useFormContext<FormData>();
-  const data = watch();
-
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
-
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
 
   return (
     <>
@@ -49,23 +41,12 @@ export const PCRHH = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <PCRHHPerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec
-                categories={PMD.qualifiers}
-                measureName={measureId}
-              />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates healthHomeMeasure />
-          {showOptionalMeasureStrat && (
-            <CMQ.OptionalMeasureStrat
-              performanceMeasureArray={performanceMeasureArray}
-              qualifiers={PMD.qualifiers}
-              categories={PMD.categories}
-              adultMeasure={false}
-              componentFlag={"PCR"}
-            />
-          )}
+          {showOptionalMeasureStrat && <CMQ.NotCollectingOMS />}
         </>
       )}
       <CMQ.AdditionalNotes />

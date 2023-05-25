@@ -24,12 +24,13 @@ describe("Measure: HBD-AD", () => {
 
     // other data source
     cy.get(
-      '[data-cy="DataSource2"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="DataSource3"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
 
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
+    cy.get('[data-cy="MeasurementSpecification-HEDISVersion"]').select(1);
     cy.get('[data-cy="DateRange.startDate-month"]').click({ force: true });
     cy.get('[data-cy="DateRange.startDate-month"]').type("2");
 
@@ -235,59 +236,8 @@ describe("Measure: HBD-AD", () => {
       "4"
     );
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
-    cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
-    cy.get("#DeviationOptions0-checkbox").check();
-    cy.get(
-      '[data-cy="Deviations.F9V8xD.SelectedOptions0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get("#Deviations\\.F9V8xD\\.SelectedOptions0-checkbox").check();
-    cy.get(
-      '[data-cy="Deviations.F9V8xD.clYQr0.RateDeviationsSelected0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.F9V8xD\\.clYQr0\\.RateDeviationsSelected0-checkbox"
-    ).check();
-    cy.get('[data-cy="Deviations.F9V8xD.clYQr0.numerator"]').type("10");
-    cy.get(
-      '[data-cy="Deviations.F9V8xD.clYQr0.RateDeviationsSelected1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.F9V8xD\\.clYQr0\\.RateDeviationsSelected1-checkbox"
-    ).check();
-    cy.get('[data-cy="Deviations.F9V8xD.clYQr0.denominator"]').type("10");
-    cy.get(
-      '[data-cy="Deviations.F9V8xD.clYQr0.RateDeviationsSelected2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.F9V8xD\\.clYQr0\\.RateDeviationsSelected2-checkbox"
-    ).check();
-    cy.get('[data-cy="Deviations.F9V8xD.clYQr0.other"]').type("10");
-
-    cy.get(
-      '[data-cy="Deviations.F9V8xD.SelectedOptions1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get("#Deviations\\.F9V8xD\\.SelectedOptions1-checkbox").check();
-    cy.get(
-      '[data-cy="Deviations.F9V8xD.chkl7n.RateDeviationsSelected0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.F9V8xD\\.chkl7n\\.RateDeviationsSelected0-checkbox"
-    ).check();
-    cy.get('[data-cy="Deviations.F9V8xD.chkl7n.numerator"]').type("10");
-    cy.get(
-      '[data-cy="Deviations.F9V8xD.chkl7n.RateDeviationsSelected1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.F9V8xD\\.chkl7n\\.RateDeviationsSelected1-checkbox"
-    ).check();
-    cy.get('[data-cy="Deviations.F9V8xD.chkl7n.denominator"]').type("10");
-    cy.get(
-      '[data-cy="Deviations.F9V8xD.chkl7n.RateDeviationsSelected2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.F9V8xD\\.chkl7n\\.RateDeviationsSelected2-checkbox"
-    ).check();
-    cy.get('[data-cy="Deviations.F9V8xD.chkl7n.other"]').type("10");
+    cy.get('[data-cy="DeviationReason"]').click();
+    cy.get('[data-cy="DeviationReason"]').type("testing the deviation reason");
   });
 
   // if Other measure spec is selected each age range/ custom description for which there are n/d/r

@@ -8,12 +8,8 @@ const FUHHHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const sixtyDaysIndex = 2;
@@ -55,10 +51,8 @@ const FUHHHValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      PMD.qualifiers,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
