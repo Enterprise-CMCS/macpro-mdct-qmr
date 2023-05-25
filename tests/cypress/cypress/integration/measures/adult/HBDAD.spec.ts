@@ -236,6 +236,7 @@ describe("Measure: HBD-AD", () => {
       "4"
     );
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
+    cy.wait(1000);
     cy.get('[data-cy="DeviationReason"]').click();
     cy.get('[data-cy="DeviationReason"]').type("testing the deviation reason");
   });
