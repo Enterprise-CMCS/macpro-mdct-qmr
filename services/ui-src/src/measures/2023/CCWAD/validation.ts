@@ -11,15 +11,7 @@ const CCWADValidation = (data: FormData) => {
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations
-  );
-
-  const memeRates =
-    data.PerformanceMeasure?.rates?.[PMD.categories[0].id] ?? [];
-  const larcRates =
-    data.PerformanceMeasure?.rates?.[PMD.categories[1].id] ?? [];
+  const deviationReason = data[DC.DEVIATION_REASON];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -50,10 +42,8 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      [memeRates, larcRates],
-      [{ id: "", label: "", text: "" }],
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.omsValidations({
       data,

@@ -46,10 +46,7 @@ export const LSCCH = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <PerformanceMeasure hybridMeasure />
-              <CMQ.DeviationFromMeasureSpec
-                categories={PMD.categories}
-                customTotalLabel={PMD.qualifiers.slice(-1)[0].label} // use the actual Total label
-              />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

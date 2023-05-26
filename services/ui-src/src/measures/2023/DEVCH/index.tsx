@@ -46,10 +46,7 @@ export const DEVCH = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal hybridMeasure />
-              <CMQ.DeviationFromMeasureSpec
-                categories={PMD.categories}
-                customTotalLabel="Children Total"
-              />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
