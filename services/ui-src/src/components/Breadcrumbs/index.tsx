@@ -14,6 +14,7 @@ interface Props {
 
 export const Breadcrumbs = ({ items, color }: Props) => {
   const isMultipleItems = items.length > 1;
+  const filteredItems = items.filter((item) => item.name !== "");
   const { pathname } = useLocation();
   return (
     <CUI.Flex>
@@ -28,7 +29,7 @@ export const Breadcrumbs = ({ items, color }: Props) => {
         </CUI.Center>
       )}
       <CUI.HStack>
-        {items?.map((item, idx) => (
+        {filteredItems?.map((item, idx) => (
           <CUI.Heading
             size="md"
             minW={idx === 0 ? "max-content" : "none"}

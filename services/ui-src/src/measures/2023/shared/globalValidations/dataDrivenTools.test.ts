@@ -10,7 +10,6 @@ import {
   getPerfMeasureRateArray,
   omsLocationDictionary,
   performanceMeasureErrorLocationDicitonary,
-  getDeviationNDRArray,
 } from "./dataDrivenTools";
 
 describe("Test Data Driven Tools", () => {
@@ -78,13 +77,6 @@ describe("Test Data Driven Tools", () => {
       expect(dictionary?.[categories[0].id]).toBe(categories[0].label);
       expect(dictionary?.[categories[1].id]).toBe(categories[1].label);
       expect(dictionary?.[SINGLE_CATEGORY]).toBe(PERFORMANCE_MEASURE);
-    });
-  });
-
-  describe("getDeviationNDRArray", () => {
-    it("should return empty array if no values passed", () => {
-      const data = getDeviationNDRArray([], {});
-      expect(data.length).toBe(0);
     });
   });
 });

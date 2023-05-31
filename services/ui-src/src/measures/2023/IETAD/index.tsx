@@ -50,7 +50,7 @@ export const IETAD = ({
                 RateComponent={QMR.IETRate}
                 calcTotal={true}
               />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
