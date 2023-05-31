@@ -224,7 +224,8 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
-    if (!mutationRunning && !loadingData) {
+    // if this is an autocompleted measure, do not save
+    if (!mutationRunning && !loadingData && !autoCompletedMeasure) {
       updateMeasure(
         {
           data,
