@@ -12,16 +12,13 @@ const OUDValidation = (data: FormData) => {
   const dateRange = data[DC.DATE_RANGE];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
+
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations
-  );
 
   errorArray = [
     ...errorArray,
@@ -39,10 +36,8 @@ const OUDValidation = (data: FormData) => {
       PMD.qualifiers
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      PMD.qualifiers,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),

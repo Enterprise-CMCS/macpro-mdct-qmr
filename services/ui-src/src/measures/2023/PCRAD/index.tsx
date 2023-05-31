@@ -40,10 +40,7 @@ export const PCRAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <PCRADPerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec
-                categories={PMD.qualifiers}
-                measureName={measureId}
-              />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

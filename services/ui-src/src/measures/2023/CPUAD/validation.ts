@@ -12,13 +12,8 @@ const CPUADValidation = (data: FormData) => {
 
   let errorArray: any[] = [];
   const OPM = data[DC.OPM_RATES];
-
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
   const dateRange = data[DC.DATE_RANGE];
 
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -50,10 +45,8 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
 
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      carePlans,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
 
     // OMS Validations

@@ -13,13 +13,8 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
   const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
-
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -54,10 +49,8 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.omsValidations({

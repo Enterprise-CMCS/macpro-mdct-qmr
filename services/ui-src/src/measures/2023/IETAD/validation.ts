@@ -51,13 +51,8 @@ const IETValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-
+  const deviationReason = data[DC.DEVIATION_REASON];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
@@ -145,10 +140,8 @@ const IETValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
   ];
 

@@ -10,6 +10,8 @@ const CHLValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   const dateRange = data[DC.DATE_RANGE];
+  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
   const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   let errorArray: any[] = [];
@@ -17,12 +19,6 @@ const CHLValidation = (data: FormData) => {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
-  const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
   errorArray = [
     ...errorArray,
@@ -61,10 +57,8 @@ const CHLValidation = (data: FormData) => {
       ],
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      ageGroups,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
   ];
 

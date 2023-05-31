@@ -9,12 +9,9 @@ const PQI01Validation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
 
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations
-  );
   const age65PlusIndex = 0;
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
@@ -55,10 +52,8 @@ const PQI01Validation = (data: FormData) => {
       definitionOfDenominator
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      PMD.qualifiers,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),

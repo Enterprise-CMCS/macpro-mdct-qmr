@@ -9,13 +9,8 @@ const WCCHValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -70,10 +65,8 @@ const WCCHValidation = (data: FormData) => {
       validateEqualQualifierDenominatorsErrorMessage
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
-      performanceMeasureArray,
-      PMD.qualifiers,
-      deviationArray,
-      didCalculationsDeviate
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.validateTotalNDR(
       performanceMeasureArray,
