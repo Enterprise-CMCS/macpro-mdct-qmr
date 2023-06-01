@@ -221,8 +221,6 @@ const StateHome = () => {
 
   const selectedStates = ["CA", "DE", "OK"];
   const hideHealthHome = year === "2023" && selectedStates.includes(userState);
-  console.log(userState, "state");
-  console.log(hideHealthHome, "hideHealthHome");
 
   return (
     <QMR.StateLayout
