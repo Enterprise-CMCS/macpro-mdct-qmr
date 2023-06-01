@@ -32,8 +32,8 @@ Cypress.Commands.add(
       stateuser1: Cypress.env("TEST_USER_1"),
     };
     cy.visit("/");
-    cy.xpath(emailForCognito).type(`${users[user]}`);
-    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
+    cy.xpath(emailForCognito).type("stateuser3@test.com");
+    cy.xpath(passwordForCognito).type("R*ezKG4HAAvU");
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );

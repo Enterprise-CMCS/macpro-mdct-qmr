@@ -219,6 +219,11 @@ const StateHome = () => {
     )
   );
 
+  const selectedStates = ["CA", "DE", "OK"];
+  const hideHealthHome = year === "2023" && selectedStates.includes(userState);
+  console.log(userState, "state");
+  console.log(hideHealthHome, "hideHealthHome");
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -242,7 +247,7 @@ const StateHome = () => {
         <AddCoreSetCards
           childCoreSetExists={childCoreSetExists}
           healthHomesCoreSetExists={allPossibleHealthHomeCoreSetsExist}
-          renderHealthHomeCoreSet={!!spaIds?.length}
+          renderHealthHomeCoreSet={!hideHealthHome && !!spaIds?.length}
         />
       </CUI.HStack>
     </QMR.StateLayout>
