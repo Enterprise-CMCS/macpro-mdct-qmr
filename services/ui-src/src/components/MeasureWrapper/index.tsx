@@ -184,6 +184,7 @@ export const MeasureWrapper = ({
   });
   const measureData = apiData?.Item;
   const detailedDescription = apiData?.Item?.detailedDescription;
+  const measureStatus = apiData?.Item?.status;
 
   const updateCoreSet = useEditCoreSet().mutate;
   const { state, coreSetId } = useParams();
@@ -224,8 +225,11 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
-    // if this is an autocompleted measure, do not save
-    if (!mutationRunning && !loadingData && !autoCompletedMeasure) {
+    // do not auto-save measure if the measure has already been completed or if it an auto-complete/read-only measure
+    const shouldSave =
+      measureStatus === MeasureStatus.INCOMPLETE || !autoCompletedMeasure;
+    if (!mutationRunning && !loadingData && !shouldSave) {
+      console.log("handling save");
       updateMeasure(
         {
           data,
