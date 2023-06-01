@@ -229,7 +229,6 @@ export const MeasureWrapper = ({
     const shouldSave =
       measureStatus === MeasureStatus.INCOMPLETE || !autoCompletedMeasure;
     if (!mutationRunning && !loadingData && !shouldSave) {
-      console.log("handling save");
       updateMeasure(
         {
           data,
