@@ -5,7 +5,10 @@ import { AddCoreSetCards } from "../AddCoreSetCards";
 beforeEach(() => {
   render(
     <RouterWrappedComp>
-      <AddCoreSetCards />
+      <AddCoreSetCards
+        childCoreSetExists={true}
+        healthHomesCoreSetExists={true}
+      />
     </RouterWrappedComp>
   );
 });

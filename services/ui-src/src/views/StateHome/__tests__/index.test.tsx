@@ -73,3 +73,24 @@ describe("Test StateHome accessibility", () => {
     expect(results).toHaveNoViolations();
   });
 });
+
+describe("Test 2023 state without health home core sets", () => {
+  jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useParams: jest.fn().mockReturnValue({
+      year: "2023",
+      state: "CA",
+    }),
+    useNavigate: () => mockedNavigate,
+  }));
+
+  beforeEach(() => {
+    useApiMock({});
+    render(testComponent);
+  });
+  test("Should not render health home core sets for CA", () => {
+    expect(
+      screen.queryByText(/Need to report on Health home data/i)
+    ).not.toBeInTheDocument();
+  });
+});
