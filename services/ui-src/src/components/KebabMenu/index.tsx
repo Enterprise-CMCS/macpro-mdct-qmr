@@ -10,18 +10,24 @@ export interface IKebabMenuItem {
   handleSelect: (data?: any) => void;
   type?: CoreSetTableItem.Type;
   headerText?: string;
+  menuLabel?: string;
 }
 
 export interface KebabMenuProps {
   menuItems: IKebabMenuItem[];
   headerText?: string;
+  menuLabel?: string;
 }
 
-export const KebabMenu = ({ menuItems, headerText }: KebabMenuProps) => {
+export const KebabMenu = ({
+  menuItems,
+  headerText,
+  menuLabel,
+}: KebabMenuProps) => {
   return (
     <CUI.Menu>
       <CUI.MenuButton
-        aria-label="Action Menu"
+        aria-label={menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"}
         data-cy={`${menuItems[0].type}-kebab-menu`}
       >
         <BsThreeDotsVertical />
@@ -29,6 +35,7 @@ export const KebabMenu = ({ menuItems, headerText }: KebabMenuProps) => {
       <CUI.MenuList bg="blue.500" maxW="40px" p="0">
         {menuItems.map((i) => (
           <KebabMenuItem
+            menuLabel={menuLabel}
             itemText={i.itemText}
             handleSelect={i.handleSelect}
             headerText={headerText}
@@ -46,6 +53,7 @@ const KebabMenuItem = ({
   handleSelect,
   type,
   headerText,
+  menuLabel,
 }: IKebabMenuItem) => {
   const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
   const handleCloseDeleteDialog = () => setDeleteDialogIsOpen(false);
@@ -70,7 +78,7 @@ const KebabMenuItem = ({
         onClick={
           isDeleteButton ? () => setDeleteDialogIsOpen(true) : handleSelect
         }
-        aria-label={itemText}
+        aria-label={itemText ? `${itemText} for ${menuLabel}` : "itemText"}
         data-cy={itemText}
       >
         <CUI.Text fontSize="sm">{itemText}</CUI.Text>
