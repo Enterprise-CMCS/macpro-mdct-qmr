@@ -21,7 +21,9 @@ export const validateSameDenominatorSets =
 
         if (
           initRate &&
+          initRate.denominator &&
           engageRate &&
+          engageRate.denominator &&
           initRate.denominator !== engageRate.denominator
         ) {
           errorArray.push({

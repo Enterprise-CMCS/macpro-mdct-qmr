@@ -236,10 +236,9 @@ const validateNDRs = (
       );
     }
 
-    //TEST: Figure out what triggers this and make sure the values are still fine across measures with no categories
-    // default check
     for (const cat of categories) {
       for (const qual of qualifiers) {
+        //array key order is determined in component useQualRateArray, cleanedName variable
         if (rateData.rates?.[cat.id]?.[qual.id]) {
           const temp = rateData.rates[cat.id][qual.id][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {

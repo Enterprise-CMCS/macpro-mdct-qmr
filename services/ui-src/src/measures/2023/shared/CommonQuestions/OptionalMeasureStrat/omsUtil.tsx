@@ -30,6 +30,7 @@ interface CalcOmsTotalProp {
 }
 
 /** Process all OMS rate values pertaining to set category and calculate new rate object */
+/** Note: this currently isn't in use with 2023 because we updated the OMS to show only the total qualifier if there is one in the list of qualifiers. */
 const calculateOMSTotal = ({
   cleanedCategory,
   numberOfDecimals,
@@ -45,17 +46,17 @@ const calculateOMSTotal = ({
 
   for (const qual of qualifiers.slice(0, -1)) {
     if (
-      watchOMS?.[qual.id]?.[cleanedCategory]?.[0]?.numerator &&
-      watchOMS?.[qual.id]?.[cleanedCategory]?.[0]?.denominator &&
-      watchOMS?.[qual.id]?.[cleanedCategory]?.[0]?.rate
+      watchOMS?.[cleanedCategory]?.[qual.id]?.[0]?.numerator &&
+      watchOMS?.[cleanedCategory]?.[qual.id]?.[0]?.denominator &&
+      watchOMS?.[cleanedCategory]?.[qual.id]?.[0]?.rate
     ) {
       tempRate.numerator ??= 0;
       tempRate.denominator ??= 0;
       tempRate.numerator += parseFloat(
-        watchOMS[qual.id][cleanedCategory][0].numerator
+        watchOMS[cleanedCategory][qual.id][0].numerator
       );
       tempRate.denominator += parseFloat(
-        watchOMS[qual.id][cleanedCategory][0].denominator
+        watchOMS[cleanedCategory][qual.id][0].denominator
       );
     }
   }
@@ -175,7 +176,7 @@ const calculateComplexOMSTotal = ({
 
   // Store sums in temp
   for (const qual of cleanedQualifiers) {
-    const fields = watchOMS?.[qual.id]?.[cleanedCategory]?.[0]?.fields;
+    const fields = watchOMS?.[cleanedCategory]?.[qual.id]?.[0]?.fields;
     if (fields?.every((f: { value?: string }) => !!f?.value)) {
       fields?.forEach((field: { value: string }, i: number) => {
         if (field?.value && tempRate?.fields?.[i]) {
