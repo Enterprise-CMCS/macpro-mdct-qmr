@@ -80,7 +80,7 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
     styleProps: { textAlign: "center" },
     cell: (data: CoreSetTableItem.Data) => (
       <CUI.Box textAlign="center">
-        <QMR.KebabMenu menuItems={data.actions} />
+        <QMR.KebabMenu menuLabel={data.coreSet} menuItems={data.actions} />
       </CUI.Box>
     ),
   },
