@@ -136,7 +136,7 @@ const TotalNDRSets = ({
   return (
     <CUI.Box>
       <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-        {totalQual.label} holder
+        {totalQual.label}
       </CUI.Heading>
       <CUI.Box>{rateArray}</CUI.Box>
     </CUI.Box>
