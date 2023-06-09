@@ -15,6 +15,7 @@ const TestComponent = () => {
       numerator: "",
       rate: "",
       id: 1,
+      uid: "test",
     },
   ];
 
@@ -29,6 +30,7 @@ const TestComponent2 = () => {
       numerator: "",
       rate: "",
       id: 1,
+      uid: "test",
     },
   ];
 
@@ -116,6 +118,7 @@ const TestComponentWithTotal = () => {
       numerator: "",
       rate: "",
       id: 1,
+      uid: "test1",
     },
     {
       label: "test2",
@@ -123,6 +126,7 @@ const TestComponentWithTotal = () => {
       numerator: "",
       rate: "",
       id: 2,
+      uid: "test2",
     },
     {
       label: "total",
@@ -131,6 +135,7 @@ const TestComponentWithTotal = () => {
       rate: "",
       id: 3,
       isTotal: true,
+      uid: "Total",
     },
   ];
 
