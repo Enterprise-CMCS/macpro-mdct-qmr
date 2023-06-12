@@ -37,6 +37,51 @@ const TestComponent2 = () => {
   return <IETRate rates={rates} name="test-component" readOnly={false} />;
 };
 
+const categories = [
+  {
+    label: "cat1: cat",
+    text: "cat1: cat",
+    id: "cat1-id",
+  },
+  {
+    label: "cat1: Total",
+    text: "cat1: Total",
+    id: "cat1-total",
+  },
+];
+
+const qualifiers = [
+  {
+    label: "qual1",
+    text: "qual1",
+    id: "qual1-id",
+  },
+  {
+    label: "qual2",
+    text: "qual2",
+    id: "qual2-id",
+  },
+];
+
+const TextComponentCategory = () => {
+  let rates = qualifiers?.map((qual, idx) => ({
+    label: qual.label,
+    uid: categories[0].id + "." + qual.id,
+    id: idx,
+  }));
+
+  return (
+    <IETRate
+      rates={rates}
+      categories={categories}
+      categoryName="cat1: cat"
+      name="test-component"
+      readOnly={false}
+      calcTotal={true}
+    />
+  );
+};
+
 describe("Test the IETRate component", () => {
   beforeEach(() => {
     renderWithHookForm(<TestComponent />, {
@@ -84,6 +129,44 @@ describe("Test the IETRate component", () => {
     fireEvent.type(rateTextBox, "4321");
 
     expect(rateTextBox).toHaveDisplayValue("1");
+  });
+});
+
+describe("Test rate component by category", () => {
+  beforeEach(() => {
+    let allRates: any = {};
+    let defaultValues: any = { PerformanceMeasure: { rates: "" } };
+
+    categories.forEach((cat) => {
+      let rates: any[] = [];
+      qualifiers.forEach((qual, index) => {
+        let rate = {
+          id: index,
+          label: qual.label,
+          denominator: "",
+          numerator: "",
+          rate: "",
+          uid: cat.id + "." + qual.id,
+          isTotal: cat.label.includes("Total"),
+        };
+
+        rates.push(rate);
+      });
+
+      defaultValues[cat.id] = rates;
+      allRates[cat.id] = rates;
+      defaultValues.PerformanceMeasure.rates = allRates;
+    });
+
+    renderWithHookForm(<TextComponentCategory />, {
+      defaultValues: defaultValues,
+    });
+  });
+
+  test("Check that calculateTotalCategory had run", () => {
+    let numerator = screen.getAllByLabelText(/numerator/i)[0];
+    fireEvent.type(numerator, "43");
+    expect(numerator).toHaveValue("43");
   });
 });
 
