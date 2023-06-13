@@ -59,6 +59,7 @@ const WCVCHValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateTotalNDR(performanceMeasureArray),
   ];

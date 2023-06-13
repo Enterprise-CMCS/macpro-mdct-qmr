@@ -21,7 +21,6 @@ const HBDADValidation = (data: FormData) => {
     return errorArray;
   }
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   errorArray = [
     ...errorArray,
@@ -69,7 +68,7 @@ const HBDADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(measureSpecifications),
+    ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
   ];
 

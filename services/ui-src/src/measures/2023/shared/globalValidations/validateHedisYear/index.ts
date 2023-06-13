@@ -1,12 +1,19 @@
+import * as Types from "measures/2023/shared/CommonQuestions/types";
+import * as DC from "dataConstants";
+
 export const validateHedisYear = (
-  measurementSpecificationHedis: string,
+  data: Types.MeasurementSpecification,
   errorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
+  const measurementSpecification: string = data[DC.MEASUREMENT_SPECIFICATION];
+  const measurementSpecificationHedis: string =
+    data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   if (
     measurementSpecificationHedis === "" ||
-    measurementSpecificationHedis === undefined
+    (measurementSpecificationHedis === undefined &&
+      measurementSpecification !== "Other")
   ) {
     errorArray.push({
       errorLocation: "Measure Specification",

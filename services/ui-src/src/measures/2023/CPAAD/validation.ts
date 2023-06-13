@@ -6,7 +6,6 @@ import * as DC from "dataConstants";
 const CPAADValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const whyDidYouNotCollect = data["WhyDidYouNotCollect"];
-  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   if (data["DidCollect"] === undefined) {
     errorArray.push({
@@ -21,7 +20,7 @@ const CPAADValidation = (data: FormData) => {
     return errorArray;
   }
 
-  errorArray = [...errorArray, ...GV.validateHedisYear(measureSpecifications)];
+  errorArray = [...errorArray, ...GV.validateHedisYear(data)];
 
   return errorArray;
 };

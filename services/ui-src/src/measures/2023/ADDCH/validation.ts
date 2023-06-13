@@ -13,7 +13,6 @@ const ADDCHValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
   const deviationReason = data[DC.DEVIATION_REASON];
-  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
@@ -42,7 +41,7 @@ const ADDCHValidation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateOPMRates(OPM),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(measureSpecifications),
+    ...GV.validateHedisYear(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
