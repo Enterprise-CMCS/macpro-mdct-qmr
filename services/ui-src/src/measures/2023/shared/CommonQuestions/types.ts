@@ -179,6 +179,7 @@ export interface RateFields {
 
 export interface complexRateFields {
   [DC.LABEL]?: string;
+  [DC.UID]?: string;
   fields?: { [DC.LABEL]?: string; value: string | undefined }[];
 }
 

@@ -21,6 +21,7 @@ export * from "./validateTotals";
 export * from "./validateYearFormat";
 export * from "./validateOPMRates";
 export * from "./validateHedisYear";
+export * from "./validateSameDenominatorSets";
 
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "./PCRValidations/PCRatLeastOneRateComplete";
