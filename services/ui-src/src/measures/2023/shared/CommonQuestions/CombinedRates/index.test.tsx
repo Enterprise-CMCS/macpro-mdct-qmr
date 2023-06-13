@@ -98,24 +98,24 @@ describe("Test CombinedRates component for Health Homes", () => {
   it("component renders with different text", () => {
     expect(
       screen.getByText(
-        "Did you combine rates from multiple reporting units (e.g. Health Home Providers) to create a Health Home SPA-Level rate?"
+        "Did you combine rates from multiple reporting units (e.g. Health Home Providers) to create a Health Home Program-Level rate?"
       )
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Did you combine rates from multiple reporting units (e.g. Health Home Providers) to create a Health Home SPA-Level rate?"
+        "Did you combine rates from multiple reporting units (e.g. Health Home Providers) to create a Health Home Program-Level rate?"
       )
     ).toBeInTheDocument();
   });
 
   it("renders suboptions when Yes is clicked", async () => {
     const textArea = await screen.findByLabelText(
-      "Yes, we combined rates from multiple reporting units to create a Health Home SPA-Level rate."
+      "Yes, we combined rates from multiple reporting units to create a Health Home Program-Level rate."
     );
     fireEvent.click(textArea);
     expect(
       screen.getByText(
-        "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a SPA-Level rate."
+        "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a Program-Level rate."
       )
     ).toBeInTheDocument();
     expect(
@@ -133,7 +133,7 @@ describe("Test CombinedRates component for Health Homes", () => {
   it("renders a text area when Yes is clicked and the last option is clicked for Health Homes", async () => {
     fireEvent.click(
       await screen.findByLabelText(
-        "Yes, we combined rates from multiple reporting units to create a Health Home SPA-Level rate."
+        "Yes, we combined rates from multiple reporting units to create a Health Home Program-Level rate."
       )
     );
     fireEvent.click(
@@ -156,12 +156,12 @@ describe("Test CombinedRates component for Health Homes", () => {
 
   it("does not render suboptions when No is clicked", async () => {
     const textArea = await screen.findByLabelText(
-      "No, we did not combine rates from multiple reporting units to create a SPA-Level rate for Health Home measures."
+      "No, we did not combine rates from multiple reporting units to create a Program-Level rate for Health Home measures."
     );
     fireEvent.click(textArea);
     expect(
       screen.queryByText(
-        "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a SPA-Level rate."
+        "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a Program-Level rate."
       )
     ).toBeNull();
     expect(
