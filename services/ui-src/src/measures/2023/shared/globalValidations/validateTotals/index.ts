@@ -35,7 +35,7 @@ export const validateOMSTotalNDR =
       let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
       let denominatorSum: any = null;
       for (const qual of qualifiers.map((s) => s.id)) {
-        ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
+        ndrSets.push(rateData.rates?.[cat]?.[qual]?.[0]);
       }
 
       // The last NDR set is the total

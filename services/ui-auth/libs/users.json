@@ -1171,5 +1171,34 @@
         "Value": "HI"
       }
     ]
+  },
+  {
+    "username": "stateuserVI@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserVI@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Thomas"
+      },
+      {
+        "Name": "family_name",
+        "Value": "VI"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "VI"
+      }
+    ]
   }
 ]

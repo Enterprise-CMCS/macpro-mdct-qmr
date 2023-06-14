@@ -212,10 +212,10 @@ const validateNDRs = (
     if (rateData?.["pcr-rate"]) {
       return rateData["pcr-rate"].every((o) => !!o?.value);
     }
-    for (const qual of qualifiers) {
-      for (const cat of categories) {
-        if (rateData.rates?.[qual.id]?.[cat.id]) {
-          const temp = rateData.rates[qual.id][cat.id][0];
+    for (const cat of categories) {
+      for (const qual of qualifiers) {
+        if (rateData.rates?.[cat.id]?.[qual.id]) {
+          const temp = rateData.rates[cat.id][qual.id][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
             return true;
           }
@@ -236,11 +236,11 @@ const validateNDRs = (
       );
     }
 
-    // default check
-    for (const qual of qualifiers) {
-      for (const cat of categories) {
-        if (rateData.rates?.[qual.id]?.[cat.id]) {
-          const temp = rateData.rates[qual.id][cat.id][0];
+    for (const cat of categories) {
+      for (const qual of qualifiers) {
+        //array key order is determined in component useQualRateArray, cleanedName variable
+        if (rateData.rates?.[cat.id]?.[qual.id]) {
+          const temp = rateData.rates[cat.id][qual.id][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
             isDeepFilled[`${location}-${qual.id}`] ??= true;
           } else {

@@ -4,46 +4,6 @@ import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
 
-/** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
-const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
-  rateData,
-  locationDictionary,
-  categories,
-  qualifiers,
-  isOPM,
-  label,
-}) => {
-  if (isOPM) return [];
-  const errorArray: FormError[] = [];
-
-  for (const qual of qualifiers) {
-    for (let initiation = 0; initiation < categories.length; initiation += 2) {
-      const engagement = initiation + 1;
-      const initRate =
-        rateData.rates?.[qual.id]?.[categories[initiation].id]?.[0];
-      const engageRate =
-        rateData.rates?.[qual.id]?.[categories[engagement].id]?.[0];
-
-      if (
-        initRate &&
-        engageRate &&
-        initRate.denominator !== engageRate.denominator
-      ) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qual.id]
-          )}`,
-          errorMessage: `Denominators must be the same for ${locationDictionary(
-            [categories[initiation].label]
-          )} and ${locationDictionary([categories[engagement].label])}.`,
-        });
-      }
-    }
-  }
-
-  return errorArray;
-};
-
 const IETValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
@@ -128,7 +88,7 @@ const IETValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
-        sameDenominatorSets,
+        GV.validateSameDenominatorSets(),
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],
     }),

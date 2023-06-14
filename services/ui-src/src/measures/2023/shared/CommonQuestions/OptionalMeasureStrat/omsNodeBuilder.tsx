@@ -25,11 +25,10 @@ interface NdrNodeProps {
   flagSubCat: boolean;
 }
 
-const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
+const NdrNode = ({ name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
       <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
-      {flagSubCat && <SubCatSection name={name} />}
     </CUI.Box>
   );
 };
@@ -48,6 +47,9 @@ const renderRadioButtonOptions = ({
         omsNode?.aggregateTitle || omsNode?.id
       } categories.`,
       value: "YesAggregateData",
+      children: [
+        <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
+      ],
     },
     {
       displayValue: `No, we are reporting disaggregated data for ${
@@ -69,7 +71,7 @@ const renderRadioButtonOptions = ({
             }) || []
           }
         />,
-        <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
+        <SubCatSection name={name} />,
       ],
     },
   ];

@@ -1,6 +1,5 @@
 import { FormData } from "./types";
 import { validateReasonForNotReporting } from "measures/2023/shared/globalValidations";
-import * as GV from "measures/2023/shared/globalValidations";
 import * as DC from "dataConstants";
 
 const CPCCHValidation = (data: FormData) => {
@@ -19,8 +18,6 @@ const CPCCHValidation = (data: FormData) => {
     errorArray = [...validateReasonForNotReporting(whyDidYouNotCollect, true)];
     return errorArray;
   }
-
-  errorArray = [...errorArray, ...GV.validateHedisYear(data)];
 
   return errorArray;
 };

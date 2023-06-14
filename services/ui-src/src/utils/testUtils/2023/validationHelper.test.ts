@@ -1,6 +1,6 @@
 import * as VH from "./validationHelpers";
 
-//mock and suppress console calls
+// mock and suppress console calls
 const mockedConsoleError = jest.fn();
 (global as any).console = {
   error: mockedConsoleError,
@@ -13,7 +13,7 @@ describe("Test Validation Helpers", () => {
       [{ label: "test2", id: "test2", text: "test2" }],
       [{ numerator: "5" }]
     );
-    expect(data.rates?.["test2"]?.["test1"]?.[0]?.numerator).toBe("5");
+    expect(data.rates?.["test1"]?.["test2"]?.[0]?.numerator).toBe("5");
   });
 
   it("should not create data if no data passed", () => {
