@@ -228,7 +228,7 @@ export const MeasureWrapper = ({
     // do not auto-save measure if the measure has already been completed or if it an auto-complete/read-only measure
     const shouldSave =
       measureStatus === MeasureStatus.INCOMPLETE || !autoCompletedMeasure;
-    if (!mutationRunning && !loadingData && !shouldSave) {
+    if (!mutationRunning && !loadingData && shouldSave) {
       updateMeasure(
         {
           data,
