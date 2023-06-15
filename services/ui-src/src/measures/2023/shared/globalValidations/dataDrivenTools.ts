@@ -58,7 +58,7 @@ export const convertOmsDataToRateArray = (
   for (const cat of categories) {
     const tempArr: PM[] = [];
     for (const qual of qualifiers) {
-      tempArr.push(rateData.rates?.[qual.id]?.[cat.id]?.[0] ?? {});
+      tempArr.push(rateData.rates?.[cat.id]?.[qual.id]?.[0] ?? {});
     }
     rateArray.push(tempArr);
   }

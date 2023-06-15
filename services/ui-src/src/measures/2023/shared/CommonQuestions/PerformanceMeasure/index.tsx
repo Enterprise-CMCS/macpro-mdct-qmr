@@ -89,6 +89,7 @@ const CategoryNdrSets = ({
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
               categoryName={item.label}
+              categories={categories}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}

@@ -19,9 +19,6 @@ import { measureDescriptions } from "measures/measureDescriptions";
 const Home = lazy(() =>
   import("views/Home").then((module) => ({ default: module.Home }))
 );
-const FAQ = lazy(() =>
-  import("views/FAQ").then((module) => ({ default: module.FAQ }))
-);
 const StateHome = lazy(() => import("views/StateHome"));
 const AdminHome = lazy(() =>
   import("views/AdminHome").then((module) => ({ default: module.AdminHome }))
@@ -153,7 +150,6 @@ export function AppRoutes() {
     <main id="main-wrapper">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/faq" element={<FAQ />} />
         <Route path=":state/:year" element={<StateHome />} />
         <Route path="admin" element={<AdminHome />} />
         <Route path="admin/banner" element={<AdminBannerView />} />

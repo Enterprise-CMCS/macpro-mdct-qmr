@@ -38,13 +38,13 @@ describe("Test Add Child Core Set Component", () => {
   it("Form properly interactable", () => {
     userEvent.click(
       screen.getByText(
-        /Reporting Medicaid and CHIP measures in separate core sets/i
+        /Reporting Medicaid and CHIP measures in separate Core Sets/i
       )
     );
 
     expect(
       screen.getByLabelText(
-        /Reporting Medicaid and CHIP measures in separate core sets/i
+        /Reporting Medicaid and CHIP measures in separate Core Sets/i
       )
     ).toBeChecked();
   });

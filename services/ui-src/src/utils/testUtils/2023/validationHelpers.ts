@@ -105,8 +105,8 @@ export const generateOmsQualifierRateData = (
   for (const [i, q] of qualifiers.map((q) => q.id).entries()) {
     for (const c of cats) {
       rateData.rates ??= {};
-      rateData.rates[q] ??= {};
-      rateData.rates[q][c] = [testData[i]];
+      rateData.rates[c] ??= {};
+      rateData.rates[c][q] = [testData[i]];
     }
   }
 
@@ -138,8 +138,8 @@ export const generateOmsCategoryRateData = (
   for (const [i, c] of categories.map((c) => c.id).entries()) {
     for (const q of qualifiers.map((q) => q.id)) {
       rateData.rates ??= {};
-      rateData.rates[q] ??= {};
-      rateData.rates[q][c] = [testData[i]];
+      rateData.rates[c] ??= {};
+      rateData.rates[c][q] = [testData[i]];
     }
   }
 

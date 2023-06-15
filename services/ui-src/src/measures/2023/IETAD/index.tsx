@@ -45,7 +45,11 @@ export const IETAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data}
+                RateComponent={QMR.IETRate}
+                calcTotal={true}
+              />
               <CMQ.DeviationFromMeasureSpec />
             </>
           )}

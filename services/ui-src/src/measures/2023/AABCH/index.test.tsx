@@ -177,6 +177,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
+    expect(
+      V.validateRequiredRadioButtonForCombinedRates
+    ).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -194,6 +197,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateTotalNDR).toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).toHaveBeenCalled();
+    expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);

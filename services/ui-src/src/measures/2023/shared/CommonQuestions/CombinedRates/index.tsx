@@ -25,7 +25,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
         ) : (
           <>
             Did you combine rates from multiple reporting units (e.g. Health
-            Home Providers) to create a Health Home SPA-Level rate?
+            Home Providers) to create a Health Home Program-Level rate?
           </>
         )}
       </CUI.Text>
@@ -46,7 +46,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
           {
             displayValue: !healthHomeMeasure
               ? "Yes, we combined rates from multiple reporting units to create a State-Level rate."
-              : "Yes, we combined rates from multiple reporting units to create a Health Home SPA-Level rate.",
+              : "Yes, we combined rates from multiple reporting units to create a Health Home Program-Level rate.",
             value: DC.YES,
             children: [
               <QMR.RadioButton
@@ -55,7 +55,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
                   {
                     displayValue: !healthHomeMeasure
                       ? "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a State-Level rate."
-                      : "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a SPA-Level rate.",
+                      : "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a Program-Level rate.",
                     value: DC.COMBINED_NOT_WEIGHTED_RATES,
                   },
                   {
@@ -84,7 +84,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
           {
             displayValue: !healthHomeMeasure
               ? "No, we did not combine rates from multiple reporting units to create a State-Level rate."
-              : "No, we did not combine rates from multiple reporting units to create a SPA-Level rate for Health Home measures.",
+              : "No, we did not combine rates from multiple reporting units to create a Program-Level rate for Health Home measures.",
             value: DC.NO,
           },
         ]}
