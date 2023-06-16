@@ -195,6 +195,9 @@ describe("Measure: IET-HH", () => {
     cy.get(
       '[data-cy="You must select at least one Data Source option"]'
     ).should("exist");
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="Date Range Error"]').should("exist");
     cy.get(
       '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White - Total (age 13 and older) Error"]'

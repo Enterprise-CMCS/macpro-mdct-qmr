@@ -32,6 +32,9 @@ describe("CCW-AD", () => {
       force: true,
     });
     cy.get("#DataSource1-checkbox").check();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="DateRange.startDate-month"]').click({ force: true });
     cy.get('[data-cy="DateRange.startDate-month"]').type("2");
 

@@ -29,6 +29,9 @@ describe("Measure: HPC-AD", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[id="DataSource1-checkbox"]').check({ force: true });
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="DateRange.startDate-month"]').click({ force: true });
     cy.get('[data-cy="DateRange.startDate-month"]').type("2");
 

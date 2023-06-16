@@ -14,14 +14,6 @@ describe("User must select a data source selection validation", () => {
     cy.get(
       '[data-cy="You must select at least one Data Source option"] > .chakra-text'
     ).should("have.text", "You must select at least one Data Source option");
-    cy.get('[data-cy="Date Range Error"]').should(
-      "have.text",
-      "Date Range Error"
-    );
-    cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
-      "have.text",
-      "Date Range must be completed"
-    );
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should(

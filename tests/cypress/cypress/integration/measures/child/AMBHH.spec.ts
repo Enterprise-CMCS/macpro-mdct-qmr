@@ -32,6 +32,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("calculates rates correctly", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -58,6 +61,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("calculates rates correctly - OPM", () => {
     cy.get('[data-cy="MeasurementSpecification1"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]').type(
       "4"
@@ -94,6 +100,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("calculates rates correctly - OMS", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
 
     cy.get('[data-cy="Performance Measure"]').click();
@@ -246,6 +255,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("Ensure that Total NDR set is auto calculated from the according age ranges", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -267,6 +279,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("checks that Total NDR should have a value if other NDRs have been filled", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -288,6 +303,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("Ensure that Total NDR set is auto calculated from the according age ranges - OMS", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
 
     cy.get(
@@ -391,6 +409,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("checks that Total NDR should have calculated numerator/denominator", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -415,6 +436,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("checks that Total NDR should have calculated numerator/denominator - OMS", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
 
     cy.get(
@@ -516,6 +540,9 @@ describe("Measure 19: AMB-HH", () => {
 
   it("rounds the numerical value after the decimal up/down for auto-calculated rates", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -542,6 +569,9 @@ describe("Measure 19: AMB-HH", () => {
   it("displays a warning when N=0, D>0, and user enters a rate > 0", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -565,6 +595,9 @@ describe("Measure 19: AMB-HH", () => {
   it("displays a warning when N>0, D>0, and user enters a rate of 0", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'

@@ -32,6 +32,9 @@ describe("Measure: APP-CH", () => {
 
   it("calculates rates correctly", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -58,6 +61,9 @@ describe("Measure: APP-CH", () => {
 
   it("rounds the numerical value after the decimal up/down for auto-calculated rates", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -84,6 +90,9 @@ describe("Measure: APP-CH", () => {
   it("displays a warning when N=0, D>0, and user enters a rate > 0", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -107,6 +116,9 @@ describe("Measure: APP-CH", () => {
   it("displays a warning when N>0, D>0, and user enters a rate of 0", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
@@ -130,6 +142,9 @@ describe("Measure: APP-CH", () => {
   describe("NDR sets", () => {
     beforeEach(() => {
       cy.get('[data-cy="MeasurementSpecification0"]').click();
+      cy.get(
+        '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+      ).click();
       cy.enterValidDateRange();
 
       // Enter Performance Measures

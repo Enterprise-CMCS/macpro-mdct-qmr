@@ -7,10 +7,6 @@ describe("CCS-AD", () => {
 
   it("Click on validate measure button without filling out the form", function () {
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="Date Range Error"]').should(
-      "have.text",
-      "Date Range Error"
-    );
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should(

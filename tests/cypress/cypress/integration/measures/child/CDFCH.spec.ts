@@ -12,14 +12,6 @@ describe("Measure: oy2-8979 CDF-CH", () => {
 
   it("Ensure error message when not enter any data in the form and verify Data Source", () => {
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="Date Range Error"]').should(
-      "have.text",
-      "Date Range Error"
-    );
-    cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
-      "have.text",
-      "Date Range must be completed"
-    );
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should(
@@ -69,6 +61,9 @@ describe("Measure: oy2-8979 CDF-CH", () => {
       '[data-cy="DataSourceSelections.OtherDataSource.description"]'
     ).click();
     cy.get('[data-cy="DataSourceDescription"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="DateRange.startDate-month"]').type("10");
     cy.get('[data-cy="DateRange.startDate-year"]').type("2019");
     cy.get('[data-cy="DateRange.endDate-month"]').type("10");

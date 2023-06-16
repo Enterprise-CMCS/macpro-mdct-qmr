@@ -29,6 +29,9 @@ describe("Measure 34: CBP-AD", () => {
     cy.get("[data-cy=MeasurementSpecification-HEDISVersion]").select(
       "HEDIS MY 2020 (FFY 2021 Core Set Reporting)"
     );
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.xpath("(//input[@label='Month'])[1]").clear();
     cy.xpath("(//input[@label='Month'])[1]").type("10");
     cy.xpath("(//input[@label='Year'])[1]").clear();

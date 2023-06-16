@@ -207,7 +207,9 @@ describe("Measure: AMR-AD", () => {
 
   it("does not treat the third OMS NDR set as a total set when using OPM", () => {
     cy.get('[data-cy="MeasurementSpecification1"]').click();
-
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="DateRange.startDate-month"').type("1");
     cy.get('[data-cy="DateRange.startDate-year"').type("2021");
     cy.get('[data-cy="DateRange.endDate-month"').type("12");

@@ -13,6 +13,9 @@ describe("Confirm Validate Measure Errors", () => {
       "have.text",
       "Combined Rate(s) Error"
     );
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="Date Range Error"]').should(
       "have.text",
       "Date Range Error"

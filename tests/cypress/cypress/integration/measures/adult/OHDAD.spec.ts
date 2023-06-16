@@ -154,6 +154,9 @@ describe("Measure: OHD-AD", () => {
 
   describe("Date Range Validation", () => {
     it("Must have a filled date with appropriate range", () => {
+      cy.get(
+        '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+      ).click();
       cy.clickValidateMeasure();
       cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
         "be.visible"

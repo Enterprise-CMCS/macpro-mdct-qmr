@@ -36,14 +36,6 @@ describe("Measure: oy2_9922 AUD-CH", () => {
   it("Verify error message when no data entered in the form and click on validate measure button", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="Date Range Error"]').should(
-      "have.text",
-      "Date Range Error"
-    );
-    cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
-      "have.text",
-      "Date Range must be completed"
-    );
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should(
@@ -82,6 +74,9 @@ describe("Measure: oy2_9922 AUD-CH", () => {
     cy.get("#DataSource0-checkbox").check();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
     cy.get("#DataSource1-checkbox").check();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="DateRange.startDate-month"]').clear();
     cy.get('[data-cy="DateRange.startDate-month"]').type("10");
     cy.get('[data-cy="DateRange.startDate-year"]').clear();

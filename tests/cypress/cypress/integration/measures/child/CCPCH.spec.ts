@@ -29,6 +29,9 @@ describe("Measure CCP-CH", () => {
 
   it("calculates rates correctly", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
@@ -70,6 +73,9 @@ describe("Measure CCP-CH", () => {
 
   it("rounds the numerical value after the decimal up/down for auto-calculated rates", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
@@ -94,6 +100,9 @@ describe("Measure CCP-CH", () => {
   it("displays a warning when N=0, D>0, and user enters a rate > 0", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
@@ -117,6 +126,9 @@ describe("Measure CCP-CH", () => {
   it("displays a warning when N>0, D>0, and user enters a rate of 0", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
@@ -139,6 +151,9 @@ describe("Measure CCP-CH", () => {
 
   it("displays a warning if the denomiator for NDR sets aren't equal", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
@@ -216,6 +231,9 @@ describe("Measure CCP-CH", () => {
 
   it("shows a warning if Three Days Postpartum rate is less than Three Days Postpartum (LARC) rate", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
@@ -238,6 +256,9 @@ describe("Measure CCP-CH", () => {
 
   it("shows a warning if Sixty Days Postpartum rate is less than Sixty Days Postpartum (LARC) rate", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
     cy.get(
       '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.numerator"]'
@@ -260,6 +281,9 @@ describe("Measure CCP-CH", () => {
 
   it("shows a warning if Three Days Postpartum rate is greater than Sixty Days Postpartum rate", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.enterValidDateRange();
 
     cy.get(

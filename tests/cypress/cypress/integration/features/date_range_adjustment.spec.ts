@@ -5,6 +5,9 @@ describe("Date Range Adjustment for Start/End date", () => {
     cy.goToMeasure("CCP-AD");
   });
   it("Check if start and end date can be the same", () => {
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.xpath('(//input[@label="Month"])[1]').clear();
     cy.xpath('(//input[@label="Month"])[1]').type("1");
     cy.xpath('(//input[@label="Year"])[1]').clear();
@@ -18,6 +21,9 @@ describe("Date Range Adjustment for Start/End date", () => {
   });
 
   it("Not allow start date late than end date", function () {
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.xpath('(//input[@label="Month"])[1]').clear();
     cy.xpath('(//input[@label="Month"])[1]').type("1");
     cy.xpath('(//input[@label="Year"])[1]').clear();
@@ -31,6 +37,9 @@ describe("Date Range Adjustment for Start/End date", () => {
   });
 
   it("Not allow only enter start date not end date and click on validate measure", function () {
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.xpath('(//input[@label="Month"])[1]').clear();
     cy.xpath('(//input[@label="Month"])[1]').type("4");
     cy.xpath('(//input[@label="Year"])[1]').clear();

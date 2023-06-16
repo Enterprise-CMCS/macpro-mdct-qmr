@@ -26,6 +26,9 @@ describe("PCR-AD", () => {
     cy.get(".css-owjkmg").click();
     cy.get('[data-cy="DataSourceDescription"]').click();
     cy.get(".chakra-container > :nth-child(7)").click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="DateRange.startDate-month"]').type("10");
     cy.get('[data-cy="DateRange.startDate-year"]').type("2019");
     cy.get('[data-cy="DateRange.endDate-month"]').type("10");
@@ -360,6 +363,9 @@ describe("PCR-AD", () => {
     cy.get('[data-cy="MeasurementSpecification1"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
+    ).click();
     cy.get('[data-cy="DateRange.startDate-month"]').clear();
     cy.get('[data-cy="DateRange.startDate-month"]').type("10");
     cy.get('[data-cy="DateRange.startDate-year"]').clear();
@@ -428,10 +434,6 @@ describe("PCR-AD", () => {
 
   it("Verify error message for empty form", function () {
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
-      "have.text",
-      "Date Range must be completed"
-    );
     cy.get(
       '[data-cy="All data fields must be completed."] > .chakra-text'
     ).should("have.text", "All data fields must be completed.");

@@ -18,14 +18,6 @@ describe("Measure: APM-CH", () => {
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Other Data Source");
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get('[data-cy="Date Range Error"]').should(
-      "have.text",
-      "Date Range Error"
-    );
-    cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
-      "have.text",
-      "Date Range must be completed"
-    );
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should(
