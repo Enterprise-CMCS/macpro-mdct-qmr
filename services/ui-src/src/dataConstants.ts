@@ -130,6 +130,8 @@ export const LABEL = "label";
 export const LIMITATION_WITH_DATA_COLLECTION =
   "LimitationWithDatCollecitonReportAccuracyCovid";
 export const MCO_PIHP = "MCO-PIHP";
+export const MEASUREMENT_PERIOD_CORE_SET =
+  "MeasurementPeriodAdhereToCoreSetSpecification";
 export const MEASUREMENT_SPECIFICATION = "MeasurementSpecification";
 export const MEASUREMENT_SPECIFICATION_HEDIS =
   "MeasurementSpecification-HEDISVersion";
