@@ -64,19 +64,8 @@ export const IETRate = ({
   //Using a watch to get all the rate changes as we need rates from all the categories to calculate the total
   //the current system only looks at rates in the qualifier level of the current category
   const { watch } = useFormContext<Types.DefaultFormData>();
-  const data = watch();
-
-  //determining whether the current rates is used to capture the total value
-  if (calcTotal) {
-    rates.map((rate) => {
-      if (
-        rate.label?.toLowerCase().includes("total") ||
-        categoryName?.toLowerCase().includes("total")
-      )
-        rate["isTotal"] = true;
-      return rate;
-    });
-  }
+  const allRates = watch().PerformanceMeasure
+    ?.rates as Types.PerformanceMeasureRate;
 
   /*
   On component render, verify that all NDRs have a label, uid and isTotal value.
@@ -93,7 +82,7 @@ export const IETRate = ({
 
       if (
         categoryName?.toLowerCase().includes("total") ||
-        prevRate[index]["label"].toLowerCase().includes("total")
+        prevRate[index]["uid"].toLowerCase().includes("total")
       ) {
         prevRate[index]["isTotal"] = true;
       }
@@ -114,6 +103,9 @@ export const IETRate = ({
     const prevRate = [...field.value];
     const editRate = { ...prevRate[index] };
     const validEditRate = eightNumbersOneDecimal.test(newValue);
+
+    //working with the assumption that the categories names are split with :
+    const categoryType = categoryName ? categoryName.split(":")[0] : "";
 
     if (
       (type === "numerator" || type === "denominator") &&
@@ -139,9 +131,14 @@ export const IETRate = ({
 
       // Totals NDR should be independently editable
       if (calcTotal && !isTotal) {
-        categoryName
-          ? calculateTotalsByCategory(editRate)
-          : calculate(prevRate);
+        if (categoryName) {
+          calculateTotalCategory(categoryType, editRate);
+          calculateTotalCategoryQuals(categoryType, editRate);
+        }
+
+        //if the qualifiers also does a summation, run a calculate (i.e. IET-HH)
+        if (prevRate.find((rate) => rate["uid"].includes("Total")))
+          calculate(prevRate, true);
       }
 
       field.onChange([...prevRate]);
@@ -171,21 +168,23 @@ export const IETRate = ({
 
     // Totals NDR should be independently editable
     if (calcTotal && !isTotal) {
-      categoryName ? calculateTotalsByCategory(editRate) : calculate(prevRate);
+      if (categoryName) {
+        calculateTotalCategory(categoryType, editRate);
+        calculateTotalCategoryQuals(categoryType, editRate);
+      }
+
+      //if the qualifiers also does a summation, run a calculate (i.e. IET-HH)
+      if (prevRate.find((rate) => rate["uid"].includes("Total")))
+        calculate(prevRate, true);
     }
 
     field.onChange([...prevRate]);
   };
 
   //function is called when there are categories being used
-  const calculateTotalsByCategory = (rate: any) => {
-    const allRates = data.PerformanceMeasure
-      ?.rates as Types.PerformanceMeasureRate;
-
+  const calculateTotalCategory = (categoryType: string, rate: any) => {
     if (!allRates) return;
 
-    //using the first half of the category name as a key to grab the performance rate data
-    let categoryType = categoryName ? categoryName.split(":")[0] : "";
     let cleanedRates = Object.keys(allRates)
       .map((item) => {
         const qualCategory = categories?.find((cat) => cat.id === item)?.label;
@@ -207,22 +206,51 @@ export const IETRate = ({
     }
   };
 
-  const calculate = (rates: any[]) => {
+  //IET-HH has an extra step of needing the total category to also do a summation on the qualifier level
+  const calculateTotalCategoryQuals = (categoryType: string, rate: any) => {
+    if (!allRates) return;
+
+    let categoryId = categories?.find(
+      (category) =>
+        category.label.includes(categoryType) &&
+        category.label.toLocaleLowerCase().includes("total")
+    )?.id;
+
+    if (categoryId) {
+      let categoryTotalRates = allRates[categoryId];
+
+      //swapping in the edit data because allRates is one onChanged behind
+      let editIndex = categoryTotalRates?.findIndex((item) =>
+        item.uid?.includes(rate.uid)
+      );
+      if (editIndex && categoryTotalRates?.[editIndex])
+        categoryTotalRates[editIndex] = rate;
+
+      calculate(categoryTotalRates as any[], true);
+    }
+  };
+
+  const calculate = (rates: any[], totalById: boolean = false) => {
     let numeratorSum: any = null;
     let denominatorSum: any = null;
 
-    //find the qualifer that is the total
-    let totalQual = rates.find((rate) => rate["isTotal"]);
-
-    //calculate the total numerator & denominator
-    rates.forEach((rate) => {
-      if (!rate["isTotal"] && rate["rate"]) {
-        numeratorSum += rate?.numerator ? parseFloat(rate.numerator) : 0;
-        denominatorSum += rate?.denominator ? parseFloat(rate.denominator) : 0;
-      }
-    });
+    //find the qualifer that is the total.
+    //due to IET-HH having a total qualifier & total category, there will be instances where we want to search by either the uid or the isTotal boolean
+    let totalQual = rates.find((rate) =>
+      totalById ? rate["uid"].includes("Total") : rate["isTotal"]
+    );
 
     if (totalQual) {
+      //calculate the total numerator & denominator
+      rates.forEach((rate) => {
+        if (rate !== totalQual && rate["rate"]) {
+          numeratorSum += rate?.numerator ? parseFloat(rate.numerator) : 0;
+          denominatorSum += rate?.denominator
+            ? parseFloat(rate.denominator)
+            : 0;
+        }
+      });
+
       totalQual.numerator =
         numeratorSum !== null ? numeratorSum.toString() : "";
       totalQual.denominator =
