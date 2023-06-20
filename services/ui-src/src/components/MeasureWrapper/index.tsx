@@ -184,7 +184,6 @@ export const MeasureWrapper = ({
   });
   const measureData = apiData?.Item;
   const detailedDescription = apiData?.Item?.detailedDescription;
-  const measureStatus = apiData?.Item?.status;
 
   const updateCoreSet = useEditCoreSet().mutate;
   const { state, coreSetId } = useParams();
@@ -225,10 +224,8 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
-    // do not auto-save measure if the measure has already been completed or if it an auto-complete/read-only measure
-    const shouldSave =
-      measureStatus === MeasureStatus.INCOMPLETE || !autoCompletedMeasure;
-    if (!mutationRunning && !loadingData && shouldSave) {
+    // only auto-save measure on timeout if this form has been touched / modified
+    if (!mutationRunning && !loadingData && methods.formState.isDirty) {
       updateMeasure(
         {
           data,
