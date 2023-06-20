@@ -63,7 +63,6 @@ export const OMSData = (adultMeasure?: boolean): OmsNode[] => {
             { id: "Puerto Rican" },
             { id: "Cuban" },
             { id: "Another Hispanic, Latino/a or Spanish origin" },
-            { id: "Add Another Sub-category" },
           ],
         },
         { id: "Missing or not reported" },
