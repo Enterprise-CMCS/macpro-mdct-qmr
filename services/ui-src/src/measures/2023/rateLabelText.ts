@@ -1230,6 +1230,11 @@ export const data = {
             }
         ]
     },
+
+    "LSC-CH": {
+        "qualifiers": [{"label": "", "text": "", "id": "AtXKXx"}],
+        "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
+    },
     "MSC-AD": {
         "qualifiers": [
             {
@@ -1800,11 +1805,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-    "categories": [{"id":"WCV-CH-CAT-A", "label": "", "text":""}]
-    },
-    "LSC-CH": {
-        "qualifiers": [{"label": "", "text": "", "id": "AtXKXx"}],
-        "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
+        "categories": [{"id":"YOFx9h", "label": "", "text":""}]
     }
 }
 

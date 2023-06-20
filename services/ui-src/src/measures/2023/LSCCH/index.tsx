@@ -6,7 +6,6 @@ import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations"
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
-import { PerformanceMeasure } from "./questions/PerformanceMeasure";
 
 export const LSCCH = ({
   name,
@@ -42,10 +41,10 @@ export const LSCCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation childMeasure populationSampleSize />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PerformanceMeasure hybridMeasure />
+              <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
               <CMQ.DeviationFromMeasureSpec />
             </>
           )}
