@@ -124,7 +124,6 @@ describe("Testing OMS validation processor", () => {
         },
       ],
     });
-    console.log(errors);
     expect(errors.length).toBe(74);
   });
 });
