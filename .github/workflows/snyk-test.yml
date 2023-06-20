@@ -82,7 +82,7 @@ jobs:
         run: npm install jira-client  --legacy-peer-deps
         working-directory: .github/workflows/
       
-      - name: Run script to parse Snyk output
+      - name: use the custom github  action to parse Snyk output
         uses: Enterprise-CMCS/macfc-security-scan-report@v1.0.0
         with:
             jira-username: ${{ secrets.JIRA_SERVICE_USERNAME }}
