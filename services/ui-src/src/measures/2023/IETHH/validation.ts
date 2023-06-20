@@ -14,7 +14,6 @@ const IETValidation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   const locationDictionary = GV.omsLocationDictionary(
     OMSData(true),
@@ -97,7 +96,7 @@ const IETValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(measureSpecifications),
+    ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(

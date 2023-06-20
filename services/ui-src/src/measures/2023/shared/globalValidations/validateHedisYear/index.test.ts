@@ -6,8 +6,7 @@ describe("Hedis Year Validation - FY 2023", () => {
   let formData: any;
 
   const run_validation = (data: any): FormError[] => {
-    const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
-    return [...validateHedisYear(measureSpecifications)];
+    return [...validateHedisYear(data)];
   };
 
   beforeEach(() => {
@@ -31,5 +30,11 @@ describe("Hedis Year Validation - FY 2023", () => {
     formData[DC.MEASUREMENT_SPECIFICATION_HEDIS] = "";
     const errorArray = run_validation(formData);
     expect(errorArray.length).toBe(1);
+  });
+
+  it("Should show no error when measure specification is other", () => {
+    formData[DC.MEASUREMENT_SPECIFICATION] = "Other";
+    const errorArray = run_validation(formData);
+    expect(errorArray.length).toBe(0);
   });
 });

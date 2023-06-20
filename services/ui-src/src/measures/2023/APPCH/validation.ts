@@ -9,7 +9,6 @@ const APPCHValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
 
@@ -42,7 +41,7 @@ const APPCHValidation = (data: FormData) => {
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(measureSpecifications),
+    ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
