@@ -9,7 +9,6 @@ export const validateHedisYear = (
   const measurementSpecification: string = data[DC.MEASUREMENT_SPECIFICATION];
   const measurementSpecificationHedis: string =
     data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
-
   if (
     measurementSpecificationHedis === "" ||
     (measurementSpecificationHedis === undefined &&

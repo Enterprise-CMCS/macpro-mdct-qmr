@@ -52,6 +52,7 @@ const SSDValidation = (data: FormData) => {
       ],
     }),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
