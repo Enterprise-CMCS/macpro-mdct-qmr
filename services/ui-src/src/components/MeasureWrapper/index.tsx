@@ -224,7 +224,8 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
-    if (!mutationRunning && !loadingData) {
+    // only auto-save measure on timeout if this form has been touched / modified
+    if (!mutationRunning && !loadingData && methods.formState.isDirty) {
       updateMeasure(
         {
           data,
