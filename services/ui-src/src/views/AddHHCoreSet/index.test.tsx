@@ -32,7 +32,9 @@ describe("Test HealthHome coreset component", () => {
 
   it("renders the correct child components", () => {
     expect(
-      screen.getByLabelText(/Select the SPA you are reporting on/i)
+      screen.getByLabelText(
+        /Select the Health Home program you are reporting on/i
+      )
     ).toBeInTheDocument();
 
     expect(

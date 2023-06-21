@@ -52,7 +52,7 @@ export const AABAD = ({
                 data={PMD.data}
                 rateCalc={AABRateCalculation}
               />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && (

@@ -8,6 +8,7 @@ interface DeleteWrapperProps extends CUI.ColorProps {
   allowDeletion?: boolean;
   childWrapperProps?: CUI.BoxProps;
   showText?: boolean;
+  deleteLabel?: string;
 }
 
 export const DeleteWrapper = ({
@@ -18,6 +19,7 @@ export const DeleteWrapper = ({
   textColor = "blue.600",
   showText = true,
   allowDeletion,
+  deleteLabel,
 }: DeleteWrapperProps) => {
   const [render, setRender] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
@@ -43,7 +45,7 @@ export const DeleteWrapper = ({
           borderColor={isHovered ? "red.700" : color}
           alignItems={"center"}
           data-testid="delete-wrapper"
-          aria-label="Delete Field"
+          aria-label={deleteLabel ? `Delete ${deleteLabel}` : "Delete Field"}
           onFocus={() => setIsHovered(true)}
           onBlur={() => setIsHovered(false)}
           onMouseEnter={() => setIsHovered(true)}

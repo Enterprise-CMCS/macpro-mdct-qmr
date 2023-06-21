@@ -16,44 +16,47 @@ export interface OmsNode {
 export const OMSData = (adultMeasure?: boolean): OmsNode[] => {
   const data: OmsNode[] = [
     {
-      id: "Race (Non-Hispanic)",
+      id: "Race",
       options: [
-        { id: "White", flagSubCat: true },
-        { id: "Black or African American", flagSubCat: true },
-        { id: "American Indian or Alaska Native", flagSubCat: true },
+        { id: "American Indian or Alaska Native", flagSubCat: false },
         {
           id: "Asian",
           options: [
-            { id: "Asian Indian", flagSubCat: true },
-            { id: "Chinese", flagSubCat: true },
-            { id: "Filipino", flagSubCat: true },
-            { id: "Japanese", flagSubCat: true },
-            { id: "Korean", flagSubCat: true },
-            { id: "Vietnamese", flagSubCat: true },
-            { id: "Other Asian", flagSubCat: true },
+            { id: "Asian Indian", flagSubCat: false },
+            { id: "Chinese", flagSubCat: false },
+            { id: "Filipino", flagSubCat: false },
+            { id: "Japanese", flagSubCat: false },
+            { id: "Korean", flagSubCat: false },
+            { id: "Vietnamese", flagSubCat: false },
+            { id: "Other Asian", flagSubCat: false },
           ],
           flagSubCat: true,
         },
+        { id: "Black or African American", flagSubCat: false },
         {
           id: "Native Hawaiian or Other Pacific Islander",
           options: [
-            { id: "Native Hawaiian", flagSubCat: true },
-            { id: "Guamanian or Chamorro", flagSubCat: true },
-            { id: "Samoan", flagSubCat: true },
-            { id: "Other Pacific Islander", flagSubCat: true },
+            { id: "Native Hawaiian", flagSubCat: false },
+            { id: "Guamanian or Chamorro", flagSubCat: false },
+            { id: "Samoan", flagSubCat: false },
+            { id: "Other Pacific Islander", flagSubCat: false },
           ],
           flagSubCat: true,
         },
+        { id: "White", flagSubCat: false },
+        { id: "Two or More Races", flagSubCat: false },
+        { id: "Some Other Race", flagSubCat: false },
+        { id: "Missing or not reported", flagSubCat: false },
       ],
       addMore: true,
-      addMoreSubCatFlag: true,
+      addMoreSubCatFlag: false,
     },
     {
       id: "Ethnicity",
       options: [
         { id: "Not of Hispanic, Latino/a, or Spanish origin" },
         {
-          id: "Hispanic or Latino",
+          id: "Hispanic, Latino/a, or Spanish origin",
           aggregateTitle: "Hispanic, Latino/a, or Spanish origin",
           options: [
             { id: "Mexican, Mexican American, Chicano/a" },
@@ -62,28 +65,26 @@ export const OMSData = (adultMeasure?: boolean): OmsNode[] => {
             { id: "Another Hispanic, Latino/a or Spanish origin" },
           ],
         },
+        { id: "Missing or not reported" },
       ],
       addMore: true,
     },
     {
       id: "Sex",
-      options: [{ id: "Male" }, { id: "Female" }],
-      addMore: false,
-    },
-    {
-      id: "Primary Language (including sign language)",
-      aggregateTitle: "Primary Language",
-      options: [{ id: "English" }, { id: "Spanish" }],
-      addMore: true,
-    },
-    {
-      id: "Disability Status",
-      options: [{ id: "SSI" }, { id: "Non-SSI" }],
+      options: [
+        { id: "Male" },
+        { id: "Female" },
+        { id: "Missing or not reported" },
+      ],
       addMore: true,
     },
     {
       id: "Geography",
-      options: [{ id: "Urban" }, { id: "Rural" }],
+      options: [
+        { id: "Urban" },
+        { id: "Rural" },
+        { id: "Missing or not reported" },
+      ],
       addMore: true,
     },
   ];

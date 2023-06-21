@@ -25,11 +25,10 @@ interface NdrNodeProps {
   flagSubCat: boolean;
 }
 
-const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
+const NdrNode = ({ name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
       <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
-      {flagSubCat && <SubCatSection name={name} />}
     </CUI.Box>
   );
 };
@@ -44,7 +43,7 @@ const renderRadioButtonOptions = ({
 }: ChildCheckBoxOptionProps) => {
   return [
     {
-      displayValue: `Yes, we are only reporting aggregated data for all ${
+      displayValue: `Yes, we are reporting aggregate data for the ${
         omsNode?.aggregateTitle || omsNode?.id
       } categories.`,
       value: "YesAggregateData",
@@ -53,9 +52,9 @@ const renderRadioButtonOptions = ({
       ],
     },
     {
-      displayValue: `No, we are reporting independent data for all ${
+      displayValue: `No, we are reporting disaggregated data for ${
         omsNode?.aggregateTitle || omsNode?.id
-      } categories`,
+      } subcategories`,
       value: "NoIndependentData",
       children: [
         <QMR.Checkbox
@@ -72,6 +71,7 @@ const renderRadioButtonOptions = ({
             }) || []
           }
         />,
+        <SubCatSection name={name} />,
       ],
     },
   ];
@@ -100,9 +100,9 @@ const buildChildCheckboxOption = ({
         name={`${name}.aggregate`}
         key={`${name}.aggregate`}
         options={renderRadioButtonOptions({ omsNode, name })}
-        label={`Are you only reporting aggregated data for all ${
+        label={`Are you reporting aggregate data for the ${
           omsNode.aggregateTitle || omsNode.id
-        } categories?`}
+        } category?`}
       />,
     ];
   }

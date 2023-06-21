@@ -169,6 +169,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
     expect(V.validateRateZeroPM).not.toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
     expect(
       V.validateRequiredRadioButtonForCombinedRates
     ).not.toHaveBeenCalled();
@@ -176,12 +178,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
-    expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
-    expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
-    expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -190,17 +187,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
     expect(V.validateRateZeroPM).toHaveBeenCalled();
+    expect(V.validateEqualCategoryDenominatorsPM).toHaveBeenCalled();
+    expect(V.validateOneQualRateHigherThanOtherQualPM).toHaveBeenCalled();
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
-    expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
-    expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
-    expect(V.validateRateZeroOMS).toHaveBeenCalled();
-    expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
-    expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
   });
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {

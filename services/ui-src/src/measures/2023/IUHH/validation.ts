@@ -32,16 +32,11 @@ const IUHHValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const dateRange = data[DC.DATE_RANGE];
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    false
-  );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+  const deviationReason = data[DC.DEVIATION_REASON];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
   OPM = data[DC.OPM_RATES];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
-  const measureSpecifications = data[DC.MEASUREMENT_SPECIFICATION_HEDIS];
 
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
@@ -54,7 +49,6 @@ const IUHHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(measureSpecifications),
     ...GV.validateOPMRates(OPM),
     ...GV.ComplexValidateDualPopInformation(
       performanceMeasureArray,
@@ -65,11 +59,9 @@ const IUHHValidation = (data: FormData) => {
     // Performance Measure Validations
     ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
     ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
-    ...GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
-      performanceMeasureArray,
-      ndrForumlas,
-      deviationArray,
-      didCalculationsDeviate
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      didCalculationsDeviate,
+      deviationReason
     ),
     ...GV.ComplexValidateNDRTotals(
       performanceMeasureArray,
@@ -112,12 +104,6 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           rates ?? [],
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
-        ),
-        ...GV.ComplexValidateNDRTotalsOMS(
-          rateData?.["iuhh-rate"]?.rates ?? {},
-          PMD.categories,
-          ndrForumlas,
-          `Optional Measure Stratification: ${locationDictionary(label)} Total`
         ),
         ...GV.ComplexValueSameCrossCategoryOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},

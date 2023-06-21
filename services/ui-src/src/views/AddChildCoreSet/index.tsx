@@ -92,12 +92,12 @@ export const AddChildCoreSet = () => {
                   options={[
                     {
                       displayValue:
-                        "Reporting Medicaid and CHIP measures in separate Core sets",
+                        "Reporting Medicaid and CHIP measures in separate Core Sets",
                       value: ReportType.SEPARATE,
                     },
                     {
                       displayValue:
-                        "Reporting Medicaid and CHIP measures in combined Core sets",
+                        "Reporting Medicaid and CHIP measures in combined Core Sets",
                       value: ReportType.COMBINED,
                     },
                   ]}

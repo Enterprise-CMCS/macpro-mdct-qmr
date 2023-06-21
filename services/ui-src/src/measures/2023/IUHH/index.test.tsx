@@ -189,9 +189,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
-    expect(
-      V.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec
-    ).toHaveBeenCalled();
     expect(V.ComplexValidateNDRTotals).toHaveBeenCalled();
   });
 

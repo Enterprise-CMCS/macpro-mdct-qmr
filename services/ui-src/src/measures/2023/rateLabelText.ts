@@ -52,22 +52,26 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Quotyg"
+                "id": "Quotyg",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 65 to 74",
                 "text": "Ages 65 to 74",
-                "id": "R5nGsO"
+                "id": "R5nGsO",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 75 to 84",
                 "text": "Ages 75 to 84",
-                "id": "hrrJSA"
+                "id": "hrrJSA",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 85 and older",
                 "text": "Age 85 and older",
-                "id": "QqtlDW"
+                "id": "QqtlDW",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Age 18 and older)",
@@ -82,22 +86,26 @@ export const data = {
             {
                 "label": "< Age 1",
                 "text": "< Age 1",
-                "id": "AElhke"
+                "id": "AElhke",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 1 to 9",
                 "text": "Ages 1 to 9",
-                "id": "lvn4pe"
+                "id": "lvn4pe",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 10 to 19",
                 "text": "Ages 10 to 19",
-                "id": "9IODyt"
+                "id": "9IODyt",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages unknown",
                 "text": "Ages unknown",
-                "id": "mIA2wL"
+                "id": "mIA2wL",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages <1 to 19)",
@@ -112,22 +120,26 @@ export const data = {
             {
                 "label": "Ages 0 to 17",
                 "text": "Ages 0 to 17",
-                "id": "dmwUgG"
+                "id": "dmwUgG",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "JmMRlc"
+                "id": "JmMRlc",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "ISVyAj"
+                "id": "ISVyAj",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages unknown",
                 "text": "Ages unknown",
-                "id": "f2dfi8"
+                "id": "f2dfi8",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (All Ages)",
@@ -168,12 +180,14 @@ export const data = {
             {
                 "label": "Ages 19 to 50",
                 "text": "Ages 19 to 50",
-                "id": "uT3Ybg"
+                "id": "uT3Ybg",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 51 to 64",
                 "text": "Ages 51 to 64",
-                "id": "pvkFnD"
+                "id": "pvkFnD",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 19 to 64)",
@@ -188,12 +202,14 @@ export const data = {
             {
                 "label": "Ages 5 to 11",
                 "text": "Ages 5 to 11",
-                "id": "kijL2T"
+                "id": "kijL2T",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 18",
                 "text": "Ages 12 to 18",
-                "id": "cteSKS"
+                "id": "cteSKS",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 5 to 18)",
@@ -208,12 +224,14 @@ export const data = {
             {
                 "label": "Ages 1 to 11",
                 "text": "Ages 1 to 11",
-                "id": "rJQSKZ"
+                "id": "rJQSKZ",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "FS1yOb"
+                "id": "FS1yOb",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 1 to 17)",
@@ -244,12 +262,14 @@ export const data = {
             {
                 "label": "Ages 1 to 11",
                 "text": "Ages 1 to 11",
-                "id": "8KS1is"
+                "id": "8KS1is",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "fNNDrp"
+                "id": "fNNDrp",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 1 to 17)",
@@ -294,12 +314,14 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "KvPMQt"
+                "id": "KvPMQt",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 65 to 85",
                 "text": "Ages 65 to 85",
-                "id": "BgLk3U"
+                "id": "BgLk3U",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 18 to 85)",
@@ -437,17 +459,20 @@ export const data = {
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "UXIY6B"
+                "id": "UXIY6B",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "z3Sc1P"
+                "id": "z3Sc1P",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "AcmtW5"
+                "id": "AcmtW5",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Age 12 and older)",
@@ -482,12 +507,14 @@ export const data = {
             {
                 "label": "DTaP",
                 "text": "DTaP",
-                "id": "315LFo"
+                "id": "315LFo",
+                "excludeFromOMS": true
             },
             {
                 "label": "IPV",
                 "text": "IPV",
-                "id": "g11sKr"
+                "id": "g11sKr",
+                "excludeFromOMS": true
             },
             {
                 "label": "MMR",
@@ -497,37 +524,44 @@ export const data = {
             {
                 "label": "HiB",
                 "text": "HiB",
-                "id": "MEtwzK"
+                "id": "MEtwzK",
+                "excludeFromOMS": true
             },
             {
                 "label": "Hep B",
                 "text": "Hep B",
-                "id": "legTtc"
+                "id": "legTtc",
+                "excludeFromOMS": true
             },
             {
                 "label": "VZV",
                 "text": "VZV",
-                "id": "vo0QQI"
+                "id": "vo0QQI",
+                "excludeFromOMS": true
             },
             {
                 "label": "PCV",
                 "text": "PCV",
-                "id": "KH78dm"
+                "id": "KH78dm",
+                "excludeFromOMS": true
             },
             {
                 "label": "Hep A",
                 "text": "Hep A",
-                "id": "QQdRrJ"
+                "id": "QQdRrJ",
+                "excludeFromOMS": true
             },
             {
                 "label": "RV",
                 "text": "RV",
-                "id": "UACFyG"
+                "id": "UACFyG",
+                "excludeFromOMS": true
             },
             {
                 "label": "Flu",
                 "text": "Flu",
-                "id": "VxUjMm"
+                "id": "VxUjMm",
+                "excludeFromOMS": true
             },
             {
                 "label": "Combo 3",
@@ -537,7 +571,8 @@ export const data = {
             {
                 "label": "Combo 7",
                 "text": "Combo 7",
-                "id": "xOvucQ"
+                "id": "xOvucQ",
+                "excludeFromOMS": true
             },
             {
                 "label": "Combo 10",
@@ -622,17 +657,20 @@ export const data = {
             {
                 "label": "Children screened by 12 months of age",
                 "text": "Children screened by 12 months of age",
-                "id": "V9moUD"
+                "id": "V9moUD",
+                "excludeFromOMS": true
             },
             {
                 "label": "Children screened by 24 months of age",
                 "text": "Children screened by 24 months of age",
-                "id": "8syeJa"
+                "id": "8syeJa",
+                "excludeFromOMS": true
             },
             {
                 "label": "Children screened by 36 months of age",
                 "text": "Children screened by 36 months of age",
-                "id": "UjlL0h"
+                "id": "UjlL0h",
+                "excludeFromOMS": true
             },
             {
                 "label": "Children Total",
@@ -694,17 +732,20 @@ export const data = {
             {
                 "label": "Ages 13 to 17",
                 "text": "Ages 13 to 17",
-                "id": "V4pnKr"
+                "id": "V4pnKr",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "Njn9ob"
+                "id": "Njn9ob",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "GM7MbC"
+                "id": "GM7MbC",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Age 13 and older)",
@@ -777,17 +818,20 @@ export const data = {
             {
                 "label": "Ages 6 to 17",
                 "text": "Ages 6 to 17",
-                "id": "SSE84V"
+                "id": "SSE84V",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "dqF5XO"
+                "id": "dqF5XO",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "OLGEc6"
+                "id": "OLGEc6",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Age 6 and older)",
@@ -860,17 +904,20 @@ export const data = {
             {
                 "label": "Ages 6 to 17",
                 "text": "Ages 6 to 17",
-                "id": "wZkCIH"
+                "id": "wZkCIH",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "HOpeUo"
+                "id": "HOpeUo",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "CBkwgBC"
+                "id": "CBkwgBC",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Age 6 and older)",
@@ -918,7 +965,8 @@ export const data = {
             {
                 "label": "HbA1c control (<8.0%)",
                 "text": "HbA1c control (<8.0%)",
-                "id":"F9V8xD"
+                "id":"F9V8xD",
+                "excludeFromOMS": true
             },
             {
                 "label": "HbA1c poor control (>9.0%)",
@@ -974,32 +1022,38 @@ export const data = {
             {
                 "label": "Initiation of SUD Treatment: Alcohol Use Disorder",
                 "text": "Initiation of SUD Treatment: Alcohol Use Disorder",
-                "id": "pgGQFr"
+                "id": "pgGQFr",
+                "excludeFromOMS": true
             },
             {
                 "label": "Engagement of SUD Treatment: Alcohol Use Disorder",
                 "text": "Engagement of SUD Treatment: Alcohol Use Disorder",
-                "id": "eWGRSg"
+                "id": "eWGRSg",
+                "excludeFromOMS": true
             },
             {
                 "label": "Initiation of SUD Treatment: Opioid Use Disorder",
                 "text": "Initiation of SUD Treatment: Opioid Use Disorder",
-                "id": "yrQOQf"
+                "id": "yrQOQf",
+                "excludeFromOMS": true
             },
             {
                 "label": "Engagement of SUD Treatment: Opioid Use Disorder",
                 "text": "Engagement of SUD Treatment: Opioid Use Disorder",
-                "id": "zkA4Vm"
+                "id": "zkA4Vm",
+                "excludeFromOMS": true
             },
             {
                 "label": "Initiation of SUD Treatment: Other Substance Use Disorder",
                 "text": "Initiation of SUD Treatment: Other Substance Use Disorder",
-                "id": "ptnmQC"
+                "id": "ptnmQC",
+                "excludeFromOMS": true
             },
             {
                 "label": "Engagement of SUD Treatment: Other Substance Use Disorder",
                 "text": "Engagement of SUD Treatment: Other Substance Use Disorder",
-                "id": "leK847"
+                "id": "leK847",
+                "excludeFromOMS": true
             },
             {
                 "label": "Initiation of SUD Treatment: Total",
@@ -1018,17 +1072,20 @@ export const data = {
             {
                 "label": "Ages 13 to 17",
                 "text": "Ages 13 to 17",
-                "id": "pO7AO4"
+                "id": "pO7AO4",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "VnqwIP"
+                "id": "VnqwIP",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "HJa7Gq"
+                "id": "HJa7Gq",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (age 13 and older)",
@@ -1040,32 +1097,38 @@ export const data = {
             {
                 "label": "Initiation of SUD Treatment: Alcohol Use Disorder",
                 "text": "Initiation of SUD Treatment: Alcohol Use Disorder",
-                "id": "SzkEgT"
+                "id": "SzkEgT",
+                "excludeFromOMS": true
             },
             {
                 "label": "Engagement of SUD Treatment: Alcohol Use Disorder",
                 "text": "Engagement of SUD Treatment: Alcohol Use Disorder",
-                "id": "fBjzVK"
+                "id": "fBjzVK",
+                "excludeFromOMS": true
             },
             {
                 "label": "Initiation of SUD Treatment: Opioid Use Disorder",
                 "text": "Initiation of SUD Treatment: Opioid Use Disorder",
-                "id": "XcV5kx"
+                "id": "XcV5kx",
+                "excludeFromOMS": true
             },
             {
                 "label": "Engagement of SUD Treatment: Opioid Use Disorder",
                 "text": "Engagement of SUD Treatment: Opioid Use Disorder",
-                "id": "TbEkhJ"
+                "id": "TbEkhJ",
+                "excludeFromOMS": true
             },
             {
                 "label": "Initiation of SUD Treatment: Other Substance Use Disorder",
                 "text": "Initiation of SUD Treatment: Other Substance Use Disorder",
-                "id": "DNIllr"
+                "id": "DNIllr",
+                "excludeFromOMS": true
             },
             {
                 "label": "Engagement of SUD Treatment: Other Substance Use Disorder",
                 "text": "Engagement of SUD Treatment: Other Substance Use Disorder",
-                "id": "J2Kfn5"
+                "id": "J2Kfn5",
+                "excludeFromOMS": true
             },
             {
                 "label": "Initiation of SUD Treatment: Total",
@@ -1114,22 +1177,26 @@ export const data = {
             {
                 "label": "Ages 0 to 17",
                 "text": "Ages 0 to 17",
-                "id": "RTKRUB"
+                "id": "RTKRUB",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "HN9CBC"
+                "id": "HN9CBC",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "OdxHfY"
+                "id": "OdxHfY",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages unknown",
                 "text": "Ages unknown",
-                "id": "At7duO"
+                "id": "At7duO",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total",
@@ -1146,19 +1213,27 @@ export const data = {
             {
                 "label": "Mental and Behavioral Disorders",
                 "text": "Mental and Behavioral Disorders",
-                "id": "VX9uaf"
+                "id": "VX9uaf",
+                "excludeFromOMS": true
             },
             {
                 "label": "Surgery",
                 "text": "Surgery",
-                "id": "QzuJDR"
+                "id": "QzuJDR",
+                "excludeFromOMS": true
             },
             {
                 "label": "Medicine",
                 "text": "Medicine",
-                "id": "ioz7ed"
+                "id": "ioz7ed",
+                "excludeFromOMS": true
             }
         ]
+    },
+
+    "LSC-CH": {
+        "qualifiers": [{"label": "", "text": "", "id": "AtXKXx"}],
+        "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
     },
     "MSC-AD": {
         "qualifiers": [
@@ -1201,47 +1276,56 @@ export const data = {
             {
                 "label": "Age <1",
                 "text": "Age <1",
-                "id": "cJpLzk"
+                "id": "cJpLzk",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 1 to 2",
                 "text": "Ages 1 to 2",
-                "id": "lUpXnj"
+                "id": "lUpXnj",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 3 to 5",
                 "text": "Ages 3 to 5",
-                "id": "tfIdZe"
+                "id": "tfIdZe",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 6 to 7",
                 "text": "Ages 6 to 7",
-                "id": "HQtz8Q"
+                "id": "HQtz8Q",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 8 to 9",
                 "text": "Ages 8 to 9",
-                "id": "lw6tF8"
+                "id": "lw6tF8",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 10 to 11",
                 "text": "Ages 10 to 11",
-                "id": "iS0hVY"
+                "id": "iS0hVY",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 14",
                 "text": "Ages 12 to 14",
-                "id": "OAxju0"
+                "id": "OAxju0",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 15 to 18",
                 "text": "Ages 15 to 18",
-                "id": "0B13E5"
+                "id": "0B13E5",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 19 to 20",
                 "text": "Ages 19 to 20",
-                "id": "2v1LvP"
+                "id": "2v1LvP",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total ages <1 to 20",
@@ -1276,22 +1360,26 @@ export const data = {
             {
                 "label": "Buprenorphine",
                 "text": "Buprenorphine",
-                "id": "ayxxN6"
+                "id": "ayxxN6",
+                "excludeFromOMS": true
             },
             {
                 "label": "Oral naltrexone",
                 "text": "Oral naltrexone",
-                "id": "xaFLEL"
+                "id": "xaFLEL",
+                "excludeFromOMS": true
             },
             {
                 "label": "Long-acting, injectable naltrexone",
                 "text": "Long-acting, injectable naltrexone",
-                "id": "Pumtn4"
+                "id": "Pumtn4",
+                "excludeFromOMS": true
             },
             {
                 "label": "Methadone",
                 "text": "Methadone",
-                "id": "CgQFr3"
+                "id": "CgQFr3",
+                "excludeFromOMS": true
             }
         ],
         "categories": [{"id":"t75kZB", "label": "", "text":""}]
@@ -1306,22 +1394,26 @@ export const data = {
             {
                 "label": "Buprenorphine",
                 "text": "Buprenorphine",
-                "id": "QczL9f"
+                "id": "QczL9f",
+                "excludeFromOMS": true
             },
             {
                 "label": "Oral naltrexone",
                 "text": "Oral naltrexone",
-                "id": "bNSOWQ"
+                "id": "bNSOWQ",
+                "excludeFromOMS": true
             },
             {
                 "label": "Long-acting, injectable naltrexone",
                 "text": "Long-acting, injectable naltrexone",
-                "id": "LNXU8H"
+                "id": "LNXU8H",
+                "excludeFromOMS": true
             },
             {
                 "label": "Methadone",
                 "text": "Methadone",
-                "id": "vsv8L7"
+                "id": "vsv8L7",
+                "excludeFromOMS": true
             }
         ],
         "categories": [{"id":"lS0z8M", "label": "", "text":""}]
@@ -1506,12 +1598,14 @@ export const data = {
             {
                 "label": "Ages 18 to 64",
                 "text": "Ages 18 to 64",
-                "id": "cxWfJ4"
+                "id": "cxWfJ4",
+                "excludeFromOMS": true
             },
             {
                 "label": "Age 65 and older",
                 "text": "Age 65 and older",
-                "id": "ttjYve"
+                "id": "ttjYve",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Age 18 and older)",
@@ -1561,42 +1655,50 @@ export const data = {
             {
                 "label": "Ages 1 to 2",
                 "text": "Ages 1 to 2",
-                "id": "TGl5f1"
+                "id": "TGl5f1",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 3 to 5",
                 "text": "Ages 3 to 5",
-                "id": "AccBCl"
+                "id": "AccBCl",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 6 to 7",
                 "text": "Ages 6 to 7",
-                "id": "zcbPe0"
+                "id": "zcbPe0",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 8 to 9",
                 "text": "Ages 8 to 9",
-                "id": "OdDTxr"
+                "id": "OdDTxr",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 10 to 11",
                 "text": "Ages 10 to 11",
-                "id": "Cjw7GS"
+                "id": "Cjw7GS",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 14",
                 "text": "Ages 12 to 14",
-                "id": "muOeEP"
+                "id": "muOeEP",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 15 to 18",
                 "text": "Ages 15 to 18",
-                "id": "fbpAPY"
+                "id": "fbpAPY",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 19 to 20",
                 "text": "Ages 19 to 20",
-                "id": "a6okZM"
+                "id": "a6okZM",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total Ages 1 through 20",
@@ -1613,12 +1715,14 @@ export const data = {
             {
                 "label": "Dental services",
                 "text": "Dental services",
-                "id": "1gVqJh"
+                "id": "1gVqJh",
+                "excludeFromOMS": true
             },
             {
                 "label": "Oral health services",
                 "text": "Oral health services",
-                "id": "0NPmzO"
+                "id": "0NPmzO",
+                "excludeFromOMS": true
             }
         ]
     },
@@ -1642,12 +1746,14 @@ export const data = {
             {
                 "label": "Ages 3 to 11",
                 "text": "Ages 3 to 11",
-                "id": "iWwR8Z"
+                "id": "iWwR8Z",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "BFwD7g"
+                "id": "BFwD7g",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 3 to 17)",
@@ -1678,17 +1784,20 @@ export const data = {
             {
                 "label": "Ages 3 to 11",
                 "text": "Ages 3 to 11",
-                "id": "AtXKXf"
+                "id": "AtXKXf",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 12 to 17",
                 "text": "Ages 12 to 17",
-                "id": "iqbQvH"
+                "id": "iqbQvH",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 18 to 21",
                 "text": "Ages 18 to 21",
-                "id": "pJmWDB"
+                "id": "pJmWDB",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 3 to 21)",
@@ -1696,33 +1805,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-    "categories": [{"id":"WCV-CH-CAT-A", "label": "", "text":""}]
-    },
-    "LSC-CH": {
-        "qualifiers": [
-            {
-                "label": "Ages 3 to 11",
-                "text": "Ages 3 to 11",
-                "id": "AtXKXx"
-            },
-            {
-                "label": "Ages 12 to 17",
-                "text": "Ages 12 to 17",
-                "id": "iqbQvK"
-            },
-            {
-                "label": "Ages 18 to 21",
-                "text": "Ages 18 to 21",
-                "id": "pJmWDY"
-            },
-            {
-                "label": "Total (Ages 3 to 21)",
-                "text": "Total (Ages 3 to 21)",
-                "id": "Total"
-            }
-            
-        ],
-        "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
+        "categories": [{"id":"YOFx9h", "label": "", "text":""}]
     }
 }
 

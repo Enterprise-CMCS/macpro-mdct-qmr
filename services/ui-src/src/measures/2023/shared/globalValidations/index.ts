@@ -21,11 +21,11 @@ export * from "./validateTotals";
 export * from "./validateYearFormat";
 export * from "./validateOPMRates";
 export * from "./validateHedisYear";
+export * from "./validateSameDenominatorSets";
 
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "./PCRValidations/PCRatLeastOneRateComplete";
 export { PCRnoNonZeroNumOrDenom } from "./PCRValidations/PCRnoNonZeroNumOrDenom";
-export { PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec";
 
 //Complex Measure Specific Validations
 export { ComplexAtLeastOneRateComplete } from "./ComplexValidations/ComplexAtLeastOneRateComplete";
@@ -33,7 +33,6 @@ export {
   ComplexNoNonZeroNumOrDenom,
   ComplexNoNonZeroNumOrDenomOMS,
 } from "./ComplexValidations/ComplexNoNonZeroNumOrDenom";
-export { ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec";
 export {
   ComplexValidateNDRTotals,
   ComplexValidateNDRTotalsOMS,
