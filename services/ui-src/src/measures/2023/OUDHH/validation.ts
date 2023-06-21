@@ -27,6 +27,7 @@ const OUDValidation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
