@@ -30,6 +30,7 @@ const FUHHHValidation = (data: FormData) => {
   sameDenominatorError =
     sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
   errorArray = [
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),

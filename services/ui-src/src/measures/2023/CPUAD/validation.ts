@@ -42,6 +42,7 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
 
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),

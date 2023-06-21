@@ -122,6 +122,7 @@ const SSHHValidation = (data: FormData) => {
     ...validateNumeratorsLessThanDenominatorsPM(OPM),
     ...validatePartialRateCompletion(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
