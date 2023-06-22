@@ -27,9 +27,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
               value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
             {
-              value: DC.VITAL_DATA_SOURCE,
-            },
-            {
               value: DC.ADMINISTRATIVE_DATA_OTHER,
               description: true,
             },

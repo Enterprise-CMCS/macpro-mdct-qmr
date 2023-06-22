@@ -37,7 +37,6 @@ export const ComplexValueSameCrossCategoryOMS = (
     }
   }
 
-  // if (performanceMeasureArray)
   let errorArray: any[] = ComplexValueSameCrossCategory({
     rateData: performanceMeasureArray,
     OPM: undefined,
@@ -78,7 +77,7 @@ export const ComplexValueSameCrossCategory = ({
     } = {};
     for (const category of rateData) {
       for (const qualifier of category.slice(0, -1)) {
-        const cleanQual = qualifier.id;
+        const cleanQual = qualifier.uid.split(".")[1];
         if (tempValues[cleanQual]?.value) {
           if (
             qualifier.fields[fieldIndex]?.value &&

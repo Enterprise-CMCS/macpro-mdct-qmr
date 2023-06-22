@@ -8,11 +8,13 @@ import * as DC from "dataConstants";
 interface Props {
   childMeasure?: boolean;
   hybridMeasure?: boolean;
+  populationSampleSize?: boolean;
   healthHomeMeasure?: boolean;
 }
 
 export const DefinitionOfPopulation = ({
   childMeasure,
+  populationSampleSize,
   hybridMeasure,
   healthHomeMeasure,
 }: Props) => {
@@ -151,6 +153,21 @@ export const DefinitionOfPopulation = ({
             If you are reporting as a hybrid measure, provide the measure
             eligible population and sample size.
           </CUI.Heading>
+          <QMR.NumberInput
+            {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
+            formControlProps={{ my: "4" }}
+            mask={allPositiveIntegers}
+            label="What is the size of the measure-eligible population?"
+          />
+          <QMR.NumberInput
+            {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
+            mask={allPositiveIntegers}
+            label="Specify the sample size:"
+          />
+        </CUI.Box>
+      )}
+      {populationSampleSize && (
+        <CUI.Box mt="5">
           <QMR.NumberInput
             {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
             formControlProps={{ my: "4" }}

@@ -93,7 +93,7 @@ export const AddHHCoreSet = () => {
           <CUI.Text>
             Complete the details below and when finished create the additional
             Health Home Core Set package. You can submit one Health Home Core
-            set for each SPA that requires reporting.
+            set for each Health Home program that requires reporting.
           </CUI.Text>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleSubmit)}>
@@ -111,7 +111,7 @@ export const AddHHCoreSet = () => {
                       formLabelProps={{ fontWeight: 600 }}
                       {...register("HealthHomeCoreSet-SPA")}
                       options={sortedSPAs}
-                      label="Select the SPA you are reporting on?"
+                      label="Select the Health Home program you are reporting on"
                     />
                   </CUI.ListItem>
                   <CUI.ListItem>

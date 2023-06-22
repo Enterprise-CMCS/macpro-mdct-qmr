@@ -135,12 +135,9 @@ const TotalNDRSets = ({
 
   return (
     <CUI.Box>
-      <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />
-      {categories.length > 0 && categories.some((item) => item.label) && (
-        <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-          {totalQual.label}
-        </CUI.Heading>
-      )}
+      <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
+        {totalQual.label}
+      </CUI.Heading>
       <CUI.Box>{rateArray}</CUI.Box>
     </CUI.Box>
   );
@@ -166,26 +163,28 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
     customRateLabel,
     rateCalculation,
   } = usePerformanceMeasureContext();
-  const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
 
-  quals?.forEach((singleQual, qualIndex) => {
+  //categories at this point has been filtered by excludeFromOMS
+  categories?.forEach((cat) => {
     const ndrSets: React.ReactElement[] = [];
 
     if (IUHHPerformanceMeasureArray) {
-      IUHHPerformanceMeasureArray?.forEach((category, idx) => {
-        // The shape of Maternity is different than all other Categories
-        if (idx === 1) {
-          category = [{}, category[0], {}, category[1], category[2]];
-        }
-        const cleanQual = singleQual.id;
-        const cleanCat = categories[idx].id;
-        const cleanedName = `${name}.rates.${cleanQual}.${cleanCat}`;
+      const quals = IUHHPerformanceMeasureArray.flatMap((arr) =>
+        arr.filter(
+          (rate) =>
+            rate.uid?.includes(cat.id) &&
+            (calcTotal ? !rate.uid?.includes("Total") : true)
+        )
+      );
+
+      quals?.forEach((qual) => {
+        const cleanedName = `${name}.rates.${qual.uid}`;
 
         // Confirm that there is at least 1 rate complete
-        const rate1 = category?.[qualIndex]?.fields?.[2]?.value ? true : false;
-        const rate2 = category?.[qualIndex]?.fields?.[4]?.value ? true : false;
-        const rate3 = category?.[qualIndex]?.fields?.[5]?.value ? true : false;
+        const rate1 = qual.fields?.[2]?.value ? true : false;
+        const rate2 = qual.fields?.[4]?.value ? true : false;
+        const rate3 = qual.fields?.[5]?.value ? true : false;
         if (rate1 || rate2 || rate3) {
           ndrSets.push(
             <QMR.ComplexRate
@@ -198,7 +197,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx].label,
+                  label: qual.label,
                 },
               ]}
               categoryName={""}
@@ -207,9 +206,23 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
         }
       });
     } else if (performanceMeasureArray) {
-      performanceMeasureArray?.forEach((measure, idx) => {
-        if (measure?.[qualIndex]?.rate) {
-          const adjustedName = `${name}.rates.${singleQual.id}.${categories[idx]?.id}`;
+      //Used performanceMeasureArray over qualifiers because in OMS, we want to capture OMS n/d/r from performance measure qualifiers that had values added
+      const rateQuals = performanceMeasureArray.flatMap((arr) =>
+        arr.filter(
+          (rate) =>
+            rate.uid?.includes(cat.id) &&
+            (calcTotal ? !rate.uid?.includes("Total") : true)
+        )
+      );
+
+      //performanceMeasureArray does not do a filter for excludedFromOMS so we need a second filter to remove excluded qualifiers from oms.
+      const unexcludedQuals = rateQuals.filter((rateQual) =>
+        qualifiers.find((qual) => rateQual.uid?.includes(qual.id))
+      );
+
+      unexcludedQuals?.forEach((qual) => {
+        if (qual.rate) {
+          const adjustedName = `${name}.rates.${qual.uid}`; //uid is both category id appended to qualifier id
 
           ndrSets.push(
             <QMR.Rate
@@ -228,7 +241,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
               rates={[
                 {
                   id: 0,
-                  label: categories[idx]?.label,
+                  label: qual.label,
                 },
               ]}
             />
@@ -268,7 +281,7 @@ const useQualRateArray: RateArrayBuilder = (name) => {
     const categoryID = categories[0]?.id
       ? categories[0].id
       : DC.SINGLE_CATEGORY;
-    const cleanedName = `${name}.rates.${singleQual.id}.${categoryID}`;
+    const cleanedName = `${name}.rates.${categoryID}.${singleQual.id}`;
 
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
       rateArrays.push([
@@ -345,7 +358,8 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
     dataSourceWatch?.[0] !== "AdministrativeData" ||
     dataSourceWatch?.length !== 1;
 
-  quals?.forEach((value, idx) => {
+  const checkbox = categories.some((cat) => cat.label) ? categories : quals;
+  checkbox?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
       const ageGroupCheckBox = {
         value: value.id,
@@ -402,15 +416,8 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
 const IUHHNDRSets = ({ name }: NdrProps) => {
   const { calcTotal } = usePerformanceMeasureContext();
 
-  const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.iuhh-rate`);
-
   return (
     <>
-      <QMR.Checkbox
-        name={`${name}.iuhh-rate.options`}
-        key={`${name}.iuhh-rate.options`}
-        options={ageGroupsOptions}
-      />
       {calcTotal && (
         <TotalNDRSets
           componentFlag={"IU"}

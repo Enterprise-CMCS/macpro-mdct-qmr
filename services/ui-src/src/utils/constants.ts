@@ -11,7 +11,6 @@ export const stateAbbreviations = [
   "DC",
   "FM",
   "FL",
-  "FS",
   "GA",
   "GU",
   "HI",

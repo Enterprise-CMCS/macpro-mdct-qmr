@@ -9,4 +9,3 @@ export * from "./AddChildCoreSet";
 export * from "./AddHHCoreSet";
 export * from "./ApiTester";
 export * from "./ExportAll";
-export * from "./FAQ";

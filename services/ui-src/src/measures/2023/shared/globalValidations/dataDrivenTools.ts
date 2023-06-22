@@ -58,7 +58,7 @@ export const convertOmsDataToRateArray = (
   for (const cat of categories) {
     const tempArr: PM[] = [];
     for (const qual of qualifiers) {
-      tempArr.push(rateData.rates?.[qual.id]?.[cat.id]?.[0] ?? {});
+      tempArr.push(rateData.rates?.[cat.id]?.[qual.id]?.[0] ?? {});
     }
     rateArray.push(tempArr);
   }
@@ -123,29 +123,13 @@ export const omsLocationDictionary = (
     }, "");
 };
 
-export const getDeviationNDRArray = (
+export const getDeviationReason = (
   deviationOptions: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_OPTIONS],
-  data: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATIONS],
-  ageGroups?: boolean
+  data: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_REASON]
 ) => {
-  let deviationArray: any[] = [];
-  deviationOptions?.forEach((option) => {
-    const objectToSearch = ageGroups && data ? data[option] : data;
-    if (objectToSearch) {
-      if (ageGroups) {
-        if (objectToSearch.RateDeviationsSelected) {
-          deviationArray.push(objectToSearch);
-        } else {
-          for (const key of Object.keys(objectToSearch).filter(
-            (prop) => prop !== DC.SELECTED_OPTIONS
-          )) {
-            deviationArray.push(data[option][key as Types.DeviationKeys]);
-          }
-        }
-      } else if (data) {
-        deviationArray = Object.values(data);
-      }
-    }
-  });
-  return deviationArray;
+  let deviationReason: string = "";
+  if (deviationOptions) {
+    deviationReason = data;
+  }
+  return deviationReason;
 };
