@@ -50,7 +50,7 @@ jobs:
           jira-project-key: 'MDCT'
           jira-issue-type: 'Task'
           jira-custom-field-key-value: '{ "customfield_10007" : "MDCT-2280"  }'
-          jira-labels: 'MCR,snyk'
+          jira-labels: 'QMR,snyk'
           jira-title-prefix: '[QMR] - Snyk :'
           scan-output-path: 'snyk_output.txt'
           scan-type: 'snyk'
