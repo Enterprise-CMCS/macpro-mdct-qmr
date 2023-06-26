@@ -9,6 +9,3 @@ echo "$FILES" | xargs ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
-
-# Run unit tests prior to committing
-echo “running tests before git commit” | . ./test-unit.sh
