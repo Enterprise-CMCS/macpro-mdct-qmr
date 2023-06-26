@@ -15,6 +15,7 @@ export const CCPCH = ({
   setValidationFunctions,
   isNotReportingData,
   isPrimaryMeasureSpecSelected,
+
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
 }: QMR.MeasureWrapperProps) => {
