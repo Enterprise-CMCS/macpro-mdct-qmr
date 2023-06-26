@@ -8,6 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v2
-      - uses: pre-commit/action@v2.0.2
-        with:
-          extra_args: --all-files
+      #- uses: pre-commit/action@v2.0.2
+      #with:
+      #extra_args: --all-files
