@@ -1,4 +1,4 @@
-name: Pre-commit
+name: Pull Request Pre-commit Check
 
 on: [pull_request]
 
