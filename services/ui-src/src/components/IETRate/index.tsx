@@ -79,7 +79,7 @@ export const IETRate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
-
+      prevRate[index]["category"] = categoryName ?? undefined;
       if (
         categoryName?.toLowerCase().includes("total") ||
         prevRate[index]["uid"].toLowerCase().includes("total")

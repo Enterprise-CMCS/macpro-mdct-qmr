@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
@@ -20,7 +19,6 @@ export interface IRate {
   uid?: string;
   isTotal?: boolean;
 }
-
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
   name: string;
@@ -29,6 +27,7 @@ interface Props extends QMR.InputWrapperProps {
   rateMultiplicationValue?: number;
   customMask?: RegExp;
   calcTotal?: boolean;
+  categoryName?: string;
   allowNumeratorGreaterThanDenominator?: boolean;
   customDenominatorLabel?: string;
   customNumeratorLabel?: string;
@@ -44,6 +43,7 @@ export const Rate = ({
   rateMultiplicationValue = 100,
   customMask,
   calcTotal,
+  categoryName,
   allowNumeratorGreaterThanDenominator,
   customDenominatorLabel,
   customNumeratorLabel,
@@ -79,6 +79,7 @@ export const Rate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
+      prevRate[index]["category"] = categoryName ?? undefined;
     });
 
     if (calcTotal) {

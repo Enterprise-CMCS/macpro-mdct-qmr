@@ -152,6 +152,7 @@ export const ComplexRate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
+      prevRate[index]["category"] = categoryName ?? undefined;
     });
 
     prevRate[prevRate.length - 1]["isTotal"] = true;
