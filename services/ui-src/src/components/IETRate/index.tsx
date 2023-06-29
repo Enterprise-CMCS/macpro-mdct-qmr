@@ -8,6 +8,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { LabelData, getLabelText } from "utils";
 import { IRate } from "components";
 import { defaultRateCalculation } from "utils/rateFormulas";
+import { getMeasureYear } from "utils/getMeasureYear";
 import {
   allNumbers,
   eightNumbersOneDecimal,
@@ -79,7 +80,9 @@ export const IETRate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
-      prevRate[index]["category"] = categoryName ?? undefined;
+      if (getMeasureYear() === 2023) {
+        prevRate[index]["category"] = categoryName ?? undefined;
+      }
       if (
         categoryName?.toLowerCase().includes("total") ||
         prevRate[index]["uid"].toLowerCase().includes("total")

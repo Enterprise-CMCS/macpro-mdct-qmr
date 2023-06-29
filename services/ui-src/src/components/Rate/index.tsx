@@ -4,8 +4,9 @@ import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
 import { getLabelText } from "utils";
-
 import { defaultRateCalculation } from "utils/rateFormulas";
+import { getMeasureYear } from "utils/getMeasureYear";
+
 import {
   allNumbers,
   eightNumbersOneDecimal,
@@ -79,7 +80,10 @@ export const Rate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
-      prevRate[index]["category"] = categoryName ?? undefined;
+      if (getMeasureYear() === 2023) {
+        prevRate[index]["category"] = categoryName ?? undefined;
+        console.log("only on 2023", prevRate);
+      }
     });
 
     if (calcTotal) {
