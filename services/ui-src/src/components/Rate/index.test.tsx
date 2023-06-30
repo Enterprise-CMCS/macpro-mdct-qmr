@@ -8,6 +8,7 @@ const TestComponent = () => {
   const rates = [
     {
       label: "test",
+      category: "test",
       denominator: "",
       numerator: "",
       rate: "",
@@ -22,6 +23,7 @@ const TestComponent2 = () => {
   const rates = [
     {
       label: "test",
+      category: "category",
       denominator: "",
       numerator: "",
       rate: "",
