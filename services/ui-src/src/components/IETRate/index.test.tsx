@@ -6,6 +6,7 @@ import fireEvent from "@testing-library/user-event";
 import { IETRate } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import userEvent from "@testing-library/user-event";
+import { getMeasureYear } from "../../utils/getMeasureYear";
 
 const TestComponent = () => {
   const rates = [
@@ -84,6 +85,10 @@ const TextComponentCategory = () => {
   );
 };
 
+jest.mock("../../utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn().mockReturnValue(2023),
+}));
+
 describe("Test the IETRate component", () => {
   beforeEach(() => {
     renderWithHookForm(<TestComponent />, {
@@ -100,7 +105,7 @@ describe("Test the IETRate component", () => {
   });
 
   test("Check that component renders and includes a label when passed optionally", () => {
-    expect(screen.getByText(/test/i)).toBeVisible();
+    expect(screen.getAllByText(/test/i)[0]).toBeVisible();
   });
 
   test("Check that number input labels get rendered correctly", () => {
@@ -415,5 +420,23 @@ describe("Test the IETRate component when it includes a total NDR", () => {
     };
 
     checkNDRs(expectedValues);
+  });
+});
+
+describe("Rates should have correct properties", () => {
+  renderWithHookForm(<TestComponent />, {
+    defaultValues: {
+      "test-component": [
+        {
+          numerator: "1",
+          denominator: "1",
+          rate: "1",
+        },
+      ],
+    },
+  });
+
+  test("Should have category property only on FFY 2023", () => {
+    expect(getMeasureYear).toBeCalled();
   });
 });

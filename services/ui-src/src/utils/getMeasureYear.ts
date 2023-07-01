@@ -1,5 +1,6 @@
 export const getMeasureYear = () => {
-  const urlPath = window.location.pathname;
-  const measureYear = parseInt(urlPath.slice(4, 8));
-  return measureYear;
+  const { pathname } = window.location;
+  const params = pathname.split("/");
+  const year = parseInt(params[2]);
+  return year;
 };
