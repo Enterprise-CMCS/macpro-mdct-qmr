@@ -6,6 +6,7 @@ export * from "./validateAtLeastOneDataSource";
 export * from "./validateAtLeastOneDeviationFieldFilled";
 export * from "./validateAtLeastOneRateComplete";
 export * from "./validateBothDatesInRange";
+export * from "./validateDateRangeRadioButtonCompletion";
 export * from "./validateDualPopInformation";
 export * from "./validateEqualCategoryDenominators";
 export * from "./validateEqualQualifierDenominators";

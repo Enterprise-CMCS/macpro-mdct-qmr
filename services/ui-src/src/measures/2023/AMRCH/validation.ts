@@ -26,6 +26,7 @@ const AMRCHValidation = (data: FormData) => {
       ageGroups,
       PMD.categories
     ),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),

@@ -31,6 +31,7 @@ const PQI08Validation = (data: FormData) => {
       PMD.qualifiers,
       PMD.categories
     ),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),

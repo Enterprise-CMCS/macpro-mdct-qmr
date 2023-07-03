@@ -37,6 +37,7 @@ const WCCHValidation = (data: FormData) => {
   errorArray = [
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
