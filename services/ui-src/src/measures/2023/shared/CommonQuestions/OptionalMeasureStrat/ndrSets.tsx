@@ -342,7 +342,6 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();
-  const labelText = getLabelText();
 
   const qualRates = useQualRateArray(name);
   const standardRates = useStandardRateArray(name);
@@ -363,7 +362,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
     if (rateArrays?.[idx]?.length) {
       const ageGroupCheckBox = {
         value: value.id,
-        displayValue: labelText[value.label] ?? value,
+        displayValue: value.text,
         children: [
           <CUI.Heading
             key={`${name}.rates.${value.id}Header`}
