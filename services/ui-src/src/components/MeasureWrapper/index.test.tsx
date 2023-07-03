@@ -94,3 +94,32 @@ describe("non-state user", () => {
     expect(screen.getByTestId("fieldset")).toBeDisabled();
   });
 });
+
+describe("test auto-completed measures", () => {
+  beforeEach(() => {
+    mockUseUser.mockImplementation(() => {
+      return { isStateUser: true };
+    });
+
+    const div = createElement("div");
+    useApiMock({});
+    render(
+      <RouterWrappedComp>
+        <MeasureWrapper
+          measure={div}
+          name="testing-inactive"
+          year="2021"
+          measureId="NCIDDSAD"
+          autocompleteOnCreation={true}
+        />
+      </RouterWrappedComp>
+    );
+  });
+
+  test("auto-completed measures should not have validate and complete buttons", () => {
+    const completeMeasureButton = screen.queryByLabelText("Complete Measure");
+    const validateMeasureButton = screen.queryByLabelText("Validate Measure");
+    expect(completeMeasureButton).toBeNull();
+    expect(validateMeasureButton).toBeNull();
+  });
+});

@@ -27,6 +27,7 @@ const CCPCHValidation = (data: FormData) => {
       ageGroups,
       PMD.categories
     ),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),

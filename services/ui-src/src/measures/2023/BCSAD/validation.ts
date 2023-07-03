@@ -60,6 +60,7 @@ const BCSValidation = (data: FormData) => {
     }),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),

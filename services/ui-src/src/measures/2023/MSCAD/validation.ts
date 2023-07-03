@@ -40,6 +40,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       OPM,
       ageGroups
     ),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
