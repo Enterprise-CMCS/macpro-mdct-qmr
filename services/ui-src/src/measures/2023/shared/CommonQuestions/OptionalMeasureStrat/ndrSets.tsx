@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "../types";
 import * as QMR from "components";
-import { LabelData, cleanString, getLabelText } from "utils";
+import { LabelData, cleanString } from "utils";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
 import { useTotalAutoCalculation } from "./omsUtil";
