@@ -59,6 +59,7 @@ const CCWCHValidation = (data: FormData) => {
       PMD.qualifiers
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDeviationFieldFilled(

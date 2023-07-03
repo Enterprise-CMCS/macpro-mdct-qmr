@@ -23,25 +23,47 @@ export const DateRange = ({ type }: Props) => {
 
   return (
     <QMR.CoreQuestionWrapper testid="date-range" label="Date Range">
-      <CUI.Stack spacing={4} mb="4">
-        <CUI.Text>
-          For all measures, states should report start and end dates to
-          calculate the denominator. For some measures, the specifications
-          require a “look-back period” before or after the measurement period to
-          determine eligibility or utilization. The measurement period entered
-          in the Start and End Date fields should not include the “look-back
-          period.”
-        </CUI.Text>
-        <CUI.Text>
-          More information about the Start and End Date for each measure is
-          available in the{" "}
-          <CUI.Link href={link} color="blue" isExternal>
-            Measurement Period Table
-          </CUI.Link>{" "}
-          resource.
-        </CUI.Text>
-      </CUI.Stack>
-      <QMR.DateRange {...register(DC.DATE_RANGE)} />
+      <QMR.RadioButton
+        formLabelProps={{ fontWeight: "bold" }}
+        label="Did your state adhere to Core Set specifications in defining the measurement period for calculating this measure?"
+        {...register(DC.MEASUREMENT_PERIOD_CORE_SET)}
+        options={[
+          {
+            displayValue:
+              "Yes, our state adhered to Core Set specifications in defining the measurement period for calculating this measure.",
+            value: DC.YES,
+          },
+          {
+            displayValue: "No, our state used a different measurement period.",
+            value: DC.NO,
+            children: [
+              <>
+                <CUI.Stack spacing={4} mb="4">
+                  <CUI.Text>
+                    For all measures, states should report start and end dates
+                    to calculate the denominator. For some measures, the
+                    specifications require a “look-back period” before or after
+                    the measurement period to determine eligibility or
+                    utilization. The measurement period entered in the Start and
+                    End Date fields should not include the “look-back period.”
+                  </CUI.Text>
+
+                  <CUI.Text>
+                    More information about the Start and End Date for each
+                    measure is available in the{" "}
+                    <CUI.Link href={link} color="blue" isExternal>
+                      Measurement Period Table
+                    </CUI.Link>{" "}
+                    resource.
+                  </CUI.Text>
+                </CUI.Stack>
+
+                <QMR.DateRange {...register(DC.DATE_RANGE)} />
+              </>,
+            ],
+          },
+        ]}
+      />
     </QMR.CoreQuestionWrapper>
   );
 };
