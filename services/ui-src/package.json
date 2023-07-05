@@ -17,6 +17,7 @@
     "framer-motion": "^4",
     "jest-launchdarkly-mock": "^2.0.0",
     "launchdarkly-react-client-sdk": "^3.0.0",
+    "node-fetch": "3.3.1",
     "object-path": "^0.11.8",
     "react": "^17.0.1",
     "react-bootstrap": "^2.0.1",
