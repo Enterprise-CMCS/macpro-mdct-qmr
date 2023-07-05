@@ -6,6 +6,7 @@ import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
 import { IRate } from "components";
 import { defaultRateCalculation } from "utils/rateFormulas";
+import { getMeasureYear } from "utils/getMeasureYear";
 import { ndrFormula } from "types";
 
 interface Props extends QMR.InputWrapperProps {
@@ -152,6 +153,10 @@ export const ComplexRate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
+      // human readable text for Mathematica only needed for FFY 2023+
+      if (getMeasureYear() >= 2023) {
+        prevRate[index]["category"] = categoryName ?? undefined;
+      }
     });
 
     prevRate[prevRate.length - 1]["isTotal"] = true;

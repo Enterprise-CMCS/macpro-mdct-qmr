@@ -3,11 +3,13 @@ import fireEvent from "@testing-library/user-event";
 import { Rate } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import userEvent from "@testing-library/user-event";
+import { getMeasureYear } from "../../utils/getMeasureYear";
 
 const TestComponent = () => {
   const rates = [
     {
       label: "test",
+      category: "test",
       denominator: "",
       numerator: "",
       rate: "",
@@ -22,6 +24,7 @@ const TestComponent2 = () => {
   const rates = [
     {
       label: "test",
+      category: "category",
       denominator: "",
       numerator: "",
       rate: "",
@@ -31,6 +34,10 @@ const TestComponent2 = () => {
 
   return <Rate rates={rates} name="test-component" readOnly={false} />;
 };
+
+jest.mock("../../utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn().mockReturnValue(2023),
+}));
 
 describe("Test the Rate component", () => {
   beforeEach(() => {
@@ -48,7 +55,7 @@ describe("Test the Rate component", () => {
   });
 
   test("Check that component renders and includes a label when passed optionally", () => {
-    expect(screen.getByText(/test/i)).toBeVisible();
+    expect(screen.getAllByText(/test/i)[0]).toBeVisible();
   });
 
   test("Check that number input labels get rendered correctly", () => {
@@ -322,5 +329,23 @@ describe("Test the Rate component when it includes a total NDR", () => {
     };
 
     checkNDRs(expectedValues);
+  });
+});
+
+describe("Rates should have correct properties", () => {
+  renderWithHookForm(<TestComponent />, {
+    defaultValues: {
+      "test-component": [
+        {
+          numerator: "1",
+          denominator: "1",
+          rate: "1",
+        },
+      ],
+    },
+  });
+
+  test("Should have category property only on FFY 2023", () => {
+    expect(getMeasureYear).toBeCalled();
   });
 });
