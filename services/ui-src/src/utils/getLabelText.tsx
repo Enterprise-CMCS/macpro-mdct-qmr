@@ -9,7 +9,7 @@ const addLabelTextData = (acc: LabelText, data: LabelData) => {
   return acc;
 };
 
-export const getLabelText = () => {
+export const getLabelText = (): { [key: string]: [value: string] } => {
   const { pathname } = window.location;
   const params = pathname.split("/");
   const year = params[2];
