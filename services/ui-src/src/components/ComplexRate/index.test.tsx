@@ -3,9 +3,14 @@ import fireEvent from "@testing-library/user-event";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { ComplexRate } from "../ComplexRate";
 import { usePathParams } from "hooks/api/usePathParams";
+import { getMeasureYear } from "../../utils/getMeasureYear";
 
 jest.mock("hooks/api/usePathParams");
 const mockUsePathParams = usePathParams as jest.Mock;
+
+jest.mock("../../utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn().mockReturnValue(2023),
+}));
 
 // Example input fields
 export const aifhhQualifiers = [
@@ -51,7 +56,7 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
   beforeEach(() => {
     mockUsePathParams.mockReturnValue({
       state: "DC",
-      year: "2021",
+      year: "2023",
       coreSet: "HHCS_18-0006",
       measureId: "AIF-HH",
     });
@@ -136,7 +141,7 @@ describe("Test the IUHHRate component when readOnly is false", () => {
   beforeEach(() => {
     mockUsePathParams.mockReturnValue({
       state: "DC",
-      year: "2021",
+      year: "2023",
       coreSet: "HHCS_18-0006",
       measureId: "IU-HH",
     });
@@ -180,5 +185,30 @@ describe("Test the IUHHRate component when readOnly is false", () => {
       expect(denominator).toHaveDisplayValue([expectedValues[i].denom]);
       expect(rate).toHaveDisplayValue([expectedValues[i].rate]);
     });
+  });
+});
+
+describe("Rates should have correct properties", () => {
+  beforeEach(() => {
+    mockUsePathParams.mockReturnValue({
+      state: "DC",
+      year: "2023",
+      coreSet: "HHCS_18-0006",
+      measureId: "AIF-HH",
+    });
+    renderWithHookForm(
+      <ComplexRate
+        rates={aifhhRates}
+        name="test-component"
+        readOnly={false}
+        inputFieldNames={aifhhQualifiers}
+        measureName="AIFHH"
+        ndrFormulas={aifhhNdrFormulas}
+      />
+    );
+  });
+
+  test("Should have category property only on FFY 2023", () => {
+    expect(getMeasureYear).toBeCalled();
   });
 });
