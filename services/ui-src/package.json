@@ -18,6 +18,7 @@
     "jest-launchdarkly-mock": "^2.0.0",
     "launchdarkly-react-client-sdk": "^3.0.0",
     "object-path": "^0.11.8",
+    "pac-resolver": "6.0.2",
     "react": "^17.0.1",
     "react-bootstrap": "^2.0.1",
     "react-dom": "^17.0.1",
