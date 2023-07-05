@@ -152,6 +152,7 @@
     "typescript": "^4.4.4"
   },
   "resolutions": {
+    "degenerator": "^4.0.4",
     "nth-check": "^2.0.1"
   }
 }
