@@ -41,7 +41,7 @@ export const LSCCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure populationSampleSize />
+          <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
