@@ -7,10 +7,37 @@ import {
   allPositiveIntegersWith10Digits,
   allPositiveIntegersWith3Digits,
 } from "utils";
+import { useFormContext } from "react-hook-form";
+import { HHCSQualifierForm } from "../types";
 
 export const AdministrativeQuestions = () => {
   const register = useCustomRegister<Types.HHCSQualifierForm>();
   const padding = "10px";
+
+  const { setValue, watch } = useFormContext<HHCSQualifierForm>();
+  const data = watch();
+
+  //function to only invoke when the value has changed for number of adult or number of children
+  //only want the function to run when the value of numberOfAdults or numberOfChildren change
+  //the numberOfIndividuals needs to allow overwrite from states; is NOT always the sum of children + adult
+  const sumOnChange = (v: any) => {
+    if (data.AdministrativeData) {
+      let name: string = v.target.name;
+      let numOfAdults = name.includes("numberOfAdults")
+        ? v.target.value
+        : data.AdministrativeData.numberOfAdults;
+      let numOfChildren = name.includes("numberOfChildren")
+        ? v.target.value
+        : data.AdministrativeData.numberOfChildren;
+
+      data.AdministrativeData.numberOfIndividuals = (
+        parseInt(numOfAdults) + parseInt(numOfChildren)
+      ).toString();
+
+      setValue("AdministrativeData", data.AdministrativeData);
+    }
+  };
+
   return (
     <CUI.ListItem mr="4">
       <Common.QualifierHeader
@@ -21,6 +48,7 @@ export const AdministrativeQuestions = () => {
         {...register("AdministrativeData.numberOfAdults")}
         mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
+        onChange={sumOnChange}
         label={
           <>
             What is the total annual number of{" "}
@@ -47,6 +75,7 @@ export const AdministrativeQuestions = () => {
       />
       <QMR.NumberInput
         {...register("AdministrativeData.numberOfChildren")}
+        onChange={sumOnChange}
         mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
