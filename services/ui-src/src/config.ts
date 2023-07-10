@@ -7,18 +7,15 @@ export const isDevEnv = () => {
   );
 };
 
-let branchName = window._env_.BRANCH_NAME;
-let signOutRedirectURL = window._env_.COGNITO_REDIRECT_SIGNOUT;
-
-const redirectSignOurURL = () => {
-  if (branchName === "master") {
-    return (signOutRedirectURL = "https://test.home.idm.cms.gov/app/UserHome");
-  } else if (branchName === "val") {
-    return (signOutRedirectURL = "https://impl.home.idm.cms.gov/app/UserHome");
-  } else if (branchName === "prod") {
-    return (signOutRedirectURL = "https://idm.cms.gov/app/UserHome");
+const redirectSignOnURL = () => {
+  if (window._env_.BRANCH_NAME === "master") {
+    return "https://test.home.idm.cms.gov/app/UserHome";
+  } else if (window._env_.BRANCH_NAME === "val") {
+    return "https://impl.home.idm.cms.gov/app/UserHome";
+  } else if (window._env_.BRANCH_NAME === "prod") {
+    return "https://idm.cms.gov/app/UserHome";
   } else {
-    return signOutRedirectURL;
+    return window._env_.COGNITO_REDIRECT_SIGNOUT;
   }
 };
 
@@ -43,8 +40,8 @@ const configToExport = {
     APP_CLIENT_ID: window._env_.COGNITO_USER_POOL_CLIENT_ID,
     APP_CLIENT_DOMAIN: window._env_.COGNITO_USER_POOL_CLIENT_DOMAIN,
     IDENTITY_POOL_ID: window._env_.COGNITO_IDENTITY_POOL_ID,
-    REDIRECT_SIGNIN: window._env_.COGNITO_REDIRECT_SIGNOUT,
-    REDIRECT_SIGNOUT: redirectSignOurURL(),
+    REDIRECT_SIGNIN: window._env_.COGNITO_REDIRECT_SIGNIN,
+    REDIRECT_SIGNOUT: redirectSignOnURL(),
   },
   currentReportingYear: "2021",
   REACT_APP_LD_SDK_CLIENT: window._env_.REACT_APP_LD_SDK_CLIENT,
