@@ -7,18 +7,6 @@ export const isDevEnv = () => {
   );
 };
 
-const redirectSignOnURL = () => {
-  if (window._env_.BRANCH_NAME === "master") {
-    return "https://test.home.idm.cms.gov/app/UserHome";
-  } else if (window._env_.BRANCH_NAME === "val") {
-    return "https://impl.home.idm.cms.gov/app/UserHome";
-  } else if (window._env_.BRANCH_NAME === "prod") {
-    return "https://idm.cms.gov/app/UserHome";
-  } else {
-    return window._env_.COGNITO_REDIRECT_SIGNOUT;
-  }
-};
-
 const configToExport = {
   PROD_URL: window._env_.PROD_URL,
   BRANCH_NAME: window._env_.BRANCH_NAME,
@@ -41,7 +29,7 @@ const configToExport = {
     APP_CLIENT_DOMAIN: window._env_.COGNITO_USER_POOL_CLIENT_DOMAIN,
     IDENTITY_POOL_ID: window._env_.COGNITO_IDENTITY_POOL_ID,
     REDIRECT_SIGNIN: window._env_.COGNITO_REDIRECT_SIGNIN,
-    REDIRECT_SIGNOUT: redirectSignOnURL(),
+    REDIRECT_SIGNOUT: window._env_.COGNITO_REDIRECT_SIGNOUT,
   },
   currentReportingYear: "2021",
   REACT_APP_LD_SDK_CLIENT: window._env_.REACT_APP_LD_SDK_CLIENT,
