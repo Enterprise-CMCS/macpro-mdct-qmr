@@ -30,9 +30,8 @@ export const AdministrativeQuestions = () => {
         ? v.target.value
         : data.AdministrativeData.numberOfChildren;
 
-      data.AdministrativeData.numberOfIndividuals = (
-        parseInt(numOfAdults) + parseInt(numOfChildren)
-      ).toString();
+      let sum = parseInt(numOfAdults) + parseInt(numOfChildren);
+      data.AdministrativeData.numberOfIndividuals = sum ? sum.toString() : "";
 
       setValue("AdministrativeData", data.AdministrativeData);
     }
