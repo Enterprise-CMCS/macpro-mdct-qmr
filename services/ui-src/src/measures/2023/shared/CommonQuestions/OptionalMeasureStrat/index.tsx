@@ -125,7 +125,6 @@ export const OptionalMeasureStrat = ({
   ndrFormulas,
   data,
   calcTotal = false,
-  adultMeasure,
   rateMultiplicationValue,
   allowNumeratorGreaterThanDenominator = false,
   customMask,
@@ -139,7 +138,7 @@ export const OptionalMeasureStrat = ({
   customPrompt,
   rateCalc,
 }: Props) => {
-  const omsData = data ?? OMSData(adultMeasure);
+  const omsData = data ?? OMSData();
   const { watch, getValues, unregister } = useFormContext<OMSType>();
   const values = getValues();
 
