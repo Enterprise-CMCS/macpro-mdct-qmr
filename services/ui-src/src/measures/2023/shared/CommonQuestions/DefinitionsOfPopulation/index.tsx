@@ -424,7 +424,7 @@ export const DefinitionOfPopulation = ({
                 <CUI.Box pb="5" key="DeliverySys-Other">
                   <QMR.TextArea
                     formLabelProps={{ fontWeight: "400" }}
-                    label="Describe the Other Delivery System represented in the denominator:"
+                    label="Describe the Other Delivery System represented in the denominator (state-specific comment):"
                     {...register(DC.DELIVERY_SYS_OTHER)}
                   />
                 </CUI.Box>,
