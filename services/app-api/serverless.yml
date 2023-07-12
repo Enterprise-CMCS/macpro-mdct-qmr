@@ -42,7 +42,9 @@ custom:
   dotenv:
     path: ../../.env
   princeUrl: ${ssm:/configuration/default/princeurl, "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf"}
-  bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
+  bigmacRoleArn: ${ssm:/aws/reference/secretsmanager/qmr/${sls:stage}/bigmacRoleArn, ssm:/aws/reference/secretsmanager/qmr/default/bigmacRoleArn}
+  bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/bigmac/bootstrapBrokerStringTls, ssm:/configuration/default/bigmac/bootstrapBrokerStringTls}
+ # bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
   coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
   coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
   coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableStreamArn}
@@ -107,6 +109,11 @@ provider:
           Resource:
             - ${self:custom.coreSetTableStreamArn}
             - ${self:custom.measureTableStreamArn}
+        - Effect: "Allow"
+          Action:
+            - sts:AssumeRole
+          Resource:
+            - ${self:custom.bigmacRoleArn}
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
@@ -279,6 +286,7 @@ functions:
     environment:
       BOOTSTRAP_BROKER_STRING_TLS: ${self:custom.bootstrapBrokerStringTls}
       STAGE: ${self:custom.stage}
+      bigmacRoleArn: ${self:custom.bigmacRoleArn}
     maximumRetryAttempts: 2
     timeout: 120
     memorySize: 2048
