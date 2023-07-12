@@ -34,11 +34,12 @@
   },
   "dependencies": {
     "aws-sdk": "^2.1310.0",
+    "@jm18457/kafkajs-msk-iam-authentication-mechanism": "^3.1.1",
     "aws4": "^1.11.0",
     "aws4-axios": "^2.4.9",
     "axios": "^0.27.2",
     "jwt-decode": "^3.1.2",
-    "kafkajs": "^1.16.0",
+    "kafkajs": "^2.2.4",
     "prompt-sync": "^4.2.0",
     "uuid": "^7.0.3",
     "xml2js": "0.6.0"
