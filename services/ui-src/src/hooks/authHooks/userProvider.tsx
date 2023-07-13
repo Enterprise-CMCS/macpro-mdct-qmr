@@ -35,18 +35,6 @@ export const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<any>(null);
   const [showLocalLogins, setShowLocalLogins] = useState(false);
 
-  const setRedirectURL = () => {
-    if (config.BRANCH_NAME === "master") {
-      return "https://test.home.idm.cms.gov/app/UserHome";
-    } else if (config.BRANCH_NAME === "val") {
-      return "https://impl.home.idm.cms.gov/app/UserHome";
-    } else if (config.BRANCH_NAME === "prod") {
-      return "https://idm.cms.gov/app/UserHome";
-    } else {
-      return config.cognito.REDIRECT_SIGNOUT;
-    }
-  };
-
   const logout = useCallback(async () => {
     try {
       setUser(null);
@@ -54,7 +42,7 @@ export const UserProvider = ({ children }: Props) => {
     } catch (error) {
       console.log("error signing out: ", error);
     }
-    window.location.href = setRedirectURL();
+    window.location.href = config.cognito.REDIRECT_SIGNOUT;
   }, []);
 
   const checkAuthState = useCallback(async () => {
