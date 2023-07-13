@@ -25,7 +25,7 @@ export const DeviationFromMeasureSpec = () => {
             children: [
               <QMR.TextArea
                 {...register(DC.DEVIATION_REASON)}
-                label="Explain the deviation(s):"
+                label="Explain the deviation(s) (state-specific comment):"
                 formLabelProps={{ fontWeight: 400 }}
               />,
             ],
