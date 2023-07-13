@@ -31,13 +31,7 @@ const WCCHValidation = (data: FormData) => {
     qualifier: string,
     fieldType: string
   ) => {
-    return `${fieldType} for the ${
-      // @ts-ignore
-      qualifier.label
-    } Total rate is not equal to the sum of the ${
-      // @ts-ignore
-      qualifier.label
-    } age-specific ${fieldType.toLowerCase()}s.`;
+    return `${fieldType} for the ${qualifier} Total rate is not equal to the sum of the ${qualifier} age-specific ${fieldType.toLowerCase()}s.`;
   };
 
   errorArray = [
