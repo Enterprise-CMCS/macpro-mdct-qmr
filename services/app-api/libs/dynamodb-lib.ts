@@ -37,8 +37,16 @@ export default {
   put: (params: DynamoCreate) => client.put(params).promise(),
   post: (params: DynamoCreate) => client.put(params).promise(),
   scan: async <Result = CoreSet | Measure>(params: DynamoScan) => {
-    const result = await client.scan(params).promise();
-    return { ...result, Items: result?.Items as Result[] | undefined };
+    const items = [];
+    let complete = false;
+    while (!complete) {
+      const result = await client.scan(params).promise();
+      console.log(result);
+      items.push(...(result?.Items as Result[] | []));
+      params.ExclusiveStartKey = result.LastEvaluatedKey;
+      complete = result.LastEvaluatedKey === undefined;
+    }
+    return { Items: items, Count: items.length };
   },
   update: (params: DynamoUpdate) => client.update(params).promise(),
   delete: (params: DynamoDelete) => client.delete(params).promise(),
