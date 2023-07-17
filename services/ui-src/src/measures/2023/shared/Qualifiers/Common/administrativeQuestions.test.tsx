@@ -2,7 +2,6 @@ import { AdministrativeQuestions } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import * as CUI from "@chakra-ui/react";
 import { fireEvent, screen } from "@testing-library/react";
-// import userEvent from "@testing-library/user-event";
 
 const fieldKeys = [
   "numberOfAdults",
