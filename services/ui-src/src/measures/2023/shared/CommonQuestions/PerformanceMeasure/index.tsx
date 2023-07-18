@@ -67,6 +67,7 @@ const CategoryNdrSets = ({
   return (
     <>
       {categories.map((item) => {
+        console.log(item);
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
           label: cat.label,
           uid: item.id + "." + cat.id,
