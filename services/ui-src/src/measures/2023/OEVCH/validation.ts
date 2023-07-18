@@ -20,6 +20,7 @@ const OEVCHValidation = (data: FormData) => {
   }
 
   errorArray = [
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),

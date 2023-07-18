@@ -59,6 +59,7 @@ const HVLADValidation = (data: FormData) => {
       ],
     }),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
