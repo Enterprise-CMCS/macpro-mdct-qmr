@@ -3,7 +3,6 @@ import { Kafka } from "kafkajs";
 import { createMechanism } from "@jm18457/kafkajs-msk-iam-authentication-mechanism";
 import { STSClient, AssumeRoleCommand } from "@aws-sdk/client-sts";
 
-
 class KafkaSourceLib {
   /*
   Event types:
