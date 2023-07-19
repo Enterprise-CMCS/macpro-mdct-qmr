@@ -3,6 +3,10 @@ import { CoreSetAbbr, MeasureStatus } from "../../types";
 import AWS from "aws-sdk";
 
 const mockPromiseCall = jest.fn();
+const mockScanPromiseCall = jest
+  .fn()
+  .mockReturnValue({})
+  .mockReturnValueOnce({ LastEvaluatedKey: { key: "val" } });
 
 jest.mock("aws-sdk", () => ({
   __esModule: true,
@@ -14,7 +18,7 @@ jest.mock("aws-sdk", () => ({
           put: (x: any) => ({ promise: mockPromiseCall }),
           post: (x: any) => ({ promise: mockPromiseCall }),
           query: (x: any) => ({ promise: mockPromiseCall }),
-          scan: (x: any) => ({ promise: mockPromiseCall }),
+          scan: (x: any) => ({ promise: mockScanPromiseCall }),
           update: (x: any) => ({ promise: mockPromiseCall }),
           delete: (x: any) => ({ promise: mockPromiseCall }),
         };
@@ -24,7 +28,7 @@ jest.mock("aws-sdk", () => ({
 }));
 
 describe("Test DynamoDB Interaction API Build Structure", () => {
-  test("API structure should be callable", () => {
+  test("API structure should be callable", async () => {
     const testKeyTable = {
       Key: { compoundKey: "testKey", coreSet: CoreSetAbbr.ACS },
       TableName: "testTable",
@@ -42,26 +46,32 @@ describe("Test DynamoDB Interaction API Build Structure", () => {
       description: "",
       data: {},
     };
-    dynamoLib.query(true);
-    dynamoLib.get(testKeyTable);
-    dynamoLib.delete(testKeyTable);
-    dynamoLib.put({ TableName: "testTable", Item: testItem });
-    dynamoLib.scan({
+    await dynamoLib.query(true);
+    await dynamoLib.get(testKeyTable);
+    await dynamoLib.delete(testKeyTable);
+    await dynamoLib.put({ TableName: "testTable", Item: testItem });
+    await dynamoLib.scan({
       ...testKeyTable,
       ExpressionAttributeNames: {},
       ExpressionAttributeValues: {},
     });
-    dynamoLib.update({
+    await dynamoLib.scanOnce({
       ...testKeyTable,
       ExpressionAttributeNames: {},
       ExpressionAttributeValues: {},
     });
-    dynamoLib.post({
+    await dynamoLib.update({
+      ...testKeyTable,
+      ExpressionAttributeNames: {},
+      ExpressionAttributeValues: {},
+    });
+    await dynamoLib.post({
       TableName: "",
       Item: testItem,
     });
 
-    expect(mockPromiseCall).toHaveBeenCalledTimes(7);
+    expect(mockPromiseCall).toHaveBeenCalledTimes(6);
+    expect(mockScanPromiseCall).toHaveBeenCalledTimes(3);
   });
 
   describe("Checking Environment Variable Changes", () => {
