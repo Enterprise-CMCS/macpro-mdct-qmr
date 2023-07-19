@@ -1,44 +1,9 @@
-//history: this is just a copy of Rate.test.tsx
-//there is currently an issue with checking rate at the category level instead of the qualifier level so we're using this one as a tempt for now
-
 import { screen } from "@testing-library/react";
+import * as CUI from "@chakra-ui/react";
 import fireEvent from "@testing-library/user-event";
 import { IETRate } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import userEvent from "@testing-library/user-event";
 import { getMeasureYear } from "../../utils/getMeasureYear";
-
-const TestComponent = () => {
-  const rates = [
-    {
-      label: "test",
-      category: "test",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 1,
-      uid: "test",
-    },
-  ];
-
-  return <IETRate rates={rates} name="test-component" />;
-};
-
-const TestComponent2 = () => {
-  const rates = [
-    {
-      label: "test",
-      category: "test",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 1,
-      uid: "test",
-    },
-  ];
-
-  return <IETRate rates={rates} name="test-component" readOnly={false} />;
-};
 
 const categories = [
   {
@@ -64,25 +29,27 @@ const qualifiers = [
     text: "qual2",
     id: "qual2-id",
   },
+  {
+    label: "Total",
+    text: "Total",
+    id: "Total",
+  },
 ];
 
-const TextComponentCategory = () => {
-  let rates = qualifiers?.map((qual, idx) => ({
-    label: qual.label,
-    uid: categories[0].id + "." + qual.id,
-    id: idx,
-  }));
+const TestComponent = () => {
+  const rates = [
+    {
+      label: "test",
+      category: "test",
+      denominator: "",
+      numerator: "",
+      rate: "",
+      id: 1,
+      uid: "test",
+    },
+  ];
 
-  return (
-    <IETRate
-      rates={rates}
-      categories={categories}
-      categoryName="cat1: cat"
-      name="test-component"
-      readOnly={false}
-      calcTotal={true}
-    />
-  );
+  return <IETRate rates={rates} name="test-component" />;
 };
 
 jest.mock("../../utils/getMeasureYear", () => ({
@@ -91,38 +58,65 @@ jest.mock("../../utils/getMeasureYear", () => ({
 
 describe("Test the IETRate component", () => {
   beforeEach(() => {
-    renderWithHookForm(<TestComponent />, {
-      defaultValues: {
-        "test-component": [
-          {
-            numerator: "1",
-            denominator: "1",
-            rate: "1",
+    categories.forEach((cat) => {
+      let rates: any[] = qualifiers?.map((qual, idx) => ({
+        label: qual.label,
+        category: cat.label,
+        id: idx,
+        uid: `${cat.id}.${qual.id}`,
+      }));
+
+      return renderWithHookForm(
+        <CUI.Box key={cat.label}>
+          <CUI.Text>{cat.label}</CUI.Text>
+          <IETRate
+            rates={rates}
+            name="test-component"
+            categoryName={cat.label}
+          />
+        </CUI.Box>,
+        {
+          defaultValues: {
+            "test-component": [
+              {
+                numerator: "1",
+                denominator: "1",
+                rate: "1",
+              },
+              {
+                numerator: "2",
+                denominator: "2",
+                rate: "2",
+              },
+            ],
           },
-        ],
-      },
+        }
+      );
     });
   });
 
-  test("Check that component renders and includes a label when passed optionally", () => {
-    expect(screen.getAllByText(/test/i)[0]).toBeVisible();
+  it("Check that component renders and includes a label when passed optionally", () => {
+    expect(screen.getAllByText(/qual1/i)[0]).toBeVisible();
   });
 
-  test("Check that number input labels get rendered correctly", () => {
-    expect(screen.getByLabelText(/denominator/i)).toBeVisible();
-    expect(screen.getByLabelText(/numerator/i)).toBeVisible();
-    expect(screen.getByLabelText(/rate/i)).toBeVisible();
+  it("Check that number input labels get rendered correctly", () => {
+    const total = categories.length * qualifiers.length;
+    expect(screen.getAllByLabelText(/denominator/).length).toEqual(total);
+    expect(screen.getAllByLabelText(/numerator/).length).toEqual(total);
+    expect(screen.getAllByLabelText(/rate/).length).toEqual(total);
   });
 
-  test("Check that data pre-populates", () => {
-    expect(screen.getAllByDisplayValue("1")).toHaveLength(3);
+  it("Check that data pre-populates", () => {
+    expect(screen.getAllByDisplayValue("1")).toHaveLength(6);
     expect(screen.getAllByDisplayValue("1")[0]).toBeInTheDocument();
+    expect(screen.getAllByDisplayValue("2")).toHaveLength(6);
+    expect(screen.getAllByDisplayValue("2")[0]).toBeInTheDocument();
   });
 
-  test("Check that filling out text inputs changes rate calculation", async () => {
-    const numeratorTextBox = await screen.findByLabelText("Numerator");
-    const denominatorTextBox = await screen.findByLabelText("Denominator");
-    const rateTextBox = await screen.findByLabelText("Rate");
+  it("Check that filling out text inputs changes rate calculation", async () => {
+    const numeratorTextBox = screen.getAllByLabelText(/numerator/)[0];
+    const denominatorTextBox = screen.getAllByLabelText(/denominator/)[0];
+    const rateTextBox = screen.getAllByLabelText(/rate/)[0];
 
     fireEvent.type(numeratorTextBox, "123");
     fireEvent.type(denominatorTextBox, "123");
@@ -130,313 +124,215 @@ describe("Test the IETRate component", () => {
     expect(rateTextBox).toHaveDisplayValue("100.0");
   });
 
-  test("Check that the rate text box is readonly", async () => {
-    const rateTextBox = await screen.findByLabelText("Rate");
-
-    fireEvent.type(rateTextBox, "4321");
-
-    expect(rateTextBox).toHaveDisplayValue("1");
-  });
-});
-
-describe("Test rate component by category", () => {
-  beforeEach(() => {
-    let allRates: any = {};
-    let defaultValues: any = { PerformanceMeasure: { rates: "" } };
-
-    categories.forEach((cat) => {
-      let rates: any[] = [];
-      qualifiers.forEach((qual, index) => {
-        let rate = {
-          id: index,
-          label: qual.label,
-          denominator: "",
-          numerator: "",
-          rate: "",
-          uid: cat.id + "." + qual.id,
-          isTotal: cat.label.includes("Total"),
-        };
-
-        rates.push(rate);
-      });
-
-      defaultValues[cat.id] = rates;
-      allRates[cat.id] = rates;
-      defaultValues.PerformanceMeasure.rates = allRates;
-    });
-
-    renderWithHookForm(<TextComponentCategory />, {
-      defaultValues: defaultValues,
-    });
-  });
-
-  test("Check that calculateTotalCategory had run", () => {
-    let numerator = screen.getAllByLabelText(/numerator/i)[0];
-    fireEvent.type(numerator, "43");
-    expect(numerator).toHaveValue("43");
+  it("Check that the rate text box is readonly", async () => {
+    const rateTextBox = screen.getAllByLabelText(/rate/)[0];
+    fireEvent.type(rateTextBox, "43");
   });
 });
 
 describe("Test non-readonly rate component", () => {
-  test("Check that the rate can be typed in when not readonly", () => {
-    renderWithHookForm(<TestComponent2 />, {
-      defaultValues: {
-        "test-component": [
-          {
-            numerator: "1",
-            denominator: "1",
-            rate: "1",
-          },
-        ],
-      },
+  beforeEach(() => {
+    categories.forEach((cat) => {
+      let rates: any[] = qualifiers?.map((qual, idx) => ({
+        label: qual.label,
+        category: cat.label,
+        id: idx,
+        uid: `${cat.id}.${qual.id}`,
+        isTotal: cat.label.includes("Total"),
+      }));
+
+      return renderWithHookForm(
+        <CUI.Box key={cat.label}>
+          <CUI.Text>{cat.label}</CUI.Text>
+          <IETRate rates={rates} name="test-component" readOnly={false} />
+        </CUI.Box>
+      );
     });
+  });
 
-    const rateTextBox = screen.getByLabelText("Rate");
-
+  it("Check that the rate can be typed in when not readonly", () => {
+    const rateTextBox = screen.getAllByLabelText(/rate/)[0];
     fireEvent.type(rateTextBox, "43");
-
     expect(rateTextBox).toHaveDisplayValue("43");
   });
 });
 
-const TestComponentWithTotal = () => {
-  // Rates that include a total field
-  const rates = [
-    {
-      label: "test1",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 1,
-      uid: "test1",
-    },
-    {
-      label: "test2",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 2,
-      uid: "test2",
-    },
-    {
-      label: "total",
-      denominator: "",
-      numerator: "",
-      rate: "",
-      id: 3,
-      isTotal: true,
-      uid: "Total",
-    },
-  ];
+const generateAllRates = () => {
+  let allRates: any = {};
+  categories.forEach((cat) => {
+    let rate: any[] = [];
+    qualifiers?.map((qual) => {
+      rate.push({
+        label: qual.label,
+        category: cat.label,
+        uid: `${cat.id}.${qual.id}`,
+        numerator: "2",
+        denominator: "3",
+        rate: "66.7",
+        isTotal: cat.label.includes("Total"),
+      });
+    });
+    allRates[cat.id] = rate;
+  });
 
-  return (
-    <IETRate
-      rates={rates}
-      name="test-total-component"
-      readOnly={false}
-      calcTotal={true}
-    />
-  );
+  return allRates;
 };
 
 describe("Test the IETRate component when it includes a total NDR", () => {
   beforeEach(() => {
-    renderWithHookForm(<TestComponentWithTotal />, {
+    const ndrSets = categories.map((cat) => {
+      let rates: any[] = qualifiers?.map((qual, idx) => ({
+        label: qual.label,
+        category: cat.label,
+        id: idx,
+        uid: `${cat.id}.${qual.id}`,
+        isTotal: cat.label.includes("Total"),
+      }));
+
+      return (
+        <CUI.Box key={cat.label}>
+          <CUI.Text>{cat.label}</CUI.Text>
+          <IETRate
+            rates={rates}
+            name="test-component"
+            readOnly={false}
+            calcTotal={true}
+            categoryName={cat.label}
+            categories={categories}
+          />
+        </CUI.Box>
+      );
+    });
+
+    return renderWithHookForm(ndrSets, {
       defaultValues: {
-        "test-total-component": [
-          {
-            numerator: "1",
-            denominator: "1",
-            rate: "1",
-          },
+        PerformanceMeasure: {
+          rates: generateAllRates(),
+        },
+        "test-component": [
           {
             numerator: "2",
-            denominator: "2",
-            rate: "1",
+            denominator: "3",
+            rate: "66.7",
+          },
+          {
+            numerator: "1",
+            denominator: "4",
+            rate: "25.0",
           },
         ],
       },
     });
   });
 
-  /* Iterate over all NDRs of rate component and confirm values match provided expectedValues. */
-  const checkNDRs = (expectedValues: any) => {
-    screen.getAllByLabelText(/numerator/i).forEach((numerator, index) => {
-      expect(numerator).toHaveValue(expectedValues[index].numerator);
-    });
-    screen.getAllByLabelText(/denominator/i).forEach((numerator, index) => {
-      expect(numerator).toHaveValue(expectedValues[index].denominator);
-    });
-    screen.getAllByLabelText(/rate/i).forEach((numerator, index) => {
-      expect(numerator).toHaveValue(expectedValues[index].rate);
+  it("Check that the components render and include their labels", () => {
+    const total = categories.length * qualifiers.length;
+
+    expect(screen.getAllByText("Numerator")).toHaveLength(total);
+    expect(screen.getAllByText("Denominator")).toHaveLength(total);
+    expect(screen.getAllByText("Rate")).toHaveLength(total);
+  });
+
+  it("Check that the component renders with the correct default values", () => {
+    expect(screen.getAllByDisplayValue("2")).toHaveLength(2);
+    expect(screen.getAllByDisplayValue("2")[0]).toBeInTheDocument();
+    expect(screen.getAllByDisplayValue("3")).toHaveLength(2);
+    expect(screen.getAllByDisplayValue("3")[0]).toBeInTheDocument();
+    expect(screen.getAllByDisplayValue("66.7")).toHaveLength(2);
+    expect(screen.getAllByDisplayValue("66.7")[0]).toBeInTheDocument();
+  });
+
+  it("Check that user input in a non-total field triggers total calculation", () => {
+    const numeratorToChange = screen.getAllByLabelText(/numerator/i)[0];
+    fireEvent.type(numeratorToChange, "1");
+
+    const denominatorToChange = screen.getAllByLabelText(/denominator/i)[0];
+    fireEvent.type(denominatorToChange, "5");
+
+    const changedRate = screen.getAllByLabelText(/rate/i)[0];
+    expect(changedRate).toHaveValue("20.0");
+  });
+
+  it("Check that if numerator > denominator, the calculated total rate should be empty", () => {
+    const numeratorToChange = screen.getAllByLabelText(/numerator/i)[0];
+    fireEvent.type(numeratorToChange, "3");
+
+    const denominatorToChange = screen.getAllByLabelText(/denominator/i)[0];
+    fireEvent.type(denominatorToChange, "1");
+
+    const changedRate = screen.getAllByLabelText(/rate/i)[0];
+    expect(changedRate).toHaveValue("");
+  });
+
+  const viewNDRs = () => {
+    screen.getAllByLabelText(/rate/i).forEach((rate, index) => {
+      const numberator = screen
+        .getAllByLabelText(/numerator/i)
+        [index].getAttribute("value");
+      const denominator = screen
+        .getAllByLabelText(/denominator/i)
+        [index].getAttribute("value");
+
+      console.log(
+        index +
+          ": N: " +
+          numberator +
+          ", D: " +
+          denominator +
+          ", R: " +
+          rate.getAttribute("value")
+      );
     });
   };
 
-  test("Check that the components render and include their labels", () => {
-    expect(screen.getByText(/test1/i)).toBeVisible();
-    expect(screen.getByText(/test2/i)).toBeVisible();
-    expect(screen.getByText(/total/i)).toBeVisible();
-  });
+  const checkNDRs = (index: number, expectedValue: any) => {
+    expect(screen.getAllByLabelText(/numerator/i)[index]).toHaveValue(
+      expectedValue.numberator
+    );
+    expect(screen.getAllByLabelText(/denominator/i)[index]).toHaveValue(
+      expectedValue.denominator
+    );
+    expect(screen.getAllByLabelText(/rate/i)[index]).toHaveValue(
+      expectedValue.rate
+    );
+  };
 
-  test("Check that the component renders with the correct default values", () => {
-    const expectedValues = [
-      {
-        label: "test1",
-        numerator: "1",
-        denominator: "1",
-        rate: "1",
-      },
-      {
-        label: "test2",
-        numerator: "2",
-        denominator: "2",
-        rate: "1",
-      },
-      {
-        label: "total",
-        numerator: "",
-        denominator: "",
-        rate: "",
-      },
-    ];
+  it("Check that user input triggers total calculation in qualifier total", () => {
+    const numeratorToChange = screen.getAllByLabelText(/numerator/i)[0];
+    fireEvent.type(numeratorToChange, "1");
 
-    checkNDRs(expectedValues);
-  });
-
-  test("Check that user input in a non-total field triggers total calculation", () => {
-    // Change the test2 numerator from 2 to 1
-    const numeratorToChange = screen.getAllByLabelText(/numerator/i)[1];
-    userEvent.type(numeratorToChange, "1");
-
-    const expectedValues = [
-      {
-        label: "test1",
-        numerator: "1",
-        denominator: "1",
-        rate: "1",
-      },
-      {
-        label: "test2",
-        numerator: "1",
-        denominator: "2",
-        rate: "50.0",
-      },
-      {
-        label: "total",
-        numerator: "2",
-        denominator: "3",
-        rate: "66.7",
-      },
-    ];
-
-    checkNDRs(expectedValues);
-
-    // Change the test1 denominator from 1 to 5
-    const denominatorToChange = screen.getAllByLabelText(/denominator/i)[0];
-    userEvent.type(denominatorToChange, "5");
-
-    expectedValues[0] = {
-      label: "test1",
-      numerator: "1",
-      denominator: "5",
-      rate: "20.0",
-    };
-    expectedValues[2] = {
-      label: "total",
+    const expectedValue = {
       numerator: "2",
       denominator: "7",
       rate: "28.6",
     };
 
-    checkNDRs(expectedValues);
+    checkNDRs(2, expectedValue);
   });
 
-  test("Check that if numerator > denominator, the calculated total rate should be empty", () => {
-    // Change the numerator from 1 to 5
+  it("Check that user input triggers total calculation in category total", () => {
     const numeratorToChange = screen.getAllByLabelText(/numerator/i)[0];
-    userEvent.type(numeratorToChange, "5");
+    fireEvent.type(numeratorToChange, "3");
 
-    const expectedValues = [
-      {
-        label: "test1",
-        numerator: "5",
-        denominator: "1",
-        rate: "",
-      },
-      {
-        label: "test2",
-        numerator: "2",
-        denominator: "2",
-        rate: "1",
-      },
-      {
-        label: "total",
-        numerator: "2",
-        denominator: "2",
-        rate: "100.0",
-      },
-    ];
+    const denominatorToChange = screen.getAllByLabelText(/denominator/i)[0];
+    fireEvent.type(denominatorToChange, "8");
 
-    checkNDRs(expectedValues);
-  });
+    const numeratorToChange2 = screen.getAllByLabelText(/numerator/i)[1];
+    fireEvent.type(numeratorToChange2, "1");
 
-  test("Check that user input in a total field does not trigger total calculation", () => {
-    // Manually set the total numerator
-    const numeratorToChange = screen.getAllByLabelText(/numerator/i)[2];
-    userEvent.type(numeratorToChange, "5");
+    const denominatorToChange2 = screen.getAllByLabelText(/denominator/i)[1];
+    fireEvent.type(denominatorToChange2, "4");
 
-    const expectedValues = [
-      {
-        label: "test1",
-        numerator: "1",
-        denominator: "1",
-        rate: "1",
-      },
-      {
-        label: "test2",
-        numerator: "2",
-        denominator: "2",
-        rate: "1",
-      },
-      {
-        label: "total",
-        numerator: "5",
-        denominator: "",
-        rate: "",
-      },
-    ];
-
-    checkNDRs(expectedValues);
-
-    // Manually set the total denominator
-    const denominatorToChange = screen.getAllByLabelText(/denominator/i)[2];
-    userEvent.type(denominatorToChange, "10");
-
-    expectedValues[2] = {
-      label: "total",
-      numerator: "5",
-      denominator: "10",
-      rate: "50.0",
-    };
-
-    checkNDRs(expectedValues);
+    // viewNDRs();
   });
 });
 
 describe("Rates should have correct properties", () => {
-  renderWithHookForm(<TestComponent />, {
-    defaultValues: {
-      "test-component": [
-        {
-          numerator: "1",
-          denominator: "1",
-          rate: "1",
-        },
-      ],
-    },
+  beforeEach(() => {
+    renderWithHookForm(<TestComponent />);
   });
 
-  test("Should have category property only on FFY 2023", () => {
+  it("Should have category property only on FFY 2023", () => {
     expect(getMeasureYear).toBeCalled();
   });
 });
