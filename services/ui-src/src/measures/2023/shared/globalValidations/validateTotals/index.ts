@@ -131,7 +131,7 @@ export const validateTotalNDR = (
       }
     });
 
-    let totalNDR: any = ndrSet[ndrSet.length - 1];
+    let totalNDR = ndrSet[ndrSet.length - 1];
     if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
 
@@ -142,8 +142,8 @@ export const validateTotalNDR = (
         numeratorSum !== null &&
         !isNaN(parsedNum)
       ) {
-        const qualifier: string =
-          (categories && categories[idx]) || totalNDR.label;
+        const qualifier =
+          (categories && categories[idx].label) || totalNDR.label || "";
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage: errorMessageFunc(qualifier, "Numerator"),
@@ -154,19 +154,20 @@ export const validateTotalNDR = (
         denominatorSum !== null &&
         !isNaN(parsedDen)
       ) {
-        const qualifier: string =
-          (categories && categories[idx]) || totalNDR.label;
+        const qualifier =
+          (categories && categories[idx].label) || totalNDR.label || "";
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage: errorMessageFunc(qualifier, "Denominator"),
         });
       }
     } else if (numeratorSum && denominatorSum) {
-      const fieldLabel: string =
+      const fieldLabel =
         (categories &&
-          categories[idx] &&
-          `${categories[idx]} - ${totalNDR.label}`) ||
-        totalNDR.label;
+          categories[idx]?.label &&
+          `${categories[idx].label} - ${totalNDR.label}`) ||
+        totalNDR.label ||
+        "";
       errorArray.push({
         errorLocation: errorLocation,
         errorMessage: errorMessageFunc(fieldLabel, "Total"),

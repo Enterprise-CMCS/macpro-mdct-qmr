@@ -12,6 +12,7 @@ interface NumberInputProps extends QMR.InputWrapperProps {
   name: string;
   mask?: RegExp;
   readonly?: boolean;
+  onChange?: Function;
 }
 
 export const NumberInput = ({
@@ -23,6 +24,7 @@ export const NumberInput = ({
   readonly,
   mask = allNumbers,
   ariaLabel = name,
+  onChange,
   ...rest
 }: NumberInputProps) => {
   const {
@@ -34,6 +36,16 @@ export const NumberInput = ({
     name,
     control,
   });
+
+  //expanding onChange to allow the parent to access the event information
+  const change = (v: any) => {
+    onChange?.(v);
+
+    return mask.test(v.target.value) || !v.target.value
+      ? field.onChange(v.target.value || "")
+      : null;
+  };
+
   return (
     <QMR.InputWrapper
       isInvalid={!!objectPath.get(errors, name)?.message}
@@ -48,11 +60,7 @@ export const NumberInput = ({
           value={field.value ?? ""}
           name={name}
           data-cy={name}
-          onChange={(v) =>
-            mask.test(v.target.value) || !v.target.value
-              ? field.onChange(v.target.value || "")
-              : null
-          }
+          onChange={change}
           data-testid="test-number-input"
           onBlur={field.onBlur}
           ref={field.ref}
