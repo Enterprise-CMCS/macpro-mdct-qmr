@@ -74,6 +74,7 @@ export const AABCH = ({
               qualifiers={PMD.qualifiers}
               rateMultiplicationValue={rateScale}
               allowNumeratorGreaterThanDenominator
+              rateCalc={AABRateCalculation}
             />
           )}
         </>
