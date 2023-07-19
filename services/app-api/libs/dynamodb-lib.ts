@@ -44,8 +44,7 @@ export default {
     let complete = false;
     while (!complete) {
       const result = await client.scan(params).promise();
-      console.log(result);
-      items.push(...(result?.Items as Result[] | []));
+      items.push(...((result?.Items as Result[]) ?? []));
       params.ExclusiveStartKey = result.LastEvaluatedKey;
       complete = result.LastEvaluatedKey === undefined;
     }
