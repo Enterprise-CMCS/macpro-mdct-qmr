@@ -83,7 +83,7 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 - [Quickstart](#quickstart)
 - [License](#license)
 
-# Getting Started                                                                                                                                     |
+# Getting Started |
 
 ## IDM
 
@@ -96,7 +96,7 @@ Users can log into QMR's non-development environments using IDM.
 ---
 
 1. Access QMR at https://mdctqmr.cms.gov and select "Register"
-1. Select the New User Registration button on the IDM sign-in screen
+1. Select the New User Registration button on the IDM sign-in screen.
 1. Provide requested information on the following screens and accept terms of service.
 1. Enter a user ID and password, select a security question, and submit.
 
