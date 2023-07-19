@@ -84,7 +84,7 @@ const WCCHValidation = (data: FormData) => {
       categories: PMD.categories,
       dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(),
         PMD.qualifiers,
         PMD.categories
       ),

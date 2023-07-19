@@ -70,9 +70,14 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
     });
 
     if (node.description) {
+      let label = "Describe the data source (state-specific comment):";
       children.push(
         <QMR.TextArea
-          label="Describe the data source:"
+          label={
+            node.value !== DC.ELECTRONIC_HEALTH_RECORDS
+              ? label
+              : "Describe the data source:"
+          }
           name={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
           key={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
         />

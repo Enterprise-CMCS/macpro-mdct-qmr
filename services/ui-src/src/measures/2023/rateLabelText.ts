@@ -396,13 +396,6 @@ export const data = {
     "CCW-AD": {
         "qualifiers": [
             {
-                "label": "All Women Ages 21 to 44",
-                "text": "All Women Ages 21 to 44",
-                "id": "ntJIVl"
-            }
-        ],
-        "categories": [
-            {
                 "label": "Most effective or moderately effective method of contraception",
                 "text": "Most effective or moderately effective method of contraception",
                 "id": "FLFmHi"
@@ -412,7 +405,8 @@ export const data = {
                 "text": "Long-acting reversible method of contraception (LARC)",
                 "id": "qken13"
             }
-        ]
+        ],
+        "categories": [{"id":"ntJIVl", "label": "", "text":""}]
     },
     "CCW-CH": {
         "qualifiers": [

@@ -48,7 +48,7 @@ describe("Testing OMS validation processor", () => {
           simpleRate,
         ]),
         true,
-        OMSData(false)
+        OMSData()
       ) as DefaultFormData,
       validationCallbacks: [],
     });

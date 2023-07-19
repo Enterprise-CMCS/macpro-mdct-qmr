@@ -125,7 +125,6 @@ export const OptionalMeasureStrat = ({
   ndrFormulas,
   data,
   calcTotal = false,
-  adultMeasure,
   rateMultiplicationValue,
   allowNumeratorGreaterThanDenominator = false,
   customMask,
@@ -139,7 +138,7 @@ export const OptionalMeasureStrat = ({
   customPrompt,
   rateCalc,
 }: Props) => {
-  const omsData = data ?? OMSData(adultMeasure);
+  const omsData = data ?? OMSData();
   const { watch, getValues, unregister } = useFormContext<OMSType>();
   const values = getValues();
 
@@ -203,12 +202,14 @@ export const OptionalMeasureStrat = ({
       >
         <CUI.Text py="3">
           If this measure is also reported by additional
-          classifications/sub-categories, e.g. racial, ethnic, sex, language,
-          disability status, or geography, complete the following as applicable.
-          If your state reported for classifications/sub-categories other than
-          those listed below, or reported for different rate sets, please click
-          on “Add Another” to add Additional/Alternative
-          Classification/Sub-categories as needed.
+          classifications/sub-categories, e.g. racial, ethnic, sex, or
+          geography, complete the following as applicable. If your state
+          reported classifications/sub-categories other than those listed below,
+          or reported different rate sets, please click on “Add Another
+          Sub-Category” to add Additional/Alternative
+          Classification/Sub-categories as needed. Please note that CMS may add
+          in additional categories for language and disability status in future
+          reporting years.
         </CUI.Text>
         <CUI.Text py="3">
           Do not select categories and sub-classifications for which you will

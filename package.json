@@ -57,6 +57,10 @@
     "yargs": "^16.1.1"
   },
   "dependencies": {
-    "cypress-image-snapshot": "^4.0.1"
+    "cypress-image-snapshot": "^4.0.1",
+    "xml2js": "0.6.0"
+  },
+  "resolutions": {
+    "json5": "^2.2.3"
   }
 }

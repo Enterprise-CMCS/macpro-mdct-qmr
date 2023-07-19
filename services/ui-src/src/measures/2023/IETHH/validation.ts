@@ -16,7 +16,7 @@ const IETValidation = (data: FormData) => {
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(true),
+    OMSData(),
     PMD.qualifiers,
     PMD.categories
   );

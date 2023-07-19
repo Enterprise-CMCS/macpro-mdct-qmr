@@ -19,7 +19,7 @@ export const DataSource = () => {
             value: "Other",
             children: [
               <QMR.TextArea
-                label="Describe the Data Source:"
+                label="Describe the data source (state-specific comment):"
                 {...register("DataSource-CAHPS-Version-Other")}
               />,
             ],

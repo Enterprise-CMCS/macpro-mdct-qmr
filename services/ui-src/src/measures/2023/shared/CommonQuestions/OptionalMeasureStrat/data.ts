@@ -13,7 +13,7 @@ export interface OmsNode {
   aggregateTitle?: string;
 }
 
-export const OMSData = (adultMeasure?: boolean): OmsNode[] => {
+export const OMSData = (): OmsNode[] => {
   const data: OmsNode[] = [
     {
       id: "Race",
@@ -88,13 +88,6 @@ export const OMSData = (adultMeasure?: boolean): OmsNode[] => {
       addMore: true,
     },
   ];
-
-  /** if adult measure add ACA */
-  adultMeasure &&
-    data.push({
-      id: "Adult Eligibility Group (ACA Expansion Group)",
-      addMore: false,
-    });
 
   return data;
 };

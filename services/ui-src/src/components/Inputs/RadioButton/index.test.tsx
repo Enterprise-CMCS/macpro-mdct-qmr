@@ -20,7 +20,7 @@ const TestComponent = () => {
           value: "Other",
           children: [
             <Inputs.TextInput
-              label="Describe the data source:"
+              label="Describe the data source (state-specific comment):"
               formLabelProps={{
                 fontWeight: "normal",
                 fontSize: "normal",
@@ -51,7 +51,7 @@ const TestComponent2 = () => {
           value: "Other",
           children: [
             <Inputs.TextInput
-              label="Describe the data source:"
+              label="Describe the data source (state-specific comment):"
               formLabelProps={{
                 fontWeight: "normal",
                 fontSize: "normal",
