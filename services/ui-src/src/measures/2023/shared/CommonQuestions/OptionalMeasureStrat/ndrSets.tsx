@@ -52,7 +52,7 @@ const TotalNDR = ({
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
   const cleanedQualifier = lastQualifier.id;
   const cleanedCategory = category.id;
-  const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
+  const cleanedName = `${name}.rates.${cleanedCategory}.${cleanedQualifier}`;
   const label =
     category.label === DC.SINGLE_CATEGORY
       ? lastQualifier.label
