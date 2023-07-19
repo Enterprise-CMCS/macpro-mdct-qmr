@@ -15,7 +15,7 @@ const tableNames = [
 ];
 
 const scanTable = async (tableName, startingKey, keepSearching) => {
-  let results = await dynamoDb.scanExplicit({
+  let results = await dynamoDb.scanOnce({
     TableName: tableName,
     ExclusiveStartKey: startingKey,
   });

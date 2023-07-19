@@ -36,6 +36,9 @@ export default {
   },
   put: (params: DynamoCreate) => client.put(params).promise(),
   post: (params: DynamoCreate) => client.put(params).promise(),
+  /**
+   * Scan operation that continues for all results. More expensive but avoids stopping early when a index is not known.
+   */
   scan: async <Result = CoreSet | Measure>(params: DynamoScan) => {
     const items = [];
     let complete = false;
@@ -47,6 +50,14 @@ export default {
       complete = result.LastEvaluatedKey === undefined;
     }
     return { Items: items, Count: items.length };
+  },
+  /**
+   * Scan operation that iterates and includes a LastEvaluatedKey.
+   * Useful for parsing the results of a scan one page at a time or stopping early.
+   */
+  scanOnce: async <Result = CoreSet | Measure>(params: DynamoScan) => {
+    const result = await client.scan(params).promise();
+    return { ...result, Items: result?.Items as Result[] | undefined };
   },
   update: (params: DynamoUpdate) => client.update(params).promise(),
   delete: (params: DynamoDelete) => client.delete(params).promise(),

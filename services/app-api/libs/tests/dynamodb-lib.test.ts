@@ -55,6 +55,11 @@ describe("Test DynamoDB Interaction API Build Structure", () => {
       ExpressionAttributeNames: {},
       ExpressionAttributeValues: {},
     });
+    await dynamoLib.scanOnce({
+      ...testKeyTable,
+      ExpressionAttributeNames: {},
+      ExpressionAttributeValues: {},
+    });
     await dynamoLib.update({
       ...testKeyTable,
       ExpressionAttributeNames: {},
@@ -66,7 +71,7 @@ describe("Test DynamoDB Interaction API Build Structure", () => {
     });
 
     expect(mockPromiseCall).toHaveBeenCalledTimes(6);
-    expect(mockScanPromiseCall).toHaveBeenCalledTimes(2);
+    expect(mockScanPromiseCall).toHaveBeenCalledTimes(3);
   });
 
   describe("Checking Environment Variable Changes", () => {
