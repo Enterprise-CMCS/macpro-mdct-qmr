@@ -40,6 +40,12 @@ const qualifiers = [
   },
 ];
 
+const emptyValues = {
+  numerator: "",
+  denominator: "",
+  rate: "",
+};
+
 const intialValues = {
   numerator: "2",
   denominator: "3",
@@ -58,7 +64,6 @@ const generateRates = (values: any) => {
         numerator: values.numerator,
         denominator: values.denominator,
         rate: values.rate,
-        isTotal: cat.label.includes("Total"),
       });
     });
     rates[cat.id] = rate;
@@ -72,6 +77,18 @@ const generateRates = (values: any) => {
   return allRates;
 };
 
+const checkNDRs = (index: number, expectedValue: any) => {
+  expect(screen.getAllByLabelText(/Numerator/i)[index]).toHaveValue(
+    expectedValue.numberator
+  );
+  expect(screen.getAllByLabelText(/Denominator/i)[index]).toHaveValue(
+    expectedValue.denominator
+  );
+  expect(screen.getAllByLabelText(/Rate/i)[index]).toHaveValue(
+    expectedValue.rate
+  );
+};
+
 jest.mock("../../utils/getMeasureYear", () => ({
   getMeasureYear: jest.fn().mockReturnValue(2023),
 }));
@@ -83,7 +100,6 @@ const IETRateComponent = (readOnly: boolean, defaultValues: any) => {
       category: cat.label,
       id: idx,
       uid: `${cat.id}.${qual.id}`,
-      isTotal: cat.label.includes("Total"),
     }));
 
     return (
@@ -211,18 +227,6 @@ describe("Test the IETRate component when it includes a total NDR", () => {
     expect(changedRate).toHaveValue("");
   });
 
-  const checkNDRs = (index: number, expectedValue: any) => {
-    expect(screen.getAllByLabelText(/Numerator/i)[index]).toHaveValue(
-      expectedValue.numberator
-    );
-    expect(screen.getAllByLabelText(/Denominator/i)[index]).toHaveValue(
-      expectedValue.denominator
-    );
-    expect(screen.getAllByLabelText(/Rate/i)[index]).toHaveValue(
-      expectedValue.rate
-    );
-  };
-
   it("Check that user input triggers total calculation in qualifier total", () => {
     const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
     fireEvent.type(numeratorToChange, "1");
@@ -262,6 +266,20 @@ describe("Test the IETRate component when it includes a total NDR", () => {
     const totalCatIndex = qualifiers.length * (categories.length - 1);
     checkNDRs(totalCatIndex, expectedValue);
   });
+
+  it("Check total category qualifer sum can be overwritten by user input", () => {
+    const denominatorToChange2 = screen.getAllByLabelText(/Denominator/i)[7];
+    fireEvent.type(denominatorToChange2, "5");
+
+    const expectedValue = {
+      numerator: "4",
+      denominator: "8",
+      rate: "50.0",
+    };
+
+    const totalCatIndex = qualifiers.length * categories.length - 1;
+    checkNDRs(totalCatIndex, expectedValue);
+  });
 });
 
 describe("Rates should have correct properties", () => {
@@ -272,5 +290,34 @@ describe("Rates should have correct properties", () => {
 
   it("Should have category property only on FFY 2023", () => {
     expect(getMeasureYear).toBeCalled();
+  });
+});
+
+describe("Test empty rates in component", () => {
+  beforeEach(() => {
+    const defaultValues = generateRates(emptyValues);
+    IETRateComponent(false, defaultValues);
+  });
+
+  it("Total should be empty when only 1 field is entered", () => {
+    const denominatorToChange = screen.getAllByLabelText(/Denominator/i)[0];
+    fireEvent.type(denominatorToChange, "8");
+
+    const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
+    fireEvent.type(numeratorToChange, "");
+
+    const changedRate = screen.getAllByLabelText(/Rate/i)[0];
+    expect(changedRate).toHaveValue("");
+  });
+
+  it("Rate should calculate to 0.0 if numerator is zero", () => {
+    const denominatorToChange = screen.getAllByLabelText(/Denominator/i)[0];
+    fireEvent.type(denominatorToChange, "8");
+
+    const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
+    fireEvent.type(numeratorToChange, "0");
+
+    const changedRate = screen.getAllByLabelText(/Rate/i)[0];
+    expect(changedRate).toHaveValue("0.0");
   });
 });
