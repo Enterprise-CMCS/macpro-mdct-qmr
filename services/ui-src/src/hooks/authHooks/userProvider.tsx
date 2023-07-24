@@ -42,7 +42,7 @@ export const UserProvider = ({ children }: Props) => {
     } catch (error) {
       console.log("error signing out: ", error);
     }
-    window.location.href = config.cognito.REDIRECT_SIGNOUT;
+    window.location.href = config.POST_SIGNOUT_REDIRECT;
   }, []);
 
   const checkAuthState = useCallback(async () => {
