@@ -1,11 +1,19 @@
 import fireEvent from "@testing-library/user-event";
 import { AdditionalNotes } from ".";
+import { Reporting } from "../Reporting";
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
 describe("Test AdditionalNotes component", () => {
   beforeEach(() => {
-    renderWithHookForm(<AdditionalNotes />);
+    renderWithHookForm([
+      <Reporting
+        measureName="My Test Measure"
+        reportingYear="2023"
+        measureAbbreviation="MTM"
+      />,
+      <AdditionalNotes />,
+    ]);
   });
 
   it("component renders", () => {
@@ -25,5 +33,27 @@ describe("Test AdditionalNotes component", () => {
     );
     fireEvent.type(textArea, "This is the test text");
     expect(textArea).toHaveDisplayValue("This is the test text");
+  });
+
+  it("input is deleted when measure reporting radio option is changed", async () => {
+    const reportingNo = await screen.findByLabelText(
+      "No, I am not reporting My Test Measure (MTM) for FFY 2023 quality measure reporting."
+    );
+
+    const textArea = await screen.findByLabelText(
+      "Please add any additional notes or comments on the measure not otherwise captured above (state-specific comment):"
+    );
+
+    fireEvent.click(reportingNo);
+    fireEvent.type(textArea, "This is the test text");
+    expect(textArea).toHaveDisplayValue("This is the test text");
+
+    // change reporting radio button option from no to yes
+    const reportingYes = await screen.findByLabelText(
+      "Yes, I am reporting My Test Measure (MTM) for FFY 2023 quality measure reporting."
+    );
+
+    fireEvent.click(reportingYes);
+    expect(textArea).toHaveDisplayValue("");
   });
 });
