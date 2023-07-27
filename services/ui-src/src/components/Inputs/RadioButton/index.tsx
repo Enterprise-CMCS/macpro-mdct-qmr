@@ -17,6 +17,7 @@ interface RadioButtonProps extends QMR.InputWrapperProps, ControllerRules {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
+  subTextElement?: JSX.Element;
   valueAsArray?: boolean;
 }
 
@@ -24,6 +25,7 @@ export const RadioButton = ({
   options,
   radioGroupProps,
   name,
+  subTextElement,
   rules,
   valueAsArray,
   ...rest
@@ -62,6 +64,7 @@ export const RadioButton = ({
         }}
         {...radioGroupProps}
       >
+        {subTextElement}
         <CUI.Stack>
           {options.map((option, idx) => {
             const compVal = valueAsArray ? field.value?.[0] : field.value;
