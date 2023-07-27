@@ -31,7 +31,7 @@ const CCPCHValidation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
-    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
