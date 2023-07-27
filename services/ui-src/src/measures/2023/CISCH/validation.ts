@@ -54,11 +54,7 @@ const CISCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateEqualCategoryDenominatorsPM(
-      data,
-      PMD.categories,
-      PMD.qualifiers
-    ),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

@@ -53,11 +53,7 @@ const CCWCHValidation = (data: FormData) => {
         GV.validateOneQualRateHigherThanOtherQualOMS(),
       ],
     }),
-    ...GV.validateEqualCategoryDenominatorsPM(
-      data,
-      PMD.categories,
-      PMD.qualifiers
-    ),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
