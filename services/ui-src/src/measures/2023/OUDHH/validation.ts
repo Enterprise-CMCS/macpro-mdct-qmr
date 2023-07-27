@@ -42,6 +42,7 @@ const OUDValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateEqualCategoryDenominatorsPM(
       data,
       PMD.categories,
