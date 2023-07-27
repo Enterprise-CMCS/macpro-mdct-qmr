@@ -1,6 +1,7 @@
 describe("Add Validation to Rate when user selects multiple Data Sources.", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });

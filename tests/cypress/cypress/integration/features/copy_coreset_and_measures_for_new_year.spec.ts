@@ -1,6 +1,7 @@
 describe("Coresets and measures should reflect the chosen year", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
   });
 
   it("displays the correct information based on 2021", () => {

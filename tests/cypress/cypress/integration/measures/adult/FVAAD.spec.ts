@@ -1,6 +1,7 @@
 describe("OY2 9898 FVA-AD", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("FVA-AD");
   });

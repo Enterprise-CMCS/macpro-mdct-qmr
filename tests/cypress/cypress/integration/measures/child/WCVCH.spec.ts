@@ -1,6 +1,7 @@
 describe("Measure: oy2-9916 WCV-CH", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("WCV-CH");
   });

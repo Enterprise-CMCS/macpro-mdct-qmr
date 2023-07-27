@@ -3,6 +3,7 @@ import { should } from "chai";
 describe("Measure: CDF-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
+    cy.selectYear("2021");
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("CDF-HH");
   });

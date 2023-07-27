@@ -1,6 +1,7 @@
 describe("Measure: FUM-AD", () => {
   before(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("FUM-AD");
   });

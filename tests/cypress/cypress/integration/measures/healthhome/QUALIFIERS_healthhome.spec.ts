@@ -1,6 +1,7 @@
 describe("Health Home Measure Qualifier: HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
+    cy.selectYear("2021");
   });
 
   it("Health Home Core Set Measures", () => {

@@ -1,6 +1,7 @@
 describe("Measure: HPC-AD", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("HPC-AD");
   });
