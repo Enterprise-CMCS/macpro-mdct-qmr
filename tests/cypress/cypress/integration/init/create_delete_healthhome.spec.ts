@@ -1,6 +1,7 @@
 describe("Health Home Sets Should be able to be deleted and created", () => {
   beforeEach(() => {
     cy.loginHealthHome();
+    cy.selectYear("2021");
     cy.wait(2000);
   });
 

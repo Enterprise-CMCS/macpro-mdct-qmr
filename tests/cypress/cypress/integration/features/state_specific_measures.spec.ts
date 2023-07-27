@@ -1,6 +1,7 @@
 describe.skip("Add state specific measure testing", () => {
   before(() => {
     cy.loginHealthHome();
+    cy.selectYear("2021");
     cy.get('[data-cy="add-hhbutton"]').click(); // clicking on adding child core set measures
     cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select(1); // select first available SPA
     cy.get('[data-cy="Create"]').click(); //clicking create
