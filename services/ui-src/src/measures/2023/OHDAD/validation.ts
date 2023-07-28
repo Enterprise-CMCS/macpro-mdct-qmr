@@ -47,6 +47,7 @@ const OHDValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
