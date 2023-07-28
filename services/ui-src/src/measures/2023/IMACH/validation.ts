@@ -51,6 +51,7 @@ const DEVCHValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
@@ -63,11 +64,7 @@ const DEVCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateEqualCategoryDenominatorsPM(
-      data,
-      PMD.categories,
-      PMD.qualifiers
-    ),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
   ];
 
   return errorArray;

@@ -38,7 +38,8 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
     it("should return NO errors", () => {
       const errors = validateEqualCategoryDenominatorsPM(
         generatePmQualifierRateData(pmd, [simpleRate, simpleRate]),
-        categories
+        categories,
+        qualifiers
       );
 
       expect(errors).toHaveLength(0);
@@ -47,7 +48,8 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
     it("should have error", () => {
       const errors = validateEqualCategoryDenominatorsPM(
         generatePmQualifierRateData(pmd, [simpleRate, doubleRate]),
-        categories
+        categories,
+        qualifiers
       );
 
       expect(errors).toHaveLength(1);
@@ -83,7 +85,8 @@ describe("Testing Equal Denominators For All Qualifiers Validation", () => {
     it("should NOT have error from empty rate value", () => {
       const errors = validateEqualCategoryDenominatorsPM(
         generatePmQualifierRateData(pmd, [partialRate, partialRate]),
-        categories
+        categories,
+        qualifiers
       );
 
       expect(errors).toHaveLength(0);
