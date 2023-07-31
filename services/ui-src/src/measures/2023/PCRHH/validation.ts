@@ -52,6 +52,7 @@ const PCRHHValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     // Performance Measure Validations
     ...GV.PCRatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.PCRnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),

@@ -65,6 +65,7 @@ const APMCHValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateTotalNDR(
       performanceMeasureArray,
       undefined,

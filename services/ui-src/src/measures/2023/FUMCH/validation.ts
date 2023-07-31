@@ -61,6 +61,7 @@ const FUMCHValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason

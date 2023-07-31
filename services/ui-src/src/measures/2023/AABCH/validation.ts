@@ -46,6 +46,7 @@ const AABCHValidation = (data: FormData) => {
       PMD.qualifiers
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
     ...GV.omsValidations({

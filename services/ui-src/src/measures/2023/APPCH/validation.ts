@@ -50,6 +50,7 @@ const APPCHValidation = (data: FormData) => {
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

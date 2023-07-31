@@ -44,6 +44,7 @@ const AMRCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.omsValidations({
       data,

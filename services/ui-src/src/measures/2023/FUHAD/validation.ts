@@ -68,6 +68,7 @@ const FUHValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,

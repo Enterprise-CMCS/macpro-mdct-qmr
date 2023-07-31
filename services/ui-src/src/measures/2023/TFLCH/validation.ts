@@ -48,6 +48,7 @@ const TFLCHValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...sameDenominatorError,
     ...GV.validateAtLeastOneDeviationFieldFilled(

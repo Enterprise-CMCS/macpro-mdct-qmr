@@ -27,6 +27,7 @@ const CCWCHValidation = (data: FormData) => {
       PMD.categories
     ),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,

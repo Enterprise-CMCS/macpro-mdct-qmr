@@ -179,6 +179,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -193,6 +194,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);

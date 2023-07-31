@@ -182,6 +182,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -203,6 +204,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualPM).toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualOMS).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);

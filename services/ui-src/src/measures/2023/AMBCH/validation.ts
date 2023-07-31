@@ -40,6 +40,7 @@ const AMBCHValidation = (data: FormData) => {
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
     ...GV.omsValidations({

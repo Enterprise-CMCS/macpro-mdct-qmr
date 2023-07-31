@@ -54,6 +54,7 @@ const AIFHHValidation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     ...GV.ComplexValidateDualPopInformation(
       performanceMeasureArray,
