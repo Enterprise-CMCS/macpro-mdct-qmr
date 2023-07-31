@@ -17,6 +17,18 @@ interface Props {
   type: "adult" | "child" | "health";
 }
 
+const subTextElement = (link: string) => {
+  return (
+    <CUI.Text mt="2" mb="2">
+      Information for each measure is available in the{" "}
+      <CUI.Link href={link} color="blue" isExternal>
+        Measurement Period Table
+      </CUI.Link>{" "}
+      resource.
+    </CUI.Text>
+  );
+};
+
 export const DateRange = ({ type }: Props) => {
   const register = useCustomRegister<Types.DateRange>();
   const link = measurementPeriodTableLinks[type];
@@ -27,6 +39,7 @@ export const DateRange = ({ type }: Props) => {
         formLabelProps={{ fontWeight: "bold" }}
         label="Did your state adhere to Core Set specifications in defining the measurement period for calculating this measure?"
         {...register(DC.MEASUREMENT_PERIOD_CORE_SET)}
+        subTextElement={subTextElement(link)}
         options={[
           {
             displayValue:
@@ -46,15 +59,6 @@ export const DateRange = ({ type }: Props) => {
                     the measurement period to determine eligibility or
                     utilization. The measurement period entered in the Start and
                     End Date fields should not include the “look-back period.”
-                  </CUI.Text>
-
-                  <CUI.Text>
-                    More information about the Start and End Date for each
-                    measure is available in the{" "}
-                    <CUI.Link href={link} color="blue" isExternal>
-                      Measurement Period Table
-                    </CUI.Link>{" "}
-                    resource.
                   </CUI.Text>
                 </CUI.Stack>
 
