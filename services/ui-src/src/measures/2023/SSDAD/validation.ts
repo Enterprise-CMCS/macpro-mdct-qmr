@@ -41,7 +41,7 @@ const SSDValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(),
         PMD.qualifiers,
         PMD.categories
       ),
@@ -58,6 +58,7 @@ const SSDValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason

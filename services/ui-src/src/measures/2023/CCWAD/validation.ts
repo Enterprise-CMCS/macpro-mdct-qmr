@@ -35,8 +35,9 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
-    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
@@ -51,7 +52,7 @@ const CCWADValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(),
         PMD.qualifiers,
         PMD.categories
       ),

@@ -34,6 +34,7 @@ const CCPADValidation = (data: FormData) => {
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
@@ -54,7 +55,7 @@ const CCPADValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(),
         PMD.qualifiers,
         PMD.categories
       ),

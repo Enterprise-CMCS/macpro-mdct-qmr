@@ -174,6 +174,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSourceType).not.toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
     expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
@@ -197,6 +198,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSourceType).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatOMS).toHaveBeenCalled();

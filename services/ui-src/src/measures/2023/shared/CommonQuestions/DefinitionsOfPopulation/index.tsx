@@ -69,7 +69,7 @@ export const DefinitionOfPopulation = ({
                 children: [
                   <QMR.TextArea
                     formLabelProps={{ fontWeight: "400" }}
-                    label="Define the other denominator population:"
+                    label="Define the other denominator population (state-specific comment):"
                     {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
                   />,
                 ],
@@ -133,7 +133,7 @@ export const DefinitionOfPopulation = ({
                   {...register(
                     DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN
                   )}
-                  label="Explain which populations are excluded and why:"
+                  label="Explain which populations are excluded and why (state-specific comment):"
                 />,
                 <CUI.Box mt="10" key="DenominatorDefineTotalTechSpec-No-Size">
                   <QMR.NumberInput
@@ -424,7 +424,7 @@ export const DefinitionOfPopulation = ({
                 <CUI.Box pb="5" key="DeliverySys-Other">
                   <QMR.TextArea
                     formLabelProps={{ fontWeight: "400" }}
-                    label="Describe the Other Delivery System represented in the denominator:"
+                    label="Describe the Other Delivery System represented in the denominator (state-specific comment):"
                     {...register(DC.DELIVERY_SYS_OTHER)}
                   />
                 </CUI.Box>,

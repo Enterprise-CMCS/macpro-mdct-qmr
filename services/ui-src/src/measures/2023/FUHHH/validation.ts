@@ -41,7 +41,7 @@ const FUHHHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateAtLeastOneDataSource(data),
-
+    ...GV.validateAtLeastOneDataSourceType(data),
     // Performance Measure Validations
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
@@ -71,7 +71,7 @@ const FUHHHValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(),
         PMD.qualifiers,
         PMD.categories
       ),

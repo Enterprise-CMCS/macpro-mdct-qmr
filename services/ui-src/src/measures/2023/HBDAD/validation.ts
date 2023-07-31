@@ -30,7 +30,7 @@ const HBDADValidation = (data: FormData) => {
       categories: PMD.categories,
       dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(),
         PMD.qualifiers,
         PMD.categories
       ),
@@ -58,6 +58,7 @@ const HBDADValidation = (data: FormData) => {
       PMD.categories
     ),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,

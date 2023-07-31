@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import config from "config";
 
@@ -29,7 +29,6 @@ const authenticateWithIDM = () => {
 };
 
 export const UserProvider = ({ children }: Props) => {
-  const navigate = useNavigate();
   const location = useLocation();
   const isProduction = window.location.origin.includes(config.PROD_URL);
 
@@ -43,8 +42,8 @@ export const UserProvider = ({ children }: Props) => {
     } catch (error) {
       console.log("error signing out: ", error);
     }
-    navigate("/");
-  }, [navigate]);
+    window.location.href = config.POST_SIGNOUT_REDIRECT;
+  }, []);
 
   const checkAuthState = useCallback(async () => {
     try {

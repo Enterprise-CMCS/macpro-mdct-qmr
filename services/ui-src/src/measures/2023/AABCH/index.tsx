@@ -23,7 +23,7 @@ export const AABCH = ({
   const data = watch();
   let mask: RegExp = positiveNumbersWithMaxDecimalPlaces(1);
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const rateScale = 1000;
+  const rateScale = 100;
 
   useEffect(() => {
     if (setValidationFunctions) {
@@ -60,6 +60,7 @@ export const AABCH = ({
               customMask={mask}
               rateMultiplicationValue={rateScale}
               allowNumeratorGreaterThanDenominator
+              rateCalc={AABRateCalculation}
             />
           )}
           <CMQ.CombinedRates />
@@ -73,6 +74,7 @@ export const AABCH = ({
               qualifiers={PMD.qualifiers}
               rateMultiplicationValue={rateScale}
               allowNumeratorGreaterThanDenominator
+              rateCalc={AABRateCalculation}
             />
           )}
         </>

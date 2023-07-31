@@ -26,7 +26,7 @@ const DEVCHValidation = (data: FormData) => {
       categories: PMD.categories,
       dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(),
         PMD.qualifiers,
         PMD.categories
       ),
@@ -51,6 +51,7 @@ const DEVCHValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
@@ -63,11 +64,7 @@ const DEVCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateEqualCategoryDenominatorsPM(
-      data,
-      PMD.categories,
-      PMD.qualifiers
-    ),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
   ];
 
   return errorArray;

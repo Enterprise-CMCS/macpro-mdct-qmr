@@ -17,7 +17,10 @@
     "framer-motion": "^4",
     "jest-launchdarkly-mock": "^2.0.0",
     "launchdarkly-react-client-sdk": "^3.0.0",
+    "node-fetch": "3.3.1",
+    "node-forge": "1.3.1",
     "object-path": "^0.11.8",
+    "pac-resolver": "6.0.2",
     "react": "^17.0.1",
     "react-bootstrap": "^2.0.1",
     "react-dom": "^17.0.1",
@@ -30,7 +33,8 @@
     "react-scripts": "^5.0.0",
     "react-textarea-autosize": "^8.3.3",
     "sass": "^1.37.5",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xml2js": "0.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -144,8 +148,14 @@
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.4.1",
     "serverless-cloudfront-invalidate": "^1.5.0",
-    "serverless-s3-bucket-helper": "CMSgov/serverless-s3-bucket-helper#0.1.1",
+    "serverless-s3-bucket-helper": "Enterprise-CMCS/serverless-s3-bucket-helper#0.1.1",
     "serverless-s3-sync": "^1.14.4",
     "typescript": "^4.4.4"
+  },
+  "resolutions": {
+    "node-forge": "^1.3.1",
+    "degenerator": "^4.0.4",
+    "nth-check": "^2.0.1",
+    "json5": "^2.2.3"
   }
 }

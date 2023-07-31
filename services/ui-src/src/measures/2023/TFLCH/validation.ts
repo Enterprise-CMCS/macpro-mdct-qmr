@@ -48,6 +48,7 @@ const TFLCHValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...sameDenominatorError,
     ...GV.validateAtLeastOneDeviationFieldFilled(
@@ -64,7 +65,7 @@ const TFLCHValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(),
         PMD.qualifiers,
         PMD.categories
       ),

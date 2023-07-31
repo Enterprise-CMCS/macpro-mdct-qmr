@@ -54,7 +54,7 @@ const renderRadioButtonOptions = ({
     {
       displayValue: `No, we are reporting disaggregated data for ${
         omsNode?.aggregateTitle || omsNode?.id
-      } subcategories`,
+      } sub-categories`,
       value: "NoIndependentData",
       children: [
         <QMR.Checkbox
