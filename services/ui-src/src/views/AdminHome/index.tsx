@@ -7,7 +7,7 @@ import { useFlags } from "launchdarkly-react-client-sdk";
 
 export const AdminHome = () => {
   const [locality, setLocality] = useState("AL");
-  const releaseYearByFlag = useFlags()
+  const releaseYearByFlag = useFlags()?.["release2023"]
     ? config.currentReportingYear
     : parseInt(config.currentReportingYear) - 1;
   const navigate = useNavigate();
