@@ -1,5 +1,6 @@
 import * as validateAtLeastOneDataSource from "measures/2023/shared/globalValidations/validateAtLeastOneDataSource";
 import * as validateAtLeastOneDefinitionOfPopulation from "measures/2023/shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
+import * as validateAtLeastOneDataSourceType from "measures/2023/shared/globalValidations/validateAtLeastOneDataSourceType";
 import * as validateAtLeastOneDeviationFieldFilled from "measures/2023/shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 import * as validateAtLeastOneRateComplete from "measures/2023/shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "measures/2023/shared/globalValidations/validateBothDatesInRange";
@@ -51,6 +52,10 @@ export const validationsMockObj: any = {
   validateAtLeastOneDefinitionOfPopulation: jest.spyOn(
     validateAtLeastOneDefinitionOfPopulation,
     "validateAtLeastOneDefinitionOfPopulation"
+  ),
+  validateAtLeastOneDataSourceType: jest.spyOn(
+    validateAtLeastOneDataSourceType,
+    "validateAtLeastOneDataSourceType"
   ),
   validateAtLeastOneDeviationFieldFilled: jest.spyOn(
     validateAtLeastOneDeviationFieldFilled,

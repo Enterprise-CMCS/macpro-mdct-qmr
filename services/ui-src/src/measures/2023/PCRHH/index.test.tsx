@@ -174,6 +174,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSourceType).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
@@ -190,6 +191,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSourceType).toHaveBeenCalled();
     expect(V.ComplexValidateNDRTotals).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
