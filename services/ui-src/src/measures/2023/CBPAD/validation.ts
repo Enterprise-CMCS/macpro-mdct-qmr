@@ -49,6 +49,8 @@ const CBPValidation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.omsValidations({

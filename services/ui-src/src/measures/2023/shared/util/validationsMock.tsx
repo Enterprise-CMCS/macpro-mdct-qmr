@@ -1,12 +1,14 @@
 import * as validateAtLeastOneDataSource from "measures/2023/shared/globalValidations/validateAtLeastOneDataSource";
 import * as validateAtLeastOneDefinitionOfPopulation from "measures/2023/shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
 import * as validateAtLeastOneDataSourceType from "measures/2023/shared/globalValidations/validateAtLeastOneDataSourceType";
+import * as validateAtLeastOneDeliverySystem from "measures/2023/shared/globalValidations/validateAtLeastOneDeliverySystem";
 import * as validateAtLeastOneDeviationFieldFilled from "measures/2023/shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 import * as validateAtLeastOneRateComplete from "measures/2023/shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "measures/2023/shared/globalValidations/validateBothDatesInRange";
 import * as validateDualPopInformation from "measures/2023/shared/globalValidations/validateDualPopInformation";
 import * as validateEqualCategoryDenominators from "measures/2023/shared/globalValidations/validateEqualCategoryDenominators";
 import * as validateEqualQualifierDenominators from "measures/2023/shared/globalValidations/validateEqualQualifierDenominators";
+import * as validateFfsRadioButtonCompletion from "measures/2023/shared/globalValidations/validateFfsRadioButtonCompletion";
 import * as validateRateNotZero from "measures/2023/shared/globalValidations/validateRateNotZero";
 import * as validateRateZero from "measures/2023/shared/globalValidations/validateRateZero";
 import * as validateNumeratorsLessThanDenominators from "measures/2023/shared/globalValidations/validateNumeratorsLessThanDenominators";
@@ -57,6 +59,10 @@ export const validationsMockObj: any = {
     validateAtLeastOneDataSourceType,
     "validateAtLeastOneDataSourceType"
   ),
+  validateAtLeastOneDeliverySystem: jest.spyOn(
+    validateAtLeastOneDeliverySystem,
+    "validateAtLeastOneDeliverySystem"
+  ),
   validateAtLeastOneDeviationFieldFilled: jest.spyOn(
     validateAtLeastOneDeviationFieldFilled,
     "validateAtLeastOneDeviationFieldFilled"
@@ -88,6 +94,10 @@ export const validationsMockObj: any = {
   validateEqualQualifierDenominatorsOMS: jest.spyOn(
     validateEqualQualifierDenominators,
     "validateEqualQualifierDenominatorsOMS"
+  ),
+  validateFfsRadioButtonCompletion: jest.spyOn(
+    validateFfsRadioButtonCompletion,
+    "validateFfsRadioButtonCompletion"
   ),
   validateRateNotZeroPM: jest.spyOn(
     validateRateNotZero,

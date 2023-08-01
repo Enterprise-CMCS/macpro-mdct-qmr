@@ -45,6 +45,8 @@ const APPCHValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason

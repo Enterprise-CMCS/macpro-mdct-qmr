@@ -52,6 +52,8 @@ const COLHHValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateHedisYear(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateOPMRates(OPM),
     ...GV.omsValidations({
       data,

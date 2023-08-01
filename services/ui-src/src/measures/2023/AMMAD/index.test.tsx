@@ -183,6 +183,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
     expect(V.validateRateZeroOMS).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).not.toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDefinitionOfPopulation).not.toHaveBeenCalled();
   });
 
@@ -205,6 +207,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
     expect(V.validateRateZeroOMS).toHaveBeenCalled();
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).toHaveBeenCalled();
     expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 

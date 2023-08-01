@@ -35,6 +35,8 @@ const SAAADValidation = (data: FormData) => {
     ),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
 
     // OMS Validations
     ...GV.omsValidations({

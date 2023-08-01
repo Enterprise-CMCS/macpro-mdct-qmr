@@ -49,6 +49,8 @@ const CDFADValidation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.omsValidations({
       data,

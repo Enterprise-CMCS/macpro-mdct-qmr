@@ -183,6 +183,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).not.toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualPM).not.toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualOMS).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).not.toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDefinitionOfPopulation).not.toHaveBeenCalled();
   });
 
@@ -206,6 +208,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualPM).toHaveBeenCalled();
     expect(V.validateOneQualRateHigherThanOtherQualOMS).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).toHaveBeenCalled();
     expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 

@@ -51,6 +51,8 @@ const FUAADValidation = (data: FormData) => {
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),

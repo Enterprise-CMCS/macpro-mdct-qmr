@@ -50,6 +50,8 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
