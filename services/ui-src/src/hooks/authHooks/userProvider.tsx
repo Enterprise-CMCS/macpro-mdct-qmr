@@ -58,7 +58,7 @@ export const UserProvider = ({ children }: Props) => {
         setShowLocalLogins(true);
       }
     }
-  }, [isProduction]);
+  }, [isProduction, location]);
 
   // "custom:cms_roles" is an string of concat roles so we need to check for the one applicable to qmr
   const userRole = (
