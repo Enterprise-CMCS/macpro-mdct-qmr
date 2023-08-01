@@ -1,6 +1,7 @@
 describe("Measure: PQI92-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
+    cy.selectYear("2021");
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("PQI92-HH");
   });

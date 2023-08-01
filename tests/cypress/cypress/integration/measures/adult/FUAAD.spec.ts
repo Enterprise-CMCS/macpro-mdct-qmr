@@ -1,6 +1,7 @@
 describe("Measure: FUA-AD", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("FUA-AD");
   });

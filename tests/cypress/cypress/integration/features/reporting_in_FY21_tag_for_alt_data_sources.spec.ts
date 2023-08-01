@@ -1,6 +1,7 @@
 describe("OY2 15211 Reporting in FY22 Tag for Alt Data Sources", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
   });
 
   it("N/A And Completed Statuses", () => {

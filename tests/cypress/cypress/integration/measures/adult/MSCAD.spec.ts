@@ -1,6 +1,7 @@
 describe("OY2 8977 Measure 15 MSC-AD", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("MSC-AD");
   });

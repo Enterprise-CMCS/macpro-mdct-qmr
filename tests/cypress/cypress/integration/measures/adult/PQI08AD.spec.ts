@@ -1,6 +1,7 @@
 describe("Measure: PQI08-AD", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("PQI08-AD");
   });

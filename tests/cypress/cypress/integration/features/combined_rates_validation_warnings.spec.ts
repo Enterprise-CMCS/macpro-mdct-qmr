@@ -1,6 +1,7 @@
 describe("Combined rates validation testing", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("OUD-AD");
   });

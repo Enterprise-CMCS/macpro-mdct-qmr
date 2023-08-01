@@ -1,6 +1,7 @@
 describe("Child Core Sets Should be able to be deleted and created", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
   });
 
   it("Creates separate child core-set", () => {
