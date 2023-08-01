@@ -25,6 +25,7 @@ export * from "./MeasureWrapper";
 export * from "./MonthPicker";
 export * from "./IETRate";
 export * from "./PCRRate";
+export * from "./PostLogoutRedirect";
 export * from "./MultiSelect";
 export * from "./Notification";
 export * from "./ProgressCircle";

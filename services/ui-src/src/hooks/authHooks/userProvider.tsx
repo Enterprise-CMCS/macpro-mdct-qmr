@@ -46,6 +46,13 @@ export const UserProvider = ({ children }: Props) => {
   }, []);
 
   const checkAuthState = useCallback(async () => {
+    // Allow Post Logout flow alongside user login flow
+    if (location?.pathname.toLowerCase() === "/postlogout") {
+      window.location.href = config.POST_SIGNOUT_REDIRECT;
+      return;
+    }
+
+    // Authenticate
     try {
       const authenticatedUser = await Auth.currentAuthenticatedUser();
       setUser(authenticatedUser);
