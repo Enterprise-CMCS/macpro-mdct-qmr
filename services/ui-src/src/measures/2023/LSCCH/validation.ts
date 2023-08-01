@@ -49,6 +49,7 @@ const LSCCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
     ...GV.omsValidations({

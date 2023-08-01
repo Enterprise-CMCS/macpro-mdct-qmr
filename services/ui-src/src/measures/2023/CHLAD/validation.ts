@@ -44,6 +44,7 @@ const CHLValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

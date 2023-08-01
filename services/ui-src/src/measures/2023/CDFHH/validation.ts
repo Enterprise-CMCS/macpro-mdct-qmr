@@ -37,6 +37,7 @@ const CDFHHValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // Performance Measure Validations
     ...GV.validateAtLeastOneRateComplete(

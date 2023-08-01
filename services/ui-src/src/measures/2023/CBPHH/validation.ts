@@ -52,6 +52,7 @@ const CBPValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.omsValidations({
       data,

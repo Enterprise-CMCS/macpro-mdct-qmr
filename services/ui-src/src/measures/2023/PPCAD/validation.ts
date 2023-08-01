@@ -65,6 +65,7 @@ const PPCADValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
   ];
 
   return errorArray;

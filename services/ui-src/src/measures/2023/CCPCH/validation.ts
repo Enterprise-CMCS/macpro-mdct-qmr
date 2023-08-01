@@ -50,6 +50,7 @@ const CCPCHValidation = (data: FormData) => {
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Specific Validations
     ...GV.omsValidations({

@@ -47,6 +47,7 @@ const IUHHValidation = (data: FormData) => {
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),

@@ -184,12 +184,12 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeliverySystem).not.toHaveBeenCalled();
     expect(V.validateFfsRadioButtonCompletion).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
     mockValidateAndSetErrors(validationFunctions, completedMeasureData); // trigger validations
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
-
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).toHaveBeenCalled();
@@ -206,6 +206,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateOMSTotalNDR).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeliverySystem).toHaveBeenCalled();
     expect(V.validateFfsRadioButtonCompletion).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 
   jest.setTimeout(15000);

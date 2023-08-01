@@ -44,6 +44,8 @@ const FUAHHValidation = (data: FormData) => {
       PMD.categories
     ),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+
     ...GV.validateAtLeastOneDataSourceType(data),
     // Performance Measure Validations
     ...GV.validateDualPopInformationPM(

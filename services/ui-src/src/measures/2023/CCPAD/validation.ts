@@ -50,6 +50,7 @@ const CCPADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Specific Validations
     ...GV.omsValidations({

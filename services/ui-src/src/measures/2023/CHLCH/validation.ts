@@ -43,6 +43,7 @@ const CHLValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateOPMRates(OPM),
     ...GV.omsValidations({
       data,

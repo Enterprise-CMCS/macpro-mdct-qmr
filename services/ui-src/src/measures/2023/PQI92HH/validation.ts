@@ -38,6 +38,7 @@ const PQI92Validation = (data: FormData) => {
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
 
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     // Performance Measure Validations
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
