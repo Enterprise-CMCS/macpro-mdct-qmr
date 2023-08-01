@@ -185,6 +185,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateOMSTotalNDR).not.toHaveBeenCalled();
     expect(V.validateEqualQualifierDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).not.toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -208,6 +210,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateOMSTotalNDR).toHaveBeenCalled();
     expect(V.validateEqualQualifierDenominatorsPM).toHaveBeenCalled();
     expect(V.validateEqualQualifierDenominatorsOMS).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).toHaveBeenCalled();
   });
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {

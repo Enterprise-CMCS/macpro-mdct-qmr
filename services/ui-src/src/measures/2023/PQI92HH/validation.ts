@@ -35,6 +35,9 @@ const PQI92Validation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
+
     // Performance Measure Validations
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,

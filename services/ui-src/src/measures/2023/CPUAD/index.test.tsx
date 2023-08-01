@@ -180,6 +180,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).not.toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -197,6 +199,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateTotalNDR).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).toHaveBeenCalled();
   });
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {

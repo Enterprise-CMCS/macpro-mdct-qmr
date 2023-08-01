@@ -47,6 +47,8 @@ const AABCHValidation = (data: FormData) => {
       PMD.qualifiers
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
 
     // OMS Validations
     ...GV.omsValidations({

@@ -48,6 +48,8 @@ const CCPADValidation = (data: FormData) => {
     ),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
 
     // OMS Specific Validations
     ...GV.omsValidations({

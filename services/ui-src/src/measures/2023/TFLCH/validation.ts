@@ -49,6 +49,8 @@ const TFLCHValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...sameDenominatorError,
     ...GV.validateAtLeastOneDeviationFieldFilled(

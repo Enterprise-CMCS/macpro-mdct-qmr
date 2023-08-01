@@ -37,6 +37,9 @@ const AMBHHValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateOPMRates(OPM),
     ...GV.validateHedisYear(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
+
     // Performance Measure Validations
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,

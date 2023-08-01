@@ -42,6 +42,8 @@ const FUHHHValidation = (data: FormData) => {
     ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     // Performance Measure Validations
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,

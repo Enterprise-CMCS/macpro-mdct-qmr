@@ -49,6 +49,8 @@ const ADDCHValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
 
     // OMS Validations
     ...GV.omsValidations({

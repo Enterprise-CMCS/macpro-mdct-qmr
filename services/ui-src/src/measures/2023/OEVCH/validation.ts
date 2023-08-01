@@ -31,6 +31,8 @@ const OEVCHValidation = (data: FormData) => {
       deviationReason
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
 
     // Performance Measure Validations
     ...GV.validateAtLeastOneRateComplete(
