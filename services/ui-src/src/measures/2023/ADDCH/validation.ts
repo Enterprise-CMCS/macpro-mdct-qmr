@@ -49,6 +49,7 @@ const ADDCHValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
     ...GV.omsValidations({

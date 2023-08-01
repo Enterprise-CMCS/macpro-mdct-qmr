@@ -41,6 +41,8 @@ const FUHHHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+
     ...GV.validateAtLeastOneDataSourceType(data),
     // Performance Measure Validations
     ...GV.validateDualPopInformationPM(

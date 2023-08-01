@@ -76,6 +76,7 @@ const AMMADValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.omsValidations({
       data,
