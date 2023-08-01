@@ -23,7 +23,7 @@ export const validateFfsRadioButtonCompletion = (
         // check if user has actually checked the nested radio button selection
         if (selection[0] === deliverySystemsMap[system] && !selection[1]) {
           errorArray.push({
-            errorLocation: "Delivery System",
+            errorLocation: "Delivery Systems",
             errorMessage:
               errorMessage ??
               "You must indicate if the measure-eligible population is included",
