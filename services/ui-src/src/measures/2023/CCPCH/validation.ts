@@ -34,6 +34,8 @@ const CCPCHValidation = (data: FormData) => {
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
@@ -48,6 +50,7 @@ const CCPCHValidation = (data: FormData) => {
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Specific Validations
     ...GV.omsValidations({

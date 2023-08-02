@@ -31,6 +31,8 @@ const OEVCHValidation = (data: FormData) => {
       deviationReason
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
 
     // Performance Measure Validations
     ...GV.validateAtLeastOneRateComplete(
@@ -47,6 +49,7 @@ const OEVCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
     ...GV.omsValidations({

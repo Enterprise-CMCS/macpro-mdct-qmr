@@ -1,6 +1,7 @@
 describe("OY2 16411 Restructuring Data Source Text boxes", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });

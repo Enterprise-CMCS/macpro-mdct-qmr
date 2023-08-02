@@ -1,6 +1,7 @@
 describe("Measure: CBP-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
+    cy.selectYear("2021");
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("CBP-HH");
   });

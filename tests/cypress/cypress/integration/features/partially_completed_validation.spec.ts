@@ -1,6 +1,7 @@
 describe.skip("OY2 16341 NDR set validation updates for all measures ", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
   });
 
   it("should throw validation error for partially completed ndr sets - just qualifiers", () => {
