@@ -41,6 +41,9 @@ const BCSValidation = (data: FormData) => {
     ),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
     ...GV.omsValidations({

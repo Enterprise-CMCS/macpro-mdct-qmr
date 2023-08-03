@@ -1,6 +1,7 @@
 describe("Measure: OUD-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
+    cy.selectYear("2021");
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("OUD-HH");
   });

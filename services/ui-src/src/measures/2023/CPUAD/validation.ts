@@ -36,7 +36,8 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, carePlans, data),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, carePlans),
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
-
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
@@ -44,6 +45,8 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,

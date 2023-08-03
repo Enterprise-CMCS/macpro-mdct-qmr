@@ -35,9 +35,13 @@ const monthNames = [
 export const MonthPickerCalendar = ({
   yearForMeasure = config.currentReportingYear,
   selectedMonth,
-  selectedYear = yearForMeasure,
+  selectedYear = parseInt(yearForMeasure) >= 2023
+    ? (parseInt(yearForMeasure) - 1).toString()
+    : yearForMeasure,
   maxYear = parseInt(yearForMeasure),
-  minYear = parseInt(yearForMeasure) - 2,
+  minYear = parseInt(yearForMeasure) >= 2023
+    ? parseInt(yearForMeasure) - 3
+    : parseInt(yearForMeasure) - 2,
   yearLocked = false,
   onChange: handleChange,
 }: CalendarProps) => {

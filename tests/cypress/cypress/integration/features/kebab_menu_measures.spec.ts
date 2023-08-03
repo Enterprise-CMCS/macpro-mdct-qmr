@@ -1,6 +1,7 @@
 describe.skip("Measure kebab menus", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
   });
 
   it('displays "View" option', () => {

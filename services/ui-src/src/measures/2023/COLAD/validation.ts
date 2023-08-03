@@ -48,10 +48,13 @@ const COLADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,

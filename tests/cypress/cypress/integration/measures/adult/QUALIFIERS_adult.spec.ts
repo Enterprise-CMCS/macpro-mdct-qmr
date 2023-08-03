@@ -1,6 +1,7 @@
 describe("AdultMeasure Qualifiers", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
   });
 

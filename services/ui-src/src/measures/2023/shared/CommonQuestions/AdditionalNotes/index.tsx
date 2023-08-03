@@ -4,9 +4,17 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { Upload } from "components/Upload";
 import * as Types from "../types";
 import * as DC from "dataConstants";
+import { useFormContext } from "react-hook-form";
+import { useEffect } from "react";
 
 export const AdditionalNotes = () => {
   const register = useCustomRegister<Types.AdditionalNotes>();
+  const { getValues, resetField } = useFormContext();
+  const didReport = getValues()["DidReport"];
+
+  useEffect(() => {
+    resetField("AdditionalNotes-AdditionalNotes");
+  }, [didReport, resetField]);
 
   return (
     <QMR.CoreQuestionWrapper

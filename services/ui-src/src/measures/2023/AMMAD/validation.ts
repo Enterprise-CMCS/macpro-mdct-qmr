@@ -72,10 +72,13 @@ const AMMADValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.omsValidations({
       data,

@@ -3,6 +3,7 @@ import { measureAbbrList2021 } from "../../../support/commands/commands";
 describe.skip("Export All Measures", () => {
   beforeEach(() => {
     cy.loginHealthHome();
+    cy.selectYear("2021");
     cy.window().then((win) => {
       cy.stub(win, "open").callsFake((url) => {
         win.location.href = url;

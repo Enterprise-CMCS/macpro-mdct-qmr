@@ -187,6 +187,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateEqualCategoryDenominatorsOMS).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).not.toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -212,6 +215,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateEqualCategoryDenominatorsPM).toHaveBeenCalled();
     expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateEqualCategoryDenominatorsOMS).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {

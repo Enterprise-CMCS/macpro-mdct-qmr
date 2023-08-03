@@ -1,6 +1,7 @@
 describe("CCS-AD", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("CCS-AD");
   });

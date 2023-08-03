@@ -31,6 +31,7 @@ const OUDValidation = (data: FormData) => {
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
@@ -44,6 +45,8 @@ const OUDValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
     ...GV.omsValidations({
       data,

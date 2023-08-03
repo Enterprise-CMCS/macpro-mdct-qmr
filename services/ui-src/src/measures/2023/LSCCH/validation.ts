@@ -26,6 +26,8 @@ const LSCCHValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
@@ -47,6 +49,7 @@ const LSCCHValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
     ...GV.omsValidations({

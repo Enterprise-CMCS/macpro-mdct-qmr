@@ -1,6 +1,7 @@
 describe("Measure: HVL-AD", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("HVL-AD");
   });

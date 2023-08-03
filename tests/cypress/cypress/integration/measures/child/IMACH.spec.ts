@@ -1,6 +1,7 @@
 describe("Measure: IMA-CH", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("IMA-CH");
   });

@@ -1,6 +1,7 @@
 describe("Measure 45: W30-CH", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("W30-CH");
   });
