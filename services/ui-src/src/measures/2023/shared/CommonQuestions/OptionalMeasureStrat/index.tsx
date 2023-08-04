@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { cleanString } from "utils/cleanString";
 import { ndrFormula } from "types";
+import { LabelData } from "utils";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -51,7 +52,7 @@ export const buildOmsCheckboxes = ({
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   measureName?: string;
-  inputFieldNames?: string[];
+  inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
