@@ -1228,8 +1228,8 @@ export const data = {
     "LSC-CH": {
         "qualifiers": [
             {
-                "label": "At least one lead capillary or venous blood test on or before the child's second birthday.", 
-                "text": "At least one lead capillary or venous blood test on or before the child's second birthday.", 
+                "label": "At least one lead capillary or venous blood test on or before the child's second birthday", 
+                "text": "At least one lead capillary or venous blood test on or before the child's second birthday", 
                 "id": "AtXKXx"
             }
         ],
