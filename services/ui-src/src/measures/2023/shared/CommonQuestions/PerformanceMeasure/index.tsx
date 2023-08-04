@@ -66,19 +66,19 @@ const CategoryNdrSets = ({
 
   return (
     <>
-      {categories.map((item) => {
-        let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat.label,
-          uid: item.id + "." + cat.id,
+      {categories.map((cat) => {
+        let rates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
+          label: qual.label,
+          uid: cat.id + "." + qual.id,
           id: idx,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
         return (
-          <CUI.Box key={item.id}>
+          <CUI.Box key={cat.id}>
             <CUI.Text fontWeight="bold" my="5">
-              {labelText[item.label] ?? item.label}
+              {labelText[cat.label] ?? cat.label}
             </CUI.Text>
             <RateComponent
               readOnly={rateReadOnly}
@@ -88,14 +88,14 @@ const CategoryNdrSets = ({
               ndrFormulas={ndrFormulas}
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
-              categoryName={item.label}
+              categoryName={cat.label}
               categories={categories}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               rateCalc={rateCalc}
-              {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${item.id}`)}
+              {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`)}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }
