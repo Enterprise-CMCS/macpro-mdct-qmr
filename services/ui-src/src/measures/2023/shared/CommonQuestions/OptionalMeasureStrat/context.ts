@@ -15,7 +15,7 @@ interface ContextProps {
   categories: LabelData[];
   qualifiers: LabelData[];
   measureName?: string;
-  inputFieldNames?: string[];
+  inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
   rateMultiplicationValue?: number;
   customMask?: RegExp;

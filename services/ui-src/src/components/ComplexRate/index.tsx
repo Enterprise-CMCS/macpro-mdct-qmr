@@ -19,7 +19,7 @@ interface Props extends QMR.InputWrapperProps {
   calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
   categoryName?: string;
-  inputFieldNames?: string[];
+  inputFieldNames?: any[];
   measureName?: string;
   ndrFormulas?: ndrFormula[];
 }
@@ -120,6 +120,16 @@ export const ComplexRate = ({
 
   // Quick reference list of all rate indices
   const rateLocations = ndrFormulas.map((ndr) => ndr.rate);
+  let inputFields: any[] = [];
+
+  //because this is a shared component, data pre-2023 will need to be slightly formatted to work
+  if (inputFieldNames.length > 0) {
+    if (typeof inputFieldNames[0] === "string")
+      inputFields = inputFieldNames.map((field) => {
+        return { label: field };
+      });
+    else inputFields = inputFieldNames;
+  }
 
   const { field } = useController({
     name,
@@ -143,9 +153,12 @@ export const ComplexRate = ({
         prevRate[index] = {
           label: rate.label,
           uid: rate.uid,
-          fields: inputFieldNames.map((label) => {
+          fields: inputFields.map((field) => {
+            const label = field.label;
+            const uid = field.id ?? undefined; //undefined values do not get saved to the database
             return {
               label,
+              uid,
               value: undefined,
             };
           }),
@@ -240,15 +253,15 @@ export const ComplexRate = ({
               className={`${lowerCaseMeasureName}-field-stack`}
               key={`${lowerCaseMeasureName}-field-stack-${qualIndex}`}
             >
-              {inputFieldNames.map((inputFieldName, fieldIndex) => {
+              {inputFields.map((inputFieldName, fieldIndex) => {
                 return (
                   <QMR.InputWrapper
                     isInvalid={
                       !!objectPath.get(errors, `${name}.${fieldIndex}.value`)
                         ?.message
                     }
-                    key={`input-wrapper-${inputFieldName}-${fieldIndex}`}
-                    label={inputFieldName}
+                    key={`input-wrapper-${inputFieldName.label}-${fieldIndex}`}
+                    label={inputFieldName.label}
                     formLabelProps={{
                       minH: "50px",
                       h: "100px",
