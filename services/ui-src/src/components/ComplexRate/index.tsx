@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
-import { allNumbers, xNumbersYDecimals } from "utils";
+import { allNumbers, LabelData, xNumbersYDecimals } from "utils";
 import * as QMR from "components";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
@@ -19,7 +19,7 @@ interface Props extends QMR.InputWrapperProps {
   calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
   categoryName?: string;
-  inputFieldNames?: any[];
+  inputFieldNames?: string[] | LabelData[];
   measureName?: string;
   ndrFormulas?: ndrFormula[];
 }
@@ -120,15 +120,18 @@ export const ComplexRate = ({
 
   // Quick reference list of all rate indices
   const rateLocations = ndrFormulas.map((ndr) => ndr.rate);
-  let inputFields: any[] = [];
 
-  //because this is a shared component, data pre-2023 will need to be slightly formatted to work
+  // We need every input field to have a label
+  let inputFields: LabelData[] | { label: string; id?: never }[] = [];
   if (inputFieldNames.length > 0) {
-    if (typeof inputFieldNames[0] === "string")
-      inputFields = inputFieldNames.map((field) => {
+    // Pre-2023 input field names are strings
+    if (typeof inputFieldNames[0] === "string") {
+      inputFields = (inputFieldNames as string[]).map((field) => {
         return { label: field };
       });
-    else inputFields = inputFieldNames;
+    }
+    // Post-2023 input field names are LabelData
+    else inputFields = inputFieldNames as LabelData[];
   }
 
   const { field } = useController({
@@ -155,7 +158,9 @@ export const ComplexRate = ({
           uid: rate.uid,
           fields: inputFields.map((field) => {
             const label = field.label;
-            const uid = field.id ?? undefined; //undefined values do not get saved to the database
+            // Pre-2023 fields do not have an id, so uid is undefined.
+            // Undefined values are not saved to the database
+            const uid = field.id ?? undefined;
             return {
               label,
               uid,
