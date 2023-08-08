@@ -8,7 +8,7 @@ import {
   DefaultFormData,
 } from "measures/2023/shared/CommonQuestions/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
-import { LabelData } from "utils";
+import { LabelData, cleanString } from "utils";
 
 interface OmsValidationProps {
   data: DefaultFormData;
@@ -40,7 +40,9 @@ export const omsValidations = ({
     isOPM = true;
     opmQuals.push(
       ...data["OtherPerformanceMeasure-Rates"].map((rate) => ({
-        id: "",
+        id: rate.description
+          ? cleanString(rate.description)
+          : "Fill out description",
         label: rate.description ?? "Fill out description",
         text: "",
       }))

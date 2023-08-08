@@ -37,10 +37,10 @@ const CategoryNdrSets = ({
 
   return (
     <>
-      {categories.map((item) => {
-        let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat.label,
-          uid: `${item.id}.${cat.id}`,
+      {categories.map((cat) => {
+        let rates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
+          label: qual.label,
+          uid: `${cat.id}.${qual.id}`,
           id: idx,
         }));
 
@@ -48,15 +48,15 @@ const CategoryNdrSets = ({
 
         return (
           <>
-            <CUI.Text key={item.id} fontWeight="bold" my="5">
-              {item.label}
+            <CUI.Text key={cat.id} fontWeight="bold" my="5">
+              {cat.label}
             </CUI.Text>
             <QMR.Rate
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
-              {...register(`PerformanceMeasure.rates.${item.id}`)}
+              {...register(`PerformanceMeasure.rates.${cat.id}`)}
             />
           </>
         );
