@@ -100,6 +100,7 @@ export const enum UserRoles {
   ADMIN = "mdctqmr-approver",
   STATE = "mdctqmr-state-user",
   HELP = "mdctqmr-help-desk",
+  INTERNAL = "mdctqmr-internal-user",
   BO = "mdctqmr-bo-user",
   BOR = "mdctqmr-bor",
 }
