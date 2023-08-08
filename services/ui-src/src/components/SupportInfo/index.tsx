@@ -73,7 +73,7 @@ export const HealthHomeInfo = () => (
       evaluate care across all state health home programs. Specifically, section
       2703 requires health home providers to report health care quality measures
       in order to receive payment. The recommended Health Home Core Set will
-      require reporting at the health home provider level which the state with
+      require reporting at the health home provider level which the state will
       collect and aggregate at the health home program level.
     </CUI.Text>
   </>
