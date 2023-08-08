@@ -14,6 +14,7 @@ export function Home() {
     : parseInt(config.currentReportingYear) - 1;
   if (
     userRole === UserRoles.HELP ||
+    userRole === UserRoles.INTERNAL ||
     userRole === UserRoles.ADMIN ||
     userRole === UserRoles.BO ||
     userRole === UserRoles.BOR
