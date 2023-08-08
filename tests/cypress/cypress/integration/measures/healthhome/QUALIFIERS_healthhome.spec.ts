@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Health Home Measure Qualifier: HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("Health Home Core Set Measures", () => {

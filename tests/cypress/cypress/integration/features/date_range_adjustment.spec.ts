@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Date Range Adjustment for Start/End date", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });

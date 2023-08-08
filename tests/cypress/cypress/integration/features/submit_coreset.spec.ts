@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe.skip("Submit Core Set button", () => {
   beforeEach(() => {
     cy.login("stateuser4");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Reset All Measures"]').first().click();
     cy.wait(1000);

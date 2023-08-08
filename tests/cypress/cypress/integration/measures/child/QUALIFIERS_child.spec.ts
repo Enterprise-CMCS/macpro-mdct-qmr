@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Child Measure Qualifier: CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("Child Core Set Measures: Combined", () => {

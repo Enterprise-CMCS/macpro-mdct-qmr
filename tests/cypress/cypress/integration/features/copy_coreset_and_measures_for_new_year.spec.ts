@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Coresets and measures should reflect the chosen year", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("displays the correct information based on 2021", () => {

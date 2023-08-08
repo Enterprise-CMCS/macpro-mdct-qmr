@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("OY2 16341 NDR set validation updates for all measures ", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("Click on NO for the first question then click on validate and complete button for CCP-AD", () => {

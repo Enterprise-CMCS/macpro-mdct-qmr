@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Measurement Specification/Definition of Population/Validation text changes (#85, #87, #93)", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
   });
 

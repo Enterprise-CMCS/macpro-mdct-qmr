@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe.skip("Measure: SS-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToHealthHomeSetMeasures();
     cy.addStateSpecificMeasure();
   });

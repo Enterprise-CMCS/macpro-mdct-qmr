@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe.skip("Measure kebab menus", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it('displays "View" option', () => {

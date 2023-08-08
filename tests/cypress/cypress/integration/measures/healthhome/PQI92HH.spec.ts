@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: PQI92-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("PQI92-HH");
   });

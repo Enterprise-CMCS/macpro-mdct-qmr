@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Combined rates validation testing", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("OUD-AD");
   });

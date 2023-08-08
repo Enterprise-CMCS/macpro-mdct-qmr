@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("OY2 15211 Reporting in FY22 Tag for Alt Data Sources", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("N/A And Completed Statuses", () => {

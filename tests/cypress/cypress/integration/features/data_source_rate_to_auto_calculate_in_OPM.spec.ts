@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Data source/ Rate to auto calculate in OPM", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("FUA-AD");
   });

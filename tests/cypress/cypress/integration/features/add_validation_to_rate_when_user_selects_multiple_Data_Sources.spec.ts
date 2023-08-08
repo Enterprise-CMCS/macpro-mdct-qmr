@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Add Validation to Rate when user selects multiple Data Sources.", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });

@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("CCS-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("CCS-AD");
   });
