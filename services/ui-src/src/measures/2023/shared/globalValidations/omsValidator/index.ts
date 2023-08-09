@@ -256,7 +256,7 @@ const validateNDRs = (
   };
 
   const checkIsClassFilled = (location: string, rateData: RateData) => {
-    isClassFilled[location] = rateData?.rates != undefined;
+    isClassFilled[location] = rateData?.rates !== undefined;
   };
 
   // Loop through top level nodes for validation
