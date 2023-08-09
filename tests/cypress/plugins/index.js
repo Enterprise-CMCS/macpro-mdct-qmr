@@ -1,4 +1,5 @@
-module.exports = (on, config) => {
+export default async (on, config) => {
+  // e2e testing node events setup code
   // set default size for headless mode
   on("before:browser:launch", (browser = {}, launchOptions) => {
     if (browser.name === "chrome" && browser.isHeadless) {
