@@ -2,12 +2,6 @@
 
 type MeasureList = "OHD-AD";
 declare namespace Cypress {
-  // interface Cypress {
-  //   env(key: "TEST_USER_1"): string;
-  //   env(key: "TEST_USER_2"): string;
-  //   env(key: "TEST_USER_3"): string;
-  //   env(key: "TEST_PASSWORD_1"): string;
-  // }
   interface Chainable {
     // the default stateuser3 is used to login but can also be changed
     // by passing in a user (not including the @test.com) ex. cy.login('bouser')
@@ -30,7 +24,7 @@ declare namespace Cypress {
     goToHealthHomeSetMeasures(): Chainable<Element>;
 
     // Attach file method
-    attachFile(fileName: string, { subjectType: string });
+    selectFile(fileName: string, { subjectType: string });
 
     // Visit Measures based on abbr
     goToMeasure(measure: MeasureList | string): Chainable<Element>;
