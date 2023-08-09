@@ -1,9 +1,4 @@
-const {
-  addMatchImageSnapshotPlugin,
-} = require("cypress-image-snapshot/plugin");
-
 module.exports = (on, config) => {
-  addMatchImageSnapshotPlugin(on, config);
   // set default size for headless mode
   on("before:browser:launch", (browser = {}, launchOptions) => {
     if (browser.name === "chrome" && browser.isHeadless) {

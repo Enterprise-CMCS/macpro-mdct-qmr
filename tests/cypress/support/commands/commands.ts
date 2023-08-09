@@ -1,22 +1,11 @@
 import "cypress-file-upload";
-import "cypress-wait-until";
-import "cypress-file-upload";
-// allow for Cypress Snapshot command
-import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command";
 
 before(() => {
   cy.visit("/", { timeout: 60000 * 7 });
 });
 
-addMatchImageSnapshotCommand({
-  failureThreshold: 0.01, // threshold for entire image -> 0.01 = 1%
-  failureThresholdType: "percent", // percent of image or number of pixels
-  // customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
-  // capture: "viewport", // capture viewport in screenshot
-});
-
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
+const emailForCognito = "input[name='email']";
+const passwordForCognito = "input[name='password']";
 
 // the default stateuser3 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
@@ -32,8 +21,8 @@ Cypress.Commands.add(
       stateuser1: Cypress.env("TEST_USER_1"),
     };
     cy.visit("/");
-    cy.xpath(emailForCognito).type(`${users[user]}`);
-    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
+    cy.get(emailForCognito).type(`${users[user]}`);
+    cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
@@ -51,8 +40,8 @@ Cypress.Commands.add(
       stateuser1: Cypress.env("TEST_USER_1"),
     };
     cy.visit("/");
-    cy.xpath(emailForCognito).type(`${users[user]}`);
-    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
+    cy.get(emailForCognito).type(`${users[user]}`);
+    cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );

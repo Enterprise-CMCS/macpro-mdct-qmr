@@ -1,24 +1,11 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: AMM-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("AMM-AD");
-  });
-
-  it.skip("should match snapshot", () => {
-    // skipping this as it will serve as an example only for now
-    cy.get('[data-cy="DidReport0"]').click();
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.denominator"]'
-    ).type("4");
-    cy.matchImageSnapshot("AMM-AD-render");
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
@@ -67,27 +54,25 @@ describe("Measure: AMM-AD", () => {
   it("if only admin data cannot override, if anything else, rate is editable", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
-    ).should("have.attr", "readonly");
+    cy.get('[data-cy="PerformanceMeasure.rates.DFukSh.0.rate"]').should(
+      "have.attr",
+      "readonly"
+    );
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
-    ).should("not.have.attr", "readonly");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.rate"]'
-    ).type("56");
+    cy.get('[data-cy="PerformanceMeasure.rates.DFukSh.0.rate"]').should(
+      "not.have.attr",
+      "readonly"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.DFukSh.0.rate"]').type("56");
   });
 
   it("should have adult eligibility group in OMS", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EffectiveAcutePhaseTreatment.0.denominator"]'
-    ).type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.DFukSh.0.numerator"]').type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.DFukSh.0.denominator"]').type(
+      "6"
+    );
   });
 
   it("at least one dnr set if reporting and measurement spec or error.", () => {
