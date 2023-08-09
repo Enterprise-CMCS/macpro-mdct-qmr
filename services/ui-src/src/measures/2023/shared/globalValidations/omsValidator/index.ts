@@ -255,6 +255,7 @@ const validateNDRs = (
     }
   };
 
+  //check if sub-classifications have rateData entered
   const checkIsClassFilled = (location: string, rateData: RateData) => {
     isClassFilled[location] = rateData?.rates !== undefined;
   };
@@ -293,6 +294,8 @@ const validateNDRs = (
       }
     }
 
+    //if at least one sub-classifications qualifiers is false (no rate data entered), we want to generate an error message,
+    //else if all is false, we will ignore it as another error message would already be there
     if (!Object.values(isClassFilled).every((v) => v === false)) {
       for (const classKey in isClassFilled) {
         if (!isClassFilled[classKey]) {
