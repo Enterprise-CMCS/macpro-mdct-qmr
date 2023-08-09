@@ -84,6 +84,7 @@ const validateNDRs = (
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
+  const isClassFilled: { [key: string]: boolean } = {};
   const errorArray: FormError[] = [];
   // validates top levels, ex: Race, Geography, Sex
   const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string[]) => {
@@ -173,6 +174,7 @@ const validateNDRs = (
       ""
     );
     checkIsDeepFilled(locationReduced, rateData);
+    checkIsClassFilled(locationReduced, rateData);
   };
   //checks at least one ndr filled
   const checkNdrsFilled = (rateData: RateData) => {
@@ -253,6 +255,10 @@ const validateNDRs = (
     }
   };
 
+  const checkIsClassFilled = (location: string, rateData: RateData) => {
+    isClassFilled[location] = rateData?.rates != undefined;
+  };
+
   // Loop through top level nodes for validation
   for (const key of data.OptionalMeasureStratification?.options ?? []) {
     isFilled[key] = false;
@@ -284,6 +290,19 @@ const validateNDRs = (
           errorMessage:
             "For any category selected, all NDR sets must be filled.",
         });
+      }
+    }
+
+    if (!Object.values(isClassFilled).every((v) => v === false)) {
+      for (const classKey in isClassFilled) {
+        if (!isClassFilled[classKey]) {
+          errorArray.push({
+            errorLocation: `Optional Measure Stratification: ${locationDictionary(
+              classKey.split("-")
+            )}`,
+            errorMessage: "Must fill out at least one NDR set.",
+          });
+        }
       }
     }
   }
