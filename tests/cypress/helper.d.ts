@@ -30,9 +30,6 @@ declare namespace Cypress {
     // Visit Health Home Core Set Measures
     goToHealthHomeSetMeasures(): Chainable<Element>;
 
-    // Match snapshot
-    matchImageSnapshot(name?: string): Chainable<Element>;
-
     // Attach file method
     attachFile(fileName: string, { subjectType: string });
 
