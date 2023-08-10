@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: DEV-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("DEV-CH");
   });
@@ -89,13 +91,13 @@ describe("Measure: DEV-CH", () => {
 
   it("Ensure that numerical value after decimal is rounded up/down for auto calculated rate.", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("555");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("10000");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.0.numerator"]').type(
+      "555"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.0.denominator"]').type(
+      "10000"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.0.rate"]').should(
       "have.value",
       "5.6"
     );
@@ -103,32 +105,31 @@ describe("Measure: DEV-CH", () => {
 
   it("Ensure that “Total” NDR set is auto calculated from the according age ranges", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.numerator"]'
-    ).should("have.value", "6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.denominator"]'
-    ).should("have.value", "6");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.0.numerator"]').type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.0.denominator"]').type(
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.3.numerator"]').should(
+      "have.value",
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.3.denominator"]').should(
+      "have.value",
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.3.rate"]').should(
       "have.value",
       "100.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).type("8");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).type("16");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.denominator"]'
-    ).should("have.value", "22");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.1.numerator"]').type("8");
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.1.denominator"]').type(
+      "16"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.3.denominator"]').should(
+      "have.value",
+      "22"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.3.rate"]').should(
       "have.value",
       "63.6"
     );
@@ -136,11 +137,13 @@ describe("Measure: DEV-CH", () => {
 
   it("Ensure that user can manually override the “Total” NDR set", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.numerator"]'
-    ).should("not.have.attr", "aria-readonly");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.denominator"]'
-    ).should("not.have.attr", "aria-readonly");
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.3.numerator"]').should(
+      "not.have.attr",
+      "aria-readonly"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rnFOY6.3.denominator"]').should(
+      "not.have.attr",
+      "aria-readonly"
+    );
   });
 });

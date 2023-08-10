@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: IMA-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("IMA-CH");
   });
@@ -29,7 +31,10 @@ describe("Measure: IMA-CH", () => {
     ).should("have.text", "Medicaid Management Information System (MMIS)");
     cy.get(
       '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData0.selected1"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Immunization Registry");
+    ).should(
+      "have.text",
+      "Immunization Registry/Immunization Information System (IIS)"
+    );
     cy.get(
       '[data-cy="DataSourceSelections.HybridAdministrativeandMedicalRecordsData1.selected0"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Electronic Health Record (EHR) Data");
@@ -38,6 +43,9 @@ describe("Measure: IMA-CH", () => {
     ).should("have.text", "Paper");
     cy.get(
       '[data-cy="DataSource2"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Electronic Clinical Data Systems (ECDS)");
+    cy.get(
+      '[data-cy="DataSource3"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Other Data Source");
   });
 
@@ -76,29 +84,19 @@ describe("Measure: IMA-CH", () => {
 
   it("rounds the numerical value after the decimal up/down for auto-calculated rates", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("3");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.6Wts84.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.6Wts84.0.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.6Wts84.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.6Wts84.0.denominator"]').type(
+      "3"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.6Wts84.0.rate"]').should(
       "have.value",
       "33.3"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("2");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.6Wts84.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.6Wts84.0.numerator"]').type("2");
+    cy.get('[data-cy="PerformanceMeasure.rates.6Wts84.0.rate"]').should(
       "have.value",
       "66.7"
     );

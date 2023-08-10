@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: FUH-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("FUH-CH");
   });
@@ -57,19 +59,19 @@ describe("Measure: FUH-CH", () => {
   it("if only admin data cannot override, if anything else, rate is editable", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.FollowUpwithin7daysafterdischarge.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.FollowUpwithin7daysafterdischarge.0.denominator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.FollowUpwithin7daysafterdischarge.0.rate"]'
-    ).should("have.attr", "readonly");
+    cy.get('[data-cy="PerformanceMeasure.rates.bCOfkY.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.bCOfkY.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.bCOfkY.0.rate"]').should(
+      "have.attr",
+      "readonly"
+    );
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.FollowUpwithin7daysafterdischarge.0.rate"]'
-    ).should("not.have.attr", "readonly");
+    cy.get('[data-cy="PerformanceMeasure.rates.bCOfkY.0.rate"]').should(
+      "not.have.attr",
+      "readonly"
+    );
   });
 
   it(

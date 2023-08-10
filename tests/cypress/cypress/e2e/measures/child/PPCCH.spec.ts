@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: PPC-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("PPC-CH");
   });
@@ -61,10 +63,10 @@ describe("Measure: PPC-CH", () => {
       "Performance Measure"
     );
     cy.get(
-      '[data-cy="Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."]'
+      '[data-cy="Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."]'
     ).should(
       "have.text",
-      "Prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
+      "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
     );
   });
 
@@ -91,13 +93,13 @@ describe("Measure: PPC-CH", () => {
 
   it("Ensure that numerical value after decimal is rounded up/down for auto calculated rate.", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("555");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("10000");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.numerator"]').type(
+      "555"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').type(
+      "10000"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "have.value",
       "5.6"
     );
@@ -114,61 +116,47 @@ describe("Measure: PPC-CH", () => {
     cy.get('[id="DataSource1-checkbox"]').uncheck({ force: true });
 
     // Rate calculation should be = (N/D*100)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("10");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').type(
+      "10"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "have.value",
       "50.0"
     );
 
     // Ensure that auto calculate rate displays 1 decimal (even if the value is zero)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("8");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.numerator"]').type("8");
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "have.value",
       "80.0"
     );
 
     // Ensure that numerical value after decimal is rounded up/down for auto calculated rate (up)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("9");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').type(
+      "9"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "have.value",
       "88.9"
     );
 
     // Ensure that numerical value after decimal is rounded up/down for auto calculated rate (down)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("18");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').type(
+      "18"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "have.value",
       "44.4"
     );
 
     // Ensure that user cannot manually enter rates if admin data is selected - (already selected)
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "have.attr",
       "readonly"
     );
@@ -178,33 +166,25 @@ describe("Measure: PPC-CH", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("10");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("20");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.numerator"]').type(
+      "10"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "have.value",
       "50.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "not.have.attr",
       "readonly"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
-      "48.1"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').type("48.1");
+    cy.get('[data-cy="PerformanceMeasure.rates.fcjCsg.0.rate"]').should(
       "have.value",
       "48.1"
     );
@@ -242,16 +222,16 @@ describe("Measure: PPC-CH", () => {
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "example 1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.example1.OPM.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.OPM.example1.0.numerator"]'
     ).type("3");
   });
 });

@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: oy2-9936 SFM-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("SFM-CH");
   });
@@ -12,10 +14,9 @@ describe("Measure: oy2-9936 SFM-CH", () => {
       "have.text",
       "Date Range Error"
     );
-    cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
-      "have.text",
-      "Date Range must be completed"
-    );
+    cy.get(
+      '[data-cy="Date Range answer must be selected"] > .chakra-text'
+    ).should("have.text", "Date Range answer must be selected");
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should(
@@ -45,13 +46,16 @@ describe("Measure: oy2-9936 SFM-CH", () => {
       "#DataSourceSelections\\.AdministrativeData0\\.selected0-checkbox"
     ).check();
     cy.get(
-      '[data-cy="DataSourceSelections.AdministrativeData0.selected1"]'
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
       "#DataSourceSelections\\.AdministrativeData0\\.selected1-checkbox"
     ).check();
-    cy.xpath(
-      "(//span[@class='chakra-checkbox__control css-1oi6yiz'])[4]"
+    cy.get(
+      '[data-cy="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"]'
+    ).click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
     ).click();
     cy.get('[data-cy="DateRange.startDate-month"]').clear();
     cy.get('[data-cy="DateRange.startDate-month"]').type("10");
@@ -128,122 +132,47 @@ describe("Measure: oy2-9936 SFM-CH", () => {
     cy.get('[data-cy="DeliverySys-Other-NumberOfHealthPlans"]').type("121");
     /* ==== End Cypress Studio ==== */
     /* ==== Performance Measure ==== */
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("2");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("20");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.numerator"]').type("2");
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.denominator"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.rate"]').should(
       "have.value",
       "10.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).type("20");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.numerator"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.denominator"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.rate"]').should(
       "have.value",
       "20.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("0");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.numerator"]').type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.0.rate"]').should(
       "have.value",
       "0.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]'
-    ).click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').type(
-      "12.3"
-    );
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.rate"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.rate"]').clear({
+      force: true,
+    });
+    cy.get('[data-cy="PerformanceMeasure.rates.zooXXr.1.rate"]').type("12.3", {
+      force: true,
+    });
     /* ==== End Cypress Studio ==== */
     /* ==== Deviations from Measure Specifications & Combined Rates from Multiple Reporting Units ==== */
-    cy.get('[data-cy="DidCalculationsDeviate1"]').click();
+    // cy.get('[data-cy="DidCalculationsDeviate1"]').click();
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
-    cy.get('[data-cy="DeviationOptions0"] > .chakra-checkbox__control').click();
-    cy.get("#DeviationOptions0-checkbox").check();
-    cy.get(
-      '[data-cy="Deviations.Rate1AtLeastOneSealant.RateDeviationsSelected0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.Rate1AtLeastOneSealant\\.RateDeviationsSelected0-checkbox"
-    ).check();
-    cy.get(
-      '[data-cy="Deviations.Rate1AtLeastOneSealant.RateDeviationsSelected1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.Rate1AtLeastOneSealant\\.RateDeviationsSelected1-checkbox"
-    ).check();
-    cy.get(
-      '[data-cy="Deviations.Rate1AtLeastOneSealant.RateDeviationsSelected1"] > .chakra-checkbox__control > div'
-    ).click();
-    cy.get(
-      "#Deviations\\.Rate1AtLeastOneSealant\\.RateDeviationsSelected1-checkbox"
-    ).uncheck();
-    cy.get(
-      '[data-cy="Deviations.Rate1AtLeastOneSealant.RateDeviationsSelected1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.Rate1AtLeastOneSealant\\.RateDeviationsSelected1-checkbox"
-    ).check();
-    cy.get(
-      '[data-cy="Deviations.Rate1AtLeastOneSealant.RateDeviationsSelected2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.Rate1AtLeastOneSealant\\.RateDeviationsSelected2-checkbox"
-    ).check();
-    cy.get('[data-cy="DeviationOptions1"] > .chakra-checkbox__control').click();
-    cy.get("#DeviationOptions1-checkbox").check();
-    cy.get(
-      '[data-cy="Deviations.Rate2AllFourMolarsSealed.RateDeviationsSelected0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.Rate2AllFourMolarsSealed\\.RateDeviationsSelected0-checkbox"
-    ).check();
-    cy.get(
-      '[data-cy="Deviations.Rate2AllFourMolarsSealed.RateDeviationsSelected1"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.Rate2AllFourMolarsSealed\\.RateDeviationsSelected1-checkbox"
-    ).check();
-    cy.get(
-      '[data-cy="Deviations.Rate2AllFourMolarsSealed.RateDeviationsSelected2"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      "#Deviations\\.Rate2AllFourMolarsSealed\\.RateDeviationsSelected2-checkbox"
-    ).check();
+    cy.get('[data-cy="DeviationReason"]').click();
     cy.get('[data-cy="CombinedRates0"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates0"]').click();
     cy.get('[data-cy="CombinedRates-CombinedRates1"]').click();
@@ -255,92 +184,92 @@ describe("Measure: oy2-9936 SFM-CH", () => {
     ).click();
     cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
     ).check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
     ).uncheck();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
     ).check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.Race\\.selections\\.AmericanIndianorAlaskaNative\\.rateData\\.options0-checkbox"
     ).check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.numerator"]'
     ).type("2");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.denominator"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.denominator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.denominator"]'
     ).type("20");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.rate"]'
     ).should("have.value", "10.0");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.RaceNonHispanic\\.selections\\.White\\.rateData\\.options1-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.Race\\.selections\\.AmericanIndianorAlaskaNative\\.rateData\\.options1-checkbox"
     ).check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.numerator"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.numerator"]'
     ).type("4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.denominator"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.denominator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.denominator"]'
     ).type("20");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.rate"]'
     ).should("have.value", "20.0");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.numerator"]'
     ).type("0");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate1AtLeastOneSealant.singleCategory.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.5Jb7fw.0.rate"]'
     ).should("have.value", "0.0");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.rate"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.rate"]'
-    ).clear();
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.rate"]'
+    ).clear({ force: true });
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Rate2AllFourMolarsSealed.singleCategory.0.rate"]'
-    ).type("12.3");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.zooXXr.VC1O0n.0.rate"]'
+    ).type("12.3", { force: true });
     cy.get(
       '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Ethnicity");
@@ -349,32 +278,24 @@ describe("Measure: oy2-9936 SFM-CH", () => {
     ).should("have.text", "Sex");
     cy.get(
       '[data-cy="OptionalMeasureStratification.options3"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Primary Language (including sign language)");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.options4"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Disability Status");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.options5"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Geography");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="Deviations from Measure Specifications Error"]').should(
       "have.text",
       "Deviations from Measure Specifications Error"
     );
-    cy.get(
-      '[data-cy="At least one item must be selected and completed (Numerator, Denominator, or Other)"] > .chakra-text'
-    ).should(
+    cy.get('[data-cy="Deviation(s) must be explained"] > .chakra-text').should(
       "have.text",
-      "At least one item must be selected and completed (Numerator, Denominator, or Other)"
+      "Deviation(s) must be explained"
     );
     cy.get(
-      '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White Error"]'
+      '[data-cy="Optional Measure Stratification: Race - American Indian or Alaska Native Error"]'
     ).should(
       "have.text",
-      "Optional Measure Stratification: Race (Non-Hispanic) - White Error"
+      "Optional Measure Stratification: Race - American Indian or Alaska Native Error"
     );
     cy.get(
-      ':nth-child(3) > div.css-0 > [data-cy="Rate 2 - All Four Molars Sealed rate must be less than or equal to Rate 1 - At Least One Sealant rate."] > .chakra-text'
+      ':nth-child(5) > div.css-0 > [data-cy="Rate 2 - All Four Molars Sealed rate must be less than or equal to Rate 1 - At Least One Sealant rate."] > .chakra-text'
     ).should(
       "have.text",
       "Rate 2 - All Four Molars Sealed rate must be less than or equal to Rate 1 - At Least One Sealant rate."
