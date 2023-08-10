@@ -89,7 +89,7 @@ Cypress.Commands.add("goToMeasure", (measure) => {
 
 // Correct sections visible when user is reporting data on measure
 Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
-  cy.get('[data-cy="DidCollect0"]').click();
+  cy.get('[data-cy="DidReport0"]').click();
 
   // these sections should not exist when a user selects they are reporting
   cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
@@ -97,9 +97,14 @@ Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
   );
 
   // these sections should be visible when a user selects they are reporting
+  cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
   cy.get('[data-cy="Measurement Specification"]').should("be.visible");
   cy.get('[data-cy="Data Source"]').should("be.visible");
+  cy.get('[data-cy="Date Range"]').should("be.visible");
   cy.get('[data-cy="Definition of Population Included in the Measure"]').should(
+    "be.visible"
+  );
+  cy.get('[data-cy="Combined Rate(s) from Multiple Reporting Units"]').should(
     "be.visible"
   );
   cy.get(
@@ -109,7 +114,8 @@ Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
 
 // Correct sections visible when user is not reporting data on measure
 Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
-  cy.get('[data-cy="DidCollect1"]').click();
+  cy.wait(1000);
+  cy.get('[data-cy="DidReport1"]').click();
 
   // these sections should not exist when a user selects they are not reporting
   cy.get('[data-cy="Status of Data Reported"]').should("not.exist");
@@ -124,7 +130,7 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
   );
 
   // these sections should be visible when a user selects they are not reporting
-  cy.get('[data-cy="Why did you not collect this measure"]').should(
+  cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
     "be.visible"
   );
   cy.get(
