@@ -3,7 +3,7 @@ import setupNodeEvents from "./plugins";
 
 export default defineConfig({
   redirectionLimit: 20,
-  retries: 2,
+  retries: 0,
   watchForFileChanges: true,
   fixturesFolder: "fixtures",
   screenshotsFolder: "screenshots",
