@@ -1,5 +1,3 @@
-import "cypress-file-upload";
-
 before(() => {
   cy.visit("/", { timeout: 60000 * 7 });
 });
