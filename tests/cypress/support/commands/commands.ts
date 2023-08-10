@@ -1,5 +1,3 @@
-import "cypress-file-upload";
-
 before(() => {
   cy.visit("/", { timeout: 60000 * 7 });
 });
@@ -263,6 +261,7 @@ Cypress.Commands.add("clickValidateMeasure", (timeout = 500) => {
 });
 
 Cypress.Commands.add("enterValidDateRange", () => {
+  cy.get('[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]').click();
   cy.get('[data-cy="DateRange.startDate-month"]').type("1");
   cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
   cy.get('[data-cy="DateRange.endDate-month"]').type("12");
