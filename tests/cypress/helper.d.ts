@@ -23,8 +23,8 @@ declare namespace Cypress {
     // Visit Health Home Core Set Measures
     goToHealthHomeSetMeasures(): Chainable<Element>;
 
-    // Attach file method
-    selectFile(fileName: string, { subjectType: string });
+    // Select file method
+    selectFile(fileName: string);
 
     // Visit Measures based on abbr
     goToMeasure(measure: MeasureList | string): Chainable<Element>;
