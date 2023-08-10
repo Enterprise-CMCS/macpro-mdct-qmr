@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: CHL-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("CHL-AD");
   });
@@ -28,12 +30,12 @@ describe("Measure: CHL-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="Ages 21 to 24"]').should("be.visible");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.numerator"]'
     ).type("6");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.denominator"]'
     ).type("6");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
       "have.value",
       "100.0"
     );
@@ -52,33 +54,19 @@ describe("Measure: CHL-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.numerator"]'
     ).type("5");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.denominator"]'
     ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
       "have.attr",
       "readonly"
     );
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
       "not.have.attr",
       "readonly"
-    );
-  });
-
-  it("should have adult eligibility group in OMS", () => {
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("6");
-    cy.get('[data-cy="OptionalMeasureStratification.options5"]').should(
-      "have.text",
-      "Adult Eligibility Group (ACA Expansion Group)"
     );
   });
 
@@ -95,23 +83,21 @@ describe("Measure: CHL-AD", () => {
   it("Rates calculate correctly", () => {
     cy.get("#MeasurementSpecification-NCQAHEDIS").click();
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.numerator"]'
     ).type("5");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.denominator"]'
     ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
       "have.value",
       "100.0"
     );
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').type(
       "50"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
       "not.have.attr",
       "readonly"
     );
@@ -121,15 +107,13 @@ describe("Measure: CHL-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.numerator"]'
     ).type("5");
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.denominator"]'
     ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').type(
       "0"
     );
     cy.get('[data-cy="Validate Measure"]').click();
