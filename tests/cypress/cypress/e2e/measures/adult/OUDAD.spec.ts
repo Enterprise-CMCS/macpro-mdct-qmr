@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: OUD-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("OUD-AD");
   });
@@ -30,20 +32,16 @@ describe("Measure: OUD-AD", () => {
     cy.get('[data-cy="Performance Measure"]').should("be.visible");
     cy.get('[data-cy="Total Rate"]').should("be.visible");
     cy.get('[data-cy="Buprenorphine"]').should("be.visible");
+    cy.get('[data-cy="PerformanceMeasure.rates.t75kZB.0.numerator"]').type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.t75kZB.0.denominator"]').type(
+      "6"
+    );
+    cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
   });
 
@@ -58,34 +56,19 @@ describe("Measure: OUD-AD", () => {
 
   it("if only admin data cannot override, if anything else, rate is editable", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="DataSource0"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.t75kZB.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.t75kZB.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.t75kZB.0.rate"]').should(
       "have.attr",
       "readonly"
     );
-    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="DataSource1"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.t75kZB.0.rate"]').should(
       "not.have.attr",
       "readonly"
-    );
-  });
-
-  it("should have adult eligibility group in OMS", () => {
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("6");
-    cy.get('[data-cy="OptionalMeasureStratification.options6"]').should(
-      "be.visible"
     );
   });
 

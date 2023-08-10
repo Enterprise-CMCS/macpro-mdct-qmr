@@ -248,7 +248,6 @@ describe("Measure: OHD-AD", () => {
         '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.aeOiMF.NyGIus.0.numerator"]'
       ).type("1");
       cy.clickValidateMeasure();
-      /* ==== End Cypress Studio ==== */
       cy.get(
         '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'
       ).should("not.exist");
