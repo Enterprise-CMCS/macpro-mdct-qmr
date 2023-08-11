@@ -85,11 +85,11 @@ describe("Health Home Measure Qualifier: HH", () => {
       "include.text",
       "If you need additional space to provide information regarding cost savings data, please attach further documentation below."
     );
-    // const filePath = "fixtures/files/";
-    // cy.get('[data-testid="upload-stack"]').scrollIntoView();
-    // cy.get('[data-testid="upload-component"]')
-    //   .invoke("show")
-    //   .selectFile(`${filePath}adobe.pdf`);
+    const filePath = "fixtures/files/";
+    cy.get('[data-testid="upload-stack"]').scrollIntoView();
+    cy.get('[data-testid="upload-component"]')
+      .invoke("show")
+      .selectFile(`${filePath}adobe.pdf`);
 
     //testing section 3 with fields inside it
     cy.get("body").should("include.text", "Delivery System");
