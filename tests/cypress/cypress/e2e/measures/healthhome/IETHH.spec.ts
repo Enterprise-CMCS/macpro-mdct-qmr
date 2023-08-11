@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: IET-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("IET-HH");
   });
@@ -97,93 +99,65 @@ describe("Measure: IET-HH", () => {
     cy.get("#MeasurementSpecification-NCQAHEDIS").click();
 
     // PM
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.InitiationofAODTreatmentAlcoholAbuseorDependence.0.numerator"]'
-    )
-      .clear()
-      .type("3");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.InitiationofAODTreatmentAlcoholAbuseorDependence.0.denominator"]'
-    )
-      .clear()
-      .type("7");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.InitiationofAODTreatmentAlcoholAbuseorDependence.1.numerator"]'
-    )
-      .clear()
-      .type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.InitiationofAODTreatmentAlcoholAbuseorDependence.1.denominator"]'
-    )
-      .clear()
-      .type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.SzkEgT.0.numerator"]').type("3");
+    cy.get('[data-cy="PerformanceMeasure.rates.SzkEgT.0.denominator"]').type(
+      "7"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.SzkEgT.1.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.SzkEgT.1.denominator"]').type(
+      "1"
+    );
 
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EngagementofAODTreatmentTotalAODAbuseorDependence.2.numerator"]'
-    )
-      .clear()
-      .type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.EngagementofAODTreatmentTotalAODAbuseorDependence.2.denominator"]'
-    )
-      .clear()
-      .type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.fBjzVK.2.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.fBjzVK.2.denominator"]').type(
+      "1"
+    );
 
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.InitiationofAODTreatmentAlcoholAbuseorDependence.0.rate"]'
-    ).should("have.value", "42.9");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.InitiationofAODTreatmentAlcoholAbuseorDependence.1.rate"]'
-    ).should("have.value", "100.0");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.InitiationofAODTreatmentAlcoholAbuseorDependence.0.numerator"]'
-    ).should("have.value", "3");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.InitiationofAODTreatmentAlcoholAbuseorDependence.0.denominator"]'
-    ).should("have.value", "7");
+    cy.get('[data-cy="PerformanceMeasure.rates.SzkEgT.0.rate"]').should(
+      "have.value",
+      "42.9"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.SzkEgT.1.rate"]').should(
+      "have.value",
+      "100.0"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.SzkEgT.0.numerator"]').should(
+      "have.value",
+      "3"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.SzkEgT.0.denominator"]').should(
+      "have.value",
+      "7"
+    );
 
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages13to17.InitiationofAODTreatmentAlcoholAbuseorDependence.0.numerator"]'
-    )
-      .clear()
-      .type("11");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.QpzHSf.Total.0.numerator"]'
+    ).type("11");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages13to17.InitiationofAODTreatmentAlcoholAbuseorDependence.0.denominator"]'
-    )
-      .clear()
-      .type("12");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.QpzHSf.Total.0.denominator"]'
+    ).type("12");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.InitiationofAODTreatmentAlcoholAbuseorDependence.0.numerator"]'
-    )
-      .clear()
-      .type("1");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.AVY2yg.Total.0.numerator"]'
+    ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.InitiationofAODTreatmentAlcoholAbuseorDependence.0.denominator"]'
-    )
-      .clear()
-      .type("1");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.AVY2yg.Total.0.denominator"]'
+    ).type("1");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages13to17.InitiationofAODTreatmentAlcoholAbuseorDependence.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.QpzHSf.Total.0.rate"]'
     ).should("have.value", "91.7");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.InitiationofAODTreatmentAlcoholAbuseorDependence.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.AVY2yg.Total.0.rate"]'
     ).should("have.value", "100.0");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Totalage13andolder.InitiationofAODTreatmentAlcoholAbuseorDependence.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.AVY2yg.Total.0.numerator"]'
     )
       .should("exist")
       .type("1");
@@ -198,7 +172,7 @@ describe("Measure: IET-HH", () => {
     ).should("exist");
     cy.get('[data-cy="Date Range Error"]').should("exist");
     cy.get(
-      '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White - Total (age 13 and older) Error"]'
+      '[data-cy="Optional Measure Stratification: Race - American Indian or Alaska Native - Total (age 13 and older) Error"]'
     ).should("exist");
   });
 });
