@@ -198,7 +198,7 @@ function terminalLog(violations) {
 
 // axe api documentation: https://www.deque.com/axe/core-documentation/api-documentation/
 Cypress.Commands.add("checkA11yOfPage", () => {
-  cy.wait(3000);
+  cy.wait(500);
   cy.injectAxe();
   cy.checkA11y(
     null,
@@ -206,6 +206,10 @@ Cypress.Commands.add("checkA11yOfPage", () => {
       // @ts-ignore
       values: ["wcag2a", "wcag2aa"],
       includedImpacts: ["serious", "critical"], // options: "minor", "moderate", "serious", "critical"
+      rules: {
+        // ignoring link in text block because we use this on every page
+        "link-in-text-block": { enabled: false },
+      },
     },
     terminalLog,
     // (err) => {

@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Check A11y on Common Pages", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("Check a11y on Home Page", () => {
