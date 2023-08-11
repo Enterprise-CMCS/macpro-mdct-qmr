@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: HVL-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("HVL-AD");
   });
@@ -27,15 +29,15 @@ describe("Measure: HVL-AD", () => {
   });
 
   it("should show correct data source options", () => {
-    cy.get(
-      '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Administrative Data");
-    cy.get(
-      '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Electronic Health Records");
-    cy.get(
-      '[data-cy="DataSource2"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Other Data Source");
+    cy.get('[data-cy="DataSource0"]').should(
+      "have.text",
+      "Administrative Data"
+    );
+    cy.get('[data-cy="DataSource1"]').should(
+      "have.text",
+      "Electronic Health Records"
+    );
+    cy.get('[data-cy="DataSource2"]').should("have.text", "Other Data Source");
   });
 
   it("if primary measurement spec is selected -> show performance measures", () => {
@@ -62,14 +64,12 @@ describe("Measure: HVL-AD", () => {
 
   it("if only admin data cannot override, if anything else, rate is editable", () => {
     cy.get("#MeasurementSpecification-HRSA").click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.iAT7Xc.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.iAT7Xc.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="DataSource2"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.iAT7Xc.0.rate"]').should(
       "not.have.attr",
       "aria-readonly"
     );
