@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: CCP-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });
@@ -55,15 +57,15 @@ describe("Measure: CCP-AD", () => {
     cy.get('[data-cy="Three Days Postpartum Rate"]')
       .first()
       .should("have.text", "Three Days Postpartum Rate");
-    cy.get('[data-cy="Sixty Days Postpartum Rate"]')
+    cy.get('[data-cy="Ninety Days Postpartum Rate"]')
       .first()
-      .should("have.text", "Sixty Days Postpartum Rate");
+      .should("have.text", "Ninety Days Postpartum Rate");
     cy.get('[data-cy="Three Days Postpartum Rate"]')
       .first()
       .should("have.text", "Three Days Postpartum Rate");
-    cy.get('[data-cy="Sixty Days Postpartum Rate"]')
+    cy.get('[data-cy="Ninety Days Postpartum Rate"]')
       .first()
-      .should("have.text", "Sixty Days Postpartum Rate");
+      .should("have.text", "Ninety Days Postpartum Rate");
   });
 
   it("if other measurement spec is selected -> show other performance measures", () => {
@@ -78,31 +80,30 @@ describe("Measure: CCP-AD", () => {
   it("if only admin data cannot override, if anything else, rate is editable", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.denominator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.rate"]'
-    ).should("have.attr", "readonly");
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.rate"]').should(
+      "have.attr",
+      "readonly"
+    );
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.rate"]'
-    ).should("not.have.attr", "readonly");
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.rate"]').should(
+      "not.have.attr",
+      "readonly"
+    );
   });
 
   it("should have adult eligibility group in OMS", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.denominator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.rate"]'
-    ).should("have.value", "100.0");
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.rate"]').should(
+      "have.value",
+      "100.0"
+    );
   });
 });
