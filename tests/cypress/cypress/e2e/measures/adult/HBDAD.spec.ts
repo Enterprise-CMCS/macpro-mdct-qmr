@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: HBD-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2023");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("HBD-AD");
   });
