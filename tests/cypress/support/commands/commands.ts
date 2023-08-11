@@ -206,10 +206,6 @@ Cypress.Commands.add("checkA11yOfPage", () => {
       // @ts-ignore
       values: ["wcag2a", "wcag2aa"],
       includedImpacts: ["serious", "critical"], // options: "minor", "moderate", "serious", "critical"
-      rules: {
-        // ignoring link in text block because we use this on every page
-        "link-in-text-block": { enabled: false },
-      },
     },
     terminalLog,
     // (err) => {

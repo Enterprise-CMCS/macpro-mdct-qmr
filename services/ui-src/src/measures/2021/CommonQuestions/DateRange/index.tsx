@@ -36,7 +36,7 @@ export const DateRange = ({ type }: Props) => {
           More information about the Start and End Date for each measure is
           available in the{" "}
           <CUI.Link href={link} color="blue" isExternal>
-            Measurement Period Table
+            <u>Measurement Period Table</u>
           </CUI.Link>{" "}
           resource.
         </CUI.Text>
