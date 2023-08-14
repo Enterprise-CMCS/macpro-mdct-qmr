@@ -217,7 +217,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"AMR-CH-CAT-A", "label": "", "text":""}]
+        "categories": [{"id":"tMt8gW", "label": "", "text":""}]
     },
     "APM-CH": {
         "qualifiers": [

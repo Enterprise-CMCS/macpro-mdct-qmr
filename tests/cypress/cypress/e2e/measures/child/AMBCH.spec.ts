@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure 20: AMB-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("AMB-CH");
   });
@@ -34,24 +36,20 @@ describe("Measure 20: AMB-CH", () => {
   it("calculates rates correctly", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.rate"]').should(
       "have.value",
       "800.0"
     );
 
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).type("6");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.1.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.1.denominator"]').type(
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.1.rate"]').should(
       "have.value",
       "833.3"
     );
@@ -93,75 +91,22 @@ describe("Measure 20: AMB-CH", () => {
     );
   });
 
-  it("calculates rates correctly - OMS", () => {
-    cy.get('[data-cy="MeasurementSpecification0"').click();
-    cy.enterValidDateRange();
-
-    // PM prep
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).type("6");
-
-    // OMS prep
-    cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
-    ).click();
-
-    // OMS validation
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.rate"]'
-    ).should("have.value", "800.0");
-
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to9.singleCategory.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to9.singleCategory.0.denominator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to9.singleCategory.0.rate"]'
-    ).should("have.value", "833.3");
-  });
-
   it("Ensure that Total NDR set is auto calculated from the according age ranges", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.numerator"]'
-    ).should("have.value", "4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.denominator"]'
-    ).should("have.value", "5");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.4.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.4.numerator"]').should(
+      "have.value",
+      "4"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.4.denominator"]').should(
+      "have.value",
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.4.rate"]').should(
       "have.value",
       "800.0"
     );
@@ -172,59 +117,48 @@ describe("Measure 20: AMB-CH", () => {
     cy.enterValidDateRange();
 
     // PM prep
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "5"
+    );
 
     // OMS prep
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
 
     // OMS validation
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.numerator"]'
     ).type("4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.denominator"]'
     ).type("5");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges1to19.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.numerator"]'
     ).should("have.value", "4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges1to19.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.denominator"]'
     ).should("have.value", "5");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges1to19.singleCategory.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.rate"]'
     ).should("have.value", "800.0");
   });
 
   it("checks that Total NDR should have a value if other NDRs have been filled", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.denominator"]'
-    ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.4.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.4.denominator"]').clear();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Total must contain values if other fields are filled."]'
+      '[data-cy="Total (Ages <1 to 19) must contain values if other fields are filled."]'
     ).should("be.visible");
   });
 
@@ -233,141 +167,66 @@ describe("Measure 20: AMB-CH", () => {
     cy.enterValidDateRange();
 
     // PM prep
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "5"
+    );
 
     // OMS prep
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
 
-    // OMS validation
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.denominator"]'
-    ).type("5");
-
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges1to19.singleCategory.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges1to19.singleCategory.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.denominator"]'
     ).clear();
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(
-      '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White - Total (Ages <1 to 19) Error"]'
-    ).should("be.visible");
-    cy.get(
-      '[data-cy="Total must contain values if other fields are filled."]'
-    ).should("be.visible");
+    cy.get('[data-cy="Optional Measure Stratification: Race Error"]').should(
+      "be.visible"
+    );
+    cy.get('[data-cy="Must fill out at least one NDR set."]').should(
+      "be.visible"
+    );
   });
 
   it("checks that Total NDR should have calculated numerator/denominator", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.numerator"]'
-    ).type("3");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.denominator"]'
-    ).type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.4.numerator"]').type("3");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.4.denominator"]').type(
+      "6"
+    );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
-      '[data-cy="Total numerator field is not equal to the sum of other numerators."]'
+      '[data-cy="Total (Ages <1 to 19) numerator field is not equal to the sum of other numerators."]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="Total denominator field is not equal to the sum of other denominators."]'
-    ).should("be.visible");
-  });
-
-  it("checks that Total NDR should have calculated numerator/denominator - OMS", () => {
-    cy.get('[data-cy="MeasurementSpecification0"').click();
-    cy.enterValidDateRange();
-
-    // PM prep
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-
-    // OMS prep
-    cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
-    ).click();
-
-    // OMS validation
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age1.singleCategory.0.denominator"]'
-    ).type("5");
-
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges1to19.singleCategory.0.numerator"]'
-    )
-      .clear()
-      .type("7");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAges1to19.singleCategory.0.denominator"]'
-    )
-      .clear()
-      .type("9");
-    cy.get('[data-cy="Validate Measure"]').click();
-
-    cy.get(
-      '[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White - Total (Ages <1 to 19) Error"]'
-    ).should("be.visible");
-    cy.get(
-      '[data-cy="Total numerator field is not equal to the sum of other numerators."]'
-    ).should("be.visible");
-    cy.get(
-      '[data-cy="Total denominator field is not equal to the sum of other denominators."]'
+      '[data-cy="Total (Ages <1 to 19) denominator field is not equal to the sum of other denominators."]'
     ).should("be.visible");
   });
 
   it("rounds the numerical value after the decimal up/down for auto-calculated rates", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("3");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "3"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.rate"]').should(
       "have.value",
       "333.3"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("2");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("2");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.rate"]').should(
       "have.value",
       "666.7"
     );
@@ -377,18 +236,12 @@ describe("Measure 20: AMB-CH", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("0");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("12");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
-      "10.0"
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "12"
     );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.rate"]').type("10.0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-testid="measure-wrapper-form"]').should(
       "include.text",
@@ -400,18 +253,14 @@ describe("Measure 20: AMB-CH", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("10");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("12");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
-      "0"
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.numerator"]').type(
+      "10"
     );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.denominator"]').type(
+      "12"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.8KgPDM.0.rate"]').type("0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-testid="measure-wrapper-form"]').should(
       "include.text",

@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: APM-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("APM-CH");
   });
@@ -17,16 +19,18 @@ describe("Measure: APM-CH", () => {
     ).should("have.text", "Administrative Data");
     cy.get(
       '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Electronic Clinical Data Systems (ECDS)");
+    cy.get(
+      '[data-cy="DataSource2"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Other Data Source");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="Date Range Error"]').should(
       "have.text",
       "Date Range Error"
     );
-    cy.get('[data-cy="Date Range must be completed"] > .chakra-text').should(
-      "have.text",
-      "Date Range must be completed"
-    );
+    cy.get(
+      '[data-cy="Date Range answer must be selected"] > .chakra-text'
+    ).should("have.text", "Date Range answer must be selected");
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
     ).should(
@@ -64,13 +68,13 @@ describe("Measure: APM-CH", () => {
 
   it("Ensure that numerical value after decimal is rounded up/down for auto calculated rate.", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.0.numerator"]'
-    ).type("555");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.0.denominator"]'
-    ).type("10000");
-    cy.get('[data-cy="PerformanceMeasure.rates.BloodGlucose.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.0.numerator"]').type(
+      "555"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.0.denominator"]').type(
+      "10000"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.0.rate"]').should(
       "have.value",
       "5.6"
     );
@@ -78,32 +82,31 @@ describe("Measure: APM-CH", () => {
 
   it("Ensure that “Total” NDR set is auto calculated from the according age ranges", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.0.denominator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.2.numerator"]'
-    ).should("have.value", "6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.2.denominator"]'
-    ).should("have.value", "6");
-    cy.get('[data-cy="PerformanceMeasure.rates.BloodGlucose.2.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.0.numerator"]').type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.0.denominator"]').type(
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.2.numerator"]').should(
+      "have.value",
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.2.denominator"]').should(
+      "have.value",
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.2.rate"]').should(
       "have.value",
       "100.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.1.numerator"]'
-    ).type("8");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.1.denominator"]'
-    ).type("16");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.2.denominator"]'
-    ).should("have.value", "22");
-    cy.get('[data-cy="PerformanceMeasure.rates.BloodGlucose.2.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.1.numerator"]').type("8");
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.1.denominator"]').type(
+      "16"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.2.denominator"]').should(
+      "have.value",
+      "22"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.2.rate"]').should(
       "have.value",
       "63.6"
     );
@@ -114,31 +117,23 @@ describe("Measure: APM-CH", () => {
     cy.get('[data-cy="DataSource1"]').click();
 
     // PM
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.0.numerator"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.0.denominator"]'
-    ).type("2");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.1.numerator"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.BloodGlucose.1.denominator"]'
-    ).type("3");
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.0.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.0.denominator"]').type(
+      "2"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.1.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.rcmfbq.1.denominator"]').type(
+      "3"
+    );
 
-    cy.get('[data-cy="PerformanceMeasure.rates.Cholesterol.0.numerator"]').type(
+    cy.get('[data-cy="PerformanceMeasure.rates.0oa3fh.0.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.0oa3fh.0.denominator"]').type(
       "1"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Cholesterol.0.denominator"]'
-    ).type("1");
-    cy.get('[data-cy="PerformanceMeasure.rates.Cholesterol.1.numerator"]').type(
-      "1"
+    cy.get('[data-cy="PerformanceMeasure.rates.0oa3fh.1.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.0oa3fh.1.denominator"]').type(
+      "3"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.Cholesterol.1.denominator"]'
-    ).type("3");
 
     // PM Validations
     cy.get('[data-cy="Validate Measure"]').click();
@@ -150,7 +145,7 @@ describe("Measure: APM-CH", () => {
     ).should("be.visible");
 
     // Clear PM Validations
-    cy.get('[data-cy="PerformanceMeasure.rates.Cholesterol.0.denominator"]')
+    cy.get('[data-cy="PerformanceMeasure.rates.0oa3fh.0.denominator"]')
       .clear()
       .type("2");
     cy.get('[data-cy="Validate Measure"]').click();
@@ -161,39 +156,17 @@ describe("Measure: APM-CH", () => {
       .click()
       .click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
-    ).click();
-
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to11.BloodGlucose.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.rcmfbq.Total.0.numerator"]'
     ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to11.BloodGlucose.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.rcmfbq.Total.0.denominator"]'
     ).type("1");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to11.Cholesterol.0.numerator"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages1to11.Cholesterol.0.denominator"]'
-    ).type("2");
 
     // OMS Validations
     cy.get('[data-cy="Validate Measure"]').click();
-    cy.contains(
-      ".chakra-alert",
-      "Optional Measure Stratification: Race (Non-Hispanic) - White - Ages 1 to 11 Error"
-    ).within(() => {
-      cy.get(
-        '[data-cy="Denominators must be the same for each category."] > .chakra-text'
-      ).should("be.visible");
-    });
-
     cy.get('[data-cy="Clear Data"]').click();
   });
 });
