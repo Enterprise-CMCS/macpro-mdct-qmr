@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Health Home Measure Qualifier: HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("Health Home Core Set Measures", () => {
@@ -69,9 +71,9 @@ describe("Health Home Measure Qualifier: HH", () => {
 
     //testing section 2 with fields inside it
     cy.get("body").should("include.text", "Cost Savings Data");
-    cy.get('[data-cy="Amount of cost savings for FFY 2020"]').should(
+    cy.get('[data-cy="Amount of cost savings for FFY 2022"]').should(
       "include.text",
-      "Amount of cost savings for FFY 2020"
+      "Amount of cost savings for FFY 2022"
     );
     cy.get('[data-cy="yearlyCostSavings"]').clear();
     cy.get('[data-cy="yearlyCostSavings"]').type("1234567890");
@@ -83,16 +85,17 @@ describe("Health Home Measure Qualifier: HH", () => {
       "include.text",
       "If you need additional space to provide information regarding cost savings data, please attach further documentation below."
     );
-    const browseBtn = "//u[contains(text(),'browse')]";
-    cy.xpath(browseBtn).attachFile("/files/adobe.pdf", {
-      subjectType: "drag-n-drop",
-    });
+    const filePath = "fixtures/files/";
+    cy.get('[data-testid="upload-stack"]').scrollIntoView();
+    cy.get('[data-testid="upload-component"]')
+      .invoke("show")
+      .selectFile(`${filePath}adobe.pdf`);
 
     //testing section 3 with fields inside it
     cy.get("body").should("include.text", "Delivery System");
     cy.get("body").should(
       "include.text",
-      "As of September 30, 2020 what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system (optional)?"
+      "As of September 30, 2022 what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system (optional)?"
     );
     cy.get("body").should("include.text", "Ages 0 to 17");
     cy.get("body").should("include.text", "Ages 18 to 64");
@@ -148,9 +151,6 @@ describe("Health Home Measure Qualifier: HH", () => {
     );
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.WhoConductedAuditOrValidation"]'
-    ).clear();
-    cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.WhoConductedAuditOrValidation"]'
     ).type("Alexa");
     cy.get('[data-cy="which-measures-did-they-audit-0"]').should(
       "include.text",
@@ -158,17 +158,11 @@ describe("Health Home Measure Qualifier: HH", () => {
     );
     cy.get("body").should("include.text", "Select All");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AIF-HH - Admission to an Institution from the Community"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AIF-HH - Admission to a Facility from the Community"]'
     ).should(
       "include.text",
-      "AIF-HH - Admission to an Institution from the Community"
+      "AIF-HH - Admission to a Facility from the Community"
     );
-    cy.get(
-      ".chakra-form-control > :nth-child(4) > .chakra-checkbox > .chakra-checkbox__control"
-    ).click({ force: true });
-    cy.get(
-      ".chakra-form-control > :nth-child(4) > .chakra-checkbox > .chakra-checkbox__input"
-    ).check({ force: true });
 
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AMB-HH - Ambulatory Care: Emergency Department (ED) Visits"]'
@@ -186,10 +180,10 @@ describe("Health Home Measure Qualifier: HH", () => {
       "CDF-HH - Screening for Depression and Follow-Up Plan"
     );
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUA-HH - Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUA-HH - Follow-Up After Emergency Department Visit for Substance Use"]'
     ).should(
       "include.text",
-      "FUA-HH - Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence"
+      "FUA-HH - Follow-Up After Emergency Department Visit for Substance Use"
     );
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-HH - Follow-Up After Hospitalization for Mental Illness"]'
@@ -198,10 +192,10 @@ describe("Health Home Measure Qualifier: HH", () => {
       "FUH-HH - Follow-Up After Hospitalization for Mental Illness"
     );
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IET-HH - Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IET-HH - Initiation and Engagement of Substance Use Disorder Treatment"]'
     ).should(
       "include.text",
-      "IET-HH - Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment"
+      "IET-HH - Initiation and Engagement of Substance Use Disorder Treatment"
     );
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IU-HH - Inpatient Utilization"]'

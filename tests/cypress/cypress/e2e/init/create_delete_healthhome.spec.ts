@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Health Home Sets Should be able to be deleted and created", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.wait(2000);
   });
 

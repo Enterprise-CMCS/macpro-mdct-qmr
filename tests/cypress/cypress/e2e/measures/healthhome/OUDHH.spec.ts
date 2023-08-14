@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: OUD-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("OUD-HH");
   });
@@ -91,25 +93,21 @@ describe("Measure: OUD-HH", () => {
   it("calculates correct rate totals for both PM and OMS", () => {
     cy.get("#MeasurementSpecification-CMS").click();
 
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]')
-      .clear()
-      .type("2");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]')
-      .clear()
-      .type("3");
+    cy.get('[data-cy="PerformanceMeasure.rates.lS0z8M.0.numerator"]').type("2");
+    cy.get('[data-cy="PerformanceMeasure.rates.lS0z8M.0.denominator"]').type(
+      "3"
+    );
 
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]')
-      .clear()
-      .type("1");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]')
-      .clear()
-      .type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.lS0z8M.1.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.lS0z8M.1.denominator"]').type(
+      "1"
+    );
 
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.lS0z8M.0.rate"]').should(
       "have.value",
       "66.7"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.lS0z8M.1.rate"]').should(
       "have.value",
       "100.0"
     );
@@ -117,42 +115,22 @@ describe("Measure: OUD-HH", () => {
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"]'
     ).click();
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalRate.singleCategory.0.numerator"]'
-    )
-      .clear()
-      .type("1");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.lS0z8M.yiqyWE.0.numerator"]'
+    ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalRate.singleCategory.0.denominator"]'
-    )
-      .clear()
-      .type("4");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Buprenorphine.singleCategory.0.numerator"]'
-    )
-      .clear()
-      .type("1");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Buprenorphine.singleCategory.0.denominator"]'
-    )
-      .clear()
-      .type("1");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.lS0z8M.yiqyWE.0.denominator"]'
+    ).type("4");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalRate.singleCategory.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.lS0z8M.yiqyWE.0.rate"]'
     ).should("have.value", "25.0");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Buprenorphine.singleCategory.0.rate"]'
-    ).should("have.value", "100.0");
 
     // validation errors
     cy.get('[data-cy="Validate Measure"]').click();

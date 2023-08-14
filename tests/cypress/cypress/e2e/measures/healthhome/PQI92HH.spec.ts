@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: PQI92-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("PQI92-HH");
   });
@@ -97,34 +99,32 @@ describe("Measure: PQI92-HH", () => {
     cy.get("#MeasurementSpecification-AHRQ").click();
 
     // PM
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]')
-      .clear()
-      .type("4");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]')
-      .clear()
-      .type("3");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]')
-      .clear()
-      .type("1");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]')
-      .clear()
-      .type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.0.denominator"]').type(
+      "3"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.1.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.1.denominator"]').type(
+      "1"
+    );
 
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.0.rate"]').should(
       "have.value",
       "133333.3"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.1.rate"]').should(
       "have.value",
       "100000.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.2.numerator"]'
-    ).should("have.value", "5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.2.denominator"]'
-    ).should("have.value", "4");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.2.numerator"]').should(
+      "have.value",
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.2.denominator"]').should(
+      "have.value",
+      "4"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.mIBZOk.2.rate"]').should(
       "have.value",
       "125000.0"
     );
@@ -132,51 +132,19 @@ describe("Measure: PQI92-HH", () => {
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
-    ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.numerator"]'
-    )
-      .clear()
-      .type("4");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.mIBZOk.Total.0.numerator"]'
+    ).type("4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.denominator"]'
-    )
-      .clear()
-      .type("3");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age65andolder.singleCategory.0.numerator"]'
-    )
-      .clear()
-      .type("1");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age65andolder.singleCategory.0.denominator"]'
-    )
-      .clear()
-      .type("1");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.mIBZOk.Total.0.denominator"]'
+    ).type("3");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.mIBZOk.Total.0.rate"]'
     ).should("have.value", "133333.3");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Age65andolder.singleCategory.0.rate"]'
-    ).should("have.value", "100000.0");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge18andolder.singleCategory.0.numerator"]'
-    ).should("have.value", "5");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge18andolder.singleCategory.0.denominator"]'
-    ).should("have.value", "4");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge18andolder.singleCategory.0.rate"]'
-    ).should("have.value", "125000.0");
 
     // validation errors
     cy.get('[data-cy="Validate Measure"]').click();

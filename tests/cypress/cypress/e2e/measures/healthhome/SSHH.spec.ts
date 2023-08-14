@@ -1,7 +1,9 @@
-describe.skip("Measure: SS-HH", () => {
+import { testingYear } from "../../../../support/constants";
+
+describe("Measure: SS-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToHealthHomeSetMeasures();
     cy.addStateSpecificMeasure();
   });
@@ -73,10 +75,7 @@ describe.skip("Measure: SS-HH", () => {
     cy.get('[data-cy="DataSource0"]').click();
 
     // Date Range
-    cy.get('[data-cy="DateRange.startDate-month"]').type("1");
-    cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
-    cy.get('[data-cy="DateRange.endDate-month"]').type("12");
-    cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
+    cy.enterValidDateRange();
 
     // Performance Measure
     // Create a category

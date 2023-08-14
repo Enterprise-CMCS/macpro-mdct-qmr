@@ -1,9 +1,9 @@
-import { should } from "chai";
+import { testingYear } from "../../../../support/constants";
 
 describe("Measure: CDF-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("CDF-HH");
   });
@@ -99,64 +99,34 @@ describe("Measure: CDF-HH", () => {
     cy.get("#MeasurementSpecification-CMS").click();
 
     // PM
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]')
-      .clear()
-      .type("1");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]')
-      .clear()
-      .type("1");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]')
-      .clear()
-      .type("1");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]')
-      .clear()
-      .type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.yhQjRm.0.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.yhQjRm.1.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.yhQjRm.0.denominator"]').type(
+      "1"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.yhQjRm.1.denominator"]').type(
+      "1"
+    );
 
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.numerator"]'
-    ).should("have.value", "2");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.denominator"]'
-    ).should("have.value", "2");
+    cy.get('[data-cy="PerformanceMeasure.rates.yhQjRm.3.numerator"]').should(
+      "have.value",
+      "2"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.yhQjRm.3.denominator"]').should(
+      "have.value",
+      "2"
+    );
 
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]'
-    ).click();
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.yhQjRm.Total.0.numerator"]'
+    ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options1"]'
-    ).click();
-
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.singleCategory.0.numerator"]'
-    )
-      .clear()
-      .type("1");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.numerator"]'
-    )
-      .clear()
-      .type("1");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages12to17.singleCategory.0.denominator"]'
-    )
-      .clear()
-      .type("1");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.singleCategory.0.denominator"]'
-    )
-      .clear()
-      .type("1");
-
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge12andolder.singleCategory.0.numerator"]'
-    ).should("have.value", "2");
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.TotalAge12andolder.singleCategory.0.denominator"]'
-    ).should("have.value", "2");
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.yhQjRm.Total.0.numerator"]'
+    ).type("1");
   });
 });
