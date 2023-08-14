@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: CIS-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CIS-CH");
   });
@@ -26,9 +28,12 @@ describe("Measure: CIS-CH", () => {
     ).should("have.text", "Hybrid (Administrative and Medical Records Data)");
     cy.get(
       '[data-cy="DataSource2"] > .chakra-checkbox__label > .chakra-text'
-    ).should("have.text", "Electronic Health Records");
+    ).should("have.text", "Electronic Clinical Data Systems (ECDS)");
     cy.get(
       '[data-cy="DataSource3"] > .chakra-checkbox__label > .chakra-text'
+    ).should("have.text", "Electronic Health Records");
+    cy.get(
+      '[data-cy="DataSource4"] > .chakra-checkbox__label > .chakra-text'
     ).should("have.text", "Other Data Source");
     /* ==== End Cypress Studio ==== */
   });
@@ -51,6 +56,9 @@ describe("Measure: CIS-CH", () => {
     cy.get("#DataSource3-checkbox").check();
     cy.get(
       '[data-cy="DataSourceSelections.OtherDataSource.description"]'
+    ).click();
+    cy.get(
+      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
     ).click();
     cy.get('[data-cy="DateRange.startDate-month"]').clear();
     cy.get('[data-cy="DateRange.startDate-month"]').type("10");
@@ -131,299 +139,209 @@ describe("Measure: CIS-CH", () => {
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
     cy.get('[data-cy="PerformanceMeasure.hybridExplanation"]').click();
     /* ==== NDR section verification ==== */
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("2");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("20");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.numerator"]').type("2");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.rate"]').should(
       "have.value",
       "10.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).type("3");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).type("20");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.1.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.1.numerator"]').type("3");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.1.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.1.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.1.rate"]').should(
       "have.value",
       "15.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.2.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.2.numerator"]'
-    ).type("3");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.2.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.2.denominator"]'
-    ).type("40");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.2.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.2.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.2.numerator"]').type("3");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.2.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.2.denominator"]').type(
+      "40"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.2.rate"]').should(
       "have.value",
       "7.5"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.3.denominator"]'
-    ).type("20");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.3.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.3.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.3.numerator"]').type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.3.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.3.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.3.rate"]').should(
       "have.value",
       "30.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.4.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.5.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.5.numerator"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.5.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.5.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.6.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.6.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.6.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.6.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.7.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.7.numerator"]'
-    ).type("8");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.7.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.7.denominator"]'
-    ).type("2");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.4.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.4.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.4.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.4.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.5.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.5.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.5.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.5.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.6.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.6.numerator"]').type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.6.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.6.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.7.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.7.numerator"]').type("8");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.7.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.7.denominator"]').type(
+      "2"
+    );
     cy.get(
       '[data-cy="Numerator: 8 cannot be greater than Denominator: 2"]'
     ).should("have.text", "Numerator: 8 cannot be greater than Denominator: 2");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.7.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.7.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.8.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.8.numerator"]'
-    ).type("10");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.8.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.8.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.9.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.9.numerator"]'
-    ).type("40");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.9.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.9.denominator"]'
-    ).type("20");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.7.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.7.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.8.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.8.numerator"]').type(
+      "10"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.8.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.8.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.9.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.9.numerator"]').type(
+      "40"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.9.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.9.denominator"]').type(
+      "20"
+    );
     cy.get(
       '[data-cy="Numerator: 40 cannot be greater than Denominator: 20"]'
     ).should(
       "have.text",
       "Numerator: 40 cannot be greater than Denominator: 20"
     );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.9.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.9.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.10.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.10.numerator"]').type(
+      "9"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.9.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.10.denominator"]'
     ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.10.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.11.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.11.numerator"]').type(
+      "9"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.9.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.10.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.11.denominator"]'
     ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.11.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.12.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.12.numerator"]').type(
+      "1"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.10.numerator"]'
-    ).type("9");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.10.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.12.denominator"]'
     ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.12.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.13.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.13.numerator"]').type(
+      "4"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.10.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.11.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.13.denominator"]'
     ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.13.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.14.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.14.numerator"]').type(
+      "5"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.11.numerator"]'
-    ).type("9");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.11.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.14.denominator"]'
     ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.14.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.15.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.15.numerator"]').type(
+      "5"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.11.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.12.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.15.denominator"]'
     ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.15.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.16.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.16.numerator"]').type(
+      "8"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.12.numerator"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.12.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.16.denominator"]'
     ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.16.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.17.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.17.numerator"]').type(
+      "6"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.12.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.13.numerator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.17.denominator"]'
     ).clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.17.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.18.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.18.numerator"]').type(
+      "5"
+    );
     cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.13.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.13.denominator"]'
+      '[data-cy="PerformanceMeasure.rates.u7wDB2.18.denominator"]'
     ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.13.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.14.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.14.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.14.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.14.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.15.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.15.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.15.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.15.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.16.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.16.numerator"]'
-    ).type("8");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.16.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.16.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.17.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.17.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.17.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.17.denominator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.18.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.18.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.18.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.18.denominator"]'
-    ).type("20");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.18.denominator"]').type(
+      "20"
+    );
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="The following categories must have the same denominator:"]'
     ).should("be.visible");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.2.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.2.denominator"]'
-    ).type("20");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.2.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.2.denominator"]').type(
+      "20"
+    );
     cy.get("div.css-0 > :nth-child(3) > .chakra-stack").click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.numerator"]').type("0");
     cy.get('[data-cy="IPV"]').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.rate"]').should(
       "have.value",
       "0.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').type(
-      "99"
-    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.1.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.1.rate"]').type("99");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="The measure has been validated successfully"]').should(
       "have.text",
@@ -444,18 +362,16 @@ describe("Measure: CIS-CH", () => {
   it("if only admin data cannot override, if anything else, rate is editable", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.rate"]').should(
       "have.attr",
       "readonly"
     );
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.0.rate"]').should(
       "not.have.attr",
       "readonly"
     );
