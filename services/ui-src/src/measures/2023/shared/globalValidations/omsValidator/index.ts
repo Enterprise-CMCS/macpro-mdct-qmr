@@ -84,7 +84,8 @@ const validateNDRs = (
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
-  const isClassFilled: { [key: string]: boolean } = {};
+  const isClassificationFilled: { [key: string]: boolean } = {};
+  const isDisaggregateFilled: { [key: string]: boolean } = {};
   const errorArray: FormError[] = [];
   // validates top levels, ex: Race, Geography, Sex
   const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string[]) => {
@@ -118,10 +119,13 @@ const validateNDRs = (
       }
     }
     // validate sub type, ex: Asian -> Korean, Chinese, etc
-    if (node.aggregate?.includes("No")) {
+    if (node.aggregate?.includes("NoIndependentData")) {
+      //if options are empty but there's a no
       for (const key of node.options ?? []) {
         validateChildNodes(node.selections?.[key] ?? {}, [...label, key]);
       }
+      //check if disaggregate has sub-categories selected
+      checkIsDisaggregateFilled(label, node.selections);
     }
     //validate rates
     if (node.rateData) {
@@ -174,7 +178,7 @@ const validateNDRs = (
       ""
     );
     checkIsDeepFilled(locationReduced, rateData);
-    checkIsClassFilled(locationReduced, rateData);
+    checkIsClassificationFilled(locationReduced, rateData);
   };
   //checks at least one ndr filled
   const checkNdrsFilled = (rateData: RateData) => {
@@ -256,10 +260,18 @@ const validateNDRs = (
   };
 
   //check if sub-classifications have rateData entered
-  const checkIsClassFilled = (location: string, rateData: RateData) => {
-    isClassFilled[location] = rateData?.rates !== undefined;
+  const checkIsClassificationFilled = (
+    location: string,
+    rateData: RateData
+  ) => {
+    isClassificationFilled[location] = rateData?.rates !== undefined;
   };
 
+  //if selection is empty, it means that no sub classification was selected
+  const checkIsDisaggregateFilled = (locations: string[], selection: any) => {
+    //only check if there's at least 1
+    isDisaggregateFilled[locations[1]] = selection !== undefined;
+  };
   // Loop through top level nodes for validation
   for (const key of data.OptionalMeasureStratification?.options ?? []) {
     isFilled[key] = false;
@@ -296,9 +308,9 @@ const validateNDRs = (
 
     //if at least one sub-classifications qualifiers is false (no rate data entered), we want to generate an error message,
     //else if all is false, we will ignore it as another error message would already be there
-    if (!Object.values(isClassFilled).every((v) => v === false)) {
-      for (const classKey in isClassFilled) {
-        if (!isClassFilled[classKey]) {
+    if (!Object.values(isClassificationFilled).every((v) => v === false)) {
+      for (const classKey in isClassificationFilled) {
+        if (!isClassificationFilled[classKey]) {
           errorArray.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
               classKey.split("-")
@@ -306,6 +318,19 @@ const validateNDRs = (
             errorMessage: "Must fill out at least one NDR set.",
           });
         }
+      }
+    }
+
+    //checking if the user has selected no to aggregate data for certain classifictions (i.e. asian, native hawaiian or pacific islanders)
+    //keeping the error message seperate in case we want to have unique messages in the future
+    for (const classKey in isDisaggregateFilled) {
+      if (!isDisaggregateFilled[classKey]) {
+        errorArray.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            classKey.split("-")
+          )}`,
+          errorMessage: "Must fill out at least one NDR set.",
+        });
       }
     }
   }
