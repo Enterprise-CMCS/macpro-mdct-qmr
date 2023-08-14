@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Combined rates validation testing", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("OUD-AD");
   });
@@ -9,7 +11,7 @@ describe("Combined rates validation testing", () => {
   it("displays the correct warning if no NDR sets has been entered", () => {
     cy.get(`[data-cy="Validate Measure"]`).should("be.visible").click();
     cy.get(".chakra-alert")
-      .should("be.visible", { timeout: 5000 })
+      .should("be.visible")
       .should(
         "include.text",
         "Performance Measure/Other Performance Measure Error"
@@ -53,10 +55,6 @@ describe("Combined rates validation testing", () => {
 
 const enterNDR = () => {
   cy.get('[data-cy="MeasurementSpecification0"]').click();
-  cy.get(
-    '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-  ).type("1");
-  cy.get(
-    '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-  ).type("2");
+  cy.get('[data-cy="PerformanceMeasure.rates.t75kZB.0.numerator"]').type("1");
+  cy.get('[data-cy="PerformanceMeasure.rates.t75kZB.0.denominator"]').type("2");
 };
