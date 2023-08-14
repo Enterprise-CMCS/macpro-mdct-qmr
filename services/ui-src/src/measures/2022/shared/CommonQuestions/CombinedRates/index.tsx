@@ -37,7 +37,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
           isExternal
           aria-label="Additional state level brief information"
         >
-          State-Level Rate Brief
+          <u>State-Level Rate Brief</u>
         </CUI.Link>
         .
       </CUI.Text>

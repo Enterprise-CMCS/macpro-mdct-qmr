@@ -22,7 +22,7 @@ const subTextElement = (link: string) => {
     <CUI.Text mt="2" mb="2">
       Information for each measure is available in the{" "}
       <CUI.Link href={link} color="blue" isExternal>
-        Measurement Period Table
+        <u>Measurement Period Table</u>
       </CUI.Link>{" "}
       resource.
     </CUI.Text>
