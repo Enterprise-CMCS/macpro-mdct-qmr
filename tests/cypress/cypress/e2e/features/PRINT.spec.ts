@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("Measure: AMR-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("AMR-AD");
   });
@@ -18,20 +20,18 @@ describe("Measure: AMR-AD", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="Performance Measure"]').should("be.visible");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.HRsQ7F.0.numerator"]').type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.HRsQ7F.0.denominator"]').type(
+      "6"
+    );
     cy.get(
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get('[data-cy="Print"]').should("be.enabled");
     //cy.get('[data-cy="Print"]').click();

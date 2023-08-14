@@ -35,55 +35,45 @@ describe("Measure: PQI05-AD", () => {
     cy.get('[data-cy="DataSource0"]').click();
 
     // Rate calculation should be = (N/D*100,000)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).type("10");
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').type(
+      "10"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.value",
       "50000.0"
     );
 
     // Ensure that auto calculate rate displays 1 decimal (even if the value is zero)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.numerator"]'
-    ).type("8");
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.numerator"]').type("8");
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.value",
       "80000.0"
     );
 
     // Ensure that numerical value after decimal is rounded up/down for auto calculated rate (up)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).type("9");
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').type(
+      "9"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.value",
       "88888.9"
     );
 
     // Ensure that numerical value after decimal is rounded up/down for auto calculated rate (down)
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).type("18");
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').type(
+      "18"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.value",
       "44444.4"
     );
 
     // Ensure that user cannot manually enter rates if admin data is selected - (already selected)
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.attr",
       "readonly"
     );
@@ -94,27 +84,25 @@ describe("Measure: PQI05-AD", () => {
     cy.get('[data-cy="DataSource1"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
 
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.numerator"]'
-    ).type("10");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).type("20");
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.numerator"]').type(
+      "10"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.value",
       "50000.0"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "not.have.attr",
       "readonly"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').type(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').type(
       "4869568.1"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.value",
       "4869568.1"
     );
@@ -125,23 +113,17 @@ describe("Measure: PQI05-AD", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource1"]').click();
 
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.numerator"]'
-    ).type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.numerator"]').type("0");
 
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.value",
       "0.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').type(
-      "5"
-    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').type("5");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Manually entered rate should be 0 if numerator is 0"]'
@@ -161,22 +143,16 @@ describe("Measure: PQI05-AD", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource1"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').should(
       "have.value",
       "100000.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.rate"]').type(
-      "0"
-    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.rate"]').type("0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
@@ -199,18 +175,16 @@ describe("Measure: PQI05-AD", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"]').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.0.denominator"]'
-    ).type("10");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.1.numerator"]'
-    ).type("20");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.PQI05-AD-CAT-A.1.denominator"]'
-    ).type("40");
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.0.denominator"]').type(
+      "10"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.1.numerator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.CzBbvv.1.denominator"]').type(
+      "40"
+    );
     cy.get('[data-cy="DidCalculationsDeviate0"]').click();
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get('[data-cy="OptionalMeasureStratification.options1"]').click();
@@ -227,7 +201,7 @@ describe("Measure: PQI05-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.PQI05-AD-CAT-A.ocpMf5.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.CzBbvv.ocpMf5.0.numerator"]'
     ).should("be.visible");
   });
 

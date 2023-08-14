@@ -1,14 +1,15 @@
+import { testingYear } from "../../../support/constants";
 describe.skip("Submit Core Set button", () => {
   beforeEach(() => {
     cy.login("stateuser4");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Reset All Measures"]').first().click();
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-CT2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2023ACS"]').should(
       "contain.text",
-      "in progress1 of 32 complete"
+      "in progress1 of 34 complete"
     );
   });
 
@@ -17,9 +18,9 @@ describe.skip("Submit Core Set button", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Complete All Measures"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-CT2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2023ACS"]').should(
       "contain.text",
-      "complete32 of 32 complete"
+      "complete34 of 34 complete"
     );
 
     // submit core set
@@ -32,9 +33,9 @@ describe.skip("Submit Core Set button", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-CT2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2023ACS"]').should(
       "contain.text",
-      "submitted32 of 32 complete"
+      "submitted34 of 34 complete"
     );
   });
 
@@ -49,9 +50,9 @@ describe.skip("Submit Core Set button", () => {
 
     // confirm all measures complete
     cy.visit("/");
-    cy.get('[data-cy="Status-CT2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2023ACS"]').should(
       "contain.text",
-      "complete32 of 32 complete"
+      "complete34 of 34 complete"
     );
 
     // complete qualifier
@@ -76,9 +77,9 @@ describe.skip("Submit Core Set button", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Complete All Measures"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-CT2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2023ACS"]').should(
       "contain.text",
-      "complete32 of 32 complete"
+      "complete34 of 34 complete"
     );
 
     // submit core set
@@ -96,9 +97,9 @@ describe.skip("Submit Core Set button", () => {
 
     // Confirm unsubmission
     cy.visit("/");
-    cy.get('[data-cy="Status-CT2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2023ACS"]').should(
       "contain.text",
-      "in progress31 of 32 complete"
+      "in progress33 of 34 complete"
     );
     cy.goToAdultMeasures();
     cy.get('[data-cy="Submit Core Set"]').should("be.disabled");
@@ -108,7 +109,7 @@ describe.skip("Submit Core Set button", () => {
   it("edits to qualifier of a 'submited' core set unsubmit the measure; button should reappear (ACS)", () => {
     // complete all measures, qualifier, submit core set
     cy.goToAdultMeasures();
-    qualifierTestSetup("ADULT", "CT2021ACS");
+    qualifierTestSetup("ADULT", "CT2023ACS");
 
     // update submitted qualifier
     cy.goToAdultMeasures();
@@ -119,9 +120,9 @@ describe.skip("Submit Core Set button", () => {
 
     // Confirm unsubmission
     cy.visit("/");
-    cy.get('[data-cy="Status-CT2021ACS"]').should(
+    cy.get('[data-cy="Status-CT2023ACS"]').should(
       "contain.text",
-      "complete32 of 32 complete"
+      "complete33 of 34 complete"
     );
     cy.goToAdultMeasures();
     cy.get('[data-cy="Submit Core Set"]').should("be.enabled");
@@ -226,7 +227,7 @@ describe.skip("Submit Core Set button", () => {
       '[data-cy="health home-kebab-menu"] + div > div > [data-cy="Complete All Measures"]'
     ).click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-CT2021HHCS_15-014"]').should(
+    cy.get('[data-cy="Status-CT2023HHCS_15-014"]').should(
       "contain.text",
       "complete11 of 11 complete"
     );
@@ -247,7 +248,7 @@ describe.skip("Submit Core Set button", () => {
 
     // Show a submitted status
     cy.visit("/");
-    cy.get('[data-cy="Status-CT2021HHCS_15-014"]').should(
+    cy.get('[data-cy="Status-CT2023HHCS_15-014"]').should(
       "contain.text",
       "submitted11 of 11 complete"
     );
@@ -264,7 +265,7 @@ describe.skip("Submit Core Set button", () => {
 
     // Check if core set is in progress
     cy.visit("/");
-    cy.get('[data-cy="Status-CT2021HHCS_15-014"]').should(
+    cy.get('[data-cy="Status-CT2023HHCS_15-014"]').should(
       "contain.text",
       "in progress10 of 11 complete"
     );
@@ -326,6 +327,7 @@ const qualifierTestSetup = (abbrList: string, statusString: string) => {
 
 const measureAbbrList = {
   ADULT: [
+    "AAB-AD",
     "AMM-AD",
     "AMR-AD",
     "BCS-AD",
@@ -336,12 +338,14 @@ const measureAbbrList = {
     "CDF-AD",
     "CHL-AD",
     "COB-AD",
+    "COL-AD",
     "CPA-AD",
+    "CPU-AD",
     "FUA-AD",
     "FUH-AD",
     "FUM-AD",
     "FVA-AD",
-    "HPC-AD",
+    "HBD-AD",
     "HPCMI-AD",
     "HVL-AD",
     "IET-AD",
@@ -349,7 +353,6 @@ const measureAbbrList = {
     // "NCIDDS-AD",  // complete on creation
     "OHD-AD",
     "OUD-AD",
-    "PC01-AD",
     "PCR-AD",
     "PPC-AD",
     "PQI01-AD",
@@ -360,12 +363,12 @@ const measureAbbrList = {
     "SSD-AD",
   ],
   CHILD: [
+    "AAB-CH",
     "ADD-CH",
     "AMB-CH",
     "AMR-CH",
     "APM-CH",
     "APP-CH",
-    "AUD-CH",
     "CCP-CH",
     "CCW-CH",
     "CDF-CH",
@@ -373,13 +376,17 @@ const measureAbbrList = {
     "CIS-CH",
     "CPC-CH",
     "DEV-CH",
+    "FUA-CH",
     "FUH-CH",
     "IMA-CH",
     // "LBW-CH",  // complete on creation
     // "LRCD-CH",  // complete on creation
     // "PDENT-CH",  // complete on creation
+    "LSC-CH",
+    "OEV-CH",
     "PPC-CH",
     "SFM-CH",
+    "TFL-CH",
     "W30-CH",
     "WCC-CH",
     "WCV-CH",

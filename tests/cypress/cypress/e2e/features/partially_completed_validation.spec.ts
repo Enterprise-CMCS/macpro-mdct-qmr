@@ -1,7 +1,9 @@
-describe.skip("OY2 16341 NDR set validation updates for all measures ", () => {
+import { testingYear } from "../../../support/constants";
+
+describe("OY2 16341 NDR set validation updates for all measures ", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("should throw validation error for partially completed ndr sets - just qualifiers", () => {
@@ -10,7 +12,7 @@ describe.skip("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(`[data-cy="MeasurementSpecification0"]`).click();
 
     // PM
-    cy.get(`[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]`)
+    cy.get(`[data-cy="PerformanceMeasure.rates.cvc5jQ.0.numerator"]`)
       .clear()
       .type("7");
     cy.get(`[data-cy="Validate Measure"]`).click();
@@ -20,24 +22,24 @@ describe.skip("OY2 16341 NDR set validation updates for all measures ", () => {
     ).should("exist");
 
     // OMS
-    cy.get(`[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]`)
+    cy.get(`[data-cy="PerformanceMeasure.rates.cvc5jQ.0.denominator"]`)
       .clear()
       .type("8");
     cy.get(`[data-cy="OptionalMeasureStratification.options0"]`).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]`
+      `[data-cy="OptionalMeasureStratification.selections.Race.options0"]`
     ).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]`
+      `[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"]`
     ).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages21to24.singleCategory.0.numerator"]`
+      `[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.cvc5jQ.eV26mN.0.numerator"]`
     )
       .clear()
       .type("8");
     cy.get(`[data-cy="Validate Measure"]`).click();
     cy.get(
-      `[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White Error"]`
+      `[data-cy="Optional Measure Stratification: Race - American Indian or Alaska Native Error"]`
     ).should("exist");
     cy.get(
       `[data-cy="Should not have partially filled NDR sets for Ages 21 to 24."]`
@@ -50,9 +52,7 @@ describe.skip("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(`[data-cy="MeasurementSpecification0"]`).click();
 
     // PM
-    cy.get(
-      `[data-cy="PerformanceMeasure.rates.FollowUpwithin30daysafterdischarge.0.numerator"]`
-    )
+    cy.get(`[data-cy="PerformanceMeasure.rates.8w4t99.0.numerator"]`)
       .clear()
       .type("7");
     cy.get(`[data-cy="Validate Measure"]`).click();
@@ -62,26 +62,24 @@ describe.skip("OY2 16341 NDR set validation updates for all measures ", () => {
     ).should("exist");
 
     // OMS
-    cy.get(
-      `[data-cy="PerformanceMeasure.rates.FollowUpwithin30daysafterdischarge.0.denominator"]`
-    )
+    cy.get(`[data-cy="PerformanceMeasure.rates.8w4t99.0.denominator"]`)
       .clear()
       .type("8");
     cy.get(`[data-cy="OptionalMeasureStratification.options0"]`).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.options0"]`
+      `[data-cy="OptionalMeasureStratification.selections.Race.options0"]`
     ).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.options0"]`
+      `[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"]`
     ).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.RaceNonHispanic.selections.White.rateData.rates.Ages18to64.FollowUpwithin30daysafterdischarge.0.numerator"]`
+      `[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8w4t99.FbBLHo.0.numerator"]`
     )
       .clear()
       .type("8");
     cy.get(`[data-cy="Validate Measure"]`).click();
     cy.get(
-      `[data-cy="Optional Measure Stratification: Race (Non-Hispanic) - White Error"]`
+      `[data-cy="Optional Measure Stratification: Race - American Indian or Alaska Native Error"]`
     ).should("exist");
     cy.get(
       `[data-cy="Should not have partially filled NDR sets for Ages 18 to 64, Follow-Up within 30 days after discharge."]`
