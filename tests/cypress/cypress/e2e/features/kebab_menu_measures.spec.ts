@@ -1,7 +1,9 @@
-describe.skip("Measure kebab menus", () => {
+import { testingYear } from "../../../support/constants";
+
+describe("Measure kebab menus", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it('displays "View" option', () => {
@@ -19,10 +21,10 @@ describe.skip("Measure kebab menus", () => {
   it('navigates to the measure page when "View" is selected', () => {
     cy.get('[data-cy="ACS"]').click();
     cy.get('[data-cy="Measure Actions-AMM-AD"]').click();
-    cy.get('#menu-list-11 > [data-cy="View"]').click();
+    cy.get('#menu-list-11 > [data-cy="View"]').click({ force: true });
     cy.get('[data-cy="state-layout-container"').should(
       "include.text",
-      "AMM-AD - Antidepressant Medication Management"
+      "FFY 2023AAB-AD - Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older"
     );
   });
 });
@@ -31,14 +33,7 @@ describe.skip("Edit state specific measure name and description", () => {
   it('displays the "Edit" option', () => {
     cy.loginHealthHome();
     cy.goToHealthHomeSetMeasures();
-
-    // Add HH core set
-    cy.get('[data-cy="add-hhbutton"]').click();
-    cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select("18-0006");
-    cy.get('[data-cy="Create"]').click();
-
     // Navigate to HH core set and create state specific measure
-    cy.get('[data-cy="HHCS_18-0006"]').click();
     cy.get('[data-cy="add-ssm-button"]').click();
     cy.get('[data-cy="add-ssm.0.description"]').type("name");
     cy.get('[data-cy="add-ssm.0.detailedDescription"]').type(
