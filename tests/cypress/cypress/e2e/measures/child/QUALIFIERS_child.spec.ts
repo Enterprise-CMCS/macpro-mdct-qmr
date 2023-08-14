@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Child Measure Qualifier: CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("Child Core Set Measures: Combined", () => {
@@ -14,7 +16,7 @@ describe("Child Measure Qualifier: CH", () => {
     cy.get("body").should("include.text", "Delivery System");
     cy.get("body").should(
       "include.text",
-      "As of September 30, 2020 what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?"
+      "As of September 30, 2022 what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?"
     );
     cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.label"]').should(
       "have.value",
@@ -62,7 +64,9 @@ describe("Child Measure Qualifier: CH", () => {
     );
 
     // begining of checking multiselect for values
-
+    cy.get(
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AAB-CH - Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Ages 3 Months to 17 Years"]'
+    ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-ADD-CH - Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication"]'
     ).should("be.visible");
@@ -79,9 +83,6 @@ describe("Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-APP-CH - Use of First-Line Psychosocial Care for Children and Adolescents on Antipsychotics"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AUD-CH - Audiological Diagnosis No Later than 3 Months of Age"]'
-    ).should("be.visible");
-    cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CCP-CH - Contraceptive Care - Postpartum Women Ages 15 to 20"]'
     ).should("be.visible");
     cy.get(
@@ -96,23 +97,38 @@ describe("Child Measure Qualifier: CH", () => {
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CIS-CH - Childhood Immunization Status"]'
     ).should("be.visible");
-    //cy.get(
-    // '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"]'
-    //).should("be.visible");
+    cy.get(
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-CPC-CH - Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items"]'
+    ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-DEV-CH - Developmental Screening in the First Three Years of Life"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUA-CH - Follow-Up After Emergency Department Visit for Substance Use: Ages 13 to 17"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUH-CH - Follow-Up After Hospitalization for Mental Illness: Ages 6 to 17"]'
     ).should("be.visible");
     cy.get(
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-FUM-CH - Follow-Up After Emergency Department Visit for Mental Illness: Ages 6 to 17"]'
+    ).should("be.visible");
+    cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-IMA-CH - Immunizations for Adolescents"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-LSC-CH - Lead Screening in Children"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-OEV-CH - Oral Evaluation, Dental Services"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-PPC-CH - Prenatal and Postpartum Care: Timeliness of Prenatal Care"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-SFM-CH - Sealant Receipt on Permanent First Molars"]'
+    ).should("be.visible");
+    cy.get(
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-TFL-CH - Prevention: Topical Fluoride for Children"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-W30-CH - Well-Child Visits in the First 30 Months of Life"]'

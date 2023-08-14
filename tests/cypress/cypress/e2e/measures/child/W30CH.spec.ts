@@ -1,7 +1,9 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure 45: W30-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("W30-CH");
   });
@@ -34,23 +36,19 @@ describe("Measure 45: W30-CH", () => {
   it("calculates rates correctly", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.rate"]').should(
       "have.value",
       "80.0"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).type("6");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.1.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.1.denominator"]').type(
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.1.rate"]').should(
       "have.value",
       "83.3"
     );
@@ -59,23 +57,17 @@ describe("Measure 45: W30-CH", () => {
   it("rounds the numerical value after the decimal up/down for auto-calculated rates", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("1");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("3");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.numerator"]').type("1");
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.denominator"]').type(
+      "3"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.rate"]').should(
       "have.value",
       "33.3"
     );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("2");
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.numerator"]').type("2");
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.rate"]').should(
       "have.value",
       "66.7"
     );
@@ -85,18 +77,12 @@ describe("Measure 45: W30-CH", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("0");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("12");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
-      "10.0"
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.numerator"]').type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.denominator"]').type(
+      "12"
     );
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.rate"]').type("10.0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-testid="measure-wrapper-form"]').should(
       "include.text",
@@ -108,18 +94,14 @@ describe("Measure 45: W30-CH", () => {
     cy.get('[data-cy="MeasurementSpecification0"').click();
     cy.get('[data-cy="DataSource1"]').click();
     cy.enterValidDateRange();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("10");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("12");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]').type(
-      "0"
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.numerator"]').type(
+      "10"
     );
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.denominator"]').type(
+      "12"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.HOiTVR.0.rate"]').type("0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-testid="measure-wrapper-form"]').should(
       "include.text",
