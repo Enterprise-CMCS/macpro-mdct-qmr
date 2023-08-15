@@ -174,6 +174,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSourceType).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
@@ -186,6 +187,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateEqualCategoryDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateEqualCategoryDenominatorsOMS).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).not.toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).not.toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).not.toHaveBeenCalled();
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
@@ -198,6 +202,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDataSourceType).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
@@ -210,6 +215,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateEqualCategoryDenominatorsPM).toHaveBeenCalled();
     expect(V.validateEqualQualifierDenominatorsOMS).not.toHaveBeenCalled();
     expect(V.validateEqualCategoryDenominatorsOMS).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDeliverySystem).toHaveBeenCalled();
+    expect(V.validateFfsRadioButtonCompletion).toHaveBeenCalled();
+    expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {

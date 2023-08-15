@@ -21,23 +21,17 @@ export const listMeasures = handler(async (event, context) => {
   };
 
   const scannedResults: any[] = [];
-  let queryValue;
+  let queryValue = await dynamoDb.scan(params);
+  queryValue?.Items?.forEach((v) => {
+    const measure = measures[parseInt(year)]?.filter(
+      (m) => m.measure === (v as Measure)?.measure
+    )[0];
 
-  do {
-    queryValue = await dynamoDb.scan(params);
-    queryValue?.Items?.forEach((v) => {
-      const measure = measures[parseInt(year)]?.filter(
-        (m) => m.measure === (v as Measure)?.measure
-      )[0];
-
-      scannedResults.push({
-        ...v,
-        autoCompleted: !!measure?.autocompleteOnCreation,
-      });
+    scannedResults.push({
+      ...v,
+      autoCompleted: !!measure?.autocompleteOnCreation,
     });
-
-    params.ExclusiveStartKey = queryValue.LastEvaluatedKey;
-  } while (queryValue.LastEvaluatedKey !== undefined);
+  });
   queryValue.Items = scannedResults;
   return queryValue;
 });

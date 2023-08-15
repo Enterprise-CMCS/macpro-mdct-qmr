@@ -16,12 +16,7 @@ const authenticateWithIDM = () => {
     const oAuthOpts = authConfig.oauth;
     const domain = oAuthOpts.domain;
     const responseType = oAuthOpts.responseType;
-    let redirectSignIn;
-
-    if ("redirectSignOut" in oAuthOpts) {
-      redirectSignIn = oAuthOpts.redirectSignOut;
-    }
-
+    const redirectSignIn = (oAuthOpts as any).redirectSignIn;
     const clientId = authConfig.userPoolWebClientId;
     const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
     window.location.assign(url);
@@ -42,10 +37,17 @@ export const UserProvider = ({ children }: Props) => {
     } catch (error) {
       console.log("error signing out: ", error);
     }
-    window.location.href = config.cognito.REDIRECT_SIGNOUT;
+    window.location.href = config.POST_SIGNOUT_REDIRECT;
   }, []);
 
   const checkAuthState = useCallback(async () => {
+    // Allow Post Logout flow alongside user login flow
+    if (location?.pathname.toLowerCase() === "/postlogout") {
+      window.location.href = config.POST_SIGNOUT_REDIRECT;
+      return;
+    }
+
+    // Authenticate
     try {
       const authenticatedUser = await Auth.currentAuthenticatedUser();
       setUser(authenticatedUser);
@@ -56,7 +58,7 @@ export const UserProvider = ({ children }: Props) => {
         setShowLocalLogins(true);
       }
     }
-  }, [isProduction]);
+  }, [isProduction, location]);
 
   // "custom:cms_roles" is an string of concat roles so we need to check for the one applicable to qmr
   const userRole = (

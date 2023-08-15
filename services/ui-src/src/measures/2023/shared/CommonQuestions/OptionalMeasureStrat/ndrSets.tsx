@@ -52,7 +52,7 @@ const TotalNDR = ({
   const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
   const cleanedQualifier = lastQualifier.id;
   const cleanedCategory = category.id;
-  const cleanedName = `${name}.rates.${cleanedQualifier}.${cleanedCategory}`;
+  const cleanedName = `${name}.rates.${cleanedCategory}.${cleanedQualifier}`;
   const label =
     category.label === DC.SINGLE_CATEGORY
       ? lastQualifier.label
@@ -255,7 +255,7 @@ const useStandardRateArray: RateArrayBuilder = (name) => {
 };
 
 /** Creates Rate Components for each Qualifier if filled in PM */
-const useQualRateArray: RateArrayBuilder = (name) => {
+const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
   const {
     categories,
     qualifiers,
@@ -277,13 +277,22 @@ const useQualRateArray: RateArrayBuilder = (name) => {
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const rateArrays: React.ReactElement[][] = [];
 
+  /*
+   * Each qualifier should only show in OMS if the rate for that qualifier
+   * has been filled out in the Performance Measure.
+   * This is determined by pulling the qualifier ID out of the rate UID.
+   */
+  const completedQualifierIds = performanceMeasureArray?.[0]
+    ?.filter((qualRateFields) => qualRateFields?.rate)
+    .map((qualRateFields) => qualRateFields.uid?.split(".")[1]);
+
   quals?.forEach((singleQual, qualIndex) => {
     const categoryID = categories[0]?.id
       ? categories[0].id
       : DC.SINGLE_CATEGORY;
     const cleanedName = `${name}.rates.${categoryID}.${singleQual.id}`;
 
-    if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
+    if (completedQualifierIds?.includes(singleQual.id)) {
       rateArrays.push([
         <QMR.Rate
           readOnly={rateReadOnly}
@@ -343,7 +352,7 @@ const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();
 
-  const qualRates = useQualRateArray(name);
+  const qualRates = useRatesForCompletedPmQualifiers(name);
   const standardRates = useStandardRateArray(name);
   const rateArrays =
     !categories.length || !categories.some((item) => item.label)
@@ -521,8 +530,8 @@ const useRenderOPMCheckboxOptions = (name: string) => {
               id: 0,
             },
           ]}
-          name={`${name}.rates.${cleanedFieldName}.OPM`}
-          key={`${name}.rates.${cleanedFieldName}.OPM`}
+          name={`${name}.rates.OPM.${cleanedFieldName}`}
+          key={`${name}.rates.OPM.${cleanedFieldName}`}
           readOnly={rateReadOnly}
           rateMultiplicationValue={rateMultiplicationValue}
           customMask={customMask}

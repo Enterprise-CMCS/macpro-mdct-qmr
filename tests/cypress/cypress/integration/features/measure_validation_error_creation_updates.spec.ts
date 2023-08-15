@@ -1,6 +1,7 @@
 describe("Confirm Validate Measure Errors", () => {
   beforeEach(() => {
     cy.login("stateuser2");
+    cy.selectYear("2021");
     cy.goToAdultMeasures();
     cy.goToMeasure("CHL-AD");
   });

@@ -5,11 +5,16 @@ import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
 import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 export function Home() {
   const { userRole, userState } = useUser();
+  const releaseYearByFlag = useFlags()?.["release2023"]
+    ? config.currentReportingYear
+    : parseInt(config.currentReportingYear) - 1;
   if (
     userRole === UserRoles.HELP ||
+    userRole === UserRoles.INTERNAL ||
     userRole === UserRoles.ADMIN ||
     userRole === UserRoles.BO ||
     userRole === UserRoles.BOR
@@ -27,5 +32,5 @@ export function Home() {
       </CUI.Box>
     );
   }
-  return <Navigate to={`/${userState}/${config.currentReportingYear}`} />;
+  return <Navigate to={`/${userState}/${releaseYearByFlag}`} />;
 }

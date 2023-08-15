@@ -1,6 +1,7 @@
 describe("Child Measure Qualifier: CH", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
   });
 
   it("Child Core Set Measures: Combined", () => {

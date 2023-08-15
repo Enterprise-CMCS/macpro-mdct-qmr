@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
-import { allNumbers, xNumbersYDecimals } from "utils";
+import { allNumbers, LabelData, xNumbersYDecimals } from "utils";
 import * as QMR from "components";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
@@ -19,7 +19,7 @@ interface Props extends QMR.InputWrapperProps {
   calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
   categoryName?: string;
-  inputFieldNames?: string[];
+  inputFieldNames?: string[] | LabelData[];
   measureName?: string;
   ndrFormulas?: ndrFormula[];
 }
@@ -121,6 +121,19 @@ export const ComplexRate = ({
   // Quick reference list of all rate indices
   const rateLocations = ndrFormulas.map((ndr) => ndr.rate);
 
+  // We need every input field to have a label
+  let inputFields: LabelData[] | { label: string; id?: never }[] = [];
+  if (inputFieldNames.length > 0) {
+    // Pre-2023 input field names are strings
+    if (typeof inputFieldNames[0] === "string") {
+      inputFields = (inputFieldNames as string[]).map((field) => {
+        return { label: field };
+      });
+    }
+    // Post-2023 input field names are LabelData
+    else inputFields = inputFieldNames as LabelData[];
+  }
+
   const { field } = useController({
     name,
     control,
@@ -143,9 +156,14 @@ export const ComplexRate = ({
         prevRate[index] = {
           label: rate.label,
           uid: rate.uid,
-          fields: inputFieldNames.map((label) => {
+          fields: inputFields.map((field) => {
+            const label = field.label;
+            // Pre-2023 fields do not have an id, so uid is undefined.
+            // Undefined values are not saved to the database
+            const uid = field.id ?? undefined;
             return {
               label,
+              uid,
               value: undefined,
             };
           }),
@@ -240,15 +258,15 @@ export const ComplexRate = ({
               className={`${lowerCaseMeasureName}-field-stack`}
               key={`${lowerCaseMeasureName}-field-stack-${qualIndex}`}
             >
-              {inputFieldNames.map((inputFieldName, fieldIndex) => {
+              {inputFields.map((inputFieldName, fieldIndex) => {
                 return (
                   <QMR.InputWrapper
                     isInvalid={
                       !!objectPath.get(errors, `${name}.${fieldIndex}.value`)
                         ?.message
                     }
-                    key={`input-wrapper-${inputFieldName}-${fieldIndex}`}
-                    label={inputFieldName}
+                    key={`input-wrapper-${inputFieldName.label}-${fieldIndex}`}
+                    label={inputFieldName.label}
                     formLabelProps={{
                       minH: "50px",
                       h: "100px",

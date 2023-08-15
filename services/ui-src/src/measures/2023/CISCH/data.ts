@@ -27,7 +27,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
               value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
             {
-              value: DC.IMMUNIZATION_REGISTRY,
+              value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM,
             },
             {
               value: DC.ADMINISTRATIVE_DATA_OTHER,
@@ -47,7 +47,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
               value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
             },
             {
-              value: DC.IMMUNIZATION_REGISTRY,
+              value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM,
             },
             {
               value: DC.ADMINISTRATIVE_DATA_OTHER,

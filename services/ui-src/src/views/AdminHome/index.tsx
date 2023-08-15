@@ -3,9 +3,13 @@ import * as CUI from "@chakra-ui/react";
 import { stateAbbreviations } from "utils/constants";
 import { useNavigate } from "react-router";
 import config from "config";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 export const AdminHome = () => {
   const [locality, setLocality] = useState("AL");
+  const releaseYearByFlag = useFlags()?.["release2023"]
+    ? config.currentReportingYear
+    : parseInt(config.currentReportingYear) - 1;
   const navigate = useNavigate();
   return (
     <CUI.Container maxW="7xl" py="4">
@@ -26,9 +30,7 @@ export const AdminHome = () => {
         </CUI.Select>
         <CUI.Button
           colorScheme="blue"
-          onClick={() =>
-            navigate(`/${locality}/${config.currentReportingYear}`)
-          }
+          onClick={() => navigate(`/${locality}/${releaseYearByFlag}`)}
           isFullWidth
           data-cy="Go To State Home"
         >

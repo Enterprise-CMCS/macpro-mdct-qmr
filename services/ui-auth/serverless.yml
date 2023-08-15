@@ -40,7 +40,6 @@ custom:
   attachments_bucket_arn: ${cf:uploads-${self:custom.stage}.AttachmentsBucketArn}
   api_gateway_rest_api_name: ${cf:app-api-${self:custom.stage}.ApiGatewayRestApiName}
   okta_metadata_url: ${ssm:/configuration/${self:custom.stage}/okta_metadata_url, ""}
-  signout_redirect_url: ${env:COGNITO_REDIRECT_SIGNOUT, ssm:/configuration/${self:custom.stage}/cognito/redirectSignout, ssm:/configuration/default/cognito/redirectSignout}
   application_endpoint_url: ${cf:ui-${self:custom.stage}.ApplicationEndpointUrl}
   bootstrapUsersEnabled: ${ssm:/configuration/${self:custom.stage}/cognito/bootstrapUsers/enabled, ssm:/configuration/default/cognito/bootstrapUsers/enabled, ""}
   bootstrapUsersPassword: ${ssm:/configuration/${self:custom.stage}/cognito/bootstrapUsers/password, ssm:/configuration/default/cognito/bootstrapUsers/password, ""}
@@ -129,8 +128,10 @@ resources:
           - http://localhost:3000/
         DefaultRedirectURI: ${self:custom.application_endpoint_url}
         LogoutURLs:
-          - ${self:custom.signout_redirect_url}
+          - ${self:custom.application_endpoint_url}
+          - "${self:custom.application_endpoint_url}postLogout"
           - http://localhost:3000/
+          - http://localhost:3000/postLogout
         SupportedIdentityProviders:
           - Fn::If:
               - BackWithOkta

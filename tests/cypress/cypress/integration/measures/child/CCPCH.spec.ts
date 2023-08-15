@@ -1,6 +1,7 @@
 describe("Measure CCP-CH", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CCP-CH");
   });

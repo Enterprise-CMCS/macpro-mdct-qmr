@@ -1,3 +1,5 @@
+import { Key } from "aws-sdk/clients/dynamodb";
+
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;
@@ -70,6 +72,7 @@ export interface DynamoScan {
   FilterExpression?: string;
   ExpressionAttributeNames: { [key: string]: string };
   ExpressionAttributeValues: { [key: string]: any };
+  ExclusiveStartKey?: Key;
 }
 
 export interface DynamoFetch {
@@ -97,6 +100,7 @@ export const enum UserRoles {
   ADMIN = "mdctqmr-approver",
   STATE = "mdctqmr-state-user",
   HELP = "mdctqmr-help-desk",
+  INTERNAL = "mdctqmr-internal-user",
   BO = "mdctqmr-bo-user",
   BOR = "mdctqmr-bor",
 }

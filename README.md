@@ -83,7 +83,7 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 - [Quickstart](#quickstart)
 - [License](#license)
 
-# Getting Started                                                                                                                                     |
+# Getting Started |
 
 ## IDM
 
@@ -96,7 +96,7 @@ Users can log into QMR's non-development environments using IDM.
 ---
 
 1. Access QMR at https://mdctqmr.cms.gov and select "Register"
-1. Select the New User Registration button on the IDM sign-in screen
+1. Select the New User Registration button on the IDM sign-in screen.
 1. Provide requested information on the following screens and accept terms of service.
 1. Enter a user ID and password, select a security question, and submit.
 
@@ -252,7 +252,7 @@ The following are prerequisites for local development.
 1. [Create an SSH Key and link it to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 1. Clone this repository locally
    ```bash
-   git clone git@github.com:CMSgov/cms-mdct-qmr.git
+   git clone git@github.com:Enterprise-CMCS/macpro-mdct-qmr.git
    ```
 1. Install [Node](https://nodejs.org/en/download/)
 1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
@@ -849,7 +849,7 @@ Please [join the cms-mdct-qmr slack channel](https://join.slack.com/t/macproquic
 
 # Quickstart
 
-This application was forked from the [Quickstart Repository](https://github.com/cmsgov/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
+This application was forked from the [Quickstart Repository](https://github.com/Enterprise-CMCS/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
 
 # License
 

@@ -10377,9 +10377,9 @@ serverless-offline@^12.0.4:
     velocityjs "^2.0.6"
     ws "^8.11.0"
 
-serverless-online@CMSgov/serverless-online:
+serverless-online@Enterprise-CMCS/macpro-serverless-online:
   version "1.0.0"
-  resolved "https://codeload.github.com/CMSgov/serverless-online/tar.gz/1f7d068721f10f13f3c1f1b8e2d4bd21be42e77d"
+  resolved "https://codeload.github.com/Enterprise-CMCS/macpro-serverless-online/tar.gz/1f7d068721f10f13f3c1f1b8e2d4bd21be42e77d"
   dependencies:
     chokidar "^3.5.2"
 
@@ -10393,9 +10393,9 @@ serverless-plugin-warmup@^8.2.1:
   resolved "https://registry.yarnpkg.com/serverless-plugin-warmup/-/serverless-plugin-warmup-8.2.1.tgz#b776a886d4390a9e7c907f0db1c4639fed913350"
   integrity sha512-bVPqK2tt3m6AVjVnjuiU/nsGtm+hukaQmVn7zx2KbKSTCwOZEkMcsqKhkKw3Y4cm/vA2Wxd+3d1lftaGKFkG/Q==
 
-serverless-s3-bucket-helper@CMSgov/serverless-s3-bucket-helper#0.1.0:
+serverless-s3-bucket-helper@Enterprise-CMCS/serverless-s3-bucket-helper#0.1.0:
   version "1.0.0"
-  resolved "https://codeload.github.com/CMSgov/serverless-s3-bucket-helper/tar.gz/a6016a9ab164a21044741eb8eb69293f729605a0"
+  resolved "https://codeload.github.com/Enterprise-CMCS/serverless-s3-bucket-helper/tar.gz/a6016a9ab164a21044741eb8eb69293f729605a0"
 
 serverless-stack-termination-protection@^1.0.4:
   version "1.0.4"
@@ -12044,9 +12044,9 @@ widest-line@^4.0.1:
     string-width "^5.0.1"
 
 word-wrap@^1.2.3, word-wrap@~1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
-  integrity sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.4.tgz#cb4b50ec9aca570abd1f52f33cd45b6c61739a9f"
+  integrity sha512-2V81OA4ugVo5pRo46hAoD2ivUJx8jXmWXfUkY4KFNw0hEptvN0QfH3K4nHiwzGeKl5rFKedV48QVoqYavy4YpA==
 
 wrap-ansi@^6.2.0:
   version "6.2.0"

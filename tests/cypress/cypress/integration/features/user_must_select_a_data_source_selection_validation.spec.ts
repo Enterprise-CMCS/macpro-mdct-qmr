@@ -1,6 +1,7 @@
 describe("User must select a data source selection validation", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
   });
   it("verify error message when no data entered and click on validate button", () => {
     cy.get('[data-cy="ACS"]').click();

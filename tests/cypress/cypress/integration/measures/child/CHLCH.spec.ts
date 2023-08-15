@@ -1,6 +1,7 @@
 describe("Measure: oy2-9923 CHL-CH", () => {
   beforeEach(() => {
     cy.login();
+    cy.selectYear("2021");
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CHL-CH");
   });
