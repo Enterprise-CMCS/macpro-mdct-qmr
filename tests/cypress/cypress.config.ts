@@ -14,7 +14,7 @@ export default defineConfig({
   e2e: {
     setupNodeEvents,
     baseUrl: "http://localhost:3000/",
-    specPattern: "cypress/e2e/**/*.spec.ts",
+    specPattern: "cypress/integration/**/*.spec.ts",
     supportFile: "support/index.js",
   },
 });
