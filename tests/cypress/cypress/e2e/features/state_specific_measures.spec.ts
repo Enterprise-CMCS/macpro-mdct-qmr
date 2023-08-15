@@ -1,7 +1,9 @@
-describe.skip("Add state specific measure testing", () => {
+import { testingYear } from "../../../support/constants";
+
+describe("Add state specific measure testing", () => {
   before(() => {
     cy.loginHealthHome();
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.get('[data-cy="add-hhbutton"]').click(); // clicking on adding child core set measures
     cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select(1); // select first available SPA
     cy.get('[data-cy="Create"]').click(); //clicking create
@@ -39,12 +41,12 @@ describe.skip("Add state specific measure testing", () => {
   });
 
   it("state specific measures should have been created with the correct text", () => {
-    cy.get(`[data-cy="/CT/2021/HHCS_15-014/SS-1-HH"]`).should(
+    cy.get(`[data-cy="/CT/2023/HHCS_15-014/SS-1-HH"]`).should(
       "include.text",
       "test1"
     );
 
-    cy.get(`[data-cy="/CT/2021/HHCS_15-014/SS-2-HH"]`).should(
+    cy.get(`[data-cy="/CT/2023/HHCS_15-014/SS-2-HH"]`).should(
       "include.text",
       "test2"
     );

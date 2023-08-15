@@ -29,13 +29,11 @@ describe("Measure: CHL-AD", () => {
   it("if primary measurement spec is selected -> show performance measures", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="Ages 21 to 24"]').should("be.visible");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.numerator"]'
-    ).type("6");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.denominator"]'
-    ).type("6");
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.numerator"]').type("6");
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.denominator"]').type(
+      "6"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').should(
       "have.value",
       "100.0"
     );
@@ -53,18 +51,16 @@ describe("Measure: CHL-AD", () => {
   it("if only admin data cannot override, if anything else, rate is editable", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource0"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').should(
       "have.attr",
       "readonly"
     );
     cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').should(
       "not.have.attr",
       "readonly"
     );
@@ -82,22 +78,18 @@ describe("Measure: CHL-AD", () => {
 
   it("Rates calculate correctly", () => {
     cy.get("#MeasurementSpecification-NCQAHEDIS").click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.denominator"]').type(
+      "5"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').should(
       "have.value",
       "100.0"
     );
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').type(
-      "50"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').should(
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').type("50");
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').should(
       "not.have.attr",
       "readonly"
     );
@@ -106,16 +98,12 @@ describe("Measure: CHL-AD", () => {
   it("If rate is zero -> show warning", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="DataSource2"] > .chakra-checkbox__control').click();
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.numerator"]'
-    ).type("5");
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.denominator"]'
-    ).type("5");
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.CHL-AD-CAT-A.0.rate"]').type(
-      "0"
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.denominator"]').type(
+      "5"
     );
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.cvc5jQ.0.rate"]').type("0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."] > .chakra-text'

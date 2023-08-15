@@ -436,7 +436,7 @@ export const data = {
                 "id": "tJ0j8E"
             }
         ],
-        "categories": [{"id":"CDF-AD-CAT-A", "label": "", "text":""}]
+        "categories": [{"id":"fUqwlh", "label": "", "text":""}]
     },
     "CDF-CH": {
         "qualifiers": [
@@ -484,7 +484,7 @@ export const data = {
                 "id": "eV26mN"
             }
         ],
-        "categories": [{"id":"CHL-AD-CAT-A", "label": "", "text":""}]
+        "categories": [{"id":"cvc5jQ", "label": "", "text":""}]
     },
     "CHL-CH": {
         "qualifiers": [
@@ -1566,7 +1566,7 @@ export const data = {
                 "id": "usIZvV"
             }
         ],
-        "categories": [{"id":"PQI05-AD-CAT-A", "label": "", "text":""}]
+        "categories": [{"id":"CzBbvv", "label": "", "text":""}]
     },
     "PQI08-AD": {
         "qualifiers": [

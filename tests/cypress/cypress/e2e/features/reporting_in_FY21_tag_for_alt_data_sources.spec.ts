@@ -1,12 +1,14 @@
+import { testingYear } from "../../../support/constants";
+
 describe("OY2 15211 Reporting in FY22 Tag for Alt Data Sources", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("N/A And Completed Statuses", () => {
     cy.get("a > [data-cy='ACS']").click();
-    cy.get("[data-cy='Reporting FFY 2021-NCIDDS-AD'] > p").should(
+    cy.get("[data-cy='Reporting FFY 2023-NCIDDS-AD'] > p").should(
       "have.text",
       "N/A"
     );

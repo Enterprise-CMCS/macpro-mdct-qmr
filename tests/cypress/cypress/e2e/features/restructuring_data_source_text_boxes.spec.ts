@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("OY2 16411 Restructuring Data Source Text boxes", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
   });
@@ -43,7 +45,7 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
     cy.get('[data-cy="DataSourceDescription"]').type("Test3");
     cy.get(".css-owjkmg > .chakra-text").should(
       "have.text",
-      "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:"
+      "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans or delivery systems that used each data source."
     );
   });
 
@@ -72,9 +74,6 @@ describe("OY2 16411 Restructuring Data Source Text boxes", () => {
     cy.get(
       '[data-cy="DataSourceSelections.AdministrativeData0-AdministrativeDataOther.description"]'
     ).type("Test1");
-    cy.xpath(
-      "//p[contains(text(),'For each data source selected above, describe whic')]"
-    ).should("not.exist");
     cy.wait(2000);
   });
 });
