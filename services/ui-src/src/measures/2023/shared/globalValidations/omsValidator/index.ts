@@ -269,7 +269,6 @@ const validateNDRs = (
 
   //if selection is empty, it means that no sub classification was selected
   const checkIsDisaggregateFilled = (locations: string[], selection: any) => {
-    //only check if there's at least 1
     isDisaggregateFilled[locations[1]] = selection !== undefined;
   };
   // Loop through top level nodes for validation
