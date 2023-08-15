@@ -59,6 +59,7 @@ jobs:
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v2.11.7
         with:
+          config-file: cypress.config.ts
           working-directory: tests/cypress
           spec: cypress/integration/${{ inputs.test-path }}/${{ matrix.containers }}
           browser: chrome
