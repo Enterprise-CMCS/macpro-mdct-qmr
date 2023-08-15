@@ -322,8 +322,9 @@ Cypress.Commands.add("SSHHdisplaysCorrectSections", () => {
   ).should("be.visible");
 });
 
-export const measureAbbrList2021 = {
+export const measureAbbrList2023 = {
   ADULT: [
+    "AAB-AD",
     "AMM-AD",
     "AMR-AD",
     "BCS-AD",
@@ -334,12 +335,13 @@ export const measureAbbrList2021 = {
     "CDF-AD",
     "CHL-AD",
     "COB-AD",
+    "COL-AD",
     "CPA-AD",
     "FUA-AD",
     "FUH-AD",
     "FUM-AD",
     "FVA-AD",
-    "HPC-AD",
+    "HBD-AD",
     "HPCMI-AD",
     "HVL-AD",
     "IET-AD",
@@ -347,7 +349,6 @@ export const measureAbbrList2021 = {
     "NCIDDS-AD", // complete on creation
     "OHD-AD",
     "OUD-AD",
-    "PC01-AD",
     "PCR-AD",
     "PPC-AD",
     "PQI01-AD",
@@ -358,12 +359,12 @@ export const measureAbbrList2021 = {
     "SSD-AD",
   ],
   CHILD: [
+    "AAB-CH",
     "ADD-CH",
     "AMB-CH",
     "AMR-CH",
     "APM-CH",
     "APP-CH",
-    "AUD-CH",
     "CCP-CH",
     "CCW-CH",
     "CDF-CH",
@@ -371,13 +372,17 @@ export const measureAbbrList2021 = {
     "CIS-CH",
     "CPC-CH",
     "DEV-CH",
+    "FUA-CH",
     "FUH-CH",
+    "FUM-CH",
     "IMA-CH",
     "LBW-CH", // complete on creation
     "LRCD-CH", // complete on creation
-    "PDENT-CH", // complete on creation
+    "LSC-CH",
+    "OEV-CH",
     "PPC-CH",
     "SFM-CH",
+    "TFL-CH",
     "W30-CH",
     "WCC-CH",
     "WCV-CH",
@@ -387,8 +392,10 @@ export const measureAbbrList2021 = {
     "AMB-HH",
     "CBP-HH",
     "CDF-HH",
+    "COL-HH",
     "FUA-HH",
     "FUH-HH",
+    "FUM-HH",
     "IET-HH",
     "IU-HH",
     "OUD-HH",

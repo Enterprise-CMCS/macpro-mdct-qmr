@@ -1,7 +1,9 @@
+import { testingYear } from "../../../support/constants";
+
 describe("OY2 16341 NDR set validation updates for all measures ", () => {
   beforeEach(() => {
     cy.login("stateuser2");
-    cy.selectYear("2021");
+    cy.selectYear(testingYear);
   });
 
   it("Click on NO for the first question then click on validate and complete button for CCP-AD", () => {
@@ -47,60 +49,38 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="DataSource1"]').click();
     cy.get("#DataSource1-checkbox").check();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control'
-    ).click();
+    cy.get('[data-cy="DefinitionOfDenominator2"]').click();
     cy.get("#DefinitionOfDenominator2-checkbox").check();
-    cy.wait(1000);
-    cy.xpath(
-      "//input[@data-cy='PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator']"
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.numerator"]'
-    ).type("20");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.denominator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.denominator"]'
-    ).type("50");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.rate"]'
-    ).should("have.value", "40.0");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.numerator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.numerator"]'
-    ).type("40");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.denominator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.denominator"]'
-    ).type("80");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.rate"]'
-    ).should("have.value", "50.0");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.numerator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.numerator"]'
-    ).type("0");
-    //cy.get(":nth-child(9) > :nth-child(8)").click();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.1.rate"]'
-    ).should("have.value", "0.0");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.rate"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.Mosteffectiveormoderatelyeffectivemethodofcontraception.0.rate"]'
-    ).type("0");
-    //cy.get(':nth-child(7) > [data-cy="Sixty Days Postpartum Rate"]').click();
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.numerator"]').type(
+      "20"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.denominator"]').type(
+      "50"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.rate"]').should(
+      "have.value",
+      "40.0"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.1.numerator"]').type(
+      "40"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.1.denominator"]').type(
+      "80"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.1.rate"]').should(
+      "have.value",
+      "50.0"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.1.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.1.numerator"]').type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.1.rate"]').should(
+      "have.value",
+      "0.0"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.JmD71i.0.rate"]').type("0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
@@ -126,11 +106,9 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.goToAdultMeasures();
     cy.goToMeasure("CCP-AD");
     cy.get('[data-cy="MeasurementSpecification1"]').click();
-    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="DataSource1"]').click();
     cy.get("#DataSource1-checkbox").check();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control'
-    ).click();
+    cy.get('[data-cy="DefinitionOfDenominator2"]').click();
     cy.get("#DefinitionOfDenominator2-checkbox").check();
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
@@ -238,66 +216,40 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(
       '[data-cy="You must select at least one reason for not reporting on this measure"]'
     ).should("be.visible");
-    /* ==== End Cypress Studio ==== */
   });
 
-  /* ==== Test Created with Cypress Studio ==== */
   it("PM NDR verification for PQI01-AD", function () {
     cy.goToAdultMeasures();
     cy.goToMeasure("PQI01-AD");
     cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="DataSource1"] > .chakra-checkbox__control').click();
+    cy.get('[data-cy="DataSource1"]').click();
     cy.get("#DataSource1-checkbox").check();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control'
-    ).click();
+    cy.get('[data-cy="DefinitionOfDenominator2"]').click();
     cy.get("#DefinitionOfDenominator2-checkbox").check();
-    cy.wait(1000);
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("4");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.denominator"]'
-    ).type("40");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).should("have.value", "10000.0");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.1.numerator"]'
-    ).type("5");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.1.denominator"]'
-    ).type("70");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]'
-    ).should("have.value", "7142.9");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.numerator"]'
-    ).type("0");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.0.rate"]'
-    ).should("have.value", "0.0");
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]'
-    ).clear();
-    cy.xpath(
-      '//input[@data-cy="PerformanceMeasure.rates.singleCategory.1.rate"]'
-    ).type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.0.numerator"]').type("4");
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.0.denominator"]').type(
+      "40"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.0.rate"]').should(
+      "have.value",
+      "10000.0"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.1.numerator"]').type("5");
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.1.denominator"]').type(
+      "70"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.1.rate"]').should(
+      "have.value",
+      "7142.9"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.0.numerator"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.0.numerator"]').type("0");
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.0.rate"]').should(
+      "have.value",
+      "0.0"
+    );
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.1.rate"]').clear();
+    cy.get('[data-cy="PerformanceMeasure.rates.Gp9GRU.1.rate"]').type("0");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="Performance Measure/Other Performance Measure Error"]'
@@ -345,9 +297,7 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get('[data-cy="DataSource1"]').click();
     cy.get("#DataSource1-checkbox").check();
     cy.get('[data-cy="MeasurementSpecification1"]').click();
-    cy.get(
-      '[data-cy="DefinitionOfDenominator2"] > .chakra-checkbox__control'
-    ).click();
+    cy.get('[data-cy="DefinitionOfDenominator2"]').click();
     cy.get("#DefinitionOfDenominator2-checkbox").check();
     cy.get(
       '[data-cy="OtherPerformanceMeasure-Rates.0.rate.0.numerator"]'
@@ -425,6 +375,5 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(
       '[data-cy="Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation."]'
     ).should("be.visible");
-    /* ==== End Cypress Studio ==== */
   });
 });
