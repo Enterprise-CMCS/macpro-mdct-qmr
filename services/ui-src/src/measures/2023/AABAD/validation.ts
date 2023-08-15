@@ -55,6 +55,7 @@ const AABADValidation = (data: FormData) => {
       deviationReason
     ),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+    ...GV.validateOPMRates(OPM),
 
     // OMS Validations
     ...GV.omsValidations({

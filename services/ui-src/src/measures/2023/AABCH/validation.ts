@@ -50,6 +50,7 @@ const AABCHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+    ...GV.validateOPMRates(OPM),
 
     // OMS Validations
     ...GV.omsValidations({

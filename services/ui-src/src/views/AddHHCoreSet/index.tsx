@@ -93,7 +93,7 @@ export const AddHHCoreSet = () => {
           <CUI.Text>
             Complete the details below and when finished create the additional
             Health Home Core Set package. You can submit one Health Home Core
-            set for each Health Home program that requires reporting.
+            Set for each Health Home program that requires reporting.
           </CUI.Text>
           <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(handleSubmit)}>

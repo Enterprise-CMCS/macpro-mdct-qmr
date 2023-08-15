@@ -6,13 +6,41 @@ export const { categories, qualifiers } = getCatQualLabels("AIF-HH");
 const measureName = "AIFHH";
 
 const inputFieldNames = [
-  "Number of Enrollee Months",
-  "Number of Short-Term Admissions",
-  "Short-Term Admissions per 1,000 Enrollee Months",
-  "Number of Medium-Term Admissions",
-  "Medium-Term Admissions per 1,000 Enrollee Months",
-  "Number of Long-Term Admissions",
-  "Long-Term Admissions per 1,000 Enrollee Months",
+  {
+    label: "Number of Enrollee Months",
+    text: "Number of Enrollee Months",
+    id: "QFSYON",
+  },
+  {
+    label: "Number of Short-Term Admissions",
+    text: "Number of Short-Term Admissions",
+    id: "tMeLfq",
+  },
+  {
+    label: "Short-Term Admissions per 1,000 Enrollee Months",
+    text: "Short-Term Admissions per 1,000 Enrollee Months",
+    id: "bxkVCC",
+  },
+  {
+    label: "Number of Medium-Term Admissions",
+    text: "Number of Medium-Term Admissions",
+    id: "KBOnkQ",
+  },
+  {
+    label: "Medium-Term Admissions per 1,000 Enrollee Months",
+    text: "Medium-Term Admissions per 1,000 Enrollee Months",
+    id: "5RO62J",
+  },
+  {
+    label: "Number of Long-Term Admissions",
+    text: "Number of Long-Term Admissions",
+    id: "m3HvMS",
+  },
+  {
+    label: "Long-Term Admissions per 1,000 Enrollee Months",
+    text: "Long-Term Admissions per 1,000 Enrollee Months",
+    id: "dFMGFi",
+  },
 ];
 
 // Rate structure by index in row
