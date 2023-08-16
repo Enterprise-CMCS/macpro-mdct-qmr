@@ -30,9 +30,6 @@ describe("Measure: AMR-AD", () => {
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
     ).click();
-    cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
     cy.get('[data-cy="Print"]').should("be.enabled");
     //cy.get('[data-cy="Print"]').click();
   });

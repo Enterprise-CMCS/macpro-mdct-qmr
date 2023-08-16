@@ -73,6 +73,11 @@ describe("Measure: SS-HH", () => {
   it("Complete the measure and check validations", () => {
     // Data Source
     cy.get('[data-cy="DataSource0"]').click();
+    cy.get(
+      '[data-cy="DataSourceSelections.AdministrativeData0.selected0"] > .chakra-checkbox__control'
+    ).click();
+
+    cy.get('[data-cy="DefinitionOfDenominator0"]').click();
 
     // Date Range
     cy.enterValidDateRange();

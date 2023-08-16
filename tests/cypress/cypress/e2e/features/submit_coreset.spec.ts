@@ -1,4 +1,6 @@
 import { testingYear } from "../../../support/constants";
+import { measureAbbrList2023 } from "../../../support/commands/commands";
+
 describe.skip("Submit Core Set button", () => {
   beforeEach(() => {
     cy.login("stateuser4");
@@ -43,7 +45,7 @@ describe.skip("Submit Core Set button", () => {
   it("should require qualifiers to submit the core set", () => {
     // complete all measures
     cy.goToAdultMeasures();
-    for (const abbr of measureAbbrList.ADULT) {
+    for (const abbr of measureAbbrList2023.ADULT) {
       completeMeasure(abbr);
     }
     cy.get('[data-cy="Submit Core Set"]').should("be.disabled");
@@ -91,7 +93,7 @@ describe.skip("Submit Core Set button", () => {
     );
 
     // Edit a measure
-    cy.goToMeasure(measureAbbrList.ADULT[0]);
+    cy.goToMeasure(measureAbbrList2023.ADULT[0]);
     cy.get('[data-cy="Save"]').click();
     cy.wait(1000);
 
@@ -291,7 +293,7 @@ const completeMeasure = (measureName: string) => {
 
 const qualifierTestSetup = (abbrList: string, statusString: string) => {
   // complete all measures
-  for (const abbr of measureAbbrList[abbrList]) {
+  for (const abbr of measureAbbrList2023[abbrList]) {
     completeMeasure(abbr);
   }
 
@@ -311,97 +313,16 @@ const qualifierTestSetup = (abbrList: string, statusString: string) => {
   let numComplete = 0;
   switch (abbrList) {
     case "ADULT":
-      numComplete = measureAbbrList[abbrList].length + 1;
+      numComplete = measureAbbrList2023[abbrList].length + 1;
       break;
     case "CHILD":
-      numComplete = measureAbbrList[abbrList].length + 3;
+      numComplete = measureAbbrList2023[abbrList].length + 3;
       break;
     default:
-      numComplete = measureAbbrList[abbrList].length;
+      numComplete = measureAbbrList2023[abbrList].length;
   }
   cy.get(`[data-cy="Status-${statusString}"]`).should(
     "contain.text",
     `submitted${numComplete} of ${numComplete} complete`
   );
-};
-
-const measureAbbrList = {
-  ADULT: [
-    "AAB-AD",
-    "AMM-AD",
-    "AMR-AD",
-    "BCS-AD",
-    "CBP-AD",
-    "CCP-AD",
-    "CCS-AD",
-    "CCW-AD",
-    "CDF-AD",
-    "CHL-AD",
-    "COB-AD",
-    "COL-AD",
-    "CPA-AD",
-    "CPU-AD",
-    "FUA-AD",
-    "FUH-AD",
-    "FUM-AD",
-    "FVA-AD",
-    "HBD-AD",
-    "HPCMI-AD",
-    "HVL-AD",
-    "IET-AD",
-    "MSC-AD",
-    // "NCIDDS-AD",  // complete on creation
-    "OHD-AD",
-    "OUD-AD",
-    "PCR-AD",
-    "PPC-AD",
-    "PQI01-AD",
-    "PQI05-AD",
-    "PQI08-AD",
-    "PQI15-AD",
-    "SAA-AD",
-    "SSD-AD",
-  ],
-  CHILD: [
-    "AAB-CH",
-    "ADD-CH",
-    "AMB-CH",
-    "AMR-CH",
-    "APM-CH",
-    "APP-CH",
-    "CCP-CH",
-    "CCW-CH",
-    "CDF-CH",
-    "CHL-CH",
-    "CIS-CH",
-    "CPC-CH",
-    "DEV-CH",
-    "FUA-CH",
-    "FUH-CH",
-    "IMA-CH",
-    // "LBW-CH",  // complete on creation
-    // "LRCD-CH",  // complete on creation
-    // "PDENT-CH",  // complete on creation
-    "LSC-CH",
-    "OEV-CH",
-    "PPC-CH",
-    "SFM-CH",
-    "TFL-CH",
-    "W30-CH",
-    "WCC-CH",
-    "WCV-CH",
-  ],
-  HEALTH_HOME: [
-    "AIF-HH",
-    "AMB-HH",
-    "CBP-HH",
-    "CDF-HH",
-    "FUA-HH",
-    "FUH-HH",
-    "IET-HH",
-    "IU-HH",
-    "OUD-HH",
-    "PCR-HH",
-    "PQI92-HH",
-  ],
 };
