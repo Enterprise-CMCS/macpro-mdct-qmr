@@ -95,7 +95,7 @@ describe("Health Home Measure Qualifier: HH", () => {
     cy.get("body").should("include.text", "Delivery System");
     cy.get("body").should(
       "include.text",
-      "As of September 30, 2022 what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system (optional)?"
+      "As of September 30, 2022 what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system?"
     );
     cy.get("body").should("include.text", "Ages 0 to 17");
     cy.get("body").should("include.text", "Ages 18 to 64");
@@ -156,6 +156,9 @@ describe("Health Home Measure Qualifier: HH", () => {
       "include.text",
       "Which measures did they audit or validate?"
     );
+
+    cy.get(".chakra-checkbox__control").eq(1).click();
+
     cy.get("body").should("include.text", "Select All");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-AIF-HH - Admission to a Facility from the Community"]'
