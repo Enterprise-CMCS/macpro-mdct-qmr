@@ -29,7 +29,7 @@ describe("Test AdditionalNotes component", () => {
 
   it("accepts input", async () => {
     const textArea = await screen.findByLabelText(
-      "Please add any additional notes or comments on the measure not otherwise captured above (state-specific comment):"
+      "Please add any additional notes or comments on the measure not otherwise captured above (text in this field is included in publicly-reported state-specific comments):"
     );
     fireEvent.type(textArea, "This is the test text");
     expect(textArea).toHaveDisplayValue("This is the test text");
@@ -41,7 +41,7 @@ describe("Test AdditionalNotes component", () => {
     );
 
     const textArea = await screen.findByLabelText(
-      "Please add any additional notes or comments on the measure not otherwise captured above (state-specific comment):"
+      "Please add any additional notes or comments on the measure not otherwise captured above (text in this field is included in publicly-reported state-specific comments):"
     );
 
     fireEvent.click(reportingNo);

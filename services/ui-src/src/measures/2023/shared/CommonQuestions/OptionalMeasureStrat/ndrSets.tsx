@@ -530,8 +530,8 @@ const useRenderOPMCheckboxOptions = (name: string) => {
               id: 0,
             },
           ]}
-          name={`${name}.rates.${cleanedFieldName}.OPM`}
-          key={`${name}.rates.${cleanedFieldName}.OPM`}
+          name={`${name}.rates.OPM.${cleanedFieldName}`}
+          key={`${name}.rates.OPM.${cleanedFieldName}`}
           readOnly={rateReadOnly}
           rateMultiplicationValue={rateMultiplicationValue}
           customMask={customMask}

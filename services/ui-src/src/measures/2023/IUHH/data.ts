@@ -6,12 +6,28 @@ export const { categories, qualifiers } = getCatQualLabels("IU-HH");
 const measureName = "IUHH";
 
 const inputFieldNames = [
-  "Number of Enrollee Months",
-  "Discharges",
-  "Discharges per 1,000 Enrollee Months",
-  "Days",
-  "Days per 1,000 Enrollee Months",
-  "Average Length of Stay",
+  {
+    label: "Number of Enrollee Months",
+    text: "Number of Enrollee Months",
+    id: "G3AVs1",
+  },
+  { label: "Discharges", text: "Discharges", id: "MwGkaA" },
+  {
+    label: "Discharges per 1,000 Enrollee Months",
+    text: "Discharges per 1,000 Enrollee Months",
+    id: "CGEK9m",
+  },
+  { label: "Days", text: "Days", id: "jSSEHA" },
+  {
+    label: "Days per 1,000 Enrollee Months",
+    text: "Days per 1,000 Enrollee Months",
+    id: "qjHhDk",
+  },
+  {
+    label: "Average Length of Stay",
+    text: "Average Length of Stay",
+    id: "coDyWU",
+  },
 ];
 
 // Rate structure by index in row
@@ -43,7 +59,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   customPrompt:
     "Enter the appropriate data below. Completion of at least one set of Numerator/Denominator/Rate (numeric entry, other than zero) is required.",
   questionText: [
-    "Rate of acute inpatient care and services (total, maternity, mental and behavioral disorders, surgery, and medicine) per 1,000 enrollee months among health home enrollees.",
+    "Rate of acute inpatient care and services (total, mental and behavioral disorders, surgery, and medicine) per 1,000 enrollee months among health home enrollees.",
   ],
   questionListItems: [],
   measureName,

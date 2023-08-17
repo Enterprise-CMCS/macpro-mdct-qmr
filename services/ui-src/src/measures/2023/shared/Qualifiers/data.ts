@@ -144,7 +144,7 @@ const HomeData: DataDriven = {
   title: "Health Home Core Set Qualifiers",
   questionTitle: `Health Home Core Set Questions: SPA ID:`,
   qualifierHeader: (year) =>
-    `As of September 30, ${year} what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system (optional)?`,
+    `As of September 30, ${year} what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system?`,
   textTable: [["Ages 0 to 17"], ["Ages 18 to 64"], ["Age 65 and older"]],
   fieldValues: [
     "ZeroToSeventeen",
