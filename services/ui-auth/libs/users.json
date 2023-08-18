@@ -448,6 +448,35 @@
     ]
   },
   {
+    "username": "stateuserVA@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserVA@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Victor"
+      },
+      {
+        "Name": "family_name",
+        "Value": "Virginia"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "VA"
+      }
+    ]
+  },
+  {
     "username": "adminuser@test.com",
     "attributes": [
       {
