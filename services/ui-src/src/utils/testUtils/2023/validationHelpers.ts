@@ -254,6 +254,7 @@ export const generateOmsFormData = (
       midNode.aggregate = "NoIndependentData";
       for (const opt of node.options) {
         midNode.options ??= [];
+        midNode.label ??= "";
         midNode.selections ??= {};
         addToSelections && midNode.options.push(opt.id);
         midNode.selections[opt.id] = {
@@ -280,6 +281,7 @@ export const generateOmsFormData = (
     if (!!node.options?.length) {
       for (const opt of node.options) {
         topNode.options ??= [];
+        topNode.label ??= "";
         topNode.selections ??= {};
         addToSelections && topNode.options.push(opt.id);
         topNode.selections[opt.id] = createMidLevelNode(opt);

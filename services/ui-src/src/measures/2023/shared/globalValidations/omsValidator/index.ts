@@ -89,6 +89,13 @@ const validateNDRs = (
   const errorArray: FormError[] = [];
   // validates top levels, ex: Race, Geography, Sex
   const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string[]) => {
+    //add label for db data
+    if (!node.label) {
+      const cleanString = locationDictionary(label);
+      node.label = cleanString
+        .substring(cleanString.lastIndexOf("-") + 1)
+        .trim();
+    }
     // validate children if exist
     if (node.options?.length) {
       for (const option of node.options) {
@@ -109,6 +116,13 @@ const validateNDRs = (
   };
   // validate mid level, ex: White, African American, etc
   const validateChildNodes = (node: OMS.MidLevelOMSNode, label: string[]) => {
+    //add label for db data
+    if (!node.label) {
+      const cleanString = locationDictionary(label);
+      node.label = cleanString
+        .substring(cleanString.lastIndexOf("-") + 1)
+        .trim();
+    }
     // validate sub categories
     if (node.additionalSubCategories?.length) {
       for (const subCat of node.additionalSubCategories) {
