@@ -9,7 +9,7 @@ import {
   OMSData,
   OmsNode,
 } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
-import { LabelData, cleanString } from "utils";
+import { LabelData } from "utils";
 import {
   RateFields,
   OmsNodes as OMS,
@@ -255,8 +255,8 @@ export const generateOmsFormData = (
       for (const opt of node.options) {
         midNode.options ??= [];
         midNode.selections ??= {};
-        addToSelections && midNode.options.push(cleanString(opt.id));
-        midNode.selections[cleanString(opt.id)] = {
+        addToSelections && midNode.options.push(opt.id);
+        midNode.selections[opt.id] = {
           rateData,
           additionalSubCategories: [{ description, rateData }],
         };
@@ -281,8 +281,8 @@ export const generateOmsFormData = (
       for (const opt of node.options) {
         topNode.options ??= [];
         topNode.selections ??= {};
-        addToSelections && topNode.options.push(cleanString(opt.id));
-        topNode.selections[cleanString(opt.id)] = createMidLevelNode(opt);
+        addToSelections && topNode.options.push(opt.id);
+        topNode.selections[opt.id] = createMidLevelNode(opt);
       }
     }
     if (node.addMore) {
@@ -298,11 +298,10 @@ export const generateOmsFormData = (
 
   // makes top level node for each omsnode
   const createBaseOMS = (node: OmsNode) => {
-    const cleanLabel = cleanString(node.id);
     addToSelections &&
-      omsData.OptionalMeasureStratification.options.push(cleanLabel);
+      omsData.OptionalMeasureStratification.options.push(node.id);
     omsData.OptionalMeasureStratification.selections ??= {};
-    omsData.OptionalMeasureStratification.selections[cleanLabel] =
+    omsData.OptionalMeasureStratification.selections[node.id] =
       createTopLevelNode(node);
   };
 
