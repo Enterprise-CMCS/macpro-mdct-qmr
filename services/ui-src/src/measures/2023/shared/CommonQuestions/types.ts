@@ -233,6 +233,7 @@ export namespace OmsNodes {
   export interface MidLevelOMSNode extends LowLevelOmsNode {
     // if sub-options
     [DC.AGGREGATE]?: string;
+    [DC.LABEL]?: string;
     [DC.OPTIONS]?: string[];
     [DC.SELECTIONS]?: {
       [option: string]: LowLevelOmsNode;
@@ -241,6 +242,7 @@ export namespace OmsNodes {
 
   export interface TopLevelOmsNode {
     // top level child, ex: Race, Sex, Ethnicity
+    [DC.LABEL]?: string;
     [DC.OPTIONS]?: string[]; // checkbox
     [DC.ADDITIONAL_CATS]?: string[]; // add another section
     [DC.SELECTIONS]?: {
