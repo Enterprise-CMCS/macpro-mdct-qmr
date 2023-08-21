@@ -209,10 +209,10 @@ describe("Measure: AMR-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.OPM.test1.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.OPM.OPM_test1.0.numerator"]'
     ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.OPM.test1.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.OPM.OPM_test1.0.denominator"]'
     ).type("2");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(

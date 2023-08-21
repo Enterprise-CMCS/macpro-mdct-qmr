@@ -187,25 +187,25 @@ describe("Measure: oy2-9936 SFM-CH", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.options0-checkbox"
     ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.options0-checkbox"
     ).uncheck();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.options0-checkbox"
     ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.selections\\.AmericanIndianorAlaskaNative\\.rateData\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.selections\\.ll9YP8\\.rateData\\.options0-checkbox"
     ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.zooXXr.5Jb7fw.0.numerator"]'
@@ -229,7 +229,7 @@ describe("Measure: oy2-9936 SFM-CH", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.selections\\.AmericanIndianorAlaskaNative\\.rateData\\.options1-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.selections\\.ll9YP8\\.rateData\\.options1-checkbox"
     ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.zooXXr.VC1O0n.0.numerator"]'

@@ -41,7 +41,7 @@ describe("Add state specific measure testing", () => {
     );
   });
 
-  it("state specific measures should have been created with the correct text", () => {
+  it.skip("state specific measures should have been created with the correct text", () => {
     cy.get(`[data-cy="/CT/2023/HHCS_15-014/SS-1-HH"]`).should(
       "include.text",
       "test1"

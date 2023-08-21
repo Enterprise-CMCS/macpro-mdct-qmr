@@ -410,7 +410,7 @@ describe("Measure: WCC-CH", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options3"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.NativeHawaiianorOtherPacificIslander.aggregate1"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.Qu4kZK.aggregate1"]'
     ).click();
     cy.get(
       '[data-cy="OptionalMeasureStratification.options1"] > .chakra-checkbox__label > .chakra-text'

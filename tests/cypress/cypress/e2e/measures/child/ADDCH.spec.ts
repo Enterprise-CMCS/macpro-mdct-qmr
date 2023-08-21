@@ -233,7 +233,7 @@ describe("Measure: oy2-9921 ADD-CH", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.options0-checkbox"
     ).check();
 
     cy.get(
@@ -247,7 +247,7 @@ describe("Measure: oy2-9921 ADD-CH", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.selections\\.AmericanIndianorAlaskaNative\\.rateData\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.selections\\.ll9YP8\\.rateData\\.options0-checkbox"
     ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.ugoYfe.UYSXR5.0.numerator"]'
@@ -265,7 +265,7 @@ describe("Measure: oy2-9921 ADD-CH", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options1"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.selections\\.AmericanIndianorAlaskaNative\\.rateData\\.options1-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.selections\\.ll9YP8\\.rateData\\.options1-checkbox"
     ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.ugoYfe.jfj0f8.0.numerator"]'

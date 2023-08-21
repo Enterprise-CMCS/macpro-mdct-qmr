@@ -153,7 +153,7 @@ describe("Measure 19: AMB-HH", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.options0-checkbox"
     ).check();
     cy.get(
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.numerator"]'
@@ -232,7 +232,7 @@ describe("Measure 19: AMB-HH", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.options0-checkbox"
     ).check();
 
     cy.get(
