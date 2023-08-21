@@ -7,7 +7,6 @@ import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { cleanString } from "utils/cleanString";
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
 
@@ -29,10 +28,10 @@ export const buildOmsCheckboxes = ({
   isSingleSex,
 }: OmsCheckboxProps) => {
   return data
-    .filter((d) => !isSingleSex || d.id !== "Sex") // remove sex as a top level option if isSingleSex
+    .filter((d) => !isSingleSex || d.id !== "O8BrOa") // remove sex as a top level option if isSingleSex
     .map((lvlOneOption) => {
-      const displayValue = lvlOneOption.id;
-      const value = cleanString(lvlOneOption.id);
+      const displayValue = lvlOneOption.label;
+      const value = lvlOneOption.id;
 
       const children = [
         <TopLevelOmsChildren
@@ -42,7 +41,8 @@ export const buildOmsCheckboxes = ({
           addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
           name={`${name}.selections.${value}`}
           key={`${name}.selections.${value}`}
-          id={displayValue}
+          id={value}
+          label={displayValue}
         />,
       ];
 

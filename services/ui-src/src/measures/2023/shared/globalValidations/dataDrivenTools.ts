@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as Types from "measures/2023/shared/CommonQuestions/types";
 import { DataDrivenTypes as DDT } from "measures/2023/shared/CommonQuestions/types";
-import { LabelData, cleanString } from "utils";
+import { LabelData } from "utils";
 import { FormRateField as PM, RateData } from "./types";
 
 /**
@@ -99,7 +99,7 @@ export const omsLocationDictionary = (
     for (const option of node.options ?? []) {
       checkNode(option);
     }
-    dictionary[cleanString(node.id)] = node.id;
+    dictionary[node.id] = node.label;
   };
 
   for (const node of renderData) {
