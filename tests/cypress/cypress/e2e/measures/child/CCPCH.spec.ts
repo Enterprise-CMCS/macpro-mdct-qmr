@@ -148,41 +148,41 @@ describe("Measure CCP-CH", () => {
 
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options2"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options2"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.options1"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.options1"]'
     ).click();
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.041gNX.CeTZzq.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.041gNX.CeTZzq.0.numerator"]'
     ).type("12");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.041gNX.CeTZzq.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.041gNX.CeTZzq.0.denominator"]'
     ).type("23");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.r7b2vH.CeTZzq.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.r7b2vH.CeTZzq.0.numerator"]'
     ).type("34");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.r7b2vH.CeTZzq.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.r7b2vH.CeTZzq.0.denominator"]'
     ).type("45");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.041gNX.XiBACI.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.041gNX.XiBACI.0.numerator"]'
     ).type("56");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.041gNX.XiBACI.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.041gNX.XiBACI.0.denominator"]'
     ).type("67");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.r7b2vH.XiBACI.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.r7b2vH.XiBACI.0.numerator"]'
     ).type("67");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.r7b2vH.XiBACI.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.r7b2vH.XiBACI.0.denominator"]'
     ).type("78");
 
     cy.get('[data-cy="Validate Measure"]').click();

@@ -150,25 +150,25 @@ describe("Measure 19: AMB-HH", () => {
     ).click();
     cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.options0-checkbox"
     ).check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.numerator"]'
     ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.denominator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.denominator"]'
     ).type("2");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.rate"]'
     ).should("have.value", "500.0");
   });
 
@@ -229,24 +229,24 @@ describe("Measure 19: AMB-HH", () => {
     ).click();
     cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__label > .chakra-text'
     ).click();
     cy.get(
-      "#OptionalMeasureStratification\\.selections\\.Race\\.options0-checkbox"
+      "#OptionalMeasureStratification\\.selections\\.3dpUZu\\.options0-checkbox"
     ).check();
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.numerator"]'
     ).type("6");
     //cy.get(":nth-child(2) > .css-0 > .css-1wlqfwj > .chakra-stack").click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.denominator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.9pQZSL.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.9pQZSL.Total.0.denominator"]'
     ).type("8");
     cy.get('[data-cy="Validate Measure"]').click();
   });

@@ -132,18 +132,18 @@ describe("Measure: PQI92-HH", () => {
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.mIBZOk.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.mIBZOk.Total.0.numerator"]'
     ).type("4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.mIBZOk.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.mIBZOk.Total.0.denominator"]'
     ).type("3");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.mIBZOk.Total.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.mIBZOk.Total.0.rate"]'
     ).should("have.value", "133333.3");
 
     // validation errors

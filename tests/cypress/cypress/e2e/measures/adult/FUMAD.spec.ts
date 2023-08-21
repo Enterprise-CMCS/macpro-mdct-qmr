@@ -115,13 +115,13 @@ describe("Measure: FUM-AD", () => {
 
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.biXkZF.xO0lQK.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.biXkZF.xO0lQK.0.numerator"]'
     ).should("be.visible");
   });
 
@@ -160,13 +160,13 @@ describe("Measure: FUM-AD", () => {
 
     cy.get('[data-cy="OptionalMeasureStratification.options1"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.OPM.example1.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.rates.OPM.OPM_example1.0.numerator"]'
     ).should("be.visible");
   });
 });

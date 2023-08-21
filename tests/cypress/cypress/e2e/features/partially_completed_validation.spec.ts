@@ -27,13 +27,13 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       .type("8");
     cy.get(`[data-cy="OptionalMeasureStratification.options0"]`).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.Race.options0"]`
+      `[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]`
     ).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"]`
+      `[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options0"]`
     ).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.cvc5jQ.eV26mN.0.numerator"]`
+      `[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.cvc5jQ.eV26mN.0.numerator"]`
     )
       .clear()
       .type("8");
@@ -67,13 +67,13 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
       .type("8");
     cy.get(`[data-cy="OptionalMeasureStratification.options0"]`).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.Race.options0"]`
+      `[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]`
     ).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.options0"]`
+      `[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options0"]`
     ).click();
     cy.get(
-      `[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8w4t99.FbBLHo.0.numerator"]`
+      `[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.8w4t99.FbBLHo.0.numerator"]`
     )
       .clear()
       .type("8");
