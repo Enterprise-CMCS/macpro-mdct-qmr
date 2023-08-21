@@ -147,56 +147,56 @@ describe("Measure: APP-CH", () => {
       // Make OMS selection
       cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.options2"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options2"]'
       ).click();
 
       // Enter data into first NDR set
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.numerator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.numerator"]'
       ).type("12");
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.denominator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.denominator"]'
       ).type("23");
     });
 
     it("calculates totals if user enters values into both NDR set", () => {
       // Enter data into second NDR set
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.numerator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.numerator"]'
       ).clear();
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.numerator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.numerator"]'
       ).type("34");
 
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.denominator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.denominator"]'
       ).clear();
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.denominator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.denominator"]'
       ).type("45");
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.rate"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.rate"]'
       ).should("have.value", "75.6");
     });
 
     it("allows user to manually override the Total NDR set", () => {
       // Edit total numerator and denominator
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.numerator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.numerator"]'
       ).clear();
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.numerator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.numerator"]'
       ).type("7");
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.denominator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.denominator"]'
       ).clear();
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.denominator"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.denominator"]'
       ).type("8");
 
       // Check for new expected rate
       cy.get(
-        '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.JTlCwr.Total.0.rate"]'
+        '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.JTlCwr.Total.0.rate"]'
       ).should("have.value", "87.5");
     });
   });

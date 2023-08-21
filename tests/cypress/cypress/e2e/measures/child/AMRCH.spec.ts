@@ -38,10 +38,10 @@ describe("Measure: AMR-CH", () => {
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
   });
 
@@ -270,16 +270,16 @@ describe("Measure: AMR-CH", () => {
     ).click();
     cy.get("#OptionalMeasureStratification\\.options0-checkbox").check();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options2"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options2"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.tMt8gW.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.tMt8gW.Total.0.numerator"]'
     ).type("12");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.tMt8gW.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.tMt8gW.Total.0.denominator"]'
     ).type("14");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.tMt8gW.Total.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.tMt8gW.Total.0.rate"]'
     ).should("have.value", "85.7");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(".chakra-alert").should(

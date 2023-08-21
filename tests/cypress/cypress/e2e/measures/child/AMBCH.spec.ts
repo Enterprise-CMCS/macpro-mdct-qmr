@@ -125,25 +125,25 @@ describe("Measure 20: AMB-CH", () => {
     // OMS prep
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
 
     // OMS validation
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.8KgPDM.Total.0.numerator"]'
     ).type("4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.8KgPDM.Total.0.denominator"]'
     ).type("5");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.8KgPDM.Total.0.numerator"]'
     ).should("have.value", "4");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.8KgPDM.Total.0.denominator"]'
     ).should("have.value", "5");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.8KgPDM.Total.0.rate"]'
     ).should("have.value", "800.0");
   });
 
@@ -175,14 +175,14 @@ describe("Measure 20: AMB-CH", () => {
     // OMS prep
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.8KgPDM.Total.0.numerator"]'
     ).clear();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.8KgPDM.Total.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.8KgPDM.Total.0.denominator"]'
     ).clear();
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get('[data-cy="Optional Measure Stratification: Race Error"]').should(

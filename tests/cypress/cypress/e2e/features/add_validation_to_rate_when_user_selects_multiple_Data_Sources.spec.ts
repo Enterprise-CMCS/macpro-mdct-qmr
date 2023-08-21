@@ -39,7 +39,7 @@ describe("Add Validation to Rate when user selects multiple Data Sources.", () =
     );
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
   });
 });

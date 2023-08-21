@@ -38,10 +38,10 @@ describe("Measure: AMR-AD", () => {
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.HRsQ7F.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.HRsQ7F.Total.0.numerator"]'
     ).should("be.visible");
   });
 
@@ -203,16 +203,16 @@ describe("Measure: AMR-AD", () => {
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options2"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options2"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.OPM.test1.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.OPM.test1.0.numerator"]'
     ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.BlackorAfricanAmerican.rateData.rates.OPM.test1.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.6NrBa5.rateData.rates.OPM.test1.0.denominator"]'
     ).type("2");
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(

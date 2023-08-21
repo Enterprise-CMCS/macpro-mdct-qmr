@@ -28,7 +28,7 @@ describe("Measure: AMR-AD", () => {
       '[data-cy="OptionalMeasureStratification.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"] > .chakra-checkbox__control'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get('[data-cy="Print"]').should("be.enabled");
     //cy.get('[data-cy="Print"]').click();

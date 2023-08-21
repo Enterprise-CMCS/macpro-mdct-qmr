@@ -142,59 +142,59 @@ describe("Measure: IU-HH", () => {
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.0.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.0.value"]'
     )
       .first()
       .type("3");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.1.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.1.value"]'
     )
       .first()
       .type("7");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.3.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.3.value"]'
     )
       .first()
       .type("1");
 
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.2.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.2.value"]'
     )
       .first()
       .should("have.value", "2333.3");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.4.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.4.value"]'
     )
       .first()
       .should("have.value", "333.3");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.5.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.5.value"]'
     )
       .first()
       .should("have.value", "0.1");
 
     // OMS 1st Category Totals
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.0.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.0.value"]'
     ).should("have.value", "3");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.1.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.1.value"]'
     ).should("have.value", "7");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.2.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.2.value"]'
     ).should("have.value", "2333.3");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.3.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.3.value"]'
     ).should("have.value", "1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.4.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.4.value"]'
     ).should("have.value", "333.3");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.iuhh-rate.rates.895Rzk.Total.5.value"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.iuhh-rate.rates.895Rzk.Total.5.value"]'
     ).should("have.value", "0.1");
 
     // validation errors

@@ -120,13 +120,13 @@ describe("Measure: CDF-HH", () => {
     // OMS
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.yhQjRm.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.yhQjRm.Total.0.numerator"]'
     ).type("1");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Race.selections.AmericanIndianorAlaskaNative.rateData.rates.yhQjRm.Total.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.yhQjRm.Total.0.numerator"]'
     ).type("1");
   });
 });
