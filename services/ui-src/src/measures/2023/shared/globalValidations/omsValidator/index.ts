@@ -1,3 +1,4 @@
+import * as DC from "dataConstants";
 import {
   OmsValidationCallback,
   locationDictionaryFunction,
@@ -41,7 +42,7 @@ export const omsValidations = ({
     opmQuals.push(
       ...data["OtherPerformanceMeasure-Rates"].map((rate) => ({
         id: rate.description
-          ? cleanString(rate.description)
+          ? `${DC.OPM_KEY}${cleanString(rate.description)}`
           : "Fill out description",
         label: rate.description ?? "Fill out description",
         text: "",
@@ -249,10 +250,11 @@ const validateNDRs = (
         //array key order is determined in component useQualRateArray, cleanedName variable
         if (rateData.rates?.[cat.id]?.[qual.id]) {
           const temp = rateData.rates[cat.id][qual.id][0];
+          let cleanQual = isOPM ? qual.label : qual.id;
           if (temp && temp.denominator && temp.numerator && temp.rate) {
-            isDeepFilled[`${location}-${qual.id}`] ??= true;
+            isDeepFilled[`${location}-${cleanQual}`] ??= true;
           } else {
-            isDeepFilled[`${location}-${qual.id}`] = false;
+            isDeepFilled[`${location}-${cleanQual}`] = false;
           }
         }
       }

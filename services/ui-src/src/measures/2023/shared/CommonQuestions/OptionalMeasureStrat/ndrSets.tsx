@@ -521,7 +521,7 @@ const useRenderOPMCheckboxOptions = (name: string) => {
 
   OPM?.forEach(({ description }, idx) => {
     if (description) {
-      const cleanedFieldName = cleanString(description);
+      const cleanedFieldName = `${DC.OPM_KEY}${cleanString(description)}`;
 
       const RateComponent = (
         <QMR.Rate
