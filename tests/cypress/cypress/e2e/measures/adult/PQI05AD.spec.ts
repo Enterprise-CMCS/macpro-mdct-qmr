@@ -189,19 +189,19 @@ describe("Measure: PQI05-AD", () => {
     cy.get('[data-cy="OptionalMeasureStratification.options0"]').click();
     cy.get('[data-cy="OptionalMeasureStratification.options1"]').click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options1"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.options1"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.CzBbvv.ocpMf5.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.rates.CzBbvv.ocpMf5.0.numerator"]'
     ).should("be.visible");
   });
 
@@ -236,7 +236,7 @@ describe("Measure: PQI05-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.OPM.example1.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.OPM.OPM_example1.0.numerator"]'
     ).should("be.visible");
   });
 });

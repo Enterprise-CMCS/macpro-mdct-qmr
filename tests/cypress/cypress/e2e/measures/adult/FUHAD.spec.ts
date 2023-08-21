@@ -207,7 +207,7 @@ describe("Measure 10: FUH-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.OPM.example1.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.3dpUZu.selections.ll9YP8.rateData.rates.OPM.OPM_example1.0.numerator"]'
     ).should("be.visible");
   });
 });
