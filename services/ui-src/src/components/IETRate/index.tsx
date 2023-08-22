@@ -150,7 +150,7 @@ export const IETRate = ({
     }
 
     if (
-      parseInt(editRate.denominator) &&
+      editRate.denominator &&
       editRate.numerator &&
       (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
         allowNumeratorGreaterThanDenominator)
