@@ -7,12 +7,9 @@ export default defineConfig({
   watchForFileChanges: true,
   fixturesFolder: "fixtures",
   screenshotsFolder: "screenshots",
-  screenshotOnRunFailure: false,
   video: false,
   videosFolder: "videos",
   downloadsFolder: "downloads",
-  experimentalMemoryManagement: true,
-  numTestsKeptInMemory: 1,
   defaultCommandTimeout: 15000,
   e2e: {
     setupNodeEvents,
