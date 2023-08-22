@@ -12,6 +12,7 @@ export default defineConfig({
   videosFolder: "videos",
   downloadsFolder: "downloads",
   experimentalMemoryManagement: true,
+  numTestsKeptInMemory: 1,
   defaultCommandTimeout: 15000,
   e2e: {
     setupNodeEvents,
