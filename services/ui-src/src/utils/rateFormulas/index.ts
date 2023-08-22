@@ -13,9 +13,13 @@ export const defaultRateCalculation: RateFormula = (
 ) => {
   const floatNumerator = parseFloat(numerator);
   const floatDenominator = parseFloat(denominator);
+
+  //return 0 if the denominator is 0, provides a rate for when numerator = 0 & denominator = 0
+  if (floatDenominator === 0) {
+    return (0).toFixed(numbersAfterDecimal);
+  }
+
   let floatRate = floatNumerator / floatDenominator;
-  //zero dividing by zero becomes a NaN when dividing, converting it back to zero. only numbers are entered in so no issues otherwise
-  floatRate = isNaN(floatRate) ? 0 : floatRate;
   const roundedRate = fixRounding(
     floatRate * rateMultiplicationValue,
     numbersAfterDecimal
