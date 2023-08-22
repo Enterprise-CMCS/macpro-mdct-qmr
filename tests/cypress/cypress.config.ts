@@ -11,7 +11,6 @@ export default defineConfig({
   videosFolder: "videos",
   downloadsFolder: "downloads",
   defaultCommandTimeout: 15000,
-  numTestsKeptInMemory: 25,
   e2e: {
     setupNodeEvents,
     baseUrl: "http://localhost:3000/",

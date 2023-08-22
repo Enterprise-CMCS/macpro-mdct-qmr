@@ -57,9 +57,8 @@ jobs:
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v2.11.7
+        uses: cypress-io/github-action@v3
         with:
-          config-file: cypress.config.ts
           working-directory: tests/cypress
           spec: cypress/e2e/${{ inputs.test-path }}/${{ matrix.containers }}
           browser: chrome
