@@ -1,6 +1,6 @@
 import { testingYear } from "../../../support/constants";
 
-describe.skip("Health Home Sets Should be able to be deleted and created", () => {
+describe("Health Home Sets Should be able to be deleted and created", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);

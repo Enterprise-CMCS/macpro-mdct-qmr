@@ -5,6 +5,18 @@ before(() => {
 const emailForCognito = "input[name='email']";
 const passwordForCognito = "input[name='password']";
 
+export const clearCache = () => {
+  cy.wrap(
+    Cypress.automation("remote:debugger:protocol", {
+      command: "Network.clearBrowserCache",
+    })
+  );
+};
+
+export const clearCookies = () => {
+  cy.clearCookies();
+};
+
 // the default stateuser3 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
 Cypress.Commands.add(
@@ -18,6 +30,8 @@ Cypress.Commands.add(
       stateuser2: Cypress.env("TEST_USER_2"),
       stateuser1: Cypress.env("TEST_USER_1"),
     };
+    clearCache();
+    clearCookies();
     cy.visit("/");
     cy.get(emailForCognito).type(`${users[user]}`);
     cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
@@ -31,6 +45,8 @@ Cypress.Commands.add(
   (
     user = "stateuser4" // pragma: allowlist secret
   ) => {
+    clearCache();
+    clearCookies();
     const users = {
       stateuser4: Cypress.env("TEST_USER_4"),
       stateuser3: Cypress.env("TEST_USER_3"),
