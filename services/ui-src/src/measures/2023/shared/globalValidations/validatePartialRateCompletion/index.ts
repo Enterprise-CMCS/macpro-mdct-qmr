@@ -49,7 +49,7 @@ const _validation = ({
         (!rate.denominator || !rate.numerator || !rate.rate)
       ) {
         const multipleQuals: boolean = !!qualifiers?.length;
-        const multipleCats: boolean = !!categories?.length;
+        const multipleCats: boolean = !!categories?.some((item) => item.label);
         errors.push({
           errorLocation: location,
           errorMessage: errorMessageFunc(
