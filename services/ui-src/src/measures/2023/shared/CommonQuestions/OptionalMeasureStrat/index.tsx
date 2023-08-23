@@ -37,7 +37,7 @@ export const buildOmsCheckboxes = ({
         <TopLevelOmsChildren
           options={lvlOneOption.options}
           addMore={!!lvlOneOption.addMore}
-          parentDisplayName={lvlOneOption.aggregateTitle || lvlOneOption.id}
+          parentDisplayName={lvlOneOption.aggregateTitle || lvlOneOption.label}
           addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
           name={`${name}.selections.${value}`}
           key={`${name}.selections.${value}`}
