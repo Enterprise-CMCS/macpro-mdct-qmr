@@ -26,12 +26,23 @@ export const KebabMenu = ({
 }: KebabMenuProps) => {
   return (
     <CUI.Menu>
-      <CUI.MenuButton
-        aria-label={menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"}
-        data-cy={`${menuItems[0].type}-kebab-menu`}
+      <CUI.Tooltip
+        hasArrow
+        label={menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"}
+        aria-describedby={
+          menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"
+        }
+        role="tooltip"
       >
-        <BsThreeDotsVertical />
-      </CUI.MenuButton>
+        <CUI.MenuButton
+          aria-label={
+            menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"
+          }
+          data-cy={`${menuItems[0].type}-kebab-menu`}
+        >
+          <BsThreeDotsVertical />
+        </CUI.MenuButton>
+      </CUI.Tooltip>
       <CUI.MenuList bg="blue.500" maxW="40px" p="0">
         {menuItems.map((i) => (
           <KebabMenuItem
