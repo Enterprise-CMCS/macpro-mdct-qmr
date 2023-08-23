@@ -69,7 +69,16 @@ export const DefinitionOfPopulation = ({
                 children: [
                   <QMR.TextArea
                     formLabelProps={{ fontWeight: "400" }}
-                    label="Define the other denominator population (text in this field is included in publicly-reported state-specific comments):"
+                    label={
+                      <>
+                        Define the other denominator population (
+                        <em>
+                          text in this field is included in publicly-reported
+                          state-specific comments
+                        </em>
+                        ):
+                      </>
+                    }
                     {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
                   />,
                 ],
@@ -133,7 +142,16 @@ export const DefinitionOfPopulation = ({
                   {...register(
                     DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN
                   )}
-                  label="Explain which populations are excluded and why (text in this field is included in publicly-reported state-specific comments):"
+                  label={
+                    <>
+                      Explain which populations are excluded and why (
+                      <em>
+                        text in this field is included in publicly-reported
+                        state-specific comments
+                      </em>
+                      ):
+                    </>
+                  }
                 />,
                 <CUI.Box mt="10" key="DenominatorDefineTotalTechSpec-No-Size">
                   <QMR.NumberInput
@@ -424,7 +442,17 @@ export const DefinitionOfPopulation = ({
                 <CUI.Box pb="5" key="DeliverySys-Other">
                   <QMR.TextArea
                     formLabelProps={{ fontWeight: "400" }}
-                    label="Describe the Other Delivery System represented in the denominator (text in this field is included in publicly-reported state-specific comments):"
+                    label={
+                      <>
+                        Describe the Other Delivery System represented in the
+                        denominator (
+                        <em>
+                          text in this field is included in publicly-reported
+                          state-specific comments
+                        </em>
+                        ):
+                      </>
+                    }
                     {...register(DC.DELIVERY_SYS_OTHER)}
                   />
                 </CUI.Box>,

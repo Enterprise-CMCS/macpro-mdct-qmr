@@ -70,8 +70,16 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
     });
 
     if (node.description) {
-      let label =
-        "Describe the data source (text in this field is included in publicly-reported state-specific comments):";
+      let label = (
+        <>
+          Describe the data source (
+          <em>
+            text in this field is included in publicly-reported state-specific
+            comments
+          </em>
+          ):
+        </>
+      );
       children.push(
         <QMR.TextArea
           label={
