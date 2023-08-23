@@ -69,16 +69,18 @@ export const MonthPickerCalendar = ({
       }}
     >
       <CUI.PopoverTrigger>
-        <CUI.IconButton
-          variant="outline"
-          className="hidden-print-items disabled-print-preview-items"
-          width="2rem"
-          aria-label="Month Picker"
-          icon={<BsFillCalendar2DateFill />}
-          onClick={() => {
-            setPickerOpen(!pickerOpen);
-          }}
-        />
+        <CUI.Tooltip hasArrow label="Month picker tooltip">
+          <CUI.IconButton
+            variant="outline"
+            className="hidden-print-items disabled-print-preview-items"
+            width="2rem"
+            aria-label="Month Picker"
+            icon={<BsFillCalendar2DateFill />}
+            onClick={() => {
+              setPickerOpen(!pickerOpen);
+            }}
+          />
+        </CUI.Tooltip>
       </CUI.PopoverTrigger>
       <CUI.PopoverContent data-testid="monthpicker-popover-content">
         <CUI.PopoverHeader>

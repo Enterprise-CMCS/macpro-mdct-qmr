@@ -34,34 +34,32 @@ export const DeleteWrapper = ({
     >
       {children}
       {allowDeletion && (
-        <CUI.HStack
-          top={0}
-          right={showText ? "-6rem" : "-3rem"}
-          zIndex={2}
-          position={"absolute"}
-          padding={2}
-          as={"button"}
-          className="hidden-print-items disabled-print-preview-items"
-          borderColor={isHovered ? "red.700" : color}
-          alignItems={"center"}
-          data-testid="delete-wrapper"
-          aria-label={deleteLabel ? `Delete ${deleteLabel}` : "Delete Field"}
-          onFocus={() => setIsHovered(true)}
-          onBlur={() => setIsHovered(false)}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onClick={() => {
-            onDelete && onDelete();
-            setRender(false);
-          }}
-        >
-          {isHovered && showText && (
-            <CUI.Text size={"sm"} color={textColor}>
-              Delete
-            </CUI.Text>
-          )}
-          <CUI.Icon color={textColor} fontSize={"xl"} as={BsTrash} />
-        </CUI.HStack>
+        <CUI.Tooltip hasArrow label={"Delete tooltip"}>
+          <CUI.HStack
+            id={"delete-button-stack"}
+            top={0}
+            right={showText ? "-6rem" : "-3rem"}
+            zIndex={2}
+            position={"absolute"}
+            padding={2}
+            as={"button"}
+            className="hidden-print-items disabled-print-preview-items"
+            borderColor={isHovered ? "red.700" : color}
+            alignItems={"center"}
+            data-testid="delete-wrapper"
+            aria-label={deleteLabel ? `Delete ${deleteLabel}` : "Delete Field"}
+            onFocus={() => setIsHovered(true)}
+            onBlur={() => setIsHovered(false)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onClick={() => {
+              onDelete && onDelete();
+              setRender(false);
+            }}
+          >
+            <CUI.Icon color={textColor} fontSize={"xl"} as={BsTrash} />
+          </CUI.HStack>
+        </CUI.Tooltip>
       )}
     </CUI.Box>
   );
