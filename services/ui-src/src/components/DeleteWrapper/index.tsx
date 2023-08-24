@@ -34,7 +34,10 @@ export const DeleteWrapper = ({
     >
       {children}
       {allowDeletion && (
-        <CUI.Tooltip hasArrow label={"Delete tooltip"}>
+        <CUI.Tooltip
+          hasArrow
+          label={deleteLabel ? `Delete ${deleteLabel}` : "Delete Field"}
+        >
           <CUI.HStack
             id={"delete-button-stack"}
             top={0}

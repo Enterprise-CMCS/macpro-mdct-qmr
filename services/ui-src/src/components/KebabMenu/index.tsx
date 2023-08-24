@@ -26,7 +26,10 @@ export const KebabMenu = ({
 }: KebabMenuProps) => {
   return (
     <CUI.Menu>
-      <CUI.Tooltip hasArrow label="Action Menu tooltip">
+      <CUI.Tooltip
+        hasArrow
+        label={menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"}
+      >
         <CUI.MenuButton
           aria-label={
             menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"

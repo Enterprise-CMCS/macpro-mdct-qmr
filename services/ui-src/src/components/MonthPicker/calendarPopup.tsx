@@ -69,7 +69,7 @@ export const MonthPickerCalendar = ({
       }}
     >
       <CUI.PopoverTrigger>
-        <CUI.Tooltip hasArrow label="Month picker tooltip">
+        <CUI.Tooltip hasArrow label="Month picker">
           <CUI.IconButton
             variant="outline"
             className="hidden-print-items disabled-print-preview-items"
