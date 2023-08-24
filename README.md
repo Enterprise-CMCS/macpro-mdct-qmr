@@ -280,11 +280,11 @@ The following are prerequisites for local development.
 
    ```bash
    yarn add serverless-offline
-   yarn add serverless-dynamodb-local
+   yarn add serverless-dynamodb
    yarn add serverless-s3-local
 
    # or install simultaneously
-   yarn add serverless-offline && yarn add serverless-dynamodb-local && yarn add serverless-s3-local
+   yarn add serverless-offline && yarn add serverless-dynamodb && yarn add serverless-s3-local
    ```
 
 1. Install all other node packages.
