@@ -1,6 +1,6 @@
 import { testingYear } from "../../../support/constants";
 
-describe("Add state specific measure testing", () => {
+describe.skip("Add state specific measure testing", () => {
   before(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);

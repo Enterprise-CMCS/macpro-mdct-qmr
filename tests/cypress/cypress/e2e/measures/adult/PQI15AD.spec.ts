@@ -207,25 +207,25 @@ describe("Measure: PQI15-AD", () => {
     cy.get("[data-cy=CombinedRates0]").click();
     cy.get("[data-cy=CombinedRates-CombinedRates0]").click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.options0"]'
     ).click();
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.options0"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.OPM.example1.0.numerator"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.rates.OPM.OPM_example1.0.numerator"]'
     ).type("5");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.OPM.example1.0.denominator"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.rates.OPM.OPM_example1.0.denominator"]'
     ).type("10");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.OPM.example1.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.rates.OPM.OPM_example1.0.rate"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="OptionalMeasureStratification.selections.Ethnicity.selections.NotofHispanicLatinoaorSpanishorigin.rateData.rates.OPM.example1.0.rate"]'
+      '[data-cy="OptionalMeasureStratification.selections.elakUl.selections.51ZZEh.rateData.rates.OPM.OPM_example1.0.rate"]'
     ).should("have.value", "50000.0");
   });
 
