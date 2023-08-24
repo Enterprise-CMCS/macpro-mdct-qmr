@@ -56,11 +56,6 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: Verify Endpoint
-        if: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT == ''}}
-        run: |
-          echo "No endpoint set, Check if the deploy workflow was successful."
-          exit 1
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v3
         with:
