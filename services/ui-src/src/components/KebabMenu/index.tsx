@@ -27,7 +27,6 @@ export const KebabMenu = ({
   return (
     <CUI.Menu>
       <CUI.Tooltip
-        hasArrow
         label={menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"}
       >
         <CUI.MenuButton
