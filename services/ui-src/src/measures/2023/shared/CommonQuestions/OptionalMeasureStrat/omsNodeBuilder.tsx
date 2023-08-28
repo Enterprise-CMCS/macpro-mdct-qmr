@@ -4,7 +4,6 @@ import * as CUI from "@chakra-ui/react";
 import { OmsNode } from "./data";
 
 import { AddAnotherSection } from "./additionalCategory";
-import { cleanString } from "utils/cleanString";
 import { SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./ndrSets";
 
@@ -44,7 +43,7 @@ const renderRadioButtonOptions = ({
   return [
     {
       displayValue: `Yes, we are reporting aggregate data for the ${
-        omsNode?.aggregateTitle || omsNode?.id
+        omsNode?.aggregateTitle || omsNode?.label
       } categories.`,
       value: "YesAggregateData",
       children: [
@@ -53,7 +52,7 @@ const renderRadioButtonOptions = ({
     },
     {
       displayValue: `No, we are reporting disaggregated data for ${
-        omsNode?.aggregateTitle || omsNode?.id
+        omsNode?.aggregateTitle || omsNode?.label
       } sub-categories`,
       value: "NoIndependentData",
       children: [
@@ -64,9 +63,7 @@ const renderRadioButtonOptions = ({
             omsNode?.options!.map((node) => {
               return buildChildCheckboxOption({
                 omsNode: node,
-                name: `${name}.selections.${
-                  cleanString(node.id) ?? "ID_NOT_SET"
-                }`,
+                name: `${name}.selections.${node.id ?? "ID_NOT_SET"}`,
               });
             }) || []
           }
@@ -86,7 +83,7 @@ const buildChildCheckboxOption = ({
   name,
 }: ChildCheckBoxOptionProps) => {
   let children = [];
-  const cleanedName = omsNode?.id ? cleanString(omsNode.id) : "ID_NOT_SET";
+  const id = omsNode?.id ? omsNode.id : "ID_NOT_SET";
 
   if (!omsNode?.options) {
     children = [
@@ -101,14 +98,14 @@ const buildChildCheckboxOption = ({
         key={`${name}.aggregate`}
         options={renderRadioButtonOptions({ omsNode, name })}
         label={`Are you reporting aggregate data for the ${
-          omsNode.aggregateTitle || omsNode.id
+          omsNode.aggregateTitle || omsNode.label
         } category?`}
       />,
     ];
   }
   return {
-    value: cleanedName,
-    displayValue: omsNode?.id ?? "DISPLAY_ID_NOT_SET",
+    value: id,
+    displayValue: omsNode?.label ?? "DISPLAY_ID_NOT_SET",
     children,
   };
 };
@@ -129,8 +126,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
         key={`${props.name}.options`}
         options={[
           ...props.options.map((lvlTwoOption) => {
-            const cleanedId =
-              cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
+            const cleanedId = lvlTwoOption?.id ?? "LVL_TWO_ID_NOT_SET";
 
             return buildChildCheckboxOption({
               omsNode: lvlTwoOption,

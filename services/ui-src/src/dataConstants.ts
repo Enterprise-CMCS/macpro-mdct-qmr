@@ -152,6 +152,7 @@ export const OHSU = "OHSU";
 export const OMS = "OptionalMeasureStratification";
 export const OPA = "OPA";
 export const OPM_EXPLAINATION = "OtherPerformanceMeasure-Explanation";
+export const OPM_KEY = "OPM_"; //used for fixing id keys for other performance measures
 export const OPM_HYBRID_EXPLANATION =
   "OtherPerformanceMeasure-HybridExplanation";
 export const OPM_NOTES = "OtherPerformanceMeasure-Notes";
