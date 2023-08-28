@@ -144,8 +144,12 @@ export const OptionalMeasureStrat = ({
   const values = getValues();
 
   const dataSourceWatch = watch("DataSource");
-  const OPM = values["OtherPerformanceMeasure-Rates"];
   const watchDataSourceSwitch = watch("MeasurementSpecification");
+  //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
+  const OPM =
+    watchDataSourceSwitch == "Other"
+      ? values["OtherPerformanceMeasure-Rates"]
+      : undefined;
 
   const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
