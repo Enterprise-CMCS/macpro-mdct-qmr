@@ -13,7 +13,13 @@ export const defaultRateCalculation: RateFormula = (
 ) => {
   const floatNumerator = parseFloat(numerator);
   const floatDenominator = parseFloat(denominator);
-  const floatRate = floatNumerator / floatDenominator;
+
+  //return 0 if the denominator is 0, provides a rate for when numerator = 0 & denominator = 0
+  if (floatDenominator === 0) {
+    return (0).toFixed(numbersAfterDecimal);
+  }
+
+  let floatRate = floatNumerator / floatDenominator;
   const roundedRate = fixRounding(
     floatRate * rateMultiplicationValue,
     numbersAfterDecimal
@@ -29,7 +35,10 @@ export const AABRateCalculation: RateFormula = (
 ) => {
   const floatNumerator = parseFloat(numerator);
   const floatDenominator = parseFloat(denominator);
-  const floatRate = 1 - floatNumerator / floatDenominator;
+  let remainder = floatNumerator / floatDenominator;
+  //zero dividing by zero becomes a NaN when dividing, converting it back to zero. only numbers are entered in so no issues otherwise
+  remainder = isNaN(remainder) ? 0 : remainder;
+  const floatRate = 1 - remainder;
   const roundedRate = fixRounding(
     floatRate * rateMultiplicationValue,
     numbersAfterDecimal

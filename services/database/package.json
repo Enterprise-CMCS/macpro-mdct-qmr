@@ -9,14 +9,10 @@
   "author": "",
   "license": "CC0-1.0",
   "devDependencies": {
+    "aws-dynamodb-local": "^0.0.10",
     "dynamodb-localhost": "https://github.com/99x/dynamodb-localhost#db30898f8c40932c7177be7b2f1a81360d12876d",
-    "serverless-dynamodb-local": "0.2.40",
+    "serverless-dynamodb": "^0.2.43",
     "serverless-s3-bucket-helper": "Enterprise-CMCS/serverless-s3-bucket-helper#0.1.1"
-  },
-  "overrides": {
-    "serverless-dynamodb-local": {
-      "dynamodb-localhost": "https://github.com/99x/dynamodb-localhost#db30898f8c40932c7177be7b2f1a81360d12876d"
-    }
   },
   "dependencies": {
     "xml2js": "0.6.0"
