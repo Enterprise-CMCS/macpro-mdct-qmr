@@ -1,14 +1,6 @@
 name: PR E2E Tests
 
-on:
-  workflow_run:
-    workflows: [Deploy]
-    branches-ignore:
-      - prod
-      - val
-      - master
-    types:
-      - completed
+on: workflow_call
 
 permissions:
   id-token: write
@@ -19,7 +11,7 @@ permissions:
 jobs:
   e2e-tests-init:
     name: Initialize End To End Tests
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/prod' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
