@@ -74,6 +74,8 @@ jobs:
   e2e-tests-init:
     name: Initialize End To End Tests
     if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/prod' }}
+    needs:
+      - deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
