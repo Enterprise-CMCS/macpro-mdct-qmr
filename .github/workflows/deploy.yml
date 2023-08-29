@@ -8,7 +8,7 @@ on:
       - "!skipci*"
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
 
 permissions:
   id-token: write
