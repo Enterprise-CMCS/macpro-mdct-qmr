@@ -7,6 +7,9 @@ on:
       - "dependabot/**"
       - "!skipci*"
 
+concurrency:
+  group: ${{ github.ref }}
+
 permissions:
   id-token: write
   contents: read
@@ -44,10 +47,6 @@ jobs:
           STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-      - name: lock this branch to prevent concurrent builds
-        run: ./.github/github-lock.sh $branch_name
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Configure AWS credentials for GitHub Actions
         uses: aws-actions/configure-aws-credentials@v1
         with:
