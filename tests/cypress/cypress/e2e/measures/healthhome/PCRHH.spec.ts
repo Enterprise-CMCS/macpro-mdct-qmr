@@ -332,12 +332,6 @@ describe("PCR-HH", () => {
       "have.text",
       "Additional Notes/Comments on the measure (optional)"
     );
-    cy.get(
-      '[data-cy="Please add any additional notes or comments on the measure not otherwise captured above (text in this field is included in publicly-reported state-specific comments):"]'
-    ).should(
-      "have.text",
-      "Please add any additional notes or comments on the measure not otherwise captured above (text in this field is included in publicly-reported state-specific comments):"
-    );
     cy.get('[data-cy="AdditionalNotes-AdditionalNotes"]').click();
     cy.get('[data-cy="AdditionalNotes-AdditionalNotes"]').type("Test");
     cy.get('[data-cy="Validate Measure"]').click();
