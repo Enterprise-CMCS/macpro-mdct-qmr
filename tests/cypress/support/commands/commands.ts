@@ -136,37 +136,16 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
   ).should("be.visible");
 });
 
-// helper recursive function to remove added hh core sets
-const removeHHCoreSetElements = (kebab: string) => {
+// helper recursive function to remove added core sets
+const removeCoreSetElements = (kebab: string) => {
   cy.get(kebab).first().click();
-  cy.wait(500);
-  cy.get('[data-cy="Delete"]').first().click();
+  cy.wait(3000);
+  cy.get('[data-cy="Delete"]').first().click({ force: true });
   cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
-  cy.wait(1000);
+  cy.wait(3000);
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
-      removeHHCoreSetElements(kebab);
-    }
-  });
-};
-
-// helper recursive function to remove added child core sets
-// note: this is nearly identical to the above
-// for some reason the wait works there and the .then works here
-// without the .then it chooses export instead of delete
-// it does not work with a wait inside the .then
-const removeChildCoreSetElements = (kebab: string) => {
-  cy.get(kebab)
-    .first()
-    .click()
-    .then(() => {
-      cy.get('[data-cy="Delete"]').first().click();
-    });
-  cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
-  cy.wait(1000);
-  cy.get('[data-cy="tableBody"]').then(($tbody) => {
-    if ($tbody.find(kebab).length > 0) {
-      removeChildCoreSetElements(kebab);
+      removeCoreSetElements(kebab);
     }
   });
 };
@@ -175,7 +154,7 @@ const removeChildCoreSetElements = (kebab: string) => {
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-      removeChildCoreSetElements('[data-cy="child-kebab-menu"]');
+      removeCoreSetElements('[data-cy="child-kebab-menu"]');
     }
   });
 });
@@ -184,7 +163,7 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
 Cypress.Commands.add("deleteHealthHomeSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="health home-kebab-menu"]').length > 0) {
-      removeHHCoreSetElements('[data-cy="health home-kebab-menu"]');
+      removeCoreSetElements('[data-cy="health home-kebab-menu"]');
     }
   });
 });
