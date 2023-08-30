@@ -148,7 +148,7 @@ export const OptionalMeasureStrat = ({
   const watchDataSourceSwitch = watch("MeasurementSpecification");
   //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
   const OPM =
-    watchDataSourceSwitch == "Other"
+    watchDataSourceSwitch === "Other"
       ? values["OtherPerformanceMeasure-Rates"]
       : undefined;
 
