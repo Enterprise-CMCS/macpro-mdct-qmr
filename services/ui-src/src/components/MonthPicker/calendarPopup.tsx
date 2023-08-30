@@ -120,7 +120,7 @@ export const MonthPickerCalendar = ({
               return (
                 <CUI.Button
                   key={`${value}-${index}`}
-                  aria-label={value + " " + year}
+                  aria-label={`${value} ${year}`}
                   variant={variant}
                   colorScheme="blue"
                   onClick={() => {
