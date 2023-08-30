@@ -37,6 +37,16 @@ assertion-error@^1.1.0:
   resolved "https://registry.yarnpkg.com/assertion-error/-/assertion-error-1.1.0.tgz#e60b6b0e8f301bd97e5375215bda406c85118c0b"
   integrity sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==
 
+aws-dynamodb-local@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/aws-dynamodb-local/-/aws-dynamodb-local-0.0.10.tgz#8b0bc716ac7ca77dda5000fad5a1c8bde02eced7"
+  integrity sha512-tIMxh1zgV/IUs9gQPB5K5xdLuqY3NSshLPQXEy9xaP2qtYN9w4MTGmF8Z5RYkrk0QEM8BHte/8lTh7LCnP395g==
+  dependencies:
+    mocha "^10.2.0"
+    progress "^1.1.8"
+    rimraf "^2.6.3"
+    tar "^4.4.19"
+
 aws-sdk@^2.7.0:
   version "2.1147.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1147.0.tgz#5d279abee153a0627ae502cdbb57d321388b534c"
@@ -209,7 +219,7 @@ diff@5.0.0:
   resolved "https://registry.yarnpkg.com/diff/-/diff-5.0.0.tgz#7ed6ad76d859d030787ec35855f5b1daf31d852b"
   integrity sha512-/VTCrvm5Z0JGty/BWHljh+BAiw3IK+2j87NGMu8Nwc/f48WoDAC395uomO9ZD117ZOBaHmkX1oyLvkVM/aIT3w==
 
-dynamodb-localhost@0.0.9, "dynamodb-localhost@https://github.com/99x/dynamodb-localhost#db30898f8c40932c7177be7b2f1a81360d12876d":
+"dynamodb-localhost@https://github.com/99x/dynamodb-localhost#db30898f8c40932c7177be7b2f1a81360d12876d":
   version "0.0.9"
   resolved "https://github.com/99x/dynamodb-localhost#db30898f8c40932c7177be7b2f1a81360d12876d"
   dependencies:
@@ -631,14 +641,14 @@ serialize-javascript@6.0.0:
   dependencies:
     randombytes "^2.1.0"
 
-serverless-dynamodb-local@0.2.40:
-  version "0.2.40"
-  resolved "https://registry.yarnpkg.com/serverless-dynamodb-local/-/serverless-dynamodb-local-0.2.40.tgz#1c97f678244bfb581e5850d6d43335d3131b59ee"
-  integrity sha512-8wPtFxeJnRKTN3u8x1jG7Cs5VlkO0GkUPfb+DCKIDzjGM5n+qjHXoVsr4YZ/TPwET9kMUgH1Jv39oaEyeSJvYQ==
+serverless-dynamodb@^0.2.43:
+  version "0.2.43"
+  resolved "https://registry.yarnpkg.com/serverless-dynamodb/-/serverless-dynamodb-0.2.43.tgz#a953252fb3a998fa6c0d0d8d7afe4fc088179bcf"
+  integrity sha512-GSG85S86v469zH6DvhFJK6dcosR9Jeu5NWnXa5KydZgDF+RdosdHsJJHvh0ANLY8m/QsKh1FB5Hx4Raexley/g==
   dependencies:
+    aws-dynamodb-local "^0.0.10"
     aws-sdk "^2.7.0"
     bluebird "^3.4.6"
-    dynamodb-localhost "0.0.9"
     lodash "^4.17.0"
 
 serverless-s3-bucket-helper@Enterprise-CMCS/serverless-s3-bucket-helper#0.1.1:
