@@ -137,28 +137,27 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
 });
 
 // helper recursive function to remove added core sets
-const removeCoreSetElements = (kebab: string, coreSetAction: string) => {
-  cy.get(kebab).first().click();
-  cy.wait(3000);
-  cy.get('[data-cy="Delete"]').first().click({ force: true });
+const removeCoreSetElements = (kebab: string) => {
+  cy.get(kebab)
+    .first()
+    .click()
+    .then(() => {
+      cy.get('[data-cy="Delete"]').first().click();
+    });
   cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
-  cy.wait(3000);
+  cy.wait(2000);
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
-      removeCoreSetElements(kebab, coreSetAction);
+      removeCoreSetElements(kebab);
     }
   });
 };
 
 // removes child core set from main page
 Cypress.Commands.add("deleteChildCoreSets", () => {
-  cy.wait(3000);
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-      removeCoreSetElements(
-        '[data-cy="child-kebab-menu"]',
-        '[data-cy^="Core Set Actions-DC2021C"]'
-      );
+      removeCoreSetElements('[data-cy="child-kebab-menu"]');
     }
   });
 });
@@ -167,10 +166,7 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
 Cypress.Commands.add("deleteHealthHomeSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="health home-kebab-menu"]').length > 0) {
-      removeCoreSetElements(
-        '[data-cy="health home-kebab-menu"]',
-        '[data-cy^="Core Set Actions-DC2021HHCS"]'
-      );
+      removeCoreSetElements('[data-cy="health home-kebab-menu"]');
     }
   });
 });
