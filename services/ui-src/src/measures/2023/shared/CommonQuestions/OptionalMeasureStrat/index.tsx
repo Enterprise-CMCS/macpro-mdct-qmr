@@ -140,7 +140,8 @@ export const OptionalMeasureStrat = ({
   rateCalc,
 }: Props) => {
   const omsData = data ?? OMSData();
-  const { watch, getValues, unregister } = useFormContext<OMSType>();
+  const { control, watch, getValues, setValue, unregister } =
+    useFormContext<OMSType>();
   const values = getValues();
 
   const dataSourceWatch = watch("DataSource");
@@ -172,7 +173,18 @@ export const OptionalMeasureStrat = ({
    */
   useEffect(() => {
     return () => {
-      unregister("OptionalMeasureStratification");
+      //unregister does not clean the data properly
+      //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+      setValue("OptionalMeasureStratification", {
+        options: [],
+        selections: {},
+      });
+      //this is definitely the wrong way to fix this issue but it cleans a layer deeper than setValue, we need to use both
+      control._defaultValues.OptionalMeasureStratification = {
+        options: [],
+        selections: {},
+      };
+      unregister("OptionalMeasureStratification.options");
     };
   }, [watchDataSourceSwitch, unregister]);
   return (
