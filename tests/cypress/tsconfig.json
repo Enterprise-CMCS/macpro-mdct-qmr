@@ -4,8 +4,7 @@
     "lib": ["es5", "dom"],
     "types": ["cypress", "cypress-axe"],
     "allowJs": true,
-    "noEmit": true,
-    "baseUrl": "."
+    "noEmit": true
   },
   "include": ["**/*.ts"]
 }
