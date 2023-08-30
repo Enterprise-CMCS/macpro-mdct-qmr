@@ -62,7 +62,6 @@ jobs:
           working-directory: tests/cypress
           spec: cypress/e2e/${{ inputs.test-path }}/${{ matrix.containers }}
           browser: chrome
-          headless: true
           config: baseUrl=${{ inputs.test-endpoint }}
           env: true
         env:
