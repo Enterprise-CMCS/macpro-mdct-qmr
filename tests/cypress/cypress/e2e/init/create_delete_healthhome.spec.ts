@@ -4,15 +4,15 @@ describe("Health Home Sets Should be able to be deleted and created", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
-    cy.wait(1000);
+    cy.wait(2000);
   });
 
   // recursively makes as many HHCS as possible
   const addAllHHCoreSet = () => {
     addSingleHHCoreSet();
-    cy.wait(1000);
+    cy.wait(2000);
     cy.get('[data-cy="add-hhbutton"]').then(($button) => {
-      if (!$button.is(":disabled")) {
+      if (!$button.prop("disabled")) {
         addAllHHCoreSet();
       } else {
         cy.get('[data-cy="add-hhbutton"]').should("be.disabled");
