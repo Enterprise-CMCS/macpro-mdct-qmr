@@ -26,12 +26,18 @@ export const KebabMenu = ({
 }: KebabMenuProps) => {
   return (
     <CUI.Menu>
-      <CUI.MenuButton
-        aria-label={menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"}
-        data-cy={`${menuItems[0].type}-kebab-menu`}
+      <CUI.Tooltip
+        label={menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"}
       >
-        <BsThreeDotsVertical />
-      </CUI.MenuButton>
+        <CUI.MenuButton
+          aria-label={
+            menuLabel ? `Action Menu for ${menuLabel}` : "Action Menu"
+          }
+          data-cy={`${menuItems[0].type}-kebab-menu`}
+        >
+          <BsThreeDotsVertical />
+        </CUI.MenuButton>
+      </CUI.Tooltip>
       <CUI.MenuList bg="blue.500" maxW="40px" p="0">
         {menuItems.map((i) => (
           <KebabMenuItem
@@ -171,6 +177,7 @@ const DeleteMenuItemAlertDialog = ({
                 type="submit"
                 isDisabled={userInput.toLocaleLowerCase() !== "delete"}
                 data-cy="delete-table-item-button"
+                data-testid="delete-button"
               >
                 Delete
               </CUI.Button>
