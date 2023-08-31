@@ -186,7 +186,8 @@ export const OptionalMeasureStrat = ({
       };
       unregister("OptionalMeasureStratification.options");
     };
-  }, [watchDataSourceSwitch, unregister]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchDataSourceSwitch]);
   return (
     <QMR.CoreQuestionWrapper
       testid="OMS"
