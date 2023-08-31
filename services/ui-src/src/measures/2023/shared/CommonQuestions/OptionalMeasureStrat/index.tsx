@@ -7,7 +7,6 @@ import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { cleanString } from "utils/cleanString";
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
 
@@ -29,20 +28,21 @@ export const buildOmsCheckboxes = ({
   isSingleSex,
 }: OmsCheckboxProps) => {
   return data
-    .filter((d) => !isSingleSex || d.id !== "Sex") // remove sex as a top level option if isSingleSex
+    .filter((d) => !isSingleSex || d.id !== "O8BrOa") // remove sex as a top level option if isSingleSex
     .map((lvlOneOption) => {
-      const displayValue = lvlOneOption.id;
-      const value = cleanString(lvlOneOption.id);
+      const displayValue = lvlOneOption.label;
+      const value = lvlOneOption.id;
 
       const children = [
         <TopLevelOmsChildren
           options={lvlOneOption.options}
           addMore={!!lvlOneOption.addMore}
-          parentDisplayName={lvlOneOption.aggregateTitle || lvlOneOption.id}
+          parentDisplayName={lvlOneOption.aggregateTitle || lvlOneOption.label}
           addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
           name={`${name}.selections.${value}`}
           key={`${name}.selections.${value}`}
-          id={displayValue}
+          id={value}
+          label={displayValue}
         />,
       ];
 
@@ -140,12 +140,17 @@ export const OptionalMeasureStrat = ({
   rateCalc,
 }: Props) => {
   const omsData = data ?? OMSData();
-  const { watch, getValues, unregister } = useFormContext<OMSType>();
+  const { control, watch, getValues, setValue, unregister } =
+    useFormContext<OMSType>();
   const values = getValues();
 
   const dataSourceWatch = watch("DataSource");
-  const OPM = values["OtherPerformanceMeasure-Rates"];
   const watchDataSourceSwitch = watch("MeasurementSpecification");
+  //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
+  const OPM =
+    watchDataSourceSwitch === "Other"
+      ? values["OtherPerformanceMeasure-Rates"]
+      : undefined;
 
   const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
@@ -168,9 +173,21 @@ export const OptionalMeasureStrat = ({
    */
   useEffect(() => {
     return () => {
-      unregister("OptionalMeasureStratification");
+      //unregister does not clean the data properly
+      //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+      setValue("OptionalMeasureStratification", {
+        options: [],
+        selections: {},
+      });
+      //this is definitely the wrong way to fix this issue but it cleans a layer deeper than setValue, we need to use both
+      control._defaultValues.OptionalMeasureStratification = {
+        options: [],
+        selections: {},
+      };
+      unregister("OptionalMeasureStratification.options");
     };
-  }, [watchDataSourceSwitch, unregister]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchDataSourceSwitch]);
   return (
     <QMR.CoreQuestionWrapper
       testid="OMS"

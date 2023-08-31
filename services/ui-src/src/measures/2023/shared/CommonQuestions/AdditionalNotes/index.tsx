@@ -22,7 +22,17 @@ export const AdditionalNotes = () => {
       label="Additional Notes/Comments on the measure (optional)"
     >
       <QMR.TextArea
-        label="Please add any additional notes or comments on the measure not otherwise captured above (text in this field is included in publicly-reported state-specific comments):"
+        label={
+          <>
+            Please add any additional notes or comments on the measure not
+            otherwise captured above (
+            <em>
+              text in this field is included in publicly-reported state-specific
+              comments
+            </em>
+            ):
+          </>
+        }
         {...register(DC.ADDITIONAL_NOTES)}
       />
       <CUI.Box marginTop={10}>

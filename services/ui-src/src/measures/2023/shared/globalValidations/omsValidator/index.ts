@@ -1,3 +1,4 @@
+import * as DC from "dataConstants";
 import {
   OmsValidationCallback,
   locationDictionaryFunction,
@@ -41,7 +42,7 @@ export const omsValidations = ({
     opmQuals.push(
       ...data["OtherPerformanceMeasure-Rates"].map((rate) => ({
         id: rate.description
-          ? cleanString(rate.description)
+          ? `${DC.OPM_KEY}${cleanString(rate.description)}`
           : "Fill out description",
         label: rate.description ?? "Fill out description",
         text: "",
@@ -89,6 +90,13 @@ const validateNDRs = (
   const errorArray: FormError[] = [];
   // validates top levels, ex: Race, Geography, Sex
   const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string[]) => {
+    //add label for db data
+    if (!node.label) {
+      const cleanString = locationDictionary(label);
+      node.label = cleanString
+        .substring(cleanString.lastIndexOf("-") + 1)
+        .trim();
+    }
     // validate children if exist
     if (node.options?.length) {
       for (const option of node.options) {
@@ -109,6 +117,13 @@ const validateNDRs = (
   };
   // validate mid level, ex: White, African American, etc
   const validateChildNodes = (node: OMS.MidLevelOMSNode, label: string[]) => {
+    //add label for db data
+    if (!node.label) {
+      const cleanString = locationDictionary(label);
+      node.label = cleanString
+        .substring(cleanString.lastIndexOf("-") + 1)
+        .trim();
+    }
     // validate sub categories
     if (node.additionalSubCategories?.length) {
       for (const subCat of node.additionalSubCategories) {
@@ -249,10 +264,11 @@ const validateNDRs = (
         //array key order is determined in component useQualRateArray, cleanedName variable
         if (rateData.rates?.[cat.id]?.[qual.id]) {
           const temp = rateData.rates[cat.id][qual.id][0];
+          let cleanQual = isOPM ? qual.label : qual.id;
           if (temp && temp.denominator && temp.numerator && temp.rate) {
-            isDeepFilled[`${location}-${qual.id}`] ??= true;
+            isDeepFilled[`${location}-${cleanQual}`] ??= true;
           } else {
-            isDeepFilled[`${location}-${qual.id}`] = false;
+            isDeepFilled[`${location}-${cleanQual}`] = false;
           }
         }
       }

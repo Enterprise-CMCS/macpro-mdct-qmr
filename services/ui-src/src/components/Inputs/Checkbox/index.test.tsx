@@ -20,7 +20,16 @@ const TestComponent = () => {
           value: "Other",
           children: [
             <Inputs.TextInput
-              label="Describe the data source (text in this field is included in publicly-reported state-specific comments):"
+              label={
+                <>
+                  Describe the data source (
+                  <em>
+                    text in this field is included in publicly-reported
+                    state-specific comments
+                  </em>
+                  ):
+                </>
+              }
               formLabelProps={{
                 fontWeight: "normal",
                 fontSize: "normal",

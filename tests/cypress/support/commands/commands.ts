@@ -1,22 +1,9 @@
-import "cypress-file-upload";
-import "cypress-wait-until";
-import "cypress-file-upload";
-// allow for Cypress Snapshot command
-import { addMatchImageSnapshotCommand } from "cypress-image-snapshot/command";
-
 before(() => {
   cy.visit("/", { timeout: 60000 * 7 });
 });
 
-addMatchImageSnapshotCommand({
-  failureThreshold: 0.01, // threshold for entire image -> 0.01 = 1%
-  failureThresholdType: "percent", // percent of image or number of pixels
-  // customDiffConfig: { threshold: 0.1 }, // threshold for each pixel
-  // capture: "viewport", // capture viewport in screenshot
-});
-
-const emailForCognito = "//input[@name='email']";
-const passwordForCognito = "//input[@name='password']";
+const emailForCognito = "input[name='email']";
+const passwordForCognito = "input[name='password']";
 
 // the default stateuser3 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
@@ -32,8 +19,8 @@ Cypress.Commands.add(
       stateuser1: Cypress.env("TEST_USER_1"),
     };
     cy.visit("/");
-    cy.xpath(emailForCognito).type(`${users[user]}`);
-    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
+    cy.get(emailForCognito).type(`${users[user]}`);
+    cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
@@ -51,8 +38,8 @@ Cypress.Commands.add(
       stateuser1: Cypress.env("TEST_USER_1"),
     };
     cy.visit("/");
-    cy.xpath(emailForCognito).type(`${users[user]}`);
-    cy.xpath(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
+    cy.get(emailForCognito).type(`${users[user]}`);
+    cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.get('[data-cy="login-with-cognito-button"]').click();
   }
 );
@@ -150,7 +137,7 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
 });
 
 // helper recursive function to remove added core sets
-const removeCoreSetElements = (kebab: string, coreSetAction: string) => {
+const removeCoreSetElements = (kebab: string) => {
   cy.get(kebab).first().click();
   cy.wait(3000);
   cy.get('[data-cy="Delete"]').first().click({ force: true });
@@ -158,20 +145,16 @@ const removeCoreSetElements = (kebab: string, coreSetAction: string) => {
   cy.wait(3000);
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
-      removeCoreSetElements(kebab, coreSetAction);
+      removeCoreSetElements(kebab);
     }
   });
 };
 
 // removes child core set from main page
 Cypress.Commands.add("deleteChildCoreSets", () => {
-  cy.wait(3000);
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-      removeCoreSetElements(
-        '[data-cy="child-kebab-menu"]',
-        '[data-cy^="Core Set Actions-DC2021C"]'
-      );
+      removeCoreSetElements('[data-cy="child-kebab-menu"]');
     }
   });
 });
@@ -180,10 +163,7 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
 Cypress.Commands.add("deleteHealthHomeSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="health home-kebab-menu"]').length > 0) {
-      removeCoreSetElements(
-        '[data-cy="health home-kebab-menu"]',
-        '[data-cy^="Core Set Actions-DC2021HHCS"]'
-      );
+      removeCoreSetElements('[data-cy="health home-kebab-menu"]');
     }
   });
 });
@@ -211,7 +191,7 @@ function terminalLog(violations) {
 
 // axe api documentation: https://www.deque.com/axe/core-documentation/api-documentation/
 Cypress.Commands.add("checkA11yOfPage", () => {
-  cy.wait(3000);
+  cy.wait(500);
   cy.injectAxe();
   cy.checkA11y(
     null,
@@ -274,6 +254,7 @@ Cypress.Commands.add("clickValidateMeasure", (timeout = 500) => {
 });
 
 Cypress.Commands.add("enterValidDateRange", () => {
+  cy.get('[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]').click();
   cy.get('[data-cy="DateRange.startDate-month"]').type("1");
   cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
   cy.get('[data-cy="DateRange.endDate-month"]').type("12");
@@ -334,8 +315,9 @@ Cypress.Commands.add("SSHHdisplaysCorrectSections", () => {
   ).should("be.visible");
 });
 
-export const measureAbbrList2021 = {
+export const measureAbbrList2023 = {
   ADULT: [
+    "AAB-AD",
     "AMM-AD",
     "AMR-AD",
     "BCS-AD",
@@ -346,12 +328,13 @@ export const measureAbbrList2021 = {
     "CDF-AD",
     "CHL-AD",
     "COB-AD",
+    "COL-AD",
     "CPA-AD",
     "FUA-AD",
     "FUH-AD",
     "FUM-AD",
     "FVA-AD",
-    "HPC-AD",
+    "HBD-AD",
     "HPCMI-AD",
     "HVL-AD",
     "IET-AD",
@@ -359,7 +342,6 @@ export const measureAbbrList2021 = {
     "NCIDDS-AD", // complete on creation
     "OHD-AD",
     "OUD-AD",
-    "PC01-AD",
     "PCR-AD",
     "PPC-AD",
     "PQI01-AD",
@@ -370,12 +352,12 @@ export const measureAbbrList2021 = {
     "SSD-AD",
   ],
   CHILD: [
+    "AAB-CH",
     "ADD-CH",
     "AMB-CH",
     "AMR-CH",
     "APM-CH",
     "APP-CH",
-    "AUD-CH",
     "CCP-CH",
     "CCW-CH",
     "CDF-CH",
@@ -383,13 +365,17 @@ export const measureAbbrList2021 = {
     "CIS-CH",
     "CPC-CH",
     "DEV-CH",
+    "FUA-CH",
     "FUH-CH",
+    "FUM-CH",
     "IMA-CH",
     "LBW-CH", // complete on creation
     "LRCD-CH", // complete on creation
-    "PDENT-CH", // complete on creation
+    "LSC-CH",
+    "OEV-CH",
     "PPC-CH",
     "SFM-CH",
+    "TFL-CH",
     "W30-CH",
     "WCC-CH",
     "WCV-CH",
@@ -399,8 +385,10 @@ export const measureAbbrList2021 = {
     "AMB-HH",
     "CBP-HH",
     "CDF-HH",
+    "COL-HH",
     "FUA-HH",
     "FUH-HH",
+    "FUM-HH",
     "IET-HH",
     "IU-HH",
     "OUD-HH",
