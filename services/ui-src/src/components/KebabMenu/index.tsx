@@ -177,6 +177,7 @@ const DeleteMenuItemAlertDialog = ({
                 type="submit"
                 isDisabled={userInput.toLocaleLowerCase() !== "delete"}
                 data-cy="delete-table-item-button"
+                data-testid="delete-button"
               >
                 Delete
               </CUI.Button>
