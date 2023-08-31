@@ -140,12 +140,17 @@ export const OptionalMeasureStrat = ({
   rateCalc,
 }: Props) => {
   const omsData = data ?? OMSData();
-  const { watch, getValues, unregister } = useFormContext<OMSType>();
+  const { control, watch, getValues, setValue, unregister } =
+    useFormContext<OMSType>();
   const values = getValues();
 
   const dataSourceWatch = watch("DataSource");
-  const OPM = values["OtherPerformanceMeasure-Rates"];
   const watchDataSourceSwitch = watch("MeasurementSpecification");
+  //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
+  const OPM =
+    watchDataSourceSwitch === "Other"
+      ? values["OtherPerformanceMeasure-Rates"]
+      : undefined;
 
   const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
@@ -168,9 +173,21 @@ export const OptionalMeasureStrat = ({
    */
   useEffect(() => {
     return () => {
-      unregister("OptionalMeasureStratification");
+      //unregister does not clean the data properly
+      //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+      setValue("OptionalMeasureStratification", {
+        options: [],
+        selections: {},
+      });
+      //this is definitely the wrong way to fix this issue but it cleans a layer deeper than setValue, we need to use both
+      control._defaultValues.OptionalMeasureStratification = {
+        options: [],
+        selections: {},
+      };
+      unregister("OptionalMeasureStratification.options");
     };
-  }, [watchDataSourceSwitch, unregister]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchDataSourceSwitch]);
   return (
     <QMR.CoreQuestionWrapper
       testid="OMS"
