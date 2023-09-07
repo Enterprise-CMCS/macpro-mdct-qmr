@@ -28,7 +28,7 @@ export const isAuthorized = (
   const userState = decoded["custom:cms_state"];
 
   // if user is a state user - check they are requesting a resource from their state
-  if (userState && requestState && userRoles.includes(UserRoles.STATE)) {
+  if (userState && requestState && userRoles.includes(UserRoles.STATE_USER)) {
     return userState.toLowerCase() === requestState.toLowerCase();
   }
 

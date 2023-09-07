@@ -104,19 +104,19 @@
     ]
   },
   {
-    "username": "bouser@test.com",
+    "username": "adminuser@test.com",
     "attributes": [
       {
         "Name": "email",
-        "Value": "bouser@test.com"
+        "Value": "adminuser@test.com"
       },
       {
         "Name": "given_name",
-        "Value": "Bobby"
+        "Value": "Anna"
       },
       {
         "Name": "family_name",
-        "Value": "Business"
+        "Value": "Admin"
       },
       {
         "Name": "email_verified",
@@ -124,7 +124,7 @@
       },
       {
         "Name": "custom:cms_roles",
-        "Value": "mdctqmr-bo-user"
+        "Value": "mdctqmr-bor"
       }
     ]
   },
@@ -477,11 +477,11 @@
     ]
   },
   {
-    "username": "adminuser@test.com",
+    "username": "approver@test.com",
     "attributes": [
       {
         "Name": "email",
-        "Value": "adminuser@test.com"
+        "Value": "approver@test.com"
       },
       {
         "Name": "given_name",

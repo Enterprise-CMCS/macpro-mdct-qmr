@@ -20,7 +20,7 @@ describe("Authorization Lib Function", () => {
       event.headers = { "x-api-key": "test" };
       event.pathParameters = { state: "AL" };
       mockedDecode.mockReturnValue({
-        "custom:cms_roles": UserRoles.STATE,
+        "custom:cms_roles": UserRoles.STATE_USER,
         "custom:cms_state": "AL",
       });
     });
@@ -59,7 +59,7 @@ describe("Authorization Lib Function", () => {
       event.headers = { "x-api-key": "test" };
       event.pathParameters = { state: "AL" };
       mockedDecode.mockReturnValue({
-        "custom:cms_roles": UserRoles.ADMIN,
+        "custom:cms_roles": UserRoles.APPROVER,
         "custom:cms_state": "AL",
       });
     });

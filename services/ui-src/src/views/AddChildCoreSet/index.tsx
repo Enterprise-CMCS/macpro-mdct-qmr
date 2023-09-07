@@ -33,7 +33,7 @@ export const AddChildCoreSet = () => {
   const { state, year } = useParams();
   const register = useCustomRegister<ChildCoreSetReportType>();
 
-  if (userState && userState !== state && userRole === UserRoles.STATE) {
+  if (userState && userState !== state && userRole === UserRoles.STATE_USER) {
     return (
       <CUI.Box data-testid="unauthorized-container">
         <QMR.Notification

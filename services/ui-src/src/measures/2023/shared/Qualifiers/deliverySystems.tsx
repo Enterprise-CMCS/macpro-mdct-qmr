@@ -94,7 +94,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
               {data.fieldValues.map((fieldValue, idx, arr) => {
                 return (
                   <CUI.Td key={`dataField.${idx}`}>
-                    {userRole === UserRoles.STATE && (
+                    {userRole === UserRoles.STATE_USER && (
                       <QMR.DeleteWrapper
                         allowDeletion={index >= 4 && !!(idx === arr.length - 1)}
                         onDelete={() => remove(index)}
@@ -113,7 +113,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
                         />
                       </QMR.DeleteWrapper>
                     )}
-                    {userRole !== UserRoles.STATE && (
+                    {userRole !== UserRoles.STATE_USER && (
                       <QMR.NumberInput
                         displayPercent
                         name={`PercentageEnrolledInEachDeliverySystem.${index}.${fieldValue}`}
