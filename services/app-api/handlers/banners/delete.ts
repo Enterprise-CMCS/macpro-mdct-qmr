@@ -15,4 +15,4 @@ export const deleteBanner = handler(async (event, _context) => {
     await dynamoDb.delete(params);
     return { status: StatusCodes.SUCCESS, body: params };
   }
-}, true);
+});

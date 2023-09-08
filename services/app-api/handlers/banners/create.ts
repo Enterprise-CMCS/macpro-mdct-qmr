@@ -32,4 +32,4 @@ export const createBanner = handler(async (event, _context) => {
     await dynamoDb.put(params);
     return { status: StatusCodes.CREATED };
   }
-}, true);
+});

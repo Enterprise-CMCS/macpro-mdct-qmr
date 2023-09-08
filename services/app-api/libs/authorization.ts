@@ -10,34 +10,18 @@ interface DecodedToken {
   identities?: [{ userId?: string }];
 }
 
-export const isAuthorized = (
-  event: APIGatewayProxyEvent,
-  postOverride: boolean
-) => {
-  if (!event.headers["x-api-key"]) return false;
-
-  // get state and method from the event
-  const requestState = event.pathParameters?.state;
-  const requestMethod = event.httpMethod as RequestMethods;
-
-  // decode the idToken
-  const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
-
-  // get the role / state from the decoded token
-  const userRoles = decoded["custom:cms_roles"].split(","); // an array of user roles
-  const userState = decoded["custom:cms_state"];
-
-  // if user is a state user - check they are requesting a resource from their state
-  if (userState && requestState && userRoles.includes(UserRoles.STATE_USER)) {
-    return userState.toLowerCase() === requestState.toLowerCase();
+export const isAuthorized = (event: APIGatewayProxyEvent) => {
+  let isAuthorized;
+  if (event?.headers?.["x-api-key"]) {
+    try {
+      // decode the idToken
+      isAuthorized = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+    } catch {
+      // verification failed - unauthorized
+      isAuthorized = false;
+    }
   }
-
-  // if user is an admin - they can only GET resources
-  return (
-    requestMethod === RequestMethods.GET ||
-    (requestMethod === RequestMethods.POST && postOverride) ||
-    (requestMethod === RequestMethods.DELETE && postOverride)
-  );
+  return !!isAuthorized;
 };
 
 export const getUserNameFromJwt = (event: APIGatewayProxyEvent) => {

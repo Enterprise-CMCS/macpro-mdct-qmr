@@ -16,4 +16,4 @@ export const getPDF = handler(async (event, _context) => {
   } catch (err) {
     console.log(err);
   }
-}, true);
+});
