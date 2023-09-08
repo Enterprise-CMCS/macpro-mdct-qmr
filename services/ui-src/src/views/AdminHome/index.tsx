@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import config from "config";
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { useUser } from "hooks/authHooks";
+import { BannerCard } from "components/Banner/BannerCard";
 import { UserRoles } from "types";
 
 export const AdminHome = () => {
@@ -17,6 +18,9 @@ export const AdminHome = () => {
 
   return (
     <CUI.Container maxW="7xl" py="4">
+      <CUI.Container maxW="5xl" py="4">
+        <BannerCard />
+      </CUI.Container>
       <CUI.Stack spacing="4" maxW="lg">
         <CUI.Heading size="md">Admin Home</CUI.Heading>
         <CUI.Select

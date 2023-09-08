@@ -51,6 +51,7 @@ export const CreateBannerForm = ({ writeAdminBanner, ...props }: Props) => {
         writeAdminBanner({ ...formData, startDateInMS, endDateInMS });
       }
     }
+    window.scrollTo(0, 0);
     setSubmitting(false);
   };
   return (
