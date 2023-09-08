@@ -5,9 +5,10 @@ import dynamoDb from "../../../libs/dynamodb-lib";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 import { mockDocumentClient } from "../../../utils/testing/setupJest";
 
+const mockHasRolePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
   isAuthorized: jest.fn().mockReturnValue(true),
-  hasPermissions: jest.fn().mockReturnValue(true),
+  hasRolePermissions: () => mockHasRolePermissions(),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -29,10 +30,24 @@ jest.spyOn(dynamoDb, "delete").mockImplementation(
 );
 
 describe("Test deleteBanner API method", () => {
+  beforeEach(() => {
+    mockHasRolePermissions.mockImplementation(() => {
+      return true;
+    });
+  });
+
   test("Test Successful Banner Deletion", async () => {
     const res = await deleteBanner(testEvent, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(JSON.parse(res.body).status).toBe(StatusCodes.SUCCESS);
+  });
+
+  test("Test unauthorized user attempt", async () => {
+    mockHasRolePermissions.mockImplementation(() => {
+      return false;
+    });
+    const res = await deleteBanner(testEvent, null);
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test bannerKey not provided throws 500 error", async () => {

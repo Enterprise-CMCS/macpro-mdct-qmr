@@ -12,6 +12,7 @@ export const deleteBanner = handler(async (event, _context) => {
       body: Errors.UNAUTHORIZED,
     };
   }
+
   if (!event?.pathParameters?.bannerId!) {
     throw new Error(Errors.NO_KEY);
   } else {

@@ -38,7 +38,7 @@ jest.spyOn(dynamoDb, "put").mockImplementation(
   })
 );
 
-describe("brax Test createBanner API method", () => {
+describe("Test createBanner API method", () => {
   beforeEach(() => {
     mockHasRolePermissions.mockImplementation(() => {
       return true;
