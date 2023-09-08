@@ -1,9 +1,11 @@
 import { ReactElement, Fragment, lazy } from "react";
 import { createElement } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
+import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
+import { UserRoles } from "types";
 
 // Todo: Uncomment this segment when need to run S3 locally
 ///////////////////////////////////////////////////////////
@@ -144,15 +146,28 @@ export function useMeasureRoutes(): MeasureRoute[] {
 }
 
 export function AppRoutes() {
+  const { userRole } = useUser();
   const measureRoutes = useMeasureRoutes();
+  const isSuperAdmin = userRole === UserRoles.ADMIN;
+  const isAdminTypeUser = userRole !== UserRoles.STATE_USER;
 
   return (
     <main id="main-wrapper">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path=":state/:year" element={<StateHome />} />
-        <Route path="admin" element={<AdminHome />} />
-        <Route path="admin/banner" element={<AdminBannerView />} />
+        {/* admin route available to any admin-type user (admin, approver, help desk, internal) */}
+        <Route
+          path="admin"
+          element={isAdminTypeUser ? <AdminHome /> : <Navigate to="/" />}
+        />
+        {/* admin/banner route available only to admin user (not approver, help desk, internal) */}
+        <Route
+          path="admin/banner"
+          element={
+            isSuperAdmin ? <AdminBannerView /> : <Navigate to="/admin" />
+          }
+        />
         <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
         <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
