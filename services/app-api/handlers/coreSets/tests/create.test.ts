@@ -42,26 +42,11 @@ jest.mock("../get", () => ({
 describe("Testing the Create CoreSet Functions", () => {
   beforeEach(() => {
     (getCoreSet as jest.Mock).mockReset();
-    mockHasRolePermissions.mockImplementation(() => true);
-    mockHasStatePermissions.mockImplementation(() => true);
-  });
-
-  test("Test unauthorized user attempt (incorrect role)", async () => {
     mockHasRolePermissions.mockImplementation(() => false);
-    (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
-    const list = measures[2021].filter((measure) => measure.type === "A");
-    const res = await createCoreSet(
-      {
-        ...testEvent,
-        pathParameters: { state: "FL", year: "2021", coreSet: CoreSetAbbr.ACS },
-      },
-      null
-    );
-    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
-    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
     (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
     const list = measures[2021].filter((measure) => measure.type === "A");

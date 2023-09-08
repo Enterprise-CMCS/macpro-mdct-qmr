@@ -9,15 +9,17 @@ import { MeasureStatus, CoreSetAbbr, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 
 export const createMeasure = handler(async (event, context) => {
-  // action limited to state users from corresponding state
+  // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
-  const isFromCorrespondingState = hasStatePermissions(event);
-  if (!isStateUser || !isFromCorrespondingState) {
-    return {
-      status: StatusCodes.UNAUTHORIZED,
-      body: Errors.UNAUTHORIZED,
-    };
-  }
+  if (isStateUser) {
+    const isFromCorrespondingState = hasStatePermissions(event);
+    if (!isFromCorrespondingState) {
+      return {
+        status: StatusCodes.UNAUTHORIZED,
+        body: Errors.UNAUTHORIZED,
+      };
+    }
+  } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const body = JSON.parse(event!.body!);
   const dynamoKey = createCompoundKey(event);

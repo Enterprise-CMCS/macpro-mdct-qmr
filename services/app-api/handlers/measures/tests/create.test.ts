@@ -33,24 +33,11 @@ jest.mock("../../dynamoUtils/createCompoundKey", () => ({
 
 describe("Test Create Measure Handler", () => {
   beforeEach(() => {
-    mockHasRolePermissions.mockImplementation(() => true);
-    mockHasStatePermissions.mockImplementation(() => true);
-  });
-
-  test("Test unauthorized user attempt (incorrect role)", async () => {
     mockHasRolePermissions.mockImplementation(() => false);
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
-      headers: { "cognito-identity-id": "test" },
-    };
-    const res = await createMeasure(event, null);
-
-    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
-    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
     const event: APIGatewayProxyEvent = {
       ...testEvent,
