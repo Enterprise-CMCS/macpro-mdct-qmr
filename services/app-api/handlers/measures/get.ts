@@ -83,3 +83,12 @@ export const getMeasure = handler(async (event, context) => {
     body: queryValue,
   };
 });
+
+export const getReportingYears = handler(async () => {
+  const reportingYears = Object.keys(measures);
+  return reportingYears;
+});
+
+export const getMeasureListInfo = handler(async () => {
+  return measures;
+});

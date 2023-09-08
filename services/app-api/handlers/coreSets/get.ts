@@ -94,5 +94,8 @@ export const getCoreSet = handler(async (event, context) => {
     },
   };
   const queryValue = await dynamoDb.get(params);
-  return queryValue;
+  return {
+    status: StatusCodes.SUCCESS,
+    body: queryValue,
+  };
 });
