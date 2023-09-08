@@ -2,6 +2,8 @@ import { render, screen } from "@testing-library/react";
 import { AdminHome } from "../index";
 import { RouterWrappedComp } from "utils/testing";
 import { territoryList } from "libs";
+import { useUser } from "hooks/authHooks";
+import { UserRoles } from "types";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
@@ -12,6 +14,9 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
+jest.mock("hooks/authHooks/useUser");
+const mockedUseUser = useUser as jest.MockedFunction<typeof useUser>;
+
 const testComponent = (
   <RouterWrappedComp>
     <AdminHome />
@@ -19,7 +24,11 @@ const testComponent = (
 );
 
 describe("Test AdminHome", () => {
-  test("Check basic page rendering", () => {
+  beforeEach(() => {
+    mockedUseUser.mockReturnValue({ userRole: UserRoles.ADMIN });
+  });
+
+  test("Check basic page rendering for super admin", () => {
     render(testComponent);
     expect(screen.getByText("Admin Home")).toBeInTheDocument();
     territoryList.forEach((territory) =>
@@ -36,6 +45,26 @@ describe("Test AdminHome", () => {
     expect(
       screen.getByRole("button", { name: "Banner Editor" })
     ).toBeInTheDocument();
+  });
+
+  test("Check basic page rendering for admin-type (non super admin)", () => {
+    mockedUseUser.mockReturnValueOnce({ userRole: UserRoles.HELP_DESK });
+    render(testComponent);
+    territoryList.forEach((territory) =>
+      expect(
+        screen.getByRole("option", { name: territory.value })
+      ).toBeInTheDocument()
+    );
+    expect(
+      screen.getByRole("button", { name: "Go To State Home" })
+    ).toBeInTheDocument();
+    // admin banner button is not displayed
+    expect(
+      screen.queryAllByRole("heading", { name: "Banner Admin" })
+    ).toHaveLength(0);
+    expect(
+      screen.queryAllByRole("button", { name: "Banner Editor" })
+    ).toHaveLength(0);
   });
 });
 
