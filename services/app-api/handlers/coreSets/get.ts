@@ -36,7 +36,6 @@ export const coreSetList = handler(async (event, context) => {
   };
 
   const results = await dynamoDb.scan<Types.CoreSet>(params);
-
   // if the query value contains no results
   if (results.Count === 0) {
     // add an adult coreset and requery the db
@@ -66,7 +65,10 @@ export const coreSetList = handler(async (event, context) => {
     // Update the progress measure numComplete
     const updatedCoreSetProgressResults =
       (await updateCoreSetProgress(results, event, context)) || results;
-    return updatedCoreSetProgressResults;
+    return {
+      status: StatusCodes.SUCCESS,
+      body: updatedCoreSetProgressResults,
+    };
   }
 });
 

@@ -5,6 +5,7 @@ import dynamoDb from "../../../libs/dynamodb-lib";
 import { measures } from "../../dynamoUtils/measureList";
 import { CoreSetAbbr } from "../../../types";
 import { getCoreSet } from "../get";
+import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   __esModule: true,
@@ -14,9 +15,12 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   },
 }));
 
+const mockHasRolePermissions = jest.fn();
+const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  __esModule: true,
   isAuthorized: jest.fn().mockReturnValue(true),
+  hasRolePermissions: () => mockHasRolePermissions(),
+  hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -35,9 +39,45 @@ jest.mock("../get", () => ({
   getCoreSet: jest.fn(),
 }));
 
-describe("Testing the Create CoreSet Functions", () => {
+describe("brax Testing the Create CoreSet Functions", () => {
   beforeEach(() => {
     (getCoreSet as jest.Mock).mockReset();
+    mockHasRolePermissions.mockImplementation(() => true);
+    mockHasStatePermissions.mockImplementation(() => true);
+  });
+
+  test("Test unauthorized user attempt (incorrect role)", async () => {
+    mockHasRolePermissions.mockImplementation(() => false);
+    (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
+    const list = measures[2021].filter((measure) => measure.type === "A");
+    const res = await createCoreSet(
+      {
+        ...testEvent,
+        pathParameters: { state: "FL", year: "2021", coreSet: CoreSetAbbr.ACS },
+      },
+      null
+    );
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
+  test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
+    const list = measures[2021].filter((measure) => measure.type === "A");
+    const res = await createCoreSet(
+      {
+        ...testEvent,
+        pathParameters: {
+          state: "FL",
+          year: "2021",
+          coreSet: CoreSetAbbr.ACS,
+        },
+      },
+      null
+    );
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test createCoreSet but coreSet exists", async () => {
@@ -52,12 +92,8 @@ describe("Testing the Create CoreSet Functions", () => {
       null
     );
 
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toContain("statusCode");
-    expect(res.body).toContain("400");
-    expect(res.body).toContain(
-      "Failure to create coreset. Coreset already exists."
-    );
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.CORESET_ALREADY_EXISTS);
   });
 
   test("Test createCoreSet", async () => {
@@ -71,10 +107,7 @@ describe("Testing the Create CoreSet Functions", () => {
       null
     );
 
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toContain("Item");
-    expect(res.body).toContain("coreSet");
-    expect(res.body).toContain("submitted");
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(dynamoDb.post).toHaveBeenCalledTimes(list.length + 1);
   });
 });

@@ -32,10 +32,8 @@ export const createCoreSet = handler(async (event, context) => {
 
   if (coreSetExists) {
     return {
-      statusCode: 400,
-      body: JSON.stringify({
-        error: "Failure to create coreset. Coreset already exists.",
-      }),
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.CORESET_ALREADY_EXISTS,
     };
   }
   const dynamoKey = createCompoundKey(event);
@@ -77,7 +75,7 @@ export const createCoreSet = handler(async (event, context) => {
   };
 
   await dynamoDb.post(params);
-  return params;
+  return { status: StatusCodes.SUCCESS };
 });
 
 const createDependentMeasures = async (

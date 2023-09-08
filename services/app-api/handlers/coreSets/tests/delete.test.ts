@@ -2,6 +2,7 @@ import { deleteCoreSet } from "../delete";
 import db from "../../../libs/dynamodb-lib";
 import { env } from "yargs";
 import { testEvent, testMeasure } from "../../../test-util/testEvents";
+import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   __esModule: true,
@@ -11,9 +12,12 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   },
 }));
 
+const mockHasRolePermissions = jest.fn();
+const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  __esModule: true,
   isAuthorized: jest.fn().mockReturnValue(true),
+  hasRolePermissions: () => mockHasRolePermissions(),
+  hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -37,10 +41,38 @@ jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
-describe("Testing Delete Core Set Functions", () => {
+describe("brax Testing Delete Core Set Functions", () => {
   beforeEach(() => {
     (db.scan as jest.Mock).mockReset();
     (db.delete as jest.Mock).mockReset();
+    mockHasRolePermissions.mockImplementation(() => true);
+    mockHasStatePermissions.mockImplementation(() => true);
+  });
+
+  test("Test unauthorized user attempt (incorrect role)", async () => {
+    mockHasRolePermissions.mockImplementation(() => false);
+    const res = await deleteCoreSet(
+      {
+        ...testEvent,
+        pathParameters: { state: "FL", year: "2020", coreSet: "ACS" },
+      },
+      null
+    );
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
+  test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    const res = await deleteCoreSet(
+      {
+        ...testEvent,
+        pathParameters: { state: "FL", year: "2020", coreSet: "ACS" },
+      },
+      null
+    );
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test deleteCoreSet with associated measures", async () => {

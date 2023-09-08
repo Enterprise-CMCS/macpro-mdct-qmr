@@ -41,6 +41,5 @@ export const editCoreSet = handler(async (event, context) => {
     ),
   };
   await dynamoDb.update(params);
-
-  return params;
+  return { status: StatusCodes.SUCCESS, body: params };
 });

@@ -3,6 +3,7 @@ import { testEvent } from "../../../test-util/testEvents";
 import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../../dynamoUtils/createCompoundKey";
 import { editCoreSet } from "../update";
+import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   __esModule: true,
@@ -11,10 +12,13 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   },
 }));
 
+const mockHasRolePermissions = jest.fn();
+const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  __esModule: true,
   isAuthorized: jest.fn().mockReturnValue(true),
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
+  hasRolePermissions: () => mockHasRolePermissions(),
+  hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -33,7 +37,42 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
-describe("Testing Updating Core Set Functions", () => {
+describe("brax Testing Updating Core Set Functions", () => {
+  beforeEach(() => {
+    mockHasRolePermissions.mockImplementation(() => true);
+    mockHasStatePermissions.mockImplementation(() => true);
+  });
+
+  test("Test unauthorized user attempt (incorrect role)", async () => {
+    mockHasRolePermissions.mockImplementation(() => false);
+    const res = await editCoreSet(
+      {
+        ...testEvent,
+        headers: { "cognito-identity-id": "branchUser" },
+        pathParameters: { coreSet: "ACS" },
+        body: "{}",
+      },
+      null
+    );
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
+  test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    const res = await editCoreSet(
+      {
+        ...testEvent,
+        headers: { "cognito-identity-id": "branchUser" },
+        pathParameters: { coreSet: "ACS" },
+        body: "{}",
+      },
+      null
+    );
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
   test("Test with cognito user id", async () => {
     Date.now = jest.fn(() => 20);
     const res = await editCoreSet(
@@ -56,7 +95,7 @@ describe("Testing Updating Core Set Functions", () => {
       },
       "post"
     );
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("FL2020ACSFUA-AD");
   });
 
@@ -81,7 +120,7 @@ describe("Testing Updating Core Set Functions", () => {
       },
       "post"
     );
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("FL2020ACSFUA-AD");
   });
 });

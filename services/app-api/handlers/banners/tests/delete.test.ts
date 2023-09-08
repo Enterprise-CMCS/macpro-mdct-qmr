@@ -31,9 +31,7 @@ jest.spyOn(dynamoDb, "delete").mockImplementation(
 
 describe("Test deleteBanner API method", () => {
   beforeEach(() => {
-    mockHasRolePermissions.mockImplementation(() => {
-      return true;
-    });
+    mockHasRolePermissions.mockImplementation(() => true);
   });
 
   test("Test Successful Banner Deletion", async () => {
@@ -42,9 +40,7 @@ describe("Test deleteBanner API method", () => {
   });
 
   test("Test unauthorized user attempt", async () => {
-    mockHasRolePermissions.mockImplementation(() => {
-      return false;
-    });
+    mockHasRolePermissions.mockImplementation(() => false);
     const res = await deleteBanner(testEvent, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);

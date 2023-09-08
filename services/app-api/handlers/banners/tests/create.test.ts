@@ -40,15 +40,11 @@ jest.spyOn(dynamoDb, "put").mockImplementation(
 
 describe("Test createBanner API method", () => {
   beforeEach(() => {
-    mockHasRolePermissions.mockImplementation(() => {
-      return true;
-    });
+    mockHasRolePermissions.mockImplementation(() => true);
   });
 
   test("Test unauthorized user attempt", async () => {
-    mockHasRolePermissions.mockImplementation(() => {
-      return false;
-    });
+    mockHasRolePermissions.mockImplementation(() => false);
     const res = await createBanner(testEvent, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
