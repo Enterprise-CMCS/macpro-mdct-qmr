@@ -27,27 +27,27 @@ describe("Authorization Lib Function", () => {
 
     test("authorizaiton should fail from missing jwt key", () => {
       event.headers = {};
-      expect(isAuthorized(event, false)).toBeFalsy();
+      expect(isAuthorized(event)).toBeFalsy();
     });
 
     test("authorization should pass", () => {
-      expect(isAuthorized(event, false)).toBeTruthy();
+      expect(isAuthorized(event)).toBeTruthy();
     });
 
     test("authorization should fail from mismatched states", () => {
       event.pathParameters = { state: "FL" };
-      expect(isAuthorized(event, false)).toBeFalsy();
+      expect(isAuthorized(event)).toBeFalsy();
     });
 
     test("authorization should pass for GET, but skip if check from missing requestState", () => {
       event.pathParameters = null;
-      expect(isAuthorized(event, false)).toBeTruthy();
+      expect(isAuthorized(event)).toBeTruthy();
     });
 
     test("authorization should fail from missing requestState and non-GET call", () => {
       event.pathParameters = null;
       event.httpMethod = "POST";
-      expect(isAuthorized(event, false)).toBeFalsy();
+      expect(isAuthorized(event)).toBeFalsy();
     });
   });
 
@@ -65,27 +65,27 @@ describe("Authorization Lib Function", () => {
     });
 
     test("authorization should pass", () => {
-      expect(isAuthorized(event, false)).toBeTruthy();
+      expect(isAuthorized(event)).toBeTruthy();
     });
 
     test("authorization should fail from unauthorized http method", () => {
       event.httpMethod = "POST";
-      expect(isAuthorized(event, false)).toBeFalsy();
+      expect(isAuthorized(event)).toBeFalsy();
     });
 
-    test("authorization should pass with POST override", () => {
-      event.httpMethod = "POST";
-      expect(isAuthorized(event, true)).toBeTruthy();
-    });
+    // test("authorization should pass with POST override", () => {
+    //   event.httpMethod = "POST";
+    //   expect(isAuthorized(event)).toBeTruthy();
+    // });
 
     test("authorization should fail from unauthorized http method", () => {
       event.httpMethod = "DELETE";
-      expect(isAuthorized(event, false)).toBeFalsy();
+      expect(isAuthorized(event)).toBeFalsy();
     });
 
-    test("authorization should pass with DELETE override", () => {
-      event.httpMethod = "DELETE";
-      expect(isAuthorized(event, true)).toBeTruthy();
-    });
+    // test("authorization should pass with DELETE override", () => {
+    //   event.httpMethod = "DELETE";
+    //   expect(isAuthorized(event)).toBeTruthy();
+    // });
   });
 });

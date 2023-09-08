@@ -8,12 +8,12 @@ type LambdaFunction = (
   context: any
 ) => Promise<any>;
 
-export default function handler(lambda: LambdaFunction, postOverride = false) {
+export default function handler(lambda: LambdaFunction) {
   return async function (event: APIGatewayProxyEvent, context: any) {
     // Start debugger
     debug.init(event, context);
 
-    if (isAuthorized(event, postOverride)) {
+    if (isAuthorized(event)) {
       try {
         // Run the Lambda
         const body = await lambda(event, context);
