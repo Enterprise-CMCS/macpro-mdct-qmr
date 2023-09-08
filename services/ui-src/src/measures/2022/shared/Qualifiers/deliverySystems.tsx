@@ -113,6 +113,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
                         />
                       </QMR.DeleteWrapper>
                     )}
+                    {/* only display to admin-type users (admin, approver, help desk, internal) */}
                     {userRole !== UserRoles.STATE_USER && (
                       <QMR.NumberInput
                         displayPercent

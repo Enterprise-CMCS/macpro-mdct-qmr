@@ -33,6 +33,7 @@ export const AddChildCoreSet = () => {
   const { state, year } = useParams();
   const register = useCustomRegister<ChildCoreSetReportType>();
 
+  // block display from state users without permissions for the corresponding state
   if (userState && userState !== state && userRole === UserRoles.STATE_USER) {
     return (
       <CUI.Box data-testid="unauthorized-container">

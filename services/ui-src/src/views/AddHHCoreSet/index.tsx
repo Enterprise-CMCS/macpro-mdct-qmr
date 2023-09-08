@@ -39,6 +39,7 @@ export const AddHHCoreSet = () => {
   const register = useCustomRegister<HealthHome>();
   const watchSPAchoice = methods.watch("HealthHomeCoreSet-SPA");
 
+  // block display from state users without permissions for the corresponding state
   if (userState && userState !== state && userRole === UserRoles.STATE_USER) {
     return (
       <CUI.Box data-testid="unauthorized-container">
