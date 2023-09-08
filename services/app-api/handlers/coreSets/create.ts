@@ -3,9 +3,24 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
+import {
+  hasRolePermissions,
+  hasStatePermissions,
+} from "../../libs/authorization";
 import * as Types from "../../types";
+import { Errors, StatusCodes } from "../../utils/constants/constants";
 
 export const createCoreSet = handler(async (event, context) => {
+  // action limited to state users from corresponding state
+  const isStateUser = hasRolePermissions(event, [Types.UserRoles.STATE_USER]);
+  const isFromCorrespondingState = hasStatePermissions(event);
+  if (!isStateUser || !isFromCorrespondingState) {
+    return {
+      status: StatusCodes.UNAUTHORIZED,
+      body: Errors.UNAUTHORIZED,
+    };
+  }
+
   // The State Year and ID are all part of the path
   const state = event!.pathParameters!.state!;
   const year = event!.pathParameters!.year!;

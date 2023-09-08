@@ -2,9 +2,24 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { Measure } from "../../types";
+import {
+  hasRolePermissions,
+  hasStatePermissions,
+} from "../../libs/authorization";
+import { Measure, UserRoles } from "../../types";
+import { Errors, StatusCodes } from "../../utils/constants/constants";
 
 export const deleteCoreSet = handler(async (event, context) => {
+  // action limited to state users from corresponding state
+  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
+  const isFromCorrespondingState = hasStatePermissions(event);
+  if (!isStateUser || !isFromCorrespondingState) {
+    return {
+      status: StatusCodes.UNAUTHORIZED,
+      body: Errors.UNAUTHORIZED,
+    };
+  }
+
   const state = event!.pathParameters!.state!;
   const year = parseInt(event!.pathParameters!.year!);
   const coreSet = event!.pathParameters!.coreSet!;

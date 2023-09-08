@@ -3,10 +3,27 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { measures } from "../dynamoUtils/measureList";
-import { Measure } from "../../types";
+import {
+  hasRolePermissions,
+  hasStatePermissions,
+} from "../../libs/authorization";
+import { Measure, UserRoles } from "../../types";
+import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { Key } from "aws-sdk/clients/dynamodb";
 
 export const listMeasures = handler(async (event, context) => {
+  // action limited to any admin type user and state users from corresponding state
+  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
+  if (isStateUser) {
+    const isFromCorrespondingState = hasStatePermissions(event);
+    if (!isFromCorrespondingState) {
+      return {
+        status: StatusCodes.UNAUTHORIZED,
+        body: Errors.UNAUTHORIZED,
+      };
+    }
+  } // if not state user, can safely assume admin type user due to baseline handler protections
+
   const state = event.pathParameters?.state;
   const year = event.pathParameters?.year as string;
   const coreSet = event.pathParameters?.coreSet;
@@ -37,6 +54,18 @@ export const listMeasures = handler(async (event, context) => {
 });
 
 export const getMeasure = handler(async (event, context) => {
+  // action limited to any admin type user and state users from corresponding state
+  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
+  if (isStateUser) {
+    const isFromCorrespondingState = hasStatePermissions(event);
+    if (!isFromCorrespondingState) {
+      return {
+        status: StatusCodes.UNAUTHORIZED,
+        body: Errors.UNAUTHORIZED,
+      };
+    }
+  } // if not state user, can safely assume admin type user due to baseline handler protections
+
   const dynamoKey = createCompoundKey(event);
   const params = {
     TableName: process.env.measureTableName!,
@@ -47,13 +76,4 @@ export const getMeasure = handler(async (event, context) => {
   };
   const queryValue = await dynamoDb.get(params);
   return queryValue;
-});
-
-export const getReportingYears = handler(async () => {
-  const reportingYears = Object.keys(measures);
-  return reportingYears;
-});
-
-export const getMeasureListInfo = handler(async () => {
-  return measures;
 });

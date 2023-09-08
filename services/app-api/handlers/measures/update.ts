@@ -2,9 +2,25 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { getUserNameFromJwt } from "../../libs/authorization";
+import {
+  getUserNameFromJwt,
+  hasRolePermissions,
+  hasStatePermissions,
+} from "../../libs/authorization";
+import { UserRoles } from "../../types";
+import { Errors, StatusCodes } from "../../utils/constants/constants";
 
 export const editMeasure = handler(async (event, context) => {
+  // action limited to state users from corresponding state
+  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
+  const isFromCorrespondingState = hasStatePermissions(event);
+  if (!isStateUser || !isFromCorrespondingState) {
+    return {
+      status: StatusCodes.UNAUTHORIZED,
+      body: Errors.UNAUTHORIZED,
+    };
+  }
+
   const {
     data,
     status,

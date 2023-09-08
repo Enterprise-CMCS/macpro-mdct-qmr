@@ -24,24 +24,52 @@ export const isAuthorized = (event: APIGatewayProxyEvent) => {
   return !!isAuthorized;
 };
 
-export const hasPermissions = (
+export const hasRolePermissions = (
   event: APIGatewayProxyEvent,
   allowedRoles: UserRoles[]
 ) => {
-  let isAllowed = false;
-  // decode the idToken
+  let hasPermissions = false;
   if (event?.headers["x-api-key"]) {
+    // decode the idToken
     const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
     const idmUserRoles = decoded["custom:cms_roles"];
     const qmrUserRole = idmUserRoles
       ?.split(",")
       .find((role) => role.includes("mdctqmr")) as UserRoles;
+
     // determine if role has permissions
     if (allowedRoles.includes(qmrUserRole)) {
-      isAllowed = true;
+      hasPermissions = true;
     }
   }
-  return isAllowed;
+  return hasPermissions;
+};
+
+export const hasStatePermissions = (event: APIGatewayProxyEvent) => {
+  let hasPermissions = false;
+  if (event?.headers["x-api-key"]) {
+    // decode the idToken
+    const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+
+    // get user role
+    const idmUserRoles = decoded["custom:cms_roles"];
+    const qmrUserRole = idmUserRoles
+      ?.split(",")
+      .find((role) => role.includes("mdctqmr")) as UserRoles;
+    const isStateUser = qmrUserRole === UserRoles.STATE_USER;
+
+    // get passed state parameter
+    const requestState = event.pathParameters?.state;
+    if (requestState) {
+      // determine if user has state permissions
+      const userState = decoded["custom:cms_state"];
+      if (isStateUser && userState) {
+        hasPermissions = userState.toLowerCase() === requestState.toLowerCase();
+      }
+    }
+  }
+
+  return hasPermissions;
 };
 
 export const getUserNameFromJwt = (event: APIGatewayProxyEvent) => {
