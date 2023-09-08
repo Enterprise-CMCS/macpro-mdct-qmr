@@ -12,6 +12,7 @@ export const createBanner = handler(async (event, _context) => {
       body: Errors.UNAUTHORIZED,
     };
   }
+
   const validPayload = (payload: any) => {
     return (
       payload.title &&

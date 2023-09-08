@@ -1,7 +1,8 @@
 import * as debug from "./debug-lib";
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { isAuthorized } from "./authorization";
-import { failure, success, buildResponse } from "./response-lib";
+import { failure, buildResponse } from "./response-lib";
+import { Errors, StatusCodes } from "../utils/constants/constants";
 
 type LambdaFunction = (
   event: APIGatewayProxyEvent,
@@ -16,8 +17,8 @@ export default function handler(lambda: LambdaFunction) {
     if (isAuthorized(event)) {
       try {
         // Run the Lambda
-        const body = await lambda(event, context);
-        return success(body);
+        const { status, body } = await lambda(event, context);
+        return buildResponse(status, body);
       } catch (e: any) {
         // Print debug messages
         debug.flush(e);
@@ -26,8 +27,8 @@ export default function handler(lambda: LambdaFunction) {
         return failure(body);
       }
     } else {
-      const body = { error: "User is not authorized to access this resource." };
-      return buildResponse(403, body);
+      const body = { error: Errors.UNAUTHORIZED };
+      return buildResponse(StatusCodes.UNAUTHORIZED, body);
     }
   };
 }
