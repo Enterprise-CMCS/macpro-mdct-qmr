@@ -1,6 +1,7 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import jwt_decode from "jwt-decode";
 import { UserRoles, RequestMethods } from "../types";
+import { clearLogs } from "./debug-lib";
 
 interface DecodedToken {
   "custom:cms_roles": string;
@@ -13,13 +14,7 @@ interface DecodedToken {
 export const isAuthorized = (event: APIGatewayProxyEvent) => {
   let isAuthorized;
   if (event?.headers?.["x-api-key"]) {
-    try {
-      // decode the idToken
-      isAuthorized = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
-    } catch {
-      // verification failed - unauthorized
-      isAuthorized = false;
-    }
+    isAuthorized = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
   }
   return !!isAuthorized;
 };
