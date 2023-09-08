@@ -51,7 +51,7 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
-describe("braxy Test Get Core Set Functions", () => {
+describe("Test Get Core Set Functions", () => {
   beforeAll(() => {
     process.env.coreSetTableName = "EXAMPLE TABLE";
   });

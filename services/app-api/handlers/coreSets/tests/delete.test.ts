@@ -41,7 +41,7 @@ jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
-describe("brax Testing Delete Core Set Functions", () => {
+describe("Testing Delete Core Set Functions", () => {
   beforeEach(() => {
     (db.scan as jest.Mock).mockReset();
     (db.delete as jest.Mock).mockReset();

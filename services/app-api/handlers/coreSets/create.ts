@@ -75,7 +75,7 @@ export const createCoreSet = handler(async (event, context) => {
   };
 
   await dynamoDb.post(params);
-  return { status: StatusCodes.SUCCESS };
+  return { status: StatusCodes.SUCCESS, body: params };
 });
 
 const createDependentMeasures = async (

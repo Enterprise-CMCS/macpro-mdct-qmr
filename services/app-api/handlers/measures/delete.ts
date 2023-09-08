@@ -30,5 +30,5 @@ export const deleteMeasure = handler(async (event, context) => {
 
   await dynamoDb.delete(params);
 
-  return params;
+  return { status: StatusCodes.SUCCESS, body: params };
 });

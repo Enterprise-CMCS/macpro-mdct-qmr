@@ -39,7 +39,7 @@ jest.mock("../get", () => ({
   getCoreSet: jest.fn(),
 }));
 
-describe("brax Testing the Create CoreSet Functions", () => {
+describe("Testing the Create CoreSet Functions", () => {
   beforeEach(() => {
     (getCoreSet as jest.Mock).mockReset();
     mockHasRolePermissions.mockImplementation(() => true);

@@ -50,7 +50,10 @@ export const listMeasures = handler(async (event, context) => {
     });
   });
   queryValue.Items = scannedResults;
-  return queryValue;
+  return {
+    status: StatusCodes.SUCCESS,
+    body: queryValue,
+  };
 });
 
 export const getMeasure = handler(async (event, context) => {
@@ -75,5 +78,8 @@ export const getMeasure = handler(async (event, context) => {
     },
   };
   const queryValue = await dynamoDb.get(params);
-  return queryValue;
+  return {
+    status: StatusCodes.SUCCESS,
+    body: queryValue,
+  };
 });

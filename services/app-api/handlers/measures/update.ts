@@ -59,5 +59,5 @@ export const editMeasure = handler(async (event, context) => {
   };
   await dynamoDb.update(params);
 
-  return params;
+  return { status: StatusCodes.SUCCESS, body: params };
 });

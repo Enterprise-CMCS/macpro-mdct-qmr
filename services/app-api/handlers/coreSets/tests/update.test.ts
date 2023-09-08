@@ -37,7 +37,7 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
-describe("brax Testing Updating Core Set Functions", () => {
+describe("Testing Updating Core Set Functions", () => {
   beforeEach(() => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => true);

@@ -4,6 +4,7 @@ import dbLib from "../../../libs/dynamodb-lib";
 
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { testEvent } from "../../../test-util/testEvents";
+import { StatusCodes, Errors } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   __esModule: true,
@@ -12,9 +13,12 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   },
 }));
 
+const mockHasRolePermissions = jest.fn();
+const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  __esModule: true,
   isAuthorized: jest.fn().mockReturnValue(true),
+  hasRolePermissions: () => mockHasRolePermissions(),
+  hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -28,19 +32,38 @@ jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
-describe("Test Delete Measure Handler", () => {
-  test("Test Successful Run of Measure Deletion", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
-      headers: { "cognito-identity-id": "test" },
-      pathParameters: { coreSet: "ACS" },
-    };
-    process.env.measureTableName = "SAMPLE TABLE";
+const event: APIGatewayProxyEvent = {
+  ...testEvent,
+  body: `{"data": {}, "description": "sample desc"}`,
+  headers: { "cognito-identity-id": "test" },
+  pathParameters: { coreSet: "ACS" },
+};
+process.env.measureTableName = "SAMPLE TABLE";
 
+describe("Test Delete Measure Handler", () => {
+  beforeEach(() => {
+    mockHasRolePermissions.mockImplementation(() => true);
+    mockHasStatePermissions.mockImplementation(() => true);
+  });
+
+  test("Test unauthorized user attempt (incorrect role)", async () => {
+    mockHasRolePermissions.mockImplementation(() => false);
+    const res = await deleteMeasure(event, null);
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
+  test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    const res = await deleteMeasure(event, null);
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
+  test("Test Successful Run of Measure Deletion", async () => {
     const res = await deleteMeasure(event, null);
 
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("FL2020ACSFUA-AD");
     expect(res.body).toContain('"coreSet":"ACS"');
     expect(dbLib.delete).toHaveBeenCalledWith({

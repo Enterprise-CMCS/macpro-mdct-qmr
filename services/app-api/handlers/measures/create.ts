@@ -43,5 +43,5 @@ export const createMeasure = handler(async (event, context) => {
 
   await dynamoDb.put(params);
 
-  return params;
+  return { status: StatusCodes.SUCCESS, body: params };
 });
