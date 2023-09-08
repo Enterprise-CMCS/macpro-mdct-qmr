@@ -1,18 +1,43 @@
 [
   {
-    "username": "paul@test.com",
+    "username": "adminuser@test.com",
     "attributes": [
       {
         "Name": "email",
-        "Value": "paul@test.com"
+        "Value": "adminuser@test.com"
       },
       {
         "Name": "given_name",
-        "Value": "Paul"
+        "Value": "Anna"
       },
       {
         "Name": "family_name",
-        "Value": "McCartney"
+        "Value": "Admin"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-bor"
+      }
+    ]
+  },
+  {
+    "username": "approver@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "approver@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Adam"
+      },
+      {
+        "Name": "family_name",
+        "Value": "Approver"
       },
       {
         "Name": "email_verified",
@@ -25,48 +50,19 @@
     ]
   },
   {
-    "username": "john@test.com",
+    "username": "helpdesk@test.com",
     "attributes": [
       {
         "Name": "email",
-        "Value": "john@test.com"
+        "Value": "helpdesk@test.com"
       },
       {
         "Name": "given_name",
-        "Value": "John"
+        "Value": "Clippy"
       },
       {
         "Name": "family_name",
-        "Value": "Lennon"
-      },
-      {
-        "Name": "email_verified",
-        "Value": "true"
-      },
-      {
-        "Name": "custom:cms_roles",
-        "Value": "mdctqmr-state-user"
-      },
-      {
-        "Name": "custom:cms_state",
-        "Value": "OH"
-      }
-    ]
-  },
-  {
-    "username": "george@test.com",
-    "attributes": [
-      {
-        "Name": "email",
-        "Value": "george@test.com"
-      },
-      {
-        "Name": "given_name",
-        "Value": "George"
-      },
-      {
-        "Name": "family_name",
-        "Value": "Harrison"
+        "Value": "Helperson"
       },
       {
         "Name": "email_verified",
@@ -100,31 +96,6 @@
       {
         "Name": "custom:cms_roles",
         "Value": "mdctqmr-internal-user"
-      }
-    ]
-  },
-  {
-    "username": "adminuser@test.com",
-    "attributes": [
-      {
-        "Name": "email",
-        "Value": "adminuser@test.com"
-      },
-      {
-        "Name": "given_name",
-        "Value": "Anna"
-      },
-      {
-        "Name": "family_name",
-        "Value": "Admin"
-      },
-      {
-        "Name": "email_verified",
-        "Value": "true"
-      },
-      {
-        "Name": "custom:cms_roles",
-        "Value": "mdctqmr-bor"
       }
     ]
   },
@@ -473,31 +444,6 @@
       {
         "Name": "custom:cms_state",
         "Value": "VA"
-      }
-    ]
-  },
-  {
-    "username": "approver@test.com",
-    "attributes": [
-      {
-        "Name": "email",
-        "Value": "approver@test.com"
-      },
-      {
-        "Name": "given_name",
-        "Value": "Adam"
-      },
-      {
-        "Name": "family_name",
-        "Value": "Admins"
-      },
-      {
-        "Name": "email_verified",
-        "Value": "true"
-      },
-      {
-        "Name": "custom:cms_roles",
-        "Value": "mdctqmr-approver"
       }
     ]
   },
