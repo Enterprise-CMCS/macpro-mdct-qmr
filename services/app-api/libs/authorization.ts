@@ -11,12 +11,12 @@ interface DecodedToken {
   identities?: [{ userId?: string }];
 }
 
-export const isAuthorized = (event: APIGatewayProxyEvent) => {
-  let isAuthorized;
+export const isAuthenticated = (event: APIGatewayProxyEvent) => {
+  let authed;
   if (event?.headers?.["x-api-key"]) {
-    isAuthorized = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+    authed = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
   }
-  return !!isAuthorized;
+  return !!authed;
 };
 
 export const hasRolePermissions = (

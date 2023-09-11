@@ -14,12 +14,10 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   },
 }));
 
-const mockHasRolePermissions = jest.fn();
 const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  isAuthorized: jest.fn().mockReturnValue(true),
+  isAuthenticated: jest.fn().mockReturnValue(true),
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
-  hasRolePermissions: () => mockHasRolePermissions(),
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
@@ -42,22 +40,14 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
 const event: APIGatewayProxyEvent = {
   ...testEvent,
   body: `{"data": {}, "status": "status"}`,
-  headers: { "cognito-identity-id": "test" },
   pathParameters: { coreSet: "ACS" },
 };
 process.env.measureTableName = "SAMPLE TABLE";
 
 describe("Test Update Measure Handler", () => {
   beforeEach(() => {
-    mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => true);
-  });
-
-  test("Test unauthorized user attempt (incorrect role)", async () => {
-    mockHasRolePermissions.mockImplementation(() => false);
-    const res = await editMeasure(event, null);
-    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
-    expect(res.body).toContain(Errors.UNAUTHORIZED);
+    event.headers = { "cognito-identity-id": "test" };
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {

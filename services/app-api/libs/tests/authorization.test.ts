@@ -1,6 +1,6 @@
 import { testEvent } from "../../test-util/testEvents";
 import {
-  isAuthorized,
+  isAuthenticated,
   hasStatePermissions,
   hasRolePermissions,
 } from "../authorization";
@@ -15,10 +15,7 @@ jest.mock("jwt-decode", () => ({
   },
 }));
 
-describe("isAuthorized checks if user is authenticated", () => {
-  const event = { ...testEvent };
-  event.headers = { "x-api-key": "test" };
-
+describe("isAuthenticated checks if user is authenticated", () => {
   beforeEach(() => {
     mockedDecode.mockReturnValue({
       "custom:cms_roles": UserRoles.ADMIN,
@@ -26,12 +23,15 @@ describe("isAuthorized checks if user is authenticated", () => {
   });
 
   test("returns true with correctly formatted jwt key", () => {
-    expect(isAuthorized(event)).toEqual(true);
+    const event = { ...testEvent };
+    event.headers = { "x-api-key": "test" };
+    expect(isAuthenticated(event)).toEqual(true);
   });
 
   test("returns false if missing jwt key", () => {
+    const event = { ...testEvent };
     event.headers = {};
-    expect(isAuthorized(event)).toEqual(false);
+    expect(isAuthenticated(event)).toEqual(false);
   });
 });
 

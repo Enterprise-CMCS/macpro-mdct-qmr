@@ -7,7 +7,7 @@ import { mockDocumentClient } from "../../../utils/testing/setupJest";
 
 const mockHasRolePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  isAuthorized: jest.fn().mockReturnValue(true),
+  isAuthenticated: jest.fn().mockReturnValue(true),
   hasRolePermissions: () => mockHasRolePermissions(),
 }));
 

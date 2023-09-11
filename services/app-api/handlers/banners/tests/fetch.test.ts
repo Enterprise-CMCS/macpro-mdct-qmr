@@ -6,7 +6,7 @@ import { Errors, StatusCodes } from "../../../utils/constants/constants";
 import { mockDocumentClient } from "../../../utils/testing/setupJest";
 
 jest.mock("../../../libs/authorization", () => ({
-  isAuthorized: jest.fn().mockReturnValue(true),
+  isAuthenticated: jest.fn().mockReturnValue(true),
   hasPermissions: jest.fn().mockReturnValue(true),
 }));
 

@@ -1,18 +1,12 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import {
-  hasRolePermissions,
-  hasStatePermissions,
-} from "../../libs/authorization";
-import { UserRoles } from "../../types";
+import { hasStatePermissions } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 
 export const deleteMeasure = handler(async (event, context) => {
   // action limited to state users from corresponding state
-  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
-  const isFromCorrespondingState = hasStatePermissions(event);
-  if (!isStateUser || !isFromCorrespondingState) {
+  if (!hasStatePermissions(event)) {
     return {
       status: StatusCodes.UNAUTHORIZED,
       body: Errors.UNAUTHORIZED,

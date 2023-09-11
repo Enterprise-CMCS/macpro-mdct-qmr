@@ -4,7 +4,7 @@ import { testBanner, proxyEvent } from "./proxyEvent";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/authorization", () => ({
-  isAuthorized: jest.fn().mockReturnValue(false),
+  isAuthenticated: jest.fn().mockReturnValue(false),
   hasPermissions: jest.fn().mockReturnValue(true),
 }));
 

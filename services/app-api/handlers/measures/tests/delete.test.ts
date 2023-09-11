@@ -13,11 +13,9 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   },
 }));
 
-const mockHasRolePermissions = jest.fn();
 const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  isAuthorized: jest.fn().mockReturnValue(true),
-  hasRolePermissions: () => mockHasRolePermissions(),
+  isAuthenticated: jest.fn().mockReturnValue(true),
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
@@ -42,15 +40,7 @@ process.env.measureTableName = "SAMPLE TABLE";
 
 describe("Test Delete Measure Handler", () => {
   beforeEach(() => {
-    mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => true);
-  });
-
-  test("Test unauthorized user attempt (incorrect role)", async () => {
-    mockHasRolePermissions.mockImplementation(() => false);
-    const res = await deleteMeasure(event, null);
-    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
-    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {

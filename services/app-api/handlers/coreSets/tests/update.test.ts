@@ -12,12 +12,10 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   },
 }));
 
-const mockHasRolePermissions = jest.fn();
 const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  isAuthorized: jest.fn().mockReturnValue(true),
+  isAuthenticated: jest.fn().mockReturnValue(true),
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
-  hasRolePermissions: () => mockHasRolePermissions(),
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
@@ -39,23 +37,7 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
 
 describe("Testing Updating Core Set Functions", () => {
   beforeEach(() => {
-    mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => true);
-  });
-
-  test("Test unauthorized user attempt (incorrect role)", async () => {
-    mockHasRolePermissions.mockImplementation(() => false);
-    const res = await editCoreSet(
-      {
-        ...testEvent,
-        headers: { "cognito-identity-id": "branchUser" },
-        pathParameters: { coreSet: "ACS" },
-        body: "{}",
-      },
-      null
-    );
-    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
-    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {

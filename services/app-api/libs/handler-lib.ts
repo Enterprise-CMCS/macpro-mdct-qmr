@@ -1,6 +1,6 @@
 import * as debug from "./debug-lib";
 import { APIGatewayProxyEvent } from "aws-lambda";
-import { isAuthorized } from "./authorization";
+import { isAuthenticated } from "./authorization";
 import { failure, buildResponse } from "./response-lib";
 import { Errors, StatusCodes } from "../utils/constants/constants";
 
@@ -14,7 +14,7 @@ export default function handler(lambda: LambdaFunction) {
     // Start debugger
     debug.init(event, context);
 
-    if (isAuthorized(event)) {
+    if (isAuthenticated(event)) {
       try {
         // Run the Lambda
         const { status, body } = await lambda(event, context);
