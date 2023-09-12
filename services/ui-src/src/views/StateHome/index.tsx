@@ -183,6 +183,7 @@ const StateHome = () => {
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
   }
+
   if (
     isLoading ||
     !data.Items ||

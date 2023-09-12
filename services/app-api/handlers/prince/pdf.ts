@@ -1,6 +1,7 @@
 import handler from "../../libs/handler-lib";
 import { aws4Interceptor } from "aws4-axios";
 import axios from "axios";
+import { StatusCodes } from "../../utils/constants/constants";
 
 export const getPDF = handler(async (event, _context) => {
   const interceptor = aws4Interceptor({
@@ -12,7 +13,10 @@ export const getPDF = handler(async (event, _context) => {
 
   try {
     const pdf = await axios.post(process.env.princeUrl!, event.body!);
-    return pdf.data;
+    return {
+      status: StatusCodes.SUCCESS,
+      body: pdf.data,
+    };
   } catch (err) {
     console.log(err);
   }

@@ -31,7 +31,10 @@ export const deleteCoreSet = handler(async (event, context) => {
   await dynamoDb.delete(params);
   await deleteDependentMeasures(state, year, coreSet);
 
-  return params;
+  return {
+    status: StatusCodes.SUCCESS,
+    body: params,
+  };
 });
 
 const deleteDependentMeasures = async (

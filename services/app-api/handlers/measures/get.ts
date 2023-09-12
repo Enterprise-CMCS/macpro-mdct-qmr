@@ -86,9 +86,15 @@ export const getMeasure = handler(async (event, context) => {
 
 export const getReportingYears = handler(async () => {
   const reportingYears = Object.keys(measures);
-  return reportingYears;
+  return {
+    status: StatusCodes.SUCCESS,
+    body: reportingYears,
+  };
 });
 
 export const getMeasureListInfo = handler(async () => {
-  return measures;
+  return {
+    status: StatusCodes.SUCCESS,
+    body: measures,
+  };
 });
