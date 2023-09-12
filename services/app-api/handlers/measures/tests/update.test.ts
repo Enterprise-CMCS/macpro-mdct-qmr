@@ -39,7 +39,6 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
 
 const event: APIGatewayProxyEvent = {
   ...testEvent,
-  body: `{"data": {}, "status": "status"}`,
   pathParameters: { coreSet: "ACS" },
 };
 process.env.measureTableName = "SAMPLE TABLE";
@@ -48,6 +47,7 @@ describe("Test Update Measure Handler", () => {
   beforeEach(() => {
     mockHasStatePermissions.mockImplementation(() => true);
     event.headers = { "cognito-identity-id": "test" };
+    event.body = `{"data": {}, "status": "status"}`;
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {
@@ -112,5 +112,26 @@ describe("Test Update Measure Handler", () => {
       },
       testValue: "test",
     });
+  });
+
+  test("Test param creation for convertToDynamoExpression", async () => {
+    event.headers = {};
+    event.body = `{"data": {}, "status": "status", "reporting": "yes", "description": "sample desc", "detailedDescription": "sample detailed desc"}`;
+    Date.now = jest.fn(() => 20);
+
+    const res = await editMeasure(event, null);
+
+    expect(convertToDynamoExpression).toHaveBeenCalledWith(
+      {
+        status: "status",
+        lastAltered: 20,
+        lastAlteredBy: "branchUser",
+        reporting: "yes",
+        description: "sample desc",
+        detailedDescription: "sample detailed desc",
+        data: {},
+      },
+      "post"
+    );
   });
 });

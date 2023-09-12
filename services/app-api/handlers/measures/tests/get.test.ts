@@ -1,4 +1,9 @@
-import { getMeasure, listMeasures } from "../get";
+import {
+  getMeasure,
+  listMeasures,
+  getMeasureListInfo,
+  getReportingYears,
+} from "../get";
 
 import dbLib from "../../../libs/dynamodb-lib";
 
@@ -135,5 +140,26 @@ describe("Test Get Measure Handlers", () => {
       { state: undefined, year: NaN, coreSet: undefined },
       "list"
     );
+  });
+
+  test("Test getReportingYears", async () => {
+    const event: APIGatewayProxyEvent = {
+      ...testEvent,
+      body: `{ "year1": true, "year2": true, "year3": true }`,
+      headers: { "cognito-identity-id": "test" },
+    };
+    const res = await getReportingYears(event, null);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
+    expect(res.body).toBe('["2021","2022","2023"]');
+  });
+
+  test("Test getMeasureListInfo works when called with an empty object", async () => {
+    const event: APIGatewayProxyEvent = {
+      ...testEvent,
+      body: `{{}}`,
+      headers: { "cognito-identity-id": "test" },
+    };
+    const res = await getMeasureListInfo(event, null);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
   });
 });

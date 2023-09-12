@@ -53,7 +53,7 @@ describe("Test Create Measure Handler", () => {
   test("Test Successful Run of Measure Creation with description", async () => {
     const event: APIGatewayProxyEvent = {
       ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
+      body: `{"data": {}, "description": "sample desc", "detailedDescription": "sample detailed desc"}`,
       headers: { "cognito-identity-id": "test" },
     };
 
@@ -61,6 +61,7 @@ describe("Test Create Measure Handler", () => {
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("sample desc");
+    expect(res.body).toContain("sample detailed desc");
     expect(res.body).toContain("FL2020ACSFUA-AD");
   });
 
