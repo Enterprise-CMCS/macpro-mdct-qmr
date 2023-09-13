@@ -1,6 +1,7 @@
 import { APIGatewayProxyEvent } from "aws-lambda";
 import jwt_decode from "jwt-decode";
 import { UserRoles, RequestMethods } from "../types";
+import { clearLogs } from "./debug-lib";
 
 interface DecodedToken {
   "custom:cms_roles": string;
@@ -10,34 +11,60 @@ interface DecodedToken {
   identities?: [{ userId?: string }];
 }
 
-export const isAuthorized = (
+export const isAuthenticated = (event: APIGatewayProxyEvent) => {
+  let authed;
+  if (event?.headers?.["x-api-key"]) {
+    authed = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+  }
+  return !!authed;
+};
+
+export const hasRolePermissions = (
   event: APIGatewayProxyEvent,
-  postOverride: boolean
+  allowedRoles: UserRoles[]
 ) => {
-  if (!event.headers["x-api-key"]) return false;
+  let hasPermissions = false;
+  if (event?.headers["x-api-key"]) {
+    // decode the idToken
+    const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+    const idmUserRoles = decoded["custom:cms_roles"];
+    const qmrUserRole = idmUserRoles
+      ?.split(",")
+      .find((role) => role.includes("mdctqmr")) as UserRoles;
 
-  // get state and method from the event
-  const requestState = event.pathParameters?.state;
-  const requestMethod = event.httpMethod as RequestMethods;
+    // determine if role has permissions
+    if (allowedRoles.includes(qmrUserRole)) {
+      hasPermissions = true;
+    }
+  }
+  return hasPermissions;
+};
 
-  // decode the idToken
-  const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+export const hasStatePermissions = (event: APIGatewayProxyEvent) => {
+  let hasPermissions = false;
+  if (event?.headers["x-api-key"]) {
+    // decode the idToken
+    const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
 
-  // get the role / state from the decoded token
-  const userRoles = decoded["custom:cms_roles"].split(","); // an array of user roles
-  const userState = decoded["custom:cms_state"];
+    // get user role
+    const idmUserRoles = decoded["custom:cms_roles"];
+    const qmrUserRole = idmUserRoles
+      ?.split(",")
+      .find((role) => role.includes("mdctqmr")) as UserRoles;
+    const isStateUser = qmrUserRole === UserRoles.STATE_USER;
 
-  // if user is a state user - check they are requesting a resource from their state
-  if (userState && requestState && userRoles.includes(UserRoles.STATE)) {
-    return userState.toLowerCase() === requestState.toLowerCase();
+    // get passed state parameter
+    const requestState = event.pathParameters?.state;
+    if (requestState) {
+      // determine if user has state permissions
+      const userState = decoded["custom:cms_state"];
+      if (isStateUser && userState) {
+        hasPermissions = userState.toLowerCase() === requestState.toLowerCase();
+      }
+    }
   }
 
-  // if user is an admin - they can only GET resources
-  return (
-    requestMethod === RequestMethods.GET ||
-    (requestMethod === RequestMethods.POST && postOverride) ||
-    (requestMethod === RequestMethods.DELETE && postOverride)
-  );
+  return hasPermissions;
 };
 
 export const getUserNameFromJwt = (event: APIGatewayProxyEvent) => {

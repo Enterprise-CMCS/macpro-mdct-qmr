@@ -7,6 +7,7 @@ import { updateCoreSetProgress } from "../../../libs/updateCoreProgress";
 import { createCompoundKey } from "../../dynamoUtils/createCompoundKey";
 import { CoreSetAbbr } from "../../../types";
 import { createCoreSet } from "../create";
+import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   __esModule: true,
@@ -21,9 +22,12 @@ jest.mock("../create", () => ({
   createCoreSet: jest.fn(),
 }));
 
+const mockHasRolePermissions = jest.fn();
+const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  __esModule: true,
-  isAuthorized: jest.fn().mockReturnValue(true),
+  isAuthenticated: jest.fn().mockReturnValue(true),
+  hasRolePermissions: () => mockHasRolePermissions(),
+  hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -56,6 +60,18 @@ describe("Test Get Core Set Functions", () => {
     (createCoreSet as jest.Mock).mockReset();
     (dynamodbLib.scan as jest.Mock).mockReset();
     (updateCoreSetProgress as jest.Mock).mockReset();
+    mockHasRolePermissions.mockImplementation(() => false);
+  });
+
+  test("Test getCoreSet unauthorized user attempt (incorrect state)", async () => {
+    mockHasRolePermissions.mockImplementation(() => true);
+    mockHasStatePermissions.mockImplementation(() => false);
+    const res = await getCoreSet(
+      { ...testEvent, pathParameters: { coreSet: "ACS" } },
+      null
+    );
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test getCoreSet", async () => {
@@ -70,6 +86,22 @@ describe("Test Get Core Set Functions", () => {
       ...testEvent,
       pathParameters: { coreSet: "ACS" },
     });
+  });
+
+  test("Test coreSetList unauthorized user attempt (incorrect state)", async () => {
+    mockHasRolePermissions.mockImplementation(() => true);
+    mockHasStatePermissions.mockImplementation(() => false);
+    (dynamodbLib.scan as jest.Mock).mockReturnValue({ Count: 0 });
+    (createCoreSet as jest.Mock).mockReturnValue({ statusCode: 200 });
+    const res = await coreSetList(
+      {
+        ...testEvent,
+        pathParameters: { coreSet: CoreSetAbbr.ACS, year: "2021", state: "FL" },
+      },
+      null
+    );
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test coreSetList with results.Count being 0 and statusCode 200", async () => {
@@ -153,7 +185,6 @@ describe("Test Get Core Set Functions", () => {
       },
       null
     );
-
     expect(res.body).toContain('"Count":1');
   });
 });

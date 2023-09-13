@@ -6,7 +6,7 @@ import { Errors, StatusCodes } from "../../../utils/constants/constants";
 import { mockDocumentClient } from "../../../utils/testing/setupJest";
 
 jest.mock("../../../libs/authorization", () => ({
-  isAuthorized: jest.fn().mockReturnValue(true),
+  isAuthenticated: jest.fn().mockReturnValue(true),
   hasPermissions: jest.fn().mockReturnValue(true),
 }));
 
@@ -39,20 +39,18 @@ describe("Test fetchBanner API method", () => {
       })
     );
     const res = await fetchBanner(testEvent, null);
-    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(JSON.parse(res.body).status).toBe(StatusCodes.NOT_FOUND);
+    expect(res.statusCode).toBe(StatusCodes.NOT_FOUND);
   });
 
   test("Test Successful Banner Fetch", async () => {
     const res = await fetchBanner(testEvent, null);
-    const parsedBody = JSON.parse(res.body);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(parsedBody.status).toBe(StatusCodes.SUCCESS);
-    expect(parsedBody.body.Item.title).toEqual(testBanner.title);
-    expect(parsedBody.body.Item.description).toEqual(testBanner.description);
-    expect(parsedBody.body.Item.startDate).toEqual(testBanner.startDate);
-    expect(parsedBody.body.Item.endDate).toEqual(testBanner.endDate);
-    expect(parsedBody.body.Item.link).toEqual(testBanner.link);
+    const parsedBody = JSON.parse(res.body);
+    expect(parsedBody.Item.title).toEqual(testBanner.title);
+    expect(parsedBody.Item.description).toEqual(testBanner.description);
+    expect(parsedBody.Item.startDate).toEqual(testBanner.startDate);
+    expect(parsedBody.Item.endDate).toEqual(testBanner.endDate);
+    expect(parsedBody.Item.link).toEqual(testBanner.link);
   });
 
   test("Test bannerKey not provided throws 500 error", async () => {

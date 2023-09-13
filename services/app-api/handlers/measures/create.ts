@@ -1,9 +1,26 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { MeasureStatus, CoreSetAbbr } from "../../types";
+import {
+  hasRolePermissions,
+  hasStatePermissions,
+} from "../../libs/authorization";
+import { MeasureStatus, CoreSetAbbr, UserRoles } from "../../types";
+import { Errors, StatusCodes } from "../../utils/constants/constants";
 
 export const createMeasure = handler(async (event, context) => {
+  // action limited to any admin type user and state users from corresponding state
+  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
+  if (isStateUser) {
+    const isFromCorrespondingState = hasStatePermissions(event);
+    if (!isFromCorrespondingState) {
+      return {
+        status: StatusCodes.UNAUTHORIZED,
+        body: Errors.UNAUTHORIZED,
+      };
+    }
+  } // if not state user, can safely assume admin type user due to baseline handler protections
+
   const body = JSON.parse(event!.body!);
   const dynamoKey = createCompoundKey(event);
   const params = {
@@ -28,5 +45,5 @@ export const createMeasure = handler(async (event, context) => {
 
   await dynamoDb.put(params);
 
-  return params;
+  return { status: StatusCodes.SUCCESS, body: params };
 });

@@ -12,7 +12,7 @@ export const useWriteBanner = () => {
 
 const _getBanner = async (bannerKey: string) => {
   const banner = await getBanner(bannerKey);
-  return await banner?.body.Item;
+  return await banner?.Item;
 };
 
 export const useGetBanner = (bannerKey: string) => {

@@ -5,6 +5,7 @@ import dbLib from "../../../libs/dynamodb-lib";
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { testEvent } from "../../../test-util/testEvents";
 import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
+import { StatusCodes, Errors } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   __esModule: true,
@@ -13,10 +14,11 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   },
 }));
 
+const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  __esModule: true,
-  isAuthorized: jest.fn().mockReturnValue(true),
+  isAuthenticated: jest.fn().mockReturnValue(true),
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
+  hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
 jest.mock("../../../libs/debug-lib", () => ({
@@ -35,20 +37,32 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
+const event: APIGatewayProxyEvent = {
+  ...testEvent,
+  pathParameters: { coreSet: "ACS" },
+};
+process.env.measureTableName = "SAMPLE TABLE";
+
 describe("Test Update Measure Handler", () => {
+  beforeEach(() => {
+    mockHasStatePermissions.mockImplementation(() => true);
+    event.headers = { "cognito-identity-id": "test" };
+    event.body = `{"data": {}, "status": "status"}`;
+  });
+
+  test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    const res = await editMeasure(event, null);
+    expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
   test("Test Successful Run of Measure Update with Cognito ID", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "status": "status"}`,
-      headers: { "cognito-identity-id": "test" },
-      pathParameters: { coreSet: "ACS" },
-    };
-    process.env.measureTableName = "SAMPLE TABLE";
     Date.now = jest.fn(() => 20);
 
     const res = await editMeasure(event, null);
 
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("FL2020ACSFUA-AD");
     expect(res.body).toContain('"coreSet":"ACS"');
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
@@ -72,17 +86,12 @@ describe("Test Update Measure Handler", () => {
   });
 
   test("Test Successful Run of Measure Update without Cognito ID", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "status": "status"}`,
-      pathParameters: { coreSet: "ACS" },
-    };
-    process.env.measureTableName = "SAMPLE TABLE";
+    event.headers = {};
     Date.now = jest.fn(() => 20);
 
     const res = await editMeasure(event, null);
 
-    expect(res.statusCode).toBe(200);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("FL2020ACSFUA-AD");
     expect(res.body).toContain('"coreSet":"ACS"');
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
@@ -103,5 +112,26 @@ describe("Test Update Measure Handler", () => {
       },
       testValue: "test",
     });
+  });
+
+  test("Test param creation for convertToDynamoExpression", async () => {
+    event.headers = {};
+    event.body = `{"data": {}, "status": "status", "reporting": "yes", "description": "sample desc", "detailedDescription": "sample detailed desc"}`;
+    Date.now = jest.fn(() => 20);
+
+    const res = await editMeasure(event, null);
+
+    expect(convertToDynamoExpression).toHaveBeenCalledWith(
+      {
+        status: "status",
+        lastAltered: 20,
+        lastAlteredBy: "branchUser",
+        reporting: "yes",
+        description: "sample desc",
+        detailedDescription: "sample detailed desc",
+        data: {},
+      },
+      "post"
+    );
   });
 });

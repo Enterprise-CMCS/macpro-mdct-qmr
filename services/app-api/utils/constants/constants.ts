@@ -8,6 +8,8 @@ export const enum Errors {
   // template errors
   NO_TEMPLATE_NAME = "Must request template for download",
   INVALID_TEMPLATE_NAME = "Requested template does not exist or does not match",
+  // coreset errors
+  CORESET_ALREADY_EXISTS = "Failure to create coreset. Coreset already exists.",
 }
 
 export const enum StatusCodes {
