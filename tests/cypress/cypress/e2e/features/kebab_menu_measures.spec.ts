@@ -9,22 +9,22 @@ describe("Measure kebab menus", () => {
   it('displays "View" option', () => {
     cy.get('[data-cy="ACS"]').click();
     cy.get('[data-cy="Measure Actions-AMM-AD"]').click();
-    cy.get('#menu-list-11 > [data-cy="View"]').should("have.text", "View");
+    cy.get('button[aria-label="View for AMM-AD"]').should("have.text", "View");
 
     cy.get('[data-cy="Measure Actions-AMR-AD"]').click();
-    cy.get('#menu-list-11 > [data-cy="View"]').should("have.text", "View");
+    cy.get('button[aria-label="View for AMR-AD"]').should("have.text", "View");
 
     cy.get('[data-cy="Measure Actions-PCR-AD"]').click();
-    cy.get('#menu-list-11 > [data-cy="View"]').should("have.text", "View");
+    cy.get('button[aria-label="View for PCR-AD"]').should("have.text", "View");
   });
 
   it('navigates to the measure page when "View" is selected', () => {
     cy.get('[data-cy="ACS"]').click();
     cy.get('[data-cy="Measure Actions-AMM-AD"]').click();
-    cy.get('#menu-list-11 > [data-cy="View"]').click({ force: true });
+    cy.get('button[aria-label="View for AMM-AD"]').click();
     cy.get('[data-cy="state-layout-container"').should(
       "include.text",
-      "FFY 2023AAB-AD - Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older"
+      "FFY 2023AMM-AD - Antidepressant Medication Management"
     );
   });
 });
