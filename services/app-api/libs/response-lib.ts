@@ -1,7 +1,3 @@
-export function success(body: any) {
-  return buildResponse(200, body);
-}
-
 export function failure(body: any) {
   return buildResponse(500, body);
 }

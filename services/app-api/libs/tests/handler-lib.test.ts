@@ -1,6 +1,6 @@
 import handlerLib from "../handler-lib";
 import { testEvent } from "../../test-util/testEvents";
-import { isAuthorized } from "../authorization";
+import { isAuthenticated } from "../authorization";
 import { flush } from "../debug-lib";
 
 jest.mock("../debug-lib", () => ({
@@ -11,15 +11,15 @@ jest.mock("../debug-lib", () => ({
 
 jest.mock("../authorization", () => ({
   __esModule: true,
-  isAuthorized: jest.fn(),
+  isAuthenticated: jest.fn(),
 }));
 
 describe("Test Lambda Handler Lib", () => {
   test("Test successful authorized lambda workflow", async () => {
-    const testFunc = jest.fn().mockReturnValue({ test: "test" });
+    const testFunc = jest.fn().mockReturnValue({ status: 200, body: "test" });
     const handler = handlerLib(testFunc);
 
-    (isAuthorized as jest.Mock).mockReturnValue(true);
+    (isAuthenticated as jest.Mock).mockReturnValue(true);
     const res = await handler(testEvent, null);
 
     expect(res.statusCode).toBe(200);
@@ -31,7 +31,7 @@ describe("Test Lambda Handler Lib", () => {
     const testFunc = jest.fn();
     const handler = handlerLib(testFunc);
 
-    (isAuthorized as jest.Mock).mockReturnValue(false);
+    (isAuthenticated as jest.Mock).mockReturnValue(false);
     const res = await handler(testEvent, null);
 
     expect(res.statusCode).toBe(403);
@@ -47,7 +47,7 @@ describe("Test Lambda Handler Lib", () => {
     });
     const handler = handlerLib(testFunc);
 
-    (isAuthorized as jest.Mock).mockReturnValue(true);
+    (isAuthenticated as jest.Mock).mockReturnValue(true);
     const res = await handler(testEvent, null);
 
     expect(flush).toHaveBeenCalledWith(err);

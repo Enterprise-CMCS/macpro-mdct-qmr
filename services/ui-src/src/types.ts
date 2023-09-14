@@ -7,12 +7,11 @@ export enum CoreSetAbbr {
 }
 
 export enum UserRoles {
-  ADMIN = "mdctqmr-approver",
-  STATE = "mdctqmr-state-user",
-  HELP = "mdctqmr-help-desk",
-  INTERNAL = "mdctqmr-internal-user",
-  BO = "mdctqmr-bo-user",
-  BOR = "mdctqmr-bor",
+  ADMIN = "mdctqmr-bor", // "MDCT QMR ADMIN"
+  APPROVER = "mdctqmr-approver", // "MDCT QMR APPROVER"
+  INTERNAL = "mdctqmr-internal-user", // "MDCT QMR INTERNAL USER"
+  HELP_DESK = "mdctqmr-help-desk", // "MDCT QMR HELP DESK USER"
+  STATE_USER = "mdctqmr-state-user", // "MDCT QMR STATE USER"
 }
 
 export enum MeasureStatus {
