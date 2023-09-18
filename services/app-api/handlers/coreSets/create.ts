@@ -3,9 +3,26 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
 import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
+import {
+  hasRolePermissions,
+  hasStatePermissions,
+} from "../../libs/authorization";
 import * as Types from "../../types";
+import { Errors, StatusCodes } from "../../utils/constants/constants";
 
 export const createCoreSet = handler(async (event, context) => {
+  // action limited to any admin type user and state users from corresponding state
+  const isStateUser = hasRolePermissions(event, [Types.UserRoles.STATE_USER]);
+  if (isStateUser) {
+    const isFromCorrespondingState = hasStatePermissions(event);
+    if (!isFromCorrespondingState) {
+      return {
+        status: StatusCodes.UNAUTHORIZED,
+        body: Errors.UNAUTHORIZED,
+      };
+    }
+  } // if not state user, can safely assume admin type user due to baseline handler protections
+
   // The State Year and ID are all part of the path
   const state = event!.pathParameters!.state!;
   const year = event!.pathParameters!.year!;
@@ -17,10 +34,8 @@ export const createCoreSet = handler(async (event, context) => {
 
   if (coreSetExists) {
     return {
-      statusCode: 400,
-      body: JSON.stringify({
-        error: "Failure to create coreset. Coreset already exists.",
-      }),
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.CORESET_ALREADY_EXISTS,
     };
   }
   const dynamoKey = createCompoundKey(event);
@@ -62,7 +77,7 @@ export const createCoreSet = handler(async (event, context) => {
   };
 
   await dynamoDb.post(params);
-  return params;
+  return { status: StatusCodes.SUCCESS, body: params };
 });
 
 const createDependentMeasures = async (

@@ -110,7 +110,9 @@ const StateHome = () => {
   );
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
-  if (userState && userState !== state && userRole === UserRoles.STATE) {
+
+  // block display from state users without permissions for the corresponding state
+  if (userState && userState !== state && userRole === UserRoles.STATE_USER) {
     return (
       <CUI.Box data-testid="unauthorized-container">
         <QMR.Notification
@@ -181,6 +183,7 @@ const StateHome = () => {
       <QMR.Notification alertStatus="error" alertTitle="An Error Occured" />
     );
   }
+
   if (
     isLoading ||
     !data.Items ||

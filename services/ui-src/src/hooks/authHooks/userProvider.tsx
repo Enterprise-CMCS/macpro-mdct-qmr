@@ -69,7 +69,7 @@ export const UserProvider = ({ children }: Props) => {
     ?.split(",")
     .find((r) => r.includes("mdctqmr"));
 
-  const isStateUser = userRole === UserRoles.STATE;
+  const isStateUser = userRole === UserRoles.STATE_USER; // excludes all admin-type users (admin, approver, help desk, internal)
 
   const userState =
     user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
