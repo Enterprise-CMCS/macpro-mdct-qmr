@@ -1,5 +1,5 @@
 import { testingYear } from "../../../support/constants";
-import { measureAbbrList2023 } from "../../../support/commands/commands";
+import { measureAbbrList2023 } from "../../../support/commands";
 
 describe.skip("Submit Core Set button", () => {
   beforeEach(() => {
