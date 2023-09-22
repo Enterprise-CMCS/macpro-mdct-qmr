@@ -2,12 +2,6 @@ before(() => {
   cy.visit("/", { timeout: 60000 * 7 });
 });
 
-// arbitrary wait at the end of each test file to prevent the final test from hanging
-// https://github.com/cypress-io/cypress/issues/8206#issuecomment-1685267659
-after(() => {
-  cy.wait(1000);
-});
-
 const emailForCognito = "input[name='email']";
 const passwordForCognito = "input[name='password']";
 
