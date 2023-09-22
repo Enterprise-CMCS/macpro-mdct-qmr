@@ -43,7 +43,7 @@ jobs:
             ${{github.workspace}}/services/app-api/coverage/lcov.info:lcov
             ${{github.workspace}}/services/ui-src/coverage/lcov.info:lcov
       - name: Store unit test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: unit_test_results
           path: ${{github.workspace}}/services/ui-src/coverage/lcov.info
