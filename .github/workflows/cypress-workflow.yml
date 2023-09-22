@@ -33,7 +33,7 @@ on:
 jobs:
   setup:
     name: Setup Cypress Test Matrix
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - id: set-test-matrix
@@ -43,7 +43,7 @@ jobs:
       test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix}}
   e2e-tests:
     name: Execute Cypress Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     needs: setup
     strategy:
       fail-fast: false

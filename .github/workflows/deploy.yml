@@ -76,7 +76,7 @@ jobs:
     if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/prod' }}
     needs:
       - deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - name: set branch_name
