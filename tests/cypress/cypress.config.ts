@@ -3,8 +3,10 @@ import { defineConfig } from "cypress";
 export default defineConfig({
   fixturesFolder: "fixtures",
   screenshotsFolder: "screenshots",
+  video: false,
   videosFolder: "videos",
   downloadsFolder: "downloads",
+  defaultCommandTimeout: 15000,
   e2e: {
     setupNodeEvents(on, config) {
       on("before:browser:launch", (browser, launchOptions) => {
