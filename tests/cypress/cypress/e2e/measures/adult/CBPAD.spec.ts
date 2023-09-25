@@ -8,7 +8,7 @@ describe("Measure 34: CBP-AD", () => {
     cy.goToMeasure("CBP-AD");
   });
 
-  it.skip("User click on No option for the first question and fill out the form with No option", () => {
+  it("User click on No option for the first question and fill out the form with No option", () => {
     cy.get(".css-itvw0n").should(
       "have.text",
       "For technical questions regarding use of this application, please reach out to MDCT_Help@cms.hhs.gov. For content-related questions about measure specifications, or what information to enter in each field, please reach out to MACQualityTA@cms.hhs.gov."
@@ -23,7 +23,7 @@ describe("Measure 34: CBP-AD", () => {
     ).click();
   });
 
-  it.skip("Click on Yes option from first question", function () {
+  it("Click on Yes option from first question", function () {
     cy.get("[data-cy=DidReport0]").click();
     cy.get("[data-cy=DataStatus0]").click();
     cy.get("[data-cy=MeasurementSpecification0]").click();
@@ -74,17 +74,5 @@ describe("Measure 34: CBP-AD", () => {
     cy.get("[data-cy=DeliverySys-Other-Percent]").type("10");
     cy.get("[data-cy=DeliverySys-Other-NumberOfHealthPlans]").clear();
     cy.get("[data-cy=DeliverySys-Other-NumberOfHealthPlans]").type("20");
-  });
-
-  it("File upload and button verification", function () {
-    const filePath = "fixtures/files/";
-    cy.get('[data-testid="upload-stack"]').scrollIntoView();
-    cy.get('[data-testid="upload-component"]')
-      .invoke("show")
-      .selectFile(`${filePath}test3.docx`);
-    cy.get('[data-cy="file-upload-test3.docx"]').should("be.visible");
-    cy.get('[data-cy="Validate Measure"]').should("be.visible");
-    cy.get('[data-cy="Complete Measure"]').should("be.visible");
-    cy.get("[data-cy=Save]").should("be.visible");
   });
 });

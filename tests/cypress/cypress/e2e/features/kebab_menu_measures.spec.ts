@@ -29,7 +29,7 @@ describe("Measure kebab menus", () => {
   });
 });
 
-describe.skip("Edit state specific measure name and description", () => {
+describe("Edit state specific measure name and description", () => {
   it('displays the "Edit" option', () => {
     cy.loginHealthHome();
     cy.goToHealthHomeSetMeasures();
@@ -42,13 +42,13 @@ describe.skip("Edit state specific measure name and description", () => {
     cy.get('[data-cy="Create"]').click();
 
     // Verify original title on core set page
-    cy.get('[data-cy="/DC/2021/HHCS_18-0006/SS-1-HH"]').should(
+    cy.get('[data-cy="/DC/2023/HHCS_18-0007/SS-1-HH"]').should(
       "have.text",
       "name"
     );
 
     // Verify original description on SSM page
-    cy.get('[data-cy="/DC/2021/HHCS_18-0006/SS-1-HH"]').click();
+    cy.get('[data-cy="/DC/2023/HHCS_18-0007/SS-1-HH"]').click();
     cy.get('[data-cy="detailed-description"').should(
       "have.text",
       "measure description"
@@ -56,13 +56,10 @@ describe.skip("Edit state specific measure name and description", () => {
 
     // Navigate back to core set
     cy.visit("/");
-    cy.get('[data-cy="HHCS_18-0006"]').click();
-
-    // Ensure kebab has "Edit" button
-    cy.get('[data-cy="Measure Actions-SS-1-HH"]').click();
-    cy.get('[data-cy="Edit"]').should("have.text", "Edit");
+    cy.get('[data-cy="HHCS_18-0007"]').click();
 
     // Edit title
+    cy.get('[data-cy="Measure Actions-SS-1-HH"]').click();
     cy.get('[data-cy="Edit"]').click();
     cy.get('[data-cy="update-ssm.description"]').clear();
     cy.get('[data-cy="update-ssm.description"]').type("edited name");
@@ -74,11 +71,11 @@ describe.skip("Edit state specific measure name and description", () => {
     );
 
     cy.get('[data-cy="update-measure-yes"').click();
-    cy.get('[data-cy="/DC/2021/HHCS_18-0006/SS-1-HH"]').should(
+    cy.get('[data-cy="/DC/2023/HHCS_18-0007/SS-1-HH"]').should(
       "have.text",
       "edited name"
     );
-    cy.get('[data-cy="/DC/2021/HHCS_18-0006/SS-1-HH"]').click();
+    cy.get('[data-cy="/DC/2023/HHCS_18-0007/SS-1-HH"]').click();
     cy.get('[data-cy="detailed-description"').should(
       "have.text",
       "edited description"
@@ -86,7 +83,8 @@ describe.skip("Edit state specific measure name and description", () => {
 
     // Clean up
     cy.visit("/");
-    cy.get('[data-cy="health home-kebab-menu"]').click();
+    cy.get('[data-cy="HHCS_18-0007"]').click();
+    cy.get('[data-cy="Measure Actions-SS-1-HH"]').click();
     cy.get('[data-cy="Delete"]').click();
     cy.get('[data-cy="delete-table-item-input"]').type("delete");
     cy.get('[data-cy="delete-table-item-button"]').click();

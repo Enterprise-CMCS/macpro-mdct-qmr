@@ -38,7 +38,7 @@ describe("Measure: CIS-CH", () => {
     /* ==== End Cypress Studio ==== */
   });
 
-  it.skip("fill out the CIS-CH form until PM section with NDR verification", () => {
+  it("fill out the CIS-CH form until PM section with NDR verification", () => {
     /* ==== Generated with Cypress Studio ==== */
     cy.get("#MeasurementSpecification-NCQAHEDIS").should(
       "have.text",
@@ -52,11 +52,11 @@ describe("Measure: CIS-CH", () => {
     cy.get('[data-cy="MeasurementSpecification-HEDISVersion"]').select(
       "HEDIS MY 2020"
     );
-    cy.get('[data-cy="DataSource3"]').click();
-    cy.get("#DataSource3-checkbox").check();
-    cy.get(
-      '[data-cy="DataSourceSelections.OtherDataSource.description"]'
-    ).click();
+    cy.get('[data-cy="DataSource4"]').click();
+    cy.get("#DataSource4-checkbox").check();
+    cy.get('[data-cy="DataSourceSelections.OtherDataSource.description"]').type(
+      "source"
+    );
     cy.get(
       '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
     ).click();
@@ -111,6 +111,7 @@ describe("Measure: CIS-CH", () => {
       "Yes, all of our measure-eligible Fee-for-Service (FFS) population are included in this measure."
     );
     cy.get('[data-cy="DeliverySys-FeeForService1"]').click();
+    cy.get('[data-cy="DeliverySys-FeeForService-No-Percent"]').type("10");
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator1"] > .chakra-checkbox__control'
     ).click();
@@ -118,6 +119,9 @@ describe("Measure: CIS-CH", () => {
       force: true,
     });
     cy.get('[data-cy="DeliverySys-PrimaryCareManagement1"]').click();
+    cy.get('[data-cy="DeliverySys-PrimaryCareManagement-No-Percent"]').type(
+      "10"
+    );
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator2"] > .chakra-checkbox__control'
     ).click();
@@ -125,6 +129,9 @@ describe("Measure: CIS-CH", () => {
       force: true,
     });
     cy.get('[data-cy="DeliverySys-MCO_PIHP1"]').click();
+    cy.get('[data-cy="DeliverySys-MCO_PIHP-NumberOfPlans"]').type("10");
+    cy.get('[data-cy="DeliverySys-MCO_PIHP-No-Included"]').type("10");
+    cy.get('[data-cy="DeliverySys-MCO_PIHP-No-Excluded"]').type("0");
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator3"] > .chakra-checkbox__control'
     ).click();
@@ -132,10 +139,15 @@ describe("Measure: CIS-CH", () => {
       force: true,
     });
     cy.get('[data-cy="DeliverySys-IntegratedCareModel1"]').click();
+    cy.get('[data-cy="DeliverySys-IntegratedCareModel-No-Percent"]').type("10");
+    cy.get('[data-cy="DeliverySys-IntegratedCareModel-No-Population"]').type(
+      "10"
+    );
     cy.get(
       '[data-cy="DeliverySysRepresentationDenominator4"] > .chakra-checkbox__control'
     ).click();
     cy.get("#DeliverySysRepresentationDenominator4-checkbox").check();
+    cy.get('[data-cy="DeliverySys-Other"]').type("explanation");
     cy.get('[data-cy="PerformanceMeasure.explanation"]').click();
     cy.get('[data-cy="PerformanceMeasure.hybridExplanation"]').click();
     /* ==== NDR section verification ==== */
@@ -264,66 +276,7 @@ describe("Measure: CIS-CH", () => {
     cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.12.denominator"]').type(
       "20"
     );
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.13.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.13.numerator"]').type(
-      "4"
-    );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.u7wDB2.13.denominator"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.13.denominator"]').type(
-      "20"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.14.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.14.numerator"]').type(
-      "5"
-    );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.u7wDB2.14.denominator"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.14.denominator"]').type(
-      "20"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.15.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.15.numerator"]').type(
-      "5"
-    );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.u7wDB2.15.denominator"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.15.denominator"]').type(
-      "20"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.16.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.16.numerator"]').type(
-      "8"
-    );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.u7wDB2.16.denominator"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.16.denominator"]').type(
-      "20"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.17.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.17.numerator"]').type(
-      "6"
-    );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.u7wDB2.17.denominator"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.17.denominator"]').type(
-      "20"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.18.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.18.numerator"]').type(
-      "5"
-    );
-    cy.get(
-      '[data-cy="PerformanceMeasure.rates.u7wDB2.18.denominator"]'
-    ).clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.u7wDB2.18.denominator"]').type(
-      "20"
-    );
+
     cy.get('[data-cy="Validate Measure"]').click();
     cy.get(
       '[data-cy="The following categories must have the same denominator:"]'
