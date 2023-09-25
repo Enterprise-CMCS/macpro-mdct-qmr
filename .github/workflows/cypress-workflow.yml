@@ -70,6 +70,7 @@ jobs:
           CYPRESS_TEST_USER_3: ${{ secrets.cypress-user3 }}
           CYPRESS_TEST_USER_4: ${{ secrets.cypress-user4 }}
           CYPRESS_TEST_PASSWORD_1: ${{ secrets.cypress-password }}
+          DEBUG: "*"
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
         if: failure()
