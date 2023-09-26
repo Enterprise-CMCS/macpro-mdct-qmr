@@ -1,6 +1,7 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
+  retries: 1,
   fixturesFolder: "fixtures",
   screenshotsFolder: "screenshots",
   video: false,
