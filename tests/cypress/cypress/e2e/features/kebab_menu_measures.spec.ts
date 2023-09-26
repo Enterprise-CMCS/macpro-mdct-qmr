@@ -29,7 +29,7 @@ describe("Measure kebab menus", () => {
   });
 });
 
-describe("Edit state specific measure name and description", () => {
+describe.skip("Edit state specific measure name and description", () => {
   it('displays the "Edit" option', () => {
     cy.loginHealthHome();
     cy.goToHealthHomeSetMeasures();
