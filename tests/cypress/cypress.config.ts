@@ -14,6 +14,9 @@ export default defineConfig({
         if (browser.name === "chrome" && browser.isHeadless) {
           launchOptions.args.push("--window-size=1400,9000");
           launchOptions.args.push("--force-device-scale-factor=1");
+          launchOptions.args = launchOptions.args.filter(
+            (item) => item !== "--disable-dev-shm-usage"
+          );
         }
         return launchOptions;
       });
