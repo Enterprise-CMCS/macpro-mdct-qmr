@@ -14,9 +14,6 @@ export const fetchBanner = handler(async (event, _context) => {
   };
   const response = await dynamoDb.get(params);
 
-  let status = StatusCodes.SUCCESS;
-  if (!response?.Item) {
-    status = StatusCodes.NOT_FOUND;
-  }
+  const status = StatusCodes.SUCCESS;
   return { status: status, body: response };
 });
