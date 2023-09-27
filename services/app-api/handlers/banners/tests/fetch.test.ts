@@ -32,14 +32,14 @@ const testEvent: APIGatewayProxyEvent = {
 };
 
 describe("Test fetchBanner API method", () => {
-  test("Test Report not found Fetch", async () => {
+  test("Test Successful empty Banner Fetch", async () => {
     jest.spyOn(dynamoDb, "get").mockImplementation(
       mockDocumentClient.get.promise.mockReturnValueOnce({
         Item: undefined,
       })
     );
     const res = await fetchBanner(testEvent, null);
-    expect(res.statusCode).toBe(StatusCodes.NOT_FOUND);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
   });
 
   test("Test Successful Banner Fetch", async () => {
