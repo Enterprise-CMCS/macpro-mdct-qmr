@@ -8,7 +8,7 @@ export default defineConfig({
   videosFolder: "videos",
   downloadsFolder: "downloads",
   defaultCommandTimeout: 15000,
-  experimentalMemoryManagement: true,
+  experimentalModifyObstructiveThirdPartyCode: true,
   e2e: {
     setupNodeEvents(on, config) {
       on("before:browser:launch", (browser, launchOptions) => {
