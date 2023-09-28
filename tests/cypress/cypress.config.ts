@@ -8,14 +8,13 @@ export default defineConfig({
   videosFolder: "videos",
   downloadsFolder: "downloads",
   defaultCommandTimeout: 15000,
-  experimentalModifyObstructiveThirdPartyCode: true,
   e2e: {
     setupNodeEvents(on, config) {
       on("before:browser:launch", (browser, launchOptions) => {
         if (browser.name === "chrome" && browser.isHeadless) {
           launchOptions.args.push("--window-size=1400,9000");
           launchOptions.args.push("--force-device-scale-factor=1");
-          launchOptions.args.push("--disable-dev-shm-usage");
+          launchOptions.args.push("--headless=old");
         }
         return launchOptions;
       });
