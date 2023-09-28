@@ -5,6 +5,7 @@ export default async (on, config) => {
     if (browser.name === "chrome" && browser.isHeadless) {
       launchOptions.args.push("--window-size=1400,9000");
       launchOptions.args.push("--force-device-scale-factor=1");
+      launchOptions.args.push("--headless=old");
     }
     return launchOptions;
   });
