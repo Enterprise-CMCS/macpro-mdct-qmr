@@ -67,6 +67,15 @@ jobs:
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
           # This can optionally be set as an GitHub Actions Secret
           ./deploy.sh $STAGE_PREFIX$branch_name
+      - name: Endpoint
+        id: endpoint
+        run: |
+          APPLICATION_ENDPOINT=$(./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name)
+          echo "application_endpoint=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
+          echo "## Application Endpoint" >> $GITHUB_STEP_SUMMARY
+          echo "<$APPLICATION_ENDPOINT>" >> $GITHUB_STEP_SUMMARY
+    outputs:
+      application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
   # run e2e tests after deploy completes
   e2e-tests-init:
     name: Initialize End To End Tests
@@ -75,6 +84,11 @@ jobs:
       - deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Verify Endpoint
+        if: ${{ needs.deploy.outputs.application_endpoint == ''}}
+        run: |
+          echo "No endpoint set, Check if the deploy workflow was successful."
+          exit 1
       - uses: actions/checkout@v3
       - name: set branch_name
         run: |
@@ -121,21 +135,6 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: Endpoint
-        id: endpoint
-        run: |
-          pushd services
-          export APPLICATION_ENDPOINT=`./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name`
-          echo "APPLICATION_ENDPOINT=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
-          echo "Application endpoint: $APPLICATION_ENDPOINT"
-          popd
-      - name: Verify Endpoint
-        if: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT == ''}}
-        run: |
-          echo "No endpoint set, Check if the deploy workflow was successful."
-          exit 1
-    outputs:
-      APPLICATION_ENDPOINT: ${{ steps.endpoint.outputs.APPLICATION_ENDPOINT}}
 
   setup-tests:
     name: "Setup End To End Tests"
@@ -143,7 +142,7 @@ jobs:
     needs: e2e-tests-init
     with:
       test-path: "init"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
+      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -160,7 +159,7 @@ jobs:
       - setup-tests
     with:
       test-path: "measures/child"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
+      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -177,7 +176,7 @@ jobs:
       - setup-tests
     with:
       test-path: "measures/adult"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
+      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -194,7 +193,7 @@ jobs:
       - setup-tests
     with:
       test-path: "measures/healthhome"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
+      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -211,7 +210,7 @@ jobs:
       - setup-tests
     with:
       test-path: "features"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
+      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -231,7 +230,7 @@ jobs:
     uses: ./.github/workflows/cypress-workflow.yml
     with:
       test-path: "a11y"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.APPLICATION_ENDPOINT }}"
+      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
