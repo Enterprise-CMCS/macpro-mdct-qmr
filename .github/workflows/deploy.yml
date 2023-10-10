@@ -136,6 +136,8 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+    outputs:
+      application_endpoint: ${{ needs.deploy.outputs.application_endpoint }}
 
   setup-tests:
     name: "Setup End To End Tests"
@@ -143,7 +145,7 @@ jobs:
     needs: e2e-tests-init
     with:
       test-path: "init"
-      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
+      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -160,7 +162,7 @@ jobs:
       - setup-tests
     with:
       test-path: "measures/child"
-      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
+      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -177,7 +179,7 @@ jobs:
       - setup-tests
     with:
       test-path: "measures/adult"
-      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
+      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -194,7 +196,7 @@ jobs:
       - setup-tests
     with:
       test-path: "measures/healthhome"
-      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
+      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -211,7 +213,7 @@ jobs:
       - setup-tests
     with:
       test-path: "features"
-      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
+      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
@@ -231,7 +233,7 @@ jobs:
     uses: ./.github/workflows/cypress-workflow.yml
     with:
       test-path: "a11y"
-      test-endpoint: "${{ needs.deploy.outputs.application_endpoint }}"
+      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
