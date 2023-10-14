@@ -15,6 +15,6 @@
     "serverless-s3-bucket-helper": "Enterprise-CMCS/serverless-s3-bucket-helper#0.1.1"
   },
   "dependencies": {
-    "xml2js": "0.6.0"
+    "xml2js": "0.6.2"
   }
 }
