@@ -74,18 +74,8 @@ jobs:
           CYPRESS_TEST_USER_4: ${{ secrets.cypress-user4 }}
           CYPRESS_TEST_PASSWORD_1: ${{ secrets.cypress-password }}
       - name: Upload screenshots
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
-          path: |
-            tests/cypress/screenshots/
-            tests/cypress/videos/
-      - name: Slack Notification
-        if: env.slack-url != '' && contains(fromJson('["master", "val", "prod"]'), env.branch_name) && failure ()
-        uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ job.status }}
-          fields: repo,message,commit,ref # selectable (default: repo,message)
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.slack-url }}
+          path: tests/cypress/screenshots/
