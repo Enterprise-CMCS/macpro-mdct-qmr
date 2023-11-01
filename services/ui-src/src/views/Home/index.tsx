@@ -8,7 +8,8 @@ import { useUser } from "hooks/authHooks";
 
 export function Home() {
   const { userRole, userState } = useUser();
-  const releaseYearByFlag = parseInt(config.currentReportingYear) - 1;
+  const releaseYearByFlag = parseInt(config.currentReportingYear);
+
   if (
     userRole === UserRoles.ADMIN ||
     userRole === UserRoles.APPROVER ||

@@ -48,10 +48,6 @@ const ReportingYear = () => {
         }))
       : [{ displayValue: `${year} Core Set`, value: `${year}` }];
 
-  reportingyearOptions = reportingyearOptions.filter(
-    (entry) => entry.value !== "2023"
-  );
-
   return (
     <CUI.Box w={{ base: "full", md: "48" }}>
       <CUI.Text fontSize="sm" fontWeight="600" mb="2">

@@ -9,7 +9,7 @@ import { UserRoles } from "types";
 
 export const AdminHome = () => {
   const [locality, setLocality] = useState("AL");
-  const releaseYearByFlag = parseInt(config.currentReportingYear) - 1;
+  const releaseYearByFlag = parseInt(config.currentReportingYear);
   const navigate = useNavigate();
   const { userRole } = useUser();
 
