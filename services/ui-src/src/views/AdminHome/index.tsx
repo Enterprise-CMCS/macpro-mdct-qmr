@@ -3,16 +3,13 @@ import * as CUI from "@chakra-ui/react";
 import { stateAbbreviations } from "utils/constants";
 import { useNavigate } from "react-router";
 import config from "config";
-import { useFlags } from "launchdarkly-react-client-sdk";
 import { useUser } from "hooks/authHooks";
 import { BannerCard } from "components/Banner/BannerCard";
 import { UserRoles } from "types";
 
 export const AdminHome = () => {
   const [locality, setLocality] = useState("AL");
-  const releaseYearByFlag = useFlags()?.["release2023"]
-    ? config.currentReportingYear
-    : parseInt(config.currentReportingYear) - 1;
+  const releaseYearByFlag = parseInt(config.currentReportingYear);
   const navigate = useNavigate();
   const { userRole } = useUser();
 
