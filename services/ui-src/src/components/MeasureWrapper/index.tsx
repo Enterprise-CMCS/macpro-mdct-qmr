@@ -57,7 +57,7 @@ interface MeasureProps {
 }
 
 const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
 
   const watchedData = useWatch();
 
@@ -67,6 +67,11 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
   const watchMeasureSpecification = useWatch({
     name: "MeasurementSpecification",
   });
+
+  const opmRates = useWatch({
+    name: DC.OPM_RATES,
+  });
+
   const isOtherMeasureSpecSelected = watchMeasureSpecification === "Other";
   const isPrimaryMeasureSpecSelected =
     watchMeasureSpecification && !isOtherMeasureSpecSelected;
@@ -75,6 +80,17 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
     watchedData,
     rest.measureId
   );
+
+  useEffect(() => {
+    if (isOtherMeasureSpecSelected && !opmRates) {
+      setValue(DC.OPM_RATES, [
+        {
+          rate: [{ denominator: "", numerator: "", rate: "" }],
+          description: "",
+        },
+      ]);
+    }
+  }, [watch, isOtherMeasureSpecSelected, setValue]);
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
