@@ -90,7 +90,7 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
         },
       ]);
     }
-  }, [watch, isOtherMeasureSpecSelected, setValue]);
+  }, [watch, isOtherMeasureSpecSelected, opmRates, setValue]);
 
   useEffect(() => {
     const subscription = watch((value, { name, type }) => {
