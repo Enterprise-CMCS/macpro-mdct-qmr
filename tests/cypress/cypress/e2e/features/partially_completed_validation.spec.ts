@@ -25,6 +25,7 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(`[data-cy="PerformanceMeasure.rates.cvc5jQ.0.denominator"]`)
       .clear()
       .type("8");
+    cy.wait(500);
     cy.get(`[data-cy="OptionalMeasureStratification.options0"]`).click();
     cy.get(
       `[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]`
@@ -65,6 +66,7 @@ describe("OY2 16341 NDR set validation updates for all measures ", () => {
     cy.get(`[data-cy="PerformanceMeasure.rates.8w4t99.0.denominator"]`)
       .clear()
       .type("8");
+    cy.wait(500);
     cy.get(`[data-cy="OptionalMeasureStratification.options0"]`).click();
     cy.get(
       `[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"]`
