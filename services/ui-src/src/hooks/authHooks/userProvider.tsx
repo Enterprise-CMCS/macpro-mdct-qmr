@@ -25,7 +25,7 @@ const authenticateWithIDM = () => {
 
 export const UserProvider = ({ children }: Props) => {
   const location = useLocation();
-  const idmLoginOnly = window.location.origin.includes(".cms.gov");
+  const idmLoginOnly = window.location.hostname.includes(".cms.gov");
 
   const [user, setUser] = useState<any>(null);
   const [showLocalLogins, setShowLocalLogins] = useState(false);
