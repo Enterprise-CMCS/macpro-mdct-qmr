@@ -62,3 +62,8 @@ export const stateAbbreviations = [
 
 // BANNERS
 export const bannerId = "admin-banner-id";
+
+// HOST DOMAIN
+export const PRODUCTION_HOST_DOMAIN = "mdctqmr.cms.gov";
+export const VAL_HOST_DOMAIN = "mdctqmrval.cms.gov";
+export const DEV_HOST_DOMAIN = "mdctqmrdev.cms.gov";
