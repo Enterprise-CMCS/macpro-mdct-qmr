@@ -25,7 +25,7 @@ const authenticateWithIDM = () => {
 
 export const UserProvider = ({ children }: Props) => {
   const location = useLocation();
-  const isProduction = window.location.origin.includes(config.PROD_URL);
+  const idmLoginOnly = window.location.origin.includes(".cms.gov");
 
   const [user, setUser] = useState<any>(null);
   const [showLocalLogins, setShowLocalLogins] = useState(false);
@@ -52,13 +52,13 @@ export const UserProvider = ({ children }: Props) => {
       const authenticatedUser = await Auth.currentAuthenticatedUser();
       setUser(authenticatedUser);
     } catch (e) {
-      if (isProduction) {
+      if (idmLoginOnly) {
         authenticateWithIDM();
       } else {
         setShowLocalLogins(true);
       }
     }
-  }, [isProduction, location]);
+  }, [idmLoginOnly, location]);
 
   // "custom:cms_roles" is an string of concat roles so we need to check for the one applicable to qmr
   const userRole = (
