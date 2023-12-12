@@ -49,7 +49,7 @@ export const OtherPerformanceMeasure = ({
   });
 
   useEffect(() => {
-    register("OtherPerformanceMeasure-Rates");
+    register(DC.OPM_RATES);
   }, [register]);
 
   // ! Waiting for data source refactor to type data source here

@@ -16,6 +16,7 @@ import {
   validationsMockObj as V,
 } from "measures/2023/shared/util/validationsMock";
 import { axe, toHaveNoViolations } from "jest-axe";
+import * as DC from "dataConstants";
 
 expect.extend(toHaveNoViolations);
 
@@ -229,7 +230,7 @@ const notReportingData = {
 const OPMData = {
   MeasurementSpecification: "Other",
   DidReport: "yes",
-  "OtherPerformanceMeasure-Rates": [
+  [DC.OPM_RATES]: [
     {
       rate: [{ denominator: "", numerator: "", rate: "" }],
       description: "",
