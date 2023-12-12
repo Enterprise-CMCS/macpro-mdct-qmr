@@ -39,6 +39,7 @@
   "exclude": [
     "./services/ui-src/*",
     "./services/app-api/*",
+    "./services/database/*",
     "./tests/cypress/*"
   ]
 }

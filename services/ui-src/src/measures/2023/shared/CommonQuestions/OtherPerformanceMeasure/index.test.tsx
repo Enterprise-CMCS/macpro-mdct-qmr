@@ -3,6 +3,7 @@ import { OtherPerformanceMeasure } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { DataDrivenTypes } from "../types";
+import * as DC from "dataConstants";
 
 interface Props {
   rateAlwaysEditable?: boolean;
@@ -12,13 +13,23 @@ interface Props {
   RateComponent?: RateComp | undefined;
 }
 
-const renderComponet = ({ RateComponent, data, rateAlwaysEditable }: Props) =>
+const renderComponent = ({ RateComponent, data, rateAlwaysEditable }: Props) =>
   renderWithHookForm(
     <OtherPerformanceMeasure
       rateAlwaysEditable={rateAlwaysEditable}
       data={data}
       RateComponent={RateComponent}
-    />
+    />,
+    {
+      defaultValues: {
+        [DC.OPM_RATES]: [
+          {
+            rate: [{ denominator: "", numerator: "", rate: "" }],
+            description: "",
+          },
+        ],
+      },
+    }
   );
 
 describe("Test the OtherPerformanceMeasure RateComponent prop", () => {
@@ -32,7 +43,7 @@ describe("Test the OtherPerformanceMeasure RateComponent prop", () => {
   });
 
   test("Component renders", () => {
-    renderComponet(props);
+    renderComponent(props);
     // should render QMR.Rate layout using example data
     expect(screen.getByText(/Other Performance Measure/i)).toBeVisible();
     expect(screen.getByText("Describe the Rate:")).toBeVisible();
@@ -52,7 +63,7 @@ describe("Test the OtherPerformanceMeasure RateComponent prop", () => {
   test("Added Rates can be deleted", () => {
     const labelText =
       "For example, specify the age groups and whether you are reporting on a certain indicator:";
-    renderComponet(props);
+    renderComponent(props);
     const addRate = screen.getByText("+ Add Another");
     fireEvent.click(addRate);
     const deleteAddedRate = screen.getByTestId("delete-wrapper");

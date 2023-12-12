@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { getLabelText } from "utils";
 import { defaultRateCalculation } from "utils/rateFormulas";
 import { getMeasureYear } from "utils/getMeasureYear";
@@ -218,16 +218,6 @@ export const Rate = ({
     },
     [unregister, name]
   );
-
-  useLayoutEffect(() => {
-    field.onChange(field.value);
-
-    return () => {
-      field.onChange([]);
-    };
-    // purposefully ignoring field to stop infinite rerender
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name]);
 
   return (
     <>

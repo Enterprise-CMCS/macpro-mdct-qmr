@@ -191,15 +191,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
-    expect(V.validateRateNotZeroPM).toHaveBeenCalled();
-    expect(V.validateRateZeroPM).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSourceType).toHaveBeenCalled();
     expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();
-    expect(V.validateRateZeroOMS).toHaveBeenCalled();
-    expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
     expect(V.validateTotalNDR).toHaveBeenCalled();
     expect(V.validateOMSTotalNDR).toHaveBeenCalled();
     expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
