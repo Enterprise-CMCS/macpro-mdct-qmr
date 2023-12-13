@@ -128,6 +128,7 @@ describe("CCW-AD", () => {
       "Manually entered rate should be 0 if numerator is 0"
     );
 
+    cy.wait(1000);
     cy.get('[data-cy="+ Add Another"]').click();
     cy.get('[data-cy="OtherPerformanceMeasure-Rates.3.description"]').type(
       "check1"

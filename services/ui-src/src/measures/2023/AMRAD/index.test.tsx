@@ -16,6 +16,8 @@ import {
   validationsMockObj as V,
 } from "measures/2023/shared/util/validationsMock";
 import { axe, toHaveNoViolations } from "jest-axe";
+import * as DC from "dataConstants";
+
 expect.extend(toHaveNoViolations);
 
 // Test Setup
@@ -137,7 +139,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = OPMData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByTestId("OPM"));
+    expect(screen.queryByTestId("OPM")).toBeInTheDocument();
     expect(screen.queryByTestId("performance-measure")).not.toBeInTheDocument();
     expect(
       screen.queryByTestId("deviation-from-measure-specification")
@@ -225,7 +227,16 @@ const notReportingData = {
   DidReport: "no",
 };
 
-const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
+const OPMData = {
+  MeasurementSpecification: "Other",
+  DidReport: "yes",
+  [DC.OPM_RATES]: [
+    {
+      rate: [{ denominator: "", numerator: "", rate: "" }],
+      description: "",
+    },
+  ],
+};
 
 const completedMeasureData = {
   PerformanceMeasure: {

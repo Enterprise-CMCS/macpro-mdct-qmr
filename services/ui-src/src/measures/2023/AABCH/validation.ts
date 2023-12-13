@@ -34,8 +34,6 @@ const AABCHValidation = (data: FormData) => {
       ageGroups,
       PMD.categories
     ),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
@@ -65,8 +63,6 @@ const AABCHValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateOMSTotalNDR(),
-        GV.validateRateNotZeroOMS(),
-        GV.validateRateZeroOMS(),
       ],
     }),
   ];
