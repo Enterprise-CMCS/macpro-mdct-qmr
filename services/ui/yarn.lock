@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@enterprise-cmcs/serverless-waf-plugin@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@enterprise-cmcs/serverless-waf-plugin/-/serverless-waf-plugin-1.3.1.tgz#102b6eaf284eeb06ae3d6b052802bf3559d46ec5"
+  integrity sha512-kQ4s2/jLBcnpX6RTBw7mCSXCYFM8HR9pY8gfLMQhGq/0MEsFUfhNpWbv/fLDIQlQPNOObj82DabSM921yVssFQ==
+
 serverless-s3-bucket-helper@Enterprise-CMCS/serverless-s3-bucket-helper#0.1.1:
   version "1.0.0"
   resolved "https://codeload.github.com/Enterprise-CMCS/serverless-s3-bucket-helper/tar.gz/f0f6d6a1ffe54e292f0afc93777764bce16a4037"
