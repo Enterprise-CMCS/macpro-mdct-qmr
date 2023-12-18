@@ -1,16 +1,47 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const {
+import * as readline from "readline";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
   DynamoDBDocumentClient,
-  ScanCommand,
+  paginateScan,
   UpdateCommand,
-} = require("@aws-sdk/lib-dynamodb");
+} from "@aws-sdk/lib-dynamodb";
 
-const TABLE_NAME = "local-measures";
-const LOCAL = true;
+/** Possibly overwritten by user input */
+let STAGE_NAME = "local";
 
-async function lookForMisplacedHPCAD() {
-  const client = buildClient();
-  const statesWithHPC = [];
+// As recommended by https://stackoverflow.com/a/68504470
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+const promptString = (query: string) =>
+  new Promise<string>((resolve) => rl.question(query, resolve));
+const promptYesNo = async (query: string) => {
+  do {
+    const userInput = await promptString(query);
+    switch (userInput.toUpperCase()[0]) {
+      case "Y":
+        return true;
+      case "N":
+        return false;
+      default:
+        rl.write("Y or N only, please.\n");
+    }
+  } while (true);
+};
+
+async function remove2023QualifierHPCAD() {
+  const isLocal = await promptYesNo(
+    "Do you want to run this script locally? Y/N: "
+  );
+  if (!isLocal) {
+    STAGE_NAME = await promptString(
+      "What environment are we running on (e.g. master, val, production)? "
+    );
+  }
+
+  const client = buildClient(isLocal);
+  const statesWithHPC: string[] = [];
 
   console.log("Scanning...");
   for await (let measure of all2023CsqMeasures(client)) {
@@ -26,7 +57,7 @@ async function lookForMisplacedHPCAD() {
   return statesWithHPC;
 }
 
-function hasHPC(measure) {
+function hasHPC(measure: Record<string, any>) {
   if (!measure.data?.CoreSetMeasuresAuditedOrValidatedDetails) {
     return false;
   }
@@ -38,18 +69,21 @@ function hasHPC(measure) {
   return false;
 }
 
-async function correctHPC(client, measure) {
+async function correctHPC(
+  client: DynamoDBDocumentClient,
+  measure: Record<string, any>
+) {
   const auditDetails = measure.data.CoreSetMeasuresAuditedOrValidatedDetails;
   console.log(measure);
   for (let details of measure.data.CoreSetMeasuresAuditedOrValidatedDetails) {
     const newDetails = details.MeasuresAuditedOrValidated.filter(
-      (n) => n !== "HPC-AD"
+      (measureName: string) => measureName !== "HPC-AD"
     );
     details.MeasuresAuditedOrValidated = newDetails;
   }
 
   const command = new UpdateCommand({
-    TableName: TABLE_NAME,
+    TableName: `${STAGE_NAME}-measures`,
     Key: {
       compoundKey: measure.compoundKey,
       coreSet: measure.coreSet,
@@ -66,9 +100,9 @@ async function correctHPC(client, measure) {
   await client.send(command);
 }
 
-async function* all2023CsqMeasures(client) {
+async function* all2023CsqMeasures(client: DynamoDBDocumentClient) {
   const query = {
-    TableName: TABLE_NAME,
+    TableName: `${STAGE_NAME}-measures`,
     FilterExpression: "#year = :year AND #measure = :measure",
     ExpressionAttributeNames: {
       "#year": "year",
@@ -79,36 +113,37 @@ async function* all2023CsqMeasures(client) {
       ":measure": "CSQ",
     },
   };
-  let ExclusiveStartKey = undefined;
 
-  do {
-    const result = await client.send(
-      new ScanCommand({ ...query, ExclusiveStartKey })
-    );
-    if (result.Items) {
-      yield* result.Items;
-    }
-    ExclusiveStartKey = result.LastEvaluatedKey;
-  } while (ExclusiveStartKey);
+  for await (const result of paginateScan({ client }, query)) {
+    yield* result.Items ?? [];
+  }
 }
 
-function buildClient() {
-  if (LOCAL) {
+function buildClient(isLocal: boolean) {
+  if (isLocal) {
     return DynamoDBDocumentClient.from(
       new DynamoDBClient({
         region: "localhost",
         endpoint: "http://localhost:8000",
-        accessKeyId: "LOCALFAKEKEY", // pragma: allowlist secret
-        secretAccessKey: "LOCALFAKESECRET", // pragma: allowlist secret
+        credentials: {
+          accessKeyId: "LOCALFAKEKEY", // pragma: allowlist secret
+          secretAccessKey: "LOCALFAKESECRET", // pragma: allowlist secret
+        },
       })
     );
   } else {
     return DynamoDBDocumentClient.from(
       new DynamoDBClient({
         region: "us-east-1",
+        logger: {
+          debug: console.debug,
+          info: console.info,
+          warn: console.warn,
+          error: console.error,
+        },
       })
     );
   }
 }
 
-lookForMisplacedHPCAD();
+remove2023QualifierHPCAD();
