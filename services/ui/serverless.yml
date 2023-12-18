@@ -57,7 +57,7 @@ custom:
     hooks:
       # Associate the WAF ACL with the Firehose Delivery Stream
       deploy:finalize: |
-        wafAclArn=`aws wafv2 list-web-acls --scope CLOUDFRONT | jq -r '.WebACLs | .[] | select(.Name=="${self:custom.wafPlugin.rules.name}") | .ARN'`
+        wafAclArn=`aws wafv2 list-web-acls --scope CLOUDFRONT | jq -r '.WebACLs | .[] | select(.Name=="${self:custom.wafPlugin.name}") | .ARN'`
         firehoseStreamArn=`aws firehose describe-delivery-stream --delivery-stream-name ${self:custom.firehoseStreamName} | jq -r '.DeliveryStreamDescription.DeliveryStreamARN'`
         aws wafv2 put-logging-configuration \
           --logging-configuration ResourceArn=$wafAclArn,LogDestinationConfigs=$firehoseStreamArn \
