@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "strict": true,
+    "allowJs": true,
+    "rootDir": "./",
+    "outDir": ".build",
+    /* The target, lib, and module settings are as recommended for node 16
+     * per https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping
+     * TODO when we upgrade to node 18 or 20, update these.
+     */
+    "target": "ES2021",
+    "lib": ["ES2021"],
+    "module": "node16"
+  }
+}
