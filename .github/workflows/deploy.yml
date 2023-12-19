@@ -45,7 +45,8 @@ jobs:
           IP_ADDRESS=$(curl https://api.ipify.org)
           echo "Runner IP address: $IP_ADDRESS"
           # Store the IP address as an output variable
-          echo "::set-output name=runner_ip::$IP_ADDRESS"
+          # echo "::set-output name=runner_ip::$IP_ADDRESS"
+          echo "name=runner_ip" >> $IP_ADDRESS
       - name: Show IP Address
         run: |
           #!/bin/bash
