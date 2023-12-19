@@ -118,6 +118,14 @@ jobs:
           echo "AWS IP Set ARNs: ${{ steps.fetch-ip-set-arns.outputs.IPSET_ARN }}"
           echo "AWS IP Set Name: ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }}"
           echo "AWS IP Set ID: ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }}"
+      - name: Temp Add Runner IP
+        run: |
+          #!/bin/bash
+          aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --addresses=${{ steps.fetch-ip-set-arns.outputs.IPSET_ARN }}
+      - name: Delete Runner IP
+        run: |
+          #!/bin/bash
+          aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --addresses=${{ steps.fetch-ip-set-arns.outputs.IPSET_ARN }} --action=REMOVE
       - name: deploy
         run: |
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
