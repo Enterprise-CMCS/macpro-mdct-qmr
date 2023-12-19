@@ -112,11 +112,12 @@ jobs:
           echo "Extracted ARN: $ARN"
           echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
           echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
+          echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
       - name: Show AWS IP set ARNs
         run: |
           echo "AWS IP Set ARNs: ${{ steps.fetch-ip-set-arns.outputs.IPSET_ARN }}"
           echo "AWS IP Set Name: ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }}"
-          echo "AWS IP Set Name: ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }}"
+          echo "AWS IP Set ID: ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }}"
       - name: deploy
         run: |
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
