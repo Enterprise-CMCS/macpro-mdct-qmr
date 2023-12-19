@@ -84,7 +84,7 @@ jobs:
           #!/bin/bash
           # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
           # Get AWS IP set ARNs in JSON format
-          AWS_IP_SET_ARNS=$(aws aws wafv2 list-ip-sets)
+          AWS_IP_SET_ARNS=$(aws wafv2 list-ip-sets)
           # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
           echo "GITHUB_OUTPUT::aws_ip_set_arns=$AWS_IP_SET_ARNS"
       - name: Show AWS IP set ARNs
