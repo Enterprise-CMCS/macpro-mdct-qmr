@@ -35,6 +35,8 @@ jobs:
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           fi
       - uses: actions/checkout@v3
+      - name: Check IP
+        run: curl https://api.ipify.org
       - name: Validate branch name
         run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
       - name: set branch specific variable names
