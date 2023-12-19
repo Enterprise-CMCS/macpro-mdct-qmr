@@ -44,7 +44,7 @@ custom:
           Action:
             Block: {
               "CustomResponse": {
-                "ResponseCode": 404
+                "ResponseCode": 403
               }
             }
           VisibilityConfig:
