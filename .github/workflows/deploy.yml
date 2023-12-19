@@ -78,6 +78,18 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Fetch AWS IP set ARNs
+        id: fetch-ip-set-arns
+        run: |
+          #!/bin/bash
+          # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
+          # Get AWS IP set ARNs in JSON format
+          AWS_IP_SET_ARNS=$(aws ec2 describe-managed-prefix-lists --query 'PrefixLists[*].[PrefixListArn]' --output json)
+          # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
+          echo "GITHUB_OUTPUT::aws_ip_set_arns=$AWS_IP_SET_ARNS"
+      - name: Show AWS IP set ARNs
+        run: |
+          echo "AWS IP Set ARNs: ${{ steps.fetch-ip-set-arns.outputs.aws_ip_set_arns }}"
       - name: deploy
         run: |
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
