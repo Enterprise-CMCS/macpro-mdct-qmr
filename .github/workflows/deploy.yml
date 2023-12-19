@@ -46,11 +46,11 @@ jobs:
           echo "Runner IP address: $IP_ADDRESS"
           # Store the IP address as an output variable
           # echo "::set-output name=runner_ip::$IP_ADDRESS"
-          echo "GITHUB_OUTPUT::runner_ip=$IP_ADDRESS"
+          echo "RUNNER_IP=$IP_ADDRES" >> $GITHUB_OUTPUT
       - name: Show IP Address
         run: |
           #!/bin/bash
-          echo "IP address from previous step: ${{ steps.get-ip.outputs.runner_ip }}"
+          echo "IP address from previous step: ${{ steps.get-ip.outputs.RUNNER_IP }}"
       - name: Validate branch name
         run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
       - name: set branch specific variable names
