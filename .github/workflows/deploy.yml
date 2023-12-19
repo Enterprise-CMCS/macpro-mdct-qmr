@@ -35,8 +35,21 @@ jobs:
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           fi
       - uses: actions/checkout@v3
-      - name: Check IP
-        run: curl https://api.ipify.org
+      # - name: Check IP
+      #   run: curl https://api.ipify.org
+      - name: Get IP
+        id: get-ip
+        run: |
+          #!/bin/bash
+          # Get the IP address of the runner
+          IP_ADDRESS=$(curl https://api.ipify.org)
+          echo "Runner IP address: $IP_ADDRESS"
+          # Store the IP address as an output variable
+          echo "::set-output name=runner_ip::$IP_ADDRESS"
+      - name: Show IP Address
+        run: |
+          #!/bin/bash
+          echo "IP address from previous step: ${{ steps.get-ip.outputs.runner_ip }}"
       - name: Validate branch name
         run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
       - name: set branch specific variable names
