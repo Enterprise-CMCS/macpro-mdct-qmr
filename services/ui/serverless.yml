@@ -42,7 +42,9 @@ custom:
           Name: vpn-only
           Priority: 0
           Action:
-            Block: {}
+            Block: {
+              "ResponseCode": 404
+            }
           VisibilityConfig:
             SampledRequestsEnabled: true
             CloudWatchMetricsEnabled: true
