@@ -108,7 +108,7 @@ jobs:
           echo "GITHUB_OUTPUT::aws_ip_set_arns=$AWS_IP_SET_ARNS"
           IPSET_ARN=$(echo "$AWS_IP_SET_ARNS" | jq -r '.IPSets[0].ARN')
           IPSET_NAME=$(echo "$AWS_IP_SET_ARNS" | jq -r '.IPSets[0].Name')
-          IPSET_ID=$(echo "$AWS_IP_SET_ARNS" | jq -r '.IPSets[0].ID')
+          IPSET_ID=$(echo "$AWS_IP_SET_ARNS" | jq -r '.IPSets[0].Id')
           echo "Extracted ARN: $ARN"
           echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
           echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
