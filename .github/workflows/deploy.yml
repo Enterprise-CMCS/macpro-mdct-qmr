@@ -85,9 +85,8 @@ jobs:
           # Get AWS IP set ARNs in JSON format
           AWS_IP_SET_ARNS=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
           # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
-          #echo "GITHUB_OUTPUT::aws_ip_set_arns=$AWS_IP_SET_ARNS"
-          # echo "RUNNER_IP=$IP_ADDRESS" >> $GITHUB_OUTPUT
-          echo "VPN_IP_SET=$AWS_IP_SET_ARNS" >> $GITHUB_OUTPUT
+          echo "GITHUB_OUTPUT::aws_ip_set_arns=$AWS_IP_SET_ARNS"
+          # echo "VPN_IP_SET=$AWS_IP_SET_ARNS" >> $GITHUB_OUTPUT
       - name: Show AWS IP set ARNs
         run: |
           echo "AWS IP Set ARNs: ${{ steps.fetch-ip-set-arns.outputs.VPN_IP_SET }}"
