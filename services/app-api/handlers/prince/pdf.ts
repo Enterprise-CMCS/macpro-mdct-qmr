@@ -51,7 +51,7 @@ export const getPDF = handler(async (event, _context) => {
 
   const signedRequest = await signer.sign(request);
 
-  const response = await fetch(`https://${hostname}${path}`);
+  const response = await fetch(`https://${hostname}${path}`, signedRequest);
 
   const base64EncodedPdfData = await response.json();
 
