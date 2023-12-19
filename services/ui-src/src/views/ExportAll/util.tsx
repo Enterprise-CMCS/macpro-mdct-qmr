@@ -12,22 +12,15 @@ interface HookProps {
 type PrinceHook = () => (props: HookProps) => Promise<void>;
 
 export const openPdf = (basePdf: string) => {
-  console.log(basePdf);
-  console.log("got pdf data", basePdf.substring(0, 15), basePdf.length);
   let byteCharacters = atob(basePdf);
   let byteNumbers = new Array(byteCharacters.length);
   for (let i = 0; i < byteCharacters.length; i++) {
     byteNumbers[i] = byteCharacters.charCodeAt(i);
   }
   let byteArray = new Uint8Array(byteNumbers);
-  console.log("Made byte array", byteArray.length);
   let file = new Blob([byteArray], { type: "application/pdf;base64" });
-  console.log("Made blob");
   let fileURL = URL.createObjectURL(file);
-  console.log("Made url", fileURL);
-
   window.open(fileURL);
-  console.log("Opened url");
 };
 
 /**
