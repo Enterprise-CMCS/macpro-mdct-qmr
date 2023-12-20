@@ -65,7 +65,6 @@ jobs:
           IP_ADDRESS=$(curl https://api.ipify.org)
           echo "Runner IP address: $IP_ADDRESS"
           # Store the IP address as an output variable
-          ip -o -f inet addr show | awk '/scope global/ {print $4}'
           echo "RUNNER_IP=$IP_ADDRESS" >> $GITHUB_OUTPUT
       - name: Show IP Address
         run: |
