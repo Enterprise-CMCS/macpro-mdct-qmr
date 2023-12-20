@@ -156,6 +156,8 @@ jobs:
         working-directory: services
     outputs:
       application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
+      BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION: ${{ steps.set_names.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION }}
+      BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME: ${{ steps.set_names.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME }}
   # run e2e tests after deploy completes
   e2e-tests-init:
     name: Initialize End To End Tests
@@ -178,8 +180,10 @@ jobs:
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           fi
       - name: set branch specific variable names
+        id: set_names
         run: ./.github/build_vars.sh set_names
       - name: set variable values
+        id: set_values
         run: ./.github/build_vars.sh set_values
         env:
           AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
@@ -267,6 +271,8 @@ jobs:
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      AWS_DEFAULT_REGION: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+      AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
       cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
       cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
@@ -284,6 +290,8 @@ jobs:
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      AWS_DEFAULT_REGION: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+      AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
       cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
       cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
@@ -301,6 +309,8 @@ jobs:
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      AWS_DEFAULT_REGION: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+      AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
       cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
       cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
@@ -318,6 +328,8 @@ jobs:
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      AWS_DEFAULT_REGION: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+      AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
       cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
       cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
@@ -335,6 +347,8 @@ jobs:
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      AWS_DEFAULT_REGION: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+      AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
       cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
       cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
@@ -355,6 +369,8 @@ jobs:
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
       slack-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      AWS_DEFAULT_REGION: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+      AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[needs.deploy.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
       cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
       cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
       cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
