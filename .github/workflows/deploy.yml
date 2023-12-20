@@ -125,21 +125,15 @@ jobs:
         id: create-new-ip-set
         run: |
           newip=${{ steps.get-ip.outputs.RUNNER_IP }}
-          # fetch existing IPs in the IP Set 
-          oldarr=(`aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'`)
-          # newarr=("${oldarr[@]}" "${newip}")
-          # echo "new array: ${newarr[@]}"
-          # csv_ip_list=$(IFS=,; echo "${newarr[*]}")
-          # echo $csv_ip_list
+          oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
           newarr=()
           for item in "${oldarr[@]}"; do
-            newarr+=("\"$item\"")
+            newarr+=("$item")
           done
-          newarr+=("\"$newip\"")
-          echo "${newarr[@]}"
-          # echo "csv_ip_list=$csv_ip_list" >> $GITHUB_OUTPUT
-          echo "newarr=$newarr" >> $GITHUB_OUTPUT
-          aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses ${newarr[@]}
+          newarr+=("$newip")
+          addresses=$(IFS=" " ; echo "${newarr[*]}")
+          echo "Updated IP addresses: $addresses"
+          aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
       # - name: Temp Add Runner IP
       #   run: |
           #!/bin/bash
