@@ -123,7 +123,7 @@ jobs:
           echo "AWS IP Lock Token: ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }}"
       - name: create new ip set
         run: |
-          newip=(${{ steps.get-ip.outputs.RUNNER_IP }})
+          newip=${{ steps.get-ip.outputs.RUNNER_IP }}
           # fetch existing IPs in the IP Set 
           oldarr=(`aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'`)
           newarr=("${oldarr[@]}" "${newip}")
