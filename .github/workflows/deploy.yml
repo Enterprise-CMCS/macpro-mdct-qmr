@@ -132,7 +132,7 @@ jobs:
           csv_ip_list=$(IFS=,; echo "${newarr[*]}")
           echo $csv_ip_list
           echo "csv_ip_list=$csv_ip_list" >> $GITHUB_OUTPUT
-          # echo "newarr=$newarr" >> $GITHUB_OUTPUT
+          echo "newarr=$newarr" >> $GITHUB_OUTPUT
       - name: Temp Add Runner IP
         run: |
           #!/bin/bash
