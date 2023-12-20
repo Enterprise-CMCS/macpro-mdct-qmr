@@ -127,7 +127,7 @@ jobs:
           # fetch existing IPs in the IP Set 
           oldarr=(`aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'`)
           newarr=("${oldarr[@]}" "${newip}")
-          echo "new array: $newarr"
+          echo "new array: ${newarr[@]}"
       # - name: Temp Add Runner IP
       #   run: |
       #     #!/bin/bash
