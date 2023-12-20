@@ -66,6 +66,8 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: set branch specific variable names
+        run: ./.github/build_vars.sh set_names
       - name: set variable values
         run: ./.github/build_vars.sh set_values
         env:
