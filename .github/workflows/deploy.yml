@@ -133,11 +133,10 @@ jobs:
           newarr+=("$newip")
           addresses=$(IFS=" " ; echo "${newarr[*]}")
           echo "Updated IP addresses: $addresses"
-          aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
-      # - name: Temp Add Runner IP
-      #   run: |
-          #!/bin/bash
-          #aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses ${{ steps.create-new-ip-set.outputs.newarr }}
+          #aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
+      - name: Temp Add Runner IP
+        run: |
+          aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses IP_ADDRESS ACTION_ADD=${{ steps.get-ip.outputs.RUNNER_IP }}
       # - name: Delete Runner IP
       #   run: |
       #     #!/bin/bash
