@@ -39,6 +39,13 @@ jobs:
       - id: set-test-matrix
         run: |
           echo "test-matrix=$(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
+      - name: Get Cypress Test Matrix Runner IP
+        id: get-test-matrix-ip
+        run: |
+          #!/bin/bash
+          # Get the IP address of the runner
+          IP_ADDRESS=$(curl https://api.ipify.org)
+          echo "Cypres Test Matrix Runner IP address: $IP_ADDRESS"
     outputs:
       test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix}}
   e2e-tests:
@@ -59,6 +66,13 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Get Execute Cypress Runner IP
+        id: get-execute-cypress-ip
+        run: |
+          #!/bin/bash
+          # Get the IP address of the runner
+          IP_ADDRESS=$(curl https://api.ipify.org)
+          echo "Cypres Execute Runner IP address: $IP_ADDRESS"
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
