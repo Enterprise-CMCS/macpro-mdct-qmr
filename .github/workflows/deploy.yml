@@ -65,7 +65,7 @@ jobs:
           IP_ADDRESS=$(curl https://api.ipify.org)
           echo "Runner IP address: $IP_ADDRESS"
           # Store the IP address as an output variable
-          echo "RUNNER_IP=$IP_ADDRESS" >> $GITHUB_OUTPUT
+          echo "RUNNER_IP=$IP_ADDRESS/32" >> $GITHUB_OUTPUT
       - name: Show IP Address
         run: |
           #!/bin/bash
@@ -121,14 +121,20 @@ jobs:
           echo "AWS IP Set Name: ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }}"
           echo "AWS IP Set ID: ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }}"
           echo "AWS IP Lock Token: ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }}"
-      - name: Temp Add Runner IP
+      - name: create new ip set
         run: |
-          #!/bin/bash
-          aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses=${{ steps.get-ip.outputs.RUNNER_IP }}/32
-      - name: Delete Runner IP
-        run: |
-          #!/bin/bash
-          aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses=${{ steps.get-ip.outputs.RUNNER_IP }}/32 --action=REMOVE
+          newip=${{ steps.get-ip.outputs.RUNNER_IP }}
+          # fetch existing IPs in the IP Set 
+          oldarr=(`aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'`)
+          newarr=("${oldarr[@]}" "${newip}")
+      # - name: Temp Add Runner IP
+      #   run: |
+      #     #!/bin/bash
+      #     aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses=${{ steps.get-ip.outputs.RUNNER_IP }}/32
+      # - name: Delete Runner IP
+      #   run: |
+      #     #!/bin/bash
+      #     aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses=${{ steps.get-ip.outputs.RUNNER_IP }}/32 --action=REMOVE
       - name: deploy
         run: |
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
