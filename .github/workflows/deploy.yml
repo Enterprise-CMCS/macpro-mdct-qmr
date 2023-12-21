@@ -24,8 +24,8 @@ concurrency:
 
 permissions:
   id-token: write
-  contents: read
-  actions: read
+  contents: write
+  actions: write
 
 jobs:
   unit-tests:
