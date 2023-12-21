@@ -82,7 +82,7 @@ jobs:
           # unzip awscliv2.zip
           # gzip -d awscli.tar.gz
           tar -xzvf awscli.tar.gz
-          ls -alh
+          ls -alh awscli-2.15.3/
           # ./awscli-bundle/install -b ~/bin/aws
       - name: Verify installation
         run: aws --version
