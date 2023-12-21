@@ -265,7 +265,9 @@ jobs:
   setup-tests:
     name: "Setup End To End Tests"
     uses: ./.github/workflows/cypress-workflow.yml
-    needs: e2e-tests-init
+    needs: 
+      - e2e-tests-init
+      - deploy
     with:
       test-path: "init"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
@@ -285,6 +287,7 @@ jobs:
     needs:
       - e2e-tests-init
       - setup-tests
+      - deploy
     with:
       test-path: "measures/child"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
@@ -304,6 +307,7 @@ jobs:
     needs:
       - e2e-tests-init
       - setup-tests
+      - deploy
     with:
       test-path: "measures/adult"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
@@ -323,6 +327,7 @@ jobs:
     needs:
       - e2e-tests-init
       - setup-tests
+      - deploy
     with:
       test-path: "measures/healthhome"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
@@ -342,6 +347,7 @@ jobs:
     needs:
       - e2e-tests-init
       - setup-tests
+      - deploy
     with:
       test-path: "features"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
@@ -363,6 +369,7 @@ jobs:
       - child-e2e-measure-tests
       - adult-e2e-measure-tests
       - health-home-e2e-measure-tests
+      - deploy
     uses: ./.github/workflows/cypress-workflow.yml
     with:
       test-path: "a11y"

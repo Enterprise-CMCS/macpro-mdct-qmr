@@ -29,6 +29,12 @@ on:
       cypress-password:
         description: "Cypress Password"
         required: true
+      AWS_DEFAULT_REGION:
+        description: "DEFAULT REGION"
+        required: true
+      AWS_OIDC_ROLE_TO_ASSUME:
+        description: "AWS OIDC ROLE TO ASSUME"
+        required: true
 
 jobs:
   setup:
@@ -69,8 +75,8 @@ jobs:
       - name: Configure AWS credentials for GitHub Actions
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Get Execute Cypress Runner IP
         id: get-execute-cypress-ip
         run: |
