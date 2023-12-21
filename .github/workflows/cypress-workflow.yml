@@ -68,10 +68,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       # - uses: actions/checkout@v4
-      # - uses: actions/setup-python@v5
-      #   with:
-      #     python-version: '3.10' 
-      # - run: python my_script.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' 
+      - run: python my_script.py
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: set path
@@ -82,16 +82,10 @@ jobs:
       #     apt-get install -y unzip
       - name: install-aws-cli
         run: |
-          # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
-          dd if=awscli-exe-linux-x86_64.zip bs=1 skip=104 | gzip -d > awscliv2.zip
-          # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && python -c "import zipfile; zipfile.ZipFile('awscliv2.zip', 'r').extractall()"
-          # curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
-          # unzip awscliv2.zip
-          # gzip -d awscli.tar.gz
-          # tar -xzvf awscli.tar.gz
-          # ls -alh awscli-2.15.3/awscli/
-          ./awscli-bundle/install -b ~/bin/aws
+          curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
+          $ tar -xzf awscli.tar.gz
+          ls -alh
+          # ./configure --prefix=$HOME/.local
       - name: Verify installation
         run: aws --version
       - name: Configure AWS credentials for GitHub Actions
