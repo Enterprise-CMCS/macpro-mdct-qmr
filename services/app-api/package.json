@@ -35,7 +35,7 @@
   "dependencies": {
     "@aws-crypto/sha256-js": "^5.2.0",
     "@smithy/signature-v4": "^2.0.18",
-    "aws-sdk": "^2.1310.0",
+    "aws-sdk": "^2.1508.0",
     "aws4": "^1.11.0",
     "cross-fetch": "^4.0.0",
     "jwt-decode": "^3.1.2",
