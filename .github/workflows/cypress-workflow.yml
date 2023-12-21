@@ -75,6 +75,11 @@ jobs:
       # - name: Install Unzip
       #   run: |
       #     apt-get install -y unzip
+      - name: install-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' 
+          run: python my_script.py
       - name: install-aws-cli
         run: |
           # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
