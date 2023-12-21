@@ -74,8 +74,7 @@ jobs:
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: Install Unzip
         run: |
-          apt-get update
-          apt-get install unzip
+          apt-get install -y unzip
       - name: install-aws-cli
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
