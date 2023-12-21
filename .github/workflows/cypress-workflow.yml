@@ -81,7 +81,8 @@ jobs:
           curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
           # unzip awscliv2.zip
           gzip -d awscli.tar.gz
-          ./awscli-bundle/install -b ~/bin/aws
+          ls -alh
+          # ./awscli-bundle/install -b ~/bin/aws
       - name: Verify installation
         run: aws --version
       - name: Configure AWS credentials for GitHub Actions
