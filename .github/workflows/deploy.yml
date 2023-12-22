@@ -31,8 +31,10 @@ jobs:
         run: |
           if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]] || [[ "$GITHUB_REF" =~ ^refs/remotes/origin/snyk-upgrade-* ]] || [[ "$GITHUB_REF" =~ ^refs/remotes/origin/snyk-fix-* ]]; then
             echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+            echo "Found a long branch name $GITHUB_ENV"
           else
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+            echo "DID NOT FIND a long branch name $GITHUB_ENV"
           fi
       - uses: actions/checkout@v3
       - name: Validate branch name
