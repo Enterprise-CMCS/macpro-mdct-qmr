@@ -29,13 +29,14 @@ jobs:
     steps:
       - name: set branch_name # Some integrations (Dependabot & Snyk) build very long branch names. This is a switch to make long branch names shorter.
         run: |
-          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]] || [[ "$GITHUB_REF" =~ ^refs/.*/snyk-* ]]; then
+          echo "GITHUB_REF=${GITHUB_REF}"        
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then
             echo "branch_name=`echo ${GITHUB_REF##*/*-} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          elif [[ "$GITHUB_REF" =~ ^refs/.*/snyk-* ]]; then
+            echo "branch_name=`echo ${GITHUB_REF##*/*-} | head -c 10 | sed 's/^/s/'`" >> $GITHUB_ENV
           else
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           fi
-          echo "Ref:  $GITHUB_REF"
-          echo "Stage previx:  ${branch_name}"
       - uses: actions/checkout@v3
       - name: Validate branch name
         run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
