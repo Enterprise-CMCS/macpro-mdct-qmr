@@ -36,6 +36,7 @@ jobs:
           else
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
             echo "DID NOT FIND a long branch name"
+            echo "REF:  $GITHUB_REF"
             cat $GITHUB_ENV
           fi
       - uses: actions/checkout@v3
