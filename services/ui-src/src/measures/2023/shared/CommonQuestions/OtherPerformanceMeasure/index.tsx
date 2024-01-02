@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
-import React from "react";
+import { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { DataDrivenTypes } from "../types";
 
@@ -40,23 +40,17 @@ export const OtherPerformanceMeasure = ({
   rateCalc,
 }: Props) => {
   const register = useCustomRegister<Types.OtherPerformanceMeasure>();
-  const { getValues } = useFormContext<Types.OtherPerformanceMeasure>();
-  const savedRates = getValues(DC.OPM_RATES);
   const { control } = useFormContext();
-  const [showRates, setRates] = React.useState<Types.OtherRatesFields[]>(
-    savedRates ?? [
-      {
-        rate: [{ denominator: "", numerator: "", rate: "" }],
-        description: "",
-      },
-    ]
-  );
 
-  const { remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     name: DC.OPM_RATES,
     control,
     shouldUnregister: true,
   });
+
+  useEffect(() => {
+    register(DC.OPM_RATES);
+  }, [register]);
 
   // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();
@@ -83,12 +77,12 @@ export const OtherPerformanceMeasure = ({
         {...register(DC.OPM_EXPLAINATION)}
       />
       <CUI.Box marginTop={10}>
-        {showRates.map((_item, index) => {
+        {fields.map((_item, index) => {
           return (
             <QMR.DeleteWrapper
               allowDeletion={index !== 0}
               onDelete={() => remove(index)}
-              key={index}
+              key={_item.id}
             >
               <CUI.Stack key={index} my={10}>
                 <CUI.Heading fontSize="lg" fontWeight="600">
@@ -140,8 +134,8 @@ export const OtherPerformanceMeasure = ({
             colorScheme: "blue",
             color: "blue.500",
           }}
-          onClick={() => {
-            showRates.push({
+          onClick={() =>
+            append({
               description: "",
               rate: [
                 {
@@ -150,9 +144,8 @@ export const OtherPerformanceMeasure = ({
                   rate: "",
                 },
               ],
-            });
-            setRates([...showRates]);
-          }}
+            })
+          }
         />
       </CUI.Box>
     </QMR.CoreQuestionWrapper>
