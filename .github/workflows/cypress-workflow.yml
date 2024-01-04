@@ -78,9 +78,9 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: Install sudo
+      - name: I'm still not a real boy :(
         run: |
-          apt install sudo
+          su -c 'apt-get install sudo'
       - name: Install Unzip
         run: |
           sudo apt-get install unzip
