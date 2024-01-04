@@ -78,6 +78,9 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: passwd
+        run: |
+          cat /etc/passwd
       - name: who am i
         run: |
           echo $(whoami)
