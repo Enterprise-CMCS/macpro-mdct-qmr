@@ -78,9 +78,9 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: Where be apt-get
+      - name: Is I is or is I ain't
         run: |
-          which apt-get
+          sudo su
       - name: Install Unzip
         run: |
           sudo apt-get install unzip
