@@ -89,7 +89,7 @@ jobs:
           echo $(which sudo)
       - name: Can I be godlike?
         run: |
-          su && whoami          
+          sudo su && whoami          
       - name: Install Unzip
         run: |
           sudo apt-get install -y unzip
