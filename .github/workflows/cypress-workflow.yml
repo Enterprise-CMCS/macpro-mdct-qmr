@@ -78,12 +78,12 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: Install Unzip
+      - name: Where be apt-get
         run: |
           which apt-get
       - name: Install Unzip
         run: |
-          dpkg install -y unzip
+          dpkg -i -y unzip
       # - name: install python
       #   run: |
       #     curl https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz
