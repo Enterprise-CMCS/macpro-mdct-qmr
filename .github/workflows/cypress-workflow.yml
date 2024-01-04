@@ -87,9 +87,9 @@ jobs:
       - name: Find sudo
         run: |
           echo $(which sudo)
-      - name: Can I be godlike?
+      - name: Can I be a real boy now?
         run: |
-          echo $(ls -alh /usr/bin/)
+          echo $(uname -a)
       - name: Install Unzip
         run: |
           sudo apt-get install -y unzip
