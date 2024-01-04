@@ -78,21 +78,9 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: passwd
-        run: |
-          cat /etc/passwd
-      - name: who am i
-        run: |
-          echo $(whoami)
-      - name: Find sudo
-        run: |
-          echo $(which sudo)
-      - name: Can I be a real boy now?
-        run: |
-          echo $(which dpkg)
       - name: Install Unzip
         run: |
-          sudo apt-get install -y unzip
+          sudo dpkg install -y unzip
       # - name: install python
       #   run: |
       #     curl https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz
