@@ -92,9 +92,9 @@ jobs:
       - name: install-aws-cli
         run: |
           curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
-          $ tar -xzf awscli.tar.gz
+          tar -xzf awscli.tar.gz
           cd awscli-*
-          ls -alh
+          echo $(ls -alh)
           ./configure --prefix=$HOME/.local
       - name: Verify installation
         run: aws --version
