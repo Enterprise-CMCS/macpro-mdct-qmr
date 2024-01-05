@@ -80,7 +80,7 @@ jobs:
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: I'm still not a real boy :(
         run: |
-          su -c 'apt-get install sudo'
+          echo $(whoami)
       - name: Install Unzip
         run: |
           sudo apt-get install unzip
