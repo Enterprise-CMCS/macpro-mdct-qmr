@@ -81,10 +81,10 @@ jobs:
       - name: Verify container details
         run: |
           echo $(uname -a)
-      - name: Install Unzip
+      - name: Install unzip and jq
         run: |
           apt-get update
-          apt-get install unzip
+          apt-get install unzip jq
       - name: check python install
         run: |
           ln -s /usr/bin/python3 /usr/bin/python
