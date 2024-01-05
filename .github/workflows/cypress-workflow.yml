@@ -95,7 +95,7 @@ jobs:
           tar -xzf awscli.tar.gz
           cd awscli-*
           echo $(ls -alh)
-          ./configure --prefix=$HOME/.local
+          ./configure --with-download-deps --prefix=$HOME/.local
       - name: Verify installation
         run: aws --version
       - name: Configure AWS credentials for GitHub Actions
