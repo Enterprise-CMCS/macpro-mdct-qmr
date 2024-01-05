@@ -95,6 +95,7 @@ jobs:
       #    make install
       - name: check python install
         run: |
+          ln -s /usr/bin/python3 /usr/bin/python
           python --version
       - name: install-aws-cli
         run: |
