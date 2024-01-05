@@ -83,6 +83,7 @@ jobs:
           echo $(whoami)
       - name: Install Unzip
         run: |
+          apt-get update
           apt-get install unzip
       # - name: install python
       #   run: |
