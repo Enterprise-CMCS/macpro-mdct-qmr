@@ -83,7 +83,7 @@ jobs:
           echo $(whoami)
       - name: Install Unzip
         run: |
-          sudo apt-get install unzip
+          apt-get install unzip
       # - name: install python
       #   run: |
       #     curl https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz
