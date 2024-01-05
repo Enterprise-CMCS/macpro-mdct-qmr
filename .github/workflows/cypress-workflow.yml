@@ -85,23 +85,23 @@ jobs:
         run: |
           apt-get update
           apt-get install unzip
-      # - name: install python
-      #   run: |
-      #     curl https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz
-      #     tar -xvf Python-3.10.13.tar
-      #     cd Python-3.10.13
-      #     ./configure --prefix=$HOME/python
-      #     make
-      #     make install
-      # - name: check python install
-      #   run: |
-      #     python --version
-      # - name: install-aws-cli
-      #   run: |
-      #     curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
-      #     $ tar -xzf awscli.tar.gz
-      #     ls -alh
-      #     # ./configure --prefix=$HOME/.local
+     - name: install python
+       run: |
+         curl https://www.python.org/ftp/python/3.10.13/Python-3.10.13.tgz
+         tar -xvf Python-3.10.13.tar
+         cd Python-3.10.13
+         ./configure --prefix=$HOME/python
+         make
+         make install
+     - name: check python install
+       run: |
+         python --version
+     - name: install-aws-cli
+       run: |
+         curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
+         $ tar -xzf awscli.tar.gz
+         ls -alh
+         ./configure --prefix=$HOME/.local
       - name: Verify installation
         run: aws --version
       - name: Configure AWS credentials for GitHub Actions
