@@ -138,7 +138,7 @@ jobs:
       - name: Update IP Set
         id: update-ip-set
         run: |
-          newip=${{ steps.get-execute-cypress-ip.RUNNER_IP }}
+          newip=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           echo "New IP:  ${newip}"
           oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
           echo "Old IPs:  ${oldarr}"
