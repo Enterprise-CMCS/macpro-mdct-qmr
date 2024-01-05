@@ -89,13 +89,18 @@ jobs:
         run: |
           ln -s /usr/bin/python3 /usr/bin/python
           python --version
-      - name: install-aws-cli
+      #- name: Configure AWS CLI
+      #  run: |
+      #    curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
+      #    tar -xzf awscli.tar.gz
+      #    cd awscli-*
+      #    echo $(ls -alh)
+      #    ./configure --with-download-deps --prefix=$HOME/.local
+      - name: Install AWS CLI
         run: |
-          curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
-          tar -xzf awscli.tar.gz
-          cd awscli-*
-          echo $(ls -alh)
-          ./configure --with-download-deps --prefix=$HOME/.local
+          curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+          unzip awscli-installer.zip
+          ./aws/install
       - name: Verify installation
         run: aws --version
       - name: Configure AWS credentials for GitHub Actions
