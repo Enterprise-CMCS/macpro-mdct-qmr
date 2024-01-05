@@ -78,9 +78,9 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: I'm still not a real boy :(
+      - name: Verify container details
         run: |
-          echo $(whoami)
+          echo $(uname -a)
       - name: Install Unzip
         run: |
           apt-get update
