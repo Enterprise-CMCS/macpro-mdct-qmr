@@ -67,12 +67,6 @@ jobs:
         containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
     steps:
       - uses: actions/checkout@v3
-      # - uses: actions/checkout@v4
-      # - uses: actions/setup-python@v5
-      #   with:
-      #     python-version: '3.10' 
-      # - run: python my_script.py 
-      #
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: set path
@@ -89,31 +83,6 @@ jobs:
         run: |
           ln -s /usr/bin/python3 /usr/bin/python
           python --version
-      #- name: Configure AWS CLI
-      #  run: |
-      #    curl -o awscli.tar.gz https://awscli.amazonaws.com/awscli.tar.gz
-      #    tar -xzf awscli.tar.gz
-      #    cd awscli-*
-      #    echo $(ls -alh)
-      #    ./configure --with-download-deps --prefix=$HOME/.local
-      - name: Verify Random Permutations
-        shell: bash
-        run: |
-          jitter() {
-            #.25 seconds
-            SHORTEST=25
-            #5 seconds
-            LONGEST=500
-            DIV=100
-            EXP=$(perl -e "print $SHORTEST**$1")
-            MIN=$(($EXP>$LONGEST ? $LONGEST : $EXP))
-            RND=$(shuf -i$SHORTEST-$MIN -n1)
-            perl -e "print $RND/$DIV"
-          }
-          echo $(jitter 1)
-          echo $(jitter 5)
-          echo $(jitter 10)
-          export -f jitter
       - name: Install AWS CLI
         run: |
           curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -142,7 +111,6 @@ jobs:
           # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
           AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
           # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
-          #echo "GITHUB_OUTPUT::aws_ip_set_arns=$AWS_IP_SET_ARNS"
           #Get Values from the IP SET
           IPSET_ARN=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].ARN')
           IPSET_NAME=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].Name')
@@ -152,7 +120,6 @@ jobs:
           echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
           echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
-          #echo "IPSET_LOCK_TOKEN=$IPSET_LOCK_TOKEN" >> $GITHUB_OUTPUT
       - name: Update IP Set
         id: update-ip-set
         shell: bash
@@ -178,7 +145,7 @@ jobs:
             STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
             echo "Ip Addresses:  ${STRINGIFIED}"
             echo "LockToken:  ${OCC_TOKEN}"
-            OUTPUT=$(aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
+            trap "aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})" EXIT
             CMD_CD=$?
             [[ $CMD_CD -ne 0 ]] || break
             echo $OUTPUT
