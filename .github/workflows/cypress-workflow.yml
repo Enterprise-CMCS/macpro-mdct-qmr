@@ -112,7 +112,6 @@ jobs:
           echo $(jitter 1)
           echo $(jitter 5)
           echo $(jitter 10)
-          export -f jitter
       - name: Install AWS CLI
         run: |
           curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
