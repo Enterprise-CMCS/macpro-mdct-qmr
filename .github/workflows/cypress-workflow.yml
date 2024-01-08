@@ -97,8 +97,8 @@ jobs:
       #    echo $(ls -alh)
       #    ./configure --with-download-deps --prefix=$HOME/.local
       - name: Verify Random Permutations
+        shell: bash
         run: |
-          #!/bin/bash
           jitter() {
             #.25 seconds
             SHORTEST=25
@@ -113,6 +113,7 @@ jobs:
           echo $(jitter 1)
           echo $(jitter 5)
           echo $(jitter 10)
+          export -f jitter
       - name: Install AWS CLI
         run: |
           curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -127,8 +128,8 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Get Execute Cypress Runner IP
         id: get-execute-cypress-ip
+        shell: bash
         run: |
-          #!/bin/bash
           # Get the IP address of the runner
           IP_ADDRESS=$(curl https://api.ipify.org)
           echo "Execute Cypress Runner IP address: $IP_ADDRESS"
@@ -136,8 +137,8 @@ jobs:
           echo "RUNNER_IP=$IP_ADDRESS/32" >> $GITHUB_OUTPUT
       - name: Fetch AWS IP set ARNs
         id: fetch-ip-set-info
+        shell: bash
         run: |
-          #!/bin/bash
           # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
           AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
           # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
@@ -156,6 +157,7 @@ jobs:
         id: update-ip-set
         shell: bash
         run: |
+          echo $(jitter 10)
           RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           echo "Runner IP:  ${RUNNER_IP}"
           #oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
