@@ -145,7 +145,7 @@ jobs:
             STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
             echo "Ip Addresses:  ${STRINGIFIED}"
             echo "LockToken:  ${OCC_TOKEN}"
-            trap "aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})" EXIT
+            trap "aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED}" EXIT
             CMD_CD=$?
             [[ $CMD_CD -ne 0 ]] || break
             echo $OUTPUT
