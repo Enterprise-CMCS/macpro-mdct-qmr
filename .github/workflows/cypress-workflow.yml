@@ -98,18 +98,20 @@ jobs:
       #    ./configure --with-download-deps --prefix=$HOME/.local
       - name: Verify Random Permutations
         run: |
-          gen_sleep_time() {
-            BASE=50
-            CAP=500
+          jitter() {
+            #.25 seconds
+            SHORTEST=25
+            #5 seconds
+            LONGEST=500
             DIV=100
-            FACT=$(perl -e "print $BASE**$1")
-            MIN=$(($FACT>$CAP ? $CAP : $FACT))
-            RND=$(shuf -i0-$MIN -n1)
+            FACT=$(perl -e "print $SHORTEST**$1")
+            MIN=$(($FACT>$LONGEST ? $LONGEST : $FACT))
+            RND=$(shuf -i$SHORTEST-$MIN -n1)
             perl -e "print $RND/$DIV"
           }
-          echo $(gen_sleep_time 1)
-          echo $(gen_sleep_time 5)
-          echo $(gen_sleep_time 10)
+          echo $(jitter 1)
+          echo $(jitter 5)
+          echo $(jitter 10)
       - name: Install AWS CLI
         run: |
           curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
