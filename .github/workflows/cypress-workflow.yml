@@ -183,6 +183,7 @@ jobs:
             [[ $CMD_CD -ne 0 ]] || break
             echo $OUTPUT
             SLEEP_FOR=$(jitter($i))
+            echo "Sleeping for ${SLEEP_FOR} seconds..."
             sleep ${SLEEP_FOR}
           done
           [[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
