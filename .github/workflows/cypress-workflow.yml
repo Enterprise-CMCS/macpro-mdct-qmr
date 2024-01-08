@@ -157,28 +157,26 @@ jobs:
         id: update-ip-set
         shell: bash
         run: |
-          echo $(jitter 10)
+          jitter() {
+            #.25 seconds
+            SHORTEST=25
+            #5 seconds
+            LONGEST=500
+            DIV=100
+            EXP=$(perl -e "print $SHORTEST**$1")
+            MIN=$(($EXP>$LONGEST ? $LONGEST : $EXP))
+            RND=$(shuf -i$SHORTEST-$MIN -n1)
+            perl -e "print $RND/$DIV"
+          }
           RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           echo "Runner IP:  ${RUNNER_IP}"
-          #oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
-          #echo "Old IPs:  ${oldarr}"
-          #newarr=()
-          #for item in "${oldarr[@]}"; do
-          #  newarr+=("$item")
-          #done
-          #newarr+=("$newip")
-          #addresses=$(IFS=" " ; echo "${newarr[*]}")
-          #echo "Updated IP addresses: $addresses"
-          #aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-info.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
-          ##
-          ##
           WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }})
           echo "Waf Config:  ${WAF_CONFIG}"
           IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
           IP_ADDRESSES+=("$RUNNER_IP")
           OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
-          #STRINGIFIED=$(echo [$(IFS=", " ; echo "Ip Addresses:  ${IP_ADDRESSES[*]}")])
-          echo [$(IFS=", " ; echo "Ip Addresses:  ${IP_ADDRESSES[*]}")]
+          STRINGIFIED=$(echo [$(IFS=", " ; echo "${IP_ADDRESSES[*]}")])
+          echo "Ip Addresses:  ${STRINGIFIED}"
           echo "${OCC_TOKEN}"
           exit 2
           #aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED}
