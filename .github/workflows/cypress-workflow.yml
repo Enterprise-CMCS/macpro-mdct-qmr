@@ -122,7 +122,7 @@ jobs:
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
       - name: Update IP Set
         id: update-ip-set
-        shell: bash
+        shell: cmd
         run: |
           CIRCUIT_BREAKER=10
           jitter() {
