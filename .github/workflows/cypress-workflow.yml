@@ -101,7 +101,7 @@ jobs:
           echo $(shuf -i1-10 -n1)
           echo $(shuf -i1-10 -n1)
           echo $(shuf -i1-10 -n1)
-          echo $(echo "2.3 * 3.2" | bc -l)
+          echo $(perl -e 'print 2.3*3.2')
           sleep 0.5
       - name: Install AWS CLI
         run: |
