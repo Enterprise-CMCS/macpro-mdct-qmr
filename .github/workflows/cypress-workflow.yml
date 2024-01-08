@@ -96,6 +96,11 @@ jobs:
       #    cd awscli-*
       #    echo $(ls -alh)
       #    ./configure --with-download-deps --prefix=$HOME/.local
+      - name: Verify Random Permutations
+        run: |
+          echo $(shuf -i1-10 -n1)
+          echo $(shuf -i1-10 -n1)
+          echo $(shuf -i1-10 -n1)
       - name: Install AWS CLI
         run: |
           curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -129,27 +134,34 @@ jobs:
           IPSET_ARN=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].ARN')
           IPSET_NAME=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].Name')
           IPSET_ID=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].Id')
-          IPSET_LOCK_TOKEN=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].LockToken')
+          #IPSET_LOCK_TOKEN=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].LockToken')
           echo "Extracted ARN: $ARN"
           echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
           echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
-          echo "IPSET_LOCK_TOKEN=$IPSET_LOCK_TOKEN" >> $GITHUB_OUTPUT
+          #echo "IPSET_LOCK_TOKEN=$IPSET_LOCK_TOKEN" >> $GITHUB_OUTPUT
       - name: Update IP Set
         id: update-ip-set
         run: |
-          newip=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
-          echo "New IP:  ${newip}"
-          oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
-          echo "Old IPs:  ${oldarr}"
-          newarr=()
-          for item in "${oldarr[@]}"; do
-            newarr+=("$item")
-          done
-          newarr+=("$newip")
-          addresses=$(IFS=" " ; echo "${newarr[*]}")
-          echo "Updated IP addresses: $addresses"
-          aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-info.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
+          RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
+          echo "Runner IP:  ${RUNNER_IP}"
+          #oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
+          #echo "Old IPs:  ${oldarr}"
+          #newarr=()
+          #for item in "${oldarr[@]}"; do
+          #  newarr+=("$item")
+          #done
+          #newarr+=("$newip")
+          #addresses=$(IFS=" " ; echo "${newarr[*]}")
+          #echo "Updated IP addresses: $addresses"
+          #aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-info.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
+          ##
+          ##
+          WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }})
+          echo "Waf Config:  ${WAF_CONFIG}"
+          IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' < ${WAF_CONFIG}))
+          echo $(IFS=" " ; echo "Ip Addresses:  ${IP_ADDRESSES}")
+          #aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${OCC_TOKEN} --lock-token ${{ steps.fetch-ip-set-info.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
