@@ -98,6 +98,7 @@ jobs:
       #    ./configure --with-download-deps --prefix=$HOME/.local
       - name: Verify Random Permutations
         run: |
+          #!/bin/bash
           jitter() {
             #.25 seconds
             SHORTEST=25
@@ -112,6 +113,7 @@ jobs:
           echo $(jitter 1)
           echo $(jitter 5)
           echo $(jitter 10)
+          export -f jitter
       - name: Install AWS CLI
         run: |
           curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -154,6 +156,7 @@ jobs:
       - name: Update IP Set
         id: update-ip-set
         run: |
+          #!/bin/bash
           RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           echo "Runner IP:  ${RUNNER_IP}"
           #oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
