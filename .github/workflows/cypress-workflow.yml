@@ -102,7 +102,7 @@ jobs:
             BASE=50
             CAP=500
             DIV=100
-            FACT=$(($BASE**$1))
+            FACT=$(perl -e "print $BASE**$1")
             MIN=$(($FACT>$CAP ? $CAP : $FACT))
             RND=$(shuf -i0-$MIN -n1)
             perl -e "print $RND/$DIV"
