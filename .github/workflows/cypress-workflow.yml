@@ -101,6 +101,8 @@ jobs:
           echo $(shuf -i1-10 -n1)
           echo $(shuf -i1-10 -n1)
           echo $(shuf -i1-10 -n1)
+          echo $(echo "2.3 * 3.2" | bc -l)
+          sleep 0.5
       - name: Install AWS CLI
         run: |
           curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
