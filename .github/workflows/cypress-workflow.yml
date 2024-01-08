@@ -177,9 +177,11 @@ jobs:
           OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
           STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
           echo "Ip Addresses:  ${STRINGIFIED}"
-          echo "${OCC_TOKEN}"
-          exit 2
-          #aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED}
+          echo "LockToken:  ${OCC_TOKEN}"
+          #exit 2
+          #break token and see what failure looks like
+          aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }}
+          aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED}
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
