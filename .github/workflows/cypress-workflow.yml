@@ -157,6 +157,7 @@ jobs:
         id: update-ip-set
         shell: bash
         run: |
+          CIRCUIT_BREAKER=10
           jitter() {
             #.25 seconds
             SHORTEST=25
@@ -170,18 +171,22 @@ jobs:
           }
           RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           echo "Runner IP:  ${RUNNER_IP}"
-          WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }})
-          echo "Waf Config:  ${WAF_CONFIG}"
-          IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
-          IP_ADDRESSES+=("$RUNNER_IP")
-          OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
-          STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
-          echo "Ip Addresses:  ${STRINGIFIED}"
-          echo "LockToken:  ${OCC_TOKEN}"
-          #exit 2
-          #break token and see what failure looks like
-          aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }}
-          aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED}
+          for i in {1..$CIRCUIT_BREAKER}; do
+            WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }})
+            echo "Waf Config:  ${WAF_CONFIG}"
+            IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
+            IP_ADDRESSES+=("$RUNNER_IP")
+            OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
+            STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
+            echo "Ip Addresses:  ${STRINGIFIED}"
+            echo "LockToken:  ${OCC_TOKEN}"
+            OUTPUT=$(aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
+            CMD_CD=$?
+            [[ $CMD_CD -ne 0 ]] || break
+            echo $OUTPUT
+            sleep $(jitter($i))
+          done
+          [[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF exceeded, exiting.” && exit 2
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
