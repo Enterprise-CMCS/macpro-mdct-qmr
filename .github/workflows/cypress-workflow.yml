@@ -175,7 +175,7 @@ jobs:
           IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
           IP_ADDRESSES+=("$RUNNER_IP")
           OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
-          STRINGIFIED=$(echo [$(IFS=", " ; echo "${IP_ADDRESSES[*]}")])
+          STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
           echo "Ip Addresses:  ${STRINGIFIED}"
           echo "${OCC_TOKEN}"
           exit 2
