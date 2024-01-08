@@ -113,7 +113,6 @@ jobs:
           echo $(jitter 1)
           echo $(jitter 5)
           echo $(jitter 10)
-          export -f jitter
       - name: Install AWS CLI
         run: |
           curl -o awscli-installer.zip https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
@@ -173,12 +172,14 @@ jobs:
           ##
           WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }})
           echo "Waf Config:  ${WAF_CONFIG}"
-          IP_ADDRESSES=$(echo "${WAF_CONFIG}" | jq -r '.IPSet.Addresses | .[]')
-          OCC_TOKEN=$(echo "${WAF_CONFIG}" | jq -r '.LockToken')
-          echo $(IFS=", " ; echo "Ip Addresses:  ${IP_ADDRESSES}")
+          IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
+          IP_ADDRESSES+=("$RUNNER_IP")
+          OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
+          #STRINGIFIED=$(echo [$(IFS=", " ; echo "Ip Addresses:  ${IP_ADDRESSES[*]}")])
+          echo [$(IFS=", " ; echo "Ip Addresses:  ${IP_ADDRESSES[*]}")]
           echo "${OCC_TOKEN}"
           exit 2
-          #aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${OCC_TOKEN} --lock-token ${{ steps.fetch-ip-set-info.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
+          #aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED}
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
