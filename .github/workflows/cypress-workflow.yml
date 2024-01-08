@@ -154,8 +154,8 @@ jobs:
           #echo "IPSET_LOCK_TOKEN=$IPSET_LOCK_TOKEN" >> $GITHUB_OUTPUT
       - name: Update IP Set
         id: update-ip-set
+        shell: bash
         run: |
-          #!/bin/bash
           RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           echo "Runner IP:  ${RUNNER_IP}"
           #oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
