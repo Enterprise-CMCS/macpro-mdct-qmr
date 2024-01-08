@@ -159,9 +159,7 @@ jobs:
         run: |
           CIRCUIT_BREAKER=10
           jitter() {
-            #.25 seconds
             SHORTEST=25
-            #5 seconds
             LONGEST=500
             DIV=100
             EXP=$(perl -e "print $SHORTEST**$1")
