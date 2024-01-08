@@ -147,6 +147,7 @@ jobs:
             echo "LockToken:  ${OCC_TOKEN}"
             trap "aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED}" EXIT
             CMD_CD=$?
+            echo "WTF"
             [[ $CMD_CD -ne 0 ]] || break
             echo $OUTPUT
             SLEEP_FOR=$(jitter($i))
@@ -154,6 +155,8 @@ jobs:
             sleep ${SLEEP_FOR}
           done
           [[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
+          echo "Applied the IP successfully."
+          exit 0
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
