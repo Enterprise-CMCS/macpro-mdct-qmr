@@ -184,9 +184,10 @@ jobs:
             CMD_CD=$?
             [[ $CMD_CD -ne 0 ]] || break
             echo $OUTPUT
-            sleep $(jitter($i))
+            SLEEP_FOR=$(jitter($i))
+            sleep $(SLEEP_FOR)
           done
-          [[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF exceeded, exiting.” && exit 2
+          [[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
