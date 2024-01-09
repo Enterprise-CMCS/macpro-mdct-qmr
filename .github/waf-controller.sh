@@ -1,10 +1,10 @@
 #!/bin/bash
-NAME=$1
-ID=$2
-RUNNER_IP=$3
+NAME="${1}"
+ID="${2}"
+RUNNER_IP="${3}/32"
 
 echo $NAME $ID $RUNNER_IP
-exit 2
+#exit 2
 
 CIRCUIT_BREAKER=10
 jitter() {

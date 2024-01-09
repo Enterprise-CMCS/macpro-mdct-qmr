@@ -104,7 +104,7 @@ jobs:
           IP_ADDRESS=$(curl https://api.ipify.org)
           echo "Execute Cypress Runner IP address: $IP_ADDRESS"
           # Store the IP address as an output variable
-          echo "RUNNER_IP=$IP_ADDRESS/32" >> $GITHUB_OUTPUT
+          echo "RUNNER_IP=$IP_ADDRESS" >> $GITHUB_OUTPUT
       - name: Fetch AWS IP set ARNs
         id: fetch-ip-set-info
         shell: bash
