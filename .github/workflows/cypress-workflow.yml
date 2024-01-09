@@ -99,6 +99,7 @@ jobs:
         id: get-execute-cypress-ip
         shell: bash
         run: |
+          #!/bin/bash
           # Get the IP address of the runner
           IP_ADDRESS=$(curl https://api.ipify.org)
           echo "Execute Cypress Runner IP address: $IP_ADDRESS"
@@ -108,6 +109,7 @@ jobs:
         id: fetch-ip-set-info
         shell: bash
         run: |
+          #!/bin/bash
           # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
           AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
           # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
@@ -124,6 +126,8 @@ jobs:
         id: update-ip-set
         shell: bash
         run: |
+          #!/bin/bash
+          echo $(ls -alh)
           CIRCUIT_BREAKER=10
           jitter() {
             SHORTEST=25
