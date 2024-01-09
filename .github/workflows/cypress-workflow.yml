@@ -105,6 +105,22 @@ jobs:
           echo "Execute Cypress Runner IP address: $IP_ADDRESS"
           # Store the IP address as an output variable
           echo "RUNNER_IP=$IP_ADDRESS" >> $GITHUB_OUTPUT
+      - name: Get Execute Cypress Runner CIDR Block
+        id: get-execute-cypress-cidr
+        shell: bash
+        run: |
+          #!/bin/bash
+          # Get the IP address of the runner
+          #Solution was found below and modified for this purpose
+          #https://serverfault.com/questions/1120769/check-if-ip-belongs-to-a-cidr
+          GHA_CIDRS_IPV4=$(curl https://api.github.com/meta | jq -r '.actions | .[]' | grep -v ':')
+          for cidr in $GHA_CIDRS_IPV4; do
+            nmap -sL -n $cidr | grep -q ${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }} && RUNNER_CIDR=$cidr && break
+          done
+          [ -z "$RUNNER_CIDR" ] && echo "Cannot find CIDR block for ${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}, please check https://api.github.com/meta.  Exiting." && exit 1
+          echo "Execute Cypress Runner CIDR block: $RUNNER_CIDR"
+          # Store the CIDR block as an output variable
+          echo "RUNNER_CIDR=$RUNNER_CIDRS" >> $GITHUB_OUTPUT          
       - name: Fetch AWS IP set ARNs
         id: fetch-ip-set-info
         shell: bash
@@ -124,7 +140,7 @@ jobs:
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
       - name: Update IP Set
         id: update-ip-set
-        run: ./.github/waf-controller.sh ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
+        run: ./.github/waf-controller.sh ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-execute-cypress-cidr.RUNNER_CIDR }}
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
