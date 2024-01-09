@@ -3,7 +3,7 @@
 CIRCUIT_BREAKER=10
 AWS_RETRY_ERROR=254
 #0, 1, 2 are the levels of debug, with 0 being off
-DEBUG=1
+DEBUG=2
 
 set -o pipefail -o nounset -u
 
@@ -15,10 +15,10 @@ RUNNER_IP="${3}/32"
 
 #Exponential backoff with jitter
 jitter() {
-  #.25 seconds
-  SHORTEST=25
-  #5 seconds
-  LONGEST=500
+  #.5 seconds
+  SHORTEST=50
+  #10 seconds
+  LONGEST=1000
   DIV=100
   EXP=$(perl -e "print $SHORTEST**$1")
   MIN=$(($EXP>$LONGEST ? $LONGEST : $EXP))
@@ -26,7 +26,11 @@ jitter() {
   perl -e "print $RND/$DIV"
 }
 
+#Attempt to avoid resource contention from the start
+sleep $(jitter $(shuf -i1-50 -n1))
+
 for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
+  #This loop is ONLY for retrying if the retries exceeded exception is thrown
   for ((j=1; j <= $CIRCUIT_BREAKER; j++)); do
     #Read WAF configuration from AWS
     WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
@@ -37,8 +41,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
     #If the retries exceeded error code is returned, try again, otherwise exit the loop
     [[ $CMD_CD -eq $AWS_RETRY_ERROR ]] || break
 
-    #Using the outer loop to configure jitter is intentional, let's scale retries globally
-    SLEEP_FOR=$(jitter ${i})
+    SLEEP_FOR=$(jitter ${j})
     echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute read again..."
     sleep ${SLEEP_FOR}
   done
@@ -55,7 +58,8 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
 
   #This really can't happen because each node in the matrix gets a unique IP
-  #[[ -n "${IP_ADDRESSES[$RUNNER_IP]}" ]] && echo "IP is present in IP Set." && exit 0
+  grep -q $RUNNER_IP <<< ${IP_ADDRESSES}
+  [[ $? -ne 0 ]] || ( echo "IP is present in IP Set." && exit 0 )
 
   #Add runner IP to array
   IP_ADDRESSES+=("$RUNNER_IP")
@@ -68,6 +72,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
   [[ $DEBUG -ge 2 ]] && echo "LockToken:  ${OCC_TOKEN}"
 
+  #This loop is ONLY for retrying if the retries exceeded exception is thrown
   for ((k=1; k <= $CIRCUIT_BREAKER; k++)); do
     #Write updated WAF configuration to AWS
     OUTPUT=$(aws wafv2 update-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
@@ -79,7 +84,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
     [[ $CMD_CD -eq $AWS_RETRY_ERROR ]] || break
 
     #Using the outer loop to configure jitter is intentional, let's scale retries globally
-    SLEEP_FOR=$(jitter ${i})
+    SLEEP_FOR=$(jitter ${k})
     echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute write again..."
     sleep ${SLEEP_FOR}
   done
@@ -87,7 +92,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   [[ $CMD_CD -ne 0 ]] || break
   #Still not having success, so try again
 
-  echo "Error:  ${OUTPUT}"
+  echo "Exit Code:  ${CMD_CD}"
 
   SLEEP_FOR=$(jitter ${i})
   echo "Waiting for ${SLEEP_FOR} seconds to execute main loop again..."
@@ -96,7 +101,7 @@ done
 
 [[ $DEBUG -ge 1 ]] && echo "Attempts to update ip set:  $i"
 
-[[ $i -ge $CIRCUIT_BREAKER ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
+[[ $i -gt $CIRCUIT_BREAKER ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
 
 echo "Applied the IP successfully."
 
