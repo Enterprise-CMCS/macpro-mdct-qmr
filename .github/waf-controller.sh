@@ -46,7 +46,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   [[ $CMD_CD -eq 0 ]] || echo "An unexpected read error occurred:  ${CMD_CD}" && exit 2
 
   #Unable to get the lock tocken and IP set so there isn't any point in attempting the write op
-  [[ $j -ge $CIRCUIT_BREAKER ]] && echo “Attempts to read WAF IPSet exceeded” && continue
+  [[ $j -ge $CIRCUIT_BREAKER ]] && echo “Attempts to read WAF IPSet exceeded” && sleep $(jitter ${i}) && continue
 
   echo "Read was successful."
 
