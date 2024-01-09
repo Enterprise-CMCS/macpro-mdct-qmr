@@ -13,6 +13,34 @@ RUNNER_IP="${3}/32"
 
 [[ $DEBUG -ge 1 ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_IP ${RUNNER_IP}"
 
+#Solution was found below and modified for this purpose
+#https://serverfault.com/questions/1120769/check-if-ip-belongs-to-a-cidr
+function is_ip_in_cidr {
+  local ip=$1
+  local cidr=$2
+  local network=$(echo $cidr | cut -d/ -f1)
+  local mask=$(echo $cidr | cut -d/ -f2)
+  local network_dec=$(echo $network | awk -F. '{printf("%d\n", ($1 * 256 + $2) * 256 + $3)}')
+  local ip_dec=$(echo $ip | awk -F. '{printf("%d\n", ($1 * 256 + $2) * 256 + $3)}')
+  local mask_dec=$((0xffffffff << (32 - $mask)))
+  if [[ $((ip_dec & mask_dec)) -eq $((network_dec & mask_dec)) ]]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+# Test the function with a sample IP address and CIDR
+ip="192.168.0.5"
+cidr="192.168.0.0/24"
+
+if $(is_ip_in_cidr $ip $cidr); then
+  echo "$ip is in $cidr"
+else
+  echo "$ip is NOT in $cidr"
+fi
+exit 2
+
 #Exponential backoff with jitter
 jitter() {
   #.5 seconds
@@ -42,7 +70,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
     [[ $CMD_CD -eq $AWS_RETRY_ERROR ]] || break
 
     SLEEP_FOR=$(jitter ${j})
-    echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute read again..."
+    echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute read again...$({j})"
     sleep ${SLEEP_FOR}
   done
 
@@ -85,7 +113,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
 
     #Using the outer loop to configure jitter is intentional, let's scale retries globally
     SLEEP_FOR=$(jitter ${k})
-    echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute write again..."
+    echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute write again...(${k})"
     sleep ${SLEEP_FOR}
   done
 
@@ -95,7 +123,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   echo "Exit Code:  ${CMD_CD}"
 
   SLEEP_FOR=$(jitter ${i})
-  echo "Waiting for ${SLEEP_FOR} seconds to execute main loop again..."
+  echo "Waiting for ${SLEEP_FOR} seconds to execute main loop again...(${i})"
   sleep ${SLEEP_FOR}
 done
 
