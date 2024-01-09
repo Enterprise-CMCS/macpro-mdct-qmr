@@ -23,10 +23,20 @@ jitter() {
 }
 
 for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
-  WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
-  CMD_CD=$?
-  $DEBUG && echo "AWS CLI Read Response Code:  ${CMD_CD}"
-  $DEBUG && echo "AWS CLI Read Response:  ${WAF_CONFIG}"
+  for ((j=1; j <= $CIRCUIT_BREAKER; j++)); do
+    WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
+    CMD_CD=$?
+    $DEBUG && echo "AWS CLI Read Response Code:  ${CMD_CD}"
+    $DEBUG && echo "AWS CLI Read Response:  ${WAF_CONFIG}"
+
+    [[ $CMD_CD -ne 0 ]] || break
+
+    SLEEP_FOR=$(jitter ${i})
+    echo "Waiting for ${SLEEP_FOR} seconds to continue read loop..."
+    sleep ${SLEEP_FOR}
+  done
+  [[ $j -ge $CIRCUIT_BREAKER ]] && echo “Attempts to read WAF IPSet exceeded” && continue
+  echo "Read was successful."
 
   IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
   IP_ADDRESSES+=("$RUNNER_IP")
@@ -45,7 +55,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   [[ $CMD_CD -ne 0 ]] || break
 
   SLEEP_FOR=$(jitter ${i})
-  echo "Sleeping for ${SLEEP_FOR} seconds..."
+  echo "Waiting for ${SLEEP_FOR} seconds to continue main loop..."
   sleep ${SLEEP_FOR}
 done
 echo "Attempts to update ip set:  $i"
