@@ -17,26 +17,18 @@ RUNNER_IP="${3}/32"
 #https://serverfault.com/questions/1120769/check-if-ip-belongs-to-a-cidr
 function find_cidr_for_ipv4 {
   local ip=$1
-  shift
-  local result;
+  shift;
 
-  for cidr in "@"; do
-    local network=$(echo $cidr | cut -d/ -f1)
-    local mask=$(echo $cidr | cut -d/ -f2)
-    local network_dec=$(echo $network | awk -F. '{printf("%d\n", ($1 * 256 + $2) * 256 + $3)}')
-    local ip_dec=$(echo $ip | awk -F. '{printf("%d\n", ($1 * 256 + $2) * 256 + $3)}')
-    local mask_dec=$((0xffffffff << (32 - $mask)))
-    if [[ $((ip_dec & mask_dec)) -eq $((network_dec & mask_dec)) ]]; then
-      echo $cidr && exit 0
-    fi
+  for cidr in "$@"; do
+    nmap -sL -n $cidr | grep -q $ip && echo $cidr && exit 0
   done
   exit 1
 }
 
 #Remove IPV6 CIDR blocks
-GHA_CIDRS=$(curl https://api.github.com/meta | jq -r '.actions | .[]' | grep -v ':')
+GHA_CIDRS=($(curl https://api.github.com/meta | jq -r '.actions | .[]' | grep -v ':'))
 
-CIDR=$(find_cidr_for_ipv4 ${RUNNER_IP} <<< ${GHA_CIDRS})
+CIDR=$(find_cidr_for_ipv4 ${RUNNER_IP} ${GHA_CIDRS})
 [[ $? -ne 0 ]] && echo "Cannot find CIDR block for ${RUNNER_IP}, please check https://api.github.com/meta.  Exiting." && exit 1
 
 echo "CIDR for ${RUNNER_IP} is ${CIDR}";

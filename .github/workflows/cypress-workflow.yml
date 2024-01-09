@@ -75,10 +75,10 @@ jobs:
       - name: Verify container details
         run: |
           echo $(uname -a)
-      - name: Install unzip and jq
+      - name: Install container dependencies
         run: |
           apt-get update
-          apt-get -y install unzip jq
+          apt-get -y install unzip jq nmap
       - name: check python install
         run: |
           ln -s /usr/bin/python3 /usr/bin/python
