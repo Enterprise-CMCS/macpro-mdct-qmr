@@ -9,13 +9,9 @@ set -o pipefail -o nounset -u
 
 NAME="${1}"
 ID="${2}"
-#RUNNER_IP="${3}"
 RUNNER_CIDR="${3}"
 
-#[[ $DEBUG -ge 1 ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_IP ${RUNNER_IP}"
 [[ $DEBUG -ge 1 ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_CIDR ${RUNNER_CIDR}"
-
-exit 2
 
 #Exponential backoff with jitter
 jitter() {
@@ -61,15 +57,9 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   #Parse out IP set addresses to array
   IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
 
-  #This really can't happen because each node in the matrix gets a unique IP
-  #grep -q $RUNNER_IP <<< ${IP_ADDRESSES}
-  #[[ $? -ne 0 ]] || ( echo "IP is present in IP Set." && exit 0 )
-
+  #If CIDR is already present in IP set, eject
   grep -q $RUNNER_CIDR <<< ${IP_ADDRESSES}
   [[ $? -ne 0 ]] || ( echo "CIDR is present in IP Set." && exit 0 )
-
-  #Add runner IP to array
-  #IP_ADDRESSES+=("$RUNNER_IP")
 
   #Add runner CIDR to array
   IP_ADDRESSES+=("$RUNNER_CIDR")
