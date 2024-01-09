@@ -49,5 +49,5 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   sleep ${SLEEP_FOR}
 done
 echo "Attempts to update ip set:  $i"
-[[ $CIRCUIT_BREAKER -ge $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
+[[ $i -ge $CIRCUIT_BREAKER ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
 echo "Applied the IP successfully."
