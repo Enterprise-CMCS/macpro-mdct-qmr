@@ -28,6 +28,7 @@ jitter() {
 
 for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   for ((j=1; j <= $CIRCUIT_BREAKER; j++)); do
+    #Read WAF configuration from AWS
     WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
     CMD_CD=$?
     [[ $DEBUG -ge 1 ]] && echo "AWS CLI Read Response Code:  ${CMD_CD}"
@@ -68,6 +69,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   [[ $DEBUG -ge 2 ]] && echo "LockToken:  ${OCC_TOKEN}"
 
   for ((k=1; k <= $CIRCUIT_BREAKER; k++)); do
+    #Write updated WAF configuration to AWS
     OUTPUT=$(aws wafv2 update-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
     CMD_CD=$?
     [[ $DEBUG -ge 1 ]] && echo "AWS CLI Write Response Code:  ${CMD_CD}"
