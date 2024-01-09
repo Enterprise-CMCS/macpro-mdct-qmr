@@ -114,13 +114,15 @@ jobs:
           #Solution was found below and modified for this purpose
           #https://serverfault.com/questions/1120769/check-if-ip-belongs-to-a-cidr
           GHA_CIDRS_IPV4=$(curl https://api.github.com/meta | jq -r '.actions | .[]' | grep -v ':')
+          RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           for cidr in $GHA_CIDRS_IPV4; do
-            nmap -sL -n $cidr | grep -q ${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }} && RUNNER_CIDR=$cidr && break
+            nmap -sL -n $cidr | grep -q $RUNNER_IP && RUNNER_CIDR=$cidr && break
           done
-          [ -z "$RUNNER_CIDR" ] && echo "Cannot find CIDR block for ${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}, please check https://api.github.com/meta.  Exiting." && exit 1
+          [ -z "$RUNNER_CIDR" ] && echo "Cannot find CIDR block for $RUNNER_IP, please check https://api.github.com/meta.  Exiting." && exit 1
+          echo "Execute Cypress Runner IP:  $RUNNER_IP"
           echo "Execute Cypress Runner CIDR block: $RUNNER_CIDR"
           # Store the CIDR block as an output variable
-          echo "RUNNER_CIDR=$RUNNER_CIDRS" >> $GITHUB_OUTPUT          
+          echo "RUNNER_CIDR=$RUNNER_CIDR" >> $GITHUB_OUTPUT          
       - name: Fetch AWS IP set ARNs
         id: fetch-ip-set-info
         shell: bash
