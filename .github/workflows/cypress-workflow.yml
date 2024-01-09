@@ -142,7 +142,7 @@ jobs:
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
       - name: Update IP Set
         id: update-ip-set
-        run: ./.github/waf-controller.sh ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-execute-cypress-cidr.RUNNER_CIDR }}
+        run: ./.github/waf-controller.sh ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-execute-cypress-cidr.outputs.RUNNER_CIDR }}
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v5
         with:
