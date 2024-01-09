@@ -65,11 +65,14 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   #grep -q $RUNNER_IP <<< ${IP_ADDRESSES}
   #[[ $? -ne 0 ]] || ( echo "IP is present in IP Set." && exit 0 )
 
-  grep -q $CIDR <<< ${IP_ADDRESSES}
+  grep -q $RUNNER_CIDR <<< ${IP_ADDRESSES}
   [[ $? -ne 0 ]] || ( echo "CIDR is present in IP Set." && exit 0 )
 
   #Add runner IP to array
-  IP_ADDRESSES+=("$RUNNER_IP")
+  #IP_ADDRESSES+=("$RUNNER_IP")
+
+  #Add runner CIDR to array
+  IP_ADDRESSES+=("$RUNNER_CIDR")
 
   #Stringify IPs
   STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
