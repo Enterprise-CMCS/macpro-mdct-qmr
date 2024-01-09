@@ -9,7 +9,7 @@ set -o pipefail -o nounset -u
 
 NAME="${1}"
 ID="${2}"
-RUNNER_IP="${3}/32"
+RUNNER_IP="${3}"
 
 [[ $DEBUG -ge 1 ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_IP ${RUNNER_IP}"
 
