@@ -15,30 +15,31 @@ RUNNER_IP="${3}/32"
 
 #Solution was found below and modified for this purpose
 #https://serverfault.com/questions/1120769/check-if-ip-belongs-to-a-cidr
-function is_ip_in_cidr {
+function find_cidr_for_ipv4 {
   local ip=$1
-  local cidr=$2
-  local network=$(echo $cidr | cut -d/ -f1)
-  local mask=$(echo $cidr | cut -d/ -f2)
-  local network_dec=$(echo $network | awk -F. '{printf("%d\n", ($1 * 256 + $2) * 256 + $3)}')
-  local ip_dec=$(echo $ip | awk -F. '{printf("%d\n", ($1 * 256 + $2) * 256 + $3)}')
-  local mask_dec=$((0xffffffff << (32 - $mask)))
-  if [[ $((ip_dec & mask_dec)) -eq $((network_dec & mask_dec)) ]]; then
-    echo "true"
-  else
-    echo "false"
-  fi
+  shift
+  local result;
+
+  for cidr in "@"; do
+    local network=$(echo $cidr | cut -d/ -f1)
+    local mask=$(echo $cidr | cut -d/ -f2)
+    local network_dec=$(echo $network | awk -F. '{printf("%d\n", ($1 * 256 + $2) * 256 + $3)}')
+    local ip_dec=$(echo $ip | awk -F. '{printf("%d\n", ($1 * 256 + $2) * 256 + $3)}')
+    local mask_dec=$((0xffffffff << (32 - $mask)))
+    if [[ $((ip_dec & mask_dec)) -eq $((network_dec & mask_dec)) ]]; then
+      echo $cidr && exit 0
+    fi
+  done
+  exit 1
 }
 
-# Test the function with a sample IP address and CIDR
-ip="192.168.0.5"
-cidr="192.168.0.0/24"
+#Remove IPV6 CIDR blocks
+GHA_CIDRS=$(curl https://api.github.com/meta | jq -r '.actions' | grep -v ':')
 
-if $(is_ip_in_cidr $ip $cidr); then
-  echo "$ip is in $cidr"
-else
-  echo "$ip is NOT in $cidr"
-fi
+CIDR=$(find_cidr_for_ipv4 ${RUNNER_IP} <<< ${GHA_CIDRS})
+[[ $? -ne 0 ]] && echo "Cannot find CIDR block for ${RUNNER_IP}, please check https://api.github.com/meta.  Exiting." && exit 1
+
+echo "CIDR for ${RUNNER_IP} is ${CIDR}";
 exit 2
 
 #Exponential backoff with jitter
