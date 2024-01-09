@@ -34,7 +34,7 @@ find_cidr_for_ipv4 ${RUNNER_IP} ${GHA_CIDRS}
 #echo "FOUND $CIDR"
 #[ -z "${CIDR} ] && echo "Cannot find CIDR block for ${RUNNER_IP}, please check https://api.github.com/meta.  Exiting." && exit 1
 
-echo "CIDR for ${RUNNER_IP} is ${CIDR}";
+#echo "CIDR for ${RUNNER_IP} is ${CIDR}";
 exit 2
 
 #Exponential backoff with jitter
