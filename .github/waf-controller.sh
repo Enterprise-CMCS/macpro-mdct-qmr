@@ -20,6 +20,7 @@ function find_cidr_for_ipv4 {
   shift;
 
   for cidr in "$@"; do
+    echo $cidr
     nmap -sL -n $cidr | grep -q $ip && echo $cidr
   done
 }
