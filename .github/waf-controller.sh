@@ -47,15 +47,15 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   [[ $j -ge $CIRCUIT_BREAKER ]] && echo “Attempts to read WAF IPSet exceeded” && sleep $(jitter ${i}) && continue
 
   #The loop was short circuited with an error code other than 0, so something is wrong
-  #[[ $CMD_CD -eq 0 ]] || echo "An unexpected read error occurred:  ${CMD_CD}" && exit 2
+  [[ $CMD_CD -eq 0 ]] || ( echo "An unexpected read error occurred:  ${CMD_CD}" && exit 2 )
 
-  echo "Read was successful. ${CMD_CD}"
+  echo "Read was successful."
 
   #Parse out IP set addresses to array
   IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
 
   #This really can't happen because each node in the matrix gets a unique IP
-  [[ -n "${IP_ADDRESSES[$RUNNER_IP]}" ]] && echo "IP is present in IP Set." && exit 0
+  #[[ -n "${IP_ADDRESSES[$RUNNER_IP]}" ]] && echo "IP is present in IP Set." && exit 0
 
   #Add runner IP to array
   IP_ADDRESSES+=("$RUNNER_IP")
