@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -e -o xtrace -o errexit -o pipefail -o nounset -u
+
 NAME="${1}"
 ID="${2}"
 RUNNER_IP="${3}/32"
@@ -21,7 +24,6 @@ jitter() {
 
 echo "Runner IP:  ${RUNNER_IP}"
 for i in {1..$CIRCUIT_BREAKER}; do
-#  WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }})
   WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
   echo "Waf Config:  ${WAF_CONFIG}"
 
@@ -34,7 +36,6 @@ for i in {1..$CIRCUIT_BREAKER}; do
   OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
   echo "LockToken:  ${OCC_TOKEN}"
 
-#  OUTPUT=$(aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
   OUTPUT=$(aws wafv2 update-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
   CMD_CD=$?
   echo "AWS CLI Response Code:  ${CMD_CD}"
@@ -50,4 +51,4 @@ echo "Is this var available:  $i"
 [[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
 echo "Applied the IP successfully."
 
-exit 0
+exit 2
