@@ -23,7 +23,7 @@ jitter() {
   perl -e "print $RND/$DIV"
 }
 
-for ((i=0; i <= $CIRCUIT_BREAKER; i++)); do
+for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
   $DEBUG && echo "Waf Config:  ${WAF_CONFIG}"
 
@@ -50,5 +50,3 @@ done
 echo "Is this var available:  $i"
 [[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
 echo "Applied the IP successfully."
-
-exit 2
