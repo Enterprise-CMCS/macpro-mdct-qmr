@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #set -e -o xtrace -o errexit -o pipefail -o nounset -u
-set -o errexit -o pipefail -o nounset -u
+set -o pipefail -o nounset -u
 
 NAME="${1}"
 ID="${2}"
