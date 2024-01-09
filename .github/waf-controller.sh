@@ -42,11 +42,11 @@ for i in {1..$CIRCUIT_BREAKER}; do
 
   [[ $CMD_CD -ne 0 ]] || break
 
-  SLEEP_FOR=$(jitter($i))
+  SLEEP_FOR=$(jitter ${i})
   echo "Sleeping for ${SLEEP_FOR} seconds..."
   sleep ${SLEEP_FOR}
 done
-
+echo "Is this var available:  $i"
 [[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
 echo "Applied the IP successfully."
 
