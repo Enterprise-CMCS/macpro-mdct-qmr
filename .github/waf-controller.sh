@@ -9,7 +9,7 @@ RUNNER_IP="${3}/32"
 
 CIRCUIT_BREAKER=10
 
-DEBUG=true
+#DEBUG=true
 
 [[ $DEBUG ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_IP ${RUNNER_IP}"
 
