@@ -23,7 +23,7 @@ jitter() {
   perl -e "print $RND/$DIV"
 }
 
-for i in {1..$CIRCUIT_BREAKER}; do
+for ((i=0; i <= $CIRCUIT_BREAKER; i++)); do
   WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
   $DEBUG && echo "Waf Config:  ${WAF_CONFIG}"
 
