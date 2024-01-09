@@ -20,16 +20,16 @@ function find_cidr_for_ipv4 {
   shift;
 
   for cidr in "$@"; do
-    nmap -sL -n $cidr | grep -q $ip && echo $cidr && exit 0
+    nmap -sL -n $cidr | grep -q $ip && echo $cidr && break
   done
-  exit 1
 }
 
 #Remove IPV6 CIDR blocks
 GHA_CIDRS=($(curl https://api.github.com/meta | jq -r '.actions | .[]' | grep -v ':'))
 
 CIDR=$(find_cidr_for_ipv4 ${RUNNER_IP} ${GHA_CIDRS})
-[[ $? -ne 0 ]] && echo "Cannot find CIDR block for ${RUNNER_IP}, please check https://api.github.com/meta.  Exiting." && exit 1
+echo "FOUND $CIDR"
+[[ -z "${CIDR} ]] && echo "Cannot find CIDR block for ${RUNNER_IP}, please check https://api.github.com/meta.  Exiting." && exit 1
 
 echo "CIDR for ${RUNNER_IP} is ${CIDR}";
 exit 2
