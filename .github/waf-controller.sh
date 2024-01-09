@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-#set -e -o xtrace -o errexit -o pipefail -o nounset -u
 set -o pipefail -o nounset -u
 
 NAME="${1}"
@@ -9,7 +8,7 @@ RUNNER_IP="${3}/32"
 
 CIRCUIT_BREAKER=10
 
-DEBUG=false
+DEBUG=true
 
 $DEBUG && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_IP ${RUNNER_IP}"
 
@@ -25,7 +24,9 @@ jitter() {
 
 for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
-  $DEBUG && echo "Waf Config:  ${WAF_CONFIG}"
+  CMD_CD=$?
+  $DEBUG && echo "AWS CLI Read Response Code:  ${CMD_CD}"
+  $DEBUG && echo "AWS CLI Read Response:  ${WAF_CONFIG}"
 
   IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
   IP_ADDRESSES+=("$RUNNER_IP")
@@ -38,8 +39,8 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
 
   OUTPUT=$(aws wafv2 update-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
   CMD_CD=$?
-  echo "AWS CLI Response Code:  ${CMD_CD}"
-  echo "AWS CLI Response:  ${OUTPUT}"
+  echo "AWS CLI Write Response Code:  ${CMD_CD}"
+  echo "AWS CLI Write Response:  ${OUTPUT}"
 
   [[ $CMD_CD -ne 0 ]] || break
 
@@ -47,6 +48,6 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   echo "Sleeping for ${SLEEP_FOR} seconds..."
   sleep ${SLEEP_FOR}
 done
-echo "Is this var available:  $i"
-[[ $CIRCUIT_BREAKER == $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
+echo "Attempts to update ip set:  $i"
+[[ $CIRCUIT_BREAKER -gte $i ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
 echo "Applied the IP successfully."
