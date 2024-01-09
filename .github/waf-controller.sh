@@ -34,7 +34,7 @@ function find_cidr_for_ipv4 {
 }
 
 #Remove IPV6 CIDR blocks
-GHA_CIDRS=$(curl https://api.github.com/meta | jq -r '.actions' | grep -v ':')
+GHA_CIDRS=$(curl https://api.github.com/meta | jq -r '.actions | .[]' | grep -v ':')
 
 CIDR=$(find_cidr_for_ipv4 ${RUNNER_IP} <<< ${GHA_CIDRS})
 [[ $? -ne 0 ]] && echo "Cannot find CIDR block for ${RUNNER_IP}, please check https://api.github.com/meta.  Exiting." && exit 1
@@ -87,8 +87,11 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
 
   #This really can't happen because each node in the matrix gets a unique IP
-  grep -q $RUNNER_IP <<< ${IP_ADDRESSES}
-  [[ $? -ne 0 ]] || ( echo "IP is present in IP Set." && exit 0 )
+  #grep -q $RUNNER_IP <<< ${IP_ADDRESSES}
+  #[[ $? -ne 0 ]] || ( echo "IP is present in IP Set." && exit 0 )
+
+  grep -q $CIDR <<< ${IP_ADDRESSES}
+  [[ $? -ne 0 ]] || ( echo "CIDR is present in IP Set." && exit 0 )
 
   #Add runner IP to array
   IP_ADDRESSES+=("$RUNNER_IP")
