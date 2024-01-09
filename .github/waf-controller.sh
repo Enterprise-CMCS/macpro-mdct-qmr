@@ -1,15 +1,18 @@
 #!/usr/bin/env bash
 
-set -e -o xtrace -o errexit -o pipefail -o nounset -u
+#set -e -o xtrace -o errexit -o pipefail -o nounset -u
+set -o errexit -o pipefail -o nounset -u
 
 NAME="${1}"
 ID="${2}"
 RUNNER_IP="${3}/32"
 
-echo $NAME $ID $RUNNER_IP
-#exit 2
-
 CIRCUIT_BREAKER=10
+
+DEBUG=true
+
+[[ $DEBUG ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_IP ${RUNNER_IP}"
+
 jitter() {
   SHORTEST=25
   LONGEST=500
@@ -20,21 +23,18 @@ jitter() {
   perl -e "print $RND/$DIV"
 }
 
-#RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
-
-echo "Runner IP:  ${RUNNER_IP}"
 for i in {1..$CIRCUIT_BREAKER}; do
   WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
-  echo "Waf Config:  ${WAF_CONFIG}"
+  [[ $DEBUG ]] && echo "Waf Config:  ${WAF_CONFIG}"
 
   IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
   IP_ADDRESSES+=("$RUNNER_IP")
 
   STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
-  echo "Ip Addresses:  ${STRINGIFIED}"
+  [[ $DEBUG ]] && echo "Ip Addresses:  ${STRINGIFIED}"
 
   OCC_TOKEN=$(jq -r '.LockToken' <<< ${WAF_CONFIG})
-  echo "LockToken:  ${OCC_TOKEN}"
+  [[ $DEBUG ]] && echo "LockToken:  ${OCC_TOKEN}"
 
   OUTPUT=$(aws wafv2 update-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
   CMD_CD=$?
