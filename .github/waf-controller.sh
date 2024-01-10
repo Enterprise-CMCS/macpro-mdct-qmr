@@ -21,14 +21,14 @@ jitter() {
   #10 seconds
   LONGEST=1000
   DIV=100
-  EXP=$(perl -e "print $SHORTEST**$1")
+  EXP=$(perl -e "use bigint; print $SHORTEST**$1")
   MIN=$(($EXP>$LONGEST ? $LONGEST : $EXP))
   RND=$(shuf -i$SHORTEST-$MIN -n1)
   perl -e "print $RND/$DIV"
 }
 
 #Attempt to avoid resource contention from the start
-sleep $(jitter $(shuf -i1-50 -n1))
+sleep $(jitter $(shuf -i1-10 -n1))
 
 for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   #This loop is ONLY for retrying if the retries exceeded exception is thrown
