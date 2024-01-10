@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#!!!!!!!!!WARNING!!!!!!!!!
+#To continue this approach, the parent runner needs to pass the GHA CIDRS to the children
+#Too many calls to the GHA API and we get temporarily blocked
+
 CIRCUIT_BREAKER=10
 AWS_RETRY_ERROR=254
 #0, 1, 2 are the levels of debug, with 0 being off
