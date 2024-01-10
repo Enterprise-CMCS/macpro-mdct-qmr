@@ -87,6 +87,8 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
 
     #If the retries exceeded error code is returned, try again, otherwise exit the loop
     [[ $CMD_CD -eq $AWS_RETRY_ERROR ]] || break
+    #If WAFOptimisticLockException error code is returned, exit the loop
+    [[ "$OUTPUT" =~ "WAFOptimisticLockException" ]] && break
 
     SLEEP_FOR=$(jitter ${k})
     echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute write again...(${k})"
