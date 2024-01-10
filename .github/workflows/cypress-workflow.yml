@@ -113,7 +113,8 @@ jobs:
           # Get the IP address of the runner
           #Solution was found below and modified for this purpose
           #https://serverfault.com/questions/1120769/check-if-ip-belongs-to-a-cidr
-          GHA_CIDRS_IPV4=$(curl https://api.github.com/meta | jq -r '.actions | .[]' | grep -v ':')
+          GHA_RESP=$(curl https://api.github.com/meta)
+          GHA_CIDRS_IPV4=$(jq -r '.actions | .[]' | grep -v ':' <<< ${GHA_RESP})
           RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           for cidr in $GHA_CIDRS_IPV4; do
             nmap -sL -n $cidr | grep -q $RUNNER_IP && RUNNER_CIDR=$cidr && break

@@ -83,7 +83,6 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
     #If the retries exceeded error code is returned, try again, otherwise exit the loop
     [[ $CMD_CD -eq $AWS_RETRY_ERROR ]] || break
 
-    #Using the outer loop to configure jitter is intentional, let's scale retries globally
     SLEEP_FOR=$(jitter ${k})
     echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute write again...(${k})"
     sleep ${SLEEP_FOR}
