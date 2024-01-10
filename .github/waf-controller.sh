@@ -6,6 +6,7 @@
 
 CIRCUIT_BREAKER=10
 AWS_RETRY_ERROR=254
+AWS_THROTTLING_EXCEPTION=252
 #0, 1, 2 are the levels of debug, with 0 being off
 DEBUG=2
 
@@ -24,20 +25,20 @@ jitter() {
   #10 seconds
   LONGEST=1000
   DIV=100
-  EXP=$(perl -e "print $SHORTEST**$1")
+  EXP=$(perl -e "use bigint; print $SHORTEST**$1")
   MIN=$(($EXP>$LONGEST ? $LONGEST : $EXP))
   RND=$(shuf -i$SHORTEST-$MIN -n1)
   perl -e "print $RND/$DIV"
 }
 
 #Attempt to avoid resource contention from the start
-sleep $(jitter $(shuf -i1-50 -n1))
+sleep $(jitter $(shuf -i1-10 -n1))
 
 for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   #This loop is ONLY for retrying if the retries exceeded exception is thrown
   for ((j=1; j <= $CIRCUIT_BREAKER; j++)); do
     #Read WAF configuration from AWS
-    WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME})
+    WAF_CONFIG=$(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME} 2>&1)
     CMD_CD=$?
     [[ $DEBUG -ge 1 ]] && echo "AWS CLI Read Response Code:  ${CMD_CD}"
     [[ $DEBUG -ge 2 ]] && echo "AWS CLI Read Response:  ${WAF_CONFIG}"
@@ -79,7 +80,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   #This loop is ONLY for retrying if the retries exceeded exception is thrown
   for ((k=1; k <= $CIRCUIT_BREAKER; k++)); do
     #Write updated WAF configuration to AWS
-    OUTPUT=$(aws wafv2 update-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED})
+    OUTPUT=$(aws wafv2 update-ip-set --scope CLOUDFRONT --id ${ID} --name ${NAME} --lock-token ${OCC_TOKEN} --addresses ${STRINGIFIED} 2>&1)
     CMD_CD=$?
     [[ $DEBUG -ge 1 ]] && echo "AWS CLI Write Response Code:  ${CMD_CD}"
     [[ $DEBUG -ge 2 ]] && echo "AWS CLI Write Response:  ${OUTPUT}"

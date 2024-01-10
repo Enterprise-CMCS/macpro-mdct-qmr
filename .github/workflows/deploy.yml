@@ -41,8 +41,11 @@ jobs:
     steps:
       - name: set branch_name # Some integrations (Dependabot & Snyk) build very long branch names. This is a switch to make long branch names shorter.
         run: |
-          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]] || [[ "$GITHUB_REF" =~ ^refs/remotes/origin/snyk-upgrade-* ]] || [[ "$GITHUB_REF" =~ ^refs/remotes/origin/snyk-fix-* ]]; then
-            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          echo "GITHUB_REF=${GITHUB_REF}"        
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then
+            echo "branch_name=`echo ${GITHUB_REF##*/*-} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          elif [[ "$GITHUB_REF" =~ ^refs/.*/snyk-* ]]; then
+            echo "branch_name=`echo ${GITHUB_REF##*/*-} | head -c 10 | sed 's/^/s/'`" >> $GITHUB_ENV
           else
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           fi
@@ -141,11 +144,11 @@ jobs:
       #   run: |
       #     #!/bin/bash
       #     aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses ${{ steps.get-ip.outputs.RUNNER_IP }} --action=REMOVE
-      # - name: deploy
-      #   run: |
-      #     # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
-      #     # This can optionally be set as an GitHub Actions Secret
-      #     ./deploy.sh $STAGE_PREFIX$branch_name
+      #- name: deploy
+      #  run: |
+      #    # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
+      #    # This can optionally be set as an GitHub Actions Secret
+      #    ./deploy.sh $STAGE_PREFIX$branch_name
       - name: Endpoint
         id: endpoint
         run: |
