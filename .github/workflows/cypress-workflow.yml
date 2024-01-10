@@ -114,6 +114,7 @@ jobs:
           #Solution was found below and modified for this purpose
           #https://serverfault.com/questions/1120769/check-if-ip-belongs-to-a-cidr
           GHA_RESP=$(curl https://api.github.com/meta)
+          echo "Response for GHA runner CIDR blocks:  $GHA_RESP"
           GHA_CIDRS_IPV4=$(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':')
           RUNNER_IP=${{ steps.get-execute-cypress-ip.outputs.RUNNER_IP }}
           for cidr in $GHA_CIDRS_IPV4; do
