@@ -154,6 +154,8 @@ jobs:
           config: baseUrl=${{ inputs.test-endpoint }}
           env: true
         env:
+          AWS_RETRY_MODE: adaptive
+          AWS_MAX_ATTEMPTS: 10
           CYPRESS_TEST_USER_1: ${{ secrets.cypress-user1 }}
           CYPRESS_TEST_USER_2: ${{ secrets.cypress-user2 }}
           CYPRESS_TEST_USER_3: ${{ secrets.cypress-user3 }}
