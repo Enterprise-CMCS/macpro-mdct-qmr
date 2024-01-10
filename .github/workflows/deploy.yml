@@ -144,11 +144,11 @@ jobs:
       #   run: |
       #     #!/bin/bash
       #     aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses ${{ steps.get-ip.outputs.RUNNER_IP }} --action=REMOVE
-      # - name: deploy
-      #   run: |
-      #     # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
-      #     # This can optionally be set as an GitHub Actions Secret
-      #     ./deploy.sh $STAGE_PREFIX$branch_name
+       - name: deploy
+         run: |
+           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
+           # This can optionally be set as an GitHub Actions Secret
+           ./deploy.sh $STAGE_PREFIX$branch_name
       - name: Endpoint
         id: endpoint
         run: |
