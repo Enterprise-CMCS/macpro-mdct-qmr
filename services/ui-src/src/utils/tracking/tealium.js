@@ -1,4 +1,10 @@
-export const fireTealiumPageView = (user, url, pathname, isReportPage) => {
+export const fireTealiumPageView = (user, url, pathname) => {
+  // TODO: this will need to be updated for the upcoming Combined Ratio page view
+  const isReportPage =
+    pathname.endsWith("-AD") ||
+    pathname.endsWith("-CH") ||
+    pathname.endsWith("-HH") ||
+    pathname.endsWith("CSQ");
   const contentType = isReportPage ? "form" : "app";
   const sectionName = isReportPage ? pathname.split("/")[1] : "main app";
   const { host: siteDomain } = url ? new URL(url) : null;
