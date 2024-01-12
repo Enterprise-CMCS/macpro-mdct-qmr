@@ -5,7 +5,7 @@ AWS_RETRY_ERROR=254
 AWS_THROTTLING_EXCEPTION=252
 #0, 1, 2 are the levels of debug, with 0 being off
 DEBUG=2
-exit 1
+
 set -o pipefail -o nounset -u
 
 NAME="${1}"
