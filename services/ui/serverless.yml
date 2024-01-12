@@ -105,7 +105,7 @@ resources:
         Name: ${self:custom.stage}-gh-ipset
         Scope: Regional
         IPAddressVersion: IPV4
-        Addresses:
+        Addresses: []
     S3Bucket:
       Type: AWS::S3::Bucket
       Properties:
