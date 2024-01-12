@@ -3,6 +3,8 @@
 #!!!!!!!!!WARNING!!!!!!!!!
 #To continue this approach, the parent runner needs to pass the GHA CIDRS to the children
 #Too many calls to the GHA API and we get temporarily blocked
+###
+###SO this is fixed with the token but it would still be great if we didn't have to query this for each runner
 
 CIRCUIT_BREAKER=10
 AWS_RETRY_ERROR=254
