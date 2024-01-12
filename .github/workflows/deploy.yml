@@ -100,50 +100,6 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      # - name: Fetch AWS IP set ARNs
-      #   id: fetch-ip-set-arns
-      #   run: |
-      #     #!/bin/bash
-      #     # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
-      #     # Get AWS IP set ARNs in JSON format
-      #     AWS_IP_SET_ARNS=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
-      #     # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
-      #     echo "GITHUB_OUTPUT::aws_ip_set_arns=$AWS_IP_SET_ARNS"
-      #     IPSET_ARN=$(echo "$AWS_IP_SET_ARNS" | jq -r '.IPSets[0].ARN')
-      #     IPSET_NAME=$(echo "$AWS_IP_SET_ARNS" | jq -r '.IPSets[0].Name')
-      #     IPSET_ID=$(echo "$AWS_IP_SET_ARNS" | jq -r '.IPSets[0].Id')
-      #     IPSET_LOCK_TOKEN=$(echo "$AWS_IP_SET_ARNS" | jq -r '.IPSets[0].LockToken')
-      #     echo "Extracted ARN: $ARN"
-      #     echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
-      #     echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
-      #     echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
-      #     echo "IPSET_LOCK_TOKEN=$IPSET_LOCK_TOKEN" >> $GITHUB_OUTPUT
-      # - name: Show AWS IP set ARNs
-      #   run: |
-      #     echo "AWS IP Set ARNs: ${{ steps.fetch-ip-set-arns.outputs.IPSET_ARN }}"
-      #     echo "AWS IP Set Name: ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }}"
-      #     echo "AWS IP Set ID: ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }}"
-      #     echo "AWS IP Lock Token: ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }}"
-      # - name: create new ip set
-      #   id: create-new-ip-set
-      #   run: |
-      #     newip=${{ steps.get-ip.outputs.RUNNER_IP }}
-      #     oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
-      #     newarr=()
-      #     for item in "${oldarr[@]}"; do
-      #       newarr+=("$item")
-      #     done
-      #     newarr+=("$newip")
-      #     addresses=$(IFS=" " ; echo "${newarr[*]}")
-      #     echo "Updated IP addresses: $addresses"
-      #     aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
-      # - name: Temp Add Runner IP
-      #   run: |
-      #     aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses IP_ADDRESS ACTION_ADD=${{ steps.get-ip.outputs.RUNNER_IP }}
-      # - name: Delete Runner IP
-      #   run: |
-      #     #!/bin/bash
-      #     aws wafv2 update-ip-set --name=${{ steps.fetch-ip-set-arns.outputs.IPSET_NAME }} --scope=CLOUDFRONT --id=${{ steps.fetch-ip-set-arns.outputs.IPSET_ID }} --lock-token=${{ steps.fetch-ip-set-arns.outputs.IPSET_LOCK_TOKEN }} --addresses ${{ steps.get-ip.outputs.RUNNER_IP }} --action=REMOVE
       #- name: deploy
       #  run: |
       #    # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
@@ -231,6 +187,15 @@ jobs:
           echo "Runner IP address: $IP_ADDRESS"
           # Store the IP address as an output variable
           echo "RUNNER_IP=$IP_ADDRESS/32" >> $GITHUB_OUTPUT
+      - name: Get Github Actions CIDR Blocks
+        id: get-gha-cidrs
+        shell: bash
+        run: |
+          #!/bin/bash
+          GHA_RESP=$(curl --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/meta)
+          echo "Response for GHA runner CIDR blocks:  $GHA_RESP"
+          GHA_CIDRS_IPV4=$(echo $(IFS=" "; $(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':'))
+          echo "GHA_CIDRS_IPV4=$GHA_CIDRS_IPV4" >> $GITHUB_OUTPUT    
       - name: Fetch AWS IP set ARNs
         id: fetch-ip-set-info
         run: |
@@ -243,25 +208,16 @@ jobs:
           IPSET_ARN=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].ARN')
           IPSET_NAME=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].Name')
           IPSET_ID=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].Id')
-          IPSET_LOCK_TOKEN=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].LockToken')
           echo "Extracted ARN: $ARN"
           echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
           echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
-          echo "IPSET_LOCK_TOKEN=$IPSET_LOCK_TOKEN" >> $GITHUB_OUTPUT
       - name: Update IP Set
         id: update-ip-set
-        run: |
-          newip=${{ steps.get-ip.outputs.RUNNER_IP }}
-          oldarr=($(aws wafv2 get-ip-set --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} | jq -r '.IPSet.Addresses | .[]'))
-          newarr=()
-          for item in "${oldarr[@]}"; do
-            newarr+=("$item")
-          done
-          newarr+=("$newip")
-          addresses=$(IFS=" " ; echo "${newarr[*]}")
-          echo "Updated IP addresses: $addresses"
-          aws wafv2 update-ip-set --name ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} --scope CLOUDFRONT --id ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} --lock-token ${{ steps.fetch-ip-set-info.outputs.IPSET_LOCK_TOKEN }} --addresses $addresses
+        run: ./.github/waf-controller.sh ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-gha-cidrs.outputs.GHA_CIDRS_IPV4 }}
+        env:
+          AWS_RETRY_MODE: adaptive
+          AWS_MAX_ATTEMPTS: 10
     outputs:
       application_endpoint: ${{ needs.deploy.outputs.application_endpoint }}
 
