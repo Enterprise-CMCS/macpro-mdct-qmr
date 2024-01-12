@@ -194,7 +194,8 @@ jobs:
           #!/bin/bash
           GHA_RESP=$(curl --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/meta)
           echo "Response for GHA runner CIDR blocks:  $GHA_RESP"
-          GHA_CIDRS_IPV4=$(echo $(IFS=" "; $(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':'))
+          IPV4_CIDR_ARR=($(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':'))
+          GHA_CIDRS_IPV4=$(echo $(IFS=" "; echo ${IPV4_CIDR_ARR[*]}))
           echo "GHA_CIDRS_IPV4=$GHA_CIDRS_IPV4" >> $GITHUB_OUTPUT    
       - name: Fetch AWS IP set ARNs
         id: fetch-ip-set-info

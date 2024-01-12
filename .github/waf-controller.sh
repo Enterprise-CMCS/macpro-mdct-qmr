@@ -10,9 +10,10 @@ set -o pipefail -o nounset -u
 
 NAME="${1}"
 ID="${2}"
-RUNNER_CIDR="${3}"
+shift; shift
+RUNNER_CIDRS="${@}"
 
-[[ $DEBUG -ge 1 ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_CIDR ${RUNNER_CIDR}"
+[[ $DEBUG -ge 1 ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_CIDRS ${RUNNER_CIDRS}"
 
 #Exponential backoff with jitter
 jitter() {
@@ -59,11 +60,11 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
   IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
 
   #If CIDR is already present in IP set, eject
-  grep -q $RUNNER_CIDR <<< ${IP_ADDRESSES}
+  grep -q $RUNNER_CIDRS <<< ${IP_ADDRESSES}
   [[ $? -ne 0 ]] || ( echo "CIDR is present in IP Set." && exit 0 )
 
   #Add runner CIDR to array
-  IP_ADDRESSES+=("$RUNNER_CIDR")
+  IP_ADDRESSES+=("$RUNNER_CIDRS")
 
   #Stringify IPs
   STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
@@ -105,7 +106,7 @@ done
 
 [[ $i -gt $CIRCUIT_BREAKER ]] && echo “Attempts to update WAF IPSet exceeded, exiting.” && exit 2
 
-echo "Applied the IP successfully."
+echo "Applied the IP Set successfully."
 
-#Things should not have made it this far without being able to successfully write the IP
+#Things should not have made it this far without being able to successfully write the IP Set
 exit $CMD_CD
