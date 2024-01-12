@@ -103,7 +103,7 @@ resources:
       Type: AWS::WAFv2::IPSet
       Properties:
         Name: ${self:custom.stage}-gh-ipset
-        Scope: Regional
+        Scope: REGIONAL
         IPAddressVersion: IPV4
         Addresses: []
     S3Bucket:
