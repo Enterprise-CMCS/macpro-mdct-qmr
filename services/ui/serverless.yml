@@ -43,6 +43,46 @@ custom:
           Name: vpn-only
           Priority: 0
           Action:
+            # Block: {
+            #   "CustomResponse": {
+            #     "ResponseCode": 403
+            #   }
+            # }
+            Allow: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: ${self:service}-${self:custom.stage}-webacl-vpn-only
+          Statement:
+            # NotStatement:
+              # Statement:
+            IPSetReferenceStatement:
+              ARN: ${self:custom.vpnIpSetArn}
+      - enable: ${param:restrictToVpn}
+        rule:
+          Name: vpn-only
+          Priority: 1
+          Action:
+            # Block: {
+            #   "CustomResponse": {
+            #     "ResponseCode": 403
+            #   }
+            # }
+            Allow: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: ${self:service}-${self:custom.stage}-tmp-gh-runner
+          Statement:
+            # NotStatement:
+              # Statement:
+            IPSetReferenceStatement:
+              ARN: !GetAtt GitHubIPSet.Arn
+      - enable: ${param:restrictToVpn}
+        rule:
+          Name: block-all-other-traffic
+          Priority: 3
+          Action:
             Block: {
               "CustomResponse": {
                 "ResponseCode": 403
@@ -51,12 +91,12 @@ custom:
           VisibilityConfig:
             SampledRequestsEnabled: true
             CloudWatchMetricsEnabled: true
-            MetricName: ${self:service}-${self:custom.stage}-webacl-vpn-only
-          Statement:
-            NotStatement:
-              Statement:
-                IPSetReferenceStatement:
-                  ARN: ${self:custom.vpnIpSetArn}
+            MetricName: ${self:service}-${self:custom.stage}-block-traffic
+            Statement:
+              NotStatement:
+                Statement:
+                  IPSetReferenceStatement:
+                    ARN: ${self:custom.vpnIpSetArn}
   firehoseStreamName: aws-waf-logs-${self:service}-${self:custom.stage}-firehose
   scripts:
     hooks:
