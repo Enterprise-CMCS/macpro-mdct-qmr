@@ -206,7 +206,7 @@ jobs:
           STAGE_GH_IPSET_NAME=$STAGE_PREFIX$branch_name-gh-ipset
           echo "Github IP Set name:  $STAGE_GH_IPSET_NAME"
           echo "STAGE_GH_IPSET_NAME=$STAGE_GH_IPSET_NAME" >> $GITHUB_OUTPUT  
-      - name: Fetch AWS IP set ARNs
+      - name: Fetch AWS IP set Metadata
         id: fetch-ip-set-info
         run: |
           #!/bin/bash
@@ -218,9 +218,7 @@ jobs:
           [ -z "$IPSET" ] && echo "IP Set with name ${IPSET_NAME} was not located.  Exiting..." && exit 1
           echo "IP Set metadata:  ${IPSET}"
           #Get Values from the IP SET
-          IPSET_ARN=$(jq -r '.ARN' <<< ${IPSET})
           IPSET_ID=$(jq -r '.Id' <<< ${IPSET})
-          echo "Extracted ARN: $ARN"
           echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
           echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
