@@ -100,11 +100,11 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: deploy
-        run: |
-          # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
-          # This can optionally be set as an GitHub Actions Secret
-          ./deploy.sh $STAGE_PREFIX$branch_name
+      #- name: deploy
+      #  run: |
+      #    # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
+      #    # This can optionally be set as an GitHub Actions Secret
+      #    ./deploy.sh $STAGE_PREFIX$branch_name
       - name: Endpoint
         id: endpoint
         run: |
@@ -214,7 +214,7 @@ jobs:
           AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
           # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
           IPSET_NAME=${{ steps.gen-ip-set-name.outputs.STAGE_GH_IPSET_NAME }}
-          IPSET=$(jq '.IPSets | map(select(.Name == "gha-ip-set-gh-ipset")) | .[]' <<< $(AWS_IP_SET_INFO))
+          IPSET=$(jq '.IPSets | map(select(.Name == "'${IPSET_NAME}'")) | .[]' <<< ${AWS_IP_SET_INFO})
           echo $IPSET
           exit 1
           #Get Values from the IP SET
