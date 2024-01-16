@@ -219,7 +219,7 @@ jobs:
           echo "IP Set metadata:  ${IPSET}"
           #Get Values from the IP SET
           IPSET_ARN=$(jq -r '.ARN' <<< ${IPSET})
-          IPSET_ID=$(jq -r '.ID' <<< ${IPSET})
+          IPSET_ID=$(jq -r '.Id' <<< ${IPSET})
           echo "Extracted ARN: $ARN"
           echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
           echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
