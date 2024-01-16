@@ -133,8 +133,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: set branch_name
         run: |
-          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then # Dependabot builds very long branch names.  This is a switch to make it shorter.
-            echo "branch_name=`echo ${GITHUB_REF#refs/heads/} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          echo "GITHUB_REF=${GITHUB_REF}"        
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then
+            echo "branch_name=`echo ${GITHUB_REF##*/*-} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          elif [[ "$GITHUB_REF" =~ ^refs/.*/snyk-* ]]; then
+            echo "branch_name=`echo ${GITHUB_REF##*/*-} | head -c 10 | sed 's/^/s/'`" >> $GITHUB_ENV
           else
             echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
           fi
@@ -196,7 +199,13 @@ jobs:
           echo "Response for GHA runner CIDR blocks:  $GHA_RESP"
           IPV4_CIDR_ARR=($(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':'))
           GHA_CIDRS_IPV4=$(echo $(IFS=" "; echo ${IPV4_CIDR_ARR[*]}))
-          echo "GHA_CIDRS_IPV4=$GHA_CIDRS_IPV4" >> $GITHUB_OUTPUT    
+          echo "GHA_CIDRS_IPV4=$GHA_CIDRS_IPV4" >> $GITHUB_OUTPUT
+      - name: Generate IP Set Name
+        id: gen-ip-set-name
+        run: |
+          STAGE_GH_IPSET_NAME=$STAGE_PREFIX$branch_name-gh-ipset
+          echo "Github IP Set name:  $STAGE_GH_IPSET_NAME"
+          echo "STAGE_GH_IPSET_NAME=$STAGE_GH_IPSET_NAME" >> $GITHUB_OUTPUT  
       - name: Fetch AWS IP set ARNs
         id: fetch-ip-set-info
         run: |
@@ -204,7 +213,10 @@ jobs:
           # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
           AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
           # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
-          #echo "GITHUB_OUTPUT::aws_ip_set_arns=$AWS_IP_SET_ARNS"
+          IPSET_NAME=${{ steps.gen-ip-set-name.outputs.STAGE_GH_IPSET_NAME }}
+          IPSET=$(jq '.IPSets | map(select(.Name == "gha-ip-set-gh-ipset")) | .[]' <<< $(AWS_IP_SET_INFO))
+          echo $IPSET
+          exit 1
           #Get Values from the IP SET
           IPSET_ARN=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].ARN')
           IPSET_NAME=$(echo "$AWS_IP_SET_INFO" | jq -r '.IPSets[0].Name')
@@ -213,6 +225,7 @@ jobs:
           echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
           echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
+          exit 1
       - name: Update IP Set
         id: update-ip-set
         run: ./.github/waf-controller.sh ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-gha-cidrs.outputs.GHA_CIDRS_IPV4 }}
