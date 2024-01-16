@@ -37,47 +37,47 @@ custom:
     wafScope: CLOUDFRONT
   wafPlugin:
     name: ${self:service}-${self:custom.stage}-webacl
-    rules:
+    Rules:
       - enable: ${param:restrictToVpn}
-        Name: vpn-only
-        Priority: 0
-        Action:
-          Allow: {}
-        VisibilityConfig:
-          SampledRequestsEnabled: true
-          CloudWatchMetricsEnabled: true
-          MetricName: ${self:service}-${self:custom.stage}-webacl-vpn-only
-        Statement:
-          IPSetReferenceStatement:
-            ARN: ${self:custom.vpnIpSetArn}
-      - enable: ${param:restrictToVpn}
-        Name: vpn-only
-        Priority: 1
-        Action:
-          Allow: {}
-        VisibilityConfig:
-          SampledRequestsEnabled: true
-          CloudWatchMetricsEnabled: true
-          MetricName: ${self:service}-${self:custom.stage}-tmp-gh-runner
-        Statement:
-          IPSetReferenceStatement:
-            ARN: !GetAtt GitHubIPSet.Arn
-      - enable: ${param:restrictToVpn}
-        Name: block-all-other-traffic
-        Priority: 3
-        Action:
-          Block:
-            CustomResponse:
-              ResponseCode: 403
-        VisibilityConfig:
-          SampledRequestsEnabled: true
-          CloudWatchMetricsEnabled: true
-          MetricName: ${self:service}-${self:custom.stage}-block-traffic
+        - Name: vpn-only
+          Priority: 0
+          Action:
+            Allow: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: ${self:service}-${self:custom.stage}-webacl-vpn-only
           Statement:
-            NotStatement:
-              Statement:
-                IPSetReferenceStatement:
-                  ARN: ${self:custom.vpnIpSetArn}
+            IPSetReferenceStatement:
+              ARN: ${self:custom.vpnIpSetArn}
+      - enable: ${param:restrictToVpn}
+        - Name: vpn-only
+          Priority: 1
+          Action:
+            Allow: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: ${self:service}-${self:custom.stage}-tmp-gh-runner
+          Statement:
+            IPSetReferenceStatement:
+              ARN: !GetAtt GitHubIPSet.Arn
+      - enable: ${param:restrictToVpn}
+        - Name: block-all-other-traffic
+          Priority: 3
+          Action:
+            Block:
+              CustomResponse:
+                ResponseCode: 403
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: ${self:service}-${self:custom.stage}-block-traffic
+            Statement:
+              NotStatement:
+                Statement:
+                  IPSetReferenceStatement:
+                    ARN: ${self:custom.vpnIpSetArn}
     # rules:
     #   - enable: ${param:restrictToVpn}
     #     Name: vpn-only
