@@ -56,15 +56,19 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
 
   echo "Read was successful."
 
+  ##If this is used to whitelist individual ips or cidrs, using an additive approach is what is required
   #Parse out IP set addresses to array
-  IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
+  #IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
 
   #If CIDR is already present in IP set, eject
-  grep -q $RUNNER_CIDRS <<< ${IP_ADDRESSES}
-  [[ $? -ne 0 ]] || ( echo "CIDR is present in IP Set." && exit 0 )
+  #grep -q $RUNNER_CIDRS <<< ${IP_ADDRESSES}
+  #[[ $? -ne 0 ]] || ( echo "CIDR is present in IP Set." && exit 0 )
 
   #Add runner CIDR to array
-  IP_ADDRESSES+=("$RUNNER_CIDRS")
+  #IP_ADDRESSES+=("$RUNNER_CIDRS")
+
+  ##If this is used to hard set the IP set, just clobber it
+  IP_ADDRESSES=("$RUNNER_CIDRS")
 
   #Stringify IPs
   STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
