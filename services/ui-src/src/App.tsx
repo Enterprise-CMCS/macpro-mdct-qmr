@@ -2,12 +2,19 @@ import { AppRoutes } from "./Routes";
 import * as QMR from "components";
 import { LocalLogins, PostLogoutRedirect } from "components";
 import { useUser } from "hooks/authHooks";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { MeasuresLoading } from "views";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { fireTealiumPageView } from "utils/tracking/tealium";
 
 const App = () => {
   const { logout, user, showLocalLogins, loginWithIDM } = useUser();
+  const { pathname, key } = useLocation();
+
+  // fire tealium page view on route change
+  useEffect(() => {
+    fireTealiumPageView(user, window.location.href, pathname);
+  }, [key, pathname, user]);
 
   const authenticatedRoutes = (
     <>
