@@ -60,19 +60,6 @@ jobs:
         run: |
           which jq
           jq --version
-      # - name: Get IP
-      #   id: get-ip
-      #   run: |
-      #     #!/bin/bash
-      #     # Get the IP address of the runner
-      #     IP_ADDRESS=$(curl https://api.ipify.org)
-      #     echo "Runner IP address: $IP_ADDRESS"
-      #     # Store the IP address as an output variable
-      #     echo "RUNNER_IP=$IP_ADDRESS/32" >> $GITHUB_OUTPUT
-      # - name: Show IP Address
-      #   run: |
-      #     #!/bin/bash
-      #     echo "IP address from previous step: ${{ steps.get-ip.outputs.RUNNER_IP }}"
       - name: Validate branch name
         run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
       - name: set branch specific variable names
@@ -100,11 +87,11 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      #- name: deploy
-      #  run: |
-      #    # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
-      #    # This can optionally be set as an GitHub Actions Secret
-      #    ./deploy.sh $STAGE_PREFIX$branch_name
+      - name: deploy
+        run: |
+          # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
+          # This can optionally be set as an GitHub Actions Secret
+          ./deploy.sh $STAGE_PREFIX$branch_name
       - name: Endpoint
         id: endpoint
         run: |
