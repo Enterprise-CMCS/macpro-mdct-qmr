@@ -352,3 +352,61 @@ jobs:
       cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
       cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
       cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
+
+  cleanup:
+    runs-on: ubuntu-latest
+    needs:
+      - e2e-tests-init
+      - e2e-feature-tests
+      - child-e2e-measure-tests
+      - adult-e2e-measure-tests
+      - health-home-e2e-measure-tests
+      - deploy
+      - a11y-tests
+    env:
+      SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
+    steps:
+      - name: set branch_name # Some integrations (Dependabot & Snyk) build very long branch names. This is a switch to make long branch names shorter.
+        run: |
+          echo "GITHUB_REF=${GITHUB_REF}"        
+          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then
+            echo "branch_name=`echo ${GITHUB_REF##*/*-} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
+          elif [[ "$GITHUB_REF" =~ ^refs/.*/snyk-* ]]; then
+            echo "branch_name=`echo ${GITHUB_REF##*/*-} | head -c 10 | sed 's/^/s/'`" >> $GITHUB_ENV
+          else
+            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          fi
+      - uses: actions/checkout@v3
+      - name: Validate branch name
+        run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
+      - name: set branch specific variable names
+        run: ./.github/build_vars.sh set_names
+      - name: set variable values
+        run: ./.github/build_vars.sh set_values
+        env:
+          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+          AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
+          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
+      - name: Configure AWS credentials for GitHub Actions
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+      - uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
+      - name: set path
+        run: |
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: clean-up-iplist
+        id: reset-ip-set
+        run: ./.github/waf-controller.sh ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} '[]'
+        env:
+          AWS_RETRY_MODE: adaptive
+          AWS_MAX_ATTEMPTS: 10
