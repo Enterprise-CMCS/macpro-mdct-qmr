@@ -357,7 +357,6 @@ jobs:
 
   cleanup:
     runs-on: ubuntu-latest
-    if: ${{ always() }}
     needs:
       - e2e-tests-init
       - e2e-feature-tests
