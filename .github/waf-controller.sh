@@ -13,10 +13,11 @@ case ${1} in
     OP=append
     ;;
   set)
-   OP=set
+    OP=set
     ;;
   *)
-    echo "Error:  unkown operation\nUsage: ${0} [append|set]" && exit 1
+    echo "Error:  unkown operation"
+    echo "Usage: ${0} [append|set]" && exit 1
     ;;
 esac
 
