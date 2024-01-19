@@ -29,12 +29,6 @@ on:
       cypress-password:
         description: "Cypress Password"
         required: true
-      AWS_DEFAULT_REGION:
-        description: "DEFAULT REGION"
-        required: true
-      AWS_OIDC_ROLE_TO_ASSUME:
-        description: "AWS OIDC ROLE TO ASSUME"
-        required: true
 
 jobs:
   setup:
