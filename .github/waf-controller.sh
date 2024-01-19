@@ -4,10 +4,23 @@ CIRCUIT_BREAKER=10
 AWS_RETRY_ERROR=254
 AWS_THROTTLING_EXCEPTION=252
 #0, 1, 2 are the levels of debug, with 0 being off
-DEBUG=2
+DEBUG=1
 
 set -o pipefail -o nounset -u
 
+case ${1} in
+  append)
+    OP=append
+    ;;
+  set)
+   OP=set
+    ;;
+  *)
+    echo "Error:  unkown operation\nUsage: ${0} [append|set]" && exit 1
+    ;;
+esac
+
+shift
 NAME="${1}"
 ID="${2}"
 shift; shift
@@ -56,19 +69,21 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
 
   echo "Read was successful."
 
-  ##If this is used to whitelist individual ips or cidrs, using an additive approach is what is required
-  #Parse out IP set addresses to array
-  #IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
+  if [ ${OP} == "append" ]; then
+    ##If this is used to whitelist individual ips or cidrs, using an additive approach is what is required
+    #Parse out IP set addresses to array
+    IP_ADDRESSES=($(jq -r '.IPSet.Addresses | .[]' <<< ${WAF_CONFIG}))
 
-  #If CIDR is already present in IP set, eject
-  #grep -q $RUNNER_CIDRS <<< ${IP_ADDRESSES}
-  #[[ $? -ne 0 ]] || ( echo "CIDR is present in IP Set." && exit 0 )
+    #If CIDR is already present in IP set, eject
+    grep -q $RUNNER_CIDRS <<< ${IP_ADDRESSES}
+    [[ $? -ne 0 ]] || ( echo "CIDR is present in IP Set." && exit 0 )
 
-  #Add runner CIDR to array
-  #IP_ADDRESSES+=("$RUNNER_CIDRS")
-
-  ##If this is used to hard set the IP set, just clobber it
-  IP_ADDRESSES=("$RUNNER_CIDRS")
+    #Add runner CIDR to array
+    IP_ADDRESSES+=("$RUNNER_CIDRS")
+  else 
+    ##If this is used to hard set the IP set, just clobber it
+    IP_ADDRESSES=("$RUNNER_CIDRS")
+  fi
 
   #Stringify IPs
   STRINGIFIED=$(echo $(IFS=" " ; echo "${IP_ADDRESSES[*]}"))
