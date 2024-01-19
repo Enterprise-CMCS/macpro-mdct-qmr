@@ -211,7 +211,7 @@ jobs:
           echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
       - name: Update IP Set
         id: update-ip-set
-        run: ./.github/waf-controller.sh ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-gha-cidrs.outputs.GHA_CIDRS_IPV4 }}
+        run: ./.github/waf-controller.sh set ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-gha-cidrs.outputs.GHA_CIDRS_IPV4 }}
         env:
           AWS_RETRY_MODE: adaptive
           AWS_MAX_ATTEMPTS: 10
@@ -363,7 +363,7 @@ jobs:
           aws-region: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
       - name: clean-up-iplist
         id: reset-ip-set
-        run: ./.github/waf-controller.sh ${{ needs.e2e-tests-init.outputs.ipset_name }} ${{ needs.e2e-tests-init.outputs.ipset_id }} '[]'
+        run: ./.github/waf-controller.sh set ${{ needs.e2e-tests-init.outputs.ipset_name }} ${{ needs.e2e-tests-init.outputs.ipset_id }} '[]'
         env:
           AWS_RETRY_MODE: adaptive
           AWS_MAX_ATTEMPTS: 10
