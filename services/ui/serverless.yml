@@ -92,7 +92,7 @@ params:
   prod:
     restrictToVpn: false
   val:
-    restrictToVpn: true
+    restrictToVpn: false
   master:
     restrictToVpn: true
   default:
