@@ -76,11 +76,11 @@ custom:
             SampledRequestsEnabled: true
             CloudWatchMetricsEnabled: true
             MetricName: ${self:service}-${self:custom.stage}-block-traffic
-            Statement:
-              NotStatement:
-                Statement:
-                  IPSetReferenceStatement:
-                    ARN: ${self:custom.vpnIpSetArn}
+          Statement:
+            NotStatement:
+              Statement:
+                IPSetReferenceStatement:
+                  ARN: ${self:custom.vpnIpSetArn}
   firehoseStreamName: aws-waf-logs-${self:service}-${self:custom.stage}-firehose
   scripts:
     hooks:
