@@ -36,7 +36,7 @@ custom:
   wafExcludeRules:
     wafScope: CLOUDFRONT
   wafPlugin:
-    name: ${self:service}-${self:custom.stage}-webacl
+    name: ${self:service}-${self:custom.stage}-webacl-waf
     rules:
       - enable: ${param:restrictToVpn}
         rule:
