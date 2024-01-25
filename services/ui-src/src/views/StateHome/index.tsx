@@ -17,6 +17,8 @@ import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
 import { BannerCard } from "components/Banner/BannerCard";
 
+import { useFlags } from "launchdarkly-react-client-sdk";
+
 interface HandleDeleteData {
   state: string;
   year: string;
@@ -39,6 +41,7 @@ const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
+  const releasedTwentyTwentyFour = useFlags()?.["release2024"];
 
   let reportingyearOptions: IRepYear[] =
     reportingYears && reportingYears.length
@@ -47,6 +50,12 @@ const ReportingYear = () => {
           value: year,
         }))
       : [{ displayValue: `${year} Core Set`, value: `${year}` }];
+
+  if (!releasedTwentyTwentyFour) {
+    reportingyearOptions = reportingyearOptions.filter(
+      (entry) => entry.value !== "2024"
+    );
+  }
 
   return (
     <CUI.Box w={{ base: "full", md: "48" }}>
@@ -98,7 +107,10 @@ const StateHome = () => {
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
   const resetCoreSetMutation = useResetCoreSet();
-  const { data, error, isLoading } = Api.useGetCoreSets(true);
+  const releasedTwentyTwentyFour = useFlags()?.["release2024"];
+  const { data, error, isLoading } = Api.useGetCoreSets(
+    releasedTwentyTwentyFour
+  );
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
 

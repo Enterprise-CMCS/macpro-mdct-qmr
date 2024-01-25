@@ -6,10 +6,13 @@ import config from "config";
 import { useUser } from "hooks/authHooks";
 import { BannerCard } from "components/Banner/BannerCard";
 import { UserRoles } from "types";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 export const AdminHome = () => {
   const [locality, setLocality] = useState("AL");
-  const releaseYearByFlag = parseInt(config.currentReportingYear);
+  const releaseYearByFlag = useFlags()?.["release2024"]
+    ? config.currentReportingYear
+    : parseInt(config.currentReportingYear) - 1;
   const navigate = useNavigate();
   const { userRole } = useUser();
 
