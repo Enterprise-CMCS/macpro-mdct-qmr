@@ -8,6 +8,8 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 
 # Table of Contents
 
+- [MDCT QMR (Quality Measure Reporting)](#mdct-qmr-quality-measure-reporting)
+- [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
   - [Local Development Setup](#local-development-setup)
     - [Prettier](#prettier)
@@ -539,9 +541,13 @@ to make in order to get that year working.
 
    ![After](./.images/afterImportUpdate.png?raw=true)
 
-5. Copy over the `/globalValidations`, `/CommonQuestions`, and `/Qualifiers` directories to the latest year
+5. Go to the `/services/ui-src/src/utils/testUtils`, create a new directory for the latest year (e.g. 2024), and copy over the `validationHelpers.ts` and `validationHelpers.test.ts` files
 
-6. Similar to Step 4, update import names from the previous year to the most recent year
+   **NOTE:** Remember to update the imports in these files to reflect the latest year.
+
+6. Copy over the `/globalValidations`, `/CommonQuestions`, and `/Qualifiers` directories to the latest year
+
+7. Similar to Step 4, update import names from the previous year to the most recent year
 
    Before
 
@@ -551,9 +557,9 @@ to make in order to get that year working.
 
    ![After](./.images/afterCommonComponentUpdate.png?raw=true)
 
-7. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
+8. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
 
-8. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
+9. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
 
 ## Things to Look Out For (Gotchas)
 
