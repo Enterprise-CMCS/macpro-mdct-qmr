@@ -2,10 +2,9 @@ name: Scan and Open Jira Tickets (Snyk)
 
 on:
   pull_request:
-    branches: [skipci-fix-snyc-jira-sync]
+    branches: [ skipci-fix-snyc-jira-sync ]
   schedule:
-    # - cron: "0 6 * * *" # daily at 0600 UTC
-    - cron: "35 15 * * *" # daily at 0600 UTC
+    - cron: "45 15 * * *" # daily at 0600 UTC
 
 permissions:
   id-token: write
