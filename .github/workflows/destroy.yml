@@ -24,11 +24,11 @@ jobs:
       (
         github.event.ref_type == 'branch' &&
         (!startsWith(github.event.ref, 'skipci')) &&
-        (!contains(fromJson('["master", "val", "production"]'), github.event.ref))
+        (!contains(fromJson('["master", "val", "prod"]'), github.event.ref))
       ) ||
       (
         inputs.environment != '' &&
-        (!contains(fromJson('["master", "val", "production"]'), inputs.environment))
+        (!contains(fromJson('["master", "val", "prod"]'), inputs.environment))
       )
     runs-on: ubuntu-latest
     steps:
