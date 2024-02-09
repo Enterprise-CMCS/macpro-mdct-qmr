@@ -27,7 +27,7 @@ jobs:
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: set branch_name # Some integrations (Dependabot & Snyk) build very long branch names. This is a switch to make long branch names shorter.
         run: |
           BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
@@ -99,7 +99,7 @@ jobs:
         run: |
           echo "No endpoint set, Check if the deploy workflow was successful."
           exit 1
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: set branch_name
         run: |
           BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
@@ -315,7 +315,7 @@ jobs:
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Configure AWS credentials for GitHub Actions
         uses: aws-actions/configure-aws-credentials@v4
         with:
