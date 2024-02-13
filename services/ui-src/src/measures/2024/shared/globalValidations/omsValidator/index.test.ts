@@ -126,4 +126,31 @@ describe("Testing OMS validation processor", () => {
     });
     expect(errors.length).toBe(74);
   });
+
+  it("should have errors from empty rate description in OPM", () => {
+    const errors = omsValidations({
+      categories,
+      qualifiers,
+      locationDictionary,
+      dataSource: [],
+      data: {
+        MeasurementSpecification: "Other",
+        "OtherPerformanceMeasure-Rates": [
+          {
+            rate: [
+              {
+                denominator: "",
+                numerator: "",
+                rate: "",
+              },
+            ],
+            description: "",
+          },
+        ],
+      } as DefaultFormData,
+      validationCallbacks: [],
+    });
+
+    expect(errors.length).toBe(1);
+  });
 });
