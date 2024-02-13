@@ -458,6 +458,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Health Home for High-Cost, High-Needs Enrollees ",
     },
     { id: "23-0062", state: "NY", name: "New York I/DD Health Home Services" },
+    { id: "22-0024", state: "NC", name: "Tailored Care Management" },
     { id: "14-0012", state: "OK", name: "Oklahoma Health Home (Adults)" },
     { id: "14-0011", state: "OK", name: "Oklahoma Health Home (Children)" },
     {
