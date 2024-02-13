@@ -349,5 +349,14 @@ const validateNDRs = (
       }
     }
   }
+
+  //check to see if the rate has been described for other performance measure
+  if (isOPM && qualifiers.find((qual) => !qual.label)) {
+    errorArray.push({
+      errorLocation: `Other Performance Measure Error`,
+      errorMessage: "Rate name required",
+    });
+  }
+
   return errorArray;
 };
