@@ -37,6 +37,7 @@ const WCCHValidation = (data: FormData) => {
   errorArray = [
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateHybridMeasurePopulation(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

@@ -4,6 +4,7 @@ export * as Types from "./types";
 
 export * from "./validateAtLeastOneDataSource";
 export * from "./validateAtLeastOneDefinitionOfPopulation";
+export * from "./validateHybridMeasurePopulation";
 export * from "./validateAtLeastOneDataSourceType";
 export * from "./validateAtLeastOneDeliverySystem";
 export * from "./validateAtLeastOneDeviationFieldFilled";
