@@ -50,6 +50,7 @@ const CCSADValidation = (data: FormData) => {
     ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateHybridMeasurePopulation(data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,

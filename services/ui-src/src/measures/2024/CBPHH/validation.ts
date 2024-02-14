@@ -42,6 +42,7 @@ const CBPValidation = (data: FormData) => {
     ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateHybridMeasurePopulation(data),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
