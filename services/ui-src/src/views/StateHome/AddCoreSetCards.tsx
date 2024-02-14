@@ -65,6 +65,7 @@ export const AddCoreSetCards = ({
   healthHomesCoreSetExists,
   renderHealthHomeCoreSet = true,
 }: Props) => {
+  const { year } = useParams();
   return (
     <>
       <AddCoreSetCard
@@ -81,11 +82,13 @@ export const AddCoreSetCards = ({
           coreSetExists={healthHomesCoreSetExists}
         />
       )}
-      <CUI.Center w="44" textAlign="center">
-        <CUI.Text fontStyle="italic" fontSize="sm">
-          Only one group of Adult Core Set Measures can be submitted per FFY
-        </CUI.Text>
-      </CUI.Center>
+      {year && parseInt(year) >= 2024 && (
+        <CUI.Center w="44" textAlign="center">
+          <CUI.Text fontStyle="italic" fontSize="sm">
+            Only one group of Adult Core Set Measures can be submitted per FFY
+          </CUI.Text>
+        </CUI.Center>
+      )}
     </>
   );
 };
