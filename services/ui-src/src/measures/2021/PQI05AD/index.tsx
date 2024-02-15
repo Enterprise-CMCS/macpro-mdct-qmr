@@ -6,7 +6,8 @@ import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
-import { FormData } from "./types";
+//form type
+import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
 
 export const PQI05AD = ({
   name,
