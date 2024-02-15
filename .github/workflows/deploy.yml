@@ -8,7 +8,7 @@ on:
       - "!skipci*"
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref_name }}
 
 permissions:
   id-token: write
@@ -19,7 +19,7 @@ jobs:
   unit-tests:
     name: Unit Tests
     uses: ./.github/workflows/unittest-workflow.yml
-    if: github.ref == 'refs/heads/master'
+    if: github.ref_name == 'master'
     secrets:
       CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
   deploy:
@@ -27,17 +27,11 @@ jobs:
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
+      - uses: actions/checkout@v4
       - name: set branch_name # Some integrations (Dependabot & Snyk) build very long branch names. This is a switch to make long branch names shorter.
         run: |
-          echo "GITHUB_REF=${GITHUB_REF}"        
-          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then
-            echo "branch_name=`echo ${GITHUB_REF##*/*-} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
-          elif [[ "$GITHUB_REF" =~ ^refs/.*/snyk-* ]]; then
-            echo "branch_name=`echo ${GITHUB_REF##*/*-} | head -c 10 | sed 's/^/s/'`" >> $GITHUB_ENV
-          else
-            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-          fi
-      - uses: actions/checkout@v3
+          BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
       - name: 'Setup jq'
         uses: dcarbone/install-jq-action@v2.1.0
         with:
@@ -95,7 +89,7 @@ jobs:
   # run e2e tests after deploy completes
   e2e-tests-init:
     name: Initialize End To End Tests
-    if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/prod' }}
+    if: ${{ github.ref_name != 'master' && github.ref_name != 'val' && github.ref_name != 'prod' }}
     needs:
       - deploy
     runs-on: ubuntu-latest
@@ -105,17 +99,11 @@ jobs:
         run: |
           echo "No endpoint set, Check if the deploy workflow was successful."
           exit 1
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: set branch_name
         run: |
-          echo "GITHUB_REF=${GITHUB_REF}"        
-          if [[ "$GITHUB_REF" =~ ^refs/heads/dependabot/.* ]]; then
-            echo "branch_name=`echo ${GITHUB_REF##*/*-} | md5sum | head -c 10 | sed 's/^/x/'`" >> $GITHUB_ENV
-          elif [[ "$GITHUB_REF" =~ ^refs/.*/snyk-* ]]; then
-            echo "branch_name=`echo ${GITHUB_REF##*/*-} | head -c 10 | sed 's/^/s/'`" >> $GITHUB_ENV
-          else
-            echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-          fi
+          BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
       - name: set branch specific variable names
         id: set_names
         run: ./.github/build_vars.sh set_names
@@ -327,7 +315,7 @@ jobs:
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Configure AWS credentials for GitHub Actions
         uses: aws-actions/configure-aws-credentials@v4
         with:

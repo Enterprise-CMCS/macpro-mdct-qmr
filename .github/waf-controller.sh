@@ -58,7 +58,7 @@ for ((i=1; i <= $CIRCUIT_BREAKER; i++)); do
     [[ $CMD_CD -eq $AWS_RETRY_ERROR ]] || break
 
     SLEEP_FOR=$(jitter ${j})
-    echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute read again...$({j})"
+    echo "CLI retries exceed.  Waiting for ${SLEEP_FOR} seconds to execute read again...(${j})"
     sleep ${SLEEP_FOR}
   done
 

@@ -45,9 +45,9 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
-
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+    ...GV.validateHybridMeasurePopulation(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason
