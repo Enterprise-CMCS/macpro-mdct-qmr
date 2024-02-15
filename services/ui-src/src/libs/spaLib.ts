@@ -399,7 +399,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Chronic Care Management for Individuals with Serious and Persistent Mental Health Conditions",
     },
     { id: "18-0007", state: "DC", name: "Chronic Conditions" },
-    { id: "22-0003", state: "IA", name: "Iowa Health Home Services" },
+    { id: "22-0004", state: "IA", name: "Iowa Health Home Services" },
     {
       id: "20-0011",
       state: "IA",
@@ -416,11 +416,11 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Health Home Chronic Conditions - Asthma",
     },
     {
-      id: "13-012",
+      id: "22-0033-CT",
       state: "ME",
       name: "Maine Stage A Health Home Targeting Individuals with Chronic Conditions",
     },
-    { id: "18-0002", state: "ME", name: "Maine Behavioral Health Home" },
+    { id: "23-0014-BHH", state: "ME", name: "Maine Behavioral Health Home" },
     {
       id: "22-0018",
       state: "ME",
@@ -433,8 +433,8 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Chronic Care Model for Individuals with Serious and Persistent Mental Health Conditions",
     },
     { id: "15-2000", state: "MI", name: "Michigan Care Team" },
-    { id: "22-1501", state: "MI", name: "Opioid Health Home" },
-    { id: "19-0015", state: "MN", name: "Minnesota Behavioral Health Homes" },
+    { id: "23-1500", state: "MI", name: "Opioid Health Home" },
+    { id: "22-0036", state: "MN", name: "Minnesota Behavioral Health Homes" },
     {
       id: "19-0020",
       state: "MO",
@@ -453,11 +453,12 @@ export const SPA: { [year: string]: SPAi[] } = {
     },
     { id: "18-0002", state: "NM", name: "CareLink New Mexico" },
     {
-      id: "21-0072",
+      id: "22-0088",
       state: "NY",
       name: "Health Home for High-Cost, High-Needs Enrollees ",
     },
-    { id: "22-0073", state: "NY", name: "New York I/DD Health Home Services" },
+    { id: "23-0062", state: "NY", name: "New York I/DD Health Home Services" },
+    { id: "22-0024", state: "NC", name: "Tailored Care Management" },
     { id: "14-0012", state: "OK", name: "Oklahoma Health Home (Adults)" },
     { id: "14-0011", state: "OK", name: "Oklahoma Health Home (Children)" },
     {
@@ -475,7 +476,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       state: "RI",
       name: "Rhode Island Opioid Treatment Program Health Home Services",
     },
-    { id: "20-0008", state: "SD", name: "South Dakota Health Home" },
+    { id: "22-0009", state: "SD", name: "South Dakota Health Home" },
     {
       id: "16-004",
       state: "TN",
@@ -486,7 +487,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       state: "VT",
       name: "Vermont Health Home for Beneficiaries Receiving Medication Assisted Treatment for Opioid Addiction ",
     },
-    { id: "20-0031", state: "WA", name: "Washington Health Home Services" },
+    { id: "23-0027", state: "WA", name: "Washington Health Home Services" },
     {
       id: "16-0007",
       state: "WV",
@@ -498,6 +499,6 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "West Virginia Health Home for Individuals with Chronic Conditions",
     },
     { id: "12-008", state: "WI", name: "Individuals with HIV/AIDS" },
-    { id: "21-0012", state: "WI", name: "Substance Use Disorder Health Home" },
+    { id: "22-0013", state: "WI", name: "Substance Use Disorder Health Home" },
   ],
 };
