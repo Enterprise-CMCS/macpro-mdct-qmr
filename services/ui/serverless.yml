@@ -57,6 +57,7 @@ custom:
                 - IPSetReferenceStatement:
                     ARN: !GetAtt GitHubIPSet.Arn
                 - IPSetReferenceStatement:
+                    ARN: ${self:custom.vpnIpv6SetArn}
       - enable: ${param:restrictToVpn}
         rule:
           Name: block-all-other-traffic
