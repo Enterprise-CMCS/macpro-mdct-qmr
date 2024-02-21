@@ -1,12 +1,13 @@
 import * as CMQ from "measures/2022/shared/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { FormData } from "./types";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 import { xNumbersYDecimals } from "utils";
+//form type
+import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
 export const AIFHH = ({
   name,
