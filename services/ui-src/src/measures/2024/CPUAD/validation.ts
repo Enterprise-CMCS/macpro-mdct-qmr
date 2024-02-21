@@ -1,7 +1,8 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2024/shared/globalValidations";
 import * as PMD from "./data";
-import { FormData } from "./types";
+//form type
+import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
 const CPUADValidation = (data: FormData) => {
   const carePlans = PMD.qualifiers;

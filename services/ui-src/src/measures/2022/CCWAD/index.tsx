@@ -4,8 +4,9 @@ import * as CMQ from "measures/2022/shared/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
-import { FormData } from "./types";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
+//form type
+import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
 export const CCWAD = ({
   name,
