@@ -2,10 +2,12 @@ import * as CMQ from "measures/2021/CommonQuestions";
 import * as QMR from "components";
 import * as PMD from "./data";
 import { useFormContext, useWatch } from "react-hook-form";
-import { FormData, Measure } from "./types";
+import { Measure } from "./types";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
+//form type
+import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
 
 export const AMRAD = ({
   name,
@@ -67,6 +69,7 @@ export const AMRAD = ({
 
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
+    console.log("otherRates", otherRates);
     otherRates.forEach((rate) => {
       if (rate.description) {
         ageGroups.push({ label: rate.description, id: ageGroups.length });

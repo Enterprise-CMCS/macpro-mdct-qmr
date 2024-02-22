@@ -1,7 +1,8 @@
 import * as Types from "measures/2024/shared/CommonQuestions/types";
+import * as Type from "shared/types/Type";
 
 export interface FormData
-  extends Types.AdditionalNotes,
+  extends Type.AdditionalNotes,
     Types.MeasurementSpecification,
     Types.DidCollect {
   //HowDidYouReport

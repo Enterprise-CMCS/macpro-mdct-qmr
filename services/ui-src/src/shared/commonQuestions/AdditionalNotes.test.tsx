@@ -1,19 +1,28 @@
 import fireEvent from "@testing-library/user-event";
-import { AdditionalNotes } from ".";
-import { Reporting } from "../Reporting";
-import { screen } from "@testing-library/react";
+import { AdditionalNotes } from "./AdditionalNotes";
+import { Reporting } from "measures/2024/shared/CommonQuestions/Reporting";
+import { act, screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
+//bypass autosave call when simulating type inputs
+jest.mock("utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn().mockImplementation(() => {
+    return "2024";
+  }),
+}));
+
 describe("Test AdditionalNotes component", () => {
-  beforeEach(() => {
-    renderWithHookForm([
-      <Reporting
-        measureName="My Test Measure"
-        reportingYear="2024"
-        measureAbbreviation="MTM"
-      />,
-      <AdditionalNotes />,
-    ]);
+  beforeEach(async () => {
+    await act(async () => {
+      renderWithHookForm([
+        <Reporting
+          measureName="My Test Measure"
+          reportingYear="2023"
+          measureAbbreviation="MTM"
+        />,
+        <AdditionalNotes />,
+      ]);
+    });
   });
 
   it("component renders", () => {

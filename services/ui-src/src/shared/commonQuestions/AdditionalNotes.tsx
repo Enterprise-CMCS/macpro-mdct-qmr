@@ -2,42 +2,42 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Upload } from "components/Upload";
-import * as Types from "../types";
+import * as Types from "shared/types/Type";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AnyObject } from "types";
+import { getMeasureYear } from "utils/getMeasureYear";
 
 export const AdditionalNotes = () => {
   const register = useCustomRegister<Types.AdditionalNotes>();
   const { getValues, resetField } = useFormContext();
   const didReport = getValues()["DidReport"];
+  const [labels, setLabel] = useState<AnyObject>();
 
   useEffect(() => {
     resetField("AdditionalNotes-AdditionalNotes");
   }, [didReport, resetField]);
 
+  //FUTURE DELETE: scaffolding code, will be changed in as we move along with the refactoring
+  const year = getMeasureYear();
+  import(`labels/${year}/commonQuestionsLabel`).then((result) => {
+    setLabel(result.commonQuestionsLabel);
+  });
+  //////////////////////////
+
   return (
     <QMR.CoreQuestionWrapper
       testid="additional-notes"
-      label="Additional Notes/Comments on the measure (optional)"
+      label={labels?.AdditonalNotes?.header}
     >
       <QMR.TextArea
-        label={
-          <>
-            Please add any additional notes or comments on the measure not
-            otherwise captured above (
-            <em>
-              text in this field is included in publicly-reported state-specific
-              comments
-            </em>
-            ):
-          </>
-        }
+        label={labels?.AdditonalNotes?.section}
         {...register(DC.ADDITIONAL_NOTES)}
       />
       <CUI.Box marginTop={10}>
         <Upload
-          label="If you need additional space to include comments or supplemental information, please attach further documentation below."
+          label={labels?.AdditonalNotes?.upload}
           {...register(DC.ADDITIONAL_NOTES_UPLOAD)}
         />
       </CUI.Box>

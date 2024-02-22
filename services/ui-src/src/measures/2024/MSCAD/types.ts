@@ -1,11 +1,12 @@
 import * as Types from "measures/2024/shared/CommonQuestions/types";
+import * as Type from "shared/types/Type";
 
 export interface FormData
   extends Types.DefinitionOfPopulation,
     Types.StatusOfData,
     Types.DateRange,
     Types.DidReport,
-    Types.AdditionalNotes,
+    Type.AdditionalNotes,
     Types.WhyAreYouNotReporting,
     Types.CombinedRates,
     Types.OtherPerformanceMeasure,

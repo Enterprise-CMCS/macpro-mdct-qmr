@@ -2,8 +2,9 @@ import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { cleanString } from "utils/cleanString";
-import { DefaultFormData } from "measures/2021/CommonQuestions/types";
 import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
+//form type
+import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
 
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,
@@ -44,7 +45,7 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   return errorArray;
 };
 
-const AMMADValidation = (data: DefaultFormData) => {
+const AMMADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
