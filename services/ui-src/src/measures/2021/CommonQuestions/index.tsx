@@ -3,7 +3,6 @@ export * from "./DateRange";
 export * from "./DefinitionsOfPopulation";
 export * from "./DataSource";
 export * from "./DataSourceCahps";
-// export * from "./AdditionalNotes";
 export * from "shared/commonQuestions/AdditionalNotes";
 export * from "./OtherPerformanceMeasure";
 export * from "./Reporting";
