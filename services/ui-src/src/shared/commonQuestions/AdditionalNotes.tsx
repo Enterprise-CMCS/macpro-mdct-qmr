@@ -7,8 +7,8 @@ import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { AnyObject } from "types";
-import { getMeasureYear } from "utils/getMeasureYear";
 import { parseLabelToHTML } from "utils/parser";
+import { useGetMeasure } from "hooks/api";
 
 export const AdditionalNotes = () => {
   const register = useCustomRegister<Types.AdditionalNotes>();
@@ -20,8 +20,12 @@ export const AdditionalNotes = () => {
     resetField("AdditionalNotes-AdditionalNotes");
   }, [didReport, resetField]);
 
-  //FUTURE DELETE: scaffolding code, will be changed as we progress with the refactoring
-  const year = getMeasureYear();
+  //FUTURE DELETE: scaffolding code, will be removed as we progress with the refactoring. This chunk is just for getting the year
+  const { data: apiData } = useGetMeasure({
+    coreSet: "ACS",
+    measure: "AAB-AD",
+  });
+  const year = apiData.Item.year;
   import(`labels/${year}/commonQuestionsLabel`).then((result) => {
     setLabel(result.commonQuestionsLabel);
   });

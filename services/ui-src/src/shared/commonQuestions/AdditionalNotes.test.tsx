@@ -3,16 +3,42 @@ import { AdditionalNotes } from "./AdditionalNotes";
 import { Reporting } from "measures/2024/shared/CommonQuestions/Reporting";
 import { act, screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import { useApiMock } from "utils/testUtils/useApiMock";
+import { measureDescriptions } from "measures/measureDescriptions";
 
-//mock return year to 2024
-jest.mock("utils/getMeasureYear", () => ({
-  getMeasureYear: jest.fn().mockImplementation(() => {
-    return "2024";
-  }),
-}));
+const measureAbbr = "AAB-AD";
+const coreSet = "ACS";
+const state = "AL";
+const year = 2023;
+const description = measureDescriptions[`${year}`][measureAbbr];
+
+const apiData = {
+  useGetMeasureValues: {
+    data: {
+      Item: {
+        compoundKey: `${state}${year}${coreSet}${measureAbbr}`,
+        coreSet,
+        createdAt: 1642517935305,
+        description,
+        lastAltered: 1642517935305,
+        lastAlteredBy: "undefined",
+        measure: measureAbbr,
+        state,
+        status: "incomplete",
+        year,
+        data: {},
+      },
+    },
+    isLoading: false,
+    refetch: jest.fn(),
+    isError: false,
+    error: undefined,
+  },
+};
 
 describe("Test AdditionalNotes component", () => {
   beforeEach(async () => {
+    useApiMock(apiData);
     await act(async () => {
       renderWithHookForm([
         <Reporting
