@@ -5,7 +5,8 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
-import { FormData } from "./types";
+//form type
+import { DefaultFormData as FormData } from "measures/2023/shared/CommonQuestions/types";
 
 export const CCSAD = ({
   name,

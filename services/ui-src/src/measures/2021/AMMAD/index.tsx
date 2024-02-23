@@ -5,7 +5,7 @@ import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import * as QMR from "components";
-import { FormData } from "./types";
+import { DefaultFormData } from "measures/2021/CommonQuestions/types";
 
 export const AMMAD = ({
   name,
@@ -17,7 +17,7 @@ export const AMMAD = ({
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
 }: QMR.MeasureWrapperProps) => {
-  const { watch } = useFormContext<FormData>();
+  const { watch } = useFormContext<DefaultFormData>();
   const data = watch();
 
   useEffect(() => {

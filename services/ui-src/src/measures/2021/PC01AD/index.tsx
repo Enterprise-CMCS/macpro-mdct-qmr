@@ -4,9 +4,10 @@ import { useFormContext } from "react-hook-form";
 import * as CMQ from "measures/2021/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { FormData } from "./types";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+//form type
+import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
 
 export const PC01AD = ({
   name,
