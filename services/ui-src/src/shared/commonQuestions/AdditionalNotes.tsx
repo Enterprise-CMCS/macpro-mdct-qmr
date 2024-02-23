@@ -8,6 +8,7 @@ import { useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { AnyObject } from "types";
 import { getMeasureYear } from "utils/getMeasureYear";
+import { parseLabelToHTML } from "utils/parser";
 
 export const AdditionalNotes = () => {
   const register = useCustomRegister<Types.AdditionalNotes>();
@@ -19,7 +20,7 @@ export const AdditionalNotes = () => {
     resetField("AdditionalNotes-AdditionalNotes");
   }, [didReport, resetField]);
 
-  //FUTURE DELETE: scaffolding code, will be changed in as we move along with the refactoring
+  //FUTURE DELETE: scaffolding code, will be changed as we progress with the refactoring
   const year = getMeasureYear();
   import(`labels/${year}/commonQuestionsLabel`).then((result) => {
     setLabel(result.commonQuestionsLabel);
@@ -32,7 +33,7 @@ export const AdditionalNotes = () => {
       label={labels?.AdditonalNotes?.header}
     >
       <QMR.TextArea
-        label={labels?.AdditonalNotes?.section}
+        label={parseLabelToHTML(labels?.AdditonalNotes?.section)}
         {...register(DC.ADDITIONAL_NOTES)}
       />
       <CUI.Box marginTop={10}>

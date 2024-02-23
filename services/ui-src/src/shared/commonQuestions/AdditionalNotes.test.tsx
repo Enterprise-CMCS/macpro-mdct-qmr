@@ -4,7 +4,7 @@ import { Reporting } from "measures/2024/shared/CommonQuestions/Reporting";
 import { act, screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
-//bypass autosave call when simulating type inputs
+//mock return year to 2024
 jest.mock("utils/getMeasureYear", () => ({
   getMeasureYear: jest.fn().mockImplementation(() => {
     return "2024";
@@ -17,7 +17,7 @@ describe("Test AdditionalNotes component", () => {
       renderWithHookForm([
         <Reporting
           measureName="My Test Measure"
-          reportingYear="2023"
+          reportingYear="2024"
           measureAbbreviation="MTM"
         />,
         <AdditionalNotes />,
