@@ -4,11 +4,26 @@ import { URL } from "url";
 import { SignatureV4 } from "@smithy/signature-v4";
 import { Sha256 } from "@aws-crypto/sha256-js";
 import { fetch } from "cross-fetch"; // TODO remove this polyfill once QMR is on Node 18+
+import createDOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
+
+const windowEmulator: any = new JSDOM("").window;
+const DOMPurify = createDOMPurify(windowEmulator);
 
 export const getPDF = handler(async (event, _context) => {
-  const body = event.body; // will be base64-encoded HTML, like "PGh0bWw..."
-  if (!body) {
+  const rawBody = event.body; // will be base64-encoded HTML, like "PGh0bWw..."
+  if (!rawBody) {
     throw new Error("Missing request body");
+  }
+  let encodedSanitizedBody;
+  if (DOMPurify.isSupported && typeof rawBody === "string") {
+    const decodedBody = Buffer.from(rawBody, "base64").toString();
+    const sanitizedBody = DOMPurify.sanitize(decodedBody);
+    encodedSanitizedBody = Buffer.from(sanitizedBody).toString("base64");
+  }
+
+  if (!encodedSanitizedBody) {
+    throw new Error("Could not process request");
   }
 
   const {
@@ -39,7 +54,7 @@ export const getPDF = handler(async (event, _context) => {
     headers: {
       host: hostname, // Prince requires this to be signed
     },
-    body,
+    encodedSanitizedBody,
   };
 
   const signer = new SignatureV4({
