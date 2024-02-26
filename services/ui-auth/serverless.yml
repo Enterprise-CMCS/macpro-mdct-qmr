@@ -36,7 +36,6 @@ custom:
       - master
       - val
       - prod
-  sesSourceEmailAddress: ${ssm:/configuration/${self:custom.stage}/sesSourceEmailAddress, ssm:/configuration/default/sesSourceEmailAddress, ""}
   attachments_bucket_arn: ${cf:uploads-${self:custom.stage}.AttachmentsBucketArn}
   api_gateway_rest_api_name: ${cf:app-api-${self:custom.stage}.ApiGatewayRestApiName}
   okta_metadata_url: ${ssm:/configuration/${self:custom.stage}/okta_metadata_url, ""}
@@ -61,11 +60,6 @@ functions:
 
 resources:
   Conditions:
-    CreateEmailConfiguration:
-      Fn::Not:
-        - Fn::Equals:
-            - ""
-            - ${self:custom.sesSourceEmailAddress}
     BackWithOkta:
       Fn::Not:
         - Fn::Equals:
@@ -80,12 +74,6 @@ resources:
           - email
         AutoVerifiedAttributes:
           - email
-        EmailConfiguration:
-          Fn::If:
-            - CreateEmailConfiguration
-            - EmailSendingAccount: DEVELOPER
-              SourceArn: !Sub arn:aws:ses:us-east-1:${AWS::AccountId}:identity/${self:custom.sesSourceEmailAddress}
-            - !Ref AWS::NoValue
         Schema:
           - Name: given_name
             AttributeDataType: String
