@@ -69,7 +69,6 @@ export const AMRAD = ({
 
   if (showOtherPerformanceMeasureRates) {
     let otherRates = getValues("OtherPerformanceMeasure-Rates");
-    console.log("otherRates", otherRates);
     otherRates.forEach((rate) => {
       if (rate.description) {
         ageGroups.push({ label: rate.description, id: ageGroups.length });

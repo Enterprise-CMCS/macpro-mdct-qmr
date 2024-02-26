@@ -24,6 +24,8 @@ import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { CompleteCoreSets } from "./complete";
+import SharedContext from "shared/SharedContext";
+import * as Labels from "labels/Labels";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -141,6 +143,10 @@ export const MeasureWrapper = ({
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
+
+  //WIP: this code will be replaced with a dynamic import onces we refactored enough files
+  const shared =
+    Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"];
 
   // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
   const coreSet = (params.coreSetId?.split("_")?.[0] ??
@@ -451,16 +457,17 @@ export const MeasureWrapper = ({
                       to MACQualityTA@cms.hhs.gov.
                     </CUI.Text>
                   )}
-                  <Measure
-                    measure={measure}
-                    name={name}
-                    detailedDescription={detailedDescription}
-                    year={year}
-                    measureId={measureId}
-                    setValidationFunctions={setValidationFunctions}
-                    handleSave={handleSave}
-                  />
-
+                  <SharedContext.Provider value={shared}>
+                    <Measure
+                      measure={measure}
+                      name={name}
+                      detailedDescription={detailedDescription}
+                      year={year}
+                      measureId={measureId}
+                      setValidationFunctions={setValidationFunctions}
+                      handleSave={handleSave}
+                    />
+                  </SharedContext.Provider>
                   {/* Core set qualifiers use a slightly different submission button layout */}
                   {!!(!autocompleteOnCreation && !defaultData) && (
                     <QMR.CompleteMeasureFooter

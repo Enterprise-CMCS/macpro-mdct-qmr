@@ -5,31 +5,21 @@ import { Upload } from "components/Upload";
 import * as Types from "shared/types/Type";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { AnyObject } from "types";
+import { useContext, useEffect } from "react";
 import { parseLabelToHTML } from "utils/parser";
-import { useGetMeasure } from "hooks/api";
+import SharedContext from "shared/SharedContext";
 
 export const AdditionalNotes = () => {
   const register = useCustomRegister<Types.AdditionalNotes>();
   const { getValues, resetField } = useFormContext();
   const didReport = getValues()["DidReport"];
-  const [labels, setLabel] = useState<AnyObject>();
 
   useEffect(() => {
     resetField("AdditionalNotes-AdditionalNotes");
   }, [didReport, resetField]);
 
-  //FUTURE DELETE: scaffolding code, will be removed as we progress with the refactoring. This chunk is just for getting the year
-  const { data: apiData } = useGetMeasure({
-    coreSet: "ACS",
-    measure: "AAB-AD",
-  });
-  const year = apiData.Item.year;
-  import(`labels/${year}/commonQuestionsLabel`).then((result) => {
-    setLabel(result.commonQuestionsLabel);
-  });
-  //////////////////////////
+  //WIP: using form context to get the labels for this component temporarily
+  const labels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper

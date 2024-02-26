@@ -1,54 +1,24 @@
 import fireEvent from "@testing-library/user-event";
 import { AdditionalNotes } from "./AdditionalNotes";
 import { Reporting } from "measures/2024/shared/CommonQuestions/Reporting";
-import { act, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { useApiMock } from "utils/testUtils/useApiMock";
-import { measureDescriptions } from "measures/measureDescriptions";
-
-const measureAbbr = "AAB-AD";
-const coreSet = "ACS";
-const state = "AL";
-const year = 2023;
-const description = measureDescriptions[`${year}`][measureAbbr];
-
-const apiData = {
-  useGetMeasureValues: {
-    data: {
-      Item: {
-        compoundKey: `${state}${year}${coreSet}${measureAbbr}`,
-        coreSet,
-        createdAt: 1642517935305,
-        description,
-        lastAltered: 1642517935305,
-        lastAlteredBy: "undefined",
-        measure: measureAbbr,
-        state,
-        status: "incomplete",
-        year,
-        data: {},
-      },
-    },
-    isLoading: false,
-    refetch: jest.fn(),
-    isError: false,
-    error: undefined,
-  },
-};
+import SharedContext from "shared/SharedContext";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
 describe("Test AdditionalNotes component", () => {
-  beforeEach(async () => {
-    useApiMock(apiData);
-    await act(async () => {
-      renderWithHookForm([
+  beforeEach(() => {
+    renderWithHookForm(
+      <SharedContext.Provider value={commonQuestionsLabel}>
         <Reporting
           measureName="My Test Measure"
           reportingYear="2024"
           measureAbbreviation="MTM"
-        />,
-        <AdditionalNotes />,
-      ]);
-    });
+        />
+        ,
+        <AdditionalNotes />
+      </SharedContext.Provider>
+    );
   });
 
   it("component renders", () => {
