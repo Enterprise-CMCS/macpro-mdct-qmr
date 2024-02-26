@@ -17,6 +17,7 @@ export const getPDF = handler(async (event, _context) => {
   }
   let encodedSanitizedBody;
   if (DOMPurify.isSupported && typeof rawBody === "string") {
+    // decode body from base64, sanitize dangerous html, encode back to base64
     const decodedBody = Buffer.from(rawBody, "base64").toString();
     const sanitizedBody = DOMPurify.sanitize(decodedBody);
     encodedSanitizedBody = Buffer.from(sanitizedBody).toString("base64");
