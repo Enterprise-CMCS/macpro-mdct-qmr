@@ -5,7 +5,8 @@ import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 import * as QMR from "components";
-import { FormData } from "./types";
+//form type
+import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
 export const W30CH = ({
   name,
