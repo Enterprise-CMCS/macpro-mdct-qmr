@@ -17,7 +17,12 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
-import { AutoCompletedMeasures, CoreSetAbbr, MeasureStatus } from "types";
+import {
+  AnyObject,
+  AutoCompletedMeasures,
+  CoreSetAbbr,
+  MeasureStatus,
+} from "types";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
@@ -145,7 +150,7 @@ export const MeasureWrapper = ({
   );
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
-  const shared =
+  const shared: AnyObject =
     Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"];
 
   // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table

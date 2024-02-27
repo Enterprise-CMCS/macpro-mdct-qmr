@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { Upload } from "components/Upload";
-import * as Types from "shared/types/Type";
+import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
 import { useContext, useEffect } from "react";

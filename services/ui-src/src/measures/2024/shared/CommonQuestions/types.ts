@@ -3,7 +3,7 @@ import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 import * as DC from "dataConstants";
-import * as Types from "shared/types/Type";
+import * as Types from "shared/types";
 
 type YesNo = typeof DC.YES | typeof DC.NO;
 

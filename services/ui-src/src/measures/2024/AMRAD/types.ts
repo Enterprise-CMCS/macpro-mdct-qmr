@@ -1,5 +1,5 @@
 import * as Types from "measures/2024/shared/CommonQuestions/types";
-import * as Type from "shared/types/Type";
+import * as Type from "shared/types";
 
 export namespace Measure {
   export interface Props {
