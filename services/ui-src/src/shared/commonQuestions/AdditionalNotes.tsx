@@ -18,7 +18,7 @@ export const AdditionalNotes = () => {
     resetField("AdditionalNotes-AdditionalNotes");
   }, [didReport, resetField]);
 
-  //WIP: using form context to get the labels for this component temporarily
+  //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
   return (
