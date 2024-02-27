@@ -55,7 +55,7 @@ export const getPDF = handler(async (event, _context) => {
     headers: {
       host: hostname, // Prince requires this to be signed
     },
-    encodedSanitizedBody,
+    body: encodedSanitizedBody,
   };
 
   const signer = new SignatureV4({
