@@ -80,7 +80,7 @@ describe("Test GetPDF handler", () => {
     process.env = {
       princeUrl: "https://princefakeurl.com/print",
       AWS_ACCESS_KEY_ID: "FAKEKEY",
-      AWS_SECRET_ACCESS_KEY: "FAKESECRET",
+      AWS_SECRET_ACCESS_KEY: "FAKESECRET", // pragma: allowlist secret
       AWS_SESSION_TOKEN: "FAKETOKEN",
     };
   });
