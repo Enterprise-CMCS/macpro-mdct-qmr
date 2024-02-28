@@ -68,6 +68,12 @@ Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy^="HHCS"]').length > 0) {
       cy.get('[data-cy^="HHCS"]').first().click();
+    } else {
+      // adds first available HH core set if no healthhome was made
+      cy.get('[data-cy="add-hhbutton"]').click(); // clicking on adding child core set measures
+      cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select(1); // select first available SPA
+      cy.get('[data-cy="Create"]').click(); //clicking create
+      cy.get('[data-cy^="HHCS"]').first().click();
     }
   });
 });
@@ -272,6 +278,15 @@ const _detailedDescription =
 Cypress.Commands.add(
   "addStateSpecificMeasure",
   (description = _description, detailedDescription = _detailedDescription) => {
+    //possible fix, cypress sometimes says the add button is disabled, and that usually happens when 5 ss has been added.
+    cy.get('[data-cy="add-ssm-button"]').then(($btn) => {
+      //if button turns out to be disable, try deleting a SS before proceeding
+      if ($btn.is(":disabled")) {
+        cy.get('tr [data-cy="undefined-kebab-menu"]').last().click();
+        cy.get('[data-cy="Delete"]').last().click();
+        cy.get('[data-cy="delete-table-item-input"]').type("DELETE{enter}");
+      }
+    });
     cy.get('[data-cy="add-ssm-button"]').click();
     cy.get('[data-cy="add-ssm.0.description"]').type(description);
     cy.get('[data-cy="add-ssm.0.detailedDescription"]').type(
