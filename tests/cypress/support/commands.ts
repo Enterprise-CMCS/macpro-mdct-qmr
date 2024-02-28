@@ -278,6 +278,15 @@ const _detailedDescription =
 Cypress.Commands.add(
   "addStateSpecificMeasure",
   (description = _description, detailedDescription = _detailedDescription) => {
+    //possible fix, cypress sometimes says the add button is disabled, and that usually happens when 5 ss has been added.
+    cy.get('[data-cy="add-ssm-button"]').then(($btn) => {
+      //if button turns out to be disable, try deleting a SS before proceeding
+      if ($btn.is(":disabled")) {
+        cy.get('tr [data-cy="undefined-kebab-menu"]').last().click();
+        cy.get('[data-cy="Delete"]').last().click();
+        cy.get('[data-cy="delete-table-item-input"]').type("DELETE{enter}");
+      }
+    });
     cy.get('[data-cy="add-ssm-button"]').click();
     cy.get('[data-cy="add-ssm.0.description"]').type(description);
     cy.get('[data-cy="add-ssm.0.detailedDescription"]').type(
