@@ -68,6 +68,12 @@ Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy^="HHCS"]').length > 0) {
       cy.get('[data-cy^="HHCS"]').first().click();
+    } else {
+      // adds first available HH core set if no healthhome was made
+      cy.get('[data-cy="add-hhbutton"]').click(); // clicking on adding child core set measures
+      cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select(1); // select first available SPA
+      cy.get('[data-cy="Create"]').click(); //clicking create
+      cy.get('[data-cy^="HHCS"]').first().click();
     }
   });
 });
