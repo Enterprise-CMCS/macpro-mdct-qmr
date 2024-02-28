@@ -1,19 +1,24 @@
 import fireEvent from "@testing-library/user-event";
-import { AdditionalNotes } from ".";
-import { Reporting } from "../Reporting";
+import { AdditionalNotes } from "./AdditionalNotes";
+import { Reporting } from "measures/2024/shared/CommonQuestions/Reporting";
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import SharedContext from "shared/SharedContext";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
 describe("Test AdditionalNotes component", () => {
   beforeEach(() => {
-    renderWithHookForm([
-      <Reporting
-        measureName="My Test Measure"
-        reportingYear="2024"
-        measureAbbreviation="MTM"
-      />,
-      <AdditionalNotes />,
-    ]);
+    renderWithHookForm(
+      <SharedContext.Provider value={commonQuestionsLabel}>
+        <Reporting
+          measureName="My Test Measure"
+          reportingYear="2024"
+          measureAbbreviation="MTM"
+        />
+        ,
+        <AdditionalNotes />
+      </SharedContext.Provider>
+    );
   });
 
   it("component renders", () => {
