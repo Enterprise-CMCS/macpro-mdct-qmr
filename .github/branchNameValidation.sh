@@ -15,7 +15,7 @@ join_by() { local IFS='|'; echo "$*"; }
 #creates glob match to check for reserved words used in branch names which would trigger failures
 glob=$(join_by $(for i in ${reserved_words[@]}; do echo "^$i-|-$i$|-$i-|^$i$"; done;))
 
-if [[ ! $local_branch =~ $valid_branch ]] || [[ $local_branch =~ $glob ]] || [[ ${#local_branch} -gt 48 ]]; then
+if [[ ! $local_branch =~ $valid_branch ]] || [[ $local_branch =~ $glob ]] || [[ ${#local_branch} -gt 64 ]]; then
     echo """
      ------------------------------------------------------------------------------------------------------------------------------
      ERROR:  Please read below
