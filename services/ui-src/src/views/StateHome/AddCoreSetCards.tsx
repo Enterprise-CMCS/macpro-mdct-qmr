@@ -82,7 +82,7 @@ export const AddCoreSetCards = ({
           coreSetExists={healthHomesCoreSetExists}
         />
       )}
-      {year && parseInt(year) >= 2024 && (
+      {year && parseInt(year) < 2024 && (
         <CUI.Center w="44" textAlign="center">
           <CUI.Text fontStyle="italic" fontSize="sm">
             Only one group of Adult Core Set Measures can be submitted per FFY
