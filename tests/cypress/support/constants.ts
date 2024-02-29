@@ -1,4 +1,4 @@
-export const testingYear = "2023";
+export const testingYear = "2024";
 
 export const measureAbbrList2023 = {
   ADULT: [
