@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../types";
 import { CoreSet, CoreSetAbbr, Measure, MeasureStatus } from "../types";
 
 export const testEvent: APIGatewayProxyEvent = {
@@ -14,50 +14,7 @@ export const testEvent: APIGatewayProxyEvent = {
   stageVariables: null,
   queryStringParameters: {},
   requestContext: {
-    accountId: "",
-    apiId: "",
-    authorizer: () => {},
-    httpMethod: "",
-    path: "",
-    protocol: "",
-    requestId: "",
-    requestTimeEpoch: 0,
-    resourceId: "",
-    resourcePath: "",
-    stage: "",
-    connectedAt: 0,
-    connectionId: "",
-    domainName: "",
-    domainPrefix: "",
-    eventType: "",
-    extendedRequestId: "",
-    messageDirection: "",
-    messageId: "",
-    requestTime: "",
-    routeKey: "",
-    identity: {
-      accessKey: "",
-      accountId: "",
-      apiKey: "",
-      apiKeyId: "",
-      caller: "",
-      cognitoAuthenticationProvider: "",
-      cognitoAuthenticationType: "",
-      cognitoIdentityId: "",
-      cognitoIdentityPoolId: "",
-      principalOrgId: "",
-      sourceIp: "",
-      user: "",
-      userAgent: "",
-      userArn: "",
-      clientCert: {
-        clientCertPem: "",
-        issuerDN: "",
-        serialNumber: "",
-        subjectDN: "",
-        validity: { notAfter: "", notBefore: "" },
-      },
-    },
+    /* not here */
   },
 };
 

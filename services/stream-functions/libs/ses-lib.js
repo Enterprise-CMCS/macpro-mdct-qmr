@@ -1,5 +1,5 @@
-const AWS = require("aws-sdk");
-var ses = new AWS.SES({ region: "us-east-1" });
+import { SESClient } from "@aws-sdk/client-ses";
+const sesClient = new SESClient({ region: "us-east-1" });
 
 export function getSESEmailParams(email) {
   let emailParams = {
@@ -24,12 +24,11 @@ export function getSESEmailParams(email) {
   return emailParams;
 }
 
-export function sendEmail(params) {
-  ses.sendEmail(params, function (err, data) {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(data);
-    }
-  });
+export async function sendEmail(params) {
+  try {
+    const result = await sesClient.send(new SendEmailCommand(params));
+    console.log(result);
+  } catch (err) {
+    console.log(err);
+  }
 }

@@ -6,10 +6,7 @@ import { editCoreSet } from "../update";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
-  __esModule: true,
-  default: {
-    update: jest.fn(),
-  },
+  update: jest.fn(),
 }));
 
 const mockHasStatePermissions = jest.fn();
@@ -17,12 +14,6 @@ jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../../libs/debug-lib", () => ({
-  __esModule: true,
-  init: jest.fn(),
-  flush: jest.fn(),
 }));
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({

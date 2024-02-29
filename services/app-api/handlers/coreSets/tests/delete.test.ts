@@ -4,23 +4,14 @@ import { testEvent, testMeasure } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
-  __esModule: true,
-  default: {
-    delete: jest.fn(),
-    scan: jest.fn(),
-  },
+  delete: jest.fn(),
+  scanAll: jest.fn(),
 }));
 
 const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../../libs/debug-lib", () => ({
-  __esModule: true,
-  init: jest.fn(),
-  flush: jest.fn(),
 }));
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
@@ -40,7 +31,7 @@ jest.mock("../../dynamoUtils/createCompoundKey", () => ({
 
 describe("Testing Delete Core Set Functions", () => {
   beforeEach(() => {
-    (db.scan as jest.Mock).mockReset();
+    (db.scanAll as jest.Mock).mockReset();
     (db.delete as jest.Mock).mockReset();
     mockHasStatePermissions.mockImplementation(() => true);
   });
@@ -59,9 +50,11 @@ describe("Testing Delete Core Set Functions", () => {
   });
 
   test("Test deleteCoreSet with associated measures", async () => {
-    (db.scan as jest.Mock).mockReturnValue({
-      Items: [testMeasure, testMeasure, testMeasure],
-    });
+    (db.scanAll as jest.Mock).mockReturnValue([
+      testMeasure,
+      testMeasure,
+      testMeasure,
+    ]);
 
     await deleteCoreSet(
       {
@@ -71,12 +64,12 @@ describe("Testing Delete Core Set Functions", () => {
       null
     );
 
-    expect(db.scan).toHaveBeenCalled();
+    expect(db.scanAll).toHaveBeenCalled();
     expect(db.delete).toHaveBeenCalledTimes(4);
   });
 
   test("Test deleteCoreSet with no associated measures", async () => {
-    (db.scan as jest.Mock).mockReturnValue({});
+    (db.scanAll as jest.Mock).mockReturnValue([]);
 
     await deleteCoreSet(
       {
@@ -86,7 +79,7 @@ describe("Testing Delete Core Set Functions", () => {
       null
     );
 
-    expect(db.scan).toHaveBeenCalled();
+    expect(db.scanAll).toHaveBeenCalled();
     expect(db.delete).toHaveBeenCalled();
   });
 });

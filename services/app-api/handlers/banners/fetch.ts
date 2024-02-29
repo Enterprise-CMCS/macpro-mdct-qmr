@@ -1,6 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { Banner } from "../../types";
 
 export const fetchBanner = handler(async (event, _context) => {
   if (!event?.pathParameters?.bannerId!) {
@@ -12,8 +13,8 @@ export const fetchBanner = handler(async (event, _context) => {
       key: event?.pathParameters?.bannerId!,
     },
   };
-  const response = await dynamoDb.get(params);
+  const response = await dynamoDb.get<Banner>(params);
 
   const status = StatusCodes.SUCCESS;
-  return { status: status, body: response };
+  return { status: status, body: { Item: response } };
 });
