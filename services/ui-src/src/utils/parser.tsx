@@ -19,7 +19,10 @@ const convertToReactElement = (element: Element) => {
   ) {
     return reactElement(element);
   } else {
-    let reactElements: any = [];
+    let reactElements: React.DOMElement<
+      React.DOMAttributes<Element>,
+      Element
+    >[] = [];
     element.childNodes.forEach((node: ChildNode) => {
       reactElements.push(convertToReactElement(node as Element));
     });
