@@ -2,13 +2,16 @@ import { DataDrivenTypes } from "measures/2024/shared/CommonQuestions/types";
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
 
-export const { categories, qualifiers } = getCatQualLabels("PPC-CH");
+export const { categories, qualifiers } = getCatQualLabels("PPC2-CH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year that received a prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
+    "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year. For these beneficiaries, the measure assesses the following facets of prenatal and postpartum care:",
   ],
-  questionListItems: [],
+  questionListItems: [
+    "Timeliness of Prenatal Care: Percentage of deliveries that received a prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
+    "Postpartum Care: Percentage of deliveries that had a postpartum visit on or between 7 and 84 days after delivery.",
+  ],
   categories,
   qualifiers,
 };
