@@ -1,4 +1,4 @@
-import { SESClient } from "@aws-sdk/client-ses";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 const sesClient = new SESClient({ region: "us-east-1" });
 
 export function getSESEmailParams(email) {
