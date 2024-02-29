@@ -5,7 +5,8 @@ import * as CMQ from "measures/2024/shared/CommonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2024/shared/globalValidations";
-import { FormData } from "./types";
+//form type
+import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
 export const CBPAD = ({
   name,

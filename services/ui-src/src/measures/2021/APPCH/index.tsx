@@ -1,11 +1,12 @@
 import * as CMQ from "measures/2021/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { FormData } from "./types";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
+//form type
+import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
 
 export const APPCH = ({
   name,
