@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 interface Props {
   measureTitle: string;
   performanceMeasureText: string;
-  performanceMeasureSubtext?: string;
+  performanceMeasureSubtext?: string | string[];
   year: string;
 }
 
@@ -17,6 +17,10 @@ export const AutocompletedMeasureTemplate = ({
   year,
 }: Props) => {
   const { state, coreSetId } = useParams();
+  const subText: string[] | undefined =
+    typeof performanceMeasureSubtext === "string"
+      ? [performanceMeasureSubtext]
+      : performanceMeasureSubtext;
 
   return (
     <>
@@ -41,9 +45,10 @@ export const AutocompletedMeasureTemplate = ({
             <CUI.Text>{performanceMeasureText}</CUI.Text>
           </CUI.Box>
 
-          {performanceMeasureSubtext && (
-            <CUI.Text>{performanceMeasureSubtext}</CUI.Text>
-          )}
+          {subText &&
+            subText.map(() => {
+              return <CUI.Text>{subText}</CUI.Text>;
+            })}
           <CUI.Text fontWeight="700">
             {`States are not asked to report data for this measure for FFY ${year} Core Set
             reporting.`}
