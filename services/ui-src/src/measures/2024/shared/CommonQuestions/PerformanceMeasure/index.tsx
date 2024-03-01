@@ -231,20 +231,20 @@ export const PerformanceMeasure = ({
         })}
       </CUI.Stack>
       {data.questionSubtext && (
-        <CUI.Stack my="5" spacing={5}>
+        <CUI.OrderedList my="5" spacing={5}>
           {data.questionSubtext.map((item, idx) => {
             return (
-              <CUI.Text key={`performanceMeasureListItem.${idx}`}>
+              <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
                 {data.questionSubtextTitles?.[idx] && (
                   <CUI.Text display="inline" fontWeight="600">
                     {data.questionSubtextTitles?.[idx]}
                   </CUI.Text>
                 )}
                 <CUI.Text>{item}</CUI.Text>
-              </CUI.Text>
+              </CUI.ListItem>
             );
           })}
-        </CUI.Stack>
+        </CUI.OrderedList>
       )}
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
