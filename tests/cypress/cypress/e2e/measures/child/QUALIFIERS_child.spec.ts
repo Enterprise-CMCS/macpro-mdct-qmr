@@ -16,7 +16,7 @@ describe("Child Measure Qualifier: CH", () => {
     cy.get("body").should("include.text", "Delivery System");
     cy.get("body").should(
       "include.text",
-      "As of September 30, 2022 what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?"
+      "As of September 30, 2023 what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?"
     );
     cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.label"]').should(
       "have.value",

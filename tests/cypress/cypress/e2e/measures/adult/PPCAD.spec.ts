@@ -31,6 +31,8 @@ describe("Measure: PPC-AD", () => {
 
     cy.enterValidDateRange();
 
+    cy.get('[data-cy="HybridMeasurePopulationIncluded"]').type("0");
+
     cy.get('[data-cy="PerformanceMeasure.rates.SyrrI1.0.numerator"]').type("0");
     cy.get('[data-cy="PerformanceMeasure.rates.SyrrI1.0.denominator"]').type(
       "5"
