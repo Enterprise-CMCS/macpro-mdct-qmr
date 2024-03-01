@@ -46,26 +46,3 @@ custom:
   tableStreamArn: ${cf:database-${self:custom.stage}.CoreSetTableStreamArn}
   sesSourceEmailAddress: ${ssm:/configuration/${self:custom.stage}/sesSourceEmailAddress, ssm:/configuration/default/sesSourceEmailAddress, "admin@example.com"}
   reviewerEmailAddress: ${ssm:/configuration/${self:custom.stage}/reviewerEmailAddress, ssm:/configuration/default/reviewerEmailAddress, "reviewteam@example.com"}
-
-functions:
-  emailSubmitter:
-    handler: handlers/emailSubmitter.handler
-    events:
-      - stream:
-          arn: ${self:custom.tableStreamArn}
-          startingPosition: LATEST
-          maximumRetryAttempts: 2
-    environment:
-      emailSource: ${self:custom.sesSourceEmailAddress}
-    maximumRetryAttempts: 2
-  emailReviewer:
-    handler: handlers/emailReviewer.handler
-    events:
-      - stream:
-          arn: ${self:custom.tableStreamArn}
-          startingPosition: LATEST
-          maximumRetryAttempts: 2
-    environment:
-      emailSource: ${self:custom.sesSourceEmailAddress}
-      reviewerEmail: ${self:custom.reviewerEmailAddress}
-    maximumRetryAttempts: 2
