@@ -1,8 +1,9 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2024/shared/globalValidations";
 import * as PMD from "./data";
-import { FormData } from "./types";
 import { OMSData } from "measures/2024/shared/CommonQuestions/OptionalMeasureStrat/data";
+//form type
+import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
 const DEVCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -51,8 +52,9 @@ const DEVCHValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+    ...GV.validateHybridMeasurePopulation(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(

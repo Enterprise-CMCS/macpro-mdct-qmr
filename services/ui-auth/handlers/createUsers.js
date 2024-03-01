@@ -12,6 +12,7 @@ async function myHandler(event, context, callback) {
       UserPoolId: userPoolId,
       Username: users[i].username,
       DesiredDeliveryMediums: ["EMAIL"],
+      MessageAction: "SUPPRESS",
       UserAttributes: users[i].attributes,
     };
     var passwordData = {

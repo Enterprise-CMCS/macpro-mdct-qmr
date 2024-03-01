@@ -15,7 +15,7 @@ jobs:
   assignAuthor:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Assign PR to Creator
         run: |
           if [ "$PR_AUTHOR_TYPE" != "Bot" ]

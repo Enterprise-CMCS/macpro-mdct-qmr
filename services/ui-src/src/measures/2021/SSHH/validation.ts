@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
-import { FormData } from "./types";
+//form type
+import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
 
 export interface FormRateField {
   denominator?: string;

@@ -1,7 +1,8 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2024/shared/globalValidations";
 import * as PMD from "./data";
-import { FormData } from "./types";
+//form type
+import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
 const CPUADValidation = (data: FormData) => {
   const carePlans = PMD.qualifiers;
@@ -45,9 +46,9 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
-
     ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+    ...GV.validateHybridMeasurePopulation(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       didCalculationsDeviate,
       deviationReason

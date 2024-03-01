@@ -32,7 +32,8 @@ custom:
   cloudfrontCertificateArn: ${ssm:/configuration/${self:custom.stage}/cloudfront/certificateArn, ssm:/configuration/default/cloudfront/certificateArn, ""}
   cloudfrontDomainName: ${ssm:/configuration/${self:custom.stage}/cloudfront/domainName, ""}
   vpnIpSetArn: ${ssm:/configuration/${self:custom.stage}/vpnIpSetArn, ssm:/configuration/default/vpnIpSetArn, ""}
-  #
+  vpnIpv6SetArn: ${ssm:/configuration/${self:custom.stage}/vpnIpv6SetArn, ssm:/configuration/default/vpnIpv6SetArn, ""}
+
   wafExcludeRules:
     wafScope: CLOUDFRONT
   wafPlugin:
@@ -49,21 +50,14 @@ custom:
             CloudWatchMetricsEnabled: true
             MetricName: ${self:service}-${self:custom.stage}-webacl-vpn-only
           Statement:
-            IPSetReferenceStatement:
-              ARN: ${self:custom.vpnIpSetArn}
-      - enable: ${param:restrictToVpn}
-        rule:
-          Name: github-only
-          Priority: 1
-          Action:
-            Allow: {}
-          VisibilityConfig:
-            SampledRequestsEnabled: true
-            CloudWatchMetricsEnabled: true
-            MetricName: ${self:service}-${self:custom.stage}-tmp-gh-runner
-          Statement:
-            IPSetReferenceStatement:
-              ARN: !GetAtt GitHubIPSet.Arn
+            OrStatement:
+              Statements:
+                - IPSetReferenceStatement:
+                    ARN: ${self:custom.vpnIpSetArn}
+                - IPSetReferenceStatement:
+                    ARN: !GetAtt GitHubIPSet.Arn
+                - IPSetReferenceStatement:
+                    ARN: ${self:custom.vpnIpv6SetArn}
       - enable: ${param:restrictToVpn}
         rule:
           Name: block-all-other-traffic
