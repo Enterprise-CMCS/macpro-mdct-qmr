@@ -231,20 +231,20 @@ export const PerformanceMeasure = ({
         })}
       </CUI.Stack>
       {data.questionSubtext && (
-        <CUI.OrderedList my="5" spacing={5}>
+        <CUI.Stack my="5" spacing={5}>
           {data.questionSubtext.map((item, idx) => {
             return (
-              <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+              <CUI.Text key={`performanceMeasureListItem.${idx}`}>
                 {data.questionSubtextTitles?.[idx] && (
                   <CUI.Text display="inline" fontWeight="600">
                     {data.questionSubtextTitles?.[idx]}
                   </CUI.Text>
                 )}
                 <CUI.Text>{item}</CUI.Text>
-              </CUI.ListItem>
+              </CUI.Text>
             );
           })}
-        </CUI.OrderedList>
+        </CUI.Stack>
       )}
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
@@ -261,6 +261,23 @@ export const PerformanceMeasure = ({
             );
           })}
         </CUI.UnorderedList>
+      )}
+      {data.questionListOrderedItems && (
+        <CUI.OrderedList m="5" ml="10" spacing={5}>
+          {data.questionListOrderedItems?.map((item, idx) => {
+            return (
+              <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+                {data.questionListTitles?.[idx] && (
+                  <CUI.Text display="inline" fontWeight="600">
+                    {data.questionListTitles?.[idx]}
+                    <br />
+                  </CUI.Text>
+                )}
+                {item}
+              </CUI.ListItem>
+            );
+          })}
+        </CUI.OrderedList>
       )}
       {showtextbox && (
         <QMR.TextArea
