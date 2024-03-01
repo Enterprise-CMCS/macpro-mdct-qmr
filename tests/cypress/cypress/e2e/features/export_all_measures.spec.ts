@@ -1,4 +1,4 @@
-import { measureAbbrList2023, testingYear } from "../../../support/constants";
+import { measureAbbrList2024, testingYear } from "../../../support/constants";
 
 describe("Export All Measures", () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe("Export All Measures", () => {
     cy.get('[data-cy="Export"]').first().click();
 
     // Check all measures + CSQ present
-    for (const measureAbbr of measureAbbrList2023.ADULT) {
+    for (const measureAbbr of measureAbbrList2024.ADULT) {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");
@@ -38,7 +38,7 @@ describe("Export All Measures", () => {
     });
 
     // Check all measures + CSQ present
-    for (const measureAbbr of measureAbbrList2023.CHILD) {
+    for (const measureAbbr of measureAbbrList2024.CHILD) {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");
@@ -60,7 +60,7 @@ describe("Export All Measures", () => {
     });
 
     // Check all measures + CSQ present
-    for (const measureAbbr of measureAbbrList2023.HEALTH_HOME) {
+    for (const measureAbbr of measureAbbrList2024.HEALTH_HOME) {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");
