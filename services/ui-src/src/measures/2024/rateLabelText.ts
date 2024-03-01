@@ -1329,7 +1329,7 @@ export const data = {
             },
             {
                 "label": "Total ages <1 to 20",
-                "text": "Total ages <1 to 20",
+                "text": "Total ages <1 to 20 (required rate)",
                 "id": "Total"
             }
         ],
