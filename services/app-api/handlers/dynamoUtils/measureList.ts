@@ -1231,6 +1231,7 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "CPC-CH",
+      autocompleteOnCreation: true,
     },
     {
       type: "C",
