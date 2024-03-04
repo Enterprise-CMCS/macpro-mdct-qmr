@@ -19,7 +19,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "PPC-CH";
+const measureAbbr = "PPC2-CH";
 const coreSet = "CCSC";
 const state = "AL";
 const year = 2024;
