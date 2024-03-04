@@ -59,6 +59,12 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click();
+    } else {
+      //add child core set if not child core was made
+      cy.get('[data-cy="add-childbutton"]').click(); // clicking on adding child core set measures
+      cy.get("#ChildCoreSet-ReportType-separate").click(); //selecting combined core set
+      cy.get('[data-cy="Create"]').click(); //clicking create
+      cy.get('[data-cy="add-childbutton"]').should("be.disabled"); // check button diabled if created
     }
   });
 });
