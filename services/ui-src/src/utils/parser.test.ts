@@ -26,4 +26,12 @@ describe("Test parseLabelToHTML", () => {
       "Unrecognized node type in label:\n" + label
     );
   });
+
+  it("Test that attributes are copied", () => {
+    const label = `<a href="https://example.com/">test</a>`;
+    const parsedLabel = parseLabelToHTML(label);
+    const { container } = render(parsedLabel);
+    const link = container.querySelector("a")!;
+    expect(link.href).toBe("https://example.com/");
+  });
 });
