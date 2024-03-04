@@ -188,8 +188,8 @@ const PCRHH = lazy(() =>
 const PPCAD = lazy(() =>
   import("./PPCAD").then((module) => ({ default: module.PPCAD }))
 );
-const PPCCH = lazy(() =>
-  import("./PPCCH").then((module) => ({ default: module.PPCCH }))
+const PPC2CH = lazy(() =>
+  import("./PPC2CH").then((module) => ({ default: module.PPC2CH }))
 );
 const PQI01AD = lazy(() =>
   import("./PQI01AD").then((module) => ({ default: module.PQI01AD }))
@@ -293,7 +293,7 @@ const twentyTwentyFourMeasures = {
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
   "PPC-AD": PPCAD,
-  "PPC-CH": PPCCH,
+  "PPC2-CH": PPC2CH,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,

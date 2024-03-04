@@ -377,7 +377,7 @@ export const measureDescriptions: MeasureList = {
     "LRCD-CH": "Low-Risk Cesarean Delivery",
     "LSC-CH": "Lead Screening in Children",
     "OEV-CH": "Oral Evaluation, Dental Services",
-    "PPC-CH": "Prenatal and Postpartum Care: Timeliness of Prenatal Care",
+    "PPC2-CH": "Prenatal and Postpartum Care: Under Age 21",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",
     "TFL-CH": "Prevention: Topical Fluoride for Children",
     "W30-CH": "Well-Child Visits in the First 30 Months of Life",

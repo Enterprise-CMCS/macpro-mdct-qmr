@@ -1329,7 +1329,7 @@ export const data = {
             },
             {
                 "label": "Total ages <1 to 20",
-                "text": "Total ages <1 to 20",
+                "text": "Total ages <1 to 20 (required rate)",
                 "id": "Total"
             }
         ],
@@ -1528,13 +1528,18 @@ export const data = {
         ],
         "categories": [{"id":"SyrrI1", "label": "", "text":""}]
     },
-    "PPC-CH": {
+    "PPC2-CH": {
         "qualifiers": [
             {
-                "label": "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
-                "text": "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
+                "label": "Timeliness of Prenatal Care: Under Age 21",
+                "text": "Timeliness of Prenatal Care: Under Age 21",
                 "id": "kCBB0a"
-            }
+            },
+            {
+                "label": "Postpartum Care: Under Age 21",
+                "text": "Postpartum Care: Under Age 21",
+                "id": "PcLgEs"
+            },
         ],
         "categories": [{"id":"fcjCsg", "label": "", "text":""}]
     },
