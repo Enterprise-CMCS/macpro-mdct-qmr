@@ -156,13 +156,13 @@ describe("Measure: oy2-9921 ADD-CH", () => {
       "have.text",
       "Percentage of children newly prescribed attention-deficit/hyperactivity disorder (ADHD) medication who had at least three follow-up care visits within a 10-month period, one of which was within 30 days of when the first ADHD medication was dispensed. Two rates are reported."
     );
-    cy.get(".css-1af6wus > :nth-child(1) > .css-0").should(
+    cy.get(".css-1crglu1 > .css-0:nth-child(1)").should(
       "have.text",
-      "Percentage of children ages 6 to 12 with a prescription dispensed for ADHD medication, who had one follow-up visit with a practitioner with prescribing authority during the 30-day Initiation Phase."
+      "Initiation PhasePercentage of children ages 6 to 12 with a prescription dispensed for ADHD medication, who had one follow-up visit with a practitioner with prescribing authority during the 30-day Initiation Phase."
     );
-    cy.get(".css-1af6wus > :nth-child(2) > .css-0").should(
+    cy.get(".css-1crglu1 > .css-0:nth-child(2)").should(
       "have.text",
-      "Percentage of children ages 6 to 12 with a prescription dispensed for ADHD medication who remained on the medication for at least 210 days and who, in addition to the visit in the Initiation Phase, had at least two follow-up visits with a practitioner within 270 days (9 months) after the Initiation Phase ended."
+      "Continuation and Maintenance (C&M) PhasePercentage of children ages 6 to 12 with a prescription dispensed for ADHD medication who remained on the medication for at least 210 days and who, in addition to the visit in the Initiation Phase, had at least two follow-up visits with a practitioner within 270 days (9 months) after the Initiation Phase ended."
     );
     cy.get(
       '[data-cy="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"]'

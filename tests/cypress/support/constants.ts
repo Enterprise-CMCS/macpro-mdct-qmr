@@ -58,7 +58,7 @@ export const measureAbbrList2024 = {
     "LRCD-CH", // complete on creation
     "LSC-CH",
     "OEV-CH",
-    "PPC-CH",
+    "PPC2-CH",
     "SFM-CH",
     "TFL-CH",
     "W30-CH",
