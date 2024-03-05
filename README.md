@@ -414,12 +414,6 @@ To run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-adm
 
 From here you can view the tables and perform operations on the local tables.
 
-### Stream Functions
-
----
-
-The stream functions fire deltas when updates to its table happens. These changes are picked up in the API where these changes are communicated to the kafka streams for the application.
-
 ## UI
 
 The UI Service creates the URL's associated with the application and the cloudfront logs that monitor traffic.
