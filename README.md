@@ -42,7 +42,6 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
   - [Database](#database)
     - [Tables](#tables)
     - [How to set up Dynamo endpoint to view local Db](#how-to-set-up-dynamo-endpoint-to-view-local-db)
-    - [Stream Functions](#stream-functions)
   - [UI](#ui)
     - [Dev/Impl/Prod endpoints](#devimplprod-endpoints)
     - [Branch Endpoints](#branch-endpoints)
