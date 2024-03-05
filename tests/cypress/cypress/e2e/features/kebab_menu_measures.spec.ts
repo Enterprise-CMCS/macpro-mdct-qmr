@@ -24,7 +24,7 @@ describe("Measure kebab menus", () => {
     cy.get('button[aria-label="View for AMM-AD"]').click();
     cy.get('[data-cy="state-layout-container"').should(
       "include.text",
-      "FFY 2023AMM-AD - Antidepressant Medication Management"
+      "FFY 2024AMM-AD - Antidepressant Medication Management"
     );
   });
 });

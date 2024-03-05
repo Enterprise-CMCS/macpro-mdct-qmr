@@ -27,4 +27,5 @@ const createChildCoreSetByYear = (year) => {
 };
 
 createChildCoreSetByYear(testingYear);
+createChildCoreSetByYear("2023");
 createChildCoreSetByYear("2021");

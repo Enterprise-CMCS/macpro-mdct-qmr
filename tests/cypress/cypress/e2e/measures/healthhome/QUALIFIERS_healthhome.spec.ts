@@ -71,9 +71,9 @@ describe("Health Home Measure Qualifier: HH", () => {
 
     //testing section 2 with fields inside it
     cy.get("body").should("include.text", "Cost Savings Data");
-    cy.get('[data-cy="Amount of cost savings for FFY 2022"]').should(
+    cy.get('[data-cy="Amount of cost savings for FFY 2023"]').should(
       "include.text",
-      "Amount of cost savings for FFY 2022"
+      "Amount of cost savings for FFY 2023"
     );
     cy.get('[data-cy="yearlyCostSavings"]').clear();
     cy.get('[data-cy="yearlyCostSavings"]').type("1234567890");
@@ -95,7 +95,7 @@ describe("Health Home Measure Qualifier: HH", () => {
     cy.get("body").should("include.text", "Delivery System");
     cy.get("body").should(
       "include.text",
-      "As of September 30, 2022 what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system?"
+      "As of September 30, 2023 what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system?"
     );
     cy.get("body").should("include.text", "Ages 0 to 17");
     cy.get("body").should("include.text", "Ages 18 to 64");
