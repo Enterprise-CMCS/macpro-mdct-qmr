@@ -1,30 +1,41 @@
-import React from "react";
+import React, { JSXElementConstructor, ReactElement } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-//convert labels with html tags to JSX elements to be rendered
+/**
+ * Convert labels with HTML tags to JSX elements to be rendered.
+ *
+ * Doesn't work with `<br>` tags.
+ */
 export const parseLabelToHTML = (label: string) => {
-  const parseLabel = new DOMParser().parseFromString(label, "text/html").body;
+  const attributesOf = (element: Element) => {
+    return Object.fromEntries(
+      [...element.attributes].map((attr) => [attr.name, attr.value])
+    );
+  };
 
-  let renderArr: (
-    | string
-    | React.DOMElement<React.DOMAttributes<Element>, Element>
-    | null
-  )[] = [];
-  parseLabel.childNodes.forEach((node: ChildNode) => {
-    //if the node has a nodeValue, it is probably a string and we can just push the value to the array
-    if (node.nodeValue) {
-      renderArr.push((node as Element).nodeValue);
+  const convertNodetoReactElement = (node: Node): StringOrElement => {
+    if (node instanceof Text) {
+      // Text nodes always have textContent.
+      return node.textContent!;
+    } else if (node instanceof Element) {
+      const tagName = node.tagName.toLowerCase();
+      const props = {
+        // The random key prevents browser warnings.
+        key: uuidv4(),
+        ...attributesOf(node),
+      };
+      const children = [...node.childNodes].map(convertNodetoReactElement);
+      return React.createElement(tagName, props, children);
     } else {
-      //if this is no nodeValue, its a tag so retrieve the tag name
-      const tag = (node as Element).tagName.toLowerCase();
-      //create a react element with a random key to prevent browser warning
-      const reactElement = React.createElement(
-        tag,
-        { key: uuidv4() },
-        node.textContent
-      );
-      renderArr.push(reactElement);
+      throw new Error(`Unrecognized node type in label:\n${label}`);
     }
-  });
-  return <>{renderArr}</>;
+  };
+
+  const body = new DOMParser().parseFromString(label, "text/html").body;
+  const elements = [...body.childNodes].map(convertNodetoReactElement);
+  return <>{elements}</>;
 };
+
+type StringOrElement =
+  | string
+  | ReactElement<Record<string, any>, string | JSXElementConstructor<any>>;
