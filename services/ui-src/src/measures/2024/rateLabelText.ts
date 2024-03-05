@@ -1768,8 +1768,8 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Body mass index (BMI) percentile documentation",
-                "text": "Body mass index (BMI) percentile documentation",
+                "label": "Body mass index (BMI) Percentile documentation",
+                "text": "Body mass index (BMI) Percentile documentation",
                 "id": "4TXd3h"
             },
             {
