@@ -262,6 +262,23 @@ export const PerformanceMeasure = ({
           })}
         </CUI.UnorderedList>
       )}
+      {data.questionListOrderedItems && (
+        <CUI.OrderedList m="5" ml="10" spacing={5}>
+          {data.questionListOrderedItems?.map((item, idx) => {
+            return (
+              <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+                {data.questionListTitles?.[idx] && (
+                  <CUI.Text display="inline" fontWeight="600">
+                    {data.questionListTitles?.[idx]}
+                    <br />
+                  </CUI.Text>
+                )}
+                {item}
+              </CUI.ListItem>
+            );
+          })}
+        </CUI.OrderedList>
+      )}
       {showtextbox && (
         <QMR.TextArea
           label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"

@@ -16,7 +16,7 @@ describe("Child Measure Qualifier: CH", () => {
     cy.get("body").should("include.text", "Delivery System");
     cy.get("body").should(
       "include.text",
-      "As of September 30, 2022 what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?"
+      "As of September 30, 2023 what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?"
     );
     cy.get('[data-cy="PercentageEnrolledInEachDeliverySystem.0.label"]').should(
       "have.value",
@@ -122,7 +122,7 @@ describe("Child Measure Qualifier: CH", () => {
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-OEV-CH - Oral Evaluation, Dental Services"]'
     ).should("be.visible");
     cy.get(
-      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-PPC-CH - Prenatal and Postpartum Care: Timeliness of Prenatal Care"]'
+      '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-PPC2-CH - Prenatal and Postpartum Care: Under Age 21"]'
     ).should("be.visible");
     cy.get(
       '[data-cy="CoreSetMeasuresAuditedOrValidatedDetails.0.MeasuresAuditedOrValidated-SFM-CH - Sealant Receipt on Permanent First Molars"]'

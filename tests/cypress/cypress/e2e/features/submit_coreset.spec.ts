@@ -1,4 +1,4 @@
-import { measureAbbrList2023, testingYear } from "../../../support/constants";
+import { measureAbbrList2024, testingYear } from "../../../support/constants";
 
 describe.skip("Submit Core Set button", () => {
   beforeEach(() => {
@@ -44,7 +44,7 @@ describe.skip("Submit Core Set button", () => {
   it("should require qualifiers to submit the core set", () => {
     // complete all measures
     cy.goToAdultMeasures();
-    for (const abbr of measureAbbrList2023.ADULT) {
+    for (const abbr of measureAbbrList2024.ADULT) {
       completeMeasure(abbr);
     }
     cy.get('[data-cy="Submit Core Set"]').should("be.disabled");
@@ -92,7 +92,7 @@ describe.skip("Submit Core Set button", () => {
     );
 
     // Edit a measure
-    cy.goToMeasure(measureAbbrList2023.ADULT[0]);
+    cy.goToMeasure(measureAbbrList2024.ADULT[0]);
     cy.get('[data-cy="Save"]').click();
     cy.wait(1000);
 
@@ -292,7 +292,7 @@ const completeMeasure = (measureName: string) => {
 
 const qualifierTestSetup = (abbrList: string, statusString: string) => {
   // complete all measures
-  for (const abbr of measureAbbrList2023[abbrList]) {
+  for (const abbr of measureAbbrList2024[abbrList]) {
     completeMeasure(abbr);
   }
 
@@ -312,13 +312,13 @@ const qualifierTestSetup = (abbrList: string, statusString: string) => {
   let numComplete = 0;
   switch (abbrList) {
     case "ADULT":
-      numComplete = measureAbbrList2023[abbrList].length + 1;
+      numComplete = measureAbbrList2024[abbrList].length + 1;
       break;
     case "CHILD":
-      numComplete = measureAbbrList2023[abbrList].length + 3;
+      numComplete = measureAbbrList2024[abbrList].length + 3;
       break;
     default:
-      numComplete = measureAbbrList2023[abbrList].length;
+      numComplete = measureAbbrList2024[abbrList].length;
   }
   cy.get(`[data-cy="Status-${statusString}"]`).should(
     "contain.text",

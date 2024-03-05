@@ -1273,7 +1273,7 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      measure: "PPC-CH",
+      measure: "PPC2-CH",
     },
     {
       type: "C",
