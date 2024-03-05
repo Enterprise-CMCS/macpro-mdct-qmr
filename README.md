@@ -42,7 +42,6 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
   - [Database](#database)
     - [Tables](#tables)
     - [How to set up Dynamo endpoint to view local Db](#how-to-set-up-dynamo-endpoint-to-view-local-db)
-    - [Stream Functions](#stream-functions)
   - [UI](#ui)
     - [Dev/Impl/Prod endpoints](#devimplprod-endpoints)
     - [Branch Endpoints](#branch-endpoints)
@@ -414,12 +413,6 @@ If you want to a visual view of your dynamodb after the application is up and ru
 To run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window
 
 From here you can view the tables and perform operations on the local tables.
-
-### Stream Functions
-
----
-
-The stream functions fire deltas when updates to its table happens. These changes are picked up in the API where these changes are communicated to the kafka streams for the application.
 
 ## UI
 
