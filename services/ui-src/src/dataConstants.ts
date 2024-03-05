@@ -13,6 +13,7 @@ export const AHRQ_NCQA = "AHRQ-NCQA";
 export const AMOUNT_OF_POP_NOT_COVERED = "AmountOfPopulationNotCovered";
 export const BUDGET_CONSTRAINTS = "BudgetConstraints";
 export const CASE_MANAGEMENT_RECORD_REVIEW = "Case management record review";
+export const CASE_MANAGEMENT_RECORD_REVIEW_DATA = "Casemanagementrecordreview";
 export const CATEGORIES = "categories";
 export const CDC = "CDC";
 export const CHANGE_IN_POP_EXPLANATION = "ChangeInPopulationExplanation";
@@ -113,6 +114,7 @@ export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
 export const HEDIS_MY_2021 = "HEDIS MY 2021";
 export const HEDIS_MY_2022 = "HEDIS MY 2022";
+export const HEDIS_MY_2023 = "HEDIS MY 2023";
 export const HRSA = "HRSA";
 export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
   "HybridAdministrativeandMedicalRecordsData";

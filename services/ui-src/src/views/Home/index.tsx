@@ -5,10 +5,13 @@ import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
 import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 export function Home() {
   const { userRole, userState } = useUser();
-  const releaseYearByFlag = parseInt(config.currentReportingYear);
+  const releaseYearByFlag = useFlags()?.["release2024"]
+    ? config.currentReportingYear
+    : parseInt(config.currentReportingYear) - 1;
 
   if (
     userRole === UserRoles.ADMIN ||

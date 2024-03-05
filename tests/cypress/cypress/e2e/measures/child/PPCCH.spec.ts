@@ -1,9 +1,7 @@
-import { testingYear } from "../../../../support/constants";
-
 describe("Measure: PPC-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear(testingYear);
+    cy.selectYear("2023");
     cy.goToChildCoreSetMeasures();
     cy.goToMeasure("PPC-CH");
   });

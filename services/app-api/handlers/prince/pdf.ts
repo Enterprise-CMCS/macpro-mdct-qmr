@@ -1,62 +1,143 @@
+import { fetch } from "cross-fetch"; // TODO delete this line and uninstall this package, once QMR is running on Nodejs 18+
+import createDOMPurify from "dompurify";
+import { JSDOM } from "jsdom";
 import handler from "../../libs/handler-lib";
 import { StatusCodes } from "../../utils/constants/constants";
-import { URL } from "url";
-import { SignatureV4 } from "@smithy/signature-v4";
-import { Sha256 } from "@aws-crypto/sha256-js";
-import { fetch } from "cross-fetch"; // TODO remove this polyfill once QMR is on Node 18+
+
+const windowEmulator: any = new JSDOM("").window;
+const DOMPurify = createDOMPurify(windowEmulator);
 
 export const getPDF = handler(async (event, _context) => {
-  const body = event.body; // will be base64-encoded HTML, like "PGh0bWw..."
-  if (!body) {
+  const rawBody = event.body; // will be base64-encoded HTML, like "PGh0bWw..."
+  if (!rawBody) {
     throw new Error("Missing request body");
   }
 
-  const {
-    // princeApiHost: hostname, // JUST the host name, no protocol, ex: "my-site.cms.gov"
-    // princeApiPath: path, // Needs leading slash, ex: "/doc-conv/508html-to-508pdf"
-    princeUrl,
-    AWS_ACCESS_KEY_ID: accessKeyId,
-    AWS_SECRET_ACCESS_KEY: secretAccessKey,
-    AWS_SESSION_TOKEN: sessionToken,
-  } = process.env;
+  let sanitizedBody;
+  if (DOMPurify.isSupported && typeof rawBody === "string") {
+    // decode body from base64, sanitize dangerous html
+    const decodedBody = Buffer.from(rawBody, "base64").toString();
+    sanitizedBody = DOMPurify.sanitize(decodedBody);
+  }
+  if (!sanitizedBody) {
+    throw new Error("Could not process request");
+  }
 
-  if (
-    princeUrl === undefined ||
-    accessKeyId === undefined ||
-    secretAccessKey === undefined ||
-    sessionToken === undefined
-  ) {
+  const { docraptorApiKey, stage } = process.env;
+  if (!docraptorApiKey) {
     throw new Error("No config found to make request to PDF API");
   }
 
-  const { hostname, pathname: path } = new URL(princeUrl);
-
-  const request = {
-    method: "POST",
-    protocol: "https",
-    hostname,
-    path,
-    headers: {
-      host: hostname, // Prince requires this to be signed
+  const requestBody = {
+    user_credentials: docraptorApiKey,
+    doc: {
+      document_content: sanitizedBody,
+      type: "pdf" as const,
+      // This tag differentiates QMR and CARTS requests in DocRaptor's logs.
+      tag: "QMR",
+      test: stage !== "prod",
+      prince_options: {
+        profile: "PDF/UA-1" as const,
+      },
     },
-    body,
   };
 
-  const signer = new SignatureV4({
-    service: "execute-api",
-    region: "us-east-1",
-    credentials: { accessKeyId, secretAccessKey, sessionToken },
-    sha256: Sha256,
-  });
-
-  const signedRequest = await signer.sign(request);
-
-  const response = await fetch(`https://${hostname}${path}`, signedRequest);
-
-  const base64EncodedPdfData = await response.json();
-
+  const arrayBuffer = await sendDocRaptorRequest(requestBody);
+  const base64PdfData = Buffer.from(arrayBuffer).toString("base64");
   return {
     status: StatusCodes.SUCCESS,
-    body: base64EncodedPdfData,
+    body: base64PdfData,
   };
 });
+
+async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
+  const response = await fetch("https://docraptor.com/docs", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(request),
+  });
+
+  await handlePdfStatusCode(response);
+
+  const pdfPageCount = response.headers.get("X-DocRaptor-Num-Pages");
+  console.debug(`Successfully generated a ${pdfPageCount}-page PDF.`);
+
+  return response.arrayBuffer();
+}
+
+/**
+ * If PDF generation was not successful, log the reason and throw an error.
+ *
+ * For more details see https://docraptor.com/documentation/api/status_codes
+ */
+async function handlePdfStatusCode(response: Response) {
+  if (response.status === 200) {
+    return;
+  }
+
+  const xmlErrorMessage = await response.text();
+  console.warn("DocRaptor Error Message:\n" + xmlErrorMessage);
+
+  switch (response.status) {
+    case 400: // Bad Request
+    case 422: // Unprocessable Entity
+      throw new Error("PDF generation failed - possibly an HTML issue");
+    case 401: // Unauthorized
+    case 403: // Forbidden
+      throw new Error(
+        "PDF generation failed - possibly a configuration or throttle issue"
+      );
+    default:
+      throw new Error(
+        `Received status code ${response.status} from PDF generation service`
+      );
+  }
+}
+
+type DocRaptorRequestBody = {
+  /** Your DocRaptor API key */
+  user_credentials: string;
+  doc: DocRaptorParameters;
+};
+
+/**
+ * Here is some in-band documentation for the more common DocRaptor options.
+ * There also options for JS handling, asset handling, PDF metadata, and more.
+ * Note that we do not use DocRaptor's hosting; we return the PDF directly.
+ * For more details see https://docraptor.com/documentation/api
+ */
+type DocRaptorParameters = {
+  /** Test documents are watermarked, but don't count against API limits. */
+  test?: boolean;
+  /** We only use `pdf`. */
+  type: "pdf" | "xls" | "xlsx";
+  /** The HTML to render. Either this or `document_url` is required. */
+  document_content?: string;
+  /** The URL to fetch and render. Either this or `document_content` is required. */
+  document_url?: string;
+  /** Synchronous calls have a 60s limit. Callbacks are required for longer-running docs. */
+  async?: false;
+  /** This name will show up in the logs: https://docraptor.com/doc_logs */
+  name?: string;
+  /** This tag will also show up in DocRaptor's logs. */
+  tag?: string;
+  /** Should DocRaptor run JS embedded in your HTML? Default is `false`. */
+  javascript?: boolean;
+  prince_options: {
+    /**
+     * In theory we can choose a different PDF version, but UA-1 is the only accessible one.
+     * https://docraptor.com/documentation/article/6637003-accessible-tagged-pdfs
+     */
+    profile: "PDF/UA-1";
+    /** The default is `print`. */
+    media?: "print" | "screen";
+    /** May be needed to load relative urls. Alternatively, use the `<base>` tag. */
+    baseurl?: string;
+    /** The title of your PDF. By default this is the `<title>` of your HTML. */
+    pdf_title?: string;
+    /** This may be used to override the default DPI of `96`. */
+    css_dpi?: number;
+  };
+};

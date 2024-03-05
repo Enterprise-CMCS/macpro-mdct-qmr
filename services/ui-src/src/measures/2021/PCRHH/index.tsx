@@ -6,7 +6,8 @@ import * as QMR from "components";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import { validationFunctions } from "./validation";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
-import { FormData } from "./types";
+//form type
+import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
 
 export const PCRHH = ({
   name,

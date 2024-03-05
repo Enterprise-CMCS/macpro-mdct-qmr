@@ -8,6 +8,8 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 
 # Table of Contents
 
+- [MDCT QMR (Quality Measure Reporting)](#mdct-qmr-quality-measure-reporting)
+- [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
   - [Local Development Setup](#local-development-setup)
     - [Prettier](#prettier)
@@ -40,7 +42,6 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
   - [Database](#database)
     - [Tables](#tables)
     - [How to set up Dynamo endpoint to view local Db](#how-to-set-up-dynamo-endpoint-to-view-local-db)
-    - [Stream Functions](#stream-functions)
   - [UI](#ui)
     - [Dev/Impl/Prod endpoints](#devimplprod-endpoints)
     - [Branch Endpoints](#branch-endpoints)
@@ -413,12 +414,6 @@ To run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-adm
 
 From here you can view the tables and perform operations on the local tables.
 
-### Stream Functions
-
----
-
-The stream functions fire deltas when updates to its table happens. These changes are picked up in the API where these changes are communicated to the kafka streams for the application.
-
 ## UI
 
 The UI Service creates the URL's associated with the application and the cloudfront logs that monitor traffic.
@@ -539,9 +534,13 @@ to make in order to get that year working.
 
    ![After](./.images/afterImportUpdate.png?raw=true)
 
-5. Copy over the `/globalValidations`, `/CommonQuestions`, and `/Qualifiers` directories to the latest year
+5. Go to the `/services/ui-src/src/utils/testUtils`, create a new directory for the latest year (e.g. 2024), and copy over the `validationHelpers.ts` and `validationHelpers.test.ts` files
 
-6. Similar to Step 4, update import names from the previous year to the most recent year
+   **NOTE:** Remember to update the imports in these files to reflect the latest year.
+
+6. Copy over the `/globalValidations`, `/CommonQuestions`, and `/Qualifiers` directories to the latest year
+
+7. Similar to Step 4, update import names from the previous year to the most recent year
 
    Before
 
@@ -551,9 +550,9 @@ to make in order to get that year working.
 
    ![After](./.images/afterCommonComponentUpdate.png?raw=true)
 
-7. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
+8. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
 
-8. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
+9. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
 
 ## Things to Look Out For (Gotchas)
 

@@ -35,7 +35,7 @@ jobs:
     name: Setup Cypress Test Matrix
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - id: set-test-matrix
         run: |
           echo "test-matrix=$(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
@@ -46,14 +46,14 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node16.16.0-chrome107-ff107
-      options: --user 1001
+      options: --user root
     needs: setup
     strategy:
       fail-fast: false
       matrix:
         containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: set path
