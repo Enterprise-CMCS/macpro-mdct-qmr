@@ -1706,8 +1706,8 @@ export const data = {
                 "excludeFromOMS": true
             },
             {
-                "label": "Total Ages 1 through 20",
-                "text": "Total Ages 1 through 20",
+                "label": "Total Ages 1 through 20 (required rate)",
+                "text": "Total Ages 1 through 20 (required rate)",
                 "id": "Total"
             }
         ],
