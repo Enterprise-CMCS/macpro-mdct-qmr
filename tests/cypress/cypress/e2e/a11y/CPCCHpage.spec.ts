@@ -5,7 +5,9 @@ describe("CPC-CH Page 508 Compliance Test", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
-    cy.goToMeasure("CPC-CH");
+    cy.get(`[data-cy="CPC-CH"]`, { timeout: 10000 })
+      .should("be.visible")
+      .click();
     cy.checkA11yOfPage();
   });
 });
