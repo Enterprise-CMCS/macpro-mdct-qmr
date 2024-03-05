@@ -8,7 +8,7 @@ DEBUG=1
 
 set -o pipefail -o nounset -u
 
-case ${1} in
+case ${1-} in
   append)
     OP=append
     ;;
@@ -17,17 +17,19 @@ case ${1} in
     ;;
   *)
     echo "Error:  unkown operation"
-    echo "Usage: ${0} [append|set]" && exit 1
+    echo "Usage: ${0} [append|set] [ip_set name] [ip_set id] [list of CIDR blocks]" && exit 1
     ;;
 esac
 
 shift
-NAME="${1}"
-ID="${2}"
+NAME="${1-}"
+ID="${2-}"
 shift; shift
-RUNNER_CIDRS="${@}"
+RUNNER_CIDRS="${@-}"
 
-[[ $DEBUG -ge 1 ]] && echo "Inputs:  NAME ${NAME}, ID ${ID}, RUNNER_CIDRS ${RUNNER_CIDRS}"
+[[ $DEBUG -ge 1 ]] && echo "Inputs:  NAME \"${NAME}\", ID \"${ID}\", RUNNER_CIDRS \"${RUNNER_CIDRS}\""
+
+[[ -z "${NAME}" ]] || [[ -z "${ID}" ]] || [[ -z "${RUNNER_CIDRS}" ]] && echo "Error:  one or more inputs are missing" && exit 1
 
 #Exponential backoff with jitter
 jitter() {
