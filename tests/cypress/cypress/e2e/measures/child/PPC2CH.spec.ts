@@ -1,9 +1,11 @@
+import { testingYear } from "../../../../support/constants";
+
 describe("Measure: PPC-CH", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2023");
+    cy.selectYear(testingYear);
     cy.goToChildCoreSetMeasures();
-    cy.goToMeasure("PPC-CH");
+    cy.goToMeasure("PPC2-CH");
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
@@ -60,11 +62,13 @@ describe("Measure: PPC-CH", () => {
       "have.text",
       "Performance Measure"
     );
-    cy.get(
-      '[data-cy="Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."]'
-    ).should(
+    cy.get(".css-xiz5n3 > .css-0:nth-child(1)").should(
       "have.text",
-      "Prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
+      "Timeliness of Prenatal Care: Percentage of deliveries that received a prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP."
+    );
+    cy.get(".css-xiz5n3 > .css-0:nth-child(2)").should(
+      "have.text",
+      "Postpartum Care: Percentage of deliveries that had a postpartum visit on or between 7 and 84 days after delivery."
     );
   });
 

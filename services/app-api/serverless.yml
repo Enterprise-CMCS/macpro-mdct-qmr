@@ -47,7 +47,7 @@ custom:
       - prod
   dotenv:
     path: ../../.env
-  princeUrl: ${ssm:/configuration/default/princeurl, "https://macpro-platform-dev.cms.gov/doc-conv/508html-to-508pdf"}
+  docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
   coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
   coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
@@ -120,7 +120,7 @@ provider:
     uploadS3BucketName: ${ssm:/s3bucket/uploads, cf:uploads-${self:custom.stage}.AttachmentsBucketName, "local-uploads"}
     dynamoSnapshotS3BucketName: ${ssm:/s3bucket/snapshots, cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, "local-dynamo-snapshots"}
     stage: ${opt:stage, self:provider.stage}
-    princeUrl: ${self:custom.princeUrl}
+    docraptorApiKey: ${self:custom.docraptorApiKey}
 
 functions:
   listMeasures:
