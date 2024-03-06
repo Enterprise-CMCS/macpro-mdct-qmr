@@ -7,11 +7,11 @@ import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
 describe("Test CombinedRates component", () => {
   beforeEach(() => {
-    <SharedContext.Provider value={commonQuestionsLabel}>
-      renderWithHookForm(
-      <CombinedRates />
-      );
-    </SharedContext.Provider>;
+    renderWithHookForm(
+      <SharedContext.Provider value={commonQuestionsLabel}>
+        <CombinedRates />
+      </SharedContext.Provider>
+    );
   });
 
   it("component renders", () => {
@@ -98,7 +98,11 @@ describe("Test CombinedRates component", () => {
 
 describe("Test CombinedRates component for Health Homes", () => {
   beforeEach(() => {
-    renderWithHookForm(<CombinedRates healthHomeMeasure />);
+    renderWithHookForm(
+      <SharedContext.Provider value={commonQuestionsLabel}>
+        <CombinedRates healthHomeMeasure />
+      </SharedContext.Provider>
+    );
   });
 
   it("component renders with different text", () => {
