@@ -20,6 +20,7 @@ export interface OptionNode {
     options: OptionNode[];
   }[];
   description?: boolean;
+  hint?: string;
 }
 
 export interface DataSourceData {

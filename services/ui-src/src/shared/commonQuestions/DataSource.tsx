@@ -9,6 +9,7 @@ import { cleanString } from "utils/cleanString";
 import { parseLabelToHTML } from "utils/parser";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { AnyObject } from "types";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -73,17 +74,9 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
     });
 
     if (node.description) {
-      let label = parseLabelToHTML(
-        "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):"
-      );
-
       children.push(
         <QMR.TextArea
-          label={
-            node.value !== DC.ELECTRONIC_HEALTH_RECORDS
-              ? label
-              : "Describe the data source:"
-          }
+          label={parseLabelToHTML(node.hint!)}
           name={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
           key={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
         />
@@ -98,6 +91,22 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
   }
 
   return checkBoxOptions;
+};
+
+const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
+  options.forEach((options) => {
+    if (options.description)
+      options.hint =
+        options.value == DC.ELECTRONIC_HEALTH_RECORDS && labels.ehrSrc
+          ? labels.ehrSrc!
+          : labels.descDataSrc!;
+
+    if (options.subOptions) {
+      options.subOptions.forEach((subOption) => {
+        addHintLabel(subOption.options, labels);
+      });
+    }
+  });
 };
 
 /**
@@ -115,7 +124,9 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
 
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
-  console.log("labels", labels);
+
+  //adding hint label text recursively
+  addHintLabel(data.options, labels.DataSource);
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
@@ -133,16 +144,12 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             py="2"
             fontWeight="bold"
             key="If the data source differed across"
-            label="Data Source Explanation"
+            label={labels.DataSource.srcExplanationText}
           >
-            For each data source selected above, describe which reporting
-            entities used each data source (e.g., health plans, FFS). If the
-            data source differed across health plans or delivery systems,
-            identify the number of plans or delivery systems that used each data
-            source.
+            {labels.DataSource.srcExplanationText}
           </CUI.Text>
           <QMR.TextArea
-            label={labels.DataSource.srcDescription}
+            label={labels.DataSource.srcDescription!}
             {...register(DC.DATA_SOURCE_DESCRIPTION)}
           />
         </CUI.VStack>
