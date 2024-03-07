@@ -6,6 +6,10 @@ export const commonQuestionsLabel = {
     upload:
       "If you need additional space to include comments or supplemental information, please attach further documentation below.",
   },
+  DataSource: {
+    srcExplanation: "",
+    srcDescription: "",
+  },
 };
 
 export default commonQuestionsLabel;

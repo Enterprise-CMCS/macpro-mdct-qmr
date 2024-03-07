@@ -1,6 +1,6 @@
-import { DataSource } from "./index";
+import { DataSource } from "./DataSource";
 import { DataSourceData as DS } from "utils/testUtils/testFormData";
-import { DataDrivenTypes } from "measures/2022/shared/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2024/shared/CommonQuestions/types";
 import { testSnapshot } from "utils/testUtils/testSnapshot";
 
 describe("Test the global DataSource component", () => {

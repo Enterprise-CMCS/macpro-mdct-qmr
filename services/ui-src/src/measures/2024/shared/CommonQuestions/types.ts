@@ -1,5 +1,4 @@
 import { LabelData } from "utils";
-import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 import * as DC from "dataConstants";
@@ -289,7 +288,7 @@ export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsNode[];
   export type SingleOmsNode = OmsNode;
   export type PerformanceMeasure = PerformanceMeasureData;
-  export type DataSource = DataSourceData;
+  export type DataSource = Types.DataSourceData;
 }
 export type DeviationKeys =
   | "numerator"

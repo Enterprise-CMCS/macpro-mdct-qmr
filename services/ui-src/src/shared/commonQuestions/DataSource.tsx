@@ -1,11 +1,14 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
-import { DataSourceData, defaultData, OptionNode } from "./data";
+import * as Types from "shared/types";
+import { DataSourceData, defaultData, OptionNode } from "shared/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
+import { parseLabelToHTML } from "utils/parser";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -70,16 +73,10 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
     });
 
     if (node.description) {
-      let label = (
-        <>
-          Describe the data source (
-          <em>
-            text in this field is included in publicly-reported state-specific
-            comments
-          </em>
-          ):
-        </>
+      let label = parseLabelToHTML(
+        "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):"
       );
+
       children.push(
         <QMR.TextArea
           label={
@@ -116,6 +113,10 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
 
   const showExplanation = watchDataSource && watchDataSource.length >= 2;
 
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
+  console.log("labels", labels);
+
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
       <div data-cy="data-source-options">
@@ -140,7 +141,10 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
             identify the number of plans or delivery systems that used each data
             source.
           </CUI.Text>
-          <QMR.TextArea {...register(DC.DATA_SOURCE_DESCRIPTION)} />
+          <QMR.TextArea
+            label={labels.DataSource.srcDescription}
+            {...register(DC.DATA_SOURCE_DESCRIPTION)}
+          />
         </CUI.VStack>
       )}
     </QMR.CoreQuestionWrapper>

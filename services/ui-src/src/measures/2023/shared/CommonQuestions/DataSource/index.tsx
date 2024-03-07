@@ -6,6 +6,7 @@ import { DataSourceData, defaultData, OptionNode } from "./data";
 import { useFormContext, useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
+import { parseLabelToHTML } from "utils/parser";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -70,16 +71,10 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
     });
 
     if (node.description) {
-      let label = (
-        <>
-          Describe the data source (
-          <em>
-            text in this field is included in publicly-reported state-specific
-            comments
-          </em>
-          ):
-        </>
+      let label = parseLabelToHTML(
+        "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):"
       );
+
       children.push(
         <QMR.TextArea
           label={
