@@ -1328,7 +1328,7 @@ export const data = {
                 "excludeFromOMS": true
             },
             {
-                "label": "Total ages <1 to 20",
+                "label": "Total ages <1 to 20 (required rate)",
                 "text": "Total ages <1 to 20 (required rate)",
                 "id": "Total"
             }
@@ -1706,8 +1706,8 @@ export const data = {
                 "excludeFromOMS": true
             },
             {
-                "label": "Total Ages 1 through 20",
-                "text": "Total Ages 1 through 20",
+                "label": "Total Ages 1 through 20 (required rate)",
+                "text": "Total Ages 1 through 20 (required rate)",
                 "id": "Total"
             }
         ],
@@ -1768,8 +1768,8 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Body mass index (BMI) percentile documentation",
-                "text": "Body mass index (BMI) percentile documentation",
+                "label": "Body mass index (BMI) Percentile documentation",
+                "text": "Body mass index (BMI) Percentile documentation",
                 "id": "4TXd3h"
             },
             {
