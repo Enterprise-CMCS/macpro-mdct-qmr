@@ -2,7 +2,6 @@ import { getPDF } from "../pdf";
 import { fetch } from "cross-fetch";
 import { testEvent } from "../../../test-util/testEvents";
 
-jest.spyOn(console, "error").mockImplementation();
 jest.spyOn(console, "warn").mockImplementation();
 
 jest.mock("../../../libs/authorization", () => ({

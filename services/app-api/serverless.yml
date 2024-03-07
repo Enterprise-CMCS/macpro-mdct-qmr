@@ -263,10 +263,6 @@ functions:
           method: post
           cors: true
     timeout: 60
-  ForceKafkaSync:
-    handler: handlers/kafka/get/forceKafkaSync.main
-    timeout: 900
-    memorySize: 3072
   postKafkaData:
     handler: handlers/kafka/post/postKafkaData.handler
     events:
