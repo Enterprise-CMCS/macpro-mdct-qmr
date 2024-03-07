@@ -191,7 +191,7 @@ describe("Measure: WCC-CH", () => {
     /* ==== Fill out Performance Measure section ==== */
     cy.get(".css-xiz5n3 > :nth-child(1)").should(
       "have.text",
-      "Body mass index (BMI) percentile documentation"
+      "Body mass index (BMI) Percentile documentation"
     );
     cy.get(".css-xiz5n3 > :nth-child(2)").should(
       "have.text",
@@ -211,7 +211,7 @@ describe("Measure: WCC-CH", () => {
     );
     cy.get("li:nth-child(1)").should(
       "have.text",
-      "Body mass index (BMI) percentile documentation"
+      "Body mass index (BMI) Percentile documentation"
     );
     cy.get('[data-cy="PerformanceMeasure.rates.4TXd3h.0.numerator"]').click();
     cy.get('[data-cy="PerformanceMeasure.rates.4TXd3h.0.numerator"]').clear();
