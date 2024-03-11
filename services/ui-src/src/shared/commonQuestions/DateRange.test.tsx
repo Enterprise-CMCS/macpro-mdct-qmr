@@ -1,11 +1,17 @@
-import { DateRange } from ".";
+import { DateRange } from "./DateRange";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import fireEvent from "@testing-library/user-event";
+import SharedContext from "shared/SharedContext";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
 describe("DateRange component, adult", () => {
   beforeEach(() => {
-    renderWithHookForm(<DateRange type="adult" />);
+    renderWithHookForm(
+      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2024" }}>
+        <DateRange type="adult" />
+      </SharedContext.Provider>
+    );
   });
 
   it("renders properly", async () => {
@@ -55,7 +61,11 @@ describe("DateRange component, adult", () => {
 
 describe("DateRange component, child", () => {
   beforeEach(() => {
-    renderWithHookForm(<DateRange type="child" />);
+    renderWithHookForm(
+      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2024" }}>
+        <DateRange type="child" />
+      </SharedContext.Provider>
+    );
   });
 
   it("renders Child Measurement Period Table link properly when No is clicked", async () => {
@@ -81,7 +91,11 @@ describe("DateRange component, child", () => {
 
 describe("DateRange component, Health Home", () => {
   it("renders Health Home Measurement Period Table link properly when No is clicked", async () => {
-    renderWithHookForm(<DateRange type="health" />);
+    renderWithHookForm(
+      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2024" }}>
+        <DateRange type="health" />
+      </SharedContext.Provider>
+    );
 
     const textArea = await screen.findByLabelText(
       "No, our state used a different measurement period."
