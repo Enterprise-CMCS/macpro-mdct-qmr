@@ -43,7 +43,7 @@ const deleteDependentMeasures = async (
   coreSet: string
 ) => {
   const measures = await getMeasures(state, year, coreSet);
-  const Items = measures.Items || [];
+  const Items = measures;
 
   for await (const { measure } of Items) {
     const dynamoKey = `${state}${year}${coreSet}${measure}`;
@@ -67,6 +67,6 @@ const getMeasures = async (state: string, year: number, coreSet: string) => {
       "list"
     ),
   };
-  const queryValue = await dynamoDb.scan<Measure>(params);
+  const queryValue = await dynamoDb.scanAll<Measure>(params);
   return queryValue;
 };

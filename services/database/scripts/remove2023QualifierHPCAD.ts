@@ -136,7 +136,9 @@ function buildClient(isLocal: boolean) {
       new DynamoDBClient({
         region: "us-east-1",
         logger: {
-          debug: console.debug,
+          debug: () => {
+            /* Dynamo's debug logs are extremely noisy */
+          },
           info: console.info,
           warn: console.warn,
           error: console.error,
