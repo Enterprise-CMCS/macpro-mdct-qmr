@@ -1,8 +1,10 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
+import * as Types from "shared/types";
 import * as DC from "dataConstants";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
 
 interface Props {
   healthHomeMeasure?: boolean;
@@ -11,24 +13,19 @@ interface Props {
 export const CombinedRates = ({ healthHomeMeasure }: Props) => {
   const register = useCustomRegister<Types.CombinedRates>();
 
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
+
+  const combinedLabel = healthHomeMeasure
+    ? labels.CombinedRates.healthHome
+    : labels.CombinedRates.notHealthHome;
+
   return (
     <QMR.CoreQuestionWrapper
       testid="combined-rates"
-      label="Combined Rate(s) from Multiple Reporting Units"
+      label={labels.CombinedRates.header}
     >
-      <CUI.Text fontWeight={600}>
-        {!healthHomeMeasure ? (
-          <>
-            Did you combine rates from multiple reporting units (e.g. health
-            plans, delivery systems, programs) to create a State-Level rate?
-          </>
-        ) : (
-          <>
-            Did you combine rates from multiple reporting units (e.g. Health
-            Home Providers) to create a Health Home SPA-Level rate?
-          </>
-        )}
-      </CUI.Text>
+      <CUI.Text fontWeight={600}>{combinedLabel?.question}</CUI.Text>
       <CUI.Text mb={2}>
         For additional information refer to the{" "}
         <CUI.Link
@@ -44,35 +41,29 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
       <QMR.RadioButton
         options={[
           {
-            displayValue: !healthHomeMeasure
-              ? "Yes, we combined rates from multiple reporting units to create a State-Level rate."
-              : "Yes, we combined rates from multiple reporting units to create a Health Home SPA-Level rate.",
+            displayValue: combinedLabel.optionYes,
             value: DC.YES,
             children: [
               <QMR.RadioButton
                 {...register(DC.COMBINED_RATES_COMBINED_RATES)}
                 options={[
                   {
-                    displayValue: !healthHomeMeasure
-                      ? "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a State-Level rate."
-                      : "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a SPA-Level rate.",
+                    displayValue: combinedLabel.notWeightedRate,
                     value: DC.COMBINED_NOT_WEIGHTED_RATES,
                   },
                   {
-                    displayValue:
-                      "The rates are weighted based on the size of the measure-eligible population for each reporting unit.",
+                    displayValue: combinedLabel.weightedRate,
                     value: DC.COMBINED_WEIGHTED_RATES,
                   },
                   {
-                    displayValue:
-                      "The rates are weighted based on another weighting factor.",
+                    displayValue: combinedLabel.weightedRateOther,
                     value: DC.COMBINED_WEIGHTED_RATES_OTHER,
                     children: [
                       <QMR.TextArea
                         {...register(
                           DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION
                         )}
-                        label="Describe the other weighting factor:"
+                        label={combinedLabel.weightedRateOtherExplain}
                         formLabelProps={{ fontWeight: 400 }}
                       />,
                     ],
@@ -82,9 +73,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
             ],
           },
           {
-            displayValue: !healthHomeMeasure
-              ? "No, we did not combine rates from multiple reporting units to create a State-Level rate."
-              : "No, we did not combine rates from multiple reporting units to create a SPA-Level rate for Health Home measures.",
+            displayValue: combinedLabel.optionNo,
             value: DC.NO,
           },
         ]}

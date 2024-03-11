@@ -8,7 +8,7 @@ export interface FormData
     Types.DidReport,
     Type.AdditionalNotes,
     Types.WhyAreYouNotReporting,
-    Types.CombinedRates,
+    Type.CombinedRates,
     Types.OtherPerformanceMeasure,
     Types.MeasurementSpecification,
     Types.PerformanceMeasure,

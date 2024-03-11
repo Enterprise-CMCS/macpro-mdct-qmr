@@ -1,4 +1,4 @@
-export * from "./CombinedRates";
+export * from "shared/commonQuestions/CombinedRates";
 export * from "./DateRange";
 export * from "./DefinitionsOfPopulation";
 export * from "shared/commonQuestions/DataSource";
