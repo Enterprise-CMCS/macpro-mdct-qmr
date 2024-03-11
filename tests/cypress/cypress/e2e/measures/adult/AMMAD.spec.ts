@@ -8,40 +8,6 @@ describe("Measure: AMM-AD", () => {
     cy.goToMeasure("AMM-AD");
   });
 
-  it("Ensure correct sections display if user is/not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
-  });
-
-  it("If not reporting and not why not -> show error", () => {
-    cy.get('[data-cy="DidReport1"]').click();
-    cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(
-      '[data-cy="Why Are You Not Reporting On This Measure Error"]'
-    ).should("have.text", "Why Are You Not Reporting On This Measure Error");
-  });
-
-  it("should show correct data source options", () => {
-    cy.get('[data-cy="DidReport0"]').click();
-    cy.get('[data-cy="DataSource0"]').should("be.visible");
-    cy.get('[data-cy="DataSource1"]').should("be.visible");
-    cy.get('[data-cy="DataSource2"]').should("be.visible");
-  });
-
-  it("if primary measurement spec is selected -> show performance measures", () => {
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="Performance Measure"]').should(
-      "have.text",
-      "Performance Measure"
-    );
-    cy.get('[data-cy="Ages 18 to 64"]')
-      .first()
-      .should("have.text", "Ages 18 to 64");
-    cy.get('[data-cy="Age 65 and older"]')
-      .first()
-      .should("have.text", "Age 65 and older");
-  });
-
   it("if other measurement spec is selected -> show other performance measures", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification1"]').click();

@@ -127,6 +127,10 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("performance-measure")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getAllByText("Ages 18 to 64"));
+      expect(screen.getAllByText("Age 65 and older"));
+    });
     expect(
       screen.queryByTestId("deviation-from-measure-specification")
     ).toBeInTheDocument();
