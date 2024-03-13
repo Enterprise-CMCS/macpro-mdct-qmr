@@ -331,6 +331,7 @@ exports[`Test DefinitionOfPopulation componnent (ACS Hybrid) Component renders w
           class="chakra-heading css-1j9oeic"
         >
           If you are reporting as a hybrid measure, provide the measure eligible population and sample size.
+           
         </h2>
         <div
           class="chakra-form-control prince-input-bottom-spacer css-pb69ky"
@@ -1422,6 +1423,7 @@ exports[`Test DefinitionOfPopulation componnent (CCS Hybrid) Component renders w
           class="chakra-heading css-1j9oeic"
         >
           If you are reporting as a hybrid measure, provide the measure eligible population and sample size.
+           
         </h2>
         <div
           class="chakra-form-control prince-input-bottom-spacer css-pb69ky"
@@ -2268,11 +2270,11 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
-                data-cy="DefinitionOfDenominator2"
+                data-cy="DefinitionOfDenominator1"
               >
                 <input
                   class="chakra-checkbox__input"
-                  id="DefinitionOfDenominator2-checkbox"
+                  id="DefinitionOfDenominator1-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                   type="checkbox"
                   value="DenominatorIncMedicareMedicaidDualEligible"
@@ -2301,11 +2303,11 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
-                data-cy="DefinitionOfDenominator3"
+                data-cy="DefinitionOfDenominator2"
               >
                 <input
                   class="chakra-checkbox__input"
-                  id="DefinitionOfDenominator3-checkbox"
+                  id="DefinitionOfDenominator2-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                   type="checkbox"
                   value="DenominatorIncOther"
@@ -2480,6 +2482,7 @@ exports[`Test DefinitionOfPopulation componnent (HHS Hybrid) Component renders w
           class="chakra-heading css-1j9oeic"
         >
           If you are reporting as a hybrid measure, provide the measure eligible population and sample size.
+           
         </h2>
         <div
           class="chakra-form-control prince-input-bottom-spacer css-pb69ky"
@@ -2942,11 +2945,11 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
-                data-cy="DefinitionOfDenominator2"
+                data-cy="DefinitionOfDenominator1"
               >
                 <input
                   class="chakra-checkbox__input"
-                  id="DefinitionOfDenominator2-checkbox"
+                  id="DefinitionOfDenominator1-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                   type="checkbox"
                   value="DenominatorIncMedicareMedicaidDualEligible"
@@ -2975,11 +2978,11 @@ exports[`Test DefinitionOfPopulation componnent (HHS) Component renders with cor
             >
               <label
                 class="chakra-checkbox css-1uiwwan"
-                data-cy="DefinitionOfDenominator3"
+                data-cy="DefinitionOfDenominator2"
               >
                 <input
                   class="chakra-checkbox__input"
-                  id="DefinitionOfDenominator3-checkbox"
+                  id="DefinitionOfDenominator2-checkbox"
                   style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                   type="checkbox"
                   value="DenominatorIncOther"

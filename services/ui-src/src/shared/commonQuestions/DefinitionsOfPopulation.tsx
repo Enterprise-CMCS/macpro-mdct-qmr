@@ -2,105 +2,191 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
-import { allPositiveIntegers, percentageAllowOneDecimalMax } from "utils";
+import {
+  allPositiveIntegers,
+  percentageAllowOneDecimalMax,
+  parseLabelToHTML,
+} from "utils";
 import * as DC from "dataConstants";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
+import { AnyObject } from "types";
 
 interface Props {
   childMeasure?: boolean;
   hybridMeasure?: boolean;
+  populationSampleSize?: boolean;
   healthHomeMeasure?: boolean;
 }
 
+const StandardDefinitions = (
+  register: any,
+  labels: AnyObject,
+  healthHomeMeasure?: boolean
+) => {
+  const options: QMR.CheckboxOption[] = [
+    {
+      displayValue: "Denominator includes Medicaid population",
+      value: DC.DENOMINATOR_INC_MEDICAID_POP,
+    },
+    {
+      displayValue:
+        "Denominator includes CHIP population (e.g. pregnant women)",
+      value: DC.DENOMINATOR_INC_CHIP,
+    },
+    {
+      displayValue:
+        "Denominator includes Medicare and Medicaid Dually-Eligible population",
+      value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+    },
+    {
+      displayValue: "Other",
+      value: DC.DENOMINATOR_INC_OTHER,
+      children: [
+        <QMR.TextArea
+          formLabelProps={{ fontWeight: "400" }}
+          label={parseLabelToHTML(labels.defineDenomOther)}
+          {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+        />,
+      ],
+    },
+  ];
+  //for health home measures, we do not need to capture CHIP population
+  if (healthHomeMeasure) {
+    options.splice(1, 1);
+  }
+
+  return (
+    <CUI.Box>
+      <CUI.Text mt="3">
+        {`Please select all populations that are included. For example, if your data include both non-dual Medicaid ${
+          healthHomeMeasure ? "enrollees" : "beneficiaries"
+        } and Medicare and Medicaid Dual Eligibles, select both:`}
+      </CUI.Text>
+      <CUI.UnorderedList m="5" ml="10">
+        <CUI.ListItem>Denominator includes Medicaid population</CUI.ListItem>
+        <CUI.ListItem>
+          Denominator includes Medicare and Medicaid Dually-Eligible population
+        </CUI.ListItem>
+      </CUI.UnorderedList>
+
+      <QMR.Checkbox
+        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+        options={options}
+      />
+    </CUI.Box>
+  );
+};
+
+const ChildDefinitions = (register: any) => {
+  return (
+    <CUI.Box>
+      <CUI.Text mb="2">
+        Please select all populations that are included.
+      </CUI.Text>
+      <QMR.RadioButton
+        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+        valueAsArray
+        options={[
+          {
+            displayValue:
+              "Denominator includes CHIP (Title XXI) population only",
+            value: "DenominatorIncCHIPPop",
+          },
+          {
+            displayValue:
+              "Denominator includes Medicaid (Title XIX) population only",
+            value: "DenominatorIncMedicaidPop",
+          },
+          {
+            displayValue: "Denominator includes CHIP and Medicaid (Title XIX)",
+            value: "DenominatorIncMedicaidAndCHIPPop",
+          },
+        ]}
+      />
+    </CUI.Box>
+  );
+};
+const HealthHomeDefinitions = (register: any) => {
+  return (
+    <CUI.Box my="5">
+      <QMR.RadioButton
+        formLabelProps={{ fontWeight: "600" }}
+        label="Are all Health Home Providers represented in the denominator?"
+        {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME)}
+        options={[
+          {
+            displayValue:
+              "Yes, all Health Home Providers are represented in the denominator.",
+            value: DC.YES,
+          },
+          {
+            displayValue:
+              "No, not all Health Home Providers are represented in the denominator.",
+            value: DC.NO,
+            children: [
+              <QMR.TextArea
+                {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN)}
+                label="Explain why all Health Home Providers are not represented in the denominator:"
+              />,
+            ],
+          },
+        ]}
+      />
+    </CUI.Box>
+  );
+};
+
+const HybridDefinitions = (register: any, header: boolean = true) => {
+  return (
+    <CUI.Box mt="5">
+      {header && (
+        <CUI.Heading size="sm" as="h2" my="2">
+          If you are reporting as a hybrid measure, provide the measure eligible
+          population and sample size.{" "}
+        </CUI.Heading>
+      )}
+      <QMR.NumberInput
+        {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
+        formControlProps={{ my: "4" }}
+        mask={allPositiveIntegers}
+        label="What is the size of the measure-eligible population?"
+      />
+      <QMR.NumberInput
+        {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
+        mask={allPositiveIntegers}
+        label="Specify the sample size:"
+      />
+    </CUI.Box>
+  );
+};
+
 export const DefinitionOfPopulation = ({
   childMeasure,
+  populationSampleSize,
   hybridMeasure,
   healthHomeMeasure,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
 
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
+
   return (
-    <QMR.CoreQuestionWrapper label="Definition of Population Included in the Measure">
+    <QMR.CoreQuestionWrapper
+      testid="definition-of-population"
+      label="Definition of Population Included in the Measure"
+    >
       <CUI.Heading size="sm" as="h2">
         Definition of denominator
       </CUI.Heading>
-      {!childMeasure && (
-        <CUI.Box>
-          <CUI.Text mt="3">
-            {`Please select all populations that are included. For example, if your data include both non-dual Medicaid ${
-              healthHomeMeasure ? "enrollees" : "beneficiaries"
-            } and Medicare and Medicaid Dual Eligibles, select both:`}
-          </CUI.Text>
-          <CUI.UnorderedList m="5" ml="10">
-            <CUI.ListItem>
-              Denominator includes Medicaid population
-            </CUI.ListItem>
-            <CUI.ListItem>
-              Denominator includes Medicare and Medicaid Dually-Eligible
-              population
-            </CUI.ListItem>
-          </CUI.UnorderedList>
-
-          <QMR.Checkbox
-            {...register(DC.DEFINITION_OF_DENOMINATOR)}
-            options={[
-              {
-                displayValue: "Denominator includes Medicaid population",
-                value: DC.DENOMINATOR_INC_MEDICAID_POP,
-              },
-              {
-                displayValue:
-                  "Denominator includes CHIP population (e.g. pregnant women)",
-                value: DC.DENOMINATOR_INC_CHIP,
-                isHealthHome: healthHomeMeasure,
-              },
-              {
-                displayValue:
-                  "Denominator includes Medicare and Medicaid Dually-Eligible population",
-                value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
-              },
-              {
-                displayValue: "Other",
-                value: DC.DENOMINATOR_INC_OTHER,
-                children: [
-                  <QMR.TextArea
-                    formLabelProps={{ fontWeight: "400" }}
-                    label="Define the other denominator population:"
-                    {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
-                  />,
-                ],
-              },
-            ]}
-          />
-        </CUI.Box>
-      )}
-      {childMeasure && (
-        <CUI.Box>
-          <CUI.Text mb="2">
-            Please select all populations that are included.
-          </CUI.Text>
-          <QMR.RadioButton
-            {...register(DC.DEFINITION_OF_DENOMINATOR)}
-            valueAsArray
-            options={[
-              {
-                displayValue:
-                  "Denominator includes CHIP (Title XXI) population only",
-                value: "DenominatorIncCHIPPop",
-              },
-              {
-                displayValue:
-                  "Denominator includes Medicaid (Title XIX) population only",
-                value: "DenominatorIncMedicaidPop",
-              },
-              {
-                displayValue:
-                  "Denominator includes CHIP and Medicaid (Title XIX)",
-                value: "DenominatorIncMedicaidAndCHIPPop",
-              },
-            ]}
-          />
-        </CUI.Box>
-      )}
+      {!childMeasure &&
+        StandardDefinitions(
+          register,
+          labels.DefinitionsOfPopulation,
+          healthHomeMeasure
+        )}
+      {childMeasure && ChildDefinitions(register)}
       <CUI.Box my="5">
         <QMR.TextArea
           formLabelProps={{ fontWeight: "400" }}
@@ -128,13 +214,15 @@ export const DefinitionOfPopulation = ({
                   {...register(
                     DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN
                   )}
-                  label="Explain which populations are excluded and why:"
+                  label={parseLabelToHTML(
+                    labels.DefinitionsOfPopulation.explainExcludedPop
+                  )}
                 />,
                 <CUI.Box mt="10" key="DenominatorDefineTotalTechSpec-No-Size">
                   <QMR.NumberInput
                     mask={allPositiveIntegers}
                     {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE)}
-                    label="Specify the size of the population excluded (optional):"
+                    label={labels.DefinitionsOfPopulation.specSizeOfPop}
                   />
                 </CUI.Box>,
               ],
@@ -142,25 +230,8 @@ export const DefinitionOfPopulation = ({
           ]}
         />
       </CUI.Box>
-      {hybridMeasure && (
-        <CUI.Box mt="5">
-          <CUI.Heading size="sm" as="h2" my="2">
-            If you are reporting as a hybrid measure, provide the measure
-            eligible population and sample size.
-          </CUI.Heading>
-          <QMR.NumberInput
-            {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
-            formControlProps={{ my: "4" }}
-            mask={allPositiveIntegers}
-            label="What is the size of the measure-eligible population?"
-          />
-          <QMR.NumberInput
-            {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
-            mask={allPositiveIntegers}
-            label="Specify the sample size:"
-          />
-        </CUI.Box>
-      )}
+      {(hybridMeasure || populationSampleSize) &&
+        HybridDefinitions(register, !populationSampleSize)}
       <CUI.Box mt="5">
         <CUI.Heading size="sm" as="h2" my="2">
           {"Which delivery systems are represented in the denominator?"}
@@ -404,7 +475,7 @@ export const DefinitionOfPopulation = ({
                 <CUI.Box pb="5" key="DeliverySys-Other">
                   <QMR.TextArea
                     formLabelProps={{ fontWeight: "400" }}
-                    label="Describe the Other Delivery System represented in the denominator:"
+                    label={labels.DefinitionsOfPopulation.deliverySysOther}
                     {...register(DC.DELIVERY_SYS_OTHER)}
                   />
                 </CUI.Box>,
@@ -439,33 +510,7 @@ export const DefinitionOfPopulation = ({
           ]}
         />
       </CUI.Box>
-      {healthHomeMeasure && (
-        <CUI.Box my="5">
-          <QMR.RadioButton
-            formLabelProps={{ fontWeight: "600" }}
-            label="Are all Health Home Providers represented in the denominator?"
-            {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME)}
-            options={[
-              {
-                displayValue:
-                  "Yes, all Health Home Providers are represented in the denominator.",
-                value: DC.YES,
-              },
-              {
-                displayValue:
-                  "No, not all Health Home Providers are represented in the denominator.",
-                value: DC.NO,
-                children: [
-                  <QMR.TextArea
-                    {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN)}
-                    label="Explain why all Health Home Providers are not represented in the denominator:"
-                  />,
-                ],
-              },
-            ]}
-          />
-        </CUI.Box>
-      )}
+      {healthHomeMeasure && HealthHomeDefinitions(register)}
     </QMR.CoreQuestionWrapper>
   );
 };

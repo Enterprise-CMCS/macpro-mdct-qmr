@@ -39,6 +39,15 @@ export const commonQuestionsLabel = {
       weightedRateOtherExplain: "Describe the other weighting factor:",
     },
   },
+  DefinitionsOfPopulation: {
+    defineDenomOther:
+      "Define the other denominator population (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    explainExcludedPop:
+      "Explain which populations are excluded and why (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    specSizeOfPop: "Specify the size of the population excluded:",
+    deliverySysOther:
+      "Describe the Other Delivery System represented in the denominator (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+  },
 };
 
 export default commonQuestionsLabel;
