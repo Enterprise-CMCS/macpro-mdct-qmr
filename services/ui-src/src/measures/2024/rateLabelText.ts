@@ -594,18 +594,18 @@ export const data = {
     "COL-AD": {
         "qualifiers": [
             {
-                "label": "Ages 46 to 49",
-                "text": "Ages 46 to 49",
+                "label": "Ages 46 to 50",
+                "text": "Ages 46 to 50",
                 "id": "jaap4W"
             },
             {
-                "label": "Ages 50 to 64",
-                "text": "Ages 50 to 64",
+                "label": "Ages 51 to 65",
+                "text": "Ages 50 to 65",
                 "id": "cvwOYG"
             },
             {
-                "label": "Ages 65 to 75",
-                "text": "Ages 65 to 75",
+                "label": "Ages 66 to 75",
+                "text": "Ages 66 to 75",
                 "id": "YHLMTu"
             }
         ],
