@@ -18,7 +18,6 @@ export const measureAbbrList2024 = {
     "FUA-AD",
     "FUH-AD",
     "FUM-AD",
-    "FVA-AD",
     "HBD-AD",
     "HPCMI-AD",
     "HVL-AD",

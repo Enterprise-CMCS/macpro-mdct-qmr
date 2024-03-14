@@ -1117,10 +1117,6 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "FVA-AD",
-    },
-    {
-      type: "A",
       measure: "HBD-AD",
     },
     {
