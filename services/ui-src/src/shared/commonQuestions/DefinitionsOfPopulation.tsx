@@ -475,7 +475,9 @@ export const DefinitionOfPopulation = ({
                 <CUI.Box pb="5" key="DeliverySys-Other">
                   <QMR.TextArea
                     formLabelProps={{ fontWeight: "400" }}
-                    label={labels.DefinitionsOfPopulation.deliverySysOther}
+                    label={parseLabelToHTML(
+                      labels.DefinitionsOfPopulation.deliverySysOther
+                    )}
                     {...register(DC.DELIVERY_SYS_OTHER)}
                   />
                 </CUI.Box>,
