@@ -1138,6 +1138,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "MSC-AD",
+      autocompleteOnCreation: true,
     },
     {
       type: "A",
