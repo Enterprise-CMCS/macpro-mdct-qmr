@@ -1210,18 +1210,6 @@ export const data = {
                 "id": "VX9uaf",
                 "excludeFromOMS": true
             },
-            {
-                "label": "Surgery",
-                "text": "Surgery",
-                "id": "QzuJDR",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Medicine",
-                "text": "Medicine",
-                "id": "ioz7ed",
-                "excludeFromOMS": true
-            }
         ]
     },
 
