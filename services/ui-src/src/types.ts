@@ -48,6 +48,7 @@ export enum AutoCompletedMeasures {
   "LRCD-CH" = "LRCD-CH",
   "PDENT-CH" = "PDENT-CH",
   "NCIDDS-AD" = "NCIDDS-AD",
+  "CPA-AD" = "CPA-AD",
 }
 
 export interface ndrFormula {
