@@ -600,7 +600,7 @@ export const data = {
             },
             {
                 "label": "Ages 51 to 65",
-                "text": "Ages 50 to 65",
+                "text": "Ages 51 to 65",
                 "id": "cvwOYG"
             },
             {
