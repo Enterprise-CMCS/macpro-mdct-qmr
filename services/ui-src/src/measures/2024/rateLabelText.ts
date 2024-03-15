@@ -957,14 +957,14 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "HbA1c control (<8.0%)",
-                "text": "HbA1c control (<8.0%)",
+                "label": "HbA1c Control (<8.0%)",
+                "text": "HbA1c Control (<8.0%)",
                 "id":"F9V8xD",
                 "excludeFromOMS": true
             },
             {
-                "label": "HbA1c poor control (>9.0%)",
-                "text": "HbA1c poor control (>9.0%)",
+                "label": "HbA1c Poor Control (>9.0%)",
+                "text": "HbA1c Poor Control (>9.0%)",
                 "id":"MELFVb"
             }
         ]
