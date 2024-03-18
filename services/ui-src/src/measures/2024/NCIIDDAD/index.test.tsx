@@ -14,7 +14,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
-const measureAbbr = "NCIDDS-AD";
+const measureAbbr = "NCIIDD-AD";
 const coreSet = "ACS";
 const state = "AL";
 const year = 2024;
