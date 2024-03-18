@@ -960,7 +960,7 @@ export const data = {
                 "label": "HbA1c control (<8.0%)",
                 "text": "HbA1c control (<8.0%)",
                 "id":"F9V8xD",
-        
+                "excludeFromOMS": true
             },
             {
                 "label": "HbA1c poor control (>9.0%)",
@@ -1509,8 +1509,13 @@ export const data = {
     "PPC2-AD": {
         "qualifiers": [
             {
-                "label": "Postpartum visit between 7 and 84 days",
-                "text": "Postpartum visit between 7 and 84 days",
+                "label": "Timeliness of Prenatal Care: Age 21 and Older",
+                "text": "Timeliness of Prenatal Care: Age 21 and Older",
+                "id": "LrWMAT"
+            },
+            {
+                "label": "Postpartum Care: Age 21 and Older",
+                "text": "Postpartum Care: Age 21 and Older",
                 "id": "LrWMAT"
             }
         ],
