@@ -28,7 +28,7 @@ export const measureAbbrList2024 = {
     "OHD-AD",
     "OUD-AD",
     "PCR-AD",
-    "PPC-AD",
+    "PPC2-AD",
     "PQI01-AD",
     "PQI05-AD",
     "PQI08-AD",

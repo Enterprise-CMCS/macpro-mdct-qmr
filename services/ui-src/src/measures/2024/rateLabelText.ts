@@ -960,7 +960,7 @@ export const data = {
                 "label": "HbA1c control (<8.0%)",
                 "text": "HbA1c control (<8.0%)",
                 "id":"F9V8xD",
-                "excludeFromOMS": true
+        
             },
             {
                 "label": "HbA1c poor control (>9.0%)",
@@ -1506,7 +1506,7 @@ export const data = {
         ],
         "categories": [{"id":"YGJwmu", "label": "", "text":""}]
     },
-    "PPC-AD": {
+    "PPC2-AD": {
         "qualifiers": [
             {
                 "label": "Postpartum visit between 7 and 84 days",

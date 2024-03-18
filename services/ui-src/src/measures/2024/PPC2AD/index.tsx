@@ -8,7 +8,7 @@ import { getPerfMeasureRateArray } from "measures/2024/shared/globalValidations"
 //form type
 import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
-export const PPCAD = ({
+export const PPC2AD = ({
   name,
   year,
   measureId,
