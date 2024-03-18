@@ -26,7 +26,7 @@ describe("Measure: HBD-AD", () => {
 
     // other data source
     cy.get(
-      '[data-cy="DataSource3"] > .chakra-checkbox__label > .chakra-text'
+      '[data-cy="DataSource2"] > .chakra-checkbox__label > .chakra-text'
     ).should("be.visible");
 
     cy.get('[data-cy="DidReport0"]').click();
