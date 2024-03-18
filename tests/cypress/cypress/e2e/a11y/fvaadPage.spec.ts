@@ -1,5 +1,3 @@
-import { testingYear } from "../../../support/constants";
-
 describe("FVA-AD Page 508 Compliance Test", () => {
   it("Check a11y on FVAAD Page", () => {
     cy.login();

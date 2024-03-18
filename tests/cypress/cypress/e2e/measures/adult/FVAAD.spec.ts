@@ -1,5 +1,3 @@
-import { testingYear } from "../../../../support/constants";
-
 describe("OY2 9898 FVA-AD", () => {
   beforeEach(() => {
     cy.login();
