@@ -46,8 +46,8 @@ export const AutocompletedMeasureTemplate = ({
           </CUI.Box>
 
           {subText &&
-            subText.map(() => {
-              return <CUI.Text>{subText}</CUI.Text>;
+            subText.map((text, idx) => {
+              return <CUI.Text key={`subText.${idx}`}>{text}</CUI.Text>;
             })}
           <CUI.Text fontWeight="700">
             {`States are not asked to report data for this measure for FFY ${year} Core Set in the online
