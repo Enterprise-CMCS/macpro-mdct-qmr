@@ -336,7 +336,7 @@ export const measureDescriptions: MeasureList = {
     "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
-    "PPC-AD": "Prenatal and Postpartum Care: Postpartum Care",
+    "PPC2-AD": "Prenatal and Postpartum Care: Age 21 and Over",
     "PQI01-AD": "PQI 01: Diabetes Short-Term Complications Admission Rate",
     "PQI05-AD":
       "PQI 05: Chronic Obstructive Pulmonary Disease (COPD) or Asthma in Older Adults Admission Rate",
