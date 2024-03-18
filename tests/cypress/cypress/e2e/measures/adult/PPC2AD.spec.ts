@@ -1,9 +1,11 @@
-describe("Measure: PPC-AD", () => {
+import { testingYear } from "../../../../support/constants";
+
+describe("Measure: PPC2-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2023");
+    cy.selectYear(testingYear);
     cy.goToAdultMeasures();
-    cy.goToMeasure("PPC-AD");
+    cy.goToMeasure("PPC2-AD");
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {

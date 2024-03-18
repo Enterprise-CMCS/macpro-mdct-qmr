@@ -5,7 +5,7 @@ import { OMSData } from "measures/2024/shared/CommonQuestions/OptionalMeasureStr
 //form type
 import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
-const PPCADValidation = (data: FormData) => {
+const PPC2ADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
@@ -73,4 +73,4 @@ const PPCADValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PPCADValidation];
+export const validationFunctions = [PPC2ADValidation];
