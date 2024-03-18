@@ -24,7 +24,7 @@ export const measureAbbrList2024 = {
     "HVL-AD",
     "IET-AD",
     "MSC-AD",
-    "NCIDDS-AD", // complete on creation
+    "NCIIDD-AD", // complete on creation
     "OHD-AD",
     "OUD-AD",
     "PCR-AD",
