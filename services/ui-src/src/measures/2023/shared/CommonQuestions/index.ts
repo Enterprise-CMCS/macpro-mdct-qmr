@@ -10,6 +10,6 @@ export * from "./StatusOfData";
 export * from "./WhyAreYouNotReporting";
 export * from "./NotCollectingOMS";
 export * from "./OptionalMeasureStrat";
-export * from "./MeasurementSpecification";
+export * from "shared/commonQuestions/MeasurementSpecification";
 export * from "./DeviationFromMeasureSpecification";
 export * from "./PerformanceMeasure";

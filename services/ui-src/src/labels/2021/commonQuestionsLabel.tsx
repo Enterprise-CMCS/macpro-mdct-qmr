@@ -1,3 +1,5 @@
+import * as DC from "dataConstants";
+
 export const commonQuestionsLabel = {
   AdditonalNotes: {
     header: "Additional Notes/Comments on the measure (optional)",
@@ -38,6 +40,24 @@ export const commonQuestionsLabel = {
         "The rates are weighted based on another weighting factor.",
       weightedRateOtherExplain: "Describe the other weighting factor:",
     },
+  },
+  MeasureSpecifications: {
+    measureSpecDescriptor:
+      "NCQA, the measure steward, changed its naming convention. HEDIS MY 2020 refers to a different federal fiscal year (FFY) than HEDIS 2020. Please note the FFY Core Set specification below.",
+    options: [
+      {
+        displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
+        value: DC.HEDIS_MY_2020,
+      },
+      {
+        displayValue: "HEDIS 2020 (FFY 2020 Core Set Reporting)",
+        value: DC.HEDIS_2020,
+      },
+      {
+        displayValue: "HEDIS 2019 (FFY 2019 Core Set Reporting)",
+        value: DC.HEDIS_2019,
+      },
+    ],
   },
 };
 

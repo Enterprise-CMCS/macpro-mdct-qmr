@@ -1,3 +1,5 @@
+import * as DC from "dataConstants";
+
 export const commonQuestionsLabel = {
   AdditonalNotes: {
     header: "Additional Notes/Comments on the measure (optional)",
@@ -38,6 +40,26 @@ export const commonQuestionsLabel = {
         "The rates are weighted based on another weighting factor.",
       weightedRateOtherExplain: "Describe the other weighting factor:",
     },
+  },
+  MeasureSpecifications: {
+    options: [
+      {
+        displayValue: "HEDIS MY 2023 (FFY 2024 Core Set Reporting)",
+        value: DC.HEDIS_MY_2023,
+      },
+      {
+        displayValue: "HEDIS MY 2022 (FFY 2023 Core Set Reporting)",
+        value: DC.HEDIS_MY_2022,
+      },
+      {
+        displayValue: "HEDIS MY 2021 (FFY 2022 Core Set Reporting)",
+        value: DC.HEDIS_MY_2021,
+      },
+      {
+        displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
+        value: DC.HEDIS_MY_2020,
+      },
+    ],
   },
 };
 

@@ -1,35 +1,31 @@
+import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
+import * as Types from "shared/types";
 import * as DC from "dataConstants";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
+
+  const options = labels.MeasureSpecifications.options;
+
   return (
     <>
+      {labels?.MeasureSpecifications?.measureSpecDescriptor && (
+        <CUI.Text key="measureSpecDescriptor" size="sm" pb="3">
+          {labels?.MeasureSpecifications?.measureSpecDescriptor}
+        </CUI.Text>
+      )}
       <QMR.Select
         {...register(DC.MEASUREMENT_SPECIFICATION_HEDIS)}
         label="Specify the version of HEDIS measurement year used:"
         placeholder="Select option"
-        options={[
-          {
-            displayValue: "HEDIS MY 2023 (FFY 2024 Core Set Reporting)",
-            value: DC.HEDIS_MY_2023,
-          },
-          {
-            displayValue: "HEDIS MY 2022 (FFY 2023 Core Set Reporting)",
-            value: DC.HEDIS_MY_2022,
-          },
-          {
-            displayValue: "HEDIS MY 2021 (FFY 2022 Core Set Reporting)",
-            value: DC.HEDIS_MY_2021,
-          },
-          {
-            displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
-            value: DC.HEDIS_MY_2020,
-          },
-        ]}
+        options={options}
       />
     </>
   );
