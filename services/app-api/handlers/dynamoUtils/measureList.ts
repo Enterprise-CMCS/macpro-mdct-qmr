@@ -1141,7 +1141,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "NCIDDS-AD",
+      measure: "NCIIDD-AD",
       autocompleteOnCreation: true,
     },
     {
