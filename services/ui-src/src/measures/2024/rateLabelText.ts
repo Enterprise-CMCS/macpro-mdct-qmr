@@ -1506,12 +1506,17 @@ export const data = {
         ],
         "categories": [{"id":"YGJwmu", "label": "", "text":""}]
     },
-    "PPC-AD": {
+    "PPC2-AD": {
         "qualifiers": [
             {
-                "label": "Postpartum visit between 7 and 84 days",
-                "text": "Postpartum visit between 7 and 84 days",
+                "label": "Timeliness of Prenatal Care: Age 21 and Older",
+                "text": "Timeliness of Prenatal Care: Age 21 and Older",
                 "id": "LrWMAT"
+            },
+            {
+                "label": "Postpartum Care: Age 21 and Older",
+                "text": "Postpartum Care: Age 21 and Older",
+                "id": "66zLAM"
             }
         ],
         "categories": [{"id":"SyrrI1", "label": "", "text":""}]
