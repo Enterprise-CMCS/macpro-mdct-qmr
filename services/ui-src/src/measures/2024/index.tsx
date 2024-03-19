@@ -128,9 +128,6 @@ const FUMCH = lazy(() =>
 const FUMHH = lazy(() =>
   import("./FUMHH").then((module) => ({ default: module.FUMHH }))
 );
-const FVAAD = lazy(() =>
-  import("./FVAAD").then((module) => ({ default: module.FVAAD }))
-);
 const HVLAD = lazy(() =>
   import("./HVLAD").then((module) => ({ default: module.HVLAD }))
 );
@@ -273,7 +270,6 @@ const twentyTwentyFourMeasures = {
   "FUM-AD": FUMAD,
   "FUM-CH": FUMCH,
   "FUM-HH": FUMHH,
-  "FVA-AD": FVAAD,
   "HBD-AD": HBDAD,
   "HPCMI-AD": HPCMIAD,
   "HVL-AD": HVLAD,
