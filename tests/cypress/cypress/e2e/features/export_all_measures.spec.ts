@@ -10,7 +10,7 @@ describe("Export All Measures", () => {
       });
     });
   });
-  
+
   it("Test Child Core Set", () => {
     cy.get('[data-cy="add-childbutton"]').then(($button) => {
       if (!$button.prop("disabled")) {
