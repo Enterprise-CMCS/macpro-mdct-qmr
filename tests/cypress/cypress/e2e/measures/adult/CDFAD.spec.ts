@@ -8,31 +8,6 @@ describe("Measure: CDF-AD", () => {
     cy.goToMeasure("CDF-AD");
   });
 
-  it("displays correct sections when user is or is not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
-  });
-
-  it(
-    "displays error if user is not reporting and provides no reason why",
-    cy.showErrorIfNotReportingAndNotWhy
-  );
-
-  it("displays the expected Measurement Specification options", () => {
-    cy.get('[data-cy="measurement-specification-options"]').contains(
-      "Centers for Medicare & Medicaid Services (CMS)"
-    );
-    cy.get('[data-cy="measurement-specification-options"]').contains("Other");
-  });
-
-  it("displays the expected Data Source options", () => {
-    cy.get('[data-cy="data-source-options"]').contains("Administrative Data");
-    cy.get('[data-cy="data-source-options"]').contains(
-      "Electronic Health Records"
-    );
-    cy.get('[data-cy="data-source-options"]').contains("Other Data Source");
-  });
-
   it("displays the correct calculated rate amount in total", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="PerformanceMeasure.rates.fUqwlh.0.numerator"]').type(

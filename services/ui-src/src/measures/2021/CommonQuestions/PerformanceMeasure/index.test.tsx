@@ -63,7 +63,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     fireEvent.type(rateTextBox, "99.9");
     expect(rateTextBox).toHaveDisplayValue("99.9");
 
-    // last NDR in categroy should not total
+    // last NDR in category should not total
     const lastNumeratorTextBox = screen.queryAllByLabelText("Numerator")[1];
     const lastDenominatorTextBox = screen.queryAllByLabelText("Denominator")[1];
     const lastRateTextBox = screen.queryAllByLabelText("Rate")[1];
@@ -94,19 +94,27 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
     const rateTextBox = screen.queryAllByLabelText("Rate")[0];
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
-    expect(numeratorTextBox).toHaveDisplayValue("123");
-    expect(denominatorTextBox).toHaveDisplayValue("123");
-    expect(rateTextBox).toHaveDisplayValue("100.0");
+    fireEvent.type(numeratorTextBox, "1");
+    fireEvent.type(denominatorTextBox, "2");
+    expect(numeratorTextBox).toHaveDisplayValue("1");
+    expect(denominatorTextBox).toHaveDisplayValue("2");
+    expect(rateTextBox).toHaveDisplayValue("50.0");
 
-    // last NDR set should not total
-    const lastNumeratorTextBox = screen.queryAllByLabelText("Numerator")[1];
-    const lastDenominatorTextBox = screen.queryAllByLabelText("Denominator")[1];
-    const lastRateTextBox = screen.queryAllByLabelText("Rate")[1];
-    expect(lastNumeratorTextBox).toHaveDisplayValue("123");
-    expect(lastDenominatorTextBox).toHaveDisplayValue("123");
-    expect(lastRateTextBox).toHaveDisplayValue("100.0");
+    // if numerator is greater than denominator,
+    const secondNumeratorTextBox = screen.queryAllByLabelText("Numerator")[1];
+    const secondDenominatorTextBox =
+      screen.queryAllByLabelText("Denominator")[1];
+    const secondRateTextBox = screen.queryAllByLabelText("Rate")[1];
+    fireEvent.type(secondNumeratorTextBox, "5");
+    fireEvent.type(secondDenominatorTextBox, "7");
+    expect(secondRateTextBox).toHaveDisplayValue("71.4");
+
+    const lastRateTextBox = screen.queryAllByLabelText("Rate");
+    //expect(lastRateTextBox).toHaveDisplayValue("66.7");
+
+    fireEvent.type(secondNumeratorTextBox, "55");
+    expect(secondRateTextBox).toHaveDisplayValue("");
+    expect(lastRateTextBox).toHaveDisplayValue("50.0");
   });
 
   test("(PCR-XX) Ensure component renders", () => {

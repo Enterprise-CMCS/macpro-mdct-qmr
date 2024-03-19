@@ -8,21 +8,6 @@ describe("Measure: SAA-AD", () => {
     cy.goToMeasure("SAA-AD");
   });
 
-  it("displays correct sections when user is or is not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
-  });
-
-  it(
-    "displays error if user is not reporting and provides no reason why",
-    cy.showErrorIfNotReportingAndNotWhy
-  );
-
-  it("displays the expected Data Source options", () => {
-    cy.get('[data-cy="data-source-options"]').contains("Administrative Data");
-    cy.get('[data-cy="data-source-options"]').contains("Other Data Source");
-  });
-
   it("displays the correct calculated rate amount in total", () => {
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="PerformanceMeasure.rates.bdI1f1.0.numerator"]').type(

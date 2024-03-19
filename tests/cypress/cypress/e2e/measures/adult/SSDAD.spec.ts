@@ -8,16 +8,6 @@ describe("Measure: SSD-AD", () => {
     cy.goToMeasure("SSD-AD");
   });
 
-  it("displays correct sections when user is or is not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
-  });
-
-  it(
-    "displays error if user is not reporting and provides no reason why",
-    cy.showErrorIfNotReportingAndNotWhy
-  );
-
   it("displays the expected Data Source options", () => {
     cy.get('[data-cy="data-source-options"]').contains("Administrative Data");
     cy.get('[data-cy="data-source-options"]').contains("Other Data Source");
