@@ -99,7 +99,7 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
       options.hint =
         options.value === DC.ELECTRONIC_HEALTH_RECORDS && labels.ehrSrc
           ? labels.ehrSrc!
-          : labels.descDataSrc!;
+          : labels.describeDataSrc!;
 
     if (options.subOptions) {
       options.subOptions.forEach((subOption) => {

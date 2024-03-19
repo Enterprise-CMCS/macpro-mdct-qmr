@@ -41,7 +41,7 @@ export const commonQuestionsLabel = {
   },
   DataSource: {
     ehrSrc: "Describe the data source:",
-    descDataSrc:
+    describeDataSrc:
       "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     srcExplanation: "Data Source Explanation",
     srcExplanationText:
