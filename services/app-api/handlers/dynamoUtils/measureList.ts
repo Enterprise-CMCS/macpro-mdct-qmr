@@ -1098,6 +1098,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CPA-AD",
+      autocompleteOnCreation: true,
     },
     {
       type: "A",
@@ -1114,10 +1115,6 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUM-AD",
-    },
-    {
-      type: "A",
-      measure: "FVA-AD",
     },
     {
       type: "A",
@@ -1138,6 +1135,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "MSC-AD",
+      autocompleteOnCreation: true,
     },
     {
       type: "A",

@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 interface Props {
   measureTitle: string;
   performanceMeasureText: string;
+  performanceMeasureList?: string[];
   performanceMeasureSubtext?: string | string[];
   year: string;
 }
@@ -13,6 +14,7 @@ interface Props {
 export const AutocompletedMeasureTemplate = ({
   measureTitle,
   performanceMeasureText,
+  performanceMeasureList,
   performanceMeasureSubtext,
   year,
 }: Props) => {
@@ -44,7 +46,19 @@ export const AutocompletedMeasureTemplate = ({
             </CUI.Heading>
             <CUI.Text>{performanceMeasureText}</CUI.Text>
           </CUI.Box>
-
+          {performanceMeasureList && (
+            <CUI.Box>
+              <CUI.UnorderedList ml="10">
+                {performanceMeasureList.map((item, idx) => {
+                  return (
+                    <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+                      <CUI.Text>{item}</CUI.Text>
+                    </CUI.ListItem>
+                  );
+                })}
+              </CUI.UnorderedList>
+            </CUI.Box>
+          )}
           {subText &&
             subText.map((text, idx) => {
               return <CUI.Text key={`subText.${idx}`}>{text}</CUI.Text>;

@@ -1,9 +1,7 @@
-import { testingYear } from "../../../../support/constants";
-
 describe("OY2 8977 Measure 15 MSC-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear(testingYear);
+    cy.selectYear("2023");
     cy.goToAdultMeasures();
     cy.goToMeasure("MSC-AD");
   });
