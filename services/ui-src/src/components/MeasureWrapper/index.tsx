@@ -145,8 +145,10 @@ export const MeasureWrapper = ({
   );
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
-  const shared: AnyObject =
-    Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"];
+  const shared: AnyObject = {
+    ...Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"],
+    year: year,
+  };
 
   // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
   const coreSet = (params.coreSetId?.split("_")?.[0] ??

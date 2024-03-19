@@ -1,5 +1,5 @@
 export * from "shared/commonQuestions/CombinedRates";
-export * from "./DateRange";
+export * from "shared/commonQuestions/DateRange";
 export * from "./DefinitionsOfPopulation";
 export * from "./DataSource";
 export * from "./DataSourceCahps";
