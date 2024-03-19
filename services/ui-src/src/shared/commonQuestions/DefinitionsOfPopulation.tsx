@@ -53,7 +53,7 @@ const StandardDefinitions = (
   ];
   //for health home measures, we do not need to capture CHIP population
   if (healthHomeMeasure) {
-    options = options.filter((opt) => opt.value !== DC.DENOMINATOR_INC_CHIP)
+    options = options.filter((opt) => opt.value !== DC.DENOMINATOR_INC_CHIP);
   }
 
   return (
