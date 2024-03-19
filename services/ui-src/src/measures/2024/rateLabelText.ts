@@ -932,16 +932,6 @@ export const data = {
             }
         ]
     },
-    "FVA-AD": {
-        "qualifiers": [
-            {
-                "label": "Ages 18 to 64",
-                "text": "Ages 18 to 64",
-                "id": "BKbFhQ"
-            }
-        ],
-        "categories": [{"id":"5bDNK0", "label": "", "text":""}]
-    },
     "HBD-AD": {
         "qualifiers": [
             {
