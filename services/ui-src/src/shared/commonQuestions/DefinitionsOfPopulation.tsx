@@ -24,7 +24,7 @@ const StandardDefinitions = (
   labels: AnyObject,
   healthHomeMeasure?: boolean
 ) => {
-  const options: QMR.CheckboxOption[] = [
+  let options: QMR.CheckboxOption[] = [
     {
       displayValue: "Denominator includes Medicaid population",
       value: DC.DENOMINATOR_INC_MEDICAID_POP,
@@ -53,7 +53,7 @@ const StandardDefinitions = (
   ];
   //for health home measures, we do not need to capture CHIP population
   if (healthHomeMeasure) {
-    options.splice(1, 1);
+    options = options.filter((opt) => opt.value !== DC.DENOMINATOR_INC_CHIP)
   }
 
   return (
