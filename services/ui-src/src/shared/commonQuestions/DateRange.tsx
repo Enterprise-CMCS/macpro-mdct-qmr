@@ -21,17 +21,17 @@ interface Props {
 }
 
 const descriptionElement = (label: AnyObject) => {
-  return <CUI.Text>{label.desc}</CUI.Text>;
+  return <CUI.Text>{label?.desc}</CUI.Text>;
 };
 
 const subTextElement = (label: AnyObject, link: string) => {
   return (
     <CUI.Text mt="2" mb="2">
-      {label.link[0]}
+      {label?.link[0]}
       <CUI.Link href={link} color="blue" isExternal>
-        <u>{label.link[1]}</u>
+        <u>{label?.link[1]}</u>
       </CUI.Link>
-      {label.link[2]}
+      {label?.link[2]}
     </CUI.Text>
   );
 };
@@ -97,8 +97,8 @@ export const DateRange = ({ type }: Props) => {
   return (
     <QMR.CoreQuestionWrapper testid="date-range" label="Date Range">
       {useRadioDateRange
-        ? RadioDateRangeElement(labels.DateRange, link, register)
-        : StandardDateRangeElement(labels.DateRange, link, register)}
+        ? RadioDateRangeElement(labels?.DateRange, link, register)
+        : StandardDateRangeElement(labels?.DateRange, link, register)}
     </QMR.CoreQuestionWrapper>
   );
 };

@@ -17,13 +17,13 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
   const labels: any = useContext(SharedContext);
 
   const combinedLabel = healthHomeMeasure
-    ? labels.CombinedRates.healthHome
-    : labels.CombinedRates.notHealthHome;
+    ? labels?.CombinedRates?.healthHome
+    : labels?.CombinedRates?.notHealthHome;
 
   return (
     <QMR.CoreQuestionWrapper
       testid="combined-rates"
-      label={labels.CombinedRates.header}
+      label={labels?.CombinedRates?.header}
     >
       <CUI.Text fontWeight={600}>{combinedLabel?.question}</CUI.Text>
       <CUI.Text mb={2}>
@@ -41,29 +41,29 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
       <QMR.RadioButton
         options={[
           {
-            displayValue: combinedLabel.optionYes,
+            displayValue: combinedLabel?.optionYes,
             value: DC.YES,
             children: [
               <QMR.RadioButton
                 {...register(DC.COMBINED_RATES_COMBINED_RATES)}
                 options={[
                   {
-                    displayValue: combinedLabel.notWeightedRate,
+                    displayValue: combinedLabel?.notWeightedRate,
                     value: DC.COMBINED_NOT_WEIGHTED_RATES,
                   },
                   {
-                    displayValue: combinedLabel.weightedRate,
+                    displayValue: combinedLabel?.weightedRate,
                     value: DC.COMBINED_WEIGHTED_RATES,
                   },
                   {
-                    displayValue: combinedLabel.weightedRateOther,
+                    displayValue: combinedLabel?.weightedRateOther,
                     value: DC.COMBINED_WEIGHTED_RATES_OTHER,
                     children: [
                       <QMR.TextArea
                         {...register(
                           DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION
                         )}
-                        label={combinedLabel.weightedRateOtherExplain}
+                        label={combinedLabel?.weightedRateOtherExplain}
                         formLabelProps={{ fontWeight: 400 }}
                       />,
                     ],
@@ -73,7 +73,7 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
             ],
           },
           {
-            displayValue: combinedLabel.optionNo,
+            displayValue: combinedLabel?.optionNo,
             value: DC.NO,
           },
         ]}
