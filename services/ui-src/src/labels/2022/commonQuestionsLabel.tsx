@@ -46,6 +46,15 @@ export const commonQuestionsLabel = {
     deliverySysOther:
       "Describe the Other Delivery System represented in the denominator:",
   },
+  DateRange: {
+    header: "Date Range",
+    desc: "For all measures, states should report start and end dates to calculate the denominator. For some measures, the specifications require a “look-back period” before or after the measurement period to determine eligibility or utilization. The measurement period entered in the Start and End Date fields should not include the “look-back period.”",
+    link: [
+      "More information about the Start and End Date for each measure is available in the ",
+      "Measurement Period Table",
+      " resource.",
+    ],
+  },
 };
 
 export default commonQuestionsLabel;
