@@ -39,6 +39,13 @@ export const commonQuestionsLabel = {
       weightedRateOtherExplain: "Describe the other weighting factor:",
     },
   },
+  DefinitionsOfPopulation: {
+    defineDenomOther: "Define the other denominator population:",
+    explainExcludedPop: "Explain which populations are excluded and why:",
+    specSizeOfPop: "Specify the size of the population excluded (optional):",
+    deliverySysOther:
+      "Describe the Other Delivery System represented in the denominator:",
+  },
   DateRange: {
     header: "Date Range",
     desc: "For all measures, states should report start and end dates to calculate the denominator. For some measures, the specifications require a “look-back period” before or after the measurement period to determine eligibility or utilization. The measurement period entered in the Start and End Date fields should not include the “look-back period.”",
