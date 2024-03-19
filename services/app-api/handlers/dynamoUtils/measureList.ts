@@ -1098,6 +1098,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CPA-AD",
+      autocompleteOnCreation: true,
     },
     {
       type: "A",
