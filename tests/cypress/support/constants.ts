@@ -15,6 +15,7 @@ export const measureAbbrList2024 = {
     "COB-AD",
     "COL-AD",
     "CPA-AD",
+    "CPU-AD",
     "FUA-AD",
     "FUH-AD",
     "FUM-AD",

@@ -6,9 +6,17 @@ describe("Export All Measures", () => {
     cy.selectYear(testingYear);
     cy.window().then((win) => {
       cy.stub(win, "open").callsFake((url) => {
+        console.log("url", url);
         win.location.href = url;
       });
     });
+  });
+
+  it("Test Adult Core Set", () => {
+    cy.get('[data-cy="adult-kebab-menu"]').click();
+    cy.get('[data-cy="Export"]').first().click();
+
+    cy.get("#CSQ").should("be.visible");
   });
 
   it("Test Child Core Set", () => {
