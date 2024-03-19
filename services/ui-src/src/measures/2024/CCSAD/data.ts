@@ -6,7 +6,7 @@ export const { categories, qualifiers } = getCatQualLabels("CCS-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of women ages 21 to 64 who were screened for cervical cancer using either of the following criteria:",
+    "Percentage of women ages 21 to 64 who were screened for cervical cancer using any of the following criteria:",
   ],
   questionListItems: [
     "Women ages 21 to 64 who had cervical cytology performed within the last 3 years",

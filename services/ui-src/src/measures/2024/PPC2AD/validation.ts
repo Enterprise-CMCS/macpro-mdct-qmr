@@ -5,16 +5,17 @@ import { OMSData } from "measures/2024/shared/CommonQuestions/OptionalMeasureStr
 //form type
 import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
-const FVAADValidation = (data: FormData) => {
+const PPC2ADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
-  let errorArray: any[] = [];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
+  const performanceMeasureArray =
+    GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
 
+  let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
@@ -22,12 +23,37 @@ const FVAADValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
+    ...GV.omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      dataSource: data[DC.DATA_SOURCE],
+      locationDictionary: GV.omsLocationDictionary(
+        OMSData(),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateRateZeroOMS(),
+      ],
+    }),
+    ...GV.validateAtLeastOneDeviationFieldFilled(
+      didCalculationsDeviate,
+      deviationReason
+    ),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
       ageGroups,
       PMD.categories
     ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateHybridMeasurePopulation(data),
+    ...GV.validateAtLeastOneDeliverySystem(data),
+    ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
@@ -39,38 +65,12 @@ const FVAADValidation = (data: FormData) => {
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateAtLeastOneDataSourceType(data),
-    ...GV.validateAtLeastOneDeliverySystem(data),
-    ...GV.validateFfsRadioButtonCompletion(data),
-    ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
-      didCalculationsDeviate,
-      deviationReason
-    ),
-
-    // OMS Validations
-    ...GV.omsValidations({
-      data,
-      qualifiers: PMD.qualifiers,
-      categories: PMD.categories,
-      locationDictionary: GV.omsLocationDictionary(
-        OMSData(),
-        PMD.qualifiers,
-        PMD.categories
-      ),
-      validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateRateZeroOMS(),
-        GV.validateRateNotZeroOMS(),
-      ],
-    }),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [FVAADValidation];
+export const validationFunctions = [PPC2ADValidation];
