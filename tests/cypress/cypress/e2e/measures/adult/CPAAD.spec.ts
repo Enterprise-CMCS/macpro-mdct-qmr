@@ -3,7 +3,7 @@ import { testingYear } from "../../../../support/constants";
 describe("Measure: CPA-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear(testingYear);
+    cy.selectYear("2023");
     cy.goToAdultMeasures();
     cy.goToMeasure("CPA-AD");
   });

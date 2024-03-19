@@ -46,6 +46,15 @@ export const commonQuestionsLabel = {
       "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:",
     srcDescription: "Data Source Description",
   },
+  DateRange: {
+    header: "Date Range",
+    desc: "For all measures, states should report start and end dates to calculate the denominator. For some measures, the specifications require a “look-back period” before or after the measurement period to determine eligibility or utilization. The measurement period entered in the Start and End Date fields should not include the “look-back period.”",
+    link: [
+      "More information about the Start and End Date for each measure is available in the ",
+      "Measurement Period Table",
+      " resource.",
+    ],
+  },
 };
 
 export default commonQuestionsLabel;
