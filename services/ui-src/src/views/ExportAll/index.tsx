@@ -20,11 +20,17 @@ export const ExportAll = () => {
   }
 
   const csqMeasure = data?.Items?.find((d: any) => d.measure === "CSQ");
-  const regMeasures = data?.Items?.filter((d: any) => d.measure !== "CSQ")
+  const regMeasures: any[] = data?.Items?.filter(
+    (d: any) => d.measure !== "CSQ"
+  )
     // filter out non-created State Specific measures
     ?.filter((m: any) => !/SS-\d-HH/g.test(m.measure) || m?.userCreated)
     .sort((a: any, b: any) => a?.measure?.localeCompare(b?.measure));
-  const sortedData = [csqMeasure, ...regMeasures];
+
+  let sortedData = [csqMeasure, ...regMeasures];
+  if (coreSetId === "ACS") sortedData = [csqMeasure, regMeasures[0]];
+
+  console.log("sortedData", sortedData);
 
   return (
     <>
