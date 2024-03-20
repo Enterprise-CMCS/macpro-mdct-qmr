@@ -6,7 +6,6 @@ describe("Export All Measures", () => {
     cy.selectYear(testingYear);
     cy.window().then((win) => {
       cy.stub(win, "open").callsFake((url) => {
-        console.log("url", url);
         win.location.href = url;
       });
     });
@@ -18,10 +17,9 @@ describe("Export All Measures", () => {
 
     // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2024.ADULT) {
-      console.log(measureAbbr);
-      // cy.get(`#${measureAbbr}`).should("be.visible");
+      cy.get(`#${measureAbbr}`).should("be.visible");
     }
-    // cy.get("#CSQ").should("be.visible");
+    cy.get("#CSQ").should("be.visible");
   });
 
   it("Test Child Core Set", () => {

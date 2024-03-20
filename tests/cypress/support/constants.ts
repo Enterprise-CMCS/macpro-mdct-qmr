@@ -14,7 +14,6 @@ export const measureAbbrList2024 = {
     "CHL-AD",
     "COB-AD",
     "COL-AD",
-    "CPA-AD",
     "CPU-AD",
     "FUA-AD",
     "FUH-AD",
@@ -23,8 +22,6 @@ export const measureAbbrList2024 = {
     "HPCMI-AD",
     "HVL-AD",
     "IET-AD",
-    "MSC-AD",
-    "NCIIDD-AD", // complete on creation
     "OHD-AD",
     "OUD-AD",
     "PCR-AD",
