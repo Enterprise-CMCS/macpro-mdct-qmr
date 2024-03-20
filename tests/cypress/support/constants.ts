@@ -2,18 +2,15 @@ export const testingYear = "2024";
 
 export const measureAbbrList2024 = {
   ADULT: [
-    "AAB-AD",
-    "AMM-AD",
-    "AMR-AD",
-    "BCS-AD",
-    "CBP-AD",
-    "CCP-AD",
-    "CCS-AD",
-    "CCW-AD",
-    "CDF-AD",
-    "CHL-AD",
-    "COB-AD",
-    "COL-AD",
+    "CPU-AD",
+    "FUA-AD",
+    "FUH-AD",
+    "FUM-AD",
+    "HBD-AD",
+    "HPCMI-AD",
+    "HVL-AD",
+    "IET-AD",
+    "OHD-AD",
   ],
   CHILD: [
     "AAB-CH",
