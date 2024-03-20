@@ -29,9 +29,9 @@ export const ExportAll = () => {
 
   let sortedData = [csqMeasure, ...regMeasures];
   if (coreSetId === "ACS") {
-    const noAutoComplete = regMeasures.filter(
-      (item) => !item.autoCompleted && item.measure !== "PPC2-AD"
-    );
+    const noAutoComplete = regMeasures
+      .filter((item) => !item.autoCompleted && item.measure !== "PPC2-AD")
+      .splice(0, 12);
     sortedData = [csqMeasure, ...noAutoComplete];
   }
 
