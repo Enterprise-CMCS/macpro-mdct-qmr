@@ -1,16 +1,7 @@
 export const testingYear = "2024";
 
 export const measureAbbrList2024 = {
-  ADULT: [
-    "OUD-AD",
-    "PCR-AD",
-    "PQI01-AD",
-    "PQI05-AD",
-    "PQI08-AD",
-    "PQI15-AD",
-    "SAA-AD",
-    "SSD-AD",
-  ],
+  ADULT: ["PQI08-AD", "PQI15-AD", "SAA-AD", "SSD-AD"],
   CHILD: [
     "AAB-CH",
     "ADD-CH",
