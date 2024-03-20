@@ -14,6 +14,7 @@ describe("Export All Measures", () => {
 
   it("Test Adult Core Set", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
+    cy.get('[data-cy="Export"]').first().click();
   });
 
   it("Test Child Core Set", () => {
