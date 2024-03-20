@@ -1,7 +1,7 @@
 export const testingYear = "2024";
 
 export const measureAbbrList2024 = {
-  ADULT: ["AAB-AD"],
+  ADULT: ["AMM-AD"],
   CHILD: [
     "AAB-CH",
     "ADD-CH",

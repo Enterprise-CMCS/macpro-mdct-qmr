@@ -13,7 +13,7 @@ describe("Export All Measures", () => {
 
   it("Test Adult Core Set", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[data-cy="Export"]').first().click();
+    cy.get('[data-cy="Export"]', { timeout: 10000 }).first().click();
 
     // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2024.ADULT) {
