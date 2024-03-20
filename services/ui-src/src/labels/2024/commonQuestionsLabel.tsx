@@ -41,6 +41,32 @@ export const commonQuestionsLabel = {
       weightedRateOtherExplain: "Describe the other weighting factor:",
     },
   },
+  DataSource: {
+    ehrSrc: "Describe the data source:",
+    describeDataSrc:
+      "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    srcExplanation: "Data Source Explanation",
+    srcExplanationText:
+      "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans or delivery systems that used each data source.",
+  },
+  DefinitionsOfPopulation: {
+    defineDenomOther:
+      "Define the other denominator population (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    explainExcludedPop:
+      "Explain which populations are excluded and why (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    specSizeOfPop: "Specify the size of the population excluded:",
+    deliverySysOther:
+      "Describe the Other Delivery System represented in the denominator (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+  },
+  DateRange: {
+    header: "Date Range",
+    desc: "For all measures, states should report start and end dates to calculate the denominator. For some measures, the specifications require a “look-back period” before or after the measurement period to determine eligibility or utilization. The measurement period entered in the Start and End Date fields should not include the “look-back period.”",
+    link: [
+      "Information for each measure is available in the ",
+      "Measurement Period Table",
+      " resource.",
+    ],
+  },
   MeasureSpecifications: {
     options: [
       {
@@ -59,15 +85,6 @@ export const commonQuestionsLabel = {
         displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
         value: DC.HEDIS_MY_2020,
       },
-    ],
-  },
-  DateRange: {
-    header: "Date Range",
-    desc: "For all measures, states should report start and end dates to calculate the denominator. For some measures, the specifications require a “look-back period” before or after the measurement period to determine eligibility or utilization. The measurement period entered in the Start and End Date fields should not include the “look-back period.”",
-    link: [
-      "Information for each measure is available in the ",
-      "Measurement Period Table",
-      " resource.",
     ],
   },
 };
