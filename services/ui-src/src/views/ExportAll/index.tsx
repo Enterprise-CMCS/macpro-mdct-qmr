@@ -28,9 +28,12 @@ export const ExportAll = () => {
     .sort((a: any, b: any) => a?.measure?.localeCompare(b?.measure));
 
   let sortedData = [csqMeasure, ...regMeasures];
-  if (coreSetId === "ACS") sortedData = [csqMeasure, regMeasures[0]];
-
-  console.log("sortedData", sortedData);
+  if (coreSetId === "ACS") {
+    const noAutoComplete = regMeasures.filter(
+      (item) => !item.autoCompleted && item.measure !== "PPC2-AD"
+    );
+    sortedData = [csqMeasure, ...noAutoComplete];
+  }
 
   return (
     <>
