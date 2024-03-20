@@ -144,6 +144,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toBeInTheDocument();
   });
 
+  // TO-DO: it("allows a user to manually override rate when CAHPS 5.1H is selected")
+
   it("shows OMS when performance measure data has been entered", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);

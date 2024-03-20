@@ -87,6 +87,24 @@ describe("Test the Rate component", () => {
 
     expect(rateTextBox).toHaveDisplayValue("1");
   });
+
+  test("rounds auto-calculated rate up or down as expected", async () => {
+    const numeratorTextBox = await screen.findByLabelText("Numerator");
+    const denominatorTextBox = await screen.findByLabelText("Denominator");
+    const rateTextBox = await screen.findByLabelText("Rate");
+
+    // 3/9*100 = 3.333... -> 33.3
+    fireEvent.type(numeratorTextBox, "3");
+    fireEvent.type(denominatorTextBox, "9");
+
+    expect(rateTextBox).toHaveDisplayValue("33.3");
+
+    // 6/9*100 = 66.666... -> 66.7
+    fireEvent.type(numeratorTextBox, "6");
+    fireEvent.type(denominatorTextBox, "9");
+
+    expect(rateTextBox).toHaveDisplayValue("66.7");
+  });
 });
 
 describe("Test non-readonly rate component", () => {
