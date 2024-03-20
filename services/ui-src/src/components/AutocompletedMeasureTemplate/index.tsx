@@ -49,7 +49,7 @@ export const AutocompletedMeasureTemplate = ({
           {performanceMeasureList && (
             <CUI.Box>
               <CUI.UnorderedList ml="10">
-                {performanceMeasureList.map((item, idx) => {
+                {performanceMeasureList?.map((item, idx) => {
                   return (
                     <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
                       <CUI.Text>{item}</CUI.Text>
@@ -60,7 +60,7 @@ export const AutocompletedMeasureTemplate = ({
             </CUI.Box>
           )}
           {subText &&
-            subText.map((text, idx) => {
+            subText?.map((text, idx) => {
               return <CUI.Text key={`subText.${idx}`}>{text}</CUI.Text>;
             })}
           <CUI.Text fontWeight="700">
