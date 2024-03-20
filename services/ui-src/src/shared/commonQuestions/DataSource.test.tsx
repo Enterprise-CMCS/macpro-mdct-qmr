@@ -1,16 +1,26 @@
-import { DataSource } from "./index";
+import { DataSource } from "./DataSource";
 import { DataSourceData as DS } from "utils/testUtils/testFormData";
-import { DataDrivenTypes } from "measures/2022/shared/CommonQuestions/types";
+import { DataDrivenTypes } from "measures/2024/shared/CommonQuestions/types";
 import { testSnapshot } from "utils/testUtils/testSnapshot";
+import SharedContext from "shared/SharedContext";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
 describe("Test the global DataSource component", () => {
   it("(Default) Component renders with correct content", () => {
-    const component = <DataSource />;
+    const component = (
+      <SharedContext.Provider value={commonQuestionsLabel}>
+        <DataSource />
+      </SharedContext.Provider>
+    );
     testSnapshot({ component, defaultValues: DS.default });
   });
 
   it("(Custom Structure) Component renders with correct content", () => {
-    const component = <DataSource data={data} />;
+    const component = (
+      <SharedContext.Provider value={commonQuestionsLabel}>
+        <DataSource data={data} />
+      </SharedContext.Provider>
+    );
     testSnapshot({ component, defaultValues: DS.custom });
   });
 });

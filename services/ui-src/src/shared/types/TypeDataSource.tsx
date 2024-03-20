@@ -1,5 +1,18 @@
 import * as DC from "dataConstants";
 
+export interface DataSource {
+  [DC.DATA_SOURCE]: string[];
+  [DC.DATA_SOURCE_SELECTIONS]: {
+    [label: string]: {
+      [DC.DESCRIPTION]: string;
+      [DC.SELECTED]: string[];
+    };
+  };
+  [DC.DATA_SOURCE_DESCRIPTION]: string;
+  [DC.DATA_SOURCE_CAHPS_VERSION]?: string;
+  [DC.DATA_SOURCE_CAHPS_VERSION_OTHER]?: string;
+}
+
 export interface OptionNode {
   value: string;
   subOptions?: {
@@ -7,6 +20,7 @@ export interface OptionNode {
     options: OptionNode[];
   }[];
   description?: boolean;
+  hint?: string;
 }
 
 export interface DataSourceData {
