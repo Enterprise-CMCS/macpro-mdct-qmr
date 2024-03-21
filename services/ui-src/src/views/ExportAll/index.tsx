@@ -30,7 +30,7 @@ export const ExportAll = () => {
   let sortedData = [csqMeasure, ...regMeasures];
   if (coreSetId === "ACS") {
     const filter = [
-      "FUM-AD",
+      "CPU-AD",
       "HBD-AD",
       "MSC-AD",
       "NCIIDD-AD",
