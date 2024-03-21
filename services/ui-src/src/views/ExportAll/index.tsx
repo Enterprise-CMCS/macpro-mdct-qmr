@@ -33,6 +33,7 @@ export const ExportAll = () => {
           `select option { display: none }` +
           `select option[selected] { display: table-row; }\n`}
       </style>
+      <CUI.Text>{sortedData.map((item) => item.measure + ", ")}</CUI.Text>
       <CUI.Container maxW={"xs"} key="printPageButtonWrapper">
         <CUI.Button
           disabled={isLoadingPDF}

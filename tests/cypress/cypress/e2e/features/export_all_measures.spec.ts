@@ -19,7 +19,7 @@ describe("Export All Measures", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Export"]').first().click();
 
-    cy.wait(2000);
+    console.log("THIS IS A LOG");
 
     // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2024.ADULT) {
