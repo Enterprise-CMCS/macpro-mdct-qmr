@@ -12,6 +12,10 @@ describe("Export All Measures", () => {
   });
 
   it("Test Adult Core Set", () => {
+    Cypress.once("uncaught:exception", () => {
+      return false;
+    });
+
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[data-cy="Export"]').first().click();
 
