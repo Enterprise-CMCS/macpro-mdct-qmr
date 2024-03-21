@@ -29,10 +29,24 @@ export const ExportAll = () => {
 
   let sortedData = [csqMeasure, ...regMeasures];
   if (coreSetId === "ACS") {
-    const noAutoComplete = regMeasures
-      .filter((item) => !item.autoCompleted && item.measure !== "PPC2-AD")
-      .splice(21, 4);
-    sortedData = [csqMeasure, ...noAutoComplete];
+    const filter = [
+      "CPA-AD",
+      "FVA-AD",
+      "MSC-AD",
+      "PPC2-AD",
+      "NCIIDD-AD",
+      "OUD-AD",
+      "FUM-AD",
+      "HBD-AD",
+      "COL-AD",
+      "CDF-AD",
+      "CCS-AD",
+      "CCP-AD",
+    ];
+    const filtered = regMeasures.filter(
+      (item) => !filter.includes(item.measure)
+    );
+    sortedData = [csqMeasure, ...filtered];
   }
 
   return (
