@@ -12,7 +12,7 @@ describe("Export All Measures", () => {
   });
 
   it("Test Adult Core Set", () => {
-    Cypress.once("uncaught:exception", () => {
+    Cypress.on("uncaught:exception", () => {
       return false;
     });
 
