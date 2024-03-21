@@ -29,7 +29,7 @@ export const ExportAll = () => {
 
   let sortedData = [csqMeasure, ...regMeasures];
   if (coreSetId === "ACS") {
-    const filter = ["HBD-AD", "MSC-AD", "NCIIDD-AD", "PPC2-AD"];
+    const filter = ["CPU-AD", "FUM-AD", "OUD-AD"];
     const filtered = regMeasures.filter(
       (item) => !filter.includes(item.measure)
     );
