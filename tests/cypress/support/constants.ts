@@ -17,7 +17,6 @@ export const measureAbbrList2024 = {
     "CPA-AD",
     "FUA-AD",
     "FUH-AD",
-    "FUM-AD",
     "HPCMI-AD",
     "HVL-AD",
     "IET-AD",

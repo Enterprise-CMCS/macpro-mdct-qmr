@@ -31,6 +31,7 @@ export const ExportAll = () => {
   if (coreSetId === "ACS") {
     const filter = [
       "CPU-AD",
+      "FUM-AD",
       "HBD-AD",
       "MSC-AD",
       "NCIIDD-AD",
