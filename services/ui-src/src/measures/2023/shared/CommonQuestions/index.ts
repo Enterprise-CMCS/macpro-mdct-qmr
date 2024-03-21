@@ -8,6 +8,7 @@ export * from "./OtherPerformanceMeasure";
 export * from "./Reporting";
 export * from "./StatusOfData";
 export * from "./WhyAreYouNotReporting";
+export * from "shared/commonQuestions/NotCollectingOMS";
 export * from "./OptionalMeasureStrat";
 export * from "./MeasurementSpecification";
 export * from "./DeviationFromMeasureSpecification";

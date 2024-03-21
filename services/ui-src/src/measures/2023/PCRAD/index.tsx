@@ -46,7 +46,7 @@ export const PCRAD = ({
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
-          {showOptionalMeasureStrat && <NotCollectingOMS />}
+          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
       <CMQ.AdditionalNotes />

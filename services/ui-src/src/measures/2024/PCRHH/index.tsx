@@ -47,7 +47,7 @@ export const PCRHH = ({
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates healthHomeMeasure />
-          {showOptionalMeasureStrat && <NotCollectingOMS />}
+          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
       <CMQ.AdditionalNotes />
