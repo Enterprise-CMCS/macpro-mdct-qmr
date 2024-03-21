@@ -24,7 +24,15 @@ export const ExportAll = () => {
     // filter out non-created State Specific measures
     ?.filter((m: any) => !/SS-\d-HH/g.test(m.measure) || m?.userCreated)
     .sort((a: any, b: any) => a?.measure?.localeCompare(b?.measure));
-  const sortedData = [csqMeasure, ...regMeasures];
+
+  let sortedData = [csqMeasure, ...regMeasures];
+  if (coreSetId === "ACS") {
+    const filter = ["FVA-AD"];
+    const filtered = regMeasures.filter(
+      (item: any) => !filter.includes(item.measure)
+    );
+    sortedData = [csqMeasure, ...filtered];
+  }
 
   return (
     <>
