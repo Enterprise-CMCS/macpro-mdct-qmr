@@ -30,18 +30,14 @@ export const ExportAll = () => {
   let sortedData = [csqMeasure, ...regMeasures];
   if (coreSetId === "ACS") {
     const filter = [
-      "CPA-AD",
+      "CPU-AD",
+      "FUM-AD",
       "FVA-AD",
+      "HBD-AD",
       "MSC-AD",
-      "PPC2-AD",
       "NCIIDD-AD",
       "OUD-AD",
-      "FUM-AD",
-      "HBD-AD",
-      "COL-AD",
-      "CDF-AD",
-      "CCS-AD",
-      "CCP-AD",
+      "PPC2-AD",
     ];
     const filtered = regMeasures.filter(
       (item) => !filter.includes(item.measure)
