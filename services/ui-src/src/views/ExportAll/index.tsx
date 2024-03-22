@@ -99,6 +99,11 @@ export const ExportAll = () => {
             ? QualifierData.find((d) => d.year === measure.year + "")?.data
             : undefined;
 
+        if (Comp === undefined) {
+          console.error(`Measure does not exist: ${measure.measure}`);
+          return;
+        }
+
         return (
           <CUI.Box
             key={`measure-${measure.measure}-wrapper`}
