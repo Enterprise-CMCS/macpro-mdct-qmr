@@ -79,7 +79,7 @@ jobs:
  
   register-runner:
     name: Register GitHub Runner
-    if: ${{ github.ref_name != 'main' && github.ref_name != 'val' && github.ref_name != 'production' }}
+    if: ${{ github.ref_name != 'master' && github.ref_name != 'val' && github.ref_name != 'production' }}
     runs-on: ubuntu-latest
     needs: deploy
     env:
@@ -314,10 +314,6 @@ jobs:
     name: Accessibility Tests
     needs:
       - e2e-tests-init
-      - e2e-feature-tests
-      - child-e2e-measure-tests
-      - adult-e2e-measure-tests
-      - health-home-e2e-measure-tests
     uses: ./.github/workflows/cypress-workflow.yml
     with:
       test-path: "a11y"
