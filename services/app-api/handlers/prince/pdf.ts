@@ -13,15 +13,28 @@ export const getPDF = handler(async (event, _context) => {
     throw new Error("Missing request body");
   }
 
-  let sanitizedBody;
-  if (DOMPurify.isSupported && typeof rawBody === "string") {
-    // decode body from base64, sanitize dangerous html
-    const decodedBody = Buffer.from(rawBody, "base64").toString();
-    sanitizedBody = DOMPurify.sanitize(decodedBody);
+  if (rawBody.startsWith("{")) {
+    throw new Error("Body must be base64-encoded HTML, not a JSON object");
   }
-  if (!sanitizedBody) {
+
+  if (!DOMPurify.isSupported) {
     throw new Error("Could not process request");
   }
+
+  // decode body from base64, sanitize dangerous html
+  const decodedBody = Buffer.from(rawBody, "base64").toString();
+  const sanitizedBody = DOMPurify.sanitize(decodedBody, {
+    WHOLE_DOCUMENT: true,
+    /*
+     * By default DOMPurify removes all <link> tags, due to the possibility
+     * of XSS in certain browsers. We include bootstrap styles and google
+     * fonts via <link> tags in QMR, and we don't expect this page to be
+     * rendered in vulnerable browsers. So we allowlist "link" here.
+     *
+     * https://github.com/cure53/DOMPurify/issues/2
+     */
+    ADD_TAGS: ["head", "link"],
+  });
 
   const { docraptorApiKey, stage } = process.env;
   if (!docraptorApiKey) {

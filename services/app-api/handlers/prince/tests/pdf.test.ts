@@ -12,7 +12,7 @@ jest.mock("cross-fetch", () => ({
   fetch: jest.fn().mockResolvedValue({
     status: 200,
     headers: {
-      get: jest.fn().mockResolvedValue("3"),
+      get: jest.fn().mockReturnValue("3"),
     },
     arrayBuffer: jest.fn().mockResolvedValue(
       // An ArrayBuffer containing `%PDF-1.7`
@@ -58,7 +58,7 @@ describe("Test GetPDF handler", () => {
     const res = await getPDF(testEvent, null);
 
     expect(res.statusCode).toBe(500);
-    expect(res.body).toContain("Could not process request");
+    expect(res.body).toContain("must be base64-encoded HTML");
   });
 
   it("should throw error when config not defined", async () => {
@@ -87,7 +87,7 @@ describe("Test GetPDF handler", () => {
     expect(body).toEqual({
       user_credentials: "mock api key", // pragma: allowlist secret
       doc: expect.objectContaining({
-        document_content: sanitizedHtml,
+        document_content: `<html><head></head><body>${sanitizedHtml}</body></html>`,
         type: "pdf",
         prince_options: expect.objectContaining({
           profile: "PDF/UA-1",
