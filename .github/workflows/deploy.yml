@@ -314,10 +314,6 @@ jobs:
     name: Accessibility Tests
     needs:
       - e2e-tests-init
-      - e2e-feature-tests
-      - child-e2e-measure-tests
-      - adult-e2e-measure-tests
-      - health-home-e2e-measure-tests
     uses: ./.github/workflows/cypress-workflow.yml
     with:
       test-path: "a11y"
