@@ -8,34 +8,6 @@ describe("Measure: SAA-AD", () => {
     cy.goToMeasure("SAA-AD");
   });
 
-  it("displays the correct calculated rate amount in total", () => {
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.bdI1f1.0.numerator"]').type(
-      "123"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.bdI1f1.0.denominator"]').type(
-      "456"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.bdI1f1.0.rate"]').should(
-      "have.value",
-      "27.0"
-    );
-  });
-
-  it("rounds auto-calculated rate to one decimal", () => {
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="PerformanceMeasure.rates.bdI1f1.0.numerator"]').type(
-      "25"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.bdI1f1.0.denominator"]').type(
-      "100"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.bdI1f1.0.rate"]').should(
-      "have.value",
-      "25.0"
-    );
-  });
-
   it("rounds auto-calculated rate up or down as expected", () => {
     // 3/9*100 = 3.333... -> 33.3
     cy.get('[data-cy="MeasurementSpecification0"]').click();

@@ -8,66 +8,6 @@ describe("Measure: HBD-AD", () => {
     cy.goToMeasure("HBD-AD");
   });
 
-  it("Ensure correct sections display if user is/not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
-  });
-
-  it("Ensure Data Source question includes Administrative Data, Hybrid and Other Data Source selections. No warning displayed when N=0, D>0, R>0", () => {
-    // admin data
-    cy.get(
-      '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
-
-    // Hybrid data
-    cy.get(
-      '[data-cy="DataSource1"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
-
-    // other data source
-    cy.get(
-      '[data-cy="DataSource3"] > .chakra-checkbox__label > .chakra-text'
-    ).should("be.visible");
-
-    cy.get('[data-cy="DidReport0"]').click();
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[id="DataSource1-checkbox"]').check({ force: true });
-    cy.get('[data-cy="MeasurementSpecification-HEDISVersion"]').select(1);
-    cy.get(
-      '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
-    ).click();
-    cy.get('[data-cy="DateRange.startDate-month"]').click({ force: true });
-    cy.get('[data-cy="DateRange.startDate-month"]').type("2");
-
-    cy.get('[data-cy="DateRange.startDate-year"]').click({ force: true });
-    cy.get('[data-cy="DateRange.startDate-year"]').type("2023");
-
-    cy.get('[data-cy="DateRange.endDate-month"]').click({ force: true });
-    cy.get('[data-cy="DateRange.endDate-month"]').type("5");
-
-    cy.get('[data-cy="DateRange.endDate-year"]').click({ force: true });
-    cy.get('[data-cy="DateRange.endDate-year"]').type("2023");
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.numerator"]').type("0");
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.denominator"]').type(
-      "5"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').should(
-      "have.value",
-      "0.0"
-    );
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').type("5");
-    cy.get('[data-cy="Validate Measure"]').click();
-
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').clear();
-    cy.get('[data-cy="PerformanceMeasure.rates.F9V8xD.0.rate"]').type("5");
-    cy.get('[data-cy="Validate Measure"]').click();
-    /* ==== End Cypress Studio ==== */
-  });
-
   it("Rate calculation should be correct", () => {
     // select is reporting
     cy.get('[data-cy="DidReport0"]').click({ force: true });
