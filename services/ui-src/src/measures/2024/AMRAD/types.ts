@@ -25,7 +25,7 @@ export namespace Measure {
   export interface Form
     extends Types.MeasurementSpecification,
       Type.AdditionalNotes,
-      Types.CombinedRates,
+      Type.CombinedRates,
       Types.DateRange,
       Types.DefinitionOfPopulation,
       Types.StatusOfData,

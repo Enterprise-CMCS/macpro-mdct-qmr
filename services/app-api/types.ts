@@ -1,5 +1,3 @@
-import { Key } from "aws-sdk/clients/dynamodb";
-
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;
@@ -13,12 +11,6 @@ export interface CoreSet {
   state: string;
   submitted: boolean;
   year: number;
-}
-
-export interface DynamoCoreSetList {
-  Items?: CoreSet[];
-  Count?: number;
-  ScannedCount?: number;
 }
 
 export interface Measure {
@@ -35,52 +27,24 @@ export interface Measure {
   userCreated?: boolean;
   year: number;
   placeholder?: boolean;
+  /**
+   * The `autoCompleted` property is not present on measures in the database;
+   * it is set on fetch, according to the metadata in measureList.ts.
+   */
+  autoCompleted?: boolean;
 }
 
-export interface DynamoMeasureList {
-  Items?: Measure[];
-  Count?: number;
-  ScannedCount?: number;
-}
+/** This type subject to change, if/when we move to a multi-banner system. */
+export interface Banner {
+  key: string;
+  title: string;
+  description: string;
+  startDate: number;
+  endDate: number;
 
-export interface DynamoCreate {
-  TableName: string;
-  Item: Measure | CoreSet;
-}
-
-export interface DynamoDelete {
-  TableName: string;
-  Key: {
-    compoundKey: string;
-    coreSet: string;
-  };
-}
-
-export interface DynamoUpdate {
-  TableName: string;
-  Key: {
-    compoundKey: string;
-    coreSet: string;
-  };
-  UpdateExpression?: string;
-  ExpressionAttributeNames: { [key: string]: string };
-  ExpressionAttributeValues: { [key: string]: any };
-}
-
-export interface DynamoScan {
-  TableName: string;
-  FilterExpression?: string;
-  ExpressionAttributeNames: { [key: string]: string };
-  ExpressionAttributeValues: { [key: string]: any };
-  ExclusiveStartKey?: Key;
-}
-
-export interface DynamoFetch {
-  TableName: string;
-  Key: {
-    compoundKey: string;
-    coreSet: string;
-  };
+  createdAt: Date;
+  lastAltered: Date;
+  lastAlteredBy: string;
 }
 
 export const enum CoreSetAbbr {
@@ -110,3 +74,27 @@ export const enum RequestMethods {
   PUT = "PUT",
   DELETE = "DELETE",
 }
+
+/**
+ * Abridged copy of the type used by `aws-lambda@1.0.7` (from `@types/aws-lambda@8.10.88`)
+ * We only use this one type from the package, and we use only a subset of the
+ * properties. Since `aws-lambda` depends on `aws-sdk` (that is, SDK v2),
+ * we can save ourselves a big dependency with this small redundancy.
+ */
+export interface APIGatewayProxyEvent {
+  body: string | null;
+  headers: EventParameters;
+  multiValueHeaders: EventParameters;
+  httpMethod: string;
+  isBase64Encoded: boolean;
+  path: string;
+  pathParameters: EventParameters | null;
+  queryStringParameters: EventParameters | null;
+  multiValueQueryStringParameters: EventParameters | null;
+  stageVariables: EventParameters | null;
+  /** The context is complicated, and we don't (as of 2023) use it at all. */
+  requestContext: any;
+  resource: string;
+}
+
+export type EventParameters = Record<string, string | undefined>;

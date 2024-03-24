@@ -1,19 +1,13 @@
 import { createBanner } from "../create";
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../../../types";
 import { testBanner, proxyEvent } from "./proxyEvent";
 import dynamoDb from "../../../libs/dynamodb-lib";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
-import { mockDocumentClient } from "../../../utils/testing/setupJest";
 
 const mockHasRolePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   hasRolePermissions: () => mockHasRolePermissions(),
-}));
-
-jest.mock("../../../libs/debug-lib", () => ({
-  init: jest.fn(),
-  flush: jest.fn(),
 }));
 
 const testEvent: APIGatewayProxyEvent = {
@@ -28,15 +22,9 @@ const testEventNoTitle: APIGatewayProxyEvent = {
   body: JSON.stringify({ ...testBanner, title: "" }),
 };
 
-jest.spyOn(dynamoDb, "put").mockImplementation(
-  mockDocumentClient.put.promise.mockReturnValue({
-    Item: {
-      ...testBanner,
-      createdAt: new Date().getTime(),
-      lastAltered: new Date().getTime(),
-    },
-  })
-);
+jest.mock("../../../libs/dynamodb-lib", () => ({
+  put: jest.fn().mockResolvedValue("yep i put that thing!"),
+}));
 
 describe("Test createBanner API method", () => {
   beforeEach(() => {

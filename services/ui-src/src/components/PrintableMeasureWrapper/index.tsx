@@ -15,8 +15,10 @@ import {
 } from "react-hook-form";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
-import { CoreSetAbbr } from "types";
+import { AnyObject, CoreSetAbbr } from "types";
 import { measureDescriptions } from "measures/measureDescriptions";
+import SharedContext from "shared/SharedContext";
+import * as Labels from "labels/Labels";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -119,6 +121,12 @@ export const PrintableMeasureWrapper = ({
     shouldFocusError: true,
   });
 
+  //WIP: this code will be replaced with a dynamic import onces we refactored enough files
+  const shared: AnyObject = {
+    ...Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"],
+    year: year,
+  };
+
   useEffect(() => {
     // reset core set qualifier data to use the default values for table rendering
     if (
@@ -180,22 +188,24 @@ export const PrintableMeasureWrapper = ({
         </CUI.Box>
       )}
       <FormProvider {...methods}>
-        <>
-          <form data-testid="measure-wrapper-form">
-            <fieldset data-testid="fieldset" disabled>
-              <CUI.Container maxW="7xl" as="section" px="0">
-                <Measure
-                  measure={measure}
-                  name={foundMeasureDescription || name}
-                  year={year}
-                  measureId={measureId}
-                  setValidationFunctions={() => {}}
-                  handleSave={() => {}}
-                />
-              </CUI.Container>
-            </fieldset>
-          </form>
-        </>
+        <SharedContext.Provider value={shared}>
+          <>
+            <form data-testid="measure-wrapper-form">
+              <fieldset data-testid="fieldset" disabled>
+                <CUI.Container maxW="7xl" as="section" px="0">
+                  <Measure
+                    measure={measure}
+                    name={foundMeasureDescription || name}
+                    year={year}
+                    measureId={measureId}
+                    setValidationFunctions={() => {}}
+                    handleSave={() => {}}
+                  />
+                </CUI.Container>
+              </fieldset>
+            </form>
+          </>
+        </SharedContext.Provider>
       </FormProvider>
     </CUI.VStack>
   );

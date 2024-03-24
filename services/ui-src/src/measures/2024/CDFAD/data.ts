@@ -6,7 +6,7 @@ export const { categories, qualifiers } = getCatQualLabels("CDF-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of beneficiaries age 18 and older screened for depression on the date of the encounter or 14 days prior to the date of the encounter using an age-appropriate standardized depression screening tool, and if positive, a follow-up plan is documented on the date of the eligible encounter.",
+    "Percentage of beneficiaries age 18 and older screened for depression on the date of the encounter or 14 days prior to the date of the encounter using an age-appropriate standardized depression screening tool, and if positive, a follow-up plan is documented on the date of the qualifying encounter.",
   ],
   questionListItems: [],
   categories,
