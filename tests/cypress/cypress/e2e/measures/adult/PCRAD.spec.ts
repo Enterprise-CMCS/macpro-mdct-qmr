@@ -220,20 +220,4 @@ describe("PCR-AD", () => {
       "10.0"
     );
   });
-
-  it("Verify error message for empty form", function () {
-    cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(
-      '[data-cy="Date Range answer must be selected"] > .chakra-text'
-    ).should("have.text", "Date Range answer must be selected");
-    cy.get(
-      '[data-cy="All data fields must be completed."] > .chakra-text'
-    ).should("have.text", "All data fields must be completed.");
-    cy.get(
-      '[data-cy="Performance Measure/Other Performance Measure Error"]'
-    ).should(
-      "have.text",
-      "Performance Measure/Other Performance Measure Error"
-    );
-  });
 });

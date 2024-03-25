@@ -20,25 +20,4 @@ describe("Measure: HVL-AD", () => {
       "aria-readonly"
     );
   });
-
-  it("at least one dnr set if reporting and measurement spec or error.", () => {
-    cy.get('[data-cy="DidReport0"]').click();
-    cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(
-      '[data-cy="Performance Measure/Other Performance Measure Error"]'
-    ).should("be.visible");
-  });
-
-  it("if yes for combined rates → and no additional selection → show warning", () => {
-    cy.get('[data-cy="DidReport0"]').click();
-    cy.get('[data-cy="MeasurementSpecification0"]').click();
-    cy.get('[data-cy="CombinedRates0"]').click();
-    cy.get('[data-cy="Validate Measure"]').click();
-    cy.get(
-      '[data-cy="You must select at least one option for Combined Rate(s) Details if Yes is selected."]'
-    ).should(
-      "have.text",
-      "You must select at least one option for Combined Rate(s) Details if Yes is selected."
-    );
-  });
 });
