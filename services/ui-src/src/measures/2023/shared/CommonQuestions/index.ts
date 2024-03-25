@@ -6,7 +6,7 @@ export * from "./DataSourceCahps";
 export * from "shared/commonQuestions/AdditionalNotes";
 export * from "./OtherPerformanceMeasure";
 export * from "./Reporting";
-export * from "./StatusOfData";
+export * from "shared/commonQuestions/StatusOfData";
 export * from "./WhyAreYouNotReporting";
 export * from "shared/commonQuestions/NotCollectingOMS";
 export * from "./OptionalMeasureStrat";

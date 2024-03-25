@@ -1,7 +1,7 @@
 import fireEvent from "@testing-library/user-event";
-import { StatusOfData } from ".";
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import { StatusOfData } from "./StatusOfData";
 
 describe("Test StatusOfData component", () => {
   beforeEach(() => {

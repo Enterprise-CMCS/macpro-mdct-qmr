@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
 import * as DC from "dataConstants";
+import * as Types from "shared/types";
 
 export const StatusOfData = () => {
   const register = useCustomRegister<Types.StatusOfData>();

@@ -2,6 +2,7 @@ import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
+import { StatusOfData } from "shared/types";
 
 type YesNo = typeof DC.YES | typeof DC.NO;
 
@@ -133,13 +134,6 @@ export interface DidReport {
 
 export interface DidCollect {
   [DC.DID_COLLECT]: YesNo;
-}
-
-export interface StatusOfData {
-  [DC.DATA_STATUS]:
-    | typeof DC.REPORTING_FINAL_DATA
-    | typeof DC.REPORTING_PROVISIONAL_DATA;
-  [DC.DATA_STATUS_PROVISIONAL_EXPLAINATION]: string;
 }
 
 export interface DataSource {
