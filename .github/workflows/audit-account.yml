@@ -61,5 +61,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: resource-reports
-          path: |
-            .github/reports/
+          path: .github/reports/
+          retention-days: 7
