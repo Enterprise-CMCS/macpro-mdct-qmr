@@ -11,5 +11,5 @@ export * from "./WhyAreYouNotReporting";
 export * from "./NotCollectingOMS";
 export * from "./OptionalMeasureStrat";
 export * from "./MeasurementSpecification";
-export * from "./DeviationFromMeasureSpecification";
+export * from "shared/commonQuestions/DeviationFromMeasureSpecificationTextField";
 export * from "./PerformanceMeasure";

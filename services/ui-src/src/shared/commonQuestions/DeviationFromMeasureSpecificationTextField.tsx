@@ -4,7 +4,8 @@ import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 
 export const DeviationFromMeasureSpec = () => {
-  const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
+  const register =
+    useCustomRegister<Types.DeviationFromMeasureSpecificationTextField>();
 
   return (
     <QMR.CoreQuestionWrapper
