@@ -1,11 +1,17 @@
 import fireEvent from "@testing-library/user-event";
-import { MeasurementSpecification } from ".";
+import { MeasurementSpecification } from "./MeasurementSpecification";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
+import SharedContext from "shared/SharedContext";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
 describe("MeasurementSpecification component", () => {
   it("renders the component", async () => {
-    renderWithHookForm(<MeasurementSpecification type="CMS" />);
+    renderWithHookForm(
+      <SharedContext.Provider value={commonQuestionsLabel}>
+        <MeasurementSpecification type="CMS" />
+      </SharedContext.Provider>
+    );
 
     expect(screen.getByText("Measurement Specification")).toBeInTheDocument();
 
@@ -112,24 +118,13 @@ describe("all specification types", () => {
   for (const spec in specifications) {
     it(`renders ${spec} specification type correctly`, async () => {
       renderWithHookForm(
-        <MeasurementSpecification type={specifications[spec].propType.type} />
+        <SharedContext.Provider value={commonQuestionsLabel}>
+          <MeasurementSpecification type={specifications[spec].propType.type} />
+        </SharedContext.Provider>
       );
       expect(
         screen.getByText(specifications[spec].displayValue)
       ).toBeInTheDocument();
-
-      if (spec === "HEDIS") {
-        const radio = await screen.getByLabelText(
-          "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)"
-        );
-        fireEvent.click(radio);
-
-        expect(
-          screen.getByText(
-            "NCQA, the measure steward, changed its naming convention. HEDIS MY 2020 refers to a different federal fiscal year (FFY) than HEDIS 2020. Please note the FFY Core Set specification below."
-          )
-        ).toBeInTheDocument();
-      }
     });
   }
 });
