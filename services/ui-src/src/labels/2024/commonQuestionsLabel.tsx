@@ -69,7 +69,8 @@ export const commonQuestionsLabel = {
   },
   DeviationFromMeasureSpecification: {
     header: "Deviations from Measure Specifications",
-    section: "Did your calculation of the measure deviate from the measure specification in any way?",
+    section:
+      "Did your calculation of the measure deviate from the measure specification in any way?",
     deviationReason:
       "Explain the deviation(s) (<em>text in this field is included in publicly-reported state-specific comments</em>):",
   },
