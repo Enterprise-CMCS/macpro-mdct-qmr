@@ -1,10 +1,16 @@
 import { renderWithHookForm } from "utils";
 import { DeviationFromMeasureSpec } from "./DeviationFromMeasureSpecificationTextField";
 import { fireEvent, screen } from "@testing-library/react";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
+import SharedContext from "shared/SharedContext";
 
 describe("Test DeviationFromMeasureSpec Component", () => {
   beforeEach(() => {
-    renderWithHookForm(<DeviationFromMeasureSpec></DeviationFromMeasureSpec>);
+    renderWithHookForm(
+      <SharedContext.Provider value={commonQuestionsLabel}>
+        <DeviationFromMeasureSpec />
+      </SharedContext.Provider>
+    );
   });
 
   it("component renders", () => {
