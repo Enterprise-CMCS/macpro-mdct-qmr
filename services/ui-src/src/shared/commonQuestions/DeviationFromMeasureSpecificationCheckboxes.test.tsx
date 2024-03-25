@@ -1,22 +1,11 @@
 import { renderWithHookForm } from "utils";
 import { DeviationFromMeasureSpec } from "./DeviationFromMeasureSpecificationCheckboxes";
 import { fireEvent, screen } from "@testing-library/react";
-import { FormProvider, useForm } from "react-hook-form";
-
-const methods = useForm({
-  shouldUnregister: true,
-  mode: "all",
-  defaultValues: undefined,
-  criteriaMode: "firstError",
-  shouldFocusError: true,
-});
 
 describe("Test DeviationFromMeasureSpec Component", () => {
   beforeEach(() => {
     renderWithHookForm(
-      <FormProvider {...methods}>
-        <DeviationFromMeasureSpec categories={[]}></DeviationFromMeasureSpec>
-      </FormProvider>
+      <DeviationFromMeasureSpec categories={[]}></DeviationFromMeasureSpec>
     );
   });
 
@@ -61,16 +50,4 @@ describe("Test DeviationFromMeasureSpec Component", () => {
     const checkboxes = screen.queryAllByRole("checkbox");
     expect(checkboxes).toHaveLength(0);
   });
-
-  it("A checkbox is shown when user selects yes and an N/D/R is filled", () => {
-    //simulate user clicking yes to trigger the textarea to show
-    // const radioButtonYes = screen.getByRole("radio", {
-    //   name: "Yes, the calculation of the measure deviates from the measure specification.",
-    // });
-    // fireEvent.click(radioButtonYes);
-    // const checkboxes = screen.queryAllByRole("checkbox");
-    // expect(checkboxes).toHaveLength(0);
-  });
-
-  //a checkbox when performance measure is filled
 });
