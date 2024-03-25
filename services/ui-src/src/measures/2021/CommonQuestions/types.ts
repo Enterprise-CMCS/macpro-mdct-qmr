@@ -2,7 +2,6 @@ import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
-import { StatusOfData } from "shared/types";
 
 type YesNo = typeof DC.YES | typeof DC.NO;
 
@@ -278,7 +277,7 @@ export type DeviationKeys =
 
 export type DefaultFormData = Types.AdditionalNotes &
   DidCollect &
-  StatusOfData &
+  Types.StatusOfData &
   WhyAreYouNotReporting &
   DidReport &
   Types.CombinedRates &
