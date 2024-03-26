@@ -35,7 +35,9 @@ export const DataSourceRadio = ({ data = defaultData }: DataSourceProps) => {
             children: [
               <QMR.TextArea
                 name="describeTheDataSource"
-                label={parseLabelToHTML(labels?.DataSource.describeDataSrc)}
+                label={parseLabelToHTML(
+                  labels?.DataSourceCahps.describeDataSrc
+                )}
                 key="dataSourceOtherTextArea"
                 formLabelProps={{
                   fontWeight: "normal",
