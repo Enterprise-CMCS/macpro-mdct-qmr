@@ -4,11 +4,6 @@ on:
   schedule:
     - cron: "0 16 * * 1" # Every Monday at 1600 UTC
   workflow_dispatch:
-    inputs:
-      environment:
-        description: "This doesn't take an input, it just allows execution..."
-        required: false  
-  push:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.ref }}
@@ -19,7 +14,7 @@ permissions:
 
 jobs:
   audit:
-    #if: github.event.ref == 'master' || inputs.environment != ''
+    if: github.event.ref == 'master' || inputs.environment != ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
