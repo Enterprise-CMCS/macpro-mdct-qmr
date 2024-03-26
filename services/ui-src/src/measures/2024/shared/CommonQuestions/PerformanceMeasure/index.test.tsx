@@ -170,7 +170,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
       PCRData.qualifiers![1].label
     )[0];
     const denominatorTextBox = screen.queryAllByLabelText(
-      PCRData.qualifiers![2].label
+      PCRData.qualifiers![0].label
     )[0];
     const rateTextBox = screen.getByText(
       PCRData.qualifiers![2].label
