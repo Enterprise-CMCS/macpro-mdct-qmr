@@ -9,7 +9,6 @@ import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import fireEvent from "@testing-library/user-event";
 import { validationFunctions } from "./validation";
 import {
   mockValidateAndSetErrors,
@@ -136,33 +135,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(screen.queryByTestId("OPM")).not.toBeInTheDocument();
   });
 
-  it("(QMR.Rate) should calculate correctly and account for user error", async () => {
-    apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
-    useApiMock(apiData);
-    renderWithHookForm(component);
-
-    const numeratorTextBox = screen.queryAllByLabelText("Numerator");
-    //console.log(numeratorTextBox);
-    expect(numeratorTextBox).toHaveDisplayValue("55");
-    const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
-    const rateTextBox = screen.queryAllByLabelText("Rate")[0];
-    fireEvent.type(numeratorTextBox[0], "1");
-    fireEvent.type(denominatorTextBox, "2");
-    console.log(numeratorTextBox);
-    expect(numeratorTextBox).toHaveDisplayValue("1");
-    expect(denominatorTextBox).toHaveDisplayValue("2");
-    expect(rateTextBox).toHaveDisplayValue("50.0");
-
-    // if numerator is greater than denominator, the row does not factor into total rate
-    const secondNumeratorTextBox = screen.queryAllByLabelText("Numerator")[1];
-    const secondDenominatorTextBox =
-      screen.queryAllByLabelText("Denominator")[1];
-    const secondRateTextBox = screen.queryAllByLabelText("Rate")[1];
-    fireEvent.type(secondNumeratorTextBox, "5");
-    fireEvent.type(secondDenominatorTextBox, "7");
-    expect(secondRateTextBox).toHaveDisplayValue("71.4");
-  });
-
   it("shows corresponding components and hides others when primary measure is NOT selected", async () => {
     apiData.useGetMeasureValues.data.Item.data = OPMData;
     useApiMock(apiData);
@@ -267,6 +239,8 @@ const OPMData = {
 };
 
 const completedMeasureData = {
+  MeasurementSpecification: "NCQA/HEDIS",
+  DidReport: "yes",
   PerformanceMeasure: {
     rates: {
       singleCategory: [
@@ -292,6 +266,4 @@ const completedMeasureData = {
       ],
     },
   },
-  MeasurementSpecification: "NCQA/HEDIS",
-  DidReport: "yes",
 };

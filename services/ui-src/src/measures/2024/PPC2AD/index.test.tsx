@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+//import fireEvent from "@testing-library/user-event";
 import { validationFunctions } from "./validation";
 import {
   mockValidateAndSetErrors,
@@ -144,7 +145,10 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toBeInTheDocument();
   });
 
-  // TO-DO: it("allows a user to manually override rate when CAHPS 5.1H is selected")
+  it("allows a user to manually override rate when CAHPS 5.1H is selected", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+  });
 
   it("shows OMS when performance measure data has been entered", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;

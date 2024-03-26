@@ -127,6 +127,30 @@ describe("Test non-readonly rate component", () => {
 
     expect(rateTextBox).toHaveDisplayValue("43");
   });
+
+  test("Ensure that warning appears if N=0, D>0, then R should be = 0 for user entered rates.", () => {
+    renderWithHookForm(<TestComponent2 />, {
+      defaultValues: {
+        "test-component": [
+          {
+            numerator: "1",
+            denominator: "1",
+            rate: "1",
+          },
+        ],
+      },
+    });
+
+    // Change the numerator from 1 to 0
+
+    const numeratorTextBox = screen.getByLabelText("Numerator");
+
+    fireEvent.type(numeratorTextBox, "0");
+
+    expect(numeratorTextBox).toHaveDisplayValue("0");
+    const rateTextBox = screen.getByLabelText("Rate");
+    expect(rateTextBox).toHaveDisplayValue("0.0");
+  });
 });
 
 const TestComponentWithTotal = () => {

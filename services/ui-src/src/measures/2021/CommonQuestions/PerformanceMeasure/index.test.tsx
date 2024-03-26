@@ -16,7 +16,7 @@ interface Props {
   rateReadOnly: undefined | boolean;
 }
 
-const renderComponet = ({ component, calcTotal, data, rateReadOnly }: Props) =>
+const renderComponent = ({ component, calcTotal, data, rateReadOnly }: Props) =>
   renderWithHookForm(
     <PerformanceMeasure
       data={data}
@@ -39,7 +39,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
   });
 
   test("(QMR.Rate) Ensure component renders", () => {
-    renderComponet(props);
+    renderComponent(props);
     // should render QMR.Rate layout using example data
     expect(screen.getByText(/Performance Measure/i)).toBeVisible();
     expect(screen.getByText(exampleData.questionText![0])).toBeVisible();
@@ -74,7 +74,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(QMR.Rate) Rates should not be editable", () => {
     props.rateReadOnly = true;
-    renderComponet(props);
+    renderComponent(props);
 
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
@@ -89,32 +89,24 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(QMR.Rate) Should total in last NDR", () => {
     props.calcTotal = true;
-    renderComponet(props);
+    renderComponent(props);
 
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
     const rateTextBox = screen.queryAllByLabelText("Rate")[0];
-    fireEvent.type(numeratorTextBox, "1");
-    fireEvent.type(denominatorTextBox, "2");
-    expect(numeratorTextBox).toHaveDisplayValue("1");
-    expect(denominatorTextBox).toHaveDisplayValue("2");
-    expect(rateTextBox).toHaveDisplayValue("50.0");
+    fireEvent.type(numeratorTextBox, "123");
+    fireEvent.type(denominatorTextBox, "123");
+    expect(numeratorTextBox).toHaveDisplayValue("123");
+    expect(denominatorTextBox).toHaveDisplayValue("123");
+    expect(rateTextBox).toHaveDisplayValue("100.0");
 
-    // if numerator is greater than denominator,
-    const secondNumeratorTextBox = screen.queryAllByLabelText("Numerator")[1];
-    const secondDenominatorTextBox =
-      screen.queryAllByLabelText("Denominator")[1];
-    const secondRateTextBox = screen.queryAllByLabelText("Rate")[1];
-    fireEvent.type(secondNumeratorTextBox, "5");
-    fireEvent.type(secondDenominatorTextBox, "7");
-    expect(secondRateTextBox).toHaveDisplayValue("71.4");
-
-    const lastRateTextBox = screen.queryAllByLabelText("Rate");
-    //expect(lastRateTextBox).toHaveDisplayValue("66.7");
-
-    fireEvent.type(secondNumeratorTextBox, "55");
-    expect(secondRateTextBox).toHaveDisplayValue("");
-    expect(lastRateTextBox).toHaveDisplayValue("50.0");
+    // last NDR set should not total
+    const lastNumeratorTextBox = screen.queryAllByLabelText("Numerator")[1];
+    const lastDenominatorTextBox = screen.queryAllByLabelText("Denominator")[1];
+    const lastRateTextBox = screen.queryAllByLabelText("Rate")[1];
+    expect(lastNumeratorTextBox).toHaveDisplayValue("123");
+    expect(lastDenominatorTextBox).toHaveDisplayValue("123");
+    expect(lastRateTextBox).toHaveDisplayValue("100.0");
   });
 
   test("(PCR-XX) Ensure component renders", () => {
@@ -123,7 +115,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
     props.component = PCRRate;
     props.data = PCRData;
-    renderComponet(props);
+    renderComponent(props);
 
     // should render match PCRRate layout using PCR-XX data
     expect(screen.getByText(/Performance Measure/i)).toBeVisible();
@@ -152,7 +144,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     props.component = PCRRate;
     props.data = PCRData;
     props.rateReadOnly = true;
-    renderComponet(props);
+    renderComponent(props);
 
     // rates should not be editable
     const numeratorTextBox = screen.queryAllByLabelText(

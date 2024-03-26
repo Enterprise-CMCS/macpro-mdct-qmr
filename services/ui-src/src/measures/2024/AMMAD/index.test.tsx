@@ -269,16 +269,3 @@ const completedMeasureData = {
   MeasurementSpecification: "NCQA/HEDIS",
   DidReport: "yes",
 };
-
-/*
-const measureDataWithStandardDataSource = {
-  DataSource: "Administrative Data",
-  MeasurementSpecification: "NCQA/HEDIS",
-  DidReport: "yes",
-};
-
-const measureDataWithOtherDataSource = {
-  DataSource: "Other Data Source",
-  MeasurementSpecification: "NCQA/HEDIS",
-  DidReport: "yes",
-}; */
