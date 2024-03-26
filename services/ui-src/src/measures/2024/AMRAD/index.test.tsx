@@ -239,8 +239,6 @@ const OPMData = {
 };
 
 const completedMeasureData = {
-  MeasurementSpecification: "NCQA/HEDIS",
-  DidReport: "yes",
   PerformanceMeasure: {
     rates: {
       singleCategory: [
@@ -266,4 +264,6 @@ const completedMeasureData = {
       ],
     },
   },
+  MeasurementSpecification: "NCQA/HEDIS",
+  DidReport: "yes",
 };
