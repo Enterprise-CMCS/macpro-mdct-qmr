@@ -212,11 +212,8 @@ export const usePrinceRequest: PrinceHook = () => {
        * it to be rendered to PDF.
        */
       for (let style of document.querySelectorAll("style")) {
-        /*
-         * The .*? trigraph means "match any string, but as short as possible".
-         * The s flag allows the . to match newline characters.
-         */
-        style.innerHTML = style.innerHTML.replaceAll(/\/\*.*?\*\//gs, "");
+        // Pulled from https://www.w3.org/TR/CSS2/grammar.html#scanner
+        style.innerHTML = style.innerHTML.replaceAll(/\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, "");
       }
 
       // get cleaned html
