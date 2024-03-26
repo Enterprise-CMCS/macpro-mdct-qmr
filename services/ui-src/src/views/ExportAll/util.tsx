@@ -213,7 +213,10 @@ export const usePrinceRequest: PrinceHook = () => {
        */
       for (let style of document.querySelectorAll("style")) {
         // Pulled from https://www.w3.org/TR/CSS2/grammar.html#scanner
-        style.innerHTML = style.innerHTML.replaceAll(/\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, "");
+        style.innerHTML = style.innerHTML.replaceAll(
+          /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g,
+          ""
+        );
       }
 
       // get cleaned html
