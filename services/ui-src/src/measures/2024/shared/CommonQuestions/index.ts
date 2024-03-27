@@ -9,6 +9,6 @@ export * from "./Reporting";
 export * from "./StatusOfData";
 export * from "./WhyAreYouNotReporting";
 export * from "./OptionalMeasureStrat";
+export * from "shared/commonQuestions/DeviationFromMeasureSpecificationTextField";
 export * from "shared/commonQuestions/MeasurementSpecification";
-export * from "./DeviationFromMeasureSpecification";
 export * from "./PerformanceMeasure";
