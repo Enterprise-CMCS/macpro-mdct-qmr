@@ -13,6 +13,10 @@ export interface HHCSQualifierForm extends BaseQualifierForm {}
 
 export interface ACSQualifierForm extends BaseQualifierForm {}
 
+export interface ACSCQualifierForm extends BaseQualifierForm {}
+
+export interface ACSMQualifierForm extends BaseQualifierForm {}
+
 export interface CCSQualifierForm extends BaseQualifierForm {}
 
 export interface CCSCQualifierForm extends BaseQualifierForm {}

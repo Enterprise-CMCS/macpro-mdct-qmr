@@ -42,6 +42,8 @@ const getCoreSetType = (type: CoreSetAbbr) => {
   let result;
   switch (type) {
     case CoreSetAbbr.ACS:
+    case CoreSetAbbr.ACSC:
+    case CoreSetAbbr.ACSM:
       result = CoreSetTableItem.Type.ADULT;
       break;
     case CoreSetAbbr.HHCS:

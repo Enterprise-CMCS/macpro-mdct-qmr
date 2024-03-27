@@ -73,6 +73,12 @@ export const AddCoreSetCards = ({
         to="add-child"
         coreSetExists={childCoreSetExists}
       />
+      <AddCoreSetCard
+        title="Need to report on Adult data?"
+        buttonText="Add Adult Core Set"
+        to="add-adult"
+        coreSetExists={childCoreSetExists}
+      />
       {renderHealthHomeCoreSet && (
         <AddCoreSetCard
           title="Need to report on Health Home data?"
@@ -81,11 +87,11 @@ export const AddCoreSetCards = ({
           coreSetExists={healthHomesCoreSetExists}
         />
       )}
-      <CUI.Center w="44" textAlign="center">
+      {/* <CUI.Center w="44" textAlign="center">
         <CUI.Text fontStyle="italic" fontSize="sm">
           Only one group of Adult Core Set Measures can be submitted per FFY
         </CUI.Text>
-      </CUI.Center>
+      </CUI.Center> */}
     </>
   );
 };

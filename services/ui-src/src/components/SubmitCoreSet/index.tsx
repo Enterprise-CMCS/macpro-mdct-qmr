@@ -26,6 +26,8 @@ export const SubmitCoreSetButton = ({
     const abbr = coreSet?.split("_") ?? [coreSet];
     switch (abbr[0]) {
       case CoreSetAbbr.ACS:
+      case CoreSetAbbr.ACSC:
+      case CoreSetAbbr.ACSM:
         return "Adult ";
       case CoreSetAbbr.CCS:
       case CoreSetAbbr.CCSM:
@@ -42,7 +44,11 @@ export const SubmitCoreSetButton = ({
     const abbr = coreSet?.split("_") ?? [coreSet];
     switch (abbr[0]) {
       case CoreSetAbbr.ACS:
-        return " ";
+        return ": Medicaid & CHIP ";
+      case CoreSetAbbr.ACSM:
+        return ": Medicaid ";
+      case CoreSetAbbr.ACSC:
+        return ": CHIP ";
       case CoreSetAbbr.CCS:
         return ": Medicaid & CHIP ";
       case CoreSetAbbr.CCSM:
