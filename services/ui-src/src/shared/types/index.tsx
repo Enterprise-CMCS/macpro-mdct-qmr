@@ -5,3 +5,5 @@ export * from "shared/types/TypeDataSource";
 export * from "shared/types/TypeDefinitionOfPopulation";
 export * from "shared/types/TypeDateRange";
 export * from "shared/types/TypeStatusOfData";
+export * from "shared/types/TypeDeviationFromMeasureSpecification";
+export * from "shared/types/TypeRateFields";

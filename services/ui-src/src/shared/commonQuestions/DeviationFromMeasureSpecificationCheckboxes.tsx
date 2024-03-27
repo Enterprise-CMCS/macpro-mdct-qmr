@@ -123,7 +123,8 @@ export const DeviationFromMeasureSpec = ({
   measureName = "",
   customTotalLabel,
 }: Props) => {
-  const register = useCustomRegister<Types.DeviationFromMeasureSpecification>();
+  const register =
+    useCustomRegister<Types.DeviationFromMeasureSpecificationCheckboxes>();
   const watchPerformanceMeasure = useWatch({
     name: DC.PERFORMANCE_MEASURE,
   });
