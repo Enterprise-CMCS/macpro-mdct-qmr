@@ -48,6 +48,9 @@ export const commonQuestionsLabel = {
       "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:",
     srcDescription: "Data Source Description",
   },
+  DataSourceCahps: {
+    describeDataSrc: "Describe the data source:",
+  },
   DefinitionsOfPopulation: {
     defineDenomOther: "Define the other denominator population:",
     explainExcludedPop: "Explain which populations are excluded and why:",

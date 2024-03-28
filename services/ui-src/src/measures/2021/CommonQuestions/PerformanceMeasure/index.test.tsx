@@ -16,7 +16,7 @@ interface Props {
   rateReadOnly: undefined | boolean;
 }
 
-const renderComponet = ({ component, calcTotal, data, rateReadOnly }: Props) =>
+const renderComponent = ({ component, calcTotal, data, rateReadOnly }: Props) =>
   renderWithHookForm(
     <PerformanceMeasure
       data={data}
@@ -39,7 +39,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
   });
 
   test("(QMR.Rate) Ensure component renders", () => {
-    renderComponet(props);
+    renderComponent(props);
     // should render QMR.Rate layout using example data
     expect(screen.getByText(/Performance Measure/i)).toBeVisible();
     expect(screen.getByText(exampleData.questionText![0])).toBeVisible();
@@ -63,7 +63,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     fireEvent.type(rateTextBox, "99.9");
     expect(rateTextBox).toHaveDisplayValue("99.9");
 
-    // last NDR in categroy should not total
+    // last NDR in category should not total
     const lastNumeratorTextBox = screen.queryAllByLabelText("Numerator")[1];
     const lastDenominatorTextBox = screen.queryAllByLabelText("Denominator")[1];
     const lastRateTextBox = screen.queryAllByLabelText("Rate")[1];
@@ -74,7 +74,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(QMR.Rate) Rates should not be editable", () => {
     props.rateReadOnly = true;
-    renderComponet(props);
+    renderComponent(props);
 
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
@@ -89,7 +89,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(QMR.Rate) Should total in last NDR", () => {
     props.calcTotal = true;
-    renderComponet(props);
+    renderComponent(props);
 
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
@@ -115,7 +115,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
     props.component = PCRRate;
     props.data = PCRData;
-    renderComponet(props);
+    renderComponent(props);
 
     // should render match PCRRate layout using PCR-XX data
     expect(screen.getByText(/Performance Measure/i)).toBeVisible();
@@ -144,7 +144,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     props.component = PCRRate;
     props.data = PCRData;
     props.rateReadOnly = true;
-    renderComponet(props);
+    renderComponent(props);
 
     // rates should not be editable
     const numeratorTextBox = screen.queryAllByLabelText(
