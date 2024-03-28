@@ -135,13 +135,6 @@ export interface DidCollect {
   [DC.DID_COLLECT]: YesNo;
 }
 
-export interface StatusOfData {
-  [DC.DATA_STATUS]:
-    | typeof DC.REPORTING_FINAL_DATA
-    | typeof DC.REPORTING_PROVISIONAL_DATA;
-  [DC.DATA_STATUS_PROVISIONAL_EXPLAINATION]: string;
-}
-
 export interface DataSource {
   [DC.DATA_SOURCE]: string[];
   [DC.DATA_SOURCE_SELECTIONS]: {
@@ -284,7 +277,7 @@ export type DeviationKeys =
 
 export type DefaultFormData = Types.AdditionalNotes &
   DidCollect &
-  StatusOfData &
+  Types.StatusOfData &
   WhyAreYouNotReporting &
   DidReport &
   Types.CombinedRates &

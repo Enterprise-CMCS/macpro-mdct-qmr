@@ -28,7 +28,7 @@ export namespace Measure {
       Type.CombinedRates,
       Types.DateRange,
       Types.DefinitionOfPopulation,
-      Types.StatusOfData,
+      Type.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.DataSource,
