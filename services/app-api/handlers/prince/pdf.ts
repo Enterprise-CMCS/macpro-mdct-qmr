@@ -79,18 +79,20 @@ function sanitizeHtml(htmlString: string) {
   }
   const commentlessHtml = doc.querySelector("html")!.outerHTML;
 
-  // decode body from base64, sanitize dangerous html
+  /* Sanitization parameters:
+   *  - WHOLE_DOCUMENT - Tells DOMPurify to return the entire <html> doc;
+   *    its default behavior is to return only the contents of the <body>.
+   *  - ADD_TAGS: "head" - Add <head> to the tag allowlist. It's important.
+   *  - ADD_TAGS: "link" - We use <link> tags to include some styles.
+   *  - ADD_TAGS: "base" - The <base> tag tells the renderer to treat relative
+   *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
+   *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
+   *    reject our documents; when they render it on their servers, relative
+   *    URLs would appear as filesystem access attempts, which they disallow.
+   */
   const sanitizedHtml = DOMPurify.sanitize(commentlessHtml, {
     WHOLE_DOCUMENT: true,
-    /*
-     * By default DOMPurify removes all <link> tags, due to the possibility
-     * of XSS in certain browsers. We include bootstrap styles and google
-     * fonts via <link> tags in QMR, and we don't expect this page to be
-     * rendered in vulnerable browsers. So we allowlist "link" here.
-     *
-     * https://github.com/cure53/DOMPurify/issues/2
-     */
-    ADD_TAGS: ["head", "link"],
+    ADD_TAGS: ["head", "link", "base"],
   });
 
   return sanitizedHtml;
