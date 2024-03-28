@@ -18,4 +18,3 @@ export interface OtherRatesFields {
   [DC.DESCRIPTION]?: string;
   [DC.RATE]?: RateFields[];
 }
-}
