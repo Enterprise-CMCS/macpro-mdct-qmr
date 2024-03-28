@@ -14,7 +14,7 @@
     "date-fns": "^2.26.0",
     "date-fns-tz": "^1.2.2",
     "file-saver": "^2.0.5",
-    "framer-motion": "^4",
+    "framer-motion": "^11.0.5",
     "jest-launchdarkly-mock": "^2.0.0",
     "launchdarkly-react-client-sdk": "^3.0.0",
     "node-fetch": "3.3.1",
