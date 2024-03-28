@@ -211,3 +211,81 @@ export const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
 
   return rateArrays;
 };
+
+/** Creates Rate Components for each Qualifier if filled in PM, only used for categories & qualifers of type string[] */
+export const useQualRateArray: RateArrayBuilder = (name) => {
+  const {
+    qualifiers,
+    measureName,
+    inputFieldNames,
+    ndrFormulas,
+    calcTotal,
+    allowNumeratorGreaterThanDenominator,
+    customMask,
+    performanceMeasureArray,
+    rateMultiplicationValue,
+    AIFHHPerformanceMeasureArray,
+    rateReadOnly,
+    customDenominatorLabel,
+    customNumeratorLabel,
+    customRateLabel,
+    rateCalculation,
+  } = usePerformanceMeasureContext();
+  const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
+  const rateArrays: React.ReactElement[][] = [];
+
+  stringToLabelData(quals)?.forEach((singleQual, qualIndex) => {
+    if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
+      const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
+
+      rateArrays.push([
+        <QMR.Rate
+          readOnly={rateReadOnly}
+          name={cleanedName}
+          key={cleanedName}
+          rateMultiplicationValue={rateMultiplicationValue}
+          allowNumeratorGreaterThanDenominator={
+            allowNumeratorGreaterThanDenominator
+          }
+          customNumeratorLabel={customNumeratorLabel}
+          customDenominatorLabel={customDenominatorLabel}
+          customRateLabel={customRateLabel}
+          customMask={customMask}
+          rateCalc={rateCalculation}
+          rates={[{ id: 0 }]}
+        />,
+      ]);
+    } else if (AIFHHPerformanceMeasureArray) {
+      AIFHHPerformanceMeasureArray?.forEach((measure) => {
+        const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
+        //Confirm that there is at least 1 rate complete
+        const rate1 = measure?.[qualIndex]?.fields?.[2]?.value ? true : false;
+        const rate2 = measure?.[qualIndex]?.fields?.[4]?.value ? true : false;
+        const rate3 = measure?.[qualIndex]?.fields?.[6]?.value ? true : false;
+        if (rate1 || rate2 || rate3) {
+          rateArrays.push([
+            <QMR.ComplexRate
+              readOnly={rateReadOnly}
+              name={cleanedName}
+              key={cleanedName}
+              measureName={measureName}
+              inputFieldNames={inputFieldNames}
+              ndrFormulas={ndrFormulas}
+              rates={[
+                {
+                  id: 0,
+                },
+              ]}
+            />,
+          ]);
+        } else {
+          rateArrays.push([]);
+        }
+      });
+    } else {
+      rateArrays.push([]);
+    }
+  });
+
+  return rateArrays;
+};
