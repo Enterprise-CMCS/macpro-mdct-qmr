@@ -64,6 +64,8 @@ export const Rate = ({
     defaultValue: [],
   });
 
+  console.log("rateCalc", rateCalc);
+
   if (calcTotal) {
     rates[rates.length - 1]["isTotal"] = true;
   }

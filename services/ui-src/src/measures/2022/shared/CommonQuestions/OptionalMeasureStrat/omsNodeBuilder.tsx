@@ -6,7 +6,7 @@ import { OmsNode } from "./data";
 import { AddAnotherSection } from "./additionalCategory";
 import { cleanString } from "utils/cleanString";
 import { SubCatSection } from "./subCatClassification";
-import { NDRSets } from "./ndrSets";
+import { NDRSets } from "./NDR/ndrSets";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */

@@ -5,7 +5,7 @@ import { OmsNode } from "./data";
 
 import { AddAnotherSection } from "./additionalCategory";
 import { SubCatSection } from "./subCatClassification";
-import { NDRSets } from "./ndrSets";
+import { NDRSets } from "./NDR/ndrSets";
 import { cleanString } from "utils/cleanString";
 
 interface CheckboxChildrenProps extends OmsNode {
