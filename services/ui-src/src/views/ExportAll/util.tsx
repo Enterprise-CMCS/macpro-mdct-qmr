@@ -200,25 +200,6 @@ export const usePrinceRequest: PrinceHook = () => {
       const html = document.querySelector("html")!;
       html.querySelector("noscript")?.remove();
 
-      /*
-       * This HTML will eventually be sent through DOMPurify, which is very
-       * aggressive in removing potentially malicious code. Some of our style
-       * tags (namely, those included from @cmsgov/design-system) include
-       * comments with example HTML markup. This is sufficiently suspicious
-       * that DOMPurify will remove the entire style tag:
-       * https://github.com/cure53/DOMPurify/issues/593
-       *
-       * To avoid this, remove all comments from the page's CSS before sending
-       * it to be rendered to PDF.
-       */
-      for (let style of document.querySelectorAll("style")) {
-        // Pulled from https://www.w3.org/TR/CSS2/grammar.html#scanner
-        style.innerHTML = style.innerHTML.replaceAll(
-          /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g,
-          ""
-        );
-      }
-
       // get cleaned html
       const htmlString = htmlStringCleanup(html.outerHTML);
 

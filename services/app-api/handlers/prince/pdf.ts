@@ -12,39 +12,20 @@ export const getPDF = handler(async (event, _context) => {
   if (!rawBody) {
     throw new Error("Missing request body");
   }
-
   if (rawBody.startsWith("{")) {
     throw new Error("Body must be base64-encoded HTML, not a JSON object");
   }
-
-  if (!DOMPurify.isSupported) {
-    throw new Error("Could not process request");
-  }
-
-  // decode body from base64, sanitize dangerous html
-  const decodedBody = Buffer.from(rawBody, "base64").toString();
-  const sanitizedBody = DOMPurify.sanitize(decodedBody, {
-    WHOLE_DOCUMENT: true,
-    /*
-     * By default DOMPurify removes all <link> tags, due to the possibility
-     * of XSS in certain browsers. We include bootstrap styles and google
-     * fonts via <link> tags in QMR, and we don't expect this page to be
-     * rendered in vulnerable browsers. So we allowlist "link" here.
-     *
-     * https://github.com/cure53/DOMPurify/issues/2
-     */
-    ADD_TAGS: ["head", "link"],
-  });
-
   const { docraptorApiKey, stage } = process.env;
   if (!docraptorApiKey) {
     throw new Error("No config found to make request to PDF API");
   }
 
+  const decodedHtml = Buffer.from(rawBody, "base64").toString();
+  const sanitizedHtml = sanitizeHtml(decodedHtml);
   const requestBody = {
     user_credentials: docraptorApiKey,
     doc: {
-      document_content: sanitizedBody,
+      document_content: sanitizedHtml,
       type: "pdf" as const,
       // This tag differentiates QMR and CARTS requests in DocRaptor's logs.
       tag: "QMR",
@@ -78,6 +59,41 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
   console.debug(`Successfully generated a ${pdfPageCount}-page PDF.`);
 
   return response.arrayBuffer();
+}
+
+function sanitizeHtml(htmlString: string) {
+  if (!DOMPurify.isSupported) {
+    throw new Error("Could not process request");
+  }
+
+  /*
+   * DOMPurify will zap an entire <style> tag if contains a `<` character,
+   * and some of our CSS comments do. So we strip all CSS comments before
+   * running it through DOMPurify.
+   */
+  const doc = new JSDOM(htmlString).window.document;
+  const styleTags = doc.querySelectorAll("style");
+  for (let i = 0; i < styleTags.length; i += 1) {
+    const style = styleTags[i];
+    style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
+  }
+  const commentlessHtml = doc.querySelector("html")!.outerHTML;
+
+  // decode body from base64, sanitize dangerous html
+  const sanitizedHtml = DOMPurify.sanitize(commentlessHtml, {
+    WHOLE_DOCUMENT: true,
+    /*
+     * By default DOMPurify removes all <link> tags, due to the possibility
+     * of XSS in certain browsers. We include bootstrap styles and google
+     * fonts via <link> tags in QMR, and we don't expect this page to be
+     * rendered in vulnerable browsers. So we allowlist "link" here.
+     *
+     * https://github.com/cure53/DOMPurify/issues/2
+     */
+    ADD_TAGS: ["head", "link"],
+  });
+
+  return sanitizedHtml;
 }
 
 /**
