@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: "0 16 * * 1" # Every Monday at 1600 UTC
   workflow_dispatch:
+  push:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.ref }}
@@ -14,15 +15,10 @@ permissions:
 
 jobs:
   audit:
-    if: github.event.ref == 'master' || inputs.environment != ''
+    #if: github.event.ref == 'master' || inputs.environment != ''
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: "Setup jq"
-        uses: dcarbone/install-jq-action@v2.1.0
-        with:
-          version: "${{ inputs.version }}"
-          force: "${{ inputs.force }}"      
+      - uses: actions/checkout@v4  
       - name: set variable values
         run: ./.github/build_vars.sh set_values
         env:
@@ -57,4 +53,4 @@ jobs:
         with:
           name: resource-reports
           path: .github/reports/
-          retention-days: 7
+          retention-days: 14
