@@ -325,18 +325,17 @@ export const measureDescriptions: MeasureList = {
     "FUM-AD":
       "Follow-Up After Emergency Department Visit for Mental Illness: Age 18 and Older",
     "FUM-HH": "Follow-Up After Emergency Department Visit for Mental Illness",
-    "FVA-AD": "Flu Vaccinations for Adults Ages 18 to 64",
     "HBD-AD": "Hemoglobin A1c Control for Patients with Diabetes",
     "HPCMI-AD":
       "Diabetes Care for People with Serious Mental Illness: Hemoglobin A1C (HbA1c) Poor Control (>9.0%)",
     "HVL-AD": "HIV Viral Load Suppression",
     "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
     "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
-    "NCIDDS-AD": "National Core Indicators Survey",
+    "NCIIDD-AD": "National Core Indicators Survey",
     "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
-    "PPC-AD": "Prenatal and Postpartum Care: Postpartum Care",
+    "PPC2-AD": "Prenatal and Postpartum Care: Age 21 and Over",
     "PQI01-AD": "PQI 01: Diabetes Short-Term Complications Admission Rate",
     "PQI05-AD":
       "PQI 05: Chronic Obstructive Pulmonary Disease (COPD) or Asthma in Older Adults Admission Rate",

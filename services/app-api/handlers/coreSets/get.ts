@@ -8,12 +8,12 @@ import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import * as Types from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { CoreSet, CoreSetAbbr, UserRoles } from "../../types";
 
 export const coreSetList = handler(async (event, context) => {
   // action limited to any admin type user and state users from corresponding state
-  const isStateUser = hasRolePermissions(event, [Types.UserRoles.STATE_USER]);
+  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {
     const isFromCorrespondingState = hasStatePermissions(event);
     if (!isFromCorrespondingState) {
@@ -35,15 +35,15 @@ export const coreSetList = handler(async (event, context) => {
     ),
   };
 
-  const results = await dynamoDb.scan<Types.CoreSet>(params);
+  const results = await dynamoDb.scanAll<CoreSet>(params);
   // if the query value contains no results
-  if (results.Count === 0) {
+  if (results.length === 0) {
     // add an adult coreset and requery the db
     const createCoreSetEvent = {
       ...event,
       pathParameters: {
         ...event.pathParameters,
-        coreSet: Types.CoreSetAbbr.ACS,
+        coreSet: CoreSetAbbr.ACS,
       },
     };
     try {
@@ -52,10 +52,12 @@ export const coreSetList = handler(async (event, context) => {
         context
       );
       if (createCoreSetResult.statusCode === 200) {
-        const res = await dynamoDb.scan(params);
+        const res = await dynamoDb.scanAll<CoreSet>(params);
         return {
           status: StatusCodes.SUCCESS,
-          body: res,
+          body: {
+            Items: res,
+          },
         };
       } else {
         throw new Error("Creation failed");
@@ -66,18 +68,20 @@ export const coreSetList = handler(async (event, context) => {
     }
   } else {
     // Update the progress measure numComplete
-    const updatedCoreSetProgressResults =
-      (await updateCoreSetProgress(results, event, context)) || results;
+    await updateCoreSetProgress(results, event, context);
+
     return {
       status: StatusCodes.SUCCESS,
-      body: updatedCoreSetProgressResults,
+      body: {
+        Items: results,
+      },
     };
   }
 });
 
 export const getCoreSet = handler(async (event, context) => {
   // action limited to any admin type user and state users from corresponding state
-  const isStateUser = hasRolePermissions(event, [Types.UserRoles.STATE_USER]);
+  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {
     const isFromCorrespondingState = hasStatePermissions(event);
     if (!isFromCorrespondingState) {
@@ -99,6 +103,8 @@ export const getCoreSet = handler(async (event, context) => {
   const queryValue = await dynamoDb.get(params);
   return {
     status: StatusCodes.SUCCESS,
-    body: queryValue,
+    body: {
+      Item: queryValue,
+    },
   };
 });

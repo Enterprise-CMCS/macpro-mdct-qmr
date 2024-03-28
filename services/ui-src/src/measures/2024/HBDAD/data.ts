@@ -8,7 +8,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
     "Percentage of beneficiaries ages 18 to 75 with diabetes (type 1 and type 2) whose hemoglobin A1c (HbA1c) was at the following levels during the measurement year:",
   ],
-  questionListItems: ["HbA1c control (<8.0%)", "HbA1c poor control (>9.0%)"],
+  questionListItems: ["HbA1c Control (<8.0%)", "HbA1c Poor Control (>9.0%)"],
   categories,
   qualifiers,
 };
@@ -61,10 +61,6 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
           ],
         },
       ],
-    },
-    {
-      value: DC.ELECTRONIC_HEALTH_RECORDS,
-      description: true,
     },
     {
       value: DC.OTHER_DATA_SOURCE,

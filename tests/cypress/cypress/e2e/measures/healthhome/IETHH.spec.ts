@@ -35,15 +35,14 @@ describe("Measure: IET-HH", () => {
       "include.text",
       "Denominator includes Medicaid population"
     );
-    cy.get('[data-cy="DefinitionOfDenominator2"]').should(
+    cy.get('[data-cy="DefinitionOfDenominator1"]').should(
       "include.text",
       "Denominator includes Medicare and Medicaid Dually-Eligible population"
     );
-    cy.get('[data-cy="DefinitionOfDenominator3"]').should(
+    cy.get('[data-cy="DefinitionOfDenominator2"]').should(
       "include.text",
       "Other"
     );
-    cy.get('[data-cy="DefinitionOfDenominator1"]').should("not.exist");
   });
 
   it("should include 'Are all Health Home Providers represented in the denominator?' question", () => {

@@ -9,7 +9,6 @@ import {
 } from "../../libs/authorization";
 import { Measure, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { Key } from "aws-sdk/clients/dynamodb";
 
 export const listMeasures = handler(async (event, context) => {
   // action limited to any admin type user and state users from corresponding state
@@ -34,25 +33,22 @@ export const listMeasures = handler(async (event, context) => {
       { state: state, year: parseInt(year), coreSet: coreSet },
       "list"
     ),
-    ExclusiveStartKey: undefined as Key | undefined,
   };
 
-  const scannedResults: any[] = [];
-  let queryValue = await dynamoDb.scan(params);
-  queryValue?.Items?.forEach((v) => {
+  let queriedMeasures = await dynamoDb.scanAll<Measure>(params);
+  for (let v of queriedMeasures) {
     const measure = measures[parseInt(year)]?.filter(
       (m) => m.measure === (v as Measure)?.measure
     )[0];
 
-    scannedResults.push({
-      ...v,
-      autoCompleted: !!measure?.autocompleteOnCreation,
-    });
-  });
-  queryValue.Items = scannedResults;
+    v.autoCompleted = !!measure?.autocompleteOnCreation;
+  }
+
   return {
     status: StatusCodes.SUCCESS,
-    body: queryValue,
+    body: {
+      Items: queriedMeasures,
+    },
   };
 });
 
@@ -77,10 +73,12 @@ export const getMeasure = handler(async (event, context) => {
       coreSet: event.pathParameters!.coreSet!,
     },
   };
-  const queryValue = await dynamoDb.get(params);
+  const queryValue = await dynamoDb.get<Measure>(params);
   return {
     status: StatusCodes.SUCCESS,
-    body: queryValue,
+    body: {
+      Item: queryValue,
+    },
   };
 });
 

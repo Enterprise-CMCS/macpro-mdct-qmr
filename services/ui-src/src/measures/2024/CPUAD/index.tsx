@@ -3,6 +3,7 @@ import * as QMR from "components";
 import * as CMQ from "measures/2024/shared/CommonQuestions";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
+import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const CPUAD = ({
   name,
@@ -45,7 +46,7 @@ export const CPUAD = ({
             <CMQ.OtherPerformanceMeasure data={PMD.data} />
           )}
           <CMQ.CombinedRates />
-          {showOptionalMeasureStrat && <CMQ.NotCollectingOMS />}
+          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
       <CMQ.AdditionalNotes />

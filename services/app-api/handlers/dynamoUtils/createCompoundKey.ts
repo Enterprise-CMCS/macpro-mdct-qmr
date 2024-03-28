@@ -1,4 +1,4 @@
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../../types";
 
 export const createCompoundKey = (event: APIGatewayProxyEvent) => {
   if (!event.pathParameters) throw new Error("No Path Parameters Object");

@@ -23,12 +23,6 @@ jest.mock("../../../libs/authorization", () => ({
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
-jest.mock("../../../libs/debug-lib", () => ({
-  __esModule: true,
-  init: jest.fn(),
-  flush: jest.fn(),
-}));
-
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   __esModule: true,
   createCompoundKey: jest.fn().mockReturnValue("FL2021ACSFUA-AD"),
@@ -93,6 +87,6 @@ describe("Testing the Create CoreSet Functions", () => {
     );
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(dynamoDb.post).toHaveBeenCalledTimes(list.length + 1);
+    expect(dynamoDb.put).toHaveBeenCalledTimes(list.length + 1);
   });
 });

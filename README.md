@@ -376,8 +376,6 @@ The Kafka Queues we link to are in the BigMac account and are currently not bein
 
 `postKafkaData`: Fires when an update to the database happens and syncs kafka to reflect the current state of the database.
 
-`forceKafkaSync`: This can be manually triggered to force kafka to reflect the current state of the database.
-
 ### Utilities
 
 ---

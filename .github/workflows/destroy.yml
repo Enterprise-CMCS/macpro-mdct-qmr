@@ -1,6 +1,6 @@
 name: Destroy
 
-on: 
+on:
   delete:
   workflow_dispatch:
     inputs:

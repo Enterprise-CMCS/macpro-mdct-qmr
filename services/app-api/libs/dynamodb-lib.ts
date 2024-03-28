@@ -1,66 +1,71 @@
-import AWS from "aws-sdk";
-import { ServiceConfigurationOptions } from "aws-sdk/lib/service";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
-  CoreSet,
-  Measure,
-  DynamoCreate,
-  DynamoDelete,
-  DynamoUpdate,
-  DynamoFetch,
-  DynamoScan,
-} from "../types";
+  DeleteCommand,
+  DeleteCommandInput,
+  DynamoDBDocumentClient,
+  GetCommand,
+  GetCommandInput,
+  PutCommand,
+  PutCommandInput,
+  QueryCommandInput,
+  ScanCommandInput,
+  UpdateCommand,
+  UpdateCommandInput,
+  paginateScan,
+  paginateQuery,
+} from "@aws-sdk/lib-dynamodb";
+import { CoreSet, Measure, Banner } from "../types";
+import { logger } from "./debug-lib";
 
-export function createDbClient() {
-  const dynamoConfig: AWS.DynamoDB.DocumentClient.DocumentClientOptions &
-    ServiceConfigurationOptions &
-    AWS.DynamoDB.ClientApiVersions = {};
+export type QmrDynamoTableType = CoreSet | Measure | Banner;
 
-  const endpoint = process.env.DYNAMODB_URL;
-  if (endpoint) {
-    dynamoConfig.endpoint = endpoint;
-    dynamoConfig.accessKeyId = "LOCALFAKEKEY"; // pragma: allowlist secret
-    dynamoConfig.secretAccessKey = "LOCALFAKESECRET"; // pragma: allowlist secret
-  } else {
-    dynamoConfig["region"] = "us-east-1";
-  }
+const localConfig = {
+  endpoint: process.env.DYNAMODB_URL,
+  region: "localhost",
+  credentials: {
+    accessKeyId: "LOCALFAKEKEY", // pragma: allowlist secret
+    secretAccessKey: "LOCALFAKESECRET", // pragma: allowlist secret
+  },
+  logger,
+};
 
-  return new AWS.DynamoDB.DocumentClient(dynamoConfig);
-}
+const awsConfig = {
+  region: "us-east-1",
+  logger,
+};
 
-const client = createDbClient();
+export const getConfig = () => {
+  return process.env.DYNAMODB_URL ? localConfig : awsConfig;
+};
+
+const client = DynamoDBDocumentClient.from(new DynamoDBClient(getConfig()));
 
 export default {
-  get: async <Result = CoreSet | Measure>(params: DynamoFetch) => {
-    const result = await client.get(params).promise();
-    return { ...result, Item: result?.Item as Result | undefined };
+  put: (params: PutCommandInput) => client.send(new PutCommand(params)),
+  get: async <Result extends QmrDynamoTableType>(params: GetCommandInput) => {
+    const result = await client.send(new GetCommand(params));
+    return result.Item as Result | undefined;
   },
-  put: (params: DynamoCreate) => client.put(params).promise(),
-  post: (params: DynamoCreate) => client.put(params).promise(),
-  /**
-   * Scan operation that continues for all results. More expensive but avoids stopping early when a index is not known.
-   */
-  scan: async <Result = CoreSet | Measure>(params: DynamoScan) => {
-    const items = [];
-    let complete = false;
-    while (!complete) {
-      const result = await client.scan(params).promise();
-      items.push(...((result?.Items as Result[]) ?? []));
-      params.ExclusiveStartKey = result.LastEvaluatedKey;
-      complete = result.LastEvaluatedKey === undefined;
+  queryAll: async <Result extends QmrDynamoTableType>(
+    params: QueryCommandInput
+  ) => {
+    let items: Result[] = [];
+    for await (let page of paginateQuery({ client }, params)) {
+      items = items.concat((page.Items as Result[]) ?? []);
     }
-    return { Items: items, Count: items.length };
+    return items;
   },
-  /**
-   * Scan operation that iterates and includes a LastEvaluatedKey.
-   * Useful for parsing the results of a scan one page at a time or stopping early.
-   */
-  scanOnce: async <Result = CoreSet | Measure>(params: DynamoScan) => {
-    const result = await client.scan(params).promise();
-    return { ...result, Items: result?.Items as Result[] | undefined };
+  scanAll: async <Result extends QmrDynamoTableType>(
+    params: ScanCommandInput
+  ) => {
+    let items: Result[] = [];
+    for await (let page of paginateScan({ client }, params)) {
+      items = items.concat((page.Items as Result[]) ?? []);
+    }
+    return items;
   },
-  update: (params: DynamoUpdate) => client.update(params).promise(),
-  delete: (params: DynamoDelete) => client.delete(params).promise(),
-
-  // unused
-  query: (params: any) => client.query(params).promise(),
+  update: (params: UpdateCommandInput) =>
+    client.send(new UpdateCommand(params)),
+  delete: (params: DeleteCommandInput) =>
+    client.send(new DeleteCommand(params)),
 };

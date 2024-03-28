@@ -1,40 +1,32 @@
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../types";
 import { listMeasures } from "../handlers/measures/get";
-import * as Types from "../types";
+import { CoreSet, Measure, MeasureStatus } from "../types";
 
 export const updateCoreSetProgress = async (
-  coreSets: Types.DynamoCoreSetList,
+  coreSets: CoreSet[],
   event: APIGatewayProxyEvent,
   context: any
 ) => {
-  const array = coreSets.Items;
-  if (array && array.length > 0) {
-    for (const coreSet of array) {
-      event.pathParameters!.coreSet = coreSet.coreSet;
-      const measuresResponse = await listMeasures(event, context);
-      const measuresList: Types.DynamoMeasureList = JSON.parse(
-        measuresResponse.body
-      );
+  for (const coreSet of coreSets) {
+    event.pathParameters!.coreSet = coreSet.coreSet;
+    const measuresResponse = await listMeasures(event, context);
+    const measuresList: Measure[] = JSON.parse(measuresResponse.body).Items;
 
-      const measures = measuresList.Items;
+    const completedAmount = measuresList?.filter(
+      (measure) =>
+        measure.status === MeasureStatus.COMPLETE &&
+        measure.measure !== "CSQ" &&
+        !measure.placeholder
+    ).length;
 
-      const completedAmount = measures?.filter(
-        (measure) =>
-          measure.status === Types.MeasureStatus.COMPLETE &&
-          measure.measure !== "CSQ" &&
-          !measure.placeholder
-      ).length;
+    const availableAmount = measuresList?.filter(
+      (measure) => !measure.placeholder && measure.measure !== "CSQ"
+    ).length;
 
-      const availableAmount = measures?.filter(
-        (measure) => !measure.placeholder && measure.measure !== "CSQ"
-      ).length;
+    coreSet.progress!.numComplete =
+      completedAmount ?? coreSet.progress!.numComplete;
 
-      coreSet.progress.numComplete =
-        completedAmount ?? coreSet.progress.numComplete;
-
-      coreSet.progress.numAvailable =
-        availableAmount ?? coreSet.progress.numAvailable;
-    }
-    return coreSets;
+    coreSet.progress!.numAvailable =
+      availableAmount ?? coreSet.progress!.numAvailable;
   }
 };

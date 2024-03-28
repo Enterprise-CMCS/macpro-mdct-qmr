@@ -4,6 +4,7 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
+import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const PCRHH = ({
   name,
@@ -46,7 +47,7 @@ export const PCRHH = ({
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates healthHomeMeasure />
-          {showOptionalMeasureStrat && <CMQ.NotCollectingOMS />}
+          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
       <CMQ.AdditionalNotes />

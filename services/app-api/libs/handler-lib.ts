@@ -1,5 +1,5 @@
-import * as debug from "./debug-lib";
-import { APIGatewayProxyEvent } from "aws-lambda";
+import * as logger from "./debug-lib";
+import { APIGatewayProxyEvent } from "../types";
 import { isAuthenticated } from "./authorization";
 import { failure, buildResponse } from "./response-lib";
 import { Errors, StatusCodes } from "../utils/constants/constants";
@@ -11,8 +11,12 @@ type LambdaFunction = (
 
 export default function handler(lambda: LambdaFunction) {
   return async function (event: APIGatewayProxyEvent, context: any) {
-    // Start debugger
-    debug.init(event, context);
+    logger.init();
+    logger.debug("API event: %O", {
+      body: event.body,
+      pathParameters: event.pathParameters,
+      queryStringParameters: event.queryStringParameters,
+    });
 
     if (isAuthenticated(event)) {
       try {
@@ -21,10 +25,12 @@ export default function handler(lambda: LambdaFunction) {
         return buildResponse(status, body);
       } catch (e: any) {
         // Print debug messages
-        debug.flush(e);
+        logger.error("Error: %O", e);
 
         const body = { error: e.message };
         return failure(body);
+      } finally {
+        logger.flush();
       }
     } else {
       const body = { error: Errors.UNAUTHORIZED };
