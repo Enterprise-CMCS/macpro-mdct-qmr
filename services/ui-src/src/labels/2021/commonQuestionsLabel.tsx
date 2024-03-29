@@ -1,3 +1,5 @@
+import * as DC from "dataConstants";
+
 export const commonQuestionsLabel = {
   AdditonalNotes: {
     header: "Additional Notes/Comments on the measure (optional)",
@@ -46,6 +48,9 @@ export const commonQuestionsLabel = {
       "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans that used each data source:",
     srcDescription: "Data Source Description",
   },
+  DataSourceCahps: {
+    describeDataSrc: "Describe the data source:",
+  },
   DefinitionsOfPopulation: {
     defineDenomOther: "Define the other denominator population:",
     explainExcludedPop: "Explain which populations are excluded and why:",
@@ -60,6 +65,24 @@ export const commonQuestionsLabel = {
       "More information about the Start and End Date for each measure is available in the ",
       "Measurement Period Table",
       " resource.",
+    ],
+  },
+  MeasureSpecifications: {
+    measureSpecDescriptor:
+      "NCQA, the measure steward, changed its naming convention. HEDIS MY 2020 refers to a different federal fiscal year (FFY) than HEDIS 2020. Please note the FFY Core Set specification below.",
+    options: [
+      {
+        displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
+        value: DC.HEDIS_MY_2020,
+      },
+      {
+        displayValue: "HEDIS 2020 (FFY 2020 Core Set Reporting)",
+        value: DC.HEDIS_2020,
+      },
+      {
+        displayValue: "HEDIS 2019 (FFY 2019 Core Set Reporting)",
+        value: DC.HEDIS_2019,
+      },
     ],
   },
 };

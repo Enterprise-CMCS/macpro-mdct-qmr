@@ -1,3 +1,5 @@
+import * as DC from "dataConstants";
+
 export const commonQuestionsLabel = {
   AdditonalNotes: {
     header: "Additional Notes/Comments on the measure (optional)",
@@ -47,6 +49,10 @@ export const commonQuestionsLabel = {
     srcExplanationText:
       "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans or delivery systems that used each data source.",
   },
+  DataSourceCahps: {
+    describeDataSrc:
+      "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+  },
   DefinitionsOfPopulation: {
     defineDenomOther:
       "Define the other denominator population (<em>text in this field is included in publicly-reported state-specific comments</em>):",
@@ -63,6 +69,29 @@ export const commonQuestionsLabel = {
       "Information for each measure is available in the ",
       "Measurement Period Table",
       " resource.",
+    ],
+  },
+  DeviationFromMeasureSpecification: {
+    header: "Deviations from Measure Specifications",
+    section:
+      "Did your calculation of the measure deviate from the measure specification in any way?",
+    deviationReason:
+      "Explain the deviation(s) (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+  },
+  MeasureSpecifications: {
+    options: [
+      {
+        displayValue: "HEDIS MY 2022 (FFY 2023 Core Set Reporting)",
+        value: DC.HEDIS_MY_2022,
+      },
+      {
+        displayValue: "HEDIS MY 2021 (FFY 2022 Core Set Reporting)",
+        value: DC.HEDIS_MY_2021,
+      },
+      {
+        displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
+        value: DC.HEDIS_MY_2020,
+      },
     ],
   },
 };

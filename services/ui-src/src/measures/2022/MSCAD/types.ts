@@ -3,7 +3,7 @@ import * as Type from "shared/types";
 
 export interface FormData
   extends Types.DefinitionOfPopulation,
-    Types.StatusOfData,
+    Type.StatusOfData,
     Types.DateRange,
     Types.DidReport,
     Type.AdditionalNotes,
