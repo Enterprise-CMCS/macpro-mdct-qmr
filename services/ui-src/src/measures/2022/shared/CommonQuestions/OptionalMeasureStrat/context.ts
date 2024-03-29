@@ -4,7 +4,7 @@ import { ndrFormula } from "types";
 
 export type ComponentFlagType = "DEFAULT" | "AIF" | "IU" | "PCR";
 
-interface ContextProps {
+export interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
   IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
