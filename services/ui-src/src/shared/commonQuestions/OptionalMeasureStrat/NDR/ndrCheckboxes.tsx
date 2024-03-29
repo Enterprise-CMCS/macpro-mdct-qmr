@@ -101,6 +101,7 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
     OPM?.forEach(({ description }, idx) => {
       if (description) {
         const cleanedFieldName = `${DC.OPM_KEY}${cleanString(description)}`;
+        const key = `${name}.rates.OPM.${cleanedFieldName}`;
   
         const RateComponent = (
           <QMR.Rate
@@ -109,8 +110,8 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
                 id: 0,
               },
             ]}
-            name={`${name}.rates.OPM.${cleanedFieldName}`}
-            key={`${name}.rates.OPM.${cleanedFieldName}`}
+            name={key}
+            key={key}
             readOnly={rateReadOnly}
             rateMultiplicationValue={rateMultiplicationValue}
             customMask={customMask}

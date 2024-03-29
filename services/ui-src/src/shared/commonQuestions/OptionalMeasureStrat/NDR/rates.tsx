@@ -5,7 +5,7 @@ import { ContextProps, usePerformanceMeasureContext } from "../context";
 
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
 
-const RateRender = (context: ContextProps, name: string, label?: string) => {
+const RateComponent = (context: ContextProps, name: string, label?: string) => {
   return (
     <QMR.Rate
       readOnly={context.rateReadOnly}
@@ -30,7 +30,7 @@ const RateRender = (context: ContextProps, name: string, label?: string) => {
   );
 };
 
-const ComplexRateRender = (
+const ComplexRateComponent = (
   context: ContextProps,
   name: string,
   label?: string
@@ -131,7 +131,7 @@ export const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
 
     const cleanedName = `${name}.rates.${categoryID}.${singleQual.id}`;
     if (completedQualifierIds?.includes(singleQual.id)) {
-      rateArrays.push([RateRender(context, cleanedName)]);
+      rateArrays.push([RateComponent(context, cleanedName)]);
     } else if (AIFHHPerformanceMeasureArray) {
       rateArrays = AIFHHRateArray(context, cleanedName, qualIndex);
     } else {
@@ -159,7 +159,7 @@ export const useQualRateArray: RateArrayBuilder = (name) => {
       DC.SINGLE_CATEGORY
     }`;
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
-      rateArrays.push([RateRender(context, cleanedName)]);
+      rateArrays.push([RateComponent(context, cleanedName)]);
     } else if (AIFHHPerformanceMeasureArray) {
       rateArrays = AIFHHRateArray(context, cleanedName, qualIndex);
     } else {
@@ -193,7 +193,7 @@ const StandardPerformanceMeasure = (
   unexcludedQuals?.forEach((qual) => {
     if (qual.rate) {
       const adjustedName = `${name}.rates.${qual.uid}`; //uid is both category id appended to qualifier id
-      ndrSets.push(RateRender(context, adjustedName, qual.label));
+      ndrSets.push(RateComponent(context, adjustedName, qual.label));
     }
   });
   return ndrSets;
@@ -215,7 +215,7 @@ const StandardPerformanceMeasureLegacy = (
       const adjustedName = `${name}.rates.${cleanString(qual)}.${cleanString(
         categories[idx]
       )}`;
-      ndrSets.push(RateRender(context, adjustedName, categories[idx]));
+      ndrSets.push(RateComponent(context, adjustedName, categories[idx]));
     }
   });
   return ndrSets;
@@ -243,7 +243,7 @@ const IUHHRateArrayTotalsOnly = (
     const rate2 = !!qual.fields?.[4]?.value;
     const rate3 = !!qual.fields?.[5]?.value;
     if (rate1 || rate2 || rate3) {
-      ndrSets.push(ComplexRateRender(context, cleanedName, qual.label));
+      ndrSets.push(ComplexRateComponent(context, cleanedName, qual.label));
     }
   });
   return ndrSets;
@@ -275,7 +275,7 @@ const IUHHRateArrayQualifierAndTotals = (
     const rate3 = !!category?.[qualIndex]?.fields?.[5]?.value;
 
     if (rate1 || rate2 || rate3) {
-      ndrSets.push(ComplexRateRender(context, cleanedName, categories[idx]));
+      ndrSets.push(ComplexRateComponent(context, cleanedName, categories[idx]));
     }
   });
   return ndrSets;
@@ -294,7 +294,7 @@ const AIFHHRateArray = (
     const rate2 = !!measure?.[qualIndex]?.fields?.[4]?.value;
     const rate3 = !!measure?.[qualIndex]?.fields?.[6]?.value;
     const rate =
-      rate1 || rate2 || rate3 ? [ComplexRateRender(context, name)] : [];
+      rate1 || rate2 || rate3 ? [ComplexRateComponent(context, name)] : [];
     rateArrays.push(rate);
   });
   return rateArrays;
