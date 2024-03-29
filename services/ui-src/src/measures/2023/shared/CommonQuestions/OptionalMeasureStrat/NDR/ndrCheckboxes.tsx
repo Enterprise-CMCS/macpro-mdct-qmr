@@ -4,8 +4,11 @@ import * as Types from "../../types";
 import * as QMR from "components";
 import { cleanString } from "utils";
 import { useFormContext } from "react-hook-form";
-import { usePerformanceMeasureContext } from "../context";
-import { useRatesForCompletedPmQualifiers, useStandardRateArray } from "./rates";
+import { ContextProps, usePerformanceMeasureContext } from "../context";
+import {
+  useRatesForCompletedPmQualifiers,
+  useStandardRateArray,
+} from "./rates";
 
 type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
 
@@ -23,6 +26,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
     !categories.length || !categories.some((item) => item.label)
       ? qualRates
       : standardRates;
+
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
@@ -34,31 +38,14 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const checkbox = categories.some((cat) => cat.label) ? categories : quals;
   checkbox?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
-      const ageGroupCheckBox = {
-        value: value.id,
-        displayValue: value.text,
-        children: [
-          <CUI.Heading
-            key={`${name}.rates.${value.id}Header`}
-            size={"sm"}
-            dangerouslySetInnerHTML={{
-              __html:
-                customPrompt ??
-                `Enter a number for the numerator and the denominator. Rate will
-              auto-calculate:`,
-            }}
-          />,
-          <CUI.Heading
-            pt="1"
-            key={`${name}.rates.${value.id}HeaderHelper`}
-            size={"sm"}
-            hidden={!shouldDisplay}
-          >
-            Please review the auto-calculated rate and revise if needed.
-          </CUI.Heading>,
-          ...rateArrays[idx],
-        ],
-      };
+      const ageGroupCheckBox = checkboxComponent(
+        name,
+        value.id,
+        value.text,
+        rateArrays[idx],
+        shouldDisplay,
+        customPrompt
+      );
       options.push(ageGroupCheckBox);
     }
   });
@@ -71,19 +58,8 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
  */
 export const useRenderOPMCheckboxOptions = (name: string) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
-
-  const {
-    OPM,
-    rateReadOnly,
-    rateMultiplicationValue,
-    customMask,
-    allowNumeratorGreaterThanDenominator,
-    customDenominatorLabel,
-    customNumeratorLabel,
-    customRateLabel,
-    rateCalculation,
-    customPrompt,
-  } = usePerformanceMeasureContext();
+  const context = usePerformanceMeasureContext();
+  const { OPM, customPrompt } = context;
 
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
@@ -95,56 +71,81 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
   OPM?.forEach(({ description }, idx) => {
     if (description) {
       const cleanedFieldName = `${DC.OPM_KEY}${cleanString(description)}`;
+      const key = `${name}.rates.OPM.${cleanedFieldName}`;
+      const rateComponent = RateComponent(context, key);
+      const displayValue = description ?? `UNSET_OPM_FIELD_NAME_${idx}`;
 
-      const RateComponent = (
-        <QMR.Rate
-          rates={[
-            {
-              id: 0,
-            },
-          ]}
-          name={`${name}.rates.OPM.${cleanedFieldName}`}
-          key={`${name}.rates.OPM.${cleanedFieldName}`}
-          readOnly={rateReadOnly}
-          rateMultiplicationValue={rateMultiplicationValue}
-          customMask={customMask}
-          allowNumeratorGreaterThanDenominator={
-            allowNumeratorGreaterThanDenominator
-          }
-          customNumeratorLabel={customNumeratorLabel}
-          customDenominatorLabel={customDenominatorLabel}
-          customRateLabel={customRateLabel}
-          rateCalc={rateCalculation}
-        />
+      checkBoxOptions.push(
+        checkboxComponent(
+          name,
+          cleanedFieldName,
+          displayValue,
+          [rateComponent],
+          shouldDisplay,
+          customPrompt
+        )
       );
-
-      checkBoxOptions.push({
-        value: cleanedFieldName,
-        displayValue: description ?? `UNSET_OPM_FIELD_NAME_${idx}`,
-        children: [
-          <CUI.Heading
-            key={`${name}.rates.${cleanedFieldName}Header`}
-            size={"sm"}
-            dangerouslySetInnerHTML={{
-              __html:
-                customPrompt ??
-                `Enter a number for the numerator and the denominator. Rate will
-                auto-calculate:`,
-            }}
-          />,
-          <CUI.Heading
-            pt="1"
-            size={"sm"}
-            key={`${name}.rates.${cleanedFieldName}HeaderHelper`}
-            hidden={!shouldDisplay}
-          >
-            Please review the auto-calculated rate and revise if needed.
-          </CUI.Heading>,
-          RateComponent,
-        ],
-      });
     }
   });
 
   return checkBoxOptions;
+};
+
+const RateComponent = (context: ContextProps, name: string) => {
+  return (
+    <QMR.Rate
+      rates={[
+        {
+          id: 0,
+        },
+      ]}
+      name={name}
+      key={name}
+      readOnly={context.rateReadOnly}
+      rateMultiplicationValue={context.rateMultiplicationValue}
+      customMask={context.customMask}
+      allowNumeratorGreaterThanDenominator={
+        context.allowNumeratorGreaterThanDenominator
+      }
+      customNumeratorLabel={context.customNumeratorLabel}
+      customDenominatorLabel={context.customDenominatorLabel}
+      customRateLabel={context.customRateLabel}
+      rateCalc={context.rateCalculation}
+    />
+  );
+};
+
+const checkboxComponent = (
+  name: string,
+  label: string,
+  value: string,
+  rateComponent: React.ReactElement[],
+  shouldDisplay: boolean,
+  customPrompt?: string
+) => {
+  return {
+    value: label,
+    displayValue: value,
+    children: [
+      <CUI.Heading
+        key={`${name}.rates.${label}Header`}
+        size={"sm"}
+        dangerouslySetInnerHTML={{
+          __html:
+            customPrompt ??
+            `Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:`,
+        }}
+      />,
+      <CUI.Heading
+        pt="1"
+        size={"sm"}
+        key={`${name}.rates.${label}HeaderHelper`}
+        hidden={!shouldDisplay}
+      >
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>,
+      ...rateComponent,
+    ],
+  };
 };
