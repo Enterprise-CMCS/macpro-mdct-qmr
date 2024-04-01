@@ -20,13 +20,6 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();
 
-  const qualRates = useRatesForCompletedPmQualifiers(name);
-  const standardRates = useStandardRateArray(name);
-  const rateArrays =
-    !categories.length || !categories.some((item) => item.label)
-      ? qualRates
-      : standardRates;
-
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
@@ -34,6 +27,13 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const shouldDisplay =
     dataSourceWatch?.[0] !== "AdministrativeData" ||
     dataSourceWatch?.length !== 1;
+
+  const qualRates = useRatesForCompletedPmQualifiers(name);
+  const standardRates = useStandardRateArray(name);
+  const rateArrays =
+    !categories.length || !categories.some((item) => item.label)
+      ? qualRates
+      : standardRates;
 
   const checkbox = categories.some((cat) => cat.label) ? categories : quals;
   checkbox?.forEach((value, idx) => {
