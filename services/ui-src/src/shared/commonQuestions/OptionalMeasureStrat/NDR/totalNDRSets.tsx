@@ -44,7 +44,12 @@ const TotalNDR = ({
   const lastQualifier = qualifier ?? stringToLabelData(qualifiers).slice(-1)[0];
   const cleanedQualifier = lastQualifier.id;
   const cleanedCategory = category.id;
-  const cleanedName = `${name}.rates.${cleanedCategory}.${cleanedQualifier}`;
+
+  const type = typeof qualifiers[0] === "string";
+  const cleanedName = type
+    ? `${name}.rates.${cleanedQualifier}.${cleanedCategory}`
+    : `${name}.rates.${cleanedCategory}.${cleanedQualifier}`;
+
   const label =
     category.label === DC.SINGLE_CATEGORY
       ? lastQualifier.label
@@ -99,8 +104,11 @@ export const TotalNDRSets = ({
   const { qualifiers, categories } = usePerformanceMeasureContext();
   const cleanedCategories: LabelData[] = stringToLabelData(categories);
   const cleanedQualifiers: LabelData[] = stringToLabelData(qualifiers);
-
   const totalQual = cleanedQualifiers.slice(-1)[0];
+
+  const type = typeof qualifiers[0] === "string";
+  const ndrCategory =
+    !type && cleanedCategories[0]?.id ? cleanedCategories[0] : undefined;
 
   if (
     cleanedCategories.length &&
@@ -123,7 +131,7 @@ export const TotalNDRSets = ({
       <CUI.Box key={`${name}.totalWrapper`}>
         <TotalNDR
           name={name}
-          category={cleanedCategories[0]?.id ? cleanedCategories[0] : undefined}
+          category={ndrCategory}
           componentFlag={componentFlag}
           key={`${name}.TotalWrapper`}
         />{" "}
