@@ -94,7 +94,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   });
 
   it("shows corresponding questions if yes to reporting then ", async () => {
-    //apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
@@ -132,6 +131,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     fireEvent.click(
       screen.getByLabelText("Agency for Healthcare Research and Quality (AHRQ)")
     );
+
+    // check custom PM rate calcuation
     expect(screen.queryByTestId("performance-measure")).toBeInTheDocument();
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
@@ -246,20 +247,20 @@ const completedMeasureData = {
       singleCategory: [
         {
           label: "Ages 18 to 64",
-          rate: "100.0",
+          rate: "100000.0",
           numerator: "55",
           denominator: "55",
         },
         {
           label: "Ages 65 and older",
-          rate: "100.0",
+          rate: "100000.0",
           numerator: "55",
           denominator: "55",
         },
         {
           label: "Total",
           isTotal: true,
-          rate: "100.0",
+          rate: "100000.0",
           numerator: "110",
           denominator: "110",
         },
