@@ -10,3 +10,4 @@ export * from "shared/types/TypeDeviationFromMeasureSpecification";
 export * from "shared/types/TypeOptionalMeasureStratification";
 export * from "shared/types/TypeQualifiers";
 export * from "shared/types/TypeRateFields";
+export * from "shared/types/TypeOptionalMeasureStratification";

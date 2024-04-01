@@ -40,20 +40,28 @@ const renderRadioButtonOptions = ({
   omsNode,
   name,
 }: ChildCheckBoxOptionProps) => {
+  const label = {
+    YesAggregateData: `Yes, we are reporting aggregate data for the ${
+      omsNode?.aggregateTitle || omsNode?.label
+    } categories.`,
+    NoIndependentData: `No, we are reporting disaggregated data for ${
+      omsNode?.aggregateTitle || omsNode?.label
+    } sub-categories`
+  }
+
+  //if year <= 2022
+  const flagSubCat = !!omsNode?.flagSubCat;
+
   return [
     {
-      displayValue: `Yes, we are reporting aggregate data for the ${
-        omsNode?.aggregateTitle || omsNode?.label
-      } categories.`,
+      displayValue: label.YesAggregateData,
       value: "YesAggregateData",
       children: [
-        <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
+        <NdrNode flagSubCat={flagSubCat} name={name} key={name} />,
       ],
     },
     {
-      displayValue: `No, we are reporting disaggregated data for ${
-        omsNode?.aggregateTitle || omsNode?.label
-      } sub-categories`,
+      displayValue: label.NoIndependentData,
       value: "NoIndependentData",
       children: [
         <QMR.Checkbox
