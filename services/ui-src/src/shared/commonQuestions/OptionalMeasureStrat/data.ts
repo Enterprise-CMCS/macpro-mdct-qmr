@@ -131,7 +131,7 @@ const data = () => {
   ];
 };
 const dataLegacy = (adultMeasure?: boolean) => {
-  const data: OmsNode[] = [
+  let data: OmsNode[] = [
     {
       id: "Race (Non-Hispanic)",
       options: [
@@ -205,6 +205,8 @@ const dataLegacy = (adultMeasure?: boolean) => {
     },
   ];
 
+  data = addLabelToData(data);
+
   adultMeasure &&
     data.push({
       id: "Adult Eligibility Group (ACA Expansion Group)",
@@ -212,4 +214,15 @@ const dataLegacy = (adultMeasure?: boolean) => {
     });
 
   return data;
+};
+
+const addLabelToData = (data: OmsNode[]): OmsNode[] => {
+  return data.map((item) => {
+    if (item.options) {
+      item.options = addLabelToData(item.options);
+      return item;
+    } else {
+      return { ...item, label: item.id };
+    }
+  });
 };

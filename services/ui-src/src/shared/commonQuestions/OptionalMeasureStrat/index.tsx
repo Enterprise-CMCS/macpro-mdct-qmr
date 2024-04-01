@@ -8,7 +8,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { ndrFormula } from "types";
-import { LabelData } from "utils";
+import { LabelData, cleanString } from "utils";
 import SharedContext from "shared/SharedContext";
 
 interface OmsCheckboxProps {
@@ -29,10 +29,10 @@ export const buildOmsCheckboxes = ({
   isSingleSex,
 }: OmsCheckboxProps) => {
   return data
-    .filter((d) => !isSingleSex || d.id !== "O8BrOa") // remove sex as a top level option if isSingleSex
+    .filter((d) => !isSingleSex || (d.id !== "O8BrOa" && d.id !== "Sex")) // remove sex as a top level option if isSingleSex
     .map((lvlOneOption) => {
       const displayValue = lvlOneOption.label;
-      const value = lvlOneOption.id;
+      const value = cleanString(lvlOneOption.id);
 
       const children = [
         <TopLevelOmsChildren
@@ -55,7 +55,7 @@ export const buildOmsCheckboxes = ({
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   measureName?: string;
-  inputFieldNames?: LabelData[];
+  inputFieldNames?: string[] | LabelData[];
   ndrFormulas?: ndrFormula[];
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
