@@ -1200,5 +1200,34 @@
         "Value": "VI"
       }
     ]
+  },
+  {
+    "username": "stateuserNC@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "stateuserNC@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "David"
+      },
+      {
+        "Name": "family_name",
+        "Value": "NC"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "NC"
+      }
+    ]
   }
 ]
