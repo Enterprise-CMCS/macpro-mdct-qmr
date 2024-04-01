@@ -94,6 +94,10 @@ export const commonQuestionsLabel = {
       },
     ],
   },
+  OptionalMeasureStratification: {
+    section:
+      "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
+  },
 };
 
 export default commonQuestionsLabel;

@@ -1,21 +1,21 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Types from "../types";
-import { OMSData, OmsNode } from "./data";
+import * as Types from "./../../types";
+import { OMSData } from "./data";
 import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
-import { TopLevelOmsChildren } from "./omsNodeBuilder";
+import { TopLevelOmsChildren } from "./NDR/omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { cleanString } from "utils/cleanString";
 import { ndrFormula } from "types";
+import { LabelData } from "utils";
 import SharedContext from "shared/SharedContext";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
   name: string;
   /** data object for dynamic rendering */
-  data: OmsNode[];
+  data: Types.OmsNode[];
   isSingleSex: boolean;
 }
 
@@ -29,20 +29,23 @@ export const buildOmsCheckboxes = ({
   isSingleSex,
 }: OmsCheckboxProps) => {
   return data
-    .filter((d) => !isSingleSex || d.id !== "Sex") // remove sex as a top level option if isSingleSex
+    .filter((d) => !isSingleSex || d.id !== "O8BrOa") // remove sex as a top level option if isSingleSex
     .map((lvlOneOption) => {
-      const displayValue = lvlOneOption.id;
-      const value = cleanString(lvlOneOption.id);
+      const displayValue = lvlOneOption.label;
+      const value = lvlOneOption.id;
 
       const children = [
         <TopLevelOmsChildren
           options={lvlOneOption.options}
           addMore={!!lvlOneOption.addMore}
-          parentDisplayName={lvlOneOption.aggregateTitle || lvlOneOption.id}
+          parentDisplayName={
+            lvlOneOption.aggregateTitle! || lvlOneOption.label!
+          }
           addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
           name={`${name}.selections.${value}`}
           key={`${name}.selections.${value}`}
-          id={displayValue}
+          id={value}
+          label={displayValue}
         />,
       ];
 
@@ -52,7 +55,7 @@ export const buildOmsCheckboxes = ({
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   measureName?: string;
-  inputFieldNames?: string[];
+  inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
@@ -77,7 +80,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
 /** data for dynamic rendering will be provided */
 interface DataDrivenProp {
   /** data array for dynamic rendering */
-  data: OmsNode[];
+  data: Types.OmsNode[];
   /** cannot set adultMeasure if using custom data*/
   adultMeasure?: never;
 }
@@ -143,13 +146,18 @@ export const OptionalMeasureStrat = ({
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
-  const omsData = data ?? OMSData(adultMeasure);
-  const { watch, getValues, unregister } = useFormContext<OMSType>();
+  const omsData = data ?? OMSData(labels.year, adultMeasure);
+  const { control, watch, getValues, setValue, unregister } =
+    useFormContext<OMSType>();
   const values = getValues();
 
   const dataSourceWatch = watch("DataSource");
-  const OPM = values["OtherPerformanceMeasure-Rates"];
   const watchDataSourceSwitch = watch("MeasurementSpecification");
+  //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
+  const OPM =
+    watchDataSourceSwitch === "Other"
+      ? values["OtherPerformanceMeasure-Rates"]
+      : undefined;
 
   const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
@@ -172,9 +180,21 @@ export const OptionalMeasureStrat = ({
    */
   useEffect(() => {
     return () => {
-      unregister("OptionalMeasureStratification");
+      //unregister does not clean the data properly
+      //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+      setValue("OptionalMeasureStratification", {
+        options: [],
+        selections: {},
+      });
+      //this is definitely the wrong way to fix this issue but it cleans a layer deeper than setValue, we need to use both
+      control._defaultValues.OptionalMeasureStratification = {
+        options: [],
+        selections: {},
+      };
+      unregister("OptionalMeasureStratification.options");
     };
-  }, [watchDataSourceSwitch, unregister]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchDataSourceSwitch]);
   return (
     <QMR.CoreQuestionWrapper
       testid="OMS"
@@ -188,11 +208,11 @@ export const OptionalMeasureStrat = ({
           AIFHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
-          qualifiers,
+          qualifiers: qualifiers.filter((qual) => !qual.excludeFromOMS),
           measureName,
           inputFieldNames,
           ndrFormulas,
-          categories,
+          categories: categories.filter((cat) => !cat.excludeFromOMS),
           rateMultiplicationValue,
           customMask,
           allowNumeratorGreaterThanDenominator,
