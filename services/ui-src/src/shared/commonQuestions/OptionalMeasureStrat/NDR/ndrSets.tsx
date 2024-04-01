@@ -2,11 +2,12 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
 import * as QMR from "components";
-import { LabelData } from "utils";
 import { useFormContext } from "react-hook-form";
 import { usePerformanceMeasureContext } from "../context";
-import { useRenderOPMCheckboxOptions } from "./ndrCheckboxes";
-import { useAgeGroupsCheckboxes } from "./ndrCheckboxes";
+import {
+  useRenderOPMCheckboxOptions,
+  useAgeGroupsCheckboxes,
+} from "./ndrCheckboxes";
 import { TotalNDRSets } from "./totalNDRSets";
 import { stringToLabelData } from "./util";
 
@@ -32,9 +33,21 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
 };
 
 const IUHHNDRSets = ({ name }: NdrProps) => {
-  const { calcTotal } = usePerformanceMeasureContext();
+  const { calcTotal, qualifiers } = usePerformanceMeasureContext();
+  const ageGroupsOptions =
+    typeof qualifiers[0] === "string" &&
+    useAgeGroupsCheckboxes(`${name}.iuhh-rate`);
+  console.log("ageGroupsOptions", ageGroupsOptions);
+
   return (
     <>
+      {ageGroupsOptions && (
+        <QMR.Checkbox
+          name={`${name}.iuhh-rate.options`}
+          key={`${name}.iuhh-rate.options`}
+          options={ageGroupsOptions}
+        />
+      )}
       {calcTotal && (
         <TotalNDRSets
           componentFlag={"IU"}
@@ -70,9 +83,7 @@ const AIFHHNDRSets = ({ name }: NdrProps) => {
 const PCRNDRSets = ({ name }: NdrProps) => {
   const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
-  const cleanedQualifiers: LabelData[] = stringToLabelData(qualifiers);
-
-  const rates = cleanedQualifiers.map((qual, i) => {
+  const rates = stringToLabelData(qualifiers).map((qual, i) => {
     return { label: qual.label, id: i };
   });
   // ! Waiting for data source refactor to type data source here
@@ -102,7 +113,6 @@ const PCRNDRSets = ({ name }: NdrProps) => {
     </>
   );
 };
-
 /**
  * Builds NDRs for Other Performance Measure sets
  */
@@ -116,7 +126,6 @@ const OPMNDRSets = ({ name }: NdrProps) => {
     />
   );
 };
-
 /**
  * Builds Base level NDR Sets
  */
@@ -125,16 +134,27 @@ export const NDRSets = ({ name }: NdrProps) => {
   const children: JSX.Element[] = [];
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
-
-  const components = {
-    ["DEFAULT"]: <AgeGroupNDRSets name={name} key={name} />,
-    ["IU"]: <IUHHNDRSets name={name} key={name} />,
-    ["AIF"]: <AIFHHNDRSets name={name} key={name} />,
-    ["PCR"]: <PCRNDRSets name={name} key={name} />,
-  };
-
-  if (!OPM && componentFlag) {
-    children.push(components[componentFlag]);
+  switch (componentFlag) {
+    case "DEFAULT":
+      if (!OPM) {
+        children.push(<AgeGroupNDRSets name={name} key={name} />);
+      }
+      break;
+    case "IU":
+      if (!OPM) {
+        children.push(<IUHHNDRSets name={name} key={name} />);
+      }
+      break;
+    case "AIF":
+      if (!OPM) {
+        children.push(<AIFHHNDRSets name={name} key={name} />);
+      }
+      break;
+    case "PCR":
+      if (!OPM) {
+        children.push(<PCRNDRSets name={name} key={name} />);
+      }
+      break;
   }
 
   return (
