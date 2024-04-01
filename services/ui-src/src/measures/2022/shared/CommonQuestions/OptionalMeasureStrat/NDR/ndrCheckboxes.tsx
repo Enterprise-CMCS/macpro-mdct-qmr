@@ -16,11 +16,6 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const options: QMR.CheckboxOption[] = [];
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();
-  const labelText = getLabelText();
-
-  const qualRates = useQualRateArray(name);
-  const standardRates = useStandardRateArray(name);
-  const rateArrays = !categories.length ? qualRates : standardRates;
 
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const { watch } = useFormContext<Types.DataSource>();
@@ -29,6 +24,11 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const shouldDisplay =
     dataSourceWatch?.[0] !== "AdministrativeData" ||
     dataSourceWatch?.length !== 1;
+
+  const labelText = getLabelText();
+  const qualRates = useQualRateArray(name);
+  const standardRates = useStandardRateArray(name);
+  const rateArrays = !categories.length ? qualRates : standardRates;
 
   quals?.forEach((value, idx) => {
     if (rateArrays?.[idx]?.length) {
