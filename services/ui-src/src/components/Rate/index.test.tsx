@@ -87,6 +87,24 @@ describe("Test the Rate component", () => {
 
     expect(rateTextBox).toHaveDisplayValue("1");
   });
+
+  test("rounds auto-calculated rate up or down as expected", async () => {
+    const numeratorTextBox = await screen.findByLabelText("Numerator");
+    const denominatorTextBox = await screen.findByLabelText("Denominator");
+    const rateTextBox = await screen.findByLabelText("Rate");
+
+    // 3/9*100 = 3.333... -> 33.3
+    fireEvent.type(numeratorTextBox, "3");
+    fireEvent.type(denominatorTextBox, "9");
+
+    expect(rateTextBox).toHaveDisplayValue("33.3");
+
+    // 6/9*100 = 66.666... -> 66.7
+    fireEvent.type(numeratorTextBox, "6");
+    fireEvent.type(denominatorTextBox, "9");
+
+    expect(rateTextBox).toHaveDisplayValue("66.7");
+  });
 });
 
 describe("Test non-readonly rate component", () => {
@@ -108,6 +126,30 @@ describe("Test non-readonly rate component", () => {
     fireEvent.type(rateTextBox, "43");
 
     expect(rateTextBox).toHaveDisplayValue("43");
+  });
+
+  test("Ensure that warning appears if N=0, D>0, then R should be = 0 for user entered rates.", () => {
+    renderWithHookForm(<TestComponent2 />, {
+      defaultValues: {
+        "test-component": [
+          {
+            numerator: "1",
+            denominator: "1",
+            rate: "1",
+          },
+        ],
+      },
+    });
+
+    // Change the numerator from 1 to 0
+
+    const numeratorTextBox = screen.getByLabelText("Numerator");
+
+    fireEvent.type(numeratorTextBox, "0");
+
+    expect(numeratorTextBox).toHaveDisplayValue("0");
+    const rateTextBox = screen.getByLabelText("Rate");
+    expect(rateTextBox).toHaveDisplayValue("0.0");
   });
 });
 

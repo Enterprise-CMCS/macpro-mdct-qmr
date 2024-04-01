@@ -5,13 +5,8 @@ before(() => {
 const emailForCognito = "input[name='email']";
 const passwordForCognito = "input[name='password']";
 
-// the default stateuser3 is used to login but can also be changed
-// by passing in a user (not including the @test.com) ex. cy.login('bouser')
-Cypress.Commands.add(
-  "login",
-  (
-    user = "stateuser3" // pragma: allowlist secret
-  ) => {
+const loginUser = (user: string) => {
+  cy.session([user], () => {
     const users = {
       stateuser4: Cypress.env("TEST_USER_4"),
       stateuser3: Cypress.env("TEST_USER_3"),
@@ -22,6 +17,18 @@ Cypress.Commands.add(
     cy.get(emailForCognito).type(`${users[user]}`);
     cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
     cy.get('[data-cy="login-with-cognito-button"]').click();
+    cy.wait(4500);
+  });
+  cy.visit("/");
+};
+// the default stateuser3 is used to login but can also be changed
+// by passing in a user (not including the @test.com) ex. cy.login('bouser')
+Cypress.Commands.add(
+  "login",
+  (
+    user = "stateuser3" // pragma: allowlist secret
+  ) => {
+    loginUser(user);
   }
 );
 
@@ -31,16 +38,7 @@ Cypress.Commands.add(
   (
     user = "stateuser4" // pragma: allowlist secret
   ) => {
-    const users = {
-      stateuser4: Cypress.env("TEST_USER_4"),
-      stateuser3: Cypress.env("TEST_USER_3"),
-      stateuser2: Cypress.env("TEST_USER_2"),
-      stateuser1: Cypress.env("TEST_USER_1"),
-    };
-    cy.visit("/");
-    cy.get(emailForCognito).type(`${users[user]}`);
-    cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
-    cy.get('[data-cy="login-with-cognito-button"]').click();
+    loginUser(user);
   }
 );
 

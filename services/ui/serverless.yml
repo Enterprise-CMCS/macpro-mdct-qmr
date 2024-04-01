@@ -33,7 +33,7 @@ custom:
   cloudfrontDomainName: ${ssm:/configuration/${self:custom.stage}/cloudfront/domainName, ""}
   vpnIpSetArn: ${ssm:/configuration/${self:custom.stage}/vpnIpSetArn, ssm:/configuration/default/vpnIpSetArn, ""}
   vpnIpv6SetArn: ${ssm:/configuration/${self:custom.stage}/vpnIpv6SetArn, ssm:/configuration/default/vpnIpv6SetArn, ""}
-  
+
   wafExcludeRules:
     wafScope: CLOUDFRONT
   wafPlugin:
@@ -242,7 +242,7 @@ resources:
               - CloudFrontDefaultCertificate: true
           CustomErrorResponses:
             - ErrorCode: 403
-              ResponseCode: 403
+              ResponseCode: 200
               ResponsePagePath: /index.html
           WebACLId: !GetAtt WafPluginAcl.Arn
           Logging:

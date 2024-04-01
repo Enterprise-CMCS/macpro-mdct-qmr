@@ -17,12 +17,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
-import {
-  AnyObject,
-  AutoCompletedMeasures,
-  CoreSetAbbr,
-  MeasureStatus,
-} from "types";
+import { AnyObject, CoreSetAbbr, MeasureStatus } from "types";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
@@ -150,8 +145,10 @@ export const MeasureWrapper = ({
   );
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
-  const shared: AnyObject =
-    Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"];
+  const shared: AnyObject = {
+    ...Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"],
+    year: year,
+  };
 
   // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
   const coreSet = (params.coreSetId?.split("_")?.[0] ??
@@ -191,9 +188,6 @@ export const MeasureWrapper = ({
       duration: 4000,
     });
   };
-  const autoCompletedMeasure =
-    !!AutoCompletedMeasures[measureId as keyof typeof AutoCompletedMeasures];
-
   /*
   this is where we put all the high level stuff for measures
   all of the methods defined here can be passed as props to every measure below
@@ -441,7 +435,7 @@ export const MeasureWrapper = ({
             handleSave={methods.handleSubmit(handleSave)}
             lastAltered={measureData?.data && measureData?.lastAltered}
             isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
-            isAutoCompletedMeasure={autoCompletedMeasure}
+            isAutoCompletedMeasure={autocompleteOnCreation}
           />
         }
       >
