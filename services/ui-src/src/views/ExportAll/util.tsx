@@ -200,6 +200,11 @@ export const usePrinceRequest: PrinceHook = () => {
       const html = document.querySelector("html")!;
       html.querySelector("noscript")?.remove();
 
+      // add <base> to treat relative URLs as absolute
+      const base = document.createElement("base");
+      base.href = `https://${window.location.host}`;
+      document.querySelector("head")!.prepend(base);
+
       // get cleaned html
       const htmlString = htmlStringCleanup(html.outerHTML);
 
