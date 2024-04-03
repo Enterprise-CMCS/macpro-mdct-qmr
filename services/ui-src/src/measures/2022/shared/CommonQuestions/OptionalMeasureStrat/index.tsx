@@ -5,11 +5,10 @@ import { OMSData, OmsNode } from "./data";
 import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { cleanString } from "utils/cleanString";
 import { ndrFormula } from "types";
-import SharedContext from "shared/SharedContext";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -140,9 +139,6 @@ export const OptionalMeasureStrat = ({
   customPrompt,
   rateCalc,
 }: Props) => {
-  //WIP: using form context to get the labels for this component temporarily.
-  const labels: any = useContext(SharedContext);
-
   const omsData = data ?? OMSData(adultMeasure);
   const { watch, getValues, unregister } = useFormContext<OMSType>();
   const values = getValues();
@@ -206,7 +202,13 @@ export const OptionalMeasureStrat = ({
         }}
       >
         <CUI.Text py="3">
-          {labels.OptionalMeasureStratification.section}
+          If this measure is also reported by additional
+          classifications/sub-categories, e.g. racial, ethnic, sex, language,
+          disability status, or geography, complete the following as applicable.
+          If your state reported for classifications/sub-categories other than
+          those listed below, or reported for different rate sets, please click
+          on “Add Another” to add Additional/Alternative
+          Classification/Sub-categories as needed.
         </CUI.Text>
         <CUI.Text py="3">
           Do not select categories and sub-classifications for which you will
