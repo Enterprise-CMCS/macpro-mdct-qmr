@@ -30,7 +30,6 @@ export const buildOmsCheckboxes = ({
   isSingleSex,
   year,
 }: OmsCheckboxProps) => {
-  console.log("year", year);
   return data
     .filter((d) => !isSingleSex || (d.id !== "O8BrOa" && d.id !== "Sex")) // remove sex as a top level option if isSingleSex
     .map((lvlOneOption) => {
