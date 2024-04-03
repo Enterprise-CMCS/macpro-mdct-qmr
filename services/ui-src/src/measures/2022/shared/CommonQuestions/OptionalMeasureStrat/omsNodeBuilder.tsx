@@ -6,7 +6,7 @@ import { OmsNode } from "./data";
 import { AddAnotherSection } from "./additionalCategory";
 import { cleanString } from "utils/cleanString";
 import { SubCatSection } from "./subCatClassification";
-import { NDRSets } from "./NDR/ndrSets";
+import { NDRSets } from "./ndrSets";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -42,25 +42,20 @@ const renderRadioButtonOptions = ({
   omsNode,
   name,
 }: ChildCheckBoxOptionProps) => {
-  const label = {
-    YesAggregateData: `Yes, we are only reporting aggregated data for all ${
-      omsNode?.aggregateTitle || omsNode?.id
-    } categories.`,
-    NoIndependentData: `No, we are reporting independent data for all ${
-      omsNode?.aggregateTitle || omsNode?.id
-    } categories`,
-  };
-
   return [
     {
-      displayValue: label.YesAggregateData,
+      displayValue: `Yes, we are only reporting aggregated data for all ${
+        omsNode?.aggregateTitle || omsNode?.id
+      } categories.`,
       value: "YesAggregateData",
       children: [
         <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
       ],
     },
     {
-      displayValue: label.NoIndependentData,
+      displayValue: `No, we are reporting independent data for all ${
+        omsNode?.aggregateTitle || omsNode?.id
+      } categories`,
       value: "NoIndependentData",
       children: [
         <QMR.Checkbox
