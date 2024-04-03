@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import * as QMR from "components";
-import { LabelData, cleanString } from "utils";
+import { LabelData, cleanString, stringToLabelData } from "utils";
 import { ContextProps, usePerformanceMeasureContext } from "../context";
 
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
@@ -154,10 +154,8 @@ export const useQualRateArray: RateArrayBuilder = (name) => {
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   let rateArrays: React.ReactElement[][] = [];
 
-  (quals as string[])?.forEach((singleQual, qualIndex) => {
-    const cleanedName = `${name}.rates.${cleanString(singleQual)}.${
-      DC.SINGLE_CATEGORY
-    }`;
+  stringToLabelData(quals).forEach((singleQual, qualIndex) => {
+    const cleanedName = `${name}.rates.${singleQual}.${DC.SINGLE_CATEGORY}`;
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
       rateArrays.push([RateComponent(context, cleanedName)]);
     } else if (AIFHHPerformanceMeasureArray) {

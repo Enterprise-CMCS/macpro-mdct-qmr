@@ -17,6 +17,8 @@ type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
  * Builds Performance Measure AgeGroup Checkboxes
  */
 export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
+  console.log("useAgeGroupsCheckboxes");
+
   const options: QMR.CheckboxOption[] = [];
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();
@@ -30,11 +32,12 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
     dataSourceWatch?.length !== 1;
 
   const standardRates = useStandardRateArray(name);
+  const qualRates = useQualRateArray(name);
+  const completedPMQualRates = useRatesForCompletedPmQualifiers(name);
 
   //using the data to determine if the data is pre or post data structure change, string is pre-change
   if (typeof qualifiers[0] === "string") {
     const labelText = getLabelText();
-    const qualRates = useQualRateArray(name);
     const rateArrays = !categories.length ? qualRates : standardRates;
 
     (quals as string[])?.forEach((value, idx) => {
@@ -53,11 +56,10 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
       }
     });
   } else {
-    const qualRates = useRatesForCompletedPmQualifiers(name);
     const rateArrays =
       !categories.length ||
       !(categories as LabelData[]).some((item) => item.label)
-        ? qualRates
+        ? completedPMQualRates
         : standardRates;
 
     const checkbox = (categories as LabelData[]).some((cat) => cat.label)
@@ -85,6 +87,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
  * Builds OPM Checkboxes
  */
 export const useRenderOPMCheckboxOptions = (name: string) => {
+  console.log("useRenderOPMCheckboxOptions");
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   const context = usePerformanceMeasureContext();
   const { OPM, customPrompt } = context;

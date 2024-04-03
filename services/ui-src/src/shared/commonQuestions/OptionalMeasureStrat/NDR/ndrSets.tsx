@@ -9,7 +9,7 @@ import {
   useAgeGroupsCheckboxes,
 } from "./ndrCheckboxes";
 import { TotalNDRSets } from "./totalNDRSets";
-import { stringToLabelData } from "./util";
+import { stringToLabelData } from "utils";
 
 interface NdrProps {
   name: string;
@@ -34,14 +34,12 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
 
 const IUHHNDRSets = ({ name }: NdrProps) => {
   const { calcTotal, qualifiers } = usePerformanceMeasureContext();
-  const ageGroupsOptions =
-    typeof qualifiers[0] === "string" &&
-    useAgeGroupsCheckboxes(`${name}.iuhh-rate`);
+  const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.iuhh-rate`);
   console.log("ageGroupsOptions", ageGroupsOptions);
 
   return (
     <>
-      {ageGroupsOptions && (
+      {ageGroupsOptions && qualifiers[0] === "string" && (
         <QMR.Checkbox
           name={`${name}.iuhh-rate.options`}
           key={`${name}.iuhh-rate.options`}
@@ -132,6 +130,7 @@ const OPMNDRSets = ({ name }: NdrProps) => {
 export const NDRSets = ({ name }: NdrProps) => {
   const { OPM, componentFlag } = usePerformanceMeasureContext();
   const children: JSX.Element[] = [];
+  console.log("NDRSets");
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
   switch (componentFlag) {

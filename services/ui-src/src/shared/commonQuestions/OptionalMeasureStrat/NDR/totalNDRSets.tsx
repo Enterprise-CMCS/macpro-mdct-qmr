@@ -1,10 +1,9 @@
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as QMR from "components";
-import { LabelData } from "utils";
+import { LabelData, stringToLabelData } from "utils";
 import { ComponentFlagType, usePerformanceMeasureContext } from "../context";
 import { useTotalAutoCalculation } from "../omsUtil";
-import { stringToLabelData } from "./util";
 
 interface TotalProps {
   name: string;
