@@ -17,6 +17,8 @@ type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
  * Builds Performance Measure AgeGroup Checkboxes
  */
 export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
+  console.log("useAgeGroupsCheckboxes");
+
   const options: QMR.CheckboxOption[] = [];
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();

@@ -10,6 +10,7 @@ import {
 } from "./ndrCheckboxes";
 import { TotalNDRSets } from "./totalNDRSets";
 import { stringToLabelData } from "utils";
+import { stringToLabelData } from "utils";
 
 interface NdrProps {
   name: string;
@@ -129,6 +130,7 @@ const OPMNDRSets = ({ name }: NdrProps) => {
 export const NDRSets = ({ name }: NdrProps) => {
   const { OPM, componentFlag } = usePerformanceMeasureContext();
   const children: JSX.Element[] = [];
+  console.log("NDRSets");
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
   switch (componentFlag) {
