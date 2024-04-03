@@ -38,7 +38,7 @@ const IUHHNDRSets = ({ name }: NdrProps) => {
 
   return (
     <>
-      {ageGroupsOptions && qualifiers[0] === "string" && (
+      {ageGroupsOptions && typeof qualifiers[0] === "string" && (
         <QMR.Checkbox
           name={`${name}.iuhh-rate.options`}
           key={`${name}.iuhh-rate.options`}

@@ -3,7 +3,7 @@ import { complexRateFields, RateFields } from "shared/types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
-import { LabelData, cleanString } from "utils";
+import { LabelData, cleanString, stringToLabelData } from "utils";
 
 interface TempRate {
   numerator?: number;
@@ -37,15 +37,6 @@ const NDR = (watchOMS: any, cleanedCategory: any, qual: string | LabelData) => {
   } else {
     return watchOMS?.[cleanedCategory]?.[qual.id];
   }
-};
-
-const formatQualifiers = (qualifiers: string[] | LabelData[]): LabelData[] => {
-  if (typeof qualifiers[0] === "string") {
-    (qualifiers as string[]).map((qual: string) => {
-      return { id: cleanString(qual), label: qual, text: qual };
-    });
-  }
-  return qualifiers as LabelData[];
 };
 
 /** Process all OMS rate values pertaining to set category and calculate new rate object */
@@ -286,7 +277,7 @@ export const useTotalAutoCalculation = ({
   >();
 
   useEffect(() => {
-    const cleanedQualifiers = formatQualifiers(qualifiers);
+    const cleanedQualifiers = stringToLabelData(qualifiers);
     const totalFieldName = `${name}.rates.${
       cleanedQualifiers.slice(-1)[0].id
     }.${cleanedCategory}`;
