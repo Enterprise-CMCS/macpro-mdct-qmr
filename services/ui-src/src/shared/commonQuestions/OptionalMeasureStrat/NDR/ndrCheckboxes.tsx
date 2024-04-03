@@ -105,7 +105,7 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
       const type = typeof context.qualifiers[0];
       //if the type is an object, that means we're year >= 2023, string is year <= 2022
       const cleanedFieldName =
-        type == "object"
+        type === "object"
           ? `${DC.OPM_KEY}${cleanString(description)}`
           : cleanString(description);
       const key =
