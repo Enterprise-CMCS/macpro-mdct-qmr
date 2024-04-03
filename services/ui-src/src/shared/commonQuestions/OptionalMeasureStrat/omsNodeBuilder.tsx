@@ -3,9 +3,9 @@ import * as CUI from "@chakra-ui/react";
 
 import { OmsNode } from "shared/types";
 
-import { AddAnotherSection } from "./../additionalCategory";
-import { SubCatSection } from "./../subCatClassification";
-import { NDRSets } from "./ndrSets";
+import { AddAnotherSection } from "./additionalCategory";
+import { SubCatSection } from "./subCatClassification";
+import { NDRSets } from "./NDR/ndrSets";
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 

@@ -3,7 +3,7 @@ import * as QMR from "components";
 import * as Types from "./../../types";
 import { OMSData } from "./data";
 import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
-import { TopLevelOmsChildren } from "./NDR/omsNodeBuilder";
+import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
