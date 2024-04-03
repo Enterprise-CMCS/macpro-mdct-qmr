@@ -9,14 +9,12 @@ import { NDRSets } from "./ndrSets";
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 
-import { useContext } from "react";
-import SharedContext from "shared/SharedContext";
-
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
   name: string;
   /** name of parent category for additionalCategory rendering */
   parentDisplayName: string;
+  year?: number;
 }
 
 interface ChildCheckBoxOptionProps {
@@ -168,9 +166,6 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     return <NDRSets name={`${props.name}.rateData`} />;
   }
 
-  //WIP: using form context to get the labels for this component temporarily.
-  const shared: any = useContext(SharedContext);
-
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       <QMR.Checkbox
@@ -182,13 +177,13 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
             const cleanedId =
               cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
 
-            const labels = omsLabels(shared.year, lvlTwoOption);
+            const labels = omsLabels(props.year!, lvlTwoOption);
 
             return buildChildCheckboxOption({
               omsNode: lvlTwoOption,
               name: `${props.name}.selections.${cleanedId}`,
               label: labels,
-              year: shared.year,
+              year: props.year,
             });
           }),
         ]}

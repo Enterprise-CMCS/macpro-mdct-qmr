@@ -17,6 +17,7 @@ interface OmsCheckboxProps {
   /** data object for dynamic rendering */
   data: Types.OmsNode[];
   isSingleSex: boolean;
+  year: number;
 }
 
 /**
@@ -27,7 +28,9 @@ export const buildOmsCheckboxes = ({
   name,
   data,
   isSingleSex,
+  year,
 }: OmsCheckboxProps) => {
+  console.log("year", year);
   return data
     .filter((d) => !isSingleSex || (d.id !== "O8BrOa" && d.id !== "Sex")) // remove sex as a top level option if isSingleSex
     .map((lvlOneOption) => {
@@ -46,6 +49,7 @@ export const buildOmsCheckboxes = ({
           key={`${name}.selections.${value}`}
           id={value}
           label={displayValue}
+          year={year}
         />,
       ];
 
@@ -145,8 +149,9 @@ export const OptionalMeasureStrat = ({
 }: Props) => {
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
+  const year = labels.year;
 
-  const omsData = data ?? OMSData(labels.year, adultMeasure);
+  const omsData = data ?? OMSData(year, adultMeasure);
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<OMSType>();
   const values = getValues();
@@ -164,6 +169,7 @@ export const OptionalMeasureStrat = ({
     ...register("OptionalMeasureStratification"),
     data: omsData,
     isSingleSex,
+    year,
   });
 
   let rateReadOnly = false;
