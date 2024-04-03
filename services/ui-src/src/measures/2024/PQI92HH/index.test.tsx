@@ -169,8 +169,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toBeInTheDocument();
   });
 
-  it("calculates total performance measure correctly for PQI92-HH", async () => {});
-
   /** Validations Test
    *
    * Confirm that correct functions are called. Comprehensive testing of the validations is done in specific test files
