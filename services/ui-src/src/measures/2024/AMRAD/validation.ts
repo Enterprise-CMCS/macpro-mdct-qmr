@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as GV from "measures/2024/shared/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data"
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 const AMRADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;

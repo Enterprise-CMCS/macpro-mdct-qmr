@@ -6,7 +6,7 @@ import {
   generateOmsFormData,
 } from "utils/testUtils/2024/validationHelpers";
 import { DefaultFormData } from "measures/2024/shared/CommonQuestions/types";
-import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data"
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 describe("Testing OMS validation processor", () => {
   const categories = [

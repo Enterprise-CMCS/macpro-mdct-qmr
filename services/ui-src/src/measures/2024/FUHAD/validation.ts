@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as PMD from "./data";
 import * as GV from "../shared/globalValidations";
-import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data"
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
