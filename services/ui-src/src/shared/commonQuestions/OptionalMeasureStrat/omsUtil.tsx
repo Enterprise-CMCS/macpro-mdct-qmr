@@ -39,9 +39,7 @@ const NDR = (watchOMS: any, cleanedCategory: any, qual: string | LabelData) => {
   }
 };
 
-const formatQualifiers = (
-  qualifiers: string[] | LabelData[]
-): LabelData[] => {
+const formatQualifiers = (qualifiers: string[] | LabelData[]): LabelData[] => {
   if (typeof qualifiers[0] === "string") {
     (qualifiers as string[]).map((qual: string) => {
       return { id: cleanString(qual), label: qual, text: qual };
