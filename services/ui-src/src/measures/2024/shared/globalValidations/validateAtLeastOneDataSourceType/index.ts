@@ -16,7 +16,8 @@ export const validateAtLeastOneDataSourceType = (
       if (!Object.values(source[index])[0]) {
         errorArray.push({
           errorLocation: "Data Source",
-          errorMessage: errorMessage ?? "You must select a data source",
+          errorMessage:
+            errorMessage ?? " Please describe the Other Data Source",
         });
       }
     });
