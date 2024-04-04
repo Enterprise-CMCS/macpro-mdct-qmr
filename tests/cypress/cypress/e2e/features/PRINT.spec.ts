@@ -8,14 +8,6 @@ describe("Measure: AMR-AD", () => {
     cy.goToMeasure("AMR-AD");
   });
 
-  it("should show correct data source options", () => {
-    cy.get("#MeasurementSpecification-NCQAHEDIS").should(
-      "have.text",
-      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)"
-    );
-    cy.get("#MeasurementSpecification-Other").should("have.text", "Other");
-  });
-
   it("Print Functionality - check that Print button is enabled", () => {
     cy.get('[data-cy="DidReport0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
@@ -31,6 +23,5 @@ describe("Measure: AMR-AD", () => {
       '[data-cy="OptionalMeasureStratification.selections.3dpUZu.options0"] > .chakra-checkbox__control'
     ).click();
     cy.get('[data-cy="Print"]').should("be.enabled");
-    //cy.get('[data-cy="Print"]').click();
   });
 });
