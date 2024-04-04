@@ -7,7 +7,6 @@ import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations"
 import * as QMR from "components";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
-import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const WCCCH = ({
   name,

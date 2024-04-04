@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
-import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const PCRAD = ({
   name,

@@ -4,7 +4,7 @@ import * as CMQ from "measures/2022/shared/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
-import { convertToCategoryLabelData, convertToQualifierLabelData, positiveNumbersWithMaxDecimalPlaces } from "utils";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";

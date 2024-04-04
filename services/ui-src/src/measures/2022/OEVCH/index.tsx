@@ -8,7 +8,6 @@ import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
-import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const OEVCH = ({
   name,
@@ -60,9 +59,9 @@ export const OEVCH = ({
             <CMQ.OptionalMeasureStrat
               adultMeasure={false}
               calcTotal
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
               performanceMeasureArray={performanceMeasureArray}
+              qualifiers={PMD.qualifiers}
             />
           )}
         </>
