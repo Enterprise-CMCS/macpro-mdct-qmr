@@ -1,4 +1,4 @@
-import { OmsNode } from "./OptionalMeasureStrat/data";
+import { OmsNode } from "shared/types";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";

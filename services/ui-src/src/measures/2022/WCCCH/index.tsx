@@ -54,8 +54,8 @@ export const WCCCH = ({
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              categories={PMD.categories}
-              qualifiers={PMD.qualifiers}
+              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
+              categories={convertToCategoryLabelData(PMD.categories)}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure={false}
               calcTotal

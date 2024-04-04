@@ -7,6 +7,7 @@ import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations"
 import { validationFunctions } from "./validation";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
+import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const FUMAD = ({
   name,
@@ -53,8 +54,8 @@ export const FUMAD = ({
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              categories={PMD.categories}
-              qualifiers={PMD.qualifiers}
+            qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
+            categories={convertToCategoryLabelData(PMD.categories)}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
             />

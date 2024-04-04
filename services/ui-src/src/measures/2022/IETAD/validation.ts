@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as GV from "measures/2022/shared/globalValidations";
 import * as PMD from "./data";
 import { cleanString } from "utils/cleanString";
-import { OMSData } from "measures/2022/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
@@ -63,7 +63,7 @@ const IETValidation = (data: FormData) => {
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(true),
+    OMSData(2022, true),
     PMD.qualifiers,
     PMD.categories
   );

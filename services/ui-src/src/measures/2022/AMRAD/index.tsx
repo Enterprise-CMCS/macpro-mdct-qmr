@@ -6,6 +6,7 @@ import { FormData, Measure } from "./types";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
+import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const AMRAD = ({
   name,
@@ -101,8 +102,8 @@ export const AMRAD = ({
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              qualifiers={PMD.qualifiers}
-              categories={PMD.categories}
+              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
+              categories={convertToCategoryLabelData(PMD.categories)}
               calcTotal={true}
               adultMeasure
             />

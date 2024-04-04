@@ -10,6 +10,7 @@ import { AABRateCalculation } from "utils/rateFormulas";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
+import { convertToCategoryLabelData, convertToQualifierLabelData } from "utils";
 
 export const AABAD = ({
   name,
@@ -66,8 +67,8 @@ export const AABAD = ({
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              qualifiers={PMD.qualifiers}
-              categories={PMD.categories}
+              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
+              categories={convertToCategoryLabelData(PMD.categories)}
               adultMeasure
               rateCalc={AABRateCalculation}
               customPrompt={PMD.data.customPrompt}

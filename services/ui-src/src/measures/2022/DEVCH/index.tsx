@@ -7,6 +7,7 @@ import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations"
 import * as QMR from "components";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
+import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const DEVCH = ({
   name,
@@ -58,8 +59,8 @@ export const DEVCH = ({
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              qualifiers={PMD.qualifiers}
-              categories={PMD.categories}
+              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
+              categories={convertToCategoryLabelData(PMD.categories)}
               adultMeasure={false}
               calcTotal
             />

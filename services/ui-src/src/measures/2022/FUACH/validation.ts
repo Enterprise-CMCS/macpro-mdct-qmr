@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as GV from "measures/2022/shared/globalValidations";
 import * as PMD from "./data";
 import { getPerfMeasureRateArray } from "../shared/globalValidations";
-import { OMSData } from "measures/2022/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
@@ -60,7 +60,7 @@ const FUACHValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(2022, true),
         PMD.qualifiers,
         PMD.categories
       ),

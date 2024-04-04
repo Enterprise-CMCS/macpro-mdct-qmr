@@ -7,6 +7,7 @@ import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
+import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const FUMHH = ({
   isNotReportingData,
@@ -59,10 +60,10 @@ export const FUMHH = ({
             <CMQ.OptionalMeasureStrat
               adultMeasure={false}
               calcTotal
-              categories={PMD.categories}
+              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
+              categories={convertToCategoryLabelData(PMD.categories)}
               performanceMeasureArray={performanceMeasureArray}
               rateMultiplicationValue={100}
-              qualifiers={PMD.qualifiers}
             />
           )}
         </>

@@ -5,7 +5,11 @@ import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations"
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
-import { xNumbersYDecimals } from "utils";
+import {
+  convertToCategoryLabelData,
+  convertToQualifierLabelData,
+  xNumbersYDecimals,
+} from "utils";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
@@ -68,8 +72,8 @@ export const IUHH = ({
           <CMQ.CombinedRates healthHomeMeasure={true} />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              categories={PMD.categories}
-              qualifiers={PMD.qualifiers}
+              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
+              categories={convertToCategoryLabelData(PMD.categories)}
               measureName={PMD.data.measureName}
               inputFieldNames={PMD.data.inputFieldNames}
               ndrFormulas={PMD.data.ndrFormulas}
