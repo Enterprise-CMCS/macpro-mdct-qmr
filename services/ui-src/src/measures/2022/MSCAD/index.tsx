@@ -7,7 +7,6 @@ import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 import { FormData } from "./types";
-import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const MSCAD = ({
   name,
@@ -58,8 +57,8 @@ export const MSCAD = ({
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
               rateAlwaysEditable

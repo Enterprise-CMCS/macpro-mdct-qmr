@@ -53,8 +53,8 @@ export const OUDAD = ({
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
             />

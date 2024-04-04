@@ -7,7 +7,6 @@ import { useFormContext } from "react-hook-form";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
-import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const CCPAD = ({
   name,
@@ -55,8 +54,8 @@ export const CCPAD = ({
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-            qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-            categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure
               isSingleSex

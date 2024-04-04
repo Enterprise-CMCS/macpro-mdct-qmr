@@ -5,11 +5,7 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
-import {
-  convertToCategoryLabelData,
-  convertToQualifierLabelData,
-  positiveNumbersWithMaxDecimalPlaces,
-} from "utils";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
@@ -74,8 +70,8 @@ export const AMBHH = ({
           <CMQ.CombinedRates healthHomeMeasure />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
               rateMultiplicationValue={1000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               performanceMeasureArray={performanceMeasureArray}

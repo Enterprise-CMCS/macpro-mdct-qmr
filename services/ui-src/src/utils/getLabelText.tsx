@@ -1,4 +1,3 @@
-import { CategoryLabelData, QualifierLabelData } from "shared/types";
 import { cleanString } from "utils";
 
 type LabelText = { [key: string]: string };
@@ -36,20 +35,4 @@ export const stringToLabelData = (arr: string[] | LabelData[]): LabelData[] => {
     });
   }
   return arr as LabelData[];
-};
-
-export const convertToQualifierLabelData = (
-  arr: string[]
-): QualifierLabelData[] => {
-  return arr.map((item) => {
-    return { id: cleanString(item), label: item, text: item };
-  });
-};
-
-export const convertToCategoryLabelData = (
-  arr: string[]
-): CategoryLabelData[] => {
-  return arr.map((item) => {
-    return { id: cleanString(item), label: item, text: item };
-  });
 };

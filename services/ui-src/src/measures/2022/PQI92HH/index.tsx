@@ -70,8 +70,8 @@ export const PQI92HH = ({
           <CMQ.CombinedRates healthHomeMeasure={true} />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               performanceMeasureArray={performanceMeasureArray}

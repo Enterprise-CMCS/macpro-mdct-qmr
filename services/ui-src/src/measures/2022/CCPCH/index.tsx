@@ -8,7 +8,6 @@ import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
-import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const CCPCH = ({
   name,
@@ -57,10 +56,10 @@ export const CCPCH = ({
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               adultMeasure={false}
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
               isSingleSex={true}
               performanceMeasureArray={performanceMeasureArray}
+              qualifiers={PMD.qualifiers}
             />
           )}
         </>

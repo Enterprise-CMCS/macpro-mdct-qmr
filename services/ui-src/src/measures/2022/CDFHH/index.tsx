@@ -7,7 +7,6 @@ import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
-import { convertToQualifierLabelData, convertToCategoryLabelData } from "utils";
 
 export const CDFHH = ({
   name,
@@ -64,8 +63,8 @@ export const CDFHH = ({
           <CMQ.CombinedRates healthHomeMeasure />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
+              qualifiers={PMD.qualifiers}
               rateMultiplicationValue={100}
               performanceMeasureArray={performanceMeasureArray}
               adultMeasure={false}

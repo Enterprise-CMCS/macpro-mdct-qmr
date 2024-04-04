@@ -55,8 +55,8 @@ export const SFMCH = ({
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              qualifiers={PMD.qualifiers}
+              categories={PMD.categories}
               adultMeasure={false}
             />
           )}

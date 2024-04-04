@@ -2,11 +2,7 @@ import * as CMQ from "measures/2022/shared/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
-import {
-  convertToCategoryLabelData,
-  convertToQualifierLabelData,
-  positiveNumbersWithMaxDecimalPlaces,
-} from "utils";
+import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
@@ -74,10 +70,10 @@ export const AMBCH = ({
             <CMQ.OptionalMeasureStrat
               adultMeasure={false}
               calcTotal
-              qualifiers={convertToQualifierLabelData(PMD.qualifiers)}
-              categories={convertToCategoryLabelData(PMD.categories)}
+              categories={PMD.categories}
               customMask={mask}
               performanceMeasureArray={performanceMeasureArray}
+              qualifiers={PMD.qualifiers}
               rateMultiplicationValue={rateScale}
               allowNumeratorGreaterThanDenominator
             />
