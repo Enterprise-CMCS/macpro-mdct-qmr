@@ -195,7 +195,6 @@ export const PerformanceMeasure = ({
   customNumeratorLabel,
   customDenominatorLabel,
   customRateLabel,
-  showtextbox = true,
   rateCalc,
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
@@ -275,12 +274,6 @@ export const PerformanceMeasure = ({
             );
           })}
         </CUI.OrderedList>
-      )}
-      {showtextbox && (
-        <QMR.TextArea
-          label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
-          {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
-        />
       )}
       {hybridMeasure && pheIsCurrent && (
         <CUI.Box my="5">
