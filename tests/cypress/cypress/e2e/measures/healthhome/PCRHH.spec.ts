@@ -14,7 +14,7 @@ describe("PCR-HH", () => {
     cy.get('[data-cy="DataStatus-ProvisionalExplanation"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="MeasurementSpecification-HEDISVersion"]').select(
-      "HEDIS MY 2020"
+      "HEDIS MY 2021"
     );
     cy.get(
       '[data-cy="DataSource0"] > .chakra-checkbox__label > .chakra-text'
