@@ -127,7 +127,8 @@ export const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
     .map((qualRateFields) => qualRateFields.uid?.split(".")[1]);
 
   (quals as LabelData[])?.forEach((singleQual, qualIndex) => {
-    const categoryID = (categories as LabelData[])[0].id || DC.SINGLE_CATEGORY;
+    const categoryID =
+      (categories as LabelData[])?.[0]?.id || DC.SINGLE_CATEGORY;
 
     const cleanedName = `${name}.rates.${categoryID}.${singleQual.id}`;
     if (completedQualifierIds?.includes(singleQual.id)) {

@@ -200,6 +200,19 @@ export const OptionalMeasureStrat = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDataSourceSwitch]);
+
+  let cleanedQual = qualifiers;
+  let cleanedCat = categories;
+
+  if (typeof qualifiers[0] !== "string") {
+    cleanedQual = (qualifiers as Types.QualifierLabelData[]).filter(
+      (qual) => !qual.excludeFromOMS
+    );
+    cleanedCat = (categories as Types.CategoryLabelData[]).filter(
+      (cat) => !cat.excludeFromOMS
+    );
+  }
+
   return (
     <QMR.CoreQuestionWrapper
       testid="OMS"
@@ -213,11 +226,11 @@ export const OptionalMeasureStrat = ({
           AIFHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
-          qualifiers: qualifiers.filter((qual) => !qual.excludeFromOMS),
+          qualifiers: cleanedQual,
           measureName,
           inputFieldNames,
           ndrFormulas,
-          categories: categories.filter((cat) => !cat.excludeFromOMS),
+          categories: cleanedCat,
           rateMultiplicationValue,
           customMask,
           allowNumeratorGreaterThanDenominator,
