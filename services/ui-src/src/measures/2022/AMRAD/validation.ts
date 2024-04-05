@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as GV from "measures/2022/shared/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
-import { OMSData } from "measures/2022/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 const AMRADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
@@ -53,7 +53,7 @@ const AMRADValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(2022, true),
         PMD.qualifiers,
         PMD.categories
       ),
