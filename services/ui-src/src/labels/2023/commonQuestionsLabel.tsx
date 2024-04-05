@@ -61,6 +61,8 @@ export const commonQuestionsLabel = {
     specSizeOfPop: "Specify the size of the population excluded:",
     deliverySysOther:
       "Describe the Other Delivery System represented in the denominator (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    changeInPopExplanation:
+      "If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:",
   },
   DateRange: {
     header: "Date Range",
@@ -93,6 +95,10 @@ export const commonQuestionsLabel = {
         value: DC.HEDIS_MY_2020,
       },
     ],
+  },
+  OptionalMeasureStratification: {
+    section:
+      "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
   },
 };
 

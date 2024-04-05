@@ -1,9 +1,9 @@
 import objectPath from "object-path";
-import { complexRateFields, RateFields } from "../types";
+import { complexRateFields, RateFields } from "shared/types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
-import { LabelData } from "utils";
+import { LabelData, cleanString, stringToLabelData } from "utils";
 
 interface TempRate {
   numerator?: number;
@@ -23,14 +23,24 @@ interface TotalCalcHookProps {
 interface CalcOmsTotalProp {
   watchOMS: any;
   cleanedCategory: string;
-  qualifiers: LabelData[];
+  qualifiers: string[] | LabelData[];
   rateMultiplicationValue?: number;
   numberOfDecimals: number;
   componentFlag?: any;
 }
 
+//this function will determine how to retrieve ndr value based on qual type
+const NDR = (watchOMS: any, cleanedCategory: any, qual: string | LabelData) => {
+  if (typeof qual === "string") {
+    const cleanedQual = cleanString(qual);
+    return watchOMS?.[cleanedQual]?.[cleanedCategory];
+  } else {
+    return watchOMS?.[cleanedCategory]?.[qual.id];
+  }
+};
+
 /** Process all OMS rate values pertaining to set category and calculate new rate object */
-/** Note: this currently isn't in use with 2024 because we updated the OMS to show only the total qualifier if there is one in the list of qualifiers. */
+/** Note: this currently isn't in use with 2023 because we updated the OMS to show only the total qualifier if there is one in the list of qualifiers. */
 const calculateOMSTotal = ({
   cleanedCategory,
   numberOfDecimals,
@@ -45,19 +55,13 @@ const calculateOMSTotal = ({
   };
 
   for (const qual of qualifiers.slice(0, -1)) {
-    if (
-      watchOMS?.[cleanedCategory]?.[qual.id]?.[0]?.numerator &&
-      watchOMS?.[cleanedCategory]?.[qual.id]?.[0]?.denominator &&
-      watchOMS?.[cleanedCategory]?.[qual.id]?.[0]?.rate
-    ) {
+    const ndr = NDR(watchOMS, cleanedCategory, qual)?.[0];
+
+    if (ndr?.numerator && ndr?.denominator && ndr?.rate) {
       tempRate.numerator ??= 0;
       tempRate.denominator ??= 0;
-      tempRate.numerator += parseFloat(
-        watchOMS[cleanedCategory][qual.id][0].numerator
-      );
-      tempRate.denominator += parseFloat(
-        watchOMS[cleanedCategory][qual.id][0].denominator
-      );
+      tempRate.numerator += parseFloat(ndr.numerator);
+      tempRate.denominator += parseFloat(ndr.denominator);
     }
   }
 
@@ -176,7 +180,7 @@ const calculateComplexOMSTotal = ({
 
   // Store sums in temp
   for (const qual of cleanedQualifiers) {
-    const fields = watchOMS?.[cleanedCategory]?.[qual.id]?.[0]?.fields;
+    const fields = NDR(watchOMS, cleanedCategory, qual)?.[0]?.fields;
     if (fields?.every((f: { value?: string }) => !!f?.value)) {
       fields?.forEach((field: { value: string }, i: number) => {
         if (field?.value && tempRate?.fields?.[i]) {
@@ -273,10 +277,11 @@ export const useTotalAutoCalculation = ({
   >();
 
   useEffect(() => {
+    const cleanedQualifiers = stringToLabelData(qualifiers);
     const totalFieldName = `${name}.rates.${
-      qualifiers.slice(-1)[0].id
+      cleanedQualifiers.slice(-1)[0].id
     }.${cleanedCategory}`;
-    const nonTotalQualifiers = qualifiers.slice(0, -1);
+    const nonTotalQualifiers = cleanedQualifiers.slice(0, -1);
     const includedNames = nonTotalQualifiers.map(
       (s) => `${name}.rates.${s.id}.${cleanedCategory}`
     );
