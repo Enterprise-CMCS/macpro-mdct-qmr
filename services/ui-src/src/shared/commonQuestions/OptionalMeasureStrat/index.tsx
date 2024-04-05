@@ -1,21 +1,23 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Types from "../types";
-import { OMSData, OmsNode } from "./data";
+import * as Types from "./../../types";
+import { OMSData } from "./data";
 import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { ndrFormula } from "types";
-import { LabelData } from "utils";
+import { LabelData, cleanString } from "utils";
+import SharedContext from "shared/SharedContext";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
   name: string;
   /** data object for dynamic rendering */
-  data: OmsNode[];
+  data: Types.OmsNode[];
   isSingleSex: boolean;
+  year: number;
 }
 
 /**
@@ -26,23 +28,27 @@ export const buildOmsCheckboxes = ({
   name,
   data,
   isSingleSex,
+  year,
 }: OmsCheckboxProps) => {
   return data
-    .filter((d) => !isSingleSex || d.id !== "O8BrOa") // remove sex as a top level option if isSingleSex
+    .filter((d) => !isSingleSex || (d.id !== "O8BrOa" && d.id !== "Sex")) // remove sex as a top level option if isSingleSex
     .map((lvlOneOption) => {
       const displayValue = lvlOneOption.label;
-      const value = lvlOneOption.id;
+      const value = cleanString(lvlOneOption.id);
 
       const children = [
         <TopLevelOmsChildren
           options={lvlOneOption.options}
           addMore={!!lvlOneOption.addMore}
-          parentDisplayName={lvlOneOption.aggregateTitle || lvlOneOption.label}
+          parentDisplayName={
+            lvlOneOption.aggregateTitle! || lvlOneOption.label!
+          }
           addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
           name={`${name}.selections.${value}`}
           key={`${name}.selections.${value}`}
           id={value}
           label={displayValue}
+          year={year}
         />,
       ];
 
@@ -52,7 +58,7 @@ export const buildOmsCheckboxes = ({
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   measureName?: string;
-  inputFieldNames?: LabelData[];
+  inputFieldNames?: string[] | LabelData[];
   ndrFormulas?: ndrFormula[];
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
@@ -77,7 +83,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
 /** data for dynamic rendering will be provided */
 interface DataDrivenProp {
   /** data array for dynamic rendering */
-  data: OmsNode[];
+  data: Types.OmsNode[];
   /** cannot set adultMeasure if using custom data*/
   adultMeasure?: never;
 }
@@ -126,6 +132,7 @@ export const OptionalMeasureStrat = ({
   ndrFormulas,
   data,
   calcTotal = false,
+  adultMeasure,
   rateMultiplicationValue,
   allowNumeratorGreaterThanDenominator = false,
   customMask,
@@ -139,7 +146,11 @@ export const OptionalMeasureStrat = ({
   customPrompt,
   rateCalc,
 }: Props) => {
-  const omsData = data ?? OMSData();
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
+  const year = labels.year;
+
+  const omsData = data ?? OMSData(year, adultMeasure);
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<OMSType>();
   const values = getValues();
@@ -157,6 +168,7 @@ export const OptionalMeasureStrat = ({
     ...register("OptionalMeasureStratification"),
     data: omsData,
     isSingleSex,
+    year,
   });
 
   let rateReadOnly = false;
@@ -188,6 +200,19 @@ export const OptionalMeasureStrat = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDataSourceSwitch]);
+
+  let cleanedQual = qualifiers;
+  let cleanedCat = categories;
+
+  if (typeof qualifiers[0] !== "string") {
+    cleanedQual = (qualifiers as Types.QualifierLabelData[]).filter(
+      (qual) => !qual.excludeFromOMS
+    );
+    cleanedCat = (categories as Types.CategoryLabelData[]).filter(
+      (cat) => !cat.excludeFromOMS
+    );
+  }
+
   return (
     <QMR.CoreQuestionWrapper
       testid="OMS"
@@ -201,11 +226,11 @@ export const OptionalMeasureStrat = ({
           AIFHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
-          qualifiers: qualifiers.filter((qual) => !qual.excludeFromOMS),
+          qualifiers: cleanedQual,
           measureName,
           inputFieldNames,
           ndrFormulas,
-          categories: categories.filter((cat) => !cat.excludeFromOMS),
+          categories: cleanedCat,
           rateMultiplicationValue,
           customMask,
           allowNumeratorGreaterThanDenominator,
@@ -219,15 +244,7 @@ export const OptionalMeasureStrat = ({
         }}
       >
         <CUI.Text py="3">
-          If this measure is also reported by additional
-          classifications/sub-categories, e.g. racial, ethnic, sex, or
-          geography, complete the following as applicable. If your state
-          reported classifications/sub-categories other than those listed below,
-          or reported different rate sets, please click on “Add Another
-          Sub-Category” to add Additional/Alternative
-          Classification/Sub-categories as needed. Please note that CMS may add
-          in additional categories for language and disability status in future
-          reporting years.
+          {labels.OptionalMeasureStratification.section}
         </CUI.Text>
         <CUI.Text py="3">
           Do not select categories and sub-classifications for which you will

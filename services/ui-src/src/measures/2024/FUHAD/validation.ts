@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as PMD from "./data";
 import * as GV from "../shared/globalValidations";
-import { OMSData } from "measures/2024/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
@@ -83,7 +83,7 @@ const FUHValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(),
+        OMSData(2024),
         PMD.qualifiers,
         PMD.categories
       ),

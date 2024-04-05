@@ -1,21 +1,21 @@
 import { createContext, useContext } from "react";
-import * as Types from "../types";
+import * as Types from "shared/types";
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
 
 export type ComponentFlagType = "DEFAULT" | "AIF" | "IU" | "PCR";
 
-interface ContextProps {
+export interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
   IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
   AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
-  categories: LabelData[];
-  qualifiers: LabelData[];
+  categories: string[] | LabelData[];
+  qualifiers: string[] | LabelData[];
   measureName?: string;
-  inputFieldNames?: LabelData[];
+  inputFieldNames?: string[] | LabelData[];
   ndrFormulas?: ndrFormula[];
   rateMultiplicationValue?: number;
   customMask?: RegExp;
