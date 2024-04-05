@@ -198,40 +198,10 @@ exports[`Test DefinitionOfPopulation component (ACS Hybrid) Component renders wi
           role="group"
         >
           <label
-            class="chakra-form__label css-8iwwwg"
-            data-cy="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-            for="field-9"
-            id="field-9-label"
-          >
-            If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:
-          </label>
-          <textarea
-            class="chakra-textarea css-0"
-            data-cy="ChangeInPopulationExplanation"
-            id="field-9"
-            name="ChangeInPopulationExplanation"
-          />
-          <div
-            class="css-k008qs"
-          >
-            <div
-              class="css-17xejub"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="css-s98few"
-      >
-        <div
-          class="chakra-form-control prince-input-bottom-spacer css-0"
-          role="group"
-        >
-          <label
             class="chakra-form__label css-9vgk4i"
             data-cy="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
-            for="field-10"
-            id="field-10-label"
+            for="field-8"
+            id="field-8-label"
           >
             Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?
           </label>
@@ -251,7 +221,7 @@ exports[`Test DefinitionOfPopulation component (ACS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-12"
+                    id="radio-10"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -286,7 +256,7 @@ exports[`Test DefinitionOfPopulation component (ACS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-13"
+                    id="radio-11"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -340,8 +310,8 @@ exports[`Test DefinitionOfPopulation component (ACS Hybrid) Component renders wi
           <label
             class="chakra-form__label css-uvho5g"
             data-cy="What is the size of the measure-eligible population?"
-            for="field-14"
-            id="field-14-label"
+            for="field-12"
+            id="field-12-label"
           >
             What is the size of the measure-eligible population?
           </label>
@@ -353,7 +323,7 @@ exports[`Test DefinitionOfPopulation component (ACS Hybrid) Component renders wi
               class="chakra-input css-0"
               data-cy="HybridMeasurePopulationIncluded"
               data-testid="test-number-input"
-              id="field-14"
+              id="field-12"
               name="HybridMeasurePopulationIncluded"
               placeholder=""
               type="text"
@@ -375,8 +345,8 @@ exports[`Test DefinitionOfPopulation component (ACS Hybrid) Component renders wi
           <label
             class="chakra-form__label css-uvho5g"
             data-cy="Specify the sample size:"
-            for="field-15"
-            id="field-15-label"
+            for="field-13"
+            id="field-13-label"
           >
             Specify the sample size:
           </label>
@@ -388,7 +358,7 @@ exports[`Test DefinitionOfPopulation component (ACS Hybrid) Component renders wi
               class="chakra-input css-0"
               data-cy="HybridMeasureSampleSize"
               data-testid="test-number-input"
-              id="field-15"
+              id="field-13"
               name="HybridMeasureSampleSize"
               placeholder=""
               type="text"
@@ -802,40 +772,10 @@ exports[`Test DefinitionOfPopulation component (ACS) Component renders with corr
           role="group"
         >
           <label
-            class="chakra-form__label css-8iwwwg"
-            data-cy="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-            for="field-2"
-            id="field-2-label"
-          >
-            If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:
-          </label>
-          <textarea
-            class="chakra-textarea css-0"
-            data-cy="ChangeInPopulationExplanation"
-            id="field-2"
-            name="ChangeInPopulationExplanation"
-          />
-          <div
-            class="css-k008qs"
-          >
-            <div
-              class="css-17xejub"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="css-s98few"
-      >
-        <div
-          class="chakra-form-control prince-input-bottom-spacer css-0"
-          role="group"
-        >
-          <label
             class="chakra-form__label css-9vgk4i"
             data-cy="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
-            for="field-3"
-            id="field-3-label"
+            for="field-2"
+            id="field-2-label"
           >
             Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?
           </label>
@@ -855,7 +795,7 @@ exports[`Test DefinitionOfPopulation component (ACS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-5"
+                    id="radio-4"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -890,7 +830,7 @@ exports[`Test DefinitionOfPopulation component (ACS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-6"
+                    id="radio-5"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1174,7 +1114,7 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-30"
+                    id="radio-27"
                     name="DefinitionOfDenominator"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1209,7 +1149,7 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-31"
+                    id="radio-28"
                     name="DefinitionOfDenominator"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1244,7 +1184,7 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-32"
+                    id="radio-29"
                     name="DefinitionOfDenominator"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1290,40 +1230,10 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
           role="group"
         >
           <label
-            class="chakra-form__label css-8iwwwg"
-            data-cy="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-            for="field-33"
-            id="field-33-label"
-          >
-            If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:
-          </label>
-          <textarea
-            class="chakra-textarea css-0"
-            data-cy="ChangeInPopulationExplanation"
-            id="field-33"
-            name="ChangeInPopulationExplanation"
-          />
-          <div
-            class="css-k008qs"
-          >
-            <div
-              class="css-17xejub"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="css-s98few"
-      >
-        <div
-          class="chakra-form-control prince-input-bottom-spacer css-0"
-          role="group"
-        >
-          <label
             class="chakra-form__label css-9vgk4i"
             data-cy="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
-            for="field-34"
-            id="field-34-label"
+            for="field-30"
+            id="field-30-label"
           >
             Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?
           </label>
@@ -1343,7 +1253,7 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-36"
+                    id="radio-32"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1378,7 +1288,7 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-37"
+                    id="radio-33"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1432,8 +1342,8 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
           <label
             class="chakra-form__label css-uvho5g"
             data-cy="What is the size of the measure-eligible population?"
-            for="field-38"
-            id="field-38-label"
+            for="field-34"
+            id="field-34-label"
           >
             What is the size of the measure-eligible population?
           </label>
@@ -1445,7 +1355,7 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
               class="chakra-input css-0"
               data-cy="HybridMeasurePopulationIncluded"
               data-testid="test-number-input"
-              id="field-38"
+              id="field-34"
               name="HybridMeasurePopulationIncluded"
               placeholder=""
               type="text"
@@ -1467,8 +1377,8 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
           <label
             class="chakra-form__label css-uvho5g"
             data-cy="Specify the sample size:"
-            for="field-39"
-            id="field-39-label"
+            for="field-35"
+            id="field-35-label"
           >
             Specify the sample size:
           </label>
@@ -1480,7 +1390,7 @@ exports[`Test DefinitionOfPopulation component (CCS Hybrid) Component renders wi
               class="chakra-input css-0"
               data-cy="HybridMeasureSampleSize"
               data-testid="test-number-input"
-              id="field-39"
+              id="field-35"
               name="HybridMeasureSampleSize"
               placeholder=""
               type="text"
@@ -1742,7 +1652,7 @@ exports[`Test DefinitionOfPopulation component (CCS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-19"
+                    id="radio-17"
                     name="DefinitionOfDenominator"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1777,7 +1687,7 @@ exports[`Test DefinitionOfPopulation component (CCS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-20"
+                    id="radio-18"
                     name="DefinitionOfDenominator"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1812,7 +1722,7 @@ exports[`Test DefinitionOfPopulation component (CCS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-21"
+                    id="radio-19"
                     name="DefinitionOfDenominator"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1858,40 +1768,10 @@ exports[`Test DefinitionOfPopulation component (CCS) Component renders with corr
           role="group"
         >
           <label
-            class="chakra-form__label css-8iwwwg"
-            data-cy="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-            for="field-22"
-            id="field-22-label"
-          >
-            If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:
-          </label>
-          <textarea
-            class="chakra-textarea css-0"
-            data-cy="ChangeInPopulationExplanation"
-            id="field-22"
-            name="ChangeInPopulationExplanation"
-          />
-          <div
-            class="css-k008qs"
-          >
-            <div
-              class="css-17xejub"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="css-s98few"
-      >
-        <div
-          class="chakra-form-control prince-input-bottom-spacer css-0"
-          role="group"
-        >
-          <label
             class="chakra-form__label css-9vgk4i"
             data-cy="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
-            for="field-23"
-            id="field-23-label"
+            for="field-20"
+            id="field-20-label"
           >
             Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?
           </label>
@@ -1911,7 +1791,7 @@ exports[`Test DefinitionOfPopulation component (CCS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-25"
+                    id="radio-22"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -1946,7 +1826,7 @@ exports[`Test DefinitionOfPopulation component (CCS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-26"
+                    id="radio-23"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -2349,40 +2229,10 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
           role="group"
         >
           <label
-            class="chakra-form__label css-8iwwwg"
-            data-cy="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-            for="field-53"
-            id="field-53-label"
-          >
-            If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:
-          </label>
-          <textarea
-            class="chakra-textarea css-0"
-            data-cy="ChangeInPopulationExplanation"
-            id="field-53"
-            name="ChangeInPopulationExplanation"
-          />
-          <div
-            class="css-k008qs"
-          >
-            <div
-              class="css-17xejub"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="css-s98few"
-      >
-        <div
-          class="chakra-form-control prince-input-bottom-spacer css-0"
-          role="group"
-        >
-          <label
             class="chakra-form__label css-9vgk4i"
             data-cy="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
-            for="field-54"
-            id="field-54-label"
+            for="field-48"
+            id="field-48-label"
           >
             Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?
           </label>
@@ -2402,7 +2252,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-56"
+                    id="radio-50"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -2437,7 +2287,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-57"
+                    id="radio-51"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -2491,8 +2341,8 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
           <label
             class="chakra-form__label css-uvho5g"
             data-cy="What is the size of the measure-eligible population?"
-            for="field-58"
-            id="field-58-label"
+            for="field-52"
+            id="field-52-label"
           >
             What is the size of the measure-eligible population?
           </label>
@@ -2504,7 +2354,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
               class="chakra-input css-0"
               data-cy="HybridMeasurePopulationIncluded"
               data-testid="test-number-input"
-              id="field-58"
+              id="field-52"
               name="HybridMeasurePopulationIncluded"
               placeholder=""
               type="text"
@@ -2526,8 +2376,8 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
           <label
             class="chakra-form__label css-uvho5g"
             data-cy="Specify the sample size:"
-            for="field-59"
-            id="field-59-label"
+            for="field-53"
+            id="field-53-label"
           >
             Specify the sample size:
           </label>
@@ -2539,7 +2389,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
               class="chakra-input css-0"
               data-cy="HybridMeasureSampleSize"
               data-testid="test-number-input"
-              id="field-59"
+              id="field-53"
               name="HybridMeasureSampleSize"
               placeholder=""
               type="text"
@@ -2760,8 +2610,8 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
           <label
             class="chakra-form__label css-9vgk4i"
             data-cy="Are all Health Home Providers represented in the denominator?"
-            for="field-61"
-            id="field-61-label"
+            for="field-55"
+            id="field-55-label"
           >
             Are all Health Home Providers represented in the denominator?
           </label>
@@ -2781,7 +2631,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-63"
+                    id="radio-57"
                     name="DenominatorDefineHealthHome"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -2816,7 +2666,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-64"
+                    id="radio-58"
                     name="DenominatorDefineHealthHome"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -3024,40 +2874,10 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
           role="group"
         >
           <label
-            class="chakra-form__label css-8iwwwg"
-            data-cy="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-            for="field-42"
-            id="field-42-label"
-          >
-            If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:
-          </label>
-          <textarea
-            class="chakra-textarea css-0"
-            data-cy="ChangeInPopulationExplanation"
-            id="field-42"
-            name="ChangeInPopulationExplanation"
-          />
-          <div
-            class="css-k008qs"
-          >
-            <div
-              class="css-17xejub"
-            />
-          </div>
-        </div>
-      </div>
-      <div
-        class="css-s98few"
-      >
-        <div
-          class="chakra-form-control prince-input-bottom-spacer css-0"
-          role="group"
-        >
-          <label
             class="chakra-form__label css-9vgk4i"
             data-cy="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
-            for="field-43"
-            id="field-43-label"
+            for="field-38"
+            id="field-38-label"
           >
             Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?
           </label>
@@ -3077,7 +2897,7 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-45"
+                    id="radio-40"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -3112,7 +2932,7 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-46"
+                    id="radio-41"
                     name="DenominatorDefineTotalTechSpec"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -3355,8 +3175,8 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
           <label
             class="chakra-form__label css-9vgk4i"
             data-cy="Are all Health Home Providers represented in the denominator?"
-            for="field-48"
-            id="field-48-label"
+            for="field-43"
+            id="field-43-label"
           >
             Are all Health Home Providers represented in the denominator?
           </label>
@@ -3376,7 +3196,7 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-50"
+                    id="radio-45"
                     name="DenominatorDefineHealthHome"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
@@ -3411,7 +3231,7 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
                 >
                   <input
                     class="chakra-radio__input"
-                    id="radio-51"
+                    id="radio-46"
                     name="DenominatorDefineHealthHome"
                     style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"
                     type="radio"
