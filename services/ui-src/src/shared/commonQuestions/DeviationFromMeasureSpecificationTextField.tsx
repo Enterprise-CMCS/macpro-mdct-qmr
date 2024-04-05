@@ -23,12 +23,12 @@ export const DeviationFromMeasureSpec = () => {
         {...register(DC.DID_CALCS_DEVIATE)}
         formLabelProps={{ fontWeight: 600 }}
         label={labels.DeviationFromMeasureSpecification.section}
-        helperText="For example: deviation from measure specification might include different methodology, timeframe, or reported age groups."
+        helperText={labels.DeviationFromMeasureSpecification.helper}
         options={[
           {
             displayValue:
-              "Yes, the calculation of the measure deviates from the measure specification.",
-            value: DC.YES,
+              labels.DeviationFromMeasureSpecification.options[0].displayValue,
+            value: labels.DeviationFromMeasureSpecification.options[0].value,
             children: [
               <QMR.TextArea
                 {...register(DC.DEVIATION_REASON)}
@@ -41,8 +41,8 @@ export const DeviationFromMeasureSpec = () => {
           },
           {
             displayValue:
-              "No, the calculation of the measure does not deviate from the measure specification in any way.",
-            value: DC.NO,
+              labels.DeviationFromMeasureSpecification.options[1].displayValue,
+            value: labels.DeviationFromMeasureSpecification.options[1].value,
           },
         ]}
       />
