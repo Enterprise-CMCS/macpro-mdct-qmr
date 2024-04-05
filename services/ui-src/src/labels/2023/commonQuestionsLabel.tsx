@@ -61,6 +61,8 @@ export const commonQuestionsLabel = {
     specSizeOfPop: "Specify the size of the population excluded:",
     deliverySysOther:
       "Describe the Other Delivery System represented in the denominator (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    changeInPopExplanation:
+      "If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:",
   },
   DateRange: {
     header: "Date Range",

@@ -11,7 +11,6 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
-import { useParams } from "react-router-dom";
 
 interface Props {
   childMeasure?: boolean;
@@ -169,7 +168,6 @@ export const DefinitionOfPopulation = ({
   healthHomeMeasure,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
-  const { year } = useParams();
 
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
@@ -189,11 +187,11 @@ export const DefinitionOfPopulation = ({
           healthHomeMeasure
         )}
       {childMeasure && ChildDefinitions(register)}
-      {year && parseInt(year) < 2024 && (
+      {labels.DefinitionsOfPopulation.changeInPopExplanation && (
         <CUI.Box my="5">
           <QMR.TextArea
             formLabelProps={{ fontWeight: "400" }}
-            label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
+            label={labels.DefinitionsOfPopulation.changeInPopExplanation}
             {...register(DC.CHANGE_IN_POP_EXPLANATION)}
           />
         </CUI.Box>
