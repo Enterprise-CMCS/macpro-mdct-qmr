@@ -92,10 +92,6 @@ export const commonQuestionsLabel = {
         displayValue: "HEDIS MY 2021 (FFY 2022 Core Set Reporting)",
         value: DC.HEDIS_MY_2021,
       },
-      {
-        displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
-        value: DC.HEDIS_MY_2020,
-      },
     ],
   },
   OptionalMeasureStratification: {
