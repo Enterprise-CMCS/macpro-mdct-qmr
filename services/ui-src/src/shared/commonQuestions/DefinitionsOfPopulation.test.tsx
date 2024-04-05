@@ -4,7 +4,7 @@ import { testSnapshot } from "utils/testUtils/testSnapshot";
 import SharedContext from "shared/SharedContext";
 import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
-describe("Test DefinitionOfPopulation componnent", () => {
+describe("Test DefinitionOfPopulation component", () => {
   it("(ACS) Component renders with correct content", () => {
     const component = (
       <SharedContext.Provider value={commonQuestionsLabel}>
