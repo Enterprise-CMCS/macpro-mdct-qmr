@@ -1,7 +1,7 @@
 import { OmsNode } from "shared/types";
 
 export const OMSData = (year: number, adultMeasure?: boolean): OmsNode[] => {
-  switch (year) {
+  switch (Number(year)) {
     case 2021:
     case 2022:
       return dataLegacy(adultMeasure);
@@ -210,15 +210,16 @@ const dataLegacy = (adultMeasure?: boolean) => {
   adultMeasure &&
     data.push({
       id: "Adult Eligibility Group (ACA Expansion Group)",
+      label: "Adult Eligibility Group (ACA Expansion Group)",
       addMore: false,
     });
-
   return data;
 };
 
 const addLabelToData = (data: OmsNode[]): OmsNode[] => {
   return data.map((item) => {
     if (item.options) {
+      item.label = item.id;
       item.options = addLabelToData(item.options);
       return item;
     } else {
