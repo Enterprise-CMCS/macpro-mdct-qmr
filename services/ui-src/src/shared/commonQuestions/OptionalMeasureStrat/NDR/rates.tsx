@@ -157,7 +157,7 @@ export const useQualRateArray: RateArrayBuilder = (name) => {
   let rateArrays: React.ReactElement[][] = [];
 
   stringToLabelData(quals).forEach((singleQual, qualIndex) => {
-    const cleanedName = `${name}.rates.${singleQual}.${DC.SINGLE_CATEGORY}`;
+    const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
       rateArrays.push([RateComponent(context, cleanedName)]);
     } else if (AIFHHPerformanceMeasureArray) {
