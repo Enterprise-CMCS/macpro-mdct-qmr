@@ -135,7 +135,7 @@ export const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
     if (completedQualifierIds?.includes(singleQual.id)) {
       rateArrays.push([RateComponent(context, cleanedName)]);
     } else if (AIFHHPerformanceMeasureArray) {
-      rateArrays = AIFHHRateArray(context, cleanedName, qualIndex);
+      rateArrays.push(...AIFHHRateArray(context, cleanedName, qualIndex));
     } else {
       rateArrays.push([]);
     }
@@ -161,7 +161,7 @@ export const useQualRateArray: RateArrayBuilder = (name) => {
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
       rateArrays.push([RateComponent(context, cleanedName)]);
     } else if (AIFHHPerformanceMeasureArray) {
-      rateArrays = AIFHHRateArray(context, cleanedName, qualIndex);
+      rateArrays.push(...AIFHHRateArray(context, cleanedName, qualIndex));
     } else {
       rateArrays.push([]);
     }
