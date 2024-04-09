@@ -8,5 +8,6 @@ export * from "shared/types/TypeDateRange";
 export * from "shared/types/TypeStatusOfData";
 export * from "shared/types/TypeDeviationFromMeasureSpecification";
 export * from "shared/types/TypeOptionalMeasureStratification";
+export * from "shared/types/TypePerformanceMeasure";
 export * from "shared/types/TypeQualifiers";
 export * from "shared/types/TypeRateFields";

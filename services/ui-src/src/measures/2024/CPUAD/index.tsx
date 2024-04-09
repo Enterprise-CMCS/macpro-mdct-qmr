@@ -1,6 +1,7 @@
 import * as PMD from "./data";
 import * as QMR from "components";
 import * as CMQ from "measures/2024/shared/CommonQuestions";
+import { CPUADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
@@ -38,7 +39,7 @@ export const CPUAD = ({
           <CMQ.DefinitionOfPopulation populationSampleSize />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} />
+              <CPUADPerformanceMeasure data={PMD.data} />
               <CMQ.DeviationFromMeasureSpec />
             </>
           )}
