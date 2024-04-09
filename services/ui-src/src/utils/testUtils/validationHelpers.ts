@@ -4,10 +4,8 @@ Use folder testUtils/2023/validationHelpers.ts for unit test 2023 and later
 */
 import * as DC from "dataConstants";
 import * as Types from "measures/2021/CommonQuestions/types";
-import {
-  OMSData,
-  OmsNode,
-} from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
+import { OmsNode } from "shared/types";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { cleanString } from "utils";
 import {
   RateFields,
@@ -234,7 +232,7 @@ export const generateOmsFormData = (
   addToSelections = true,
   renderData?: Types.DataDrivenTypes.OptionalMeasureStrat
 ) => {
-  const data = renderData ?? OMSData();
+  const data = renderData ?? OMSData(2021);
   const description = "TestAdditionalCategoryOrSubCategory";
   const omsData: Types.OptionalMeasureStratification = {
     OptionalMeasureStratification: { options: [], selections: {} },
