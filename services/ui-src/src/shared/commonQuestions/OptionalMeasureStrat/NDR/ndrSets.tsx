@@ -10,7 +10,6 @@ import {
 } from "./ndrCheckboxes";
 import { TotalNDRSets } from "./totalNDRSets";
 import { stringToLabelData } from "utils";
-import { stringToLabelData } from "utils";
 
 interface NdrProps {
   name: string;
