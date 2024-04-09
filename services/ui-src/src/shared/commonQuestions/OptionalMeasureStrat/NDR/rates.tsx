@@ -33,7 +33,8 @@ const RateComponent = (context: ContextProps, name: string, label?: string) => {
 const ComplexRateComponent = (
   context: ContextProps,
   name: string,
-  label?: string
+  label?: string,
+  categoryName?: string
 ) => {
   return (
     <QMR.ComplexRate
@@ -49,7 +50,7 @@ const ComplexRateComponent = (
           label: label,
         },
       ]}
-      categoryName={""} //only in useStandardRateArray, check what's the diff between that and useRatesForCompletedPmQualifiers
+      categoryName={categoryName}
     />
   );
 };
@@ -134,7 +135,7 @@ export const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
     if (completedQualifierIds?.includes(singleQual.id)) {
       rateArrays.push([RateComponent(context, cleanedName)]);
     } else if (AIFHHPerformanceMeasureArray) {
-      rateArrays = AIFHHRateArray(context, cleanedName, qualIndex);
+      rateArrays.push(...AIFHHRateArray(context, cleanedName, qualIndex));
     } else {
       rateArrays.push([]);
     }
@@ -156,11 +157,11 @@ export const useQualRateArray: RateArrayBuilder = (name) => {
   let rateArrays: React.ReactElement[][] = [];
 
   stringToLabelData(quals).forEach((singleQual, qualIndex) => {
-    const cleanedName = `${name}.rates.${singleQual}.${DC.SINGLE_CATEGORY}`;
+    const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
       rateArrays.push([RateComponent(context, cleanedName)]);
     } else if (AIFHHPerformanceMeasureArray) {
-      rateArrays = AIFHHRateArray(context, cleanedName, qualIndex);
+      rateArrays.push(...AIFHHRateArray(context, cleanedName, qualIndex));
     } else {
       rateArrays.push([]);
     }
@@ -274,7 +275,9 @@ const IUHHRateArrayQualifierAndTotals = (
     const rate3 = !!category?.[qualIndex]?.fields?.[5]?.value;
 
     if (rate1 || rate2 || rate3) {
-      ndrSets.push(ComplexRateComponent(context, cleanedName, categories[idx]));
+      ndrSets.push(
+        ComplexRateComponent(context, cleanedName, categories[idx], "")
+      );
     }
   });
   return ndrSets;

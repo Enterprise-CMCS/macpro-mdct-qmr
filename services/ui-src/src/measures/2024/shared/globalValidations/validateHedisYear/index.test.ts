@@ -15,7 +15,6 @@ describe("Hedis Year Validation - FY 2024", () => {
 
   it("Should not show hedis validation error", () => {
     const hedisOptions = [
-      "DC.HEDIS_MY_2020",
       "DC.HEDIS_MY_2021",
       "DC.HEDIS_MY_2022",
       "DC.HEDIS_MY_2023",
