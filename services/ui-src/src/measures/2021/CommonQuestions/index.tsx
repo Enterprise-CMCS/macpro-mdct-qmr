@@ -8,7 +8,7 @@ export * from "./OtherPerformanceMeasure";
 export * from "./Reporting";
 export * from "shared/commonQuestions/StatusOfData";
 export * from "./WhyAreYouNotReporting";
-export * from "./OptionalMeasureStrat";
+export * from "shared/commonQuestions/OptionalMeasureStrat";
 export * from "shared/commonQuestions/DeviationFromMeasureSpecificationCheckboxes";
 export * from "shared/commonQuestions/MeasurementSpecification";
 export * from "./PerformanceMeasure";

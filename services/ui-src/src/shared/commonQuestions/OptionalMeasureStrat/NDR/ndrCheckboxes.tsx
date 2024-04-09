@@ -85,7 +85,6 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
  * Builds OPM Checkboxes
  */
 export const useRenderOPMCheckboxOptions = (name: string) => {
-  console.log("useRenderOPMCheckboxOptions");
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   const context = usePerformanceMeasureContext();
   const { OPM, customPrompt } = context;

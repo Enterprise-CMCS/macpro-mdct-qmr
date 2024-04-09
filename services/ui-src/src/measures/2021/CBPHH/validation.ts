@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
-import { OMSData } from "measures/2021/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
 
@@ -56,7 +56,7 @@ const CBPValidation = (data: FormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(2021, true),
         PMD.qualifiers,
         PMD.categories
       ),
