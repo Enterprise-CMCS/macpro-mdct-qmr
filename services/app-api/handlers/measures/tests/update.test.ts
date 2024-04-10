@@ -2,7 +2,7 @@ import { editMeasure } from "../update";
 
 import dbLib from "../../../libs/dynamodb-lib";
 
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../../../types";
 import { testEvent } from "../../../test-util/testEvents";
 import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
 import { StatusCodes, Errors } from "../../../utils/constants/constants";
@@ -19,12 +19,6 @@ jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../../libs/debug-lib", () => ({
-  __esModule: true,
-  init: jest.fn(),
-  flush: jest.fn(),
 }));
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({

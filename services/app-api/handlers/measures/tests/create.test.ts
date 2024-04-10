@@ -1,15 +1,11 @@
 import { createMeasure } from "../create";
 
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../../../types";
 import { testEvent } from "../../../test-util/testEvents";
 import { StatusCodes, Errors } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
-  __esModule: true,
-  default: {
-    put: jest.fn(),
-    post: jest.fn().mockReturnValue({}),
-  },
+  put: jest.fn(),
 }));
 
 const mockHasRolePermissions = jest.fn();
@@ -18,12 +14,6 @@ jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   hasRolePermissions: () => mockHasRolePermissions(),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../../libs/debug-lib", () => ({
-  __esModule: true,
-  init: jest.fn(),
-  flush: jest.fn(),
 }));
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({

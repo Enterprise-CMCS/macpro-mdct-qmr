@@ -12,26 +12,20 @@ export const getPDF = handler(async (event, _context) => {
   if (!rawBody) {
     throw new Error("Missing request body");
   }
-
-  let sanitizedBody;
-  if (DOMPurify.isSupported && typeof rawBody === "string") {
-    // decode body from base64, sanitize dangerous html
-    const decodedBody = Buffer.from(rawBody, "base64").toString();
-    sanitizedBody = DOMPurify.sanitize(decodedBody);
+  if (rawBody.startsWith("{")) {
+    throw new Error("Body must be base64-encoded HTML, not a JSON object");
   }
-  if (!sanitizedBody) {
-    throw new Error("Could not process request");
-  }
-
   const { docraptorApiKey, stage } = process.env;
   if (!docraptorApiKey) {
     throw new Error("No config found to make request to PDF API");
   }
 
+  const decodedHtml = Buffer.from(rawBody, "base64").toString();
+  const sanitizedHtml = sanitizeHtml(decodedHtml);
   const requestBody = {
     user_credentials: docraptorApiKey,
     doc: {
-      document_content: sanitizedBody,
+      document_content: sanitizedHtml,
       type: "pdf" as const,
       // This tag differentiates QMR and CARTS requests in DocRaptor's logs.
       tag: "QMR",
@@ -65,6 +59,43 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
   console.debug(`Successfully generated a ${pdfPageCount}-page PDF.`);
 
   return response.arrayBuffer();
+}
+
+function sanitizeHtml(htmlString: string) {
+  if (!DOMPurify.isSupported) {
+    throw new Error("Could not process request");
+  }
+
+  /*
+   * DOMPurify will zap an entire <style> tag if contains a `<` character,
+   * and some of our CSS comments do. So we strip all CSS comments before
+   * running it through DOMPurify.
+   */
+  const doc = new JSDOM(htmlString).window.document;
+  const styleTags = doc.querySelectorAll("style");
+  for (let i = 0; i < styleTags.length; i += 1) {
+    const style = styleTags[i];
+    style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
+  }
+  const commentlessHtml = doc.querySelector("html")!.outerHTML;
+
+  /* Sanitization parameters:
+   *  - WHOLE_DOCUMENT - Tells DOMPurify to return the entire <html> doc;
+   *    its default behavior is to return only the contents of the <body>.
+   *  - ADD_TAGS: "head" - Add <head> to the tag allowlist. It's important.
+   *  - ADD_TAGS: "link" - We use <link> tags to include some styles.
+   *  - ADD_TAGS: "base" - The <base> tag tells the renderer to treat relative
+   *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
+   *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
+   *    reject our documents; when they render it on their servers, relative
+   *    URLs would appear as filesystem access attempts, which they disallow.
+   */
+  const sanitizedHtml = DOMPurify.sanitize(commentlessHtml, {
+    WHOLE_DOCUMENT: true,
+    ADD_TAGS: ["head", "link", "base"],
+  });
+
+  return sanitizedHtml;
 }
 
 /**

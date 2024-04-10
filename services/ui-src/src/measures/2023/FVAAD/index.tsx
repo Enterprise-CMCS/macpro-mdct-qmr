@@ -3,6 +3,7 @@ import * as CMQ from "measures/2023/shared/CommonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import * as QMR from "components";
+import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const FVAAD = ({
   name,
@@ -44,7 +45,7 @@ export const FVAAD = ({
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
-          {showOptionalMeasureStrat && <CMQ.NotCollectingOMS />}
+          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
       <CMQ.AdditionalNotes />

@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - "*"
-      - "dependabot/**"
       - "!skipci*"
 
 concurrency:
@@ -28,20 +27,10 @@ jobs:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
       - uses: actions/checkout@v4
-      - name: set branch_name # Some integrations (Dependabot & Snyk) build very long branch names. This is a switch to make long branch names shorter.
+      - name: set branch_name # Some integrations (Snyk) build very long branch names. This is a switch to make long branch names shorter.
         run: |
           BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
-      - name: "Setup jq"
-        uses: dcarbone/install-jq-action@v2.1.0
-        with:
-          version: "${{ inputs.version }}"
-          force: "${{ inputs.force }}"
-      - name: "Check jq"
-        # language=sh
-        run: |
-          which jq
-          jq --version
       - name: Validate branch name
         run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
       - name: set branch specific variable names
@@ -86,12 +75,102 @@ jobs:
       application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
       BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION: ${{ steps.set_names.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION }}
       BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME: ${{ steps.set_names.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME }}
-  # run e2e tests after deploy completes
+
+  register-runner:
+    name: Register GitHub Runner
+    if: ${{ github.ref_name != 'master' && github.ref_name != 'val' && github.ref_name != 'production' }}
+    runs-on: ubuntu-latest
+    needs: deploy
+    env:
+      SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: set branch_name
+        run: |
+          BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
+
+      - name: set branch specific variable names
+        id: set_names
+        run: ./.github/build_vars.sh set_names
+
+      - name: set variable values
+        id: set_values
+        run: ./.github/build_vars.sh set_values
+        env:
+          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+          AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
+          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+
+      - name: Configure AWS credentials for GitHub Actions
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+
+      - name: output account id
+        id: output_account_id
+        run: |
+          #!/bin/bash
+          AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          echo "Current Account ID: ${AWS_ACCOUNT_ID}"
+
+      - name: Get Github Actions CIDR Blocks
+        id: get-gha-cidrs
+        shell: bash
+        run: |
+          #!/bin/bash
+          GHA_RESP=$(curl --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/meta)
+          echo "Response for GHA runner CIDR blocks:  $GHA_RESP"
+          IPV4_CIDR_ARR=($(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':'))
+          GHA_CIDRS_IPV4=$(echo $(IFS=" "; echo ${IPV4_CIDR_ARR[*]}))
+          echo "GHA_CIDRS_IPV4=$GHA_CIDRS_IPV4" >> $GITHUB_OUTPUT
+
+      - name: Generate IP Set Name
+        id: gen-ip-set-name
+        run: |
+          #!/bin/bash
+          STAGE_GH_IPSET_NAME=$STAGE_PREFIX$branch_name-gh-ipset
+          echo "Github IP Set name:  $STAGE_GH_IPSET_NAME"
+          echo "STAGE_GH_IPSET_NAME=$STAGE_GH_IPSET_NAME" >> $GITHUB_OUTPUT
+
+      - name: Fetch AWS IP Set Metadata
+        id: fetch-ip-set-info
+        run: |
+          #!/bin/bash
+          # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
+          AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
+          echo "Outputting AWS IP Set Info:  ${AWS_IP_SET_INFO}"
+          # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
+          IPSET_NAME=${{ steps.gen-ip-set-name.outputs.STAGE_GH_IPSET_NAME }}
+          IPSET=$(jq '.IPSets | map(select(.Name == "'${IPSET_NAME}'")) | .[]' <<< ${AWS_IP_SET_INFO})
+          [ -z "$IPSET" ] && echo "IP Set with name ${IPSET_NAME} was not located.  Exiting..." && exit 1
+          echo "IP Set metadata:  ${IPSET}"
+          #Get Values from the IP SET
+          IPSET_ID=$(jq -r '.Id' <<< ${IPSET})
+          echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
+          echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
+          echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
+
+      - name: Update IP Set
+        id: update-ip-set
+        run: ./.github/waf-controller.sh set ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-gha-cidrs.outputs.GHA_CIDRS_IPV4 }}
+        env:
+          AWS_RETRY_MODE: adaptive
+          AWS_MAX_ATTEMPTS: 10
+
+    outputs:
+      ipset_name: ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }}
+      ipset_id: ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }}
+
   e2e-tests-init:
     name: Initialize End To End Tests
-    if: ${{ github.ref_name != 'master' && github.ref_name != 'val' && github.ref_name != 'prod' }}
+    if: ${{ always() && !cancelled() && needs.deploy.result == 'success' && github.ref_name != 'master' && github.ref_name != 'val' && github.ref_name != 'prod' }}
     needs:
       - deploy
+      - register-runner
     runs-on: ubuntu-latest
     steps:
       - name: Verify Endpoint
@@ -143,57 +222,8 @@ jobs:
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-      - name: Get Runner IP
-        id: get-ip
-        run: |
-          #!/bin/bash
-          # Get the IP address of the runner
-          IP_ADDRESS=$(curl https://api.ipify.org)
-          echo "Runner IP address: $IP_ADDRESS"
-          # Store the IP address as an output variable
-          echo "RUNNER_IP=$IP_ADDRESS/32" >> $GITHUB_OUTPUT
-      - name: Get Github Actions CIDR Blocks
-        id: get-gha-cidrs
-        shell: bash
-        run: |
-          #!/bin/bash
-          GHA_RESP=$(curl --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/meta)
-          echo "Response for GHA runner CIDR blocks:  $GHA_RESP"
-          IPV4_CIDR_ARR=($(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':'))
-          GHA_CIDRS_IPV4=$(echo $(IFS=" "; echo ${IPV4_CIDR_ARR[*]}))
-          echo "GHA_CIDRS_IPV4=$GHA_CIDRS_IPV4" >> $GITHUB_OUTPUT
-      - name: Generate IP Set Name
-        id: gen-ip-set-name
-        run: |
-          STAGE_GH_IPSET_NAME=$STAGE_PREFIX$branch_name-gh-ipset
-          echo "Github IP Set name:  $STAGE_GH_IPSET_NAME"
-          echo "STAGE_GH_IPSET_NAME=$STAGE_GH_IPSET_NAME" >> $GITHUB_OUTPUT
-      - name: Fetch AWS IP set Metadata
-        id: fetch-ip-set-info
-        run: |
-          #!/bin/bash
-          # Fetch AWS IP set ARNs using AWS CLI and store them in a variable
-          AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
-          # Store the IP set ARNs in an output variable using GITHUB_OUTPUT
-          IPSET_NAME=${{ steps.gen-ip-set-name.outputs.STAGE_GH_IPSET_NAME }}
-          IPSET=$(jq '.IPSets | map(select(.Name == "'${IPSET_NAME}'")) | .[]' <<< ${AWS_IP_SET_INFO})
-          [ -z "$IPSET" ] && echo "IP Set with name ${IPSET_NAME} was not located.  Exiting..." && exit 1
-          echo "IP Set metadata:  ${IPSET}"
-          #Get Values from the IP SET
-          IPSET_ID=$(jq -r '.Id' <<< ${IPSET})
-          echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
-          echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
-          echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
-      - name: Update IP Set
-        id: update-ip-set
-        run: ./.github/waf-controller.sh set ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-gha-cidrs.outputs.GHA_CIDRS_IPV4 }}
-        env:
-          AWS_RETRY_MODE: adaptive
-          AWS_MAX_ATTEMPTS: 10
     outputs:
       application_endpoint: ${{ needs.deploy.outputs.application_endpoint }}
-      ipset_name: ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }}
-      ipset_id: ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }}
 
   setup-tests:
     name: "Setup End To End Tests"
@@ -283,10 +313,6 @@ jobs:
     name: Accessibility Tests
     needs:
       - e2e-tests-init
-      - e2e-feature-tests
-      - child-e2e-measure-tests
-      - adult-e2e-measure-tests
-      - health-home-e2e-measure-tests
     uses: ./.github/workflows/cypress-workflow.yml
     with:
       test-path: "a11y"
@@ -300,8 +326,8 @@ jobs:
       cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
 
   cleanup:
-    name: Deslist GHA Runner CIDR Blocks
-    if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/val' && github.ref != 'refs/heads/prod' }}
+    name: Delist GHA Runner CIDR Blocks
+    if: ${{ github.ref_name != 'master' && github.ref_name != 'val' && github.ref_name != 'prod' }}
     runs-on: ubuntu-latest
     needs:
       - e2e-tests-init
@@ -310,6 +336,7 @@ jobs:
       - adult-e2e-measure-tests
       - health-home-e2e-measure-tests
       - deploy
+      - register-runner
       - a11y-tests
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
@@ -322,7 +349,7 @@ jobs:
           aws-region: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
       - name: clean-up-iplist
         id: reset-ip-set
-        run: ./.github/waf-controller.sh set ${{ needs.e2e-tests-init.outputs.ipset_name }} ${{ needs.e2e-tests-init.outputs.ipset_id }} '[]'
+        run: ./.github/waf-controller.sh set ${{ needs.register-runner.outputs.ipset_name }} ${{ needs.register-runner.outputs.ipset_id }} '[]'
         env:
           AWS_RETRY_MODE: adaptive
           AWS_MAX_ATTEMPTS: 10

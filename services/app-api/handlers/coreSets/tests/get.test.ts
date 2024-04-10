@@ -13,7 +13,7 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   __esModule: true,
   default: {
     get: jest.fn(),
-    scan: jest.fn(),
+    scanAll: jest.fn(),
   },
 }));
 
@@ -28,12 +28,6 @@ jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   hasRolePermissions: () => mockHasRolePermissions(),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../../libs/debug-lib", () => ({
-  __esModule: true,
-  init: jest.fn(),
-  flush: jest.fn(),
 }));
 
 jest.mock("../../../libs/updateCoreProgress", () => ({
@@ -58,7 +52,7 @@ describe("Test Get Core Set Functions", () => {
 
   beforeEach(() => {
     (createCoreSet as jest.Mock).mockReset();
-    (dynamodbLib.scan as jest.Mock).mockReset();
+    (dynamodbLib.scanAll as jest.Mock).mockReset();
     (updateCoreSetProgress as jest.Mock).mockReset();
     mockHasRolePermissions.mockImplementation(() => false);
   });
@@ -91,8 +85,8 @@ describe("Test Get Core Set Functions", () => {
   test("Test coreSetList unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
-    (dynamodbLib.scan as jest.Mock).mockReturnValue({ Count: 0 });
-    (createCoreSet as jest.Mock).mockReturnValue({ statusCode: 200 });
+    (dynamodbLib.scanAll as jest.Mock).mockResolvedValue({ Count: 0 });
+    (createCoreSet as jest.Mock).mockResolvedValue({ statusCode: 200 });
     const res = await coreSetList(
       {
         ...testEvent,
@@ -104,9 +98,9 @@ describe("Test Get Core Set Functions", () => {
     expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
-  test("Test coreSetList with results.Count being 0 and statusCode 200", async () => {
-    (dynamodbLib.scan as jest.Mock).mockReturnValue({ Count: 0 });
-    (createCoreSet as jest.Mock).mockReturnValue({ statusCode: 200 });
+  test("Test coreSetList with no existing core sets and creating them successful", async () => {
+    (dynamodbLib.scanAll as jest.Mock).mockResolvedValue([]);
+    (createCoreSet as jest.Mock).mockResolvedValue({ statusCode: 200 });
 
     const res = await coreSetList(
       {
@@ -117,13 +111,13 @@ describe("Test Get Core Set Functions", () => {
     );
 
     expect(createCoreSet).toHaveBeenCalled();
-    expect(dynamodbLib.scan).toHaveBeenCalled();
+    expect(dynamodbLib.scanAll).toHaveBeenCalled();
   });
 
-  test("Test coreSetList with results.Count being 0 and statusCode !== 200", async () => {
+  test("Test coreSetList with no existing core sets and creating them fails", async () => {
     console.log = jest.fn();
-    (dynamodbLib.scan as jest.Mock).mockReturnValue({ Count: 0 });
-    (createCoreSet as jest.Mock).mockReturnValue({ statusCode: 500 });
+    (dynamodbLib.scanAll as jest.Mock).mockResolvedValue([]);
+    (createCoreSet as jest.Mock).mockResolvedValue({ statusCode: 500 });
 
     const res = await coreSetList(
       {
@@ -138,10 +132,10 @@ describe("Test Get Core Set Functions", () => {
     expect(res.body).toContain("Failed to create new coreset");
   });
 
-  test("Test coreSetList with results.Count being 0 but error thrown", async () => {
+  test("Test coreSetList with no existing core sets and creating them REALLY fails", async () => {
     console.log = jest.fn();
     const testError = new Error("test error");
-    (dynamodbLib.scan as jest.Mock).mockReturnValue({ Count: 0 });
+    (dynamodbLib.scanAll as jest.Mock).mockResolvedValue([]);
     (createCoreSet as jest.Mock).mockImplementationOnce(() => {
       throw testError;
     });
@@ -158,11 +152,13 @@ describe("Test Get Core Set Functions", () => {
     expect(res.body).toContain("Failed to create new coreset");
   });
 
-  test("Test coreSetList with results.Count being non-zero and updateCoreSetProgress returns a value", async () => {
-    (dynamodbLib.scan as jest.Mock).mockReturnValue({ Count: 1 });
-    (updateCoreSetProgress as jest.Mock).mockReturnValue({
-      Count: 1,
-    });
+  test("Test coreSetList with existing core sets and updateCoreSetProgress successful", async () => {
+    (dynamodbLib.scanAll as jest.Mock).mockResolvedValue([
+      { coreSet: "ACS", progress: {} },
+    ]);
+    (updateCoreSetProgress as jest.Mock).mockImplementation((coreSets) =>
+      coreSets.forEach((cs: any) => (cs.progress.numComplete = 1))
+    );
     const res = await coreSetList(
       {
         ...testEvent,
@@ -171,20 +167,7 @@ describe("Test Get Core Set Functions", () => {
       null
     );
 
-    expect(res.body).toContain('"Count":1');
-    expect(dynamodbLib.scan).toHaveBeenCalled();
-  });
-
-  test("Test coreSetList with results.Count being non-zero and updateCoreSetProgress returns undefined", async () => {
-    (dynamodbLib.scan as jest.Mock).mockReturnValue({ Count: 1 });
-    (updateCoreSetProgress as jest.Mock).mockReturnValue(undefined);
-    const res = await coreSetList(
-      {
-        ...testEvent,
-        pathParameters: { coreSet: CoreSetAbbr.ACS, year: "2021", state: "FL" },
-      },
-      null
-    );
-    expect(res.body).toContain('"Count":1');
+    expect(res.body).toContain('"progress":{"numComplete":1}');
+    expect(dynamodbLib.scanAll).toHaveBeenCalled();
   });
 });

@@ -14,13 +14,13 @@ jest.mock("../../handlers/measures/get", () => ({
 
 describe("Test the Update Core Set Progress", () => {
   test("Test updateCoreSetProgress with length 0", async () => {
-    const res = await updateCoreSetProgress({}, testEvent, null);
-    expect(res).toBeUndefined();
+    await updateCoreSetProgress([], testEvent, null);
+    // No exception - we're all good here.
   });
 
   describe("Test the updateCoreSetProgress with length > 0", () => {
     test("Test measure.status === complete", async () => {
-      const coreSet = { ...testCoreSet };
+      const coreSet = JSON.parse(JSON.stringify(testCoreSet));
       (listMeasures as jest.Mock).mockReturnValue({
         body: JSON.stringify({
           Items: [
@@ -31,20 +31,19 @@ describe("Test the Update Core Set Progress", () => {
           ],
         }),
       });
-      const res = await updateCoreSetProgress(
-        { Items: [coreSet] },
-        testEvent,
-        null
+      await updateCoreSetProgress([coreSet], testEvent, null);
+      expect(coreSet).toEqual(
+        expect.objectContaining({
+          progress: {
+            numComplete: 1,
+            numAvailable: 1,
+          },
+        })
       );
-      expect(res).toStrictEqual({
-        Items: [
-          { ...coreSet, progress: { ...coreSet.progress, numComplete: 1 } },
-        ],
-      });
     });
 
     test("Test measure.status !== complete", async () => {
-      const coreSet = { ...testCoreSet };
+      const coreSet = JSON.parse(JSON.stringify(testCoreSet));
       (listMeasures as jest.Mock).mockReturnValue({
         body: JSON.stringify({
           Items: [
@@ -55,31 +54,32 @@ describe("Test the Update Core Set Progress", () => {
           ],
         }),
       });
-      const res = await updateCoreSetProgress(
-        { Items: [coreSet] },
-        testEvent,
-        null
+      await updateCoreSetProgress([coreSet], testEvent, null);
+
+      expect(coreSet).toEqual(
+        expect.objectContaining({
+          progress: {
+            numComplete: 0,
+            numAvailable: 1,
+          },
+        })
       );
-      expect(res).toStrictEqual({
-        Items: [
-          { ...coreSet, progress: { ...coreSet.progress, numComplete: 0 } },
-        ],
-      });
     });
 
     test("Test coreSet exists but no associated measures", async () => {
-      const coreSet = { ...testCoreSet };
+      const coreSet = JSON.parse(JSON.stringify(testCoreSet));
       (listMeasures as jest.Mock).mockReturnValue({
         body: JSON.stringify({}),
       });
-      const res = await updateCoreSetProgress(
-        { Items: [coreSet] },
-        testEvent,
-        null
+      await updateCoreSetProgress([coreSet], testEvent, null);
+      expect(coreSet).toEqual(
+        expect.objectContaining({
+          progress: {
+            numComplete: 0,
+            numAvailable: 0,
+          },
+        })
       );
-      expect(res).toStrictEqual({
-        Items: [{ ...coreSet }],
-      });
     });
   });
 });

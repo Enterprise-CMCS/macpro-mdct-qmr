@@ -5,7 +5,9 @@ describe("MSC-AD Page 508 Compliance Test", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.goToAdultMeasures();
-    cy.goToMeasure("MSC-AD");
+    cy.get(`[data-cy="MSC-AD"]`, { timeout: 10000 })
+      .should("be.visible")
+      .click();
     cy.checkA11yOfPage();
   });
 });

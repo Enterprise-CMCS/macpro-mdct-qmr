@@ -1,100 +1,110 @@
-import dynamoLib, { createDbClient } from "../dynamodb-lib";
-import { CoreSetAbbr, MeasureStatus } from "../../types";
-import AWS from "aws-sdk";
+import dynamoLib, { getConfig } from "../dynamodb-lib";
+import {
+  DeleteCommand,
+  DynamoDBDocumentClient,
+  GetCommand,
+  QueryCommand,
+  ScanCommand,
+  ScanCommandInput,
+  UpdateCommand,
+} from "@aws-sdk/lib-dynamodb";
+import { mockClient } from "aws-sdk-client-mock";
 
-const mockPromiseCall = jest.fn();
-const mockScanPromiseCall = jest
-  .fn()
-  .mockReturnValue({})
-  .mockReturnValueOnce({ LastEvaluatedKey: { key: "val" } });
+const dynamoClientMock = mockClient(DynamoDBDocumentClient);
 
-jest.mock("aws-sdk", () => ({
-  __esModule: true,
-  default: {
-    DynamoDB: {
-      DocumentClient: jest.fn().mockImplementation((config) => {
-        return {
-          get: (x: any) => ({ promise: mockPromiseCall }),
-          put: (x: any) => ({ promise: mockPromiseCall }),
-          post: (x: any) => ({ promise: mockPromiseCall }),
-          query: (x: any) => ({ promise: mockPromiseCall }),
-          scan: (x: any) => ({ promise: mockScanPromiseCall }),
-          update: (x: any) => ({ promise: mockPromiseCall }),
-          delete: (x: any) => ({ promise: mockPromiseCall }),
-        };
-      }),
-    },
-  },
-}));
-
-describe("Test DynamoDB Interaction API Build Structure", () => {
-  test("API structure should be callable", async () => {
-    const testKeyTable = {
-      Key: { compoundKey: "testKey", coreSet: CoreSetAbbr.ACS },
-      TableName: "testTable",
-    };
-    const testItem = {
-      compoundKey: "dynamoKey",
-      state: "FL",
-      year: 2019,
-      coreSet: CoreSetAbbr.ACS,
-      measure: "event!.pathParameters!.measure!",
-      createdAt: Date.now(),
-      lastAltered: Date.now(),
-      lastAlteredBy: `event.headers["cognito-identity-id"]`,
-      status: MeasureStatus.COMPLETE,
-      description: "",
-      data: {},
-    };
-    await dynamoLib.query(true);
-    await dynamoLib.get(testKeyTable);
-    await dynamoLib.delete(testKeyTable);
-    await dynamoLib.put({ TableName: "testTable", Item: testItem });
-    await dynamoLib.scan({
-      ...testKeyTable,
-      ExpressionAttributeNames: {},
-      ExpressionAttributeValues: {},
-    });
-    await dynamoLib.scanOnce({
-      ...testKeyTable,
-      ExpressionAttributeNames: {},
-      ExpressionAttributeValues: {},
-    });
-    await dynamoLib.update({
-      ...testKeyTable,
-      ExpressionAttributeNames: {},
-      ExpressionAttributeValues: {},
-    });
-    await dynamoLib.post({
-      TableName: "",
-      Item: testItem,
-    });
-
-    expect(mockPromiseCall).toHaveBeenCalledTimes(6);
-    expect(mockScanPromiseCall).toHaveBeenCalledTimes(3);
+describe("DynamoDB Library", () => {
+  let originalUrl: string | undefined;
+  beforeAll(() => {
+    originalUrl = process.env.DYNAMODB_URL;
+  });
+  afterAll(() => {
+    process.env.DYNAMODB_URL = originalUrl;
   });
 
-  describe("Checking Environment Variable Changes", () => {
-    test("Check if statement with DYNAMADB_URL undefined", () => {
-      process.env = { ...process.env, DYNAMODB_URL: undefined };
-      jest.resetModules();
+  beforeEach(() => {
+    dynamoClientMock.reset();
+  });
 
-      createDbClient();
-      expect(AWS.DynamoDB.DocumentClient).toHaveBeenCalledWith({
-        region: "us-east-1",
-      });
+  test("Can put", async () => {
+    const mockPut = jest.fn();
+    dynamoClientMock.on(UpdateCommand).callsFake(mockPut);
+
+    await dynamoLib.update({ TableName: "foos", Key: { id: "fid" } });
+
+    expect(mockPut).toHaveBeenCalled();
+  });
+
+  test("Can get", async () => {
+    const mockItem = { foo: "bar" };
+    dynamoClientMock.on(GetCommand).resolves({
+      Item: mockItem,
     });
 
-    test("Check if statement with DYNAMADB_URL set", () => {
-      process.env = { ...process.env, DYNAMODB_URL: "endpoint" };
-      jest.resetModules();
+    const foo = await dynamoLib.get({ TableName: "foos", Key: { foo: "bar" } });
 
-      createDbClient();
-      expect(AWS.DynamoDB.DocumentClient).toHaveBeenCalledWith({
-        endpoint: "endpoint",
-        accessKeyId: "LOCALFAKEKEY", // pragma: allowlist secret
-        secretAccessKey: "LOCALFAKESECRET", // pragma: allowlist secret
-      });
+    expect(foo).toBe(mockItem);
+  });
+
+  test("Can query", async () => {
+    const mockItem = { foo: "bar" };
+    dynamoClientMock.on(QueryCommand).resolves({
+      Items: [mockItem],
     });
+
+    const foos = await dynamoLib.queryAll({ TableName: "foos" });
+
+    expect(foos[0]).toBe(mockItem);
+  });
+
+  test("Can scan all", async () => {
+    const mockKey = {};
+    const mockItem1 = { foo: "bar" };
+    const mockItem2 = { foo: "baz" };
+    const extraCall = jest.fn();
+    dynamoClientMock
+      .on(ScanCommand)
+      .resolvesOnce({ Items: [mockItem1], LastEvaluatedKey: mockKey })
+      .callsFakeOnce((command: ScanCommandInput) => {
+        expect(command.ExclusiveStartKey).toBe(mockKey);
+        return Promise.resolve({ Items: [mockItem2] });
+      })
+      .callsFake(extraCall);
+
+    const result = await dynamoLib.scanAll({ TableName: "foos" });
+
+    expect(result).toHaveLength(2);
+    expect(result[0]).toBe(mockItem1);
+    expect(result[1]).toBe(mockItem2);
+    expect(extraCall).not.toHaveBeenCalled();
+  });
+
+  test("Can update", async () => {
+    const mockUpdate = jest.fn();
+    dynamoClientMock.on(UpdateCommand).callsFake(mockUpdate);
+
+    await dynamoLib.update({ TableName: "foos", Key: { id: "fid" } });
+
+    expect(mockUpdate).toHaveBeenCalled();
+  });
+
+  test("Can delete", async () => {
+    const mockDelete = jest.fn();
+    dynamoClientMock.on(DeleteCommand).callsFake(mockDelete);
+
+    await dynamoLib.delete({ TableName: "foos", Key: { id: "fid" } });
+
+    expect(mockDelete).toHaveBeenCalled();
+  });
+
+  test("Uses local config when appropriate", () => {
+    process.env.DYNAMODB_URL = "mock url";
+    const config = getConfig();
+    expect(config).toHaveProperty("region", "localhost");
+  });
+
+  test("Uses AWS config when appropriate", () => {
+    delete process.env.DYNAMODB_URL;
+    const config = getConfig();
+    expect(config).toHaveProperty("region", "us-east-1");
   });
 });

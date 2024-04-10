@@ -7,17 +7,6 @@ import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { UserRoles } from "types";
 
-// Todo: Uncomment this segment when need to run S3 locally
-///////////////////////////////////////////////////////////
-// import AWS from "aws-sdk";
-// import {
-//   s3AmplifyUpload,
-//   s3LocalUploader,
-//   s3AmplifyGetURL,
-//   s3LocalGetURL,
-// } from "libs/awsLib";
-// import config from "config";
-
 const Home = lazy(() =>
   import("views/Home").then((module) => ({ default: module.Home }))
 );

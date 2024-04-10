@@ -76,7 +76,7 @@ export const createCoreSet = handler(async (event, context) => {
     },
   };
 
-  await dynamoDb.post(params);
+  await dynamoDb.put(params);
   return { status: StatusCodes.SUCCESS, body: params };
 });
 
@@ -114,7 +114,7 @@ const createDependentMeasures = async (
       },
     };
 
-    const result = await dynamoDb.post(params);
+    const result = await dynamoDb.put(params);
     dependentMeasures.push(result);
   }
 };

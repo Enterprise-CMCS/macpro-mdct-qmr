@@ -7,17 +7,16 @@ import {
 
 import dbLib from "../../../libs/dynamodb-lib";
 
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../../../types";
 import { testEvent } from "../../../test-util/testEvents";
 import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
-  __esModule: true,
-  default: {
-    get: jest.fn().mockReturnValue("single measure"),
-    scan: jest.fn().mockReturnValue(["array", "of", "measures"]),
-  },
+  get: jest.fn().mockResolvedValue("single measure"),
+  scanAll: jest
+    .fn()
+    .mockResolvedValue([{ measure: "CSQ" }, { measure: "LBW-CH" }]),
 }));
 
 const mockHasRolePermissions = jest.fn();
@@ -26,12 +25,6 @@ jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   hasRolePermissions: () => mockHasRolePermissions(),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../../libs/debug-lib", () => ({
-  __esModule: true,
-  init: jest.fn(),
-  flush: jest.fn(),
 }));
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
@@ -115,10 +108,9 @@ describe("Test Get Measure Handlers", () => {
     const res = await listMeasures(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("array");
-    expect(res.body).toContain("of");
-    expect(res.body).toContain("measures");
-    expect(dbLib.scan).toHaveBeenCalledWith({
+    expect(res.body).toContain("CSQ");
+    expect(res.body).toContain("LBW-CH");
+    expect(dbLib.scanAll).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       testValue: "test",
     });

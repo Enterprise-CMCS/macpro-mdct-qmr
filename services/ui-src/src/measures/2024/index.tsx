@@ -128,9 +128,6 @@ const FUMCH = lazy(() =>
 const FUMHH = lazy(() =>
   import("./FUMHH").then((module) => ({ default: module.FUMHH }))
 );
-const FVAAD = lazy(() =>
-  import("./FVAAD").then((module) => ({ default: module.FVAAD }))
-);
 const HVLAD = lazy(() =>
   import("./HVLAD").then((module) => ({ default: module.HVLAD }))
 );
@@ -164,8 +161,8 @@ const MSCAD = lazy(() =>
 const LSCCH = lazy(() =>
   import("./LSCCH").then((module) => ({ default: module.LSCCH }))
 );
-const NCIDDSAD = lazy(() =>
-  import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
+const NCIIDDAD = lazy(() =>
+  import("./NCIIDDAD").then((module) => ({ default: module.NCIIDAD }))
 );
 const OEVCH = lazy(() =>
   import("./OEVCH").then((module) => ({ default: module.OEVCH }))
@@ -185,8 +182,8 @@ const PCRAD = lazy(() =>
 const PCRHH = lazy(() =>
   import("./PCRHH").then((module) => ({ default: module.PCRHH }))
 );
-const PPCAD = lazy(() =>
-  import("./PPCAD").then((module) => ({ default: module.PPCAD }))
+const PPC2AD = lazy(() =>
+  import("./PPC2AD").then((module) => ({ default: module.PPC2AD }))
 );
 const PPC2CH = lazy(() =>
   import("./PPC2CH").then((module) => ({ default: module.PPC2CH }))
@@ -273,7 +270,6 @@ const twentyTwentyFourMeasures = {
   "FUM-AD": FUMAD,
   "FUM-CH": FUMCH,
   "FUM-HH": FUMHH,
-  "FVA-AD": FVAAD,
   "HBD-AD": HBDAD,
   "HPCMI-AD": HPCMIAD,
   "HVL-AD": HVLAD,
@@ -285,14 +281,14 @@ const twentyTwentyFourMeasures = {
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
   "LSC-CH": LSCCH,
-  "NCIDDS-AD": NCIDDSAD,
+  "NCIIDD-AD": NCIIDDAD,
   "OEV-CH": OEVCH,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
   "OUD-HH": OUDHH,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
-  "PPC-AD": PPCAD,
+  "PPC2-AD": PPC2AD,
   "PPC2-CH": PPC2CH,
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,

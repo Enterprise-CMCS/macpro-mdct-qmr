@@ -59,7 +59,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   customPrompt:
     "Enter the appropriate data below. Completion of at least one set of Numerator/Denominator/Rate (numeric entry, other than zero) is required.",
   questionText: [
-    "Rate of acute inpatient care and services (total, mental and behavioral disorders, surgery, and medicine) per 1,000 enrollee months among health home enrollees.",
+    "Rate of acute inpatient care and services (total and mental and behavioral disorders) per 1,000 enrollee months among health home enrollees.",
   ],
   questionListItems: [],
   measureName,

@@ -188,7 +188,6 @@ const arrayIsReadOnly = (dataSource: string[]) => {
 export const PerformanceMeasure = ({
   data,
   calcTotal = false,
-  rateReadOnly,
   rateScale,
   customMask,
   hybridMeasure,
@@ -206,9 +205,7 @@ export const PerformanceMeasure = ({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
   let readOnly = false;
-  if (rateReadOnly !== undefined) {
-    readOnly = rateReadOnly;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
+  if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
     readOnly = arrayIsReadOnly(dataSourceWatch);
   } else if (dataSourceWatch) {
     readOnly = stringIsReadOnly(dataSourceWatch);

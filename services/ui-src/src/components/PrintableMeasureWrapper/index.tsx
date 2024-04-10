@@ -122,8 +122,10 @@ export const PrintableMeasureWrapper = ({
   });
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
-  const shared: AnyObject =
-    Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"];
+  const shared: AnyObject = {
+    ...Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"],
+    year: year,
+  };
 
   useEffect(() => {
     // reset core set qualifier data to use the default values for table rendering

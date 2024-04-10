@@ -1,43 +1,39 @@
 import { fetchBanner } from "../fetch";
-import { APIGatewayProxyEvent } from "aws-lambda";
-import { proxyEvent, testBanner } from "./proxyEvent";
+import { APIGatewayProxyEvent, EventParameters } from "../../../types";
 import dynamoDb from "../../../libs/dynamodb-lib";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
-import { mockDocumentClient } from "../../../utils/testing/setupJest";
 
 jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   hasPermissions: jest.fn().mockReturnValue(true),
 }));
 
-jest.mock("../../../libs/debug-lib", () => ({
-  init: jest.fn(),
-  flush: jest.fn(),
+jest.mock("../../../libs/dynamodb-lib", () => ({
+  get: jest.fn().mockResolvedValue({
+    title: "test banner",
+    description: "test description",
+    link: "https://www.example.com",
+    startDate: 1000,
+    endDate: 2000,
+    createdAt: new Date().getTime(),
+    lastAltered: new Date().getTime(),
+  }),
 }));
 
-jest.spyOn(dynamoDb, "get").mockImplementation(
-  mockDocumentClient.get.promise.mockReturnValue({
-    Item: {
-      ...testBanner,
-      createdAt: new Date().getTime(),
-      lastAltered: new Date().getTime(),
-    },
-  })
-);
-
-const testEvent: APIGatewayProxyEvent = {
-  ...proxyEvent,
-  headers: { "cognito-identity-id": "test" },
-  pathParameters: { bannerId: "testKey" },
-};
+const testEvent = {
+  headers: {
+    "cognito-identity-id": "test",
+  } as EventParameters,
+  pathParameters: {
+    bannerId: "testKey",
+  } as EventParameters,
+} as APIGatewayProxyEvent;
 
 describe("Test fetchBanner API method", () => {
   test("Test Successful empty Banner Fetch", async () => {
-    jest.spyOn(dynamoDb, "get").mockImplementation(
-      mockDocumentClient.get.promise.mockReturnValueOnce({
-        Item: undefined,
-      })
-    );
+    (dynamoDb.get as jest.Mock).mockResolvedValueOnce({
+      Item: undefined,
+    });
     const res = await fetchBanner(testEvent, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
   });
@@ -46,11 +42,11 @@ describe("Test fetchBanner API method", () => {
     const res = await fetchBanner(testEvent, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     const parsedBody = JSON.parse(res.body);
-    expect(parsedBody.Item.title).toEqual(testBanner.title);
-    expect(parsedBody.Item.description).toEqual(testBanner.description);
-    expect(parsedBody.Item.startDate).toEqual(testBanner.startDate);
-    expect(parsedBody.Item.endDate).toEqual(testBanner.endDate);
-    expect(parsedBody.Item.link).toEqual(testBanner.link);
+    expect(parsedBody.Item.title).toEqual("test banner");
+    expect(parsedBody.Item.description).toEqual("test description");
+    expect(parsedBody.Item.startDate).toEqual(1000);
+    expect(parsedBody.Item.endDate).toEqual(2000);
+    expect(parsedBody.Item.link).toEqual("https://www.example.com");
   });
 
   test("Test bannerKey not provided throws 500 error", async () => {

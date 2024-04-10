@@ -26,6 +26,26 @@ export const ExportAll = () => {
     .sort((a: any, b: any) => a?.measure?.localeCompare(b?.measure));
   const sortedData = [csqMeasure, ...regMeasures];
 
+  //build the data to render the measures
+  const measures = sortedData
+    .map((data) => {
+      const defaultData =
+        data.measure === "CSQ"
+          ? QualifierData.find((d) => d.year === data.year + "")?.data
+          : undefined;
+      const Comp =
+        data.measure === "CSQ"
+          ? Measures?.[data.year]?.["Qualifier"]
+          : Measures[data.year][data.measure];
+      return { data: data, comp: Comp, defaultData: defaultData };
+    })
+    .filter((measure) => {
+      //log any measure that is unrenderable, this could indicate unclean data in the database
+      if (!measure.comp)
+        console.error(`Measure does not exist: ${measure.data.measure}`);
+      return measure.comp;
+    });
+
   return (
     <>
       <style key="printerPreviewStyles">
@@ -74,48 +94,38 @@ export const ExportAll = () => {
           spacingX={5}
           spacingY={10}
         >
-          {sortedData?.map((measure: any) => {
+          {measures?.map((measure: any) => {
             return (
               <CUI.Button
                 as="a"
                 width={"28"}
-                href={`#${measure?.measure}`}
-                key={`buttonLink.${measure?.measure}`}
+                href={`#${measure?.data.measure}`}
+                key={`buttonLink.${measure?.data.measure}`}
               >
-                {measure?.measure}
+                {measure?.data.measure}
               </CUI.Button>
             );
           })}
         </CUI.SimpleGrid>
       </CUI.Center>
-      {sortedData?.map((measure: any) => {
-        const Comp =
-          measure.measure === "CSQ"
-            ? Measures?.[measure.year]?.["Qualifier"]
-            : Measures[measure.year][measure.measure];
-
-        const defaultData =
-          measure.measure === "CSQ"
-            ? QualifierData.find((d) => d.year === measure.year + "")?.data
-            : undefined;
-
+      {measures?.map((measure: any) => {
         return (
           <CUI.Box
-            key={`measure-${measure.measure}-wrapper`}
+            key={`measure-${measure.data.measure}-wrapper`}
             className="prince-measure-wrapper-box"
           >
             <QMR.PrintableMeasureWrapper
-              measure={createElement(Comp)}
-              measureData={measure}
-              measureId={measure.measure}
-              name={measure.description}
-              year={measure.year}
-              key={measure.compoundKey}
-              defaultData={defaultData}
+              measure={createElement(measure.comp)}
+              measureData={measure.data}
+              measureId={measure.data.measure}
+              name={measure.data.description}
+              year={measure.data.year}
+              key={measure.data.compoundKey}
+              defaultData={measure.defaultData}
               spaName={spaName}
             />
             <CUI.Center
-              key={`returnButton.${measure.measure}`}
+              key={`returnButton.${measure.data.measure}`}
               mt="2"
               className="prince-top-link"
             >

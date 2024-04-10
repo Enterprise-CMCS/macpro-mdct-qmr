@@ -1,9 +1,8 @@
 import { deleteBanner } from "../delete";
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../../../types";
 import { testBanner, proxyEvent } from "./proxyEvent";
 import dynamoDb from "../../../libs/dynamodb-lib";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
-import { mockDocumentClient } from "../../../utils/testing/setupJest";
 
 const mockHasRolePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
@@ -11,23 +10,14 @@ jest.mock("../../../libs/authorization", () => ({
   hasRolePermissions: () => mockHasRolePermissions(),
 }));
 
-jest.mock("../../../libs/debug-lib", () => ({
-  init: jest.fn(),
-  flush: jest.fn(),
-}));
-
 const testEvent: APIGatewayProxyEvent = {
   ...proxyEvent,
   httpMethod: "DEL",
 };
 
-jest.spyOn(dynamoDb, "delete").mockImplementation(
-  mockDocumentClient.delete.promise.mockReturnValue({
-    Item: {
-      ...testBanner,
-    },
-  })
-);
+jest.mock("../../../libs/dynamodb-lib", () => ({
+  delete: jest.fn().mockResolvedValue("DELETED"),
+}));
 
 describe("Test deleteBanner API method", () => {
   beforeEach(() => {

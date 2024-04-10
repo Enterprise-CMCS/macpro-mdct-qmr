@@ -2,27 +2,18 @@ import { deleteMeasure } from "../delete";
 
 import dbLib from "../../../libs/dynamodb-lib";
 
-import { APIGatewayProxyEvent } from "aws-lambda";
+import { APIGatewayProxyEvent } from "../../../types";
 import { testEvent } from "../../../test-util/testEvents";
 import { StatusCodes, Errors } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
-  __esModule: true,
-  default: {
-    delete: jest.fn(),
-  },
+  delete: jest.fn(),
 }));
 
 const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../../libs/debug-lib", () => ({
-  __esModule: true,
-  init: jest.fn(),
-  flush: jest.fn(),
 }));
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({

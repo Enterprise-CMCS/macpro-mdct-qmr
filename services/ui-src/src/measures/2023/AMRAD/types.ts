@@ -1,4 +1,6 @@
 import * as Types from "measures/2023/shared/CommonQuestions/types";
+import * as Type from "shared/types";
+
 export namespace Measure {
   export interface Props {
     name: string;
@@ -22,11 +24,11 @@ export namespace Measure {
 
   export interface Form
     extends Types.MeasurementSpecification,
-      Types.AdditionalNotes,
-      Types.CombinedRates,
+      Type.AdditionalNotes,
+      Type.CombinedRates,
       Types.DateRange,
       Types.DefinitionOfPopulation,
-      Types.StatusOfData,
+      Type.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.DataSource,

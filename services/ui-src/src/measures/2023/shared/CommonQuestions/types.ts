@@ -1,8 +1,8 @@
 import { LabelData } from "utils";
-import { DataSourceData } from "./DataSource/data";
 import { OmsNode } from "./OptionalMeasureStrat/data";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 import * as DC from "dataConstants";
+import * as Types from "shared/types";
 
 type YesNo = typeof DC.YES | typeof DC.NO;
 
@@ -64,20 +64,6 @@ export interface DefinitionOfPopulation {
   [DC.DELIVERY_SYS_OTHER_PERCENT]: string; // If OTHER selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> percentage represented
   [DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS]: string; // If OTHER selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> number of health plans represented
   [DC.DELIVERY_SYS_OTHER_POP]: string; // If OTHER selected in DELIVERY_SYS_REPRESENTATION_DENOMINATOR -> number of population represented
-}
-
-export interface AdditionalNotes {
-  [DC.ADDITIONAL_NOTES]: string; // Additional notes or comments on the measure
-  [DC.ADDITIONAL_NOTES_UPLOAD]: File[]; // Additional attachments upload
-}
-
-export interface CombinedRates {
-  [DC.COMBINED_RATES]?: YesNo; // if the user combined rates from multiple reporting units
-  [DC.COMBINED_RATES_COMBINED_RATES]?: // if YES in COMBINED_RATES-> the reporting units they combined
-  | typeof DC.COMBINED_NOT_WEIGHTED_RATES
-    | typeof DC.COMBINED_WEIGHTED_RATES
-    | typeof DC.COMBINED_WEIGHTED_RATES_OTHER;
-  [DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION]?: string; // if the user selected COMBINED_WEIGHTED_RATES_OTHER -> the explaination of the other weighing factor
 }
 
 export interface OtherPerformanceMeasure {
@@ -150,13 +136,6 @@ export interface DidReport {
 
 export interface DidCollect {
   [DC.DID_COLLECT]: YesNo;
-}
-
-export interface StatusOfData {
-  [DC.DATA_STATUS]:
-    | typeof DC.REPORTING_FINAL_DATA
-    | typeof DC.REPORTING_PROVISIONAL_DATA;
-  [DC.DATA_STATUS_PROVISIONAL_EXPLAINATION]: string;
 }
 
 export interface DataSource {
@@ -293,7 +272,7 @@ export namespace DataDrivenTypes {
   export type OptionalMeasureStrat = OmsNode[];
   export type SingleOmsNode = OmsNode;
   export type PerformanceMeasure = PerformanceMeasureData;
-  export type DataSource = DataSourceData;
+  export type DataSource = Types.DataSourceData;
 }
 export type DeviationKeys =
   | "numerator"
@@ -301,12 +280,12 @@ export type DeviationKeys =
   | "Other"
   | "RateDeviationsSelected";
 
-export type DefaultFormData = AdditionalNotes &
+export type DefaultFormData = Types.AdditionalNotes &
   DidCollect &
-  StatusOfData &
+  Types.StatusOfData &
   WhyAreYouNotReporting &
   DidReport &
-  CombinedRates &
+  Types.CombinedRates &
   DateRange &
   DefinitionOfPopulation &
   MeasurementSpecification &

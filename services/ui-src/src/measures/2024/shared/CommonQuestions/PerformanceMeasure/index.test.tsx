@@ -21,7 +21,7 @@ interface Props {
 
 mockLDFlags.setDefault({ periodOfHealthEmergency2024: false });
 
-const renderComponet = ({
+const renderComponent = ({
   component,
   calcTotal,
   data,
@@ -52,7 +52,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
   });
 
   test("(QMR.Rate) Ensure component renders", () => {
-    renderComponet(props);
+    renderComponent(props);
     // should render QMR.Rate layout using example data
     expect(screen.getByText(/Performance Measure/i)).toBeVisible();
     expect(screen.getByText(exampleData.questionText![0])).toBeVisible();
@@ -85,24 +85,9 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(lastRateTextBox).toHaveDisplayValue("");
   });
 
-  test("(QMR.Rate) Rates should not be editable", () => {
-    props.rateReadOnly = true;
-    renderComponet(props);
-
-    const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
-    const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
-    const rateTextBox = screen.queryAllByLabelText("Rate")[0];
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
-    expect(rateTextBox).toHaveDisplayValue("100.0");
-
-    fireEvent.type(rateTextBox, "99.9");
-    expect(rateTextBox).toHaveDisplayValue("100.0");
-  });
-
   test("(QMR.Rate) Should total in last NDR", () => {
     props.calcTotal = true;
-    renderComponet(props);
+    renderComponent(props);
 
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
@@ -132,7 +117,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
     props.component = PCRRate;
     props.data = PCRData;
-    renderComponet(props);
+    renderComponent(props);
 
     // should render match PCRRate layout using PCR-XX data
     expect(screen.getByText(/Performance Measure/i)).toBeVisible();
@@ -159,34 +144,10 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(rateTextBox).toHaveDisplayValue("123");
   });
 
-  test("(PCR-XX) Rates should not be editable", () => {
-    props.component = PCRRate;
-    props.data = PCRData;
-    props.rateReadOnly = true;
-    renderComponet(props);
-
-    // rates should not be editable
-    const numeratorTextBox = screen.queryAllByLabelText(
-      PCRData.qualifiers![1].label
-    )[0];
-    const denominatorTextBox = screen.queryAllByLabelText(
-      PCRData.qualifiers![0].label
-    )[0];
-    const rateTextBox = screen.getByText(
-      PCRData.qualifiers![2].label
-    ).nextSibling;
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
-    expect(numeratorTextBox).toHaveDisplayValue("123");
-    expect(denominatorTextBox).toHaveDisplayValue("123");
-    expect(rateTextBox?.textContent).toEqual("100.0000");
-    expect(rateTextBox?.nodeName).toBe("P");
-  });
-
   test("periodOfHealthEmergency2024 flag is set to false, covid text and textbox should not render", () => {
     props.data = CBPdata;
     props.hybridMeasure = true;
-    renderComponet(props);
+    renderComponent(props);
     const covidText = screen.queryByLabelText(
       "Describe any COVID-related difficulties encountered while collecting this data:"
     );
@@ -197,7 +158,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     mockLDFlags.set({ periodOfHealthEmergency2024: true });
     props.data = CBPdata;
     props.hybridMeasure = true;
-    renderComponet(props);
+    renderComponent(props);
     const covidText = screen.getByLabelText(
       "Describe any COVID-related difficulties encountered while collecting this data:"
     );

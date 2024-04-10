@@ -4,6 +4,7 @@ import * as QMR from "components";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
+import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const PCRAD = ({
   name,
@@ -45,7 +46,7 @@ export const PCRAD = ({
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
-          {showOptionalMeasureStrat && <CMQ.NotCollectingOMS />}
+          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
       <CMQ.AdditionalNotes />

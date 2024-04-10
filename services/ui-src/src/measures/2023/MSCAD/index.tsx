@@ -4,6 +4,7 @@ import * as CMQ from "measures/2023/shared/CommonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
+import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const MSCAD = ({
   name,
@@ -48,7 +49,7 @@ export const MSCAD = ({
             <CMQ.OtherPerformanceMeasure rateAlwaysEditable />
           )}
           <CMQ.CombinedRates />
-          {showOptionalMeasureStrat && <CMQ.NotCollectingOMS />}
+          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
       <CMQ.AdditionalNotes />

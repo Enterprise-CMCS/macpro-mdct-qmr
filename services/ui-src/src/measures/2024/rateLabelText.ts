@@ -594,18 +594,18 @@ export const data = {
     "COL-AD": {
         "qualifiers": [
             {
-                "label": "Ages 46 to 49",
-                "text": "Ages 46 to 49",
+                "label": "Ages 46 to 50",
+                "text": "Ages 46 to 50",
                 "id": "jaap4W"
             },
             {
-                "label": "Ages 50 to 64",
-                "text": "Ages 50 to 64",
+                "label": "Ages 51 to 65",
+                "text": "Ages 51 to 65",
                 "id": "cvwOYG"
             },
             {
-                "label": "Ages 65 to 75",
-                "text": "Ages 65 to 75",
+                "label": "Ages 66 to 75",
+                "text": "Ages 66 to 75",
                 "id": "YHLMTu"
             }
         ],
@@ -614,18 +614,18 @@ export const data = {
     "COL-HH": {
         "qualifiers": [
             {
-                "label": "Ages 46 to 49",
-                "text": "Ages 46 to 49",
+                "label": "Ages 46 to 50",
+                "text": "Ages 46 to 50",
                 "id": "RHlNkr"
             },
             {
-                "label": "Ages 50 to 64",
-                "text": "Ages 50 to 64",
+                "label": "Ages 51 to 65",
+                "text": "Ages 51 to 65",
                 "id": "u1n5QA"
             },
             {
-                "label": "Ages 65 to 75",
-                "text": "Ages 65 to 75",
+                "label": "Ages 66 to 75",
+                "text": "Ages 66 to 75",
                 "id": "2ATODe"
             }
         ],
@@ -932,16 +932,6 @@ export const data = {
             }
         ]
     },
-    "FVA-AD": {
-        "qualifiers": [
-            {
-                "label": "Ages 18 to 64",
-                "text": "Ages 18 to 64",
-                "id": "BKbFhQ"
-            }
-        ],
-        "categories": [{"id":"5bDNK0", "label": "", "text":""}]
-    },
     "HBD-AD": {
         "qualifiers": [
             {
@@ -957,14 +947,14 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "HbA1c control (<8.0%)",
-                "text": "HbA1c control (<8.0%)",
+                "label": "HbA1c Control (<8.0%)",
+                "text": "HbA1c Control (<8.0%)",
                 "id":"F9V8xD",
                 "excludeFromOMS": true
             },
             {
-                "label": "HbA1c poor control (>9.0%)",
-                "text": "HbA1c poor control (>9.0%)",
+                "label": "HbA1c Poor Control (>9.0%)",
+                "text": "HbA1c Poor Control (>9.0%)",
                 "id":"MELFVb"
             }
         ]
@@ -1210,18 +1200,6 @@ export const data = {
                 "id": "VX9uaf",
                 "excludeFromOMS": true
             },
-            {
-                "label": "Surgery",
-                "text": "Surgery",
-                "id": "QzuJDR",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Medicine",
-                "text": "Medicine",
-                "id": "ioz7ed",
-                "excludeFromOMS": true
-            }
         ]
     },
 
@@ -1518,12 +1496,17 @@ export const data = {
         ],
         "categories": [{"id":"YGJwmu", "label": "", "text":""}]
     },
-    "PPC-AD": {
+    "PPC2-AD": {
         "qualifiers": [
             {
-                "label": "Postpartum visit between 7 and 84 days",
-                "text": "Postpartum visit between 7 and 84 days",
+                "label": "Timeliness of Prenatal Care: Age 21 and Older",
+                "text": "Timeliness of Prenatal Care: Age 21 and Older",
                 "id": "LrWMAT"
+            },
+            {
+                "label": "Postpartum Care: Age 21 and Older",
+                "text": "Postpartum Care: Age 21 and Older",
+                "id": "66zLAM"
             }
         ],
         "categories": [{"id":"SyrrI1", "label": "", "text":""}]

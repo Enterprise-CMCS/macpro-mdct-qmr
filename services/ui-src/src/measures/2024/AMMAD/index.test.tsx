@@ -92,7 +92,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(screen.queryByTestId("reporting"));
   });
 
-  it("shows corresponding questions if yes to reporting then ", async () => {
+  it("shows corresponding questions if yes to reporting then", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -107,7 +107,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).toBeInTheDocument();
   });
 
-  it("does not show corresponding questions if no to reporting then ", async () => {
+  it("does not show corresponding questions if not reporting", async () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -127,6 +127,10 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("performance-measure")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getAllByText("Ages 18 to 64"));
+      expect(screen.getAllByText("Age 65 and older"));
+    });
     expect(
       screen.queryByTestId("deviation-from-measure-specification")
     ).toBeInTheDocument();
@@ -142,6 +146,13 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       screen.queryByTestId("deviation-from-measure-specification")
     ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByTestId("measurement-specification")
+    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Other Performance Measure"));
+    });
   });
 
   it("shows OMS when performance measure data has been entered", async () => {

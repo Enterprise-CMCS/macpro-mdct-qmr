@@ -1,4 +1,4 @@
-import AWS from "aws-sdk";
+const dynamoUtils = require("@aws-sdk/util-dynamodb");
 const { Kafka } = require("kafkajs");
 
 const STAGE = process.env.STAGE;
@@ -56,7 +56,7 @@ class KafkaSourceLib {
   }
 
   unmarshall(r) {
-    return AWS.DynamoDB.Converter.unmarshall(r, this.unmarshallOptions);
+    return dynamoUtils.unmarshall(r, this.unmarshallOptions);
   }
 
   createPayload(record) {

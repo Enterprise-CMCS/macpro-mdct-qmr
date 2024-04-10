@@ -1,5 +1,4 @@
 export * as Api from "./api";
-export * from "./awsLib";
 export * from "./contacts";
 export * from "./contextLib";
 export * from "./errorLib";

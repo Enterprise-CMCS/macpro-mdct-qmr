@@ -1,40 +1,31 @@
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBDocumentClient,
+  UpdateCommand,
+  QueryCommand,
+} from "@aws-sdk/lib-dynamodb";
 import prompt from "prompt-sync";
-import AWS from "aws-sdk";
-import { ServiceConfigurationOptions } from "aws-sdk/lib/service";
 
 /***
  * Run with `npx tsx removeNullOPM.ts`
  */
 const removeNullOPM = async () => {
-  const dynamoConfig: AWS.DynamoDB.DocumentClient.DocumentClientOptions &
-    ServiceConfigurationOptions &
-    AWS.DynamoDB.ClientApiVersions = {};
-
-  const endpoint = process.env.DYNAMODB_URL;
-  if (endpoint) {
-    dynamoConfig.endpoint = endpoint;
-    dynamoConfig.accessKeyId = "LOCALFAKEKEY"; // pragma: allowlist secret
-    dynamoConfig.secretAccessKey = "LOCALFAKESECRET"; // pragma: allowlist secret
-  } else {
-    dynamoConfig["region"] = "us-east-1";
-  }
-
-  const client = new AWS.DynamoDB.DocumentClient(dynamoConfig);
+  const dbClient = buildClient(!!process.env.DYNAMODB_URL);
   const ratesField = "OtherPerformanceMeasure-Rates";
   const p = prompt();
 
   const measureID = p("Measure ID to clean: ");
   const tableName = p("What table would you like to modify: ");
 
-  const foundMeasure = await client
-    .query({
+  const foundMeasure = await dbClient.send(
+    new QueryCommand({
       TableName: tableName,
       KeyConditionExpression: "compoundKey = :compoundKey",
       ExpressionAttributeValues: {
         ":compoundKey": measureID,
       },
     })
-    .promise();
+  );
 
   if (foundMeasure.Items && foundMeasure.Items.length > 0) {
     const opmRates: any[] = foundMeasure.Items[0].data[ratesField];
@@ -55,9 +46,38 @@ const removeNullOPM = async () => {
         "#opmRates": ratesField,
       },
     };
-    await client.update(params).promise();
+    await dbClient.send(new UpdateCommand(params));
     console.log(`Removed null values from OPM Rates in measure ${measureID}'`);
   }
 };
 
 removeNullOPM();
+
+function buildClient(isLocal: boolean) {
+  if (isLocal) {
+    return DynamoDBDocumentClient.from(
+      new DynamoDBClient({
+        region: "localhost",
+        endpoint: "http://localhost:8000",
+        credentials: {
+          accessKeyId: "LOCALFAKEKEY", // pragma: allowlist secret
+          secretAccessKey: "LOCALFAKESECRET", // pragma: allowlist secret
+        },
+      })
+    );
+  } else {
+    return DynamoDBDocumentClient.from(
+      new DynamoDBClient({
+        region: "us-east-1",
+        logger: {
+          debug: () => {
+            /* Dynamo's debug logs are extremely noisy */
+          },
+          info: console.info,
+          warn: console.warn,
+          error: console.error,
+        },
+      })
+    );
+  }
+}

@@ -43,13 +43,6 @@ export interface MeasureData<DataType = any> {
   placeholder?: boolean;
 }
 
-export enum AutoCompletedMeasures {
-  "LBW-CH" = "LBW-CH",
-  "LRCD-CH" = "LRCD-CH",
-  "PDENT-CH" = "PDENT-CH",
-  "NCIDDS-AD" = "NCIDDS-AD",
-}
-
 export interface ndrFormula {
   num: number;
   denom: number;
