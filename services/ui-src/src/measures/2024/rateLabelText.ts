@@ -647,13 +647,15 @@ export const data = {
                 "label": "Could Not Be Reached for Care Planning",
                 "text": "Could Not Be Reached for Care Planning",
                 "id": "7dC1vt",
-                "excludeFromOMS": true
+                "excludeFromOMS": true,
+                "isField": true,
             },
             {
                 "label": "Refusal to Participate in Care Planning",
                 "text": "Refusal to Participate in Care Planning",
                 "id": "6zIwnx",
-                "excludeFromOMS": true
+                "excludeFromOMS": true,
+                "isField": true,
             },
         ],
         "categories": [{"id":"HLXNLW", "label": "", "text":""}]

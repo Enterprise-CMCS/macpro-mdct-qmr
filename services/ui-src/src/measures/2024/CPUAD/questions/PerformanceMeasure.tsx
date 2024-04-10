@@ -6,6 +6,7 @@ import * as Types from "../../shared/CommonQuestions/types";
 import { useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
 import { NdrSetProps, Props } from "shared/types/TypePerformanceMeasure";
+import { allNumbers, allPositiveIntegersWith8Digits } from "utils";
 
 const QualifierNdrSets = ({
   rateReadOnly,
@@ -33,9 +34,7 @@ const QualifierNdrSets = ({
     id: idx,
   }));
 
-  const ndrRates = [rates[0], rates[1]];
   const name = `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`;
-
   const { control } = useFormContext();
   const { field } = useController({
     name,
@@ -43,10 +42,20 @@ const QualifierNdrSets = ({
     defaultValue: rates,
   });
 
+  //we have to generate both NDR sets and field sets for this measure so we need to filter out the field sets by boolean check
+  const fieldIds = qualifiers
+    .filter((qual) => qual.isField)
+    .map((qual) => `${categoryID}.${qual.id}`);
+    
+  //use the id to find the correct fields in field.value
+  const fieldRates = (field.value as any[]).filter((field) =>
+    fieldIds.includes(field.uid)
+  );
+
   return (
     <>
       <RateComponent
-        rates={ndrRates}
+        rates={[rates[0], rates[1]]}
         readOnly={rateReadOnly}
         measureName={measureName}
         inputFieldNames={inputFieldNames}
@@ -64,32 +73,25 @@ const QualifierNdrSets = ({
         {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
       />
       <CUI.Heading size={"sm"}>Count of Exclusions</CUI.Heading>
-      {field.value.map((item: QMR.IRate, idx: number) => {
-        if(idx > 1)
-            return FieldComponent(field, item, idx, field.name);
-        return <></>
+      {fieldRates.map((rate: QMR.IRate) => {
+        return FieldComponent(field, rate);
       })}
     </>
   );
 };
 
-const FieldComponent = (
-  fields: any,
-  field: any,
-  index: number,
-  name: string
-) => {
+const FieldComponent = (fields: any, rate: any) => {
   return (
-    <CUI.Box mt={4} mb={8}>
-      <CUI.FormLabel fontWeight={700} data-cy={field.label}>
-        {field.label}
+    <CUI.Box mt={4} mb={8} key={rate.uid}>
+      <CUI.FormLabel fontWeight={700} data-cy={rate.label}>
+        {rate.label}
       </CUI.FormLabel>
       <CUI.Input
         type="text"
-        aria-label={`${name}.${index}.value`}
-        value={field.value ?? ""}
-        data-cy={`${name}.${index}.value`}
-        onChange={(e) => changeRate(fields, index, e.target.value)}
+        aria-label={`${fields.name}.${rate.id}.value`}
+        value={rate.value ?? ""}
+        data-cy={`${fields.name}.${rate.id}.value`}
+        onChange={(e) => changeRate(fields, rate.id, e.target.value)}
       />
     </CUI.Box>
   );
@@ -97,15 +99,20 @@ const FieldComponent = (
 
 // Handle inputs and update conditionally perform rate calculation
 const changeRate = (field: any, index: number, newValue: string) => {
+  // check that the input is postive numbers only
+  if (
+    !allNumbers.test(newValue) ||
+    !allPositiveIntegersWith8Digits.test(newValue)
+  )
+    return;
+  //make a copy of current rate before update
   const prevRate = [...field.value];
+  //store to edit.
   const editRate = { ...prevRate[index] };
   editRate["value"] = newValue;
-
-  prevRate[index] = {
-    label: "test",
-    ...editRate,
-  };
-
+  //pass edit value back to previous rate
+  prevRate[index] = editRate;
+  //trigger field change to new rate
   field.onChange([...prevRate]);
 };
 
