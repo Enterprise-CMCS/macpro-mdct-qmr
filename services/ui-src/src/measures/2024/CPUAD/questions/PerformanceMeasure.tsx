@@ -46,7 +46,7 @@ const QualifierNdrSets = ({
   const fieldIds = qualifiers
     .filter((qual) => qual.isField)
     .map((qual) => `${categoryID}.${qual.id}`);
-    
+
   //use the id to find the correct fields in field.value
   const fieldRates = (field.value as any[]).filter((field) =>
     fieldIds.includes(field.uid)
