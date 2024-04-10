@@ -1,5 +1,5 @@
 import { SINGLE_CATEGORY, PERFORMANCE_MEASURE } from "dataConstants";
-import { OMSData } from "measures/2022/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import {
   generateOmsQualifierRateData,
   generatePmQualifierRateData,
@@ -39,7 +39,7 @@ describe("Test Data Driven Tools", () => {
 
   describe("omsLocationDictionary", () => {
     it("should make a dictionary function", () => {
-      const func = omsLocationDictionary(OMSData(), qualifiers, categories);
+      const func = omsLocationDictionary(OMSData(2022), qualifiers, categories);
       expect(func(qualifiers)).toBe(`${qualifiers[0]} - ${qualifiers[1]}`);
       expect(func(categories)).toBe(`${categories[0]} - ${categories[1]}`);
       expect(func([qualifiers[0]])).toBe(qualifiers[0]);

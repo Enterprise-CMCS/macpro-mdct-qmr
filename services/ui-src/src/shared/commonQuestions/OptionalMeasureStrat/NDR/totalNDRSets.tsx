@@ -140,9 +140,12 @@ export const TotalNDRSets = ({
 
   return (
     <CUI.Box>
-      <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-        {totalQual.label}
-      </CUI.Heading>
+      {type && <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />}
+      {categories.length > 0 && (
+        <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
+          {totalQual.label}
+        </CUI.Heading>
+      )}
       <CUI.Box>{rateArray}</CUI.Box>
     </CUI.Box>
   );

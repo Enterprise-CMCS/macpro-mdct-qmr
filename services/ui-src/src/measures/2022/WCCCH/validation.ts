@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2022/shared/globalValidations";
 import * as PMD from "./data";
-import { OMSData } from "measures/2022/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
@@ -89,7 +89,7 @@ const WCCHValidation = (data: FormData) => {
       categories: PMD.categories,
       dataSource: data[DC.DATA_SOURCE],
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(true),
+        OMSData(2022, true),
         PMD.qualifiers,
         PMD.categories
       ),
