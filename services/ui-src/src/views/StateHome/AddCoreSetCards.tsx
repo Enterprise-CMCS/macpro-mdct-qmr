@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
+import { coreSets } from "shared/coreSetByYear";
 
 interface AddCoreSetCardProps {
   title: string;
@@ -55,32 +56,35 @@ export const AddCoreSetCard = ({
 };
 
 interface Props {
-  childCoreSetExists: boolean;
-  healthHomesCoreSetExists: boolean;
   renderHealthHomeCoreSet?: boolean;
+  coreSetsInTable?: string[];
 }
 
 export const AddCoreSetCards = ({
-  childCoreSetExists,
-  healthHomesCoreSetExists,
-  renderHealthHomeCoreSet = true,
-}: Props) => {
+  coreSetsInTable,
+}: // renderHealthHomeCoreSet = true,
+Props) => {
   const { year } = useParams();
+
+  const coreSetCards = (
+    coreSets[year as keyof typeof coreSets] as any[]
+  ).filter((set) => !set.loaded && set.type === "coreSet");
+
   return (
     <>
-      <AddCoreSetCard
-        title="Need to report on Child data?"
-        buttonText="Add Child Core Set"
-        to="add-child"
-        coreSetExists={childCoreSetExists}
-      />
-      {renderHealthHomeCoreSet && (
-        <AddCoreSetCard
-          title="Need to report on Health Home data?"
-          buttonText="Add Health Home Core Set"
-          to="add-hh"
-          coreSetExists={healthHomesCoreSetExists}
-        />
+      {coreSetCards.map((coreSet: any) => {
+        return (
+          <AddCoreSetCard
+            title={`Need to report on ${coreSet.title} data?`}
+            buttonText={`Add ${coreSet.title} Core Set`}
+            to={coreSet.path}
+            coreSetExists={coreSet.abbr.some((abbr: string) =>
+              coreSetsInTable?.includes(abbr)
+            )}
+          />
+        );
+      })}
+      {/* 
       )}
       {year && parseInt(year) < 2024 && (
         <CUI.Center w="44" textAlign="center">
@@ -88,7 +92,7 @@ export const AddCoreSetCards = ({
             Only one group of Adult Core Set Measures can be submitted per FFY
           </CUI.Text>
         </CUI.Center>
-      )}
+      )} */}
     </>
   );
 };

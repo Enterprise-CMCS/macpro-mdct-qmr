@@ -208,23 +208,9 @@ const StateHome = () => {
     exportAll,
   });
 
-  const childCoreSetExists = formattedTableItems.some(
-    (v) =>
-      v.coreSet === CoreSetAbbr.CCS ||
-      v.coreSet === CoreSetAbbr.CCSC ||
-      v.coreSet === CoreSetAbbr.CCSM
+  const coreSetInTable = formattedTableItems.map(
+    (item) => item.coreSet.split("_")[0]
   );
-
-  const filteredHealthHomeCoreSets = formattedTableItems.filter(
-    (v) => !!v?.coreSet?.includes(CoreSetAbbr.HHCS)
-  );
-  const allPossibleHealthHomeCoreSetsExist = !!(
-    filteredHealthHomeCoreSets.length &&
-    spaIds.every((s) =>
-      filteredHealthHomeCoreSets.some((v) => !!v?.coreSet?.includes(s))
-    )
-  );
-
   const selectedStates = ["CA", "DE", "OK"];
   const hideHealthHome = year === "2023" && selectedStates.includes(userState);
 
@@ -249,9 +235,8 @@ const StateHome = () => {
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">
         <AddCoreSetCards
-          childCoreSetExists={childCoreSetExists}
-          healthHomesCoreSetExists={allPossibleHealthHomeCoreSetsExist}
           renderHealthHomeCoreSet={!hideHealthHome && !!spaIds?.length}
+          coreSetsInTable={coreSetInTable}
         />
       </CUI.HStack>
     </QMR.StateLayout>
