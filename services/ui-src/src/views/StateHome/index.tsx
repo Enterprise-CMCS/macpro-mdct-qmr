@@ -16,7 +16,7 @@ import { useGetReportingYears } from "hooks/api";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
 import { BannerCard } from "components/Banner/BannerCard";
-import { coreSets } from "shared/coreSetByYear";
+import { coreSets, CoreSetField } from "shared/coreSetByYear";
 
 import { useFlags } from "launchdarkly-react-client-sdk";
 
@@ -214,14 +214,17 @@ const StateHome = () => {
     (item) => item.coreSet
   );
   //filter and format all the coreset down
-  const coreSetCards = (coreSets[year as keyof typeof coreSets] as any[])
+  const coreSetCards = (
+    coreSets[year as keyof typeof coreSets] as CoreSetField[]
+  )
     .filter(
-      (set) => !set.loaded && (!set.stateList || set.stateList?.includes(state))
+      (set) =>
+        !set.loaded && (!set.stateList || set.stateList?.includes(state!))
     )
     .map((set) => {
       //spaIds are only checked against healthHome measures
       const spaInTable = spaIds?.every((id) => coreSetInTable.includes(id));
-      //if the set of spaIds have all been added to the table, that means the HHCS button should become inactive, add the HHCS key to be filterable
+      //once all the spaIds for this state have been added to the table, push 'HHCS' to the array to tell the system to disable the add button
       if (spaInTable) coreSetInTable.push("HHCS");
       //the key exist is to trigger the disable state of the add core set button
       return {

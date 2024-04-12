@@ -1,11 +1,26 @@
 import { SPA } from "libs/spaLib";
 
+export interface CoreSetFields {
+  [key: string]: CoreSetField[];
+}
+
+export interface CoreSetField {
+  type: string;
+  title?: string;
+  loaded?: boolean;
+  abbr?: string[];
+  path?: string;
+  stateList?: string[];
+  label?: string;
+  exist?: boolean;
+}
+
 //health home isn't always avaliable for every state and sometimes has multiple HH coresets for a single state.
 const getHHStates = (year: string) => {
   return SPA[year].map((item) => item.state);
 };
 
-export const coreSets = {
+export const coreSets: CoreSetFields = {
   "2021": [
     {
       type: "coreSet",

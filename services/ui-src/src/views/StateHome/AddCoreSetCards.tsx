@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
+import { CoreSetField } from "shared/coreSetByYear";
 
 interface AddCoreSetCardProps {
   title: string;
@@ -55,23 +56,24 @@ export const AddCoreSetCard = ({
 };
 
 interface Props {
-  coreSetCards: any[];
+  coreSetCards: CoreSetField[];
 }
 
-const GetSetCard = (coreSet: any) => {
+const GetSetCard = (coreSet: CoreSetField) => {
   switch (coreSet.type) {
     case "coreSet":
       return (
         <AddCoreSetCard
+          key={coreSet.title}
           title={`Need to report on ${coreSet.title} data?`}
           buttonText={`Add ${coreSet.title} Core Set`}
-          to={coreSet.path}
-          coreSetExists={coreSet.exist}
+          to={coreSet.path!}
+          coreSetExists={coreSet.exist!}
         />
       );
     case "text":
       return (
-        <CUI.Center w="44" textAlign="center">
+        <CUI.Center w="44" textAlign="center" key={coreSet.label}>
           <CUI.Text fontStyle="italic" fontSize="sm">
             {coreSet.label}
           </CUI.Text>
