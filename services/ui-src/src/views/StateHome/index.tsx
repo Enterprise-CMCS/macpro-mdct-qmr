@@ -16,6 +16,7 @@ import { useGetReportingYears } from "hooks/api";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
 import { BannerCard } from "components/Banner/BannerCard";
+import { coreSets } from "shared/coreSetByYear";
 
 import { useFlags } from "launchdarkly-react-client-sdk";
 
@@ -197,7 +198,7 @@ const StateHome = () => {
   }
 
   const filteredSpas = SPA[year!].filter((s) => s.state === state);
-  const spaIds = filteredSpas.map((s) => s.id);
+  const spaIds = filteredSpas.map((s) => `HHCS_${s.id}`);
 
   const formattedTableItems = formatTableItems({
     items: data.Items,
@@ -208,11 +209,26 @@ const StateHome = () => {
     exportAll,
   });
 
-  const coreSetInTable = formattedTableItems.map(
-    (item) => item.coreSet.split("_")[0]
+  //get all the coresets that have been added to the table
+  const coreSetInTable: string[] = formattedTableItems.map(
+    (item) => item.coreSet
   );
-  const selectedStates = ["CA", "DE", "OK"];
-  const hideHealthHome = year === "2023" && selectedStates.includes(userState);
+  //filter and format all the coreset down
+  const coreSetCards = (coreSets[year as keyof typeof coreSets] as any[])
+    .filter(
+      (set) => !set.loaded && (!set.stateList || set.stateList?.includes(state))
+    )
+    .map((set) => {
+      //spaIds are only checked against healthHome measures
+      const spaInTable = spaIds?.every((id) => coreSetInTable.includes(id));
+      //if the set of spaIds have all been added to the table, that means the HHCS button should become inactive, add the HHCS key to be filterable
+      if (spaInTable) coreSetInTable.push("HHCS");
+      //the key exist is to trigger the disable state of the add core set button
+      return {
+        ...set,
+        exist: set.abbr?.some((abbr: string) => coreSetInTable?.includes(abbr)),
+      };
+    });
 
   return (
     <QMR.StateLayout
@@ -234,10 +250,7 @@ const StateHome = () => {
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">
-        <AddCoreSetCards
-          renderHealthHomeCoreSet={!hideHealthHome && !!spaIds?.length}
-          coreSetsInTable={coreSetInTable}
-        />
+        <AddCoreSetCards coreSetCards={coreSetCards} />
       </CUI.HStack>
     </QMR.StateLayout>
   );

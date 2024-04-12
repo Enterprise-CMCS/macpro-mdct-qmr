@@ -1,3 +1,10 @@
+import { SPA } from "libs/spaLib";
+
+//health home isn't always avaliable for every state and sometimes has multiple HH coresets for a single state.
+const getHHStates = (year: string) => {
+  return SPA[year].map((item) => item.state);
+};
+
 export const coreSets = {
   "2021": [
     {
@@ -10,18 +17,17 @@ export const coreSets = {
       type: "coreSet",
       title: "Child",
       path: "add-child",
-      excludedStates: [],
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
       title: "Health Home",
       path: "add-hh",
-      excludedStates: ["CA", "DE", "OK"],
       abbr: ["HHCS"],
+      stateList: getHHStates("2021"),
     },
     {
-      type: "text-slot",
+      type: "text",
       label:
         "Only one group of Adult Core Set Measures can be submitted per FFY",
     },
@@ -37,18 +43,17 @@ export const coreSets = {
       type: "coreSet",
       title: "Child",
       path: "add-child",
-      excludedStates: [],
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
       title: "Health Home",
       path: "add-hh",
-      excludedStates: ["CA", "DE", "OK"],
       abbr: ["HHCS"],
+      stateList: getHHStates("2022"),
     },
     {
-      type: "text-slot",
+      type: "text",
       label:
         "Only one group of Adult Core Set Measures can be submitted per FFY",
     },
@@ -64,18 +69,17 @@ export const coreSets = {
       type: "coreSet",
       title: "Child",
       path: "add-child",
-      excludedStates: [],
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
       title: "Health Home",
       path: "add-hh",
-      excludedStates: ["CA", "DE", "OK"],
       abbr: ["HHCS"],
+      stateList: getHHStates("2023"),
     },
     {
-      type: "text-slot",
+      type: "text",
       label:
         "Only one group of Adult Core Set Measures can be submitted per FFY",
     },
@@ -86,7 +90,6 @@ export const coreSets = {
       title: "Adult",
       path: "add-adult",
       loaded: false,
-      excludedStates: [],
       abbr: ["ACS"],
     },
     {
@@ -94,7 +97,6 @@ export const coreSets = {
       title: "Child",
       path: "add-child",
       loaded: false,
-      excludedStates: [],
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
@@ -102,8 +104,8 @@ export const coreSets = {
       title: "Health Home",
       path: "add-hh",
       loaded: false,
-      excludedStates: ["CA", "DE", "OK"],
       abbr: ["HHCS"],
+      stateList: getHHStates("2024"),
     },
   ],
 };
