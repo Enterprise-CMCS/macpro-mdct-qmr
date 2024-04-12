@@ -33,6 +33,11 @@ const AddChildCoreSet = lazy(() =>
     default: module.AddChildCoreSet,
   }))
 );
+const AddAdultCoreSet = lazy(() =>
+  import("views/AddAdultCoreSet").then((module) => ({
+    default: module.AddAdultCoreSet,
+  }))
+);
 const AddStateSpecificMeasure = lazy(() =>
   import("views/AddStateSpecificMeasure").then((module) => ({
     default: module.AddStateSpecificMeasure,

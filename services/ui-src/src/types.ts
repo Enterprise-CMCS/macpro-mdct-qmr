@@ -1,5 +1,7 @@
 export enum CoreSetAbbr {
   ACS = "ACS",
+  ACSM = "ACSM",
+  ACSC = "ACSC",
   CCS = "CCS",
   CCSM = "CCSM",
   CCSC = "CCSC",
