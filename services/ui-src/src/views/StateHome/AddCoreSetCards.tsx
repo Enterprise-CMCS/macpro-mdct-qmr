@@ -2,7 +2,6 @@ import { Link, useParams } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
-import { coreSets } from "shared/coreSetByYear";
 
 interface AddCoreSetCardProps {
   title: string;
@@ -56,43 +55,39 @@ export const AddCoreSetCard = ({
 };
 
 interface Props {
-  renderHealthHomeCoreSet?: boolean;
-  coreSetsInTable?: string[];
+  coreSetCards: any[];
 }
 
-export const AddCoreSetCards = ({
-  coreSetsInTable,
-}: // renderHealthHomeCoreSet = true,
-Props) => {
-  const { year } = useParams();
+const GetSetCard = (coreSet: any) => {
+  switch (coreSet.type) {
+    case "coreSet":
+      return (
+        <AddCoreSetCard
+          title={`Need to report on ${coreSet.title} data?`}
+          buttonText={`Add ${coreSet.title} Core Set`}
+          to={coreSet.path}
+          coreSetExists={coreSet.exist}
+        />
+      );
+    case "text":
+      return (
+        <CUI.Center w="44" textAlign="center">
+          <CUI.Text fontStyle="italic" fontSize="sm">
+            {coreSet.label}
+          </CUI.Text>
+        </CUI.Center>
+      );
+    default:
+      return <></>;
+  }
+};
 
-  const coreSetCards = (
-    coreSets[year as keyof typeof coreSets] as any[]
-  ).filter((set) => !set.loaded && set.type === "coreSet");
-
+export const AddCoreSetCards = ({ coreSetCards }: Props) => {
   return (
     <>
       {coreSetCards.map((coreSet: any) => {
-        return (
-          <AddCoreSetCard
-            title={`Need to report on ${coreSet.title} data?`}
-            buttonText={`Add ${coreSet.title} Core Set`}
-            to={coreSet.path}
-            coreSetExists={coreSet.abbr.some((abbr: string) =>
-              coreSetsInTable?.includes(abbr)
-            )}
-          />
-        );
+        return GetSetCard(coreSet);
       })}
-      {/* 
-      )}
-      {year && parseInt(year) < 2024 && (
-        <CUI.Center w="44" textAlign="center">
-          <CUI.Text fontStyle="italic" fontSize="sm">
-            Only one group of Adult Core Set Measures can be submitted per FFY
-          </CUI.Text>
-        </CUI.Center>
-      )} */}
     </>
   );
 };
