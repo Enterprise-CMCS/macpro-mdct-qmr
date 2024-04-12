@@ -1,11 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { AddCoreSetCards } from "../AddCoreSetCards";
+import { coreSets } from "shared/coreSetByYear";
 
 beforeEach(() => {
   render(
     <RouterWrappedComp>
-      <AddCoreSetCards coreSetsInTable={["CCS", "HHCS"]} />
+      <AddCoreSetCards coreSetCards={coreSets["2022"]} />
     </RouterWrappedComp>
   );
 });
