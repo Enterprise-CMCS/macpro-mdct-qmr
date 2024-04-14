@@ -25,7 +25,7 @@
     "react-bootstrap": "^2.0.1",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.4.2",
-    "react-hook-form": "^7.20.5",
+    "react-hook-form": "^7.51.1",
     "react-icons": "^4.3.1",
     "react-idle-timer": "^4.6.4",
     "react-query": "^3.34.5",
