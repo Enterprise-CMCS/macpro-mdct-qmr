@@ -6,13 +6,12 @@ export interface CoreSetFields {
 
 export interface CoreSetField {
   type: string;
-  title?: string;
+  label: string;
   loaded?: boolean;
   abbr?: string[];
   path?: string;
-  stateList?: string[];
-  label?: string;
   exist?: boolean;
+  stateList?: string[];
 }
 
 //health home isn't always avaliable for every state and sometimes has multiple HH coresets for a single state.
@@ -24,19 +23,19 @@ export const coreSets: CoreSetFields = {
   "2021": [
     {
       type: "coreSet",
-      title: "Adult",
+      label: "Adult",
       loaded: true,
       abbr: ["ACS"],
     },
     {
       type: "coreSet",
-      title: "Child",
+      label: "Child",
       path: "add-child",
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
-      title: "Health Home",
+      label: "Health Home",
       path: "add-hh",
       abbr: ["HHCS"],
       stateList: getHHStates("2021"),
@@ -50,19 +49,19 @@ export const coreSets: CoreSetFields = {
   "2022": [
     {
       type: "coreSet",
-      title: "Adult",
+      label: "Adult",
       loaded: true,
       abbr: ["ACS"],
     },
     {
       type: "coreSet",
-      title: "Child",
+      label: "Child",
       path: "add-child",
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
-      title: "Health Home",
+      label: "Health Home",
       path: "add-hh",
       abbr: ["HHCS"],
       stateList: getHHStates("2022"),
@@ -76,19 +75,19 @@ export const coreSets: CoreSetFields = {
   "2023": [
     {
       type: "coreSet",
-      title: "Adult",
+      label: "Adult",
       loaded: true,
       abbr: ["ACS"],
     },
     {
       type: "coreSet",
-      title: "Child",
+      label: "Child",
       path: "add-child",
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
-      title: "Health Home",
+      label: "Health Home",
       path: "add-hh",
       abbr: ["HHCS"],
       stateList: getHHStates("2023"),
@@ -102,21 +101,21 @@ export const coreSets: CoreSetFields = {
   "2024": [
     {
       type: "coreSet",
-      title: "Adult",
+      label: "Adult",
       path: "add-adult",
       loaded: false,
       abbr: ["ACS"],
     },
     {
       type: "coreSet",
-      title: "Child",
+      label: "Child",
       path: "add-child",
       loaded: false,
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
-      title: "Health Home",
+      label: "Health Home",
       path: "add-hh",
       loaded: false,
       abbr: ["HHCS"],

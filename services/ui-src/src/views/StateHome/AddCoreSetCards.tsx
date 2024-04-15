@@ -64,9 +64,9 @@ const GetSetCard = (coreSet: CoreSetField) => {
     case "coreSet":
       return (
         <AddCoreSetCard
-          key={coreSet.title}
-          title={`Need to report on ${coreSet.title} data?`}
-          buttonText={`Add ${coreSet.title} Core Set`}
+          key={coreSet.label}
+          title={`Need to report on ${coreSet.label} data?`}
+          buttonText={`Add ${coreSet.label} Core Set`}
           to={coreSet.path!}
           coreSetExists={coreSet.exist!}
         />
