@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
+import { CoreSetField } from "shared/coreSetByYear";
 
 interface AddCoreSetCardProps {
   title: string;
@@ -55,31 +56,19 @@ export const AddCoreSetCard = ({
 };
 
 interface Props {
-  childCoreSetExists: boolean;
-  healthHomesCoreSetExists: boolean;
-  renderHealthHomeCoreSet?: boolean;
+  coreSetCards: CoreSetField[];
 }
 
-export const AddCoreSetCards = ({
-  childCoreSetExists,
-  healthHomesCoreSetExists,
-  renderHealthHomeCoreSet = true,
-}: Props) => {
-  const { year } = useParams();
-  return (
-    <>
-      <AddCoreSetCard
-        title="Need to report on Child data?"
-        buttonText="Add Child Core Set"
-        to="add-child"
-        coreSetExists={childCoreSetExists}
-      />
-      {renderHealthHomeCoreSet && (
+const GetSetCard = (coreSet: CoreSetField) => {
+  switch (coreSet.type) {
+    case "coreSet":
+      return (
         <AddCoreSetCard
-          title="Need to report on Health Home data?"
-          buttonText="Add Health Home Core Set"
-          to="add-hh"
-          coreSetExists={healthHomesCoreSetExists}
+          key={coreSet.label}
+          title={`Need to report on ${coreSet.label} data?`}
+          buttonText={`Add ${coreSet.label} Core Set`}
+          to={coreSet.path!}
+          coreSetExists={coreSet.exist!}
         />
       )}
       <AddCoreSetCard
@@ -90,11 +79,26 @@ export const AddCoreSetCards = ({
       />
       {year && parseInt(year) < 2024 && (
         <CUI.Center w="44" textAlign="center">
+      );
+    case "text":
+      return (
+        <CUI.Center w="44" textAlign="center" key={coreSet.label}>
           <CUI.Text fontStyle="italic" fontSize="sm">
-            Only one group of Adult Core Set Measures can be submitted per FFY
+            {coreSet.label}
           </CUI.Text>
         </CUI.Center>
-      )}
+      );
+    default:
+      return <></>;
+  }
+};
+
+export const AddCoreSetCards = ({ coreSetCards }: Props) => {
+  return (
+    <>
+      {coreSetCards.map((coreSet: any) => {
+        return GetSetCard(coreSet);
+      })}
     </>
   );
 };

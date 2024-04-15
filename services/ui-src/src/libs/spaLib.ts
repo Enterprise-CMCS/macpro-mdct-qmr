@@ -254,20 +254,9 @@ export const SPA: { [year: string]: SPAi[] } = {
   ],
   "2023": [
     {
-      id: "19-0037",
-      state: "CA",
-      name: "California Health Home Program (HHP)",
-    },
-    { id: "20-0002", state: "CA", name: "California Behavioral Health Home" },
-    {
       id: "15-014",
       state: "CT",
       name: "Serious and Persistent Mental Illness",
-    },
-    {
-      id: "18-006",
-      state: "DE",
-      name: "Delaware Assertive Community Integration Support Team (ACIST) Health Home",
     },
     {
       id: "18-0006",
@@ -334,8 +323,6 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Health Home for High-Cost, High-Needs Enrollees ",
     },
     { id: "22-0073", state: "NY", name: "New York I/DD Health Home Services" },
-    { id: "14-0012", state: "OK", name: "Oklahoma Health Home (Adults)" },
-    { id: "14-0011", state: "OK", name: "Oklahoma Health Home (Children)" },
     {
       id: "18-009",
       state: "RI",
@@ -378,20 +365,9 @@ export const SPA: { [year: string]: SPAi[] } = {
   ],
   "2024": [
     {
-      id: "19-0037",
-      state: "CA",
-      name: "California Health Home Program (HHP)",
-    },
-    { id: "20-0002", state: "CA", name: "California Behavioral Health Home" },
-    {
       id: "15-014",
       state: "CT",
       name: "Serious and Persistent Mental Illness",
-    },
-    {
-      id: "18-006",
-      state: "DE",
-      name: "Delaware Assertive Community Integration Support Team (ACIST) Health Home",
     },
     {
       id: "18-0006",
@@ -459,8 +435,6 @@ export const SPA: { [year: string]: SPAi[] } = {
     },
     { id: "23-0062", state: "NY", name: "New York I/DD Health Home Services" },
     { id: "22-0024", state: "NC", name: "Tailored Care Management" },
-    { id: "14-0012", state: "OK", name: "Oklahoma Health Home (Adults)" },
-    { id: "14-0011", state: "OK", name: "Oklahoma Health Home (Children)" },
     {
       id: "18-009",
       state: "RI",

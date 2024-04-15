@@ -16,6 +16,7 @@ import { useGetReportingYears } from "hooks/api";
 import { useUpdateAllMeasures } from "hooks/useUpdateAllMeasures";
 import { useResetCoreSet } from "hooks/useResetCoreSet";
 import { BannerCard } from "components/Banner/BannerCard";
+import { coreSets, CoreSetField } from "shared/coreSetByYear";
 
 import { useFlags } from "launchdarkly-react-client-sdk";
 
@@ -197,7 +198,7 @@ const StateHome = () => {
   }
 
   const filteredSpas = SPA[year!].filter((s) => s.state === state);
-  const spaIds = filteredSpas.map((s) => s.id);
+  const spaIds = filteredSpas.map((s) => `${CoreSetAbbr.HHCS}_${s.id}`);
 
   const formattedTableItems = formatTableItems({
     items: data.Items,
@@ -208,25 +209,29 @@ const StateHome = () => {
     exportAll,
   });
 
-  const childCoreSetExists = formattedTableItems.some(
-    (v) =>
-      v.coreSet === CoreSetAbbr.CCS ||
-      v.coreSet === CoreSetAbbr.CCSC ||
-      v.coreSet === CoreSetAbbr.CCSM
+  //get all the coresets that have been added to the table
+  const coreSetInTable: string[] = formattedTableItems.map(
+    (item) => item.coreSet
   );
-
-  const filteredHealthHomeCoreSets = formattedTableItems.filter(
-    (v) => !!v?.coreSet?.includes(CoreSetAbbr.HHCS)
-  );
-  const allPossibleHealthHomeCoreSetsExist = !!(
-    filteredHealthHomeCoreSets.length &&
-    spaIds.every((s) =>
-      filteredHealthHomeCoreSets.some((v) => !!v?.coreSet?.includes(s))
+  //filter and format all the coreset down
+  const coreSetCards = (
+    coreSets[year as keyof typeof coreSets] as CoreSetField[]
+  )
+    .filter(
+      (set) =>
+        !set.loaded && (!set.stateList || set.stateList?.includes(state!))
     )
-  );
-
-  const selectedStates = ["CA", "DE", "OK"];
-  const hideHealthHome = year === "2023" && selectedStates.includes(userState);
+    .map((set) => {
+      //spaIds are only checked against healthHome measures
+      const spaInTable = spaIds?.every((id) => coreSetInTable.includes(id));
+      //once all the spaIds for this state have been added to the table, push 'HHCS' to the array to tell the system to disable the add button
+      if (spaInTable) coreSetInTable.push(CoreSetAbbr.HHCS);
+      //the key exist is to trigger the disable state of the add core set button
+      return {
+        ...set,
+        exist: set.abbr?.some((abbr: string) => coreSetInTable?.includes(abbr)),
+      };
+    });
 
   return (
     <QMR.StateLayout
@@ -248,11 +253,7 @@ const StateHome = () => {
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">
-        <AddCoreSetCards
-          childCoreSetExists={childCoreSetExists}
-          healthHomesCoreSetExists={allPossibleHealthHomeCoreSetsExist}
-          renderHealthHomeCoreSet={!hideHealthHome && !!spaIds?.length}
-        />
+        <AddCoreSetCards coreSetCards={coreSetCards} />
       </CUI.HStack>
     </QMR.StateLayout>
   );
