@@ -33,13 +33,11 @@ const AddChildCoreSet = lazy(() =>
     default: module.AddChildCoreSet,
   }))
 );
-/**
 const AddAdultCoreSet = lazy(() =>
   import("views/AddAdultCoreSet").then((module) => ({
     default: module.AddAdultCoreSet,
   }))
 );
- */
 const AddStateSpecificMeasure = lazy(() =>
   import("views/AddStateSpecificMeasure").then((module) => ({
     default: module.AddStateSpecificMeasure,
@@ -165,6 +163,7 @@ export function AppRoutes() {
           }
         />
         <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
+        <Route path=":state/:year/add-adult" element={<AddAdultCoreSet />} />
         <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
         <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
         <Route path=":state/:year/:coreSetId/pdf" element={<ExportAll />} />

@@ -82,6 +82,12 @@ export const AddCoreSetCards = ({
           coreSetExists={healthHomesCoreSetExists}
         />
       )}
+      <AddCoreSetCard
+        title="Need to report on Adult data?"
+        buttonText="Add Adult Core Set"
+        to="add-adult"
+        coreSetExists={childCoreSetExists}
+      />
       {year && parseInt(year) < 2024 && (
         <CUI.Center w="44" textAlign="center">
           <CUI.Text fontStyle="italic" fontSize="sm">
