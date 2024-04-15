@@ -48,4 +48,24 @@ describe("Test Add Adult Core Set Component", () => {
       )
     ).toBeChecked();
   });
+
+  it("Form properly interactable, combined selection", () => {
+    userEvent.click(
+      screen.getByText(
+        /Reporting Medicaid and CHIP measures in combined Core Sets/i
+      )
+    );
+
+    expect(
+      screen.getByLabelText(
+        /Reporting Medicaid and CHIP measures in combined Core Sets/i
+      )
+    ).toBeChecked();
+  });
+
+  it("creates the new adult core set", () => {
+    const mockSubmit = jest.fn();
+    userEvent.click(screen.getByRole("button", { name: "Create" }));
+    expect(mockSubmit.mock.calls.length).toEqual(1);
+  });
 });
