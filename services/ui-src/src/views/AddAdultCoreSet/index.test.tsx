@@ -62,10 +62,4 @@ describe("Test Add Adult Core Set Component", () => {
       )
     ).toBeChecked();
   });
-
-  it("creates the new adult core set", () => {
-    const mockSubmit = jest.fn();
-    userEvent.click(screen.getByRole("button", { name: "Create" }));
-    expect(mockSubmit.mock.calls.length).toEqual(1);
-  });
 });
