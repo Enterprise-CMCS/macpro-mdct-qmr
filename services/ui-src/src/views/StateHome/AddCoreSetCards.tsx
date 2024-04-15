@@ -70,15 +70,6 @@ const GetSetCard = (coreSet: CoreSetField) => {
           to={coreSet.path!}
           coreSetExists={coreSet.exist!}
         />
-      )}
-      <AddCoreSetCard
-        title="Need to report on Adult data?"
-        buttonText="Add Adult Core Set"
-        to="add-adult"
-        coreSetExists={childCoreSetExists}
-      />
-      {year && parseInt(year) < 2024 && (
-        <CUI.Center w="44" textAlign="center">
       );
     case "text":
       return (
