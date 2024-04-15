@@ -198,7 +198,7 @@ const StateHome = () => {
   }
 
   const filteredSpas = SPA[year!].filter((s) => s.state === state);
-  const spaIds = filteredSpas.map((s) => `HHCS_${s.id}`);
+  const spaIds = filteredSpas.map((s) => `${CoreSetAbbr.HHCS}_${s.id}`);
 
   const formattedTableItems = formatTableItems({
     items: data.Items,
@@ -225,7 +225,7 @@ const StateHome = () => {
       //spaIds are only checked against healthHome measures
       const spaInTable = spaIds?.every((id) => coreSetInTable.includes(id));
       //once all the spaIds for this state have been added to the table, push 'HHCS' to the array to tell the system to disable the add button
-      if (spaInTable) coreSetInTable.push("HHCS");
+      if (spaInTable) coreSetInTable.push(CoreSetAbbr.HHCS);
       //the key exist is to trigger the disable state of the add core set button
       return {
         ...set,
