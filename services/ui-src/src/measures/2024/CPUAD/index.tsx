@@ -43,9 +43,7 @@ export const CPUAD = ({
               <CMQ.DeviationFromMeasureSpec />
             </>
           )}
-          {isOtherMeasureSpecSelected && (
-            <CMQ.OtherPerformanceMeasure customPrompt={PMD.data?.customPrompt} />
-          )}
+          {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>

@@ -4,7 +4,7 @@ export * from "shared/commonQuestions/DateRange";
 export * from "shared/commonQuestions/DataSource";
 export * from "shared/commonQuestions/DataSourceCahps";
 export * from "shared/commonQuestions/AdditionalNotes";
-export * from "./OtherPerformanceMeasure";
+export * from "shared/commonQuestions/OtherPerformanceMeasure";
 export * from "./Reporting";
 export * from "shared/commonQuestions/StatusOfData";
 export * from "./WhyAreYouNotReporting";
