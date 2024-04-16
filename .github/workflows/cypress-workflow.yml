@@ -37,7 +37,7 @@ jobs:
         # run: |
         #   echo "test-matrix=$(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
         run: |
-          echo $(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/*
+          echo $(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/*)
           echo $(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')
           echo "test-matrix=$(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
     outputs:
