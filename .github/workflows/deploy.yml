@@ -21,55 +21,55 @@ jobs:
     if: github.ref_name == 'master'
     secrets:
       CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: set branch_name # Some integrations (Snyk) build very long branch names. This is a switch to make long branch names shorter.
-  #       run: |
-  #         BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
-  #         echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
-  #     - name: Validate branch name
-  #       run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
-  #     - name: set branch specific variable names
-  #       run: ./.github/build_vars.sh set_names
-  #     - name: set variable values
-  #       run: ./.github/build_vars.sh set_values
-  #       env:
-  #         AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
-  #         AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
-  #         STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
-  #         CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-  #     - name: Configure AWS credentials for GitHub Actions
-  #       uses: aws-actions/configure-aws-credentials@v4
-  #       with:
-  #         role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
-  #         aws-region: ${{ env.AWS_DEFAULT_REGION }}
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version-file: ".nvmrc"
-  #     - uses: actions/cache@v3
-  #       with:
-  #         path: "**/node_modules"
-  #         key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
-  #     - name: set path
-  #       run: |
-  #         echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-  #     - name: deploy
-  #       run: |
-  #         # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
-  #         # This can optionally be set as an GitHub Actions Secret
-  #         ./deploy.sh $STAGE_PREFIX$branch_name
-  #     - name: Endpoint
-  #       id: endpoint
-  #       run: |
-  #         APPLICATION_ENDPOINT=$(./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name)
-  #         echo "application_endpoint=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
-  #         echo "## Application Endpoint" >> $GITHUB_STEP_SUMMARY
-  #         echo "<$APPLICATION_ENDPOINT>" >> $GITHUB_STEP_SUMMARY
-  #       working-directory: services
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
+    steps:
+      - uses: actions/checkout@v4
+      - name: set branch_name # Some integrations (Snyk) build very long branch names. This is a switch to make long branch names shorter.
+        run: |
+          BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
+          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
+      - name: Validate branch name
+        run: ./.github/branchNameValidation.sh $STAGE_PREFIX$branch_name
+      - name: set branch specific variable names
+        run: ./.github/build_vars.sh set_names
+      - name: set variable values
+        run: ./.github/build_vars.sh set_values
+        env:
+          AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
+          AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
+          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
+          CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
+      - name: Configure AWS credentials for GitHub Actions
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+      - uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
+      - name: set path
+        run: |
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: deploy
+        run: |
+          # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
+          # This can optionally be set as an GitHub Actions Secret
+          ./deploy.sh $STAGE_PREFIX$branch_name
+      - name: Endpoint
+        id: endpoint
+        run: |
+          APPLICATION_ENDPOINT=$(./output.sh ui ApplicationEndpointUrl $STAGE_PREFIX$branch_name)
+          echo "application_endpoint=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
+          echo "## Application Endpoint" >> $GITHUB_STEP_SUMMARY
+          echo "<$APPLICATION_ENDPOINT>" >> $GITHUB_STEP_SUMMARY
+        working-directory: services
     outputs:
       application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
       BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION: ${{ steps.set_names.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION }}
