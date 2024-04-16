@@ -4,11 +4,27 @@ import { RouterWrappedComp } from "utils/testing";
 import { AddAdultCoreSet } from ".";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
+import { useUser } from "hooks/authHooks";
+import { UserRoles } from "types";
+
+jest.mock("hooks/authHooks");
+const mockUseUser = useUser as jest.Mock;
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: () => ({
+    year: "2024",
+    state: "OH",
+  }),
+}));
 
 const queryClient = new QueryClient();
 
 describe("Test Add Adult Core Set Component", () => {
   beforeEach(() => {
+    mockUseUser.mockImplementation(() => {
+      return { userState: "OH", userRole: UserRoles.STATE_USER };
+    });
     useApiMock({});
     render(
       <QueryClientProvider client={queryClient}>
@@ -61,5 +77,21 @@ describe("Test Add Adult Core Set Component", () => {
         /Reporting Medicaid and CHIP measures in combined Core Sets/i
       )
     ).toBeChecked();
+  });
+
+  test("Unauthorized state user sees unauthorized message", () => {
+    mockUseUser.mockImplementation(() => {
+      return { userState: "DC", userRole: UserRoles.STATE_USER };
+    });
+    render(
+      <QueryClientProvider client={queryClient}>
+        <RouterWrappedComp>
+          <AddAdultCoreSet />
+        </RouterWrappedComp>
+      </QueryClientProvider>
+    );
+    expect(
+      screen.getByText(/You are not authorized to view this page/i)
+    ).toBeInTheDocument();
   });
 });
