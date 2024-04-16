@@ -34,10 +34,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: set-test-matrix
+        # run: |
+        #   echo "test-matrix=$(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
         run: |
-          echo $(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/*)
-          test-matrix=$(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')
-          echo "test-matrix=$test-matrix" >> $GITHUB_OUTPUT
+          echo $(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/*
+          echo $(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')
+          echo "test-matrix=$(ls -1 tests/cypress/cypress/e2e/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_OUTPUT
     outputs:
       test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix}}
   e2e-tests:
