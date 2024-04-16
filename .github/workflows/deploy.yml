@@ -261,12 +261,8 @@ jobs:
     needs:
       - e2e-tests-init
       - e2e-feature-tests
-      - child-e2e-measure-tests
-      - adult-e2e-measure-tests
-      - health-home-e2e-measure-tests
       - deploy
       - register-runner
-      - a11y-tests
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
