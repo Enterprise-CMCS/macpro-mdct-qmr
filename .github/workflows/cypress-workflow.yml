@@ -36,7 +36,7 @@ jobs:
       - id: set-test-matrix
         run: |
           TEST_PATH="tests/cypress/cypress/e2e/${{ inputs.test-path }}/*"
-          [ -z "$(find "${TEST_PATH}" -maxdepth 0 -type d -empty 2>/dev/null)" ] && echo "No test definition found...exiting" && exit 1
+          [ -n "$(find ${TEST_PATH} -maxdepth 0 -type d -empty 2>/dev/null)" ] && echo "No test definition found...exiting" && exit 1
           TEST_MATRIX=$(ls -1 "${TEST_PATH}" | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')
           echo "Test definitions: ${TEST_MATRIX}"
           echo "test-matrix=${TEST_MATRIX}" >> $GITHUB_OUTPUT
