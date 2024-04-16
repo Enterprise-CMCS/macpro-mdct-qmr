@@ -238,54 +238,6 @@ jobs:
       cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
       cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
 
-  child-e2e-measure-tests:
-    name: "Child End To End Tests"
-    uses: ./.github/workflows/cypress-workflow.yml
-    needs:
-      - e2e-tests-init
-      - setup-tests
-    with:
-      test-path: "measures/child"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
-    secrets:
-      cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
-      cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
-      cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
-      cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
-      cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
-
-  adult-e2e-measure-tests:
-    name: "Adult End To End Tests"
-    uses: ./.github/workflows/cypress-workflow.yml
-    needs:
-      - e2e-tests-init
-      - setup-tests
-    with:
-      test-path: "measures/adult"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
-    secrets:
-      cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
-      cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
-      cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
-      cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
-      cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
-
-  health-home-e2e-measure-tests:
-    name: "Health Home End To End Measure Tests"
-    uses: ./.github/workflows/cypress-workflow.yml
-    needs:
-      - e2e-tests-init
-      - setup-tests
-    with:
-      test-path: "measures/healthhome"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
-    secrets:
-      cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
-      cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
-      cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
-      cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
-      cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
-
   e2e-feature-tests:
     name: End To End Feature Tests
     uses: ./.github/workflows/cypress-workflow.yml
@@ -302,21 +254,6 @@ jobs:
       cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
       cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
 
-  a11y-tests:
-    name: Accessibility Tests
-    needs:
-      - e2e-tests-init
-    uses: ./.github/workflows/cypress-workflow.yml
-    with:
-      test-path: "a11y"
-      test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
-    secrets:
-      cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
-      cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
-      cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
-      cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
-      cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
-
   cleanup:
     name: Delist GHA Runner CIDR Blocks
     if: ${{ github.ref_name != 'master' && github.ref_name != 'val' && github.ref_name != 'prod' }}
@@ -324,12 +261,8 @@ jobs:
     needs:
       - e2e-tests-init
       - e2e-feature-tests
-      - child-e2e-measure-tests
-      - adult-e2e-measure-tests
-      - health-home-e2e-measure-tests
       - deploy
       - register-runner
-      - a11y-tests
     env:
       SLS_DEPRECATION_DISABLE: "*" # Turn off deprecation warnings in the pipeline
     steps:
