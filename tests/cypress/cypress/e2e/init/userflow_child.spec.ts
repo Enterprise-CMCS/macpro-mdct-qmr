@@ -47,14 +47,13 @@ describe("Measure: CCW-CH", () => {
   );
 
   // upload a file
-  /*
   it("Can upload a file", () => {
     cy.get('[data-testid="upload-stack"]').scrollIntoView();
     cy.get('[data-testid="upload-component"]')
       .invoke("show")
       .selectFile(`${filePath}adobe.pdf`);
     cy.get('[data-cy="file-upload-adobe.pdf"]').should("be.visible");
-  }); */
+  });
 });
 
 describe("submit coreset", () => {

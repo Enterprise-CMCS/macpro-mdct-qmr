@@ -5,7 +5,7 @@ const filePath = "fixtures/files/";
 // workflow to test: user goes through basic expected functionality for adult core set
 
 // fill out a measure for 2024
-describe.skip("Measure: CDF-AD", () => {
+describe("Measure: CDF-AD", () => {
   beforeEach(() => {
     cy.login();
     cy.selectYear(testingYear);
