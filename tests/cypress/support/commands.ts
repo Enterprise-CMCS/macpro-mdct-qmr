@@ -12,6 +12,7 @@ const loginUser = (user: string) => {
       stateuser3: Cypress.env("TEST_USER_3"),
       stateuser2: Cypress.env("TEST_USER_2"),
       stateuser1: Cypress.env("TEST_USER_1"),
+      adminuser: "adminuser@test.com",
     };
     cy.visit("/");
     cy.get(emailForCognito).type(`${users[user]}`);
