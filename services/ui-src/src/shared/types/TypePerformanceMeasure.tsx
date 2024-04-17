@@ -1,6 +1,5 @@
 import { LabelData } from "utils";
 import { ndrFormula } from "types";
-import { PerformanceMeasureData } from "measures/2024/shared/CommonQuestions/PerformanceMeasure/data";
 
 export interface Props {
   data: PerformanceMeasureData;
@@ -34,4 +33,19 @@ export interface NdrSetProps {
   customDenominatorLabel?: string;
   customRateLabel?: string;
   rateCalc?: RateFormula;
+}
+
+export interface PerformanceMeasureData {
+  qualifiers?: LabelData[]; // age ranges, etc
+  categories?: LabelData[]; //performance measure descriptions
+  measureName?: string;
+  inputFieldNames?: LabelData[];
+  ndrFormulas?: ndrFormula[];
+  customPrompt?: string; // Default: "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
+  questionText?: string[];
+  questionListItems?: string[];
+  questionListOrderedItems?: string[];
+  questionListTitles?: string[];
+  questionSubtext?: string[];
+  questionSubtextTitles?: string[];
 }
