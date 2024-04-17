@@ -5,7 +5,7 @@ export * from "shared/commonQuestions/DataSource";
 export * from "shared/commonQuestions/DataSourceCahps";
 export * from "shared/commonQuestions/AdditionalNotes";
 export * from "shared/commonQuestions/OtherPerformanceMeasure";
-export * from "./Reporting";
+export * from "shared/commonQuestions/Reporting";
 export * from "shared/commonQuestions/StatusOfData";
 export * from "shared/commonQuestions/WhyAreYouNotReporting";
 export * from "shared/commonQuestions/NotCollectingOMS";
