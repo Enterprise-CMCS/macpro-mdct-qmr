@@ -1,5 +1,5 @@
 import fireEvent from "@testing-library/user-event";
-import { OtherPerformanceMeasure } from ".";
+import { OtherPerformanceMeasure } from "./OtherPerformanceMeasure";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { DataDrivenTypes } from "../types";
@@ -17,7 +17,7 @@ const renderComponent = ({ RateComponent, data, rateAlwaysEditable }: Props) =>
   renderWithHookForm(
     <OtherPerformanceMeasure
       rateAlwaysEditable={rateAlwaysEditable}
-      data={data}
+      customPrompt={data?.customPrompt}
       RateComponent={RateComponent}
     />,
     {
