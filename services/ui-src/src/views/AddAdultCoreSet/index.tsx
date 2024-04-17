@@ -50,7 +50,7 @@ export const AddAdultCoreSet = () => {
       case ReportType.SEPARATE:
         mutation.mutate(CoreSetAbbr.ACSM, {
           onSuccess: () => {
-            mutation.mutate(CoreSetAbbr.ACS, {
+            mutation.mutate(CoreSetAbbr.ACSC, {
               onSuccess: () => {
                 queryClient.refetchQueries(["coreSets", state, year]);
                 navigate(`/${state}/${year}`);
@@ -60,7 +60,7 @@ export const AddAdultCoreSet = () => {
         });
         break;
       case ReportType.COMBINED:
-        mutation.mutate(CoreSetAbbr.ACSC, {
+        mutation.mutate(CoreSetAbbr.ACS, {
           onSuccess: () => {
             queryClient.refetchQueries(["coreSets", state, year]);
             navigate(`/${state}/${year}`);
