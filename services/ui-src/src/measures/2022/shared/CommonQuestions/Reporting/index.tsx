@@ -3,7 +3,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
-import { WhyAreYouNotReporting } from "../WhyAreYouNotReporting";
+import { WhyAreYouNotReporting } from "shared/commonQuestions/WhyAreYouNotReporting";
 
 interface Props {
   measureName: string;
