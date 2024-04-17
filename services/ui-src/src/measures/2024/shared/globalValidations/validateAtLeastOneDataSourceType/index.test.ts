@@ -48,6 +48,20 @@ describe("validateOneDataSourceType", () => {
     expect(errorArray[0].errorMessage).toBe("You must select a data source");
   });
 
+  it("Error message text should match default errorMessage", () => {
+    formData[DC.DATA_SOURCE] = [];
+    formData[DC.DATA_SOURCE_SELECTIONS] = {
+      OtherDataSource: {
+        selected: undefined,
+      },
+    };
+    errorArray = [...validateAtLeastOneDataSourceType(formData)];
+    expect(errorArray.length).toBe(1);
+    expect(errorArray[0].errorMessage).toBe(
+      "Please describe the Other Data Source"
+    );
+  });
+
   it("Error message text should match provided errorMessage", () => {
     formData[DC.DATA_SOURCE] = [];
     formData[DC.DATA_SOURCE_SELECTIONS] = {

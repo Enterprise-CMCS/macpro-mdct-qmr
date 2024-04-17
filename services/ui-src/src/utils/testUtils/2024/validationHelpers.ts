@@ -5,10 +5,8 @@ This should be the file used for some of the unit test from year 2024 onward
 
 import * as DC from "dataConstants";
 import * as Types from "measures/2024/shared/CommonQuestions/types";
-import {
-  OMSData,
-  OmsNode,
-} from "measures/2024/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+import { OmsNode } from "shared/types";
 import { LabelData } from "utils";
 import {
   RateFields,
@@ -239,7 +237,7 @@ export const generateOmsFormData = (
   addToSelections = true,
   renderData?: Types.DataDrivenTypes.OptionalMeasureStrat
 ) => {
-  const data = renderData ?? OMSData();
+  const data = renderData ?? OMSData(2024);
   const description = "TestAdditionalCategoryOrSubCategory";
   const omsData: Types.OptionalMeasureStratification = {
     OptionalMeasureStratification: { options: [], selections: {} },

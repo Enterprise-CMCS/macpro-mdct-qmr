@@ -10,6 +10,7 @@ import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { validationFunctions } from "./validation";
+import fireEvent from "@testing-library/user-event";
 import {
   mockValidateAndSetErrors,
   clearMocks,
@@ -93,12 +94,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   });
 
   it("shows corresponding questions if yes to reporting then ", async () => {
-    apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
     expect(
       screen.queryByTestId("measurement-specification")
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("Agency for Healthcare Research and Quality (AHRQ)")
     ).toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).toBeInTheDocument();
     expect(screen.queryByTestId("date-range")).toBeInTheDocument();
@@ -122,15 +125,37 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toBeInTheDocument();
   });
 
-  it("shows corresponding components and hides others when primary measure is selected", async () => {
-    apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
+  it("when primary measure is selected, performance measure section is available and correctly calculates rates", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
+    fireEvent.click(
+      screen.getByLabelText("Agency for Healthcare Research and Quality (AHRQ)")
+    );
+
+    // check custom PM rate calcuation
     expect(screen.queryByTestId("performance-measure")).toBeInTheDocument();
-    expect(
-      screen.queryByTestId("deviation-from-measure-specification")
-    ).toBeInTheDocument();
-    expect(screen.queryByTestId("OPM")).not.toBeInTheDocument();
+    const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
+    const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
+    fireEvent.type(numeratorTextBox, "4");
+    fireEvent.type(denominatorTextBox, "3");
+
+    const rateTextBox = screen.queryAllByLabelText("Rate")[0];
+    expect(rateTextBox).toHaveDisplayValue("133333.3");
+
+    const numeratorTextBox1 = screen.queryAllByLabelText("Numerator")[1];
+    const denominatorTextBox1 = screen.queryAllByLabelText("Denominator")[1];
+    fireEvent.type(numeratorTextBox1, "1");
+    fireEvent.type(denominatorTextBox1, "1");
+
+    const rateTextBox1 = screen.queryAllByLabelText("Rate")[1];
+    expect(rateTextBox1).toHaveDisplayValue("100000.0");
+
+    const numeratorTextBox2 = screen.queryAllByLabelText("Numerator")[2];
+    const denominatorTextBox2 = screen.queryAllByLabelText("Denominator")[2];
+    const rateTextBox2 = screen.queryAllByLabelText("Rate")[2];
+    expect(numeratorTextBox2).toHaveDisplayValue("5");
+    expect(denominatorTextBox2).toHaveDisplayValue("4");
+    expect(rateTextBox2).toHaveDisplayValue("125000.0");
   });
 
   it("shows corresponding components and hides others when primary measure is NOT selected", async () => {
@@ -142,19 +167,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       screen.queryByTestId("deviation-from-measure-specification")
     ).not.toBeInTheDocument();
-  });
-
-  it("shows OMS when performance measure data has been entered", async () => {
-    apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    expect(screen.queryByTestId("OMS"));
-  });
-  it("does not show OMS when performance measure data has been entered", async () => {
-    apiData.useGetMeasureValues.data.Item.data = notReportingData;
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    expect(screen.queryByTestId("OMS")).not.toBeInTheDocument();
   });
 
   /** Validations Test
@@ -213,10 +225,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
-    renderWithHookForm(component);
     await act(async () => {
-      const results = await axe(screen.getByTestId("measure-wrapper-form"));
-      expect(results).toHaveNoViolations();
+      const { container } = renderWithHookForm(component);
+      expect(await axe(container)).toHaveNoViolations();
     });
   });
 });
@@ -232,27 +243,27 @@ const completedMeasureData = {
     rates: {
       singleCategory: [
         {
-          label: "Ages 19 to 50",
-          rate: "100.0",
+          label: "Ages 18 to 64",
+          rate: "100000.0",
           numerator: "55",
           denominator: "55",
         },
         {
-          label: "Ages 51 to 64",
-          rate: "100.0",
+          label: "Ages 65 and older",
+          rate: "100000.0",
           numerator: "55",
           denominator: "55",
         },
         {
           label: "Total",
           isTotal: true,
-          rate: "100.0",
+          rate: "100000.0",
           numerator: "110",
           denominator: "110",
         },
       ],
     },
   },
-  MeasurementSpecification: "NCQA/HEDIS",
+  MeasurementSpecification: "AHRQ",
   DidReport: "yes",
 };

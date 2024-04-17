@@ -41,9 +41,6 @@ declare namespace Cypress {
     // removes health home core set from main page
     deleteHealthHomeSets(): Chainable<Element>;
 
-    // axe api documentation: https://www.deque.com/axe/core-documentation/api-documentation/
-    checkA11yOfPage(): Chainable<Element>;
-
     // if user doesn't fill description box, show error
     showErrorIfNotReportingAndNotWhy(): Chainable<Element>;
 

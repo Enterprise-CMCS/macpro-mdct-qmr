@@ -11,9 +11,6 @@ on:
         required: true
         type: string
     secrets:
-      slack-url:
-        description: "Slack Webhook URL"
-        required: true
       cypress-user1:
         description: "Cypress User 1"
         required: true

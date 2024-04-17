@@ -9,8 +9,9 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
     "Percentage of beneficiaries receiving long-term services and supports (LTSS) services ages 18 and older who have documentation of a comprehensive long-term services and supports (LTSS) care plan in a specified time frame that includes core elements. The following rates are reported:",
   ],
   questionListItems: [
-    "Care Plan with Core Elements Documented.  Beneficiaries who had a comprehensive LTSS care plan with 9 core elements documented within 120 days of enrollment (for new beneficiaries) or during the measurement year (for established beneficiaries).",
-    "Care Plan with Supplemental Elements Documented.  Beneficiaries who had a comprehensive LTSS care plan with 9 core elements and at least 4 supplemental elements documented within 120 days of enrollment (for new beneficiaries) or during the measurement year (for established beneficiaries).",
+    "Care Plan with Core Elements Documented. Beneficiaries who had a comprehensive LTSS care plan with 9 core elements documented within 120 days of enrollment (for new beneficiaries) or during the measurement year (for established beneficiaries).",
+    "Care Plan with Supplemental Elements Documented. Beneficiaries who had a comprehensive LTSS care plan with 9 core elements and at least 4 supplemental elements documented within 120 days of enrollment (for new beneficiaries) or during the measurement year (for established beneficiaries).",
+    "In addition, states should report the number of exclusions by type as follows: (1)Could Not Be Reached for Care Planning, and (2)Refusal to Participate in Care Planning.",
   ],
   categories,
   qualifiers,

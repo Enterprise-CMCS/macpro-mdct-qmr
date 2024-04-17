@@ -187,13 +187,15 @@ export const DefinitionOfPopulation = ({
           healthHomeMeasure
         )}
       {childMeasure && ChildDefinitions(register)}
-      <CUI.Box my="5">
-        <QMR.TextArea
-          formLabelProps={{ fontWeight: "400" }}
-          label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-          {...register(DC.CHANGE_IN_POP_EXPLANATION)}
-        />
-      </CUI.Box>
+      {labels.DefinitionsOfPopulation.changeInPopExplanation && (
+        <CUI.Box my="5">
+          <QMR.TextArea
+            formLabelProps={{ fontWeight: "400" }}
+            label={labels.DefinitionsOfPopulation.changeInPopExplanation}
+            {...register(DC.CHANGE_IN_POP_EXPLANATION)}
+          />
+        </CUI.Box>
+      )}
       <CUI.Box my="5">
         <QMR.RadioButton
           formLabelProps={{ fontWeight: "600" }}

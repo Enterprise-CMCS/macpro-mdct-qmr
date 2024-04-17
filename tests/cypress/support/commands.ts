@@ -193,26 +193,6 @@ function terminalLog(violations) {
   cy.task("table", violationData);
 }
 
-// axe api documentation: https://www.deque.com/axe/core-documentation/api-documentation/
-Cypress.Commands.add("checkA11yOfPage", () => {
-  cy.wait(500);
-  cy.injectAxe();
-  cy.checkA11y(
-    null,
-    {
-      // @ts-ignore
-      values: ["wcag2a", "wcag2aa"],
-      includedImpacts: ["serious", "critical"], // options: "minor", "moderate", "serious", "critical"
-    },
-    terminalLog,
-    // (err) => {
-    //   console.log("Accessibility violations:");
-    //   console.log({ err });
-    // },
-    false // true = does not fail tests for ally violations
-  );
-});
-
 // if user doesn't fill description box, show error
 Cypress.Commands.add("showErrorIfNotReportingAndNotWhy", () => {
   cy.get('[data-cy="DidReport1"]').click();

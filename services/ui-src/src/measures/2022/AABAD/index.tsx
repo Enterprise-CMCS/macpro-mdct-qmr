@@ -58,7 +58,7 @@ export const AABAD = ({
           )}
           {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure
-              data={PMD.data}
+              customPrompt={PMD.data.customPrompt}
               rateCalc={AABRateCalculation}
             />
           )}
