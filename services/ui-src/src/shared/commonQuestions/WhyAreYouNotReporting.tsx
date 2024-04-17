@@ -21,8 +21,6 @@ export const WhyAreYouNotReporting = ({
   const pheIsCurrent = useFlags()?.[`periodOfHealthEmergency${labels.year}`];
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
 
-  console.log("pheIsCurrent", pheIsCurrent);
-
   return (
     <QMR.CoreQuestionWrapper
       testid="why-are-you-not-reporting"
