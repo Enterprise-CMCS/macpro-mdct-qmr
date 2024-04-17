@@ -172,7 +172,8 @@ export const WhyAreYouNotReporting = ({
             ],
           },
           //for years 2023 and over, check the flag to see if the label should be enabled
-          ...(!labels.periodOfHealthEmergencyFlag || pheIsCurrent
+          ...(!labels.WhyAreYouNotReporting?.periodOfHealthEmergencyFlag ||
+          pheIsCurrent
             ? [
                 {
                   displayValue:
