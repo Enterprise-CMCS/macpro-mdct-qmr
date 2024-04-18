@@ -11,17 +11,14 @@ on:
         required: true
         type: string
     secrets:
-      cypress-user1:
-        description: "Cypress User 1"
-        required: true
-      cypress-user2:
-        description: "Cypress User 2"
-        required: true
       cypress-user3:
         description: "Cypress User 3"
         required: true
       cypress-user4:
         description: "Cypress User 4"
+        required: true
+      cypress-admin-user:
+        description: "Cypress Admin User"
         required: true
       cypress-password:
         description: "Cypress Password"
@@ -68,11 +65,10 @@ jobs:
           config: baseUrl=${{ inputs.test-endpoint }}
           env: true
         env:
-          CYPRESS_TEST_USER_1: ${{ secrets.cypress-user1 }}
-          CYPRESS_TEST_USER_2: ${{ secrets.cypress-user2 }}
-          CYPRESS_TEST_USER_3: ${{ secrets.cypress-user3 }}
-          CYPRESS_TEST_USER_4: ${{ secrets.cypress-user4 }}
-          CYPRESS_TEST_PASSWORD_1: ${{ secrets.cypress-password }}
+          CYPRESS_STATE_USER_3: ${{ secrets.cypress-user3 }}
+          CYPRESS_STATE_USER_4: ${{ secrets.cypress-user4 }}
+          CYPRESS_ADMIN_USER: ${{ secrets.cypress-admin-user }}
+          CYPRESS_QMR_PASSWORD: ${{ secrets.cypress-password }}
       - name: Upload screenshots
         uses: actions/upload-artifact@v3
         if: failure()

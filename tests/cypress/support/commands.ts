@@ -10,8 +10,6 @@ const loginUser = (user: string) => {
     const users = {
       stateuser4: Cypress.env("STATE_USER_4"),
       stateuser3: Cypress.env("STATE_USER_3"),
-      stateuser2: Cypress.env("STATE_USER_2"),
-      stateuser1: Cypress.env("STATE_USER_1"),
       adminuser: Cypress.env("ADMIN_USER"),
     };
     cy.visit("/");

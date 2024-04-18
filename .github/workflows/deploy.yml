@@ -232,11 +232,10 @@ jobs:
       test-path: "e2e"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
-      cypress-user1: ${{ secrets.CYPRESS_TEST_USER_1 }}
-      cypress-user2: ${{ secrets.CYPRESS_TEST_USER_2 }}
-      cypress-user3: ${{ secrets.CYPRESS_TEST_USER_3 }}
-      cypress-user4: ${{ secrets.CYPRESS_TEST_USER_4 }}
-      cypress-password: ${{ secrets.CYPRESS_TEST_PASSWORD_1 }}
+      cypress-user3: ${{ secrets.CYPRESS_STATE_USER_3 }}
+      cypress-user4: ${{ secrets.CYPRESS_STATE_USER_4 }}
+      cypress-admin-user: ${{ secrets.CYPRESS_ADMIN_USER }}
+      cypress-password: ${{ secrets.CYPRESS_QMR_PASSWORD }}
 
   cleanup:
     name: Delist GHA Runner CIDR Blocks
