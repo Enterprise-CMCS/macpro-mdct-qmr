@@ -17,11 +17,6 @@ export const WhyAreYouNotReporting = ({
 }: Props) => {
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
-  const {
-    limitWithDataCollection,
-    limitWithDataCollectionDesc,
-    periodOfHealthEmergencyFlag,
-  } = labels.WhyAreYouNotReporting;
 
   const pheIsCurrent = useFlags()?.[`periodOfHealthEmergency${labels.year}`];
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
@@ -177,14 +172,19 @@ export const WhyAreYouNotReporting = ({
             ],
           },
           //for years 2023 and over, check the flag to see if the label should be enabled
-          ...(!periodOfHealthEmergencyFlag || pheIsCurrent
+          ...(!labels.WhyAreYouNotReporting?.periodOfHealthEmergencyFlag ||
+          pheIsCurrent
             ? [
                 {
-                  displayValue: limitWithDataCollection,
+                  displayValue:
+                    labels.WhyAreYouNotReporting?.limitWithDataCollection,
                   value: DC.LIMITATION_WITH_DATA_COLLECTION,
                   children: [
                     <QMR.TextArea
-                      label={limitWithDataCollectionDesc}
+                      label={
+                        labels.WhyAreYouNotReporting
+                          ?.limitWithDataCollectionDesc
+                      }
                       {...register(DC.LIMITATION_WITH_DATA_COLLECTION)}
                     />,
                   ],
