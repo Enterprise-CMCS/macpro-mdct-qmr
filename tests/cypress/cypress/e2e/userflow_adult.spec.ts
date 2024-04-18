@@ -1,5 +1,5 @@
 import { create } from "cypress/types/lodash";
-import { measureAbbrList2024, testingYear } from "../../../support/constants";
+import { measureAbbrList2024, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
@@ -38,11 +38,11 @@ describe("submit coreset", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.get('[data-cy="adult-kebab-menu"]').click();
+    // force click ensures reset gets hit (without force it fails when child set is present)
+    cy.get('[aria-label="Reset All Measures for ACS"]').click({ force: true });
     cy.wait(1000);
-    cy.get('[aria-label="Reset All Measures for ACS"]').click();
-    cy.wait(4000);
     // confirm reset
-    cy.get('[data-cy="Status-MA2024ACS"]').should(
+    cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
       "in progress3 of 33 complete"
     );
@@ -51,9 +51,9 @@ describe("submit coreset", () => {
   it("submit and confirm submission", () => {
     // complete core set
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[data-cy="Complete All Measures"]').first().click();
+    cy.get('[aria-label="Complete All Measures for ACS"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-MA2024ACS"]').should(
+    cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
       "complete33 of 33 complete"
     );
@@ -68,7 +68,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-MA2024ACS"]').should(
+    cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
       "submitted33 of 33 complete"
     );
@@ -88,7 +88,7 @@ describe("Export All Measures", () => {
 
   it("Test Adult Core Set", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[data-cy="Export"]').first().click();
+    cy.get('[aria-label="Export for ACS"]').click();
 
     // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2024.ADULT) {

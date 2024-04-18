@@ -11,6 +11,13 @@ export default defineConfig({
   videosFolder: "videos",
   downloadsFolder: "downloads",
   defaultCommandTimeout: 15000,
+  env: {
+    STATE_USER_1: "stateuser1@test.com",
+    STATE_USER_2: "stateuser2@test.com",
+    STATE_USER_3: "stateuser3@test.com",
+    STATE_USER_4: "stateuser4@test.com",
+    ADMIN_USER: "adminuser@test.com",
+  },
   e2e: {
     setupNodeEvents,
     baseUrl: "http://localhost:3000/",

@@ -1,4 +1,4 @@
-import { testingYear } from "../../../support/constants";
+import { testingYear } from "../../support/constants";
 
 // workflow to test: user goes through basic expected functionality as an admin
 

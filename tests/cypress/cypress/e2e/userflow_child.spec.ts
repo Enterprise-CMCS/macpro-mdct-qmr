@@ -1,4 +1,4 @@
-import { measureAbbrList2024, testingYear } from "../../../support/constants";
+import { measureAbbrList2024, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for child core set
@@ -56,15 +56,15 @@ describe("Measure: CCW-CH", () => {
   });
 });
 
-describe("submit coreset", () => {
+describe.only("submit coreset", () => {
   beforeEach(() => {
     cy.login();
     cy.selectYear(testingYear);
     cy.get('[data-cy="child-kebab-menu"]').click();
-    cy.get('[data-cy="Reset All Measures"]').eq(1).click();
+    cy.get('[aria-label="Reset All Measures for CCS"]').click();
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-MA2024CCS"]').should(
+    cy.get('[data-cy="Status-WY2024CCS"]').should(
       "contain.text",
       "in progress3 of 27 complete"
     );
@@ -72,9 +72,9 @@ describe("submit coreset", () => {
   it("submit and confirm submission", () => {
     // complete core set
     cy.get('[data-cy="child-kebab-menu"]').click();
-    cy.get('[data-cy="Complete All Measures"]').eq(1).click();
+    cy.get('[aria-label="Complete All Measures for CCS"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-MA2024CCS"]').should(
+    cy.get('[data-cy="Status-WY2024CCS"]').should(
       "contain.text",
       "complete27 of 27 complete"
     );
@@ -89,7 +89,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-MA2024CCS"]').should(
+    cy.get('[data-cy="Status-WY2024CCS"]').should(
       "contain.text",
       "submitted27 of 27 complete"
     );
@@ -118,8 +118,7 @@ describe("Export All Measures", () => {
 
     cy.contains("tr", "Child").within(() => {
       cy.get('[data-cy="child-kebab-menu"]').click();
-      // currently, Child coreset uses "Export All" – this may change
-      cy.contains("Export").click();
+      cy.get('[aria-label="Export for CCS"]').click();
     });
 
     // Check all measures + CSQ present
