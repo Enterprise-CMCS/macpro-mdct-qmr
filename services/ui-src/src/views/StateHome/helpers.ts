@@ -3,6 +3,7 @@ import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { SPAi } from "libs/spaLib";
+import { CoreSetField } from "shared/coreSetByYear";
 
 interface HandleDeleteData {
   state: string;
@@ -36,6 +37,7 @@ export interface CoreSetDataItems {
   updateAllMeasures: (data: UpdateAllMeasuresData) => void;
   resetCoreSet: (data: any) => void;
   filteredSpas?: SPAi[];
+  loaded?: CoreSetField;
 }
 
 const getCoreSetType = (type: CoreSetAbbr) => {
@@ -62,6 +64,7 @@ export const formatTableItems = ({
   resetCoreSet,
   filteredSpas,
   exportAll,
+  loaded,
 }: CoreSetDataItems) => {
   const coreSetTableItems = items.map(
     ({
@@ -72,6 +75,7 @@ export const formatTableItems = ({
       submitted,
       compoundKey,
     }: CoreSetDataItem): CoreSetTableItem.Data => {
+      // filter on const tempSet?
       const tempSet = coreSet.split("_");
       const tempSpa =
         tempSet.length === 2 &&

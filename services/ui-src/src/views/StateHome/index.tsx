@@ -207,12 +207,14 @@ const StateHome = () => {
     resetCoreSet,
     filteredSpas,
     exportAll,
+    loaded: CoreSetField.loaded,
   });
 
   //get all the coresets that have been added to the table
   const coreSetInTable: string[] = formattedTableItems.map(
     (item) => item.coreSet
   );
+  console.log(coreSets[year as keyof typeof coreSets] as CoreSetField[]);
   //filter and format all the coreset down
   const coreSetCards = (
     coreSets[year as keyof typeof coreSets] as CoreSetField[]
