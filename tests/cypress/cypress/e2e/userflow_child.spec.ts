@@ -56,7 +56,7 @@ describe("Measure: CCW-CH", () => {
   });
 });
 
-describe.only("submit coreset", () => {
+describe("submit coreset", () => {
   beforeEach(() => {
     cy.login();
     cy.selectYear(testingYear);
