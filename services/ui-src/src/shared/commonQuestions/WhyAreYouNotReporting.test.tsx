@@ -1,10 +1,12 @@
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { WhyAreYouNotReporting } from ".";
-import { mockLDFlags } from "../../../../../../setupJest";
+import { WhyAreYouNotReporting } from "./WhyAreYouNotReporting";
+import { mockLDFlags } from "../../../setupJest";
 import userEvent from "@testing-library/user-event";
+import SharedContext from "shared/SharedContext";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
-mockLDFlags.setDefault({ periodOfHealthEmergency2023: false });
+mockLDFlags.setDefault({ periodOfHealthEmergency2024: false });
 
 describe("WhyAreYouNotReporting component initial appearance", () => {
   beforeEach(() => {
@@ -199,8 +201,12 @@ describe("WhyAreYouNotReporting component, Health Homes", () => {
 
 describe("Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic (PHE active)", () => {
   it("renders textBox correctly", () => {
-    mockLDFlags.set({ periodOfHealthEmergency2023: true });
-    renderWithHookForm(<WhyAreYouNotReporting />);
+    mockLDFlags.set({ periodOfHealthEmergency2024: true });
+    renderWithHookForm(
+      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2024" }}>
+        <WhyAreYouNotReporting />
+      </SharedContext.Provider>
+    );
     userEvent.click(
       screen.getByLabelText(
         "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic"
