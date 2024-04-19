@@ -19,8 +19,7 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   for (const qual of qualifiers.map((s) => s.id)) {
     for (let initiation = 0; initiation < categories.length; initiation += 2) {
       const engagement = initiation + 1;
-      const initRate =
-        rateData.rates?.[qual]?.[categories[initiation].id]?.[0];
+      const initRate = rateData.rates?.[qual]?.[categories[initiation].id]?.[0];
       const engageRate =
         rateData.rates?.[qual]?.[categories[engagement].id]?.[0];
 

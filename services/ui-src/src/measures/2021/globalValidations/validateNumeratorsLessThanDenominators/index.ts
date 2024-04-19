@@ -30,7 +30,9 @@ const _validation = ({
         parseFloat(rate.denominator) < parseFloat(rate.numerator)
       ) {
         errorArray.push({
-          errorLocation: locationFunc ? locationFunc(qualifiers![i].label) : location,
+          errorLocation: locationFunc
+            ? locationFunc(qualifiers![i].label)
+            : location,
           errorMessage: errorMessage!,
         });
       }

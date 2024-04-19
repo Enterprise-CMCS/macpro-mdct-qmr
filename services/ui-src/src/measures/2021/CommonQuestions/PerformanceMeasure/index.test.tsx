@@ -157,7 +157,9 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     const denominatorTextBox = screen.queryAllByLabelText(
       PCRData.qualifiers![0].label
     )[0];
-    const rateTextBox = screen.getByText(PCRData.qualifiers![2].label).nextSibling;
+    const rateTextBox = screen.getByText(
+      PCRData.qualifiers![2].label
+    ).nextSibling;
     fireEvent.type(numeratorTextBox, "123");
     fireEvent.type(denominatorTextBox, "123");
     expect(numeratorTextBox).toHaveDisplayValue("123");

@@ -133,7 +133,11 @@ describe("Testing Category Rate Higher Than Other Validation", () => {
       expect(errors).toHaveLength(4);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        errorMessageFunc(categories[0].label, categories[1].label, qualifiers[0].label)
+        errorMessageFunc(
+          categories[0].label,
+          categories[1].label,
+          qualifiers[0].label
+        )
       );
     });
   });
