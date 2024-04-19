@@ -34,6 +34,8 @@ const NDR = (watchOMS: any, cleanedCategory: any, qual: string | LabelData) => {
   if (typeof qual === "string") {
     const cleanedQual = cleanString(qual);
     return watchOMS?.[cleanedQual]?.[cleanedCategory];
+  } else if (qual.isLegacy) {
+    return watchOMS?.[qual.id]?.[cleanedCategory];
   } else {
     return watchOMS?.[cleanedCategory]?.[qual.id];
   }

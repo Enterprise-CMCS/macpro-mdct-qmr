@@ -2,6 +2,7 @@ import { cleanString } from "utils";
 
 type LabelText = { [key: string]: string };
 export interface LabelData {
+  isLegacy?: boolean;
   isField?: boolean;
   label: string;
   text: string;
