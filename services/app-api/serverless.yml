@@ -1,6 +1,5 @@
 # Refer to the README.md file in within this service directory to configure all ssm parameters required for this service.
 service: app-api
-useDotenv: true
 
 frameworkVersion: "3"
 
@@ -79,7 +78,7 @@ custom:
     prod: aws_iam
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs18.x
   region: us-east-1
   tracing:
     apiGateway: true
