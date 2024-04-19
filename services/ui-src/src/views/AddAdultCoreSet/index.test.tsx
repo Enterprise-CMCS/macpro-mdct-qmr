@@ -1,10 +1,11 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
-import { AddHHCoreSet } from ".";
+import { AddAdultCoreSet } from ".";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
-import { UserRoles } from "types";
 import { useUser } from "hooks/authHooks";
+import { UserRoles } from "types";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
@@ -19,7 +20,7 @@ jest.mock("react-router-dom", () => ({
 
 const queryClient = new QueryClient();
 
-describe("Test HealthHome coreset component", () => {
+describe("Test Add Adult Core Set Component", () => {
   beforeEach(() => {
     mockUseUser.mockImplementation(() => {
       return { userState: "OH", userRole: UserRoles.STATE_USER };
@@ -28,27 +29,54 @@ describe("Test HealthHome coreset component", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>
-          <AddHHCoreSet />
+          <AddAdultCoreSet />
         </RouterWrappedComp>
       </QueryClientProvider>
     );
   });
+
   test("Check that the nav renders", () => {
     expect(screen.getByTestId("state-layout-container")).toBeVisible();
   });
 
-  it("renders the correct child components", () => {
+  it("Renders the correct adult components", () => {
     expect(
-      screen.getByLabelText(
-        /Select the Health Home program you are reporting on/i
-      )
+      screen.getByText(/How are you reporting Adult Core Set measures/i)
     ).toBeInTheDocument();
 
     expect(
       screen.getByText(
-        /remember to complete all Health Home Core Set Questions and Health Home Core Set Measures to submit for CMS review./i
+        /Remember to complete all Adult Core Set Questions and Adult Core Set Measures to submit for CMS review./i
       )
     ).toBeInTheDocument();
+  });
+
+  it("Form properly interactable", () => {
+    userEvent.click(
+      screen.getByText(
+        /Reporting Medicaid and CHIP measures in separate Core Sets/i
+      )
+    );
+
+    expect(
+      screen.getByLabelText(
+        /Reporting Medicaid and CHIP measures in separate Core Sets/i
+      )
+    ).toBeChecked();
+  });
+
+  it("Form properly interactable, combined selection", () => {
+    userEvent.click(
+      screen.getByText(
+        /Reporting Medicaid and CHIP measures in combined Core Sets/i
+      )
+    );
+
+    expect(
+      screen.getByLabelText(
+        /Reporting Medicaid and CHIP measures in combined Core Sets/i
+      )
+    ).toBeChecked();
   });
 
   test("Unauthorized state user sees unauthorized message", () => {
@@ -58,7 +86,7 @@ describe("Test HealthHome coreset component", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>
-          <AddHHCoreSet />
+          <AddAdultCoreSet />
         </RouterWrappedComp>
       </QueryClientProvider>
     );
