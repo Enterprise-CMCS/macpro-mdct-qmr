@@ -9,6 +9,7 @@ describe(`healthhome core set workflow test`, () => {
   });
 
   it("create hh core set", () => {
+    cy.deleteHealthHomeSets();
     // adds first available HH core set
     cy.get('[data-cy="add-hhbutton"]').click(); // clicking on adding hh core set measures
     cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select(1); // select first available SPA
