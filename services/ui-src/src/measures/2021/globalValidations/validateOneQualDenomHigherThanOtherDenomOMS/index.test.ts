@@ -12,12 +12,25 @@ import {
   simpleRate,
   partialRate,
 } from "utils/testUtils/validationHelpers";
+import { LabelData } from "utils";
 
 describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
-  const singleCat = [SINGLE_CATEGORY];
-  const noCat: string[] = [];
+  const categories: LabelData[] = [
+    { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
+    { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
+  ];
+  const qualifiers: LabelData[] = [
+    { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
+    { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
+  ];
+  const singleCat: LabelData[] = [
+    {
+      label: SINGLE_CATEGORY,
+      text: SINGLE_CATEGORY,
+      id: SINGLE_CATEGORY,
+    },
+  ];
+  const noCat: LabelData[] = [];
 
   const baseOMSInfo = {
     categories,
@@ -55,7 +68,7 @@ describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
       expect(errors).toHaveLength(2);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `${qualifiers[1]} denominator must be less than or equal to ${qualifiers[0]} denominator.`
+        `${qualifiers[1].label} denominator must be less than or equal to ${qualifiers[0].label} denominator.`
       );
     });
 
@@ -72,7 +85,7 @@ describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
       expect(errors).toHaveLength(1);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `${qualifiers[1]} denominator must be less than or equal to ${qualifiers[0]} denominator.`
+        `${qualifiers[1].label} denominator must be less than or equal to ${qualifiers[0].label} denominator.`
       );
     });
 
@@ -112,7 +125,7 @@ describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
       expect(errors).toHaveLength(1);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        errorMessageFunc(qualifiers[1], qualifiers[0])
+        errorMessageFunc(qualifiers[1].label, qualifiers[0].label)
       );
     });
   });
@@ -154,7 +167,7 @@ describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
 
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
-        `${qualifiers?.[1]} denominator must be less than or equal to ${qualifiers?.[0]} denominator.`
+        `${qualifiers?.[1].label} denominator must be less than or equal to ${qualifiers?.[0].label} denominator.`
       );
     });
   });
@@ -179,7 +192,7 @@ describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
 
     expect(errors).toHaveLength(1);
     expect(errors[0].errorMessage).toBe(
-      errorMessageFunc(qualifiers?.[1], qualifiers?.[0])
+      errorMessageFunc(qualifiers?.[1].label, qualifiers?.[0].label)
     );
   });
 });

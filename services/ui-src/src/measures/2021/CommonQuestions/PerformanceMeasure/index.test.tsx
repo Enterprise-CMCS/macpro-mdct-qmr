@@ -45,12 +45,12 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(screen.getByText(exampleData.questionText![0])).toBeVisible();
     expect(screen.getByText(exampleData.questionListItems![0])).toBeVisible();
     expect(screen.getByText(exampleData.questionListItems![1])).toBeVisible();
-    for (const label of exampleData.qualifiers!)
-      expect(screen.queryAllByText(label).length).toBe(
+    for (const qual of exampleData.qualifiers!)
+      expect(screen.queryAllByText(qual.label).length).toBe(
         exampleData.categories!.length
       );
-    for (const label of exampleData.categories!)
-      expect(screen.getByText(label)).toBeVisible();
+    for (const cat of exampleData.categories!)
+      expect(screen.getByText(cat.label)).toBeVisible();
 
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
@@ -111,7 +111,9 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(PCR-XX) Ensure component renders", () => {
     // modifying data to be easier to check
-    PCRData.qualifiers = PCRData.qualifiers!.map((qual) => `qual ${qual}`);
+    PCRData.qualifiers = PCRData.qualifiers!.map((qual) => {
+      return { id: qual.id, label: `qual ${qual.label}`, text: qual.text };
+    });
 
     props.component = PCRRate;
     props.data = PCRData;
@@ -122,14 +124,16 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(screen.getByText(PCRData.questionText![0])).toBeVisible();
     expect(screen.getByText(PCRData.questionListItems![0])).toBeVisible();
     expect(screen.getByText(PCRData.questionListItems![1])).toBeVisible();
-    for (const label of PCRData.qualifiers!) {
-      expect(screen.getByText(label)).toBeVisible();
+    for (const qual of PCRData.qualifiers!) {
+      expect(screen.getByText(qual.label)).toBeVisible();
     }
 
     // rates should be editable by default
-    const numeratorTextBox = screen.getByLabelText(PCRData.qualifiers[1]);
-    const denominatorTextBox = screen.getByLabelText(PCRData.qualifiers[0]);
-    const rateTextBox = screen.getByLabelText(PCRData.qualifiers[2]);
+    const numeratorTextBox = screen.getByLabelText(PCRData.qualifiers[1].label);
+    const denominatorTextBox = screen.getByLabelText(
+      PCRData.qualifiers[0].label
+    );
+    const rateTextBox = screen.getByLabelText(PCRData.qualifiers[2].label);
     fireEvent.type(numeratorTextBox, "123");
     fireEvent.type(denominatorTextBox, "123");
     expect(numeratorTextBox).toHaveDisplayValue("123");
@@ -148,12 +152,12 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
     // rates should not be editable
     const numeratorTextBox = screen.queryAllByLabelText(
-      PCRData.qualifiers![1]
+      PCRData.qualifiers![1].label
     )[0];
     const denominatorTextBox = screen.queryAllByLabelText(
-      PCRData.qualifiers![0]
+      PCRData.qualifiers![0].label
     )[0];
-    const rateTextBox = screen.getByText(PCRData.qualifiers![2]).nextSibling;
+    const rateTextBox = screen.getByText(PCRData.qualifiers![2].label).nextSibling;
     fireEvent.type(numeratorTextBox, "123");
     fireEvent.type(denominatorTextBox, "123");
     expect(numeratorTextBox).toHaveDisplayValue("123");

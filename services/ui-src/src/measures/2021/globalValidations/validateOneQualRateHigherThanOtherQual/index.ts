@@ -48,16 +48,16 @@ const _validation = ({
         parseFloat(ratefields[higherIndex]?.rate ?? "")
     ) {
       const notSingleCategory: boolean =
-        categories?.length && categories[0] !== DC.SINGLE_CATEGORY
+        categories?.length && categories[0].label !== DC.SINGLE_CATEGORY
           ? true
           : false;
       errorArray.push({
         errorLocation: location,
         errorMessage: errorMessageFunc(
-          qualifiers?.[lowerIndex]!,
-          qualifiers?.[higherIndex]!,
+          qualifiers?.[lowerIndex]!.label!,
+          qualifiers?.[higherIndex]!.label!,
           notSingleCategory,
-          categories?.[i]!
+          categories?.[i]!.label!
         ),
       });
     }

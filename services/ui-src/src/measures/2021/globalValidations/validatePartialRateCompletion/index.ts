@@ -8,6 +8,7 @@ import {
   FormRateField,
   OmsValidationCallback,
 } from "../types";
+import { LabelData } from "utils";
 
 type ErrorMessageFunc = (
   multipleQuals: boolean,
@@ -53,9 +54,9 @@ const _validation = ({
           errorLocation: location,
           errorMessage: errorMessageFunc(
             multipleQuals,
-            qualifiers?.[j]!,
+            qualifiers?.[j]!.label!,
             multipleCats,
-            categories?.[i]!
+            categories?.[i].label!
           ),
         });
       }
@@ -68,8 +69,8 @@ const _validation = ({
 interface SVVProps {
   location: string;
   rateData: any;
-  categories?: string[];
-  qualifiers?: string[];
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   locationDictionary: (s: string[]) => string;
   errorMessageFunc?: ErrorMessageFunc;
 }
@@ -128,7 +129,7 @@ export const validatePartialRateCompletionOMS =
               ...label,
             ])}`,
             rateData: rateData?.[singleValueFieldFlag],
-            categories: !!(isOPM || categories[0] === SINGLE_CATEGORY)
+            categories: !!(isOPM || categories[0].label === SINGLE_CATEGORY)
               ? undefined
               : categories,
             qualifiers: !!isOPM ? undefined : qualifiers,
@@ -144,7 +145,7 @@ export const validatePartialRateCompletionOMS =
               qualifiers,
               rateData
             ),
-            categories: !!(isOPM || categories[0] === SINGLE_CATEGORY)
+            categories: !!(isOPM || categories[0].label === SINGLE_CATEGORY)
               ? undefined
               : categories,
             qualifiers: !!isOPM ? undefined : qualifiers,
@@ -164,8 +165,8 @@ export const validatePartialRateCompletionOMS =
 export const validatePartialRateCompletionPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  qualifiers: string[],
-  categories?: string[],
+  qualifiers: LabelData[],
+  categories?: LabelData[],
   errorMessageFunc?: ErrorMessageFunc
 ) => {
   return [

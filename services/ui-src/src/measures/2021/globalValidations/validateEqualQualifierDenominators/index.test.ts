@@ -1,3 +1,4 @@
+import { LabelData } from "utils";
 import {
   validateEqualQualifierDenominatorsOMS,
   validateEqualQualifierDenominatorsPM,
@@ -12,9 +13,14 @@ import {
 } from "utils/testUtils/validationHelpers";
 
 describe("Testing Equal Qualifier Denominators Across Category Validation", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
-
+  const categories: LabelData[] = [
+    { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
+    { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
+  ];
+  const qualifiers: LabelData[] = [
+    { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
+    { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
+  ];
   const baseOMSInfo = {
     categories,
     qualifiers,
@@ -93,8 +99,12 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
       );
 
       expect(errorArray).toHaveLength(2);
-      expect(errorArray[0].errorMessage).toBe(errorMessageFunc(qualifiers[0]));
-      expect(errorArray[1].errorMessage).toBe(errorMessageFunc(qualifiers[1]));
+      expect(errorArray[0].errorMessage).toBe(
+        errorMessageFunc(qualifiers[0].label)
+      );
+      expect(errorArray[1].errorMessage).toBe(
+        errorMessageFunc(qualifiers[1].label)
+      );
     });
   });
 
@@ -145,7 +155,7 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith([
         "TestLabel",
-        qualifiers[0],
+        qualifiers[0].label,
       ]);
     });
   });

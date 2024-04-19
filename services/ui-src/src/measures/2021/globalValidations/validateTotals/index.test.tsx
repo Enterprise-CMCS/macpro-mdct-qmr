@@ -1,3 +1,4 @@
+import { LabelData } from "utils";
 import { validateTotalNDR, validateOMSTotalNDR } from ".";
 
 import * as VH from "utils/testUtils/validationHelpers";
@@ -109,9 +110,19 @@ describe("Testing PM/OMS Total Validations", () => {
 
   describe("OMS validation", () => {
     const label = ["TestLabel"];
-    const noCategories = ["singleCategory"];
-    const categories = ["test1", "test2", "test3"];
-    const qualifiers = ["test1", "test2", "testTotal"];
+    const noCategories: LabelData[] = [
+      { id: "singleCategory", label: "singleCategory", text: "singleCategory" },
+    ];
+    const categories: LabelData[] = [
+      { id: "test1", label: "test1", text: "test1" },
+      { id: "test2", label: "test2", text: "test2" },
+      { id: "test3", label: "test3", text: "test3" },
+    ];
+    const qualifiers: LabelData[] = [
+      { id: "test1", label: "test1", text: "test1" },
+      { id: "test2", label: "test2", text: "test2" },
+      { id: "testTotal", label: "testTotal", text: "testTotal" },
+    ];
 
     const locationDictionary = (s: string[]) => {
       return s[0];

@@ -12,10 +12,17 @@ import {
   performanceMeasureErrorLocationDicitonary,
   getDeviationNDRArray,
 } from "./dataDrivenTools";
+import { LabelData } from "utils";
 
 describe("Test Data Driven Tools", () => {
-  const categories = ["TestCat1", "TestCat2"];
-  const qualifiers = ["TestQual1", "TestQual2"];
+  const categories: LabelData[] = [
+    { id: "TestCat1", label: "TestCat1", text: "TestCat1" },
+    { id: "TestCat2", label: "TestCat2", text: "TestCat2" },
+  ];
+  const qualifiers: LabelData[] = [
+    { id: "TestQual1", label: "TestQual1", text: "TestQual1" },
+    { id: "TestQual2", label: "TestQual2", text: "TestQual2" },
+  ];
 
   describe("convertOmsDataToRateArray", () => {
     it("should take an oms structure and return an array or rate arrays", () => {
@@ -40,9 +47,13 @@ describe("Test Data Driven Tools", () => {
   describe("omsLocationDictionary", () => {
     it("should make a dictionary function", () => {
       const func = omsLocationDictionary(OMSData(2021), qualifiers, categories);
-      expect(func(qualifiers)).toBe(`${qualifiers[0]} - ${qualifiers[1]}`);
-      expect(func(categories)).toBe(`${categories[0]} - ${categories[1]}`);
-      expect(func([qualifiers[0]])).toBe(qualifiers[0]);
+      expect(func(qualifiers.map((item) => item.label))).toBe(
+        `${qualifiers[0].label} - ${qualifiers[1].label}`
+      );
+      expect(func(categories.map((item) => item.label))).toBe(
+        `${categories[0].label} - ${categories[1].label}`
+      );
+      expect(func([qualifiers[0].label])).toBe(qualifiers[0].label);
     });
   });
 
@@ -65,8 +76,8 @@ describe("Test Data Driven Tools", () => {
         categories,
         qualifiers,
       });
-      expect(dictionary?.[categories[0]]).toBe(categories[0]);
-      expect(dictionary?.[categories[1]]).toBe(categories[1]);
+      expect(dictionary?.[categories[0].label]).toBe(categories[0].label);
+      expect(dictionary?.[categories[1].label]).toBe(categories[1].label);
       expect(dictionary?.[SINGLE_CATEGORY]).toBe(PERFORMANCE_MEASURE);
     });
   });

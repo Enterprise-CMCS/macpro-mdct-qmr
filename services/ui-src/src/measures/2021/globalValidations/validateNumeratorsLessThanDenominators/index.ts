@@ -7,6 +7,7 @@ import {
   convertOmsDataToRateArray,
   getOtherPerformanceMeasureRateArray,
 } from "../dataDrivenTools";
+import { LabelData } from "utils";
 
 interface ValProps extends UVFP {
   locationFunc?: (qualifier: string) => string;
@@ -29,7 +30,7 @@ const _validation = ({
         parseFloat(rate.denominator) < parseFloat(rate.numerator)
       ) {
         errorArray.push({
-          errorLocation: locationFunc ? locationFunc(qualifiers![i]) : location,
+          errorLocation: locationFunc ? locationFunc(qualifiers![i].label) : location,
           errorMessage: errorMessage!,
         });
       }
@@ -64,7 +65,7 @@ export const validateNumeratorLessThanDenominatorOMS =
 export const validateNumeratorsLessThanDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  qualifiers: string[],
+  qualifiers: LabelData[],
   errorMessage?: string
 ) => {
   const location = `Performance Measure/Other Performance Measure`;

@@ -1,11 +1,12 @@
 import * as Types from "measures/2021/CommonQuestions/types";
 import { FormRateField } from "../types";
+import { LabelData } from "utils";
 
 // When a user inputs data in multiple NDR sets in a performance measure
 // Then the user must complete at least one NDR set in the Deviation of measure specification.
 export const validateAtLeastOneDeviationFieldFilled = (
   performanceMeasureArray: FormRateField[][],
-  ageGroups: string[],
+  ageGroups: LabelData[],
   deviationArray: Types.DeviationFields[] | any,
   didCalculationsDeviate: boolean,
   errorMessage?: string
