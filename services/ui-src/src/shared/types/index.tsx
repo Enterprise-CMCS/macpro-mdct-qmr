@@ -13,3 +13,4 @@ export * from "shared/types/TypeOtherPerformanceMeasure";
 export * from "shared/types/TypePerformanceMeasure";
 export * from "shared/types/TypeQualifiers";
 export * from "shared/types/TypeRateFields";
+export * from "shared/types/TypeWhyAreYouNotReporting";

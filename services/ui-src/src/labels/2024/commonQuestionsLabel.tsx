@@ -113,6 +113,13 @@ export const commonQuestionsLabel = {
     section:
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
   },
+  WhyAreYouNotReporting: {
+    periodOfHealthEmergencyFlag: true,
+    limitWithDataCollection:
+      "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
+    limitWithDataCollectionDesc:
+      "Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:",
+  },
 };
 
 export default commonQuestionsLabel;
