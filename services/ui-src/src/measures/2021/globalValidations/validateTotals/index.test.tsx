@@ -1,7 +1,7 @@
 import { LabelData } from "utils";
 import { validateTotalNDR, validateOMSTotalNDR } from ".";
 
-import * as VH from "utils/testUtils/validationHelpers";
+import * as VH from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing PM/OMS Total Validations", () => {
   describe("PM validation", () => {

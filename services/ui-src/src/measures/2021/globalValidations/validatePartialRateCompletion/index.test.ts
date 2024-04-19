@@ -9,7 +9,7 @@ import {
   locationDictionary,
   simpleRate,
   partialRate,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
 import { LabelData } from "utils";
 
 describe("Testing Partial Rate Validation", () => {

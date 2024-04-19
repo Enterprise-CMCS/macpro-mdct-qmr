@@ -9,7 +9,7 @@ import {
   simpleRate,
   partialRate,
   generateOtherPerformanceMeasureData,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
 import { LabelData } from "utils";
 
 describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {

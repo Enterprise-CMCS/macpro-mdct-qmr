@@ -11,7 +11,7 @@ import {
   higherRate,
   lowerRate,
   partialRate,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
 
 describe("Testing Category Rate Higher Than Other Validation", () => {
   const categories: LabelData[] = [
