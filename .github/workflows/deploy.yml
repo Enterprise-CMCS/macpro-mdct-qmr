@@ -61,7 +61,9 @@ jobs:
         run: |
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
           # This can optionally be set as an GitHub Actions Secret
-          ./deploy.sh $STAGE_PREFIX$branch_name
+          # ./deploy.sh $STAGE_PREFIX$branch_name
+          # testing serverless compose
+          serverless deploy  --stage $STAGE_PREFIX$branch_name
       - name: Endpoint
         id: endpoint
         run: |

@@ -117,8 +117,6 @@ provider:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
     bannerTableName: ${self:custom.bannerTableName}
-    uploadS3BucketName: ${ssm:/s3bucket/uploads, cf:uploads-${self:custom.stage}.AttachmentsBucketName, "local-uploads"}
-    dynamoSnapshotS3BucketName: ${ssm:/s3bucket/snapshots, cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, "local-dynamo-snapshots"}
     stage: ${opt:stage, self:provider.stage}
     docraptorApiKey: ${self:custom.docraptorApiKey}
 
