@@ -1,4 +1,4 @@
-import * as utils from "utils/getLabelText";
+import { LabelData } from "utils";
 import {
   validateNumeratorLessThanDenominatorOMS,
   validateNumeratorsLessThanDenominatorsPM,
@@ -13,16 +13,16 @@ import {
   generateOtherPerformanceMeasureData,
 } from "utils/testUtils/2023/validationHelpers";
 
-jest.spyOn(utils, "isLegacyLabel").mockImplementation(() => {
-  return true;
-});
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
 
 describe("Testing Numerator Less Than Denominator", () => {
-  const categories: utils.LabelData[] = [
+  const categories: LabelData[] = [
     { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
     { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
   ];
-  const qualifiers: utils.LabelData[] = [
+  const qualifiers: LabelData[] = [
     { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
     { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
   ];

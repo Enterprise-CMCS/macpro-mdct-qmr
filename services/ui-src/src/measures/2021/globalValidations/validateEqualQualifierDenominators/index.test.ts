@@ -12,6 +12,10 @@ import {
   partialRate,
 } from "utils/testUtils/2023/validationHelpers";
 
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
+
 describe("Testing Equal Qualifier Denominators Across Category Validation", () => {
   const categories: LabelData[] = [
     { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
@@ -52,7 +56,7 @@ describe("Testing Equal Qualifier Denominators Across Category Validation", () =
       expect(errors).toHaveLength(2);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `Denominators must be the same for each category of performance measures for ${qualifiers[0]}`
+        `Denominators must be the same for each category of performance measures for ${qualifiers[0].label}`
       );
     });
 

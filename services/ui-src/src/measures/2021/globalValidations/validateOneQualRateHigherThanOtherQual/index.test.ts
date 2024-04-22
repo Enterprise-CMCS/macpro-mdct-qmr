@@ -14,6 +14,10 @@ import {
 } from "utils/testUtils/2023/validationHelpers";
 import { LabelData } from "utils";
 
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
+
 describe("Testing Qualifier Rate Higher Than Other Validation", () => {
   const categories: LabelData[] = [
     { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
@@ -68,7 +72,7 @@ describe("Testing Qualifier Rate Higher Than Other Validation", () => {
       expect(errors).toHaveLength(2);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `${qualifiers[1]} rate must be less than or equal to ${qualifiers[0].label} rate within ${categories[0].label}.`
+        `${qualifiers[1].label} rate must be less than or equal to ${qualifiers[0].label} rate within ${categories[0].label}.`
       );
     });
 

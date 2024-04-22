@@ -57,7 +57,7 @@ const _validation = ({
           qualifiers?.[lowerIndex]!.label!,
           qualifiers?.[higherIndex]!.label!,
           notSingleCategory,
-          categories?.[i]!.label!
+          categories?.[i]?.label!
         ),
       });
     }

@@ -13,6 +13,10 @@ import {
   partialRate,
 } from "utils/testUtils/2023/validationHelpers";
 
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
+
 describe("Testing Category Rate Higher Than Other Validation", () => {
   const categories: LabelData[] = [
     { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },

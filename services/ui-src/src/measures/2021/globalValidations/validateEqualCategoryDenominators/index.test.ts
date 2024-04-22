@@ -13,6 +13,10 @@ import {
   generatePmQualifierRateData,
 } from "utils/testUtils/2023/validationHelpers";
 
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
+
 describe("Testing Equal Denominators For All Qualifiers Validation", () => {
   const noCat: LabelData[] = [];
   const categories: LabelData[] = [

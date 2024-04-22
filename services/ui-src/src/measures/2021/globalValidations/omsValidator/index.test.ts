@@ -1,4 +1,3 @@
-import * as utils from "utils/getLabelText";
 import { omsValidations } from ".";
 import {
   locationDictionary,
@@ -9,9 +8,9 @@ import {
 import { DefaultFormData } from "measures/2021/CommonQuestions/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
-jest.spyOn(utils, "isLegacyLabel").mockImplementation(() => {
-  return true;
-});
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
 
 describe("Testing OMS validation processor", () => {
   const categories = [

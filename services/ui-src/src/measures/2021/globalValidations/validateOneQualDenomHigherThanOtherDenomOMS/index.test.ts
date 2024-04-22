@@ -14,6 +14,10 @@ import {
 } from "utils/testUtils/2023/validationHelpers";
 import { LabelData } from "utils";
 
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
+
 describe("Testing Qualifier Denominator Higher Than Other Validation", () => {
   const categories: LabelData[] = [
     { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
