@@ -2,12 +2,12 @@ import { cleanString } from "utils";
 
 type LabelText = { [key: string]: string };
 export interface LabelData {
-  isLegacy?: boolean;
   isField?: boolean;
   label: string;
   text: string;
   id: string;
 }
+
 const addLabelTextData = (acc: LabelText, data: LabelData) => {
   acc[data.label] = data.text;
   return acc;
@@ -37,4 +37,12 @@ export const stringToLabelData = (arr: string[] | LabelData[]): LabelData[] => {
     });
   }
   return arr as LabelData[];
+};
+
+//pre-2023, the system was using string types for categories & qualifiers. we want to be able to identify it as it determines our data structure for those years
+export const isLegacyLabel = () => {
+  const { pathname } = window.location;
+  const params = pathname.split("/");
+  const year = Number(params[2]);
+  return year < 2023;
 };

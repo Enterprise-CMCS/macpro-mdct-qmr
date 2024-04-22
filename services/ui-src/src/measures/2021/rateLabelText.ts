@@ -1467,17 +1467,14 @@ export const data = {
 
 export const getCatQualLabels = (measure: keyof typeof data) => {
   const qualifiers: LabelData[] = data[measure].qualifiers.map((item) => ({
-    id: cleanString(item.label), //this unfortunately needs to be done as the id in the system was normally created from the label
+    id: cleanString(item.label), //for some reason the system would create the id from the label instead of using the id key that existed
     label: item.label,
     text: item.text,
-    isLegacy: true,
   }));
   const categories: LabelData[] = data[measure].categories.map((item) => ({
-    ...item,
-    id: cleanString(item.label), //this unfortunately needs to be done as the id in the system was normally created from the label
+    id: cleanString(item.label), //for some reason the system would create the id from the label instead of using the id key that existed
     label: item.label,
     text: item.text,
-    isLegacy: true,
   }));
 
   return {

@@ -2,7 +2,13 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
 import * as QMR from "components";
-import { LabelData, cleanString, getLabelText, stringToLabelData } from "utils";
+import {
+  LabelData,
+  cleanString,
+  getLabelText,
+  isLegacyLabel,
+  stringToLabelData,
+} from "utils";
 import { useFormContext } from "react-hook-form";
 import { ContextProps, usePerformanceMeasureContext } from "../context";
 import {
@@ -34,7 +40,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const completedPMQualRates = useRatesForCompletedPmQualifiers(name);
 
   //using the data to determine if the data is pre or post data structure change, string is pre-change
-  if (typeof qualifiers[0] === "string" || qualifiers[0].isLegacy) {
+  if (typeof qualifiers[0] === "string" || isLegacyLabel()) {
     const labelText = getLabelText();
     const rateArrays = !categories.length ? qualRates : standardRates;
 

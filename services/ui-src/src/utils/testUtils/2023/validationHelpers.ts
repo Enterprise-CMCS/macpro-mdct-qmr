@@ -7,7 +7,7 @@ import * as DC from "dataConstants";
 import * as Types from "measures/2023/shared/CommonQuestions/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { OmsNode } from "shared/types";
-import { LabelData } from "utils";
+import { LabelData, isLegacyLabel } from "utils";
 import {
   RateFields,
   OmsNodes as OMS,
@@ -99,12 +99,18 @@ export const generateOmsQualifierRateData = (
     ? categories.map((item) => item.id)
     : [DC.SINGLE_CATEGORY];
   rateData.options = qualifiers.map((s) => s.id);
+  const legacy = isLegacyLabel();
 
   for (const [i, q] of qualifiers.map((q) => q.id).entries()) {
     for (const c of cats) {
       rateData.rates ??= {};
-      rateData.rates[c] ??= {};
-      rateData.rates[c][q] = [testData[i]];
+      if (legacy) {
+        rateData.rates[q] ??= {};
+        rateData.rates[q][c] = [testData[i]];
+      } else {
+        rateData.rates[c] ??= {};
+        rateData.rates[c][q] = [testData[i]];
+      }
     }
   }
 
@@ -132,12 +138,18 @@ export const generateOmsCategoryRateData = (
 
   const rateData: OMS.OmsRateFields = {};
   rateData.options = qualifiers.map((s) => s.id);
+  const legacy = isLegacyLabel();
 
   for (const [i, c] of categories.map((c) => c.id).entries()) {
     for (const q of qualifiers.map((q) => q.id)) {
       rateData.rates ??= {};
-      rateData.rates[c] ??= {};
-      rateData.rates[c][q] = [testData[i]];
+      if (legacy) {
+        rateData.rates[q] ??= {};
+        rateData.rates[q][c] = [testData[i]];
+      } else {
+        rateData.rates[c] ??= {};
+        rateData.rates[c][q] = [testData[i]];
+      }
     }
   }
 

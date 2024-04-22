@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import * as QMR from "components";
-import { LabelData, stringToLabelData } from "utils";
+import { LabelData, isLegacyLabel, stringToLabelData } from "utils";
 import { ContextProps, usePerformanceMeasureContext } from "../context";
 
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
@@ -68,7 +68,7 @@ export const useStandardRateArray: RateArrayBuilder = (name) => {
 
   const rateArrays: React.ReactElement[][] = [];
 
-  if (typeof qualifiers[0] === "string" || qualifiers[0].isLegacy) {
+  if (typeof qualifiers[0] === "string" || isLegacyLabel()) {
     const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
     stringToLabelData(quals)?.forEach((qual: LabelData, qualIndex) => {
       let ndrSets: React.ReactElement[] = [];
