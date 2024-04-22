@@ -1,4 +1,4 @@
-import { LabelData } from "utils";
+import * as utils from "utils";
 import { validateRateNotZeroOMS, validateRateNotZeroPM } from ".";
 import {
   generateOmsQualifierRateData,
@@ -10,12 +10,16 @@ import {
   generateOtherPerformanceMeasureData,
 } from "utils/testUtils/2023/validationHelpers";
 
+jest.spyOn(utils, "isLegacyLabel").mockImplementation(() => {
+  return true;
+});
+
 describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
-  const categories: LabelData[] = [
+  const categories: utils.LabelData[] = [
     { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
     { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
   ];
-  const qualifiers: LabelData[] = [
+  const qualifiers: utils.LabelData[] = [
     { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
     { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
   ];

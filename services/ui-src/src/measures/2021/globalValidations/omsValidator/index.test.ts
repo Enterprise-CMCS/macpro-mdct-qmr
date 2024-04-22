@@ -1,3 +1,4 @@
+import * as utils from "utils/getLabelText";
 import { omsValidations } from ".";
 import {
   locationDictionary,
@@ -7,6 +8,10 @@ import {
 } from "utils/testUtils/2023/validationHelpers";
 import { DefaultFormData } from "measures/2021/CommonQuestions/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+
+jest.spyOn(utils, "isLegacyLabel").mockImplementation(() => {
+  return true;
+});
 
 describe("Testing OMS validation processor", () => {
   const categories = [
@@ -88,7 +93,6 @@ describe("Testing OMS validation processor", () => {
       ) as DefaultFormData,
       validationCallbacks: [],
     });
-
     expect(errors.length).toBe(134);
     expect(
       errors.some((e) =>

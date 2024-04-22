@@ -249,7 +249,7 @@ export const generateOmsFormData = (
   addToSelections = true,
   renderData?: Types.DataDrivenTypes.OptionalMeasureStrat
 ) => {
-  const data = renderData ?? OMSData(2023);
+  const data = renderData ?? isLegacyLabel() ? OMSData(2021) : OMSData(2023);
   const description = "TestAdditionalCategoryOrSubCategory";
   const omsData: Types.OptionalMeasureStratification = {
     OptionalMeasureStratification: { options: [], selections: {} },

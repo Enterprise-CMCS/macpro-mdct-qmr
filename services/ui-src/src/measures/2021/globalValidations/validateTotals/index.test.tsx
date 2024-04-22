@@ -1,7 +1,11 @@
-import { LabelData } from "utils";
+import * as utils from "utils/getLabelText";
 import { validateTotalNDR, validateOMSTotalNDR } from ".";
 
 import * as VH from "utils/testUtils/2023/validationHelpers";
+
+jest.spyOn(utils, "isLegacyLabel").mockImplementation(() => {
+  return true;
+});
 
 describe("Testing PM/OMS Total Validations", () => {
   describe("PM validation", () => {
@@ -110,15 +114,15 @@ describe("Testing PM/OMS Total Validations", () => {
 
   describe("OMS validation", () => {
     const label = ["TestLabel"];
-    const noCategories: LabelData[] = [
+    const noCategories: utils.LabelData[] = [
       { id: "singleCategory", label: "singleCategory", text: "singleCategory" },
     ];
-    const categories: LabelData[] = [
+    const categories: utils.LabelData[] = [
       { id: "test1", label: "test1", text: "test1" },
       { id: "test2", label: "test2", text: "test2" },
       { id: "test3", label: "test3", text: "test3" },
     ];
-    const qualifiers: LabelData[] = [
+    const qualifiers: utils.LabelData[] = [
       { id: "test1", label: "test1", text: "test1" },
       { id: "test2", label: "test2", text: "test2" },
       { id: "testTotal", label: "testTotal", text: "testTotal" },

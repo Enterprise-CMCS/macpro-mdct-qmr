@@ -1,3 +1,4 @@
+import * as utils from "utils/getLabelText";
 import { SINGLE_CATEGORY, PERFORMANCE_MEASURE } from "dataConstants";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import {
@@ -12,14 +13,17 @@ import {
   performanceMeasureErrorLocationDicitonary,
   getDeviationNDRArray,
 } from "./dataDrivenTools";
-import { LabelData } from "utils";
+
+jest.spyOn(utils, "isLegacyLabel").mockImplementation(() => {
+  return true;
+});
 
 describe("Test Data Driven Tools", () => {
-  const categories: LabelData[] = [
+  const categories: utils.LabelData[] = [
     { id: "TestCat1", label: "TestCat1", text: "TestCat1" },
     { id: "TestCat2", label: "TestCat2", text: "TestCat2" },
   ];
-  const qualifiers: LabelData[] = [
+  const qualifiers: utils.LabelData[] = [
     { id: "TestQual1", label: "TestQual1", text: "TestQual1" },
     { id: "TestQual2", label: "TestQual2", text: "TestQual2" },
   ];

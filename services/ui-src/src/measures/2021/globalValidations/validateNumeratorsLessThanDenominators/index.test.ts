@@ -1,4 +1,4 @@
-import { LabelData } from "utils";
+import * as utils from "utils/getLabelText";
 import {
   validateNumeratorLessThanDenominatorOMS,
   validateNumeratorsLessThanDenominatorsPM,
@@ -13,12 +13,16 @@ import {
   generateOtherPerformanceMeasureData,
 } from "utils/testUtils/2023/validationHelpers";
 
+jest.spyOn(utils, "isLegacyLabel").mockImplementation(() => {
+  return true;
+});
+
 describe("Testing Numerator Less Than Denominator", () => {
-  const categories: LabelData[] = [
+  const categories: utils.LabelData[] = [
     { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
     { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
   ];
-  const qualifiers: LabelData[] = [
+  const qualifiers: utils.LabelData[] = [
     { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
     { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
   ];
@@ -150,12 +154,18 @@ describe("Testing Numerator Less Than Denominator", () => {
   });
 
   it("Error message text should match provided errorMessage", () => {
+    const utils = require("utils/getLabelText");
+    jest.spyOn(utils, "isLegacyLabel").mockImplementation(() => {
+      return true;
+    });
+
     const errorMessage = "Another one bites the dust.";
     const locationDictionaryJestFunc = jest.fn();
     const data = generateOmsCategoryRateData(categories, qualifiers, [
       badNumeratorRate,
       badNumeratorRate,
     ]);
+
     const errors = validateNumeratorLessThanDenominatorOMS(errorMessage)({
       ...baseOMSInfo,
       locationDictionary: locationDictionaryJestFunc,
