@@ -4,8 +4,6 @@ services:
     path: services/database
   ui:
     path: services/ui
-  stream-functions:
-    path: services/stream-functions
 
   # wave 2: depends on database
   uploads:
