@@ -169,14 +169,6 @@ First, make sure your `node_modules` are up to date:
    yarn install
    ```
 
-## Generate .env file with AWS Credentials
-
-1. [Set Up AWS Credentials Locally](#setting-up-aws-credentials-locally)
-1. On your local QMR environment, navigate to `cd tests/cypress`
-1. Run `./configureLocal.sh master`
-
-The `Cypress` environment (**.env**) file will be generated and populated under `tests/cypress.env.json`.
-
 ## How to Run Tests
 
 ### Cypress Setup
@@ -196,7 +188,7 @@ To run the end-to-end (E2E) `Cypress` tests:
 
 ```
 cd tests/
-yarn test
+CYPRESS_QMR_PASSWORD=passwordhere yarn test
 ```
 
 The `Cypress` application will kick off, where you can find a list of all the available E2E tests.

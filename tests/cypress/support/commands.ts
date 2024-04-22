@@ -8,14 +8,15 @@ const passwordForCognito = "input[name='password']";
 const loginUser = (user: string) => {
   cy.session([user], () => {
     const users = {
-      stateuser4: Cypress.env("TEST_USER_4"),
-      stateuser3: Cypress.env("TEST_USER_3"),
-      stateuser2: Cypress.env("TEST_USER_2"),
-      stateuser1: Cypress.env("TEST_USER_1"),
+      stateuser4: Cypress.env("STATE_USER_4"),
+      stateuser3: Cypress.env("STATE_USER_3"),
+      adminuser: Cypress.env("ADMIN_USER"),
     };
     cy.visit("/");
-    cy.get(emailForCognito).type(`${users[user]}`);
-    cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
+    cy.get(emailForCognito).type(users[user]);
+    cy.get(passwordForCognito).type(Cypress.env("QMR_PASSWORD"), {
+      log: false,
+    });
     cy.get('[data-cy="login-with-cognito-button"]').click();
     cy.wait(4500);
   });
