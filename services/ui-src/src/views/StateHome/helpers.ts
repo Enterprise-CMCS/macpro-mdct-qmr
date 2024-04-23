@@ -72,7 +72,6 @@ export const formatTableItems = ({
       submitted,
       compoundKey,
     }: CoreSetDataItem): CoreSetTableItem.Data => {
-      // filter on const tempSet?
       const tempSet = coreSet.split("_");
       const tempSpa =
         tempSet.length === 2 &&
