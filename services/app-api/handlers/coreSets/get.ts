@@ -10,6 +10,7 @@ import {
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { CoreSet, CoreSetAbbr, UserRoles } from "../../types";
+import { CoreSetField, coreSets } from "../../libs/coreSetByYearLoaded";
 
 export const coreSetList = handler(async (event, context) => {
   // action limited to any admin type user and state users from corresponding state
@@ -35,9 +36,21 @@ export const coreSetList = handler(async (event, context) => {
     ),
   };
 
+  // Get the year from the params, then use
+  // getCoreSetByYear to see if it's a year that should have
+  // coresets generated from login
+  const year = parseInt(event!.pathParameters!.year!);
+  const coreSetsByYear = coreSets[
+    year as keyof typeof coreSets
+  ] as CoreSetField[];
   const results = await dynamoDb.scanAll<CoreSet>(params);
-  // if the query value contains no results
-  if (results.length === 0) {
+
+  // check if the table is empty and the year should preload the
+  // adult coreset
+  const shouldPreloadAdultCoreSet =
+    results.length === 0 && coreSetsByYear[0].loaded;
+
+  if (shouldPreloadAdultCoreSet) {
     // add an adult coreset and requery the db
     const createCoreSetEvent = {
       ...event,
