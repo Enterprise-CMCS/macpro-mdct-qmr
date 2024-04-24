@@ -7,6 +7,7 @@ package:
   individually: true
 
 plugins:
+  - serverless-idempotency-helper
   - serverless-plugin-typescript
   - serverless-plugin-warmup
   - serverless-associate-waf
@@ -14,7 +15,6 @@ plugins:
   - serverless-offline-ssm
   - serverless-offline
   - serverless-stack-termination-protection
-  - serverless-idempotency-helper
   - serverless-iam-helper
   - serverless-s3-bucket-helper
   - serverless-api-client-certificate

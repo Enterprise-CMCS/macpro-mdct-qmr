@@ -2493,6 +2493,15 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@stratiformdigital/serverless-idempotency-helper@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@stratiformdigital/serverless-idempotency-helper/-/serverless-idempotency-helper-3.2.1.tgz#ebf16d0cec1f7ac2cffe12415fd26bc472638a9d"
+  integrity sha512-9a7lzOcefUUtcqx4ct3ZxWYWkEZXM1gBotWdCSS6roJ3Gr0Kfu2OF+NywSW97r6aj2oYZSisT6NLDCo6WnEHhg==
+  dependencies:
+    bestzip "^2.2.1"
+    extract-zip "^2.0.1"
+    lodash "^4.17.21"
+
 "@szmarczak/http-timer@^4.0.5":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-4.0.6.tgz#b4a914bb62e7c272d4e5989fe4440f812ab1d807"
@@ -2729,9 +2738,9 @@
     "@types/yargs-parser" "*"
 
 "@types/yauzl@^2.9.1":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@types/yauzl/-/yauzl-2.10.0.tgz#b3248295276cf8c6f153ebe6a9aba0c988cb2599"
-  integrity sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==
+  version "2.10.3"
+  resolved "https://registry.yarnpkg.com/@types/yauzl/-/yauzl-2.10.3.tgz#e9b2808b4f109504a03cda958259876f61017999"
+  integrity sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==
   dependencies:
     "@types/node" "*"
 
@@ -3324,7 +3333,12 @@ astral-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/astral-regex/-/astral-regex-2.0.0.tgz#483143c567aeed4785759c0865786dc77d7d2e31"
   integrity sha512-Z7tMw1ytTXt5jqMcOP+OQteU1VuNK9Y02uuJtKQ1Sv69jXQKKg5cibLwGJow8yzZP+eAc18EmLGPal0bp36rvQ==
 
-async@^3.2.0, async@^3.2.3:
+async@^3.2.0:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/async/-/async-3.2.5.tgz#ebd52a8fdaf7a2289a24df399f8d8485c8a46b66"
+  integrity sha512-baNZyqaaLhyLVKm/DlvdW051MSgO6b8eVfIezl9E5PqWxFgzLm/wQntEW4zOytVburDEr0JlALEpdOFwvErLsg==
+
+async@^3.2.3:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/async/-/async-3.2.4.tgz#2d22e00f8cddeb5fde5dd33522b56d1cf569a81c"
   integrity sha512-iAB+JbDEGXhyIUavoDl9WP/Jj106Kz9DEn1DPgYw5ruDn0e3Wgi3sKFm55sASdGBNOQB8F59d9qQ7deqrHA8wQ==
@@ -3526,7 +3540,7 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-bestzip@^2.2.0:
+bestzip@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/bestzip/-/bestzip-2.2.1.tgz#6f14c48e7abf57dfac60aecb45ee4571b77b37a7"
   integrity sha512-XdAb87RXqOqF7C6UgQG9IqpEHJvS6IOUo0bXWEAebjSSdhDjsbcqFKdHpn5Q7QHz2pGr3Zmw4wgG3LlzdyDz7w==
@@ -9052,13 +9066,6 @@ serverless-dotenv-plugin@^4.0.0:
 serverless-iam-helper@./plugins/serverless-iam-helper:
   version "1.0.0"
   dependencies:
-    lodash "^4.17.21"
-
-serverless-idempotency-helper@./plugins/serverless-idempotency-helper:
-  version "1.0.0"
-  dependencies:
-    bestzip "^2.2.0"
-    extract-zip "^2.0.1"
     lodash "^4.17.21"
 
 serverless-offline-ssm@^6.2.0:
