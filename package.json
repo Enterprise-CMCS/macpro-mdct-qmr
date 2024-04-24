@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr#readme",
   "devDependencies": {
-    "@stratiformdigital/serverless-idempotency-helper": "^3.2.1",
     "@types/dotenv": "^8.2.0",
     "@types/flat": "^5.0.2",
     "@types/node": "^18.19.31",
@@ -41,6 +40,7 @@
     "serverless-bundle": "^6.0.0",
     "serverless-dotenv-plugin": "^4.0.0",
     "serverless-iam-helper": "./plugins/serverless-iam-helper",
+    "serverless-idempotency-helper": "^1.0.1",
     "serverless-offline": "^12.0.4",
     "serverless-offline-ssm": "^6.2.0",
     "serverless-online": "Enterprise-CMCS/macpro-serverless-online",
