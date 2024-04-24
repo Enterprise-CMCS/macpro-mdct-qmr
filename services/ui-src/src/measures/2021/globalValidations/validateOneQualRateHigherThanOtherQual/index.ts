@@ -54,8 +54,8 @@ const _validation = ({
       errorArray.push({
         errorLocation: location,
         errorMessage: errorMessageFunc(
-          qualifiers?.[lowerIndex]!.label!,
-          qualifiers?.[higherIndex]!.label!,
+          qualifiers?.[lowerIndex]?.label!,
+          qualifiers?.[higherIndex]?.label!,
           notSingleCategory,
           categories?.[i]?.label!
         ),

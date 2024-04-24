@@ -212,8 +212,10 @@ const StandardPerformanceMeasureLegacy = (
 
   performanceMeasureArray?.forEach((measure, idx) => {
     if (measure?.[qualIndex]?.rate) {
-      const adjustedName = `${name}.rates.${qual.id}.${categories[idx].id}`;
-      ndrSets.push(RateComponent(context, adjustedName, categories[idx].label));
+      const adjustedName = `${name}.rates.${qual.id}.${categories[idx]?.id}`;
+      ndrSets.push(
+        RateComponent(context, adjustedName, categories[idx]?.label)
+      );
     }
   });
   return ndrSets;
