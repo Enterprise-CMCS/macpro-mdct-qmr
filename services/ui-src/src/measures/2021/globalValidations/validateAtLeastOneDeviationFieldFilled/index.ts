@@ -39,7 +39,6 @@ export const validateAtLeastOneDeviationFieldFilled = (
     });
 
     if (ndrCount > 0) {
-      console.log("deviationArray",deviationArray)
       deviationArray.forEach((deviationNDR: any) => {
         // CCW-AD validation
         let selectedOptions;
