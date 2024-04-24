@@ -24,7 +24,7 @@ plugins:
   - serverless-stack-termination-protection
   - serverless-plugin-scripts
   - serverless-bundle
-  - serverless-idempotency-helper
+  - "@stratiformdigital/serverless-idempotency-helper"
   - serverless-iam-helper
   - serverless-s3-bucket-helper
 
