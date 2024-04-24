@@ -2,6 +2,9 @@ import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import * as DC from "dataConstants";
+import { useFlags } from "launchdarkly-react-client-sdk";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
 
 interface Props {
   healthHomeMeasure?: boolean;
@@ -12,7 +15,12 @@ export const WhyAreYouNotReporting = ({
   healthHomeMeasure,
   removeLessThan30,
 }: Props) => {
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
+
+  const pheIsCurrent = useFlags()?.[`periodOfHealthEmergency${labels.year}`];
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
+
   return (
     <QMR.CoreQuestionWrapper
       testid="why-are-you-not-reporting"
@@ -163,17 +171,26 @@ export const WhyAreYouNotReporting = ({
               />,
             ],
           },
-          {
-            displayValue:
-              "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
-            value: DC.LIMITATION_WITH_DATA_COLLECTION,
-            children: [
-              <QMR.TextArea
-                label="Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
-                {...register(DC.LIMITATION_WITH_DATA_COLLECTION)}
-              />,
-            ],
-          },
+          //for years 2023 and over, check the flag to see if the label should be enabled
+          ...(!labels.WhyAreYouNotReporting?.periodOfHealthEmergencyFlag ||
+          pheIsCurrent
+            ? [
+                {
+                  displayValue:
+                    labels.WhyAreYouNotReporting?.limitWithDataCollection,
+                  value: DC.LIMITATION_WITH_DATA_COLLECTION,
+                  children: [
+                    <QMR.TextArea
+                      label={
+                        labels.WhyAreYouNotReporting
+                          ?.limitWithDataCollectionDesc
+                      }
+                      {...register(DC.LIMITATION_WITH_DATA_COLLECTION)}
+                    />,
+                  ],
+                },
+              ]
+            : []),
           {
             displayValue: `Small sample size ${
               removeLessThan30 ? "" : "(less than 30)"
