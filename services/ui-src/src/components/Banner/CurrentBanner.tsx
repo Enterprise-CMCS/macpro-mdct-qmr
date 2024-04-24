@@ -34,10 +34,13 @@ export const CurrentBanner = ({
     <div className="ds-l-row">
       <div className="ds-l-col">
         {bannerData && (
-          <Box sx={sx.currentBanner}>
+          <Box sx={sx.currentBanner} data-cy="active banner">
             <Text>
               Status:{" "}
-              <span className={isBannerActive ? "active" : "inactive"}>
+              <span
+                className={isBannerActive ? "active" : "inactive"}
+                data-cy="banner status"
+              >
                 {isBannerActive ? "Active" : "Inactive"}
               </span>
             </Text>

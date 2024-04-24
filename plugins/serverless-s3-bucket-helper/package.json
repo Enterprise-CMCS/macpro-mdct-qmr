@@ -11,8 +11,5 @@
   "peerDependencies": {
     "serverless": "3.x"
   },
-  "engines": {
-    "node": ">=10.0"
-  },
   "license": "MIT"
 }

@@ -67,37 +67,46 @@ export const CreateBannerForm = ({ writeAdminBanner, ...props }: Props) => {
             label="Title Text"
             name={BANNER_FIELDS.title}
             placeholder="New banner title"
+            data-cy="New banner title"
             required
           />
           <TextField
             label="Description text"
             name={BANNER_FIELDS.description}
             placeholder="New banner description"
+            data-cy="New banner description"
             multiline
             required
           />
           <TextField
             label="Link"
             name={BANNER_FIELDS.link}
+            data-cy="New banner link"
             requirementLabel="Optional"
           />
           <DateField
             label="Start Date"
             name={BANNER_FIELDS.startDate}
             errorMessageOverride={FORM_ERRORS.INVALID_START_DATE}
+            data-cy="New banner start date"
             required
           />
           <DateField
             label="End Date"
             name={BANNER_FIELDS.endDate}
             errorMessageOverride={FORM_ERRORS.INVALID_END_DATE}
+            data-cy="New banner end date"
             required
           />
         </form>
         <PreviewBanner />
       </FormProvider>
       <div className="ds-u-padding-top--2 .ds-u-float--right">
-        <Button form={bannerId} type="submit">
+        <Button
+          form={bannerId}
+          type="submit"
+          data-cy="replace current banner button"
+        >
           {submitting ? <Spinner size="small" /> : "Replace Current Banner"}
         </Button>
       </div>
