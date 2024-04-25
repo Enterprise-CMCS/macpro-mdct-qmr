@@ -13,7 +13,6 @@ provider:
       permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
 
 plugins:
-  - "@stratiformdigital/serverless-idempotency-helper"
   - serverless-plugin-scripts
   - serverless-stack-termination-protection
   - serverless-iam-helper
