@@ -122,7 +122,11 @@ describe("Test Get Core Set Functions", () => {
     const res = await coreSetList(
       {
         ...testEvent,
-        pathParameters: { coreSet: CoreSetAbbr.ACS, year: "2021", state: "FL" },
+        pathParameters: {
+          coreSet: CoreSetAbbr.HHCS,
+          year: "2024",
+          state: "FL",
+        },
       },
       null
     );
@@ -142,7 +146,7 @@ describe("Test Get Core Set Functions", () => {
     const res = await coreSetList(
       {
         ...testEvent,
-        pathParameters: { coreSet: CoreSetAbbr.ACS, year: "2021", state: "FL" },
+        pathParameters: { coreSet: CoreSetAbbr.ACS, year: "2024", state: "FL" },
       },
       null
     );
