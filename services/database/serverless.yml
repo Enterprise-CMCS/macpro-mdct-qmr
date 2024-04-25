@@ -3,7 +3,6 @@ service: database
 frameworkVersion: "3"
 
 plugins:
-  - "@stratiformdigital/serverless-idempotency-helper"
   - serverless-dynamodb
   - serverless-stack-termination-protection
   - serverless-s3-bucket-helper
