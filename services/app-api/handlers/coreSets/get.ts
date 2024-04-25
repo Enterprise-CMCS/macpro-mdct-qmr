@@ -46,7 +46,7 @@ export const coreSetList = handler(async (event, context) => {
 
   const filteredCoreSets = coreSetsByYear.filter((coreSet) => {
     const matchedCoreSet = results.find(
-      (existingCoreSet) => existingCoreSet.coreSet === coreSet.abbr
+      (existingCoreSet: CoreSet) => existingCoreSet.coreSet === coreSet.abbr
     );
     return coreSet.loaded && !matchedCoreSet;
   });
