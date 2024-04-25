@@ -45,7 +45,7 @@ describe("User must select a data source selection validation", () => {
     cy.get('[data-cy="DataStatus0"]').click();
     cy.get('[data-cy="MeasurementSpecification0"]').click();
     cy.get('[data-cy="MeasurementSpecification-HEDISVersion"]').select(
-      "HEDIS MY 2020"
+      "HEDIS MY 2021"
     );
     cy.get(
       '[data-cy="MeasurementPeriodAdhereToCoreSetSpecification1"]'
@@ -54,11 +54,11 @@ describe("User must select a data source selection validation", () => {
     cy.get('[data-cy="DateRange.startDate-month"]').type("10");
     cy.get('[data-cy="DateRange.startDate-year"]').click();
     cy.get('[data-cy="DateRange.startDate-year"]').clear();
-    cy.get('[data-cy="DateRange.startDate-year"]').type("2020");
+    cy.get('[data-cy="DateRange.startDate-year"]').type("2021");
     cy.get('[data-cy="DateRange.endDate-month"]').clear();
     cy.get('[data-cy="DateRange.endDate-month"]').type("10");
     cy.get('[data-cy="DateRange.endDate-year"]').clear();
-    cy.get('[data-cy="DateRange.endDate-year"]').type("2021");
+    cy.get('[data-cy="DateRange.endDate-year"]').type("2022");
     cy.get(
       '[data-cy="DefinitionOfDenominator0"] > .chakra-checkbox__control'
     ).click();

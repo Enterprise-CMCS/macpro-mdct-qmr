@@ -643,6 +643,20 @@ export const data = {
                 "text": "Care Plan with Supplemental Elements Documented",
                 "id": "NBz553",
             },
+            {
+                "label": "Could Not Be Reached for Care Planning",
+                "text": "Could Not Be Reached for Care Planning",
+                "id": "7dC1vt",
+                "excludeFromOMS": true,
+                "isField": true,
+            },
+            {
+                "label": "Refusal to Participate in Care Planning",
+                "text": "Refusal to Participate in Care Planning",
+                "id": "6zIwnx",
+                "excludeFromOMS": true,
+                "isField": true,
+            },
         ],
         "categories": [{"id":"HLXNLW", "label": "", "text":""}]
     },

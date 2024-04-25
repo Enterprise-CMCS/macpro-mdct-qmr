@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as GV from "measures/2023/shared/globalValidations";
 import * as PMD from "./data";
 import * as Types from "measures/2023/shared/CommonQuestions/types";
-import { OMSData } from "measures/2023/shared/CommonQuestions/OptionalMeasureStrat/data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 const MSCADValidation = (data: Types.DefaultFormData) => {
   const ageGroups = PMD.qualifiers;
@@ -62,7 +62,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(),
+        OMSData(2023),
         PMD.qualifiers,
         PMD.categories
       ),

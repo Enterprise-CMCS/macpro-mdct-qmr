@@ -118,7 +118,6 @@ export const PCRHHPerformanceMeasure = ({
   rateScale,
   customMask,
 }: Props) => {
-  const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
     | string[]
     | undefined;
@@ -172,10 +171,6 @@ export const PCRHHPerformanceMeasure = ({
           );
         })}
       </CUI.UnorderedList>
-      <QMR.TextArea
-        label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
-        {...register("PerformanceMeasure.explanation")}
-      />
       <CUI.Text
         fontWeight="bold"
         mt={5}

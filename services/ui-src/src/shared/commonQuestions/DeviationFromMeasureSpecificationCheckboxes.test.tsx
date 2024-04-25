@@ -1,31 +1,35 @@
 import { renderWithHookForm } from "utils";
 import { DeviationFromMeasureSpec } from "./DeviationFromMeasureSpecificationCheckboxes";
 import { fireEvent, screen } from "@testing-library/react";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
+import SharedContext from "shared/SharedContext";
 
 describe("Test DeviationFromMeasureSpec Component", () => {
   beforeEach(() => {
     renderWithHookForm(
-      <DeviationFromMeasureSpec categories={[]}></DeviationFromMeasureSpec>
+      <SharedContext.Provider value={commonQuestionsLabel}>
+        <DeviationFromMeasureSpec categories={[]}></DeviationFromMeasureSpec>
+      </SharedContext.Provider>
     );
   });
 
   it("component renders", () => {
     expect(
-      screen.getByText("Deviations from Measure Specifications")
+      screen.getByText("Variations from Measure Specifications")
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Did your calculation of the measure deviate from the measure specification in any way?"
+        "Did your calculation of the measure vary from the measure specification in any way?"
       )
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Yes, the calculation of the measure deviates from the measure specification."
+        "Yes, the calculation of the measure varies from the measure specification."
       )
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "No, the calculation of the measure does not deviate from the measure specification in any way."
+        "No, the calculation of the measure does not vary from the measure specification in any way."
       )
     ).toBeInTheDocument();
   });
@@ -44,7 +48,7 @@ describe("Test DeviationFromMeasureSpec Component", () => {
   it("No checkboxes are shown when user selects yes and no N/D/R is filled", () => {
     //simulate user clicking yes to trigger the textarea to show
     const radioButtonYes = screen.getByRole("radio", {
-      name: "Yes, the calculation of the measure deviates from the measure specification.",
+      name: "Yes, the calculation of the measure varies from the measure specification.",
     });
     fireEvent.click(radioButtonYes);
     const checkboxes = screen.queryAllByRole("checkbox");

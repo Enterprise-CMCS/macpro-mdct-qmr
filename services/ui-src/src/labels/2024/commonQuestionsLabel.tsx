@@ -72,11 +72,26 @@ export const commonQuestionsLabel = {
     ],
   },
   DeviationFromMeasureSpecification: {
-    header: "Deviations from Measure Specifications",
+    header: "Variations from Measure Specifications",
     section:
-      "Did your calculation of the measure deviate from the measure specification in any way?",
+      "Did your calculation of the measure vary from the measure specification in any way?",
+    helper:
+      "For example: variation from measure specification might include different methodology, timeframe, or reported age groups.",
+    optionsText: "Select and explain the variation(s):",
+    options: [
+      {
+        displayValue:
+          "Yes, the calculation of the measure varies from the measure specification.",
+        value: DC.YES,
+      },
+      {
+        displayValue:
+          "No, the calculation of the measure does not vary from the measure specification in any way.",
+        value: DC.NO,
+      },
+    ],
     deviationReason:
-      "Explain the deviation(s) (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+      "Explain the variation(s) (<em>text in this field is included in publicly-reported state-specific comments</em>):",
   },
   MeasureSpecifications: {
     options: [
@@ -92,11 +107,11 @@ export const commonQuestionsLabel = {
         displayValue: "HEDIS MY 2021 (FFY 2022 Core Set Reporting)",
         value: DC.HEDIS_MY_2021,
       },
-      {
-        displayValue: "HEDIS MY 2020 (FFY 2021 Core Set Reporting)",
-        value: DC.HEDIS_MY_2020,
-      },
     ],
+  },
+  OptionalMeasureStratification: {
+    section:
+      "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
   },
 };
 

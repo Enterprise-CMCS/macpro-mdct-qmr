@@ -5,6 +5,8 @@ import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { cleanString } from "utils/cleanString";
 import { getLabelText } from "utils";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
 
 interface GetTopLvlDeviationOptions {
   categories: string[];
@@ -130,6 +132,9 @@ export const DeviationFromMeasureSpec = ({
   });
   const labelText = getLabelText();
 
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
+
   const getTopLvlDeviationOptions = ({
     categories,
     customTotalLabel,
@@ -216,24 +221,24 @@ export const DeviationFromMeasureSpec = ({
 
   return (
     <QMR.CoreQuestionWrapper
-      label="Deviations from Measure Specifications"
+      label={labels.DeviationFromMeasureSpecification.header}
       testid="deviation-from-measure-specification"
     >
       <QMR.RadioButton
         renderHelperTextAbove
         {...register(DC.DID_CALCS_DEVIATE)}
         formLabelProps={{ fontWeight: 600 }}
-        label="Did your calculation of the measure deviate from the measure specification in any way?"
-        helperText="For example: deviation from measure specification might include different methodology, timeframe, or reported age groups."
+        label={labels.DeviationFromMeasureSpecification.section}
+        helperText={labels.DeviationFromMeasureSpecification.helper}
         options={[
           {
             displayValue:
-              "Yes, the calculation of the measure deviates from the measure specification.",
-            value: DC.YES,
+              labels.DeviationFromMeasureSpecification.options[0].displayValue,
+            value: labels.DeviationFromMeasureSpecification.options[0].value,
             children: [
               <QMR.Checkbox
                 {...register(DC.DEVIATION_OPTIONS)}
-                label="Select and explain the deviation(s):"
+                label={labels.DeviationFromMeasureSpecification.optionsText}
                 options={getTopLvlDeviationOptions({
                   categories,
                   customTotalLabel,
@@ -243,8 +248,8 @@ export const DeviationFromMeasureSpec = ({
           },
           {
             displayValue:
-              "No, the calculation of the measure does not deviate from the measure specification in any way.",
-            value: DC.NO,
+              labels.DeviationFromMeasureSpecification.options[1].displayValue,
+            value: labels.DeviationFromMeasureSpecification.options[1].value,
           },
         ]}
       />

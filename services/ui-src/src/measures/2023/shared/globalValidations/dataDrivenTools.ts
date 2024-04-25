@@ -99,7 +99,7 @@ export const omsLocationDictionary = (
     for (const option of node.options ?? []) {
       checkNode(option);
     }
-    dictionary[node.id] = node.label;
+    dictionary[node.id] = node.label!;
   };
 
   for (const node of renderData) {
