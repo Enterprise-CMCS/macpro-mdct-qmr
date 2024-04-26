@@ -555,7 +555,6 @@ If you are creating a new shared component (e.g. files under `/globalValidations
 This application was forked from the [Quickstart Repository](https://github.com/Enterprise-CMCS/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
 
 ## Slack Webhooks
-
 This repository uses 3 webhooks to publish to  3 different channels all in CMS Slack.
 
 - SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `master`, `val`, or `prod` branches.
