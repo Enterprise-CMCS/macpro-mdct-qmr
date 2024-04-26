@@ -1,3 +1,4 @@
+//NOTE: This component is used for reporting year 2023 and above
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "measures/2023/shared/CommonQuestions/types";
@@ -8,7 +9,6 @@ import { useEffect, useLayoutEffect } from "react";
 import { LabelData, getLabelText } from "utils";
 import { IRate } from "components";
 import { defaultRateCalculation } from "utils/rateFormulas";
-import { getMeasureYear } from "utils/getMeasureYear";
 import {
   allNumbers,
   eightNumbersOneDecimal,
@@ -19,6 +19,7 @@ import {
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
+  testRates?: [IRate[]];
   name: string;
   readOnly?: boolean;
   allowMultiple?: boolean;
@@ -36,6 +37,7 @@ interface Props extends QMR.InputWrapperProps {
 
 export const IETRate = ({
   rates,
+  testRates,
   name,
   allowMultiple = false,
   readOnly = true,
@@ -80,26 +82,20 @@ export const IETRate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
-      // human readable text for Mathematica only needed for FFY 2023+
-      if (getMeasureYear() >= 2023) {
-        prevRate[index]["category"] = categoryName ?? undefined;
-      }
-      if (
-        categoryName?.toLowerCase().includes("total") ||
-        prevRate[index]["uid"].toLowerCase().includes("total")
-      ) {
-        prevRate[index]["isTotal"] = true;
-      }
+      //human readable text for Mathematica
+      prevRate[index]["category"] = categoryName ?? undefined;
+      prevRate[index]["isTotal"] = rate.isTotal;
+      prevRate[index]["numerator"] = (rate as any)?.["numerator"]!;
+      prevRate[index]["denominator"] = (rate as any)?.["denominator"]!;
+      prevRate[index]["rate"] = (rate as any)?.["rate"]!;
     });
-
     field.onChange([...prevRate]);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const changeRate = (
     index: number,
     type: "numerator" | "denominator" | "rate",
-    newValue: string,
-    isTotal?: boolean
+    newValue: string
   ) => {
     const digitsAfterDecimal = 1;
     if (!allNumbers.test(newValue)) return;
@@ -107,9 +103,6 @@ export const IETRate = ({
     const prevRate = [...field.value];
     const editRate = { ...prevRate[index] };
     const validEditRate = eightNumbersOneDecimal.test(newValue);
-
-    //working with the assumption that the categories names are split with :
-    const categoryType = categoryName ? categoryName.split(":")[0] : "";
 
     if (
       (type === "numerator" || type === "denominator") &&
@@ -132,19 +125,6 @@ export const IETRate = ({
         label: rates[index].label,
         ...editRate,
       };
-
-      // Totals NDR should be independently editable
-      if (calcTotal && !isTotal) {
-        if (categoryName) {
-          calculateTotalCategory(categoryType, editRate);
-          calculateTotalCategoryQuals(categoryType, editRate);
-        }
-
-        //if the qualifiers also does a summation, run a calculate (i.e. IET-HH)
-        if (prevRate.find((rate) => rate["uid"].includes("Total")))
-          calculate(prevRate, true);
-      }
-
       field.onChange([...prevRate]);
       return;
     }
@@ -164,116 +144,79 @@ export const IETRate = ({
     } else if (editRate.rate) {
       editRate.rate = "";
     }
-
     prevRate[index] = {
       label: rates[index].label,
       ...editRate,
     };
 
-    // Totals NDR should be independently editable
-    if (calcTotal && !isTotal) {
-      if (categoryName) {
-        calculateTotalCategory(categoryType, editRate);
-        calculateTotalCategoryQuals(categoryType, editRate);
-      }
-
-      //if the qualifiers also does a summation, run a calculate (i.e. IET-HH)
-      if (prevRate.find((rate) => rate["uid"].includes("Total")))
-        calculate(prevRate, true);
-    }
+    test(prevRate);
 
     field.onChange([...prevRate]);
   };
 
-  //function is called when there are categories being used
-  const calculateTotalCategory = (categoryType: string, rate: any) => {
-    if (!allRates) return;
-
-    let cleanedRates = Object.keys(allRates)
-      .map((item) => {
-        const qualCategory = categories?.find((cat) => cat.id === item)?.label;
-        return allRates[item]?.find(
-          (qual) =>
-            qual.label === rate["label"] && qualCategory?.includes(categoryType)
-        );
-      })
-      .filter((item) => !!item);
-
-    //due to the delay in update, allRates is actually 1 onChange behind
-    //we want to swap the the good data in and remove the delayed rate in cleanedRates
-    if (cleanedRates) {
-      const totalIndex = cleanedRates.findIndex((qual) =>
-        qual?.uid?.includes(rate["uid"])
+  const test = (rates: any[]) => {
+    const categoryType = categoryName?.split(":")[0];
+    const ratesByCat = Object.values(allRates)
+      .flat()
+      .filter((rate: any) => rate?.category?.includes(categoryType!));
+    rates?.forEach((rate) => {
+      let ratesByQual = ratesByCat.filter((catRate) =>
+        catRate?.label?.includes(rate.label!)
       );
-      if (totalIndex > -1) cleanedRates[totalIndex] = rate;
-      calculate(cleanedRates);
-    }
+      ratesByQual = ratesByQual.map(
+        (qualRate) =>
+          rates.find((rate) => rate.uid === qualRate?.uid) ?? qualRate
+      );
+      const summedRates = sumRates(ratesByQual);
+      testRates?.forEach((testRate, idx) => {
+        testRate.forEach((tRate, t_idx) => {
+          const find = summedRates.find(
+            (sumRate) => sumRate["uid"] === tRate.uid
+          );
+          if(find){
+            testRates[idx][t_idx] = find;
+          }
+        });
+      });
+    });
   };
 
-  //IET-HH has an extra step of needing the total category to also do a summation on the qualifier level
-  const calculateTotalCategoryQuals = (categoryType: string, rate: any) => {
-    if (!allRates) return;
-
-    let categoryId = categories?.find(
-      (category) =>
-        category.label.includes(categoryType) &&
-        category.label.toLocaleLowerCase().includes("total")
-    )?.id;
-
-    if (categoryId) {
-      let categoryTotalRates = allRates[categoryId];
-
-      //swapping in the edit data because allRates is one onChanged behind
-      let editIndex = categoryTotalRates?.findIndex((item) =>
-        item.uid?.includes(rate.uid)
-      );
-      if (editIndex && categoryTotalRates?.[editIndex])
-        categoryTotalRates[editIndex] = rate;
-
-      calculate(categoryTotalRates as any[], true);
-    }
-  };
-
-  const calculate = (rates: any[], totalById: boolean = false) => {
+  const calculate = (rates: any[]) => {
     let numeratorSum: any = null;
     let denominatorSum: any = null;
+    let total = { numerator: "", denominator: "", rate: "" };
 
-    //find the qualifer that is the total.
-    //due to IET-HH having a total qualifier & total category, there will be instances where we want to search by either the uid or the isTotal boolean
-    let totalQual = rates.find((rate) =>
-      totalById ? rate["uid"].includes("Total") : rate["isTotal"]
-    );
-
-    if (totalQual) {
-      //calculate the total numerator & denominator
-      rates.forEach((rate) => {
-        if (rate !== totalQual && rate["rate"]) {
-          numeratorSum += rate?.numerator ? parseFloat(rate.numerator) : 0;
-          denominatorSum += rate?.denominator
-            ? parseFloat(rate.denominator)
-            : 0;
-        }
-      });
-
-      totalQual.numerator =
-        numeratorSum !== null ? numeratorSum.toString() : "";
-      totalQual.denominator =
-        denominatorSum !== null ? denominatorSum.toString() : "";
-
-      if (numeratorSum !== null && denominatorSum !== null) {
-        totalQual.rate =
-          numeratorSum !== 0
-            ? rateCalc(
-                numeratorSum.toString(),
-                denominatorSum.toString(),
-                rateMultiplicationValue,
-                1
-              )
-            : "0";
-      } else {
-        totalQual["rate"] = "";
+    //calculate the total numerator & denominator
+    rates.forEach((rate) => {
+      if (rate["rate"]) {
+        numeratorSum += rate?.numerator ? parseFloat(rate.numerator) : 0;
+        denominatorSum += rate?.denominator ? parseFloat(rate.denominator) : 0;
       }
+    });
+
+    total.numerator = numeratorSum?.toString() ?? "";
+    total.denominator = denominatorSum?.toString() ?? "";
+
+    if (numeratorSum !== null && denominatorSum !== null) {
+      total.rate =
+        numeratorSum !== 0
+          ? rateCalc(
+              numeratorSum.toString(),
+              denominatorSum.toString(),
+              rateMultiplicationValue,
+              1
+            )
+          : "0";
     }
+    return total;
+  };
+
+  const sumRates = (rates: any[]) => {
+    const totalRateIndex = rates.findIndex((rate) => rate.isTotal);
+    let totalRate = rates.splice(totalRateIndex, 1).flat()[0];
+    const total = calculate(rates);
+    rates.push({ ...total, ...totalRate });
+    return rates;
   };
 
   useEffect(
@@ -296,7 +239,6 @@ export const IETRate = ({
   return (
     <>
       {rates.map((rate, index) => {
-        const isTotal = rate?.isTotal ?? undefined;
         return (
           <CUI.Stack key={rate.id} mt={4} mb={8}>
             {rate.label && (
@@ -322,7 +264,7 @@ export const IETRate = ({
                   value={field.value[index]?.numerator ?? ""}
                   data-cy={`${name}.${index}.numerator`}
                   onChange={(e) =>
-                    changeRate(index, "numerator", e.target.value, isTotal)
+                    changeRate(index, "numerator", e.target.value)
                   }
                 />
               </QMR.InputWrapper>
@@ -344,7 +286,7 @@ export const IETRate = ({
                   type="text"
                   data-cy={`${name}.${index}.denominator`}
                   onChange={(e) =>
-                    changeRate(index, "denominator", e.target.value, isTotal)
+                    changeRate(index, "denominator", e.target.value)
                   }
                 />
               </QMR.InputWrapper>
@@ -363,9 +305,7 @@ export const IETRate = ({
                   value={field.value[index]?.rate ?? ""}
                   type="text"
                   data-cy={`${name}.${index}.rate`}
-                  onChange={(e) =>
-                    changeRate(index, "rate", e.target.value, isTotal)
-                  }
+                  onChange={(e) => changeRate(index, "rate", e.target.value)}
                   readOnly={readOnly}
                 />
               </QMR.InputWrapper>

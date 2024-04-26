@@ -8,6 +8,7 @@ import { useWatch } from "react-hook-form";
 import { LabelData, getLabelText } from "utils";
 import { ndrFormula } from "types";
 import { useFlags } from "launchdarkly-react-client-sdk";
+import { useEffect } from "react";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -64,38 +65,49 @@ const CategoryNdrSets = ({
   const register = useCustomRegister();
   const labelText = getLabelText();
 
+  const rates = categories.map((cat) => {
+    let qualRates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
+      label: qual.label,
+      uid: cat.id + "." + qual.id,
+      id: idx,
+      isTotal:
+        cat.label?.toLowerCase().includes("total") ||
+        qual.id.toLowerCase().includes("total"),
+    }));
+    return qualRates?.length ? qualRates : [{ id: 0 }];
+  });
+
+  useEffect(() => {
+    console.log("up", rates)
+  }, [rates])
+
   return (
     <>
-      {categories.map((cat) => {
-        let rates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
-          label: qual.label,
-          uid: cat.id + "." + qual.id,
-          id: idx,
-        }));
-
-        rates = rates?.length ? rates : [{ id: 0 }];
-
+      {rates.map((qualRates, idx) => {
         return (
-          <CUI.Box key={cat.id}>
+          <CUI.Box key={categories[idx].id}>
             <CUI.Text fontWeight="bold" my="5">
-              {labelText[cat.label] ?? cat.label}
+              {labelText[categories[idx].label] ?? categories[idx].label}
             </CUI.Text>
             <RateComponent
               readOnly={rateReadOnly}
-              rates={rates}
+              rates={qualRates}
+              testRates={rates}
               measureName={measureName}
               inputFieldNames={inputFieldNames}
               ndrFormulas={ndrFormulas}
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
-              categoryName={cat.label}
+              categoryName={categories[idx].label}
               categories={categories}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               rateCalc={rateCalc}
-              {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`)}
+              {...register(
+                `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categories[idx].id}`
+              )}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }
