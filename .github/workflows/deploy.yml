@@ -18,7 +18,7 @@ jobs:
   unit-tests:
     name: Unit Tests
     uses: ./.github/workflows/unittest-workflow.yml
-    if: github.ref_name == 'master'
+    #if: github.ref_name == 'master'
     secrets:
       CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
   deploy:

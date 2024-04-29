@@ -70,8 +70,10 @@ jobs:
           CYPRESS_ADMIN_USER: ${{ secrets.cypress-admin-user }}
           CYPRESS_QMR_PASSWORD: ${{ secrets.cypress-password }}
       - name: Upload screenshots
-        uses: actions/upload-artifact@v3
-        if: failure()
+        uses: actions/upload-artifact@v4
+        #if: failure()
+        if: always()
         with:
-          name: cypress-screenshots
+          name: cypress-test-results
           path: tests/cypress/screenshots/
+        retention-days: 14
