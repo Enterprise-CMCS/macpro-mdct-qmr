@@ -69,9 +69,6 @@ jobs:
           CYPRESS_STATE_USER_4: ${{ secrets.cypress-user4 }}
           CYPRESS_ADMIN_USER: ${{ secrets.cypress-admin-user }}
           CYPRESS_QMR_PASSWORD: ${{ secrets.cypress-password }}
-      - name: How can I make this unique
-        run: |
-          cat $GITHUB_ENV 
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         if: failure()
