@@ -73,7 +73,7 @@ jobs:
         run: |
           pwd
           ls -alh 
-          find . -iname screenshots -type d  
+          find tests -iname \* -type d  
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         #if: failure()
