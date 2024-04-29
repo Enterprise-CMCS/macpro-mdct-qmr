@@ -1,4 +1,4 @@
-import { cleanString } from "utils";
+import { LabelData } from "utils";
 
 interface NDRforumla {
   numerator: number;
@@ -19,7 +19,7 @@ interface Field {
 /* At least one NDR set must be complete (OMS) */
 export const ComplexValidateNDRTotalsOMS = (
   rateData: any,
-  categories: string[],
+  categories: LabelData[],
   ndrFormulas: NDRforumla[],
   errorLocation: string
 ) => {
@@ -31,7 +31,7 @@ export const ComplexValidateNDRTotalsOMS = (
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];
-  const cleanedCategories = categories.map((cat) => cleanString(cat));
+  const cleanedCategories = categories.map((cat) => cat.id);
   if (cleanedCategories.length !== 0) {
     for (const cat of cleanedCategories) {
       let row = [];
@@ -75,7 +75,7 @@ export const ComplexValidateNDRTotalsOMS = (
  */
 export const ComplexValidateNDRTotals = (
   performanceMeasureArray: any,
-  categories: string[],
+  categories: LabelData[],
   ndrFormulas: NDRforumla[],
   errorLocation: string = "Performance Measure Total"
 ) => {
@@ -106,10 +106,10 @@ export const ComplexValidateNDRTotals = (
     ) {
       errorArray.push({
         errorLocation: `${errorLocation} - ${
-          categories[i] ? categories[i] : ""
+          categories[i].label ? categories[i].label : ""
         }`,
         errorMessage: `Total ${
-          categories[i] ? categories[i] : ""
+          categories[i].label ? categories[i].label : ""
         } must contain values if other fields are filled.`,
       });
     } else {
@@ -121,12 +121,12 @@ export const ComplexValidateNDRTotals = (
         ) {
           errorArray.push({
             errorLocation: `${errorLocation} - ${
-              categories[i] ? categories[i] : ""
+              categories[i].label ? categories[i].label : ""
             }`,
             errorMessage: `Total ${
               field.label
             } is not equal to the sum of other "${field.label}" fields in ${
-              categories[i] ? categories[i] : ""
+              categories[i].label ? categories[i].label : ""
             } section.`,
           });
         }

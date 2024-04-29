@@ -1,6 +1,6 @@
 import fireEvent from "@testing-library/user-event";
 import { AdditionalNotes } from "./AdditionalNotes";
-import { Reporting } from "measures/2024/shared/CommonQuestions/Reporting";
+import { Reporting } from "./Reporting";
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import SharedContext from "shared/SharedContext";
