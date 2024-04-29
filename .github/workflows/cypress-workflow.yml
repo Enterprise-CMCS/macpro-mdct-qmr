@@ -76,4 +76,4 @@ jobs:
         with:
           name: cypress-test-results
           path: tests/cypress/screenshots/
-        retention-days: 14
+          retention-days: 14
