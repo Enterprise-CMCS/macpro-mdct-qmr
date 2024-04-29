@@ -77,6 +77,6 @@ jobs:
         #if: failure()
         if: always()
         with:
-          name: cypress-test-results
+          name: ${{ matrix.containers }}-test-results
           path: tests/cypress/screenshots/
           retention-days: 14
