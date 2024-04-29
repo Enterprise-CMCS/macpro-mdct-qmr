@@ -41,8 +41,7 @@ jobs:
             ${{github.workspace}}/services/ui-src/coverage/lcov.info:lcov
       - name: Store unit test results
         uses: actions/upload-artifact@v4
-        #if: failure()
-        if: always()
+        if: failure()
         with:
           name: unit-test-results
           path: |

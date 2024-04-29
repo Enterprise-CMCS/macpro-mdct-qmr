@@ -44,7 +44,7 @@ describe("submit coreset", () => {
     // confirm reset
     cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
-      "in progress3 of 32 complete"
+      "in progress3 of 33 complete"
     );
   });
 
