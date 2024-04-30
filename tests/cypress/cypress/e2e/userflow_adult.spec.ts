@@ -3,11 +3,12 @@ const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
 
-// fill out a measure for 2024
+// TODO: Adding an adult core set is not built out yet
+// fill out a measure for 2023
 describe("Measure: CDF-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear(testingYear);
+    cy.selectYear("2023");
     cy.goToAdultMeasures();
     cy.goToMeasure("CDF-AD");
   });
