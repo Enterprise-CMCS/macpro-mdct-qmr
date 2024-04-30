@@ -48,9 +48,7 @@ custom:
   iamPath: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path,"/"}
   iamPermissionsBoundaryPolicy: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
   coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
-  coreSetTableArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableArn}
   measureTableName: ${env:measureTableName, param:MeasureTableName}
-  measureTableArn: ${env:DYNAMO_TABLE_ARN, param:MeasureTableArn}
   serverlessTerminationProtection:
     stages:
       - master

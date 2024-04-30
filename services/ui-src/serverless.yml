@@ -32,8 +32,6 @@ custom:
   ldSdkClient: ${env:REACT_APP_LD_SDK_CLIENT, ssm:/${self:custom.stage}/launchdarkly/client, ssm:/default/launchdarkly/client}
   s3_attachments_bucket_region: ${param:AttachmentsBucketRegion}
   s3_attachments_bucket_name: ${param:AttachmentsBucketName}
-  s3_dynamo_snapshot_bucket_region: ${param:DynamoSnapshotBucketRegion}
-  s3_dynamo_snapshot_bucket_name: ${param:DynamoSnapshotBucketName}
   ui_s3_bucket_name: ${param:S3BucketName}
   ui_cloudfront_distribution_id: ${param:CloudFrontDistributionId}
   application_endpoint_url: ${param:ApplicationEndpointUrl}
@@ -67,8 +65,6 @@ custom:
         export REACT_APP_LD_SDK_CLIENT=${self:custom.ldSdkClient}
         export S3_ATTACHMENTS_BUCKET_REGION=${self:custom.s3_attachments_bucket_region}
         export S3_ATTACHMENTS_BUCKET_NAME=${self:custom.s3_attachments_bucket_name}
-        export S3_DYNAMO_SNAPSHOT_BUCKET_REGION=${self:custom.s3_dynamo_snapshot_bucket_region}
-        export S3_DYNAMO_SNAPSHOT_BUCKET_NAME=${self:custom.s3_dynamo_snapshot_bucket_name}
         export LOCAL_LOGIN=false
         export PROD_URL=${self:custom.prod_url}
         export BRANCH_NAME=${self:custom.stage}

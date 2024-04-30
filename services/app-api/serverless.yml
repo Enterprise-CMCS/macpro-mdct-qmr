@@ -14,7 +14,6 @@ plugins:
   - serverless-offline-ssm
   - serverless-offline
   - serverless-stack-termination-protection
-  - serverless-idempotency-helper
   - serverless-iam-helper
   - serverless-s3-bucket-helper
   - serverless-api-client-certificate
@@ -49,13 +48,10 @@ custom:
   docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
   coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
-  coreSetTableArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableArn}
   coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableStreamArn}
   measureTableName: ${env:measureTableName, param:MeasureTableName}
-  measureTableArn: ${env:DYNAMO_TABLE_ARN, param:MeasureTableArn}
   measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:MeasureTableStreamArn}
   bannerTableName: ${env:bannerTableName, param:BannerTableName}
-  bannerTableArn: ${env:DYNAMO_TABLE_ARN, param:BannerTableArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl-waf
   vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
   privateSubnets:

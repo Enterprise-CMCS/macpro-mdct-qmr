@@ -10,21 +10,16 @@ services:
     path: services/uploads
     params:
       CoreSetTableName: ${database.CoreSetTableName}
-      CoreSetTableArn: ${database.CoreSetTableArn}
       MeasureTableName: ${database.MeasureTableName}
-      MeasureTableArn: ${database.MeasureTableArn}
 
   app-api:
     path: services/app-api
     params:
       CoreSetTableName: ${database.CoreSetTableName}
-      CoreSetTableArn: ${database.CoreSetTableArn}
       CoreSetTableStreamArn: ${database.CoreSetTableStreamArn}
       MeasureTableName: ${database.MeasureTableName}
-      MeasureTableArn: ${database.MeasureTableArn}
       MeasureTableStreamArn: ${database.MeasureTableStreamArn}
       BannerTableName: ${database.BannerTableName}
-      BannerTableArn: ${database.BannerTableArn}
 
   # wave 3: depends on many
   ui-auth:
@@ -47,8 +42,6 @@ services:
       UserPoolClientDomain: ${ui-auth.UserPoolClientDomain}
       AttachmentsBucketRegion: ${uploads.Region}
       AttachmentsBucketName: ${uploads.AttachmentsBucketName}
-      DynamoSnapshotBucketRegion: ${uploads.DynamoSnapshotBucketRegion}
-      DynamoSnapshotBucketName: ${uploads.DynamoSnapshotBucketName}
       S3BucketName: ${ui.S3BucketName}
       CloudFrontDistributionId: ${ui.CloudFrontDistributionId}
       ApplicationEndpointUrl: ${ui.ApplicationEndpointUrl}
