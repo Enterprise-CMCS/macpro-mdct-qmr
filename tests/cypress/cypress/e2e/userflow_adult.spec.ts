@@ -1,4 +1,4 @@
-import { measureAbbrList2024, testingYear } from "../../support/constants";
+import { measureAbbrList2024 } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
@@ -36,7 +36,7 @@ describe("Measure: CDF-AD", () => {
 describe("submit coreset", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear(testingYear);
+    cy.selectYear("2023");
     cy.get('[data-cy="adult-kebab-menu"]').click();
     // force click ensures reset gets hit (without force it fails when child set is present)
     cy.get('[aria-label="Reset All Measures for ACS"]').click({ force: true });
@@ -78,7 +78,7 @@ describe("submit coreset", () => {
 describe("Export All Measures", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear(testingYear);
+    cy.selectYear("2023");
     cy.window().then((win) => {
       cy.stub(win, "open").callsFake((url) => {
         win.location.href = url;
