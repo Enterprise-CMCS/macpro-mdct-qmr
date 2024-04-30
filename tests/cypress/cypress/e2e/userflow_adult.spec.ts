@@ -42,7 +42,7 @@ describe("submit coreset", () => {
     cy.get('[aria-label="Reset All Measures for ACS"]').click({ force: true });
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-WY2023ACS"]').should(
       "contain.text",
       "in progress3 of 33 complete"
     );
