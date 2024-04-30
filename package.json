@@ -37,7 +37,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^2.x",
     "prettier": "^2.4.1",
-    "serverless": "^3.27.0",
+    "serverless": "^3.38.0",
     "serverless-bundle": "^6.0.0",
     "serverless-dotenv-plugin": "^4.0.0",
     "serverless-iam-helper": "./plugins/serverless-iam-helper",
