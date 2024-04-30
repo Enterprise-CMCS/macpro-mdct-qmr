@@ -1,7 +1,6 @@
 //NOTE: This component is used for reporting year 2023 and above
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Types from "measures/2023/shared/CommonQuestions/types";
 
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
@@ -16,6 +15,9 @@ import {
   rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
 } from "utils";
+import { AnyObject } from "types";
+
+type FieldType = "numerator" | "denominator" | "rate";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -25,6 +27,7 @@ interface Props extends QMR.InputWrapperProps {
   allowMultiple?: boolean;
   rateMultiplicationValue?: number;
   categoryName?: string;
+  category?: LabelData;
   categories?: LabelData[];
   customMask?: RegExp;
   calcTotal?: boolean;
@@ -43,6 +46,7 @@ export const IETRate = ({
   readOnly = true,
   rateMultiplicationValue = 100,
   categoryName,
+  category,
   categories,
   customMask,
   calcTotal,
@@ -64,121 +68,103 @@ export const IETRate = ({
     control,
     defaultValue: [],
   });
-  //Using a watch to get all the rate changes as we need rates from all the categories to calculate the total
-  //the current system only looks at rates in the qualifier level of the current category
-  const { watch } = useFormContext<Types.DefaultFormData>();
-  const allRates = watch().PerformanceMeasure
-    ?.rates as Types.PerformanceMeasureRate;
-
+  const catID = category?.id ?? "singleCategory";
   /*
   On component render, verify that all NDRs have a label, uid and isTotal value.
   This is required for accurate data representation in DB and to calculateTotalsByCategory().
   */
   useEffect(() => {
-    const prevRate = [...field.value];
-    rates.forEach((rate, index) => {
-      if (prevRate[index] === undefined) {
-        prevRate[index] = {};
-      }
-      prevRate[index]["label"] = rate.label ?? undefined;
-      prevRate[index]["uid"] = rate.uid ?? undefined;
+    const values = field.value;
+    values[catID] = values[catID] ?? [];
+    rates.forEach((rate, idx) => {
+      values[catID][idx] = values[catID][idx] ?? {};
+      values[catID][idx]["label"] = rate.label ?? undefined;
+      values[catID][idx]["uid"] = rate.uid ?? undefined;
       //human readable text for Mathematica
-      prevRate[index]["category"] = categoryName ?? undefined;
-      prevRate[index]["isTotal"] = rate.isTotal;
-      prevRate[index]["numerator"] = (rate as any)?.["numerator"]!;
-      prevRate[index]["denominator"] = (rate as any)?.["denominator"]!;
-      prevRate[index]["rate"] = (rate as any)?.["rate"]!;
+      values[catID][idx]["category"] = categoryName ?? undefined;
+      values[catID][idx]["isTotal"] = rate.isTotal;
     });
-    field.onChange([...prevRate]);
+    field.onChange(values);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const changeRate = (
-    index: number,
-    type: "numerator" | "denominator" | "rate",
-    newValue: string
-  ) => {
-    const digitsAfterDecimal = 1;
-    if (!allNumbers.test(newValue)) return;
-    if (type === "rate" && readOnly) return;
-    const prevRate = [...field.value];
-    const editRate = { ...prevRate[index] };
-    const validEditRate = eightNumbersOneDecimal.test(newValue);
-
-    if (
-      (type === "numerator" || type === "denominator") &&
-      allPositiveIntegersWith8Digits.test(newValue)
-    ) {
-      editRate[type] = validEditRate ? newValue : editRate[type];
+  const isValid = (type: FieldType, newValue: string) => {
+    const validations = [allNumbers];
+    switch (type) {
+      case "numerator":
+      case "denominator":
+        validations.push(allPositiveIntegersWith8Digits);
+        break;
+      case "rate":
+        const regex = allowMultiple
+          ? rateThatAllowsFourDecimals
+          : rateThatAllowsOneDecimal;
+        validations.push(eightNumbersOneDecimal, regex);
+        break;
     }
+    return validations.every((valid) => valid?.test(newValue));
+  };
 
-    if (type === "rate" && !readOnly) {
-      const regex = allowMultiple
-        ? rateThatAllowsFourDecimals
-        : rateThatAllowsOneDecimal;
+  const changeRate = (index: number, type: FieldType, newValue: string) => {
+    const digitsAfterDecimal = 1;
+    if (type === "rate" && readOnly) return;
 
-      editRate[type] =
-        regex.test(newValue) || newValue === "" || customMask?.test(newValue)
-          ? newValue
-          : editRate[type];
+    let allRates = field.value;
+    const prevRate = allRates[catID];
+
+    if (isValid(type, newValue)) {
+      const editRate = prevRate[index];
+      editRate[type] = newValue;
+
+      if (type === "rate" && !readOnly)
+        newValue = !editRate.numerator || !editRate.denominator ? "" : newValue;
+      else if (type === "numerator" || type === "denominator") {
+        if (
+          editRate.denominator &&
+          editRate.numerator &&
+          (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
+            allowNumeratorGreaterThanDenominator)
+        ) {
+          editRate.rate = rateCalc(
+            editRate.numerator,
+            editRate.denominator,
+            rateMultiplicationValue,
+            digitsAfterDecimal
+          );
+        } else if (!editRate.numerator || !editRate.denominator)
+          editRate.rate = "";
+      }
 
       prevRate[index] = {
         label: rates[index].label,
         ...editRate,
       };
-      field.onChange([...prevRate]);
-      return;
+      allRates[catID] = prevRate;
+      allRates = test(prevRate[index], allRates);
+      field.onChange(allRates);
     }
-
-    if (
-      editRate.denominator &&
-      editRate.numerator &&
-      (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
-        allowNumeratorGreaterThanDenominator)
-    ) {
-      editRate.rate = rateCalc(
-        editRate.numerator,
-        editRate.denominator,
-        rateMultiplicationValue,
-        digitsAfterDecimal
-      );
-    } else if (editRate.rate) {
-      editRate.rate = "";
-    }
-    prevRate[index] = {
-      label: rates[index].label,
-      ...editRate,
-    };
-
-    test(prevRate);
-
-    field.onChange([...prevRate]);
   };
 
-  const test = (rates: any[]) => {
+  const test = (rate: any, allRates: AnyObject) => {
     const categoryType = categoryName?.split(":")[0];
     const ratesByCat = Object.values(allRates)
       .flat()
-      .filter((rate: any) => rate?.category?.includes(categoryType!));
-    rates?.forEach((rate) => {
-      let ratesByQual = ratesByCat.filter((catRate) =>
-        catRate?.label?.includes(rate.label!)
-      );
-      ratesByQual = ratesByQual.map(
-        (qualRate) =>
-          rates.find((rate) => rate.uid === qualRate?.uid) ?? qualRate
-      );
-      const summedRates = sumRates(ratesByQual);
-      testRates?.forEach((testRate, idx) => {
-        testRate.forEach((tRate, t_idx) => {
-          const find = summedRates.find(
-            (sumRate) => sumRate["uid"] === tRate.uid
-          );
-          if(find){
-            testRates[idx][t_idx] = find;
-          }
-        });
-      });
+      .filter((rate) => rate?.category?.includes(categoryType!));
+
+    let ratesByQual = ratesByCat.filter((catRate) =>
+      catRate?.label?.includes(rate.label!)
+    );
+
+    const totalRate = sumRates(ratesByQual);
+    const totalCat = totalRate["uid"].split(".")[0];
+
+    allRates[totalCat].forEach((qual: any) => {
+      if (qual.uid === totalRate["uid"]) {
+        qual.numerator = totalRate.numerator;
+        qual.denominator = totalRate.denominator;
+        qual.rate = totalRate.rate;
+      }
     });
+    return allRates;
   };
 
   const calculate = (rates: any[]) => {
@@ -215,8 +201,7 @@ export const IETRate = ({
     const totalRateIndex = rates.findIndex((rate) => rate.isTotal);
     let totalRate = rates.splice(totalRateIndex, 1).flat()[0];
     const total = calculate(rates);
-    rates.push({ ...total, ...totalRate });
-    return rates;
+    return { ...totalRate, ...total };
   };
 
   useEffect(
@@ -250,19 +235,22 @@ export const IETRate = ({
               <QMR.InputWrapper
                 label={customNumeratorLabel || "Numerator"}
                 isInvalid={
-                  !!objectPath.get(errors, `${name}.${index}.numerator`)
-                    ?.message
+                  !!objectPath.get(
+                    errors,
+                    `${name}.${catID}.${index}.numerator`
+                  )?.message
                 }
                 errorMessage={
-                  objectPath.get(errors, `${name}.${index}.numerator`)?.message
+                  objectPath.get(errors, `${name}.${catID}.${index}.numerator`)
+                    ?.message
                 }
                 {...rest}
               >
                 <CUI.Input
                   type="text"
                   aria-label={`${name}.${index}.numerator`}
-                  value={field.value[index]?.numerator ?? ""}
-                  data-cy={`${name}.${index}.numerator`}
+                  value={field.value[catID]?.[index]?.numerator ?? ""}
+                  data-cy={`${name}.${catID}.${index}.numerator`}
                   onChange={(e) =>
                     changeRate(index, "numerator", e.target.value)
                   }
@@ -271,20 +259,24 @@ export const IETRate = ({
               <QMR.InputWrapper
                 label={customDenominatorLabel || "Denominator"}
                 isInvalid={
-                  !!objectPath.get(errors, `${name}.${index}.denominator`)
-                    ?.message
+                  !!objectPath.get(
+                    errors,
+                    `${name}.${catID}.${index}.denominator`
+                  )?.message
                 }
                 errorMessage={
-                  objectPath.get(errors, `${name}.${index}.denominator`)
-                    ?.message
+                  objectPath.get(
+                    errors,
+                    `${name}.${catID}.${index}.denominator`
+                  )?.message
                 }
                 {...rest}
               >
                 <CUI.Input
                   aria-label={`${name}.${index}.denominator`}
-                  value={field.value[index]?.denominator ?? ""}
+                  value={field.value[catID]?.[index]?.denominator ?? ""}
                   type="text"
-                  data-cy={`${name}.${index}.denominator`}
+                  data-cy={`${name}.${catID}.${index}.denominator`}
                   onChange={(e) =>
                     changeRate(index, "denominator", e.target.value)
                   }
@@ -293,29 +285,31 @@ export const IETRate = ({
               <QMR.InputWrapper
                 label={customRateLabel || "Rate"}
                 isInvalid={
-                  !!objectPath.get(errors, `${name}.${index}.rate`)?.message
+                  !!objectPath.get(errors, `${name}.${catID}.${index}.rate`)
+                    ?.message
                 }
                 errorMessage={
-                  objectPath.get(errors, `${name}.${index}.rate`)?.message
+                  objectPath.get(errors, `${name}.${catID}.${index}.rate`)
+                    ?.message
                 }
                 {...rest}
               >
                 <CUI.Input
                   aria-label={`${name}.${index}.rate`}
-                  value={field.value[index]?.rate ?? ""}
+                  value={field.value[catID]?.[index]?.rate ?? ""}
                   type="text"
-                  data-cy={`${name}.${index}.rate`}
+                  data-cy={`${name}.${catID}.${index}.rate`}
                   onChange={(e) => changeRate(index, "rate", e.target.value)}
                   readOnly={readOnly}
                 />
               </QMR.InputWrapper>
             </CUI.HStack>
             {!allowNumeratorGreaterThanDenominator &&
-              parseFloat(field.value[index]?.numerator) >
-                parseFloat(field.value[index]?.denominator) && (
+              parseFloat(field.value[catID]?.[index]?.numerator) >
+                parseFloat(field.value[catID]?.[index]?.denominator) && (
                 <QMR.Notification
                   alertTitle="Rate Error"
-                  alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}
+                  alertDescription={`Numerator: ${field.value[catID]?.[index]?.numerator} cannot be greater than Denominator: ${field.value[catID]?.[index]?.denominator}`}
                   alertStatus="warning"
                 />
               )}

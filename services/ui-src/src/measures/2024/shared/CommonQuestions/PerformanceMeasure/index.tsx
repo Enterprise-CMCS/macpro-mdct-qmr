@@ -8,7 +8,6 @@ import { useWatch } from "react-hook-form";
 import { LabelData, getLabelText } from "utils";
 import { ndrFormula } from "types";
 import { useFlags } from "launchdarkly-react-client-sdk";
-import { useEffect } from "react";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -77,13 +76,14 @@ const CategoryNdrSets = ({
     return qualRates?.length ? qualRates : [{ id: 0 }];
   });
 
-  useEffect(() => {
-    console.log("up", rates)
-  }, [rates])
+  measureName = "IET";
 
   return (
     <>
       {rates.map((qualRates, idx) => {
+        const registerId = measureName?.includes("IET")
+          ? `${DC.PERFORMANCE_MEASURE}.${DC.RATES}`
+          : `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categories[idx].id}`;
         return (
           <CUI.Box key={categories[idx].id}>
             <CUI.Text fontWeight="bold" my="5">
@@ -99,15 +99,14 @@ const CategoryNdrSets = ({
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
               categoryName={categories[idx].label}
+              category={categories[idx]}
               categories={categories}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               rateCalc={rateCalc}
-              {...register(
-                `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categories[idx].id}`
-              )}
+              {...register(registerId)}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }
