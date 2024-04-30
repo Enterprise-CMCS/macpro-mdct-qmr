@@ -39,7 +39,7 @@
     "prettier": "^2.4.1",
     "serverless": "^3.38.0",
     "serverless-bundle": "^6.0.0",
-    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-dotenv-plugin": "^4.0.0",
     "serverless-iam-helper": "github:Enterprise-CMCS/serverless-iam-helper",
     "serverless-offline": "^13.5.0",
     "serverless-offline-ssm": "^6.2.0",
