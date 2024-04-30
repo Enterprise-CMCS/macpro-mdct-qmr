@@ -1,4 +1,3 @@
-import { create } from "cypress/types/lodash";
 import { measureAbbrList2024, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 

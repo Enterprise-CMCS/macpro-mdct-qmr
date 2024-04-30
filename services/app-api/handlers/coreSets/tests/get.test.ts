@@ -82,7 +82,7 @@ describe("Test Get Core Set Functions", () => {
     });
   });
 
-  test("Test getCoreSet unauthorized user attempt (incorrect state)", async () => {
+  test("Test coreSetList unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
     const res = await coreSetList(
