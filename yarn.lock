@@ -9746,7 +9746,7 @@ serverless-plugin-scripts@^1.0.2:
   resolved "https://registry.yarnpkg.com/serverless-plugin-scripts/-/serverless-plugin-scripts-1.0.2.tgz#21808c3cfd0a1a84e48c0660b0f6f370b5665486"
   integrity sha512-+OL9fFz5r6BXNHfpu9MDLehS/haC0fy/T3V5uJsTfLAnNsn+PzM6BmvefUfWG372hBT7piTbywB1Vl1+4LmI5Q==
 
-serverless-plugin-warmup@^8.3.0:
+serverless-plugin-warmup@^8.2.1:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/serverless-plugin-warmup/-/serverless-plugin-warmup-8.3.0.tgz#cbeab9bac0c91c3b63a8eeead2e091c15e6a5fbc"
   integrity sha512-FBPPfY6CFdg/BAbvR+UrgHUFNgkUsQxXApSUVwoBqoaLH7amc2aCUYxYncJaD+kRLHTD4WKB0VC7QuyfUPJ+XQ==
