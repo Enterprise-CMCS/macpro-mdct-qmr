@@ -53,7 +53,7 @@ describe("submit coreset", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[aria-label="Complete All Measures for ACS"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-WY2023ACS"]').should(
       "contain.text",
       "complete33 of 33 complete"
     );
@@ -68,7 +68,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-WY2023ACS"]').should(
       "contain.text",
       "submitted33 of 33 complete"
     );
