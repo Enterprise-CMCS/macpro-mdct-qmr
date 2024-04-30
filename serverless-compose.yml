@@ -8,24 +8,13 @@ services:
   # wave 2: depends on database
   uploads:
     path: services/uploads
-    dependsOn: database
   app-api:
     path: services/app-api
-    dependsOn: database
 
   # wave 3: depends on many
   ui-auth:
     path: services/ui-auth
-    dependsOn: 
-      - app-api
-      - ui
-      - uploads
 
   # wave 4: depends on many
   ui-src:
     path: services/ui-src
-    dependsOn:
-      - app-api
-      - ui
-      - ui-auth
-      - uploads
