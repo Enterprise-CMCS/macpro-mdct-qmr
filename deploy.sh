@@ -39,7 +39,8 @@ do
 done
 
 # run serverless compose from root
-serverless deploy  --stage $stage
+serverless refresh-outputs
+serverless deploy  --stage $stage --max-concurrency 2
 
 pushd services
 echo """
