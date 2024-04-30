@@ -1,8 +1,8 @@
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const { handler } = require("../libs/handler-lib");
 const { scan } = require("../libs/dynamodb-lib");
 const { flatten } = require("flat");
 const { parseAsync } = require("json2csv");
-const AWS = require("aws-sdk");
 
 const csvToS3 = async (scanResult) => {
   const flattenedResults = scanResult.map((item) => flatten(item));
@@ -11,29 +11,18 @@ const csvToS3 = async (scanResult) => {
 };
 
 const uploadFileToS3 = async (filePath, scanResult) => {
-  const bucket = new AWS.S3();
-
-  const s3Promise = new Promise((resolve, reject) => {
-    bucket.upload(
-      {
-        Bucket: process.env.dynamoSnapshotS3BucketName,
-        Key: filePath,
-        Body: scanResult,
-      },
-      function (err, data) {
-        if (err) {
-          reject(err);
-          throw err;
-        }
-        if (data) {
-          resolve(data);
-        }
-        console.log(`File (${data.Key}) uploaded to: ${data.Location}`);
-      }
-    );
-  });
-
-  return await s3Promise;
+  const client = new S3Client({ region: "us-east-1" });
+  const uploadParams = {
+    Bucket: process.env.dynamoSnapshotS3BucketName,
+    Key: filePath,
+    Body: scanResult,
+  };
+  try {
+    await client.send(new PutObjectCommand(params)),
+      console.log(`File (${data.Key}) uploaded to: ${data.Location}`);
+  } catch (err) {
+    throw err;
+  }
 };
 
 const scanAll = async (TableName) => {

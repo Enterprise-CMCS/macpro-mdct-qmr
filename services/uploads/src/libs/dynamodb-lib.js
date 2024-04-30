@@ -1,18 +1,12 @@
-const AWS = require("aws-sdk");
-const dyanmoConfig = {};
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
-// ugly but OK, here's where we will check the environment
-const endpoint = process.env.DYNAMODB_URL;
-if (endpoint) {
-  dyanmoConfig.endpoint = endpoint;
-  dyanmoConfig.accessKeyId = "LOCAL_FAKE_KEY"; // pragma: allowlist secret
-  dyanmoConfig.secretAccessKey = "LOCAL_FAKE_SECRET"; // pragma: allowlist secret
-} else {
-  dyanmoConfig["region"] = "us-east-1";
-}
-
-const client = new AWS.DynamoDB.DocumentClient(dyanmoConfig);
+const client = DynamoDBDocumentClient.from(
+  new DynamoDBClient({ region: "us-east-1" })
+);
 
 module.exports = {
-  scan: (params) => client.scan(params).promise(),
+  scan: async (params) => {
+    await client.send(new ScanCommand(params));
+  },
 };

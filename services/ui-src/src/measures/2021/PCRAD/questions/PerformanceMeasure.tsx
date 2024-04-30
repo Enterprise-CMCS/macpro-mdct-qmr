@@ -1,11 +1,11 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Types from "../../CommonQuestions/types";
-import { cleanString } from "utils/cleanString";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { PerformanceMeasureData } from "../../CommonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
 import { PCRRate } from "components/PCRRate";
+import { LabelData } from "utils";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -16,8 +16,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: string[];
-  qualifiers?: string[];
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   rateReadOnly: boolean;
   calcTotal: boolean;
   rateScale?: number;
@@ -38,18 +38,18 @@ const CategoryNdrSets = ({
     <>
       {categories.map((item) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat,
+          label: cat.label,
           id: idx,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = cleanString(item);
+        const cleanedName = item.id;
 
         return (
           <>
-            <CUI.Text key={item} fontWeight="bold" my="5">
-              {item}
+            <CUI.Text key={item.id} fontWeight="bold" my="5">
+              {item.label}
             </CUI.Text>
             <QMR.Rate
               readOnly={rateReadOnly}
@@ -74,7 +74,7 @@ const QualifierNdrSets = ({
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
-    label: item,
+    label: item.label,
     id: idx,
   }));
 
