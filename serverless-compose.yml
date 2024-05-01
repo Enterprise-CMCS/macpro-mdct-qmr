@@ -8,51 +8,40 @@ services:
   # wave 2: depends on database
   uploads:
     path: services/uploads
-    dependsOn: database
-    # params:
-    #   CoreSetTableName: ${database.CoreSetTableName}
-    #   MeasureTableName: ${database.MeasureTableName}
+    params:
+      CoreSetTableName: ${database.CoreSetTableName}
+      MeasureTableName: ${database.MeasureTableName}
 
   app-api:
     path: services/app-api
-    dependsOn: database
-    # params:
-    #   CoreSetTableName: ${database.CoreSetTableName}
-    #   CoreSetTableStreamArn: ${database.CoreSetTableStreamArn}
-    #   MeasureTableName: ${database.MeasureTableName}
-    #   MeasureTableStreamArn: ${database.MeasureTableStreamArn}
-    #   BannerTableName: ${database.BannerTableName}
+    params:
+      CoreSetTableName: ${database.CoreSetTableName}
+      CoreSetTableStreamArn: ${database.CoreSetTableStreamArn}
+      MeasureTableName: ${database.MeasureTableName}
+      MeasureTableStreamArn: ${database.MeasureTableStreamArn}
+      BannerTableName: ${database.BannerTableName}
 
   # wave 3: depends on many
   ui-auth:
     path: services/ui-auth
-    dependsOn:
-      - uploads
-      - app-api
-      - ui
-    # params:
-    #   AttachmentsBucketArn: ${uploads.AttachmentsBucketArn}
-    #   ApiGatewayRestApiName: ${app-api.ApiGatewayRestApiName}
-    #   ApplicationEndpointUrl: ${ui.ApplicationEndpointUrl}
+    params:
+      AttachmentsBucketArn: ${uploads.AttachmentsBucketArn}
+      ApiGatewayRestApiName: ${app-api.ApiGatewayRestApiName}
+      ApplicationEndpointUrl: ${ui.ApplicationEndpointUrl}
 
   # wave 4: depends on many
   ui-src:
     path: services/ui-src
-    dependsOn:
-      - app-api
-      - ui
-      - ui-auth
-      - uploads
-    # params:
-    #   ApiRegion: ${app-api.Region}
-    #   ApiGatewayRestApiUrl: ${app-api.ApiGatewayRestApiUrl}
-    #   CognitoRegion: ${ui-auth.Region}
-    #   IdentityPoolId: ${ui-auth.IdentityPoolId}
-    #   UserPoolId: ${ui-auth.UserPoolId}
-    #   UserPoolClientId: ${ui-auth.UserPoolClientId}
-    #   UserPoolClientDomain: ${ui-auth.UserPoolClientDomain}
-    #   AttachmentsBucketRegion: ${uploads.Region}
-    #   AttachmentsBucketName: ${uploads.AttachmentsBucketName}
-    #   S3BucketName: ${ui.S3BucketName}
-    #   CloudFrontDistributionId: ${ui.CloudFrontDistributionId}
-    #   ApplicationEndpointUrl: ${ui.ApplicationEndpointUrl}
+    params:
+      ApiRegion: ${app-api.Region}
+      ApiGatewayRestApiUrl: ${app-api.ApiGatewayRestApiUrl}
+      CognitoRegion: ${ui-auth.Region}
+      IdentityPoolId: ${ui-auth.IdentityPoolId}
+      UserPoolId: ${ui-auth.UserPoolId}
+      UserPoolClientId: ${ui-auth.UserPoolClientId}
+      UserPoolClientDomain: ${ui-auth.UserPoolClientDomain}
+      AttachmentsBucketRegion: ${uploads.Region}
+      AttachmentsBucketName: ${uploads.AttachmentsBucketName}
+      S3BucketName: ${ui.S3BucketName}
+      CloudFrontDistributionId: ${ui.CloudFrontDistributionId}
+      ApplicationEndpointUrl: ${ui.ApplicationEndpointUrl}

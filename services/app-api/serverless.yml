@@ -8,7 +8,7 @@ package:
 
 plugins:
   - serverless-plugin-typescript
-  - serverless-plugin-warmup
+  # - serverless-plugin-warmup
   - serverless-associate-waf
   - "@enterprise-cmcs/serverless-waf-plugin"
   - serverless-offline-ssm
@@ -47,11 +47,11 @@ custom:
     path: ../../.env
   docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
-  coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
-  coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableStreamArn}
-  measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
-  measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableStreamArn}
-  bannerTableName: ${env:bannerTableName, cf:database-${self:custom.stage}.BannerTableName}
+  coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
+  coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableStreamArn}
+  measureTableName: ${env:measureTableName, param:MeasureTableName}
+  measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:MeasureTableStreamArn}
+  bannerTableName: ${env:bannerTableName, param:BannerTableName}
   webAclName: ${self:service}-${self:custom.stage}-webacl-waf
   vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
   privateSubnets:
@@ -61,13 +61,13 @@ custom:
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
-  warmup:
-    default:
-      enabled: true
-      prewarm: true
-      events:
-        - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule, ssm:/configuration/default/warmup/schedule, "60 minutes"})
-      concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency, ssm:/configuration/default/warmup/concurrency, 5}
+  # warmup:
+  #   default:
+  #     enabled: true
+  #     prewarm: true
+  #     events:
+  #       - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule, ssm:/configuration/default/warmup/schedule, "60 minutes"})
+  #     concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency, ssm:/configuration/default/warmup/concurrency, 5}
   authValue:
     master: aws_iam
     val: aws_iam
