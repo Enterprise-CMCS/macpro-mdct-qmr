@@ -23,13 +23,11 @@ install_deps() {
   fi
 }
 
-deploy() {
+install_all_deps() {
   service=$1
   pushd services/$service
   install_deps
   popd
-  serverless deploy --service=$service --stage $stage 
-  serverless refresh-outputs
 }
 
 install_deps
@@ -37,8 +35,10 @@ export PATH=$(pwd)/node_modules/.bin/:$PATH
 
 for i in "${services[@]}"
 do
-	deploy $i
+	install_all_deps $i
 done
+
+serverless deploy --stage $stage
 
 pushd services
 echo """
