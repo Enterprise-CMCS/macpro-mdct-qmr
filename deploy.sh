@@ -23,11 +23,13 @@ install_deps() {
   fi
 }
 
-install_all_deps() {
+deploy() {
   service=$1
   pushd services/$service
   install_deps
   popd
+  serverless deploy --service=$service --stage $stage 
+  serverless refresh-outputs
 }
 
 install_deps
@@ -35,11 +37,8 @@ export PATH=$(pwd)/node_modules/.bin/:$PATH
 
 for i in "${services[@]}"
 do
-	install_all_deps $i
+	deploy $i
 done
-
-# run serverless compose from root
-serverless-compose deploy  --stage $stage --max-concurrency 2
 
 pushd services
 echo """
