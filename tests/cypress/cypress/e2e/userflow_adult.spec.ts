@@ -23,7 +23,7 @@ describe("Measure: CDF-AD", () => {
   beforeEach(() => {
     cy.login();
     cy.selectYear(testingYear);
-    cy.goToChildCoreSetMeasures();
+    cy.goToAdultMeasures();
     cy.goToMeasure("CDF-AD");
   });
 
