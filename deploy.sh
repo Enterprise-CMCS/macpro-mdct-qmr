@@ -39,7 +39,7 @@ do
 done
 
 # run serverless compose from root
-serverless deploy  --stage $stage --max-concurrency 2
+serverless-compose deploy  --stage $stage --max-concurrency 2
 
 pushd services
 echo """
