@@ -68,10 +68,9 @@ export const IETRate = ({
   });
   const catID = category?.id ?? "singleCategory";
 
-  //every time data is inputted into the field, it rerenderers the whole performance measure component
+  //every time a user enters data into the field, it rerenderers the whole performance measure component, meaning everything but saved data gets resetted
   const rebuildFields = () => {
-    //the length of field.value need sto be the same as category length
-    //if not, it needs to be rebuilt again
+    //field.value is how we access saved data and if its empty, we need to rebuild the fields from scratch
     if (Object.keys(field.value).length < categories!.length) {
       const values = field.value;
       categories?.forEach((cat) => {
@@ -151,30 +150,45 @@ export const IETRate = ({
       ...editRate,
     };
     fieldRates[catID] = prevRate;
-    fieldRates = test(prevRate[index], fieldRates);
+    fieldRates = sumOfTotals(prevRate[index], fieldRates);
 
     field.onChange(fieldRates);
   };
 
-  const test = (qualifierRate: any, fieldRates: AnyObject) => {
+  const sumOfTotals = (qualifierRate: any, fieldRates: AnyObject) => {
     const categoryType = categoryName?.split(":")[0];
     const ratesByCat = Object.values(fieldRates)
       .flat()
       .filter((rate) => rate?.category?.includes(categoryType!));
 
-    let qualifierRates = ratesByCat.filter((categoryRate) =>
+    //the rates of the qualifiers of each category in category type
+    let ratesOfQualifier = ratesByCat.filter((categoryRate) =>
       categoryRate?.label?.includes(qualifierRate.label!)
     );
+    //the rates of the qualifiers in this category
+    let ratesOfCategory = ratesByCat.filter((categoryRate) =>
+      categoryRate?.uid?.includes(qualifierRate.uid.split(".")[0])
+    );
+    //the rates of the qualifiers in the total category of category type
+    let ratesOfTotal = ratesByCat.filter((categoryRate) =>
+      categoryRate.category.toLowerCase().includes("total")
+    );
 
-    const totalRate = sumRates(qualifierRates);
-    const categoryId = totalRate["uid"].split(".")[0];
+    const totalOfRates = [
+      sum(ratesOfQualifier),
+      sum(ratesOfCategory),
+      sum(ratesOfTotal, true),
+    ];
 
-    fieldRates[categoryId].forEach((qual: any) => {
-      if (qual.uid === totalRate["uid"]) {
-        qual.numerator = totalRate.numerator;
-        qual.denominator = totalRate.denominator;
-        qual.rate = totalRate.rate;
-      }
+    Object.values(fieldRates).forEach((rates: any[]) => {
+      rates.forEach((rate) => {
+        const totalExist = totalOfRates.find((total) => total.uid === rate.uid);
+        if (totalExist) {
+          rate.numerator = totalExist.numerator;
+          rate.denominator = totalExist.denominator;
+          rate.rate = totalExist.rate;
+        }
+      });
     });
     return fieldRates;
   };
@@ -209,9 +223,14 @@ export const IETRate = ({
     return total;
   };
 
-  const sumRates = (rates: any[]) => {
-    const totalRateIndex = rates.findIndex((rate) => rate.isTotal);
+  const sum = (rates: any[], checkLabel?: boolean) => {
+    const totalRateIndex = rates.findIndex(
+      (rate) =>
+        rate.isTotal &&
+        (checkLabel ? rate.label.toLowerCase().includes("total") : true)
+    );
     let totalRate = rates.splice(totalRateIndex, 1).flat()[0];
+    console.log("total", rates, totalRate);
     const total = calculate(rates);
     return { ...totalRate, ...total };
   };
