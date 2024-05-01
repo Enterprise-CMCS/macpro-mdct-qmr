@@ -64,42 +64,36 @@ const CategoryNdrSets = ({
   const register = useCustomRegister();
   const labelText = getLabelText();
 
-  const rates = categories.map((cat) => {
-    let qualRates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
-      label: qual.label,
-      uid: cat.id + "." + qual.id,
-      id: idx,
-      isTotal:
-        cat.label?.toLowerCase().includes("total") ||
-        qual.id.toLowerCase().includes("total"),
-    }));
-    return qualRates?.length ? qualRates : [{ id: 0 }];
-  });
-
-  measureName = "IET";
-
   return (
     <>
-      {rates.map((qualRates, idx) => {
+      {categories.map((cat) => {
+        let rates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
+          label: qual.label,
+          uid: cat.id + "." + qual.id,
+          id: idx,
+        }));
+
+        rates = rates?.length ? rates : [{ id: 0 }];
+
+        //temporary check to make IETRate component work again, will be updated during the refactor
         const registerId = measureName?.includes("IET")
           ? `${DC.PERFORMANCE_MEASURE}.${DC.RATES}`
-          : `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categories[idx].id}`;
+          : `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`;
+
         return (
-          <CUI.Box key={categories[idx].id}>
+          <CUI.Box key={cat.id}>
             <CUI.Text fontWeight="bold" my="5">
-              {labelText[categories[idx].label] ?? categories[idx].label}
+              {labelText[cat.label] ?? cat.label}
             </CUI.Text>
             <RateComponent
               readOnly={rateReadOnly}
-              rates={qualRates}
-              testRates={rates}
+              rates={rates}
               measureName={measureName}
               inputFieldNames={inputFieldNames}
               ndrFormulas={ndrFormulas}
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
-              categoryName={categories[idx].label}
-              category={categories[idx]}
+              categoryName={cat.label}
               categories={categories}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}

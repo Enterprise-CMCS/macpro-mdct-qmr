@@ -14,6 +14,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   ],
   categories,
   qualifiers,
+  measureName: "IET-HH",
 };
 
 export const dataSourceData: DataDrivenTypes.DataSource = {
