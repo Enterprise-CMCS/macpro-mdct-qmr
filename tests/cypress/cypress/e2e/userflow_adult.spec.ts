@@ -11,6 +11,7 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
   });
 
   it("Creates adult core-set", () => {
+    cy.deleteAdultCoreSets();
     cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adulut core set measures
     cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
     cy.get('[data-cy="Create"]').click(); //clicking create

@@ -38,6 +38,9 @@ declare namespace Cypress {
     // removes child core set from main page
     deleteChildCoreSets(): Chainable<Element>;
 
+    // removes adult core set from main page
+    deleteAdultCoreSets(): Chainable<Element>;
+
     // removes health home core set from main page
     deleteHealthHomeSets(): Chainable<Element>;
 

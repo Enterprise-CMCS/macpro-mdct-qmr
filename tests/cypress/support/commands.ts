@@ -164,6 +164,15 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
   });
 });
 
+// removes adult core set from main page
+Cypress.Commands.add("deleteAdultCoreSets", () => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
+    if ($tbody.find('[data-cy="adult-kebab-menu"]').length > 0) {
+      removeCoreSetElements('[data-cy="adult-kebab-menu"]');
+    }
+  });
+});
+
 // removes health home core set from main page
 Cypress.Commands.add("deleteHealthHomeSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
