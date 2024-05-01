@@ -15,8 +15,10 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
     cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adult core set measures
     cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
     cy.get('[data-cy="Create"]').click(); //clicking create
-    cy.wait(500);
-    cy.get('[data-cy="add-adultbutton"]').should("be.disabled"); // check button diabled if created
+  });
+
+  it("If an adult core set exists, a user can't create another adult core set", () => {
+    cy.get('[data-cy="add-childbutton"]').should("be.disabled"); // check button diabled if created
   });
 });
 
