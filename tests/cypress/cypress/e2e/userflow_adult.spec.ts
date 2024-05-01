@@ -1,15 +1,29 @@
-import { measureAbbrList2024 } from "../../support/constants";
+import { measureAbbrList2024, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
 
-// TODO: Adding an adult core set is not built out yet
-// fill out a measure for 2023
+// fill out a measure for 2024
+describe(`Adult Core Sets should be able to be created for ${testingYear}`, () => {
+  beforeEach(() => {
+    cy.login();
+    cy.selectYear(testingYear);
+  });
+
+  it("Creates adult core-set", () => {
+    cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adulut core set measures
+    cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
+    cy.get('[data-cy="Create"]').click(); //clicking create
+    cy.wait(500);
+    cy.get('[data-cy="add-adultbutton"]').should("be.disabled"); // check button diabled if created
+  });
+});
+
 describe("Measure: CDF-AD", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2023");
-    cy.goToAdultMeasures();
+    cy.selectYear(testingYear);
+    cy.goToChildCoreSetMeasures();
     cy.goToMeasure("CDF-AD");
   });
 
@@ -36,13 +50,13 @@ describe("Measure: CDF-AD", () => {
 describe("submit coreset", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2023");
+    cy.selectYear(testingYear);
     cy.get('[data-cy="adult-kebab-menu"]').click();
     // force click ensures reset gets hit (without force it fails when child set is present)
     cy.get('[aria-label="Reset All Measures for ACS"]').click({ force: true });
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-WY2023ACS"]').should(
+    cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
       "in progress3 of 33 complete"
     );
@@ -53,7 +67,7 @@ describe("submit coreset", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
     cy.get('[aria-label="Complete All Measures for ACS"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-WY2023ACS"]').should(
+    cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
       "complete33 of 33 complete"
     );
@@ -68,7 +82,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-WY2023ACS"]').should(
+    cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
       "submitted33 of 33 complete"
     );
@@ -78,7 +92,7 @@ describe("submit coreset", () => {
 describe("Export All Measures", () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear("2023");
+    cy.selectYear(testingYear);
     cy.window().then((win) => {
       cy.stub(win, "open").callsFake((url) => {
         win.location.href = url;
