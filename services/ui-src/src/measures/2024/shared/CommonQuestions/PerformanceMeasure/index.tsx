@@ -79,7 +79,6 @@ const CategoryNdrSets = ({
         const registerId = measureName?.includes("IET")
           ? `${DC.PERFORMANCE_MEASURE}.${DC.RATES}`
           : `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`;
-
         return (
           <CUI.Box key={cat.id}>
             <CUI.Text fontWeight="bold" my="5">
@@ -94,7 +93,9 @@ const CategoryNdrSets = ({
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
               categoryName={cat.label}
+              category={cat}
               categories={categories}
+              qualifiers={qualifiers}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}

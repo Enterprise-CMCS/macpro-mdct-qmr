@@ -105,12 +105,14 @@ const IETRateComponent = (readOnly: boolean, defaultValues: any) => {
     return (
       <IETRate
         rates={rates}
-        key={`PerformanceMeasure.rates.${cat.id}`}
-        name={`PerformanceMeasure.rates.${cat.id}`}
+        key={`PerformanceMeasure.rates`}
+        name={`PerformanceMeasure.rates`}
         readOnly={readOnly}
         calcTotal={true}
         categoryName={cat.label}
+        category={cat}
         categories={categories}
+        qualifiers={qualifiers}
       />
     );
   });

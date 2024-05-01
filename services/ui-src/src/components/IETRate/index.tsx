@@ -1,4 +1,4 @@
-//NOTE: This component is used for reporting year 2023 and above
+//NOTE: This component is only being called from reporting year 2023 and above
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
@@ -17,18 +17,16 @@ import {
 } from "utils";
 import { AnyObject } from "types";
 
-type FieldType = "numerator" | "denominator" | "rate";
-
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
-  testRates?: [IRate[]];
   name: string;
   readOnly?: boolean;
   allowMultiple?: boolean;
   rateMultiplicationValue?: number;
   categoryName?: string;
-  category?: LabelData;
+  category?: LabelData; //this and categoryName will be combined in the performance measure refactor
   categories?: LabelData[];
+  qualifiers?: LabelData[];
   customMask?: RegExp;
   calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
@@ -40,7 +38,6 @@ interface Props extends QMR.InputWrapperProps {
 
 export const IETRate = ({
   rates,
-  testRates,
   name,
   allowMultiple = false,
   readOnly = true,
@@ -48,6 +45,7 @@ export const IETRate = ({
   categoryName,
   category,
   categories,
+  qualifiers,
   customMask,
   calcTotal,
   allowNumeratorGreaterThanDenominator,
@@ -69,111 +67,125 @@ export const IETRate = ({
     defaultValue: [],
   });
   const catID = category?.id ?? "singleCategory";
-  /*
-  On component render, verify that all NDRs have a label, uid and isTotal value.
-  This is required for accurate data representation in DB and to calculateTotalsByCategory().
-  */
-  useEffect(() => {
-    const values = field.value;
-    values[catID] = values[catID] ?? [];
-    rates.forEach((rate, idx) => {
-      values[catID][idx] = values[catID][idx] ?? {};
-      values[catID][idx]["label"] = rate.label ?? undefined;
-      values[catID][idx]["uid"] = rate.uid ?? undefined;
-      //human readable text for Mathematica
-      values[catID][idx]["category"] = categoryName ?? undefined;
-      values[catID][idx]["isTotal"] = rate.isTotal;
-    });
-    field.onChange(values);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const isValid = (type: FieldType, newValue: string) => {
-    const validations = [allNumbers];
-    switch (type) {
-      case "numerator":
-      case "denominator":
-        validations.push(allPositiveIntegersWith8Digits);
-        break;
-      case "rate":
-        const regex = allowMultiple
-          ? rateThatAllowsFourDecimals
-          : rateThatAllowsOneDecimal;
-        validations.push(eightNumbersOneDecimal, regex);
-        break;
+  //every time data is inputted into the field, it rerenderers the whole performance measure component
+  const rebuildFields = () => {
+    //the length of field.value need sto be the same as category length
+    //if not, it needs to be rebuilt again
+    if (Object.keys(field.value).length < categories!.length) {
+      const values = field.value;
+      categories?.forEach((cat) => {
+        values[cat.id] = values[cat.id] ?? [];
+        qualifiers!.forEach((qual, idx) => {
+          values[cat.id][idx] = values[cat.id][idx] ?? {};
+          values[cat.id][idx]["label"] = qual.label ?? undefined;
+          values[cat.id][idx]["uid"] = `${cat.id}.${qual.id}`;
+          //human readable text for Mathematica
+          values[cat.id][idx]["category"] = cat.label ?? undefined;
+          values[cat.id][idx]["isTotal"] =
+            cat.label?.toLowerCase().includes("total") ||
+            qual.id.toLowerCase().includes("total");
+        });
+      });
+      return values;
     }
-    return validations.every((valid) => valid?.test(newValue));
+    return field.value;
   };
 
-  const changeRate = (index: number, type: FieldType, newValue: string) => {
+  const changeRate = (
+    index: number,
+    type: "numerator" | "denominator" | "rate",
+    newValue: string
+  ) => {
     const digitsAfterDecimal = 1;
+    if (!allNumbers.test(newValue)) return;
     if (type === "rate" && readOnly) return;
 
-    let allRates = field.value;
-    const prevRate = allRates[catID];
+    let fieldRates = rebuildFields();
+    const prevRate = fieldRates[catID];
+    const editRate = { ...prevRate?.[index] };
+    const validEditRate = eightNumbersOneDecimal.test(newValue);
+    if (
+      (type === "numerator" || type === "denominator") &&
+      allPositiveIntegersWith8Digits.test(newValue)
+    ) {
+      editRate[type] = validEditRate ? newValue : editRate[type];
+    }
 
-    if (isValid(type, newValue)) {
-      const editRate = prevRate[index];
-      editRate[type] = newValue;
+    if (type === "rate" && !readOnly) {
+      const regex = allowMultiple
+        ? rateThatAllowsFourDecimals
+        : rateThatAllowsOneDecimal;
 
-      if (type === "rate" && !readOnly)
-        newValue = !editRate.numerator || !editRate.denominator ? "" : newValue;
-      else if (type === "numerator" || type === "denominator") {
-        if (
-          editRate.denominator &&
-          editRate.numerator &&
-          (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
-            allowNumeratorGreaterThanDenominator)
-        ) {
-          editRate.rate = rateCalc(
-            editRate.numerator,
-            editRate.denominator,
-            rateMultiplicationValue,
-            digitsAfterDecimal
-          );
-        } else if (!editRate.numerator || !editRate.denominator)
-          editRate.rate = "";
-      }
+      editRate[type] =
+        regex.test(newValue) || newValue === "" || customMask?.test(newValue)
+          ? newValue
+          : editRate[type];
 
       prevRate[index] = {
-        label: rates[index].label,
+        label: fieldRates[catID][index].label,
         ...editRate,
       };
-      allRates[catID] = prevRate;
-      allRates = test(prevRate[index], allRates);
-      field.onChange(allRates);
+      fieldRates[catID] = prevRate;
+      field.onChange({ ...fieldRates });
+      return;
     }
+
+    if (
+      editRate.denominator &&
+      editRate.numerator &&
+      (parseFloat(editRate.numerator) <= parseFloat(editRate.denominator) ||
+        allowNumeratorGreaterThanDenominator)
+    ) {
+      editRate.rate = rateCalc(
+        editRate.numerator,
+        editRate.denominator,
+        rateMultiplicationValue,
+        digitsAfterDecimal
+      );
+    } else if (editRate.rate) {
+      editRate.rate = "";
+    }
+    prevRate[index] = {
+      label: fieldRates[catID][index].label,
+      ...editRate,
+    };
+    fieldRates[catID] = prevRate;
+    fieldRates = test(prevRate[index], fieldRates);
+
+    field.onChange(fieldRates);
   };
 
-  const test = (rate: any, allRates: AnyObject) => {
+  const test = (qualifierRate: any, fieldRates: AnyObject) => {
     const categoryType = categoryName?.split(":")[0];
-    const ratesByCat = Object.values(allRates)
+    const ratesByCat = Object.values(fieldRates)
       .flat()
       .filter((rate) => rate?.category?.includes(categoryType!));
 
-    let ratesByQual = ratesByCat.filter((catRate) =>
-      catRate?.label?.includes(rate.label!)
+    let qualifierRates = ratesByCat.filter((categoryRate) =>
+      categoryRate?.label?.includes(qualifierRate.label!)
     );
 
-    const totalRate = sumRates(ratesByQual);
-    const totalCat = totalRate["uid"].split(".")[0];
+    const totalRate = sumRates(qualifierRates);
+    const categoryId = totalRate["uid"].split(".")[0];
 
-    allRates[totalCat].forEach((qual: any) => {
+    fieldRates[categoryId].forEach((qual: any) => {
       if (qual.uid === totalRate["uid"]) {
         qual.numerator = totalRate.numerator;
         qual.denominator = totalRate.denominator;
         qual.rate = totalRate.rate;
       }
     });
-    return allRates;
+    return fieldRates;
   };
 
-  const calculate = (rates: any[]) => {
+  const calculate = (fieldRates: any[]) => {
     let numeratorSum: any = null;
     let denominatorSum: any = null;
     let total = { numerator: "", denominator: "", rate: "" };
 
     //calculate the total numerator & denominator
-    rates.forEach((rate) => {
+    fieldRates.forEach((rate) => {
       if (rate["rate"]) {
         numeratorSum += rate?.numerator ? parseFloat(rate.numerator) : 0;
         denominatorSum += rate?.denominator ? parseFloat(rate.denominator) : 0;
@@ -248,7 +260,7 @@ export const IETRate = ({
               >
                 <CUI.Input
                   type="text"
-                  aria-label={`${name}.${index}.numerator`}
+                  aria-label={`${name}.${catID}.${index}.numerator`}
                   value={field.value[catID]?.[index]?.numerator ?? ""}
                   data-cy={`${name}.${catID}.${index}.numerator`}
                   onChange={(e) =>
@@ -273,7 +285,7 @@ export const IETRate = ({
                 {...rest}
               >
                 <CUI.Input
-                  aria-label={`${name}.${index}.denominator`}
+                  aria-label={`${name}.${catID}.${index}.denominator`}
                   value={field.value[catID]?.[index]?.denominator ?? ""}
                   type="text"
                   data-cy={`${name}.${catID}.${index}.denominator`}
@@ -295,7 +307,7 @@ export const IETRate = ({
                 {...rest}
               >
                 <CUI.Input
-                  aria-label={`${name}.${index}.rate`}
+                  aria-label={`${name}.${catID}.${index}.rate`}
                   value={field.value[catID]?.[index]?.rate ?? ""}
                   type="text"
                   data-cy={`${name}.${catID}.${index}.rate`}
