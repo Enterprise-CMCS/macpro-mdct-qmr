@@ -47,11 +47,11 @@ custom:
     path: ../../.env
   docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
-  coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
-  coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableStreamArn}
-  measureTableName: ${env:measureTableName, param:MeasureTableName}
-  measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:MeasureTableStreamArn}
-  bannerTableName: ${env:bannerTableName, param:BannerTableName}
+  coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
+  coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableStreamArn}
+  measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
+  measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableStreamArn}
+  bannerTableName: ${env:bannerTableName, cf:database-${self:custom.stage}.BannerTableName}
   webAclName: ${self:service}-${self:custom.stage}-webacl-waf
   vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
   privateSubnets:

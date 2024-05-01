@@ -35,10 +35,10 @@ custom:
       - master
       - val
       - prod
-  attachments_bucket_arn: ${param:AttachmentsBucketArn}
-  api_gateway_rest_api_name: ${param:ApiGatewayRestApiName}
+  attachments_bucket_arn: ${cf:uploads-${self:custom.stage}.AttachmentsBucketArn}
+  api_gateway_rest_api_name: ${cf:app-api-${self:custom.stage}.ApiGatewayRestApiName}
   okta_metadata_url: ${ssm:/configuration/${self:custom.stage}/okta_metadata_url, ""}
-  application_endpoint_url: ${param:ApplicationEndpointUrl}
+  application_endpoint_url: ${cf:ui-${self:custom.stage}.ApplicationEndpointUrl}
   bootstrapUsersEnabled: ${ssm:/configuration/${self:custom.stage}/cognito/bootstrapUsers/enabled, ssm:/configuration/default/cognito/bootstrapUsers/enabled, ""}
   bootstrapUsersPassword: ${ssm:/configuration/${self:custom.stage}/cognito/bootstrapUsers/password, ssm:/configuration/default/cognito/bootstrapUsers/password, ""}
   scriptable:

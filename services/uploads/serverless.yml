@@ -47,8 +47,8 @@ custom:
       - local
   iamPath: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path,"/"}
   iamPermissionsBoundaryPolicy: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
-  coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
-  measureTableName: ${env:measureTableName, param:MeasureTableName}
+  coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
+  measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
   serverlessTerminationProtection:
     stages:
       - master
