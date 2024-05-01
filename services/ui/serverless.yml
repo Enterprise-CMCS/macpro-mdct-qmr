@@ -13,7 +13,7 @@ provider:
       permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
 
 plugins:
-  - serverless-plugin-scripts
+  - serverless-scriptable-plugin
   - serverless-stack-termination-protection
   - serverless-iam-helper
   - serverless-s3-bucket-helper
@@ -76,7 +76,7 @@ custom:
                 IPSetReferenceStatement:
                   ARN: ${self:custom.vpnIpSetArn}
   firehoseStreamName: aws-waf-logs-${self:service}-${self:custom.stage}-firehose
-  scripts:
+  scriptable:
     hooks:
       # Associate the WAF ACL with the Firehose Delivery Stream
       deploy:finalize: |

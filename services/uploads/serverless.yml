@@ -4,7 +4,7 @@ service: uploads
 frameworkVersion: "3"
 
 plugins:
-  - serverless-plugin-scripts
+  - serverless-scriptable-plugin
   - serverless-offline-ssm
   - serverless-s3-local
   - serverless-stack-termination-protection
@@ -54,7 +54,7 @@ custom:
       - master
       - val
       - prod
-  scripts:
+  scriptable:
     hooks:
       # This script is run locally when running 'serverless deploy'
       package:initialize: |
