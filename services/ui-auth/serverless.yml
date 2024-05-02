@@ -44,10 +44,6 @@ custom:
   scripts:
     hooks:
       deploy:finalize: |
-        #!/bin/bash
-        echo "${self:custom.bootstrapUsersEnabled}"
-        echo "${self:service}"
-        echo "${self:custom.stage}"
         if [ "${self:custom.bootstrapUsersEnabled}" = "true" ];
         then
           aws lambda invoke --region ${self:provider.region} --function-name ${self:service}-${self:custom.stage}-bootstrapUsers --invocation-type RequestResponse /dev/null
