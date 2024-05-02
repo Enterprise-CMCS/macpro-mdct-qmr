@@ -3,6 +3,13 @@ service: ui-auth
 
 frameworkVersion: "3"
 
+plugins:
+  - serverless-stack-termination-protection
+  - serverless-scriptable-plugin
+  - serverless-bundle
+  - serverless-iam-helper
+  - serverless-s3-bucket-helper
+
 package:
   individually: true
 
@@ -19,13 +26,6 @@ provider:
           Action:
             - "*"
           Resource: !GetAtt CognitoUserPool.Arn
-
-plugins:
-  - serverless-stack-termination-protection
-  - serverless-scriptable-plugin
-  - serverless-bundle
-  - serverless-iam-helper
-  - serverless-s3-bucket-helper
 
 custom:
   stage: ${opt:stage, self:provider.stage}
