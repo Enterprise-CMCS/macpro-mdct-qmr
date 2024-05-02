@@ -150,6 +150,8 @@ export const IETRate = ({
       ...editRate,
     };
     fieldRates[catID] = prevRate;
+
+    //sum of qualifiers and categories
     fieldRates = sumOfTotals(prevRate[index], fieldRates);
 
     field.onChange(fieldRates);
@@ -169,28 +171,34 @@ export const IETRate = ({
     let ratesOfCategory = ratesByCat.filter((categoryRate) =>
       categoryRate?.uid?.includes(qualifierRate.uid.split(".")[0])
     );
-    //the rates of the qualifiers in the total category of category type
-    let ratesOfTotal = ratesByCat.filter((categoryRate) =>
+    //add the sum back to the rates object
+    const totalOfRates = [sum(ratesOfQualifier), sum(ratesOfCategory)];
+    fieldRates = updateValueInObject(totalOfRates, fieldRates);
+
+    //have to repull to get value
+    const ratesByCatAgain = Object.values(fieldRates)
+      .flat()
+      .filter((rate) => rate?.category?.includes(categoryType!));
+    let ratesOfTotal = ratesByCatAgain.filter((categoryRate) =>
       categoryRate.category.toLowerCase().includes("total")
     );
+    fieldRates = updateValueInObject([sum(ratesOfTotal, true)], fieldRates);
 
-    const totalOfRates = [
-      sum(ratesOfQualifier),
-      sum(ratesOfCategory),
-      sum(ratesOfTotal, true),
-    ];
+    return fieldRates;
+  };
 
-    Object.values(fieldRates).forEach((rates: any[]) => {
-      rates.forEach((rate) => {
-        const totalExist = totalOfRates.find((total) => total.uid === rate.uid);
-        if (totalExist) {
-          rate.numerator = totalExist.numerator;
-          rate.denominator = totalExist.denominator;
-          rate.rate = totalExist.rate;
+  const updateValueInObject = (newValues: any[], object: AnyObject) => {
+    for (var key in object) {
+      object[key].forEach((rate: any, idx: number) => {
+        const foundValue = newValues.find(
+          (newValue) => newValue.uid === rate.uid
+        );
+        if (foundValue) {
+          object[key][idx] = { ...rate, ...foundValue };
         }
       });
-    });
-    return fieldRates;
+    }
+    return object;
   };
 
   const calculate = (fieldRates: any[]) => {
@@ -230,7 +238,6 @@ export const IETRate = ({
         (checkLabel ? rate.label.toLowerCase().includes("total") : true)
     );
     let totalRate = rates.splice(totalRateIndex, 1).flat()[0];
-    console.log("total", rates, totalRate);
     const total = calculate(rates);
     return { ...totalRate, ...total };
   };
