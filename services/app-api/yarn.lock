@@ -3756,7 +3756,7 @@ serverless-associate-waf@^1.2.1:
   dependencies:
     chalk "^2.4.2"
 
-serverless-plugin-typescript@^2.1.5:
+serverless-plugin-typescript@^2.1.4:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/serverless-plugin-typescript/-/serverless-plugin-typescript-2.1.5.tgz#d4c4636ee6e4803d2fe773ce2bb8bf52362c836d"
   integrity sha512-7OO6eJzv57dvfz0v9huU1JVBgdzgvvz+6GCwwkR2bfdVHKs1tifx+fSgjbQcBpXNNHf8Dx2Mo7evtYTkA/TDDA==

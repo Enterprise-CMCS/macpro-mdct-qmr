@@ -29,7 +29,7 @@ services:
       ApiGatewayRestApiName: ${app-api.ApiGatewayRestApiName}
       ApplicationEndpointUrl: ${ui.ApplicationEndpointUrl}
 
-  # wave 4: depends on many
+  # wave 4: depends on most
   ui-src:
     path: services/ui-src
     params:

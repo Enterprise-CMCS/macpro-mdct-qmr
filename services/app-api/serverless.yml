@@ -8,7 +8,6 @@ package:
 
 plugins:
   - serverless-plugin-typescript
-  # - serverless-plugin-warmup
   - serverless-associate-waf
   - "@enterprise-cmcs/serverless-waf-plugin"
   - serverless-offline-ssm
@@ -61,13 +60,6 @@ custom:
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
-  # warmup:
-  #   default:
-  #     enabled: true
-  #     prewarm: true
-  #     events:
-  #       - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule, ssm:/configuration/default/warmup/schedule, "60 minutes"})
-  #     concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency, ssm:/configuration/default/warmup/concurrency, 5}
   authValue:
     master: aws_iam
     val: aws_iam
