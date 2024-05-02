@@ -2,6 +2,7 @@ import { OmsNode } from "shared/types";
 import { PerformanceMeasureData } from "./PerformanceMeasure/data";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
+import { LabelData } from "utils";
 
 type YesNo = typeof DC.YES | typeof DC.NO;
 
@@ -232,11 +233,11 @@ export namespace OmsNodes {
 }
 
 export interface Qualifiers {
-  [DC.QUALIFIERS]?: string[];
+  [DC.QUALIFIERS]?: LabelData[];
 }
 
 export interface Categories {
-  [DC.CATEGORIES]?: string[];
+  [DC.CATEGORIES]?: LabelData[];
 }
 
 export interface OptionalMeasureStratification {

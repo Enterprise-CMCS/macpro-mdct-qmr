@@ -41,6 +41,10 @@ jobs:
             ${{github.workspace}}/services/ui-src/coverage/lcov.info:lcov
       - name: Store unit test results
         uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: unit_test_results
-          path: ${{github.workspace}}/services/ui-src/coverage/lcov.info
+          name: unit-test-results
+          path: |
+            ${{github.workspace}}/services/ui-src/coverage/lcov.info
+            ${{github.workspace}}/services/app-api/coverage/lcov.info
+          retention-days: 14

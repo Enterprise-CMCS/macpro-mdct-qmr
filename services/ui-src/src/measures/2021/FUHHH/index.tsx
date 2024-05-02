@@ -50,7 +50,7 @@ export const FUHHH = ({
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.categories}
-                customTotalLabel={PMD.qualifiers[3]}
+                customTotalLabel={PMD.qualifiers[3].label}
               />
             </>
           )}
