@@ -16,10 +16,10 @@ jobs:
         run: ./.github/build_vars.sh set_values
         env:
           CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             **/node_modules
@@ -32,7 +32,7 @@ jobs:
         run: ./test-unit.sh
       - name: publish test coverage to code climate
         if: env.CODE_CLIMATE_ID != ''
-        uses: paambaati/codeclimate-action@v5
+        uses: paambaati/codeclimate-action@v6
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
         with:
