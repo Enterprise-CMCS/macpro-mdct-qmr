@@ -22,7 +22,7 @@ provider:
 
 plugins:
   - serverless-stack-termination-protection
-  - serverless-scriptable-plugin
+  - serverless-plugin-scripts
   - serverless-bundle
   - serverless-iam-helper
   - serverless-s3-bucket-helper
@@ -41,7 +41,7 @@ custom:
   application_endpoint_url: ${param:ApplicationEndpointUrl}
   bootstrapUsersEnabled: ${ssm:/configuration/${self:custom.stage}/cognito/bootstrapUsers/enabled, ssm:/configuration/default/cognito/bootstrapUsers/enabled, ""}
   bootstrapUsersPassword: ${ssm:/configuration/${self:custom.stage}/cognito/bootstrapUsers/password, ssm:/configuration/default/cognito/bootstrapUsers/password, ""}
-  scriptable:
+  scripts:
     hooks:
       deploy:finalize: |
         #!/bin/bash

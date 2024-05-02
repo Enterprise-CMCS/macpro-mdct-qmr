@@ -43,9 +43,9 @@
     "serverless-iam-helper": "github:Enterprise-CMCS/serverless-iam-helper",
     "serverless-offline": "^13.5.0",
     "serverless-offline-ssm": "^6.2.0",
+    "serverless-plugin-scripts": "^1.0.2",
     "serverless-plugin-warmup": "^8.2.1",
     "serverless-s3-bucket-helper": "Enterprise-CMCS/serverless-s3-bucket-helper#master",
-    "serverless-scriptable-plugin": "^1.3.1",
     "serverless-stack-termination-protection": "^2.0.2",
     "typescript": "^4.0.5",
     "yargs": "^16.1.1"

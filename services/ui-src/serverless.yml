@@ -3,7 +3,7 @@ service: ui-src
 frameworkVersion: "3"
 
 plugins:
-  - serverless-scriptable-plugin
+  - serverless-plugin-scripts
   - serverless-s3-sync
   - serverless-cloudfront-invalidate
   - serverless-stack-termination-protection
@@ -46,7 +46,7 @@ custom:
     - distributionId: ${self:custom.ui_cloudfront_distribution_id}
       items:
         - "/*"
-  scriptable:
+  scripts:
     hooks:
       # Build the static archive and populate the config
       package:initialize: |
