@@ -46,7 +46,7 @@ custom:
       deploy:finalize: |
         if [ ${self:custom.bootstrapUsersEnabled} = "true" ];
         then
-          serverless invoke --stage ${self:custom.stage} --function bootstrapUsers
+          aws lambda invoke --region ${self:provider.region} --function-name ${self:service}-${self:custom.stage}-bootstrapUsers --invocation-type RequestResponse /dev/null
         fi
 
 functions:
