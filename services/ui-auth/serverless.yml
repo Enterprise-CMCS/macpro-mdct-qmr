@@ -44,6 +44,7 @@ custom:
   scriptable:
     hooks:
       deploy:finalize: |
+        #!/bin/bash
         echo "${self:custom.bootstrapUsersEnabled}"
         echo "${self:service}"
         echo "${self:custom.stage}"
