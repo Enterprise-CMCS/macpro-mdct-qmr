@@ -14,7 +14,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   ],
   questionSubtext: [
     "Percentage of children ages 6 to 12 with a prescription dispensed for ADHD medication, who had one follow-up visit with a practitioner with prescribing authority during the 30-day Initiation Phase.",
-    "Percentage of children ages 6 to 12 with a prescription dispensed for ADHD medication, who remained on the medication for at least 210 days and who, in addition to the visit in the Initiation Phase, had at least two follow-up visits with a practitioner within 270 days (9 months) after the Initiation Phase ended.",
+    "Percentage of children ages 6 to 12 with a prescription dispensed for ADHD medication who remained on the medication for at least 210 days and who, in addition to the visit in the Initiation Phase, had at least two follow-up visits with a practitioner within 270 days (9 months) after the Initiation Phase ended.",
   ],
   categories,
   qualifiers,
