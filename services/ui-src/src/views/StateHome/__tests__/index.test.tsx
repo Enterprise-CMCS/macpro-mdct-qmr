@@ -113,7 +113,9 @@ describe("Test StateHome 2024", () => {
   });
   test("Check that the route is correct when reporting year is changed", () => {
     render(testComponent);
-    const viewCombinedRatesButton = screen.getAllByRole("button", {name: "View Combined Rates"})[0];
+    const viewCombinedRatesButton = screen.getAllByRole("button", {
+      name: "View Combined Rates",
+    })[0];
     userEvent.click(viewCombinedRatesButton);
     expect(global.window.location.pathname).toContain("/combined-rates");
   });

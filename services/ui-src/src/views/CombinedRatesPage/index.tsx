@@ -1,5 +1,3 @@
 export const CombinedRatesPage = () => {
-  return (
-    <div>TBD</div>
-  )
-}
+  return <div>TBD</div>;
+};

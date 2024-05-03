@@ -60,8 +60,13 @@ const ReportingYear = () => {
   }
 
   return (
-    <CUI.Box w={{ base: "full", md: "48" }} display={{md: "flex"}} flexDirection={{md: "column"}} alignItems={{md: "flex-end"}}>
-      <CUI.Text fontSize="sm" fontWeight="600" alignSelf={{md: "flex-start"}}>
+    <CUI.Box
+      w={{ base: "full", md: "48" }}
+      display={{ md: "flex" }}
+      flexDirection={{ md: "column" }}
+      alignItems={{ md: "flex-end" }}
+    >
+      <CUI.Text fontSize="sm" fontWeight="600" alignSelf={{ md: "flex-start" }}>
         Reporting Year
       </CUI.Text>
       <CUI.Select
@@ -81,12 +86,13 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
-      {year === "2024" && <CUI.Box mt="22px">
-        <Link
+      {year === "2024" && (
+        <CUI.Box mt="22px">
+          <Link
             to={`/combined-rates`}
             style={{
               textDecoration: "none",
-              marginTop: "22px"
+              marginTop: "22px",
             }}
           >
             <QMR.ContainedButton
@@ -97,11 +103,12 @@ const ReportingYear = () => {
                 color: "blue.500",
                 fontSize: "16px",
                 width: "220px",
-                height: "37px"
+                height: "37px",
               }}
             />
           </Link>
-        </CUI.Box>}
+        </CUI.Box>
+      )}
     </CUI.Box>
   );
 };
@@ -110,7 +117,7 @@ const Heading = () => {
   const { year } = useParams();
   return (
     <CUI.Box display={{ base: "block", md: "flex" }}>
-      <CUI.Box maxW="3xl" pb="6" pr={{md: "4rem"}}>
+      <CUI.Box maxW="3xl" pb="6" pr={{ md: "4rem" }}>
         <CUI.Heading size="lg" data-cy="reporting-year-heading">
           {`FFY ${year} Core Set Measures Reporting`}
         </CUI.Heading>

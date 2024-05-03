@@ -172,7 +172,7 @@ export function AppRoutes() {
           path=":state/:year/:coreSetId/add-ssm"
           element={<AddStateSpecificMeasure />}
         />
-        <Route path="combined-rates" element={<CombinedRatesPage />}/>
+        <Route path="combined-rates" element={<CombinedRatesPage />} />
         <Route path="api-test" element={<ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route {...m} />
