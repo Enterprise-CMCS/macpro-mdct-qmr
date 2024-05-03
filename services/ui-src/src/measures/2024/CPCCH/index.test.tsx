@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { clearMocks } from "measures/2024/shared/util/validationsMock";
+import { clearMocks } from "measures/2023/shared/util/validationsMock";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
@@ -78,12 +78,81 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     });
   });
 
+  /**
+   * Render the measure and confirm that all expected components exist.
+   * */
+  it("Always shows Did you collect question", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    expect(screen.getByText("Did you collect this measure?"));
+  });
+
+  it("shows corresponding questions if yes to reporting then ", async () => {
+    apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    expect(
+      screen.queryByTestId("measurement-specification")
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("data-source")).toBeInTheDocument();
+    expect(
+      screen.queryByTestId("definition-of-population")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Which Supplemental Item Sets were included in the Survey"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Which administrative protocol was used to administer the survey?"
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("does not show corresponding questions if no to reporting then ", async () => {
+    apiData.useGetMeasureValues.data.Item.data = notReportingData;
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("measurement-specification")
+    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("definition-of-population")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Which Supplemental Item Sets were included in the Survey"
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Which administrative protocol was used to administer the survey?"
+      )
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByText("Why did you not collect this measure")
+    ).toBeInTheDocument();
+  });
+
   jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
+    renderWithHookForm(component);
     await act(async () => {
-      const { container } = renderWithHookForm(component);
-      expect(await axe(container)).toHaveNoViolations();
+      const results = await axe(screen.getByTestId("measure-wrapper-form"));
+      expect(results).toHaveNoViolations();
     });
   });
 });
+
+const notReportingData = {
+  DidCollect: "no",
+};
+
+const completedMeasureData = {
+  MeasurementSpecification: "AHRQ-NCQA",
+  DidCollect: "yes",
+};
