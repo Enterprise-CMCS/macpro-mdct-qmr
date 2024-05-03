@@ -128,8 +128,9 @@ const StateHome = () => {
   }
 
   const handleDelete = (data: HandleDeleteData) => {
-    // if its a combined child or hh core set we can just delete the one targetted
+    // if its a combined child or hh core set we can just delete the one targeted
     if (
+      data.coreSet === CoreSetAbbr.ACS ||
       data.coreSet === CoreSetAbbr.CCS ||
       data.coreSet.includes(CoreSetAbbr.HHCS)
     ) {
@@ -139,6 +140,7 @@ const StateHome = () => {
         },
       });
     }
+    // TODO: add delete functionality for new adult core sets
     // if its a chip or medicaid child coreset we delete them both
     else if (
       data.coreSet === CoreSetAbbr.CCSC ||
