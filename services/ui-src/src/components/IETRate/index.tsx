@@ -215,13 +215,13 @@ export const IETRate = ({
   };
 
   const updateValueInObject = (newValues: AnyObject[], object: AnyObject) => {
-    for (var objectKey in object) {
-      object[objectKey].forEach((item: AnyObject, idx: number) => {
+    for (const [key, value] of Object.entries(object)) {
+      value.forEach((item: AnyObject, idx: number) => {
         const foundValue = newValues?.find(
           (newValue) => newValue?.uid === item?.uid
         );
         if (foundValue) {
-          object[objectKey][idx] = { ...item, ...foundValue };
+          object[key][idx] = { ...item, ...foundValue };
         }
       });
     }
