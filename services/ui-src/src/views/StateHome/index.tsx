@@ -89,7 +89,7 @@ const ReportingYear = () => {
       {year === "2024" && (
         <CUI.Box mt="22px">
           <Link
-            to={`/combined-rates`}
+            to={`/${state}/${year}/combined-rates`}
             style={{
               textDecoration: "none",
               marginTop: "22px",
