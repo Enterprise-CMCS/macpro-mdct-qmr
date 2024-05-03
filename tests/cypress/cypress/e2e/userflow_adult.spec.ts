@@ -13,14 +13,9 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
   // create an adult core set
   it("Creates or enters combined adult core-set", () => {
     cy.deleteAdultCoreSets();
-    const isDisabled = cy
-      .get('[data-cy="add-adultbutton"]')
-      .should("be.disabled");
-    if (!isDisabled) {
-      cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adult core set measures
-      cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
-      cy.get('[data-cy="Create"]').click(); //clicking create
-    }
+    cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adult core set measures
+    cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
+    cy.get('[data-cy="Create"]').click(); //clicking create
     cy.get('[data-cy="ACS"]').should("contain.text", "Adult Core Set Measures");
   });
 });
