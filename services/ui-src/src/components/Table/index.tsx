@@ -49,7 +49,7 @@ export const Table = <T extends TableData>({
           ))}
         </CUI.Tbody>
       </CUI.Table>
-      {data.length === 0 && (
+      {data?.length === 0 && (
         <Text sx={sx.emptyTableText}>{emptyTableText}</Text>
       )}
     </>
