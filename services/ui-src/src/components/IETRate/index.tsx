@@ -184,7 +184,7 @@ export const IETRate = ({
     return fieldRates;
   };
 
-  const sumOfTotals = (qualifierRate: any, fieldRates: AnyObject) => {
+  const sumOfTotals = (qualifierRate: AnyObject, fieldRates: AnyObject) => {
     const categoryType: string = categoryName!.split(":")[0];
 
     const ratesByCat = Object.values(fieldRates)
@@ -214,21 +214,21 @@ export const IETRate = ({
     return fieldRates;
   };
 
-  const updateValueInObject = (newValues: any[], object: AnyObject) => {
-    for (var key in object) {
-      object[key].forEach((item: any, idx: number) => {
+  const updateValueInObject = (newValues: AnyObject[], object: AnyObject) => {
+    for (var objectKey in object) {
+      object[objectKey].forEach((item: AnyObject, idx: number) => {
         const foundValue = newValues?.find(
           (newValue) => newValue?.uid === item?.uid
         );
         if (foundValue) {
-          object[key][idx] = { ...item, ...foundValue };
+          object[objectKey][idx] = { ...item, ...foundValue };
         }
       });
     }
     return object;
   };
 
-  const calculate = (fieldRates: any[]) => {
+  const calculate = (fieldRates: AnyObject[]) => {
     let numeratorSum: any = null;
     let denominatorSum: any = null;
     let total = { numerator: "", denominator: "", rate: "" };
@@ -258,7 +258,7 @@ export const IETRate = ({
     return total;
   };
 
-  const sum = (rates: any[], checkById?: boolean) => {
+  const sum = (rates: AnyObject[], checkById?: boolean) => {
     const totalRateIndex = rates.findIndex((rate) =>
       checkById
         ? rate?.uid.toLowerCase().includes(".total") && rate.isTotal
