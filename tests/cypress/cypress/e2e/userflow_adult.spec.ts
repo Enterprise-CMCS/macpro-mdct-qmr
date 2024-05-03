@@ -12,6 +12,7 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
 
   // create an adult core set
   it("Creates or enters combined adult core-set", () => {
+    cy.deleteAdultCoreSets();
     const isDisabled = cy
       .get('[data-cy="add-adultbutton"]')
       .should("be.disabled");

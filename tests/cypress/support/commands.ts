@@ -155,6 +155,15 @@ const removeCoreSetElements = (kebab: string) => {
   });
 };
 
+// removes adult core set from main page
+Cypress.Commands.add("deleteAdultCoreSets", () => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
+    if ($tbody.find('[data-cy="adult-kebab-menu"]').length > 0) {
+      removeCoreSetElements('[data-cy="adult-kebab-menu"]');
+    }
+  });
+});
+
 // removes child core set from main page
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
