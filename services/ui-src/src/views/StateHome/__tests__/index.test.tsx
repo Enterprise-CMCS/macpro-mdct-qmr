@@ -4,18 +4,19 @@ import { RouterWrappedComp } from "utils/testing";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
 import { axe, toHaveNoViolations } from "jest-axe";
+import { useParams } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
 expect.extend(toHaveNoViolations);
 
 const queryClient = new QueryClient();
 
 const mockedNavigate = jest.fn();
 
+const mockUseParams = useParams as jest.Mock;
+
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
-  useParams: jest.fn().mockReturnValue({
-    year: "2021",
-    state: "OH",
-  }),
+  useParams: jest.fn(),
   useNavigate: () => mockedNavigate,
 }));
 
@@ -29,12 +30,16 @@ const testComponent = (
 
 describe("Test StateHome", () => {
   beforeEach(() => {
+    mockUseParams.mockReturnValue({
+      year: "2021",
+      state: "OH",
+    });
     useApiMock({});
     render(testComponent);
   });
-  test("Check that the Heading renders", () => {
+  test("Check that the Heading renders with correct year", () => {
     expect(
-      screen.getByText(/Core Set Measures Reporting/i)
+      screen.getByText(/2021 Core Set Measures Reporting/i)
     ).toBeInTheDocument();
   });
 
@@ -67,6 +72,10 @@ describe("Test StateHome", () => {
 });
 describe("Test StateHome accessibility", () => {
   test("Should not have basic accessibility issues", async () => {
+    mockUseParams.mockReturnValue({
+      year: "2021",
+      state: "OH",
+    });
     useApiMock({});
     const { container } = render(testComponent);
     const results = await axe(container);
@@ -75,22 +84,37 @@ describe("Test StateHome accessibility", () => {
 });
 
 describe("Test 2023 state without health home core sets", () => {
-  jest.mock("react-router-dom", () => ({
-    ...jest.requireActual("react-router-dom"),
-    useParams: jest.fn().mockReturnValue({
-      year: "2023",
-      state: "CA",
-    }),
-    useNavigate: () => mockedNavigate,
-  }));
-
   beforeEach(() => {
+    mockUseParams.mockReturnValue({
+      year: "2023",
+      state: "OH",
+    });
     useApiMock({});
     render(testComponent);
   });
   test("Should not render health home core sets for CA", () => {
     expect(
+      screen.getByText(/2023 Core Set Measures Reporting/i)
+    ).toBeInTheDocument();
+    expect(
       screen.queryByText(/Need to report on Health home data/i)
     ).not.toBeInTheDocument();
+  });
+});
+
+describe("Test StateHome 2024", () => {
+  beforeEach(() => {
+    mockUseParams.mockReturnValue({
+      year: "2024",
+      state: "OH",
+    });
+    useApiMock({});
+    render(testComponent);
+  });
+  test("Check that the route is correct when reporting year is changed", () => {
+    render(testComponent);
+    const viewCombinedRatesButton = screen.getAllByRole("button", {name: "View Combined Rates"})[0];
+    userEvent.click(viewCombinedRatesButton);
+    expect(global.window.location.pathname).toContain("/combined-rates");
   });
 });

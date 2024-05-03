@@ -19,6 +19,7 @@ import { BannerCard } from "components/Banner/BannerCard";
 import { coreSets, CoreSetField } from "shared/coreSetByYear";
 
 import { useFlags } from "launchdarkly-react-client-sdk";
+import { Link } from "react-router-dom";
 
 interface HandleDeleteData {
   state: string;
@@ -59,8 +60,8 @@ const ReportingYear = () => {
   }
 
   return (
-    <CUI.Box w={{ base: "full", md: "48" }}>
-      <CUI.Text fontSize="sm" fontWeight="600" mb="2">
+    <CUI.Box w={{ base: "full", md: "48" }} display={{md: "flex"}} flexDirection={{md: "column"}} alignItems={{md: "flex-end"}}>
+      <CUI.Text fontSize="sm" fontWeight="600" alignSelf={{md: "flex-start"}}>
         Reporting Year
       </CUI.Text>
       <CUI.Select
@@ -80,6 +81,27 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
+      {year === "2024" && <CUI.Box mt="22px">
+        <Link
+            to={`/combined-rates`}
+            style={{
+              textDecoration: "none",
+              marginTop: "22px"
+            }}
+          >
+            <QMR.ContainedButton
+              buttonText={"View Combined Rates"}
+              buttonProps={{
+                colorScheme: "blue",
+                variant: "outline",
+                color: "blue.500",
+                fontSize: "16px",
+                width: "220px",
+                height: "37px"
+              }}
+            />
+          </Link>
+        </CUI.Box>}
     </CUI.Box>
   );
 };
@@ -88,11 +110,11 @@ const Heading = () => {
   const { year } = useParams();
   return (
     <CUI.Box display={{ base: "block", md: "flex" }}>
-      <CUI.Box maxW="3xl" pb="6">
+      <CUI.Box maxW="3xl" pb="6" pr={{md: "4rem"}}>
         <CUI.Heading size="lg" data-cy="reporting-year-heading">
           {`FFY ${year} Core Set Measures Reporting`}
         </CUI.Heading>
-        <CUI.Text fontWeight="bold" py="6">
+        <CUI.Text fontWeight="bold" pt="6">
           Complete each group of Core Set Measures below. Once a group is
           completed it can be submitted to CMS for review.
         </CUI.Text>
