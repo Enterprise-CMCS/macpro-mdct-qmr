@@ -13,10 +13,16 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
   // create an adult core set
   it("Creates or enters combined adult core-set", () => {
     cy.deleteAdultCoreSets();
-    cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adult core set measures
-    cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
-    cy.get('[data-cy="Create"]').click(); //clicking create
-    cy.wait(500);
+    const isDisabled = cy
+      .get('[data-cy="add-adultbutton"]')
+      .should("be.disabled");
+    if (!isDisabled) {
+      cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adult core set measures
+      cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
+      cy.get('[data-cy="Create"]').click(); //clicking create
+      cy.wait(500);
+      cy.get('[data-cy="add-adultbutton"]').should("be.disabled");
+    }
     cy.get('[data-cy="ACS"]').should("contain.text", "Adult Core Set Measures");
   });
 });
@@ -54,7 +60,6 @@ describe("submit coreset", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    // force click ensures reset gets hit (without force it fails when child set is present)
     cy.get('[aria-label="Reset All Measures for ACS"]').click({ force: true });
     cy.wait(1000);
     // confirm reset
