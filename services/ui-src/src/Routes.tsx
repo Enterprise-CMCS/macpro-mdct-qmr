@@ -6,6 +6,7 @@ import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { UserRoles } from "types";
+import { CombinedRatesPage } from "views";
 
 const Home = lazy(() =>
   import("views/Home").then((module) => ({ default: module.Home }))
@@ -171,6 +172,7 @@ export function AppRoutes() {
           path=":state/:year/:coreSetId/add-ssm"
           element={<AddStateSpecificMeasure />}
         />
+        <Route path="combined-rates" element={<CombinedRatesPage />}/>
         <Route path="api-test" element={<ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route {...m} />
