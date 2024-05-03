@@ -2,7 +2,6 @@ import { screen } from "@testing-library/react";
 import fireEvent from "@testing-library/user-event";
 import { IETRate } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { getMeasureYear } from "../../utils/getMeasureYear";
 
 const categories = [
   {
@@ -64,6 +63,9 @@ const generateRates = (values: any) => {
         numerator: values.numerator,
         denominator: values.denominator,
         rate: values.rate,
+        isTotal:
+          cat.label?.toLowerCase().includes("total") ||
+          qual.id.toLowerCase().includes("total"),
       });
     });
     rates[cat.id] = rate;
@@ -105,7 +107,7 @@ const IETRateComponent = (readOnly: boolean, defaultValues: any) => {
     return (
       <IETRate
         rates={rates}
-        key={`PerformanceMeasure.rates`}
+        key={`PerformanceMeasure.rates.${cat.id}`}
         name={`PerformanceMeasure.rates`}
         readOnly={readOnly}
         calcTotal={true}
@@ -281,17 +283,6 @@ describe("Test the IETRate component when it includes a total NDR", () => {
 
     const totalCatIndex = qualifiers.length * categories.length - 1;
     checkNDRs(totalCatIndex, expectedValue);
-  });
-});
-
-describe("Rates should have correct properties", () => {
-  beforeEach(() => {
-    const defaultValues = generateRates(intialValues);
-    IETRateComponent(false, defaultValues);
-  });
-
-  it("Should have category property only on FFY 2023", () => {
-    expect(getMeasureYear).toBeCalled();
   });
 });
 

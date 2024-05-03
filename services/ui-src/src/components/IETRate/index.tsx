@@ -68,7 +68,8 @@ export const IETRate = ({
   });
   const catID = category?.id ?? "singleCategory";
 
-  //every time a user enters data into the field, it rerenderers the whole performance measure component, meaning everything but saved data gets resetted
+  /* Every time a user enters data into the field, it rerenderers the whole performance measure component, meaning the fields values are removed
+  We have to rebuild the data structures each time if the data hasn't been saved. */
   const rebuildFields = () => {
     //field.value is how we access saved data and if its empty, we need to rebuild the fields from scratch
     if (Object.keys(field.value).length < categories!.length) {
@@ -83,12 +84,12 @@ export const IETRate = ({
           values[cat.id][idx]["category"] = cat.label ?? undefined;
           values[cat.id][idx]["isTotal"] =
             cat.label?.toLowerCase().includes("total") ||
-            qual.id.toLowerCase().includes("total");
+            qual.id.toLowerCase() === "total";
         });
       });
       return values;
     }
-    return field.value;
+    return { ...field.value };
   };
 
   const changeRate = (
@@ -100,8 +101,8 @@ export const IETRate = ({
     if (!allNumbers.test(newValue)) return;
     if (type === "rate" && readOnly) return;
 
-    let fieldRates = rebuildFields();
-    const prevRate = fieldRates[catID];
+    let fieldRates = { ...rebuildFields() };
+    const prevRate = [...fieldRates[catID]];
     const editRate = { ...prevRate?.[index] };
     const validEditRate = eightNumbersOneDecimal.test(newValue);
     if (
@@ -125,7 +126,7 @@ export const IETRate = ({
         label: fieldRates[catID][index].label,
         ...editRate,
       };
-      fieldRates[catID] = prevRate;
+      fieldRates[catID] = [...prevRate];
       field.onChange({ ...fieldRates });
       return;
     }
@@ -146,55 +147,81 @@ export const IETRate = ({
       editRate.rate = "";
     }
     prevRate[index] = {
-      label: fieldRates[catID][index].label,
+      label: fieldRates[catID]?.[index]?.label,
       ...editRate,
     };
-    fieldRates[catID] = prevRate;
+    fieldRates[catID] = [...prevRate];
 
-    //sum of qualifiers and categories
-    fieldRates = sumOfTotals(prevRate[index], fieldRates);
+    //if the field change is in a total category, we want to only sum that one to avoid double calculations
+    if (categoryName?.toLowerCase()?.includes("total")) {
+      fieldRates = categoryTotalSum(categoryName, fieldRates);
+    } else {
+      //sum of qualifiers, total categories with that qualifer, and the total of the total categories with that qualifier
+      fieldRates = sumOfTotals(prevRate[index], fieldRates);
+    }
+    field.onChange({ ...fieldRates });
+  };
 
-    field.onChange(fieldRates);
+  const categoryTotalSum = (category: string, fieldRates: AnyObject) => {
+    const name = category?.split(":")[0];
+    const totalCategory = Object.values(fieldRates)
+      .flat()
+      .find(
+        (rate) =>
+          rate.category.includes(name) &&
+          rate.category.toLowerCase().includes("total")
+      );
+
+    const totalCategoryId = totalCategory.uid.split(".")[0];
+    if (totalCategoryId) {
+      return {
+        ...updateValueInObject(
+          [sum([...fieldRates[totalCategoryId]], true)],
+          fieldRates
+        ),
+      };
+    }
+    return fieldRates;
   };
 
   const sumOfTotals = (qualifierRate: any, fieldRates: AnyObject) => {
-    const categoryType = categoryName?.split(":")[0];
+    const categoryType: string = categoryName!.split(":")[0];
+
     const ratesByCat = Object.values(fieldRates)
       .flat()
       .filter((rate) => rate?.category?.includes(categoryType!));
 
     //the rates of the qualifiers of each category in category type
-    let ratesOfQualifier = ratesByCat.filter((categoryRate) =>
-      categoryRate?.label?.includes(qualifierRate.label!)
+    let ratesOfQualifier = ratesByCat.filter(
+      (categoryRate) => categoryRate?.label === qualifierRate.label!
     );
+
     //the rates of the qualifiers in this category
-    let ratesOfCategory = ratesByCat.filter((categoryRate) =>
-      categoryRate?.uid?.includes(qualifierRate.uid.split(".")[0])
+    let ratesOfCategory = ratesByCat.filter(
+      (categoryRate) =>
+        categoryRate?.uid.split(".")[0] === qualifierRate.uid.split(".")[0]
     );
     //add the sum back to the rates object
-    const totalOfRates = [sum(ratesOfQualifier), sum(ratesOfCategory)];
+    const totalOfRates = [
+      sum([...ratesOfQualifier]),
+      sum([...ratesOfCategory]),
+    ];
     fieldRates = updateValueInObject(totalOfRates, fieldRates);
+    fieldRates = updateValueInObject([sum([...ratesOfCategory])], fieldRates);
 
-    //have to repull to get value
-    const ratesByCatAgain = Object.values(fieldRates)
-      .flat()
-      .filter((rate) => rate?.category?.includes(categoryType!));
-    let ratesOfTotal = ratesByCatAgain.filter((categoryRate) =>
-      categoryRate.category.toLowerCase().includes("total")
-    );
-    fieldRates = updateValueInObject([sum(ratesOfTotal, true)], fieldRates);
-
+    //once we've updated the values for qualifers with total and total category with that qualifier, we now have to calculate the total of the total in the category
+    fieldRates = categoryTotalSum(categoryType, fieldRates);
     return fieldRates;
   };
 
   const updateValueInObject = (newValues: any[], object: AnyObject) => {
     for (var key in object) {
-      object[key].forEach((rate: any, idx: number) => {
-        const foundValue = newValues.find(
-          (newValue) => newValue.uid === rate.uid
+      object[key].forEach((item: any, idx: number) => {
+        const foundValue = newValues?.find(
+          (newValue) => newValue?.uid === item?.uid
         );
         if (foundValue) {
-          object[key][idx] = { ...rate, ...foundValue };
+          object[key][idx] = { ...item, ...foundValue };
         }
       });
     }
@@ -231,11 +258,11 @@ export const IETRate = ({
     return total;
   };
 
-  const sum = (rates: any[], checkLabel?: boolean) => {
-    const totalRateIndex = rates.findIndex(
-      (rate) =>
-        rate.isTotal &&
-        (checkLabel ? rate.label.toLowerCase().includes("total") : true)
+  const sum = (rates: any[], checkById?: boolean) => {
+    const totalRateIndex = rates.findIndex((rate) =>
+      checkById
+        ? rate?.uid.toLowerCase().includes(".total") && rate.isTotal
+        : rate.isTotal
     );
     let totalRate = rates.splice(totalRateIndex, 1).flat()[0];
     const total = calculate(rates);
@@ -262,8 +289,10 @@ export const IETRate = ({
   return (
     <>
       {rates.map((rate, index) => {
+        const key = `${name}.${catID}.${index}`;
+        const fieldKey = field.value[catID]?.[index];
         return (
-          <CUI.Stack key={rate.id} mt={4} mb={8}>
+          <CUI.Stack key={rate.uid} mt={4} mb={8}>
             {rate.label && (
               <CUI.FormLabel fontWeight={700} data-cy={rate.label}>
                 {labelText[rate.label] ?? rate.label}
@@ -273,22 +302,18 @@ export const IETRate = ({
               <QMR.InputWrapper
                 label={customNumeratorLabel || "Numerator"}
                 isInvalid={
-                  !!objectPath.get(
-                    errors,
-                    `${name}.${catID}.${index}.numerator`
-                  )?.message
+                  !!objectPath.get(errors, `${key}.numerator`)?.message
                 }
                 errorMessage={
-                  objectPath.get(errors, `${name}.${catID}.${index}.numerator`)
-                    ?.message
+                  objectPath.get(errors, `${key}.numerator`)?.message
                 }
                 {...rest}
               >
                 <CUI.Input
                   type="text"
-                  aria-label={`${name}.${catID}.${index}.numerator`}
-                  value={field.value[catID]?.[index]?.numerator ?? ""}
-                  data-cy={`${name}.${catID}.${index}.numerator`}
+                  aria-label={`${key}.numerator`}
+                  value={fieldKey?.numerator ?? ""}
+                  data-cy={`${key}.numerator`}
                   onChange={(e) =>
                     changeRate(index, "numerator", e.target.value)
                   }
@@ -297,24 +322,18 @@ export const IETRate = ({
               <QMR.InputWrapper
                 label={customDenominatorLabel || "Denominator"}
                 isInvalid={
-                  !!objectPath.get(
-                    errors,
-                    `${name}.${catID}.${index}.denominator`
-                  )?.message
+                  !!objectPath.get(errors, `${key}.denominator`)?.message
                 }
                 errorMessage={
-                  objectPath.get(
-                    errors,
-                    `${name}.${catID}.${index}.denominator`
-                  )?.message
+                  objectPath.get(errors, `${key}.denominator`)?.message
                 }
                 {...rest}
               >
                 <CUI.Input
-                  aria-label={`${name}.${catID}.${index}.denominator`}
-                  value={field.value[catID]?.[index]?.denominator ?? ""}
+                  aria-label={`${key}.denominator`}
+                  value={fieldKey?.denominator ?? ""}
                   type="text"
-                  data-cy={`${name}.${catID}.${index}.denominator`}
+                  data-cy={`${key}.denominator`}
                   onChange={(e) =>
                     changeRate(index, "denominator", e.target.value)
                   }
@@ -322,32 +341,26 @@ export const IETRate = ({
               </QMR.InputWrapper>
               <QMR.InputWrapper
                 label={customRateLabel || "Rate"}
-                isInvalid={
-                  !!objectPath.get(errors, `${name}.${catID}.${index}.rate`)
-                    ?.message
-                }
-                errorMessage={
-                  objectPath.get(errors, `${name}.${catID}.${index}.rate`)
-                    ?.message
-                }
+                isInvalid={!!objectPath.get(errors, `${key}.rate`)?.message}
+                errorMessage={objectPath.get(errors, `${key}.rate`)?.message}
                 {...rest}
               >
                 <CUI.Input
-                  aria-label={`${name}.${catID}.${index}.rate`}
-                  value={field.value[catID]?.[index]?.rate ?? ""}
+                  aria-label={`${key}.rate`}
+                  value={fieldKey?.rate ?? ""}
                   type="text"
-                  data-cy={`${name}.${catID}.${index}.rate`}
+                  data-cy={`${key}.rate`}
                   onChange={(e) => changeRate(index, "rate", e.target.value)}
                   readOnly={readOnly}
                 />
               </QMR.InputWrapper>
             </CUI.HStack>
             {!allowNumeratorGreaterThanDenominator &&
-              parseFloat(field.value[catID]?.[index]?.numerator) >
-                parseFloat(field.value[catID]?.[index]?.denominator) && (
+              parseFloat(fieldKey?.numerator) >
+                parseFloat(fieldKey?.denominator) && (
                 <QMR.Notification
                   alertTitle="Rate Error"
-                  alertDescription={`Numerator: ${field.value[catID]?.[index]?.numerator} cannot be greater than Denominator: ${field.value[catID]?.[index]?.denominator}`}
+                  alertDescription={`Numerator: $fieldKey?.numerator} cannot be greater than Denominator: ${fieldKey?.denominator}`}
                   alertStatus="warning"
                 />
               )}
