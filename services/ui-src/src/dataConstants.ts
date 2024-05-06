@@ -152,6 +152,7 @@ export const NOT_COLLECTED_BY_PROVIDER =
 export const NUMERATOR = "numerator";
 export const OHSU = "OHSU";
 export const OMS = "OptionalMeasureStratification";
+export const OMS_ADDITIONAL = "OptionalMeasureStratification-AdditionalNotes";
 export const OPA = "OPA";
 export const OPM_EXPLAINATION = "OtherPerformanceMeasure-Explanation";
 export const OPM_KEY = "OPM_"; //used for fixing id keys for other performance measures
