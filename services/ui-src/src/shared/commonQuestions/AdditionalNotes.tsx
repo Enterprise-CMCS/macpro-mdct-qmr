@@ -1,7 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { usePathParams } from "hooks/api/usePathParams";
 import { Upload } from "components/Upload";
 import * as Types from "shared/types";
 import * as DC from "dataConstants";
@@ -13,24 +12,20 @@ import SharedContext from "shared/SharedContext";
 export const AdditionalNotes = () => {
   const register = useCustomRegister<Types.AdditionalNotes>();
   const { getValues, resetField } = useFormContext();
-  const { year } = usePathParams();
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
   const { header, section, upload } = labels?.AdditionalNotes ?? {};
+  const [textAreaLabel, setTextAreaLabel] = useState<string>(
+    section.isReportingText
+  );
   const didReport = getValues()["DidReport"];
-  const [textAreaLabel, setTextAreaLabel] = useState<string>(section);
 
   useEffect(() => {
     resetField("AdditionalNotes-AdditionalNotes");
-    // 2024 uses different text depending on reporting status
-    if (Number(year) >= 2024) {
-      if (didReport === "no") {
-        setTextAreaLabel(section.isNotReportingText);
-      } else {
-        setTextAreaLabel(section.isReportingText);
-      }
+    if (didReport === "no") {
+      setTextAreaLabel(section.isNotReportingText);
     } else {
-      setTextAreaLabel(section);
+      setTextAreaLabel(section.isReportingText);
     }
   }, [didReport, resetField]);
 

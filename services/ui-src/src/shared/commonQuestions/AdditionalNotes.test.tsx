@@ -6,10 +6,6 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2024 } from "labels/2024/commonQuestionsLabel";
 import { commonQuestionsLabel as commonQuestionsLabels2023 } from "labels/2023/commonQuestionsLabel";
-import { usePathParams } from "hooks/api/usePathParams";
-
-jest.mock("hooks/api/usePathParams");
-const mockUsePathParams = usePathParams as jest.Mock;
 
 const isReportingTextAreaLabel =
   "Please add any additional notes or comments on the measure not otherwise captured above (text in this field is included in publicly-reported state-specific comments):";
@@ -18,7 +14,6 @@ const isNotReportingTextAreaLabel =
 
 describe("Test AdditionalNotes component for 2024", () => {
   beforeEach(() => {
-    mockUsePathParams.mockReturnValue({ year: "2024" });
     renderWithHookForm(
       <SharedContext.Provider value={commonQuestionsLabels2024}>
         <Reporting
@@ -99,7 +94,6 @@ describe("Test AdditionalNotes component for 2024", () => {
 
 describe("Test AdditionalNotes component for 2023", () => {
   beforeEach(() => {
-    mockUsePathParams.mockReturnValue({ year: "2023" });
     renderWithHookForm(
       <SharedContext.Provider value={commonQuestionsLabels2023}>
         <Reporting
