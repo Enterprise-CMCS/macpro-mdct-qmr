@@ -25,7 +25,7 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
             cy.get('[data-cy="Create"]').click(); //clicking create
             cy.wait(500);
             //sometimes it get stuck on the create page, so we may have to click cancel to go back
-            cy.find('[data-cy="Cancel"]').then(() => {
+            cy.get('[data-cy="Cancel"]').then(() => {
               cy.get('[data-cy="Cancel"]').click();
               cy.wait(500);
             });
