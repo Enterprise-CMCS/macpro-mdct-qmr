@@ -360,7 +360,7 @@ export const IETRate = ({
                 parseFloat(fieldKey?.denominator) && (
                 <QMR.Notification
                   alertTitle="Rate Error"
-                  alertDescription={`Numerator: $fieldKey?.numerator} cannot be greater than Denominator: ${fieldKey?.denominator}`}
+                  alertDescription={`Numerator: ${fieldKey?.numerator} cannot be greater than Denominator: ${fieldKey?.denominator}`}
                   alertStatus="warning"
                 />
               )}
