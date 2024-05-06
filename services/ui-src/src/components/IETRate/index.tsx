@@ -203,7 +203,7 @@ export const IETRate = ({
     );
     //add the sum back to the rates object
     const totalOfRates = [
-      sum([...ratesOfQualifier]),
+      sum([...ratesOfQualifier])!,
       sum([...ratesOfCategory]),
     ];
     fieldRates = updateValueInObject(totalOfRates, fieldRates);
@@ -264,9 +264,12 @@ export const IETRate = ({
         ? rate?.uid.toLowerCase().includes(".total") && rate.isTotal
         : rate.isTotal
     );
-    let totalRate = rates.splice(totalRateIndex, 1).flat()[0];
-    const total = calculate(rates);
-    return { ...totalRate, ...total };
+    if (totalRateIndex > -1) {
+      let totalRate = rates.splice(totalRateIndex, 1).flat()[0];
+      const total = calculate(rates);
+      return { ...totalRate, ...total };
+    }
+    return {};
   };
 
   useEffect(
