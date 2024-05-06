@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 
 export const commonQuestionsLabel = {
-  AdditonalNotes: {
+  AdditionalNotes: {
     header: "Additional Notes/Comments on the measure (optional)",
     section:
       "Please add any additional notes or comments on the measure not otherwise captured above (<em>text in this field is included in publicly-reported state-specific comments</em>):",
