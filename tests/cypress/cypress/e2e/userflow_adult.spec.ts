@@ -21,6 +21,8 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
       cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
       cy.get('[data-cy="Create"]').click(); //clicking create
       cy.wait(500);
+      cy.get('[data-cy="Cancel"]').click(); //clicking create
+      cy.wait(500);
       cy.get('[data-cy="add-adultbutton"]').should("be.disabled");
     }
     cy.get('[data-cy="ACS"]').should("contain.text", "Adult Core Set Measures");
