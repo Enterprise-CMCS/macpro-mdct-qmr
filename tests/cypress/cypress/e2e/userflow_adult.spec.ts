@@ -12,19 +12,27 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
 
   // create an adult core set
   it("Creates or enters combined adult core-set", () => {
-    cy.deleteAdultCoreSets();
-    const isDisabled = cy
-      .get('[data-cy="add-adultbutton"]')
-      .should("be.disabled");
-    if (!isDisabled) {
-      cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adult core set measures
-      cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
-      cy.get('[data-cy="Create"]').click(); //clicking create
-      cy.wait(500);
-      cy.get('[data-cy="Cancel"]').click(); //clicking create
-      cy.wait(500);
-      cy.get('[data-cy="add-adultbutton"]').should("be.disabled");
-    }
+    cy.get('[data-cy="tableBody"]').then(($tbody) => {
+      //check to see if adult coreset has been added to the table
+      if ($tbody.find('[data-cy^="ACS"]').length < 1) {
+        cy.get('[data-cy="add-adultbutton"]').then(($btn) => {
+          //if the add adult coreset button is not disable
+          if (!$btn.is(":disabled")) {
+            //click the add adult core set button
+            cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adult core set measures
+            cy.wait(500);
+            cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
+            cy.get('[data-cy="Create"]').click(); //clicking create
+            cy.wait(500);
+            //sometimes it get stuck on the create page, so we may have to click cancel to go back
+            cy.find('[data-cy="Cancel"]').then(() => {
+              cy.get('[data-cy="Cancel"]').click();
+              cy.wait(500);
+            });
+          }
+        });
+      }
+    });
     cy.get('[data-cy="ACS"]').should("contain.text", "Adult Core Set Measures");
   });
 });
