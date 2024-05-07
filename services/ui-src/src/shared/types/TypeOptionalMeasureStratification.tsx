@@ -74,6 +74,6 @@ export interface OptionalMeasureStratification {
     [DC.SELECTIONS]: {
       [option: string]: OmsNodes.TopLevelOmsNode;
     };
-    ["AdditionalNotes"]?: string;
+    [DC.ADDITIONAL_CONTEXT]?: string;
   };
 }
