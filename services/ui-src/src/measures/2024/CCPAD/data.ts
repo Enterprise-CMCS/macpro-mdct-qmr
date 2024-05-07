@@ -7,7 +7,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
     "Among women ages 21 to 44 who had a live birth, the percentage that:",
   ],
-  questionListItems: [
+  questionListOrderedItems: [
     "Were provided a most effective or moderately effective method of contraception within 3 days of delivery and within 90 days of delivery.",
     "Were provided a long-acting reversible method of contraception (LARC) within 3 days of delivery and within 90 days of delivery.",
   ],
