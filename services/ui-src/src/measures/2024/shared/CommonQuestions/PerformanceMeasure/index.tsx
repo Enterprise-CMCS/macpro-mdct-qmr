@@ -260,7 +260,7 @@ export const PerformanceMeasure = ({
       )}
       {data.questionListOrderedItems && (
         <CUI.OrderedList m="5" ml="10" spacing={5}>
-          {data.questionListOrderedItems?.map((item, idx) => {
+          {data.questionListOrderedItems.map((item, idx) => {
             return (
               <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
                 {data.questionListTitles?.[idx] && (

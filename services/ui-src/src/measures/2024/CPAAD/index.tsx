@@ -1,16 +1,43 @@
+import * as Q from "./questions";
+import * as CMQ from "measures/2023/shared/CommonQuestions";
+import { useParams } from "react-router-dom";
 import * as QMR from "components";
-interface Props {
-  name: string;
-  year: string;
-}
+import { useFormContext } from "react-hook-form";
+import { FormData } from "./types";
+import { validationFunctions } from "./validation";
+import { useEffect } from "react";
 
-export const CPAAD = ({ name, year }: Props) => {
+export const CPAAD = ({
+  name,
+  year,
+  setValidationFunctions,
+}: QMR.MeasureWrapperProps) => {
+  const { watch } = useFormContext<FormData>();
+  const { coreSetId } = useParams();
+  const data = watch();
+  useEffect(() => {
+    if (setValidationFunctions) {
+      setValidationFunctions(validationFunctions);
+    }
+  }, [setValidationFunctions]);
+
   return (
-    <QMR.AutocompletedMeasureTemplate
-      year={year}
-      measureTitle={`CPA-AD - ${name}`}
-      performanceMeasureText="This measure provides information on the experiences of beneficiaries with their health care and gives a general indication of how well the health care meets the beneficiaries’ expectations. Results summarize beneficiaries’ experiences through ratings, composites, and question summary rates."
-      performanceMeasureSubtext="To reduce state burden and streamline reporting, CMS will calculate state-level performance results for this measure using data submitted for the state to the AHRQ CAHPS Health Plan Survey Database."
-    />
+    <>
+      <Q.Reporting
+        reportingYear={year}
+        measureName={name}
+        measureAbbreviation={coreSetId as string}
+      />
+      {data["DidCollect"] !== "no" && (
+        <>
+          <Q.HowDidYouReport />
+          <CMQ.MeasurementSpecification type="AHRQ-NCQA" />
+          <Q.DataSource />
+          <Q.DefinitionOfPopulation />
+          <Q.PerformanceMeasure />
+        </>
+      )}
+      <CMQ.AdditionalNotes />
+    </>
   );
 };

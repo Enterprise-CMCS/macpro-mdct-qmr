@@ -9,7 +9,7 @@ import {
   useAgeGroupsCheckboxes,
 } from "./ndrCheckboxes";
 import { TotalNDRSets } from "./totalNDRSets";
-import { stringToLabelData } from "utils";
+import { isLegacyLabel, stringToLabelData } from "utils";
 
 interface NdrProps {
   name: string;
@@ -38,13 +38,14 @@ const IUHHNDRSets = ({ name }: NdrProps) => {
 
   return (
     <>
-      {ageGroupsOptions && typeof qualifiers[0] === "string" && (
-        <QMR.Checkbox
-          name={`${name}.iuhh-rate.options`}
-          key={`${name}.iuhh-rate.options`}
-          options={ageGroupsOptions}
-        />
-      )}
+      {(ageGroupsOptions && typeof qualifiers[0] === "string") ||
+        (isLegacyLabel() && (
+          <QMR.Checkbox
+            name={`${name}.iuhh-rate.options`}
+            key={`${name}.iuhh-rate.options`}
+            options={ageGroupsOptions}
+          />
+        ))}
       {calcTotal && (
         <TotalNDRSets
           componentFlag={"IU"}

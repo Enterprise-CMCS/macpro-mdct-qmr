@@ -10,3 +10,4 @@ export * from "./AddAdultCoreSet";
 export * from "./AddHHCoreSet";
 export * from "./ApiTester";
 export * from "./ExportAll";
+export * from "./CombinedRatesPage";
