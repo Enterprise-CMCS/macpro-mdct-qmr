@@ -3,6 +3,7 @@ import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { SPAi } from "libs/spaLib";
+import { coreSets, CoreSetField } from "shared/coreSetByYear";
 
 interface HandleDeleteData {
   state: string;
@@ -85,6 +86,15 @@ export const formatTableItems = ({
 
       const type = getCoreSetType(tempSet[0] as CoreSetAbbr);
       const title = coreSetMeasureTitle[tempSet[0] as CoreSetAbbr] + tempTitle;
+
+      const coreSetCards = coreSets[
+        year as keyof typeof coreSets
+      ] as CoreSetField[];
+      const findCoreset = coreSetCards.find((coreSet) =>
+        coreSet.abbr?.find((key) => key === tempSet[0])
+      );
+      const deletable = !findCoreset?.loaded;
+
       const data = {
         handleDelete: () =>
           handleDelete({
@@ -115,7 +125,9 @@ export const formatTableItems = ({
           });
         },
         type,
+        deletable,
       };
+
       const actions = getCoreSetActions(data);
 
       return {
