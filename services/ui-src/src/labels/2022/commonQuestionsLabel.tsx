@@ -1,10 +1,14 @@
 import * as DC from "dataConstants";
 
 export const commonQuestionsLabel = {
-  AdditonalNotes: {
+  AdditionalNotes: {
     header: "Additional Notes/Comments on the measure (optional)",
-    section:
-      "Please add any additional notes or comments on the measure not otherwise captured above:",
+    section: {
+      isReportingText:
+        "Please add any additional notes or comments on the measure not otherwise captured above:",
+      isNotReportingText:
+        "Please add any additional notes or comments on the measure not otherwise captured above:",
+    },
     upload:
       "If you need additional space to include comments or supplemental information, please attach further documentation below.",
   },
@@ -109,6 +113,12 @@ export const commonQuestionsLabel = {
   OptionalMeasureStratification: {
     section:
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, language, disability status, or geography, complete the following as applicable. If your state reported for classifications/sub-categories other than those listed below, or reported for different rate sets, please click on “Add Another” to add Additional/Alternative Classification/Sub-categories as needed.",
+  },
+  WhyAreYouNotReporting: {
+    limitWithDataCollection:
+      "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
+    limitWithDataCollectionDesc:
+      "Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:",
   },
 };
 

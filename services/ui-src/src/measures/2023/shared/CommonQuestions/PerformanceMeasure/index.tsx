@@ -75,6 +75,10 @@ const CategoryNdrSets = ({
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
+        //temporary check to make IETRate component work again, will be updated during the refactor
+        const registerId = measureName?.includes("IET")
+          ? `${DC.PERFORMANCE_MEASURE}.${DC.RATES}`
+          : `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`;
         return (
           <CUI.Box key={cat.id}>
             <CUI.Text fontWeight="bold" my="5">
@@ -89,13 +93,15 @@ const CategoryNdrSets = ({
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
               categoryName={cat.label}
+              category={cat}
               categories={categories}
+              qualifiers={qualifiers}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               rateCalc={rateCalc}
-              {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`)}
+              {...register(registerId)}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }

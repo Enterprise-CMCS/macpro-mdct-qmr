@@ -1,6 +1,5 @@
 # Refer to the README.md file in within this service directory to configure all ssm parameters required for this service.
 service: app-api
-useDotenv: true
 
 frameworkVersion: "3"
 
@@ -9,13 +8,11 @@ package:
 
 plugins:
   - serverless-plugin-typescript
-  - serverless-plugin-warmup
   - serverless-associate-waf
   - "@enterprise-cmcs/serverless-waf-plugin"
   - serverless-offline-ssm
   - serverless-offline
   - serverless-stack-termination-protection
-  - serverless-idempotency-helper
   - serverless-iam-helper
   - serverless-s3-bucket-helper
   - serverless-api-client-certificate
@@ -49,14 +46,11 @@ custom:
     path: ../../.env
   docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
-  coreSetTableName: ${env:coreSetTableName, cf:database-${self:custom.stage}.CoreSetTableName}
-  coreSetTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableArn}
-  coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.CoreSetTableStreamArn}
-  measureTableName: ${env:measureTableName, cf:database-${self:custom.stage}.MeasureTableName}
-  measureTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableArn}
-  measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.MeasureTableStreamArn}
-  bannerTableName: ${env:bannerTableName, cf:database-${self:custom.stage}.BannerTableName}
-  bannerTableArn: ${env:DYNAMO_TABLE_ARN, cf:database-${self:custom.stage}.BannerTableArn}
+  coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
+  coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableStreamArn}
+  measureTableName: ${env:measureTableName, param:MeasureTableName}
+  measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:MeasureTableStreamArn}
+  bannerTableName: ${env:bannerTableName, param:BannerTableName}
   webAclName: ${self:service}-${self:custom.stage}-webacl-waf
   vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
   privateSubnets:
@@ -66,20 +60,13 @@ custom:
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
-  warmup:
-    default:
-      enabled: true
-      prewarm: true
-      events:
-        - schedule: rate(${ssm:/configuration/${self:custom.stage}/warmup/schedule, ssm:/configuration/default/warmup/schedule, "60 minutes"})
-      concurrency: ${ssm:/configuration/${self:custom.stage}/warmup/concurrency, ssm:/configuration/default/warmup/concurrency, 5}
   authValue:
     master: aws_iam
     val: aws_iam
     prod: aws_iam
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs18.x
   region: us-east-1
   tracing:
     apiGateway: true
@@ -117,8 +104,6 @@ provider:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
     bannerTableName: ${self:custom.bannerTableName}
-    uploadS3BucketName: ${ssm:/s3bucket/uploads, cf:uploads-${self:custom.stage}.AttachmentsBucketName, "local-uploads"}
-    dynamoSnapshotS3BucketName: ${ssm:/s3bucket/snapshots, cf:uploads-${self:custom.stage}.DynamoSnapshotBucketName, "local-dynamo-snapshots"}
     stage: ${opt:stage, self:provider.stage}
     docraptorApiKey: ${self:custom.docraptorApiKey}
 

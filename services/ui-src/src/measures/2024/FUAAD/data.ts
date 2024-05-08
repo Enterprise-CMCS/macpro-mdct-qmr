@@ -5,7 +5,7 @@ export const { categories, qualifiers } = getCatQualLabels("FUA-AD");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of emergency department (ED) visits for beneficiaries age 18 and Older with a principal diagnosis of Substance Use Disorder(SUD), or any diagnosis of drug overdose, for which there was follow-up. Two rates are reported:",
+    "Percentage of emergency department (ED) visits for beneficiaries age 18 and Older with a principal diagnosis of Substance Use Disorder (SUD), or any diagnosis of drug overdose, for which there was follow-up. Two rates are reported:",
   ],
   questionListItems: [
     "Percentage of ED visits for which the beneficiary received follow-up within 30 days of the ED visit (31 total days)",
