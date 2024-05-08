@@ -104,7 +104,7 @@ export const coreSets: CoreSetFields = {
       label: "Adult",
       path: "add-adult",
       loaded: false,
-      abbr: ["ACS"],
+      abbr: ["ACS", "ACSC", "ACSM"],
     },
     {
       type: "coreSet",

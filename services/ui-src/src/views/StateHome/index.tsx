@@ -273,14 +273,6 @@ const StateHome = () => {
       <CUI.Container maxW="5xl" py="4">
         <BannerCard />
       </CUI.Container>
-      {data.Items && data.Items.length === 0 && (
-        <CUI.Box data-testid="no-state-data">
-          <QMR.Notification
-            alertStatus="warning"
-            alertTitle="There is currently no data for this State"
-          />
-        </CUI.Box>
-      )}
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">
