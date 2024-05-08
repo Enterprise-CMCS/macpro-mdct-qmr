@@ -185,6 +185,8 @@ const HomeData: DataDriven = {
 export const Data = {
   HHCS: HomeData,
   ACS: AdultData,
+  ACSC: AdultData,
+  ACSM: AdultData,
   CCS: ChildData,
   CCSC: ChildChipData,
   CCSM: ChildMedicaidData,

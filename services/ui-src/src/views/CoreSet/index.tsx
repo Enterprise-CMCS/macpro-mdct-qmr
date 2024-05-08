@@ -27,8 +27,8 @@ interface HandleDeleteMeasureData {
 
 enum coreSetType {
   ACS = "Adult",
-  ACSM = "Adult - Multiple",
-  ACSC = "Adult - Combined",
+  ACSM = "Adult - Medicaid",
+  ACSC = "Adult - CHIP",
   CCS = "Child",
   CCSM = "Child - Medicaid",
   CCSC = "Child - CHIP",
@@ -37,8 +37,8 @@ enum coreSetType {
 
 export enum coreSetMeasureTitle {
   ACS = "Adult Core Set Measures",
-  ACSM = "Adult Core Set Multiple",
-  ACSC = "Adult Core Set Combined",
+  ACSM = "Adult Core Set: Medicaid",
+  ACSC = "Adult Core Set: CHIP",
   CCS = "Child Core Set Measures: Medicaid & CHIP",
   CCSM = "Child Core Set Measures: Medicaid",
   CCSC = "Child Core Set Measures: CHIP",
@@ -47,8 +47,8 @@ export enum coreSetMeasureTitle {
 
 enum coreSetQuestionsText {
   ACS = "Adult Core Set Questions",
-  ACSM = "Adult Core Set Questions - Multiple",
-  ACSC = "Adult Core Set Questions - Combined",
+  ACSM = "Adult Core Set Questions: Medicaid",
+  ACSC = "Adult Core Set Questions: CHIP",
   CCS = "Child Core Set Questions: Medicaid & CHIP",
   CCSM = "Child Core Set Questions: Medicaid",
   CCSC = "Child Core Set Questions: CHIP",

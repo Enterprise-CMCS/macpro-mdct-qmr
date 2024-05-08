@@ -1,7 +1,9 @@
-import { ACS, CCS, CCSC, CCSM, HHCS } from "./validations";
+import { ACS, ACSM, ACSC, CCS, CCSC, CCSM, HHCS } from "./validations";
 
 export const validationFunctions = {
   ACS,
+  ACSM,
+  ACSC,
   CCS,
   CCSC,
   CCSM,

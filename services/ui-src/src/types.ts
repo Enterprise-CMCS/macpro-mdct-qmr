@@ -1,8 +1,7 @@
 export enum CoreSetAbbr {
   ACS = "ACS",
-  // TODO: update ACSM and ACSC
-  ACSM = "ACS",
-  ACSC = "ACS",
+  ACSM = "ACSM",
+  ACSC = "ACSC",
   CCS = "CCS",
   CCSM = "CCSM",
   CCSC = "CCSC",

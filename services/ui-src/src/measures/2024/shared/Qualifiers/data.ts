@@ -43,6 +43,74 @@ const AdultData: DataDriven = {
   },
 };
 
+const AdultChipData: DataDriven = {
+  title: "Adult Core Set Qualifiers: Chip",
+  questionTitle: "Adult Core Set Questions: Chip",
+  qualifierHeader: (year) =>
+    `As of September 30, ${year} what percentage of your Medicaid/CHIP enrollees (above age 21) were enrolled in each delivery system?`,
+  textTable: [["Ages 21 to 64"], ["Age 65 and older"]],
+  fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
+  formData: {
+    CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
+    PercentageEnrolledInEachDeliverySystem: [
+      {
+        label: "Fee-for-Service",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+      },
+      {
+        label: "PCCM",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+      },
+      {
+        label: "Managed Care",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+      },
+      {
+        label: "Integrated Care Model (ICM)",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+      },
+    ],
+  },
+};
+
+const AdultMedicaidData: DataDriven = {
+  title: "Adult Core Set Qualifiers: Medicaid",
+  questionTitle: "Adult Core Set Questions: Medicaid",
+  qualifierHeader: (year) =>
+    `As of September 30, ${year} what percentage of your Medicaid/CHIP enrollees (above age 21) were enrolled in each delivery system?`,
+  textTable: [["Ages 21 to 64"], ["Age 65 and older"]],
+  fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
+  formData: {
+    CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
+    PercentageEnrolledInEachDeliverySystem: [
+      {
+        label: "Fee-for-Service",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+      },
+      {
+        label: "PCCM",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+      },
+      {
+        label: "Managed Care",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+      },
+      {
+        label: "Integrated Care Model (ICM)",
+        TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
+      },
+    ],
+  },
+};
+
 const ChildData: DataDriven = {
   title: "Child Core Set Qualifiers: Medicaid & CHIP",
   questionTitle: "Child Core Set Questions: Medicaid & CHIP",
@@ -185,6 +253,8 @@ const HomeData: DataDriven = {
 export const Data = {
   HHCS: HomeData,
   ACS: AdultData,
+  ACSC: AdultChipData,
+  ACSM: AdultMedicaidData,
   CCS: ChildData,
   CCSC: ChildChipData,
   CCSM: ChildMedicaidData,
