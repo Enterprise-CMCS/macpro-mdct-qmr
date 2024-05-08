@@ -9,7 +9,8 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { CoreSet, CoreSetAbbr, UserRoles } from "../../types";
+import { CoreSet, UserRoles } from "../../types";
+import { CoreSetField, coreSets } from "../../libs/coreSetByYearPreloaded";
 
 export const coreSetList = handler(async (event, context) => {
   // action limited to any admin type user and state users from corresponding state
@@ -35,48 +36,53 @@ export const coreSetList = handler(async (event, context) => {
     ),
   };
 
-  const results = await dynamoDb.scanAll<CoreSet>(params);
-  // if the query value contains no results
-  if (results.length === 0) {
-    // add an adult coreset and requery the db
-    const createCoreSetEvent = {
+  // using coreSetByYear to see if it's a year that should have
+  // coresets generated from login
+  const year = parseInt(event!.pathParameters!.year!);
+  const coreSetsByYear = coreSets[
+    year as keyof typeof coreSets
+  ] as CoreSetField[];
+  let results = await dynamoDb.scanAll<CoreSet>(params);
+
+  const filteredCoreSets = coreSetsByYear.filter((coreSet) => {
+    const matchedCoreSet = results.find(
+      (existingCoreSet: CoreSet) => existingCoreSet.coreSet === coreSet.abbr
+    );
+    return coreSet.loaded && !matchedCoreSet;
+  });
+
+  // check if any coresets should be preloaded and requery the db
+  for (let coreSet of filteredCoreSets) {
+    let createCoreSetEvent = {
       ...event,
       pathParameters: {
         ...event.pathParameters,
-        coreSet: CoreSetAbbr.ACS,
+        coreSet: coreSet.abbr,
       },
     };
-    try {
-      const createCoreSetResult = await createCoreSet(
-        createCoreSetEvent,
-        context
-      );
-      if (createCoreSetResult.statusCode === 200) {
-        const res = await dynamoDb.scanAll<CoreSet>(params);
-        return {
-          status: StatusCodes.SUCCESS,
-          body: {
-            Items: res,
-          },
-        };
-      } else {
-        throw new Error("Creation failed");
-      }
-    } catch (e) {
-      console.log(e);
-      throw new Error("Failed to create new coreset");
-    }
-  } else {
-    // Update the progress measure numComplete
-    await updateCoreSetProgress(results, event, context);
+    const createCoreSetResult = await createCoreSet(
+      createCoreSetEvent,
+      context
+    );
 
-    return {
-      status: StatusCodes.SUCCESS,
-      body: {
-        Items: results,
-      },
-    };
+    if (createCoreSetResult.statusCode !== 200) {
+      return {
+        status: StatusCodes.SERVER_ERROR,
+        body: "Creation failed",
+      };
+    }
   }
+  results = await dynamoDb.scanAll<CoreSet>(params);
+
+  // Update the progress measure numComplete
+  await updateCoreSetProgress(results, event, context);
+
+  return {
+    status: StatusCodes.SUCCESS,
+    body: {
+      Items: results,
+    },
+  };
 });
 
 export const getCoreSet = handler(async (event, context) => {

@@ -64,7 +64,7 @@ export const AutocompletedMeasureTemplate = ({
               return <CUI.Text key={`subText.${idx}`}>{text}</CUI.Text>;
             })}
           <CUI.Text fontWeight="700">
-            {`States are not asked to report data for this measure for FFY ${year} Core Set in the online
+            {`States are not asked to report data for this measure for FFY ${year} Core Set reporting in the online
             reporting system.`}
           </CUI.Text>
         </CUI.Stack>

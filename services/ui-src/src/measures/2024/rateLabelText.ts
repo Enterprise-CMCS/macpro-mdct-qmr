@@ -875,13 +875,13 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "30-day follow-up after ED visit for mental illness",
-                "text": "30-day follow-up after ED visit for mental illness",
+                "label": "30-day follow-up after ED visit",
+                "text": "30-day follow-up after ED visit",
                 "id": "biXkZF"
             },
             {
-                "label": "7-day follow-up after ED visit for mental illness",
-                "text": "7-day follow-up after ED visit for mental illness",
+                "label": "7-day follow-up after ED visit",
+                "text": "7-day follow-up after ED visit",
                 "id": "jQ2y5i"
             }
         ]
@@ -896,13 +896,13 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "30-day follow-up after ED visit for mental illness",
-                "text": "30-day follow-up after ED visit for mental illness",
+                "label": "30-day follow-up after ED visit",
+                "text": "30-day follow-up after ED visit",
                 "id": "mpaDiA"
             },
             {
-                "label": "7-day follow-up after ED visit for mental illness",
-                "text": "7-day follow-up after ED visit for mental illness",
+                "label": "7-day follow-up after ED visit",
+                "text": "7-day follow-up after ED visit",
                 "id": "MFDMmO"
             }
         ]
@@ -935,13 +935,13 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "30-day follow-up after ED visit for mental illness",
-                "text": "30-day follow-up after ED visit for mental illness",
+                "label": "30-day follow-up after ED visit",
+                "text": "30-day follow-up after ED visit",
                 "id": "bLYJVL"
             },
             {
-                "label": "7-day follow-up after ED visit for mental illness",
-                "text": "7-day follow-up after ED visit for mental illness",
+                "label": "7-day follow-up after ED visit",
+                "text": "7-day follow-up after ED visit",
                 "id": "0PNnN6"
             }
         ]
