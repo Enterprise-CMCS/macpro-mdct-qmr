@@ -172,6 +172,25 @@ const StateHome = () => {
     // TODO: add delete functionality for new adult core sets
     // if its a chip or medicaid child coreset we delete them both
     else if (
+      data.coreSet === CoreSetAbbr.ACSC ||
+      data.coreSet === CoreSetAbbr.ACSM
+    ) {
+      deleteCoreSet.mutate(
+        { ...data, coreSet: CoreSetAbbr.ACSC },
+        {
+          onSuccess: () => {
+            deleteCoreSet.mutate(
+              { ...data, coreSet: CoreSetAbbr.ACSM },
+              {
+                onSuccess: () => {
+                  queryClient.refetchQueries();
+                },
+              }
+            );
+          },
+        }
+      );
+    } else if (
       data.coreSet === CoreSetAbbr.CCSC ||
       data.coreSet === CoreSetAbbr.CCSM
     ) {
