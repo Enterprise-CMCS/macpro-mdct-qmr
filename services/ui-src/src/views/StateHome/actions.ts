@@ -18,13 +18,8 @@ export const getCoreSetActions = ({
 }: ActionsData) => {
   let actionsList = [];
 
-  if (type === CoreSetTableItem.Type.ADULT) {
-    actionsList.push({
-      itemText: "Export",
-      handleSelect: exportAll,
-      type: type,
-    });
-  } else if (
+  if (
+    type === CoreSetTableItem.Type.ADULT ||
     type === CoreSetTableItem.Type.CHILD ||
     type === CoreSetTableItem.Type.HEALTH_HOME
   ) {

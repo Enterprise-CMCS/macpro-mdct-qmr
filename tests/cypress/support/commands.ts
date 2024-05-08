@@ -50,7 +50,11 @@ Cypress.Commands.add("selectYear", (year) => {
 
 // Visit Adult Core Set Measures
 Cypress.Commands.add("goToAdultMeasures", () => {
-  cy.get('[data-cy="ACS"]').click();
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
+    if ($tbody.find('[data-cy="ACS"]').length > 0) {
+      cy.get('[data-cy="ACS"]').click();
+    }
+  });
 });
 
 // Visit Child Core Set Measures
@@ -143,17 +147,26 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
 
 // helper recursive function to remove added core sets
 const removeCoreSetElements = (kebab: string) => {
-  cy.get(kebab).first().click();
-  cy.wait(3000);
-  cy.get('[data-cy="Delete"]').first().click({ force: true });
-  cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
-  cy.wait(3000);
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
+      cy.get(kebab).first().click();
+      cy.wait(3000);
+      cy.get('[data-cy="Delete"]').first().click({ force: true });
+      cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
+      cy.wait(3000);
       removeCoreSetElements(kebab);
     }
   });
 };
+
+// removes adult core set from main page
+Cypress.Commands.add("deleteAdultCoreSets", () => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
+    if ($tbody.find('[data-cy="adult-kebab-menu"]').length > 0) {
+      removeCoreSetElements('[data-cy="adult-kebab-menu"]');
+    }
+  });
+});
 
 // removes child core set from main page
 Cypress.Commands.add("deleteChildCoreSets", () => {

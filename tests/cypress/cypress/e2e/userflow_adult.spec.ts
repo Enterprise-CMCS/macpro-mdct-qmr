@@ -1,10 +1,38 @@
-import { create } from "cypress/types/lodash";
 import { measureAbbrList2024, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
 
 // fill out a measure for 2024
+describe(`Adult Core Sets should be able to be created for ${testingYear}`, () => {
+  beforeEach(() => {
+    cy.login();
+    cy.selectYear(testingYear);
+    cy.wait(500);
+  });
+
+  // create an adult core set
+  it("Creates or enters combined adult core-set", () => {
+    cy.get('[data-cy="tableBody"]').then(($tbody) => {
+      //check to see if adult coreset has been added to the table
+      if ($tbody.find('[data-cy^="ACS"]').length < 1) {
+        cy.get('[data-cy="add-adultbutton"]').then(($btn) => {
+          //if the add adult coreset button is not disable
+          if (!$btn.is(":disabled")) {
+            //click the add adult core set button
+            cy.get('[data-cy="add-adultbutton"]').click(); // clicking on adding adult core set measures
+            cy.wait(500);
+            cy.get("#AdultCoreSet-ReportType-combined").click(); //selecting combined core set
+            cy.get('[data-cy="Create"]').click(); //clicking create
+            cy.wait(500);
+          }
+        });
+      }
+    });
+    cy.get('[data-cy="ACS"]').should("contain.text", "Adult Core Set Measures");
+  });
+});
+
 describe("Measure: CDF-AD", () => {
   beforeEach(() => {
     cy.login();
@@ -38,8 +66,7 @@ describe("submit coreset", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    // force click ensures reset gets hit (without force it fails when child set is present)
-    cy.get('[aria-label="Reset All Measures for ACS"]').click({ force: true });
+    cy.get('[data-cy="Reset All Measures"]').first().click();
     cy.wait(1000);
     // confirm reset
     cy.get('[data-cy="Status-WY2024ACS"]').should(
@@ -51,7 +78,7 @@ describe("submit coreset", () => {
   it("submit and confirm submission", () => {
     // complete core set
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[aria-label="Complete All Measures for ACS"]').click();
+    cy.get('[data-cy="Complete All Measures"]').first().click();
     cy.wait(4000);
     cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
@@ -88,7 +115,7 @@ describe("Export All Measures", () => {
 
   it("Test Adult Core Set", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[aria-label="Export for ACS"]').click();
+    cy.get('[data-cy="Export"]').first().click();
 
     // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2024.ADULT) {
