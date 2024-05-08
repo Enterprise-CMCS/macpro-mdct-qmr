@@ -5,7 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
 import { useQueryClient } from "react-query";
-import { CoreSetAbbr, UserRoles } from "types";
+import { AnyObject, CoreSetAbbr, UserRoles } from "types";
 import { useUser } from "hooks/authHooks";
 
 enum ReportType {
@@ -45,7 +45,7 @@ export const AddChildCoreSet = () => {
     );
   }
 
-  const handleSubmit = (data: ChildCoreSetReportType) => {
+  const onSubmit = (data: AnyObject) => {
     switch (data["ChildCoreSet-ReportType"]) {
       case ReportType.SEPARATE:
         mutation.mutate(CoreSetAbbr.CCSM, {
@@ -83,7 +83,7 @@ export const AddChildCoreSet = () => {
           Child Core Set report(s).
         </CUI.Text>
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
             <CUI.Container maxW="container.xl" as="section">
               <CUI.Stack spacing="10">
                 <QMR.RadioButton
