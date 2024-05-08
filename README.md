@@ -119,7 +119,7 @@ The following are prerequisites for local development.
 
 1. Run the application.
    ```bash
-   ./dev local
+   ./run local
    ```
    A number of test users are defined in `users.json`. See the [AWS section](#accessing-ssm-parameters) for more specific instructions and test user passwords.
 
@@ -304,7 +304,7 @@ Destroying is largely the same process as deploying.
 1. Ensure all stages of the branch have deployed once through github actions
 1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
 1. Navigate to the service you are trying to deploy ie: `/services/app-api`
-1. Run `sls destroy --stage branchname`, where branchname is the name of your branch.
+1. Run `sls remove --stage branchname`, where branchname is the name of your branch.
 
 Some known issues with this process of destroying is that S3 buckets will not be deleted properly, so I would recommend destroying through GithubActions or destroying the entire branch.
 
@@ -316,7 +316,7 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 
 1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
 1. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
-1. `sh destroy.sh name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
+1. `./run destroy name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
 ## App API
 
