@@ -1,9 +1,8 @@
 import { CoreSetTableItem } from "components/Table/types";
-import { coreSetMeasureTitle } from "views";
 import { getCoreSetActions } from "./actions";
 import { CoreSetAbbr, MeasureStatus } from "types";
 import { SPAi } from "libs/spaLib";
-import { coreSets, CoreSetField } from "shared/coreSetByYear";
+import { coreSets, CoreSetField, coreSetTitles } from "shared/coreSetByYear";
 
 interface HandleDeleteData {
   state: string;
@@ -81,11 +80,11 @@ export const formatTableItems = ({
         filteredSpas!.filter((s) => s.id === tempSet?.[1])[0];
       const tempTitle =
         tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
-          ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+          ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
           : "";
 
       const type = getCoreSetType(tempSet[0] as CoreSetAbbr);
-      const title = coreSetMeasureTitle[tempSet[0] as CoreSetAbbr] + tempTitle;
+      const title = coreSetTitles(year.toString(), tempSet[0]) + tempTitle;
 
       const coreSetCards = coreSets[
         year as keyof typeof coreSets
