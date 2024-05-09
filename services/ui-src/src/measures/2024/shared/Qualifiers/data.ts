@@ -44,8 +44,8 @@ const AdultData: DataDriven = {
 };
 
 const AdultChipData: DataDriven = {
-  title: "Adult Core Set Qualifiers: Chip",
-  questionTitle: "Adult Core Set Questions: Chip",
+  title: "Adult Core Set Qualifiers: CHIP",
+  questionTitle: "Adult Core Set Questions: CHIP",
   qualifierHeader: (year) =>
     `As of September 30, ${year} what percentage of your Medicaid/CHIP enrollees (above age 21) were enrolled in each delivery system?`,
   textTable: [["Ages 21 to 64"], ["Age 65 and older"]],

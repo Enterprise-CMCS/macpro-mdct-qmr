@@ -1,13 +1,15 @@
 import { SPA } from "libs/spaLib";
 
+export type CoreSetType = "coreSet" | "text";
+
 export interface CoreSetFields {
   [key: string]: CoreSetField[];
 }
 
 export interface CoreSetField {
-  type: string;
+  type: CoreSetType;
   label: string;
-  loaded?: boolean;
+  loaded?: string[]; //an empty [] means its pre-loaded for all states
   abbr?: string[];
   path?: string;
   exist?: boolean;
@@ -19,12 +21,32 @@ const getHHStates = (year: string) => {
   return SPA[year].map((item) => item.state);
 };
 
+//this state list is used for both child & adult core split to check which states have them preloaded in the table
+const stateLoadedList = [
+  "AK",
+  "AS",
+  "DC",
+  "GU",
+  "HI",
+  "NH",
+  "NM",
+  "NC",
+  "ND",
+  "MP",
+  "OH",
+  "PR",
+  "SC",
+  "VI",
+  "VT",
+  "WY",
+];
+
 export const coreSets: CoreSetFields = {
   "2021": [
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: ["ACS"],
     },
     {
@@ -50,7 +72,7 @@ export const coreSets: CoreSetFields = {
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: ["ACS"],
     },
     {
@@ -76,7 +98,7 @@ export const coreSets: CoreSetFields = {
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: ["ACS"],
     },
     {
@@ -103,21 +125,20 @@ export const coreSets: CoreSetFields = {
       type: "coreSet",
       label: "Adult",
       path: "add-adult",
-      loaded: false,
+      loaded: stateLoadedList,
       abbr: ["ACS", "ACSC", "ACSM"],
     },
     {
       type: "coreSet",
       label: "Child",
       path: "add-child",
-      loaded: false,
+      loaded: stateLoadedList,
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
       label: "Health Home",
       path: "add-hh",
-      loaded: false,
       abbr: ["HHCS"],
       stateList: getHHStates("2024"),
     },

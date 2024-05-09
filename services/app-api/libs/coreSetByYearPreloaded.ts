@@ -5,19 +5,39 @@ export interface CoreSetFields {
 export interface CoreSetField {
   type: string;
   label: string;
-  loaded?: boolean;
+  loaded?: string[];
   abbr: string;
   path?: string;
   exist?: boolean;
   stateList?: string[];
 }
 
+//this state list is used for both child & adult core split to check which states have them preloaded in the table
+const stateLoadedList = [
+  "AK",
+  "AS",
+  "DC",
+  "GU",
+  "HI",
+  "NH",
+  "NM",
+  "NC",
+  "ND",
+  "MP",
+  "OH",
+  "PR",
+  "SC",
+  "VI",
+  "VT",
+  "WY",
+];
+
 export const coreSets: CoreSetFields = {
   "2021": [
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: "ACS",
     },
     {
@@ -37,7 +57,7 @@ export const coreSets: CoreSetFields = {
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: "ACS",
     },
     {
@@ -57,7 +77,7 @@ export const coreSets: CoreSetFields = {
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: "ACS",
     },
     {
@@ -78,21 +98,20 @@ export const coreSets: CoreSetFields = {
       type: "coreSet",
       label: "Adult",
       path: "add-adult",
-      loaded: false,
+      loaded: stateLoadedList,
       abbr: "ACS",
     },
     {
       type: "coreSet",
       label: "Child",
       path: "add-child",
-      loaded: false,
+      loaded: stateLoadedList,
       abbr: "CCS",
     },
     {
       type: "coreSet",
       label: "Health Home",
       path: "add-hh",
-      loaded: false,
       abbr: "HHCS",
     },
   ],

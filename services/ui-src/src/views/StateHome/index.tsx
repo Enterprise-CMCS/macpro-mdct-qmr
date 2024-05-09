@@ -269,7 +269,9 @@ const StateHome = () => {
   )
     .filter(
       (set) =>
-        !set.loaded && (!set.stateList || set.stateList?.includes(state!))
+        (!set.loaded ||
+          (!set.loaded.includes(state!) && set.loaded.length > 0)) &&
+        (!set.stateList || set.stateList?.includes(state!))
     )
     .map((set) => {
       //spaIds are only checked against healthHome measures

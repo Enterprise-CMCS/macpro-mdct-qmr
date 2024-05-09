@@ -93,7 +93,7 @@ export const formatTableItems = ({
       const findCoreset = coreSetCards.find((coreSet) =>
         coreSet.abbr?.find((key) => key === tempSet[0])
       );
-      const deletable = !findCoreset?.loaded;
+      const deletable = !findCoreset?.loaded?.includes(state);
 
       const data = {
         handleDelete: () =>

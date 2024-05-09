@@ -39,6 +39,8 @@ export const coreSetList = handler(async (event, context) => {
   // using coreSetByYear to see if it's a year that should have
   // coresets generated from login
   const year = parseInt(event!.pathParameters!.year!);
+  const state = event!.pathParameters!.state!;
+
   const coreSetsByYear = coreSets[
     year as keyof typeof coreSets
   ] as CoreSetField[];
@@ -48,7 +50,10 @@ export const coreSetList = handler(async (event, context) => {
     const matchedCoreSet = results.find(
       (existingCoreSet: CoreSet) => existingCoreSet.coreSet === coreSet.abbr
     );
-    return coreSet.loaded && !matchedCoreSet;
+    return (
+      (coreSet.loaded?.length === 0 || coreSet.loaded?.includes(state)) &&
+      !matchedCoreSet
+    );
   });
 
   // check if any coresets should be preloaded and requery the db
