@@ -77,6 +77,10 @@ const HBDADValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+    ...GV.validateEqualQualifierDenominatorsPM(
+      performanceMeasureArray,
+      PMD.qualifiers,
+    ),
   ];
 
   return errorArray;
