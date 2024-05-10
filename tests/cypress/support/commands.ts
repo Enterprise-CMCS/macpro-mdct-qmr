@@ -177,25 +177,15 @@ Cypress.Commands.add("deleteAdultCoreSets", () => {
 // removes child core set from main page
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
-    if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
+    if ($tbody.find('[data-cy="child-kebab-menu"]').length === 1) {
       removeCoreSetElements(
         '[data-cy="child-kebab-menu"]',
         '[aria-label="Delete for CCS"]'
       );
-    }
-  });
-});
-
-Cypress.Commands.add("deleteSeperatedChildCoreSets", () => {
-  cy.get('[data-cy="tableBody"]').then(($tbody) => {
-    if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
+    } else if ($tbody.find('[data-cy="child-kebab-menu"]').length > 1) {
       removeCoreSetElements(
         '[data-cy="child-kebab-menu"]',
         '[aria-label="Delete for CCSC"]'
-      );
-      removeCoreSetElements(
-        '[data-cy="child-kebab-menu"]',
-        '[aria-label="Delete for CCSM"]'
       );
     }
   });

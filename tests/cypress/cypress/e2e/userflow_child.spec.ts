@@ -9,7 +9,7 @@ describe(`Child Core Sets Should be able to be deleted and created for ${testing
   });
   // create a child core set
   it("Creates separate child core-set", () => {
-    cy.deleteSeperatedChildCoreSets();
+    cy.deleteChildCoreSets();
     cy.get('[data-cy="add-childbutton"]').click(); // clicking on adding child core set measures
     cy.get("#ChildCoreSet-ReportType-separate").click(); //selecting combined core set
     cy.get('[data-cy="Create"]').click(); //clicking create
@@ -61,7 +61,10 @@ describe("submit coreset", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.get('[data-cy="child-kebab-menu"]').click();
-    cy.get('[aria-label="Reset All Measures for CCS"]').click();
+    cy.get('[aria-label="Reset All Measures for CCS"]').click({
+      force: true,
+      waitForAnimations: false,
+    });
     cy.wait(1000);
     // confirm reset
     cy.get('[data-cy="Status-WY2024CCS"]').should(
