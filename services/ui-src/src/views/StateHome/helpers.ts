@@ -94,7 +94,7 @@ export const formatTableItems = ({
       );
       const deletable =
         !findCoreset?.loaded?.includes(state) &&
-        findCoreset?.loaded?.length != 0;
+        findCoreset?.loaded?.length !== 0;
 
       const data = {
         handleDelete: () =>
