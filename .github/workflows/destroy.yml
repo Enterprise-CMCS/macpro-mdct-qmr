@@ -50,7 +50,6 @@ jobs:
         with:
           role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
-          role-duration-seconds: 10800
       - name: lock this branch to prevent concurrent builds
         run: ./.github/github-lock.sh $branch_name
         env:
