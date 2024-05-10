@@ -72,7 +72,7 @@ describe("submit coreset", () => {
     });
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-AL2024ACS"]').should(
       "contain.text",
       "in progress1 of 33 complete"
     );
@@ -86,7 +86,7 @@ describe("submit coreset", () => {
       waitForAnimations: false,
     });
     cy.wait(4000);
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-AL2024ACS"]').should(
       "contain.text",
       "complete33 of 33 complete"
     );
@@ -101,7 +101,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-AL2024ACS"]').should(
       "contain.text",
       "submitted33 of 33 complete"
     );
