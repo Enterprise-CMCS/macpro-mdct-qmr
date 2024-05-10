@@ -7,6 +7,8 @@ set -eu -o pipefail
 
 # this script checks for all the prereqs and then calls run.ts
 
+export REGION_A=us-east-1
+
 # check node exists
 if ! which node > /dev/null ; then
 	echo "node not found on the system. Install version in .nvmrc based on instructions in README"
