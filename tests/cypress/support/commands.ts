@@ -145,19 +145,19 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
   ).should("be.visible");
 });
 
-const clickCoreSetAction = (kebab: string, action: string) => {
+const clickCoreSetAction = (kebab: string, selector: string) => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
       cy.get(kebab).first().click();
       cy.wait(3000);
-      cy.get(action).click({ force: true });
+      cy.get(selector).click({ force: true });
     }
   });
 };
 
 // helper recursive function to remove added core sets
-const removeCoreSetElements = (kebab: string, action: string) => {
-  clickCoreSetAction(kebab, action);
+const removeCoreSetElements = (kebab: string, selector: string) => {
+  clickCoreSetAction(kebab, selector);
   cy.wait(3000);
   cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
 };
