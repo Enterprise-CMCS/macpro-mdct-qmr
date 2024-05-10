@@ -66,7 +66,10 @@ describe("submit coreset", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[aria-label="Reset All Measures for ACS"]').click();
+    cy.get('[aria-label="Reset All Measures for ACS"]').click({
+      force: true,
+      waitForAnimations: false,
+    });
     cy.wait(1000);
     // confirm reset
     cy.get('[data-cy="Status-WY2024ACS"]').should(
