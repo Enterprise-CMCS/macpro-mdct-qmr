@@ -150,7 +150,7 @@ const clickCoreSetAction = (kebab: string, action: string) => {
     if ($tbody.find(kebab).length > 0) {
       cy.get(kebab).first().click();
       cy.wait(3000);
-      cy.get(action).click();
+      cy.get(action).click({ force: true });
     }
   });
 };

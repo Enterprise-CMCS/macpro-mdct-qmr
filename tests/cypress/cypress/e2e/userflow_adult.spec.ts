@@ -81,7 +81,10 @@ describe("submit coreset", () => {
   it("submit and confirm submission", () => {
     // complete core set
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[aria-label="Complete All Measures for ACS"]').click();
+    cy.get('[aria-label="Complete All Measures for ACS"]').click({
+      force: true,
+      waitForAnimations: false,
+    });
     cy.wait(4000);
     cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
