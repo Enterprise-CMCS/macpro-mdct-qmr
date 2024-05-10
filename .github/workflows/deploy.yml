@@ -232,7 +232,7 @@ jobs:
       test-path: "e2e"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
-      cypress-user2: ${{ secrets.CYPRESS_STATE_USER_2 }}
+      cypress-user3: ${{ secrets.CYPRESS_STATE_USER_3 }}
       cypress-user4: ${{ secrets.CYPRESS_STATE_USER_4 }}
       cypress-admin-user: ${{ secrets.CYPRESS_ADMIN_USER }}
       cypress-password: ${{ secrets.CYPRESS_QMR_PASSWORD }}

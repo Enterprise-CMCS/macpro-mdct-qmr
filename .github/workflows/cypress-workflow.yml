@@ -11,8 +11,8 @@ on:
         required: true
         type: string
     secrets:
-      cypress-user2:
-        description: "Cypress User 2"
+      cypress-user3:
+        description: "Cypress User 3"
         required: true
       cypress-user4:
         description: "Cypress User 4"
@@ -65,7 +65,7 @@ jobs:
           config: baseUrl=${{ inputs.test-endpoint }}
           env: true
         env:
-          CYPRESS_STATE_USER_2: ${{ secrets.cypress-user2 }}
+          CYPRESS_STATE_USER_3: ${{ secrets.cypress-user3 }}
           CYPRESS_STATE_USER_4: ${{ secrets.cypress-user4 }}
           CYPRESS_ADMIN_USER: ${{ secrets.cypress-admin-user }}
           CYPRESS_QMR_PASSWORD: ${{ secrets.cypress-password }}
