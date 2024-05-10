@@ -55,7 +55,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: DEBUG
-        run:  echo REGION ${{ env.AWS_DEFAULT_REGION }}
+        run:  echo ${{ env.AWS_DEFAULT_REGION }}  | sed 's/./& /g'
       - name: Destroy
         run: ./run destroy --stage $STAGE_PREFIX$branch_name --verify false
         
