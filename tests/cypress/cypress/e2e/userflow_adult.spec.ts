@@ -66,7 +66,10 @@ describe("submit coreset", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[data-cy="Reset All Measures"]').first().click();
+    cy.get('[aria-label="Reset All Measures for ACS"]').click({
+      force: true,
+      waitForAnimations: false,
+    });
     cy.wait(1000);
     // confirm reset
     cy.get('[data-cy="Status-WY2024ACS"]').should(
@@ -78,7 +81,10 @@ describe("submit coreset", () => {
   it("submit and confirm submission", () => {
     // complete core set
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[data-cy="Complete All Measures"]').first().click();
+    cy.get('[aria-label="Complete All Measures for ACS"]').click({
+      force: true,
+      waitForAnimations: false,
+    });
     cy.wait(4000);
     cy.get('[data-cy="Status-WY2024ACS"]').should(
       "contain.text",
@@ -115,7 +121,7 @@ describe("Export All Measures", () => {
 
   it("Test Adult Core Set", () => {
     cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[data-cy="Export"]').first().click();
+    cy.get('[aria-label="Export for ACS"]').click();
 
     // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2024.ADULT) {

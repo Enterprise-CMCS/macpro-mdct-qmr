@@ -61,7 +61,10 @@ describe("submit coreset", () => {
     cy.login();
     cy.selectYear(testingYear);
     cy.get('[data-cy="child-kebab-menu"]').click();
-    cy.get('[aria-label="Reset All Measures for CCS"]').click();
+    cy.get('[aria-label="Reset All Measures for CCS"]').click({
+      force: true,
+      waitForAnimations: false,
+    });
     cy.wait(1000);
     // confirm reset
     cy.get('[data-cy="Status-WY2024CCS"]').should(
@@ -72,7 +75,10 @@ describe("submit coreset", () => {
   it("submit and confirm submission", () => {
     // complete core set
     cy.get('[data-cy="child-kebab-menu"]').click();
-    cy.get('[aria-label="Complete All Measures for CCS"]').click();
+    cy.get('[aria-label="Complete All Measures for CCS"]').click({
+      force: true,
+      waitForAnimations: false,
+    });
     cy.wait(4000);
     cy.get('[data-cy="Status-WY2024CCS"]').should(
       "contain.text",
