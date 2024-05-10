@@ -54,8 +54,6 @@ jobs:
         run: ./.github/github-lock.sh $branch_name
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: DEBUG
-        run:  echo ${{ env.AWS_DEFAULT_REGION }}  | sed 's/./& /g'
       - name: Destroy
         run: ./run destroy --stage $STAGE_PREFIX$branch_name --verify false
         
