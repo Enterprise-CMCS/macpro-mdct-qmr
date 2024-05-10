@@ -2,10 +2,10 @@
 
 set -eu -o pipefail
 
-# this is the entrypoint for development. It wraps up compiling and calling dev.ts
-# all arguments, changes, etc. should be found in src/dev.ts
+# this is the entrypoint for development. It wraps up compiling and calling run.ts
+# all arguments, changes, etc. should be found in src/run.ts
 
-# this script checks for all the prereqs and then calls dev.ts
+# this script checks for all the prereqs and then calls run.ts
 
 # check node exists
 if ! which node > /dev/null ; then
