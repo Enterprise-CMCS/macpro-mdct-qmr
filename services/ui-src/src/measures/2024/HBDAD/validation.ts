@@ -79,7 +79,7 @@ const HBDADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
-      PMD.qualifiers,
+      PMD.qualifiers
     ),
   ];
 
