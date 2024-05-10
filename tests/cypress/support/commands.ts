@@ -9,7 +9,7 @@ const loginUser = (user: string) => {
   cy.session([user], () => {
     const users = {
       stateuser4: Cypress.env("STATE_USER_4"),
-      stateuser3: Cypress.env("STATE_USER_3"),
+      stateuser2: Cypress.env("STATE_USER_2"),
       adminuser: Cypress.env("ADMIN_USER"),
     };
     cy.visit("/");
@@ -22,12 +22,12 @@ const loginUser = (user: string) => {
   });
   cy.visit("/");
 };
-// the default stateuser3 is used to login but can also be changed
+// the default stateuser2 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
 Cypress.Commands.add(
   "login",
   (
-    user = "stateuser3" // pragma: allowlist secret
+    user = "stateuser2" // pragma: allowlist secret
   ) => {
     loginUser(user);
   }
