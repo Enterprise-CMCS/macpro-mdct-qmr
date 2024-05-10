@@ -145,25 +145,31 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
   ).should("be.visible");
 });
 
-// helper recursive function to remove added core sets
-const removeCoreSetElements = (kebab: string) => {
+const clickCoreSetAction = (kebab: string, action: string) => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
       cy.get(kebab).first().click();
       cy.wait(3000);
-      cy.get('[data-cy="Delete"]').first().click({ force: true });
-      cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
-      cy.wait(3000);
-      removeCoreSetElements(kebab);
+      cy.get(action).click();
     }
   });
+};
+
+// helper recursive function to remove added core sets
+const removeCoreSetElements = (kebab: string, action: string) => {
+  clickCoreSetAction(kebab, action);
+  cy.wait(3000);
+  cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
 };
 
 // removes adult core set from main page
 Cypress.Commands.add("deleteAdultCoreSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="adult-kebab-menu"]').length > 0) {
-      removeCoreSetElements('[data-cy="adult-kebab-menu"]');
+      removeCoreSetElements(
+        '[data-cy="adult-kebab-menu"]',
+        '[aria-label="Delete for ACS"]'
+      );
     }
   });
 });
@@ -172,7 +178,25 @@ Cypress.Commands.add("deleteAdultCoreSets", () => {
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-      removeCoreSetElements('[data-cy="child-kebab-menu"]');
+      removeCoreSetElements(
+        '[data-cy="child-kebab-menu"]',
+        '[aria-label="Delete for CCS"]'
+      );
+    }
+  });
+});
+
+Cypress.Commands.add("deleteSeperatedChildCoreSets", () => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
+    if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
+      removeCoreSetElements(
+        '[data-cy="child-kebab-menu"]',
+        '[aria-label="Delete for CCSC"]'
+      );
+      removeCoreSetElements(
+        '[data-cy="child-kebab-menu"]',
+        '[aria-label="Delete for CCSM"]'
+      );
     }
   });
 });
@@ -181,7 +205,10 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
 Cypress.Commands.add("deleteHealthHomeSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="health home-kebab-menu"]').length > 0) {
-      removeCoreSetElements('[data-cy="health home-kebab-menu"]');
+      removeCoreSetElements(
+        '[data-cy="health home-kebab-menu"]',
+        '[aria-label="Delete for HHCS_15-014"]'
+      );
     }
   });
 });

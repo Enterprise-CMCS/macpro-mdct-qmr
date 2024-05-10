@@ -36,6 +36,9 @@ declare namespace Cypress {
     displaysSectionsWhenUserNotReporting(): Chainable<Element>;
 
     // removes child core set from main page
+    deleteSeperatedChildCoreSets(): Chainable<Element>;
+
+    // removes child core set from main page
     deleteChildCoreSets(): Chainable<Element>;
 
     // removes adult core set from main page

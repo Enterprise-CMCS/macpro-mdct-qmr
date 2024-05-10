@@ -9,7 +9,7 @@ describe(`Child Core Sets Should be able to be deleted and created for ${testing
   });
   // create a child core set
   it("Creates separate child core-set", () => {
-    cy.deleteChildCoreSets();
+    cy.deleteSeperatedChildCoreSets();
     cy.get('[data-cy="add-childbutton"]').click(); // clicking on adding child core set measures
     cy.get("#ChildCoreSet-ReportType-separate").click(); //selecting combined core set
     cy.get('[data-cy="Create"]').click(); //clicking create
