@@ -1,5 +1,5 @@
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import StateHome from "../index";
-import { render, screen, fireEvent } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
@@ -118,5 +118,26 @@ describe("Test StateHome 2024", () => {
     })[0];
     userEvent.click(viewCombinedRatesButton);
     expect(global.window.location.pathname).toContain("/combined-rates");
+  });
+});
+
+describe("Test kebab menu", () => {
+  beforeEach(() => {
+    global.open = jest.fn();
+    mockUseParams.mockReturnValue({
+      year: "2024",
+      state: "AL",
+    });
+    useApiMock({});
+    render(testComponent);
+  });
+  test("test button delete", async () => {
+    const test = screen.getByRole("button", { name: "Action Menu for ACS" });
+    fireEvent.click(test);
+    await waitFor(() => {
+      expect(screen.getByText("Export")).toBeInTheDocument();
+    });
+    const exportBtn = screen.getAllByLabelText(/Export for ACS/i)[0];
+    fireEvent.click(exportBtn);
   });
 });

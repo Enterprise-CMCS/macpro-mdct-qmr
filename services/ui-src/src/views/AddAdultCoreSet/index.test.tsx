@@ -18,6 +18,10 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
+const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
+  if (typeof options?.onSuccess === "function") return options.onSuccess();
+});
+
 const queryClient = new QueryClient();
 
 describe("Test Add Adult Core Set Component", () => {
@@ -27,10 +31,7 @@ describe("Test Add Adult Core Set Component", () => {
     });
     const apiData: any = {
       useAddCoreSetValues: {
-        mutate: (_variables: CoreSetAbbr, options?: any) => {
-          if (typeof options?.onSuccess === "function")
-            return options.onSuccess();
-        },
+        mutate: mockMutate,
       },
     };
     useApiMock(apiData);
@@ -66,7 +67,9 @@ describe("Test Add Adult Core Set Component", () => {
     fireEvent.click(reportingSeparateRadio);
     const createBtn = screen.getByRole("button", { name: /Create/i });
     fireEvent.click(createBtn);
-    await waitFor(() => {});
+    await waitFor(() => {
+      expect(mockMutate).toHaveBeenCalled();
+    });
   });
 
   it("Select radio option adult core set combined", async () => {
@@ -76,7 +79,9 @@ describe("Test Add Adult Core Set Component", () => {
     fireEvent.click(reportingSeparateRadio);
     const createBtn = screen.getByRole("button", { name: /Create/i });
     fireEvent.click(createBtn);
-    await waitFor(() => {});
+    await waitFor(() => {
+      expect(mockMutate).toHaveBeenCalled();
+    });
   });
 
   it("Form properly interactable", () => {
