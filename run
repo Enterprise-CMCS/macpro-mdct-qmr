@@ -15,6 +15,9 @@ if ! which node > /dev/null ; then
 	exit 1
 fi
 
+echo NVMRC $(cat .nvmrc)
+echo NODE VERSION $(node -v)
+
 # check node version
 if ! diff .nvmrc <(node -v) > /dev/null ; then
 	echo "Uh Oh! The current node version does not match the version required in .nvmrc"
