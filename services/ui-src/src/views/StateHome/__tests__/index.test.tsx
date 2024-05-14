@@ -7,6 +7,7 @@ import { axe, toHaveNoViolations } from "jest-axe";
 import { useParams } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { useUser } from "hooks/authHooks";
+import { CoreSetAbbr } from "types";
 expect.extend(toHaveNoViolations);
 
 const queryClient = new QueryClient();
@@ -14,6 +15,10 @@ const queryClient = new QueryClient();
 const mockedNavigate = jest.fn();
 
 const mockUseParams = useParams as jest.Mock;
+
+const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
+  if (typeof options?.onSuccess === "function") return options.onSuccess();
+});
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -132,6 +137,18 @@ describe("Test StateHome 2024", () => {
   });
 });
 
+const renderByCoreSet = (coreSet: CoreSetAbbr) => {
+  const values = { coreSet: coreSet, state: "AL", year: 2024 };
+  defaultMockValues.useGetCoreSetsValues.data.Items[0] = {
+    ...defaultMockValues.useGetCoreSetsValues.data.Items[0],
+    ...values,
+  };
+  defaultMockValues.useDeleteCoreSetValues.mutate = mockMutate;
+  useApiMock(defaultMockValues);
+
+  render(testComponent);
+};
+
 describe("Test kebab menu", () => {
   beforeEach(() => {
     mockUseUser.mockImplementation(() => {
@@ -142,23 +159,19 @@ describe("Test kebab menu", () => {
       year: "2024",
       state: "AL",
     });
-    defaultMockValues.useGetCoreSetsValues.data.Items[0].coreSet = "ACSC";
-    defaultMockValues.useGetCoreSetsValues.data.Items[0].state = "AL";
-    defaultMockValues.useGetCoreSetsValues.data.Items[0].year = 2024;
-    useApiMock(defaultMockValues);
-
-    render(testComponent);
   });
-  test("test button delete", async () => {
-    const test = screen.getByRole("button", { name: "Action Menu for ACSC" });
-    fireEvent.click(test);
-    await waitFor(() => {
-      expect(screen.getByText("Export")).toBeInTheDocument();
-    });
-    const exportBtn = screen.getAllByLabelText(/Export for ACSC/i)[0];
-    fireEvent.click(exportBtn);
 
-    const deleteBtn = screen.getAllByLabelText(/Delete for ACSC/i)[0];
+  it("Simulate Export fom Kebab Menu", () => {
+    renderByCoreSet(CoreSetAbbr.ACS);
+    const test = screen.getByRole("button", { name: "Action Menu for ACS" });
+    fireEvent.click(test);
+    expect(screen.getByText("Export")).toBeInTheDocument();
+  });
+
+  it("Simulate Delete from Kebab Menu for Adult Split", async () => {
+    const coreSet = CoreSetAbbr.ACSC;
+    renderByCoreSet(coreSet);
+    const deleteBtn = screen.getByLabelText(`Delete for ${coreSet}`);
     fireEvent.click(deleteBtn);
 
     waitFor(() => {
@@ -169,5 +182,40 @@ describe("Test kebab menu", () => {
     fireEvent.change(textbox, { target: { value: "DELETE" } });
     const modalDelete = screen.getByTestId("delete-button");
     fireEvent.click(modalDelete);
+    expect(mockMutate).toHaveBeenCalled();
+  });
+
+  it("Simulate Delete from Kebab Menu for Child Split", async () => {
+    const coreSet = CoreSetAbbr.CCSC;
+    renderByCoreSet(coreSet);
+    const deleteBtn = screen.getByLabelText(`Delete for ${coreSet}`);
+    fireEvent.click(deleteBtn);
+
+    waitFor(() => {
+      expect(screen.getByText("Enter DELETE to confirm."));
+    });
+
+    const textbox = screen.getByPlaceholderText("Enter 'DELETE' to confirm");
+    fireEvent.change(textbox, { target: { value: "DELETE" } });
+    const modalDelete = screen.getByTestId("delete-button");
+    fireEvent.click(modalDelete);
+    expect(mockMutate).toHaveBeenCalled();
+  });
+
+  it("Simulate Delete from Kebab Menu for Health Home", async () => {
+    const coreSet = CoreSetAbbr.HHCS;
+    renderByCoreSet(coreSet);
+    const deleteBtn = screen.getByLabelText(`Delete for ${coreSet}`);
+    fireEvent.click(deleteBtn);
+
+    waitFor(() => {
+      expect(screen.getByText("Enter DELETE to confirm."));
+    });
+
+    const textbox = screen.getByPlaceholderText("Enter 'DELETE' to confirm");
+    fireEvent.change(textbox, { target: { value: "DELETE" } });
+    const modalDelete = screen.getByTestId("delete-button");
+    fireEvent.click(modalDelete);
+    expect(mockMutate).toHaveBeenCalled();
   });
 });
