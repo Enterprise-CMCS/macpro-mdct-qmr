@@ -6,6 +6,7 @@ import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { useParams } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import { useUser } from "hooks/authHooks";
 expect.extend(toHaveNoViolations);
 
 const queryClient = new QueryClient();
@@ -20,6 +21,12 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
+const mockUseUser = useUser as jest.Mock;
+jest.mock("hooks/authHooks", () => ({
+  ...jest.requireActual("hooks/authHooks"),
+  useUser: jest.fn(),
+}));
+
 const testComponent = (
   <QueryClientProvider client={queryClient}>
     <RouterWrappedComp>
@@ -30,6 +37,7 @@ const testComponent = (
 
 describe("Test StateHome", () => {
   beforeEach(() => {
+    mockUseUser.mockImplementation(() => useUser);
     mockUseParams.mockReturnValue({
       year: "2021",
       state: "OH",
@@ -72,6 +80,7 @@ describe("Test StateHome", () => {
 });
 describe("Test StateHome accessibility", () => {
   test("Should not have basic accessibility issues", async () => {
+    mockUseUser.mockImplementation(() => useUser);
     mockUseParams.mockReturnValue({
       year: "2021",
       state: "OH",
@@ -85,6 +94,7 @@ describe("Test StateHome accessibility", () => {
 
 describe("Test 2023 state without health home core sets", () => {
   beforeEach(() => {
+    mockUseUser.mockImplementation(() => useUser);
     mockUseParams.mockReturnValue({
       year: "2023",
       state: "OH",
@@ -104,6 +114,7 @@ describe("Test 2023 state without health home core sets", () => {
 
 describe("Test StateHome 2024", () => {
   beforeEach(() => {
+    mockUseUser.mockImplementation(() => useUser);
     mockUseParams.mockReturnValue({
       year: "2024",
       state: "OH",
@@ -123,21 +134,40 @@ describe("Test StateHome 2024", () => {
 
 describe("Test kebab menu", () => {
   beforeEach(() => {
+    mockUseUser.mockImplementation(() => {
+      return { isStateUser: true };
+    });
     global.open = jest.fn();
     mockUseParams.mockReturnValue({
       year: "2024",
       state: "AL",
     });
-    useApiMock({});
+    defaultMockValues.useGetCoreSetsValues.data.Items[0].coreSet = "ACSC";
+    defaultMockValues.useGetCoreSetsValues.data.Items[0].state = "AL";
+    defaultMockValues.useGetCoreSetsValues.data.Items[0].year = 2024;
+    useApiMock(defaultMockValues);
+
     render(testComponent);
   });
   test("test button delete", async () => {
-    const test = screen.getByRole("button", { name: "Action Menu for ACS" });
+    const test = screen.getByRole("button", { name: "Action Menu for ACSC" });
     fireEvent.click(test);
     await waitFor(() => {
       expect(screen.getByText("Export")).toBeInTheDocument();
     });
-    const exportBtn = screen.getAllByLabelText(/Export for ACS/i)[0];
+    const exportBtn = screen.getAllByLabelText(/Export for ACSC/i)[0];
     fireEvent.click(exportBtn);
+
+    const deleteBtn = screen.getAllByLabelText(/Delete for ACSC/i)[0];
+    fireEvent.click(deleteBtn);
+
+    waitFor(() => {
+      expect(screen.getByText("Enter DELETE to confirm."));
+    });
+
+    const textbox = screen.getByPlaceholderText("Enter 'DELETE' to confirm");
+    fireEvent.change(textbox, { target: { value: "DELETE" } });
+    const modalDelete = screen.getByTestId("delete-button");
+    fireEvent.click(modalDelete);
   });
 });
