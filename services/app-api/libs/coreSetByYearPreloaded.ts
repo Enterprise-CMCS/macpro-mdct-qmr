@@ -1,3 +1,8 @@
+import {
+  stateCombinedLoadedList,
+  stateLoadedSeparateList,
+} from "./coreSetStatesList";
+
 export interface CoreSetFields {
   [key: string]: CoreSetField[];
 }
@@ -6,31 +11,11 @@ export interface CoreSetField {
   type: string;
   label: string;
   loaded?: string[];
-  abbr: string;
+  abbr: string[];
   path?: string;
   exist?: boolean;
   stateList?: string[];
 }
-
-//this state list is used for both child & adult core split to check which states have them preloaded in the table
-const stateLoadedList = [
-  "AK",
-  "AS",
-  "DC",
-  "GU",
-  "HI",
-  "NH",
-  "NM",
-  "NC",
-  "ND",
-  "MP",
-  "OH",
-  "PR",
-  "SC",
-  "VI",
-  "VT",
-  "WY",
-];
 
 export const coreSets: CoreSetFields = {
   "2021": [
@@ -38,19 +23,19 @@ export const coreSets: CoreSetFields = {
       type: "coreSet",
       label: "Adult",
       loaded: [],
-      abbr: "ACS",
+      abbr: ["ACS"],
     },
     {
       type: "coreSet",
       label: "Child",
       path: "add-child",
-      abbr: "CCS",
+      abbr: ["CCS"],
     },
     {
       type: "coreSet",
       label: "Health Home",
       path: "add-hh",
-      abbr: "HHCS",
+      abbr: ["HHCS"],
     },
   ],
   "2022": [
@@ -58,19 +43,19 @@ export const coreSets: CoreSetFields = {
       type: "coreSet",
       label: "Adult",
       loaded: [],
-      abbr: "ACS",
+      abbr: ["ACS"],
     },
     {
       type: "coreSet",
       label: "Child",
       path: "add-child",
-      abbr: "CCS",
+      abbr: ["CCS"],
     },
     {
       type: "coreSet",
       label: "Health Home",
       path: "add-hh",
-      abbr: "HHCS",
+      abbr: ["HHCS"],
     },
   ],
   "2023": [
@@ -78,19 +63,19 @@ export const coreSets: CoreSetFields = {
       type: "coreSet",
       label: "Adult",
       loaded: [],
-      abbr: "ACS",
+      abbr: ["ACS"],
     },
     {
       type: "coreSet",
       label: "Child",
       path: "add-child",
-      abbr: "CCS",
+      abbr: ["CCS"],
     },
     {
       type: "coreSet",
       label: "Health Home",
       path: "add-hh",
-      abbr: "HHCS",
+      abbr: ["HHCS"],
     },
   ],
   "2024": [
@@ -98,21 +83,35 @@ export const coreSets: CoreSetFields = {
       type: "coreSet",
       label: "Adult",
       path: "add-adult",
-      loaded: stateLoadedList,
-      abbr: "ACS",
+      loaded: stateCombinedLoadedList,
+      abbr: ["ACS"],
+    },
+    {
+      type: "coreSet",
+      label: "Adult",
+      path: "add-adult",
+      loaded: stateLoadedSeparateList,
+      abbr: ["ACSC", "ACSM"],
     },
     {
       type: "coreSet",
       label: "Child",
       path: "add-child",
-      loaded: stateLoadedList,
-      abbr: "CCS",
+      loaded: stateCombinedLoadedList,
+      abbr: ["CCS"],
+    },
+    {
+      type: "coreSet",
+      label: "Child",
+      path: "add-child",
+      loaded: stateLoadedSeparateList,
+      abbr: ["CCSC", "CCSM"],
     },
     {
       type: "coreSet",
       label: "Health Home",
       path: "add-hh",
-      abbr: "HHCS",
+      abbr: ["HHCS"],
     },
   ],
 };

@@ -47,8 +47,8 @@ export const coreSetList = handler(async (event, context) => {
   let results = await dynamoDb.scanAll<CoreSet>(params);
 
   const filteredCoreSets = coreSetsByYear.filter((coreSet) => {
-    const matchedCoreSet = results.find(
-      (existingCoreSet: CoreSet) => existingCoreSet.coreSet === coreSet.abbr
+    const matchedCoreSet = results.find((existingCoreSet: CoreSet) =>
+      coreSet.abbr.includes(existingCoreSet.coreSet)
     );
     return (
       (coreSet.loaded?.length === 0 || coreSet.loaded?.includes(state)) &&
@@ -57,24 +57,26 @@ export const coreSetList = handler(async (event, context) => {
   });
 
   // check if any coresets should be preloaded and requery the db
-  for (let coreSet of filteredCoreSets) {
-    let createCoreSetEvent = {
-      ...event,
-      pathParameters: {
-        ...event.pathParameters,
-        coreSet: coreSet.abbr,
-      },
-    };
-    const createCoreSetResult = await createCoreSet(
-      createCoreSetEvent,
-      context
-    );
-
-    if (createCoreSetResult.statusCode !== 200) {
-      return {
-        status: StatusCodes.SERVER_ERROR,
-        body: "Creation failed",
+  for (const coreSet of filteredCoreSets) {
+    for (const abbr of coreSet.abbr) {
+      let createCoreSetEvent = {
+        ...event,
+        pathParameters: {
+          ...event.pathParameters,
+          coreSet: abbr,
+        },
       };
+      const createCoreSetResult = await createCoreSet(
+        createCoreSetEvent,
+        context
+      );
+
+      if (createCoreSetResult.statusCode !== 200) {
+        return {
+          status: StatusCodes.SERVER_ERROR,
+          body: "Creation failed",
+        };
+      }
     }
   }
   results = await dynamoDb.scanAll<CoreSet>(params);
