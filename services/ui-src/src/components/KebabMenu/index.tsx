@@ -82,15 +82,27 @@ export const KebabMenu = ({
   headerText,
   menuLabel,
 }: KebabMenuProps) => {
+  const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
+  const handleCloseDeleteDialog = () => setDeleteDialogIsOpen(false);
+  const cancelRef = useRef();
   const { isStateUser } = useUser();
 
-  //remove delete button if user is not stateUser
-  if (!isStateUser) {
-    const index = menuItems.findIndex(
-      (item) => item.itemText.toLowerCase() === "delete"
-    );
-    if (index > -1) menuItems.splice(index, 1);
+  const deleteOption = menuItems.find(
+    (item) => item.itemText.toLowerCase() === "delete"
+  );
+  const handleDelete = deleteOption?.handleSelect.apply(
+    deleteOption?.handleSelect,
+    deleteOption?.handleSelect.arguments
+  );
+  console.log("handleDelete", handleDelete);
+
+  if (deleteOption) {
+    deleteOption.handleSelect = () => setDeleteDialogIsOpen(true);
+    //remove delete button if user is not stateUser
+    if (!isStateUser) menuItems.splice(menuItems.indexOf(deleteOption), 1);
   }
+
+  console.log("handleDelete 2", handleDelete);
 
   return (
     <>
@@ -100,6 +112,14 @@ export const KebabMenu = ({
       <CUI.Show below="sm">
         {VerticalKebabMenu({ menuItems, headerText, menuLabel })}
       </CUI.Show>
+      <DeleteMenuItemAlertDialog
+        isOpen={deleteDialogIsOpen}
+        onClose={handleCloseDeleteDialog}
+        cancelRef={cancelRef}
+        handleDelete={() => {}}
+        type={deleteOption?.type!}
+        headerText={headerText}
+      />
     </>
   );
 };
@@ -107,16 +127,8 @@ export const KebabMenu = ({
 const KebabMenuItem = ({
   itemText,
   handleSelect,
-  type,
-  headerText,
   menuLabel,
 }: IKebabMenuItem) => {
-  const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
-  const handleCloseDeleteDialog = () => setDeleteDialogIsOpen(false);
-  const cancelRef = useRef();
-
-  const isDeleteButton = itemText.toLowerCase() === "delete";
-
   return (
     <>
       <CUI.MenuItem
@@ -127,22 +139,12 @@ const KebabMenuItem = ({
         _focus={{ background: "blue.600" }}
         borderColor="white"
         minH="48px"
-        onClick={
-          isDeleteButton ? () => setDeleteDialogIsOpen(true) : handleSelect
-        }
+        onClick={handleSelect}
         aria-label={itemText ? `${itemText} for ${menuLabel}` : "itemText"}
         data-cy={itemText}
       >
         <CUI.Text fontSize="sm">{itemText}</CUI.Text>
       </CUI.MenuItem>
-      <DeleteMenuItemAlertDialog
-        isOpen={deleteDialogIsOpen}
-        onClose={handleCloseDeleteDialog}
-        cancelRef={cancelRef}
-        handleDelete={handleSelect}
-        type={type}
-        headerText={headerText}
-      />
     </>
   );
 };
