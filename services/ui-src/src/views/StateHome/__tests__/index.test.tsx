@@ -138,7 +138,7 @@ describe("Test StateHome 2024", () => {
 });
 
 const renderByCoreSet = (coreSet: CoreSetAbbr) => {
-  const values = { coreSet: coreSet, state: "AL", year: 2024 };
+  const values = { coreSet: coreSet, state: "AL", year: 2023 };
   defaultMockValues.useGetCoreSetsValues.data.Items[0] = {
     ...defaultMockValues.useGetCoreSetsValues.data.Items[0],
     ...values,
@@ -156,7 +156,7 @@ describe("Test kebab menu", () => {
     });
     global.open = jest.fn();
     mockUseParams.mockReturnValue({
-      year: "2024",
+      year: "2023",
       state: "AL",
     });
   });
