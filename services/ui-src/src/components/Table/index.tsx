@@ -14,12 +14,18 @@ export const VerticalTable = <T extends TableData>({
         {data?.map((row) => {
           return (
             <CUI.Stack key={row.id} align="flex-start" spacing="4">
-              <CUI.Divider></CUI.Divider>
+              <CUI.Divider borderColor="gray.300"></CUI.Divider>
               {columns.map((column) => {
                 const element = column.cell(row);
                 return (
                   <CUI.Box>
-                    <CUI.Text key={column.id} data-cy={column.header}>
+                    <CUI.Text
+                      key={column.id}
+                      data-cy={column.header}
+                      color="gray.300"
+                      fontWeight="bold"
+                      fontSize="small"
+                    >
                       {column.header}
                     </CUI.Text>
                     <CUI.Text

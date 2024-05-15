@@ -31,9 +31,10 @@ export const VerticalKebabMenu = ({ menuItems, menuLabel }: KebabMenuProps) => {
           color="blue.600"
           width="100%"
           padding="0"
-          fontSize="14px"
+          fontSize="small"
           textAlign="left"
           textDecoration="underline"
+          variant="unstyled"
           onClick={i.modalAction ?? i.handleSelect}
           aria-label={
             i.itemText ? `${i.itemText} for ${menuLabel}` : "itemText"
