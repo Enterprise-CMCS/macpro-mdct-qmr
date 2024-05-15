@@ -283,9 +283,9 @@ const StateHome = () => {
       )}
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
-      <CUI.HStack spacing="6">
+      <CUI.Stack direction={["column", "row"]} spacing="6">
         <AddCoreSetCards coreSetCards={coreSetCards} />
-      </CUI.HStack>
+      </CUI.Stack>
     </QMR.StateLayout>
   );
 };

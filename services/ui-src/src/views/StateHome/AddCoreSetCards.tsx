@@ -28,6 +28,7 @@ export const AddCoreSetCard = ({
       borderLeftWidth="1rem"
       borderLeftColor="blue.500"
       minW="363px"
+      width="363px"
       p="6"
     >
       <CUI.Stack spacing="6">

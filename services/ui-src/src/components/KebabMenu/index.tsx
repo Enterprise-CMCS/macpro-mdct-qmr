@@ -19,7 +19,30 @@ export interface KebabMenuProps {
   menuLabel?: string;
 }
 
-export const KebabMenu = ({
+export const VerticalKebabMenu = ({
+  menuItems,
+  headerText,
+  menuLabel,
+}: KebabMenuProps) => {
+  return (
+    <CUI.Menu>
+      <CUI.MenuList bg="blue.500" maxW="40px" p="0">
+        {menuItems.map((i) => (
+          <KebabMenuItem
+            menuLabel={menuLabel}
+            itemText={i.itemText}
+            handleSelect={i.handleSelect}
+            headerText={headerText}
+            key={uuidv4()}
+            type={i.type}
+          />
+        ))}
+      </CUI.MenuList>
+    </CUI.Menu>
+  );
+};
+
+export const HorizontalKebabMenu = ({
   menuItems,
   headerText,
   menuLabel,
@@ -54,6 +77,33 @@ export const KebabMenu = ({
   );
 };
 
+export const KebabMenu = ({
+  menuItems,
+  headerText,
+  menuLabel,
+}: KebabMenuProps) => {
+  const { isStateUser } = useUser();
+
+  //remove delete button if user is not stateUser
+  if (!isStateUser) {
+    const index = menuItems.findIndex(
+      (item) => item.itemText.toLowerCase() === "delete"
+    );
+    if (index > -1) menuItems.splice(index, 1);
+  }
+
+  return (
+    <>
+      <CUI.Show above="sm">
+        {HorizontalKebabMenu({ menuItems, headerText, menuLabel })}
+      </CUI.Show>
+      <CUI.Show below="sm">
+        {VerticalKebabMenu({ menuItems, headerText, menuLabel })}
+      </CUI.Show>
+    </>
+  );
+};
+
 const KebabMenuItem = ({
   itemText,
   handleSelect,
@@ -64,12 +114,8 @@ const KebabMenuItem = ({
   const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
   const handleCloseDeleteDialog = () => setDeleteDialogIsOpen(false);
   const cancelRef = useRef();
-  const { isStateUser } = useUser();
 
   const isDeleteButton = itemText.toLowerCase() === "delete";
-
-  // dont render if this is a delete button and the user is not a state user
-  if (isDeleteButton && !isStateUser) return null;
 
   return (
     <>

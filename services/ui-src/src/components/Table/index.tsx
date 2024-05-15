@@ -1,14 +1,57 @@
 import * as CUI from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
+import { Text, Show } from "@chakra-ui/react";
 import { TableProps, TableData } from "./types";
 
-// Generic Table comp with minimal styling for CoreSet and Measure lists
-export const Table = <T extends TableData>({
+const emptyTableText = "Add a core set by selecting ‘Add Core Set’ below.";
+
+export const VerticalTable = <T extends TableData>({
   columns,
   data,
 }: TableProps<T>) => {
-  const emptyTableText = "Add a core set by selecting ‘Add Core Set’ below.";
+  return (
+    <>
+      <CUI.VStack my="8" align="stretch">
+        {data?.map((row) => {
+          return (
+            <CUI.Stack key={row.id} align="flex-start" spacing="4">
+              <CUI.Divider></CUI.Divider>
+              {columns.map((column) => {
+                const element = column.cell(row);
+                return (
+                  <CUI.Box>
+                    <CUI.Text
+                      key={column.id}
+                      data-cy={column.header}
+                      {...column.styleProps}
+                    >
+                      {column.header}
+                    </CUI.Text>
+                    <CUI.Text
+                      data-cy={`${column.header}-${row.id}`}
+                      key={column.id + "_td"}
+                      {...column.styleProps}
+                    >
+                      {element}
+                    </CUI.Text>
+                  </CUI.Box>
+                );
+              })}
+            </CUI.Stack>
+          );
+        })}
 
+        {data?.length === 0 && (
+          <Text sx={sx.emptyTableText}>{emptyTableText}</Text>
+        )}
+        <CUI.Divider></CUI.Divider>
+      </CUI.VStack>
+    </>
+  );
+};
+export const HorizontalTable = <T extends TableData>({
+  columns,
+  data,
+}: TableProps<T>) => {
   return (
     <>
       <CUI.Table my="8" fontSize="sm">
@@ -52,6 +95,19 @@ export const Table = <T extends TableData>({
       {data?.length === 0 && (
         <Text sx={sx.emptyTableText}>{emptyTableText}</Text>
       )}
+    </>
+  );
+};
+
+// Generic Table comp with minimal styling for CoreSet and Measure lists
+export const Table = <T extends TableData>({
+  columns,
+  data,
+}: TableProps<T>) => {
+  return (
+    <>
+      <Show above="sm">{HorizontalTable({ columns, data })}</Show>
+      <Show below="sm">{VerticalTable({ columns, data })}</Show>
     </>
   );
 };
