@@ -22,26 +22,6 @@ const getHHStates = (year: string) => {
   return SPA[year].map((item) => item.state);
 };
 
-//this state list is used for both child & adult core split to check which states have them preloaded in the table
-const stateLoadedList = [
-  "AK",
-  "AS",
-  "DC",
-  "GU",
-  "HI",
-  "NH",
-  "NM",
-  "NC",
-  "ND",
-  "MP",
-  "OH",
-  "PR",
-  "SC",
-  "VI",
-  "VT",
-  "WY",
-];
-
 export const coreSetType = (abbr: string) => {
   const list = {
     Adult: ["ACS", "ACSM", "ACSC"],
@@ -171,14 +151,14 @@ export const coreSets: CoreSetFields = {
       type: "coreSet",
       label: "Adult",
       path: "add-adult",
-      loaded: stateLoadedList,
+      loaded: [],
       abbr: ["ACS", "ACSC", "ACSM"],
     },
     {
       type: "coreSet",
       label: "Child",
       path: "add-child",
-      loaded: stateLoadedList,
+      loaded: [],
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
