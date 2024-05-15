@@ -2,10 +2,14 @@ import { measureAbbrList2024, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for child core set
-describe(`Child Core Sets Should be able to be deleted and created for ${testingYear}`, () => {
+
+const abbr = "CCSC";
+
+//for reporting year 2024 & onward, child coresets are loaded at start. to test the add / delete button, we will use 2023
+describe(`Child Core Sets Should be able to be deleted and created for 2023`, () => {
   beforeEach(() => {
     cy.login();
-    cy.selectYear(testingYear);
+    cy.selectYear("2023");
   });
   // create a child core set
   it("Creates separate child core-set", () => {
@@ -60,27 +64,27 @@ describe("submit coreset", () => {
   beforeEach(() => {
     cy.login();
     cy.selectYear(testingYear);
-    cy.get('[data-cy="child-kebab-menu"]').click();
-    cy.get('[aria-label="Reset All Measures for CCS"]').click({
+    cy.get('[aria-label="Action Menu for ' + abbr + '"]').click();
+    cy.get('[aria-label="Reset All Measures for ' + abbr + '"]').click({
       force: true,
       waitForAnimations: false,
     });
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-AL2024CCS"]').should(
+    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
       "contain.text",
       "in progress2 of 27 complete"
     );
   });
   it("submit and confirm submission", () => {
     // complete core set
-    cy.get('[data-cy="child-kebab-menu"]').click();
-    cy.get('[aria-label="Complete All Measures for CCS"]').click({
+    cy.get('[aria-label="Action Menu for ' + abbr + '"]').click();
+    cy.get('[aria-label="Complete All Measures for ' + abbr + '"]').click({
       force: true,
       waitForAnimations: false,
     });
     cy.wait(4000);
-    cy.get('[data-cy="Status-AL2024CCS"]').should(
+    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
       "contain.text",
       "complete27 of 27 complete"
     );
@@ -95,7 +99,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-AL2024CCS"]').should(
+    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
       "contain.text",
       "submitted27 of 27 complete"
     );
@@ -114,17 +118,9 @@ describe("Export All Measures", () => {
   });
 
   it("Test Child Core Set", () => {
-    cy.get('[data-cy="add-childbutton"]').then(($button) => {
-      if (!$button.prop("disabled")) {
-        cy.wrap($button).click(); // Perform the action only if the button is enabled
-        cy.get("#ChildCoreSet-ReportType-separate").click(); //selecting combined core set
-        cy.get('[data-cy="Create"]').click(); //clicking create
-      }
-    });
-
     cy.contains("tr", "Child").within(() => {
-      cy.get('[data-cy="child-kebab-menu"]').click();
-      cy.get('[aria-label="Export for CCS"]').click();
+      cy.get('[aria-label="Action Menu for ' + abbr + '"]').click();
+      cy.get('[aria-label="Export for ' + abbr + '"]').click();
     });
 
     // Check all measures + CSQ present

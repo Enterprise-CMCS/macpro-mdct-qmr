@@ -53,6 +53,8 @@ Cypress.Commands.add("goToAdultMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="ACS"]').length > 0) {
       cy.get('[data-cy="ACS"]').click();
+    } else if ($tbody.find('[data-cy="ACSC"]').length > 0) {
+      cy.get('[data-cy="ACSC"]').click();
     }
   });
 });
@@ -62,6 +64,8 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click();
+    } else if ($tbody.find('[data-cy="CCSC"]').length > 0) {
+      cy.get('[data-cy="CCSC"]').click();
     }
   });
 });

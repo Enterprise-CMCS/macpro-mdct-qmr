@@ -65,7 +65,7 @@ jobs:
           config: baseUrl=${{ inputs.test-endpoint }}
           env: true
         env:
-          CYPRESS_STATE_USER_3: ${{ secrets.cypress-user2 }}
+          CYPRESS_STATE_USER_2: ${{ secrets.cypress-user2 }}
           CYPRESS_STATE_USER_4: ${{ secrets.cypress-user4 }}
           CYPRESS_ADMIN_USER: ${{ secrets.cypress-admin-user }}
           CYPRESS_QMR_PASSWORD: ${{ secrets.cypress-password }}
