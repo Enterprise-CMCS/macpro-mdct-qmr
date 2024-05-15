@@ -11,6 +11,7 @@ export interface IKebabMenuItem {
   type?: CoreSetTableItem.Type;
   headerText?: string;
   menuLabel?: string;
+  modalAction?: () => void;
 }
 
 export interface KebabMenuProps {
@@ -19,26 +20,30 @@ export interface KebabMenuProps {
   menuLabel?: string;
 }
 
-export const VerticalKebabMenu = ({
-  menuItems,
-  headerText,
-  menuLabel,
-}: KebabMenuProps) => {
+export const VerticalKebabMenu = ({ menuItems, menuLabel }: KebabMenuProps) => {
   return (
-    <CUI.Menu>
-      <CUI.MenuList bg="blue.500" maxW="40px" p="0">
-        {menuItems.map((i) => (
-          <KebabMenuItem
-            menuLabel={menuLabel}
-            itemText={i.itemText}
-            handleSelect={i.handleSelect}
-            headerText={headerText}
-            key={uuidv4()}
-            type={i.type}
-          />
-        ))}
-      </CUI.MenuList>
-    </CUI.Menu>
+    <>
+      {menuItems.map((i) => (
+        <CUI.Button
+          type="button"
+          display="block"
+          bg="transparent"
+          color="blue.600"
+          width="100%"
+          padding="0"
+          fontSize="14px"
+          textAlign="left"
+          textDecoration="underline"
+          onClick={i.modalAction ?? i.handleSelect}
+          aria-label={
+            i.itemText ? `${i.itemText} for ${menuLabel}` : "itemText"
+          }
+          data-cy={i.itemText}
+        >
+          {i.itemText}
+        </CUI.Button>
+      ))}
+    </>
   );
 };
 
@@ -66,6 +71,7 @@ export const HorizontalKebabMenu = ({
           <KebabMenuItem
             menuLabel={menuLabel}
             itemText={i.itemText}
+            modalAction={i.modalAction}
             handleSelect={i.handleSelect}
             headerText={headerText}
             key={uuidv4()}
@@ -90,19 +96,11 @@ export const KebabMenu = ({
   const deleteOption = menuItems.find(
     (item) => item.itemText.toLowerCase() === "delete"
   );
-  const handleDelete = deleteOption?.handleSelect.apply(
-    deleteOption?.handleSelect,
-    deleteOption?.handleSelect.arguments
-  );
-  console.log("handleDelete", handleDelete);
-
   if (deleteOption) {
-    deleteOption.handleSelect = () => setDeleteDialogIsOpen(true);
+    deleteOption.modalAction = () => setDeleteDialogIsOpen(true);
     //remove delete button if user is not stateUser
     if (!isStateUser) menuItems.splice(menuItems.indexOf(deleteOption), 1);
   }
-
-  console.log("handleDelete 2", handleDelete);
 
   return (
     <>
@@ -116,7 +114,7 @@ export const KebabMenu = ({
         isOpen={deleteDialogIsOpen}
         onClose={handleCloseDeleteDialog}
         cancelRef={cancelRef}
-        handleDelete={() => {}}
+        handleDelete={deleteOption?.handleSelect!}
         type={deleteOption?.type!}
         headerText={headerText}
       />
@@ -127,6 +125,7 @@ export const KebabMenu = ({
 const KebabMenuItem = ({
   itemText,
   handleSelect,
+  modalAction,
   menuLabel,
 }: IKebabMenuItem) => {
   return (
@@ -139,7 +138,7 @@ const KebabMenuItem = ({
         _focus={{ background: "blue.600" }}
         borderColor="white"
         minH="48px"
-        onClick={handleSelect}
+        onClick={modalAction ?? handleSelect}
         aria-label={itemText ? `${itemText} for ${menuLabel}` : "itemText"}
         data-cy={itemText}
       >

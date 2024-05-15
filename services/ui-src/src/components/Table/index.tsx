@@ -19,17 +19,12 @@ export const VerticalTable = <T extends TableData>({
                 const element = column.cell(row);
                 return (
                   <CUI.Box>
-                    <CUI.Text
-                      key={column.id}
-                      data-cy={column.header}
-                      {...column.styleProps}
-                    >
+                    <CUI.Text key={column.id} data-cy={column.header}>
                       {column.header}
                     </CUI.Text>
                     <CUI.Text
                       data-cy={`${column.header}-${row.id}`}
                       key={column.id + "_td"}
-                      {...column.styleProps}
                     >
                       {element}
                     </CUI.Text>
