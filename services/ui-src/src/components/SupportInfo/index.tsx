@@ -26,6 +26,36 @@ export const SupportLinks = () => (
 export const SupportInfo = () => (
   <>
     <SupportLinks />
+    <CUI.Text
+      paddingTop="4"
+      fontSize="x-small"
+      color="gray.700"
+      line-height="normal"
+    >
+      Beginning with FFY 2024 reporting, states are required to report all of
+      the measures on the Child Core Set and the behavioral health measures on
+      the Adult Core Set. States with approved Health Home Programs in operation
+      by June 30, 2023 are required to report all of the measures on the Health
+      Home Core Sets. More information on mandatory reporting requirements is
+      included in the Initial Core Set Mandatory Reporting Guidance for the
+      Child and Adult Core Sets{" "}
+      <CUI.Link
+        href="https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf"
+        color="blue.600"
+        aria-label="Initial Core Set Mandatory Reporting Guidance SHO"
+      >
+        https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf
+      </CUI.Link>{" "}
+      and Health Home Core Sets{" "}
+      <CUI.Link
+        href="https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf"
+        color="blue.600"
+        aria-label="SMD 24-002: Initial Core Set Mandatory Reporting Guidance for the Health Home Core Quality Measure Sets and Federal Fiscal Year 2025 Updates to the Health Home Core Quality Measure Sets"
+      >
+        https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf
+      </CUI.Link>
+      .
+    </CUI.Text>
 
     <CUI.Text
       paddingTop="4"
