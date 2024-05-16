@@ -288,9 +288,9 @@ const StateHome = () => {
         { path: `/${state}/${year}`, name: "Core Set Measures" },
       ]}
     >
-      <CUI.Container maxW="5xl" py="4">
+      <CUI.Box py="4">
         <BannerCard />
-      </CUI.Container>
+      </CUI.Box>
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
       <CUI.HStack spacing="6">

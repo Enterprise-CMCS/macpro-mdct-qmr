@@ -3155,13 +3155,6 @@ semver@^7.3.4, semver@^7.3.5, semver@^7.3.8:
   dependencies:
     lru-cache "^6.0.0"
 
-serverless-associate-waf@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/serverless-associate-waf/-/serverless-associate-waf-1.2.1.tgz#30efcfe94038a34fba6a00a954df43e176b8ccc9"
-  integrity sha512-84FIjRsNJ4im+Q1rmlwc+7ofyZXB6D0AZr9tfbBCfh25/qwv/8Q9h78/aDrR7LZT5XAZzrM6qAbwHFyUD5wd+A==
-  dependencies:
-    chalk "^2.4.2"
-
 serverless-offline@^8.0.0:
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-8.7.0.tgz#f71205f54cbd23d264f23070eb52f1328e850f51"
