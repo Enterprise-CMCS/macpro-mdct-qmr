@@ -14,7 +14,7 @@ export const VerticalTable = <T extends TableData>({
         {data?.map((row) => {
           return (
             <CUI.Stack key={row.id} align="flex-start" spacing="4">
-              <CUI.Divider borderColor="gray.300"></CUI.Divider>
+              <CUI.Divider borderColor="gray.500"></CUI.Divider>
               {columns.map((column) => {
                 const element = column.cell(row);
                 return (
@@ -22,7 +22,7 @@ export const VerticalTable = <T extends TableData>({
                     <CUI.Text
                       key={column.id}
                       data-cy={column.header}
-                      color="gray.300"
+                      color="gray.500"
                       fontWeight="bold"
                       fontSize="small"
                     >
@@ -44,7 +44,7 @@ export const VerticalTable = <T extends TableData>({
         {data?.length === 0 && (
           <Text sx={sx.emptyTableText}>{emptyTableText}</Text>
         )}
-        <CUI.Divider></CUI.Divider>
+        <CUI.Divider borderColor="gray.500"></CUI.Divider>
       </CUI.VStack>
     </>
   );
