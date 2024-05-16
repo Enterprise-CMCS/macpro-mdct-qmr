@@ -14,21 +14,19 @@ export const validateAtLeastOneDataSourceType = (
         })
         .indexOf(true);
       if (!Object.values(source[index])[0]) {
+        let dataErrorMessage;
         if (source.includes("AdministrativeData0-AdministrativeDataOther")) {
-          const dataErrorMessage = "admin data source test";
-          errorArray.push({
-            errorLocation: "Data Source",
-            errorMessage: errorMessage ?? dataErrorMessage,
-          });
+          dataErrorMessage =
+            "Please describe the Administrative Other Data Source";
+        } else if (source.includes("OtherDataSource")) {
+          dataErrorMessage = "Please describe the Other Data Source";
         } else {
-          const dataErrorMessage = source.includes("OtherDataSource")
-            ? "Please describe the Other Data Source"
-            : "You must select a data source";
-          errorArray.push({
-            errorLocation: "Data Source",
-            errorMessage: errorMessage ?? dataErrorMessage,
-          });
+          dataErrorMessage = "You must select a data source";
         }
+        errorArray.push({
+          errorLocation: "Data Source",
+          errorMessage: errorMessage ?? dataErrorMessage,
+        });
       }
     });
   }
