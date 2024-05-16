@@ -108,8 +108,8 @@ export function Footer(): JSX.Element {
         </CUI.Box>
       </CUI.Container>
       <CUI.Box bg="gray.50" py="2" minHeight="7rem" padding="2rem">
-        <CUI.Show above="sm">{HorizontalLogoFooter()}</CUI.Show>
-        <CUI.Show below="sm">{VerticalLogoFooter()}</CUI.Show>
+        <CUI.Show above="md">{HorizontalLogoFooter()}</CUI.Show>
+        <CUI.Show below="md">{VerticalLogoFooter()}</CUI.Show>
       </CUI.Box>
       <CUI.Box bg="blue.800" color="white" py="2">
         <CUI.Container textAlign={{ md: "left" }} minWidth="100%">

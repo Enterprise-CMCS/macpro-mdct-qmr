@@ -230,7 +230,7 @@ export const Rate = ({
                 {labelText[rate.label] ?? rate.label}
               </CUI.FormLabel>
             )}
-            <CUI.Stack spacing={16} direction={["column", "row"]}>
+            <CUI.Stack spacing={16} direction={{ base: "column", md: "row" }}>
               <QMR.InputWrapper
                 label={customNumeratorLabel || "Numerator"}
                 isInvalid={

@@ -107,8 +107,8 @@ export const Table = <T extends TableData>({
 }: TableProps<T>) => {
   return (
     <>
-      <Show above="sm">{HorizontalTable({ columns, data })}</Show>
-      <Show below="sm">{VerticalTable({ columns, data })}</Show>
+      <Show above="md">{HorizontalTable({ columns, data })}</Show>
+      <Show below="md">{VerticalTable({ columns, data })}</Show>
     </>
   );
 };

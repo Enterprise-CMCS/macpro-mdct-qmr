@@ -384,7 +384,7 @@ export const CoreSet = () => {
         </CUI.Box>
       )}
 
-      <CUI.Stack direction={["column", "row"]}>
+      <CUI.Stack direction={{ base: "column", md: "row" }}>
         <CUI.HStack
           justifyContent="space-between"
           flex="9"

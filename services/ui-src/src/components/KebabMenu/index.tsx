@@ -105,10 +105,10 @@ export const KebabMenu = ({
 
   return (
     <>
-      <CUI.Show above="sm">
+      <CUI.Show above="md">
         {HorizontalKebabMenu({ menuItems, headerText, menuLabel })}
       </CUI.Show>
-      <CUI.Show below="sm">
+      <CUI.Show below="md">
         {VerticalKebabMenu({ menuItems, headerText, menuLabel })}
       </CUI.Show>
       <DeleteMenuItemAlertDialog

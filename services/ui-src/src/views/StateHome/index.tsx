@@ -283,7 +283,7 @@ const StateHome = () => {
       )}
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
-      <CUI.Stack direction={["column", "row"]} spacing="6">
+      <CUI.Stack direction={{ base: "column", md: "row" }} spacing="6">
         <AddCoreSetCards coreSetCards={coreSetCards} />
       </CUI.Stack>
     </QMR.StateLayout>

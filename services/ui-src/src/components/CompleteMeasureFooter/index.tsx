@@ -34,7 +34,7 @@ export const CompleteMeasureFooter = ({
         </CUI.Text>
         <CUI.Stack
           zIndex={disabled ? 2 : 0}
-          direction={["column", "row"]}
+          direction={{ base: "column", md: "row" }}
           width="100%"
         >
           <QMR.ContainedButton
