@@ -270,9 +270,9 @@ const StateHome = () => {
         { path: `/${state}/${year}`, name: "Core Set Measures" },
       ]}
     >
-      <CUI.Container maxW="5xl" py="4">
+      <CUI.Box py="4">
         <BannerCard />
-      </CUI.Container>
+      </CUI.Box>
       {data.Items && data.Items.length === 0 && (
         <CUI.Box data-testid="no-state-data">
           <QMR.Notification
