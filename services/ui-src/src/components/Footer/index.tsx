@@ -87,7 +87,7 @@ const HorizontalLogoFooter = () => {
 export function Footer(): JSX.Element {
   return (
     <CUI.Box
-      zIndex={3}
+      zIndex={2}
       fontSize={{ base: "sm", md: "md" }}
       textAlign={{ md: "left" }}
       data-testid="footer"

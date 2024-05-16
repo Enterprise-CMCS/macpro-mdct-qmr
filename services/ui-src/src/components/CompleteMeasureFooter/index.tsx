@@ -32,10 +32,15 @@ export const CompleteMeasureFooter = ({
         <CUI.Text py="3" data-cy="complete measure sub-2">
           Complete the measure and mark it for submission to CMS for review
         </CUI.Text>
-        <CUI.HStack zIndex={disabled ? 2 : 0}>
+        <CUI.Stack
+          zIndex={disabled ? 2 : 0}
+          direction={["column", "row"]}
+          width="100%"
+        >
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "green",
+              width: "100%",
             }}
             buttonText="Validate Measure"
             disabledStatus={disabled}
@@ -44,6 +49,7 @@ export const CompleteMeasureFooter = ({
           <QMR.ContainedButton
             buttonProps={{
               colorScheme: "blue",
+              width: "100%",
             }}
             buttonText="Complete Measure"
             disabledStatus={disabled}
@@ -56,13 +62,14 @@ export const CompleteMeasureFooter = ({
             <QMR.ContainedButton
               buttonProps={{
                 colorScheme: "red",
+                width: "100%",
               }}
               buttonText="Clear Data"
               disabledStatus={disabled}
               onClick={handleClear}
             />
           )}
-        </CUI.HStack>
+        </CUI.Stack>
       </CUI.Stack>
     </>
   );
