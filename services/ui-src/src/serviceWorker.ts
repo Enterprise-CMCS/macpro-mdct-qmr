@@ -1,6 +1,8 @@
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
+import { BASE_URL, MODE } from "utils/environmentVariables";
+
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
 // will only see deployed updates on subsequent visits to a page, after all the
@@ -21,10 +23,10 @@ const isLocalhost = Boolean(
 );
 
 export function register(config: IServiceWorkerConfig) {
-  if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
+  if (MODE === "production" && "serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
 
-    const publicUrlEnv = process.env.PUBLIC_URL || "";
+    const publicUrlEnv = BASE_URL || "";
     const publicUrl = new URL(publicUrlEnv, window.location.href);
 
     if (publicUrl.origin !== window.location.origin) {
@@ -35,7 +37,7 @@ export function register(config: IServiceWorkerConfig) {
     }
 
     window.addEventListener("load", () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      const swUrl = `${BASE_URL}/service-worker.js`;
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
