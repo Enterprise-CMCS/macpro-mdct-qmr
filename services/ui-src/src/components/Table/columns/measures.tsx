@@ -27,7 +27,11 @@ const formatDate = (data: MeasureTableItem.Data) => {
 
 // ✅ icon to show if measure is complete
 const CompleteCheck = () => (
-  <CUI.Box color="green.600">
+  <CUI.Box
+    color="green.600"
+    position={{ base: "relative", lg: "absolute" }}
+    ml={{ base: 0, lg: "-6" }}
+  >
     <BsCheck fontSize="22px" />
   </CUI.Box>
 );
@@ -104,7 +108,8 @@ export const measuresColumns = (
           status === MeasureTableItem.Status.COMPLETED && !!date;
         const isInProgress = status === MeasureTableItem.Status.IN_PROGRESS;
         return (
-          <CUI.Flex ml={isComplete ? -6 : "inherit"}>
+          <CUI.Flex ml="inherit">
+            {/* <CUI.Flex ml={isComplete ? -6 : "inherit"}> */}
             {isComplete && <CompleteCheck />}
             <MeasureStatusText
               isComplete={isComplete}

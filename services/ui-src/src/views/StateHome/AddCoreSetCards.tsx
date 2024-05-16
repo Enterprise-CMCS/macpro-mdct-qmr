@@ -74,7 +74,11 @@ const GetSetCard = (coreSet: CoreSetField) => {
       );
     case "text":
       return (
-        <CUI.Center w="44" textAlign="center" key={coreSet.label}>
+        <CUI.Center
+          w={{ base: "100%", md: "44" }}
+          textAlign={{ base: "left", md: "center" }}
+          key={coreSet.label}
+        >
           <CUI.Text fontStyle="italic" fontSize="sm">
             {coreSet.label}
           </CUI.Text>

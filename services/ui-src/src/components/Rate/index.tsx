@@ -230,7 +230,7 @@ export const Rate = ({
                 {labelText[rate.label] ?? rate.label}
               </CUI.FormLabel>
             )}
-            <CUI.HStack spacing={16}>
+            <CUI.Stack spacing={16} direction={["column", "row"]}>
               <QMR.InputWrapper
                 label={customNumeratorLabel || "Numerator"}
                 isInvalid={
@@ -295,7 +295,7 @@ export const Rate = ({
                   readOnly={readOnly}
                 />
               </QMR.InputWrapper>
-            </CUI.HStack>
+            </CUI.Stack>
             {!allowNumeratorGreaterThanDenominator &&
               parseFloat(field.value[index]?.numerator) >
                 parseFloat(field.value[index]?.denominator) && (
