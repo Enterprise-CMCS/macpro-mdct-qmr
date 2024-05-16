@@ -66,8 +66,7 @@ describe("Add custom measure", () => {
   });
 });
 
-// TODO: unskip when hh submit is fixed
-describe.skip("submit coreset", () => {
+describe("submit coreset", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
