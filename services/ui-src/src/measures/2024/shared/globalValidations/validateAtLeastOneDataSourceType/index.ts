@@ -15,7 +15,12 @@ export const validateAtLeastOneDataSourceType = (
         .indexOf(true);
       if (!Object.values(source[index])[0]) {
         let dataErrorMessage;
-        if (source.includes("AdministrativeData0-AdministrativeDataOther")) {
+        if (
+          source.includes("AdministrativeData0-AdministrativeDataOther") ||
+          source.includes(
+            "HybridAdministrativeandMedicalRecordsData0-AdministrativeDataOther"
+          )
+        ) {
           dataErrorMessage =
             "Please describe the Administrative Other Data Source";
         } else if (source.includes("OtherDataSource")) {
