@@ -22,15 +22,14 @@ export interface KebabMenuProps {
 
 export const VerticalKebabMenu = ({ menuItems, menuLabel }: KebabMenuProps) => {
   return (
-    <>
+    <CUI.VStack spacing="0.75rem" padding="0.75rem 0">
       {menuItems.map((i) => (
         <CUI.Button
           type="button"
           display="block"
-          bg="transparent"
           color="blue.600"
           width="100%"
-          padding="0"
+          height="fit-content"
           fontSize="small"
           textAlign="left"
           textDecoration="underline"
@@ -44,7 +43,7 @@ export const VerticalKebabMenu = ({ menuItems, menuLabel }: KebabMenuProps) => {
           {i.itemText}
         </CUI.Button>
       ))}
-    </>
+    </CUI.VStack>
   );
 };
 

@@ -23,6 +23,25 @@ export const theme = extendTheme({
         },
       },
     },
+    Button: {
+      variants: {
+        "link-white": {
+          color: "white",
+          width: "auto",
+          height: "auto",
+          whiteSpacr: "nowrap",
+          padding: "0",
+          margin: "0",
+          _hover: {
+            color: "#FFFFFF90",
+          },
+          _active: {
+            color: "white",
+            textDecoration: "underline",
+          },
+        },
+      },
+    },
   },
   colors: {
     gray: { 50: "#F1F1F1", 500: "#71767A" },
