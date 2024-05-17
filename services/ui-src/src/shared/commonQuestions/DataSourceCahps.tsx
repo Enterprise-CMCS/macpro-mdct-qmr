@@ -6,6 +6,8 @@ import { DataSourceData, defaultData } from "../types/TypeDataSourceCahps";
 import { parseLabelToHTML } from "utils/parser";
 import * as DC from "dataConstants";
 import SharedContext from "shared/SharedContext";
+import { Alert } from "@cmsgov/design-system";
+import * as CUI from "@chakra-ui/react";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -44,6 +46,16 @@ export const DataSourceRadio = ({ data = defaultData }: DataSourceProps) => {
                   fontSize: "normal",
                 }}
               />,
+              <CUI.Box mt="8">
+                <Alert heading="Please Note" variation="warn">
+                  <p className="ds-c-alert__text">
+                    {
+                      "If you report using Other Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Source field is accurate, please continue reporting this measure."
+                    }
+                  </p>
+                </Alert>
+                ,
+              </CUI.Box>,
             ],
           },
         ]}

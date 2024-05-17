@@ -10,6 +10,7 @@ import { parseLabelToHTML } from "utils/parser";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
+import { Alert } from "@cmsgov/design-system";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -79,7 +80,16 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
           label={parseLabelToHTML(node.hint!)}
           name={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
           key={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
-        />
+        />,
+        <CUI.Box mt="8">
+          <Alert heading="Please Note" variation="warn">
+            <p className="ds-c-alert__text">
+              {
+                "If you report using Other Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Source field is accurate, please continue reporting this measure."
+              }
+            </p>
+          </Alert>
+        </CUI.Box>
       );
     }
 
