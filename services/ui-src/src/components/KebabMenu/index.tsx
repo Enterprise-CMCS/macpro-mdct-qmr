@@ -39,6 +39,7 @@ export const VerticalKebabMenu = ({ menuItems, menuLabel }: KebabMenuProps) => {
             i.itemText ? `${i.itemText} for ${menuLabel}` : "itemText"
           }
           data-cy={i.itemText}
+          key={i.itemText}
         >
           {i.itemText}
         </CUI.Button>
@@ -104,9 +105,9 @@ export const KebabMenu = ({
 
   return (
     <>
-      <CUI.Show above="md">
+      <CUI.Hide below="md">
         {HorizontalKebabMenu({ menuItems, headerText, menuLabel })}
-      </CUI.Show>
+      </CUI.Hide>
       <CUI.Show below="md">
         {VerticalKebabMenu({ menuItems, headerText, menuLabel })}
       </CUI.Show>

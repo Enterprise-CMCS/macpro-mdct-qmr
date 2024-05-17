@@ -1,5 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import { Text, Show } from "@chakra-ui/react";
+import { Text, Show, Hide } from "@chakra-ui/react";
 import { TableProps, TableData } from "./types";
 
 const emptyTableText = "Add a core set by selecting ‘Add Core Set’ below.";
@@ -107,7 +107,7 @@ export const Table = <T extends TableData>({
 }: TableProps<T>) => {
   return (
     <>
-      <Show above="md">{HorizontalTable({ columns, data })}</Show>
+      <Hide below="md">{HorizontalTable({ columns, data })}</Hide>
       <Show below="md">{VerticalTable({ columns, data })}</Show>
     </>
   );
