@@ -179,7 +179,6 @@ const useMeasureTableDataBuilder = () => {
         // filter out the coreset qualifiers
         (item) => item.measure && item.measure !== "CSQ"
       );
-
       const measureTableData = (filteredItems as MeasureData[])
         .filter(
           (item) =>
@@ -244,13 +243,13 @@ const useMeasureTableDataBuilder = () => {
           numCompleteItems++;
         }
       }
-
       const numberOfCoreSets = 1;
-      const coreSetStatus =
-        measureTableData.length + numberOfCoreSets === numCompleteItems
+
+      const coreStatus =
+        filteredItems.length + numberOfCoreSets === numCompleteItems
           ? CoreSetTableItem.Status.COMPLETED
           : CoreSetTableItem.Status.IN_PROGRESS;
-      setCoreSetStatus(coreSetStatus);
+      setCoreSetStatus(coreStatus);
     }
 
     return () => {
