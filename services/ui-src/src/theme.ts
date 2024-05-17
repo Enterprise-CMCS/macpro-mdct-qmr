@@ -32,10 +32,11 @@ export const theme = extendTheme({
           whiteSpacr: "nowrap",
           padding: "0",
           margin: "0",
-          _hover: {
-            color: "#FFFFFF90",
-          },
           _active: {
+            color: "#FFFFFF90",
+            textDecoration: "underline",
+          },
+          _hover: {
             color: "white",
             textDecoration: "underline",
           },
