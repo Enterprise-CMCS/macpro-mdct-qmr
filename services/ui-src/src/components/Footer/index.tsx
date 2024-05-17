@@ -6,9 +6,9 @@ const VerticalLogoFooter = () => {
   return (
     <CUI.VStack
       minW="100%"
-      textAlign={{ base: "center", md: "left" }}
-      display={{ base: "flex", md: "flex" }}
-      alignItems={{ base: "center", md: "top" }}
+      textAlign="center"
+      display="flex"
+      alignItems="center"
       flexFlow="column"
       spacing="1rem"
     >
@@ -44,9 +44,9 @@ const HorizontalLogoFooter = () => {
   return (
     <CUI.Container
       minW="100%"
-      textAlign={{ base: "center", md: "left" }}
-      display={{ base: "block", md: "flex" }}
-      alignItems={{ base: "none", md: "top" }}
+      textAlign="left"
+      display="flex"
+      alignItems="top"
       padding="0"
     >
       <img
