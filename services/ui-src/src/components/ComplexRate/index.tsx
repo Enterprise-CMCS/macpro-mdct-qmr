@@ -254,7 +254,7 @@ export const ComplexRate = ({
                 : `${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
             <CUI.Stack
-              direction="row"
+              direction={{ base: "column", md: "row" }}
               className={`${lowerCaseMeasureName}-field-stack`}
               key={`${lowerCaseMeasureName}-field-stack-${qualIndex}`}
             >

@@ -383,10 +383,10 @@ export const CoreSet = () => {
         </CUI.Box>
       )}
 
-      <CUI.Flex>
+      <CUI.Stack direction={{ base: "column", md: "row" }}>
         <CUI.HStack
           justifyContent="space-between"
-          flex="8"
+          flex="9"
           borderRadius="8"
           backgroundColor="gray.100"
           px="4"
@@ -427,7 +427,7 @@ export const CoreSet = () => {
             }}
           />
         </CUI.Box>
-      </CUI.Flex>
+      </CUI.Stack>
       <CUI.Box mt="4">
         <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (
