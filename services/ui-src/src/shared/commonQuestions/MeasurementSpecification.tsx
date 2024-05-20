@@ -5,6 +5,7 @@ import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { Alert } from "@cmsgov/design-system";
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
@@ -125,6 +126,15 @@ export const MeasurementSpecification = ({ type }: Props) => {
                   label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
                   key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
                 />,
+                <CUI.Box mb="8">
+                  <Alert heading="Please Note" variation="warn">
+                    <p className="ds-c-alert__text">
+                      {
+                        "If you report using Other specifications, CMS will not be able to publicly report the performance rate. In addition, the rate will not be used to calculate a combined Medicaid and CHIP rate. If the information reported in the Specifications field is accurate, please continue reporting this measure."
+                      }
+                    </p>
+                  </Alert>
+                </CUI.Box>,
                 <QMR.Upload
                   label="If you need additional space to describe your state's methodology, please attach further documentation below."
                   {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
