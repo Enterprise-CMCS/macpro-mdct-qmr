@@ -20,7 +20,10 @@ export const MeasureButtons = ({
 
   return (
     <CUI.Stack>
-      <CUI.HStack className="hidden-print-items">
+      <CUI.HStack
+        className="hidden-print-items"
+        marginTop={{ base: "0.5rem", md: "0.5rem", lg: "0rem" }}
+      >
         {!isAutoCompletedMeasure && (
           <QMR.ContainedButton
             disabledStatus={!isStateUser || isLoading}

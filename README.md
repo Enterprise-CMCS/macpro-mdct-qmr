@@ -556,7 +556,7 @@ This application was forked from the [Quickstart Repository](https://github.com/
 
 ## Slack Webhooks
 
-This repository uses 3 webhooks to publish to  3 different channels all in CMS Slack.
+This repository uses 3 webhooks to publish to 3 different channels all in CMS Slack.
 
 - SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `master`, `val`, or `prod` branches.
 
@@ -564,10 +564,11 @@ This repository uses 3 webhooks to publish to  3 different channels all in CMS S
 
 - PROD_RELEASE_SLACK_WEBHOOK: This is used to publish to the `mdct-prod-releases` channel upon successful release of QMR to production.
 
-    - Webhooks are created by CMS tickets, populated into GitHub Secrets
+  - Webhooks are created by CMS tickets, populated into GitHub Secrets
 
 ## GitHub Actions Secret Management
-- Secrets are added to GitHub secrets by GitHub Admins 
+
+- Secrets are added to GitHub secrets by GitHub Admins
 - Upon editing and adding new secrets Admins should also update the encypted `/github/secret-list` SSM parameter in the QMR AWS Production Account.
 
 # License

@@ -11,6 +11,7 @@ export interface IKebabMenuItem {
   type?: CoreSetTableItem.Type;
   headerText?: string;
   menuLabel?: string;
+  modalAction?: () => void;
 }
 
 export interface KebabMenuProps {
@@ -19,7 +20,35 @@ export interface KebabMenuProps {
   menuLabel?: string;
 }
 
-export const KebabMenu = ({
+export const VerticalKebabMenu = ({ menuItems, menuLabel }: KebabMenuProps) => {
+  return (
+    <CUI.VStack spacing="0.75rem" padding="0.75rem 0">
+      {menuItems.map((i) => (
+        <CUI.Button
+          type="button"
+          display="block"
+          color="blue.600"
+          width="100%"
+          height="fit-content"
+          fontSize="small"
+          textAlign="left"
+          textDecoration="underline"
+          variant="unstyled"
+          onClick={i.modalAction ?? i.handleSelect}
+          aria-label={
+            i.itemText ? `${i.itemText} for ${menuLabel}` : "itemText"
+          }
+          data-cy={i.itemText}
+          key={i.itemText}
+        >
+          {i.itemText}
+        </CUI.Button>
+      ))}
+    </CUI.VStack>
+  );
+};
+
+export const HorizontalKebabMenu = ({
   menuItems,
   headerText,
   menuLabel,
@@ -43,6 +72,7 @@ export const KebabMenu = ({
           <KebabMenuItem
             menuLabel={menuLabel}
             itemText={i.itemText}
+            modalAction={i.modalAction}
             handleSelect={i.handleSelect}
             headerText={headerText}
             key={uuidv4()}
@@ -54,23 +84,51 @@ export const KebabMenu = ({
   );
 };
 
-const KebabMenuItem = ({
-  itemText,
-  handleSelect,
-  type,
+export const KebabMenu = ({
+  menuItems,
   headerText,
   menuLabel,
-}: IKebabMenuItem) => {
+}: KebabMenuProps) => {
   const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
   const handleCloseDeleteDialog = () => setDeleteDialogIsOpen(false);
   const cancelRef = useRef();
   const { isStateUser } = useUser();
 
-  const isDeleteButton = itemText.toLowerCase() === "delete";
+  const deleteOption = menuItems.find(
+    (item) => item.itemText.toLowerCase() === "delete"
+  );
+  if (deleteOption) {
+    deleteOption.modalAction = () => setDeleteDialogIsOpen(true);
+    //remove delete button if user is not stateUser
+    if (!isStateUser) menuItems.splice(menuItems.indexOf(deleteOption), 1);
+  }
 
-  // dont render if this is a delete button and the user is not a state user
-  if (isDeleteButton && !isStateUser) return null;
+  return (
+    <>
+      <CUI.Hide below="md">
+        {HorizontalKebabMenu({ menuItems, headerText, menuLabel })}
+      </CUI.Hide>
+      <CUI.Show below="md">
+        {VerticalKebabMenu({ menuItems, headerText, menuLabel })}
+      </CUI.Show>
+      <DeleteMenuItemAlertDialog
+        isOpen={deleteDialogIsOpen}
+        onClose={handleCloseDeleteDialog}
+        cancelRef={cancelRef}
+        handleDelete={deleteOption?.handleSelect!}
+        type={deleteOption?.type!}
+        headerText={headerText}
+      />
+    </>
+  );
+};
 
+const KebabMenuItem = ({
+  itemText,
+  handleSelect,
+  modalAction,
+  menuLabel,
+}: IKebabMenuItem) => {
   return (
     <>
       <CUI.MenuItem
@@ -81,22 +139,12 @@ const KebabMenuItem = ({
         _focus={{ background: "blue.600" }}
         borderColor="white"
         minH="48px"
-        onClick={
-          isDeleteButton ? () => setDeleteDialogIsOpen(true) : handleSelect
-        }
+        onClick={modalAction ?? handleSelect}
         aria-label={itemText ? `${itemText} for ${menuLabel}` : "itemText"}
         data-cy={itemText}
       >
         <CUI.Text fontSize="sm">{itemText}</CUI.Text>
       </CUI.MenuItem>
-      <DeleteMenuItemAlertDialog
-        isOpen={deleteDialogIsOpen}
-        onClose={handleCloseDeleteDialog}
-        cancelRef={cancelRef}
-        handleDelete={handleSelect}
-        type={type}
-        headerText={headerText}
-      />
     </>
   );
 };
