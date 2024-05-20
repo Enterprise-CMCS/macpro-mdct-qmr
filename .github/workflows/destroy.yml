@@ -35,7 +35,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"      
+          node-version-file: ".nvmrc"
       - name: set branch_name
         run: |
           BRANCH_NAME=$(./.github/setBranchName.sh ${{ inputs.environment || github.event.ref }})
@@ -59,4 +59,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Destroy
         run: ./run destroy --stage $STAGE_PREFIX$branch_name --verify false
-        
