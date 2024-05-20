@@ -1,11 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { AddAdultCoreSet } from ".";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
-import { UserRoles } from "types";
+import { CoreSetAbbr, UserRoles } from "types";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
@@ -18,6 +18,10 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
+const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
+  if (typeof options?.onSuccess === "function") return options.onSuccess();
+});
+
 const queryClient = new QueryClient();
 
 describe("Test Add Adult Core Set Component", () => {
@@ -25,7 +29,12 @@ describe("Test Add Adult Core Set Component", () => {
     mockUseUser.mockImplementation(() => {
       return { userState: "OH", userRole: UserRoles.STATE_USER };
     });
-    useApiMock({});
+    const apiData: any = {
+      useAddCoreSetValues: {
+        mutate: mockMutate,
+      },
+    };
+    useApiMock(apiData);
     render(
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>
@@ -49,6 +58,30 @@ describe("Test Add Adult Core Set Component", () => {
         /Remember to complete all Adult Core Set Questions and Adult Core Set Measures to submit for CMS review./i
       )
     ).toBeInTheDocument();
+  });
+
+  it("Select radio option adult core set seperate", async () => {
+    const reportingSeparateRadio = screen.getByText(
+      "Reporting Medicaid and CHIP measures in separate Core Sets"
+    );
+    fireEvent.click(reportingSeparateRadio);
+    const createBtn = screen.getByRole("button", { name: /Create/i });
+    fireEvent.click(createBtn);
+    await waitFor(() => {
+      expect(mockMutate).toHaveBeenCalled();
+    });
+  });
+
+  it("Select radio option adult core set combined", async () => {
+    const reportingSeparateRadio = screen.getByText(
+      "Reporting Medicaid and CHIP measures in combined Core Sets"
+    );
+    fireEvent.click(reportingSeparateRadio);
+    const createBtn = screen.getByRole("button", { name: /Create/i });
+    fireEvent.click(createBtn);
+    await waitFor(() => {
+      expect(mockMutate).toHaveBeenCalled();
+    });
   });
 
   it("Form properly interactable", () => {

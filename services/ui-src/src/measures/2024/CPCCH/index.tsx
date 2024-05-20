@@ -1,20 +1,44 @@
+import * as Q from "./questions";
 import * as QMR from "components";
+import * as CMQ from "measures/2023/shared/CommonQuestions";
+import { useParams } from "react-router-dom";
+import * as Types from "measures/2023/shared/CommonQuestions/types";
+import { useFormContext } from "react-hook-form";
+import { validationFunctions } from "./validation";
+import { useEffect } from "react";
 
-interface Props {
-  name: string;
-  year: string;
-}
+export const CPCCH = ({
+  name,
+  year,
+  setValidationFunctions,
+}: QMR.MeasureWrapperProps) => {
+  const { watch } = useFormContext<Types.DefaultFormData>();
+  const { coreSetId } = useParams();
+  const data = watch();
 
-export const CPCCH = ({ name, year }: Props) => {
+  useEffect(() => {
+    if (setValidationFunctions) {
+      setValidationFunctions(validationFunctions);
+    }
+  }, [setValidationFunctions]);
+
   return (
-    <QMR.AutocompletedMeasureTemplate
-      year={year}
-      measureTitle={`CPC-CH - ${name}`}
-      performanceMeasureText="The measure provides information on parents' experiences with their child's health care. Results summarize children's experiences through ratings, composites, and individual question summary rates."
-      performanceMeasureSubtext={[
-        "The Children with Chronic Conditions Supplemental Items provides information on parents' experience with their child's health care for the population of children with chronic conditions. ",
-        "To reduce state burden and streamline reporting, CMS will calculate state-level performance results for this measure using data submitted to the AHRQ CAHPS Health Plan Survey Database.",
-      ]}
-    />
+    <>
+      <Q.Reporting
+        reportingYear={year}
+        measureName={name}
+        measureAbbreviation={coreSetId as string}
+      />
+      {data["DidCollect"] !== "no" && (
+        <>
+          <Q.HowDidYouReport />
+          <CMQ.MeasurementSpecification type="AHRQ-NCQA" />
+          <Q.DataSource />
+          <Q.DefinitionOfPopulation />
+          <Q.PerformanceMeasure />
+        </>
+      )}
+      <CMQ.AdditionalNotes />
+    </>
   );
 };

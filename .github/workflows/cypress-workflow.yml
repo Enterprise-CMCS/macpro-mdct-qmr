@@ -11,8 +11,8 @@ on:
         required: true
         type: string
     secrets:
-      cypress-user3:
-        description: "Cypress User 3"
+      cypress-user2:
+        description: "Cypress User 2"
         required: true
       cypress-user4:
         description: "Cypress User 4"
@@ -41,9 +41,6 @@ jobs:
   e2e-tests:
     name: Execute Cypress Tests
     runs-on: ubuntu-latest
-    container:
-      image: cypress/browsers:node18.12.0-chrome107
-      options: --user root
     needs: setup
     strategy:
       fail-fast: false
@@ -57,7 +54,7 @@ jobs:
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           working-directory: tests/cypress
           spec: cypress/${{ inputs.test-path }}/${{ matrix.containers }}
@@ -65,13 +62,14 @@ jobs:
           config: baseUrl=${{ inputs.test-endpoint }}
           env: true
         env:
-          CYPRESS_STATE_USER_3: ${{ secrets.cypress-user3 }}
+          CYPRESS_STATE_USER_2: ${{ secrets.cypress-user2 }}
           CYPRESS_STATE_USER_4: ${{ secrets.cypress-user4 }}
           CYPRESS_ADMIN_USER: ${{ secrets.cypress-admin-user }}
           CYPRESS_QMR_PASSWORD: ${{ secrets.cypress-password }}
       - name: Upload screenshots
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: cypress-screenshots
+          name: ${{ matrix.containers }}-test-results
           path: tests/cypress/screenshots/
+          retention-days: 14

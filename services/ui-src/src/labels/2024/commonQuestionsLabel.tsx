@@ -1,10 +1,14 @@
 import * as DC from "dataConstants";
 
 export const commonQuestionsLabel = {
-  AdditonalNotes: {
+  AdditionalNotes: {
     header: "Additional Notes/Comments on the measure (optional)",
-    section:
-      "Please add any additional notes or comments on the measure not otherwise captured above (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    section: {
+      isNotReportingText:
+        "Please add any additional notes or comments on the measure not otherwise captured above:",
+      isReportingText:
+        "Please add any additional notes or comments on the measure not otherwise captured above (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    },
     upload:
       "If you need additional space to include comments or supplemental information, please attach further documentation below.",
   },
@@ -112,6 +116,8 @@ export const commonQuestionsLabel = {
   OptionalMeasureStratification: {
     section:
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
+    additionalContext:
+      "If the state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below (optional)",
   },
   WhyAreYouNotReporting: {
     periodOfHealthEmergencyFlag: true,

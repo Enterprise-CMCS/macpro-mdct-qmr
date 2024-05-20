@@ -28,6 +28,10 @@ a:focus {
   box-shadow: none;
 }
 
+.logo-link:focus {
+  background-color: transparent;
+}
+
 @media print {
   .logos {
     width: 170px;

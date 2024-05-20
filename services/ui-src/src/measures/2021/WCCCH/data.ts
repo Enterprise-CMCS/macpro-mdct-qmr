@@ -8,7 +8,7 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
     "The percentage of children ages 3 to 17 who had an outpatient visit with a primary care practitioner (PCP) or obstetrician/gynecologist (OB/GYN) and who had evidence of the following during the measurement year:",
   ],
-  questionListItems: categories,
+  questionListItems: categories.map((item) => item.label),
   categories,
   qualifiers,
 };

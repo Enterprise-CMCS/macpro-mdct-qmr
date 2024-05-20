@@ -8,7 +8,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@hookform/resolvers": "^2.8.4",
-    "aws-amplify": "^4.3.20",
+    "aws-amplify": "^5.3.4",
     "base-64": "^1.0.0",
     "bootstrap": "^5.1.3",
     "date-fns": "^2.26.0",
@@ -24,7 +24,7 @@
     "react-bootstrap": "^2.10.2",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.4.2",
-    "react-hook-form": "^7.20.5",
+    "react-hook-form": "^7.51.1",
     "react-icons": "^4.3.1",
     "react-idle-timer": "^4.6.4",
     "react-query": "^3.34.5",
@@ -103,6 +103,9 @@
     "globals": {
       "_env_": {}
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)"
+    ],
     "testEnvironment": "jest-environment-jsdom"
   },
   "eslintConfig": {
@@ -146,7 +149,6 @@
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.4.1",
     "serverless-cloudfront-invalidate": "^1.5.0",
-    "serverless-s3-bucket-helper": "Enterprise-CMCS/serverless-s3-bucket-helper#0.1.1",
     "serverless-s3-sync": "^1.14.4",
     "typescript": "^4.4.4"
   },

@@ -246,6 +246,12 @@ export const OptionalMeasureStrat = ({
         <CUI.Text py="3">
           {labels.OptionalMeasureStratification.section}
         </CUI.Text>
+        {labels.OptionalMeasureStratification.additionalContext && (
+          <QMR.TextArea
+            label={labels.OptionalMeasureStratification.additionalContext}
+            {...register("OptionalMeasureStratification.additionalContext")}
+          />
+        )}
         <CUI.Text py="3">
           Do not select categories and sub-classifications for which you will
           not be reporting any data.

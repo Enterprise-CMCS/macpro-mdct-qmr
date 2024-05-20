@@ -15,7 +15,7 @@ export const CostSavingsData = ({ year }: Props) => {
   const padding = "10px";
 
   return (
-    <CUI.ListItem mr="4">
+    <CUI.ListItem m="4">
       <Common.QualifierHeader header="Cost Savings Data" description="" />
       <QMR.NumberInput
         {...register("yearlyCostSavings")}

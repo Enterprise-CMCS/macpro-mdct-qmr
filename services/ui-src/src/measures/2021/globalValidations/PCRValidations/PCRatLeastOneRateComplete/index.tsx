@@ -1,10 +1,11 @@
+import { LabelData } from "utils";
 import { validatePartialRateCompletionPM } from "../../validatePartialRateCompletion";
 
 /* At least one NDR set must be complete (OPM or PM) */
 export const PCRatLeastOneRateComplete = (
   performanceMeasureArray: any,
   OPM: any,
-  ageGroups: string[],
+  ageGroups: LabelData[],
   errorLocation: string = "Performance Measure/Other Performance Measure",
   omsFlag = false
 ) => {

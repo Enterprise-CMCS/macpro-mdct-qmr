@@ -190,7 +190,7 @@ export const PrintableMeasureWrapper = ({
       <FormProvider {...methods}>
         <SharedContext.Provider value={shared}>
           <>
-            <form data-testid="measure-wrapper-form">
+            <form data-testid="measure-wrapper-form" style={{ width: "100%" }}>
               <fieldset data-testid="fieldset" disabled>
                 <CUI.Container maxW="7xl" as="section" px="0">
                   <Measure

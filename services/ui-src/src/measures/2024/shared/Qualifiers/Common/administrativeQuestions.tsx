@@ -38,7 +38,7 @@ export const AdministrativeQuestions = () => {
   };
 
   return (
-    <CUI.ListItem mr="4">
+    <CUI.ListItem m="4">
       <Common.QualifierHeader
         header="Administrative Questions"
         description=""

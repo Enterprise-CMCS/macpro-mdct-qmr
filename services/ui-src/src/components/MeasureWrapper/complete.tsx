@@ -26,14 +26,14 @@ export const CompleteCoreSets = ({
         </CUI.Text>
       </CUI.Stack>
 
-      <CUI.HStack>
+      <CUI.Stack direction={{ base: "column", md: "row" }} width="100%" my="5">
         <QMR.ContainedButton
           testId="validate-core-set-questions-button"
           buttonText="Validate Core Set Questions"
           onClick={handleValidation}
           buttonProps={{
             colorScheme: "green",
-            my: "5",
+            width: "100%",
           }}
         />
 
@@ -43,10 +43,10 @@ export const CompleteCoreSets = ({
           onClick={handleSubmit}
           buttonProps={{
             colorScheme: "blue",
-            my: "5",
+            width: "100%",
           }}
         />
-      </CUI.HStack>
+      </CUI.Stack>
     </CUI.Box>
   );
 };

@@ -2,6 +2,7 @@ import { CoreSetTableItem } from "components/Table/types";
 import { isDevEnv } from "config";
 
 interface ActionsData {
+  deletable?: boolean;
   handleDelete: any;
   completeAllMeasures: () => void;
   resetCoreSet: () => void;
@@ -11,6 +12,7 @@ interface ActionsData {
 
 export const getCoreSetActions = ({
   type,
+  deletable = true,
   handleDelete,
   completeAllMeasures,
   resetCoreSet,
@@ -18,38 +20,21 @@ export const getCoreSetActions = ({
 }: ActionsData) => {
   let actionsList = [];
 
-  if (type === CoreSetTableItem.Type.ADULT) {
+  actionsList.push({
+    itemText: "Export",
+    handleSelect: exportAll,
+    type: type,
+  });
+
+  if (deletable) {
     actionsList.push({
-      itemText: "Export",
-      handleSelect: exportAll,
-      type: type,
-    });
-  } else if (
-    type === CoreSetTableItem.Type.CHILD ||
-    type === CoreSetTableItem.Type.HEALTH_HOME
-  ) {
-    actionsList.push(
-      ...[
-        {
-          itemText: "Export",
-          handleSelect: exportAll,
-          type: type,
-        },
-        {
-          itemText: "Delete",
-          handleSelect: handleDelete,
-          type: type,
-        },
-      ]
-    );
-  } else {
-    actionsList.push({
-      itemText: "Export",
-      handleSelect: () => console.log("Export"),
+      itemText: "Delete",
+      handleSelect: handleDelete,
       type: type,
     });
   }
 
+  //avaliable only in the testing environment
   if (isDevEnv()) {
     actionsList.push({
       itemText: "Complete All Measures",

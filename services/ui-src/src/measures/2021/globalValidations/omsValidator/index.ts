@@ -8,12 +8,12 @@ import {
   DefaultFormData,
 } from "measures/2021/CommonQuestions/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
-import { cleanString } from "utils";
+import { LabelData } from "utils";
 
 interface OmsValidationProps {
   data: DefaultFormData;
-  qualifiers: string[];
-  categories: string[];
+  qualifiers: LabelData[];
+  categories: LabelData[];
   locationDictionary: locationDictionaryFunction;
   checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
@@ -30,8 +30,8 @@ export const omsValidations = ({
   customTotalLabel,
   dataSource,
 }: OmsValidationProps) => {
-  const opmCats: string[] = ["OPM"];
-  const opmQuals: string[] = [];
+  const opmCats: LabelData[] = [{ id: "OPM", text: "OPM", label: "OPM" }];
+  const opmQuals: LabelData[] = [];
   let isOPM = false;
   if (
     data.MeasurementSpecification === "Other" &&
@@ -39,12 +39,25 @@ export const omsValidations = ({
   ) {
     isOPM = true;
     opmQuals.push(
-      ...data["OtherPerformanceMeasure-Rates"].map(
-        (rate) => rate.description ?? "Fill out description"
-      )
+      ...data["OtherPerformanceMeasure-Rates"].map((rate) => {
+        return {
+          id: rate.description ?? "Fill out description",
+          label: rate.description ?? "Fill out description",
+          text: "",
+        };
+      })
     );
   }
-  const cats = categories.length === 0 ? ["singleCategory"] : categories;
+  const cats =
+    categories.length === 0
+      ? [
+          {
+            id: "singleCategory",
+            label: "singleCategory",
+            text: "singleCategory",
+          },
+        ]
+      : categories;
   return validateNDRs(
     data,
     validationCallbacks,
@@ -61,8 +74,8 @@ export const omsValidations = ({
 const validateNDRs = (
   data: DefaultFormData,
   callbackArr: OmsValidationCallback[],
-  qualifiers: string[],
-  categories: string[],
+  qualifiers: LabelData[],
+  categories: LabelData[],
   locationDictionary: locationDictionaryFunction,
   checkIsFilled: boolean,
   isOPM: boolean,
@@ -200,8 +213,8 @@ const validateNDRs = (
     if (rateData?.["pcr-rate"]) {
       return rateData["pcr-rate"].every((o) => !!o?.value);
     }
-    for (const qual of qualifiers.map((s) => cleanString(s))) {
-      for (const cat of categories.map((s) => cleanString(s))) {
+    for (const qual of qualifiers.map((s) => s.id)) {
+      for (const cat of categories.map((s) => s.id)) {
         if (rateData.rates?.[qual]?.[cat]) {
           const temp = rateData.rates[qual][cat][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
@@ -225,8 +238,8 @@ const validateNDRs = (
     }
 
     // default check
-    for (const qual of qualifiers.map((s) => cleanString(s))) {
-      for (const cat of categories.map((s) => cleanString(s))) {
+    for (const qual of qualifiers.map((s) => s.id)) {
+      for (const cat of categories.map((s) => s.id)) {
         if (rateData.rates?.[qual]?.[cat]) {
           const temp = rateData.rates[qual][cat][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {

@@ -8,7 +8,5 @@
   },
   "author": "",
   "license": "CC0-1.0",
-  "devDependencies": {
-    "serverless-s3-bucket-helper": "Enterprise-CMCS/serverless-s3-bucket-helper#0.1.1"
-  }
+  "devDependencies": {}
 }

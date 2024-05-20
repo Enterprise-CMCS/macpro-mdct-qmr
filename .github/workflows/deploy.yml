@@ -47,10 +47,10 @@ jobs:
         with:
           role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
@@ -194,13 +194,13 @@ jobs:
           INFRASTRUCTURE_TYPE: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_INFRASTRUCTURE_TYPE] || secrets.INFRASTRUCTURE_TYPE || 'development' }}
           STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
           COGNITO_TEST_USERS_PASSWORD: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_COGNITO_TEST_USERS_PASSWORD] || secrets.COGNITO_TEST_USERS_PASSWORD }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
       - name: Combine yarn.lock files to single file
         run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
       - name: cache service dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             services/app-api/node_modules
@@ -232,7 +232,7 @@ jobs:
       test-path: "e2e"
       test-endpoint: "${{ needs.e2e-tests-init.outputs.application_endpoint }}"
     secrets:
-      cypress-user3: ${{ secrets.CYPRESS_STATE_USER_3 }}
+      cypress-user2: ${{ secrets.CYPRESS_STATE_USER_2 }}
       cypress-user4: ${{ secrets.CYPRESS_STATE_USER_4 }}
       cypress-admin-user: ${{ secrets.CYPRESS_ADMIN_USER }}
       cypress-password: ${{ secrets.CYPRESS_QMR_PASSWORD }}

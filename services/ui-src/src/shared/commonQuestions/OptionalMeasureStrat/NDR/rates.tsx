@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import * as QMR from "components";
-import { LabelData, cleanString, stringToLabelData } from "utils";
+import { LabelData, isLegacyLabel, stringToLabelData } from "utils";
 import { ContextProps, usePerformanceMeasureContext } from "../context";
 
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
@@ -68,15 +68,15 @@ export const useStandardRateArray: RateArrayBuilder = (name) => {
 
   const rateArrays: React.ReactElement[][] = [];
 
-  if (typeof qualifiers[0] === "string") {
+  if (typeof qualifiers[0] === "string" || isLegacyLabel()) {
     const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
-    (quals as string[])?.forEach((qual: string, qualIndex) => {
+    stringToLabelData(quals)?.forEach((qual: LabelData, qualIndex) => {
       let ndrSets: React.ReactElement[] = [];
       if (IUHHPerformanceMeasureArray) {
         ndrSets = IUHHRateArrayQualifierAndTotals(
           context,
           name,
-          categories as string[],
+          stringToLabelData(categories),
           qual,
           qualIndex
         );
@@ -84,7 +84,7 @@ export const useStandardRateArray: RateArrayBuilder = (name) => {
         ndrSets = StandardPerformanceMeasureLegacy(
           context,
           name,
-          categories as string[],
+          stringToLabelData(categories),
           qual,
           qualIndex
         );
@@ -203,8 +203,8 @@ const StandardPerformanceMeasure = (
 const StandardPerformanceMeasureLegacy = (
   context: ContextProps,
   name: string,
-  categories: string[],
-  qual: string,
+  categories: LabelData[],
+  qual: LabelData,
   qualIndex: number
 ) => {
   const { performanceMeasureArray } = context;
@@ -212,10 +212,10 @@ const StandardPerformanceMeasureLegacy = (
 
   performanceMeasureArray?.forEach((measure, idx) => {
     if (measure?.[qualIndex]?.rate) {
-      const adjustedName = `${name}.rates.${cleanString(qual)}.${cleanString(
-        categories[idx]
-      )}`;
-      ndrSets.push(RateComponent(context, adjustedName, categories[idx]));
+      const adjustedName = `${name}.rates.${qual.id}.${categories[idx]?.id}`;
+      ndrSets.push(
+        RateComponent(context, adjustedName, categories[idx]?.label)
+      );
     }
   });
   return ndrSets;
@@ -253,8 +253,8 @@ const IUHHRateArrayTotalsOnly = (
 const IUHHRateArrayQualifierAndTotals = (
   context: ContextProps,
   name: string,
-  categories: string[],
-  qual: string,
+  categories: LabelData[],
+  qual: LabelData,
   qualIndex: number
 ) => {
   const { IUHHPerformanceMeasureArray } = context;
@@ -265,9 +265,7 @@ const IUHHRateArrayQualifierAndTotals = (
     if (idx === 1) {
       category = [{}, category[0], {}, category[1], category[2]];
     }
-    const cleanedName = `${name}.rates.${cleanString(qual)}.${cleanString(
-      categories[idx]
-    )}`;
+    const cleanedName = `${name}.rates.${qual.id}.${categories[idx].id}`;
 
     // Confirm that there is at least 1 rate complete
     const rate1 = !!category?.[qualIndex]?.fields?.[2]?.value;
@@ -276,7 +274,7 @@ const IUHHRateArrayQualifierAndTotals = (
 
     if (rate1 || rate2 || rate3) {
       ndrSets.push(
-        ComplexRateComponent(context, cleanedName, categories[idx], "")
+        ComplexRateComponent(context, cleanedName, categories[idx].label, "")
       );
     }
   });
