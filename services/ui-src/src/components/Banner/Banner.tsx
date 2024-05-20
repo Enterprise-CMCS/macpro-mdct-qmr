@@ -9,7 +9,7 @@ export const Banner = ({ bannerData, ...props }: Props) => {
           <p className="ds-c-alert__text">{bannerData.description}</p>
           {bannerData.link && (
             <p>
-              <a href={bannerData.link}>{bannerData.link}</a>
+              <a href={encodeURI(bannerData.link)}>{bannerData.link}</a>
             </p>
           )}
         </Alert>
