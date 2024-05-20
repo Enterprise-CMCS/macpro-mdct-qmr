@@ -225,7 +225,7 @@ const useMeasureTableDataBuilder = () => {
       const numberOfCoreSets = 1;
 
       const coreStatus =
-        measureTableData.length + numberOfCoreSets === numCompleteItems
+        filteredItems.length + numberOfCoreSets === numCompleteItems
           ? CoreSetTableItem.Status.COMPLETED
           : CoreSetTableItem.Status.IN_PROGRESS;
       setCoreSetStatus(coreStatus);
