@@ -50,7 +50,7 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
               value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM,
             },
             {
-              value: DC.OTHER,
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
               description: true,
             },
           ],

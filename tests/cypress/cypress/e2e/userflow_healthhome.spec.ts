@@ -66,7 +66,7 @@ describe("Add custom measure", () => {
   });
 });
 
-// TODO: unskip when hh submit is fixed
+// completion number is dynamic, we need to refactor to handle different amounts of state specific measures
 describe.skip("submit coreset", () => {
   beforeEach(() => {
     cy.loginHealthHome();

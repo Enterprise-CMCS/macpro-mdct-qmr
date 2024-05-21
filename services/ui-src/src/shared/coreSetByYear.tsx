@@ -1,13 +1,16 @@
 import { SPA } from "libs/spaLib";
+import { AnyObject } from "types";
+
+export type CoreSetType = "coreSet" | "text";
 
 export interface CoreSetFields {
   [key: string]: CoreSetField[];
 }
 
 export interface CoreSetField {
-  type: string;
+  type: CoreSetType;
   label: string;
-  loaded?: boolean;
+  loaded?: string[]; //an empty [] means its pre-loaded for all states
   abbr?: string[];
   path?: string;
   exist?: boolean;
@@ -19,12 +22,57 @@ const getHHStates = (year: string) => {
   return SPA[year].map((item) => item.state);
 };
 
+export const coreSetType = (abbr: string) => {
+  const list = {
+    Adult: ["ACS", "ACSM", "ACSC"],
+    Child: ["CCS", "CCSM", "CCSC"],
+    "Health Home": ["HHCS"],
+  };
+  for (const [key, value] of Object.entries(list)) {
+    if (value.includes(abbr)) return key;
+  }
+  return;
+};
+
+export const coreSetSubTitles = (year: string, abbr: string) => {
+  let lastChar = abbr[abbr.length - 1];
+  let coreType = coreSetType(abbr) || "";
+  let list: AnyObject = {};
+  //using the last char of the abbr, we can determine if there's a subtitle
+  if (parseInt(year) <= 2023) {
+    list = {
+      C: "Chip",
+      M: "Medicaid",
+      MC: "Medicaid & CHIP",
+    };
+    lastChar = lastChar === "S" && coreType === "Child" ? "MC" : lastChar;
+  } else {
+    list = {
+      C: "Separate CHIP",
+      M: "Medicaid (Title XIX & XXI)",
+      MC: "Medicaid (Title XIX & XXI)",
+    };
+    lastChar =
+      lastChar === "S" && (coreType === "Adult" || coreType === "Child")
+        ? "MC"
+        : lastChar;
+  }
+  return list[lastChar] || "";
+};
+
+export const coreSetTitles = (year: string, abbr: string, type?: string) => {
+  const subTitle = coreSetSubTitles(year, abbr);
+  const subType = type || "Measures";
+  let name = `${coreSetType(abbr)} Core Set ${subType}`;
+  return subTitle ? `${name}: ${subTitle}` : name;
+};
+
 export const coreSets: CoreSetFields = {
   "2021": [
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: ["ACS"],
     },
     {
@@ -50,7 +98,7 @@ export const coreSets: CoreSetFields = {
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: ["ACS"],
     },
     {
@@ -76,7 +124,7 @@ export const coreSets: CoreSetFields = {
     {
       type: "coreSet",
       label: "Adult",
-      loaded: true,
+      loaded: [],
       abbr: ["ACS"],
     },
     {
@@ -103,21 +151,20 @@ export const coreSets: CoreSetFields = {
       type: "coreSet",
       label: "Adult",
       path: "add-adult",
-      loaded: false,
-      abbr: ["ACS"],
+      loaded: [],
+      abbr: ["ACS", "ACSC", "ACSM"],
     },
     {
       type: "coreSet",
       label: "Child",
       path: "add-child",
-      loaded: false,
+      loaded: [],
       abbr: ["CCS", "CCSC", "CCSM"],
     },
     {
       type: "coreSet",
       label: "Health Home",
       path: "add-hh",
-      loaded: false,
       abbr: ["HHCS"],
       stateList: getHHStates("2024"),
     },
