@@ -110,6 +110,11 @@ export const MeasurementSpecification = ({ type }: Props) => {
       testid="measurement-specification"
       label="Measurement Specification"
     >
+      <CUI.Text key="measureSpecLabel" size="sm" pb="3">
+        If your state substantially varied from the measure specifications
+        (including different methodology, timeframe, or reported age groups),
+        please report your data using “Other” specifications.
+      </CUI.Text>
       <div data-cy="measurement-specification-options">
         <QMR.RadioButton
           {...register(DC.MEASUREMENT_SPECIFICATION)}
