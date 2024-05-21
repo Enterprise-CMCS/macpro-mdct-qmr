@@ -10,6 +10,7 @@ export interface PerformanceMeasureData {
   customPrompt?: string; // Default: "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
   questionText?: string[];
   questionListItems?: string[];
+  questionItem?: string;
   questionListOrderedItems?: string[];
   questionListTitles?: string[];
   questionSubtext?: string[];

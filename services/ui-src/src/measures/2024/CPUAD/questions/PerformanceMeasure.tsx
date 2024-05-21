@@ -148,9 +148,9 @@ export const CPUADPerformanceMeasure = ({
       testid="performance-measure"
       label="Performance Measure"
     >
-      <CUI.Text mb={5}>{data.questionText}</CUI.Text>
+      <CUI.Text mb={5}>{data.questionText![0]}</CUI.Text>
       {data.questionListItems && (
-        <CUI.UnorderedList m="5" ml="10" spacing={5}>
+        <CUI.OrderedList m="5" ml="10" spacing={5}>
           {data.questionListItems.map((item, idx) => {
             return (
               <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
@@ -163,8 +163,9 @@ export const CPUADPerformanceMeasure = ({
               </CUI.ListItem>
             );
           })}
-        </CUI.UnorderedList>
+        </CUI.OrderedList>
       )}
+      <CUI.Text mb={5}>{data.questionText![1]}</CUI.Text>
       <QMR.TextArea
         label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
         {...register("PerformanceMeasure.explanation")}
