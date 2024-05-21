@@ -21,6 +21,11 @@ jest.mock("hooks/api", () => ({
   useWriteBanner: jest.fn(),
 }));
 
+jest.mock("./src/utils/environmentVariables", () => ({
+  MODE: "production",
+  BASE_URL: "mdctqmrdev.cms.gov",
+}));
+
 /* Mock LaunchDarkly (see https://bit.ly/3QAeS7j) */
 export const mockLDFlags = {
   setDefault: (baseline: any) => mockFlags(baseline),
