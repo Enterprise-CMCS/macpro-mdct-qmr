@@ -129,7 +129,7 @@ describe("test auto-completed measures", () => {
   });
 });
 
-describe("Test buttons", () => {
+describe("test measure floating bar menu", () => {
   beforeEach(() => {
     mockUseUser.mockImplementation(() => {
       return { isStateUser: true };
@@ -167,7 +167,6 @@ describe("Test buttons", () => {
       "I am reporting provisional data."
     );
     fireEvent.click(textArea);
-
     const saveBtn = screen.getByText("Save");
     fireEvent.click(saveBtn);
     await waitFor(() => {
