@@ -150,7 +150,12 @@ export const CPUADPerformanceMeasure = ({
     >
       <CUI.Text mb={5}>{data.questionText![0]}</CUI.Text>
       {data.questionListItems && (
-        <CUI.OrderedList m="5" ml="10" spacing={5}>
+        <CUI.OrderedList
+          className="default-li-marker"
+          m="5"
+          ml="10"
+          spacing={5}
+        >
           {data.questionListItems.map((item, idx) => {
             return (
               <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
