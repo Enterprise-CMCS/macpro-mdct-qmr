@@ -109,6 +109,8 @@ export const commonQuestionsLabel = {
         value: DC.HEDIS_2020,
       },
     ],
+    upload:
+      "If you need additional space to describe your state's methodology, please attach further documentation below.",
   },
   OptionalMeasureStratification: {
     section:
