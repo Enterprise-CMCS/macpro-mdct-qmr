@@ -52,6 +52,10 @@ export const commonQuestionsLabel = {
     srcExplanation: "Data Source Explanation",
     srcExplanationText:
       "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans or delivery systems that used each data source.",
+    warning: {
+      [DC.ELECTRONIC_CLINIC_DATA_SYSTEMS]:
+        "If you report using Electronic Clinical Data Systems (ECDS), CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting for FFY 2024. If the information reported in the Data Source field is accurate, please continue reporting this measure.",
+    },
   },
   DataSourceCahps: {
     describeDataSrc:
