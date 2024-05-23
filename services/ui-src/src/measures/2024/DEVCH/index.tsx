@@ -41,7 +41,7 @@ export const DEVCH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="OHSU" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource data={PMD.dataSourceData} childMeasure={true} />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
           {isPrimaryMeasureSpecSelected && (

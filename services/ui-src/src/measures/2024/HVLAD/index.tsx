@@ -41,7 +41,7 @@ export const HVLAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HRSA" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource data={PMD.dataSourceData} adultMeasure={true} />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

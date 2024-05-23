@@ -14,6 +14,8 @@ import { Alert } from "@cmsgov/design-system";
 
 interface DataSourceProps {
   data?: DataSourceData;
+  adultMeasure?: boolean;
+  childMeasure?: boolean;
 }
 
 interface DataSourceCheckboxBuilderProps {
@@ -21,6 +23,8 @@ interface DataSourceCheckboxBuilderProps {
   label?: string;
   otherDataSourceWarning?: string;
   parentName?: string;
+  adultMeasure?: boolean;
+  childMeasure?: boolean;
 }
 
 type DSCBFunc = ({
@@ -60,6 +64,8 @@ const buildDataSourceOptions: DSCBFunc = ({
   data = [],
   otherDataSourceWarning,
   parentName,
+  adultMeasure,
+  childMeasure,
 }) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   for (const node of data) {
@@ -89,7 +95,11 @@ const buildDataSourceOptions: DSCBFunc = ({
       );
     }
 
-    if (otherDataSourceWarning && node.value === DC.OTHER_DATA_SOURCE) {
+    if (
+      (adultMeasure || childMeasure) &&
+      otherDataSourceWarning &&
+      node.value === DC.OTHER_DATA_SOURCE
+    ) {
       children.push(
         <CUI.Box mt="8">
           <Alert heading="Please Note" variation="warn">
@@ -128,7 +138,11 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
 /**
  * Fully built DataSource component
  */
-export const DataSource = ({ data = defaultData }: DataSourceProps) => {
+export const DataSource = ({
+  data = defaultData,
+  adultMeasure,
+  childMeasure,
+}: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
   const { getValues } = useFormContext<Types.DataSource>();
   const watchDataSource = useWatch<Types.DataSource>({
@@ -153,6 +167,8 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
           options={buildDataSourceOptions({
             data: data.options,
             otherDataSourceWarning: labels.DataSource.otherDataSourceWarning,
+            adultMeasure: adultMeasure,
+            childMeasure: childMeasure,
           })}
         />
       </div>

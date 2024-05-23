@@ -41,7 +41,7 @@ export const CCPAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="OPA" />
-          <CMQ.DataSource />
+          <CMQ.DataSource adultMeasure={true} />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

@@ -41,7 +41,7 @@ export const PPC2CH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource data={PMD.dataSourceData} childMeasure={true} />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure={true} hybridMeasure />
           {isPrimaryMeasureSpecSelected && (

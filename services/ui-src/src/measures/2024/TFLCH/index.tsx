@@ -41,7 +41,7 @@ export const TFLCH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="ADA-DQA" />
-          <CMQ.DataSource />
+          <CMQ.DataSource childMeasure={true} />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (

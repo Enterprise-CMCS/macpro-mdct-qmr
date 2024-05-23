@@ -41,7 +41,7 @@ export const OHDAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="PQA" />
-          <CMQ.DataSource />
+          <CMQ.DataSource adultMeasure={true} />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

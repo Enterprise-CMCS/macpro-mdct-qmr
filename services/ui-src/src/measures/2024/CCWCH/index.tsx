@@ -41,7 +41,7 @@ export const CCWCH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="OPA" />
-          <CMQ.DataSource />
+          <CMQ.DataSource childMeasure={true} />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
