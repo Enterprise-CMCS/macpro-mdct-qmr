@@ -11,12 +11,18 @@ import * as CUI from "@chakra-ui/react";
 
 interface DataSourceProps {
   data?: DataSourceData;
+  adultMeasure?: boolean;
+  childMeasure?: boolean;
 }
 
 /**
  * Fully built DataSource component
  */
-export const DataSourceRadio = ({ data = defaultData }: DataSourceProps) => {
+export const DataSourceRadio = ({
+  data = defaultData,
+  adultMeasure,
+  childMeasure,
+}: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
 
   const labels: any = useContext(SharedContext);
@@ -46,15 +52,16 @@ export const DataSourceRadio = ({ data = defaultData }: DataSourceProps) => {
                   fontSize: "normal",
                 }}
               />,
-              labels?.DataSourceCahps.otherDataSourceWarning && (
-                <CUI.Box mt="8">
-                  <Alert heading="Please Note" variation="warn">
-                    <CUI.Text>
-                      {labels.DataSourceCahps.otherDataSourceWarning}
-                    </CUI.Text>
-                  </Alert>
-                </CUI.Box>
-              ),
+              (adultMeasure || childMeasure) &&
+                labels?.DataSourceCahps.otherDataSourceWarning && (
+                  <CUI.Box mt="8">
+                    <Alert heading="Please Note" variation="warn">
+                      <CUI.Text>
+                        {labels.DataSourceCahps.otherDataSourceWarning}
+                      </CUI.Text>
+                    </Alert>
+                  </CUI.Box>
+                ),
             ],
           },
         ]}

@@ -6,7 +6,12 @@ import * as CUI from "@chakra-ui/react";
 import SharedContext from "shared/SharedContext";
 import { useContext } from "react";
 
-export const DataSource = () => {
+interface DataSourceProps {
+  adultMeasure?: boolean;
+  childMeasure?: boolean;
+}
+
+export const DataSource = ({ adultMeasure, childMeasure }: DataSourceProps) => {
   const register = useCustomRegister<FormData>();
   const labels: any = useContext(SharedContext);
 
@@ -36,15 +41,16 @@ export const DataSource = () => {
                 }
                 {...register("DataSource-CAHPS-Version-Other")}
               />,
-              labels.DataSource.otherDataSourceWarning && (
-                <CUI.Box mt="8">
-                  <Alert heading="Please Note" variation="warn">
-                    <CUI.Text>
-                      {labels.DataSource.otherDataSourceWarning}
-                    </CUI.Text>
-                  </Alert>
-                </CUI.Box>
-              ),
+              (adultMeasure || childMeasure) &&
+                labels.DataSource.otherDataSourceWarning && (
+                  <CUI.Box mt="8">
+                    <Alert heading="Please Note" variation="warn">
+                      <CUI.Text>
+                        {labels.DataSource.otherDataSourceWarning}
+                      </CUI.Text>
+                    </Alert>
+                  </CUI.Box>
+                ),
             ],
           },
         ]}
