@@ -24,6 +24,10 @@ li::marker {
   font-weight: bold;
 }
 
+.default-li-marker li::marker {
+  font-weight: normal;
+}
+
 a:focus {
   box-shadow: none;
 }
