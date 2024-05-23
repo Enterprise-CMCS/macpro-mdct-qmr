@@ -2,9 +2,17 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
+import { Alert } from "@cmsgov/design-system";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
 
-export const DataSource = () => {
+interface DataSourceProps {
+  coreset?: string;
+}
+
+export const DataSource = ({ coreset }: DataSourceProps) => {
   const register = useCustomRegister<FormData>();
+  const labels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
@@ -20,9 +28,19 @@ export const DataSource = () => {
             value: "Other",
             children: [
               <QMR.TextArea
-                label="Describe the Data Soure:"
+                label="Describe the Data Source:"
                 {...register("DataSource-CAHPS-Version-Other")}
               />,
+              (coreset === "adult" || coreset === "child") &&
+                labels?.DataSourceCahps.otherDataSourceWarning && (
+                  <CUI.Box mt="8">
+                    <Alert heading="Please Note" variation="warn">
+                      <CUI.Text>
+                        {labels.DataSourceCahps.otherDataSourceWarning}
+                      </CUI.Text>
+                    </Alert>
+                  </CUI.Box>
+                ),
             ],
           },
         ]}

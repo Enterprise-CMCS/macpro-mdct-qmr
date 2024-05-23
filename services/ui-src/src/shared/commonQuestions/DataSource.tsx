@@ -14,8 +14,7 @@ import { Alert } from "@cmsgov/design-system";
 
 interface DataSourceProps {
   data?: DataSourceData;
-  adultMeasure?: boolean;
-  childMeasure?: boolean;
+  coreset?: string;
 }
 
 interface DataSourceCheckboxBuilderProps {

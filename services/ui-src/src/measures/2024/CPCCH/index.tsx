@@ -33,7 +33,7 @@ export const CPCCH = ({
         <>
           <Q.HowDidYouReport />
           <CMQ.MeasurementSpecification type="AHRQ-NCQA" />
-          <Q.DataSource />
+          <Q.DataSource coreset="child" />
           <Q.DefinitionOfPopulation />
           <Q.PerformanceMeasure />
         </>

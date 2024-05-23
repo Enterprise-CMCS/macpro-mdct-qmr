@@ -41,7 +41,7 @@ export const PQI15AD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="AHRQ" />
-          <CMQ.DataSource adultMeasure={true} />
+          <CMQ.DataSource coreset="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

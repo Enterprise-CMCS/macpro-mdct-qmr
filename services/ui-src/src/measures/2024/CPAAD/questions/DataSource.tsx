@@ -7,11 +7,10 @@ import { useContext } from "react";
 import { Alert } from "@cmsgov/design-system";
 
 interface DataSourceProps {
-  adultMeasure?: boolean;
-  childMeasure?: boolean;
+  coreset?: string;
 }
 
-export const DataSource = ({ adultMeasure, childMeasure }: DataSourceProps) => {
+export const DataSource = ({ coreset }: DataSourceProps) => {
   const register = useCustomRegister<FormData>();
   const labels: any = useContext(SharedContext);
 
@@ -41,7 +40,7 @@ export const DataSource = ({ adultMeasure, childMeasure }: DataSourceProps) => {
                 }
                 {...register("DataSource-CAHPS-Version-Other")}
               />,
-              (adultMeasure || childMeasure) &&
+              (coreset === "adult" || coreset === "child") &&
                 labels?.DataSourceCahps.otherDataSourceWarning && (
                   <CUI.Box mt="8">
                     <Alert heading="Please Note" variation="warn">
