@@ -1,6 +1,6 @@
 import { getMeasureYear } from "./getMeasureYear";
 
-export const getYearSpecificQuestionText = (
+export const displayYearSpecificQuestionText = (
   year: number,
   questionText: string
 ) => {
