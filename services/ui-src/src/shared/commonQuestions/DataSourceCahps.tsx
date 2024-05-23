@@ -46,11 +46,11 @@ export const DataSourceRadio = ({ data = defaultData }: DataSourceProps) => {
                   fontSize: "normal",
                 }}
               />,
-              labels.DataSource.otherDataSourceWarning && (
+              labels?.DataSourceCahps.otherDataSourceWarning && (
                 <CUI.Box mt="8">
                   <Alert heading="Please Note" variation="warn">
                     <CUI.Text>
-                      {labels.DataSource.otherDataSourceWarning}
+                      {labels.DataSourceCahps.otherDataSourceWarning}
                     </CUI.Text>
                   </Alert>
                 </CUI.Box>
