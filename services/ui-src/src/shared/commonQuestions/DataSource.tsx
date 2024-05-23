@@ -19,7 +19,7 @@ interface DataSourceProps {
 interface DataSourceCheckboxBuilderProps {
   data?: OptionNode[];
   label?: string;
-  dataSourceWarning?: string;
+  otherDataSourceWarning?: string;
   parentName?: string;
 }
 
@@ -58,7 +58,7 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
  */
 const buildDataSourceOptions: DSCBFunc = ({
   data = [],
-  dataSourceWarning,
+  otherDataSourceWarning,
   parentName,
 }) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
@@ -89,11 +89,11 @@ const buildDataSourceOptions: DSCBFunc = ({
       );
     }
 
-    if (dataSourceWarning && node.value === DC.OTHER_DATA_SOURCE) {
+    if (otherDataSourceWarning && node.value === DC.OTHER_DATA_SOURCE) {
       children.push(
         <CUI.Box mt="8">
           <Alert heading="Please Note" variation="warn">
-            <CUI.Text>{dataSourceWarning}</CUI.Text>
+            <CUI.Text>{otherDataSourceWarning}</CUI.Text>
           </Alert>
         </CUI.Box>
       );
@@ -152,7 +152,7 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
           label={data.optionsLabel}
           options={buildDataSourceOptions({
             data: data.options,
-            dataSourceWarning: labels.DataSource.otherDataSourceWarning,
+            otherDataSourceWarning: labels.DataSource.otherDataSourceWarning,
           })}
         />
       </div>

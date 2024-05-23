@@ -3,9 +3,12 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
 import { Alert } from "@cmsgov/design-system";
 import * as CUI from "@chakra-ui/react";
+import SharedContext from "shared/SharedContext";
+import { useContext } from "react";
 
 export const DataSource = () => {
   const register = useCustomRegister<FormData>();
+  const labels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
@@ -33,16 +36,15 @@ export const DataSource = () => {
                 }
                 {...register("DataSource-CAHPS-Version-Other")}
               />,
-              <CUI.Box mt="8">
-                <Alert heading="Please Note" variation="warn">
-                  <p className="ds-c-alert__text">
-                    {
-                      "If you report using Other Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Source field is accurate, please continue reporting this measure."
-                    }
-                  </p>
-                </Alert>
-                ,
-              </CUI.Box>,
+              labels.DataSource.otherDataSourceWarning && (
+                <CUI.Box mt="8">
+                  <Alert heading="Please Note" variation="warn">
+                    <CUI.Text>
+                      {labels.DataSource.otherDataSourceWarning}
+                    </CUI.Text>
+                  </Alert>
+                </CUI.Box>
+              ),
             ],
           },
         ]}
