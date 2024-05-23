@@ -112,6 +112,8 @@ export const commonQuestionsLabel = {
         value: DC.HEDIS_MY_2021,
       },
     ],
+    otherDataSourceWarning:
+      "If you report using Other Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Source field is accurate, please continue reporting this measure.",
   },
   OptionalMeasureStratification: {
     section:
