@@ -15,11 +15,11 @@ export function Header({ handleLogout }: Props) {
       <CUI.Box bg="#0071bc">
         <CUI.Container maxW="7xl">
           <CUI.Flex py="4" alignItems="center">
-            <Link to="/" aria-label="State home page">
+            <Link to="/" aria-label="State home page" className="logo-link">
               <Logo />
             </Link>
             <CUI.Spacer flex={6} />
-            <CUI.Button onClick={handleLogout} variant="link" color="white">
+            <CUI.Button onClick={handleLogout} variant="link-white">
               Logout
             </CUI.Button>
           </CUI.Flex>

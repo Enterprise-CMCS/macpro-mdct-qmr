@@ -168,10 +168,26 @@ const StateHome = () => {
           queryClient.refetchQueries();
         },
       });
-    }
-    // TODO: add delete functionality for new adult core sets
-    // if its a chip or medicaid child coreset we delete them both
-    else if (
+    } else if (
+      data.coreSet === CoreSetAbbr.ACSC ||
+      data.coreSet === CoreSetAbbr.ACSM
+    ) {
+      deleteCoreSet.mutate(
+        { ...data, coreSet: CoreSetAbbr.ACSC },
+        {
+          onSuccess: () => {
+            deleteCoreSet.mutate(
+              { ...data, coreSet: CoreSetAbbr.ACSM },
+              {
+                onSuccess: () => {
+                  queryClient.refetchQueries();
+                },
+              }
+            );
+          },
+        }
+      );
+    } else if (
       data.coreSet === CoreSetAbbr.CCSC ||
       data.coreSet === CoreSetAbbr.CCSM
     ) {
@@ -250,7 +266,9 @@ const StateHome = () => {
   )
     .filter(
       (set) =>
-        !set.loaded && (!set.stateList || set.stateList?.includes(state!))
+        (!set.loaded ||
+          (!set.loaded.includes(state!) && set.loaded.length > 0)) &&
+        (!set.stateList || set.stateList?.includes(state!))
     )
     .map((set) => {
       //spaIds are only checked against healthHome measures
@@ -270,22 +288,14 @@ const StateHome = () => {
         { path: `/${state}/${year}`, name: "Core Set Measures" },
       ]}
     >
-      <CUI.Container maxW="5xl" py="4">
+      <CUI.Box py="4">
         <BannerCard />
-      </CUI.Container>
-      {data.Items && data.Items.length === 0 && (
-        <CUI.Box data-testid="no-state-data">
-          <QMR.Notification
-            alertStatus="warning"
-            alertTitle="There is currently no data for this State"
-          />
-        </CUI.Box>
-      )}
+      </CUI.Box>
       <Heading />
       <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
-      <CUI.HStack spacing="6">
+      <CUI.Stack direction={{ base: "column", md: "row" }} spacing="6">
         <AddCoreSetCards coreSetCards={coreSetCards} />
-      </CUI.HStack>
+      </CUI.Stack>
     </QMR.StateLayout>
   );
 };

@@ -51,7 +51,7 @@ export const Qualifier = ({
           <QMR.SupportLinks />
           {type === "HH" && <QMR.HealthHomeInfo />}
         </CUI.Box>
-        <CUI.OrderedList>
+        <CUI.OrderedList width="100%">
           {type === "HH" && (
             <>
               <Common.AdministrativeQuestions />

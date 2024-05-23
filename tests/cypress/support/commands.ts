@@ -9,7 +9,7 @@ const loginUser = (user: string) => {
   cy.session([user], () => {
     const users = {
       stateuser4: Cypress.env("STATE_USER_4"),
-      stateuser3: Cypress.env("STATE_USER_3"),
+      stateuser2: Cypress.env("STATE_USER_2"),
       adminuser: Cypress.env("ADMIN_USER"),
     };
     cy.visit("/");
@@ -22,12 +22,12 @@ const loginUser = (user: string) => {
   });
   cy.visit("/");
 };
-// the default stateuser3 is used to login but can also be changed
+// the default stateuser2 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
 Cypress.Commands.add(
   "login",
   (
-    user = "stateuser3" // pragma: allowlist secret
+    user = "stateuser2" // pragma: allowlist secret
   ) => {
     loginUser(user);
   }
@@ -53,6 +53,8 @@ Cypress.Commands.add("goToAdultMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="ACS"]').length > 0) {
       cy.get('[data-cy="ACS"]').click();
+    } else if ($tbody.find('[data-cy="ACSC"]').length > 0) {
+      cy.get('[data-cy="ACSC"]').click();
     }
   });
 });
@@ -62,6 +64,8 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click();
+    } else if ($tbody.find('[data-cy="CCSC"]').length > 0) {
+      cy.get('[data-cy="CCSC"]').click();
     }
   });
 });
@@ -145,19 +149,19 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
   ).should("be.visible");
 });
 
-const clickCoreSetAction = (kebab: string, action: string) => {
+const clickCoreSetAction = (kebab: string, selector: string) => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
       cy.get(kebab).first().click();
       cy.wait(3000);
-      cy.get(action).click({ force: true });
+      cy.get(selector).click({ force: true });
     }
   });
 };
 
 // helper recursive function to remove added core sets
-const removeCoreSetElements = (kebab: string, action: string) => {
-  clickCoreSetAction(kebab, action);
+const removeCoreSetElements = (kebab: string, selector: string) => {
+  clickCoreSetAction(kebab, selector);
   cy.wait(3000);
   cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
 };

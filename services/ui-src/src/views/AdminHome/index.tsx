@@ -18,9 +18,9 @@ export const AdminHome = () => {
 
   return (
     <CUI.Container maxW="7xl" py="4">
-      <CUI.Container maxW="5xl" py="4">
+      <CUI.Box py="4">
         <BannerCard />
-      </CUI.Container>
+      </CUI.Box>
       <CUI.Stack spacing="4" maxW="lg">
         <CUI.Heading size="md">Admin Home</CUI.Heading>
         <CUI.Select
