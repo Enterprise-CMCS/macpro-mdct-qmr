@@ -19,6 +19,7 @@ interface DataSourceProps {
 interface DataSourceCheckboxBuilderProps {
   data?: OptionNode[];
   label?: string;
+  dataSourceWarning?: string;
   parentName?: string;
 }
 
@@ -55,7 +56,11 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
 /**
  * Build Data Source checkbox options, and possible child checkbox children
  */
-const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
+const buildDataSourceOptions: DSCBFunc = ({
+  data = [],
+  dataSourceWarning,
+  parentName,
+}) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   for (const node of data) {
     const cleanedNodeValue = cleanString(node.value);
@@ -80,14 +85,15 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
           label={parseLabelToHTML(node.hint!)}
           name={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
           key={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
-        />,
+        />
+      );
+    }
+
+    if (dataSourceWarning && node.value === DC.OTHER_DATA_SOURCE) {
+      children.push(
         <CUI.Box mt="8">
           <Alert heading="Please Note" variation="warn">
-            <p className="ds-c-alert__text">
-              {
-                "If you report using Other Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Source field is accurate, please continue reporting this measure."
-              }
-            </p>
+            <CUI.Text>{dataSourceWarning}</CUI.Text>
           </Alert>
         </CUI.Box>
       );
@@ -144,7 +150,10 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
         <QMR.Checkbox
           {...register(DC.DATA_SOURCE)}
           label={data.optionsLabel}
-          options={buildDataSourceOptions({ data: data.options })}
+          options={buildDataSourceOptions({
+            data: data.options,
+            dataSourceWarning: labels.DataSource.otherDataSourceWarning,
+          })}
         />
       </div>
       {showExplanation && (

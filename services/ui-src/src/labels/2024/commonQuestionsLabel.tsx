@@ -52,6 +52,8 @@ export const commonQuestionsLabel = {
     srcExplanation: "Data Source Explanation",
     srcExplanationText:
       "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans or delivery systems that used each data source.",
+    otherDataSourceWarning:
+      "If you report using Other Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Source field is accurate, please continue reporting this measure.",
   },
   DataSourceCahps: {
     describeDataSrc:
