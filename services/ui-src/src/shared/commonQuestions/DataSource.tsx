@@ -22,8 +22,7 @@ interface DataSourceCheckboxBuilderProps {
   label?: string;
   otherDataSourceWarning?: string;
   parentName?: string;
-  adultMeasure?: boolean;
-  childMeasure?: boolean;
+  coreset?: string;
 }
 
 type DSCBFunc = ({
@@ -63,8 +62,7 @@ const buildDataSourceOptions: DSCBFunc = ({
   data = [],
   otherDataSourceWarning,
   parentName,
-  adultMeasure,
-  childMeasure,
+  coreset,
 }) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   for (const node of data) {
@@ -95,7 +93,7 @@ const buildDataSourceOptions: DSCBFunc = ({
     }
 
     if (
-      (adultMeasure || childMeasure) &&
+      (coreset === "adult" || coreset === "child") &&
       otherDataSourceWarning &&
       node.value === DC.OTHER_DATA_SOURCE
     ) {
@@ -139,8 +137,7 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
  */
 export const DataSource = ({
   data = defaultData,
-  adultMeasure,
-  childMeasure,
+  coreset,
 }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
   const { getValues } = useFormContext<Types.DataSource>();
@@ -166,8 +163,7 @@ export const DataSource = ({
           options={buildDataSourceOptions({
             data: data.options,
             otherDataSourceWarning: labels.DataSource.otherDataSourceWarning,
-            adultMeasure: adultMeasure,
-            childMeasure: childMeasure,
+            coreset: coreset,
           })}
         />
       </div>
