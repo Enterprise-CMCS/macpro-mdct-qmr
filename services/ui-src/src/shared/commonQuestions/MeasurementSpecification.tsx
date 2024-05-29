@@ -107,7 +107,6 @@ const specifications = {
 export const MeasurementSpecification = ({ type, coreset }: Props) => {
   const labels: any = useContext(SharedContext);
   const register = useCustomRegister<Types.MeasurementSpecification>();
-  const labels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper
@@ -130,11 +129,14 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
                   key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
                 />,
                 (coreset === "adult" || coreset === "child") &&
-                  labels.MeasureSpecifications.otherDataSourceWarning && (
+                  labels.MeasureSpecifications.otherMeasurementSpecWarning && (
                     <CUI.Box mb="8">
                       <Alert heading="Please Note" variation="warn">
                         <CUI.Text>
-                          {labels.MeasureSpecifications.otherDataSourceWarning}
+                          {
+                            labels.MeasureSpecifications
+                              .otherMeasurementSpecWarning
+                          }
                         </CUI.Text>
                       </Alert>
                     </CUI.Box>
