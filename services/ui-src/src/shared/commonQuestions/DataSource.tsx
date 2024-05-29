@@ -10,6 +10,7 @@ import { parseLabelToHTML } from "utils/parser";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
+import { Alert } from "@cmsgov/design-system";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -72,7 +73,6 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         }),
       ];
     });
-
     if (node.description) {
       children.push(
         <QMR.TextArea
@@ -82,7 +82,15 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         />
       );
     }
-
+    if (node.alert) {
+      children.push(
+        <CUI.Box mt="8">
+          <Alert heading="Please Note" variation="warn">
+            <CUI.Text>{node.alert}</CUI.Text>
+          </Alert>
+        </CUI.Box>
+      );
+    }
     checkBoxOptions.push({
       value: cleanedNodeValue,
       displayValue: node.value,
@@ -109,6 +117,23 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
   });
 };
 
+const addLabelByType = (
+  type: string,
+  options: OptionNode[],
+  labels: AnyObject
+) => {
+  options.forEach((options) => {
+    if (labels?.[type]?.[options.value]) {
+      options.alert = labels[type][options.value];
+    }
+    if (options.subOptions) {
+      options.subOptions.forEach((subOption) => {
+        addLabelByType(type, subOption.options, labels);
+      });
+    }
+  });
+};
+
 /**
  * Fully built DataSource component
  */
@@ -127,6 +152,7 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
 
   //adding hint label text recursively
   addHintLabel(data.options, labels.DataSource);
+  addLabelByType("warning", data.options, labels.DataSource);
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
