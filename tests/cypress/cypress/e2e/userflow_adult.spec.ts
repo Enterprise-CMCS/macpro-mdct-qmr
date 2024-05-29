@@ -4,6 +4,8 @@ const filePath = "fixtures/files/";
 // workflow to test: user goes through basic expected functionality for adult core set
 
 // fill out a measure for 2024
+const abbr = "ACSC";
+
 describe(`Adult Core Sets should be able to be created for ${testingYear}`, () => {
   beforeEach(() => {
     cy.login();
@@ -15,7 +17,7 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
   it("Creates or enters combined adult core-set", () => {
     cy.get('[data-cy="tableBody"]').then(($tbody) => {
       //check to see if adult coreset has been added to the table
-      if ($tbody.find('[data-cy^="ACS"]').length < 1) {
+      if ($tbody.find('[data-cy^="' + abbr + '"]').length === 0) {
         cy.get('[data-cy="add-adultbutton"]').then(($btn) => {
           //if the add adult coreset button is not disable
           if (!$btn.is(":disabled")) {
@@ -29,7 +31,10 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
         });
       }
     });
-    cy.get('[data-cy="ACS"]').should("contain.text", "Adult Core Set Measures");
+    cy.get('[data-cy="' + abbr + '"]').should(
+      "contain.text",
+      "Adult Core Set Measures: Separate CHIP"
+    );
   });
 });
 
@@ -65,14 +70,14 @@ describe("submit coreset", () => {
   beforeEach(() => {
     cy.login();
     cy.selectYear(testingYear);
-    cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[aria-label="Reset All Measures for ACS"]').click({
+    cy.get('[aria-label="Action Menu for ' + abbr + '"]').click();
+    cy.get('[aria-label="Reset All Measures for ' + abbr + '"]').click({
       force: true,
       waitForAnimations: false,
     });
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
       "contain.text",
       "in progress1 of 33 complete"
     );
@@ -80,13 +85,13 @@ describe("submit coreset", () => {
 
   it("submit and confirm submission", () => {
     // complete core set
-    cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[aria-label="Complete All Measures for ACS"]').click({
+    cy.get('[aria-label="Action Menu for ' + abbr + '"]').click();
+    cy.get('[aria-label="Complete All Measures for ' + abbr + '"]').click({
       force: true,
       waitForAnimations: false,
     });
     cy.wait(4000);
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
       "contain.text",
       "complete33 of 33 complete"
     );
@@ -101,7 +106,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-WY2024ACS"]').should(
+    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
       "contain.text",
       "submitted33 of 33 complete"
     );
@@ -120,8 +125,8 @@ describe("Export All Measures", () => {
   });
 
   it("Test Adult Core Set", () => {
-    cy.get('[data-cy="adult-kebab-menu"]').click();
-    cy.get('[aria-label="Export for ACS"]').click();
+    cy.get('[aria-label="Action Menu for ' + abbr + '"]').click();
+    cy.get('[aria-label="Export for ' + abbr + '"]').click();
 
     // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2024.ADULT) {

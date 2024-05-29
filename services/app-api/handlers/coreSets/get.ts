@@ -39,37 +39,44 @@ export const coreSetList = handler(async (event, context) => {
   // using coreSetByYear to see if it's a year that should have
   // coresets generated from login
   const year = parseInt(event!.pathParameters!.year!);
+  const state = event!.pathParameters!.state!;
+
   const coreSetsByYear = coreSets[
     year as keyof typeof coreSets
   ] as CoreSetField[];
   let results = await dynamoDb.scanAll<CoreSet>(params);
 
   const filteredCoreSets = coreSetsByYear.filter((coreSet) => {
-    const matchedCoreSet = results.find(
-      (existingCoreSet: CoreSet) => existingCoreSet.coreSet === coreSet.abbr
+    const matchedCoreSet = results.find((existingCoreSet: CoreSet) =>
+      coreSet.abbr.includes(existingCoreSet.coreSet)
     );
-    return coreSet.loaded && !matchedCoreSet;
+    return (
+      (coreSet.loaded?.length === 0 || coreSet.loaded?.includes(state)) &&
+      !matchedCoreSet
+    );
   });
 
   // check if any coresets should be preloaded and requery the db
-  for (let coreSet of filteredCoreSets) {
-    let createCoreSetEvent = {
-      ...event,
-      pathParameters: {
-        ...event.pathParameters,
-        coreSet: coreSet.abbr,
-      },
-    };
-    const createCoreSetResult = await createCoreSet(
-      createCoreSetEvent,
-      context
-    );
-
-    if (createCoreSetResult.statusCode !== 200) {
-      return {
-        status: StatusCodes.SERVER_ERROR,
-        body: "Creation failed",
+  for (const coreSet of filteredCoreSets) {
+    for (const abbr of coreSet.abbr) {
+      let createCoreSetEvent = {
+        ...event,
+        pathParameters: {
+          ...event.pathParameters,
+          coreSet: abbr,
+        },
       };
+      const createCoreSetResult = await createCoreSet(
+        createCoreSetEvent,
+        context
+      );
+
+      if (createCoreSetResult.statusCode !== 200) {
+        return {
+          status: StatusCodes.SERVER_ERROR,
+          body: "Creation failed",
+        };
+      }
     }
   }
   results = await dynamoDb.scanAll<CoreSet>(params);
