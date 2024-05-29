@@ -35,15 +35,6 @@ describe("Measure: AMB-HH", () => {
     "If not reporting and not why not -> show error",
     cy.showErrorIfNotReportingAndNotWhy
   );
-
-  // upload a file
-  it("Can upload a file", () => {
-    cy.get('[data-testid="upload-stack"]').scrollIntoView();
-    cy.get('[data-testid="upload-component"]')
-      .invoke("show")
-      .selectFile(`${filePath}adobe.pdf`);
-    cy.get('[data-cy="file-upload-adobe.pdf"]').should("be.visible");
-  });
 });
 
 describe("Add custom measure", () => {
@@ -137,5 +128,24 @@ describe("Export All Measures", () => {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");
+  });
+});
+
+//some features have been removed from 2024 but we should still test for 2023
+describe("Test uploading a file", () => {
+  beforeEach(() => {
+    cy.loginHealthHome();
+    cy.selectYear("2023");
+    cy.goToHealthHomeSetMeasures();
+    cy.goToMeasure("AMB-HH");
+  });
+
+  // upload a file
+  it("Can upload a file", () => {
+    cy.get('[data-testid="upload-stack"]').scrollIntoView();
+    cy.get('[data-testid="upload-component"]')
+      .invoke("show")
+      .selectFile(`${filePath}adobe.pdf`);
+    cy.get('[data-cy="file-upload-adobe.pdf"]').should("be.visible");
   });
 });

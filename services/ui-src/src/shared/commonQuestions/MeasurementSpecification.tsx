@@ -103,6 +103,7 @@ const specifications = {
 };
 
 export const MeasurementSpecification = ({ type }: Props) => {
+  const labels: any = useContext(SharedContext);
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
   return (
@@ -125,10 +126,12 @@ export const MeasurementSpecification = ({ type }: Props) => {
                   label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
                   key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
                 />,
-                <QMR.Upload
-                  label="If you need additional space to describe your state's methodology, please attach further documentation below."
-                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
-                />,
+                labels.MeasureSpecifications.upload && (
+                  <QMR.Upload
+                    label="If you need additional space to describe your state's methodology, please attach further documentation below."
+                    {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
+                  />
+                ),
               ],
             },
           ]}

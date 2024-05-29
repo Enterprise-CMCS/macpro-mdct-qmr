@@ -55,15 +55,6 @@ describe("Measure: CDF-AD", () => {
     "If not reporting and not why not -> show error",
     cy.showErrorIfNotReportingAndNotWhy
   );
-
-  // upload a file
-  it("Can upload a file", () => {
-    cy.get('[data-testid="upload-stack"]').scrollIntoView();
-    cy.get('[data-testid="upload-component"]')
-      .invoke("show")
-      .selectFile(`${filePath}adobe.pdf`);
-    cy.get('[data-cy="file-upload-adobe.pdf"]').should("be.visible");
-  });
 });
 
 describe("submit coreset", () => {
@@ -133,5 +124,24 @@ describe("Export All Measures", () => {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");
+  });
+});
+
+//some features have been removed from 2024 but we should still test for 2023
+describe("Test uploading a file", () => {
+  beforeEach(() => {
+    cy.login();
+    cy.selectYear("2023");
+    cy.goToAdultMeasures();
+    cy.goToMeasure("CDF-AD");
+  });
+
+  // upload a file
+  it("Can upload a file", () => {
+    cy.get('[data-testid="upload-stack"]').scrollIntoView();
+    cy.get('[data-testid="upload-component"]')
+      .invoke("show")
+      .selectFile(`${filePath}adobe.pdf`);
+    cy.get('[data-cy="file-upload-adobe.pdf"]').should("be.visible");
   });
 });
