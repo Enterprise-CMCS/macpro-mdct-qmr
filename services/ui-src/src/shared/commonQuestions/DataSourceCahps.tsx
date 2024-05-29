@@ -11,7 +11,7 @@ import * as CUI from "@chakra-ui/react";
 
 interface DataSourceProps {
   data?: DataSourceData;
-  coreset?: string;
+  type?: string;
 }
 
 /**
@@ -19,7 +19,7 @@ interface DataSourceProps {
  */
 export const DataSourceRadio = ({
   data = defaultData,
-  coreset,
+  type,
 }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
 
@@ -50,7 +50,7 @@ export const DataSourceRadio = ({
                   fontSize: "normal",
                 }}
               />,
-              (coreset === "adult" || coreset === "child") &&
+              (type === "adult" || type === "child") &&
                 labels?.DataSourceCahps.otherDataSourceWarning && (
                   <CUI.Box mt="8">
                     <Alert heading="Please Note" variation="warn">

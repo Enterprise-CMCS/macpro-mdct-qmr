@@ -41,7 +41,7 @@ export const COLAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} coreset="adult" />
+          <CMQ.DataSource data={PMD.dataSourceData} type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

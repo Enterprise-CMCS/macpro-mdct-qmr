@@ -41,7 +41,7 @@ export const ADDCH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} coreset="child" />
+          <CMQ.DataSource data={PMD.dataSourceData} type="child" />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (

@@ -14,7 +14,7 @@ import { Alert } from "@cmsgov/design-system";
 
 interface DataSourceProps {
   data?: DataSourceData;
-  coreset?: string;
+  type?: string;
 }
 
 interface DataSourceCheckboxBuilderProps {
@@ -22,7 +22,7 @@ interface DataSourceCheckboxBuilderProps {
   label?: string;
   otherDataSourceWarning?: string;
   parentName?: string;
-  coreset?: string;
+  type?: string;
 }
 
 type DSCBFunc = ({
@@ -62,7 +62,7 @@ const buildDataSourceOptions: DSCBFunc = ({
   data = [],
   otherDataSourceWarning,
   parentName,
-  coreset,
+  type,
 }) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   for (const node of data) {
@@ -93,7 +93,7 @@ const buildDataSourceOptions: DSCBFunc = ({
     }
 
     if (
-      (coreset === "adult" || coreset === "child") &&
+      (type === "adult" || type === "child") &&
       otherDataSourceWarning &&
       node.value === DC.OTHER_DATA_SOURCE
     ) {
@@ -135,10 +135,7 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
 /**
  * Fully built DataSource component
  */
-export const DataSource = ({
-  data = defaultData,
-  coreset,
-}: DataSourceProps) => {
+export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
   const { getValues } = useFormContext<Types.DataSource>();
   const watchDataSource = useWatch<Types.DataSource>({
@@ -163,7 +160,7 @@ export const DataSource = ({
           options={buildDataSourceOptions({
             data: data.options,
             otherDataSourceWarning: labels.DataSource.otherDataSourceWarning,
-            coreset: coreset,
+            type: type,
           })}
         />
       </div>

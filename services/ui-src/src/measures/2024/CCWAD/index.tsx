@@ -41,7 +41,7 @@ export const CCWAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="OPA" />
-          <CMQ.DataSource coreset="adult" />
+          <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

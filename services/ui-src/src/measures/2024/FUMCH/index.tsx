@@ -41,7 +41,7 @@ export const FUMCH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource coreset="child" />
+          <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure={true} />
           {isPrimaryMeasureSpecSelected && (
