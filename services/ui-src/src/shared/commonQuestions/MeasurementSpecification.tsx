@@ -105,6 +105,7 @@ const specifications = {
 };
 
 export const MeasurementSpecification = ({ type, coreset }: Props) => {
+  const labels: any = useContext(SharedContext);
   const register = useCustomRegister<Types.MeasurementSpecification>();
   const labels: any = useContext(SharedContext);
 
@@ -138,10 +139,12 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
                       </Alert>
                     </CUI.Box>
                   ),
-                <QMR.Upload
-                  label="If you need additional space to describe your state's methodology, please attach further documentation below."
-                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
-                />,
+                labels.MeasureSpecifications.upload && (
+                  <QMR.Upload
+                    label="If you need additional space to describe your state's methodology, please attach further documentation below."
+                    {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
+                  />
+                ),
               ],
             },
           ]}

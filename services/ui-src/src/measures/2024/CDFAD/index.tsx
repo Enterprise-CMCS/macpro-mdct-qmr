@@ -41,7 +41,7 @@ export const CDFAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="CMS" coreset="adult" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource data={PMD.dataSourceData} type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

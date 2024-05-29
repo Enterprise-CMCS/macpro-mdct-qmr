@@ -14,12 +14,15 @@ import { Alert } from "@cmsgov/design-system";
 
 interface DataSourceProps {
   data?: DataSourceData;
+  type?: string;
 }
 
 interface DataSourceCheckboxBuilderProps {
   data?: OptionNode[];
   label?: string;
+  otherDataSourceWarning?: string;
   parentName?: string;
+  type?: string;
 }
 
 type DSCBFunc = ({
@@ -55,7 +58,12 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
 /**
  * Build Data Source checkbox options, and possible child checkbox children
  */
-const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
+const buildDataSourceOptions: DSCBFunc = ({
+  data = [],
+  otherDataSourceWarning,
+  parentName,
+  type,
+}) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   for (const node of data) {
     const cleanedNodeValue = cleanString(node.value);
@@ -82,6 +90,21 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         />
       );
     }
+
+    if (
+      (type === "adult" || type === "child") &&
+      otherDataSourceWarning &&
+      node.value === DC.OTHER_DATA_SOURCE
+    ) {
+      children.push(
+        <CUI.Box mt="8">
+          <Alert heading="Please Note" variation="warn">
+            <CUI.Text>{otherDataSourceWarning}</CUI.Text>
+          </Alert>
+        </CUI.Box>
+      );
+    }
+
     if (node.alert) {
       children.push(
         <CUI.Box mt="8">
@@ -91,6 +114,7 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         </CUI.Box>
       );
     }
+
     checkBoxOptions.push({
       value: cleanedNodeValue,
       displayValue: node.value,
@@ -137,7 +161,7 @@ const addLabelByType = (
 /**
  * Fully built DataSource component
  */
-export const DataSource = ({ data = defaultData }: DataSourceProps) => {
+export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
   const { getValues } = useFormContext<Types.DataSource>();
   const watchDataSource = useWatch<Types.DataSource>({
@@ -160,7 +184,11 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
         <QMR.Checkbox
           {...register(DC.DATA_SOURCE)}
           label={data.optionsLabel}
-          options={buildDataSourceOptions({ data: data.options })}
+          options={buildDataSourceOptions({
+            data: data.options,
+            otherDataSourceWarning: labels.DataSource.otherDataSourceWarning,
+            type: type,
+          })}
         />
       </div>
       {showExplanation && (

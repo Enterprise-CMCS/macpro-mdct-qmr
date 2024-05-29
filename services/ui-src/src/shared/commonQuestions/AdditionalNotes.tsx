@@ -35,9 +35,11 @@ export const AdditionalNotes = () => {
         label={parseLabelToHTML(textAreaLabel)}
         {...register(DC.ADDITIONAL_NOTES)}
       />
-      <CUI.Box marginTop={10}>
-        <Upload label={upload} {...register(DC.ADDITIONAL_NOTES_UPLOAD)} />
-      </CUI.Box>
+      {upload && (
+        <CUI.Box marginTop={10}>
+          <Upload label={upload} {...register(DC.ADDITIONAL_NOTES_UPLOAD)} />
+        </CUI.Box>
+      )}
     </QMR.CoreQuestionWrapper>
   );
 };

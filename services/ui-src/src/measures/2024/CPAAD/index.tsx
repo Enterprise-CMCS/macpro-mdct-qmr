@@ -32,7 +32,7 @@ export const CPAAD = ({
         <>
           <Q.HowDidYouReport />
           <CMQ.MeasurementSpecification type="AHRQ-NCQA" coreset="adult" />
-          <Q.DataSource />
+          <Q.DataSource type="adult" />
           <Q.DefinitionOfPopulation />
           <Q.PerformanceMeasure />
         </>
