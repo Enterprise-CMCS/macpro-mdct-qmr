@@ -41,7 +41,7 @@ export const W30CH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource />
+          <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (

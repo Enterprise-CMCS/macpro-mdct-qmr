@@ -42,7 +42,7 @@ export const CCPCH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="OPA" />
-          <CMQ.DataSource />
+          <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (

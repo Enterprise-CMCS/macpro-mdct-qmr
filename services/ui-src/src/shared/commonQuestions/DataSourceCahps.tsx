@@ -6,15 +6,21 @@ import { DataSourceData, defaultData } from "../types/TypeDataSourceCahps";
 import { parseLabelToHTML } from "utils/parser";
 import * as DC from "dataConstants";
 import SharedContext from "shared/SharedContext";
+import { Alert } from "@cmsgov/design-system";
+import * as CUI from "@chakra-ui/react";
 
 interface DataSourceProps {
   data?: DataSourceData;
+  type?: string;
 }
 
 /**
  * Fully built DataSource component
  */
-export const DataSourceRadio = ({ data = defaultData }: DataSourceProps) => {
+export const DataSourceRadio = ({
+  data = defaultData,
+  type,
+}: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
 
   const labels: any = useContext(SharedContext);
@@ -44,6 +50,16 @@ export const DataSourceRadio = ({ data = defaultData }: DataSourceProps) => {
                   fontSize: "normal",
                 }}
               />,
+              (type === "adult" || type === "child") &&
+                labels?.DataSourceCahps.otherDataSourceWarning && (
+                  <CUI.Box mt="8">
+                    <Alert heading="Please Note" variation="warn">
+                      <CUI.Text>
+                        {labels.DataSourceCahps.otherDataSourceWarning}
+                      </CUI.Text>
+                    </Alert>
+                  </CUI.Box>
+                ),
             ],
           },
         ]}

@@ -41,7 +41,7 @@ export const HPCMIAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="NCQA" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource data={PMD.dataSourceData} type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation hybridMeasure />
           {isPrimaryMeasureSpecSelected && (

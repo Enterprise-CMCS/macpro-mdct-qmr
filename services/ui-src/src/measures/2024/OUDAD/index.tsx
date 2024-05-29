@@ -40,7 +40,7 @@ export const OUDAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="CMS" />
-          <CMQ.DataSource />
+          <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

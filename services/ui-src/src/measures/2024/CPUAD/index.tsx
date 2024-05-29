@@ -34,7 +34,7 @@ export const CPUAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource data={PMD.dataSourceData} />
+          <CMQ.DataSource data={PMD.dataSourceData} type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation populationSampleSize />
           {isPrimaryMeasureSpecSelected && (
