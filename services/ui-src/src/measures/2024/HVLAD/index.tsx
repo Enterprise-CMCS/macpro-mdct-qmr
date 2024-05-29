@@ -40,7 +40,7 @@ export const HVLAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HRSA" />
+          <CMQ.MeasurementSpecification type="HRSA" coreset="adult" />
           <CMQ.DataSource data={PMD.dataSourceData} type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

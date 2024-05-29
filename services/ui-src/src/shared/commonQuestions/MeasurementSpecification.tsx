@@ -5,6 +5,7 @@ import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { Alert } from "@cmsgov/design-system";
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
@@ -45,6 +46,7 @@ interface Props {
     | "OHSU"
     | "OPA"
     | "PQA";
+  coreset?: string;
 }
 
 const specifications = {
@@ -102,7 +104,7 @@ const specifications = {
   },
 };
 
-export const MeasurementSpecification = ({ type }: Props) => {
+export const MeasurementSpecification = ({ type, coreset }: Props) => {
   const labels: any = useContext(SharedContext);
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
@@ -126,6 +128,19 @@ export const MeasurementSpecification = ({ type }: Props) => {
                   label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
                   key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
                 />,
+                (coreset === "adult" || coreset === "child") &&
+                  labels.MeasureSpecifications.otherMeasurementSpecWarning && (
+                    <CUI.Box mb="8">
+                      <Alert heading="Please Note" variation="warn">
+                        <CUI.Text>
+                          {
+                            labels.MeasureSpecifications
+                              .otherMeasurementSpecWarning
+                          }
+                        </CUI.Text>
+                      </Alert>
+                    </CUI.Box>
+                  ),
                 labels.MeasureSpecifications.upload && (
                   <QMR.Upload
                     label="If you need additional space to describe your state's methodology, please attach further documentation below."

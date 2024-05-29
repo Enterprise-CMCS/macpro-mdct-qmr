@@ -39,7 +39,7 @@ export const OUDAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="CMS" />
+          <CMQ.MeasurementSpecification type="CMS" coreset="adult" />
           <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

@@ -40,7 +40,7 @@ export const PQI15AD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="AHRQ" />
+          <CMQ.MeasurementSpecification type="AHRQ" coreset="adult" />
           <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

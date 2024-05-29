@@ -40,7 +40,7 @@ export const CCPAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="OPA" />
+          <CMQ.MeasurementSpecification type="OPA" coreset="adult" />
           <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

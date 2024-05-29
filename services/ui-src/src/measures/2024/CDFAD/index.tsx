@@ -40,7 +40,7 @@ export const CDFAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="CMS" />
+          <CMQ.MeasurementSpecification type="CMS" coreset="adult" />
           <CMQ.DataSource data={PMD.dataSourceData} type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

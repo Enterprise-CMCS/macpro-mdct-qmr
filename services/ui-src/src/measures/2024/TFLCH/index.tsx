@@ -40,7 +40,7 @@ export const TFLCH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="ADA-DQA" />
+          <CMQ.MeasurementSpecification type="ADA-DQA" coreset="child" />
           <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
