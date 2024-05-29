@@ -43,7 +43,7 @@ export const AABCH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" />
+          <CMQ.MeasurementSpecification type="HEDIS" coreset="child" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />

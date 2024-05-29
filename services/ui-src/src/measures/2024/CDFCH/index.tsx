@@ -40,7 +40,7 @@ export const CDFCH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="CMS" />
+          <CMQ.MeasurementSpecification type="CMS" coreset="child" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure={true} />

@@ -40,7 +40,7 @@ export const COBAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="PQA" />
+          <CMQ.MeasurementSpecification type="PQA" coreset="adult" />
           <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

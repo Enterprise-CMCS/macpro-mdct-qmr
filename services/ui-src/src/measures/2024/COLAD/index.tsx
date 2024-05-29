@@ -40,7 +40,7 @@ export const COLAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" />
+          <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />

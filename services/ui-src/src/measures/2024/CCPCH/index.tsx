@@ -41,7 +41,7 @@ export const CCPCH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="OPA" />
+          <CMQ.MeasurementSpecification type="OPA" coreset="child" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />

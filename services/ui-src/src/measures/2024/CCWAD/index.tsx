@@ -40,7 +40,7 @@ export const CCWAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="OPA" />
+          <CMQ.MeasurementSpecification type="OPA" coreset="adult" />
           <CMQ.DataSource />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
