@@ -1,10 +1,12 @@
+import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useGetMeasures } from "hooks/api";
-import { MeasureData } from "types";
+import { AnyObject, CoreSetAbbr, MeasureData, coreSetType } from "types";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { Link, useParams } from "react-router-dom";
 import { MeasureTableItem } from "components/Table/types";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 const GetColumns = () => {
   return [
@@ -58,15 +60,36 @@ const GetMeasuresByCoreSet = (coreSet: string, year: string) => {
   });
 };
 
+export const GetCoreSetTabs = (abbr: CoreSetAbbr[]) => {
+  //indicating which coreSet we want to look at, correctly we want adult & child but not health home
+  const coreSetToLoad: CoreSetAbbr[] = [CoreSetAbbr.CCS, CoreSetAbbr.ACS];
+
+  const coreSetTabs: AnyObject[] = [];
+  coreSetToLoad.forEach((coreSet: CoreSetAbbr) => {
+    const title = `${coreSetType[coreSet]} Core Set`;
+    //since the measures are the same for either combined or separated, we just the first result since we want to load only once
+    const coreSetAbbr = abbr?.find((item) => item.includes(coreSet));
+    coreSetTabs.push({ abbr: coreSetAbbr ?? "", title: title });
+  });
+  return coreSetTabs;
+};
+
 export const CombinedRatesPage = () => {
-  const coreSetTabs = [
-    { abbr: "CCSC", title: "Child Core Set" },
-    { abbr: "ACSC", title: "Adult Core Set" },
-  ];
+  //feature flag for the current year
+  const releasedTwentyTwentyFour = useFlags()?.["release2024"];
+  const { data, isLoading } = Api.useGetCoreSets(releasedTwentyTwentyFour);
+  const coreSetsAbbr = data?.Items?.map(
+    (coreSet: AnyObject) => coreSet.coreSet
+  );
+  const coreSetTabs = GetCoreSetTabs(coreSetsAbbr);
   const { state, year } = useParams();
-  let data = coreSetTabs.map((coreSet) =>
+  let coreSetData = coreSetTabs.map((coreSet) =>
     GetMeasuresByCoreSet(coreSet.abbr, year!)
   );
+
+  if (isLoading || !data.Items) {
+    return <QMR.LoadingWave />;
+  }
 
   return (
     <QMR.StateLayout
@@ -105,13 +128,13 @@ export const CombinedRatesPage = () => {
             ))}
           </CUI.TabList>
           <CUI.TabPanels border="1px" borderColor="gray.200">
-            {data?.map((measures, idx) => (
+            {coreSetData?.map((measures, idx) => (
               <CUI.TabPanel key={"panel" + idx}>
                 {measures?.length > 0 ? (
                   <QMR.Table data={measures} columns={GetColumns()} />
                 ) : (
                   <CUI.Text textAlign="center" padding="16">
-                    No core sets have been added
+                    No core sets have been added.
                   </CUI.Text>
                 )}
               </CUI.TabPanel>
