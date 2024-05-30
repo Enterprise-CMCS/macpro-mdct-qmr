@@ -59,12 +59,12 @@ const GetMeasuresByCoreSet = (coreSet: string, year: string) => {
 };
 
 export const CombinedRatesPage = () => {
-  const coreSetAbbr = [
+  const coreSetTabs = [
     { abbr: "CCSC", title: "Child Core Set" },
     { abbr: "ACSC", title: "Adult Core Set" },
   ];
   const { state, year } = useParams();
-  let data = coreSetAbbr.map((coreSet) =>
+  let data = coreSetTabs.map((coreSet) =>
     GetMeasuresByCoreSet(coreSet.abbr, year!)
   );
 
@@ -81,7 +81,6 @@ export const CombinedRatesPage = () => {
       <CUI.VStack
         maxW="7xl"
         pb="6"
-        pr={{ md: "4rem" }}
         alignItems="flex-start"
         spacing="6"
         padding="2rem"
@@ -95,7 +94,7 @@ export const CombinedRatesPage = () => {
         </CUI.Text>
         <CUI.Tabs width="100%" variant="unstyled">
           <CUI.TabList>
-            {coreSetAbbr.map((coreSet) => (
+            {coreSetTabs.map((coreSet) => (
               <CUI.Tab
                 key={coreSet.title + "tab"}
                 padding={{ base: "2% 10%", md: "10px 40px" }}
