@@ -93,13 +93,19 @@ export const CombinedRatesPage = () => {
           Instructions for the user - includes how to interpret the page and
           what they need to do to see rates (i.e. complete all measures)
         </CUI.Text>
-        <CUI.Tabs variant="enclosed" width="100%">
+        <CUI.Tabs width="100%" variant="unstyled">
           <CUI.TabList>
             {coreSetAbbr.map((coreSet) => (
-              <CUI.Tab key={coreSet.title + "tab"}>{coreSet.title}</CUI.Tab>
+              <CUI.Tab
+                key={coreSet.title + "tab"}
+                padding={{ base: "2% 10%", md: "10px 40px" }}
+                width={{ base: "100%", md: "fit-content" }}
+              >
+                {coreSet.title}
+              </CUI.Tab>
             ))}
           </CUI.TabList>
-          <CUI.TabPanels border="1px">
+          <CUI.TabPanels border="1px" borderColor="gray.200">
             {data?.map((measures, idx) => (
               <CUI.TabPanel key={"panel" + idx}>
                 {measures?.length > 0 ? (
