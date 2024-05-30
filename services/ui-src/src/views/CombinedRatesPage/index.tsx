@@ -16,7 +16,7 @@ const GetColumns = () => {
       styleProps: { textAlign: "center", width: "10%" },
       cell: (data: MeasureTableItem.Data) => {
         return (
-          <Link to={data.path}>
+          <Link to={data.path} aria-label={data.abbr}>
             <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.abbr}>
               {data.abbr}
             </CUI.Text>
@@ -29,7 +29,7 @@ const GetColumns = () => {
       id: "title_column_header",
       cell: (data: MeasureTableItem.Data) => {
         return (
-          <Link to={data.path}>
+          <Link to={data.path} aria-label={data.title}>
             <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.path}>
               {data.title}
             </CUI.Text>
@@ -40,7 +40,7 @@ const GetColumns = () => {
   ];
 };
 
-const GetMeasuresByCoreSet = (coreSet: string, year: string) => {
+const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
   const { data } = useGetMeasures(coreSet);
   const measures = data?.Items as MeasureData[];
   const formatted = measures
@@ -55,7 +55,7 @@ const GetMeasuresByCoreSet = (coreSet: string, year: string) => {
       id: item.measure,
       abbr: item.measure,
       title: measureDescriptions[year][item.measure],
-      path: "/",
+      path: `/${state}/${year}/combined-rates/${item.measure}`,
     } as MeasureTableItem.Data;
   });
 };
@@ -84,7 +84,7 @@ export const CombinedRatesPage = () => {
   const coreSetTabs = GetCoreSetTabs(coreSetsAbbr);
   const { state, year } = useParams();
   let coreSetData = coreSetTabs.map((coreSet) =>
-    GetMeasuresByCoreSet(coreSet.abbr, year!)
+    GetMeasuresByCoreSet(coreSet.abbr, state!, year!)
   );
 
   if (isLoading || !data.Items) {
