@@ -1,8 +1,8 @@
 import { defineConfig } from "cypress";
 import setupNodeEvents from "./plugins";
-import dotenv from "dotenv";
+import { config } from "dotenv";
 
-dotenv.config({ path: "../../.env" });
+config({ path: "../../.env" });
 
 export default defineConfig({
   redirectionLimit: 20,
