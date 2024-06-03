@@ -7,6 +7,7 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { calculateRate } from "../../utils/calculations";
 
 export const editMeasure = handler(async (event, context) => {
   // action limited to state users from corresponding state
@@ -54,6 +55,8 @@ export const editMeasure = handler(async (event, context) => {
     ),
   };
   await dynamoDb.update(params);
+  //after updating the database with the latest values for the measure, we run the combine rates calculations
+  await calculateRate(event);
 
   return { status: StatusCodes.SUCCESS, body: params };
 });
