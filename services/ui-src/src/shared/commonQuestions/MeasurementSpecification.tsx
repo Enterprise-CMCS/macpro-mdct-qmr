@@ -104,7 +104,6 @@ const specifications = {
 };
 
 export const MeasurementSpecification = ({ type, coreset }: Props) => {
-  const labels: any = useContext(SharedContext);
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
   const measureSpecLabels: any = useContext(SharedContext);
@@ -136,19 +135,20 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
                   key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
                 />,
                 (coreset === "adult" || coreset === "child") &&
-                  labels.MeasureSpecifications.otherMeasurementSpecWarning && (
+                  measureSpecLabels.MeasureSpecifications
+                    .otherMeasurementSpecWarning && (
                     <CUI.Box mb="8">
                       <Alert heading="Please Note" variation="warn">
                         <CUI.Text>
                           {
-                            labels.MeasureSpecifications
+                            measureSpecLabels.MeasureSpecifications
                               .otherMeasurementSpecWarning
                           }
                         </CUI.Text>
                       </Alert>
                     </CUI.Box>
                   ),
-                labels.MeasureSpecifications.upload && (
+                measureSpecLabels.MeasureSpecifications.upload && (
                   <QMR.Upload
                     label="If you need additional space to describe your state's methodology, please attach further documentation below."
                     {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
