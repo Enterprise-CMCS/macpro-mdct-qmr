@@ -8,25 +8,26 @@ const passwordForCognito = "input[name='password']";
 const loginUser = (user: string) => {
   cy.session([user], () => {
     const users = {
-      stateuser4: Cypress.env("TEST_USER_4"),
-      stateuser3: Cypress.env("TEST_USER_3"),
-      stateuser2: Cypress.env("TEST_USER_2"),
-      stateuser1: Cypress.env("TEST_USER_1"),
+      stateuser4: Cypress.env("STATE_USER_4"),
+      stateuser2: Cypress.env("STATE_USER_2"),
+      adminuser: Cypress.env("ADMIN_USER"),
     };
     cy.visit("/");
-    cy.get(emailForCognito).type(`${users[user]}`);
-    cy.get(passwordForCognito).type(Cypress.env("TEST_PASSWORD_1"));
+    cy.get(emailForCognito).type(users[user]);
+    cy.get(passwordForCognito).type(Cypress.env("QMR_PASSWORD"), {
+      log: false,
+    });
     cy.get('[data-cy="login-with-cognito-button"]').click();
     cy.wait(4500);
   });
   cy.visit("/");
 };
-// the default stateuser3 is used to login but can also be changed
+// the default stateuser2 is used to login but can also be changed
 // by passing in a user (not including the @test.com) ex. cy.login('bouser')
 Cypress.Commands.add(
   "login",
   (
-    user = "stateuser3" // pragma: allowlist secret
+    user = "stateuser2" // pragma: allowlist secret
   ) => {
     loginUser(user);
   }
@@ -49,7 +50,13 @@ Cypress.Commands.add("selectYear", (year) => {
 
 // Visit Adult Core Set Measures
 Cypress.Commands.add("goToAdultMeasures", () => {
-  cy.get('[data-cy="ACS"]').click();
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
+    if ($tbody.find('[data-cy="ACS"]').length > 0) {
+      cy.get('[data-cy="ACS"]').click();
+    } else if ($tbody.find('[data-cy="ACSC"]').length > 0) {
+      cy.get('[data-cy="ACSC"]').click();
+    }
+  });
 });
 
 // Visit Child Core Set Measures
@@ -57,6 +64,8 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="CCS"]').length > 0) {
       cy.get('[data-cy="CCS"]').click();
+    } else if ($tbody.find('[data-cy="CCSC"]').length > 0) {
+      cy.get('[data-cy="CCSC"]').click();
     }
   });
 });
@@ -140,25 +149,48 @@ Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
   ).should("be.visible");
 });
 
-// helper recursive function to remove added core sets
-const removeCoreSetElements = (kebab: string) => {
-  cy.get(kebab).first().click();
-  cy.wait(3000);
-  cy.get('[data-cy="Delete"]').first().click({ force: true });
-  cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
-  cy.wait(3000);
+const clickCoreSetAction = (kebab: string, selector: string) => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find(kebab).length > 0) {
-      removeCoreSetElements(kebab);
+      cy.get(kebab).first().click();
+      cy.wait(3000);
+      cy.get(selector).click({ force: true });
     }
   });
 };
 
+// helper recursive function to remove added core sets
+const removeCoreSetElements = (kebab: string, selector: string) => {
+  clickCoreSetAction(kebab, selector);
+  cy.wait(3000);
+  cy.get('[data-cy="delete-table-item-input"]').type("delete{enter}");
+};
+
+// removes adult core set from main page
+Cypress.Commands.add("deleteAdultCoreSets", () => {
+  cy.get('[data-cy="tableBody"]').then(($tbody) => {
+    if ($tbody.find('[data-cy="adult-kebab-menu"]').length > 0) {
+      removeCoreSetElements(
+        '[data-cy="adult-kebab-menu"]',
+        '[aria-label="Delete for ACS"]'
+      );
+    }
+  });
+});
+
 // removes child core set from main page
 Cypress.Commands.add("deleteChildCoreSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
-    if ($tbody.find('[data-cy="child-kebab-menu"]').length > 0) {
-      removeCoreSetElements('[data-cy="child-kebab-menu"]');
+    if ($tbody.find('[data-cy="child-kebab-menu"]').length === 1) {
+      removeCoreSetElements(
+        '[data-cy="child-kebab-menu"]',
+        '[aria-label="Delete for CCS"]'
+      );
+    } else if ($tbody.find('[data-cy="child-kebab-menu"]').length > 1) {
+      removeCoreSetElements(
+        '[data-cy="child-kebab-menu"]',
+        '[aria-label="Delete for CCSC"]'
+      );
     }
   });
 });
@@ -167,7 +199,10 @@ Cypress.Commands.add("deleteChildCoreSets", () => {
 Cypress.Commands.add("deleteHealthHomeSets", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy="health home-kebab-menu"]').length > 0) {
-      removeCoreSetElements('[data-cy="health home-kebab-menu"]');
+      removeCoreSetElements(
+        '[data-cy="health home-kebab-menu"]',
+        '[aria-label="Delete for HHCS_15-014"]'
+      );
     }
   });
 });

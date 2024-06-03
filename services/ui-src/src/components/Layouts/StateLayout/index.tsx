@@ -42,12 +42,18 @@ export const StateLayout: React.FC<Props> = ({
         data-cy="state-layout-container"
       >
         <CUI.Box bg={singleNavigationItem ? "blue.700" : "blue.100"}>
-          <CUI.Flex maxW="7xl" p="3" alignItems="center" mx="auto">
+          <CUI.Flex
+            maxW="7xl"
+            p="3"
+            alignItems="center"
+            mx="auto"
+            justifyContent="center"
+            flexWrap={{ base: "wrap", lg: "nowrap" }}
+          >
             <QMR.Breadcrumbs
               items={breadcrumbItems}
               color={singleNavigationItem ? "white" : "inherit"}
             />
-            <CUI.Spacer className="hidden-print-items" />
             {buttons}
           </CUI.Flex>
         </CUI.Box>

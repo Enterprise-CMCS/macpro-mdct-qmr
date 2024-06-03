@@ -4,7 +4,7 @@ import * as Common from ".";
 
 export const ExternalContractor = () => {
   return (
-    <CUI.ListItem>
+    <CUI.ListItem m="4">
       <Common.QualifierHeader
         header="External Contractor"
         description="Please indicate whether your state obtained assistance from one or

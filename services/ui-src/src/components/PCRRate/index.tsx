@@ -195,7 +195,11 @@ export const PCRRate = ({
 
   return (
     <CUI.Box>
-      <CUI.Stack my={8} direction="row" className="multi-rate-print-stack">
+      <CUI.Stack
+        my={8}
+        direction={{ base: "column", md: "row" }}
+        className="multi-rate-print-stack"
+      >
         {rates.slice(0, 6).map((rate, index) => {
           return generateInputs(rate, index);
         })}
@@ -209,7 +213,7 @@ export const PCRRate = ({
       <CUI.Stack
         my={8}
         spacing={3}
-        direction="row"
+        direction={{ base: "column", md: "row" }}
         className="multi-rate-print-stack"
       >
         {rates.slice(6).map((rate, index) => {

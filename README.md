@@ -119,7 +119,7 @@ The following are prerequisites for local development.
 
 1. Run the application.
    ```bash
-   ./dev local
+   ./run local
    ```
    A number of test users are defined in `users.json`. See the [AWS section](#accessing-ssm-parameters) for more specific instructions and test user passwords.
 
@@ -169,14 +169,6 @@ First, make sure your `node_modules` are up to date:
    yarn install
    ```
 
-## Generate .env file with AWS Credentials
-
-1. [Set Up AWS Credentials Locally](#setting-up-aws-credentials-locally)
-1. On your local QMR environment, navigate to `cd tests/cypress`
-1. Run `./configureLocal.sh master`
-
-The `Cypress` environment (**.env**) file will be generated and populated under `tests/cypress.env.json`.
-
 ## How to Run Tests
 
 ### Cypress Setup
@@ -196,7 +188,7 @@ To run the end-to-end (E2E) `Cypress` tests:
 
 ```
 cd tests/
-yarn test
+CYPRESS_QMR_PASSWORD=passwordhere yarn test
 ```
 
 The `Cypress` application will kick off, where you can find a list of all the available E2E tests.
@@ -312,7 +304,7 @@ Destroying is largely the same process as deploying.
 1. Ensure all stages of the branch have deployed once through github actions
 1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
 1. Navigate to the service you are trying to deploy ie: `/services/app-api`
-1. Run `sls destroy --stage branchname`, where branchname is the name of your branch.
+1. Run `sls remove --stage branchname`, where branchname is the name of your branch.
 
 Some known issues with this process of destroying is that S3 buckets will not be deleted properly, so I would recommend destroying through GithubActions or destroying the entire branch.
 
@@ -324,7 +316,7 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 
 1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
 1. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
-1. `sh destroy.sh name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
+1. `./run destroy name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
 ## App API
 
@@ -564,19 +556,20 @@ This application was forked from the [Quickstart Repository](https://github.com/
 
 ## Slack Webhooks
 
-This repository uses 3 webhooks to publish to  3 different channels all in CMS Slack.
+This repository uses 3 webhooks to publish to 3 different channels all in CMS Slack.
 
-- SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `master`, `val`, or `production` branches.
+- SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `master`, `val`, or `prod` branches.
 
 - INTEGRATIONS_SLACK_WEBHOOK: This is used to publish new pull requests to the `mdct-integrations-channel`
 
-- PROD_RELEASE_SLACK_WEBHOOK: This is used to publish to the `mdct-prod-releases` channel upon successful release of Seds to production.
+- PROD_RELEASE_SLACK_WEBHOOK: This is used to publish to the `mdct-prod-releases` channel upon successful release of QMR to production.
 
-    - Webhooks are created by CMS tickets, populated into GitHub Secrets
+  - Webhooks are created by CMS tickets, populated into GitHub Secrets
 
 ## GitHub Actions Secret Management
-- Secrets are added to GitHub secrets by GitHub Admins 
-- Upon editing and adding new secrets Admins should also update the encypted `/github/secret-list` SSM parameter in the SEDS AWS Production Account.
+
+- Secrets are added to GitHub secrets by GitHub Admins
+- Upon editing and adding new secrets Admins should also update the encypted `/github/secret-list` SSM parameter in the QMR AWS Production Account.
 
 # License
 

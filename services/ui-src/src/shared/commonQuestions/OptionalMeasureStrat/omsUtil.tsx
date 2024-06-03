@@ -3,7 +3,12 @@ import { complexRateFields, RateFields } from "shared/types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
-import { LabelData, cleanString, stringToLabelData } from "utils";
+import {
+  LabelData,
+  cleanString,
+  isLegacyLabel,
+  stringToLabelData,
+} from "utils";
 
 interface TempRate {
   numerator?: number;
@@ -34,6 +39,8 @@ const NDR = (watchOMS: any, cleanedCategory: any, qual: string | LabelData) => {
   if (typeof qual === "string") {
     const cleanedQual = cleanString(qual);
     return watchOMS?.[cleanedQual]?.[cleanedCategory];
+  } else if (isLegacyLabel()) {
+    return watchOMS?.[qual.id]?.[cleanedCategory];
   } else {
     return watchOMS?.[cleanedCategory]?.[qual.id];
   }

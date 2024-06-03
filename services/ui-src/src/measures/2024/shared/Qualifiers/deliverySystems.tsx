@@ -29,7 +29,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
   const values = useWatch({ name: "PercentageEnrolledInEachDeliverySystem" });
 
   return (
-    <CUI.ListItem mr="4">
+    <CUI.ListItem m="4">
       <Common.QualifierHeader
         header="Delivery System"
         description={data.qualifierHeader(

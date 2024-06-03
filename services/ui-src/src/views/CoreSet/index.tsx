@@ -17,6 +17,7 @@ import {
 } from "hooks/api";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
+import { coreSetTitles } from "shared/coreSetByYear";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -27,26 +28,12 @@ interface HandleDeleteMeasureData {
 
 enum coreSetType {
   ACS = "Adult",
+  ACSM = "Adult - Medicaid",
+  ACSC = "Adult - CHIP",
   CCS = "Child",
   CCSM = "Child - Medicaid",
   CCSC = "Child - CHIP",
   HHCS = "Health Home",
-}
-
-export enum coreSetMeasureTitle {
-  ACS = "Adult Core Set Measures",
-  CCS = "Child Core Set Measures: Medicaid & CHIP",
-  CCSM = "Child Core Set Measures: Medicaid",
-  CCSC = "Child Core Set Measures: CHIP",
-  HHCS = "Health Home Core Set Measures: ",
-}
-
-enum coreSetQuestionsText {
-  ACS = "Adult Core Set Questions",
-  CCS = "Child Core Set Questions: Medicaid & CHIP",
-  CCSM = "Child Core Set Questions: Medicaid",
-  CCSC = "Child Core Set Questions: CHIP",
-  HHCS = "Health Home Core Set Questions: ",
 }
 
 interface MeasureTableItem {
@@ -104,7 +91,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
-      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
   const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
@@ -113,9 +100,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetQuestionsText[
-            coreSetInfo[0] as keyof typeof coreSetQuestionsText
-          ] + spaName}
+          {coreSetTitles(year!, coreSetInfo[0], "Questions") + spaName}
         </CUI.Text>
       </Link>
 
@@ -173,7 +158,6 @@ const useMeasureTableDataBuilder = () => {
         // filter out the coreset qualifiers
         (item) => item.measure && item.measure !== "CSQ"
       );
-
       const measureTableData = (filteredItems as MeasureData[])
         .filter(
           (item) =>
@@ -238,13 +222,13 @@ const useMeasureTableDataBuilder = () => {
           numCompleteItems++;
         }
       }
-
       const numberOfCoreSets = 1;
-      const coreSetStatus =
-        measureTableData.length + numberOfCoreSets === numCompleteItems
+
+      const coreStatus =
+        filteredItems.length + numberOfCoreSets === numCompleteItems
           ? CoreSetTableItem.Status.COMPLETED
           : CoreSetTableItem.Status.IN_PROGRESS;
-      setCoreSetStatus(coreSetStatus);
+      setCoreSetStatus(coreStatus);
     }
 
     return () => {
@@ -293,7 +277,7 @@ export const CoreSet = () => {
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
-      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
   // It appears that spaName only has a value for HH Core Sets. Is this true?
@@ -344,10 +328,7 @@ export const CoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name:
-            coreSetMeasureTitle[
-              coreSet[0] as keyof typeof coreSetMeasureTitle
-            ] + spaName,
+          name: coreSetTitles(year, coreSetId) + spaName,
         },
       ]}
     >
@@ -378,10 +359,10 @@ export const CoreSet = () => {
         </CUI.Box>
       )}
 
-      <CUI.Flex>
+      <CUI.Stack direction={{ base: "column", md: "row" }}>
         <CUI.HStack
           justifyContent="space-between"
-          flex="8"
+          flex="9"
           borderRadius="8"
           backgroundColor="gray.100"
           px="4"
@@ -422,7 +403,7 @@ export const CoreSet = () => {
             }}
           />
         </CUI.Box>
-      </CUI.Flex>
+      </CUI.Stack>
       <CUI.Box mt="4">
         <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
           {!isError && (

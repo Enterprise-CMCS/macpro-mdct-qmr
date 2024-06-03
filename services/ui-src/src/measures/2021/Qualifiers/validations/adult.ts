@@ -46,3 +46,5 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
 };
 
 export const ACS = [validate21To64EqualsToOneHundredPercent];
+export const ACSM = [validate21To64EqualsToOneHundredPercent];
+export const ACSC = [validate21To64EqualsToOneHundredPercent];

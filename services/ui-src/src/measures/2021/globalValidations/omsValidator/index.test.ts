@@ -4,13 +4,23 @@ import {
   generateOmsQualifierRateData,
   simpleRate,
   generateOmsFormData,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
 import { DefaultFormData } from "measures/2021/CommonQuestions/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
+
 describe("Testing OMS validation processor", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const categories = [
+    { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
+    { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
+  ];
+  const qualifiers = [
+    { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
+    { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
+  ];
 
   it("should have no errors for basic data", () => {
     const errors = omsValidations({
@@ -82,7 +92,6 @@ describe("Testing OMS validation processor", () => {
       ) as DefaultFormData,
       validationCallbacks: [],
     });
-
     expect(errors.length).toBe(134);
     expect(
       errors.some((e) =>

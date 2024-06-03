@@ -49,6 +49,8 @@ export interface Banner {
 
 export const enum CoreSetAbbr {
   ACS = "ACS", // adult
+  ACSM = "ACSM", // adult multiple
+  ACSC = "ACSC", // adult combined
   CCS = "CCS", // child combined
   CCSM = "CCSM", // child medicaid
   CCSC = "CCSC", // child chip

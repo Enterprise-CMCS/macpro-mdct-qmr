@@ -6,6 +6,7 @@ import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { UserRoles } from "types";
+import { CombinedRatesPage } from "views";
 
 const Home = lazy(() =>
   import("views/Home").then((module) => ({ default: module.Home }))
@@ -31,6 +32,11 @@ const CoreSet = lazy(() =>
 const AddChildCoreSet = lazy(() =>
   import("views/AddChildCoreSet").then((module) => ({
     default: module.AddChildCoreSet,
+  }))
+);
+const AddAdultCoreSet = lazy(() =>
+  import("views/AddAdultCoreSet").then((module) => ({
+    default: module.AddAdultCoreSet,
   }))
 );
 const AddStateSpecificMeasure = lazy(() =>
@@ -158,7 +164,12 @@ export function AppRoutes() {
           }
         />
         <Route path=":state/:year/add-child" element={<AddChildCoreSet />} />
+        <Route path=":state/:year/add-adult" element={<AddAdultCoreSet />} />
         <Route path=":state/:year/add-hh" element={<AddHHCoreSet />} />
+        <Route
+          path=":state/:year/combined-rates"
+          element={<CombinedRatesPage />}
+        />
         <Route path=":state/:year/:coreSetId" element={<CoreSet />} />
         <Route path=":state/:year/:coreSetId/pdf" element={<ExportAll />} />
         <Route
