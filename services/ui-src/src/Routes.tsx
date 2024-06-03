@@ -6,7 +6,7 @@ import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { UserRoles } from "types";
-import { CombinedRatesPage } from "views";
+import { CombinedRatesPage, CombinedRatesMeasure } from "views";
 
 const Home = lazy(() =>
   import("views/Home").then((module) => ({ default: module.Home }))
@@ -120,6 +120,17 @@ export function useMeasureRoutes(): MeasureRoute[] {
                   measure={createElement(Comp)}
                   autocompleteOnCreation={autocompleteOnCreation ?? false}
                 />
+              ),
+            });
+            //creating the routes for the combined rates measures
+            measureRoutes.push({
+              key: `:state/${year}/combined-rates/:measure`,
+              path: `:state/${year}/combined-rates/:measure`,
+              element: (
+                <CombinedRatesMeasure
+                  year={year}
+                  measureId={measure}
+                ></CombinedRatesMeasure>
               ),
             });
           }
