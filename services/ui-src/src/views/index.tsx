@@ -11,3 +11,4 @@ export * from "./AddHHCoreSet";
 export * from "./ApiTester";
 export * from "./ExportAll";
 export * from "./CombinedRatesPage";
+export * from "./CombinedRatesPage/CombinedRatesMeasure";

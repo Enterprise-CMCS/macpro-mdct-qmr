@@ -11,14 +11,14 @@ export const VerticalTable = <T extends TableData>({
   return (
     <>
       <CUI.VStack my="8" align="stretch">
-        {data?.map((row) => {
+        {data?.map((row, idx) => {
           return (
-            <CUI.Stack key={row.id} align="flex-start" spacing="4">
+            <CUI.Stack key={`${row.id}-${idx}`} align="flex-start" spacing="4">
               <CUI.Divider borderColor="gray.500"></CUI.Divider>
-              {columns.map((column) => {
+              {columns.map((column, col_idx) => {
                 const element = column.cell(row);
                 return (
-                  <CUI.Box>
+                  <CUI.Box key={`column-${col_idx}`}>
                     <CUI.Text
                       key={column.id}
                       data-cy={column.header}
@@ -29,7 +29,7 @@ export const VerticalTable = <T extends TableData>({
                       {column.header}
                     </CUI.Text>
                     <CUI.Text
-                      data-cy={`${column.header}-${row.id}`}
+                      data-cy={`${column.header}-${col_idx}`}
                       key={column.id + "_td"}
                     >
                       {element}
@@ -107,8 +107,12 @@ export const Table = <T extends TableData>({
 }: TableProps<T>) => {
   return (
     <>
-      <Hide below="md">{HorizontalTable({ columns, data })}</Hide>
-      <Show below="md">{VerticalTable({ columns, data })}</Show>
+      <Hide below="md" key="table">
+        {HorizontalTable({ columns, data })}
+      </Hide>
+      <Show below="md" key="table-mobile">
+        {VerticalTable({ columns, data })}
+      </Show>
     </>
   );
 };

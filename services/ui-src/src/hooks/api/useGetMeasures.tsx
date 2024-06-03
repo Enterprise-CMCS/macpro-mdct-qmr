@@ -17,13 +17,15 @@ const getMeasures = async ({ state, year, coreSet }: GetMeasures) => {
   });
 };
 
-export const useGetMeasures = () => {
+export const useGetMeasures = (coreSetAbbr?: string) => {
   const {
     state: statePath,
     year: yearPath,
     coreSet: coreSetPath,
   } = usePathParams();
-  const { state, year, coreSetId } = useParams();
+  let { state, year, coreSetId } = useParams();
+
+  coreSetId = coreSetAbbr ?? coreSetId;
 
   if (
     (state || statePath) &&
