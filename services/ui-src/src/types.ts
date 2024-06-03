@@ -8,6 +8,16 @@ export enum CoreSetAbbr {
   HHCS = "HHCS",
 }
 
+export enum coreSetType {
+  ACS = "Adult",
+  ACSM = "Adult - Medicaid",
+  ACSC = "Adult - CHIP",
+  CCS = "Child",
+  CCSM = "Child - Medicaid",
+  CCSC = "Child - CHIP",
+  HHCS = "Health Home",
+}
+
 export enum UserRoles {
   ADMIN = "mdctqmr-bor", // "MDCT QMR ADMIN"
   APPROVER = "mdctqmr-approver", // "MDCT QMR APPROVER"

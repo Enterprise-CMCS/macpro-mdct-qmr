@@ -245,8 +245,15 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
-    // only auto-save measure on timeout if this form has been touched / modified
-    if (!mutationRunning && !loadingData && methods.formState.isDirty) {
+    /* only auto-save measure on timeout if this form has been touched / modified
+     * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
+     */
+
+    if (
+      !mutationRunning &&
+      !loadingData &&
+      Object.keys(methods.formState.dirtyFields).length > 0
+    ) {
       updateMeasure(
         {
           data,

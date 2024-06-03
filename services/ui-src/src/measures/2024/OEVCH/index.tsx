@@ -40,8 +40,8 @@ export const OEVCH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type={DC.ADA_DQA} />
-          <CMQ.DataSource />
+          <CMQ.MeasurementSpecification type={DC.ADA_DQA} coreset="child" />
+          <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (

@@ -40,8 +40,8 @@ export const SFMCH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="ADA-DQA" />
-          <CMQ.DataSource />
+          <CMQ.MeasurementSpecification type="ADA-DQA" coreset="child" />
+          <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (

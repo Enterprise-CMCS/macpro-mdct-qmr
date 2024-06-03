@@ -40,8 +40,8 @@ export const CCWCH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="OPA" />
-          <CMQ.DataSource />
+          <CMQ.MeasurementSpecification type="OPA" coreset="child" />
+          <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
           <CMQ.DefinitionOfPopulation childMeasure />
           {isPrimaryMeasureSpecSelected && (
