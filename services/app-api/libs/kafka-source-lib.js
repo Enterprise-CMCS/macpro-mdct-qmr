@@ -39,11 +39,6 @@ class KafkaSourceLib {
   tables = [list of tables];
   */
 
-  unmarshallOptions = {
-    convertEmptyValues: true,
-    wrapNumbers: true,
-  };
-
   stringify(e, prettyPrint) {
     if (prettyPrint === true) return JSON.stringify(e, null, 2);
     return JSON.stringify(e);
@@ -56,7 +51,7 @@ class KafkaSourceLib {
   }
 
   unmarshall(r) {
-    return dynamoUtils.unmarshall(r, this.unmarshallOptions);
+    return dynamoUtils.unmarshall(r);
   }
 
   createPayload(record) {
