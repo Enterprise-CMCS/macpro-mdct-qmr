@@ -98,6 +98,8 @@ export const commonQuestionsLabel = {
       "Explain the variation(s) (<em>text in this field is included in publicly-reported state-specific comments</em>):",
   },
   MeasureSpecifications: {
+    additionalContext:
+      "If your state substantially varied from the measure specifications (including different methodology, timeframe, or reported age groups), please report your data using “Other” specifications.",
     options: [
       {
         displayValue: "HEDIS MY 2023 (FFY 2024 Core Set Reporting)",

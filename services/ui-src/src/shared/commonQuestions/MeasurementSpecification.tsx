@@ -105,16 +105,20 @@ const specifications = {
 export const MeasurementSpecification = ({ type }: Props) => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
+
   return (
     <QMR.CoreQuestionWrapper
       testid="measurement-specification"
       label="Measurement Specification"
     >
-      <CUI.Text key="measureSpecLabel" size="sm" pb="3">
-        If your state substantially varied from the measure specifications
-        (including different methodology, timeframe, or reported age groups),
-        please report your data using “Other” specifications.
-      </CUI.Text>
+      {labels.MeasureSpecifications?.additionalContext && (
+        <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
+          {labels?.MeasureSpecifications?.additionalContext}
+        </CUI.Text>
+      )}
+
       <div data-cy="measurement-specification-options">
         <QMR.RadioButton
           {...register(DC.MEASUREMENT_SPECIFICATION)}
