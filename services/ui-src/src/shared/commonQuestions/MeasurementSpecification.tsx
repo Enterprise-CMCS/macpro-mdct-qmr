@@ -5,12 +5,14 @@ import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { AnyObject } from "types";
+
+let labels: AnyObject;
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
-  //WIP: using form context to get the labels for this component temporarily.
-  const labels: any = useContext(SharedContext);
+  labels = useContext(SharedContext);
 
   const options = labels.MeasureSpecifications.options;
 
@@ -105,17 +107,16 @@ const specifications = {
 export const MeasurementSpecification = ({ type }: Props) => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
-  //WIP: using form context to get the labels for this component temporarily.
-  const labels: any = useContext(SharedContext);
+  labels = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper
       testid="measurement-specification"
       label="Measurement Specification"
     >
-      {labels.MeasureSpecifications?.additionalContext && (
+      {labels?.MeasureSpecifications?.additionalContext && (
         <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
-          {labels.MeasureSpecifications.additionalContext}
+          {labels?.MeasureSpecifications?.additionalContext}
         </CUI.Text>
       )}
 
