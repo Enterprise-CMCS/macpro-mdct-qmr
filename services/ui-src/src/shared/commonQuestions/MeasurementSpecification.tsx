@@ -115,7 +115,7 @@ export const MeasurementSpecification = ({ type }: Props) => {
     >
       {labels.MeasureSpecifications?.additionalContext && (
         <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
-          {labels?.MeasureSpecifications?.additionalContext}
+          {labels.MeasureSpecifications.additionalContext}
         </CUI.Text>
       )}
 
