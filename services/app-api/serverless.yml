@@ -211,7 +211,7 @@ functions:
     handler: handlers/rate/get.getRate
     events:
       - http:
-          path: rate/{state}/{year}/{measure}/get
+          path: rate/{state}/{year}/{coreSet}/get
           method: get
           cors: true
           authorizer: ${self:custom.authValue.${self:custom.stage}, ""}

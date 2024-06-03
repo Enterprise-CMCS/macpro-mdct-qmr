@@ -141,16 +141,6 @@ async function deleteCoreSet(inputObj: any) {
   );
 }
 
-async function getRate(inputObj: any) {
-  const opts = await requestOptions();
-  opts.body = inputObj.body;
-  return API.get(
-    "rate",
-    `/rate/${inputObj.state}/${inputObj.year}/${inputObj.measure}/get`,
-    opts
-  );
-}
-
 async function getPDF(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
@@ -196,5 +186,4 @@ export {
   writeBanner,
   getBanner,
   deleteBanner,
-  getRate,
 };
