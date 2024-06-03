@@ -5,22 +5,20 @@ import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
-import { AnyObject } from "types";
-
-let labels: AnyObject;
+import { Alert } from "@cmsgov/design-system";
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
-  labels = useContext(SharedContext);
+  const hedisLabels: any = useContext(SharedContext);
 
-  const options = labels.MeasureSpecifications.options;
+  const options = hedisLabels.MeasureSpecifications.options;
 
   return (
     <>
-      {labels?.MeasureSpecifications?.measureSpecDescriptor && (
+      {hedisLabels?.MeasureSpecifications?.measureSpecDescriptor && (
         <CUI.Text key="measureSpecDescriptor" size="sm" pb="3">
-          {labels?.MeasureSpecifications?.measureSpecDescriptor}
+          {hedisLabels?.MeasureSpecifications?.measureSpecDescriptor}
         </CUI.Text>
       )}
       <QMR.Select
@@ -109,16 +107,16 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
   const labels: any = useContext(SharedContext);
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
-  labels = useContext(SharedContext);
+  const measureSpecLabels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper
       testid="measurement-specification"
       label="Measurement Specification"
     >
-      {labels?.MeasureSpecifications?.additionalContext && (
+      {measureSpecLabels?.MeasureSpecifications?.additionalContext && (
         <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
-          {labels?.MeasureSpecifications?.additionalContext}
+          {measureSpecLabels?.MeasureSpecifications?.additionalContext}
         </CUI.Text>
       )}
 
