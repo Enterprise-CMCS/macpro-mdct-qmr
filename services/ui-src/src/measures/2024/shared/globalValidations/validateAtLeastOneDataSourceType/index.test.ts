@@ -35,6 +35,15 @@ describe("validateOneDataSourceType", () => {
     };
     _check_errors(formData, 1);
   });
+  it("When a Data Source Selected array is empty, a validation warning shows", () => {
+    formData[DC.DATA_SOURCE] = DC.ADMINISTRATIVE_DATA;
+    formData[DC.DATA_SOURCE_SELECTIONS] = {
+      AdministrativeData0: {
+        selected: [],
+      },
+    };
+    _check_errors(formData, 1);
+  });
 
   it("Error message text should match default errorMessage", () => {
     formData[DC.DATA_SOURCE] = [];
