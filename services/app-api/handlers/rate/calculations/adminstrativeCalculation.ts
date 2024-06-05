@@ -43,7 +43,7 @@ export const adminstrativeCalculation = (measure: string, rates: any[]) => {
     list.reduce((prev, curr) => {
       const numerator = Number(prev.numerator) + Number(curr.numerator);
       const denominator = Number(prev.denominator) + Number(curr.denominator);
-      const rate = formula(numerator, denominator);
+      const rate = formula(numerator, denominator).toFixed(1);
       return {
         category: prev.category,
         label: prev.label,
