@@ -48,7 +48,7 @@ export const adminstrativeCalculation = (measure: string, rates: any[]) => {
   );
 
   const total = sum(sumRates, formula);
-  return { coreSet: "total", rates: total };
+  return { column: "Combined Rate", rates: total };
 };
 
 const formulaDefault = (numerator: number, denominator: number) => {

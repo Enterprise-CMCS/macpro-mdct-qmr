@@ -57,6 +57,11 @@ export const enum CoreSetAbbr {
   HHCS = "HHCS", // helth homes
 }
 
+export enum Program {
+  M = "Medicaid",
+  C = "CHIP",
+}
+
 export const enum MeasureStatus {
   COMPLETE = "complete",
   INCOMPLETE = "incomplete",
