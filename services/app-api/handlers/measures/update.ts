@@ -55,8 +55,12 @@ export const editMeasure = handler(async (event, context) => {
     ),
   };
   await dynamoDb.update(params);
-  //after updating the database with the latest values for the measure, we run the combine rates calculations
-  await calculateRate(event, context);
+
+  //in 2024 and onward, we added a new feature called combined rates which requires rate calculations to the rates table
+  if (parseInt(event!.pathParameters!.year!) >= 2024) {
+    //after updating the database with the latest values for the measure, we run the combine rates calculations
+    await calculateRate(event, context);
+  }
 
   return { status: StatusCodes.SUCCESS, body: params };
 });

@@ -1,20 +1,11 @@
-import dynamoDb from "../../../libs/dynamodb-lib";
-import { getUserNameFromJwt } from "../../../libs/authorization";
 import { APIGatewayProxyEvent } from "../../../types";
-import { StatusCodes } from "../../../utils/constants/constants";
-import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
 import * as Types from "../../../types";
-import { getMeasure } from "../../measures/get";
 import { adminstrativeCalculation } from "./adminstrativeCalculation";
-
-const coreSetGroup = {
-  ACS: [Types.CoreSetAbbr.ACSC, Types.CoreSetAbbr.ACSM],
-  CCS: [Types.CoreSetAbbr.CCSC, Types.CoreSetAbbr.CCSM],
-};
+import { putToTable, getMeasureByCoreSet } from "../../../storage/table";
 
 export const createCombinedCompoundKey = (
   event: APIGatewayProxyEvent,
-  coreSet: Types.CoreSetAbbr
+  coreSet: string
 ) => {
   if (!event.pathParameters) throw new Error("No Path Parameters Object");
 
@@ -25,28 +16,7 @@ export const createCombinedCompoundKey = (
   return `${state}${year}${coreSet}${measure}`;
 };
 
-const retrieveMeasureDataByCoreSet = async (
-  event: APIGatewayProxyEvent,
-  coreSet: "ACS" | "CCS" | undefined
-) => {
-  if (coreSet) {
-    const measures: any[] = [];
-    const group = coreSetGroup[coreSet];
-
-    for (let i = 0; i < group.length; i++) {
-      const formatEvent = { ...event };
-      if (formatEvent?.pathParameters) {
-        formatEvent.pathParameters.coreSet = group[i];
-        const measure = await getMeasure(event, undefined);
-        measures.push({ coreSet: group[i], ...JSON.parse(measure.body)?.Item });
-      }
-    }
-    return measures;
-  }
-  return {};
-};
-
-const formatRetrieveData = (data: any) => {
+const formatData = (data: any) => {
   return data.map((item: any) => {
     const coreSet = item?.coreSet;
     const dataSource = item?.data?.DataSource ?? [];
@@ -60,59 +30,36 @@ export const calculateRate = async (
   event: APIGatewayProxyEvent,
   context: any
 ) => {
-  const coreSet: Types.CoreSetAbbr = event!.pathParameters!
-    .coreSet! as Types.CoreSetAbbr;
+  const { coreSet, measure, state, year } = event!.pathParameters!;
   const combinedTypes = [Types.CoreSetAbbr.ACS, Types.CoreSetAbbr.CCS];
-  const combinedCoreSet = combinedTypes.find((type) => coreSet.includes(type));
+  const combinedCoreSet = combinedTypes.find((type) => coreSet!.includes(type));
 
   //only do the rate calculation if the measure is adult or child and is a split
   if (
-    (coreSet.length === 4 && combinedCoreSet === "ACS") ||
+    (coreSet!.length === 4 && combinedCoreSet === "ACS") ||
     combinedCoreSet === "CCS"
   ) {
-    const coreSetData = await retrieveMeasureDataByCoreSet(
+    const data = await getMeasureByCoreSet(event, combinedCoreSet);
+    const formattedData = formatData(data);
+
+    const combinedRates = {
+      ...formattedData,
+      ...adminstrativeCalculation(
+        measure!,
+        formattedData?.map((data: any) => data.rates)
+      ),
+    };
+
+    //write to the data to the rates table
+    await putToTable(
       event,
-      combinedCoreSet
-    );
-    const formattedData = formatRetrieveData(coreSetData);
-
-    const combinedRates = adminstrativeCalculation(
-      event!.pathParameters!.measure!,
-      formattedData?.map((data: any) => data.rates)
-    );
-
-    formattedData.push(combinedRates);
-
-    await saveToTable(event, combinedCoreSet!, formattedData);
-  }
-};
-
-const saveToTable = async (
-  event: APIGatewayProxyEvent,
-  coreSet: Types.CoreSetAbbr,
-  data: any
-) => {
-  const dynamoKey = createCombinedCompoundKey(event, coreSet);
-  const lastAlteredBy = getUserNameFromJwt(event);
-
-  const params = {
-    TableName: process.env.rateTableName!,
-    Key: {
-      compoundKey: dynamoKey,
-      measure: event!.pathParameters!.measure!,
-    },
-    ...convertToDynamoExpression(
+      process.env.rateTableName!,
+      combinedRates,
       {
-        lastAltered: Date.now(),
-        lastAlteredBy,
-        data,
-        state: event!.pathParameters!.state!,
-        year: event!.pathParameters!.year!,
+        compoundKey: createCombinedCompoundKey(event, coreSet!),
+        measure: measure!,
       },
-      "post"
-    ),
-  };
-
-  await dynamoDb.update(params);
-  return { status: StatusCodes.SUCCESS, body: params };
+      { state: state!, year: year! }
+    );
+  }
 };

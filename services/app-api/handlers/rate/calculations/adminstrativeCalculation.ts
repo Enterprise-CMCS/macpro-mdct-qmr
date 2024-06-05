@@ -1,13 +1,3 @@
-class Calculation {
-  formulas: Function[] | undefined;
-  dataSource: string[] | undefined;
-  measure: string | undefined;
-}
-
-interface Calculation {
-  getRate: () => number;
-}
-
 export const administrativeFormula: any = {
   default: (numerator: number, denominator: number) =>
     formulaDefault(numerator, denominator),
@@ -19,31 +9,12 @@ export const administrativeFormula: any = {
     formulaAAB(numerator, denominator),
 };
 
-export const adminstrativeCalculation = (measure: string, rates: any[]) => {
-  const measureConstant = measure.split("-")[0];
-  const formula: Function =
-    administrativeFormula?.[measureConstant] ?? administrativeFormula.default;
-
-  let ratesList: any[] = [];
-
-  rates.forEach((rate) => {
-    ratesList.push(...Object.values(rate).flat());
-  });
-  const uid: any[] = ratesList
-    .filter(
-      (value, index, array) =>
-        array.findIndex((item) => item.uid === value.uid) === index
-    )
-    .map((item) => item.uid);
-  const sumList: any[] = uid.map((id) =>
-    ratesList.filter((rate) => rate.uid === id)
-  );
-
-  const total: any[] = sumList.map((list: any[]) =>
-    list.reduce((prev, curr) => {
+const sum = (arr: any[], rateFormula: Function) => {
+  return arr.map((rates: any[]) =>
+    rates.reduce((prev, curr) => {
       const numerator = Number(prev.numerator) + Number(curr.numerator);
       const denominator = Number(prev.denominator) + Number(curr.denominator);
-      const rate = formula(numerator, denominator).toFixed(1);
+      const rate = rateFormula(numerator, denominator).toFixed(1);
       return {
         category: prev.category,
         label: prev.label,
@@ -54,7 +25,29 @@ export const adminstrativeCalculation = (measure: string, rates: any[]) => {
       };
     })
   );
+};
 
+export const adminstrativeCalculation = (measure: string, rates: any[]) => {
+  const measureConstant = measure.split("-")[0];
+  const formula: Function =
+    administrativeFormula?.[measureConstant] ?? administrativeFormula.default;
+
+  let flattenRates: any[] = [];
+  rates.forEach((rate) => {
+    flattenRates.push(...Object.values(rate).flat());
+  });
+
+  const uid: any[] = flattenRates
+    .filter(
+      (value, index, array) =>
+        array.findIndex((item) => item.uid === value.uid) === index
+    )
+    .map((item) => item.uid);
+  const sumRates: any[] = uid.map((id) =>
+    flattenRates.filter((rate) => rate.uid === id)
+  );
+
+  const total = sum(sumRates, formula);
   return { coreSet: "total", rates: total };
 };
 
