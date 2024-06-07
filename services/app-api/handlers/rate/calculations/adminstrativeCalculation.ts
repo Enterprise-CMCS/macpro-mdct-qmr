@@ -1,36 +1,60 @@
-export const administrativeFormula: any = {
-  default: (numerator: number, denominator: number) =>
-    formulaDefault(numerator, denominator),
-  AMB: (numerator: number, denominator: number) =>
-    formulaAMB(numerator, denominator),
-  PQI: (numerator: number, denominator: number) =>
-    formulaPQI(numerator, denominator),
-  AAB: (numerator: number, denominator: number) =>
-    formulaAAB(numerator, denominator),
-};
+import { DataSourceCalcuation } from "./dataSourceCalculation";
+
+// class AdminstrativeCal extends DataSourceCalcuation{
+//     formulas: Function[] = [()), formulaAMB,]
+
+//     constructor(measure:string){
+//         super(measure);
+//     }
+// }
+
+const dataSource = [
+  {
+    Medcaid: "Adminstrative",
+    CHIP: "Adminstrative",
+  },
+  {
+    Medcaid: "Adminstrative",
+    CHIP: "EHR",
+  },
+  {
+    Medcaid: "EHR",
+    CHIP: "EHR",
+  },
+  {
+    Medcaid: "EHR",
+    CHIP: "Adminstrative",
+  },
+  {
+    Medcaid: ["Adminstrative", "EHR"],
+    CHIP: "Adminstrative",
+  },
+];
 
 const sum = (arr: any[], rateFormula: Function) => {
-  return arr.map((rates: any[]) =>
-    rates.reduce((prev, curr) => {
-      const numerator = Number(prev.numerator) + Number(curr.numerator);
-      const denominator = Number(prev.denominator) + Number(curr.denominator);
-      const rate = rateFormula(numerator, denominator).toFixed(1);
+  return arr?.map((rates: any[]) =>
+    rates?.reduce((prev, curr) => {
+      const numerator =
+        Number(prev.numerator ?? 0) + Number(curr.numerator ?? 0);
+      const denominator =
+        Number(prev.denominator ?? 0) + Number(curr.denominator ?? 0);
+      const rate =
+        denominator > 0 ? rateFormula(numerator, denominator).toFixed(1) : "";
+
       return {
-        category: prev.category,
-        label: prev.label,
+        category: prev.category ?? "",
+        label: prev.label ?? "",
         numerator: numerator,
         denominator: denominator,
         rate: rate,
-        uid: prev.uid,
+        uid: prev?.uid,
       };
     })
   );
 };
 
 export const adminstrativeCalculation = (measure: string, rates: any[]) => {
-  const measureConstant = measure.split("-")[0];
-  const formula: Function =
-    administrativeFormula?.[measureConstant] ?? administrativeFormula.default;
+  const formula: Function = GetFormula(measure);
 
   let flattenRates: any[] = [];
   rates.forEach((rate) => {
@@ -48,21 +72,24 @@ export const adminstrativeCalculation = (measure: string, rates: any[]) => {
   );
 
   const total = sum(sumRates, formula);
+
   return { column: "Combined Rate", rates: total };
 };
 
-const formulaDefault = (numerator: number, denominator: number) => {
-  return (numerator / denominator) * 100;
-};
-
-const formulaAMB = (numerator: number, denominator: number) => {
-  return (numerator / denominator) * 1000;
-};
-
-const formulaPQI = (numerator: number, denominator: number) => {
-  return (numerator / denominator) * 100000;
-};
-
-const formulaAAB = (numerator: number, denominator: number) => {
-  return (1 - numerator / denominator) * 100;
+const GetFormula = (measure: string) => {
+  const abbr = measure.slice(0, 3);
+  switch (abbr) {
+    case "AMB":
+      return (numerator: number, denominator: number) =>
+        (numerator / denominator) * 1000;
+    case "PQI":
+      return (numerator: number, denominator: number) =>
+        (numerator / denominator) * 100000;
+    case "AAB":
+      return (numerator: number, denominator: number) =>
+        (1 - numerator / denominator) * 100;
+    default:
+      return (numerator: number, denominator: number) =>
+        (1 - numerator / denominator) * 100;
+  }
 };

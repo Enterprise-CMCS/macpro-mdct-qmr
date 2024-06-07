@@ -31,14 +31,17 @@ export const calculateAndPutRate = async (
   ) {
     const data = await getMeasureByCoreSet(event, combinedCoreSet!);
     const formattedData: [] = formatMeasureData(data);
+    const calculation = adminstrativeCalculation;
 
     const combinedRates = [
       ...formattedData,
-      adminstrativeCalculation(
+      calculation(
         measure!,
         formattedData?.map((data: any) => data.rates)
       ),
     ];
+
+    console.log("combinedRates test", combinedRates);
 
     //write to the data to the rates table
     await putToTable(
@@ -46,10 +49,20 @@ export const calculateAndPutRate = async (
       process.env.rateTableName!,
       combinedRates,
       {
-        compoundKey: `${state}${year}${coreSet}${measure}`,
+        compoundKey: `${state}${year}${combinedCoreSet}${measure}`,
         measure: measure!,
       },
       { state: state!, year: year! }
     );
   }
+};
+
+const runCalculation = (measure: string, data: any[]) => {
+  const dataSources = data.map((program) => program.dataSource);
+
+  //adminstrative data source only
+
+  // hybrid / hybrid or case management / case management
+
+  //hybrid + Other
 };
