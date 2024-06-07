@@ -9,8 +9,8 @@ interface Props {
 }
 
 export const CombinedRatesMeasure = ({ year, measureName }: Props) => {
-  const { state, measure, coreSetId } = useParams();
-  const chipPath = `/${state}/${year}/ACSC/${measure}`;
+  const { state, measure } = useParams();
+  const typeSuffix = measure?.slice(-2); // used to determine if measure is adult or child type
 
   return (
     <QMR.StateLayout
@@ -31,14 +31,25 @@ export const CombinedRatesMeasure = ({ year, measureName }: Props) => {
       </CUI.Heading>
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>
-          <Link to={chipPath} aria-label="" className="">
+          <CUI.Link
+            href={`/${state}/${year}/${typeSuffix}SC/${measure}`}
+            aria-label="Link to CHIP measure"
+            target="_blank"
+            color="blue.600"
+          >
             CHIP - {measure} - {measureName}
-          </Link>
+          </CUI.Link>
         </CUI.ListItem>
         <CUI.ListItem>
-          <Link to={chipPath} aria-label="" className="">
+          <CUI.Link
+            href={`/${state}/${year}/${typeSuffix}SM/${measure}`}
+            aria-label="Link to Medicaid measure"
+            className="link"
+            target="_blank"
+            color="blue.600"
+          >
             Medicaid - {measure} - {measureName}
-          </Link>
+          </CUI.Link>
         </CUI.ListItem>
       </CUI.UnorderedList>
     </QMR.StateLayout>
