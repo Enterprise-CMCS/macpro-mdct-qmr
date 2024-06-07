@@ -1,95 +1,75 @@
-import { DataSourceCalcuation } from "./dataSourceCalculation";
+import { RateCalculation } from "./rateCalculation";
 
-// class AdminstrativeCal extends DataSourceCalcuation{
-//     formulas: Function[] = [()), formulaAMB,]
+export class AdminstrativeCalculation extends RateCalculation {
+  dataSrcMap: any[] = [
+    {
+      Medicaid: ["AdministrativeData"],
+      CHIP: ["AdministrativeData"],
+    },
+    {
+      Medicaid: ["AdministrativeData"],
+      CHIP: ["ElectronicHealthRecords"],
+    },
+    {
+      Medicaid: ["ElectronicHealthRecords"],
+      CHIP: ["ElectronicHealthRecords"],
+    },
+    {
+      Medicaid: ["ElectronicHealthRecords"],
+      CHIP: ["AdministrativeData"],
+    },
+    {
+      Medicaid: ["AdministrativeData", "ElectronicHealthRecords"],
+      CHIP: ["AdministrativeData"],
+    },
+  ];
+  check(arr: any[]): boolean {
+    const dataSources: any = {};
 
-//     constructor(measure:string){
-//         super(measure);
-//     }
-// }
+    //convert the data src to key value object for easier matching later
+    arr.forEach((data) => {
+      dataSources[data.column] = data.dataSource;
+    });
 
-const dataSource = [
-  {
-    Medcaid: "Adminstrative",
-    CHIP: "Adminstrative",
-  },
-  {
-    Medcaid: "Adminstrative",
-    CHIP: "EHR",
-  },
-  {
-    Medcaid: "EHR",
-    CHIP: "EHR",
-  },
-  {
-    Medcaid: "EHR",
-    CHIP: "Adminstrative",
-  },
-  {
-    Medcaid: ["Adminstrative", "EHR"],
-    CHIP: "Adminstrative",
-  },
-];
+    //if the user had selected hybrid as a data source, we will not use this calculation
+    const isHybrid = Object.values(dataSources).some((srcs: any) => {
+      return (srcs as string[])?.includes(
+        "HybridAdministrativeandMedicalRecordsData"
+      );
+    });
 
-const sum = (arr: any[], rateFormula: Function) => {
-  return arr?.map((rates: any[]) =>
-    rates?.reduce((prev, curr) => {
-      const numerator =
-        Number(prev.numerator ?? 0) + Number(curr.numerator ?? 0);
-      const denominator =
-        Number(prev.denominator ?? 0) + Number(curr.denominator ?? 0);
-      const rate =
-        denominator > 0 ? rateFormula(numerator, denominator).toFixed(1) : "";
-
-      return {
-        category: prev.category ?? "",
-        label: prev.label ?? "",
-        numerator: numerator,
-        denominator: denominator,
-        rate: rate,
-        uid: prev?.uid,
-      };
-    })
-  );
-};
-
-export const adminstrativeCalculation = (measure: string, rates: any[]) => {
-  const formula: Function = GetFormula(measure);
-
-  let flattenRates: any[] = [];
-  rates.forEach((rate) => {
-    flattenRates.push(...Object.values(rate).flat());
-  });
-
-  const uid: any[] = flattenRates
-    .filter(
-      (value, index, array) =>
-        array.findIndex((item) => item.uid === value.uid) === index
-    )
-    .map((item) => item.uid);
-  const sumRates: any[] = uid.map((id) =>
-    flattenRates.filter((rate) => rate.uid === id)
-  );
-
-  const total = sum(sumRates, formula);
-
-  return { column: "Combined Rate", rates: total };
-};
-
-const GetFormula = (measure: string) => {
-  const abbr = measure.slice(0, 3);
-  switch (abbr) {
-    case "AMB":
-      return (numerator: number, denominator: number) =>
-        (numerator / denominator) * 1000;
-    case "PQI":
-      return (numerator: number, denominator: number) =>
-        (numerator / denominator) * 100000;
-    case "AAB":
-      return (numerator: number, denominator: number) =>
-        (1 - numerator / denominator) * 100;
-    default:
-      return (numerator: number, denominator: number) =>
-        (1 - numerator / denominator) * 100;
+    if (!isHybrid) {
+      for (var i = 0; i < this.dataSrcMap.length; i++) {
+        const dataSrc = this.dataSrcMap[i];
+        const chipSrcExist = dataSrc.CHIP.every(
+          (chipSrc: string) => dataSources.CHIP.indexOf(chipSrc) > -1
+        );
+        const medicaidSrcExist = dataSrc.Medicaid.every(
+          (medSrc: string) => dataSources.Medicaid?.indexOf(medSrc) > -1
+        );
+        //if data source is a match in both CHIP & medicaid return true
+        if (chipSrcExist && medicaidSrcExist) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
-};
+  getFormula(measure: string): Function {
+    const abbr = measure.slice(0, 3);
+    switch (abbr) {
+      case "AMB":
+        return (numerator: number, denominator: number) =>
+          (numerator / denominator) * 1000;
+      case "PQI":
+        return (numerator: number, denominator: number) =>
+          (numerator / denominator) * 100000;
+      case "AAB":
+        return (numerator: number, denominator: number) =>
+          (1 - numerator / denominator) * 100;
+      default:
+        return (numerator: number, denominator: number) =>
+          (numerator / denominator) * 100;
+    }
+  }
+}

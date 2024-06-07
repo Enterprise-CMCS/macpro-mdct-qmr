@@ -7,7 +7,7 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { calculateAndPutRate } from "../rate/calculations/calculation";
+import { calculateAndPutRate } from "../rate/calculateAndPutRate";
 
 export const editMeasure = handler(async (event, context) => {
   // action limited to state users from corresponding state

@@ -1,7 +1,11 @@
-import { APIGatewayProxyEvent } from "../../../types";
-import * as Types from "../../../types";
-import { adminstrativeCalculation } from "./adminstrativeCalculation";
-import { putToTable, getMeasureByCoreSet } from "../../../storage/table";
+import { APIGatewayProxyEvent } from "../../types";
+import * as Types from "../../types";
+import { putToTable, getMeasureByCoreSet } from "../../storage/table";
+import { RateCalculation } from "./calculations/rateCalculation";
+import { AdminstrativeCalculation } from "./calculations";
+
+//add new calculations to this array
+const dataSrcCalculations: RateCalculation[] = [new AdminstrativeCalculation()];
 
 const formatMeasureData = (data: any) => {
   return data.map((item: any) => {
@@ -31,17 +35,21 @@ export const calculateAndPutRate = async (
   ) {
     const data = await getMeasureByCoreSet(event, combinedCoreSet!);
     const formattedData: [] = formatMeasureData(data);
-    const calculation = adminstrativeCalculation;
+
+    //based on the measure data, it will check against the calculations that exist and see which one is a match
+    const calculation: RateCalculation | undefined = dataSrcCalculations.find(
+      (cal) => cal.check(formattedData)
+    );
 
     const combinedRates = [
       ...formattedData,
-      calculation(
-        measure!,
-        formattedData?.map((data: any) => data.rates)
-      ),
+      calculation
+        ? calculation.calculate(
+            measure!,
+            formattedData?.map((data: any) => data.rates)
+          )
+        : {},
     ];
-
-    console.log("combinedRates test", combinedRates);
 
     //write to the data to the rates table
     await putToTable(
@@ -55,14 +63,4 @@ export const calculateAndPutRate = async (
       { state: state!, year: year! }
     );
   }
-};
-
-const runCalculation = (measure: string, data: any[]) => {
-  const dataSources = data.map((program) => program.dataSource);
-
-  //adminstrative data source only
-
-  // hybrid / hybrid or case management / case management
-
-  //hybrid + Other
 };
