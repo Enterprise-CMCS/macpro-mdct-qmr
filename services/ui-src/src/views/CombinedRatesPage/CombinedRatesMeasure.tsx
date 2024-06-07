@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 interface Props {
   year: string;
