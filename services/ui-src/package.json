@@ -13,7 +13,7 @@
     "base-64": "^1.0.0",
     "bootstrap": "^5.1.3",
     "date-fns": "^2.26.0",
-    "date-fns-tz": "^1.2.2",
+    "date-fns-tz": "^1.3.8",
     "file-saver": "^2.0.5",
     "framer-motion": "^4",
     "jest-launchdarkly-mock": "^2.0.0",
