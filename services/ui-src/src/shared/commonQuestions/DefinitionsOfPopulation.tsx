@@ -11,6 +11,7 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
+import { useParams } from "react-router-dom";
 
 interface Props {
   childMeasure?: boolean;
@@ -19,88 +20,182 @@ interface Props {
   healthHomeMeasure?: boolean;
 }
 
+interface CoreSetOptions {
+  [id: string]: {
+    options: { displayValue: string; value: string }[];
+    description?: string;
+  };
+}
+
+const coreSetOptions: CoreSetOptions = {
+  ACSM: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+      },
+    ],
+    description:
+      "Medicaid (Title XIX) beneficiaries, Medicaid-Expansion CHIP (Title XXI) beneficiaries,",
+  },
+  CCSM: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+      },
+    ],
+    description:
+      "and Medicaid-Expansion CHIP (Title XXI) beneficiaries, select both:",
+  },
+  ACSC: {
+    options: [
+      {
+        displayValue: "Separate CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_CHIP,
+      },
+    ],
+    description: "both Separate CHIP (Title XXI) beneficiaries",
+  },
+  CCSC: {
+    options: [
+      {
+        displayValue: "Separate CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_CHIP,
+      },
+    ],
+  },
+  ACS: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+    ],
+    description: "both Medicaid (Title XIX) enrollees",
+  },
+  CCS: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
+    ],
+    description:
+      "enrollees and individuals dually eligible for Medicare and Medicaid, select:",
+  },
+  HHCS: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+    ],
+    description: "both Medicaid (Title XIX) enrollees",
+  },
+};
+
 const StandardDefinitions = (
   register: any,
   labels: AnyObject,
+  coreSet: string,
   healthHomeMeasure?: boolean
 ) => {
-  let options: QMR.CheckboxOption[] = [
-    {
-      displayValue: "Denominator includes Medicaid population",
-      value: DC.DENOMINATOR_INC_MEDICAID_POP,
-    },
-    {
-      displayValue:
-        "Denominator includes CHIP population (e.g. pregnant women)",
-      value: DC.DENOMINATOR_INC_CHIP,
-    },
-    {
-      displayValue:
-        "Denominator includes Medicare and Medicaid Dually-Eligible population",
-      value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
-    },
-    {
-      displayValue: "Other",
-      value: DC.DENOMINATOR_INC_OTHER,
-      children: [
-        <QMR.TextArea
-          formLabelProps={{ fontWeight: "400" }}
-          label={parseLabelToHTML(labels.defineDenomOther)}
-          {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
-        />,
-      ],
-    },
-  ];
-  //for health home measures, we do not need to capture CHIP population
+  let coreSetType = coreSet;
+
   if (healthHomeMeasure) {
-    options = options.filter((opt) => opt.value !== DC.DENOMINATOR_INC_CHIP);
+    coreSetType = "HHCS";
   }
 
   return (
     <CUI.Box>
       <CUI.Text mt="3">
-        {`Please select all populations that are included. For example, if your data include both non-dual Medicaid ${
-          healthHomeMeasure ? "enrollees" : "beneficiaries"
-        } and Medicare and Medicaid Dual Eligibles, select both:`}
+        {`Please select all populations that are included in the denominator. For example, if your data include 
+        ${coreSetOptions[coreSetType].description}
+         and individuals dually eligible for Medicare and Medicaid, select:`}
       </CUI.Text>
       <CUI.UnorderedList m="5" ml="10">
-        <CUI.ListItem>Denominator includes Medicaid population</CUI.ListItem>
+        {coreSetOptions[coreSetType].options.map((option) => {
+          return <CUI.ListItem>{option.displayValue}</CUI.ListItem>;
+        })}
         <CUI.ListItem>
-          Denominator includes Medicare and Medicaid Dually-Eligible population
+          Individuals Dually Eligible for Medicare and Medicaid
         </CUI.ListItem>
       </CUI.UnorderedList>
 
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
-        options={options}
+        options={[
+          ...coreSetOptions[coreSetType].options,
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Medicaid",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+          {
+            displayValue: "Other",
+            value: DC.DENOMINATOR_INC_OTHER,
+            children: [
+              <QMR.TextArea
+                formLabelProps={{ fontWeight: "400" }}
+                label={parseLabelToHTML(labels.defineDenomOther)}
+                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+              />,
+            ],
+          },
+        ]}
       />
     </CUI.Box>
   );
 };
 
-const ChildDefinitions = (register: any) => {
+const ChildDefinitions = (
+  register: any,
+  labels: AnyObject,
+  coreSet: string
+) => {
   return (
     <CUI.Box>
       <CUI.Text mb="2">
-        Please select all populations that are included.
+        {"Please select all populations that are included in the denominator. "}
+        {coreSet !== "CCSC" &&
+          `For example, if your data include both Medicaid (Title XIX) ${coreSetOptions[coreSet].description}
+        `}
       </CUI.Text>
-      <QMR.RadioButton
+      {coreSet !== "CCSC" && (
+        <CUI.UnorderedList m="5" ml="10">
+          {coreSetOptions[coreSet].options.map((option) => {
+            return <CUI.ListItem>{option.displayValue}</CUI.ListItem>;
+          })}
+        </CUI.UnorderedList>
+      )}
+      <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         valueAsArray
         options={[
+          ...coreSetOptions[coreSet].options,
           {
-            displayValue:
-              "Denominator includes CHIP (Title XXI) population only",
-            value: "DenominatorIncCHIPPop",
-          },
-          {
-            displayValue:
-              "Denominator includes Medicaid (Title XIX) population only",
-            value: "DenominatorIncMedicaidPop",
-          },
-          {
-            displayValue: "Denominator includes CHIP and Medicaid (Title XIX)",
-            value: "DenominatorIncMedicaidAndCHIPPop",
+            displayValue: "Other",
+            value: DC.DENOMINATOR_INC_OTHER,
+            children: [
+              <QMR.TextArea
+                formLabelProps={{ fontWeight: "400" }}
+                label={parseLabelToHTML(labels.defineDenomOther)}
+                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+              />,
+            ],
           },
         ]}
       />
@@ -172,6 +267,9 @@ export const DefinitionOfPopulation = ({
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
+  const params = useParams();
+  const coreSet = params.coreSetId;
+
   return (
     <QMR.CoreQuestionWrapper
       testid="definition-of-population"
@@ -181,12 +279,16 @@ export const DefinitionOfPopulation = ({
         Definition of denominator
       </CUI.Heading>
       {!childMeasure &&
+        coreSet &&
         StandardDefinitions(
           register,
           labels.DefinitionsOfPopulation,
+          coreSet,
           healthHomeMeasure
         )}
-      {childMeasure && ChildDefinitions(register)}
+      {childMeasure &&
+        coreSet &&
+        ChildDefinitions(register, labels.DefinitionsOfPopulation, coreSet)}
       {labels.DefinitionsOfPopulation.changeInPopExplanation && (
         <CUI.Box my="5">
           <QMR.TextArea
