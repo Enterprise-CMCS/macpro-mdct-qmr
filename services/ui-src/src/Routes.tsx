@@ -128,6 +128,7 @@ export function useMeasureRoutes(): MeasureRoute[] {
               path: `:state/${year}/combined-rates/:measure`,
               element: (
                 <CombinedRatesMeasure
+                  measureName={foundMeasureDescription}
                   year={year}
                   measureId={measure}
                 ></CombinedRatesMeasure>
