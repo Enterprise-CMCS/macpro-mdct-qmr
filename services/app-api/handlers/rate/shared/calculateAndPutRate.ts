@@ -53,7 +53,6 @@ export const calculateAndPutRate = async (
 
     //write to the data to the rates table
     await putToTable(
-      event,
       process.env.rateTableName!,
       combinedRates,
       {

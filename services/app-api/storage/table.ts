@@ -13,21 +13,17 @@ const coreSetGroup = {
 };
 
 export const putToTable = async (
-  event: APIGatewayProxyEvent,
   tableName: string,
   data: any,
   key: any,
   columns: any
 ) => {
-  const lastAlteredBy = getUserNameFromJwt(event);
-
   const params = {
     TableName: tableName,
     Key: { ...key },
     ...convertToDynamoExpression(
       {
         lastAltered: Date.now(),
-        lastAlteredBy,
         data,
         ...columns,
       },
