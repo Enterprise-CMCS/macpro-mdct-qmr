@@ -1,7 +1,7 @@
 import { convertToDynamoExpression } from "../handlers/dynamoUtils/convertToDynamoExpressionVars";
 import { StatusCodes } from "../utils/constants/constants";
 import dynamoDb from "../libs/dynamodb-lib";
-import * as Types from "../types";\
+import * as Types from "../types";
 
 const coreSetGroup = {
   ACS: [Types.CoreSetAbbr.ACSC, Types.CoreSetAbbr.ACSM],
@@ -34,10 +34,7 @@ export const putToTable = async (
 export const getMeasureFromTable = async (tableName: string, columns: any) => {
   const params = {
     TableName: tableName,
-    ...convertToDynamoExpression(
-      columns,
-      "list"
-    ),
+    ...convertToDynamoExpression(columns, "list"),
   };
   let results = await dynamoDb.scanAll<Types.Measure>(params);
   return results;
