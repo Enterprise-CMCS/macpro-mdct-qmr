@@ -1,26 +1,27 @@
 import { RateCalculation } from "./rateCalculation";
+import { DataSource, UniqMeasureAbbr } from "./types";
 
 export class AdminstrativeCalculation extends RateCalculation {
   dataSrcMap: any[] = [
     {
-      Medicaid: ["AdministrativeData"],
-      CHIP: ["AdministrativeData"],
+      Medicaid: [DataSource.Administrative],
+      CHIP: [DataSource.Administrative],
     },
     {
-      Medicaid: ["AdministrativeData"],
-      CHIP: ["ElectronicHealthRecords"],
+      Medicaid: [DataSource.Administrative],
+      CHIP: [DataSource.EHR],
     },
     {
-      Medicaid: ["ElectronicHealthRecords"],
-      CHIP: ["ElectronicHealthRecords"],
+      Medicaid: [DataSource.EHR],
+      CHIP: [DataSource.EHR],
     },
     {
-      Medicaid: ["ElectronicHealthRecords"],
-      CHIP: ["AdministrativeData"],
+      Medicaid: [DataSource.EHR],
+      CHIP: [DataSource.Administrative],
     },
     {
-      Medicaid: ["AdministrativeData", "ElectronicHealthRecords"],
-      CHIP: ["AdministrativeData"],
+      Medicaid: [DataSource.Administrative, DataSource.EHR],
+      CHIP: [DataSource.Administrative],
     },
   ];
   check(arr: any[]): boolean {
@@ -33,9 +34,7 @@ export class AdminstrativeCalculation extends RateCalculation {
 
     //if the user had selected hybrid as a data source, we will not use this calculation
     const isHybrid = Object.values(dataSources).some((srcs: any) => {
-      return (srcs as string[])?.includes(
-        "HybridAdministrativeandMedicalRecordsData"
-      );
+      return (srcs as string[])?.includes(DataSource.Hybrid);
     });
 
     if (!isHybrid) {
@@ -58,13 +57,13 @@ export class AdminstrativeCalculation extends RateCalculation {
   getFormula(measure: string): Function {
     const abbr = measure.slice(0, 3);
     switch (abbr) {
-      case "AMB":
+      case UniqMeasureAbbr.AMB:
         return (numerator: number, denominator: number) =>
           (numerator / denominator) * 1000;
-      case "PQI":
+      case UniqMeasureAbbr.PQI:
         return (numerator: number, denominator: number) =>
           (numerator / denominator) * 100000;
-      case "AAB":
+      case UniqMeasureAbbr.AAB:
         return (numerator: number, denominator: number) =>
           (1 - numerator / denominator) * 100;
       default:

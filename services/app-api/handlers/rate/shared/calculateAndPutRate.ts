@@ -1,8 +1,8 @@
-import { APIGatewayProxyEvent } from "../../types";
-import * as Types from "../../types";
-import { putToTable, getMeasureByCoreSet } from "../../storage/table";
-import { RateCalculation } from "./calculations/rateCalculation";
-import { AdminstrativeCalculation } from "./calculations";
+import { APIGatewayProxyEvent } from "../../../types";
+import * as Types from "../../../types";
+import { putToTable, getMeasureByCoreSet } from "../../../storage/table";
+import { RateCalculation } from "../calculations/rateCalculation";
+import { AdminstrativeCalculation } from "../calculations";
 
 //add new calculations to this array
 const dataSrcCalculations: RateCalculation[] = [new AdminstrativeCalculation()];
@@ -30,8 +30,8 @@ export const calculateAndPutRate = async (
 
   //only do the rate calculation if the measure is adult or child and is a split
   if (
-    (coreSet!.length === 4 && combinedCoreSet === "ACS") ||
-    combinedCoreSet === "CCS"
+    (coreSet!.length === 4 && combinedCoreSet === Types.CoreSetAbbr.ACS) ||
+    combinedCoreSet === Types.CoreSetAbbr.CCS
   ) {
     const data = await getMeasureByCoreSet(event, combinedCoreSet!);
     const formattedData: [] = formatMeasureData(data);

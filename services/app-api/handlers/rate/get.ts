@@ -12,11 +12,11 @@ export const getRate = handler(async (event, context) => {
       coreSet: event!.pathParameters!.coreSet!,
     },
   };
-  const quueryValue = await dynamoDb.get(params);
+  const queryValue = await dynamoDb.get(params);
   return {
     status: StatusCodes.SUCCESS,
     body: {
-      Item: quueryValue,
+      Item: queryValue,
     },
   };
 });
