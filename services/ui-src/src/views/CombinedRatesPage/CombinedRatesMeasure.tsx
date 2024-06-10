@@ -29,7 +29,9 @@ export const CombinedRatesMeasure = ({
       <CUI.Heading fontSize="xl" mt="2" mb="2">
         {measure} - {measureName}
       </CUI.Heading>
-      <body> TO-DO: replace placeholder text</body>
+      <CUI.Heading size="sm" as="body" fontWeight="400" mt="4">
+        TO-DO: replace placeholder text
+      </CUI.Heading>
       <CUI.Heading size="sm" as="h2" fontWeight="400" mt="4">
         Measures used to calculate combined rates:
       </CUI.Heading>
