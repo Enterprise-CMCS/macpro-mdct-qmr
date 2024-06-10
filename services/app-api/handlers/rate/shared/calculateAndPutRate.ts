@@ -1,4 +1,3 @@
-import { APIGatewayProxyEvent } from "../../../types";
 import * as Types from "../../../types";
 import { putToTable, getMeasureByCoreSet } from "../../../storage/table";
 import { RateCalculation } from "../calculations/rateCalculation";
@@ -18,11 +17,8 @@ const formatMeasureData = (data: any) => {
   });
 };
 
-export const calculateAndPutRate = async (
-  event: APIGatewayProxyEvent,
-  context: any
-) => {
-  const { coreSet, measure, state, year } = event!.pathParameters!;
+export const calculateAndPutRate = async (pathParameters: any) => {
+  const { coreSet, measure, state, year } = pathParameters;
   const combinedTypes = [Types.CoreSetAbbr.ACS, Types.CoreSetAbbr.CCS];
   const combinedCoreSet: Types.CoreSetAbbr = combinedTypes.find((type) =>
     coreSet!.includes(type)
@@ -33,7 +29,7 @@ export const calculateAndPutRate = async (
     (coreSet!.length === 4 && combinedCoreSet === Types.CoreSetAbbr.ACS) ||
     combinedCoreSet === Types.CoreSetAbbr.CCS
   ) {
-    const data = await getMeasureByCoreSet(event, combinedCoreSet!);
+    const data = await getMeasureByCoreSet(combinedCoreSet!, pathParameters);
     const formattedData: [] = formatMeasureData(data);
 
     //based on the measure data, it will check against the calculations that exist and see which one is a match

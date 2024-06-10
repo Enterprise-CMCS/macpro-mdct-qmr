@@ -1,10 +1,7 @@
 import { convertToDynamoExpression } from "../handlers/dynamoUtils/convertToDynamoExpressionVars";
-import { getUserNameFromJwt } from "../libs/authorization";
-import { APIGatewayProxyEvent } from "../types";
 import { StatusCodes } from "../utils/constants/constants";
 import dynamoDb from "../libs/dynamodb-lib";
-import * as Types from "../types";
-import { getMeasure } from "../handlers/measures/get";
+import * as Types from "../types";\
 
 const coreSetGroup = {
   ACS: [Types.CoreSetAbbr.ACSC, Types.CoreSetAbbr.ACSM],
@@ -34,21 +31,32 @@ export const putToTable = async (
   return { status: StatusCodes.SUCCESS, body: params };
 };
 
+export const getMeasureFromTable = async (tableName: string, columns: any) => {
+  const params = {
+    TableName: tableName,
+    ...convertToDynamoExpression(
+      columns,
+      "list"
+    ),
+  };
+  let results = await dynamoDb.scanAll<Types.Measure>(params);
+  return results;
+};
+
 export const getMeasureByCoreSet = async (
-  event: APIGatewayProxyEvent,
-  coreSet: "ACS" | "CCS" | "HHCS" | undefined
+  coreSet: "ACS" | "CCS" | "HHCS" | undefined,
+  pathParams: any
 ) => {
   const measures: any[] = [];
   if (coreSet) {
     const group = coreSetGroup[coreSet];
 
     for (let i = 0; i < group.length; i++) {
-      const formatEvent = { ...event };
-      if (formatEvent?.pathParameters) {
-        formatEvent.pathParameters.coreSet = group[i];
-        const measure = await getMeasure(event, undefined);
-        measures.push({ coreSet: group[i], ...JSON.parse(measure.body)?.Item });
-      }
+      const measure = await getMeasureFromTable(process.env.measureTableName!, {
+        compoundKey: `${pathParams.state}${pathParams.year}${group[i]}${pathParams.measure}`,
+        coreSet: group[i],
+      });
+      measures.push(measure[0]);
     }
   }
   return measures;
