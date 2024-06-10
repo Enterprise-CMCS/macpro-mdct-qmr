@@ -8,8 +8,12 @@ interface Props {
   measureName: string;
 }
 
-export const CombinedRatesMeasure = ({ year, measureName }: Props) => {
-  const { state, measure } = useParams();
+export const CombinedRatesMeasure = ({
+  year,
+  measureName,
+  measureId: measure,
+}: Props) => {
+  const { state } = useParams();
   const typeSuffix = measure?.slice(-2); // used to determine if measure is adult or child type
 
   return (
