@@ -64,10 +64,7 @@ const CPUADValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateOMSTotalNDR(),
-      ],
+      validationCallbacks: [],
     }),
   ];
   return errorArray;
