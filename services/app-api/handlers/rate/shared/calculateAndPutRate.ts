@@ -11,9 +11,10 @@ export const formatMeasureData = (data: any) => {
     const column: string =
       Types.Program[(item?.coreSet)[item?.coreSet.length - 1] as "M" | "C"];
     const dataSource = item?.data?.DataSource ?? [];
+    const dataSourceSelections = item?.data?.DataSourceSelections ?? [];
     const rates = item?.data?.PerformanceMeasure?.rates ?? {};
 
-    return { column, dataSource, rates };
+    return { column, dataSource, dataSourceSelections, rates };
   });
 };
 
