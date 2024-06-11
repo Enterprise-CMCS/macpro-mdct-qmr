@@ -108,7 +108,6 @@ const sx = {
     background: "#EEFBFF",
     padding: "27px",
     flexDirection: "column",
-    paddingTop: "0",
     li: {
       marginLeft: "1.5rem",
     },
@@ -119,6 +118,7 @@ const sx = {
   header: {
     color: "#262626",
     fontSize: "1.313rem",
+    paddingTop: "0",
   },
   subheader: {
     fontWeight: "bold",
