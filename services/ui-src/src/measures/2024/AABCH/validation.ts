@@ -61,7 +61,10 @@ const AABCHValidation = (data: FormData) => {
         PMD.qualifiers,
         PMD.categories
       ),
-      validationCallbacks: [],
+      validationCallbacks: [
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateOMSTotalNDR(),
+      ],
     }),
   ];
 
