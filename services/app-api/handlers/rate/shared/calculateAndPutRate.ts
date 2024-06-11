@@ -6,7 +6,7 @@ import { AdminstrativeCalculation } from "../calculations";
 //add new calculations to this array
 const dataSrcCalculations: RateCalculation[] = [new AdminstrativeCalculation()];
 
-const formatMeasureData = (data: any) => {
+export const formatMeasureData = (data: any) => {
   return data.map((item: any) => {
     const column: string =
       Types.Program[(item?.coreSet)[item?.coreSet.length - 1] as "M" | "C"];
@@ -48,7 +48,7 @@ export const calculateAndPutRate = async (pathParameters: any) => {
     ];
 
     //write to the data to the rates table
-    await putToTable(
+    return await putToTable(
       process.env.rateTableName!,
       combinedRates,
       {
