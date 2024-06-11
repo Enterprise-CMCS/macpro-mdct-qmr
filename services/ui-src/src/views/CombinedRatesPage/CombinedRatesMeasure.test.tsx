@@ -17,10 +17,18 @@ describe("Test CombinedRatesMeasure", () => {
   it("renders", () => {
     render(
       <RouterWrappedComp>
-        <CombinedRatesMeasure year={"2024"} measureId={"AAB-AD"} />
+        <CombinedRatesMeasure
+          year={"2024"}
+          measureId={"AAB-AD"}
+          measureName={
+            "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older"
+          }
+        />
       </RouterWrappedComp>
     );
-    expect(screen.getByText("TBD")).toBeVisible();
+    expect(
+      screen.getByText("Measures used to calculate combined rates:")
+    ).toBeVisible();
   });
 });
 
@@ -29,7 +37,13 @@ describe("Test accessibility", () => {
     useApiMock({});
     const { container } = render(
       <RouterWrappedComp>
-        <CombinedRatesMeasure year={"2024"} measureId={"AAB-AD"} />
+        <CombinedRatesMeasure
+          year={"2024"}
+          measureId={"AAB-AD"}
+          measureName={
+            "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older"
+          }
+        />
       </RouterWrappedComp>
     );
     expect(await axe(container)).toHaveNoViolations();
