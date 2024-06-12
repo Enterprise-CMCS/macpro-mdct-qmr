@@ -3,10 +3,11 @@ import dynamodbLib from "../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../handlers/dynamoUtils/convertToDynamoExpressionVars";
 import { testData } from "../test-util/testData";
 import { StatusCodes } from "../utils/constants/constants";
+import { MeasureParameters } from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   update: jest.fn(),
-  scanAll: jest.fn(() => testData),
+  get: jest.fn((params) => testData.find(data => data.coreSet === params.Key.coreSet)),
 }));
 
 jest.mock("../handlers/dynamoUtils/convertToDynamoExpressionVars", () => ({
@@ -23,19 +24,20 @@ describe("Test functions", () => {
     expect(res.status).toBe(StatusCodes.SUCCESS);
   });
   it("Test getMeasureFromTable function", async () => {
-    const res = await getMeasureFromTable("mockTable", {});
+    const res = await getMeasureFromTable({ coreSet: "ACSM"} as MeasureParameters);
 
     expect(convertToDynamoExpression).toHaveBeenCalled();
-    expect(dynamodbLib.scanAll).toHaveBeenCalled();
-    expect(res).toHaveLength(2);
+    expect(dynamodbLib.get).toHaveBeenCalled();
+    expect(res).toBeDefined();
   });
   it("Test getMeasureByCoreSet function", async () => {
     const res = await getMeasureByCoreSet("ACS", {
       state: "MA",
-      year: 2024,
+      year: "2024",
       measure: "AMM-AD",
+      coreSet: "unused",
     });
-    expect(dynamodbLib.scanAll).toHaveBeenCalled();
+    expect(dynamodbLib.get).toHaveBeenCalled();
     expect(res).toHaveLength(2);
   });
 });

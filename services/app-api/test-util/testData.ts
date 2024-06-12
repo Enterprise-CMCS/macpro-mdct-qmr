@@ -1,4 +1,5 @@
 import { DataSource } from "../handlers/rate/calculations/types";
+import { CoreSetAbbr, MeasureStatus } from "../types";
 
 export const testData = [
   {
@@ -26,11 +27,11 @@ export const testData = [
     },
     year: 2024,
     lastAltered: 1718052665862,
-    coreSet: "ACSC",
+    coreSet: CoreSetAbbr.ACSC,
     state: "MA",
     lastAlteredBy: "Sammy States",
     reporting: null,
-    status: "incomplete",
+    status: MeasureStatus.INCOMPLETE,
   },
   {
     createdAt: 1718052653044,
@@ -57,10 +58,10 @@ export const testData = [
     },
     year: 2024,
     lastAltered: 1718052680450,
-    coreSet: "ACSM",
+    coreSet: CoreSetAbbr.ACSM,
     state: "MA",
     lastAlteredBy: "Sammy States",
     reporting: null,
-    status: "incomplete",
+    status: MeasureStatus.INCOMPLETE,
   },
 ];

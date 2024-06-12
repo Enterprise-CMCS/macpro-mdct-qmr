@@ -1,3 +1,5 @@
+import { DataSource } from "./handlers/rate/calculations/types";
+
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;
@@ -11,6 +13,15 @@ export interface CoreSet {
   state: string;
   submitted: boolean;
   year: number;
+}
+
+export interface StandardRateShape {
+  label: string;
+  uid?: string;
+  category?: string;
+  numerator?: string;
+  denominator?: string;
+  rate?: string;
 }
 
 export interface Measure {
@@ -32,6 +43,22 @@ export interface Measure {
    * it is set on fetch, according to the metadata in measureList.ts.
    */
   autoCompleted?: boolean;
+  data?: {
+    DataSource?: DataSource[];
+    DataSourceSelections?: unknown;
+    PerformanceMeasure?: {
+      rates?: {
+        [key: string]: StandardRateShape[];
+      };
+    };
+  };
+}
+
+export interface MeasureParameters {
+  state: string;
+  year: string;
+  coreSet: string;
+  measure: string;
 }
 
 /** This type subject to change, if/when we move to a multi-banner system. */
@@ -49,12 +76,12 @@ export interface Banner {
 
 export const enum CoreSetAbbr {
   ACS = "ACS", // adult
-  ACSM = "ACSM", // adult multiple
-  ACSC = "ACSC", // adult combined
-  CCS = "CCS", // child combined
+  ACSM = "ACSM", // adult medicaid
+  ACSC = "ACSC", // adult chip
+  CCS = "CCS", // child
   CCSM = "CCSM", // child medicaid
   CCSC = "CCSC", // child chip
-  HHCS = "HHCS", // helth homes
+  HHCS = "HHCS", // health homes
 }
 
 export enum Program {

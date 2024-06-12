@@ -1,12 +1,15 @@
+import { Program, StandardRateShape } from "../../../types";
+import { DataSource, FormattedMeasureData } from "./types";
+
 export abstract class RateCalculation {
-  abstract dataSrcMap: any[];
+  abstract dataSrcMap: { [key in Program]: DataSource[] }[];
 
   constructor() {}
-  abstract check(arr: any[]): boolean;
+  abstract check(arr: FormattedMeasureData[]): boolean;
   abstract getFormula(measure: string): Function;
 
-  public sum(arr: any[], rateFormula: Function) {
-    return arr?.map((rates: any[]) =>
+  public sum(arr: StandardRateShape[][], rateFormula: Function) {
+    return arr?.map((rates) =>
       rates?.reduce((prev, curr) => {
         const numerator =
           Number(prev.numerator ?? 0) + Number(curr.numerator ?? 0);
@@ -18,29 +21,26 @@ export abstract class RateCalculation {
         return {
           category: prev.category ?? "",
           label: prev.label ?? "",
-          numerator: numerator,
-          denominator: denominator,
+          numerator: numerator.toString(),
+          denominator: denominator.toString(),
           rate: rate,
           uid: prev?.uid,
         };
       })
     );
   }
-  public calculate(measure: string, rates: any[]) {
+  public calculate(measure: string, rates: FormattedMeasureData["rates"][]) {
     const formula: Function = this.getFormula(measure);
 
-    let flattenRates: any[] = [];
-    rates.forEach((rate) => {
-      flattenRates.push(...Object.values(rate).flat());
-    });
+    const flattenRates = rates.map(rate => Object.values(rate)).flat(2);
 
-    const uid: any[] = flattenRates
+    const uid = flattenRates
       .filter(
         (value, index, array) =>
           array.findIndex((item) => item.uid === value.uid) === index
       )
       .map((item) => item.uid);
-    const sumRates: any[] = uid.map((id) =>
+    const sumRates = uid.map((id) =>
       flattenRates.filter((rate) => rate.uid === id)
     );
     const total = this.sum(sumRates, formula);
