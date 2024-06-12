@@ -2,12 +2,7 @@ import { convertToDynamoExpression } from "../handlers/dynamoUtils/convertToDyna
 import { StatusCodes } from "../utils/constants/constants";
 import dynamoDb from "../libs/dynamodb-lib";
 import * as Types from "../types";
-
-const coreSetGroup = {
-  ACS: [Types.CoreSetAbbr.ACSC, Types.CoreSetAbbr.ACSM],
-  CCS: [Types.CoreSetAbbr.CCSC, Types.CoreSetAbbr.CCSM],
-  HHCS: [Types.CoreSetAbbr.HHCS],
-};
+import { MeasureParameters } from "../types";
 
 export const putToTable = async (
   tableName: string,
@@ -31,29 +26,33 @@ export const putToTable = async (
   return { status: StatusCodes.SUCCESS, body: params };
 };
 
-export const getMeasureFromTable = async (tableName: string, columns: any) => {
-  const params = {
-    TableName: tableName,
-    ...convertToDynamoExpression(columns, "list"),
-  };
-  let results = await dynamoDb.scanAll<Types.Measure>(params);
-  return results;
+export const getMeasureFromTable = async (parameters: MeasureParameters) => {
+  const { state, year, coreSet, measure } = parameters;
+  return await dynamoDb.get<Types.Measure>({
+    TableName: process.env.measureTableName,
+    Key: {
+      compoundKey: `${state}${year}${coreSet}${measure}`,
+      coreSet: coreSet,
+    }
+  });
+};
+
+const coreSetGroup = {
+  ACS: [Types.CoreSetAbbr.ACSC, Types.CoreSetAbbr.ACSM],
+  CCS: [Types.CoreSetAbbr.CCSC, Types.CoreSetAbbr.CCSM],
 };
 
 export const getMeasureByCoreSet = async (
-  coreSet: "ACS" | "CCS" | "HHCS" | undefined,
-  pathParams: any
+  coreSet: "ACS" | "CCS",
+  pathParams: MeasureParameters
 ) => {
-  const measures: any[] = [];
+  const measures = [];
   if (coreSet) {
     const group = coreSetGroup[coreSet];
 
     for (let i = 0; i < group.length; i++) {
-      const measure = await getMeasureFromTable(process.env.measureTableName!, {
-        compoundKey: `${pathParams.state}${pathParams.year}${group[i]}${pathParams.measure}`,
-        coreSet: group[i],
-      });
-      measures.push(measure[0]);
+      const measure = await getMeasureFromTable({ ...pathParams, coreSet: group[i] });
+      measures.push(measure);
     }
   }
   return measures;

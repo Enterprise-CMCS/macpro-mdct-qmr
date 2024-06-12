@@ -6,7 +6,7 @@ import { StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   update: jest.fn(),
-  scanAll: jest.fn(() => testData),
+  get: jest.fn((params) => testData.find(data => data.coreSet === params.Key.coreSet)),
 }));
 
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
@@ -20,7 +20,7 @@ describe("Test calculateAndPutRate", () => {
       coreSet: "ACS",
       measure: "AMM-AD",
       state: "MA",
-      year: 2024,
+      year: "2024",
     });
 
     expect(convertToDynamoExpression).not.toHaveBeenCalled();
@@ -32,7 +32,7 @@ describe("Test calculateAndPutRate", () => {
       coreSet: "ACSC",
       measure: "AMM-AD",
       state: "MA",
-      year: 2024,
+      year: "2024",
     });
 
     expect(convertToDynamoExpression).toHaveBeenCalled();

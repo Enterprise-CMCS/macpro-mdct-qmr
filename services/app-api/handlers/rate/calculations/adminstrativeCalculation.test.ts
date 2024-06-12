@@ -10,8 +10,8 @@ describe("Test administrative calculation class", () => {
       "BCS-AD",
       formatMeasureData(testData).map((data: any) => data.rates)
     );
-    expect(combinedRates.rates[0].numerator).toBe(6);
-    expect(combinedRates.rates[0].denominator).toBe(8);
+    expect(combinedRates.rates[0].numerator).toBe("6");
+    expect(combinedRates.rates[0].denominator).toBe("8");
     expect(combinedRates.rates[0].rate).toBe("75.0");
   });
   it("Test rate calculation if measure is AMB", () => {
@@ -20,8 +20,8 @@ describe("Test administrative calculation class", () => {
       "AMB-AD",
       formatMeasureData(testData).map((data: any) => data.rates)
     );
-    expect(combinedRates.rates[0].numerator).toBe(6);
-    expect(combinedRates.rates[0].denominator).toBe(8);
+    expect(combinedRates.rates[0].numerator).toBe("6");
+    expect(combinedRates.rates[0].denominator).toBe("8");
     expect(combinedRates.rates[0].rate).toBe("750.0");
   });
   it("Test rate calculation if measure is PQI", () => {
@@ -30,8 +30,8 @@ describe("Test administrative calculation class", () => {
       "PQI01-AD",
       formatMeasureData(testData).map((data: any) => data.rates)
     );
-    expect(combinedRates.rates[0].numerator).toBe(6);
-    expect(combinedRates.rates[0].denominator).toBe(8);
+    expect(combinedRates.rates[0].numerator).toBe("6");
+    expect(combinedRates.rates[0].denominator).toBe("8");
     expect(combinedRates.rates[0].rate).toBe("75000.0");
   });
   it("Test rate calculation if measure is AAB", () => {
@@ -40,8 +40,8 @@ describe("Test administrative calculation class", () => {
       "AAB-AD",
       formatMeasureData(testData).map((data: any) => data.rates)
     );
-    expect(combinedRates.rates[0].numerator).toBe(6);
-    expect(combinedRates.rates[0].denominator).toBe(8);
+    expect(combinedRates.rates[0].numerator).toBe("6");
+    expect(combinedRates.rates[0].denominator).toBe("8");
     expect(combinedRates.rates[0].rate).toBe("25.0");
   });
   it("Return true if data source is administrative/EHR & not hybrid", () => {
