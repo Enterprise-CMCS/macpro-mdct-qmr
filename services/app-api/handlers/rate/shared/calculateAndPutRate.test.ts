@@ -6,7 +6,9 @@ import { StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   update: jest.fn(),
-  get: jest.fn((params) => testData.find(data => data.coreSet === params.Key.coreSet)),
+  get: jest.fn((params) =>
+    testData.find((data) => data.coreSet === params.Key.coreSet)
+  ),
 }));
 
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({

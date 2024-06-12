@@ -15,6 +15,10 @@ export enum UniqMeasureAbbr {
 export interface FormattedMeasureData {
   column: Program;
   dataSource: NonNullable<NonNullable<Measure["data"]>["DataSource"]>;
-  dataSourceSelections: NonNullable<NonNullable<Measure["data"]>["DataSourceSelections"]>;
-  rates: NonNullable<NonNullable<NonNullable<Measure["data"]>["PerformanceMeasure"]>["rates"]>;
+  dataSourceSelections: NonNullable<
+    NonNullable<Measure["data"]>["DataSourceSelections"]
+  >;
+  rates: NonNullable<
+    NonNullable<NonNullable<Measure["data"]>["PerformanceMeasure"]>["rates"]
+  >;
 }

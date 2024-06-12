@@ -32,7 +32,7 @@ export abstract class RateCalculation {
   public calculate(measure: string, rates: FormattedMeasureData["rates"][]) {
     const formula: Function = this.getFormula(measure);
 
-    const flattenRates = rates.map(rate => Object.values(rate)).flat(2);
+    const flattenRates = rates.map((rate) => Object.values(rate)).flat(2);
 
     const uid = flattenRates
       .filter(

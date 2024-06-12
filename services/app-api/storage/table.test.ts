@@ -7,7 +7,9 @@ import { MeasureParameters } from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   update: jest.fn(),
-  get: jest.fn((params) => testData.find(data => data.coreSet === params.Key.coreSet)),
+  get: jest.fn((params) =>
+    testData.find((data) => data.coreSet === params.Key.coreSet)
+  ),
 }));
 
 jest.mock("../handlers/dynamoUtils/convertToDynamoExpressionVars", () => ({
@@ -24,7 +26,9 @@ describe("Test functions", () => {
     expect(res.status).toBe(StatusCodes.SUCCESS);
   });
   it("Test getMeasureFromTable function", async () => {
-    const res = await getMeasureFromTable({ coreSet: "ACSM"} as MeasureParameters);
+    const res = await getMeasureFromTable({
+      coreSet: "ACSM",
+    } as MeasureParameters);
 
     expect(convertToDynamoExpression).toHaveBeenCalled();
     expect(dynamodbLib.get).toHaveBeenCalled();

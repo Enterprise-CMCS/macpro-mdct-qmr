@@ -60,7 +60,9 @@ export const editMeasure = handler(async (event, context) => {
   //in 2024 and onward, we added a new feature called combined rates which requires rate calculations to the rates table
   if (parseInt(event!.pathParameters!.year!) >= 2024) {
     //after updating the database with the latest values for the measure, we run the combine rates calculations for said measure
-    await calculateAndPutRate(event!.pathParameters! as unknown as MeasureParameters); // TODO, fix this ugly double cast
+    await calculateAndPutRate(
+      event!.pathParameters! as unknown as MeasureParameters
+    ); // TODO, fix this ugly double cast
   }
 
   return { status: StatusCodes.SUCCESS, body: params };

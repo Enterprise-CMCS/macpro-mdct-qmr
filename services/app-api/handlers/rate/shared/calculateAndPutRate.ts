@@ -19,7 +19,9 @@ export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
   });
 };
 
-export const calculateAndPutRate = async (pathParameters: MeasureParameters) => {
+export const calculateAndPutRate = async (
+  pathParameters: MeasureParameters
+) => {
   const { coreSet, measure, state, year } = pathParameters;
   const combinedTypes = [Types.CoreSetAbbr.ACS, Types.CoreSetAbbr.CCS];
   const combinedCoreSet: Types.CoreSetAbbr = combinedTypes.find((type) =>
@@ -27,8 +29,10 @@ export const calculateAndPutRate = async (pathParameters: MeasureParameters) => 
   )!;
 
   //only do the rate calculation if the measure is adult or child and is a split
-  if (coreSet.length === 4 &&
-    (combinedCoreSet === Types.CoreSetAbbr.ACS || combinedCoreSet === Types.CoreSetAbbr.CCS)
+  if (
+    coreSet.length === 4 &&
+    (combinedCoreSet === Types.CoreSetAbbr.ACS ||
+      combinedCoreSet === Types.CoreSetAbbr.CCS)
   ) {
     const data = await getMeasureByCoreSet(combinedCoreSet!, pathParameters);
     const formattedData = formatMeasureData(data);

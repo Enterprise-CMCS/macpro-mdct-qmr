@@ -33,7 +33,7 @@ export const getMeasureFromTable = async (parameters: MeasureParameters) => {
     Key: {
       compoundKey: `${state}${year}${coreSet}${measure}`,
       coreSet: coreSet,
-    }
+    },
   });
 };
 
@@ -51,7 +51,10 @@ export const getMeasureByCoreSet = async (
     const group = coreSetGroup[coreSet];
 
     for (let i = 0; i < group.length; i++) {
-      const measure = await getMeasureFromTable({ ...pathParams, coreSet: group[i] });
+      const measure = await getMeasureFromTable({
+        ...pathParams,
+        coreSet: group[i],
+      });
       measures.push(measure);
     }
   }

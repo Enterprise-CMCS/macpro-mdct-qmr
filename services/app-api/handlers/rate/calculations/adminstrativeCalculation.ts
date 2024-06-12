@@ -26,8 +26,10 @@ export class AdminstrativeCalculation extends RateCalculation {
     },
   ];
   check(arr: FormattedMeasureData[]): boolean {
-    const chipSources = arr.find(data => data.column === "CHIP")?.dataSource ?? [];
-    const medicaidSources = arr.find(data => data.column === "Medicaid")?.dataSource ?? [];
+    const chipSources =
+      arr.find((data) => data.column === "CHIP")?.dataSource ?? [];
+    const medicaidSources =
+      arr.find((data) => data.column === "Medicaid")?.dataSource ?? [];
 
     //if the user had selected hybrid as a data source, we will not use this calculation
     const isHybrid = [chipSources, medicaidSources].some((srcs) => {
