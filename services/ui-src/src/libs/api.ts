@@ -145,8 +145,8 @@ async function getRate(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return API.get(
-    "rate",
-    `/rate/${inputObj.state}/${inputObj.year}/${inputObj.measure}/get`,
+    "coreSet",
+    `/rate/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/${inputObj.measure}/get`,
     opts
   );
 }
