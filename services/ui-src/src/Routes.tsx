@@ -124,10 +124,11 @@ export function useMeasureRoutes(): MeasureRoute[] {
             });
             //creating the routes for the combined rates measures
             measureRoutes.push({
-              key: `:state/${year}/combined-rates/:measure`,
-              path: `:state/${year}/combined-rates/:measure`,
+              key: `:state/${year}/combined-rates/${measure}`,
+              path: `:state/${year}/combined-rates/${measure}`,
               element: (
                 <CombinedRatesMeasure
+                  measureName={foundMeasureDescription}
                   year={year}
                   measureId={measure}
                 ></CombinedRatesMeasure>

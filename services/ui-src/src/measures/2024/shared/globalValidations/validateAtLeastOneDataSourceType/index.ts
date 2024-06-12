@@ -13,7 +13,10 @@ export const validateAtLeastOneDataSourceType = (
           return typeof s === "object";
         })
         .indexOf(true);
-      if (!Object.values(source[index])[0]) {
+      if (
+        !Object.values(source[index])[0] ||
+        Object.values(source[index])[0].length === 0
+      ) {
         let dataErrorMessage;
         if (
           source.includes("AdministrativeData0-AdministrativeDataOther") ||
