@@ -24,7 +24,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
 
   return data ? (
     <CUI.Box sx={sx.tableContainer}>
-      {combinedRatesKeys.map((id) => {
+      {combinedRatesKeys?.map((id) => {
         return (
           <CUI.Box as={"section"}>
             <CUI.Heading fontSize="xl" mt="12" mb="2">
