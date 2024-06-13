@@ -3,7 +3,7 @@ import {
   CombinedRatePayload,
   RateCategoryMap,
   RateDataShape,
-} from "./combinedRatesNDR";
+} from "./CombinedRateTypes";
 
 export const CombinedRateNDR = ({ json }: Props) => {
   const data = json?.data;
@@ -75,13 +75,19 @@ export const CombinedRateNDR = ({ json }: Props) => {
                     Rate
                   </CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {medicaidDataArr[id].rate}
+                    {medicaidDataArr[id].rate
+                     ? medicaidDataArr[id].rate
+                     : "-"}
                   </CUI.Td>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {chipDataArr[id].rate}
+                    {chipDataArr[id].rate
+                     ? chipDataArr[id].rate
+                     : "-"}
                   </CUI.Td>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {combinedRatesData[id].rate}
+                    {combinedRatesData[id].rate
+                      ? combinedRatesData[id].rate
+                      : "-"}
                   </CUI.Td>
                 </CUI.Tr>
               </CUI.Tbody>
