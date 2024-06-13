@@ -1,4 +1,5 @@
 import * as CUI from "@chakra-ui/react";
+import { AnyObject } from "types";
 import * as json from "./combinedRates.json";
 
 export const DataSourceInformationBanner = () => {
@@ -22,8 +23,11 @@ export const DataSourceInformationBanner = () => {
     return;
   };
 
-  const dataSourceSelections = (dataSource: any, dataSourceSelections: any) => {
-    let selected: any = [];
+  const dataSourceSelections = (
+    dataSource: string,
+    dataSourceSelections: AnyObject
+  ) => {
+    let selected: string[] = [];
 
     if (dataSource === "AdministrativeData") {
       selected = [];
@@ -54,11 +58,16 @@ export const DataSourceInformationBanner = () => {
     return selected;
   };
 
-  const addSpaceToCamelCase = (str: any) => {
-    return str.replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3").trim();
+  const formatCamelCaseWithInitialisms = (str: string) => {
+    let spacedString = str
+      .replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3")
+      .trim();
+    spacedString = spacedString.replace(/([A-Z]+)(?=[A-Z][a-z]|\s|$)/g, "($1)");
+
+    return spacedString;
   };
 
-  const renderData = filteredData.map((data: any) => {
+  const renderData = filteredData.map((data) => {
     return (
       <CUI.Box sx={sx.infoBannerDesktop.section} as={"section"}>
         <CUI.Heading
@@ -71,7 +80,7 @@ export const DataSourceInformationBanner = () => {
         </CUI.Heading>
 
         {data.dataSource ? (
-          data.dataSource.map((dataSource: any) => {
+          data.dataSource.map((dataSource: string) => {
             return (
               <CUI.UnorderedList>
                 <CUI.Heading tabindex="0" pt={"1.25rem"} size="sm">
@@ -81,9 +90,9 @@ export const DataSourceInformationBanner = () => {
                 {dataSourceSelections(
                   dataSource,
                   data.dataSourceSelections
-                ).map((item: any) => (
+                ).map((item) => (
                   <CUI.ListItem tabindex="0">
-                    {addSpaceToCamelCase(item)}
+                    {formatCamelCaseWithInitialisms(item)}
                   </CUI.ListItem>
                 ))}
               </CUI.UnorderedList>
