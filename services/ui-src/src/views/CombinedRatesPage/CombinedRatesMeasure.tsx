@@ -71,7 +71,6 @@ export const CombinedRatesMeasure = ({
           <CUI.Link
             href={`/${state}/${year}/${combinedCoreSetAbbr}M/${measure}`}
             aria-label="Link to Medicaid measure"
-            className="link"
             target="_blank"
             color="blue.600"
           >
