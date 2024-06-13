@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2024/shared/globalValidations";
 import * as PMD from "./data";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
 
@@ -53,8 +54,19 @@ const CPUADValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
+    // OMS Validations
+    ...GV.omsValidations({
+      data,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
+      locationDictionary: GV.omsLocationDictionary(
+        OMSData(2024),
+        PMD.qualifiers,
+        PMD.categories
+      ),
+      validationCallbacks: [],
+    }),
   ];
-
   return errorArray;
 };
 
