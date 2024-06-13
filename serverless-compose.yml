@@ -11,6 +11,7 @@ services:
     params:
       CoreSetTableName: ${database.CoreSetTableName}
       MeasureTableName: ${database.MeasureTableName}
+      RateTableName: ${database.RateTableName}
 
   app-api:
     path: services/app-api
@@ -19,6 +20,8 @@ services:
       CoreSetTableStreamArn: ${database.CoreSetTableStreamArn}
       MeasureTableName: ${database.MeasureTableName}
       MeasureTableStreamArn: ${database.MeasureTableStreamArn}
+      RateTableName: ${database.RateTableName}
+      RateTableStreamArn: ${database.RateTableStreamArn}
       BannerTableName: ${database.BannerTableName}
 
   # wave 3: depends on many

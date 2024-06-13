@@ -2,12 +2,23 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
+import { useGetRate } from "hooks/api/useGetRate";
 
 interface Props {
   year: string;
   measureId: string;
   measureName: string;
 }
+
+const coreSetBySuffix = (suffix: string) => {
+  switch (suffix) {
+    case "AD":
+      return "ACS";
+    case "CH":
+      return "CCS";
+  }
+  return "";
+};
 
 export const CombinedRatesMeasure = ({
   year,
@@ -16,6 +27,14 @@ export const CombinedRatesMeasure = ({
 }: Props) => {
   const { state } = useParams();
   const typeSuffix = measure?.slice(-2); // used to determine if measure is adult or child type
+
+  const { data } = useGetRate({
+    measure,
+    state: state!,
+    coreSet: coreSetBySuffix(typeSuffix),
+    year,
+  });
+  console.log(data?.Item);
 
   return (
     <QMR.StateLayout

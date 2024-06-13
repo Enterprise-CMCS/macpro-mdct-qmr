@@ -66,13 +66,15 @@
     ],
     "collectCoverageFrom": [
       "handlers/**/*.{ts,tsx}",
-      "libs/**/*.{ts,tsx}"
+      "libs/**/*.{ts,tsx}",
+      "storage/**/*.{ts,tsx}"
     ],
     "moduleDirectories": [
       "node_modules",
       "handlers",
       "libs",
-      "util"
+      "util",
+      "storage"
     ],
     "setupFilesAfterEnv": []
   }

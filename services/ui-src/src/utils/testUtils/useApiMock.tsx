@@ -8,6 +8,7 @@ import {
   useGetCoreSets,
   useGetMeasure,
   useGetMeasures,
+  useGetRate,
   useUpdateMeasure,
   useGetReportingYears,
   useGetBanner,
@@ -130,6 +131,28 @@ export const defaultMockValues = {
       mutate: () => {}; // eslint-disable-line
     },
   },
+  useGetRateValues: {
+    isLoading: false,
+    error: undefined,
+    isError: undefined,
+    data: {
+      Items: [
+        {
+          autoCompleted: false,
+          compoundKey: "AL2021ACSIET-AD",
+          coreSet: "ACS",
+          createdAt: 1642167976771,
+          description:
+            "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
+          lastAltered: 1642167976771,
+          measure: "IET-AD",
+          state: "AL",
+          status: "incomplete",
+          year: 2021,
+        },
+      ],
+    },
+  },
 };
 
 export const useApiMock = ({
@@ -144,6 +167,7 @@ export const useApiMock = ({
   useGetCoreSetsValues = defaultMockValues.useGetCoreSetsValues,
   useGetMeasureValues = defaultMockValues.useGetMeasureValues,
   useGetMeasuresValues = defaultMockValues.useGetMeasuresValues,
+  useGetRateValues = defaultMockValues.useGetRateValues,
   useUpdateMeasureValues = defaultMockValues.useUpdateMeasureValues,
   useGetReportingYearsValues = defaultMockValues.useGetReportingYearsValues,
 }) => {
@@ -176,6 +200,9 @@ export const useApiMock = ({
   });
   (useUpdateMeasure as jest.Mock).mockReturnValue({
     ...useUpdateMeasureValues,
+  });
+  (useGetRate as jest.Mock).mockReturnValue({
+    ...useGetRateValues,
   });
   (useGetReportingYears as jest.Mock).mockReturnValue({
     ...useGetReportingYearsValues,
