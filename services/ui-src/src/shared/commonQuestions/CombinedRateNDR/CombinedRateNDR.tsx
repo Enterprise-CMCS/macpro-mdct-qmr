@@ -1,42 +1,25 @@
 import * as CUI from "@chakra-ui/react";
-import { mt } from "date-fns/locale";
-import * as json from "./combinedRatesNDR.json";
+import { json, RateCategoryMap, RateDataShape } from "./combinedRatesNDR";
 
 export const CombinedRateNDR = () => {
   const { data } = json;
 
   // filter data by Medicaid, CHIP, and Combined Rates
-  const medicaidData = data.filter((item) => item.column == "Medicaid")[0]
-    .rates;
-  const chipData = data.filter((item) => item.column == "CHIP")[0].rates;
-  const combinedRatesData = data.filter(
+  const medicaidData = data.find((item) => item.column == "Medicaid")?.rates as RateCategoryMap;
+  const chipData = data.find((item) => item.column == "CHIP")?.rates as RateCategoryMap;
+  const combinedRatesData = data.find(
     (item) => item.column == "Combined Rate"
-  )[0].rates;
+  )?.rates as RateDataShape[];
 
-  // identify all keys
-  let medicaidKeys = Object.keys(medicaidData);
-  let chipKeys = Object.keys(chipData);
-  let combinedRatesKeys = Object.keys(combinedRatesData);
+  let combinedRatesKeys = combinedRatesData.map((_, index) => index);
 
-  // restructure Medicaid data into 1d array for easier traversal
-  let medicaidDataArr = new Array();
-  for (let i = 0; i < medicaidKeys.length; i++) {
-    for (let j = 0; j < medicaidData[medicaidKeys[i]].length; j++) {
-      medicaidDataArr.push(medicaidData[medicaidKeys[i]][j]);
-    }
-  }
-
-  // restructure CHIP data into 1d array for easier traversal
-  let chipDataArr = new Array();
-  for (let i = 0; i < medicaidKeys.length; i++) {
-    for (let j = 0; j < chipData[chipKeys[i]].length; j++) {
-      chipDataArr.push(chipData[chipKeys[i]][j]);
-    }
-  }
+  // restructure Medicaid & CHIP data into 1d array for easier traversal
+  let medicaidDataArr = Object.values(medicaidData).flat();
+  let chipDataArr = Object.values(chipData).flat();
 
   return (
     <CUI.Box>
-      {combinedRatesKeys.map((id: number) => {
+      {combinedRatesKeys.map((id) => {
         return (
           <CUI.Box as={"section"}>
             <CUI.Heading fontSize="xl" mt="12" mb="2">
