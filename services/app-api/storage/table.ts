@@ -46,8 +46,8 @@ export const getMeasureByCoreSet = async (
   combinedCoreSet: "ACS" | "CCS",
   params: MeasureParameters
 ) => {
-  const gets = coreSetGroup[combinedCoreSet].map(
-    (coreSet) => getMeasureFromTable({ ...params, coreSet })
+  const gets = coreSetGroup[combinedCoreSet].map((coreSet) =>
+    getMeasureFromTable({ ...params, coreSet })
   );
   return Promise.all(gets);
 };
