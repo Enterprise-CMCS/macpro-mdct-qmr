@@ -34,7 +34,8 @@ export const CombinedRatesMeasure = ({
     coreSet: coreSetBySuffix(typeSuffix),
     year,
   });
-  console.log(data?.Item);
+
+  const item = data?.Item;
 
   return (
     <QMR.StateLayout
@@ -49,7 +50,7 @@ export const CombinedRatesMeasure = ({
       <CUI.Heading fontSize="xl" mt="2" mb="2">
         {measure} - {measureName}
       </CUI.Heading>
-      <CUI.Heading size="sm" as="body" fontWeight="400" mt="4">
+      <CUI.Heading size="sm" as="h2" fontWeight="400" mt="4">
         TO-DO: replace placeholder text
       </CUI.Heading>
       <CUI.Heading size="sm" as="h2" fontWeight="400" mt="4">
@@ -78,7 +79,7 @@ export const CombinedRatesMeasure = ({
           </CUI.Link>
         </CUI.ListItem>
       </CUI.UnorderedList>
-      <DataSourceInformationBanner />
+      <DataSourceInformationBanner data={item?.data!} />
     </QMR.StateLayout>
   );
 };

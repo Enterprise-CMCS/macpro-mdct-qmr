@@ -1,16 +1,14 @@
 import * as CUI from "@chakra-ui/react";
 import { AnyObject } from "types";
-import * as json from "./combinedRates.json";
 
-export const DataSourceInformationBanner = () => {
-  const { data } = json;
-
-  const newData = structuredClone(data);
-  newData[0].dataSource?.reverse();
-  newData[1].dataSource?.reverse();
-  const filteredData = newData
-    .filter((item) => item.column === "CHIP" || item.column === "Medicaid")
-    .reverse();
+interface Props {
+  data: AnyObject[];
+}
+const columns = ["Medicaid", "CHIP"];
+export const DataSourceInformationBanner = ({ data }: Props) => {
+  const filteredData = columns.map(
+    (column) => data?.find((item) => item?.column === column) ?? {}
+  );
 
   const dataSourceSubsection = (dataSource: string) => {
     if (dataSource === "AdministrativeData") {
@@ -48,31 +46,34 @@ export const DataSourceInformationBanner = () => {
     return spacedString;
   };
 
-  const renderData = filteredData.map((data) => {
+  const renderData = columns.map((column, idx) => {
     return (
-      <CUI.Box sx={sx.infoBannerDesktop.section} as={"section"}>
+      <CUI.Box
+        sx={sx.infoBannerDesktop.section}
+        as={"section"}
+        key={`data-source-component-${idx}`}
+      >
         <CUI.Heading
-          tabindex="0"
+          tabIndex={0}
           pt={"1.25rem"}
           sx={sx.header}
-          data-cy={`data-source-component-${data.column}-heading`}
+          data-cy={`data-source-component-${column}-heading`}
         >
-          {`${data.column} Data Source`}
+          {`${column} Data Source`}
         </CUI.Heading>
 
-        {data.dataSource ? (
-          data.dataSource.map((dataSource: string) => {
+        {filteredData?.[idx]?.dataSource ? (
+          filteredData?.[idx]?.dataSource?.map((dataSource: string) => {
             return (
-              <CUI.UnorderedList>
-                <CUI.Heading tabindex="0" pt={"1.25rem"} size="sm">
+              <CUI.UnorderedList key={`data-src-${idx}`}>
+                <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
                   {dataSourceSubsection(dataSource)}
                 </CUI.Heading>
-
                 {dataSourceSelections(
                   dataSource,
-                  data.dataSourceSelections
-                ).map((item) => (
-                  <CUI.ListItem tabindex="0">
+                  filteredData?.[idx]?.dataSourceSelections!
+                ).map((item, srcIdx) => (
+                  <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
                     {formatCamelCaseWithInitialisms(item)}
                   </CUI.ListItem>
                 ))}
@@ -80,7 +81,7 @@ export const DataSourceInformationBanner = () => {
             );
           })
         ) : (
-          <CUI.Text tabindex="0">Not answered</CUI.Text>
+          <CUI.Text tabIndex={0}>Not answered</CUI.Text>
         )}
       </CUI.Box>
     );
@@ -90,7 +91,7 @@ export const DataSourceInformationBanner = () => {
     <>
       <CUI.Show above="md">
         <CUI.Flex
-          tabindex="0"
+          tabIndex={0}
           aria-label="Combined Rate Data Source Information Banner"
           sx={sx.infoBannerDesktop}
           gap={"3rem"}
@@ -101,7 +102,7 @@ export const DataSourceInformationBanner = () => {
 
       <CUI.Show below="md">
         <CUI.Flex
-          tabindex="0"
+          tabIndex={0}
           aria-label="Combined Rate Data Source Information Banner"
           sx={sx.infoBannerMobile}
           gap={"2rem"}
