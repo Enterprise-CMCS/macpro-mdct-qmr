@@ -18,7 +18,7 @@ export const CombinedRateNDR = () => {
   let chipDataArr = Object.values(chipData).flat();
 
   return (
-    <CUI.Box>
+    <CUI.Box sx={sx.tableContainer}>
       {combinedRatesKeys.map((id) => {
         return (
           <CUI.Box as={"section"}>
@@ -28,7 +28,7 @@ export const CombinedRateNDR = () => {
             <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
               <CUI.Thead>
                 <CUI.Tr>
-                  <CUI.Th></CUI.Th>
+                  <CUI.Td></CUI.Td>
                   <CUI.Th sx={sx.header}>Medicaid</CUI.Th>
                   <CUI.Th sx={sx.header}>CHIP</CUI.Th>
                   <CUI.Th sx={sx.header}>Combined Rate</CUI.Th>
@@ -36,7 +36,7 @@ export const CombinedRateNDR = () => {
               </CUI.Thead>
               <CUI.Tbody>
                 <CUI.Tr sx={sx.row}>
-                  <CUI.Td sx={sx.verticalHeader}>Numerator</CUI.Td>
+                  <CUI.Th sx={sx.verticalHeader} scope="row">Numerator</CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
                     {medicaidDataArr[id].numerator
                       ? medicaidDataArr[id].numerator
@@ -49,7 +49,7 @@ export const CombinedRateNDR = () => {
                   </CUI.Td>
                 </CUI.Tr>
                 <CUI.Tr sx={sx.row}>
-                  <CUI.Td sx={sx.verticalHeader}>Denominator</CUI.Td>
+                  <CUI.Th sx={sx.verticalHeader} scope="row">Denominator</CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
                     {medicaidDataArr[id].denominator
                       ? medicaidDataArr[id].denominator
@@ -62,7 +62,7 @@ export const CombinedRateNDR = () => {
                   </CUI.Td>
                 </CUI.Tr>
                 <CUI.Tr sx={sx.row}>
-                  <CUI.Td sx={sx.verticalHeader}>Rate</CUI.Td>
+                  <CUI.Th sx={sx.verticalHeader} scope="row">Rate</CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
                     {medicaidDataArr[id].rate}
                   </CUI.Td>
@@ -83,17 +83,27 @@ export const CombinedRateNDR = () => {
 };
 
 const sx = {
+  tableContainer: {
+    maxWidth: "718px",
+  },
   header: {
-    fontSize: "md",
     textAlign: "right",
     "text-transform": "capitalize",
+    fontSize: "16px",
+    color: "black",
   },
   verticalHeader: {
     fontWeight: "semibold",
+    "text-transform": "capitalize",
+    fontSize: "16px",
+    color: "black",
   },
   content: {
     textAlign: "right",
     paddingleft: "0px",
+    "&:nth-child(4)": {
+      fontWeight: "bold",
+    },
   },
-  row: { borderBottom: "0.1px solid gray" },
+  row: { borderBottom: "0.1px solid #D6D7D9" },
 };
