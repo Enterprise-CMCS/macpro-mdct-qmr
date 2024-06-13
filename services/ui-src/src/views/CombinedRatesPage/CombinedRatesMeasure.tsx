@@ -3,7 +3,6 @@ import * as CUI from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
 import { useGetRate } from "hooks/api/useGetRate";
-import { CombinedRateDataSource } from "shared/commonQuestions/CombinedRateDataSource/CombinedRateDataSource";
 import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
 
 interface Props {
