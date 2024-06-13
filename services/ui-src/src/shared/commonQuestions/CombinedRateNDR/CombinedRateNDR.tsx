@@ -6,24 +6,24 @@ import {
 } from "./combinedRatesNDR";
 
 export const CombinedRateNDR = ({ json }: Props) => {
-  const { data } = json;
+  const data = json?.data;
 
   // filter data by Medicaid, CHIP, and Combined Rates
-  const medicaidData = data.find((item) => item.column == "Medicaid")
+  const medicaidData = data?.find((item) => item.column == "Medicaid")
     ?.rates as RateCategoryMap;
-  const chipData = data.find((item) => item.column == "CHIP")
+  const chipData = data?.find((item) => item.column == "CHIP")
     ?.rates as RateCategoryMap;
-  const combinedRatesData = data.find((item) => item.column == "Combined Rate")
+  const combinedRatesData = data?.find((item) => item.column == "Combined Rate")
     ?.rates as RateDataShape[];
 
-  let combinedRatesKeys = combinedRatesData.map((_, index) => index);
+  let combinedRatesKeys = combinedRatesData?.map((_, index) => index);
 
   // restructure Medicaid & CHIP data into 1d array for easier traversal
-  let medicaidDataArr = Object.values(medicaidData).flat();
-  let chipDataArr = Object.values(chipData).flat();
+  let medicaidDataArr = Object.values(medicaidData ?? {}).flat();
+  let chipDataArr = Object.values(chipData ?? {}).flat();
 
   return (
-    <CUI.Box sx={sx.tableContainer}>
+    data ? <CUI.Box sx={sx.tableContainer}>
       {combinedRatesKeys.map((id) => {
         return (
           <CUI.Box as={"section"}>
@@ -90,6 +90,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
         );
       })}
     </CUI.Box>
+    : null
   );
 };
 
