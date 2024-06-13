@@ -70,6 +70,7 @@ export const commonQuestionsLabel = {
     specSizeOfPop: "Specify the size of the population excluded:",
     deliverySysOther:
       "Describe the Other Delivery System represented in the denominator (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    useCoreSetSpecificOptions: true,
   },
   DateRange: {
     header: "Date Range",
