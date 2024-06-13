@@ -19,15 +19,51 @@ interface Props {
   populationSampleSize?: boolean;
   healthHomeMeasure?: boolean;
 }
-
+interface CoreSetOption {
+  displayValue: string;
+  value: string;
+}
 interface CoreSetOptions {
   [id: string]: {
-    options: { displayValue: string; value: string }[];
+    options: CoreSetOption[];
     description?: string;
   };
 }
 
-const coreSetOptions: CoreSetOptions = {
+const coreSetOptions: { [id: string]: CoreSetOption[] } = {
+  standard: [
+    {
+      displayValue: "Denominator includes Medicaid population",
+      value: DC.DENOMINATOR_INC_MEDICAID_POP,
+    },
+    {
+      displayValue:
+        "Denominator includes CHIP population (e.g. pregnant women)",
+      value: DC.DENOMINATOR_INC_CHIP,
+    },
+    {
+      displayValue:
+        "Denominator includes Medicare and Medicaid Dually-Eligible population",
+      value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+    },
+  ],
+  child: [
+    {
+      displayValue: "Denominator includes CHIP (Title XXI) population only",
+      value: "DenominatorIncCHIPPop",
+    },
+    {
+      displayValue: "Denominator includes Medicaid (Title XIX) population only",
+      value: "DenominatorIncMedicaidPop",
+    },
+    {
+      displayValue: "Denominator includes CHIP and Medicaid (Title XIX)",
+      value: "DenominatorIncMedicaidAndCHIPPop",
+    },
+  ],
+};
+
+const coreSetOptions2024: CoreSetOptions = {
   ACSM: {
     options: [
       {
@@ -110,25 +146,85 @@ const coreSetOptions: CoreSetOptions = {
 const StandardDefinitions = (
   register: any,
   labels: AnyObject,
+  isYear2024: boolean,
+  coreSet?: string,
+  healthHomeMeasure?: boolean
+) => {
+  if (isYear2024 && coreSet) {
+    return StandardDefinitions2024(
+      register,
+      labels,
+      coreSet,
+      healthHomeMeasure
+    );
+  }
+  const standardOptions = coreSetOptions["standard"];
+  const optionsWithoutChip = standardOptions.filter(
+    (opt) => opt.value !== DC.DENOMINATOR_INC_CHIP
+  );
+  //for health home measures, we do not need to capture CHIP population
+  const options = healthHomeMeasure ? optionsWithoutChip : standardOptions;
+
+  return (
+    <CUI.Box>
+      <CUI.Text mt="3">
+        {`Please select all populations that are included. For example, if your data include both non-dual Medicaid ${
+          healthHomeMeasure ? "enrollees" : "beneficiaries"
+        } and Medicare and Medicaid Dual Eligibles, select both:`}
+      </CUI.Text>
+      <CUI.UnorderedList m="5" ml="10">
+        {optionsWithoutChip.map((option, index) => {
+          return (
+            <CUI.ListItem key={index + option.value}>
+              {option.displayValue}
+            </CUI.ListItem>
+          );
+        })}
+      </CUI.UnorderedList>
+
+      <QMR.Checkbox
+        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+        options={[
+          ...options,
+          {
+            displayValue: "Other",
+            value: DC.DENOMINATOR_INC_OTHER,
+            children: [
+              <QMR.TextArea
+                formLabelProps={{ fontWeight: "400" }}
+                label={parseLabelToHTML(labels.defineDenomOther)}
+                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+              />,
+            ],
+          },
+        ]}
+      />
+    </CUI.Box>
+  );
+};
+
+const StandardDefinitions2024 = (
+  register: any,
+  labels: AnyObject,
   coreSet: string,
   healthHomeMeasure?: boolean
 ) => {
-  let coreSetType = coreSet;
-
-  if (healthHomeMeasure) {
-    coreSetType = "HHCS";
-  }
+  const coreSetType = healthHomeMeasure ? "HHCS" : coreSet;
 
   return (
     <CUI.Box>
       <CUI.Text mt="3">
         {`Please select all populations that are included in the denominator. For example, if your data include 
-        ${coreSetOptions[coreSetType].description}
+        ${coreSetOptions2024[coreSetType].description}
          and individuals dually eligible for Medicare and Medicaid, select:`}
       </CUI.Text>
       <CUI.UnorderedList m="5" ml="10">
-        {coreSetOptions[coreSetType].options.map((option) => {
-          return <CUI.ListItem>{option.displayValue}</CUI.ListItem>;
+        {coreSetOptions2024[coreSetType].options.map((option, index) => {
+          return (
+            <CUI.ListItem key={index + option.value}>
+              {option.displayValue}
+            </CUI.ListItem>
+          );
         })}
         <CUI.ListItem>
           Individuals Dually Eligible for Medicare and Medicaid
@@ -138,7 +234,7 @@ const StandardDefinitions = (
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         options={[
-          ...coreSetOptions[coreSetType].options,
+          ...coreSetOptions2024[coreSetType].options,
           {
             displayValue:
               "Individuals Dually Eligible for Medicare and Medicaid",
@@ -163,6 +259,29 @@ const StandardDefinitions = (
 
 const ChildDefinitions = (
   register: any,
+  yearIs2024: boolean,
+  labels: AnyObject,
+  coreSet?: string
+) => {
+  if (yearIs2024 && coreSet) {
+    return ChildDefinitions2024(register, labels, coreSet);
+  }
+  return (
+    <CUI.Box>
+      <CUI.Text mb="2">
+        Please select all populations that are included.
+      </CUI.Text>
+      <QMR.RadioButton
+        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+        valueAsArray
+        options={coreSetOptions["child"]}
+      />
+    </CUI.Box>
+  );
+};
+
+const ChildDefinitions2024 = (
+  register: any,
   labels: AnyObject,
   coreSet: string
 ) => {
@@ -171,13 +290,17 @@ const ChildDefinitions = (
       <CUI.Text mb="2">
         {"Please select all populations that are included in the denominator. "}
         {coreSet !== "CCSC" &&
-          `For example, if your data include both Medicaid (Title XIX) ${coreSetOptions[coreSet].description}
+          `For example, if your data include both Medicaid (Title XIX) ${coreSetOptions2024[coreSet].description}
         `}
       </CUI.Text>
       {coreSet !== "CCSC" && (
         <CUI.UnorderedList m="5" ml="10">
-          {coreSetOptions[coreSet].options.map((option) => {
-            return <CUI.ListItem>{option.displayValue}</CUI.ListItem>;
+          {coreSetOptions2024[coreSet].options.map((option, index) => {
+            return (
+              <CUI.ListItem key={index + option.value}>
+                {option.displayValue}
+              </CUI.ListItem>
+            );
           })}
         </CUI.UnorderedList>
       )}
@@ -185,7 +308,7 @@ const ChildDefinitions = (
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         valueAsArray
         options={[
-          ...coreSetOptions[coreSet].options,
+          ...coreSetOptions2024[coreSet].options,
           {
             displayValue: "Other",
             value: DC.DENOMINATOR_INC_OTHER,
@@ -269,6 +392,7 @@ export const DefinitionOfPopulation = ({
 
   const params = useParams();
   const coreSet = params.coreSetId;
+  const yearIs2024 = location.pathname.includes("/2024");
 
   return (
     <QMR.CoreQuestionWrapper
@@ -279,16 +403,20 @@ export const DefinitionOfPopulation = ({
         Definition of denominator
       </CUI.Heading>
       {!childMeasure &&
-        coreSet &&
         StandardDefinitions(
           register,
           labels.DefinitionsOfPopulation,
+          yearIs2024,
           coreSet,
           healthHomeMeasure
         )}
       {childMeasure &&
-        coreSet &&
-        ChildDefinitions(register, labels.DefinitionsOfPopulation, coreSet)}
+        ChildDefinitions(
+          register,
+          yearIs2024,
+          labels.DefinitionsOfPopulation,
+          coreSet
+        )}
       {labels.DefinitionsOfPopulation.changeInPopExplanation && (
         <CUI.Box my="5">
           <QMR.TextArea
