@@ -27,9 +27,15 @@ export const CombinedRateNDR = ({ json }: Props) => {
       {combinedRatesKeys?.map((id) => {
         return (
           <CUI.Box as={"section"}>
-            <CUI.Heading fontSize="xl" mt="12" mb="2">
-              {combinedRatesData[id].category} - {combinedRatesData[id].label}
-            </CUI.Heading>
+            {combinedRatesData[id].category ? (
+              <CUI.Heading fontSize="xl" mt="12" mb="2">
+                {combinedRatesData[id].category} - {combinedRatesData[id].label}
+              </CUI.Heading>
+            ) : (
+              <CUI.Heading fontSize="xl" mt="12" mb="2">
+                {combinedRatesData[id].label}
+              </CUI.Heading>
+            )}
             <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
               <CUI.Thead>
                 <CUI.Tr>
