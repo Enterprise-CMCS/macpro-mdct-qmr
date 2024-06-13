@@ -78,7 +78,7 @@ export const CombinedRatesMeasure = ({
         </CUI.ListItem>
       </CUI.UnorderedList>
       <CombinedRateDataSource />
-      <CombinedRateNDR />
+      <CombinedRateNDR json={data?.Item} />
     </QMR.StateLayout>
   );
 };

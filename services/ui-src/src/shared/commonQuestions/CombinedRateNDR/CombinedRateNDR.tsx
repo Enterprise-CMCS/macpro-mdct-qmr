@@ -1,15 +1,20 @@
 import * as CUI from "@chakra-ui/react";
-import { json, RateCategoryMap, RateDataShape } from "./combinedRatesNDR";
+import {
+  CombinedRatePayload,
+  RateCategoryMap,
+  RateDataShape,
+} from "./combinedRatesNDR";
 
-export const CombinedRateNDR = () => {
+export const CombinedRateNDR = ({ json }: Props) => {
   const { data } = json;
 
   // filter data by Medicaid, CHIP, and Combined Rates
-  const medicaidData = data.find((item) => item.column == "Medicaid")?.rates as RateCategoryMap;
-  const chipData = data.find((item) => item.column == "CHIP")?.rates as RateCategoryMap;
-  const combinedRatesData = data.find(
-    (item) => item.column == "Combined Rate"
-  )?.rates as RateDataShape[];
+  const medicaidData = data.find((item) => item.column == "Medicaid")
+    ?.rates as RateCategoryMap;
+  const chipData = data.find((item) => item.column == "CHIP")
+    ?.rates as RateCategoryMap;
+  const combinedRatesData = data.find((item) => item.column == "Combined Rate")
+    ?.rates as RateDataShape[];
 
   let combinedRatesKeys = combinedRatesData.map((_, index) => index);
 
@@ -36,7 +41,9 @@ export const CombinedRateNDR = () => {
               </CUI.Thead>
               <CUI.Tbody>
                 <CUI.Tr sx={sx.row}>
-                  <CUI.Th sx={sx.verticalHeader} scope="row">Numerator</CUI.Th>
+                  <CUI.Th sx={sx.verticalHeader} scope="row">
+                    Numerator
+                  </CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
                     {medicaidDataArr[id].numerator
                       ? medicaidDataArr[id].numerator
@@ -49,7 +56,9 @@ export const CombinedRateNDR = () => {
                   </CUI.Td>
                 </CUI.Tr>
                 <CUI.Tr sx={sx.row}>
-                  <CUI.Th sx={sx.verticalHeader} scope="row">Denominator</CUI.Th>
+                  <CUI.Th sx={sx.verticalHeader} scope="row">
+                    Denominator
+                  </CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
                     {medicaidDataArr[id].denominator
                       ? medicaidDataArr[id].denominator
@@ -62,7 +71,9 @@ export const CombinedRateNDR = () => {
                   </CUI.Td>
                 </CUI.Tr>
                 <CUI.Tr sx={sx.row}>
-                  <CUI.Th sx={sx.verticalHeader} scope="row">Rate</CUI.Th>
+                  <CUI.Th sx={sx.verticalHeader} scope="row">
+                    Rate
+                  </CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
                     {medicaidDataArr[id].rate}
                   </CUI.Td>
@@ -80,6 +91,10 @@ export const CombinedRateNDR = () => {
       })}
     </CUI.Box>
   );
+};
+
+type Props = {
+  json: CombinedRatePayload;
 };
 
 const sx = {
