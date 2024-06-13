@@ -1,82 +1,78 @@
 {
-  "compoundKey": "MA2024ACSBCS-AD",
-  "measure": "BCS-AD",
+  "compoundKey": "MA2024CCSPPC2-CH",
+  "measure": "PPC2-CH",
+  "state": "MA",
   "data": [
     {
       "column": "CHIP",
+      "dataSourceSelections": {
+        "HybridAdministrativeandMedicalRecordsData1": {
+          "selected": [
+            "ElectronicHealthRecordEHRData",
+            "Paper"
+          ]
+        },
+        "HybridAdministrativeandMedicalRecordsData0-AdministrativeDataOther": {},
+        "AdministrativeData0-AdministrativeDataOther": {},
+        "HybridAdministrativeandMedicalRecordsData0": {
+          "selected": [
+            "MedicaidManagementInformationSystemMMIS",
+            "AdministrativeDataOther"
+          ]
+        },
+        "AdministrativeData0": {
+          "selected": [
+            "MedicaidManagementInformationSystemMMIS",
+            "AdministrativeDataOther",
+            "VitalRecords"
+          ]
+        }
+      },
       "dataSource": [
-        "AdministrativeData",
-        "ElectronicClinicalDataSystemsECDS",
-        "ElectronicHealthRecords"
+        "HybridAdministrativeandMedicalRecordsData",
+        "AdministrativeData"
       ],
-      "rates": {
-        "xacc8a": [
-          {
-            "uid": "xacc8a.bfvp78",
-            "label": "Ages 50 to 64",
-            "rate": "50.0",
-            "numerator": "1",
-            "denominator": "2"
-          },
-          {
-            "uid": "xacc8a.vRqegW",
-            "label": "Ages 65 to 74",
-            "rate": "75.0",
-            "numerator": "3",
-            "denominator": "4"
-          }
-        ]
-      }
+      "rates": {}
     },
     {
       "column": "Medicaid",
+      "dataSourceSelections": {
+        "HybridAdministrativeandMedicalRecordsData1": {
+          "selected": [
+            "Paper"
+          ]
+        },
+        "AdministrativeData0": {
+          "selected": [
+            "MedicaidManagementInformationSystemMMIS",
+            "VitalRecords"
+          ]
+        },
+        "HybridAdministrativeandMedicalRecordsData0": {
+          "selected": [
+            "MedicaidManagementInformationSystemMMIS"
+          ]
+        }
+      },
       "dataSource": [
-        "AdministrativeData",
-        "ElectronicClinicalDataSystemsECDS",
-        "ElectronicHealthRecords",
-        "OtherDataSource"
+        "HybridAdministrativeandMedicalRecordsData",
+        "AdministrativeData"
       ],
       "rates": {
-        "xacc8a": [
+        "fcjCsg": [
           {
-            "uid": "xacc8a.bfvp78",
-            "label": "Ages 50 to 64",
-            "rate": "50.0",
-            "numerator": "1",
-            "denominator": "2"
+            "uid": "fcjCsg.kCBB0a",
+            "label": "Timeliness of Prenatal Care: Under Age 21"
           },
           {
-            "uid": "xacc8a.vRqegW",
-            "label": "Ages 65 to 74",
-            "rate": "75.0",
-            "numerator": "3",
-            "denominator": "4"
+            "uid": "fcjCsg.PcLgEs",
+            "label": "Postpartum Care: Under Age 21"
           }
         ]
       }
     },
-    {
-      "column": "Combined Rate",
-      "rates": [
-        {
-          "uid": "xacc8a.bfvp78",
-          "label": "Ages 50 to 64",
-          "rate": "50.0",
-          "numerator": "1",
-          "denominator": "2"
-        },
-        {
-          "uid": "xacc8a.vRqegW",
-          "label": "Ages 65 to 74",
-          "rate": "75.0",
-          "numerator": "3",
-          "denominator": "4"
-        }
-      ]
-    }
+    {}
   ],
   "year": "2024",
-  "lastAltered": 1717700957817,
-  "state": "MA",
-  "lastAlteredBy": "Sammy States"
+  "lastAltered": 1718132146069
 }
