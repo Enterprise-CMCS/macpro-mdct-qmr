@@ -33,7 +33,7 @@ export const CombinedRatesMeasure = ({
     coreSet: coreSetBySuffix(typeSuffix),
     year,
   });
-  console.log(data);
+  console.log(data?.Item);
 
   return (
     <QMR.StateLayout

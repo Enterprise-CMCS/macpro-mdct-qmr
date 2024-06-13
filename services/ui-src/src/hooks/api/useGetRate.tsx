@@ -19,7 +19,7 @@ const _getRate = async ({ measure, state, coreSet, year }: GetRate) => {
 
 export const useGetRate = ({ measure, state, coreSet, year }: GetRate) => {
   if (measure && state && year) {
-    return useQuery(["rates", state, year, measure], () =>
+    return useQuery(["rate", state, year, measure], () =>
       _getRate({ measure, state, coreSet, year })
     );
   }
