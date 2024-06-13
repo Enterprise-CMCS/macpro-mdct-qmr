@@ -1,6 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
+import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
 import { useGetRate } from "hooks/api/useGetRate";
 
 interface Props {
@@ -77,6 +78,7 @@ export const CombinedRatesMeasure = ({
           </CUI.Link>
         </CUI.ListItem>
       </CUI.UnorderedList>
+      <DataSourceInformationBanner />
     </QMR.StateLayout>
   );
 };
