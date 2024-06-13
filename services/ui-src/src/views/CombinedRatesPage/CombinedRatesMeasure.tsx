@@ -1,6 +1,8 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useParams, Link } from "react-router-dom";
+import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
+import { useGetRate } from "hooks/api/useGetRate";
 import { CombinedRateDataSource } from "shared/commonQuestions/CombinedRateDataSource/CombinedRateDataSource";
 
 interface Props {
@@ -9,9 +11,31 @@ interface Props {
   measureName: string;
 }
 
-export const CombinedRatesMeasure = ({ year, measureName }: Props) => {
-  const { state, measure, coreSetId } = useParams();
-  const chipPath = `/${state}/${year}/ACSC/${measure}`;
+const coreSetBySuffix = (suffix: string) => {
+  switch (suffix) {
+    case "AD":
+      return "ACS";
+    case "CH":
+      return "CCS";
+  }
+  return "";
+};
+
+export const CombinedRatesMeasure = ({
+  year,
+  measureName,
+  measureId: measure,
+}: Props) => {
+  const { state } = useParams();
+  const typeSuffix = measure?.slice(-2); // used to determine if measure is adult or child type
+
+  const { data } = useGetRate({
+    measure,
+    state: state!,
+    coreSet: coreSetBySuffix(typeSuffix),
+    year,
+  });
+  console.log(data?.Item);
 
   return (
     <QMR.StateLayout
@@ -26,23 +50,36 @@ export const CombinedRatesMeasure = ({ year, measureName }: Props) => {
       <CUI.Heading fontSize="xl" mt="2" mb="2">
         {measure} - {measureName}
       </CUI.Heading>
-      <body> TO-DO: replace placeholder text</body>
+      <CUI.Heading size="sm" as="body" fontWeight="400" mt="4">
+        TO-DO: replace placeholder text
+      </CUI.Heading>
       <CUI.Heading size="sm" as="h2" fontWeight="400" mt="4">
         Measures used to calculate combined rates:
       </CUI.Heading>
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>
-          <Link to={chipPath} aria-label="" className="">
+          <CUI.Link
+            href={`/${state}/${year}/${typeSuffix}SC/${measure}`}
+            aria-label="Link to CHIP measure"
+            target="_blank"
+            color="blue.600"
+          >
             CHIP - {measure} - {measureName}
-          </Link>
+          </CUI.Link>
         </CUI.ListItem>
         <CUI.ListItem>
-          <Link to={chipPath} aria-label="" className="">
+          <CUI.Link
+            href={`/${state}/${year}/${typeSuffix}SM/${measure}`}
+            aria-label="Link to Medicaid measure"
+            className="link"
+            target="_blank"
+            color="blue.600"
+          >
             Medicaid - {measure} - {measureName}
-          </Link>
+          </CUI.Link>
         </CUI.ListItem>
       </CUI.UnorderedList>
-      <CombinedRateDataSource />
+      <DataSourceInformationBanner />
     </QMR.StateLayout>
   );
 };
