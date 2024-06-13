@@ -2,6 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useParams, Link } from "react-router-dom";
 import { CombinedRateDataSource } from "shared/commonQuestions/CombinedRateDataSource/CombinedRateDataSource";
+import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
 
 interface Props {
   year: string;
@@ -43,6 +44,7 @@ export const CombinedRatesMeasure = ({ year, measureName }: Props) => {
         </CUI.ListItem>
       </CUI.UnorderedList>
       <CombinedRateDataSource />
+      <CombinedRateNDR />
     </QMR.StateLayout>
   );
 };
