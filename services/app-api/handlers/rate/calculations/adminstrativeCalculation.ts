@@ -37,8 +37,7 @@ export class AdminstrativeCalculation extends RateCalculation {
     });
 
     if (!isHybrid) {
-      for (var i = 0; i < this.dataSrcMap.length; i++) {
-        const dataSrc = this.dataSrcMap[i];
+      for (const dataSrc of this.dataSrcMap) {
         const chipSrcExist = dataSrc.CHIP.every(
           (chipSrc) => chipSources.indexOf(chipSrc) > -1
         );

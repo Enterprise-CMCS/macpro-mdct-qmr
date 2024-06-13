@@ -43,20 +43,11 @@ const coreSetGroup = {
 };
 
 export const getMeasureByCoreSet = async (
-  coreSet: "ACS" | "CCS",
-  pathParams: MeasureParameters
+  combinedCoreSet: "ACS" | "CCS",
+  params: MeasureParameters
 ) => {
-  const measures = [];
-  if (coreSet) {
-    const group = coreSetGroup[coreSet];
-
-    for (let i = 0; i < group.length; i++) {
-      const measure = await getMeasureFromTable({
-        ...pathParams,
-        coreSet: group[i],
-      });
-      measures.push(measure);
-    }
-  }
-  return measures;
+  const gets = coreSetGroup[combinedCoreSet].map(
+    (coreSet) => getMeasureFromTable({ ...params, coreSet })
+  );
+  return Promise.all(gets);
 };
