@@ -1,5 +1,8 @@
 export type Program = "CHIP" | "Medicaid";
-export type DataSource = "AdministrativeData" | "ElectronicHealthRecords" | "HybridAdministrativeandMedicalRecordsData";
+export type DataSource =
+  | "AdministrativeData"
+  | "ElectronicHealthRecords"
+  | "HybridAdministrativeandMedicalRecordsData";
 export type CategoryId = string;
 export type QualifierId = string;
 
@@ -10,11 +13,11 @@ export type RateDataShape = {
   numerator?: string;
   denominator?: string;
   rate?: string;
-}
+};
 
 export type RateCategoryMap = {
   [key: CategoryId]: RateDataShape[];
-}
+};
 
 export type SeparatedData = {
   column: Program;
@@ -25,7 +28,7 @@ export type SeparatedData = {
 export type CombinedData = {
   column: "Combined Rate";
   rates: RateDataShape[];
-}
+};
 
 export type CombinedRatePayload = {
   compoundKey: string;
@@ -34,4 +37,4 @@ export type CombinedRatePayload = {
   year: string;
   lastAltered: number;
   data: (SeparatedData | CombinedData)[];
-}
+};

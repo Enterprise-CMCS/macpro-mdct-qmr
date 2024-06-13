@@ -22,8 +22,8 @@ export const CombinedRateNDR = ({ json }: Props) => {
   let medicaidDataArr = Object.values(medicaidData ?? {}).flat();
   let chipDataArr = Object.values(chipData ?? {}).flat();
 
-  return (
-    data ? <CUI.Box sx={sx.tableContainer}>
+  return data ? (
+    <CUI.Box sx={sx.tableContainer}>
       {combinedRatesKeys.map((id) => {
         return (
           <CUI.Box as={"section"}>
@@ -75,14 +75,10 @@ export const CombinedRateNDR = ({ json }: Props) => {
                     Rate
                   </CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {medicaidDataArr[id].rate
-                     ? medicaidDataArr[id].rate
-                     : "-"}
+                    {medicaidDataArr[id].rate ? medicaidDataArr[id].rate : "-"}
                   </CUI.Td>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {chipDataArr[id].rate
-                     ? chipDataArr[id].rate
-                     : "-"}
+                    {chipDataArr[id].rate ? chipDataArr[id].rate : "-"}
                   </CUI.Td>
                   <CUI.Td isNumeric sx={sx.content}>
                     {combinedRatesData[id].rate
@@ -96,8 +92,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
         );
       })}
     </CUI.Box>
-    : null
-  );
+  ) : null;
 };
 
 type Props = {
