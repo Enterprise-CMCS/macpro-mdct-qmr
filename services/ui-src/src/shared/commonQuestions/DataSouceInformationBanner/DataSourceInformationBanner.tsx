@@ -27,34 +27,15 @@ export const DataSourceInformationBanner = () => {
     dataSource: string,
     dataSourceSelections: AnyObject
   ) => {
-    let selected: string[] = [];
+    let selected = [];
 
-    if (dataSource === "AdministrativeData") {
-      selected = [];
-      selected.push(...dataSourceSelections.AdministrativeData0.selected);
-      return selected;
+    for (const [key, value] of Object.entries(dataSourceSelections)) {
+      if (key.includes(dataSource)) {
+        if (value && (value as any)?.selected) {
+          selected.push(...(value as any)?.selected);
+        }
+      }
     }
-
-    if (dataSource === "HybridAdministrativeandMedicalRecordsData") {
-      selected = [];
-      selected.push(
-        ...dataSourceSelections.HybridAdministrativeandMedicalRecordsData0
-          .selected
-      );
-      selected.push(
-        ...dataSourceSelections.HybridAdministrativeandMedicalRecordsData1
-          .selected
-      );
-      return selected;
-    }
-
-    // we dont have data for other data source yet
-    if (dataSource === "OtherDataSource") {
-      selected = [];
-      selected.push("Sample text field of other data");
-      return selected;
-    }
-
     return selected;
   };
 

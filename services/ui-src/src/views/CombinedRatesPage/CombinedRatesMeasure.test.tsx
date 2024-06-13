@@ -6,6 +6,8 @@ import { RouterWrappedComp } from "utils/testing";
 import { CombinedRatesMeasure } from "views";
 expect.extend(toHaveNoViolations);
 
+global.structuredClone = (val: any) => JSON.parse(JSON.stringify(val));
+
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: () => ({
