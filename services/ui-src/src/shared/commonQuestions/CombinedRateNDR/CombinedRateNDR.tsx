@@ -6,34 +6,20 @@ import {
 } from "./CombinedRateTypes";
 
 export const CombinedRateNDR = ({ json }: Props) => {
-  const data = json?.data;
+  const tables = collectRatesForDisplay(json);
 
-  // filter data by Medicaid, CHIP, and Combined Rates
-  const medicaidData = data?.find((item) => item.column == "Medicaid")
-    ?.rates as RateCategoryMap;
-  const chipData = data?.find((item) => item.column == "CHIP")
-    ?.rates as RateCategoryMap;
-  const combinedRatesData = data?.find((item) => item.column == "Combined Rate")
-    ?.rates as RateDataShape[];
-
-  let combinedRatesKeys = combinedRatesData?.map((_, index) => index);
-
-  // restructure Medicaid & CHIP data into 1d array for easier traversal
-  let medicaidDataArr = Object.values(medicaidData ?? {}).flat();
-  let chipDataArr = Object.values(chipData ?? {}).flat();
-
-  return data ? (
-    <CUI.Box sx={sx.tableContainer}>
-      {combinedRatesKeys?.map((id) => {
+  return (
+    <CUI.Box sx={sx.tableContainer} mb="3rem">
+      {tables.map((table) => {
         return (
           <CUI.Box as={"section"}>
-            {combinedRatesData[id].category ? (
+            {table.category ? (
               <CUI.Heading fontSize="xl" mt="12" mb="2">
-                {combinedRatesData[id].category} - {combinedRatesData[id].label}
+                {table.category} - {table.label}
               </CUI.Heading>
             ) : (
               <CUI.Heading fontSize="xl" mt="12" mb="2">
-                {combinedRatesData[id].label}
+                {table.label}
               </CUI.Heading>
             )}
             <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
@@ -51,13 +37,13 @@ export const CombinedRateNDR = ({ json }: Props) => {
                     Numerator
                   </CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {medicaidDataArr[id].numerator
-                      ? medicaidDataArr[id].numerator
+                    {table.Medicaid?.numerator
+                      ? table.Medicaid.numerator
                       : "Not answered"}
                   </CUI.Td>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {chipDataArr[id].numerator
-                      ? chipDataArr[id].numerator
+                    {table.CHIP?.numerator
+                      ? table.CHIP.numerator
                       : "Not answered"}
                   </CUI.Td>
                 </CUI.Tr>
@@ -66,13 +52,13 @@ export const CombinedRateNDR = ({ json }: Props) => {
                     Denominator
                   </CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {medicaidDataArr[id].denominator
-                      ? medicaidDataArr[id].denominator
+                    {table.Medicaid?.denominator
+                      ? table.Medicaid.denominator
                       : "Not answered"}
                   </CUI.Td>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {chipDataArr[id].denominator
-                      ? chipDataArr[id].denominator
+                    {table.CHIP?.denominator
+                      ? table.CHIP.denominator
                       : "Not answered"}
                   </CUI.Td>
                 </CUI.Tr>
@@ -81,14 +67,14 @@ export const CombinedRateNDR = ({ json }: Props) => {
                     Rate
                   </CUI.Th>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {medicaidDataArr[id].rate ? medicaidDataArr[id].rate : "-"}
+                    {table.Medicaid?.rate ? table.Medicaid.rate : "-"}
                   </CUI.Td>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {chipDataArr[id].rate ? chipDataArr[id].rate : "-"}
+                    {table.CHIP?.rate ? table.CHIP.rate : "-"}
                   </CUI.Td>
                   <CUI.Td isNumeric sx={sx.content}>
-                    {combinedRatesData[id].rate
-                      ? combinedRatesData[id].rate
+                    {table["Combined Rate"]?.rate
+                      ? table["Combined Rate"].rate
                       : "-"}
                   </CUI.Td>
                 </CUI.Tr>
@@ -98,7 +84,62 @@ export const CombinedRateNDR = ({ json }: Props) => {
         );
       })}
     </CUI.Box>
-  ) : null;
+  );
+};
+
+type TableDataShape = {
+  uid: string;
+  label: string;
+  category?: string;
+  CHIP?: RateDataShape;
+  Medicaid?: RateDataShape;
+  "Combined Rate"?: RateDataShape;
+};
+
+const collectRatesForDisplay = (
+  json: CombinedRatePayload | undefined
+): TableDataShape[] => {
+  if (!json) {
+    return [];
+  }
+  const tables: TableDataShape[] = [];
+  const data = json.data;
+
+  // filter data by Medicaid, CHIP, and Combined Rates
+  const medicaidData = (data?.find((item) => item.column == "Medicaid")
+    ?.rates ?? {}) as RateCategoryMap;
+  const chipData = (data?.find((item) => item.column == "CHIP")?.rates ??
+    {}) as RateCategoryMap;
+  const combinedRatesData = (data?.find(
+    (item) => item.column == "Combined Rate"
+  )?.rates ?? []) as RateDataShape[];
+
+  const rememberRate = (
+    rate: RateDataShape,
+    program: "CHIP" | "Medicaid" | "Combined Rate"
+  ) => {
+    let existingTable = tables.find((t) => t.uid === rate.uid);
+    if (existingTable) {
+      existingTable[program] = rate;
+    } else {
+      tables.push({
+        uid: rate.uid,
+        category: rate.category,
+        label: rate.label,
+        [program]: rate,
+      });
+    }
+  };
+  for (let medicaidRate of Object.values(medicaidData).flat()) {
+    rememberRate(medicaidRate, "Medicaid");
+  }
+  for (let chipRate of Object.values(chipData).flat()) {
+    rememberRate(chipRate, "CHIP");
+  }
+  for (let combinedRate of combinedRatesData) {
+    rememberRate(combinedRate, "Combined Rate");
+  }
+  return tables;
 };
 
 type Props = {
@@ -114,12 +155,14 @@ const sx = {
     "text-transform": "capitalize",
     fontSize: "16px",
     color: "black",
+    letterSpacing: "normal",
   },
   verticalHeader: {
     fontWeight: "semibold",
     "text-transform": "capitalize",
     fontSize: "16px",
     color: "black",
+    letterSpacing: "normal",
   },
   content: {
     textAlign: "right",

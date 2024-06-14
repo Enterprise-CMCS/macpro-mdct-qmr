@@ -36,8 +36,7 @@ export const CombinedRatesMeasure = ({
     coreSet: combinedCoreSetAbbr,
     year,
   });
-  console.log(data?.Item);
-
+  const item = data?.Item;
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -51,7 +50,7 @@ export const CombinedRatesMeasure = ({
       <CUI.Heading fontSize="xl" mt="2" mb="2">
         {measure} - {measureName}
       </CUI.Heading>
-      <body> TO-DO: replace placeholder text</body>
+      <CUI.Text> TO-DO: replace placeholder text</CUI.Text>
       <CUI.Heading size="sm" as="h2" fontWeight="400" mt="4">
         Measures used to calculate combined rates:
       </CUI.Heading>
@@ -77,7 +76,7 @@ export const CombinedRatesMeasure = ({
           </CUI.Link>
         </CUI.ListItem>
       </CUI.UnorderedList>
-      <DataSourceInformationBanner />
+      <DataSourceInformationBanner data={item?.data!} />
       <CombinedRateNDR json={data?.Item} />
     </QMR.StateLayout>
   );
