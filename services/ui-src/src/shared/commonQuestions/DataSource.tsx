@@ -10,15 +10,19 @@ import { parseLabelToHTML } from "utils/parser";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
+import { Alert } from "@cmsgov/design-system";
 
 interface DataSourceProps {
   data?: DataSourceData;
+  type?: string;
 }
 
 interface DataSourceCheckboxBuilderProps {
   data?: OptionNode[];
   label?: string;
+  otherDataSourceWarning?: string;
   parentName?: string;
+  type?: string;
 }
 
 type DSCBFunc = ({
@@ -54,7 +58,12 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
 /**
  * Build Data Source checkbox options, and possible child checkbox children
  */
-const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
+const buildDataSourceOptions: DSCBFunc = ({
+  data = [],
+  otherDataSourceWarning,
+  parentName,
+  type,
+}) => {
   const checkBoxOptions: QMR.CheckboxOption[] = [];
   for (const node of data) {
     const cleanedNodeValue = cleanString(node.value);
@@ -72,7 +81,6 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
         }),
       ];
     });
-
     if (node.description) {
       children.push(
         <QMR.TextArea
@@ -80,6 +88,30 @@ const buildDataSourceOptions: DSCBFunc = ({ data = [], parentName }) => {
           name={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
           key={`${DC.DATA_SOURCE_SELECTIONS}.${adjustedParentName}.${DC.DESCRIPTION}`}
         />
+      );
+    }
+
+    if (
+      (type === "adult" || type === "child") &&
+      otherDataSourceWarning &&
+      node.value === DC.OTHER_DATA_SOURCE
+    ) {
+      children.push(
+        <CUI.Box mt="8">
+          <Alert heading="Please Note" variation="warn">
+            <CUI.Text>{otherDataSourceWarning}</CUI.Text>
+          </Alert>
+        </CUI.Box>
+      );
+    }
+
+    if (node.alert) {
+      children.push(
+        <CUI.Box mt="8">
+          <Alert heading="Please Note" variation="warn">
+            <CUI.Text>{node.alert}</CUI.Text>
+          </Alert>
+        </CUI.Box>
       );
     }
 
@@ -109,10 +141,27 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
   });
 };
 
+const addLabelByType = (
+  type: string,
+  options: OptionNode[],
+  labels: AnyObject
+) => {
+  options.forEach((options) => {
+    if (labels?.[type]?.[options.value]) {
+      options.alert = labels[type][options.value];
+    }
+    if (options.subOptions) {
+      options.subOptions.forEach((subOption) => {
+        addLabelByType(type, subOption.options, labels);
+      });
+    }
+  });
+};
+
 /**
  * Fully built DataSource component
  */
-export const DataSource = ({ data = defaultData }: DataSourceProps) => {
+export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
   const register = useCustomRegister<Types.DataSource>();
   const { getValues } = useFormContext<Types.DataSource>();
   const watchDataSource = useWatch<Types.DataSource>({
@@ -127,6 +176,7 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
 
   //adding hint label text recursively
   addHintLabel(data.options, labels.DataSource);
+  addLabelByType("warning", data.options, labels.DataSource);
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
@@ -134,7 +184,11 @@ export const DataSource = ({ data = defaultData }: DataSourceProps) => {
         <QMR.Checkbox
           {...register(DC.DATA_SOURCE)}
           label={data.optionsLabel}
-          options={buildDataSourceOptions({ data: data.options })}
+          options={buildDataSourceOptions({
+            data: data.options,
+            otherDataSourceWarning: labels.DataSource.otherDataSourceWarning,
+            type: type,
+          })}
         />
       </div>
       {showExplanation && (

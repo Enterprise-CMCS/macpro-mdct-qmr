@@ -57,6 +57,7 @@ const PPC2CHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

@@ -31,11 +31,6 @@ describe("Test AdditionalNotes component for 2024", () => {
     expect(
       screen.getByText("Additional Notes/Comments on the measure (optional)")
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "If you need additional space to include comments or supplemental information, please attach further documentation below."
-      )
-    ).toBeInTheDocument();
   });
 
   it("accepts input", async () => {
@@ -105,6 +100,17 @@ describe("Test AdditionalNotes component for 2023", () => {
         <AdditionalNotes />
       </SharedContext.Provider>
     );
+  });
+
+  it("component renders", () => {
+    expect(
+      screen.getByText("Additional Notes/Comments on the measure (optional)")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "If you need additional space to include comments or supplemental information, please attach further documentation below."
+      )
+    ).toBeInTheDocument();
   });
 
   it("shows the same text regardless of reporting status", async () => {

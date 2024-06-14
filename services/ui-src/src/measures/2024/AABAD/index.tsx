@@ -43,8 +43,8 @@ export const AABAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" />
-          <CMQ.DataSource />
+          <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
+          <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

@@ -34,8 +34,8 @@ export const MSCAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" />
-          <Q.DataSource />
+          <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
+          <Q.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (

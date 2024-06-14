@@ -5,20 +5,20 @@ import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { Alert } from "@cmsgov/design-system";
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
 
-  //WIP: using form context to get the labels for this component temporarily.
-  const labels: any = useContext(SharedContext);
+  const hedisLabels: any = useContext(SharedContext);
 
-  const options = labels.MeasureSpecifications.options;
+  const options = hedisLabels.MeasureSpecifications.options;
 
   return (
     <>
-      {labels?.MeasureSpecifications?.measureSpecDescriptor && (
+      {hedisLabels?.MeasureSpecifications?.measureSpecDescriptor && (
         <CUI.Text key="measureSpecDescriptor" size="sm" pb="3">
-          {labels?.MeasureSpecifications?.measureSpecDescriptor}
+          {hedisLabels?.MeasureSpecifications?.measureSpecDescriptor}
         </CUI.Text>
       )}
       <QMR.Select
@@ -45,6 +45,7 @@ interface Props {
     | "OHSU"
     | "OPA"
     | "PQA";
+  coreset?: string;
 }
 
 const specifications = {
@@ -102,14 +103,22 @@ const specifications = {
   },
 };
 
-export const MeasurementSpecification = ({ type }: Props) => {
+export const MeasurementSpecification = ({ type, coreset }: Props) => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
+
+  const measureSpecLabels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper
       testid="measurement-specification"
       label="Measurement Specification"
     >
+      {measureSpecLabels?.MeasureSpecifications?.additionalContext && (
+        <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
+          {measureSpecLabels?.MeasureSpecifications?.additionalContext}
+        </CUI.Text>
+      )}
+
       <div data-cy="measurement-specification-options">
         <QMR.RadioButton
           {...register(DC.MEASUREMENT_SPECIFICATION)}
@@ -125,10 +134,26 @@ export const MeasurementSpecification = ({ type }: Props) => {
                   label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
                   key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
                 />,
-                <QMR.Upload
-                  label="If you need additional space to describe your state's methodology, please attach further documentation below."
-                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
-                />,
+                (coreset === "adult" || coreset === "child") &&
+                  measureSpecLabels.MeasureSpecifications
+                    .otherMeasurementSpecWarning && (
+                    <CUI.Box mb="8">
+                      <Alert heading="Please Note" variation="warn">
+                        <CUI.Text>
+                          {
+                            measureSpecLabels.MeasureSpecifications
+                              .otherMeasurementSpecWarning
+                          }
+                        </CUI.Text>
+                      </Alert>
+                    </CUI.Box>
+                  ),
+                measureSpecLabels.MeasureSpecifications.upload && (
+                  <QMR.Upload
+                    label="If you need additional space to describe your state's methodology, please attach further documentation below."
+                    {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
+                  />
+                ),
               ],
             },
           ]}

@@ -2,9 +2,29 @@ import yargs from "yargs";
 import * as dotenv from "dotenv";
 import LabeledProcessRunner from "./runner.js";
 import { ServerlessStageDestroyer } from "@stratiformdigital/serverless-stage-destroyer";
+import { execSync } from "child_process";
 
 // load .env
 dotenv.config();
+
+// Function to update .env files using 1Password CLI
+function updateEnvFiles() {
+  try {
+    execSync("op inject -i .env.tpl -o .env -f", { stdio: "inherit" });
+    execSync(
+      "op inject -i services/ui-src/.env.tpl -o services/ui-src/.env -f",
+      { stdio: "inherit" }
+    );
+    execSync("sed -i '' -e 's/# pragma: allowlist secret//g' .env");
+    execSync(
+      "sed -i '' -e 's/# pragma: allowlist secret//g' services/ui-src/.env"
+    );
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error("Failed to update .env files using 1Password CLI.");
+    process.exit(1);
+  }
+}
 
 // run_db_locally runs the local db
 async function run_db_locally(runner: LabeledProcessRunner) {
@@ -130,6 +150,14 @@ yargs(process.argv.slice(2))
       verify: { type: "boolean", demandOption: false, default: true },
     },
     destroy_stage
+  )
+  .command(
+    "update-env",
+    "update environment variables using 1Password",
+    () => {},
+    () => {
+      updateEnvFiles();
+    }
   )
   .scriptName("run")
   .demandCommand(1, "").argv; // this prints out the help if you don't call a subcommand
