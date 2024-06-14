@@ -36,11 +36,7 @@ export const CombinedRatesMeasure = ({
     coreSet: combinedCoreSetAbbr,
     year,
   });
-
   const item = data?.Item;
-
-  console.log("item", item);
-
   return (
     <QMR.StateLayout
       breadcrumbItems={[
