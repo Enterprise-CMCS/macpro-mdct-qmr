@@ -15,10 +15,16 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
       return "Administrative Data";
     } else if (dataSource === "HybridAdministrativeandMedicalRecordsData") {
       return "Hybrid (Administrative and Medical Records Data)";
-    } else if (dataSource === "Other") {
+    } else if (dataSource === "OtherDataSource") {
       return "Other Data Source";
+    } else if (dataSource === "ElectronicHealthRecords") {
+      return "Electronic Health Record (EHR) Data";
+    } else if (dataSource === "ElectronicClinicalDataSystemsECDS") {
+      return "Electronic Clinical Data Systems (ECDS)";
+    } else if (dataSource === "Casemanagementrecordreview") {
+      return "Case management record review";
     }
-    return;
+    return dataSource;
   };
 
   const dataSourceSelections = (
@@ -29,8 +35,11 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
 
     for (const [key, value] of Object.entries(dataSourceSelections)) {
       if (key.includes(dataSource)) {
-        if (value && (value as any)?.selected) {
-          selected.push(...(value as any)?.selected);
+        if (value) {
+          if ((value as any)?.selected)
+            selected.push(...(value as any)?.selected);
+          if ((value as any)?.description)
+            selected.push((value as any)?.description);
         }
       }
     }
@@ -66,7 +75,7 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
         filteredData?.[idx]?.dataSource.length > 0 ? (
           filteredData?.[idx]?.dataSource?.map((dataSource: string) => {
             return (
-              <CUI.UnorderedList key={`data-src-${idx}`}>
+              <CUI.UnorderedList key={`${dataSource}-${idx}`}>
                 <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
                   {dataSourceSubsection(dataSource)}
                 </CUI.Heading>
@@ -82,7 +91,9 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
             );
           })
         ) : (
-          <CUI.Text tabIndex={0}>Not answered</CUI.Text>
+          <CUI.Text tabIndex={0} pt="1.25rem">
+            Not answered
+          </CUI.Text>
         )}
       </CUI.Box>
     );
