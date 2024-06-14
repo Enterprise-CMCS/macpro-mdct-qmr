@@ -62,7 +62,8 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
           {`${column} Data Source`}
         </CUI.Heading>
 
-        {filteredData?.[idx]?.dataSource ? (
+        {filteredData?.[idx]?.dataSource &&
+        filteredData?.[idx]?.dataSource.length > 0 ? (
           filteredData?.[idx]?.dataSource?.map((dataSource: string) => {
             return (
               <CUI.UnorderedList key={`data-src-${idx}`}>

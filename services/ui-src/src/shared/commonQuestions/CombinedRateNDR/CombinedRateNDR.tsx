@@ -23,7 +23,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
   let chipDataArr = Object.values(chipData ?? {}).flat();
 
   return data ? (
-    <CUI.Box sx={sx.tableContainer}>
+    <CUI.Box sx={sx.tableContainer} mb="3rem">
       {combinedRatesKeys?.map((id) => {
         return (
           <CUI.Box as={"section"}>
@@ -114,13 +114,14 @@ const sx = {
     "text-transform": "capitalize",
     fontSize: "16px",
     color: "black",
-    // letterSpacings:
+    letterSpacing: "normal",
   },
   verticalHeader: {
     fontWeight: "semibold",
     "text-transform": "capitalize",
     fontSize: "16px",
     color: "black",
+    letterSpacing: "normal",
   },
   content: {
     textAlign: "right",
