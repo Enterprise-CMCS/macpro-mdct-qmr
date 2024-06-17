@@ -2,7 +2,7 @@ import { DefinitionOfPopulation } from "./DefinitionsOfPopulation";
 import { DefinitionOfPopulationData as DOP } from "utils/testUtils/testFormData";
 import { testSnapshot } from "utils/testUtils/testSnapshot";
 import SharedContext from "shared/SharedContext";
-import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
+import commonQuestionsLabel from "labels/2023/commonQuestionsLabel";
 
 describe("Test DefinitionOfPopulation component", () => {
   it("(ACS) Component renders with correct content", () => {
