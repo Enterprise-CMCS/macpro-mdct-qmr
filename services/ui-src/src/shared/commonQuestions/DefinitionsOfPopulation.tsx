@@ -30,7 +30,7 @@ interface CoreSetSpecificOptions {
   };
 }
 
-const defOfDenomOptions: { [coreSetId: string]: DefOfDenomOption[] } = {
+const defOfDenomOptions: { [coreSetType: string]: DefOfDenomOption[] } = {
   standard: [
     {
       displayValue: "Denominator includes Medicaid population",
