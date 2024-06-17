@@ -24,7 +24,7 @@ interface DefOfDenomOption {
   value: string;
 }
 interface CoreSetSpecificOptions {
-  [id: string]: {
+  [coreSetId: string]: {
     options: DefOfDenomOption[];
     description?: string;
   };
