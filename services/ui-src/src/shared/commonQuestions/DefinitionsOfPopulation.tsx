@@ -74,6 +74,10 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         displayValue: "Medicaid-Expansion CHIP (Title XXI)",
         value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
       },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
     ],
     helpText: (
       <>
@@ -124,6 +128,10 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         displayValue: "Separate CHIP (Title XXI)",
         value: DC.DENOMINATOR_INC_CHIP,
       },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
     ],
     helpText: (
       <>
@@ -160,6 +168,10 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
       {
         displayValue: "Medicaid (Title XIX)",
         value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
       },
     ],
     helpText: (
@@ -211,6 +223,10 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         displayValue: "Medicaid (Title XIX)",
         value: DC.DENOMINATOR_INC_MEDICAID_POP,
       },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
     ],
     helpText: (
       <>
@@ -233,17 +249,8 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
 const StandardDefinitions = (
   register: any,
   labels: AnyObject,
-  coreSet?: string,
   healthHomeMeasure?: boolean
 ) => {
-  if (labels.useCoreSetSpecificOptions && coreSet) {
-    return CoreSetSpecificDefinitions(
-      register,
-      labels,
-      coreSet,
-      healthHomeMeasure
-    );
-  }
   const standardOptions = defOfDenomOptions["standard"];
   const optionsWithoutChip = standardOptions.filter(
     (opt) => opt.value !== DC.DENOMINATOR_INC_CHIP
@@ -292,11 +299,8 @@ const StandardDefinitions = (
 const CoreSetSpecificDefinitions = (
   register: any,
   labels: AnyObject,
-  coreSet: string,
-  healthHomeMeasure?: boolean
+  coreSetType: string
 ) => {
-  const coreSetType = healthHomeMeasure ? "HHCS" : coreSet;
-
   return (
     <CUI.Box>
       {coreSetSpecificOptions[coreSetType].helpText}
@@ -304,11 +308,6 @@ const CoreSetSpecificDefinitions = (
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         options={[
           ...coreSetSpecificOptions[coreSetType].options,
-          {
-            displayValue:
-              "Individuals Dually Eligible for Medicare and Medicaid",
-            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
-          },
           {
             displayValue: "Other",
             value: DC.DENOMINATOR_INC_OTHER,
@@ -326,14 +325,7 @@ const CoreSetSpecificDefinitions = (
   );
 };
 
-const ChildDefinitions = (
-  register: any,
-  labels: AnyObject,
-  coreSet?: string
-) => {
-  if (labels.useCoreSetSpecificOptions && coreSet) {
-    return ChildCoreSetSpecificDefinitions(register, labels, coreSet);
-  }
+const ChildDefinitions = (register: any) => {
   return (
     <CUI.Box>
       <CUI.Text mb="2">
@@ -343,36 +335,6 @@ const ChildDefinitions = (
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         valueAsArray
         options={defOfDenomOptions["child"]}
-      />
-    </CUI.Box>
-  );
-};
-
-const ChildCoreSetSpecificDefinitions = (
-  register: any,
-  labels: AnyObject,
-  coreSet: string
-) => {
-  return (
-    <CUI.Box>
-      {coreSetSpecificOptions[coreSet].helpText}
-      <QMR.Checkbox
-        {...register(DC.DEFINITION_OF_DENOMINATOR)}
-        valueAsArray
-        options={[
-          ...coreSetSpecificOptions[coreSet].options,
-          {
-            displayValue: "Other",
-            value: DC.DENOMINATOR_INC_OTHER,
-            children: [
-              <QMR.TextArea
-                formLabelProps={{ fontWeight: "400" }}
-                label={parseLabelToHTML(labels.defineDenomOther)}
-                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
-              />,
-            ],
-          },
-        ]}
       />
     </CUI.Box>
   );
@@ -443,7 +405,7 @@ export const DefinitionOfPopulation = ({
   const labels: any = useContext(SharedContext);
 
   const params = useParams();
-  const coreSet = params.coreSetId;
+  const coreSetType = healthHomeMeasure ? "HHCS" : params.coreSetId;
 
   return (
     <QMR.CoreQuestionWrapper
@@ -453,15 +415,19 @@ export const DefinitionOfPopulation = ({
       <CUI.Heading size="sm" as="h2">
         Definition of denominator
       </CUI.Heading>
-      {!childMeasure &&
-        StandardDefinitions(
-          register,
-          labels.DefinitionsOfPopulation,
-          coreSet,
-          healthHomeMeasure
-        )}
-      {childMeasure &&
-        ChildDefinitions(register, labels.DefinitionsOfPopulation, coreSet)}
+      {labels.DefinitionsOfPopulation.useCoreSetSpecificOptions
+        ? CoreSetSpecificDefinitions(
+            register,
+            labels.DefinitionsOfPopulation,
+            coreSetType!
+          )
+        : childMeasure
+        ? ChildDefinitions(register)
+        : StandardDefinitions(
+            register,
+            labels.DefinitionsOfPopulation,
+            healthHomeMeasure
+          )}
       {labels.DefinitionsOfPopulation.changeInPopExplanation && (
         <CUI.Box my="5">
           <QMR.TextArea

@@ -1,10 +1,38 @@
 diff a/services/ui-src/src/shared/commonQuestions/DefinitionsOfPopulation.tsx b/services/ui-src/src/shared/commonQuestions/DefinitionsOfPopulation.tsx	(rejected hunks)
-@@ -26,7 +26,7 @@ interface DefOfDenomOption {
- interface CoreSetSpecificOptions {
-   [id: string]: {
-     options: DefOfDenomOption[];
--    description?: string;
-+    helpText: JSX.Element;
-   };
- }
+@@ -348,36 +346,6 @@ const ChildDefinitions = (
+   );
+ };
  
+-const ChildCoreSetSpecificDefinitions = (
+-  register: any,
+-  labels: AnyObject,
+-  coreSet: string
+-) => {
+-  console.log("oh lawd specific child", coreSet)
+-  return (
+-    <CUI.Box>
+-      {coreSetSpecificOptions[coreSet].helpText}
+-      <QMR.Checkbox
+-        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+-        valueAsArray
+-        options={[
+-          ...coreSetSpecificOptions[coreSet].options,
+-          {
+-            displayValue: "Other",
+-            value: DC.DENOMINATOR_INC_OTHER,
+-            children: [
+-              <QMR.TextArea
+-                formLabelProps={{ fontWeight: "400" }}
+-                label={parseLabelToHTML(labels.defineDenomOther)}
+-                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+-              />,
+-            ],
+-          },
+-        ]}
+-      />
+-    </CUI.Box>
+-  );
+-};
+ const HealthHomeDefinitions = (register: any) => {
+   return (
+     <CUI.Box my="5">
