@@ -415,11 +415,11 @@ export const DefinitionOfPopulation = ({
       <CUI.Heading size="sm" as="h2">
         Definition of denominator
       </CUI.Heading>
-      {labels.DefinitionsOfPopulation.useCoreSetSpecificOptions
+      {labels.DefinitionsOfPopulation.useCoreSetSpecificOptions && coreSetType
         ? CoreSetSpecificDefinitions(
             register,
             labels.DefinitionsOfPopulation,
-            coreSetType!
+            coreSetType
           )
         : childMeasure
         ? ChildDefinitions(register)
