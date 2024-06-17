@@ -26,7 +26,7 @@ interface DefOfDenomOption {
 interface CoreSetSpecificOptions {
   [coreSetId: string]: {
     options: DefOfDenomOption[];
-    description?: string;
+    helpText: JSX.Element;
   };
 }
 
@@ -75,8 +75,23 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
       },
     ],
-    description:
-      "Medicaid (Title XIX) beneficiaries, Medicaid-Expansion CHIP (Title XXI) beneficiaries,",
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the denominator.
+          For example, if your data include Medicaid (Title XIX) beneficiaries,
+          Medicaid-Expansion CHIP (Title XXI) beneficiaries, and individuals
+          dually eligible for Medicare and Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>Medicaid-Expansion CHIP (Title XXI)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
   },
   CCSM: {
     options: [
@@ -89,8 +104,19 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
       },
     ],
-    description:
-      "and Medicaid-Expansion CHIP (Title XXI) beneficiaries, select both:",
+    helpText: (
+      <>
+        <CUI.Text mb="2">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Medicaid (Title XIX) and
+          Medicaid-Expansion CHIP (Title XXI) beneficiaries, select both:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>Medicaid-Expansion CHIP (Title XXI)</CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
   },
   ACSC: {
     options: [
@@ -99,7 +125,22 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_CHIP,
       },
     ],
-    description: "both Separate CHIP (Title XXI) beneficiaries",
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Separate CHIP (Title XXI)
+          beneficiaries and individuals dually eligible for Medicare and
+          Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Separate CHIP (Title XXI)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
   },
   CCSC: {
     options: [
@@ -108,6 +149,11 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_CHIP,
       },
     ],
+    helpText: (
+      <CUI.Text mb="2">
+        Please select all populations that are included in the denominator.
+      </CUI.Text>
+    ),
   },
   ACS: {
     options: [
@@ -116,7 +162,21 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_MEDICAID_POP,
       },
     ],
-    description: "both Medicaid (Title XIX) enrollees",
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Medicaid (Title XIX) enrollees
+          and individuals dually eligible for Medicare and Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
   },
   CCS: {
     options: [
@@ -129,8 +189,21 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
       },
     ],
-    description:
-      "enrollees and individuals dually eligible for Medicare and Medicaid, select:",
+    helpText: (
+      <>
+        <CUI.Text mb="2">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Medicaid (Title XIX) enrollees
+          and individuals dually eligible for Medicare and Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
   },
   HHCS: {
     options: [
@@ -139,7 +212,21 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_MEDICAID_POP,
       },
     ],
-    description: "both Medicaid (Title XIX) enrollees",
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Medicaid (Title XIX) enrollees
+          and individuals dually eligible for Medicare and Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
   },
 };
 
@@ -212,24 +299,7 @@ const CoreSetSpecificDefinitions = (
 
   return (
     <CUI.Box>
-      <CUI.Text mt="3">
-        {`Please select all populations that are included in the denominator. For example, if your data include 
-        ${coreSetSpecificOptions[coreSetType].description}
-         and individuals dually eligible for Medicare and Medicaid, select:`}
-      </CUI.Text>
-      <CUI.UnorderedList m="5" ml="10">
-        {coreSetSpecificOptions[coreSetType].options.map((option, index) => {
-          return (
-            <CUI.ListItem key={index + option.value}>
-              {option.displayValue}
-            </CUI.ListItem>
-          );
-        })}
-        <CUI.ListItem>
-          Individuals Dually Eligible for Medicare and Medicaid
-        </CUI.ListItem>
-      </CUI.UnorderedList>
-
+      {coreSetSpecificOptions[coreSetType].helpText}
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         options={[
@@ -285,23 +355,7 @@ const ChildCoreSetSpecificDefinitions = (
 ) => {
   return (
     <CUI.Box>
-      <CUI.Text mb="2">
-        {"Please select all populations that are included in the denominator. "}
-        {coreSet !== "CCSC" &&
-          `For example, if your data include both Medicaid (Title XIX) ${coreSetSpecificOptions[coreSet].description}
-        `}
-      </CUI.Text>
-      {coreSet !== "CCSC" && (
-        <CUI.UnorderedList m="5" ml="10">
-          {coreSetSpecificOptions[coreSet].options.map((option, index) => {
-            return (
-              <CUI.ListItem key={index + option.value}>
-                {option.displayValue}
-              </CUI.ListItem>
-            );
-          })}
-        </CUI.UnorderedList>
-      )}
+      {coreSetSpecificOptions[coreSet].helpText}
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         valueAsArray

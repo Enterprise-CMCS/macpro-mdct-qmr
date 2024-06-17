@@ -1,0 +1,10 @@
+diff a/services/ui-src/src/shared/commonQuestions/DefinitionsOfPopulation.tsx b/services/ui-src/src/shared/commonQuestions/DefinitionsOfPopulation.tsx	(rejected hunks)
+@@ -26,7 +26,7 @@ interface DefOfDenomOption {
+ interface CoreSetSpecificOptions {
+   [id: string]: {
+     options: DefOfDenomOption[];
+-    description?: string;
++    helpText: JSX.Element;
+   };
+ }
+ 
