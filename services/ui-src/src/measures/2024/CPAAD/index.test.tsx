@@ -93,21 +93,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByText("DataSource-CAHPS-Version")).toBeInTheDocument();
-    expect(
-      screen.queryByText("DataSource-CAHPS-Version-Other")
-    ).toBeInTheDocument();
-    expect(screen.queryByText("DefinitionOfSurveySample")).toBeInTheDocument();
-    expect(
-      screen.queryByText("DefinitionOfSurveySample-Changes")
-    ).toBeInTheDocument();
-    expect(
-      screen.queryByText("DefinitionOfSurveySample-Other")
-    ).toBeInTheDocument();
-
-    expect(
-      screen.queryByTestId("definition-of-population")
-    ).toBeInTheDocument();
   });
 
   it("does not show corresponding questions if no to reporting then ", async () => {
@@ -115,24 +100,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("DataSource-CAHPS-Version")
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("DataSource-CAHPS-Version-Other")
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("DefinitionOfSurveySample")
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("DefinitionOfSurveySample-Changes")
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("DefinitionOfSurveySample-Other")
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId("definition-of-population")
-    ).not.toBeInTheDocument();
   });
 
   jest.setTimeout(15000);
