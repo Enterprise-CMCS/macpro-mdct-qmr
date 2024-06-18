@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
 
-export const DefinitionOfPopulation = (coreSetId: any) => {
+export const DefinitionOfPopulation = ({ coresetId }: any) => {
   const register = useCustomRegister<FormData>();
 
   const ACSMOptions = [
@@ -82,9 +82,9 @@ export const DefinitionOfPopulation = (coreSetId: any) => {
 
       <QMR.Checkbox
         {...register("DefinitionOfSurveySample")}
-        options={coreSetId === "ACSM" ? ACSMOptions : ACSCOptions}
+        options={coresetId === "ACSM" ? ACSMOptions : ACSCOptions}
       />
-      {coreSetId === "ACSM" && (
+      {coresetId === "ACSM" && (
         <QMR.TextArea
           label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
           formControlProps={{ paddingTop: "15px" }}
