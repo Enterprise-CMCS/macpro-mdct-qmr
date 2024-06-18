@@ -31,9 +31,8 @@ export const CPAAD = ({
       {data["DidCollect"] !== "no" && (
         <>
           <Q.HowDidYouReport />
-          <CMQ.MeasurementSpecification type="AHRQ-NCQA" coreset="adult" />
           <Q.DataSource type="adult" />
-          <Q.DefinitionOfPopulation />
+          <Q.DefinitionOfPopulation coresetId={coreSetId} />
           <Q.PerformanceMeasure />
         </>
       )}

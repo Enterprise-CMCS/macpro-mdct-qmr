@@ -3,8 +3,66 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
 
-export const DefinitionOfPopulation = () => {
+export const DefinitionOfPopulation = (coreSetId: any) => {
   const register = useCustomRegister<FormData>();
+
+  const ACSMOptions = [
+    {
+      displayValue: "Medicaid (Title XIX)",
+      value: "Medicaid (Title XIX)",
+    },
+    {
+      displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+      value: "SurveySampleIncCHIP",
+    },
+    {
+      displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+      value: "SurveySampleIncMedicareMedicaidDualEligible",
+    },
+    {
+      displayValue: "Other",
+      value: "Other",
+      children: [<QMR.TextArea label="Please explain:" name="Other" />],
+    },
+    {
+      displayValue: "Define the Other survey population",
+      value: "DefinitionOfSurveySample-Other",
+      children: [
+        <QMR.TextInput
+          formLabelProps={{ fontWeight: "400" }}
+          label="Specify:"
+          {...register("DefinitionOfSurveySample-Other")}
+        />,
+      ],
+    },
+  ];
+
+  const ACSCOptions = [
+    {
+      displayValue: "Separate CHIP (Title XXI)",
+      value: "Separate CHIP (Title XXI",
+    },
+    {
+      displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+      value: "Individuals Dually Eligible for Medicare and Medicaid",
+    },
+    {
+      displayValue: "Other",
+      value: "Other",
+      children: [<QMR.TextArea label="Please explain:" name="Other" />],
+    },
+    {
+      displayValue: "Define the Other survey population",
+      value: "DefinitionOfSurveySample-Other",
+      children: [
+        <QMR.TextInput
+          formLabelProps={{ fontWeight: "400" }}
+          label="Specify:"
+          {...register("DefinitionOfSurveySample-Other")}
+        />,
+      ],
+    },
+  ];
 
   return (
     <QMR.CoreQuestionWrapper
@@ -14,53 +72,25 @@ export const DefinitionOfPopulation = () => {
       <CUI.Heading size="sm" as="h3">
         Definition of population included in the survey sample
       </CUI.Heading>
-      <CUI.Text mt="3">
+      <CUI.Text mt="3" mb="3">
         Please select all populations that are included. For example, if your
-        data include both non-dual Medicaid beneficiaries and Medicare and
-        Medicaid Dual Eligibles, select both:
+        survey sample includes both non-dual Medicaid (Title XIX) beneficiaries
+        and Individuals Dually Eligible for Medicare and Medicaid, select both
+        Medicaid (Title XIX) and Individuals Dually Eligible for Medicare and
+        Medicaid. 
       </CUI.Text>
-      <CUI.UnorderedList m="5" ml="10">
-        <CUI.ListItem>Survey sample includes Medicaid population</CUI.ListItem>
-        <CUI.ListItem>
-          Survey sample includes Medicare and Medicaid Dually-Eligible
-          population
-        </CUI.ListItem>
-      </CUI.UnorderedList>
+
       <QMR.Checkbox
         {...register("DefinitionOfSurveySample")}
-        options={[
-          {
-            displayValue: "Survey sample includes Medicaid population",
-            value: "SurveySampleIncMedicaidPop",
-          },
-          {
-            displayValue:
-              "Survey sample includes CHIP population (e.g. pregnant women)",
-            value: "SurveySampleIncCHIP",
-          },
-          {
-            displayValue:
-              "Survey sample includes Medicare and Medicaid Dually-Eligible population",
-            value: "SurveySampleIncMedicareMedicaidDualEligible",
-          },
-          {
-            displayValue: "Other",
-            value: "SurveySampleIncOther",
-            children: [
-              <QMR.TextInput
-                formLabelProps={{ fontWeight: "400" }}
-                label="Specify:"
-                {...register("DefinitionOfSurveySample-Other")}
-              />,
-            ],
-          },
-        ]}
+        options={coreSetId === "ACSM" ? ACSMOptions : ACSCOptions}
       />
-      <QMR.TextArea
-        label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-        formControlProps={{ paddingTop: "15px" }}
-        {...register("DefinitionOfSurveySample-Changes")}
-      />
+      {coreSetId === "ACSM" && (
+        <QMR.TextArea
+          label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
+          formControlProps={{ paddingTop: "15px" }}
+          {...register("DefinitionOfSurveySample-Changes")}
+        />
+      )}
     </QMR.CoreQuestionWrapper>
   );
 };
