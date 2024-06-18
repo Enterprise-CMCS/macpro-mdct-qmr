@@ -15,7 +15,6 @@ plugins:
   - serverless-stack-termination-protection
   - serverless-iam-helper
   - serverless-s3-bucket-helper
-  - serverless-api-client-certificate
   - serverless-dotenv-plugin
 
 custom:
@@ -25,9 +24,6 @@ custom:
     ssm:
       "/s3bucket/uploads": "local-uploads"
       "/s3bucket/snapshots": "local-dynamo-snapshots"
-  serverlessApiClientCertificate:
-    rotateCerts: true
-    daysLeft: 30
   serverlessPluginTypescript:
     tsConfigFileLocation: "./tsconfig.json"
   stage: ${opt:stage, self:provider.stage}
@@ -60,10 +56,6 @@ custom:
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
-  authValue:
-    master: aws_iam
-    val: aws_iam
-    prod: aws_iam
 provider:
   name: aws
   runtime: nodejs20.x
@@ -115,7 +107,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/list
           method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   getReportingYears:
     handler: handlers/measures/get.getReportingYears
     events:
@@ -123,7 +115,7 @@ functions:
           path: coreset/reportingyears
           method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   getMeasureListInfo:
     handler: handlers/measures/get.getMeasureListInfo
     events:
@@ -131,7 +123,7 @@ functions:
           path: coreset/measureListInfo
           method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   getMeasure:
     handler: handlers/measures/get.getMeasure
     events:
@@ -147,7 +139,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/create
           method: post
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   editMeasure:
     handler: handlers/measures/update.editMeasure
     events:
@@ -155,7 +147,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/edit
           method: put
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   deleteMeasure:
     handler: handlers/measures/delete.deleteMeasure
     events:
@@ -163,7 +155,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/measures/{measure}/delete
           method: delete
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   getAllCoreSets:
     handler: handlers/coreSets/get.coreSetList
     events:
@@ -171,7 +163,7 @@ functions:
           path: coreset/{state}/{year}/list
           method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   getCoreSet:
     handler: handlers/coreSets/get.getCoreSet
     events:
@@ -179,7 +171,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/get
           method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   createCoreSet:
     handler: handlers/coreSets/create.createCoreSet
     events:
@@ -187,7 +179,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/create
           method: post
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   editCoreSet:
     handler: handlers/coreSets/update.editCoreSet
     events:
@@ -195,7 +187,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/edit
           method: put
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   deleteCoreSet:
     handler: handlers/coreSets/delete.deleteCoreSet
     events:
@@ -203,7 +195,7 @@ functions:
           path: coreset/{state}/{year}/{coreSet}/delete
           method: delete
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
   fetchBanner:
     handler: handlers/banners/fetch.fetchBanner
     events:
@@ -211,7 +203,7 @@ functions:
           path: banners/{bannerId}
           method: get
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
           request:
             parameters:
               paths:
@@ -223,7 +215,7 @@ functions:
           path: banners/{bannerId}
           method: post
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
           request:
             parameters:
               paths:
@@ -235,7 +227,7 @@ functions:
           path: banners/{bannerId}
           method: delete
           cors: true
-          authorizer: ${self:custom.authValue.${self:custom.stage}, ""}
+          authorizer: aws_iam
           request:
             parameters:
               paths:
