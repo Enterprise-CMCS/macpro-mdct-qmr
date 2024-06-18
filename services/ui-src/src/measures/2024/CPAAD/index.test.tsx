@@ -11,8 +11,6 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { clearMocks } from "measures/2023/shared/util/validationsMock";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { useParams } from "react-router-dom";
-
 expect.extend(toHaveNoViolations);
 
 // Test Setup
@@ -118,10 +116,9 @@ const notReportingData = {
 };
 
 const completedMeasureData = {
-  "DataSource-CAHPS-Version": "undefined",
-  "DataSource-CAHPS-Version-Other": "undefined",
-  DefinitionOfSurveySample: "undefined",
+  "AdditionalNotes-AdditionalNotes": "undefined",
+  "DataSource-CAHPS-Version": "CAHPS 5.1H",
+  DefinitionOfSurveySample: [],
   "DefinitionOfSurveySample-Changes": "undefined",
-  "DefinitionOfSurveySample-Other": "undefined",
   DidCollect: "yes",
 };

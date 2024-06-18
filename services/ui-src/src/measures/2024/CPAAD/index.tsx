@@ -15,6 +15,7 @@ export const CPAAD = ({
   const { watch } = useFormContext<FormData>();
   const { coreSetId } = useParams();
   const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
