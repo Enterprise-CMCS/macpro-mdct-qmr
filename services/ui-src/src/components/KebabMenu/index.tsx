@@ -67,7 +67,7 @@ export const HorizontalKebabMenu = ({
           <BsThreeDotsVertical />
         </CUI.MenuButton>
       </CUI.Tooltip>
-      <CUI.MenuList bg="blue.500" maxW="40px" p="0">
+      <CUI.MenuList zIndex={10} bg="blue.500" maxW="40px" p="0">
         {menuItems.map((i) => (
           <KebabMenuItem
             menuLabel={menuLabel}

@@ -15,14 +15,15 @@ bannerTableName=local-banners
 coreSetTableName=local-coreSets
 DYNAMO_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
 measureTableName=local-measures
+rateTableName=local-rates
 
 # LAUNCHDARKLY
 LD_PROJECT_KEY=op://mdct_devs/qmr_secrets/LD_PROJECT_KEY
-LD_SDK_KEY=op://mdct_devs/qmr_secrets/LD_SDK_KEY #pragma: allowlist secret
+LD_SDK_KEY=op://mdct_devs/qmr_secrets/LD_SDK_KEY # pragma: allowlist secret
 
-docraptorApiKey=YOUR_API_KEY_HERE #pragma: allowlist secret
+docraptorApiKey=YOUR_API_KEY_HERE # pragma: allowlist secret
 
 CYPRESS_STATE_USER_2=op://mdct_devs/qmr_secrets/CYPRESS_STATE_USER_2
 CYPRESS_STATE_USER_4=op://mdct_devs/qmr_secrets/CYPRESS_STATE_USER_4
 CYPRESS_ADMIN_USER=op://mdct_devs/qmr_secrets/CYPRESS_ADMIN_USER
-CYPRESS_QMR_PASSWORD=op://mdct_devs/qmr_secrets/CYPRESS_QMR_PASSWORD #pragma: allowlist secret
+CYPRESS_QMR_PASSWORD=op://mdct_devs/qmr_secrets/CYPRESS_QMR_PASSWORD # pragma: allowlist secret
