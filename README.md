@@ -576,7 +576,7 @@ This repository uses 3 webhooks to publish to 3 different channels all in CMS Sl
 ## GitHub Actions Secret Management
 
 - Secrets are added to GitHub secrets by GitHub Admins
-- Upon editing and adding new secrets Admins should also update the encypted `/github/secret-list` SSM parameter in the QMR AWS Production Account.
+- Development secrets are maintained in a 1Password vault
 
 # License
 
