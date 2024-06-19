@@ -64,7 +64,10 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 
 ## Local Development Setup
 
-The following are prerequisites for local development.
+### Running MDCT Workspace Setup
+Team members are encouraged to setup all MDCT Products using the script located in the [MDCT Tools Repository ](https://github.com/Enterprise-CMCS/macpro-mdct-tools). Please refer to the README for instructions running the MDCT Workspace Setup. After Running workspace setup team members can refer to the Running the project locally section below to proceed with running the application. 
+
+The following are prerequisites for local development.  **If you have run the MDCT Workspace setup script please ignore this section it is not needed.**
 
 1. [Create an SSH Key and link it to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 1. Clone this repository locally
@@ -108,20 +111,18 @@ The following are prerequisites for local development.
    ```bash
    yarn install  # can be skipped, will run automatically in dev script
    ```
-1. Set up your local ENV. The dev script will create a .env file for you at the root of the repository on your first run. There should be no changes needed. Compare with other teammates if you encounter problems.
 
-1. Set up the UI-SRC ENV.
+## Running the project locally
 
-   1. Navigate to `/services/ui-src/`.
-   1. Make a new file: `.env`
-   1. Copy the contents of `.env_example` into `.env`
-      1. If you want to connect to real resources for the branch you can tweak these values with the resource values found in AWS.
+1. To run the project run the following command from the root of the directory
 
-1. Run the application.
-   ```bash
-   ./run local
-   ```
-   A number of test users are defined in `users.json`. See the [AWS section](#accessing-ssm-parameters) for more specific instructions and test user passwords.
+   `./run local --update-env`
+
+   Note: This will populate a .env file at the root of the directory as well as in the `/services/ui-src/` directory by authenticating to 1Password and pulling in development secrets. Both of those .env files are gitignored.
+
+If you do not have a 1Password account you can run `./run local` however you will need to reach out to a team member for .env values and populate those by hand both in the root of the repo as well as `/services/ui-src`
+
+To login a number of test users are provisioned via the `users.json`. See the [AWS section](#accessing-ssm-parameters) for more specific instructions and test user passwords.
 
 ### Prettier
 
@@ -187,8 +188,9 @@ yarn install
 To run the end-to-end (E2E) `Cypress` tests:
 
 ```
-cd tests/
-CYPRESS_QMR_PASSWORD=passwordhere yarn test
+from the root of the directory
+`./run update-env`  note: this will ensure you are using the latest values from 1Password and update your .env files
+`yarn test`
 ```
 
 The `Cypress` application will kick off, where you can find a list of all the available E2E tests.
