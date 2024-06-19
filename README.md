@@ -187,11 +187,16 @@ yarn install
 
 To run the end-to-end (E2E) `Cypress` tests:
 
-```
+
 from the root of the directory
-`./run update-env`  note: this will ensure you are using the latest values from 1Password and update your .env files
-`yarn test`
 ```
+./run update-env
+yarn test
+```
+
+**note:** this will ensure you are using the latest values from 1Password and update your .env files
+
+
 
 The `Cypress` application will kick off, where you can find a list of all the available E2E tests.
 
