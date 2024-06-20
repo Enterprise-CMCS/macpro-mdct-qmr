@@ -110,6 +110,15 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
       screen.queryByTestId("definition-of-population")
     ).not.toBeInTheDocument();
   });
+
+  it("should pass a11y tests", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    await act(async () => {
+      const results = await axe(screen.getByTestId("measure-wrapper-form"));
+      expect(results).toHaveNoViolations();
+    });
+  });
 });
 
 const notReportingData = {
