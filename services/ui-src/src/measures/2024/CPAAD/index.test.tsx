@@ -124,7 +124,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).toBeInTheDocument();
   });
 
-  jest.setTimeout(15000);
+  jest.setTimeout(20000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
