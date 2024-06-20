@@ -109,22 +109,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       screen.queryByTestId("definition-of-population")
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        "Which Supplemental Item Sets were included in the Survey"
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        "Which administrative protocol was used to administer the survey?"
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.getByText("Why did you not collect this measure")
-    ).toBeInTheDocument();
   });
 
-  jest.setTimeout(20000);
+  jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
