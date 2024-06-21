@@ -5,26 +5,24 @@ interface Props {
   data: AnyObject[];
 }
 const columns = ["Medicaid", "CHIP"];
+
+const DataSourceRecord: Record<string, string> = {
+  AdministrativeData: "Administrative Data",
+  HybridAdministrativeandMedicalRecordsData:
+    "Hybrid (Administrative and Medical Records Data)",
+  OtherDataSource: "Other Data Source",
+  ElectronicHealthRecords: "Electronic Health Record (EHR) Data",
+  ElectronicClinicalDataSystemsECDS: "Electronic Clinical Data Systems (ECDS)",
+  Casemanagementrecordreview: "Case management record review",
+};
+
 export const DataSourceInformationBanner = ({ data }: Props) => {
   const filteredData = columns.map(
     (column) => data?.find((item) => item?.column === column) ?? {}
   );
 
   const dataSourceSubsection = (dataSource: string) => {
-    if (dataSource === "AdministrativeData") {
-      return "Administrative Data";
-    } else if (dataSource === "HybridAdministrativeandMedicalRecordsData") {
-      return "Hybrid (Administrative and Medical Records Data)";
-    } else if (dataSource === "OtherDataSource") {
-      return "Other Data Source";
-    } else if (dataSource === "ElectronicHealthRecords") {
-      return "Electronic Health Record (EHR) Data";
-    } else if (dataSource === "ElectronicClinicalDataSystemsECDS") {
-      return "Electronic Clinical Data Systems (ECDS)";
-    } else if (dataSource === "Casemanagementrecordreview") {
-      return "Case management record review";
-    }
-    return dataSource;
+    return DataSourceRecord[dataSource] ?? dataSource;
   };
 
   const dataSourceSelections = (
@@ -32,14 +30,30 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
     dataSourceSelections: AnyObject
   ) => {
     let selected = [];
+    const selectedKey = Object.keys(dataSourceSelections).filter((key) =>
+      key.split("-")[0].includes(dataSource)
+    );
 
-    for (const [key, value] of Object.entries(dataSourceSelections)) {
-      if (key.includes(dataSource)) {
-        if (value) {
-          if ((value as any)?.selected)
-            selected.push(...(value as any)?.selected);
-          if ((value as any)?.description)
-            selected.push((value as any)?.description);
+    if (selectedKey && selectedKey.length > 0) {
+      if (selectedKey.length > 1) {
+        const primaryKey = selectedKey[0].split("-")[0];
+        const selections: string[] = dataSourceSelections[primaryKey]?.selected;
+        selected.push(
+          ...selections.map((selection: string) => {
+            const descKey = selectedKey.find((key) => key.includes(selection));
+            if (descKey)
+              return `${selection} - ${dataSourceSelections[descKey].description}`;
+            return selection;
+          })
+        );
+      } else {
+        const { description, selected: selectedValue } =
+          dataSourceSelections[selectedKey[0]];
+        if (description) {
+          selected.push(description);
+        }
+        if (selectedValue) {
+          selected.push(...selectedValue);
         }
       }
     }
