@@ -30,31 +30,43 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
     dataSourceSelections: AnyObject
   ) => {
     let selected = [];
-    const selectedKey = Object.keys(dataSourceSelections).filter((key) =>
+    //filter the dataSourceSelections object keys that matches the dataSource name
+    const dataSourceKey = Object.keys(dataSourceSelections).filter((key) =>
       key.split("-")[0].includes(dataSource)
     );
+    //use the key ids to obtain the values
+    const dataSourceValue = dataSourceKey.map(
+      (key) => dataSourceSelections[key]
+    );
 
-    if (selectedKey && selectedKey.length > 0) {
-      if (selectedKey.length > 1) {
-        const primaryKey = selectedKey[0].split("-")[0];
-        const selections: string[] = dataSourceSelections[primaryKey]?.selected;
+    if (dataSourceKey && dataSourceKey.length > 0) {
+      //if more than one key exist, it is possibly a nested data source
+      if (dataSourceKey.length > 1) {
+        const dataSources: string[] = dataSourceValue
+          .filter((source) => source.selected)
+          .map((item) => item.selected)
+          .flat();
+
         selected.push(
-          ...selections.map((selection: string) => {
-            const descKey = selectedKey.find((key) => key.includes(selection));
-            if (descKey)
-              return `${selection} - ${dataSourceSelections[descKey].description}`;
-            return selection;
+          ...dataSources.map((source: string) => {
+            const sourceKey = dataSourceKey.find((key) => key.includes(source));
+            return sourceKey
+              ? `${source} - ${
+                  dataSourceSelections[sourceKey]?.description ?? "Not Answered"
+                }`
+              : source;
           })
         );
       } else {
         const { description, selected: selectedValue } =
-          dataSourceSelections[selectedKey[0]];
-        if (description) {
-          selected.push(description);
-        }
-        if (selectedValue) {
-          selected.push(...selectedValue);
-        }
+          dataSourceSelections[dataSourceKey[0]];
+
+        //either description is null or selected is null, only one will exist on the object
+        const value = selectedValue
+          ? selectedValue
+          : [!!description ? description : "Not Answered"];
+
+        selected.push(...value);
       }
     }
     return selected;
