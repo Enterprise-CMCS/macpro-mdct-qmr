@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import * as Q from "./questions";
 import * as CMQ from "measures/2023/shared/CommonQuestions";
+import { useParams } from "react-router-dom";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
@@ -21,6 +22,7 @@ export const MSCAD = ({
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
+  const { coreSetId } = useParams();
 
   return (
     <>
@@ -36,7 +38,7 @@ export const MSCAD = ({
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
           <Q.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <Q.DefinitionOfPopulation coresetId={coreSetId} />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} rateReadOnly={false} />
