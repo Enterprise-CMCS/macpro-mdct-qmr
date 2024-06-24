@@ -50,8 +50,10 @@ const syncDynamoToS3 = handler(async (_event, _context) => {
   console.log("Syncing Dynamo to Uploads");
   const measureScanResults = await scanAll(process.env.measureTableName);
   const coreSetScanResults = await scanAll(process.env.coreSetTableName);
+  const rateScanResults = await scanAll(process.env.rateTableName);
   const measureResults = measureScanResults ? measureScanResults : [];
   const coreSetResults = coreSetScanResults ? coreSetScanResults : [];
+  const rateResults = rateScanResults ? rateScanResults : [];
 
   const measureCsv = await csvToS3(measureResults);
   await uploadFileToS3(`coreSetData/CSVmeasures/${Date.now()}.csv`, measureCsv);
@@ -68,6 +70,14 @@ const syncDynamoToS3 = handler(async (_event, _context) => {
     JSON.stringify(coreSetResults)
   );
   console.log("Uploaded coreSet file to s3");
+
+  const rateCsv = await csvToS3(rateResults);
+  await uploadFileToS3(`coreSetData/CSVrate/${Date.now()}.csv`, rateCsv);
+  await uploadFileToS3(
+    `coreSetData/JSONrate/${Date.now()}.json`,
+    JSON.stringify(rateResults)
+  );
+  console.log("Uploaded rate file to s3");
 });
 module.exports = {
   syncDynamoToS3: syncDynamoToS3,
