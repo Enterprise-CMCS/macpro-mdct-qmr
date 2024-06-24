@@ -24,13 +24,12 @@ export const MSCAD = ({
 
   return (
     <>
-      <CMQ.Reporting
+      <Q.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
         removeLessThan30
       />
-
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
