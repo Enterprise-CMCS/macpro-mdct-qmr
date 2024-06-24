@@ -1,3 +1,4 @@
+import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
@@ -6,6 +7,10 @@ export const HowDidYouReport = () => {
   const register = useCustomRegister<FormData>();
   return (
     <QMR.CoreQuestionWrapper label="Did you submit your CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period?">
+      <CUI.Text py="3">
+        Note: States that reported this measure in the AHRQ CAHPS Database will
+        have the opportunity to preview the results in the spring.
+      </CUI.Text>
       <QMR.RadioButton
         {...register("HowDidYouReport")}
         options={[

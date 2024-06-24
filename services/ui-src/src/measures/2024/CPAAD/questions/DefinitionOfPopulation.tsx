@@ -22,16 +22,10 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
     {
       displayValue: "Other",
       value: "Other",
-      children: [<QMR.TextArea label="Please explain:" name="Other" />],
-    },
-    {
-      displayValue: "Define the Other survey population",
-      value: "DefinitionOfSurveySample-Other",
       children: [
-        <QMR.TextInput
-          formLabelProps={{ fontWeight: "400" }}
-          label="Specify:"
-          {...register("DefinitionOfSurveySample-Other")}
+        <QMR.TextArea
+          label="Define the Other survey population:"
+          name="define-the-other-survey-population"
         />,
       ],
     },
@@ -49,16 +43,10 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
     {
       displayValue: "Other",
       value: "Other",
-      children: [<QMR.TextArea label="Please explain:" name="Other" />],
-    },
-    {
-      displayValue: "Define the Other survey population",
-      value: "DefinitionOfSurveySample-Other",
       children: [
-        <QMR.TextInput
-          formLabelProps={{ fontWeight: "400" }}
-          label="Specify:"
-          {...register("DefinitionOfSurveySample-Other")}
+        <QMR.TextArea
+          label="Define the Other survey population:"
+          name="define-the-other-survey-population"
         />,
       ],
     },
