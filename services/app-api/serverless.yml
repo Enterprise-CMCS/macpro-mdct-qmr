@@ -18,6 +18,7 @@ plugins:
   - serverless-dotenv-plugin
 
 custom:
+  project: "qmr"
   serverless-offline-ssm:
     stages:
       - local
@@ -62,6 +63,9 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
+  stackTags:
+    PROJECT: ${self:custom.project}
+    SERVICE: ${self:service}
   tracing:
     apiGateway: true
   logs:
