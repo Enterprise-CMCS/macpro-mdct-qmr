@@ -45,57 +45,24 @@ export const DataSource = ({ type }: DataSourceProps) => {
           },
         ]}
       />
-      <CUI.Heading size="sm">
-        Which Supplemental Item Sets were included in the Survey
-      </CUI.Heading>
-      <QMR.Checkbox
+      <QMR.RadioButton
         formControlProps={{ paddingBottom: 4 }}
+        label=" Did you include the CAHPS Item Set for Children with Chronic Conditions
+        in the survey?"
+        formLabelProps={{ fontWeight: 700 }}
         {...register("DataSource-Included-ItemSets")}
         options={[
           {
-            displayValue: "No Supplemental Item Sets were included",
-            value: "No Supplemental Item Sets were included",
+            displayValue:
+              "Yes, we included the CAHPS Item Set for Children with Chronic Conditions in the survey.",
+            value:
+              "Yes, we included the CAHPS Item Set for Children with Chronic Conditions in the survey.",
           },
           {
-            displayValue: "CAHPS Item Set for Children with Chronic Conditions",
-            value: "CAHPS Item Set for Children with Chronic Conditions",
-          },
-          {
-            displayValue: "Other CAHPS Item Set",
-            value: "Other CAHPS Item Set",
-            children: [
-              <QMR.TextArea
-                label="Explain:"
-                {...register("DataSource-Included-ItemSets-Other")}
-              />,
-            ],
-          },
-        ]}
-        label="Select all that apply:"
-      />
-      <QMR.RadioButton
-        label="Which administrative protocol was used to administer the survey?"
-        formLabelProps={{ fontWeight: 700 }}
-        {...register("DataSource-Admin-Protocol")}
-        options={[
-          {
-            displayValue: "NCQA/HEDIS CAHPS 5.1H administrative protocol",
-            value: "NCQA/HEDIS CAHPS 5.1H administrative protocol",
-          },
-
-          {
-            displayValue: "AHRQ CAHPS administrative protocol",
-            value: "AHRQ CAHPS administrative protocol",
-          },
-          {
-            displayValue: "Other administrative protocol",
-            value: "Other administrative protocol",
-            children: [
-              <QMR.TextArea
-                label="Explain:"
-                {...register("DataSource-Admin-Protocol-Other")}
-              />,
-            ],
+            displayValue:
+              "No, we did not include the CAHPS Item Set for Children with Chronic Conditions in the survey.",
+            value:
+              "No, we did not include the CAHPS Item Set for Children with Chronic Conditions in the survey.",
           },
         ]}
       />

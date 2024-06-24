@@ -91,21 +91,13 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).toBeInTheDocument();
     expect(
       screen.queryByTestId("definition-of-population")
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Which Supplemental Item Sets were included in the Survey"
-      )
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Which administrative protocol was used to administer the survey?"
+        "Did you include the CAHPS Item Set for Children with Chronic Conditions in the survey?"
       )
     ).toBeInTheDocument();
   });
