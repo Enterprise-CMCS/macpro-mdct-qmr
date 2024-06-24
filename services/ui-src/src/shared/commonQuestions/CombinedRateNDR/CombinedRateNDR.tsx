@@ -5,8 +5,75 @@ import {
   RateDataShape,
 } from "./CombinedRateTypes";
 
+const VerticalTable = (headers: string[], rows: string[], table: any) => {
+  return (
+    <CUI.VStack align="flex-start" mt="4">
+      {headers.slice(0, -1).map((header) => (
+        <CUI.List padding="0 0 1rem 2rem">
+          <CUI.Text fontWeight="bold" mb="2">
+            {header}
+          </CUI.Text>
+          {rows.map((row) => (
+            <CUI.ListItem pl="7">
+              {row}: {table[header]?.[row.toLowerCase()]}
+            </CUI.ListItem>
+          ))}
+        </CUI.List>
+      ))}
+      <CUI.List padding="0 0 1rem 2rem">
+        <CUI.Text fontWeight="bold" mb="2">
+          Combined rate: {table["Combined Rate"]?.rate}
+        </CUI.Text>
+      </CUI.List>
+    </CUI.VStack>
+  );
+};
+
+const HorizontalTable = (headers: string[], rows: string[], table: any) => {
+  return (
+    <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
+      <CUI.Thead>
+        <CUI.Tr>
+          <CUI.Td></CUI.Td>
+          {headers.map((header) => (
+            <CUI.Th sx={sx.header}>{header}</CUI.Th>
+          ))}
+        </CUI.Tr>
+      </CUI.Thead>
+      <CUI.Tbody>
+        {rows.map((row) => (
+          <CUI.Tr sx={sx.row}>
+            <CUI.Th sx={sx.verticalHeader} scope="row">
+              {row}
+            </CUI.Th>
+            {headers.map((header) => (
+              <CUI.Td isNumeric sx={sx.content}>
+                {table[header]?.[row.toLowerCase()]}
+              </CUI.Td>
+            ))}
+          </CUI.Tr>
+        ))}
+      </CUI.Tbody>
+    </CUI.Table>
+  );
+};
+
 export const CombinedRateNDR = ({ json }: Props) => {
   const tables = collectRatesForDisplay(json);
+  const headers = ["Medicaid", "CHIP", "Combined Rate"];
+  const rows = ["Numerator", "Denominator", "Rate"];
+
+  //centralize formatting of the display data so that all the renders value are consistent
+  tables.forEach((table) => {
+    headers.forEach((header) => {
+      const notAnswered = header === "Combined Rate" ? "" : "Not answered";
+      const rates = (table as any)[header];
+      const numerator = rates?.numerator ?? notAnswered;
+      const denominator = rates?.denominator ?? notAnswered;
+      const rate = rates?.rate ?? "-";
+      (table as any)[header] = { ...rates, numerator, denominator, rate };
+    });
+  });
 
   return (
     <CUI.Box sx={sx.tableContainer} mb="3rem">
@@ -22,64 +89,12 @@ export const CombinedRateNDR = ({ json }: Props) => {
                 {table.label}
               </CUI.Heading>
             )}
-            <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
-              <CUI.Thead>
-                <CUI.Tr>
-                  <CUI.Td></CUI.Td>
-                  <CUI.Th sx={sx.header}>Medicaid</CUI.Th>
-                  <CUI.Th sx={sx.header}>CHIP</CUI.Th>
-                  <CUI.Th sx={sx.header}>Combined Rate</CUI.Th>
-                </CUI.Tr>
-              </CUI.Thead>
-              <CUI.Tbody>
-                <CUI.Tr sx={sx.row}>
-                  <CUI.Th sx={sx.verticalHeader} scope="row">
-                    Numerator
-                  </CUI.Th>
-                  <CUI.Td isNumeric sx={sx.content}>
-                    {table.Medicaid?.numerator
-                      ? table.Medicaid.numerator
-                      : "Not answered"}
-                  </CUI.Td>
-                  <CUI.Td isNumeric sx={sx.content}>
-                    {table.CHIP?.numerator
-                      ? table.CHIP.numerator
-                      : "Not answered"}
-                  </CUI.Td>
-                </CUI.Tr>
-                <CUI.Tr sx={sx.row}>
-                  <CUI.Th sx={sx.verticalHeader} scope="row">
-                    Denominator
-                  </CUI.Th>
-                  <CUI.Td isNumeric sx={sx.content}>
-                    {table.Medicaid?.denominator
-                      ? table.Medicaid.denominator
-                      : "Not answered"}
-                  </CUI.Td>
-                  <CUI.Td isNumeric sx={sx.content}>
-                    {table.CHIP?.denominator
-                      ? table.CHIP.denominator
-                      : "Not answered"}
-                  </CUI.Td>
-                </CUI.Tr>
-                <CUI.Tr sx={sx.row}>
-                  <CUI.Th sx={sx.verticalHeader} scope="row">
-                    Rate
-                  </CUI.Th>
-                  <CUI.Td isNumeric sx={sx.content}>
-                    {table.Medicaid?.rate ? table.Medicaid.rate : "-"}
-                  </CUI.Td>
-                  <CUI.Td isNumeric sx={sx.content}>
-                    {table.CHIP?.rate ? table.CHIP.rate : "-"}
-                  </CUI.Td>
-                  <CUI.Td isNumeric sx={sx.content}>
-                    {table["Combined Rate"]?.rate
-                      ? table["Combined Rate"].rate
-                      : "-"}
-                  </CUI.Td>
-                </CUI.Tr>
-              </CUI.Tbody>
-            </CUI.Table>
+            <CUI.Hide below="md">
+              {HorizontalTable(headers, rows, table)}
+            </CUI.Hide>
+            <CUI.Show below="md">
+              {VerticalTable(headers, rows, table)}
+            </CUI.Show>
           </CUI.Box>
         );
       })}
