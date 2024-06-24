@@ -5,7 +5,14 @@ import {
   RateDataShape,
 } from "./CombinedRateTypes";
 
-const VerticalTable = (headers: string[], rows: string[], table: any) => {
+type ProgramType = "Medicaid" | "CHIP" | "Combined Rate";
+type Measures = "numerator" | "denominator" | "rate";
+
+const VerticalTable = (
+  headers: ProgramType[],
+  rows: Measures[],
+  table: any
+) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
       {headers.slice(0, -1).map((header) => (
@@ -29,7 +36,11 @@ const VerticalTable = (headers: string[], rows: string[], table: any) => {
   );
 };
 
-const HorizontalTable = (headers: string[], rows: string[], table: any) => {
+const HorizontalTable = (
+  headers: ProgramType[],
+  rows: Measures[],
+  table: TableDataShape
+) => {
   return (
     <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
       <CUI.Thead>
@@ -48,7 +59,7 @@ const HorizontalTable = (headers: string[], rows: string[], table: any) => {
             </CUI.Th>
             {headers.map((header) => (
               <CUI.Td isNumeric sx={sx.content}>
-                {table[header]?.[row.toLowerCase()]}
+                {table[header]?.[row]}
               </CUI.Td>
             ))}
           </CUI.Tr>
@@ -60,18 +71,19 @@ const HorizontalTable = (headers: string[], rows: string[], table: any) => {
 
 export const CombinedRateNDR = ({ json }: Props) => {
   const tables = collectRatesForDisplay(json);
-  const headers = ["Medicaid", "CHIP", "Combined Rate"];
-  const rows = ["Numerator", "Denominator", "Rate"];
+  const headers: ProgramType[] = ["Medicaid", "CHIP", "Combined Rate"];
+  const rows: Measures[] = ["numerator", "denominator", "rate"];
 
   //centralize formatting of the display data so that all the renders value are consistent
   tables.forEach((table) => {
     headers.forEach((header) => {
       const notAnswered = header === "Combined Rate" ? "" : "Not answered";
-      const rates = (table as any)[header];
-      const numerator = rates?.numerator ?? notAnswered;
-      const denominator = rates?.denominator ?? notAnswered;
-      const rate = rates?.rate ?? "-";
-      (table as any)[header] = { ...rates, numerator, denominator, rate };
+      //setting values to not answered if key doesn't exist
+      const numerator = table[header]?.numerator ?? notAnswered;
+      const denominator = table[header]?.denominator ?? notAnswered;
+      const rate = table[header]?.rate ?? "-";
+      //add value back to table object
+      table[header] = { ...table[header]!, numerator, denominator, rate };
     });
   });
 
@@ -129,10 +141,7 @@ const collectRatesForDisplay = (
     (item) => item.column == "Combined Rate"
   )?.rates ?? []) as RateDataShape[];
 
-  const rememberRate = (
-    rate: RateDataShape,
-    program: "CHIP" | "Medicaid" | "Combined Rate"
-  ) => {
+  const rememberRate = (rate: RateDataShape, program: ProgramType) => {
     let existingTable = tables.find((t) => t.uid === rate.uid);
     if (existingTable) {
       existingTable[program] = rate;
