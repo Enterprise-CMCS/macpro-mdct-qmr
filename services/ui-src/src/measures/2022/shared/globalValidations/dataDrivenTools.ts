@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as Types from "measures/2022/shared/CommonQuestions/types";
 import { DataDrivenTypes as DDT } from "measures/2022/shared/CommonQuestions/types";
-import { cleanString } from "utils";
+import { LabelData, cleanString } from "utils";
 import { FormRateField as PM, RateData } from "./types";
 
 /**
@@ -18,7 +18,7 @@ export const getPerfMeasureRateArray = (
   if (renderData.categories?.length) {
     for (const cat of renderData.categories) {
       performanceMeasureData.push(
-        formData.PerformanceMeasure?.rates?.[cleanString(cat)] ?? []
+        formData.PerformanceMeasure?.rates?.[cat.id] ?? []
       );
     }
   } else if (renderData.qualifiers?.length) {
@@ -49,15 +49,15 @@ export const getOtherPerformanceMeasureRateArray = (
 
 /** Utility function for converting oms data to be the same as returned performance measure. Encourages shared validations. */
 export const convertOmsDataToRateArray = (
-  categories: string[],
-  qualifiers: string[],
+  categories: LabelData[],
+  qualifiers: LabelData[],
   rateData: RateData
 ) => {
   const rateArray: PM[][] = [];
 
-  for (const cat of categories.map((c) => cleanString(c))) {
+  for (const cat of categories.map((c) => c.id)) {
     const tempArr: PM[] = [];
-    for (const qual of qualifiers.map((q) => cleanString(q))) {
+    for (const qual of qualifiers.map((q) => q.id)) {
       tempArr.push(rateData.rates?.[qual]?.[cat]?.[0] ?? {});
     }
     rateArray.push(tempArr);
@@ -77,7 +77,7 @@ export const performanceMeasureErrorLocationDicitonary = (
   const errorDict: PMErrorDictionary = {};
 
   for (const cat of renderData?.categories ?? []) {
-    errorDict[cleanString(cat)] = cat;
+    errorDict[cat.id] = cat.label;
   }
 
   errorDict[DC.SINGLE_CATEGORY] = DC.PERFORMANCE_MEASURE;
@@ -90,8 +90,8 @@ export const performanceMeasureErrorLocationDicitonary = (
  */
 export const omsLocationDictionary = (
   renderData: DDT.OptionalMeasureStrat,
-  qualifiers?: string[],
-  categories?: string[]
+  qualifiers?: LabelData[],
+  categories?: LabelData[]
 ) => {
   const dictionary: { [cleanedLabel: string]: string } = {};
   const checkNode = (node: DDT.SingleOmsNode) => {
@@ -107,11 +107,11 @@ export const omsLocationDictionary = (
   }
 
   for (const qual of qualifiers ?? []) {
-    dictionary[cleanString(qual)] = qual;
+    dictionary[qual.id] = qual.label;
   }
 
   for (const cat of categories ?? []) {
-    dictionary[cleanString(cat)] = cat;
+    dictionary[cat.id] = cat.label;
   }
 
   return (labels: string[]) =>

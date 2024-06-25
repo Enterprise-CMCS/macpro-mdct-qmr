@@ -9,6 +9,7 @@ import {
   convertOmsDataToRateArray,
   getOtherPerformanceMeasureRateArray,
 } from "../dataDrivenTools";
+import { LabelData } from "utils";
 
 interface ValProps extends UVFP {
   hybridData?: boolean;
@@ -73,7 +74,7 @@ export const validateRateZeroOMS =
 export const validateRateZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  _qualifiers: string[],
+  _qualifiers: LabelData[],
   data: Types.DefaultFormData,
   errorMessage?: string
 ): FormError[] => {

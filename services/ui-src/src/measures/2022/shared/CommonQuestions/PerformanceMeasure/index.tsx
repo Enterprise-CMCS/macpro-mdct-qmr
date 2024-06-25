@@ -5,7 +5,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { cleanString, getLabelText } from "utils";
+import { LabelData, cleanString, getLabelText } from "utils";
 import { ndrFormula } from "types";
 
 interface Props {
@@ -25,8 +25,8 @@ interface Props {
 }
 
 interface NdrSetProps {
-  categories?: string[];
-  qualifiers?: string[];
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   measureName?: string;
   inputFieldNames?: string[];
   ndrFormulas?: ndrFormula[];
@@ -67,18 +67,18 @@ const CategoryNdrSets = ({
     <>
       {categories.map((item) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((cat, idx) => ({
-          label: cat,
+          label: cat.label,
           id: idx,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        const cleanedName = cleanString(item);
+        const cleanedName = item.id;
 
         return (
-          <CUI.Box key={item}>
+          <CUI.Box key={item.id}>
             <CUI.Text fontWeight="bold" my="5">
-              {labelText[item] ?? item}
+              {labelText[item.label] ?? item.label}
             </CUI.Text>
             <RateComponent
               readOnly={rateReadOnly}
@@ -88,7 +88,7 @@ const CategoryNdrSets = ({
               ndrFormulas={ndrFormulas}
               rateMultiplicationValue={rateScale}
               calcTotal={calcTotal}
-              categoryName={item}
+              categoryName={item.label}
               customMask={customMask}
               customNumeratorLabel={customNumeratorLabel}
               customDenominatorLabel={customDenominatorLabel}
@@ -128,7 +128,7 @@ const QualifierNdrSets = ({
   const register = useCustomRegister();
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
-    label: item,
+    label: item.label,
     id: idx,
   }));
   return (
