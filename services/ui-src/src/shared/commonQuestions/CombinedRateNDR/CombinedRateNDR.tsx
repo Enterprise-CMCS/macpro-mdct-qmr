@@ -32,7 +32,7 @@ const VerticalTable = (
           {headers[2]}: {table["Combined Rate"]?.rate}
         </CUI.Text>
       </CUI.List>
-      <CUI.Divider borderColor="gray.500" />
+      <CUI.Divider borderColor="gray.300" />
     </CUI.VStack>
   );
 };
