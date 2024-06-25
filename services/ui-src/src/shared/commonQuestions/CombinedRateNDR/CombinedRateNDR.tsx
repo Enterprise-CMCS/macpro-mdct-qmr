@@ -16,7 +16,7 @@ const VerticalTable = (
   return (
     <CUI.VStack align="flex-start" mt="4">
       {headers.slice(0, -1).map((header) => (
-        <CUI.List padding="0 0 1rem 2rem">
+        <CUI.List padding="0 0 1rem 2rem" textTransform="capitalize">
           <CUI.Text fontWeight="bold" mb="2">
             {header}
           </CUI.Text>
@@ -29,9 +29,10 @@ const VerticalTable = (
       ))}
       <CUI.List padding="0 0 1rem 2rem">
         <CUI.Text fontWeight="bold" mb="2">
-          Combined rate: {table["Combined Rate"]?.rate}
+          {headers[2]}: {table["Combined Rate"]?.rate}
         </CUI.Text>
       </CUI.List>
+      <CUI.Divider borderColor="gray.500" />
     </CUI.VStack>
   );
 };
