@@ -128,6 +128,16 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
       screen.getByText("Why did you not collect this measure")
     ).toBeInTheDocument();
   });
+
+  jest.setTimeout(15000);
+  it("should pass a11y tests", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+    await act(async () => {
+      const results = await axe(screen.getByTestId("measure-wrapper-form"));
+      expect(results).toHaveNoViolations();
+    });
+  });
 });
 
 const notReportingData = {
