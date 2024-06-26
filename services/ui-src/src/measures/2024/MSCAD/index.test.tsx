@@ -1,4 +1,4 @@
-import { screen, waitFor, act } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -15,7 +15,7 @@ import {
   clearMocks,
   validationsMockObj as V,
 } from "measures/2023/shared/util/validationsMock";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
