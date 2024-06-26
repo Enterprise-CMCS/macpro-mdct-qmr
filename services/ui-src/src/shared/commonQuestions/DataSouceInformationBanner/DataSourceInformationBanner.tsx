@@ -25,62 +25,6 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
     return DataSourceRecord[dataSource] ?? dataSource;
   };
 
-  const dataSourceSelections = (
-    dataSource: string,
-    dataSourceSelections: AnyObject
-  ) => {
-    let selected = [];
-    //filter the dataSourceSelections object keys that matches the dataSource name
-    const dataSourceKey = Object.keys(dataSourceSelections).filter((key) =>
-      key.split("-")[0].includes(dataSource)
-    );
-    //use the key ids to obtain the values
-    const dataSourceValue = dataSourceKey.map(
-      (key) => dataSourceSelections[key]
-    );
-
-    if (dataSourceKey && dataSourceKey.length > 0) {
-      //if more than one key exist, it is possibly a nested data source
-      if (dataSourceKey.length > 1) {
-        const dataSources: string[] = dataSourceValue
-          .filter((source) => source.selected)
-          .map((item) => item.selected)
-          .flat();
-
-        selected.push(
-          ...dataSources.map((source: string) => {
-            const sourceKey = dataSourceKey.find((key) => key.includes(source));
-            return sourceKey
-              ? `${source} - ${
-                  dataSourceSelections[sourceKey]?.description ?? "Not Answered"
-                }`
-              : source;
-          })
-        );
-      } else {
-        const { description, selected: selectedValue } =
-          dataSourceSelections[dataSourceKey[0]];
-
-        //either description is null or selected is null, only one will exist on the object
-        const value = selectedValue
-          ? selectedValue
-          : [!!description ? description : "Not Answered"];
-
-        selected.push(...value);
-      }
-    }
-    return selected;
-  };
-
-  const formatCamelCaseWithInitialisms = (str: string) => {
-    let spacedString = str
-      .replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3")
-      .trim();
-    spacedString = spacedString.replace(/([A-Z]+)(?=[A-Z][a-z]|\s|$)/g, "($1)");
-
-    return spacedString;
-  };
-
   const renderData = columns.map((column, idx) => {
     return (
       <CUI.Box
@@ -150,6 +94,62 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
       </CUI.Show>
     </>
   );
+};
+
+export const dataSourceSelections = (
+  dataSource: string,
+  dataSourceSelections: AnyObject
+) => {
+  let selected = [];
+  //filter the dataSourceSelections object keys that matches the dataSource name
+  const dataSourceKey = Object.keys(dataSourceSelections).filter((key) =>
+    key.split("-")[0].includes(dataSource)
+  );
+  //use the key ids to obtain the values
+  const dataSourceValue = dataSourceKey.map(
+    (key) => dataSourceSelections[key]
+  );
+
+  if (dataSourceKey && dataSourceKey.length > 0) {
+    //if more than one key exist, it is possibly a nested data source
+    if (dataSourceKey.length > 1) {
+      const dataSources: string[] = dataSourceValue
+        .filter((source) => source.selected)
+        .map((item) => item.selected)
+        .flat();
+
+      selected.push(
+        ...dataSources.map((source: string) => {
+          const sourceKey = dataSourceKey.find((key) => key.includes(source));
+          return sourceKey
+            ? `${source} - ${
+                dataSourceSelections[sourceKey]?.description ?? "Not Answered"
+              }`
+            : source;
+        })
+      );
+    } else {
+      const { description, selected: selectedValue } =
+        dataSourceSelections[dataSourceKey[0]];
+
+      //either description is null or selected is null, only one will exist on the object
+      const value = selectedValue
+        ? selectedValue
+        : [!!description ? description : "Not Answered"];
+
+      selected.push(...value);
+    }
+  }
+  return selected;
+};
+
+export const formatCamelCaseWithInitialisms = (str: string) => {
+  let spacedString = str
+    .replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3")
+    .trim();
+  spacedString = spacedString.replace(/([A-Z]+)(?=[A-Z][a-z]|\s|$)/g, "($1)");
+
+  return spacedString;
 };
 
 const sx = {
