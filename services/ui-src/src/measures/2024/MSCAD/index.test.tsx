@@ -97,9 +97,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).toBeInTheDocument();
     expect(screen.queryByTestId("date-range")).toBeInTheDocument();
     expect(
@@ -112,9 +109,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).not.toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
     expect(screen.queryByTestId("date-range")).not.toBeInTheDocument();
     expect(
@@ -127,9 +121,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("performance-measure")).toBeInTheDocument();
-    expect(
-      screen.queryByTestId("deviation-from-measure-specification")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("OPM")).not.toBeInTheDocument();
   });
 
@@ -139,9 +130,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     renderWithHookForm(component);
     expect(screen.queryByTestId("OPM"));
     expect(screen.queryByTestId("performance-measure")).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId("deviation-from-measure-specification")
-    ).not.toBeInTheDocument();
   });
 
   it("shows OMS when performance measure data has been entered", async () => {

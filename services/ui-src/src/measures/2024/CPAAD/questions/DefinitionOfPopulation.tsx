@@ -6,6 +6,7 @@ import { FormData } from "../types";
 export const DefinitionOfPopulation = ({ coresetId }: any) => {
   const register = useCustomRegister<FormData>();
 
+  // default options
   const ACSMOptions = [
     {
       displayValue: "Medicaid (Title XIX)",
@@ -70,7 +71,7 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
 
       <QMR.Checkbox
         {...register("DefinitionOfSurveySample")}
-        options={coresetId === "ACSM" ? ACSMOptions : ACSCOptions}
+        options={coresetId === "ACSC" ? ACSCOptions : ACSMOptions}
       />
       {coresetId === "ACSM" && (
         <QMR.TextArea
