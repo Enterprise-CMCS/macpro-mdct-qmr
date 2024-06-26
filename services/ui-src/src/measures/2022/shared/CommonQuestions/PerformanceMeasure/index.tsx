@@ -5,7 +5,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { LabelData, cleanString, getLabelText } from "utils";
+import { LabelData, getLabelText } from "utils";
 import { ndrFormula } from "types";
 
 interface Props {

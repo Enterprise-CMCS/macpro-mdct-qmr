@@ -48,7 +48,7 @@ const CategoryNdrSets = ({
 
         return (
           <>
-            <CUI.Text key={item} fontWeight="bold" my="5">
+            <CUI.Text key={cat.id} fontWeight="bold" my="5">
               {cat.label}
             </CUI.Text>
             <QMR.Rate
