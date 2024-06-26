@@ -27,6 +27,7 @@ export const MSCAD = ({
   const { coreSetId } = useParams();
   const { watch } = useFormContext<Types.DefaultFormData>();
   const data = watch();
+
   return (
     <>
       <Q.Reporting
@@ -34,13 +35,13 @@ export const MSCAD = ({
         measureName={name}
         measureAbbreviation={measureId}
       />
-      {data["DidCollect"] !== "no" && (
+      <Q.HowDidYouReport
+        reportingYear={year}
+        healthHomeMeasure
+        removeLessThan30
+      />
+      {data["DidReport"] !== "no" && (
         <>
-          <Q.HowDidYouReport
-            reportingYear={year}
-            healthHomeMeasure
-            removeLessThan30
-          />
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
           <Q.DataSource type="adult" />
