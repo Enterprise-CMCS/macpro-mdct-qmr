@@ -199,7 +199,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateRateNotZeroOMS).toHaveBeenCalled();
   });
 
-  jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
