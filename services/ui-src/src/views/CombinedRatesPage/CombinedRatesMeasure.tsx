@@ -11,14 +11,9 @@ interface Props {
   measureName: string;
 }
 
-const coreSetBySuffix = (suffix: string) => {
-  switch (suffix) {
-    case "AD":
-      return "ACS";
-    case "CH":
-      return "CCS";
-  }
-  return "";
+const CoreSetSuffixRecord: Record<string, string> = {
+  AD: "ACS",
+  CH: "CCS",
 };
 
 export const CombinedRatesMeasure = ({
@@ -28,7 +23,7 @@ export const CombinedRatesMeasure = ({
 }: Props) => {
   const { state } = useParams();
   const typeSuffix = measure?.slice(-2); // used to determine if measure is adult or child type
-  const combinedCoreSetAbbr = coreSetBySuffix(typeSuffix);
+  const combinedCoreSetAbbr = CoreSetSuffixRecord[typeSuffix] ?? "";
 
   const { data } = useGetRate({
     measure,
