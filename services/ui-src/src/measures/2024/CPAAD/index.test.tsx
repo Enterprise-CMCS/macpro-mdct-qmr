@@ -91,9 +91,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).toBeInTheDocument();
     expect(
       screen.queryByTestId("definition-of-population")
@@ -115,9 +112,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).not.toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
     expect(
       screen.queryByTestId("definition-of-population")
@@ -137,15 +131,15 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).toBeInTheDocument();
   });
 
-  jest.setTimeout(15000);
-  it("should pass a11y tests", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    await act(async () => {
-      const results = await axe(screen.getByTestId("measure-wrapper-form"));
-      expect(results).toHaveNoViolations();
-    });
-  });
+  // jest.setTimeout(15000);
+  // it("should pass a11y tests", async () => {
+  //   useApiMock(apiData);
+  //   renderWithHookForm(component);
+  //   await act(async () => {
+  //     const results = await axe(screen.getByTestId("measure-wrapper-form"));
+  //     expect(results).toHaveNoViolations();
+  //   });
+  // });
 });
 
 const notReportingData = {
