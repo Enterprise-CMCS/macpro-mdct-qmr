@@ -113,17 +113,18 @@ export const dataSourceSelections = (
     if (dataSourceKey.length > 1) {
       const dataSources: string[] = dataSourceValue
         .filter((source) => source.selected)
-        .map((item) => formatCamelCaseWithInitialisms(item.selected))
+        .map((item) => item.selected)
         .flat();
 
       selected.push(
         ...dataSources.map((source: string) => {
           const sourceKey = dataSourceKey.find((key) => key.includes(source));
+          const formattedSource = formatCamelCaseWithInitialisms(source);
           return sourceKey
-            ? `${source} - ${
+            ? `${formattedSource} - ${
                 dataSourceSelections[sourceKey]?.description ?? "Not Answered"
               }`
-            : source;
+            : formattedSource;
         })
       );
     } else {

@@ -31,8 +31,8 @@ describe("DataSourceInformationBanner", () => {
     it("should collect values and descriptions for data sources with multiple selections", () => {
       const result = dataSourceSelections("AdministrativeData", selections);
       expect(result).toEqual([
-        "MedicaidManagementInformationSystemMMIS",
-        "AdministrativeDataOther - custom admin other text",
+        "Medicaid Management Information System (MMIS)",
+        "Administrative Data Other - custom admin other text",
       ]);
     });
   });
@@ -44,11 +44,10 @@ describe("DataSourceInformationBanner", () => {
       expect(shortName).toBe("Medicaid Management Information System (MMIS)");
     });
 
-    it("should not mangle user data that contains capital letters", () => {
+    it("should add parentheses to user data that contains capital letters", () => {
       const dataSource =
         "AdministrativeDataOther - a Houston, TX filing cabinet";
       const shortName = formatCamelCaseWithInitialisms(dataSource);
-      // TODO, fix this behavior, and then update this expectation
       expect(shortName).toBe(
         "Administrative Data Other - a  Houston, (TX) filing cabinet"
       );
