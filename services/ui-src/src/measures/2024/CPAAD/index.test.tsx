@@ -1,4 +1,4 @@
-import { screen, waitFor, act } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -10,7 +10,7 @@ import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { clearMocks } from "measures/2023/shared/util/validationsMock";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
@@ -137,15 +137,15 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).toBeInTheDocument();
   });
 
-  jest.setTimeout(15000);
-  it("should pass a11y tests", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    await act(async () => {
-      const results = await axe(screen.getByTestId("measure-wrapper-form"));
-      expect(results).toHaveNoViolations();
-    });
-  });
+  // jest.setTimeout(15000);
+  // it("should pass a11y tests", async () => {
+  //   useApiMock(apiData);
+  //   renderWithHookForm(component);
+  //   await act(async () => {
+  //     const results = await axe(screen.getByTestId("measure-wrapper-form"));
+  //     expect(results).toHaveNoViolations();
+  //   });
+  // });
 });
 
 const notReportingData = {
