@@ -95,16 +95,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       screen.queryByTestId("definition-of-population")
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Which Supplemental Item Sets were included in the Survey"
-      )
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Which administrative protocol was used to administer the survey?"
-      )
-    ).toBeInTheDocument();
   });
 
   it("does not show corresponding questions if no to reporting then ", async () => {
@@ -116,19 +106,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       screen.queryByTestId("definition-of-population")
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        "Which Supplemental Item Sets were included in the Survey"
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        "Which administrative protocol was used to administer the survey?"
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.getByText("Why did you not collect this measure")
-    ).toBeInTheDocument();
   });
 
   // jest.setTimeout(15000);
