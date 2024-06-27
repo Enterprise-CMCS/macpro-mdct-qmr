@@ -35,7 +35,7 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
   const ACSCOptions = [
     {
       displayValue: "Separate CHIP (Title XXI)",
-      value: "Separate CHIP (Title XXI",
+      value: "Separate CHIP (Title XXI)",
     },
     {
       displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
