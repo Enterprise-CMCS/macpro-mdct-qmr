@@ -106,9 +106,7 @@ export const dataSourceSelections = (
     key.split("-")[0].includes(dataSource)
   );
   //use the key ids to obtain the values
-  const dataSourceValue = dataSourceKey.map(
-    (key) => dataSourceSelections[key]
-  );
+  const dataSourceValue = dataSourceKey.map((key) => dataSourceSelections[key]);
 
   if (dataSourceKey && dataSourceKey.length > 0) {
     //if more than one key exist, it is possibly a nested data source
