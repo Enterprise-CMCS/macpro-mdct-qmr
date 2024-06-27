@@ -54,7 +54,7 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
                   filteredData?.[idx]?.dataSourceSelections!
                 ).map((item, srcIdx) => (
                   <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
-                    {formatCamelCaseWithInitialisms(item)}
+                    {item}
                   </CUI.ListItem>
                 ))}
               </CUI.UnorderedList>
@@ -113,7 +113,7 @@ export const dataSourceSelections = (
     if (dataSourceKey.length > 1) {
       const dataSources: string[] = dataSourceValue
         .filter((source) => source.selected)
-        .map((item) => item.selected)
+        .map((item) => formatCamelCaseWithInitialisms(item.selected))
         .flat();
 
       selected.push(
@@ -132,7 +132,9 @@ export const dataSourceSelections = (
 
       //either description is null or selected is null, only one will exist on the object
       const value = selectedValue
-        ? selectedValue
+        ? (selectedValue as any[]).map((item) =>
+            formatCamelCaseWithInitialisms(item)
+          )
         : [!!description ? description : "Not Answered"];
 
       selected.push(...value);
