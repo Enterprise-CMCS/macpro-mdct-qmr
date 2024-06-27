@@ -47,7 +47,7 @@
     "postinstall": "patch-package"
   },
   "jest": {
-    "timeout": 33000,
+    "testTimeout": 33000,
     "coverageReporters": [
       "json",
       [
