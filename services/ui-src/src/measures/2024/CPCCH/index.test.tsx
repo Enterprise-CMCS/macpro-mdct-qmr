@@ -91,9 +91,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).toBeInTheDocument();
     expect(
       screen.queryByTestId("definition-of-population")
@@ -114,6 +111,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toBeInTheDocument();
   });
 
+
   // jest.setTimeout(15000);
   // it("should pass a11y tests", async () => {
   //   useApiMock(apiData);
@@ -123,6 +121,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   //     expect(results).toHaveNoViolations();
   //   });
   // });
+
 });
 
 const notReportingData = {

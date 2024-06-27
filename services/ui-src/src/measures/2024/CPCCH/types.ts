@@ -1,10 +1,7 @@
 import * as Types from "measures/2023/shared/CommonQuestions/types";
 import * as Type from "shared/types";
 
-export interface FormData
-  extends Type.AdditionalNotes,
-    Types.MeasurementSpecification,
-    Types.DidCollect {
+export interface FormData extends Type.AdditionalNotes, Types.DidCollect {
   //HowDidYouReport
   HowDidYouReport: string[];
   "HowDidYouReport-Explanation": string;

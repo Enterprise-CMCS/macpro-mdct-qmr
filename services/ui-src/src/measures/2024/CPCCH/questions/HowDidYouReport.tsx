@@ -1,4 +1,5 @@
 import * as QMR from "components";
+import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
 
@@ -7,28 +8,26 @@ export const HowDidYouReport = () => {
   return (
     <QMR.CoreQuestionWrapper
       testid="how-did-you-report"
-      label="How did you report this measure?"
+      label="Did you submit your CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period?"
     >
+      <CUI.Text mt="3" pb="3">
+        Note: States that reported this measure in the AHRQ CAHPS Database will
+        have the opportunity to preview the results in the spring.
+      </CUI.Text>
       <QMR.RadioButton
         {...register("HowDidYouReport")}
         options={[
           {
-            displayValue: "Submitted raw data to AHRQ (CAHPS Database)",
-            value: "Submitted raw data to AHRQ (CAHPS Database)",
+            displayValue:
+              "Yes, we submitted our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period.",
+            value:
+              "Yes, we submitted our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period.",
           },
           {
-            displayValue: "Other",
-            value: "Other",
-            children: [
-              <QMR.TextArea
-                {...register("HowDidYouReport-Explanation")}
-                label="Explain"
-                formLabelProps={{
-                  fontWeight: "normal",
-                  fontSize: "normal",
-                }}
-              />,
-            ],
+            displayValue:
+              "No, we did not submit our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period.",
+            value:
+              "No, we did not submit our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period.",
           },
         ]}
         formLabelProps={{ fontWeight: "bold" }}
