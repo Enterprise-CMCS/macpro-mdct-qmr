@@ -1,12 +1,22 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const {
+  DynamoDBDocumentClient,
+  paginateScan,
+} = require("@aws-sdk/lib-dynamodb");
 
 const client = DynamoDBDocumentClient.from(
-  new DynamoDBClient({ region: "us-east-1" })
+  new DynamoDBClient({
+    region: "us-east-1",
+    logger: console,
+  })
 );
 
 module.exports = {
-  scan: async (params) => {
-    await client.send(new ScanCommand(params));
+  scanAll: async (TableName) => {
+    let items = [];
+    for await (let page of paginateScan({ client }, { TableName })) {
+      items = items.concat(page.Items ?? []);
+    }
+    return items;
   },
 };
