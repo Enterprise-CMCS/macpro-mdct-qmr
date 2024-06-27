@@ -103,7 +103,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(screen.queryByText("Performance Measure")).toBeInTheDocument();
   });
 
-  jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
