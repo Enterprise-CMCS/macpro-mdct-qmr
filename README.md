@@ -4,6 +4,14 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/07b73163d1474a114cb9/maintainability)](https://codeclimate.com/repos/644971d1d763981eff6ed851/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/07b73163d1474a114cb9/test_coverage)](https://codeclimate.com/repos/644971d1d763981eff6ed851/test_coverage)
 
+### Integration Environment Deploy Status:
+| Branch  | Build Status |
+| ------------- | ------------- |
+| master  | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg)  |
+| val  | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=val)  |
+| prod  | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=prod)  |
+
+
 QMR is the CMCS MDCT application for collecting state data for related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
 # Table of Contents
