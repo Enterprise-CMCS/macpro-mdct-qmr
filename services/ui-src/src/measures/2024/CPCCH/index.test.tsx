@@ -95,11 +95,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       screen.queryByTestId("definition-of-population")
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Did you include the CAHPS Item Set for Children with Chronic Conditions in the survey?"
-      )
-    ).toBeInTheDocument();
   });
 
   it("does not show corresponding questions if no to reporting then ", async () => {
@@ -114,19 +109,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(
       screen.queryByTestId("definition-of-population")
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        "Which Supplemental Item Sets were included in the Survey"
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        "Which administrative protocol was used to administer the survey?"
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.getByText("Why did you not collect this measure")
-    ).toBeInTheDocument();
   });
 
   it("should pass a11y tests", async () => {

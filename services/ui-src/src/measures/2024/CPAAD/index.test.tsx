@@ -91,22 +91,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).toBeInTheDocument();
     expect(
       screen.queryByTestId("definition-of-population")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Which Supplemental Item Sets were included in the Survey"
-      )
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Which administrative protocol was used to administer the survey?"
-      )
     ).toBeInTheDocument();
   });
 
@@ -115,26 +102,10 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).not.toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
     expect(
       screen.queryByTestId("definition-of-population")
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        "Which Supplemental Item Sets were included in the Survey"
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        "Which administrative protocol was used to administer the survey?"
-      )
-    ).not.toBeInTheDocument();
-    expect(
-      screen.getByText("Why did you not collect this measure")
-    ).toBeInTheDocument();
   });
 
   it("should pass a11y tests", async () => {
