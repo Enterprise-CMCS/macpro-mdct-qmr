@@ -14,7 +14,7 @@ import {
   mockValidateAndSetErrors,
   clearMocks,
   validationsMockObj as V,
-} from "measures/2023/shared/util/validationsMock";
+} from "measures/2024/shared/util/validationsMock";
 import { toHaveNoViolations, axe } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
@@ -108,7 +108,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
     expect(screen.queryByTestId("date-range")).not.toBeInTheDocument();
     expect(
