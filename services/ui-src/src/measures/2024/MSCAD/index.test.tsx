@@ -108,6 +108,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
     renderWithHookForm(component);
+    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
     expect(screen.queryByTestId("date-range")).not.toBeInTheDocument();
     expect(
