@@ -206,7 +206,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 });
 
 const notReportingData = {
-  DidReport: "no",
+  DidCollect: "no",
 };
 
 const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
@@ -252,5 +252,5 @@ const completedMeasureData = {
     },
   },
   MeasurementSpecification: "NCQA/HEDIS",
-  DidReport: "yes",
+  DidCollect: "yes",
 };

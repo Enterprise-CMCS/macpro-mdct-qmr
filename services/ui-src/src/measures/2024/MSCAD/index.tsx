@@ -2,6 +2,7 @@ import * as Q from "./questions";
 import * as QMR from "components";
 import * as CMQ from "measures/2024/shared/CommonQuestions";
 import * as Types from "measures/2024/shared/CommonQuestions/types";
+import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 import { useEffect } from "react";
@@ -38,7 +39,7 @@ export const MSCAD = ({
         healthHomeMeasure
         removeLessThan30
       />
-      {data["DidReport"] !== "no" && (
+      {data["DidCollect"] !== DC.NO && (
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
