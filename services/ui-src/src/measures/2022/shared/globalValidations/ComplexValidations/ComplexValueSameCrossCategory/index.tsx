@@ -1,9 +1,9 @@
-import { cleanString } from "utils";
+import { LabelData, cleanString } from "utils";
 
 export const ComplexValueSameCrossCategoryOMS = (
   rateData: any,
-  categories: string[],
-  qualifiers: string[],
+  categories: LabelData[],
+  qualifiers: LabelData[],
   errorLocation: string
 ) => {
   // Using a subset of rateData as iterator to be sure that Total
@@ -14,10 +14,10 @@ export const ComplexValueSameCrossCategoryOMS = (
 
   const qualifierLabels: any = {};
   for (const q of qualifiers) {
-    const qCleaned = cleanString(q);
+    const qCleaned = q.id;
     qualifierLabels[qCleaned] = q;
   }
-  const cleanedCategories = categories.map((cat) => cleanString(cat));
+  const cleanedCategories = categories.map((cat) => cat.id);
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];

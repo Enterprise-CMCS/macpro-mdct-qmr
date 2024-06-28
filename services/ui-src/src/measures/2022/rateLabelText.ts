@@ -4,7 +4,7 @@
  * Changing the text property of these objects will change the text that is displayed to the user.
  */
 
-import { LabelData } from "utils";
+import { LabelData, cleanString } from "utils";
 
 export const data = {
     "AAB-AD": {
@@ -1660,13 +1660,19 @@ export const data = {
 }
 
 export const getCatQualLabels = (measure: keyof typeof data) => {
-    const getLabels = (q: LabelData) => q.label
-
-    const qualifiers = data[measure].qualifiers.map(getLabels);
-    const categories = data[measure].categories.map(getLabels);
+    const qualifiers: LabelData[] = data[measure].qualifiers.map((item) => ({
+        id: cleanString(item.label), //for some reason the system would create the id from the label instead of using the id key that existed
+        label: item.label,
+        text: item.text,
+    }));
+    const categories: LabelData[] = data[measure].categories.map((item) => ({
+        id: cleanString(item.label), //for some reason the system would create the id from the label instead of using the id key that existed
+        label: item.label,
+        text: item.text,
+    }));
   
     return {
       qualifiers,
       categories,
     };
-  };
+};

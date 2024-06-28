@@ -9,11 +9,27 @@ import {
   locationDictionary,
   simpleRate,
   partialRate,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
+import { LabelData } from "utils";
+
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
 
 describe("Testing Partial Rate Validation", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const categories: LabelData[] = [
+    { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
+    { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
+  ];
+  const qualifiers: LabelData[] = [
+    { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
+    { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
+  ];
+  const singleCategory: LabelData = {
+    label: SINGLE_CATEGORY,
+    text: SINGLE_CATEGORY,
+    id: SINGLE_CATEGORY,
+  };
 
   const baseOMSInfo = {
     categories,
@@ -61,7 +77,7 @@ describe("Testing Partial Rate Validation", () => {
       expect(errors).toHaveLength(4);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        `Should not have partially filled NDR sets${` for ${qualifiers[0]}`}${`, ${categories[0]}`}.`
+        `Should not have partially filled NDR sets${` for ${qualifiers[0].label}`}${`, ${categories[0].label}`}.`
       );
     });
 
@@ -104,7 +120,7 @@ describe("Testing Partial Rate Validation", () => {
       expect(errors).toHaveLength(4);
       expect(errors[0].errorLocation).toBe("Performance Measure");
       expect(errors[0].errorMessage).toBe(
-        errorMessageFunc(true, qualifiers[0], true, categories[0])
+        errorMessageFunc(true, qualifiers[0].label, true, categories[0].label)
       );
     });
   });
@@ -155,21 +171,21 @@ describe("Testing Partial Rate Validation", () => {
         "Optional Measure Stratification:"
       );
       expect(errors[0].errorMessage).toBe(
-        `Should not have partially filled NDR sets${` for ${qualifiers[0]}`}${`, ${categories[0]}`}.`
+        `Should not have partially filled NDR sets${` for ${qualifiers[0].label}`}${`, ${categories[0].label}`}.`
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
 
     it("should have errors - singleCategory", () => {
       const locationDictionaryJestFunc = jest.fn();
-      const data = generateOmsCategoryRateData([SINGLE_CATEGORY], qualifiers, [
+      const data = generateOmsCategoryRateData([singleCategory], qualifiers, [
         partialRate,
       ]);
       const errors = validatePartialRateCompletionOMS()({
         ...baseOMSInfo,
         locationDictionary: locationDictionaryJestFunc,
         rateData: data,
-        categories: [SINGLE_CATEGORY],
+        categories: [singleCategory],
       });
 
       expect(errors).toHaveLength(2);
@@ -177,7 +193,7 @@ describe("Testing Partial Rate Validation", () => {
         "Optional Measure Stratification:"
       );
       expect(errors[0].errorMessage).toBe(
-        `Should not have partially filled NDR sets${` for ${qualifiers[0]}`}.`
+        `Should not have partially filled NDR sets${` for ${qualifiers[0].label}`}.`
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     });
@@ -236,7 +252,7 @@ describe("Testing Partial Rate Validation", () => {
     );
     expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
     expect(errors[0].errorMessage).toBe(
-      errorMessageFunc(true, qualifiers[0], true, categories[0])
+      errorMessageFunc(true, qualifiers[0].label, true, categories[0].label)
     );
   });
 });

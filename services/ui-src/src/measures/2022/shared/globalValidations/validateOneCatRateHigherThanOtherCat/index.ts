@@ -39,11 +39,13 @@ const _validation = ({
     if (lrate && hrate) {
       if (parseFloat(lrate) > parseFloat(hrate)) {
         errorArray.push({
-          errorLocation: locationFunc ? locationFunc(qualifiers![i]) : location,
+          errorLocation: locationFunc
+            ? locationFunc(qualifiers![i].label)
+            : location,
           errorMessage: errorMessageFunc(
-            categories![higherIndex],
-            categories![lowerIndex],
-            qualifiers![i]
+            categories![higherIndex].label,
+            categories![lowerIndex].label,
+            qualifiers![i].label
           ),
         });
       }

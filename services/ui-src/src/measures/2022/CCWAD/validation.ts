@@ -1,7 +1,6 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2022/shared/globalValidations";
 import * as PMD from "./data";
-import { cleanString } from "utils";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
@@ -19,9 +18,9 @@ const CCWADValidation = (data: FormData) => {
   );
 
   const memeRates =
-    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[0])] ?? [];
+    data.PerformanceMeasure?.rates?.[PMD.categories[0].id] ?? [];
   const larcRates =
-    data.PerformanceMeasure?.rates?.[cleanString(PMD.categories[1])] ?? [];
+    data.PerformanceMeasure?.rates?.[PMD.categories[1].id] ?? [];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -52,7 +51,13 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       [memeRates, larcRates],
-      [""],
+      [
+        {
+          id: "",
+          label: "",
+          text: "",
+        },
+      ],
       deviationArray,
       didCalculationsDeviate
     ),

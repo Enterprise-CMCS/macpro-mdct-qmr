@@ -56,7 +56,7 @@ export const PQI92HH = ({
               />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.qualifiers}
-                customTotalLabel={PMD.qualifiers[2]}
+                customTotalLabel={PMD.qualifiers[2].label}
               />
             </>
           )}

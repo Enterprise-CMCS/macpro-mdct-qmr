@@ -50,7 +50,7 @@ export const CBPHH = ({
               <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure calcTotal />
               <CMQ.DeviationFromMeasureSpec
                 categories={PMD.categories}
-                customTotalLabel={PMD.qualifiers[2]}
+                customTotalLabel={PMD.qualifiers[2].label}
               />
             </>
           )}
