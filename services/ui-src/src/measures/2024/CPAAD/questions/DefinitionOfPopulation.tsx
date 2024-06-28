@@ -71,7 +71,11 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
 
       <QMR.Checkbox
         {...register("DefinitionOfSurveySample")}
-        options={coresetId === "ACSC" ? ACSCOptions : ACSMOptions}
+        options={
+          coresetId === "ACSC" || coresetId === "CCSC"
+            ? ACSCOptions
+            : ACSMOptions
+        }
       />
       {coresetId === "ACSM" && (
         <QMR.TextArea
