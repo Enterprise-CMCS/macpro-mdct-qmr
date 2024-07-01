@@ -96,16 +96,16 @@ export const SupportInfo = () => (
 export const HealthHomeInfo = () => (
   <>
     <CUI.Text paddingTop="4" color="gray.700" line-height="normal">
-      The health home provision, authorized by section 2703 of the Affordable
+      The Health Home provision, authorized by section 2703 of the Affordable
       Care Act (section 1945 of the Social Security Act), provides an
       opportunity to build a person-centered care delivery model that focuses on
       improving outcomes and disease management for beneficiaries with chronic
       conditions. The Health Home Core Set of quality measures will be used to
-      evaluate care across all state health home programs. Specifically, section
-      2703 requires health home providers to report health care quality measures
+      evaluate care across all state Health Home Programs. Specifically, section
+      2703 requires Health Home providers to report health care quality measures
       in order to receive payment. The recommended Health Home Core Set will
-      require reporting at the health home provider level which the state will
-      collect and aggregate at the health home program level.
+      require reporting at the Health Home provider level which the state will
+      collect and aggregate at the Health Home Program level.
     </CUI.Text>
   </>
 );

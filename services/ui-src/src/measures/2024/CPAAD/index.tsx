@@ -15,6 +15,7 @@ export const CPAAD = ({
   const { watch } = useFormContext<FormData>();
   const { coreSetId } = useParams();
   const data = watch();
+
   useEffect(() => {
     if (setValidationFunctions) {
       setValidationFunctions(validationFunctions);
@@ -31,9 +32,8 @@ export const CPAAD = ({
       {data["DidCollect"] !== "no" && (
         <>
           <Q.HowDidYouReport />
-          <CMQ.MeasurementSpecification type="AHRQ-NCQA" coreset="adult" />
           <Q.DataSource type="adult" />
-          <Q.DefinitionOfPopulation />
+          <CMQ.DefinitionOfPopulation />
           <Q.PerformanceMeasure />
         </>
       )}

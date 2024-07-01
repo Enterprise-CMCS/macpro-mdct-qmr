@@ -5,54 +5,24 @@ interface Props {
   data: AnyObject[];
 }
 const columns = ["Medicaid", "CHIP"];
+
+const DataSourceRecord: Record<string, string> = {
+  AdministrativeData: "Administrative Data",
+  HybridAdministrativeandMedicalRecordsData:
+    "Hybrid (Administrative and Medical Records Data)",
+  OtherDataSource: "Other Data Source",
+  ElectronicHealthRecords: "Electronic Health Record (EHR) Data",
+  ElectronicClinicalDataSystemsECDS: "Electronic Clinical Data Systems (ECDS)",
+  Casemanagementrecordreview: "Case management record review",
+};
+
 export const DataSourceInformationBanner = ({ data }: Props) => {
   const filteredData = columns.map(
     (column) => data?.find((item) => item?.column === column) ?? {}
   );
 
   const dataSourceSubsection = (dataSource: string) => {
-    if (dataSource === "AdministrativeData") {
-      return "Administrative Data";
-    } else if (dataSource === "HybridAdministrativeandMedicalRecordsData") {
-      return "Hybrid (Administrative and Medical Records Data)";
-    } else if (dataSource === "OtherDataSource") {
-      return "Other Data Source";
-    } else if (dataSource === "ElectronicHealthRecords") {
-      return "Electronic Health Record (EHR) Data";
-    } else if (dataSource === "ElectronicClinicalDataSystemsECDS") {
-      return "Electronic Clinical Data Systems (ECDS)";
-    } else if (dataSource === "Casemanagementrecordreview") {
-      return "Case management record review";
-    }
-    return dataSource;
-  };
-
-  const dataSourceSelections = (
-    dataSource: string,
-    dataSourceSelections: AnyObject
-  ) => {
-    let selected = [];
-
-    for (const [key, value] of Object.entries(dataSourceSelections)) {
-      if (key.includes(dataSource)) {
-        if (value) {
-          if ((value as any)?.selected)
-            selected.push(...(value as any)?.selected);
-          if ((value as any)?.description)
-            selected.push((value as any)?.description);
-        }
-      }
-    }
-    return selected;
-  };
-
-  const formatCamelCaseWithInitialisms = (str: string) => {
-    let spacedString = str
-      .replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3")
-      .trim();
-    spacedString = spacedString.replace(/([A-Z]+)(?=[A-Z][a-z]|\s|$)/g, "($1)");
-
-    return spacedString;
+    return DataSourceRecord[dataSource] ?? dataSource;
   };
 
   const renderData = columns.map((column, idx) => {
@@ -84,7 +54,7 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
                   filteredData?.[idx]?.dataSourceSelections!
                 ).map((item, srcIdx) => (
                   <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
-                    {formatCamelCaseWithInitialisms(item)}
+                    {item}
                   </CUI.ListItem>
                 ))}
               </CUI.UnorderedList>
@@ -124,6 +94,63 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
       </CUI.Show>
     </>
   );
+};
+
+export const dataSourceSelections = (
+  dataSource: string,
+  dataSourceSelections: AnyObject
+) => {
+  let selected = [];
+  //filter the dataSourceSelections object keys that matches the dataSource name
+  const dataSourceKey = Object.keys(dataSourceSelections).filter((key) =>
+    key.split("-")[0].includes(dataSource)
+  );
+  //use the key ids to obtain the values
+  const dataSourceValue = dataSourceKey.map((key) => dataSourceSelections[key]);
+
+  if (dataSourceKey && dataSourceKey.length > 0) {
+    //if more than one key exist, it is possibly a nested data source
+    if (dataSourceKey.length > 1) {
+      const dataSources: string[] = dataSourceValue
+        .filter((source) => source.selected)
+        .map((item) => item.selected)
+        .flat();
+
+      selected.push(
+        ...dataSources.map((source: string) => {
+          const sourceKey = dataSourceKey.find((key) => key.includes(source));
+          const formattedSource = formatCamelCaseWithInitialisms(source);
+          return sourceKey
+            ? `${formattedSource} - ${
+                dataSourceSelections[sourceKey]?.description ?? "Not Answered"
+              }`
+            : formattedSource;
+        })
+      );
+    } else {
+      const { description, selected: selectedValue } =
+        dataSourceSelections[dataSourceKey[0]];
+
+      //either description is null or selected is null, only one will exist on the object
+      const value = selectedValue
+        ? (selectedValue as any[]).map((item) =>
+            formatCamelCaseWithInitialisms(item)
+          )
+        : [!!description ? description : "Not Answered"];
+
+      selected.push(...value);
+    }
+  }
+  return selected;
+};
+
+export const formatCamelCaseWithInitialisms = (str: string) => {
+  let spacedString = str
+    .replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3")
+    .trim();
+  spacedString = spacedString.replace(/([A-Z]+)(?=[A-Z][a-z]|\s|$)/g, "($1)");
+
+  return spacedString;
 };
 
 const sx = {
