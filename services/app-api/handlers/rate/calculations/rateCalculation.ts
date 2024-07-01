@@ -16,7 +16,11 @@ export abstract class RateCalculation {
         const denominator =
           Number(prev.denominator ?? 0) + Number(curr.denominator ?? 0);
         const rate =
-          denominator > 0 ? rateFormula(numerator, denominator).toFixed(1) : "";
+          denominator > 0
+            ? (
+                Math.round(rateFormula(numerator, denominator) * 100) / 100
+              ).toString()
+            : "";
 
         return {
           category: prev.category ?? "",
