@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
 import { useGetRate } from "hooks/api/useGetRate";
 import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
