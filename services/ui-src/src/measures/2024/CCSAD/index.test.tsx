@@ -204,7 +204,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 
-  jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     await act(async () => {

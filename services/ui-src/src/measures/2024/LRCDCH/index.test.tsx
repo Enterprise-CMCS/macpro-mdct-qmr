@@ -78,7 +78,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     });
   });
 
-  jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     await act(async () => {

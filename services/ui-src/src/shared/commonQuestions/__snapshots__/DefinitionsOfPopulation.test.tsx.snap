@@ -2088,7 +2088,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
         <p
           class="chakra-text css-o7rt0f"
         >
-          Please select all populations that are included. For example, if your data include both non-dual Medicaid enrollees and Medicare and Medicaid Dual Eligibles, select both:
+          Please select all populations that are included in the denominator. For example, if your data include both Medicaid (Title XIX) enrollees and individuals dually eligible for Medicare and Medicaid, select:
         </p>
         <ul
           class="css-71ufky"
@@ -2097,12 +2097,12 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
           <li
             class="css-0"
           >
-            Denominator includes Medicaid population
+            Medicaid (Title XIX)
           </li>
           <li
             class="css-0"
           >
-            Denominator includes Medicare and Medicaid Dually-Eligible population
+            Individuals Dually Eligible for Medicare and Medicaid
           </li>
         </ul>
         <div
@@ -2136,7 +2136,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
                   <p
                     class="chakra-text prince-option-label-text css-vjer7o"
                   >
-                    Denominator includes Medicaid population
+                    Medicaid (Title XIX)
                   </p>
                 </span>
               </label>
@@ -2169,7 +2169,7 @@ exports[`Test DefinitionOfPopulation component (HHS Hybrid) Component renders wi
                   <p
                     class="chakra-text prince-option-label-text css-vjer7o"
                   >
-                    Denominator includes Medicare and Medicaid Dually-Eligible population
+                    Individuals Dually Eligible for Medicare and Medicaid
                   </p>
                 </span>
               </label>
@@ -2733,7 +2733,7 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
         <p
           class="chakra-text css-o7rt0f"
         >
-          Please select all populations that are included. For example, if your data include both non-dual Medicaid enrollees and Medicare and Medicaid Dual Eligibles, select both:
+          Please select all populations that are included in the denominator. For example, if your data include both Medicaid (Title XIX) enrollees and individuals dually eligible for Medicare and Medicaid, select:
         </p>
         <ul
           class="css-71ufky"
@@ -2742,12 +2742,12 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
           <li
             class="css-0"
           >
-            Denominator includes Medicaid population
+            Medicaid (Title XIX)
           </li>
           <li
             class="css-0"
           >
-            Denominator includes Medicare and Medicaid Dually-Eligible population
+            Individuals Dually Eligible for Medicare and Medicaid
           </li>
         </ul>
         <div
@@ -2781,7 +2781,7 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
                   <p
                     class="chakra-text prince-option-label-text css-vjer7o"
                   >
-                    Denominator includes Medicaid population
+                    Medicaid (Title XIX)
                   </p>
                 </span>
               </label>
@@ -2814,7 +2814,7 @@ exports[`Test DefinitionOfPopulation component (HHS) Component renders with corr
                   <p
                     class="chakra-text prince-option-label-text css-vjer7o"
                   >
-                    Denominator includes Medicare and Medicaid Dually-Eligible population
+                    Individuals Dually Eligible for Medicare and Medicaid
                   </p>
                 </span>
               </label>
