@@ -6,7 +6,7 @@ export const { categories, qualifiers } = getCatQualLabels("COL-HH");
 
 export const data: DataDrivenTypes.PerformanceMeasure = {
   questionText: [
-    "Percentage of health home enrollees ages 45 to 75 who had appropriate screening for colorectal cancer. This measure applies to enrollees ages 46 to 75 to account for the look back period. (to ensure that the enrollee was at least age 45 for the entire enrollment period.)",
+    "Percentage of health home enrollees ages 45 to 75 who had appropriate screening for colorectal cancer. This measure applies to enrollees ages 46 to 75 to account for the lookback period (to ensure that the enrollee was at least age 45 for the entire enrollment period).",
   ],
   categories,
   qualifiers,

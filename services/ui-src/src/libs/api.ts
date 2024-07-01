@@ -141,6 +141,16 @@ async function deleteCoreSet(inputObj: any) {
   );
 }
 
+async function getRate(inputObj: any) {
+  const opts = await requestOptions();
+  opts.body = inputObj.body;
+  return API.get(
+    "coreSet",
+    `/rate/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/${inputObj.measure}/get`,
+    opts
+  );
+}
+
 async function getPDF(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
@@ -180,6 +190,7 @@ export {
   getCoreSet,
   getMeasure,
   getMeasureListInfo,
+  getRate,
   getPDF,
   getReportingYears,
   listMeasures,

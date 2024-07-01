@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { AddSSMCard } from "./AddSSMCard";
-import { CoreSetAbbr, MeasureStatus, MeasureData } from "types";
+import { CoreSetAbbr, MeasureStatus, MeasureData, coreSetType } from "types";
 import { CoreSetTableItem } from "components/Table/types";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { HiCheckCircle } from "react-icons/hi";
@@ -24,16 +24,6 @@ interface HandleDeleteMeasureData {
   measure: string;
   state: string;
   year: string;
-}
-
-enum coreSetType {
-  ACS = "Adult",
-  ACSM = "Adult - Medicaid",
-  ACSC = "Adult - CHIP",
-  CCS = "Child",
-  CCSM = "Child - Medicaid",
-  CCSC = "Child - CHIP",
-  HHCS = "Health Home",
 }
 
 interface MeasureTableItem {
@@ -328,7 +318,7 @@ export const CoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: coreSetTitles(year, coreSetId) + spaName,
+          name: coreSetTitles(year, coreSet[0]) + spaName,
         },
       ]}
     >

@@ -3,12 +3,13 @@ import { MeasurementSpecification } from "./MeasurementSpecification";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import SharedContext from "shared/SharedContext";
-import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
+import commonQuestionsLabel2024 from "labels/2024/commonQuestionsLabel";
+import commonQuestionsLabel2023 from "labels/2023/commonQuestionsLabel";
 
 describe("MeasurementSpecification component", () => {
   it("renders the component", async () => {
     renderWithHookForm(
-      <SharedContext.Provider value={commonQuestionsLabel}>
+      <SharedContext.Provider value={commonQuestionsLabel2024}>
         <MeasurementSpecification type="CMS" />
       </SharedContext.Provider>
     );
@@ -33,7 +34,35 @@ describe("MeasurementSpecification component", () => {
     const testText = "This is test text for TextArea";
     fireEvent.type(textArea, testText);
     expect(textArea).toHaveDisplayValue(testText);
+  });
 
+  //only for 2021 - 2023
+  it("renders the upload", async () => {
+    renderWithHookForm(
+      <SharedContext.Provider value={commonQuestionsLabel2023}>
+        <MeasurementSpecification type="CMS" />
+      </SharedContext.Provider>
+    );
+    expect(screen.getByText("Measurement Specification")).toBeInTheDocument();
+
+    expect(
+      screen.getByText("Centers for Medicare & Medicaid Services (CMS)")
+    ).toBeInTheDocument();
+
+    expect(screen.getByText("Other")).toBeInTheDocument();
+
+    const otherRadio = await screen.getByLabelText("Other");
+    fireEvent.click(otherRadio);
+
+    const textArea = await screen.findByLabelText(
+      "Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
+    );
+
+    expect(textArea).toBeInTheDocument();
+
+    const testText = "This is test text for TextArea";
+    fireEvent.type(textArea, testText);
+    expect(textArea).toHaveDisplayValue(testText);
     expect(
       screen.getByText(
         "If you need additional space to describe your state's methodology, please attach further documentation below."
@@ -118,7 +147,7 @@ describe("all specification types", () => {
   for (const spec in specifications) {
     it(`renders ${spec} specification type correctly`, async () => {
       renderWithHookForm(
-        <SharedContext.Provider value={commonQuestionsLabel}>
+        <SharedContext.Provider value={commonQuestionsLabel2024}>
           <MeasurementSpecification type={specifications[spec].propType.type} />
         </SharedContext.Provider>
       );

@@ -27,7 +27,7 @@ export const AdministrativeQuestions = () => {
             <b>
               <i>adults</i>
             </b>{" "}
-            in the Health Home program?
+            in the Health Home Program?
           </>
         }
       />
@@ -55,7 +55,7 @@ export const AdministrativeQuestions = () => {
             <b>
               <i>children</i>
             </b>{" "}
-            in the Health Home program?
+            in the Health Home Program?
           </>
         }
       />
@@ -83,7 +83,7 @@ export const AdministrativeQuestions = () => {
             <b>
               <i>individuals</i>
             </b>{" "}
-            in the Health Home program?
+            in the Health Home Program?
           </>
         }
       />
@@ -97,7 +97,7 @@ export const AdministrativeQuestions = () => {
             <b>
               <i>providers</i>
             </b>{" "}
-            operating under the Health Home program?
+            operating under the Health Home Program?
           </>
         }
       />

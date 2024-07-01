@@ -2259,10 +2259,10 @@ domexception@^4.0.0:
   dependencies:
     webidl-conversions "^7.0.0"
 
-dompurify@^3.0.11:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.1.0.tgz#8c6b9fe986969a33aa4686bd829cbe8e14dd9445"
-  integrity sha512-yoU4rhgPKCo+p5UrWWWNKiIq+ToGqmVVhk0PmMYBK4kRsR3/qhemNFL8f6CFmBd4gMwm3F4T7HBoydP5uY07fA==
+dompurify@^3.1.3:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.1.5.tgz#2c6a113fc728682a0f55684b1388c58ddb79dc38"
+  integrity sha512-lwG+n5h8QNpxtyrJW/gJWckL+1/DQiYMX8f7t8Z2AZTPw1esVrqjI63i7Zc2Gz0aKzLVMYC1V1PL/ky+aY/NgA==
 
 electron-to-chromium@^1.4.118:
   version "1.4.136"
@@ -3718,11 +3718,6 @@ semver@^6.0.0, semver@^6.3.0:
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.1.tgz#556d2ef8689146e46dcea4bfdd095f3434dffcb4"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
-
-serverless-api-client-certificate@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/serverless-api-client-certificate/-/serverless-api-client-certificate-1.0.2.tgz#9113f3ad3862faf8615a37733ca09a1409ced8dd"
-  integrity sha512-snlEA1129NpZGYc0ra1eae17dKPYOXrju7cN+ku8roo6XOSMvNPe4XmEf0vVojoVHburXmI+Yx7y8DgJYeM2Fg==
 
 serverless-associate-waf@^1.2.1:
   version "1.2.1"

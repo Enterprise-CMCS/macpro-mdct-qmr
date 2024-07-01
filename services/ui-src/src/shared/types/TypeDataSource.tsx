@@ -21,6 +21,7 @@ export interface OptionNode {
   }[];
   description?: boolean;
   hint?: string;
+  alert?: any;
 }
 
 export interface DataSourceData {

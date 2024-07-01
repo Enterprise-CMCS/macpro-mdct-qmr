@@ -7,6 +7,7 @@ export * from "./useGetCoreSet";
 export * from "./useGetCoreSets";
 export * from "./useGetMeasure";
 export * from "./useGetMeasures";
+export * from "./useGetRate";
 export * from "./useGetReportingYears";
 export * from "./useUpdateMeasure";
 export * from "./useBanner";
