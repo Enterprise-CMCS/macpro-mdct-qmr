@@ -324,7 +324,7 @@ export const CoreSet = () => {
         },
       ]}
     >
-      {coreSet[0].slice(0, 2) === "CC" && (
+      {Number(year) >= 2024 && coreSet[0].slice(0, 2) === "CC" && (
         <CUI.Box mb="8">
           <Alert heading="Mandatory Measure Instructions">
             <CUI.Text>
