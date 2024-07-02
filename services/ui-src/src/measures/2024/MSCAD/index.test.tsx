@@ -14,7 +14,7 @@ import {
   mockValidateAndSetErrors,
   clearMocks,
   validationsMockObj as V,
-} from "measures/2023/shared/util/validationsMock";
+} from "measures/2024/shared/util/validationsMock";
 import { toHaveNoViolations, axe } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
@@ -206,7 +206,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 });
 
 const notReportingData = {
-  DidReport: "no",
+  DidCollect: "no",
 };
 
 const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
@@ -252,5 +252,5 @@ const completedMeasureData = {
     },
   },
   MeasurementSpecification: "NCQA/HEDIS",
-  DidReport: "yes",
+  DidCollect: "yes",
 };

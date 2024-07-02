@@ -2,19 +2,37 @@ import * as Types from "measures/2023/shared/CommonQuestions/types";
 import * as Type from "shared/types";
 
 export interface FormData
-  extends Types.DefinitionOfPopulation,
-    Type.StatusOfData,
-    Types.DateRange,
-    Types.DidReport,
-    Type.AdditionalNotes,
-    Types.WhyAreYouNotReporting,
-    Type.CombinedRates,
-    Types.OtherPerformanceMeasure,
-    Types.MeasurementSpecification,
-    Types.PerformanceMeasure,
-    Types.DeviationFromMeasureSpecification,
-    Types.OptionalMeasureStratification {
+  extends Type.AdditionalNotes,
+    Types.DidCollect,
+    Types.DidReport {
+  //HowDidYouReport
+  HowDidYouReport: string[];
+  "HowDidYouReport-Explanation": string;
   //DataSource
+  "DataSource-Included-ItemSets": string[];
+  "DataSource-Included-ItemSets-Other": string;
   "DataSource-CAHPS-Version": string;
   "DataSource-CAHPS-Version-Other": string;
+  "DataSource-Admin-Protocol": string;
+  "DataSource-Admin-Protocol-Other": string;
+  //WhyDidYouNotCollect
+  WhyDidYouNotCollect: string[];
+  AmountOfPopulationNotCovered: string;
+  PopulationNotCovered: string;
+  PartialPopulationNotCoveredExplanation: string;
+  WhyIsDataNotAvailable: string;
+  "WhyIsDataNotAvailable-Other": string;
+  DataInconsistenciesAccuracyIssues: string;
+  DataSourceNotEasilyAccessible: string;
+  "DataSourceNotEasilyAccessible-Other": string;
+  InformationNotCollected: string;
+  "InformationNotCollected-Other": string;
+  LimitationWithDatCollecitonReportAccuracyCovid: string;
+  SmallSampleSizeLessThan30: string;
+  "WhyDidYouNotCollect-Other": string;
+
+  //DefinitionOfPopulation
+  DefinitionOfSurveySample: string[];
+  "DefinitionOfSurveySample-Other": string;
+  "DefinitionOfSurveySample-Changes": string;
 }
