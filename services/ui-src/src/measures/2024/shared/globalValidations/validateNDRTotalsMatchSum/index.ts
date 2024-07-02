@@ -1,12 +1,10 @@
-import {
-  PerformanceMeasureRate,
-  RateFields,
-} from "measures/2024/shared/CommonQuestions/types";
+import { RateFields } from "measures/2024/shared/CommonQuestions/types";
+import { FormRateField } from "measures/2024/shared/globalValidations/types";
 
 export function validateNDRTotalsMatchSum(
-  performanceMeasureRate: PerformanceMeasureRate
+  performanceMeasureArray: FormRateField[][]
 ) {
-  const allRates = Object.values(performanceMeasureRate)
+  const allRates = Object.values(performanceMeasureArray)
     .filter((arr): arr is RateFields[] => arr !== undefined)
     .flat();
 
