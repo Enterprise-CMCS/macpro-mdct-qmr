@@ -2,9 +2,33 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
+import { useParams } from "react-router-dom";
 
 export const DefinitionOfPopulation = () => {
   const register = useCustomRegister<FormData>();
+  const { coreSetId } = useParams();
+
+  // default options are set to medicaid
+  let options = [
+    {
+      displayValue: "Medicaid (Title XIX)",
+      value: "MedicaidTitleXIX",
+    },
+    {
+      displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+      value: "MedicaidExpansionCHIP",
+    },
+  ];
+
+  // if chip, set chip options
+  if (coreSetId === "ACSC" || coreSetId === "CCSC") {
+    options = [
+      {
+        displayValue: "Separate CHIP (Title XXI)",
+        value: "MedicaidTitleXIX",
+      },
+    ];
+  }
 
   return (
     <QMR.CoreQuestionWrapper
@@ -12,37 +36,24 @@ export const DefinitionOfPopulation = () => {
       label="Definition of Population Included in the Measure"
     >
       <CUI.Heading size="sm" as="h3" pb="3">
-        Definition of population included in the survey sample
+        Please select all populations that are included in the survey sample.
       </CUI.Heading>
-      <QMR.RadioButton
+      <QMR.Checkbox
         {...register("DefinitionOfSurveySample")}
         options={[
+          ...options,
           {
-            displayValue:
-              "Survey sample includes CHIP (Title XXI) population only",
-            value: "SurveySampleiIncludesCHIPOnly",
-          },
-          {
-            displayValue:
-              "Survey sample includes Medicaid (Title XIX) population only",
-            value: "SurveySampleIncludesMedicaidOnly",
-          },
-          {
-            displayValue:
-              "Survey sample includes CHIP (Title XXI) and Medicaid (Title XIX) populations, combined",
-            value: "SurveySampleIncludesCHIPMedicaidCombined",
-          },
-          {
-            displayValue:
-              "Two sets of survey results submitted; survey samples include CHIP and Medicaid (Title XIX) populations, separately",
-            value: "SurveySamplesIncludeCHIPAndMedicaidSeparately",
+            displayValue: "Other",
+            value: "DefOfPopulationOther",
+            children: [
+              <QMR.TextArea
+                formLabelProps={{ fontWeight: "400" }}
+                label={"Define the Other survey population"}
+                {...register("DefinitionOfSurveySample-Other")}
+              />,
+            ],
           },
         ]}
-      />
-      <QMR.TextArea
-        label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
-        formControlProps={{ paddingTop: "15px" }}
-        {...register("DefinitionOfSurveySample-Changes")}
       />
     </QMR.CoreQuestionWrapper>
   );

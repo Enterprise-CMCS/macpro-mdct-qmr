@@ -11,6 +11,7 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
+import { useParams } from "react-router-dom";
 
 interface Props {
   childMeasure?: boolean;
@@ -18,13 +19,19 @@ interface Props {
   populationSampleSize?: boolean;
   healthHomeMeasure?: boolean;
 }
+interface DefOfDenomOption {
+  displayValue: string;
+  value: string;
+}
+interface CoreSetSpecificOptions {
+  [coreSetId: string]: {
+    options: DefOfDenomOption[];
+    helpText: JSX.Element;
+  };
+}
 
-const StandardDefinitions = (
-  register: any,
-  labels: AnyObject,
-  healthHomeMeasure?: boolean
-) => {
-  let options: QMR.CheckboxOption[] = [
+const defOfDenomOptions: { [coreSetType: string]: DefOfDenomOption[] } = {
+  standard: [
     {
       displayValue: "Denominator includes Medicaid population",
       value: DC.DENOMINATOR_INC_MEDICAID_POP,
@@ -39,22 +46,217 @@ const StandardDefinitions = (
         "Denominator includes Medicare and Medicaid Dually-Eligible population",
       value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
     },
+  ],
+  child: [
     {
-      displayValue: "Other",
-      value: DC.DENOMINATOR_INC_OTHER,
-      children: [
-        <QMR.TextArea
-          formLabelProps={{ fontWeight: "400" }}
-          label={parseLabelToHTML(labels.defineDenomOther)}
-          {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
-        />,
-      ],
+      displayValue: "Denominator includes CHIP (Title XXI) population only",
+      value: "DenominatorIncCHIPPop",
     },
-  ];
+    {
+      displayValue: "Denominator includes Medicaid (Title XIX) population only",
+      value: "DenominatorIncMedicaidPop",
+    },
+    {
+      displayValue: "Denominator includes CHIP and Medicaid (Title XIX)",
+      value: "DenominatorIncMedicaidAndCHIPPop",
+    },
+  ],
+};
+
+const coreSetSpecificOptions: CoreSetSpecificOptions = {
+  ACSM: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the denominator.
+          For example, if your data include Medicaid (Title XIX) beneficiaries,
+          Medicaid-Expansion CHIP (Title XXI) beneficiaries, and individuals
+          dually eligible for Medicare and Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>Medicaid-Expansion CHIP (Title XXI)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
+  },
+  CCSM: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mb="2">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Medicaid (Title XIX) and
+          Medicaid-Expansion CHIP (Title XXI) beneficiaries, select both:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>Medicaid-Expansion CHIP (Title XXI)</CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
+  },
+  ACSC: {
+    options: [
+      {
+        displayValue: "Separate CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_CHIP,
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Separate CHIP (Title XXI)
+          beneficiaries and individuals dually eligible for Medicare and
+          Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Separate CHIP (Title XXI)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
+  },
+  CCSC: {
+    options: [
+      {
+        displayValue: "Separate CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_CHIP,
+      },
+    ],
+    helpText: (
+      <CUI.Text mb="2">
+        Please select all populations that are included in the denominator.
+      </CUI.Text>
+    ),
+  },
+  ACS: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Medicaid (Title XIX) enrollees
+          and individuals dually eligible for Medicare and Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
+  },
+  CCS: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mb="2">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Medicaid (Title XIX) enrollees
+          and individuals dually eligible for Medicare and Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
+  },
+  HHCS: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: DC.DENOMINATOR_INC_MEDICAID_POP,
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the denominator.
+          For example, if your data include both Medicaid (Title XIX) enrollees
+          and individuals dually eligible for Medicare and Medicaid, select:
+        </CUI.Text>
+        <CUI.UnorderedList m="5" ml="10">
+          <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>
+            Individuals Dually Eligible for Medicare and Medicaid
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+      </>
+    ),
+  },
+};
+
+const StandardDefinitions = (
+  register: any,
+  labels: AnyObject,
+  healthHomeMeasure?: boolean
+) => {
+  const standardOptions = defOfDenomOptions["standard"];
+  const optionsWithoutChip = standardOptions.filter(
+    (opt) => opt.value !== DC.DENOMINATOR_INC_CHIP
+  );
   //for health home measures, we do not need to capture CHIP population
-  if (healthHomeMeasure) {
-    options = options.filter((opt) => opt.value !== DC.DENOMINATOR_INC_CHIP);
-  }
+  const options = healthHomeMeasure ? optionsWithoutChip : standardOptions;
 
   return (
     <CUI.Box>
@@ -64,15 +266,60 @@ const StandardDefinitions = (
         } and Medicare and Medicaid Dual Eligibles, select both:`}
       </CUI.Text>
       <CUI.UnorderedList m="5" ml="10">
-        <CUI.ListItem>Denominator includes Medicaid population</CUI.ListItem>
-        <CUI.ListItem>
-          Denominator includes Medicare and Medicaid Dually-Eligible population
-        </CUI.ListItem>
+        {optionsWithoutChip.map((option, index) => {
+          return (
+            <CUI.ListItem key={index + option.value}>
+              {option.displayValue}
+            </CUI.ListItem>
+          );
+        })}
       </CUI.UnorderedList>
 
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
-        options={options}
+        options={[
+          ...options,
+          {
+            displayValue: "Other",
+            value: DC.DENOMINATOR_INC_OTHER,
+            children: [
+              <QMR.TextArea
+                formLabelProps={{ fontWeight: "400" }}
+                label={parseLabelToHTML(labels.defineDenomOther)}
+                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+              />,
+            ],
+          },
+        ]}
+      />
+    </CUI.Box>
+  );
+};
+
+const CoreSetSpecificDefinitions = (
+  register: any,
+  labels: AnyObject,
+  coreSetType: string
+) => {
+  return (
+    <CUI.Box>
+      {coreSetSpecificOptions[coreSetType].helpText}
+      <QMR.Checkbox
+        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+        options={[
+          ...coreSetSpecificOptions[coreSetType].options,
+          {
+            displayValue: "Other",
+            value: DC.DENOMINATOR_INC_OTHER,
+            children: [
+              <QMR.TextArea
+                formLabelProps={{ fontWeight: "400" }}
+                label={parseLabelToHTML(labels.defineDenomOther)}
+                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+              />,
+            ],
+          },
+        ]}
       />
     </CUI.Box>
   );
@@ -87,22 +334,7 @@ const ChildDefinitions = (register: any) => {
       <QMR.RadioButton
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         valueAsArray
-        options={[
-          {
-            displayValue:
-              "Denominator includes CHIP (Title XXI) population only",
-            value: "DenominatorIncCHIPPop",
-          },
-          {
-            displayValue:
-              "Denominator includes Medicaid (Title XIX) population only",
-            value: "DenominatorIncMedicaidPop",
-          },
-          {
-            displayValue: "Denominator includes CHIP and Medicaid (Title XIX)",
-            value: "DenominatorIncMedicaidAndCHIPPop",
-          },
-        ]}
+        options={defOfDenomOptions["child"]}
       />
     </CUI.Box>
   );
@@ -172,6 +404,9 @@ export const DefinitionOfPopulation = ({
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
+  const params = useParams();
+  const coreSetType = healthHomeMeasure ? "HHCS" : params.coreSetId;
+
   return (
     <QMR.CoreQuestionWrapper
       testid="definition-of-population"
@@ -180,13 +415,19 @@ export const DefinitionOfPopulation = ({
       <CUI.Heading size="sm" as="h2">
         Definition of denominator
       </CUI.Heading>
-      {!childMeasure &&
-        StandardDefinitions(
-          register,
-          labels.DefinitionsOfPopulation,
-          healthHomeMeasure
-        )}
-      {childMeasure && ChildDefinitions(register)}
+      {labels.DefinitionsOfPopulation.useCoreSetSpecificOptions && coreSetType
+        ? CoreSetSpecificDefinitions(
+            register,
+            labels.DefinitionsOfPopulation,
+            coreSetType
+          )
+        : childMeasure
+        ? ChildDefinitions(register)
+        : StandardDefinitions(
+            register,
+            labels.DefinitionsOfPopulation,
+            healthHomeMeasure
+          )}
       {labels.DefinitionsOfPopulation.changeInPopExplanation && (
         <CUI.Box my="5">
           <QMR.TextArea

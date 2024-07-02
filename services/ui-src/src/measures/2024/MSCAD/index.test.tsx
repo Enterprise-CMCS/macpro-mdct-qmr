@@ -14,8 +14,8 @@ import {
   mockValidateAndSetErrors,
   clearMocks,
   validationsMockObj as V,
-} from "measures/2023/shared/util/validationsMock";
-import { axe, toHaveNoViolations } from "jest-axe";
+} from "measures/2024/shared/util/validationsMock";
+import { toHaveNoViolations, axe } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
 // Test Setup
@@ -97,9 +97,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).toBeInTheDocument();
     expect(screen.queryByTestId("date-range")).toBeInTheDocument();
     expect(
@@ -112,9 +109,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId("measurement-specification")
-    ).not.toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
     expect(screen.queryByTestId("date-range")).not.toBeInTheDocument();
     expect(
@@ -127,9 +121,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("performance-measure")).toBeInTheDocument();
-    expect(
-      screen.queryByTestId("deviation-from-measure-specification")
-    ).toBeInTheDocument();
     expect(screen.queryByTestId("OPM")).not.toBeInTheDocument();
   });
 
@@ -139,9 +130,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     renderWithHookForm(component);
     expect(screen.queryByTestId("OPM"));
     expect(screen.queryByTestId("performance-measure")).not.toBeInTheDocument();
-    expect(
-      screen.queryByTestId("deviation-from-measure-specification")
-    ).not.toBeInTheDocument();
   });
 
   it("shows OMS when performance measure data has been entered", async () => {
@@ -207,7 +195,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
   });
 
-  jest.setTimeout(15000);
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -219,7 +206,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 });
 
 const notReportingData = {
-  DidReport: "no",
+  DidCollect: "no",
 };
 
 const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
@@ -265,5 +252,5 @@ const completedMeasureData = {
     },
   },
   MeasurementSpecification: "NCQA/HEDIS",
-  DidReport: "yes",
+  DidCollect: "yes",
 };
