@@ -262,7 +262,6 @@ export const CoreSet = () => {
   year = year ?? "";
 
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
-  console.log("core set: ", coreSet[0].slice(0, 2));
   const tempSpa =
     coreSet.length > 1
       ? SPA[year].filter((s) => s.id === coreSet[1] && s.state === state)[0]
