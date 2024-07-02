@@ -79,6 +79,7 @@ const IETValidation = (data: FormData) => {
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
+    ...GV.validateNDRTotalsMatchSum(performanceMeasureArray),
 
     // OMS Validations
     ...GV.omsValidations({
