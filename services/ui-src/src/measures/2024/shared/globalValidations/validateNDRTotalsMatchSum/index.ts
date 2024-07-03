@@ -4,6 +4,8 @@ import { FormRateField } from "measures/2024/shared/globalValidations/types";
 export function validateNDRTotalsMatchSum(
   performanceMeasureArray: FormRateField[][]
 ) {
+  const errorArray: FormError[] = [];
+
   const allRates = Object.values(performanceMeasureArray)
     .filter((arr): arr is RateFields[] => arr !== undefined)
     .flat();
@@ -32,7 +34,6 @@ export function validateNDRTotalsMatchSum(
     groups[groupKey] = (groups[groupKey] ?? []).concat([rate]);
   }
 
-  const errorArray: FormError[] = [];
   for (let group of Object.values(groups)) {
     let totalRate = group.find((rate) => rate.isTotal);
     let otherRates = group.filter((rate) => !rate.isTotal);
@@ -44,9 +45,8 @@ export function validateNDRTotalsMatchSum(
     if (parseFloat(totalRate.numerator) !== numeratorSum) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `Numerator sum error for "${groupKeyOf(
-          totalRate
-        )}" - expected ${numeratorSum}, got ${totalRate.numerator}`,
+        errorMessage:
+          "Numerators must be the sum for each category of performance measures",
       });
     }
 
@@ -56,9 +56,8 @@ export function validateNDRTotalsMatchSum(
     if (parseFloat(totalRate.denominator) !== denominatorSum) {
       errorArray.push({
         errorLocation: "Performance Measure",
-        errorMessage: `Denominator sum error for "${groupKeyOf(
-          totalRate
-        )}" - expected ${denominatorSum}, got ${totalRate.denominator}`,
+        errorMessage:
+          "Denominators must be the sum for each category of performance measures",
       });
     }
   }
