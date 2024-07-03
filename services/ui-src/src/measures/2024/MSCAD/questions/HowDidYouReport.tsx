@@ -36,7 +36,7 @@ export const HowDidYouReport = ({
         options={[
           {
             displayValue: `Yes, we submitted our CAHPS survey data to the AHRQ CAHPS Database during the June ${reportingYear} submission period.`,
-            value: `Yes, we submitted our CAHPS survey data to the AHRQ CAHPS Database during the June ${reportingYear} submission period.`,
+            value: DC.YES,
             children: [
               <QMR.CoreQuestionWrapper testid="did-report" label="">
                 <QMR.RadioButton
