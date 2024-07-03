@@ -26,7 +26,7 @@ export const Reporting = ({ reportingYear }: Props) => {
               value: DC.YES,
             },
             {
-              displayValue: `No, we did not collect data for Medical Assistance with Smoking and Tobacco Use Cessation (MSC-AD) for ${reportingYear} quality measure reporting.`,
+              displayValue: `No, we did not collect data for Medical Assistance with Smoking and Tobacco Use Cessation (MSC-AD) for FFY ${reportingYear} quality measure reporting.`,
               value: DC.NO,
             },
           ]}

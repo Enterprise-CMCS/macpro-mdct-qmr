@@ -16,7 +16,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   const deviationReason = data[DC.DEVIATION_REASON];
 
   let errorArray: any[] = [];
-  if (data[DC.DID_COLLECT] === DC.NO) {
+  if (data[DC.DID_REPORT] === "no") {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }

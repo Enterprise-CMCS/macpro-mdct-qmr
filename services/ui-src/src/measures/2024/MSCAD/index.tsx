@@ -2,11 +2,11 @@ import * as Q from "./questions";
 import * as QMR from "components";
 import * as CMQ from "measures/2024/shared/CommonQuestions";
 import * as Types from "measures/2024/shared/CommonQuestions/types";
-import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 import { useEffect } from "react";
 import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const MSCAD = ({
@@ -39,7 +39,7 @@ export const MSCAD = ({
         healthHomeMeasure
         removeLessThan30
       />
-      {data["DidCollect"] !== DC.NO && (
+      {data[DC.DID_REPORT] !== DC.NO && (
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
