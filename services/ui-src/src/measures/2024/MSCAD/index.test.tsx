@@ -205,7 +205,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 });
 
 const notReportingData = {
+  DidCollect:
+    "No, we did not collect data for Medical Assistance with Smoking and Tobacco Use Cessation (MSC-AD) for FFY 2024 quality measure reporting.",
   DidReport: "no",
+  HowDidYouReport:
+    "Yes, we submitted our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period.",
 };
 
 const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
