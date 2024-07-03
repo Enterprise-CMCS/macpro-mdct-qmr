@@ -63,10 +63,8 @@ export const HowDidYouReport = ({
             ],
           },
           {
-            displayValue:
-              "No, we did not submit our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period.",
-            value:
-              "No, we did not submit our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period.",
+            displayValue: `No, we did not submit our CAHPS survey data to the AHRQ CAHPS Database during the June ${reportingYear} submission period.`,
+            value: DC.NO,
           },
         ]}
         formLabelProps={{ fontWeight: "bold" }}
