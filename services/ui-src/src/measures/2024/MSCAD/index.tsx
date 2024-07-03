@@ -26,7 +26,6 @@ export const MSCAD = ({
   const { watch } = useFormContext<Types.DefaultFormData>();
   const data = watch();
 
-  console.log(data);
   return (
     <>
       <Q.Reporting
