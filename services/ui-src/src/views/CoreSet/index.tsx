@@ -18,6 +18,7 @@ import {
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
+import { Alert } from "@cmsgov/design-system";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -322,6 +323,17 @@ export const CoreSet = () => {
         },
       ]}
     >
+      {Number(year) >= 2024 && coreSet[0].slice(0, 2) === "CC" && (
+        <CUI.Box mb="8">
+          <Alert heading="Mandatory Measure Instructions">
+            <CUI.Text>
+              {
+                "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets."
+              }
+            </CUI.Text>
+          </Alert>
+        </CUI.Box>
+      )}
       <QMR.UpdateInfoModal
         closeModal={closeModal}
         handleModalResponse={handleModalResponse}
@@ -337,7 +349,6 @@ export const CoreSet = () => {
           ></QMR.Notification>
         </CUI.Box>
       )}
-
       {/* Show success banner after redirect from creating new SSMs */}
       {locationState && locationState.success === false && (
         <CUI.Box mb="6">
@@ -348,7 +359,6 @@ export const CoreSet = () => {
           ></QMR.Notification>
         </CUI.Box>
       )}
-
       <CUI.Stack direction={{ base: "column", md: "row" }}>
         <CUI.HStack
           justifyContent="space-between"
