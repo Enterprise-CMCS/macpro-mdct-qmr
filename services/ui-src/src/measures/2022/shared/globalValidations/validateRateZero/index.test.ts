@@ -10,11 +10,22 @@ import {
   simpleRate,
   partialRate,
   generateOtherPerformanceMeasureData,
-} from "utils/testUtils/validationHelpers";
+} from "utils/testUtils/2023/validationHelpers";
+import { LabelData } from "utils";
+
+jest.mock("utils/getLabelText", () => ({
+  isLegacyLabel: () => true,
+}));
 
 describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
-  const categories = ["Test Cat 1", "Test Cat 2"];
-  const qualifiers = ["Test Qual 1", "Test Qual 2"];
+  const categories: LabelData[] = [
+    { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
+    { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
+  ];
+  const qualifiers: LabelData[] = [
+    { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
+    { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
+  ];
 
   const baseOMSInfo = {
     categories,

@@ -6,7 +6,7 @@
 
 import { LabelData } from "utils";
 
-export const data = {
+const rawData = {
     "AAB-AD": {
         "qualifiers": [
             {
@@ -674,7 +674,7 @@ export const data = {
             {
                 "label": "Total (Age 13 and older)",
                 "text": "Total (Age 13 and older)",
-                "id": "Total"
+                "id": "TotalAge13andolder"
             }
         ],
         "categories": [
@@ -1659,14 +1659,16 @@ export const data = {
     }
 }
 
-export const getCatQualLabels = (measure: keyof typeof data) => {
-    const getLabels = (q: LabelData) => q.label
-
-    const qualifiers = data[measure].qualifiers.map(getLabels);
-    const categories = data[measure].categories.map(getLabels);
-  
-    return {
-      qualifiers,
-      categories,
+type MeasureAbbreviation = keyof typeof rawData;
+type RateLabelDataShape = {
+    [key in MeasureAbbreviation]: {
+        categories: LabelData[];
+        qualifiers: LabelData[];
     };
-  };
+};
+
+export const data: RateLabelDataShape = rawData;
+
+export const getCatQualLabels = (measure: MeasureAbbreviation) => {
+    return data[measure];
+};

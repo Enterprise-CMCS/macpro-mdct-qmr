@@ -1,4 +1,5 @@
 import { OmsNodes as OMS } from "measures/2022/shared/CommonQuestions/types";
+import { LabelData } from "utils";
 
 export interface FormRateField {
   denominator?: string;
@@ -17,8 +18,8 @@ export interface RateData extends OMS.OmsRateFields {
 }
 
 export interface UnifiedValFuncProps {
-  categories?: string[];
-  qualifiers?: string[];
+  categories?: LabelData[];
+  qualifiers?: LabelData[];
   rateData: FormRateField[][];
   location: string;
   errorMessage?: string;
@@ -30,8 +31,8 @@ export type UnifiedValidationFunction = (
 
 export type OmsValidationCallback = (data: {
   rateData: RateData;
-  qualifiers: string[];
-  categories: string[];
+  qualifiers: LabelData[];
+  categories: LabelData[];
   label: string[];
   locationDictionary: locationDictionaryFunction;
   isOPM: boolean;
