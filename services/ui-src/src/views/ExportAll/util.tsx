@@ -123,6 +123,25 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     .prince-top-link, .prince-supp-text, h1 { margin: auto !important; text-align: center !important; width: fitcontent !important; margin: 10px 0 !important; }
     .prince-upload-wrapper, .prince-file-item { border: 3px !important; border-style: dotted; background-color: var(--chakra-colors-blue-100); border-radius: var(--chakra-radii-md) }
     .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box; white-space: pre-wrap;}
+    ${
+      /* Prince doesn't support color and background colors or css grid out of the box. we have to brute force those styles here */ ""
+    }
+    .chakra-button { background: var(--chakra-colors-gray-100) !important; margin: 16px }
+    .chakra-link { color: var(--chakra-colors-blue-600) !important; }
+    .chakra-link * { color: blue !important; }
+    .css-gzpnyx[data-checked], .css-1oi6yiz[data-checked] { background: var(--chakra-colors-blue-500) !important; border-color: var(--chakra-colors-blue-500) !important; }
+    .chakra-checkbox__control * { color: var(--chakra-colors-white) !important; display: flex !important }
+    .css-gzpnyx[data-checked]::before { content: ""; width: 50%; height: 50%; border-radius: 50%; background: var(--chakra-colors-white) !important; }
+    ${
+      /* On line 61 of this file, we are replacing text-align: right with center. 
+      There are few places where we don't want to do this so we are overriding those styles below for some inputs */ ""
+    }
+    .css-1pkmg65, .css-18akmna { text-align: right !important; padding-right: 40px !important; }
+    ${
+      /* The below css classes are targeting icons in inputs need to have display: flex (that display is getting removed on line 61). 
+      these class names can be found by looking at the elements on the pdf in the browser. */ ""
+    }
+    .css-11pdqhs, .css-1nqqbdv { display: flex !important }
   `
     )
   );
