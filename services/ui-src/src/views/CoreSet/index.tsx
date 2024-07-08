@@ -313,6 +313,8 @@ export const CoreSet = () => {
     (measure) => measure.id
   );
 
+  const coreSetPrefix = coreSet[0].slice(0, 2);
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -323,17 +325,18 @@ export const CoreSet = () => {
         },
       ]}
     >
-      {Number(year) >= 2024 && coreSet[0].slice(0, 2) === "CC" && (
-        <CUI.Box mb="8">
-          <Alert heading="Mandatory Measure Instructions">
-            <CUI.Text>
-              {
-                "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets."
-              }
-            </CUI.Text>
-          </Alert>
-        </CUI.Box>
-      )}
+      {Number(year) >= 2024 &&
+        (coreSetPrefix === "CC" || coreSetPrefix === "HH") && (
+          <CUI.Box mb="8">
+            <Alert heading="Mandatory Measure Instructions">
+              <CUI.Text>
+                {coreSetPrefix === "CC"
+                  ? "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets."
+                  : "States with approved Health Home Programs in operation by June 30, 2023 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets."}
+              </CUI.Text>
+            </Alert>
+          </CUI.Box>
+        )}
       <QMR.UpdateInfoModal
         closeModal={closeModal}
         handleModalResponse={handleModalResponse}
