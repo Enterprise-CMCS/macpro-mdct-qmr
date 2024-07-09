@@ -19,7 +19,7 @@ export abstract class RateCalculation {
           denominator > 0
             ? (
                 Math.round(rateFormula(numerator, denominator) * 100) / 100
-              ).toString()
+              ).toFixed(1) //added for generating trailing zeros
             : "";
 
         return {
