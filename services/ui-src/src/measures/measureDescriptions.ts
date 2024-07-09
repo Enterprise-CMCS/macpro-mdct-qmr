@@ -18,7 +18,7 @@ export const measureDescriptions: MeasureList = {
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
     "FUA-AD":
-      "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
+      "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence",
     "FUH-AD":
       "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
     "FUM-AD": "Follow-Up After Emergency Department Visit for Mental Illness",
@@ -114,7 +114,7 @@ export const measureDescriptions: MeasureList = {
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
     "FUA-AD":
-      "Follow-up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence: Age 18 and Older",
+      "Follow-Up After Emergency Department Visit for Alcohol and Other Drug Abuse or Dependence: Age 18 and Older",
     "FUH-AD":
       "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
     "FUM-AD":
@@ -217,7 +217,7 @@ export const measureDescriptions: MeasureList = {
     "CPU-AD":
       "Long-Term Services and Supports Comprehensive Care Plan and Update",
     "FUA-AD":
-      "Follow-up After Emergency Department Visit for Substance Use: Age 18 and Older",
+      "Follow-Up After Emergency Department Visit for Substance Use: Age 18 and Older",
     "FUH-AD":
       "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
     "FUM-AD":
@@ -319,7 +319,7 @@ export const measureDescriptions: MeasureList = {
     "CPU-AD":
       "Long-Term Services and Supports Comprehensive Care Plan and Update",
     "FUA-AD":
-      "Follow-up After Emergency Department Visit for Substance Use: Age 18 and Older",
+      "Follow-Up After Emergency Department Visit for Substance Use: Age 18 and Older",
     "FUH-AD":
       "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
     "FUM-AD":

@@ -4,7 +4,7 @@ import { AnyObject } from "types";
 interface Props {
   data: AnyObject[];
 }
-const columns = ["Medicaid", "CHIP"];
+const columns = ["Medicaid", "Separate CHIP"];
 
 const DataSourceRecord: Record<string, string> = {
   AdministrativeData: "Administrative Data",
@@ -62,7 +62,7 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
           })
         ) : (
           <CUI.Text tabIndex={0} pt="1.25rem">
-            Not answered
+            Not reported
           </CUI.Text>
         )}
       </CUI.Box>
