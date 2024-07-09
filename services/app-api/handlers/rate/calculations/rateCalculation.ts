@@ -1,4 +1,5 @@
 import { Program, StandardRateShape } from "../../../types";
+import { fixRounding } from "../../../utils/constants/math";
 import { DataSource, FormattedMeasureData } from "./types";
 
 export abstract class RateCalculation {
@@ -17,9 +18,7 @@ export abstract class RateCalculation {
           Number(prev.denominator ?? 0) + Number(curr.denominator ?? 0);
         const rate =
           denominator > 0
-            ? (
-                Math.round(rateFormula(numerator, denominator) * 100) / 100
-              ).toFixed(1) //added for generating trailing zeros
+            ? fixRounding(rateFormula(numerator, denominator), 1).toFixed(1) //added for generating trailing zeros
             : "";
 
         return {
