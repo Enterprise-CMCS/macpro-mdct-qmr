@@ -4,6 +4,7 @@ import { FormRateField } from "measures/2024/shared/globalValidations/types";
 export function validateNDRTotalsMatchSum(
   performanceMeasureArray: FormRateField[][]
 ) {
+  console.log("pma", performanceMeasureArray);
   const errorArray: FormError[] = [];
 
   const allRates = Object.values(performanceMeasureArray)
@@ -33,16 +34,18 @@ export function validateNDRTotalsMatchSum(
     const groupKey = groupKeyOf(rate);
     groups[groupKey] = (groups[groupKey] ?? []).concat([rate]);
   }
+  console.log(groups);
 
   for (let group of Object.values(groups)) {
+    console.log(group);
     let totalRate = group.find((rate) => rate.isTotal);
     let otherRates = group.filter((rate) => !rate.isTotal);
     if (!totalRate) continue;
 
     const numeratorSum = otherRates
-      .map((rate) => parseFloat(rate.numerator))
+      .map((rate) => parseInt(rate.numerator))
       .reduce((sum, num) => sum + num, 0);
-    if (parseFloat(totalRate.numerator) !== numeratorSum) {
+    if (parseInt(totalRate.numerator) !== numeratorSum) {
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
@@ -51,9 +54,9 @@ export function validateNDRTotalsMatchSum(
     }
 
     const denominatorSum = otherRates
-      .map((rate) => parseFloat(rate.denominator))
+      .map((rate) => parseInt(rate.denominator))
       .reduce((sum, num) => sum + num, 0);
-    if (parseFloat(totalRate.denominator) !== denominatorSum) {
+    if (parseInt(totalRate.denominator) !== denominatorSum) {
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
