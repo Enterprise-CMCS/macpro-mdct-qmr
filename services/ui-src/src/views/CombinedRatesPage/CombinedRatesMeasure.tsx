@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
-import { useGetRate } from "hooks/api/useGetRate";
+import { useGetRate } from "hooks/api";
 import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
 
 interface Props {
@@ -72,7 +72,7 @@ export const CombinedRatesMeasure = ({
         </CUI.ListItem>
       </CUI.UnorderedList>
       <DataSourceInformationBanner data={item?.data!} />
-      <CombinedRateNDR json={data?.Item} />
+      <CombinedRateNDR json={item!} />
     </QMR.StateLayout>
   );
 };
