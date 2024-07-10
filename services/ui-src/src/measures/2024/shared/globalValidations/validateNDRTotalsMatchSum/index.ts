@@ -4,7 +4,6 @@ import { FormRateField } from "measures/2024/shared/globalValidations/types";
 export function validateNDRTotalsMatchSum(
   performanceMeasureArray: FormRateField[][]
 ) {
-  console.log("pma", performanceMeasureArray);
   const errorArray: FormError[] = [];
 
   const allRates = Object.values(performanceMeasureArray)
@@ -34,10 +33,8 @@ export function validateNDRTotalsMatchSum(
     const groupKey = groupKeyOf(rate);
     groups[groupKey] = (groups[groupKey] ?? []).concat([rate]);
   }
-  console.log(groups);
 
   for (let group of Object.values(groups)) {
-    console.log(group);
     let totalRate = group.find((rate) => rate.isTotal);
     let otherRates = group.filter((rate) => !rate.isTotal);
     if (!totalRate) continue;

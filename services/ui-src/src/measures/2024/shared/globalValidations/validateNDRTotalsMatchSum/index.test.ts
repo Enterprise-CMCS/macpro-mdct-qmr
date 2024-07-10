@@ -7,12 +7,9 @@ import {
 } from "./validationHelpers";
 import { validateNDRTotalsMatchSum } from ".";
 
-// import * as VH from "utils/testUtils/2024/validationHelpers";
-
 describe("Testing PM Total vs Sum validations", () => {
   it("should return no errors - all sums match total values", () => {
     const bothNumDenCorrect = validateNDRTotalsMatchSum(pmaCorrectSums);
-
     expect(bothNumDenCorrect.length).toBe(0);
   });
 
