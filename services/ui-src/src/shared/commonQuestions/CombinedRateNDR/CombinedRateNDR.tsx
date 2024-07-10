@@ -4,6 +4,7 @@ import {
   RateCategoryMap,
   RateDataShape,
 } from "./CombinedRateTypes";
+import { useEffect, useState } from "react";
 
 type ProgramType = "Medicaid" | "CHIP" | "Combined Rate";
 type Measures = "numerator" | "denominator" | "rate";
@@ -71,12 +72,31 @@ const HorizontalTable = (
 };
 
 export const CombinedRateNDR = ({ json }: Props) => {
-  const tables = collectRatesForDisplay(json);
+  const [tables, setTables] = useState<TableDataShape[]>();
+  const data = collectRatesForDisplay(json);
   const headers: ProgramType[] = ["Medicaid", "CHIP", "Combined Rate"];
   const rows: Measures[] = ["numerator", "denominator", "rate"];
 
+  useEffect(() => {
+    const comp = async () => {
+      const year = "2024";
+      const module = await import(`../../../measures/${year}/rateLabelText`);
+      const { categories, qualifiers } = module.getCatQualLabels(
+        json?.measure as keyof typeof module.data
+      );
+      const sortList = categories
+        .map((cat: { id: any }) => [
+          ...qualifiers.map((qual: { id: any }) => `${cat.id}.${qual.id}`),
+        ])
+        .flat();
+      data.sort((a, b) => sortList.indexOf(a.uid) - sortList.indexOf(b.uid));
+      setTables(data);
+    };
+    comp();
+  }, []);
+
   //centralize formatting of the display data so that all the renders value are consistent
-  tables.forEach((table) => {
+  tables?.forEach((table) => {
     headers.forEach((header) => {
       const notAnswered = header === "Combined Rate" ? "" : "Not answered";
       //setting values to not answered if key doesn't exist
@@ -90,7 +110,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
 
   return (
     <CUI.Box sx={sx.tableContainer} mb="3rem">
-      {tables.map((table) => {
+      {tables?.map((table) => {
         return (
           <CUI.Box as={"section"}>
             {table.category ? (
