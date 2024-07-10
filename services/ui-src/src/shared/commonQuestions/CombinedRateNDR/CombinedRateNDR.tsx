@@ -5,6 +5,7 @@ import {
   RateDataShape,
 } from "./CombinedRateTypes";
 import { useEffect, useState } from "react";
+import { LabelData } from "utils";
 
 type ProgramType = "Medicaid" | "CHIP" | "Combined Rate";
 type Measures = "numerator" | "denominator" | "rate";
@@ -73,13 +74,12 @@ const horizontalTable = (
 
 export const sortRateNDR = (
   data: TableDataShape[],
-  categories: any,
-  qualifiers: any
+  categories: LabelData[],
+  qualifiers: LabelData[]
 ) => {
+  //build an array of uids in the order they are displayed in the pm section
   const sortList = categories
-    .map((cat: { id: any }) => [
-      ...qualifiers.map((qual: { id: any }) => `${cat.id}.${qual.id}`),
-    ])
+    .map((cat) => [...qualifiers.map((qual) => `${cat.id}.${qual.id}`)])
     .flat();
   return data.sort((a, b) => sortList.indexOf(a.uid) - sortList.indexOf(b.uid));
 };
@@ -94,6 +94,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
 
   useEffect(() => {
     const sort = async () => {
+      //dynamicallu pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
       const module = await import(`../../../measures/${year}/rateLabelText`);
       const { categories, qualifiers } = module?.getCatQualLabels(
         measure! as keyof typeof module.data
