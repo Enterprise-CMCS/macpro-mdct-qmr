@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 type ProgramType = "Medicaid" | "CHIP" | "Combined Rate";
 type Measures = "numerator" | "denominator" | "rate";
 
-const VerticalTable = (
+const verticalTable = (
   headers: ProgramType[],
   rows: Measures[],
   table: any
@@ -38,7 +38,7 @@ const VerticalTable = (
   );
 };
 
-const HorizontalTable = (
+const horizontalTable = (
   headers: ProgramType[],
   rows: Measures[],
   table: TableDataShape
@@ -71,29 +71,37 @@ const HorizontalTable = (
   );
 };
 
+export const sortRateNDR = (
+  data: TableDataShape[],
+  categories: any,
+  qualifiers: any
+) => {
+  const sortList = categories
+    .map((cat: { id: any }) => [
+      ...qualifiers.map((qual: { id: any }) => `${cat.id}.${qual.id}`),
+    ])
+    .flat();
+  return data.sort((a, b) => sortList.indexOf(a.uid) - sortList.indexOf(b.uid));
+};
+
 export const CombinedRateNDR = ({ json }: Props) => {
   const [tables, setTables] = useState<TableDataShape[]>();
+  const measure = json?.measure!;
+  const year = json?.year!;
   const data = collectRatesForDisplay(json);
   const headers: ProgramType[] = ["Medicaid", "CHIP", "Combined Rate"];
   const rows: Measures[] = ["numerator", "denominator", "rate"];
 
   useEffect(() => {
-    const comp = async () => {
-      const year = "2024";
+    const sort = async () => {
       const module = await import(`../../../measures/${year}/rateLabelText`);
-      const { categories, qualifiers } = module.getCatQualLabels(
-        json?.measure as keyof typeof module.data
+      const { categories, qualifiers } = module?.getCatQualLabels(
+        measure! as keyof typeof module.data
       );
-      const sortList = categories
-        .map((cat: { id: any }) => [
-          ...qualifiers.map((qual: { id: any }) => `${cat.id}.${qual.id}`),
-        ])
-        .flat();
-      data.sort((a, b) => sortList.indexOf(a.uid) - sortList.indexOf(b.uid));
-      setTables(data);
+      setTables(sortRateNDR(data, categories, qualifiers));
     };
-    comp();
-  }, []);
+    sort();
+  }, [measure]);
 
   //centralize formatting of the display data so that all the renders value are consistent
   tables?.forEach((table) => {
@@ -123,10 +131,10 @@ export const CombinedRateNDR = ({ json }: Props) => {
               </CUI.Heading>
             )}
             <CUI.Hide below="md">
-              {HorizontalTable(headers, rows, table)}
+              {horizontalTable(headers, rows, table)}
             </CUI.Hide>
             <CUI.Show below="md">
-              {VerticalTable(headers, rows, table)}
+              {verticalTable(headers, rows, table)}
             </CUI.Show>
           </CUI.Box>
         );
