@@ -155,7 +155,12 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
       /* These css classes are targeting the numerator, denominator, rate inputs. These need to have display: flex and other css styles to look correct */ ""
     }
     .css-1qqj5ri { display: flex !important; flex-direction: row !important; width: 100% !important }
-    .css-1kxonj9 {margin-left: 0px !important; margin-top: 0px !important; padding: 8px !important;}
+    .css-1kxonj9 { margin-left: 0px !important; margin-top: 0px !important; padding: 8px !important; }
+    ${
+      /* These ds-c css classes are targeting the warning box for other data source */ ""
+    }
+    .ds-c-alert--warn { display: inline-flex !important ; background-color: #fef9e9 !important }
+    .ds-c-alert-icon { height: 24px !important; width: 24px !important; }
   `
     )
   );
