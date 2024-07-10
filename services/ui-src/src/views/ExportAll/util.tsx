@@ -159,8 +159,8 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     ${
       /* These ds-c css classes are targeting the warning box for other data source */ ""
     }
-    .ds-c-alert--warn { display: inline-flex !important ; background-color: #fef9e9 !important }
-    .ds-c-alert-icon { height: 24px !important; width: 24px !important; }
+    .ds-c-alert--warn { display: inline-flex !important; background-color: #fef9e9 !important }
+    .ds-c-alert__icon { font-size: 16px !important; height: 24px !important; width: 24px !important }
   `
     )
   );
