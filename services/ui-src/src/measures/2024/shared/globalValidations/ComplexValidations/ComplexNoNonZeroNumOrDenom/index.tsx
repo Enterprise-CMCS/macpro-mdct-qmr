@@ -16,7 +16,7 @@ export const ComplexNoNonZeroNumOrDenomOMS = (
       errorArray.push(
         ...ComplexNoNonZeroNumOrDenom(
           [],
-          [{ description: key, rate: [...rateData[key]["OPM"]] }],
+          [{ description: key, rate: rateData[key] }],
           ndrFormulas,
           `${errorLocation} - ${key}`
         )
@@ -74,7 +74,7 @@ export const ComplexNoNonZeroNumOrDenom = (
     }
   }
   OPM &&
-    OPM.forEach((performanceMeasure: any) => {
+    Object.keys(OPM).forEach((performanceMeasure: any) => {
       performanceMeasure.rate?.forEach((rate: any) => {
         if (parseFloat(rate.numerator) === 0 && parseFloat(rate.rate) !== 0) {
           nonZeroRateError = true;
