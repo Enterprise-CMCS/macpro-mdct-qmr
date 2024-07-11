@@ -51,7 +51,6 @@ export const COLAD = ({
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
-          <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}

@@ -62,7 +62,6 @@ export const PQI15AD = ({
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
           )}
-          <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
