@@ -38,15 +38,19 @@ export class AdminstrativeCalculation extends RateCalculation {
 
     if (!isHybrid) {
       for (const dataSrc of this.dataSrcMap) {
-        const chipSrcExist = dataSrc.CHIP.every(
-          (chipSrc) => chipSources.indexOf(chipSrc) > -1
-        );
-        const medicaidSrcExist = dataSrc.Medicaid.every(
-          (medSrc) => medicaidSources?.indexOf(medSrc) > -1
-        );
-        //if data source is a match in both CHIP & medicaid return true
-        if (chipSrcExist && medicaidSrcExist) {
-          return true;
+        const chipSrcExist =
+          chipSources.length > 0 &&
+          chipSources.every((chipSrc) => dataSrc.CHIP.includes(chipSrc));
+        const medicaidSrcExist =
+          medicaidSources.length > 0 &&
+          medicaidSources.every((medSrc) => dataSrc.Medicaid.includes(medSrc));
+
+        //if both instance have data, then we want it to be a match for both
+        if (chipSources.length > 0 && medicaidSources.length > 0) {
+          if (chipSrcExist && medicaidSrcExist) return true;
+        } else {
+          //if only 1 set of data exist, as long as one of them is valid, we will return true
+          if (chipSrcExist || medicaidSrcExist) return true;
         }
       }
     }
