@@ -56,7 +56,6 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
