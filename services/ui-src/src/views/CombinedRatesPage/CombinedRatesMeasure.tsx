@@ -16,6 +16,20 @@ const CoreSetSuffixRecord: Record<string, string> = {
   CH: "CCS",
 };
 
+const getPathToCombinedRatesTab = (
+  state: string,
+  year: string,
+  coreSetAbbr: string
+) => {
+  if (coreSetAbbr === "ACS") {
+    return `/${state}/${year}/combined-rates?tab=adult`;
+  } else if (coreSetAbbr === "CCS") {
+    return `/${state}/${year}/combined-rates?tab=child`;
+  } else {
+    return `/${state}/${year}/combined-rates`;
+  }
+};
+
 export const CombinedRatesMeasure = ({
   year,
   measureName,
@@ -35,7 +49,10 @@ export const CombinedRatesMeasure = ({
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}/combined-rates`, name: `FFY ${year}` },
+        {
+          path: getPathToCombinedRatesTab(state!, year, combinedCoreSetAbbr),
+          name: `FFY ${year}`,
+        },
         {
           path: `/${state}/${year}`,
           name: `${measure} Combined Rates`,

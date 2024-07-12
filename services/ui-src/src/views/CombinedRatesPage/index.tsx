@@ -4,7 +4,7 @@ import * as QMR from "components";
 import { useGetMeasures } from "hooks/api";
 import { AnyObject, CoreSetAbbr, MeasureData, coreSetType } from "types";
 import { measureDescriptions } from "measures/measureDescriptions";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
@@ -83,6 +83,7 @@ export const CombinedRatesPage = () => {
   );
   const coreSetTabs = GetCoreSetTabs(coreSetsAbbr);
   const { state, year } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   let coreSetData = coreSetTabs.map((coreSet) =>
     GetMeasuresByCoreSet(coreSet.abbr, state!, year!)
   );
@@ -115,7 +116,14 @@ export const CombinedRatesPage = () => {
           Instructions for the user - includes how to interpret the page and
           what they need to do to see rates (i.e. complete all measures)
         </CUI.Text>
-        <CUI.Tabs width="100%" variant="unstyled">
+        <CUI.Tabs
+          width="100%"
+          variant="unstyled"
+          onChange={(index) =>
+            setSearchParams({ tab: index == 0 ? "child" : "adult" })
+          }
+          defaultIndex={searchParams.get("tab") === "adult" ? 1 : 0}
+        >
           <CUI.TabList>
             {coreSetTabs.map((coreSet) => (
               <CUI.Tab
