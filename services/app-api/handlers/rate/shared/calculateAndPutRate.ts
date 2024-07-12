@@ -20,14 +20,8 @@ export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
 };
 
 //checks to see which set of data is valid, and only return those for calculation
-export const validateMeasureData = (data: FormattedMeasureData[]) => {
-  const validData: FormattedMeasureData[] = [];
-  data.forEach((program) => {
-    if (Object.values(program.rates).length > 0) {
-      validData.push(program);
-    }
-  });
-  return validData;
+export const removeEmptyRates = (data: FormattedMeasureData[]) => {
+  return data.filter((program) => Object.values(program.rates).length > 0);
 };
 
 export const calculateAndPutRate = async (
@@ -49,7 +43,7 @@ export const calculateAndPutRate = async (
     const formattedData = formatMeasureData(data);
 
     //check which data is valid for summation
-    const validatedData = validateMeasureData(formattedData);
+    const validatedData = removeEmptyRates(formattedData);
 
     //based on the measure data, it will check against the calculations that exist and see which one is a match
     const calculation: RateCalculation | undefined = dataSrcCalculations.find(
