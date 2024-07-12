@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { LabelData } from "utils";
 import * as Labels from "labels/RateTextLabels";
 
-type ProgramType = "Medicaid" | "CHIP" | "Combined Rate";
+type ProgramType = "Medicaid" | "Separate CHIP" | "Combined Rate";
 type Measures = "numerator" | "denominator" | "rate";
 
 const verticalTable = (
@@ -90,7 +90,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
   const measure = json?.measure!;
   const year = json?.year!;
   const data = collectRatesForDisplay(json);
-  const headers: ProgramType[] = ["Medicaid", "CHIP", "Combined Rate"];
+  const headers: ProgramType[] = ["Medicaid", "Separate CHIP", "Combined Rate"];
   const rows: Measures[] = ["numerator", "denominator", "rate"];
 
   //dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
@@ -107,7 +107,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
   //centralize formatting of the display data so that all the renders value are consistent
   tables?.forEach((table) => {
     headers.forEach((header) => {
-      const notAnswered = header === "Combined Rate" ? "" : "Not answered";
+      const notAnswered = header === "Combined Rate" ? "" : "Not reported";
       //setting values to not answered if key doesn't exist
       const numerator = table[header]?.numerator ?? notAnswered;
       const denominator = table[header]?.denominator ?? notAnswered;
@@ -148,7 +148,7 @@ type TableDataShape = {
   uid: string;
   label: string;
   category?: string;
-  CHIP?: RateDataShape;
+  "Separate CHIP"?: RateDataShape;
   Medicaid?: RateDataShape;
   "Combined Rate"?: RateDataShape;
 };
@@ -188,7 +188,7 @@ const collectRatesForDisplay = (
     rememberRate(medicaidRate, "Medicaid");
   }
   for (let chipRate of Object.values(chipData).flat()) {
-    rememberRate(chipRate, "CHIP");
+    rememberRate(chipRate, "Separate CHIP");
   }
   for (let combinedRate of combinedRatesData) {
     rememberRate(combinedRate, "Combined Rate");

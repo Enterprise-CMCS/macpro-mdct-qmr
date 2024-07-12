@@ -57,7 +57,7 @@ export const CombinedRatesMeasure = ({
             target="_blank"
             color="blue.600"
           >
-            CHIP - {measure} - {measureName}
+            Separate CHIP - {measure} - {measureName}
           </CUI.Link>
         </CUI.ListItem>
         <CUI.ListItem>
