@@ -1,4 +1,3 @@
-import * as DC from "dataConstants";
 import {
   OmsValidationCallback,
   locationDictionaryFunction,
@@ -9,7 +8,7 @@ import {
   DefaultFormData,
 } from "measures/2021/CommonQuestions/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
-import { LabelData, cleanString } from "utils";
+import { LabelData } from "utils";
 
 interface OmsValidationProps {
   data: DefaultFormData;
@@ -40,13 +39,13 @@ export const omsValidations = ({
   ) {
     isOPM = true;
     opmQuals.push(
-      ...data["OtherPerformanceMeasure-Rates"].map((rate) => ({
-        id: rate.description
-          ? `${DC.OPM_KEY}${cleanString(rate.description)}`
-          : "Fill out description",
-        label: rate.description ?? "Fill out description",
-        text: "",
-      }))
+      ...data["OtherPerformanceMeasure-Rates"].map((rate) => {
+        return {
+          id: rate.description ?? "Fill out description",
+          label: rate.description ?? "Fill out description",
+          text: "",
+        };
+      })
     );
   }
   const cats =
@@ -54,8 +53,8 @@ export const omsValidations = ({
       ? [
           {
             id: "singleCategory",
-            text: "singleCategory",
             label: "singleCategory",
+            text: "singleCategory",
           },
         ]
       : categories;
@@ -85,8 +84,6 @@ const validateNDRs = (
 ) => {
   const isFilled: { [key: string]: boolean } = {};
   const isDeepFilled: { [key: string]: boolean } = {};
-  const isClassificationFilled: { [key: string]: boolean } = {};
-  const isDisaggregateFilled: { [key: string]: boolean } = {};
   const errorArray: FormError[] = [];
   // validates top levels, ex: Race, Geography, Sex
   const validateTopLevelNode = (node: OMS.TopLevelOmsNode, label: string[]) => {
@@ -120,13 +117,10 @@ const validateNDRs = (
       }
     }
     // validate sub type, ex: Asian -> Korean, Chinese, etc
-    if (node.aggregate?.includes("NoIndependentData")) {
-      //if options are empty but there's a no
+    if (node.aggregate?.includes("No")) {
       for (const key of node.options ?? []) {
         validateChildNodes(node.selections?.[key] ?? {}, [...label, key]);
       }
-      //check if disaggregate has sub-categories selected
-      checkIsDisaggregateFilled(label, node.selections);
     }
     //validate rates
     if (node.rateData) {
@@ -149,7 +143,6 @@ const validateNDRs = (
         })
       );
     }
-
     if (checkIsFilled) {
       isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
 
@@ -179,7 +172,6 @@ const validateNDRs = (
       ""
     );
     checkIsDeepFilled(locationReduced, rateData);
-    checkIsClassificationFilled(locationReduced, rateData);
   };
   //checks at least one ndr filled
   const checkNdrsFilled = (rateData: RateData) => {
@@ -221,10 +213,10 @@ const validateNDRs = (
     if (rateData?.["pcr-rate"]) {
       return rateData["pcr-rate"].every((o) => !!o?.value);
     }
-    for (const cat of categories) {
-      for (const qual of qualifiers) {
-        if (rateData.rates?.[cat.id]?.[qual.id]) {
-          const temp = rateData.rates[cat.id][qual.id][0];
+    for (const qual of qualifiers.map((s) => s.id)) {
+      for (const cat of categories.map((s) => s.id)) {
+        if (rateData.rates?.[qual]?.[cat]) {
+          const temp = rateData.rates[qual][cat][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
             return true;
           }
@@ -245,34 +237,21 @@ const validateNDRs = (
       );
     }
 
-    for (const cat of categories) {
-      for (const qual of qualifiers) {
-        //array key order is determined in component useQualRateArray, cleanedName variable
-        if (rateData.rates?.[cat.id]?.[qual.id]) {
-          const temp = rateData.rates[cat.id][qual.id][0];
-          let cleanQual = isOPM ? qual.label : qual.id;
+    // default check
+    for (const qual of qualifiers.map((s) => s.id)) {
+      for (const cat of categories.map((s) => s.id)) {
+        if (rateData.rates?.[qual]?.[cat]) {
+          const temp = rateData.rates[qual][cat][0];
           if (temp && temp.denominator && temp.numerator && temp.rate) {
-            isDeepFilled[`${location}-${cleanQual}`] ??= true;
+            isDeepFilled[`${location}-${qual}`] ??= true;
           } else {
-            isDeepFilled[`${location}-${cleanQual}`] = false;
+            isDeepFilled[`${location}-${qual}`] = false;
           }
         }
       }
     }
   };
 
-  //check if sub-classifications have rateData entered
-  const checkIsClassificationFilled = (
-    location: string,
-    rateData: RateData
-  ) => {
-    isClassificationFilled[location] = rateData?.rates !== undefined;
-  };
-
-  //if selection is empty, it means that no sub classification was selected
-  const checkIsDisaggregateFilled = (locations: string[], selection: any) => {
-    isDisaggregateFilled[locations[1]] = selection !== undefined;
-  };
   // Loop through top level nodes for validation
   for (const key of data.OptionalMeasureStratification?.options ?? []) {
     isFilled[key] = false;
@@ -303,34 +282,6 @@ const validateNDRs = (
           )}`,
           errorMessage:
             "For any category selected, all NDR sets must be filled.",
-        });
-      }
-    }
-
-    //if at least one sub-classifications qualifiers is false (no rate data entered), we want to generate an error message,
-    //else if all is false, we will ignore it as another error message would already be there
-    if (!Object.values(isClassificationFilled).every((v) => v === false)) {
-      for (const classKey in isClassificationFilled) {
-        if (!isClassificationFilled[classKey]) {
-          errorArray.push({
-            errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              classKey.split("-")
-            )}`,
-            errorMessage: "Must fill out at least one NDR set.",
-          });
-        }
-      }
-    }
-
-    //checking if the user has selected no to aggregate data for certain classifictions (i.e. asian, native hawaiian or pacific islanders)
-    //keeping the error message seperate in case we want to have unique messages in the future
-    for (const classKey in isDisaggregateFilled) {
-      if (!isDisaggregateFilled[classKey]) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            classKey.split("-")
-          )}`,
-          errorMessage: "Must fill out at least one NDR set.",
         });
       }
     }
