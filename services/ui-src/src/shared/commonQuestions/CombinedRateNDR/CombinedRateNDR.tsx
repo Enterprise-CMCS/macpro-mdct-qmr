@@ -4,7 +4,6 @@ import {
   RateCategoryMap,
   RateDataShape,
 } from "./CombinedRateTypes";
-import { LabelData } from "utils";
 import * as Labels from "labels/RateTextLabels";
 
 const programTypes = ["Medicaid", "Separate CHIP", "Combined Rate"] as const;
@@ -65,46 +64,14 @@ const horizontalTable = (table: TableDataShape) => {
   );
 };
 
-export const sortRateNDR = (
-  data: TableDataShape[],
-  categories: LabelData[],
-  qualifiers: LabelData[]
-) => {
-  //build an array of uids in the order they are displayed in the pm section
-  const sortList = categories
-    .map((cat) => [...qualifiers.map((qual) => `${cat.id}.${qual.id}`)])
-    .flat();
-  return data.sort((a, b) => sortList.indexOf(a.uid) - sortList.indexOf(b.uid));
-};
-
 export const CombinedRateNDR = ({ json }: Props) => {
-  const measure = json.measure;
-  const year = json.year;
-  const data = collectRatesForDisplay(json);
-
-  //dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
-  const rateTextLabel = Labels[`RateLabel${year}` as keyof typeof Labels];
-  const { categories, qualifiers } = rateTextLabel!.getCatQualLabels(
-    measure! as keyof typeof rateTextLabel.data
-  );
-  const tables = sortRateNDR(data, categories, qualifiers);
-
-  //centralize formatting of the display data so that all the renders value are consistent
-  tables?.forEach((table) => {
-    programTypes.forEach((header) => {
-      const notAnswered = header === "Combined Rate" ? "" : "Not reported";
-      //setting values to not answered if key doesn't exist
-      const numerator = table[header]?.numerator ?? notAnswered;
-      const denominator = table[header]?.denominator ?? notAnswered;
-      const rate = table[header]?.rate ?? "-";
-      //add value back to table object
-      table[header] = { ...table[header]!, numerator, denominator, rate };
-    });
-  });
+  const tables = collectRatesForDisplay(json);
+  provideDefaultValues(tables);
+  sortRates(tables, json.year, json.measure);
 
   return (
     <CUI.Box sx={sx.tableContainer} mb="3rem">
-      {tables?.map((table, index) => {
+      {tables.map((table, index) => {
         return (
           <CUI.Box key={index} as={"section"}>
             {table.category ? (
@@ -176,6 +143,39 @@ const collectRatesForDisplay = (
     rememberRate(combinedRate, "Combined Rate");
   }
   return tables;
+};
+
+/**
+ * Fill in strings such as `"-"` and `"Not reported"` for any undefined values.
+ */
+const provideDefaultValues = (tables: TableDataShape[]) => {
+  tables?.forEach((table) => {
+    programTypes.forEach((header) => {
+      const notAnswered = header === "Combined Rate" ? "" : "Not reported";
+      //setting values to not answered if key doesn't exist
+      const numerator = table[header]?.numerator ?? notAnswered;
+      const denominator = table[header]?.denominator ?? notAnswered;
+      const rate = table[header]?.rate ?? "-";
+      //add value back to table object
+      table[header] = { ...table[header]!, numerator, denominator, rate };
+    });
+  });
+};
+
+/**
+ * Sort the rates in-place, to match how they are displayed on individual measure pages
+ */
+const sortRates = (tables: TableDataShape[], year: string, measure: string) => {
+  //dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
+  const rateTextLabel = Labels[`RateLabel${year}` as keyof typeof Labels];
+  const { categories, qualifiers } = rateTextLabel!.getCatQualLabels(
+    measure! as keyof typeof rateTextLabel.data
+  );
+  //build an array of uids in the order they are displayed in the pm section
+  const sortList = categories
+    .map((cat) => [...qualifiers.map((qual) => `${cat.id}.${qual.id}`)])
+    .flat();
+  tables.sort((a, b) => sortList.indexOf(a.uid) - sortList.indexOf(b.uid));
 };
 
 type Props = {
