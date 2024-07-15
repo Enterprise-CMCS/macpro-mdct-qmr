@@ -7,31 +7,28 @@ import {
 import { LabelData } from "utils";
 import * as Labels from "labels/RateTextLabels";
 
-type ProgramType = "Medicaid" | "Separate CHIP" | "Combined Rate";
-type Measures = "numerator" | "denominator" | "rate";
+const programTypes = ["Medicaid", "Separate CHIP", "Combined Rate"] as const;
+const rateComponents = ["numerator", "denominator", "rate"] as const;
+type ProgramType = typeof programTypes[number];
 
-const verticalTable = (
-  headers: ProgramType[],
-  rows: Measures[],
-  table: any
-) => {
+const verticalTable = (table: any) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
-      {headers.slice(0, -1).map((header) => (
+      {programTypes.slice(0, -1).map((programType) => (
         <CUI.List padding="0 0 1rem 2rem" textTransform="capitalize">
           <CUI.Text fontWeight="bold" mb="2">
-            {header}
+            {programType}
           </CUI.Text>
-          {rows.map((row) => (
+          {rateComponents.map((rateComponent) => (
             <CUI.ListItem pl="7">
-              {row}: {table[header]?.[row.toLowerCase()]}
+              {rateComponent}: {table[programType]?.[rateComponent.toLowerCase()]}
             </CUI.ListItem>
           ))}
         </CUI.List>
       ))}
       <CUI.List padding="0 0 1rem 2rem">
         <CUI.Text fontWeight="bold" mb="2">
-          {headers[2]}: {table["Combined Rate"]?.rate}
+          {programTypes[2]}: {table["Combined Rate"]?.rate}
         </CUI.Text>
       </CUI.List>
       <CUI.Divider borderColor="gray.300" />
@@ -39,30 +36,26 @@ const verticalTable = (
   );
 };
 
-const horizontalTable = (
-  headers: ProgramType[],
-  rows: Measures[],
-  table: TableDataShape
-) => {
+const horizontalTable = (table: TableDataShape) => {
   return (
     <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
       <CUI.Thead>
         <CUI.Tr>
           <CUI.Td></CUI.Td>
-          {headers.map((header) => (
-            <CUI.Th sx={sx.header}>{header}</CUI.Th>
+          {programTypes.map((programTypes) => (
+            <CUI.Th sx={sx.header}>{programTypes}</CUI.Th>
           ))}
         </CUI.Tr>
       </CUI.Thead>
       <CUI.Tbody>
-        {rows.map((row) => (
+        {rateComponents.map((rateComponent) => (
           <CUI.Tr sx={sx.row}>
             <CUI.Th sx={sx.verticalHeader} scope="row">
-              {row}
+              {rateComponent}
             </CUI.Th>
-            {headers.map((header) => (
+            {programTypes.map((programType) => (
               <CUI.Td isNumeric sx={sx.content}>
-                {table[header]?.[row]}
+                {table[programType]?.[rateComponent]}
               </CUI.Td>
             ))}
           </CUI.Tr>
@@ -88,8 +81,6 @@ export const CombinedRateNDR = ({ json }: Props) => {
   const measure = json.measure;
   const year = json.year;
   const data = collectRatesForDisplay(json);
-  const headers: ProgramType[] = ["Medicaid", "Separate CHIP", "Combined Rate"];
-  const rows: Measures[] = ["numerator", "denominator", "rate"];
 
   //dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
   const rateTextLabel = Labels[`RateLabel${year}` as keyof typeof Labels];
@@ -100,7 +91,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
 
   //centralize formatting of the display data so that all the renders value are consistent
   tables?.forEach((table) => {
-    headers.forEach((header) => {
+    programTypes.forEach((header) => {
       const notAnswered = header === "Combined Rate" ? "" : "Not reported";
       //setting values to not answered if key doesn't exist
       const numerator = table[header]?.numerator ?? notAnswered;
@@ -126,10 +117,10 @@ export const CombinedRateNDR = ({ json }: Props) => {
               </CUI.Heading>
             )}
             <CUI.Hide below="md">
-              {horizontalTable(headers, rows, table)}
+              {horizontalTable(table)}
             </CUI.Hide>
             <CUI.Show below="md">
-              {verticalTable(headers, rows, table)}
+              {verticalTable(table)}
             </CUI.Show>
           </CUI.Box>
         );
