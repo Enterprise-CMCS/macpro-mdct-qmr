@@ -23,7 +23,7 @@ type Props = {
   json: CombinedRatePayload;
 };
 
-const verticalTable = (table: any) => {
+const verticalTable = (table: TableDataShape) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
       {programTypes.slice(0, -1).map((programType, ptIndex) => (
@@ -33,7 +33,7 @@ const verticalTable = (table: any) => {
           </CUI.Text>
           {rateComponents.map((rateComponent, rIndex) => (
             <CUI.ListItem key={rIndex} pl="7">
-              {rateComponent}: {table[programType]?.[rateComponent.toLowerCase()]}
+              {rateComponent}: {table[programType][rateComponent]}
             </CUI.ListItem>
           ))}
         </CUI.List>
