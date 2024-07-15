@@ -14,11 +14,12 @@ type TableKeys = {
   uid: string;
   label: string;
   category?: string;
-}
+};
 /** An intermediate shape, not guaranteed to have an entry for every program type */
-type PartialTableDataShape = TableKeys & Partial<Record<ProgramType, RateDataShape>>
+type PartialTableDataShape = TableKeys &
+  Partial<Record<ProgramType, RateDataShape>>;
 /** Corresponds directly to the tables as we display them */
-type TableDataShape = TableKeys & Record<ProgramType, RateDataShape>
+type TableDataShape = TableKeys & Record<ProgramType, RateDataShape>;
 type Props = {
   json: CombinedRatePayload;
 };
@@ -27,7 +28,11 @@ const verticalTable = (table: TableDataShape) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
       {programTypes.slice(0, -1).map((programType, ptIndex) => (
-        <CUI.List key={ptIndex} padding="0 0 1rem 2rem" textTransform="capitalize">
+        <CUI.List
+          key={ptIndex}
+          padding="0 0 1rem 2rem"
+          textTransform="capitalize"
+        >
           <CUI.Text fontWeight="bold" mb="2">
             {programType}
           </CUI.Text>
@@ -55,7 +60,9 @@ const horizontalTable = (table: TableDataShape) => {
         <CUI.Tr>
           <CUI.Td></CUI.Td>
           {programTypes.map((programTypes, index) => (
-            <CUI.Th key={index} sx={sx.header}>{programTypes}</CUI.Th>
+            <CUI.Th key={index} sx={sx.header}>
+              {programTypes}
+            </CUI.Th>
           ))}
         </CUI.Tr>
       </CUI.Thead>
@@ -96,12 +103,8 @@ export const CombinedRateNDR = ({ json }: Props) => {
                 {table.label}
               </CUI.Heading>
             )}
-            <CUI.Hide below="md">
-              {horizontalTable(table)}
-            </CUI.Hide>
-            <CUI.Show below="md">
-              {verticalTable(table)}
-            </CUI.Show>
+            <CUI.Hide below="md">{horizontalTable(table)}</CUI.Hide>
+            <CUI.Show below="md">{verticalTable(table)}</CUI.Show>
           </CUI.Box>
         );
       })}
@@ -156,7 +159,9 @@ const collectRatesForDisplay = (
 // so it is less confusing to use a standard function declaration here.
 // Usage note: Normally assertion functions throw errors when an object isn't of the asserted type,
 // but it is also valid to coerce it into that type instead, as we do here.
-function provideDefaultValues (tables: PartialTableDataShape[]): asserts tables is TableDataShape[] {
+function provideDefaultValues(
+  tables: PartialTableDataShape[]
+): asserts tables is TableDataShape[] {
   for (let table of tables) {
     for (let programType of programTypes) {
       const notAnswered = programType === "Combined Rate" ? "" : "Not reported";
@@ -165,10 +170,15 @@ function provideDefaultValues (tables: PartialTableDataShape[]): asserts tables 
       const denominator = table[programType]?.denominator ?? notAnswered;
       const rate = table[programType]?.rate ?? "-";
       // Add value back to table object
-      table[programType] = { ...table[programType]!, numerator, denominator, rate };
+      table[programType] = {
+        ...table[programType]!,
+        numerator,
+        denominator,
+        rate,
+      };
     }
   }
-};
+}
 
 /**
  * Sort the rates in-place, to match how they are displayed on individual measure pages.
@@ -180,8 +190,9 @@ const sortRates = (tables: TableDataShape[], year: string, measure: string) => {
     measure as keyof typeof rateTextLabel.data
   );
   // Build an array of uids in the order they are displayed in the pm section
-  const uidOrder = categories
-    .flatMap((cat) => qualifiers.map((qual) => `${cat.id}.${qual.id}`));
+  const uidOrder = categories.flatMap((cat) =>
+    qualifiers.map((qual) => `${cat.id}.${qual.id}`)
+  );
   tables.sort((a, b) => uidOrder.indexOf(a.uid) - uidOrder.indexOf(b.uid));
 };
 
