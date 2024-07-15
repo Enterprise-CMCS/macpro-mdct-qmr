@@ -115,7 +115,7 @@ const collectRatesForDisplay = (
   const tables: PartialTableDataShape[] = [];
   const data = json.data;
 
-  // filter data by Medicaid, CHIP, and Combined Rates
+  // Filter data by Medicaid, CHIP, and Combined Rates
   const medicaidData = (data?.find((item) => item.column == "Medicaid")
     ?.rates ?? {}) as RateCategoryMap;
   const chipData = (data?.find((item) => item.column == "CHIP")?.rates ??
@@ -157,33 +157,32 @@ const collectRatesForDisplay = (
 // Usage note: Normally assertion functions throw errors when an object isn't of the asserted type,
 // but it is also valid to coerce it into that type instead, as we do here.
 function provideDefaultValues (tables: PartialTableDataShape[]): asserts tables is TableDataShape[] {
-  tables?.forEach((table) => {
-    programTypes.forEach((header) => {
-      const notAnswered = header === "Combined Rate" ? "" : "Not reported";
-      //setting values to not answered if key doesn't exist
-      const numerator = table[header]?.numerator ?? notAnswered;
-      const denominator = table[header]?.denominator ?? notAnswered;
-      const rate = table[header]?.rate ?? "-";
-      //add value back to table object
-      table[header] = { ...table[header]!, numerator, denominator, rate };
-    });
-  });
+  for (let table of tables) {
+    for (let programType of programTypes) {
+      const notAnswered = programType === "Combined Rate" ? "" : "Not reported";
+      // Set values to not answered if key doesn't exist
+      const numerator = table[programType]?.numerator ?? notAnswered;
+      const denominator = table[programType]?.denominator ?? notAnswered;
+      const rate = table[programType]?.rate ?? "-";
+      // Add value back to table object
+      table[programType] = { ...table[programType]!, numerator, denominator, rate };
+    }
+  }
 };
 
 /**
- * Sort the rates in-place, to match how they are displayed on individual measure pages
+ * Sort the rates in-place, to match how they are displayed on individual measure pages.
  */
 const sortRates = (tables: TableDataShape[], year: string, measure: string) => {
-  //dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
+  // Dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
   const rateTextLabel = Labels[`RateLabel${year}` as keyof typeof Labels];
-  const { categories, qualifiers } = rateTextLabel!.getCatQualLabels(
-    measure! as keyof typeof rateTextLabel.data
+  const { categories, qualifiers } = rateTextLabel.getCatQualLabels(
+    measure as keyof typeof rateTextLabel.data
   );
-  //build an array of uids in the order they are displayed in the pm section
-  const sortList = categories
-    .map((cat) => [...qualifiers.map((qual) => `${cat.id}.${qual.id}`)])
-    .flat();
-  tables.sort((a, b) => sortList.indexOf(a.uid) - sortList.indexOf(b.uid));
+  // Build an array of uids in the order they are displayed in the pm section
+  const uidOrder = categories
+    .flatMap((cat) => qualifiers.map((qual) => `${cat.id}.${qual.id}`));
+  tables.sort((a, b) => uidOrder.indexOf(a.uid) - uidOrder.indexOf(b.uid));
 };
 
 const sx = {
