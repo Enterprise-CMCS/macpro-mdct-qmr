@@ -9,6 +9,19 @@ import * as Labels from "labels/RateTextLabels";
 const programTypes = ["Medicaid", "Separate CHIP", "Combined Rate"] as const;
 const rateComponents = ["numerator", "denominator", "rate"] as const;
 type ProgramType = typeof programTypes[number];
+/** Identifying info for each table we will display on the page */
+type TableKeys = {
+  uid: string;
+  label: string;
+  category?: string;
+}
+/** An intermediate shape, not guaranteed to have an entry for every program type */
+type PartialTableDataShape = TableKeys & Partial<Record<ProgramType, RateDataShape>>
+/** Corresponds directly to the tables as we display them */
+type TableDataShape = TableKeys & Record<ProgramType, RateDataShape>
+type Props = {
+  json: CombinedRatePayload;
+};
 
 const verticalTable = (table: any) => {
   return (
@@ -96,19 +109,10 @@ export const CombinedRateNDR = ({ json }: Props) => {
   );
 };
 
-type TableDataShape = {
-  uid: string;
-  label: string;
-  category?: string;
-  "Separate CHIP"?: RateDataShape;
-  Medicaid?: RateDataShape;
-  "Combined Rate"?: RateDataShape;
-};
-
 const collectRatesForDisplay = (
   json: CombinedRatePayload
-): TableDataShape[] => {
-  const tables: TableDataShape[] = [];
+): PartialTableDataShape[] => {
+  const tables: PartialTableDataShape[] = [];
   const data = json.data;
 
   // filter data by Medicaid, CHIP, and Combined Rates
@@ -148,7 +152,11 @@ const collectRatesForDisplay = (
 /**
  * Fill in strings such as `"-"` and `"Not reported"` for any undefined values.
  */
-const provideDefaultValues = (tables: TableDataShape[]) => {
+// Syntax note: it is possible to make custom assertions with arrow functions, but the syntax is surprisingly odd,
+// so it is less confusing to use a standard function declaration here.
+// Usage note: Normally assertion functions throw errors when an object isn't of the asserted type,
+// but it is also valid to coerce it into that type instead, as we do here.
+function provideDefaultValues (tables: PartialTableDataShape[]): asserts tables is TableDataShape[] {
   tables?.forEach((table) => {
     programTypes.forEach((header) => {
       const notAnswered = header === "Combined Rate" ? "" : "Not reported";
@@ -176,10 +184,6 @@ const sortRates = (tables: TableDataShape[], year: string, measure: string) => {
     .map((cat) => [...qualifiers.map((qual) => `${cat.id}.${qual.id}`)])
     .flat();
   tables.sort((a, b) => sortList.indexOf(a.uid) - sortList.indexOf(b.uid));
-};
-
-type Props = {
-  json: CombinedRatePayload;
 };
 
 const sx = {
