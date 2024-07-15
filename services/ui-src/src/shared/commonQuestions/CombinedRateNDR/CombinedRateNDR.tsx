@@ -14,13 +14,13 @@ type ProgramType = typeof programTypes[number];
 const verticalTable = (table: any) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
-      {programTypes.slice(0, -1).map((programType) => (
-        <CUI.List padding="0 0 1rem 2rem" textTransform="capitalize">
+      {programTypes.slice(0, -1).map((programType, ptIndex) => (
+        <CUI.List key={ptIndex} padding="0 0 1rem 2rem" textTransform="capitalize">
           <CUI.Text fontWeight="bold" mb="2">
             {programType}
           </CUI.Text>
-          {rateComponents.map((rateComponent) => (
-            <CUI.ListItem pl="7">
+          {rateComponents.map((rateComponent, rIndex) => (
+            <CUI.ListItem key={rIndex} pl="7">
               {rateComponent}: {table[programType]?.[rateComponent.toLowerCase()]}
             </CUI.ListItem>
           ))}
@@ -42,19 +42,19 @@ const horizontalTable = (table: TableDataShape) => {
       <CUI.Thead>
         <CUI.Tr>
           <CUI.Td></CUI.Td>
-          {programTypes.map((programTypes) => (
-            <CUI.Th sx={sx.header}>{programTypes}</CUI.Th>
+          {programTypes.map((programTypes, index) => (
+            <CUI.Th key={index} sx={sx.header}>{programTypes}</CUI.Th>
           ))}
         </CUI.Tr>
       </CUI.Thead>
       <CUI.Tbody>
-        {rateComponents.map((rateComponent) => (
-          <CUI.Tr sx={sx.row}>
+        {rateComponents.map((rateComponent, rIndex) => (
+          <CUI.Tr key={rIndex} sx={sx.row}>
             <CUI.Th sx={sx.verticalHeader} scope="row">
               {rateComponent}
             </CUI.Th>
-            {programTypes.map((programType) => (
-              <CUI.Td isNumeric sx={sx.content}>
+            {programTypes.map((programType, ptIndex) => (
+              <CUI.Td key={ptIndex} isNumeric sx={sx.content}>
                 {table[programType]?.[rateComponent]}
               </CUI.Td>
             ))}
@@ -104,9 +104,9 @@ export const CombinedRateNDR = ({ json }: Props) => {
 
   return (
     <CUI.Box sx={sx.tableContainer} mb="3rem">
-      {tables?.map((table) => {
+      {tables?.map((table, index) => {
         return (
-          <CUI.Box as={"section"}>
+          <CUI.Box key={index} as={"section"}>
             {table.category ? (
               <CUI.Heading fontSize="xl" mt="12" mb="2">
                 {table.category} - {table.label}
