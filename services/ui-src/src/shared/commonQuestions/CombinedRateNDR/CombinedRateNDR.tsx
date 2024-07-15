@@ -4,7 +4,6 @@ import {
   RateCategoryMap,
   RateDataShape,
 } from "./CombinedRateTypes";
-import { useEffect, useState } from "react";
 import { LabelData } from "utils";
 import * as Labels from "labels/RateTextLabels";
 
@@ -86,23 +85,18 @@ export const sortRateNDR = (
 };
 
 export const CombinedRateNDR = ({ json }: Props) => {
-  const [tables, setTables] = useState<TableDataShape[]>();
-  const measure = json?.measure!;
-  const year = json?.year!;
+  const measure = json.measure;
+  const year = json.year;
   const data = collectRatesForDisplay(json);
   const headers: ProgramType[] = ["Medicaid", "Separate CHIP", "Combined Rate"];
   const rows: Measures[] = ["numerator", "denominator", "rate"];
 
   //dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
   const rateTextLabel = Labels[`RateLabel${year}` as keyof typeof Labels];
-  useEffect(() => {
-    if (rateTextLabel) {
-      const { categories, qualifiers } = rateTextLabel!.getCatQualLabels(
-        measure! as keyof typeof rateTextLabel.data
-      );
-      setTables(sortRateNDR(data, categories, qualifiers));
-    }
-  }, [rateTextLabel]);
+  const { categories, qualifiers } = rateTextLabel!.getCatQualLabels(
+    measure! as keyof typeof rateTextLabel.data
+  );
+  const tables = sortRateNDR(data, categories, qualifiers);
 
   //centralize formatting of the display data so that all the renders value are consistent
   tables?.forEach((table) => {
@@ -154,11 +148,8 @@ type TableDataShape = {
 };
 
 const collectRatesForDisplay = (
-  json: CombinedRatePayload | undefined
+  json: CombinedRatePayload
 ): TableDataShape[] => {
-  if (!json) {
-    return [];
-  }
   const tables: TableDataShape[] = [];
   const data = json.data;
 
