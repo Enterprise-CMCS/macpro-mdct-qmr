@@ -10,6 +10,7 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { PCRRate } from "components";
 import { mockLDFlags } from "../../../../../../setupJest";
+import { LabelData } from "utils";
 
 interface Props {
   component?: RateComp | undefined;
@@ -109,7 +110,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(PCR-XX) Ensure component renders", () => {
     // modifying data to be easier to check
-    PCRData.qualifiers = PCRData.qualifiers!.map((qual) => ({
+    PCRData.qualifiers = PCRData.qualifiers!.map((qual: LabelData) => ({
       id: qual.id,
       text: `qual ${qual.label}`,
       label: `qual ${qual.label}`,

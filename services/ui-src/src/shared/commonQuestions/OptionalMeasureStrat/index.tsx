@@ -58,7 +58,7 @@ export const buildOmsCheckboxes = ({
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   measureName?: string;
-  inputFieldNames?: string[] | LabelData[];
+  inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];

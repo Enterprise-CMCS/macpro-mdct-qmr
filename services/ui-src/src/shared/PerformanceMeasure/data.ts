@@ -5,7 +5,7 @@ export interface PerformanceMeasureData {
   qualifiers?: LabelData[]; // age ranges, etc
   categories?: LabelData[]; //performance measure descriptions
   measureName?: string;
-  inputFieldNames?: LabelData[] | string[];
+  inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
   customPrompt?: string; // Default: "Enter a number for the numerator and the denominator. Rate will auto-calculate:"
   questionText?: string[];

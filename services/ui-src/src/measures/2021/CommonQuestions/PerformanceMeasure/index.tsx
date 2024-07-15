@@ -27,7 +27,7 @@ interface NdrSetProps {
   categories?: LabelData[];
   qualifiers?: LabelData[];
   measureName?: string;
-  inputFieldNames?: string[];
+  inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
   rateReadOnly: boolean;
   calcTotal: boolean;
