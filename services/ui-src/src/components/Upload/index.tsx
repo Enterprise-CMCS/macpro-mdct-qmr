@@ -303,7 +303,6 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       <CUI.Button
         data-testid={`test-delete-btn-${index}`}
         data-cy={`upload-delete-btn-${index}`}
-        ariaLabel={`Delete file-upload-${file.filename}`}
         background="none"
         onClick={async () => {
           await Storage.remove(file.s3Key);

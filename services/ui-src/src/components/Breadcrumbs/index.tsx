@@ -17,7 +17,7 @@ export const Breadcrumbs = ({ items, color }: Props) => {
   const filteredItems = items.filter((item) => item.name !== "");
   const { pathname } = useLocation();
   return (
-    <CUI.Flex flexGrow="1">
+    <CUI.Flex flexGrow={[1]}>
       {isMultipleItems && (
         <CUI.Center fontSize="2xl" mr="4">
           <Link
