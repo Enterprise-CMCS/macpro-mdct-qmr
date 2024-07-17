@@ -1,5 +1,7 @@
 import { LabelData } from "utils";
 import { ndrFormula } from "types";
+import * as DC from "dataConstants";
+import { RateFields } from "./TypeRateFields";
 
 export interface Props {
   data: PerformanceMeasureData;
@@ -48,4 +50,17 @@ export interface PerformanceMeasureData {
   questionListTitles?: string[];
   questionSubtext?: string[];
   questionSubtextTitles?: string[];
+}
+
+export type PerformanceMeasureRate = {
+  [label: string]: RateFields[] | undefined;
+};
+
+export interface PerformanceMeasure {
+  [DC.PERFORMANCE_MEASURE]?: {
+    [DC.EXPLAINATION]?: string;
+    [DC.RATES]?: PerformanceMeasureRate;
+    [DC.PMHYBRIDEXPLANATION]?: string;
+  };
+  [DC.PERFORMANCE_MEASURE_APPLY_ALL_AGES]?: string; // Applicable to State Specific Measures
 }
