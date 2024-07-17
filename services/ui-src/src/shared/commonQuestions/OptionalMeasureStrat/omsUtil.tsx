@@ -3,12 +3,7 @@ import { complexRateFields, RateFields } from "shared/types";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { ComponentFlagType, usePerformanceMeasureContext } from "./context";
-import {
-  LabelData,
-  cleanString,
-  isLegacyLabel,
-  stringToLabelData,
-} from "utils";
+import { LabelData, isLegacyLabel } from "utils";
 
 interface TempRate {
   numerator?: number;
@@ -28,18 +23,15 @@ interface TotalCalcHookProps {
 interface CalcOmsTotalProp {
   watchOMS: any;
   cleanedCategory: string;
-  qualifiers: string[] | LabelData[];
+  qualifiers: LabelData[];
   rateMultiplicationValue?: number;
   numberOfDecimals: number;
   componentFlag?: any;
 }
 
 //this function will determine how to retrieve ndr value based on qual type
-const NDR = (watchOMS: any, cleanedCategory: any, qual: string | LabelData) => {
-  if (typeof qual === "string") {
-    const cleanedQual = cleanString(qual);
-    return watchOMS?.[cleanedQual]?.[cleanedCategory];
-  } else if (isLegacyLabel()) {
+const NDR = (watchOMS: any, cleanedCategory: any, qual: LabelData) => {
+  if (isLegacyLabel()) {
     return watchOMS?.[qual.id]?.[cleanedCategory];
   } else {
     return watchOMS?.[cleanedCategory]?.[qual.id];
@@ -284,11 +276,10 @@ export const useTotalAutoCalculation = ({
   >();
 
   useEffect(() => {
-    const cleanedQualifiers = stringToLabelData(qualifiers);
     const totalFieldName = `${name}.rates.${
-      cleanedQualifiers.slice(-1)[0].id
+      qualifiers.slice(-1)[0].id
     }.${cleanedCategory}`;
-    const nonTotalQualifiers = cleanedQualifiers.slice(0, -1);
+    const nonTotalQualifiers = qualifiers.slice(0, -1);
     const includedNames = nonTotalQualifiers.map(
       (s) => `${name}.rates.${s.id}.${cleanedCategory}`
     );
