@@ -4,32 +4,48 @@ import {
   RateCategoryMap,
   RateDataShape,
 } from "./CombinedRateTypes";
+import * as Labels from "labels/RateTextLabels";
 
-type ProgramType = "Medicaid" | "Separate CHIP" | "Combined Rate";
-type Measures = "numerator" | "denominator" | "rate";
+const programTypes = ["Medicaid", "Separate CHIP", "Combined Rate"] as const;
+const rateComponents = ["numerator", "denominator", "rate"] as const;
+type ProgramType = typeof programTypes[number];
+/** Identifying info for each table we will display on the page */
+type TableKeys = {
+  uid: string;
+  label: string;
+  category?: string;
+};
+/** An intermediate shape, not guaranteed to have an entry for every program type */
+type PartialTableDataShape = TableKeys &
+  Partial<Record<ProgramType, RateDataShape>>;
+/** Corresponds directly to the tables as we display them */
+type TableDataShape = TableKeys & Record<ProgramType, RateDataShape>;
+type Props = {
+  json: CombinedRatePayload;
+};
 
-const VerticalTable = (
-  headers: ProgramType[],
-  rows: Measures[],
-  table: any
-) => {
+const verticalTable = (table: TableDataShape) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
-      {headers.slice(0, -1).map((header) => (
-        <CUI.List padding="0 0 1rem 2rem" textTransform="capitalize">
+      {programTypes.slice(0, -1).map((programType, ptIndex) => (
+        <CUI.List
+          key={ptIndex}
+          padding="0 0 1rem 2rem"
+          textTransform="capitalize"
+        >
           <CUI.Text fontWeight="bold" mb="2">
-            {header}
+            {programType}
           </CUI.Text>
-          {rows.map((row) => (
-            <CUI.ListItem pl="7">
-              {row}: {table[header]?.[row.toLowerCase()]}
+          {rateComponents.map((rateComponent, rIndex) => (
+            <CUI.ListItem key={rIndex} pl="7">
+              {rateComponent}: {table[programType][rateComponent]}
             </CUI.ListItem>
           ))}
         </CUI.List>
       ))}
       <CUI.List padding="0 0 1rem 2rem">
         <CUI.Text fontWeight="bold" mb="2">
-          {headers[2]}: {table["Combined Rate"]?.rate}
+          {programTypes[2]}: {table["Combined Rate"]?.rate}
         </CUI.Text>
       </CUI.List>
       <CUI.Divider borderColor="gray.300" />
@@ -37,30 +53,28 @@ const VerticalTable = (
   );
 };
 
-const HorizontalTable = (
-  headers: ProgramType[],
-  rows: Measures[],
-  table: TableDataShape
-) => {
+const horizontalTable = (table: TableDataShape) => {
   return (
     <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
       <CUI.Thead>
         <CUI.Tr>
           <CUI.Td></CUI.Td>
-          {headers.map((header) => (
-            <CUI.Th sx={sx.header}>{header}</CUI.Th>
+          {programTypes.map((programTypes, index) => (
+            <CUI.Th key={index} sx={sx.header}>
+              {programTypes}
+            </CUI.Th>
           ))}
         </CUI.Tr>
       </CUI.Thead>
       <CUI.Tbody>
-        {rows.map((row) => (
-          <CUI.Tr sx={sx.row}>
+        {rateComponents.map((rateComponent, rIndex) => (
+          <CUI.Tr key={rIndex} sx={sx.row}>
             <CUI.Th sx={sx.verticalHeader} scope="row">
-              {row}
+              {rateComponent}
             </CUI.Th>
-            {headers.map((header) => (
-              <CUI.Td isNumeric sx={sx.content}>
-                {table[header]?.[row]}
+            {programTypes.map((programType, ptIndex) => (
+              <CUI.Td key={ptIndex} isNumeric sx={sx.content}>
+                {table[programType]?.[rateComponent]}
               </CUI.Td>
             ))}
           </CUI.Tr>
@@ -72,27 +86,14 @@ const HorizontalTable = (
 
 export const CombinedRateNDR = ({ json }: Props) => {
   const tables = collectRatesForDisplay(json);
-  const headers: ProgramType[] = ["Medicaid", "Separate CHIP", "Combined Rate"];
-  const rows: Measures[] = ["numerator", "denominator", "rate"];
-
-  //centralize formatting of the display data so that all the renders value are consistent
-  tables.forEach((table) => {
-    headers.forEach((header) => {
-      const notAnswered = header === "Combined Rate" ? "" : "Not reported";
-      //setting values to not answered if key doesn't exist
-      const numerator = table[header]?.numerator ?? notAnswered;
-      const denominator = table[header]?.denominator ?? notAnswered;
-      const rate = table[header]?.rate ?? "-";
-      //add value back to table object
-      table[header] = { ...table[header]!, numerator, denominator, rate };
-    });
-  });
+  provideDefaultValues(tables);
+  sortRates(tables, json.year, json.measure);
 
   return (
     <CUI.Box sx={sx.tableContainer} mb="3rem">
-      {tables.map((table) => {
+      {tables.map((table, index) => {
         return (
-          <CUI.Box as={"section"}>
+          <CUI.Box key={index} as={"section"}>
             {table.category ? (
               <CUI.Heading fontSize="xl" mt="12" mb="2">
                 {table.category} - {table.label}
@@ -102,12 +103,8 @@ export const CombinedRateNDR = ({ json }: Props) => {
                 {table.label}
               </CUI.Heading>
             )}
-            <CUI.Hide below="md">
-              {HorizontalTable(headers, rows, table)}
-            </CUI.Hide>
-            <CUI.Show below="md">
-              {VerticalTable(headers, rows, table)}
-            </CUI.Show>
+            <CUI.Hide below="md">{horizontalTable(table)}</CUI.Hide>
+            <CUI.Show below="md">{verticalTable(table)}</CUI.Show>
           </CUI.Box>
         );
       })}
@@ -115,25 +112,13 @@ export const CombinedRateNDR = ({ json }: Props) => {
   );
 };
 
-type TableDataShape = {
-  uid: string;
-  label: string;
-  category?: string;
-  "Separate CHIP"?: RateDataShape;
-  Medicaid?: RateDataShape;
-  "Combined Rate"?: RateDataShape;
-};
-
 const collectRatesForDisplay = (
-  json: CombinedRatePayload | undefined
-): TableDataShape[] => {
-  if (!json) {
-    return [];
-  }
-  const tables: TableDataShape[] = [];
+  json: CombinedRatePayload
+): PartialTableDataShape[] => {
+  const tables: PartialTableDataShape[] = [];
   const data = json.data;
 
-  // filter data by Medicaid, CHIP, and Combined Rates
+  // Filter data by Medicaid, CHIP, and Combined Rates
   const medicaidData = (data?.find((item) => item.column == "Medicaid")
     ?.rates ?? {}) as RateCategoryMap;
   const chipData = (data?.find((item) => item.column == "CHIP")?.rates ??
@@ -167,8 +152,48 @@ const collectRatesForDisplay = (
   return tables;
 };
 
-type Props = {
-  json: CombinedRatePayload;
+/**
+ * Fill in strings such as `"-"` and `"Not reported"` for any undefined values.
+ */
+// Syntax note: it is possible to make custom assertions with arrow functions, but the syntax is surprisingly odd,
+// so it is less confusing to use a standard function declaration here.
+// Usage note: Normally assertion functions throw errors when an object isn't of the asserted type,
+// but it is also valid to coerce it into that type instead, as we do here.
+function provideDefaultValues(
+  tables: PartialTableDataShape[]
+): asserts tables is TableDataShape[] {
+  for (let table of tables) {
+    for (let programType of programTypes) {
+      const notAnswered = programType === "Combined Rate" ? "" : "Not reported";
+      // Set values to not answered if key doesn't exist
+      const numerator = table[programType]?.numerator ?? notAnswered;
+      const denominator = table[programType]?.denominator ?? notAnswered;
+      const rate = table[programType]?.rate ?? "-";
+      // Add value back to table object
+      table[programType] = {
+        ...table[programType]!,
+        numerator,
+        denominator,
+        rate,
+      };
+    }
+  }
+}
+
+/**
+ * Sort the rates in-place, to match how they are displayed on individual measure pages.
+ */
+const sortRates = (tables: TableDataShape[], year: string, measure: string) => {
+  // Dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
+  const rateTextLabel = Labels[`RateLabel${year}` as keyof typeof Labels];
+  const { categories, qualifiers } = rateTextLabel.getCatQualLabels(
+    measure as keyof typeof rateTextLabel.data
+  );
+  // Build an array of uids in the order they are displayed in the pm section
+  const uidOrder = categories.flatMap((cat) =>
+    qualifiers.map((qual) => `${cat.id}.${qual.id}`)
+  );
+  tables.sort((a, b) => uidOrder.indexOf(a.uid) - uidOrder.indexOf(b.uid));
 };
 
 const sx = {

@@ -12,8 +12,8 @@ export interface ContextProps {
   AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
-  categories: string[] | LabelData[];
-  qualifiers: string[] | LabelData[];
+  categories: LabelData[];
+  qualifiers: LabelData[];
   measureName?: string;
   inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];

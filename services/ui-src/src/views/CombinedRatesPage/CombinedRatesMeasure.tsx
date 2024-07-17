@@ -2,8 +2,9 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
-import { useGetRate } from "hooks/api/useGetRate";
+import { useGetRate } from "hooks/api";
 import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
+import { LoadingWrapper } from "components";
 
 interface Props {
   year: string;
@@ -45,7 +46,6 @@ export const CombinedRatesMeasure = ({
     coreSet: combinedCoreSetAbbr,
     year,
   });
-  const item = data?.Item;
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -88,8 +88,12 @@ export const CombinedRatesMeasure = ({
           </CUI.Link>
         </CUI.ListItem>
       </CUI.UnorderedList>
-      <DataSourceInformationBanner data={item?.data!} />
-      <CombinedRateNDR json={data?.Item} />
+      <LoadingWrapper isLoaded={!!data}>
+        {data?.Item?.data && (
+          <DataSourceInformationBanner data={data.Item.data} />
+        )}
+        {data?.Item && <CombinedRateNDR json={data.Item} />}
+      </LoadingWrapper>
     </QMR.StateLayout>
   );
 };

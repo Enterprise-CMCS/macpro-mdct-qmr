@@ -19,6 +19,11 @@ export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
   });
 };
 
+//checks to see which set of data is valid, and only return those for calculation
+export const removeEmptyRates = (data: FormattedMeasureData[]) => {
+  return data.filter((program) => Object.values(program.rates).length > 0);
+};
+
 export const calculateAndPutRate = async (
   pathParameters: MeasureParameters
 ) => {
@@ -37,9 +42,12 @@ export const calculateAndPutRate = async (
     const data = await getMeasureByCoreSet(combinedCoreSet!, pathParameters);
     const formattedData = formatMeasureData(data);
 
+    //check which data is valid for summation
+    const validatedData = removeEmptyRates(formattedData);
+
     //based on the measure data, it will check against the calculations that exist and see which one is a match
     const calculation: RateCalculation | undefined = dataSrcCalculations.find(
-      (cal) => cal.check(formattedData)
+      (cal) => cal.check(validatedData)
     );
 
     const combinedRates = [
@@ -47,7 +55,7 @@ export const calculateAndPutRate = async (
       calculation
         ? calculation.calculate(
             measure!,
-            formattedData?.map((data) => data.rates)
+            validatedData?.map((data) => data.rates)
           )
         : {},
     ];

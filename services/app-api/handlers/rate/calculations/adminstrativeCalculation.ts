@@ -31,26 +31,31 @@ export class AdminstrativeCalculation extends RateCalculation {
     const medicaidSources =
       arr.find((data) => data.column === "Medicaid")?.dataSource ?? [];
 
-    //if the user had selected hybrid as a data source, we will not use this calculation
+    // If neither measure has any data source, we will not use this calculation
+    if (chipSources.length === 0 && medicaidSources.length === 0) {
+      return false;
+    }
+
+    // If the user had selected hybrid as a data source, we will not use this calculation
     const isHybrid = [chipSources, medicaidSources].some((srcs) => {
       return (srcs as string[])?.includes(DataSource.Hybrid);
     });
 
-    if (!isHybrid) {
-      for (const dataSrc of this.dataSrcMap) {
-        const chipSrcExist = dataSrc.CHIP.every(
-          (chipSrc) => chipSources.indexOf(chipSrc) > -1
-        );
-        const medicaidSrcExist = dataSrc.Medicaid.every(
-          (medSrc) => medicaidSources?.indexOf(medSrc) > -1
-        );
-        //if data source is a match in both CHIP & medicaid return true
-        if (chipSrcExist && medicaidSrcExist) {
-          return true;
-        }
-      }
+    if (isHybrid) {
+      return false;
     }
-    return false;
+
+    return this.dataSrcMap.some((dataSrc) => {
+      // If a measure has no data sources, .every() returns true
+      // This is good because we still want to calculate even if only one measure is complete.
+      const chipSourcesMatch = chipSources.every((chipSrc) =>
+        dataSrc.CHIP.includes(chipSrc)
+      );
+      const medicaidSourcesMatch = medicaidSources.every((medSrc) =>
+        dataSrc.Medicaid.includes(medSrc)
+      );
+      return chipSourcesMatch && medicaidSourcesMatch;
+    });
   }
 
   getFormula(measure: string): Function {
