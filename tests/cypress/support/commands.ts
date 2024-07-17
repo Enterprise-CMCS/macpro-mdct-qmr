@@ -99,55 +99,68 @@ Cypress.Commands.add("goToMeasure", (measure) => {
 });
 
 // Correct sections visible when user is reporting data on measure
-Cypress.Commands.add("displaysSectionsWhenUserIsReporting", () => {
-  cy.get('[data-cy="DidReport0"]').click();
+Cypress.Commands.add(
+  "displaysSectionsWhenUserIsReporting",
+  (coreSet: string) => {
+    cy.get('[data-cy="DidReport0"]').click();
 
-  // these sections should not exist when a user selects they are reporting
-  cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
-    "not.exist"
-  );
+    // these sections should not exist when a user selects they are reporting
+    cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
+      "not.exist"
+    );
 
-  // these sections should be visible when a user selects they are reporting
-  cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
-  cy.get('[data-cy="Measurement Specification"]').should("be.visible");
-  cy.get('[data-cy="Data Source"]').should("be.visible");
-  cy.get('[data-cy="Date Range"]').should("be.visible");
-  cy.get('[data-cy="Definition of Population Included in the Measure"]').should(
-    "be.visible"
-  );
-  cy.get('[data-cy="Combined Rate(s) from Multiple Reporting Units"]').should(
-    "be.visible"
-  );
-  cy.get(
-    '[data-cy="Additional Notes/Comments on the measure (optional)"]'
-  ).should("be.visible");
-});
+    // these sections should be visible when a user selects they are reporting
+    cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
+    cy.get('[data-cy="Measurement Specification"]').should("be.visible");
+    cy.get('[data-cy="Data Source"]').should("be.visible");
+    cy.get('[data-cy="Date Range"]').should("be.visible");
+    cy.get(
+      '[data-cy="Definition of Population Included in the Measure"]'
+    ).should("be.visible");
+
+    if (coreSet === "HHCS") {
+      cy.get(
+        '[data-cy="Combined Rate(s) from Multiple Reporting Units"]'
+      ).should("be.visible");
+    }
+
+    cy.get(
+      '[data-cy="Additional Notes/Comments on the measure (optional)"]'
+    ).should("be.visible");
+  }
+);
 
 // Correct sections visible when user is not reporting data on measure
-Cypress.Commands.add("displaysSectionsWhenUserNotReporting", () => {
-  cy.wait(1000);
-  cy.get('[data-cy="DidReport1"]').click();
+Cypress.Commands.add(
+  "displaysSectionsWhenUserNotReporting",
+  (coreSet: string) => {
+    cy.wait(1000);
+    cy.get('[data-cy="DidReport1"]').click();
 
-  // these sections should not exist when a user selects they are not reporting
-  cy.get('[data-cy="Status of Data Reported"]').should("not.exist");
-  cy.get('[data-cy="Measurement Specification"]').should("not.exist");
-  cy.get('[data-cy="Data Source"]').should("not.exist");
-  cy.get('[data-cy="Date Range"]').should("not.exist");
-  cy.get('[data-cy="Definition of Population Included in the Measure"]').should(
-    "not.exist"
-  );
-  cy.get('[data-cy="Combined Rate(s) from Multiple Reporting Units"]').should(
-    "not.exist"
-  );
+    // these sections should not exist when a user selects they are not reporting
+    cy.get('[data-cy="Status of Data Reported"]').should("not.exist");
+    cy.get('[data-cy="Measurement Specification"]').should("not.exist");
+    cy.get('[data-cy="Data Source"]').should("not.exist");
+    cy.get('[data-cy="Date Range"]').should("not.exist");
+    cy.get(
+      '[data-cy="Definition of Population Included in the Measure"]'
+    ).should("not.exist");
 
-  // these sections should be visible when a user selects they are not reporting
-  cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
-    "be.visible"
-  );
-  cy.get(
-    '[data-cy="Additional Notes/Comments on the measure (optional)"]'
-  ).should("be.visible");
-});
+    if (coreSet === "HHCS") {
+      cy.get(
+        '[data-cy="Combined Rate(s) from Multiple Reporting Units"]'
+      ).should("not.exist");
+    }
+
+    // these sections should be visible when a user selects they are not reporting
+    cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
+      "be.visible"
+    );
+    cy.get(
+      '[data-cy="Additional Notes/Comments on the measure (optional)"]'
+    ).should("be.visible");
+  }
+);
 
 const clickCoreSetAction = (kebab: string, selector: string) => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {

@@ -67,7 +67,6 @@ const DEVCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
   ];
 

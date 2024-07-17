@@ -34,7 +34,6 @@ const LSCCHValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateOPMRates(OPM),
 
     // Performance Measure Validations

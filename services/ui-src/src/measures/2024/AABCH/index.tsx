@@ -64,7 +64,6 @@ export const AABCH = ({
               rateCalc={AABRateCalculation}
             />
           )}
-          <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               adultMeasure={false}

@@ -59,7 +59,6 @@ const CCWCHValidation = (data: FormData) => {
       ],
     }),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),

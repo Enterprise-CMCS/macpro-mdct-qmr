@@ -65,7 +65,6 @@ export const AMBCH = ({
               allowNumeratorGreaterThanDenominator
             />
           )}
-          <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               adultMeasure={false}
