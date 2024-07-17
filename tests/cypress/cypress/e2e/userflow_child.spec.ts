@@ -41,8 +41,8 @@ describe("Measure: CCW-CH", () => {
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
+    cy.displaysSectionsWhenUserNotReporting(abbr);
+    cy.displaysSectionsWhenUserIsReporting(abbr);
   });
 
   it(
