@@ -6,22 +6,21 @@ interface NDRforumla {
 
 export const ComplexNoNonZeroNumOrDenomOMS = (
   rateData: any,
+  OPM: any,
   ndrFormulas: NDRforumla[],
   errorLocation: string
 ) => {
   let errorArray: any[] = [];
   for (const key in rateData) {
-    if (key === "OPM") {
-      for (const opmLabel in rateData[key]) {
-        errorArray.push(
-          ...ComplexNoNonZeroNumOrDenom(
-            [],
-            [{ rate: rateData[key][opmLabel] }],
-            ndrFormulas,
-            `${errorLocation} - ${opmLabel}`
-          )
-        );
-      }
+    if (OPM && OPM.length > 0) {
+      errorArray.push(
+        ...ComplexNoNonZeroNumOrDenom(
+          [],
+          [{ description: key, rate: [...rateData[key]["OPM"]] }],
+          ndrFormulas,
+          `${errorLocation} - ${key}`
+        )
+      );
     } else {
       for (const category in rateData[key]) {
         errorArray.push(

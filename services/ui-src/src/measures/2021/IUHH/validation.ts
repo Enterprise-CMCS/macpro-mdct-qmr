@@ -100,10 +100,14 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   locationDictionary,
   label,
 }) => {
+  const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
+    return { rate: [rateData?.rates?.[x]?.OPM?.[0]] };
+  });
   return OPM === undefined
     ? [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},
+          rates ?? [],
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
@@ -123,6 +127,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
     : [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
+          rates ?? [],
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
