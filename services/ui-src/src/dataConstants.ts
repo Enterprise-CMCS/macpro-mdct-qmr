@@ -91,6 +91,8 @@ export const DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE =
 export const DENOMINATOR_INC_CHIP = "DenominatorIncCHIP";
 export const DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE =
   "DenominatorIncMedicareMedicaidDualEligible";
+export const DENOMINATOR_INC_MEDICAID_EXPANSION =
+  "DenominatorIncMedicareMedicaidExpansion";
 export const DENOMINATOR_INC_MEDICAID_POP = "DenominatorIncMedicaidPop";
 export const DENOMINATOR_INC_OTHER = "DenominatorIncOther";
 export const DESCRIPTION = "description";

@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2023/shared/globalValidations";
+import * as GV from "measures/2024/shared/globalValidations";
 import * as PMD from "./data";
-import * as Types from "measures/2023/shared/CommonQuestions/types";
+import * as Types from "measures/2024/shared/CommonQuestions/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 const MSCADValidation = (data: Types.DefaultFormData) => {
@@ -16,7 +16,7 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   const deviationReason = data[DC.DEVIATION_REASON];
 
   let errorArray: any[] = [];
-  if (data[DC.DID_REPORT] === DC.NO) {
+  if (data[DC.DID_REPORT] === "no") {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }

@@ -104,17 +104,15 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
 
   OPM?.forEach(({ description }, idx) => {
     if (description) {
-      //using the data to determine if the data is pre or post data structure change
-      const type = typeof context.qualifiers[0];
-      //if the type is an object, that means we're year >= 2023, string is year <= 2022
-      const cleanedFieldName =
-        type === "object"
-          ? `${DC.OPM_KEY}${cleanString(description)}`
-          : cleanString(description);
-      const key =
-        type === "object"
-          ? `${name}.rates.OPM.${cleanedFieldName}`
-          : `${name}.rates.${cleanedFieldName}.OPM`;
+      //because of the structural changes from 2021/2022 to 2023, we need to track when to modify the data structure
+      const cleanedFieldName = isLegacyLabel()
+        ? cleanString(description)
+        : `${DC.OPM_KEY}${cleanString(description)}`;
+
+      const key = isLegacyLabel()
+        ? `${name}.rates.${cleanedFieldName}.OPM`
+        : `${name}.rates.OPM.${cleanedFieldName}`;
+
       const rateComponent = RateComponent(context, key);
       const displayValue = description ?? `UNSET_OPM_FIELD_NAME_${idx}`;
 

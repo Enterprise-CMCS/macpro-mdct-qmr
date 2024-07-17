@@ -15,6 +15,9 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
+  stackTags:
+    PROJECT: ${self:custom.project}
+    SERVICE: ${self:service}  
   iam:
     role:
       path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
@@ -40,6 +43,7 @@ provider:
           Resource: "*"
 
 custom:
+  project: "qmr"
   stage: ${opt:stage, self:provider.stage}
   region: ${opt:region, self:provider.region}
   serverless-offline-ssm:
@@ -49,6 +53,7 @@ custom:
   iamPermissionsBoundaryPolicy: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
   coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
   measureTableName: ${env:measureTableName, param:MeasureTableName}
+  rateTableName: ${env:rateTableName, param:RateTableName}
   serverlessTerminationProtection:
     stages:
       - master
@@ -86,6 +91,7 @@ functions:
     environment:
       coreSetTableName: ${self:custom.coreSetTableName}
       measureTableName: ${self:custom.measureTableName}
+      rateTableName: ${self:custom.rateTableName}
       dynamoSnapshotS3BucketName: !Ref DynamoSnapshotBucket
   avScan:
     handler: src/antivirus.lambdaHandleEvent

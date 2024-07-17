@@ -156,6 +156,8 @@ export interface RateFields {
   [DC.DENOMINATOR]?: string;
   [DC.RATE]?: string;
   [DC.UID]?: string;
+  category?: string;
+  isTotal?: boolean;
 }
 
 export interface complexRateFields {

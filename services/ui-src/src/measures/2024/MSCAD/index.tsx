@@ -1,9 +1,12 @@
-import { useEffect } from "react";
 import * as Q from "./questions";
-import * as CMQ from "measures/2023/shared/CommonQuestions";
-import * as PMD from "./data";
 import * as QMR from "components";
+import * as CMQ from "measures/2024/shared/CommonQuestions";
+import * as Types from "measures/2024/shared/CommonQuestions/types";
+import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
+import { useEffect } from "react";
+import * as PMD from "./data";
+import * as DC from "dataConstants";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const MSCAD = ({
@@ -11,7 +14,7 @@ export const MSCAD = ({
   year,
   measureId,
   setValidationFunctions,
-  isNotReportingData,
+
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
@@ -21,17 +24,22 @@ export const MSCAD = ({
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
+  const { watch } = useFormContext<Types.DefaultFormData>();
+  const data = watch();
 
   return (
     <>
-      <CMQ.Reporting
+      <Q.Reporting
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+      />
+      <Q.HowDidYouReport
+        reportingYear={year}
+        healthHomeMeasure
         removeLessThan30
       />
-
-      {!isNotReportingData && (
+      {data[DC.DID_REPORT] !== DC.NO && (
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />

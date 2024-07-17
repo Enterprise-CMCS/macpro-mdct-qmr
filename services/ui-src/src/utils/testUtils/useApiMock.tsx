@@ -8,6 +8,7 @@ import {
   useGetCoreSets,
   useGetMeasure,
   useGetMeasures,
+  useGetRate,
   useUpdateMeasure,
   useGetReportingYears,
   useGetBanner,
@@ -130,6 +131,74 @@ export const defaultMockValues = {
       mutate: () => {}; // eslint-disable-line
     },
   },
+  useGetRateValues: {
+    isLoading: false,
+    error: undefined,
+    isError: undefined,
+    data: {
+      Item: {
+        compoundKey: "MA2024CCSAAB-CH",
+        measure: "AAB-CH",
+        state: "MA",
+        data: [
+          {
+            column: "CHIP",
+            dataSourceSelections: {
+              AdministrativeData0: {
+                selected: ["MedicaidManagementInformationSystemMMIS"],
+              },
+            },
+            dataSource: ["AdministrativeData"],
+            rates: {
+              ZCy3XP: [
+                {
+                  uid: "ZCy3XP.xS5HMm",
+                  label: "Ages 3 months to 17 years",
+                  rate: "0.0",
+                  numerator: "1",
+                  denominator: "1",
+                },
+              ],
+            },
+          },
+          {
+            column: "Medicaid",
+            dataSourceSelections: {
+              AdministrativeData0: {
+                selected: ["MedicaidManagementInformationSystemMMIS"],
+              },
+            },
+            dataSource: ["AdministrativeData"],
+            rates: {
+              ZCy3XP: [
+                {
+                  uid: "ZCy3XP.xS5HMm",
+                  label: "Ages 3 months to 17 years",
+                  rate: "0.0",
+                  numerator: "2",
+                  denominator: "2",
+                },
+              ],
+            },
+          },
+          {
+            column: "Combined Rate",
+            rates: [
+              {
+                uid: "ZCy3XP.xS5HMm",
+                label: "Ages 3 months to 17 years",
+                category: "",
+                rate: "0.0",
+                numerator: "3",
+                denominator: "3",
+              },
+            ],
+          },
+        ],
+        year: "2024",
+      },
+    },
+  },
 };
 
 export const useApiMock = ({
@@ -144,6 +213,7 @@ export const useApiMock = ({
   useGetCoreSetsValues = defaultMockValues.useGetCoreSetsValues,
   useGetMeasureValues = defaultMockValues.useGetMeasureValues,
   useGetMeasuresValues = defaultMockValues.useGetMeasuresValues,
+  useGetRateValues = defaultMockValues.useGetRateValues,
   useUpdateMeasureValues = defaultMockValues.useUpdateMeasureValues,
   useGetReportingYearsValues = defaultMockValues.useGetReportingYearsValues,
 }) => {
@@ -176,6 +246,9 @@ export const useApiMock = ({
   });
   (useUpdateMeasure as jest.Mock).mockReturnValue({
     ...useUpdateMeasureValues,
+  });
+  (useGetRate as jest.Mock).mockReturnValue({
+    ...useGetRateValues,
   });
   (useGetReportingYears as jest.Mock).mockReturnValue({
     ...useGetReportingYearsValues,
