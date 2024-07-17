@@ -6,5 +6,5 @@ export interface QualifierLabelData extends LabelData {
 }
 
 export interface Qualifiers {
-  [DC.QUALIFIERS]?: string[] | QualifierLabelData[];
+  [DC.QUALIFIERS]?: QualifierLabelData[];
 }
