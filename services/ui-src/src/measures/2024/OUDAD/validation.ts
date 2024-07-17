@@ -43,7 +43,6 @@ const OUDValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeliverySystem(data),

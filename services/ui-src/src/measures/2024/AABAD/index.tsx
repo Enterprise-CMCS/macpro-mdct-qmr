@@ -62,7 +62,6 @@ export const AABAD = ({
               rateCalc={AABRateCalculation}
             />
           )}
-          <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}

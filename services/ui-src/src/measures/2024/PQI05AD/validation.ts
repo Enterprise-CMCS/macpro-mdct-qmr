@@ -62,7 +62,6 @@ const PQI05Validation = (data: FormData) => {
       ageGroups,
       PMD.categories
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateAtLeastOneDataSourceType(data),

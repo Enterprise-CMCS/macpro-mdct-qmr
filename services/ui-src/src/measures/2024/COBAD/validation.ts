@@ -44,7 +44,6 @@ const COBADValidation = (data: FormData) => {
     ),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateAtLeastOneDataSourceType(data),

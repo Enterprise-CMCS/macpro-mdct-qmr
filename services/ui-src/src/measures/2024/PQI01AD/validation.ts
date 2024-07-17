@@ -57,7 +57,6 @@ const PQI01Validation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateAtLeastOneDataSourceType(data),

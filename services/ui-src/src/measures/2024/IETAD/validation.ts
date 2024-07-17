@@ -95,7 +95,6 @@ const IETValidation = (data: FormData) => {
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],
     }),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),

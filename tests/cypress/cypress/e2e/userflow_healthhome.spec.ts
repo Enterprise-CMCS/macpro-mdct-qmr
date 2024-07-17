@@ -27,8 +27,8 @@ describe("Measure: AMB-HH", () => {
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting();
-    cy.displaysSectionsWhenUserIsReporting();
+    cy.displaysSectionsWhenUserNotReporting("HHCS");
+    cy.displaysSectionsWhenUserIsReporting("HHCS");
   });
 
   it(
