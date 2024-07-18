@@ -5,7 +5,7 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { LabelData } from "utils";
+import { getLabelText, isLegacyLabel, LabelData } from "utils";
 import { ndrFormula } from "types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
@@ -43,9 +43,126 @@ interface NdrSetProps {
   rateCalc?: RateFormula;
 }
 
-const CategoryNdrSets = () => {};
+/** Maps over the categories given and creates rate sets based on the qualifiers, with a default of one rate */
+const CategoryNdrSets = ({
+  rateReadOnly,
+  categories = [],
+  qualifiers,
+  measureName,
+  inputFieldNames,
+  ndrFormulas,
+  rateScale,
+  customMask,
+  allowNumeratorGreaterThanDenominator,
+  calcTotal,
+  RateComponent,
+  customNumeratorLabel,
+  customDenominatorLabel,
+  customRateLabel,
+  rateCalc,
+}: NdrSetProps) => {
+  const register = useCustomRegister();
+  const labelText = getLabelText();
 
-const QualifierNdrSets = () => {};
+  return (
+    <>
+      {categories.map((cat) => {
+        let rates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
+          label: qual.label,
+          uid: isLegacyLabel() ? undefined : cat.id + "." + qual.id,
+          id: idx,
+        }));
+
+        rates = rates?.length ? rates : [{ id: 0 }];
+
+        //temporary check to make IETRate component work again, will be updated during the refactor
+        const registerId =
+          !isLegacyLabel() && measureName?.includes("IET")
+            ? `${DC.PERFORMANCE_MEASURE}.${DC.RATES}`
+            : `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`;
+
+        return (
+          <CUI.Box key={cat.id}>
+            <CUI.Text fontWeight="bold" my="5">
+              {labelText[cat.label] ?? cat.label}
+            </CUI.Text>
+            <RateComponent
+              readOnly={rateReadOnly}
+              rates={rates}
+              measureName={measureName}
+              inputFieldNames={inputFieldNames}
+              ndrFormulas={ndrFormulas}
+              rateMultiplicationValue={rateScale}
+              calcTotal={calcTotal}
+              categoryName={cat.label}
+              category={cat}
+              categories={categories}
+              qualifiers={qualifiers}
+              customMask={customMask}
+              customNumeratorLabel={customNumeratorLabel}
+              customDenominatorLabel={customDenominatorLabel}
+              customRateLabel={customRateLabel}
+              rateCalc={rateCalc}
+              {...register(registerId)}
+              allowNumeratorGreaterThanDenominator={
+                allowNumeratorGreaterThanDenominator
+              }
+            />
+          </CUI.Box>
+        );
+      })}
+    </>
+  );
+};
+
+const QualifierNdrSets = ({
+  rateReadOnly,
+  categories = [],
+  qualifiers = [],
+  measureName,
+  inputFieldNames,
+  ndrFormulas,
+  rateScale,
+  customMask,
+  calcTotal,
+  allowNumeratorGreaterThanDenominator,
+  RateComponent,
+  customNumeratorLabel,
+  customDenominatorLabel,
+  customRateLabel,
+  rateCalc,
+}: NdrSetProps) => {
+  const register = useCustomRegister();
+  const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
+
+  const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
+    label: item.label,
+    uid: isLegacyLabel() ? undefined : `${categoryID}.${item.id}`, //this uid exist from 2023 onward
+    id: idx,
+  }));
+  return (
+    <>
+      <RateComponent
+        rates={rates}
+        readOnly={rateReadOnly}
+        measureName={measureName}
+        inputFieldNames={inputFieldNames}
+        ndrFormulas={ndrFormulas}
+        rateMultiplicationValue={rateScale}
+        customMask={customMask}
+        calcTotal={calcTotal}
+        customNumeratorLabel={customNumeratorLabel}
+        customDenominatorLabel={customDenominatorLabel}
+        customRateLabel={customRateLabel}
+        rateCalc={rateCalc}
+        allowNumeratorGreaterThanDenominator={
+          allowNumeratorGreaterThanDenominator
+        }
+        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
+      />
+    </>
+  );
+};
 
 /** Creates the NDR sets based on given categories and qualifiers */
 const PerformanceMeasureNdrs = (props: NdrSetProps) => {
@@ -96,6 +213,7 @@ export const PerformanceMeasure = ({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
   let readOnly = false;
+
   if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
     readOnly = arrayIsReadOnly(dataSourceWatch);
   } else if (dataSourceWatch) {
