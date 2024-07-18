@@ -69,22 +69,22 @@ export const CombinedRatesMeasure = ({
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>
           <CUI.Link
-            href={`/${state}/${year}/${combinedCoreSetAbbr}C/${measure}`}
-            aria-label="Link to CHIP measure"
-            target="_blank"
-            color="blue.600"
-          >
-            Separate CHIP - {measure} - {measureName}
-          </CUI.Link>
-        </CUI.ListItem>
-        <CUI.ListItem>
-          <CUI.Link
             href={`/${state}/${year}/${combinedCoreSetAbbr}M/${measure}`}
             aria-label="Link to Medicaid measure"
             target="_blank"
             color="blue.600"
           >
             Medicaid - {measure} - {measureName}
+          </CUI.Link>
+        </CUI.ListItem>
+        <CUI.ListItem>
+          <CUI.Link
+            href={`/${state}/${year}/${combinedCoreSetAbbr}C/${measure}`}
+            aria-label="Link to CHIP measure"
+            target="_blank"
+            color="blue.600"
+          >
+            Separate CHIP - {measure} - {measureName}
           </CUI.Link>
         </CUI.ListItem>
       </CUI.UnorderedList>
