@@ -3,7 +3,7 @@ import {
   DefaultFormData,
   RateFields,
 } from "measures/2021/CommonQuestions/types";
-import { exampleData } from "measures/2021/CommonQuestions/PerformanceMeasure/data";
+import { exampleData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 
 export const test_setup = (data: DefaultFormData) => {
