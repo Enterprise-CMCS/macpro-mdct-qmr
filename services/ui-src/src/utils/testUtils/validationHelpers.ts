@@ -156,10 +156,12 @@ export const generatePmQualifierRateData = (
     return {};
   }
   const rateData: PerformanceMeasure = { PerformanceMeasure: { rates: {} } };
-  const cats = pmd.categories?.length ? pmd.categories : [DC.SINGLE_CATEGORY];
+  const cats = pmd.categories?.length
+    ? pmd.categories
+    : [{ id: DC.SINGLE_CATEGORY }];
 
   for (let i = 0; i < pmd.qualifiers.length; i++) {
-    for (const c of cats?.map((c) => cleanString(c)) ?? []) {
+    for (const c of cats?.map((c) => c.id) ?? []) {
       rateData.PerformanceMeasure!.rates![c] ??= [];
       rateData?.PerformanceMeasure?.rates?.[c]?.push(testData[i]);
     }
@@ -185,7 +187,7 @@ export const generatePmCategoryRateData = (
 
   const rateData: PerformanceMeasure = { PerformanceMeasure: { rates: {} } };
 
-  for (const [i, c] of pmd.categories.map((c) => cleanString(c)).entries()) {
+  for (const [i, c] of pmd.categories.map((c) => c.id).entries()) {
     pmd.qualifiers?.forEach(() => {
       rateData.PerformanceMeasure!.rates![c] ??= [];
       rateData?.PerformanceMeasure?.rates?.[c]?.push(testData[i]);

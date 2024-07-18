@@ -319,7 +319,7 @@ export const measureDescriptions: MeasureList = {
     "CPU-AD":
       "Long-Term Services and Supports Comprehensive Care Plan and Update",
     "FUA-AD":
-      "Follow-up After Emergency Department Visit for Substance Use: Age 18 and Older",
+      "Follow-Up After Emergency Department Visit for Substance Use: Age 18 and Older",
     "FUH-AD":
       "Follow-Up After Hospitalization for Mental Illness: Age 18 and Older",
     "FUM-AD":

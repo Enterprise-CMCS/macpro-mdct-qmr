@@ -68,7 +68,6 @@ const DEVCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
   ];
 

@@ -136,21 +136,67 @@ export const defaultMockValues = {
     error: undefined,
     isError: undefined,
     data: {
-      Items: [
-        {
-          autoCompleted: false,
-          compoundKey: "AL2021ACSIET-AD",
-          coreSet: "ACS",
-          createdAt: 1642167976771,
-          description:
-            "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
-          lastAltered: 1642167976771,
-          measure: "IET-AD",
-          state: "AL",
-          status: "incomplete",
-          year: 2021,
-        },
-      ],
+      Item: {
+        compoundKey: "MA2024CCSAAB-CH",
+        measure: "AAB-CH",
+        state: "MA",
+        data: [
+          {
+            column: "CHIP",
+            dataSourceSelections: {
+              AdministrativeData0: {
+                selected: ["MedicaidManagementInformationSystemMMIS"],
+              },
+            },
+            dataSource: ["AdministrativeData"],
+            rates: {
+              ZCy3XP: [
+                {
+                  uid: "ZCy3XP.xS5HMm",
+                  label: "Ages 3 months to 17 years",
+                  rate: "0.0",
+                  numerator: "1",
+                  denominator: "1",
+                },
+              ],
+            },
+          },
+          {
+            column: "Medicaid",
+            dataSourceSelections: {
+              AdministrativeData0: {
+                selected: ["MedicaidManagementInformationSystemMMIS"],
+              },
+            },
+            dataSource: ["AdministrativeData"],
+            rates: {
+              ZCy3XP: [
+                {
+                  uid: "ZCy3XP.xS5HMm",
+                  label: "Ages 3 months to 17 years",
+                  rate: "0.0",
+                  numerator: "2",
+                  denominator: "2",
+                },
+              ],
+            },
+          },
+          {
+            column: "Combined Rate",
+            rates: [
+              {
+                uid: "ZCy3XP.xS5HMm",
+                label: "Ages 3 months to 17 years",
+                category: "",
+                rate: "0.0",
+                numerator: "3",
+                denominator: "3",
+              },
+            ],
+          },
+        ],
+        year: "2024",
+      },
     },
   },
 };

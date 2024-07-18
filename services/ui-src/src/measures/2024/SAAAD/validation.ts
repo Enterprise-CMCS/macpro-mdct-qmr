@@ -55,7 +55,6 @@ const SAAADValidation = (data: FormData) => {
         GV.validateRateNotZeroOMS(),
       ],
     }),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),

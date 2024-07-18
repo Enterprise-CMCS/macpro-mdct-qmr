@@ -48,7 +48,6 @@ const CCPADValidation = (data: FormData) => {
       ageGroups
     ),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),

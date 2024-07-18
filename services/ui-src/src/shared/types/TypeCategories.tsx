@@ -6,5 +6,5 @@ export interface CategoryLabelData extends LabelData {
 }
 
 export interface Categories {
-  [DC.CATEGORIES]?: string[] | CategoryLabelData[];
+  [DC.CATEGORIES]?: CategoryLabelData[];
 }

@@ -5,8 +5,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
 
-const cleanString = (s: string) => s.replace(/[^\w]/g, "");
-
 /** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   rateData,
@@ -19,13 +17,12 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
   if (isOPM) return [];
   const errorArray: FormError[] = [];
 
-  for (const qual of qualifiers.map((s) => cleanString(s))) {
+  for (const qual of qualifiers.map((s) => s.id)) {
     for (let initiation = 0; initiation < categories.length; initiation += 2) {
       const engagement = initiation + 1;
-      const initRate =
-        rateData.rates?.[qual]?.[cleanString(categories[initiation])]?.[0];
+      const initRate = rateData.rates?.[qual]?.[categories[initiation].id]?.[0];
       const engageRate =
-        rateData.rates?.[qual]?.[cleanString(categories[engagement])]?.[0];
+        rateData.rates?.[qual]?.[categories[engagement].id]?.[0];
 
       if (
         initRate &&
@@ -39,8 +36,8 @@ const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
             [...label, qual]
           )}`,
           errorMessage: `Denominators must be the same for ${locationDictionary(
-            [categories[initiation]]
-          )} and ${locationDictionary([categories[engagement]])}.`,
+            [categories[initiation].label]
+          )} and ${locationDictionary([categories[engagement].label])}.`,
         });
       }
     }
@@ -88,7 +85,9 @@ const IETValidation = (data: FormData) => {
         (qual) =>
           `Denominators must be the same for ${locationDictionary([
             qual,
-          ])} for ${PMD.categories[i]} and ${PMD.categories[i + 1]}.`
+          ])} for ${PMD.categories[i].label} and ${
+            PMD.categories[i + 1].label
+          }.`
       ),
     ];
   }

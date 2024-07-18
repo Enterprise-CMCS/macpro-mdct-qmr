@@ -1,4 +1,4 @@
-import { Measure, Program } from "../../../types";
+import { Measure, Program, StandardRateShape } from "../../../types";
 
 export enum DataSource {
   Administrative = "AdministrativeData",
@@ -14,11 +14,11 @@ export enum UniqMeasureAbbr {
 
 export interface FormattedMeasureData {
   column: Program;
-  dataSource: NonNullable<NonNullable<Measure["data"]>["DataSource"]>;
+  dataSource: DataSource[];
   dataSourceSelections: NonNullable<
     NonNullable<Measure["data"]>["DataSourceSelections"]
   >;
-  rates: NonNullable<
-    NonNullable<NonNullable<Measure["data"]>["PerformanceMeasure"]>["rates"]
-  >;
+  rates: {
+    [key: string]: StandardRateShape[];
+  };
 }
