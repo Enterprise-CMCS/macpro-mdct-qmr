@@ -18,11 +18,9 @@ jest.mock("react-router-dom", () => ({
 
 const queryClient = new QueryClient();
 
-beforeEach(() => {
-  useApiMock({});
-});
 describe("Test CombinedRatesMeasure", () => {
-  it("renders", () => {
+  it("renders", async () => {
+    useApiMock({});
     render(
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>
@@ -44,6 +42,7 @@ describe("Test CombinedRatesMeasure", () => {
 
 describe("Test accessibility", () => {
   it("passes a11y tests", async () => {
+    useApiMock({});
     const { container } = render(
       <QueryClientProvider client={queryClient}>
         <RouterWrappedComp>

@@ -8,6 +8,7 @@ import {
   getPerfMeasureRateArray,
 } from "../dataDrivenTools";
 import { SINGLE_CATEGORY } from "dataConstants";
+import { LabelData } from "utils";
 
 const _validation: UVF = ({
   rateData,
@@ -25,9 +26,9 @@ const _validation: UVF = ({
       if (rate && rate.denominator) {
         denominatorArray.push(rate.denominator);
         locationArray.push(
-          !!categories?.length && categories[0] !== SINGLE_CATEGORY
-            ? categories![i]
-            : qualifiers![j]
+          !!categories?.length && categories[0].label !== SINGLE_CATEGORY
+            ? categories![i].label
+            : qualifiers![j].label
         );
       }
     }
@@ -63,8 +64,8 @@ export const validateEqualCategoryDenominatorsOMS =
 /** Checks all rates have the same denominator for both categories and qualifiers. NOTE: only pass qualifiers if category is empty */
 export const validateEqualCategoryDenominatorsPM = (
   data: Types.PerformanceMeasure,
-  categories: string[],
-  qualifiers?: string[],
+  categories: LabelData[],
+  qualifiers?: LabelData[],
   errorMessage?: string
 ) => {
   return _validation({

@@ -42,7 +42,6 @@ const AABADValidation = (data: FormData) => {
       age65PlusIndex,
       DefinitionOfDenominator
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),

@@ -2,8 +2,9 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
-import { useGetRate } from "hooks/api/useGetRate";
+import { useGetRate } from "hooks/api";
 import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
+import { LoadingWrapper } from "components";
 
 interface Props {
   year: string;
@@ -14,6 +15,20 @@ interface Props {
 const CoreSetSuffixRecord: Record<string, string> = {
   AD: "ACS",
   CH: "CCS",
+};
+
+const getPathToCombinedRatesTab = (
+  state: string,
+  year: string,
+  coreSetAbbr: string
+) => {
+  if (coreSetAbbr === "ACS") {
+    return `/${state}/${year}/combined-rates?tab=adult`;
+  } else if (coreSetAbbr === "CCS") {
+    return `/${state}/${year}/combined-rates?tab=child`;
+  } else {
+    return `/${state}/${year}/combined-rates`;
+  }
 };
 
 export const CombinedRatesMeasure = ({
@@ -31,11 +46,13 @@ export const CombinedRatesMeasure = ({
     coreSet: combinedCoreSetAbbr,
     year,
   });
-  const item = data?.Item;
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}/combined-rates`, name: `FFY ${year}` },
+        {
+          path: getPathToCombinedRatesTab(state!, year, combinedCoreSetAbbr),
+          name: `FFY ${year}`,
+        },
         {
           path: `/${state}/${year}`,
           name: `${measure} Combined Rates`,
@@ -52,16 +69,6 @@ export const CombinedRatesMeasure = ({
       <CUI.UnorderedList m="5" ml="10">
         <CUI.ListItem>
           <CUI.Link
-            href={`/${state}/${year}/${combinedCoreSetAbbr}C/${measure}`}
-            aria-label="Link to CHIP measure"
-            target="_blank"
-            color="blue.600"
-          >
-            CHIP - {measure} - {measureName}
-          </CUI.Link>
-        </CUI.ListItem>
-        <CUI.ListItem>
-          <CUI.Link
             href={`/${state}/${year}/${combinedCoreSetAbbr}M/${measure}`}
             aria-label="Link to Medicaid measure"
             target="_blank"
@@ -70,9 +77,23 @@ export const CombinedRatesMeasure = ({
             Medicaid - {measure} - {measureName}
           </CUI.Link>
         </CUI.ListItem>
+        <CUI.ListItem>
+          <CUI.Link
+            href={`/${state}/${year}/${combinedCoreSetAbbr}C/${measure}`}
+            aria-label="Link to CHIP measure"
+            target="_blank"
+            color="blue.600"
+          >
+            Separate CHIP - {measure} - {measureName}
+          </CUI.Link>
+        </CUI.ListItem>
       </CUI.UnorderedList>
-      <DataSourceInformationBanner data={item?.data!} />
-      <CombinedRateNDR json={data?.Item} />
+      <LoadingWrapper isLoaded={!!data}>
+        {data?.Item?.data && (
+          <DataSourceInformationBanner data={data.Item.data} />
+        )}
+        {data?.Item && <CombinedRateNDR json={data.Item} />}
+      </LoadingWrapper>
     </QMR.StateLayout>
   );
 };

@@ -14,7 +14,7 @@ import {
   mockValidateAndSetErrors,
   clearMocks,
   validationsMockObj as V,
-} from "measures/2023/shared/util/validationsMock";
+} from "measures/2024/shared/util/validationsMock";
 import { toHaveNoViolations, axe } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
@@ -108,7 +108,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(screen.queryByTestId("data-source")).not.toBeInTheDocument();
     expect(screen.queryByTestId("date-range")).not.toBeInTheDocument();
     expect(
@@ -158,9 +157,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).not.toHaveBeenCalled();
     expect(V.validateRateZeroPM).not.toHaveBeenCalled();
-    expect(
-      V.validateRequiredRadioButtonForCombinedRates
-    ).not.toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSourceType).not.toHaveBeenCalled();
@@ -182,7 +178,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();
     expect(V.validateRateNotZeroPM).toHaveBeenCalled();
     expect(V.validateRateZeroPM).toHaveBeenCalled();
-    expect(V.validateRequiredRadioButtonForCombinedRates).toHaveBeenCalled();
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSourceType).toHaveBeenCalled();
@@ -206,7 +201,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 });
 
 const notReportingData = {
+  DidCollect: "no",
   DidReport: "no",
+  HowDidYouReport: "yes",
 };
 
 const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };

@@ -52,7 +52,6 @@ const APPCHValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
-    ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.omsValidations({

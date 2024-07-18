@@ -63,7 +63,6 @@ export const PQI01AD = ({
               allowNumeratorGreaterThanDenominator
             />
           )}
-          <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}

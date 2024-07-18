@@ -18,6 +18,7 @@ import {
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
+import { Alert } from "@cmsgov/design-system";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -312,6 +313,13 @@ export const CoreSet = () => {
     (measure) => measure.id
   );
 
+  const coreSetInstructions: { [key: string]: string } = {
+    CC: "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets.",
+    HH: "States with approved Health Home Programs in operation by June 30, 2023 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets.",
+  };
+
+  const coreSetPrefix = coreSet[0].slice(0, 2);
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -322,6 +330,13 @@ export const CoreSet = () => {
         },
       ]}
     >
+      {Number(year) >= 2024 && coreSetInstructions[coreSetPrefix] && (
+        <CUI.Box mb="8">
+          <Alert heading="Mandatory Measure Instructions">
+            <CUI.Text>{coreSetInstructions[coreSetPrefix]}</CUI.Text>
+          </Alert>
+        </CUI.Box>
+      )}
       <QMR.UpdateInfoModal
         closeModal={closeModal}
         handleModalResponse={handleModalResponse}
@@ -337,7 +352,6 @@ export const CoreSet = () => {
           ></QMR.Notification>
         </CUI.Box>
       )}
-
       {/* Show success banner after redirect from creating new SSMs */}
       {locationState && locationState.success === false && (
         <CUI.Box mb="6">
@@ -348,7 +362,6 @@ export const CoreSet = () => {
           ></QMR.Notification>
         </CUI.Box>
       )}
-
       <CUI.Stack direction={{ base: "column", md: "row" }}>
         <CUI.HStack
           justifyContent="space-between"

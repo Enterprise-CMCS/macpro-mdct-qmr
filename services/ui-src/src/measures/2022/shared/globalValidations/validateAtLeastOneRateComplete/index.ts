@@ -1,11 +1,12 @@
+import { LabelData } from "utils";
 import { FormRateField } from "../types";
 import { validatePartialRateCompletionPM } from "../validatePartialRateCompletion";
 
 export const validateAtLeastOneRateComplete = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
-  qualifiers: string[],
-  categories?: string[],
+  qualifiers: LabelData[],
+  categories?: LabelData[],
   errorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
