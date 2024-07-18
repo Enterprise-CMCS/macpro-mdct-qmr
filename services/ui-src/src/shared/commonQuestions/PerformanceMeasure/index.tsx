@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
+import * as Types from "../../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
@@ -75,6 +75,8 @@ const CategoryNdrSets = ({
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
+        console.log("hello category");
+
         //temporary check to make IETRate component work again, will be updated during the refactor
         const registerId =
           !isLegacyLabel() && measureName?.includes("IET")
@@ -134,6 +136,8 @@ const QualifierNdrSets = ({
 }: NdrSetProps) => {
   const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
+
+  console.log("hello qualifier");
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
     label: item.label,

@@ -1,7 +1,7 @@
 import {
   exampleData,
   PerformanceMeasureData,
-} from "shared/PerformanceMeasure/data";
+} from "shared/commonQuestions/PerformanceMeasure/data";
 import { data as PCRData } from "measures/2024/PCRAD/data";
 import { data as CBPdata } from "measures/2024/CBPAD/data";
 import fireEvent from "@testing-library/user-event";

@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import * as DC from "dataConstants";
-import { PerformanceMeasureData } from "shared/PerformanceMeasure/data";
+import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
 import { LabelData, getLabelText } from "utils";
 import { ndrFormula } from "types";
