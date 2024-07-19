@@ -86,7 +86,6 @@
       "!src/components/Table/_coreSetData.ts",
       "!src/components/Table/_measureData.ts",
       "!src/views/DemoMeasure/**/*.{ts,tsx}",
-      "!src/views/ApiTester/index.tsx",
       "!src/components/Upload/index.tsx",
       "!src/views/Qualifiers/**/*.{ts,tsx}",
       "!src/measures/2021/**/*.{ts,tsx}",

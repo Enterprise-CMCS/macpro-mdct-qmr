@@ -8,7 +8,6 @@ export * from "./StateHome";
 export * from "./AddChildCoreSet";
 export * from "./AddAdultCoreSet";
 export * from "./AddHHCoreSet";
-export * from "./ApiTester";
 export * from "./ExportAll";
 export * from "./CombinedRatesPage";
 export * from "./CombinedRatesPage/CombinedRatesMeasure";
