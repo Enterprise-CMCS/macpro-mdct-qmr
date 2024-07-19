@@ -12,6 +12,14 @@ import { PCRRate } from "components";
 import { mockLDFlags } from "../../../../setupJest";
 import { LabelData } from "utils";
 
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: jest.fn().mockReturnValue({
+    year: "2024",
+    state: "OH",
+  }),
+}));
+
 interface Props {
   component?: RateComp | undefined;
   calcTotal: boolean;
