@@ -12,4 +12,4 @@ export * from "shared/commonQuestions/NotCollectingOMS";
 export * from "shared/commonQuestions/OptionalMeasureStrat";
 export * from "shared/commonQuestions/DeviationFromMeasureSpecificationTextField";
 export * from "shared/commonQuestions/MeasurementSpecification";
-export * from "./PerformanceMeasure";
+export * from "shared/commonQuestions/PerformanceMeasure/index";
