@@ -8,6 +8,7 @@ import { useWatch } from "react-hook-form";
 import { getLabelText, isLegacyLabel, LabelData } from "utils";
 import { ndrFormula } from "types";
 import { useFlags } from "launchdarkly-react-client-sdk";
+import { usePathParams } from "hooks/api/usePathParams";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -75,8 +76,6 @@ const CategoryNdrSets = ({
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
-        console.log("hello category");
-
         //temporary check to make IETRate component work again, will be updated during the refactor
         const registerId =
           !isLegacyLabel() && measureName?.includes("IET")
@@ -137,11 +136,9 @@ const QualifierNdrSets = ({
   const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
-  console.log("hello qualifier");
-
-  const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
-    label: item.label,
-    uid: isLegacyLabel() ? undefined : `${categoryID}.${item.id}`, //this uid exist from 2023 onward
+  const rates: QMR.IRate[] = qualifiers.map((qual, idx) => ({
+    label: qual.label,
+    uid: isLegacyLabel() ? undefined : `${categoryID}.${qual.id}`, //this uid exist from 2023 onward
     id: idx,
   }));
   return (
@@ -198,6 +195,7 @@ const arrayIsReadOnly = (dataSource: string[]) => {
 export const PerformanceMeasure = ({
   data,
   calcTotal = false,
+  rateReadOnly,
   rateScale,
   customMask,
   hybridMeasure,
@@ -210,15 +208,19 @@ export const PerformanceMeasure = ({
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
-
-  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2024"];
+  const { year } = usePathParams();
+  //for years after 2023, we use a flag to determine showing the covid message
+  const pheIsCurrent =
+    parseInt(year) < 2023 || useFlags()?.[`periodOfHealthEmergency${year}`];
 
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
-  let readOnly = false;
 
-  if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
+  let readOnly = false;
+  if (rateReadOnly !== undefined) {
+    readOnly = rateReadOnly;
+  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
     readOnly = arrayIsReadOnly(dataSourceWatch);
   } else if (dataSourceWatch) {
     readOnly = stringIsReadOnly(dataSourceWatch);
@@ -319,7 +321,7 @@ export const PerformanceMeasure = ({
           __html:
             data.customPrompt ??
             `Enter a number for the numerator and the denominator. Rate will
-            auto-calculate:`,
+          auto-calculate:`,
         }}
         data-cy="Enter a number for the numerator and the denominator"
       />
