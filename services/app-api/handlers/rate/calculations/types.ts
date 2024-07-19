@@ -4,6 +4,7 @@ export enum DataSource {
   Administrative = "AdministrativeData",
   EHR = "ElectronicHealthRecords",
   Hybrid = "HybridAdministrativeandMedicalRecordsData",
+  CaseMagementRecordReview = "Casemanagementrecordreview",
 }
 
 export enum UniqMeasureAbbr {
@@ -18,6 +19,7 @@ export interface FormattedMeasureData {
   dataSourceSelections: NonNullable<
     NonNullable<Measure["data"]>["DataSourceSelections"]
   >;
+  measurePopulation?: string;
   rates: {
     [key: string]: StandardRateShape[];
   };

@@ -1,21 +1,31 @@
 import * as Types from "../../../types";
 import { putToTable, getMeasureByCoreSet } from "../../../storage/table";
 import { RateCalculation } from "../calculations/rateCalculation";
-import { AdminstrativeCalculation } from "../calculations";
+import { AdminstrativeCalculation, HybridCalculation } from "../calculations";
 import { MeasureParameters } from "../../../types";
 import { FormattedMeasureData } from "../calculations/types";
 
 //add new calculations to this array
-const dataSrcCalculations: RateCalculation[] = [new AdminstrativeCalculation()];
+const dataSrcCalculations: RateCalculation[] = [
+  new AdminstrativeCalculation(),
+  new HybridCalculation(),
+];
 
 export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
   return data.map((item) => {
     const column = Types.Program[item?.coreSet.at(-1) as "M" | "C"];
     const dataSource = item?.data?.DataSource ?? [];
     const dataSourceSelections = item?.data?.DataSourceSelections ?? [];
+    const measurePopulation = item?.data?.HybridMeasurePopulationIncluded;
     const rates = item?.data?.PerformanceMeasure?.rates ?? {};
 
-    return { column, dataSource, dataSourceSelections, rates };
+    return {
+      column,
+      dataSource,
+      dataSourceSelections,
+      measurePopulation,
+      rates,
+    };
   });
 };
 

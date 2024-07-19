@@ -6,8 +6,31 @@ export abstract class RateCalculation {
   abstract dataSrcMap: { [key in Program]: DataSource[] }[];
 
   constructor() {}
-  abstract check(arr: FormattedMeasureData[]): boolean;
   abstract getFormula(measure: string): Function;
+
+  public check(arr: FormattedMeasureData[]): boolean {
+    const chipSources =
+      arr.find((data) => data.column === "CHIP")?.dataSource ?? [];
+    const medicaidSources =
+      arr.find((data) => data.column === "Medicaid")?.dataSource ?? [];
+
+    // If neither measure has any data source, we will not use this calculation
+    if (chipSources.length === 0 && medicaidSources.length === 0) {
+      return false;
+    }
+
+    return this.dataSrcMap.some((dataSrc) => {
+      // If a measure has no data sources, .every() returns true
+      // This is good because we still want to calculate even if only one measure is complete.
+      const chipSourcesMatch = chipSources.every((chipSrc) =>
+        dataSrc.CHIP.includes(chipSrc)
+      );
+      const medicaidSourcesMatch = medicaidSources.every((medSrc) =>
+        dataSrc.Medicaid.includes(medSrc)
+      );
+      return chipSourcesMatch && medicaidSourcesMatch;
+    });
+  }
 
   public sum(arr: StandardRateShape[][], rateFormula: Function) {
     return arr?.map((rates) =>
