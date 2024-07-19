@@ -72,6 +72,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     );
   });
 
+  it("should pass a11y tests", async () => {
+    useApiMock(apiData);
+    await act(async () => {
+      const { container } = renderWithHookForm(component);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
   it("SS-1-HH measure should render", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -124,14 +132,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
         "Describe any COVID-related difficulties encountered while collecting this data:"
       )
     ).toBeInTheDocument();
-  });
-
-  it("should pass a11y tests", async () => {
-    useApiMock(apiData);
-    await act(async () => {
-      const { container } = renderWithHookForm(component);
-      expect(await axe(container)).toHaveNoViolations();
-    });
   });
 });
 

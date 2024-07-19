@@ -74,6 +74,14 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     );
   });
 
+  it("should pass a11y tests", async () => {
+    useApiMock(apiData);
+    await act(async () => {
+      const { container } = renderWithHookForm(component);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
   it("measure should render", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -228,14 +236,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     const completeButton = screen.getByText("Complete Measure");
     fireEvent.click(completeButton);
     expect(completeButton).toHaveAttribute("disabled");
-  });
-
-  it("should pass a11y tests", async () => {
-    useApiMock(apiData);
-    await act(async () => {
-      const { container } = renderWithHookForm(component);
-      expect(await axe(container)).toHaveNoViolations();
-    });
   });
 });
 

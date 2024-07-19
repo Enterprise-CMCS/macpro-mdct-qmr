@@ -76,6 +76,15 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   afterEach(() => {
     screen.debug();
   });
+
+  it("should pass a11y tests", async () => {
+    useApiMock(apiData);
+    await act(async () => {
+      const { container } = renderWithHookForm(component);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
   it("measure should render", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -200,14 +209,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateAtLeastOneDeliverySystem).toHaveBeenCalled();
     expect(V.validateFfsRadioButtonCompletion).toHaveBeenCalled();
     expect(V.validateAtLeastOneDefinitionOfPopulation).toHaveBeenCalled();
-  });
-
-  it("should pass a11y tests", async () => {
-    useApiMock(apiData);
-    await act(async () => {
-      const { container } = renderWithHookForm(component);
-      expect(await axe(container)).toHaveNoViolations();
-    });
   });
 });
 
