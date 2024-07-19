@@ -43,7 +43,6 @@ export const MonthPicker = ({
             <CUI.Input
               data-cy={`${name}-month`}
               width="4rem"
-              label="Month"
               type="text"
               aria-label="Month Input Field"
               name={`${name}.month`}
@@ -67,7 +66,6 @@ export const MonthPicker = ({
           <CUI.HStack className="prince-flex-overwrite">
             <CUI.Input
               width="6rem"
-              label="Year"
               type="text"
               aria-label="Year Input Field"
               name={`${name}.year`}

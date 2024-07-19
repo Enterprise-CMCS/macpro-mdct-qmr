@@ -198,7 +198,6 @@ export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
             py="2"
             fontWeight="bold"
             key="If the data source differed across"
-            label={labels.DataSource.srcExplanationText}
           >
             {labels.DataSource.srcExplanationText}
           </CUI.Text>
