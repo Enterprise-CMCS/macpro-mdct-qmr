@@ -45,8 +45,15 @@ const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
   const measures = data?.Items as MeasureData[];
   const formatted = measures
     ?.filter(
-      // filter out the coreset qualifiers
-      (item) => item.measure && item.measure !== "CSQ"
+      // filter out the coreset qualifiers and measures where states aren't asked to report measure data
+      (item) =>
+        item.measure &&
+        item.measure !== "CSQ" &&
+        item.measure !== "CPC-CH" &&
+        item.measure !== "LBW-CH" &&
+        item.measure !== "LRCD-CH" &&
+        item.measure !== "CPA-AD" &&
+        item.measure !== "NCIIDD-AD"
     )
     .sort((a, b) => a?.measure?.localeCompare(b?.measure));
 
@@ -113,8 +120,15 @@ export const CombinedRatesPage = () => {
           Core Set Measures Combined Rates
         </CUI.Heading>
         <CUI.Text>
-          Instructions for the user - includes how to interpret the page and
-          what they need to do to see rates (i.e. complete all measures)
+          Click into a measure below to preview the preliminary combined
+          Medicaid and CHIP rate. Please complete the measure in both the
+          Medicaid and CHIP reports to ensure the combined rate is complete.
+          <br />
+          <br />
+          The following measures are excluded from the combined rates page
+          because states are not asked to report performance measure data for
+          these measures for FFY 2024 Core Set reporting in the online reporting
+          system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, NCIIDD-AD
         </CUI.Text>
         <CUI.Tabs
           width="100%"
