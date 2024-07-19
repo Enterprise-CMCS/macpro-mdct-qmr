@@ -153,7 +153,6 @@ export const PCRRate = ({
           </CUI.Text>
         ) : (
           <CUI.Input
-            label={`${name}.${index}.value`}
             key={`input-field-${index}`}
             type="text"
             value={field.value[index]?.value ?? ""}
