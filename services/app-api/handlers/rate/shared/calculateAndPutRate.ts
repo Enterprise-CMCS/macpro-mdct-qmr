@@ -16,15 +16,17 @@ export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
     const column = Types.Program[item?.coreSet.at(-1) as "M" | "C"];
     const dataSource = item?.data?.DataSource ?? [];
     const dataSourceSelections = item?.data?.DataSourceSelections ?? [];
-    const measurePopulation =
-      parseInt(item?.data?.HybridMeasurePopulationIncluded!) ?? 0;
     const rates = item?.data?.PerformanceMeasure?.rates ?? {};
 
     return {
       column,
       dataSource,
       dataSourceSelections,
-      measurePopulation,
+      ...(item?.data?.HybridMeasurePopulationIncluded && {
+        measurePopulation: parseInt(
+          item?.data?.HybridMeasurePopulationIncluded
+        ),
+      }),
       rates,
     };
   });

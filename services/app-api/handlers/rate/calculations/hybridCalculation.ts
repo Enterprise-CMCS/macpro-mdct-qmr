@@ -40,14 +40,8 @@ export class HybridCalculation extends RateCalculation {
   }
 
   getFormula(measure: string): Function {
-    return (
-      numerator: number,
-      denominator: number,
-      measurePopulation: number,
-      totalMeasurePopulation: number
-    ) =>
-      fixRounding(measurePopulation / totalMeasurePopulation, 5) *
-      ((numerator / denominator) * 100);
+    return (numerator: number, denominator: number, weight: number) =>
+      fixRounding(weight, 5) * ((numerator / denominator) * 100);
   }
 
   public setFormulaRates(
@@ -57,28 +51,30 @@ export class HybridCalculation extends RateCalculation {
     }[],
     calcFormula: Function
   ) {
-    const totalMeasurePopulation = values
-      .map((value) => value.measurePopulation)
-      .reduce((prev, curr) => prev + curr!);
+    let totalMeasurePopulation = values
+      .filter((value) => value.measurePopulation)
+      ?.reduce((acc, item) => {
+        return (acc += item.measurePopulation!);
+      }, 0);
 
-    const weightedRates = values
-      .map((value) => {
-        const flattenRates = Object.values(value.rates).flat(2);
-        return flattenRates.map((rate) => {
+    const weightedRates = values.map((value) => {
+      const weight = value.measurePopulation! / totalMeasurePopulation;
+
+      return Object.values(value.rates)
+        .flat()
+        .map((rate) => {
           const weightedRates = calcFormula(
             rate.numerator,
             rate.denominator,
-            value.measurePopulation,
-            totalMeasurePopulation
+            isNaN(weight) ? 1 : weight
           );
           return { ...rate, rate: weightedRates };
         });
-      })
-      .flat(2);
-    return weightedRates;
+    });
+    return weightedRates.flat();
   }
 
-  public calculate(
+  calculate(
     measure: string,
     values: {
       measurePopulation: FormattedMeasureData["measurePopulation"];
@@ -87,6 +83,7 @@ export class HybridCalculation extends RateCalculation {
   ) {
     const formula: Function = this.getFormula(measure);
     const formulaRates = this.setFormulaRates(values, formula);
+
     const uid = formulaRates
       .filter(
         (value, index, array) =>
