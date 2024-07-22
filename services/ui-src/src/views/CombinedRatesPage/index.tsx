@@ -9,6 +9,7 @@ import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
 const measuresWithoutPerformanceData = [
+  "CSQ",
   "CPC-CH",
   "LBW-CH",
   "LRCD-CH",
@@ -55,10 +56,7 @@ const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
     ?.filter(
       // filter out the coreset qualifiers (CSQ) and also filter out
       // the measures that are not asked to report performance measure data
-      (item) =>
-        item.measure &&
-        item.measure !== "CSQ" &&
-        !measuresWithoutPerformanceData.includes(item.measure)
+      (item) => !measuresWithoutPerformanceData.includes(item.measure)
     )
     .sort((a, b) => a?.measure?.localeCompare(b?.measure));
 
