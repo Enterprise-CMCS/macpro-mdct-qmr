@@ -19,7 +19,7 @@ export interface FormattedMeasureData {
   dataSourceSelections: NonNullable<
     NonNullable<Measure["data"]>["DataSourceSelections"]
   >;
-  measurePopulation?: string;
+  measurePopulation: number;
   rates: {
     [key: string]: StandardRateShape[];
   };

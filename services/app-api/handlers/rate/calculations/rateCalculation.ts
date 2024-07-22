@@ -55,11 +55,18 @@ export abstract class RateCalculation {
       })
     );
   }
-  public calculate(measure: string, rates: FormattedMeasureData["rates"][]) {
+
+  public calculate(
+    measure: string,
+    values: {
+      measurePopulation: FormattedMeasureData["measurePopulation"];
+      rates: FormattedMeasureData["rates"];
+    }[]
+  ) {
     const formula: Function = this.getFormula(measure);
-
-    const flattenRates = rates.map((rate) => Object.values(rate)).flat(2);
-
+    const flattenRates = values
+      .map((value) => Object.values(value.rates))
+      .flat(2);
     const uid = flattenRates
       .filter(
         (value, index, array) =>

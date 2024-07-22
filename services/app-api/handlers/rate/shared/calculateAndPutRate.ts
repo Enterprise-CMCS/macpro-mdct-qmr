@@ -16,7 +16,8 @@ export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
     const column = Types.Program[item?.coreSet.at(-1) as "M" | "C"];
     const dataSource = item?.data?.DataSource ?? [];
     const dataSourceSelections = item?.data?.DataSourceSelections ?? [];
-    const measurePopulation = item?.data?.HybridMeasurePopulationIncluded;
+    const measurePopulation =
+      parseInt(item?.data?.HybridMeasurePopulationIncluded!) ?? 0;
     const rates = item?.data?.PerformanceMeasure?.rates ?? {};
 
     return {
@@ -65,7 +66,12 @@ export const calculateAndPutRate = async (
       calculation
         ? calculation.calculate(
             measure!,
-            validatedData?.map((data) => data.rates)
+            validatedData?.map((data) => {
+              return {
+                measurePopulation: data.measurePopulation!,
+                rates: data.rates,
+              };
+            })
           )
         : {},
     ];
