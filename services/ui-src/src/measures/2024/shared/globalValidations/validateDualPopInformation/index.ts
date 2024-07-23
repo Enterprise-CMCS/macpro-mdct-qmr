@@ -1,24 +1,12 @@
 import * as DC from "dataConstants";
 import { FormRateField } from "../types";
 
-const validateDualPopInformationPMErrorMessage = (
-  dualEligible: boolean,
-  errorReplacementText: string
-) => {
-  if (!dualEligible) {
-    return `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`;
-  } else {
-    return `Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for ${errorReplacementText}`;
-  }
-};
-
 export const validateDualPopInformationPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   age65PlusIndex: number,
   DefinitionOfDenominator: string[] | undefined,
-  errorReplacementText: string = "Age 65 and Older",
-  errorMessageFunc = validateDualPopInformationPMErrorMessage
+  errorReplacementText: string = "Age 65 and Older"
 ) => {
   if (OPM) {
     return [];
@@ -44,17 +32,10 @@ export const validateDualPopInformationPM = (
     }
   });
 
-  if (!dualEligible && filledInData.length > 0) {
-    errorArray.push({
-      errorLocation: "Performance Measure",
-      errorMessage: errorMessageFunc(dualEligible, errorReplacementText),
-      errorType: "Warning",
-    });
-  }
   if (dualEligible && filledInData.length === 0) {
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage: errorMessageFunc(dualEligible, errorReplacementText),
+      errorMessage: `Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for ${errorReplacementText}`,
       errorType: "Warning",
     });
   }
