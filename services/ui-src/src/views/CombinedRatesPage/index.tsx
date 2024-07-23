@@ -8,14 +8,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
-const measuresWithoutPerformanceData = [
-  "CSQ",
-  "CPC-CH",
-  "LBW-CH",
-  "LRCD-CH",
-  "CPA-AD",
-  "NCIIDD-AD",
-];
+const measuresWithoutPerformanceData = ["CSQ", "CPC-CH", "CPA-AD"];
 
 const GetColumns = () => {
   return [
@@ -54,9 +47,12 @@ const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
   const measures = data?.Items as MeasureData[];
   const formatted = measures
     ?.filter(
-      // filter out the coreset qualifiers (CSQ) and also filter out
-      // the measures that are not asked to report performance measure data
-      (item) => !measuresWithoutPerformanceData.includes(item.measure)
+      // filter out all the measures that do not have combined rates:
+      // the coreset qualifiers (CSQ), measures that are autocompleted,
+      // and the measures that are not asked to report performance measure data
+      (item) =>
+        !item.autoCompleted &&
+        !measuresWithoutPerformanceData.includes(item.measure)
     )
     .sort((a, b) => a?.measure?.localeCompare(b?.measure));
 
