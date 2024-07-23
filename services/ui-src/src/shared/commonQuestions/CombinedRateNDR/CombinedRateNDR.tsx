@@ -3,11 +3,16 @@ import {
   CombinedRatePayload,
   RateCategoryMap,
   RateDataShape,
+  SeparatedData,
 } from "./CombinedRateTypes";
 import * as Labels from "labels/RateTextLabels";
 
 const programTypes = ["Medicaid", "Separate CHIP", "Combined Rate"] as const;
 const rateComponents = ["numerator", "denominator", "rate"] as const;
+const hybridRateComponnents = [
+  "measure-eligible population",
+  "weighted rate",
+] as const;
 type ProgramType = typeof programTypes[number];
 /** Identifying info for each table we will display on the page */
 type TableKeys = {
@@ -85,6 +90,7 @@ const horizontalTable = (table: TableDataShape) => {
 };
 
 export const CombinedRateNDR = ({ json }: Props) => {
+  modifyDisplayByDateSource(json);
   const tables = collectRatesForDisplay(json);
   provideDefaultValues(tables);
   sortRates(tables, json.year, json.measure);
@@ -110,6 +116,19 @@ export const CombinedRateNDR = ({ json }: Props) => {
       })}
     </CUI.Box>
   );
+};
+
+const modifyDisplayByDateSource = (json: CombinedRatePayload) => {
+  const dataSources = json.data
+    .map((item) => (item as SeparatedData)?.dataSource)
+    .flat();
+
+  if (dataSources?.includes("HybridAdministrativeandMedicalRecordsData")) {
+    Object.assign(rateComponents, [
+      ...rateComponents,
+      ...hybridRateComponnents,
+    ]);
+  }
 };
 
 const collectRatesForDisplay = (
@@ -169,12 +188,19 @@ function provideDefaultValues(
       const numerator = table[programType]?.numerator ?? notAnswered;
       const denominator = table[programType]?.denominator ?? notAnswered;
       const rate = table[programType]?.rate ?? "-";
+
+      const mep =
+        table[programType]?.["measure-eligible population"] ?? notAnswered;
+      const weightRate = table[programType]?.["weighted rate"] ?? "-";
+
       // Add value back to table object
       table[programType] = {
         ...table[programType]!,
         numerator,
         denominator,
         rate,
+        ["measure-eligible population"]: mep,
+        ["weighted rate"]: weightRate,
       };
     }
   }
