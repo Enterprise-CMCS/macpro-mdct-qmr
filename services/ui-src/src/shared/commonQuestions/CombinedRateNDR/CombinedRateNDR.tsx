@@ -124,10 +124,13 @@ const modifyDisplayByDateSource = (json: CombinedRatePayload) => {
     .flat();
 
   if (dataSources?.includes("HybridAdministrativeandMedicalRecordsData")) {
-    Object.assign(rateComponents, [
-      ...rateComponents,
-      ...hybridRateComponnents,
-    ]);
+    //prevent duplicates during a rerender
+    if (rateComponents.length <= 3) {
+      Object.assign(rateComponents, [
+        ...rateComponents,
+        ...hybridRateComponnents,
+      ]);
+    }
   }
 };
 

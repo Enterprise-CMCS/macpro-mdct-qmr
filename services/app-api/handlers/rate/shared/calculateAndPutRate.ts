@@ -17,16 +17,23 @@ export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
     const dataSource = item?.data?.DataSource ?? [];
     const dataSourceSelections = item?.data?.DataSourceSelections ?? [];
     const rates = item?.data?.PerformanceMeasure?.rates ?? {};
+    const measurePopulation = item?.data?.HybridMeasurePopulationIncluded;
+
+    for (const [key, value] of Object.entries(rates)) {
+      rates[key] = value.map((rate) => {
+        return {
+          ...rate,
+          ...(measurePopulation && {
+            "measure-eligible population": measurePopulation,
+          }),
+        };
+      });
+    }
 
     return {
       column,
       dataSource,
       dataSourceSelections,
-      ...(item?.data?.HybridMeasurePopulationIncluded && {
-        measurePopulation: parseInt(
-          item?.data?.HybridMeasurePopulationIncluded
-        ),
-      }),
       rates,
     };
   });
@@ -68,12 +75,7 @@ export const calculateAndPutRate = async (
       calculation
         ? calculation.calculate(
             measure!,
-            validatedData?.map((data) => {
-              return {
-                measurePopulation: data.measurePopulation!,
-                rates: data.rates,
-              };
-            })
+            validatedData?.map((data) => data.rates)
           )
         : {},
     ];
