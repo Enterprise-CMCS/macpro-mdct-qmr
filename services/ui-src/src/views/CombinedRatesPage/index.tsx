@@ -7,6 +7,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
+import { statesWithoutCombinedRates } from "views/StateHome";
 
 const GetColumns = () => {
   return [
@@ -90,6 +91,18 @@ export const CombinedRatesPage = () => {
 
   if (isLoading || !data.Items) {
     return <QMR.LoadingWave />;
+  }
+
+  // block display from states that do not have combined rates
+  if (state && statesWithoutCombinedRates.includes(state)) {
+    return (
+      <CUI.Box data-testid="unauthorized-container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle="You are not authorized to view this page"
+        />
+      </CUI.Box>
+    );
   }
 
   return (

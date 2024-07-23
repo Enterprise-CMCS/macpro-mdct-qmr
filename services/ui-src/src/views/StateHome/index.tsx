@@ -39,11 +39,36 @@ interface IRepYear {
   value: string;
 }
 
+export const statesWithoutCombinedRates = [
+  "AK",
+  "AS",
+  "DC",
+  "GU",
+  "HI",
+  "NH",
+  "NM",
+  "NC",
+  "ND",
+  "CNMI",
+  "OH",
+  "PR",
+  "SC",
+  "VI",
+  "VT",
+  "WY",
+];
+
 const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
   const releasedTwentyTwentyFour = useFlags()?.["release2024"];
+  // Certain states do not have separate chip and medicaid so we will not
+  // display the Combined Rates button for those states
+  const showCombinedRatesButton =
+    state && !statesWithoutCombinedRates.includes(state);
+
+  console.log(state);
 
   let reportingyearOptions: IRepYear[] =
     reportingYears && reportingYears.length
@@ -86,7 +111,7 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
-      {year === "2024" && (
+      {year === "2024" && showCombinedRatesButton && (
         <CUI.Box mt="22px">
           <Link
             to={`/${state}/${year}/combined-rates`}
