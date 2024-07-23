@@ -35,7 +35,7 @@ export const validateDualPopInformationPM = (
   if (dualEligible && filledInData.length === 0) {
     errorArray.push({
       errorLocation: "Performance Measure",
-      errorMessage: `Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for ${errorReplacementText}`,
+      errorMessage: `"Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for ${errorReplacementText}`,
       errorType: "Warning",
     });
   }

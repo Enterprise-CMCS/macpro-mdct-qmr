@@ -46,7 +46,7 @@ describe("Testing Dual Population Selection Validation", () => {
     expect(errors.length).toBe(1);
     expect(errors[0].errorLocation).toBe("Performance Measure");
     expect(errors[0].errorMessage).toBe(
-      `Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for Age 65 and Older`
+      `"Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for Age 65 and Older`
     );
   });
 
@@ -62,7 +62,7 @@ describe("Testing Dual Population Selection Validation", () => {
     expect(errors.length).toBe(1);
     expect(errors[0].errorLocation).toBe("Performance Measure");
     expect(errors[0].errorMessage).toBe(
-      `Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for TestLabel`
+      `"Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for TestLabel`
     );
   });
 });
