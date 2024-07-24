@@ -60,5 +60,24 @@ export const stateAbbreviations = [
   "WY",
 ];
 
+// Certain states do not have separate chip and medicaid so they do not have combined rates
+export const statesWithoutCombinedRates = [
+  "AK",
+  "AS",
+  "DC",
+  "GU",
+  "HI",
+  "NH",
+  "NM",
+  "NC",
+  "ND",
+  "OH",
+  "PR",
+  "SC",
+  "VI",
+  "VT",
+  "WY",
+];
+
 // BANNERS
 export const bannerId = "admin-banner-id";

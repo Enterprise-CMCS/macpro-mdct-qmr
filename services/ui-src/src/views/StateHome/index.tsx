@@ -20,6 +20,7 @@ import { coreSets, CoreSetField } from "shared/coreSetByYear";
 
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { Link } from "react-router-dom";
+import { statesWithoutCombinedRates } from "utils";
 
 interface HandleDeleteData {
   state: string;
@@ -39,25 +40,6 @@ interface IRepYear {
   value: string;
 }
 
-export const statesWithoutCombinedRates = [
-  "AK",
-  "AS",
-  "DC",
-  "GU",
-  "HI",
-  "NH",
-  "NM",
-  "NC",
-  "ND",
-  "CNMI",
-  "OH",
-  "PR",
-  "SC",
-  "VI",
-  "VT",
-  "WY",
-];
-
 const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
@@ -67,8 +49,6 @@ const ReportingYear = () => {
   // display the Combined Rates button for those states
   const showCombinedRatesButton =
     state && !statesWithoutCombinedRates.includes(state);
-
-  console.log(state);
 
   let reportingyearOptions: IRepYear[] =
     reportingYears && reportingYears.length

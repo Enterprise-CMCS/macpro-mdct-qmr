@@ -7,7 +7,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
-import { statesWithoutCombinedRates } from "views/StateHome";
+import { statesWithoutCombinedRates } from "utils";
 
 const GetColumns = () => {
   return [
@@ -99,7 +99,7 @@ export const CombinedRatesPage = () => {
       <CUI.Box data-testid="unauthorized-container">
         <QMR.Notification
           alertStatus="error"
-          alertTitle="You are not authorized to view this page"
+          alertTitle={`Combined rates for ${state} are not supported`}
         />
       </CUI.Box>
     );
