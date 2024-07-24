@@ -8,6 +8,8 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
+const measuresWithoutPerformanceData = ["CSQ", "CPC-CH", "CPA-AD"];
+
 const GetColumns = () => {
   return [
     {
@@ -45,8 +47,12 @@ const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
   const measures = data?.Items as MeasureData[];
   const formatted = measures
     ?.filter(
-      // filter out the coreset qualifiers
-      (item) => item.measure && item.measure !== "CSQ"
+      // filter out all the measures that do not have combined rates:
+      // the coreset qualifiers (CSQ), measures that are autocompleted,
+      // and the measures that are not asked to report performance measure data
+      (item) =>
+        !item.autoCompleted &&
+        !measuresWithoutPerformanceData.includes(item.measure)
     )
     .sort((a, b) => a?.measure?.localeCompare(b?.measure));
 
@@ -113,8 +119,15 @@ export const CombinedRatesPage = () => {
           Core Set Measures Combined Rates
         </CUI.Heading>
         <CUI.Text>
-          Instructions for the user - includes how to interpret the page and
-          what they need to do to see rates (i.e. complete all measures)
+          Click into a measure below to preview the preliminary combined
+          Medicaid and CHIP rate. Please complete the measure in both the
+          Medicaid and CHIP reports to ensure the combined rate is complete.
+        </CUI.Text>
+        <CUI.Text>
+          The following measures are excluded from the combined rates page
+          because states are not asked to report performance measure data for
+          these measures for FFY 2024 Core Set reporting in the online reporting
+          system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, NCIIDD-AD
         </CUI.Text>
         <CUI.Tabs
           width="100%"
