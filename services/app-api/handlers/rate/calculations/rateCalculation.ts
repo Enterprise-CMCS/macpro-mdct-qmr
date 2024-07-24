@@ -8,6 +8,10 @@ export abstract class RateCalculation {
   constructor() {}
   abstract getFormula(measure: string): Function;
 
+  public adjustForDisplay(arr: FormattedMeasureData[]) {
+    return arr;
+  }
+
   public check(arr: FormattedMeasureData[]): boolean {
     const chipSources =
       arr.find((data) => data.column === "CHIP")?.dataSource ?? [];
@@ -56,27 +60,26 @@ export abstract class RateCalculation {
     );
   }
 
-  public calculate(
-    measure: string,
-    values: {
-      measurePopulation: FormattedMeasureData["measurePopulation"];
-      rates: FormattedMeasureData["rates"];
-    }[]
-  ) {
-    const formula: Function = this.getFormula(measure);
-    const flattenRates = values
-      .map((value) => Object.values(value.rates))
-      .flat(2);
-    const uid = flattenRates
+  //creates an array where the rates have been grouped by uid, makes it easier for summation
+  public groupRates(rates: StandardRateShape[]) {
+    //create an array with all the uids
+    const uid = rates
       .filter(
         (value, index, array) =>
           array.findIndex((item) => item.uid === value.uid) === index
       )
       .map((item) => item.uid);
-    const sumRates = uid.map((id) =>
-      flattenRates.filter((rate) => rate.uid === id)
-    );
-    const total = this.sum(sumRates, formula);
+
+    //group the rate by those with the same uid
+    return uid.map((id) => rates.filter((rate) => rate.uid === id));
+  }
+
+  public calculate(measure: string, data: FormattedMeasureData[]) {
+    const formula: Function = this.getFormula(measure);
+    const rates = data?.map((item) => item.rates);
+    const flattenRates = rates.map((rate) => Object.values(rate)).flat(2);
+
+    const total = this.sum(this.groupRates(flattenRates), formula);
     return { column: "Combined Rate", rates: total };
   }
 }

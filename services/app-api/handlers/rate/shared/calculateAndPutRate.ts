@@ -19,22 +19,14 @@ export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
     const rates = item?.data?.PerformanceMeasure?.rates ?? {};
     const measurePopulation = item?.data?.HybridMeasurePopulationIncluded;
 
-    for (const [key, value] of Object.entries(rates)) {
-      rates[key] = value.map((rate) => {
-        return {
-          ...rate,
-          ...(measurePopulation && {
-            "measure-eligible population": measurePopulation,
-          }),
-        };
-      });
-    }
-
     return {
       column,
       dataSource,
       dataSourceSelections,
       rates,
+      ...(measurePopulation && {
+        "measure-eligible population": measurePopulation,
+      }),
     };
   });
 };
@@ -66,18 +58,13 @@ export const calculateAndPutRate = async (
     const validatedData = removeEmptyRates(formattedData);
 
     //based on the measure data, it will check against the calculations that exist and see which one is a match
-    const calculation: RateCalculation | undefined = dataSrcCalculations.find(
+    const rateCalc: RateCalculation | undefined = dataSrcCalculations.find(
       (cal) => cal.check(validatedData)
     );
 
     const combinedRates = [
-      ...formattedData,
-      calculation
-        ? calculation.calculate(
-            measure!,
-            validatedData?.map((data) => data.rates)
-          )
-        : {},
+      ...(rateCalc?.adjustForDisplay(formattedData) ?? formattedData),
+      rateCalc ? rateCalc.calculate(measure!, validatedData) : {},
     ];
 
     //write to the data to the rates table

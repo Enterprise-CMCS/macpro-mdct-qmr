@@ -22,7 +22,6 @@ export interface StandardRateShape {
   numerator?: string;
   denominator?: string;
   rate?: string;
-  ["measure-eligible population"]?: string;
   ["weighted rate"]?: string;
 }
 

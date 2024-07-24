@@ -15,28 +15,26 @@ export class HybridCalculation extends RateCalculation {
     },
   ];
 
-  sum(arr: StandardRateShape[][]) {
-    return arr?.map((rates) =>
-      rates?.reduce((prev, curr) => {
-        const numerator =
-          Number(prev.numerator ?? 0) + Number(curr.numerator ?? 0);
-        const denominator =
-          Number(prev.denominator ?? 0) + Number(curr.denominator ?? 0);
-        const rate = fixRounding(
-          Number(prev.rate) + Number(curr.rate),
-          1
-        ).toFixed(1);
+  private totalMeasureEligiablePopulation: number = 0;
+
+  sum(arr: StandardRateShape[][], rateFormula: Function) {
+    return arr?.map((rates) => {
+      return rates?.reduce((prev, curr) => {
+        const calculable = !(!prev["weighted rate"] || !curr["weighted rate"]);
+        const weightedRate = calculable
+          ? (
+              Number(prev["weighted rate"]) + Number(curr["weighted rate"])
+            ).toFixed(1)
+          : "";
 
         return {
-          category: prev.category ?? "",
-          label: prev.label ?? "",
-          numerator: numerator.toString(),
-          denominator: denominator.toString(),
-          rate: rate,
-          uid: prev?.uid,
+          category: curr.category ?? "",
+          label: curr.label ?? "",
+          "weighted rate": weightedRate,
+          uid: curr?.uid,
         };
-      })
-    );
+      });
+    });
   }
 
   getFormula(measure: string): Function {
@@ -44,56 +42,37 @@ export class HybridCalculation extends RateCalculation {
       fixRounding(weight, 5) * ((numerator / denominator) * 100);
   }
 
-  public setFormulaRates(
-    values: {
-      measurePopulation: FormattedMeasureData["measurePopulation"];
-      rates: FormattedMeasureData["rates"];
-    }[],
-    calcFormula: Function
-  ) {
-    let totalMeasurePopulation = values
-      .filter((value) => value.measurePopulation)
-      ?.reduce((acc, item) => {
-        return (acc += item.measurePopulation!);
-      }, 0);
+  adjustForDisplay(arr: FormattedMeasureData[]) {
+    return arr.map((data) => {
+      const weight =
+        Number(data["measure-eligible population"]) /
+        this.totalMeasureEligiablePopulation;
 
-    const weightedRates = values.map((value) => {
-      const weight = value.measurePopulation! / totalMeasurePopulation;
-
-      return Object.values(value.rates)
-        .flat()
-        .map((rate) => {
-          const weightedRates = calcFormula(
-            rate.numerator,
-            rate.denominator,
-            isNaN(weight) ? 1 : weight
-          );
-          return { ...rate, rate: weightedRates };
+      for (const [key, value] of Object.entries(data.rates)) {
+        data.rates[key] = value.map((rate) => {
+          rate["weighted rate"] =
+            isNaN(weight) || !rate.rate
+              ? ""
+              : (Number(rate.rate) * fixRounding(weight, 5)).toFixed(1);
+          return rate;
         });
+      }
+      return data;
     });
-    return weightedRates.flat();
   }
 
-  calculate(
-    measure: string,
-    values: {
-      measurePopulation: FormattedMeasureData["measurePopulation"];
-      rates: FormattedMeasureData["rates"];
-    }[]
-  ) {
+  calculate(measure: string, data: FormattedMeasureData[]) {
     const formula: Function = this.getFormula(measure);
-    const formulaRates = this.setFormulaRates(values, formula);
 
-    const uid = formulaRates
-      .filter(
-        (value, index, array) =>
-          array.findIndex((item) => item.uid === value.uid) === index
-      )
-      .map((item) => item.uid);
-    const sumRates = uid.map((id) =>
-      formulaRates.filter((rate) => rate.uid === id)
-    );
-    const total = this.sum(sumRates);
+    this.totalMeasureEligiablePopulation = data
+      .filter((item) => item["measure-eligible population"])
+      .reduce((acc, item) => {
+        return (acc += Number(item["measure-eligible population"]));
+      }, 0);
+
+    const rates = this.adjustForDisplay(data)?.map((item) => item.rates);
+    const flattenRates = rates.map((rate) => Object.values(rate)).flat(2);
+    const total = this.sum(this.groupRates(flattenRates), formula);
     return { column: "Combined Rate", rates: total };
   }
 }

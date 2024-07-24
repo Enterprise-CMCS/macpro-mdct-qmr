@@ -8,11 +8,14 @@ import {
 import * as Labels from "labels/RateTextLabels";
 
 const programTypes = ["Medicaid", "Separate CHIP", "Combined Rate"] as const;
-const rateComponents = ["numerator", "denominator", "rate"] as const;
-const hybridRateComponnents = [
+const rateComponents = [
+  "numerator",
+  "denominator",
+  "rate",
   "measure-eligible population",
   "weighted rate",
 ] as const;
+
 type ProgramType = typeof programTypes[number];
 /** Identifying info for each table we will display on the page */
 type TableKeys = {
@@ -90,7 +93,6 @@ const horizontalTable = (table: TableDataShape) => {
 };
 
 export const CombinedRateNDR = ({ json }: Props) => {
-  modifyDisplayByDateSource(json);
   const tables = collectRatesForDisplay(json);
   provideDefaultValues(tables);
   sortRates(tables, json.year, json.measure);
@@ -118,27 +120,19 @@ export const CombinedRateNDR = ({ json }: Props) => {
   );
 };
 
-const modifyDisplayByDateSource = (json: CombinedRatePayload) => {
-  const dataSources = json.data
-    .map((item) => (item as SeparatedData)?.dataSource)
-    .flat();
-
-  if (dataSources?.includes("HybridAdministrativeandMedicalRecordsData")) {
-    //prevent duplicates during a rerender
-    if (rateComponents.length <= 3) {
-      Object.assign(rateComponents, [
-        ...rateComponents,
-        ...hybridRateComponnents,
-      ]);
-    }
-  }
-};
-
 const collectRatesForDisplay = (
   json: CombinedRatePayload
 ): PartialTableDataShape[] => {
   const tables: PartialTableDataShape[] = [];
   const data = json.data;
+
+  const dataSources = json.data
+    .map((item) => (item as SeparatedData)?.dataSource)
+    .flat();
+
+  const isHybrid = dataSources?.includes(
+    "HybridAdministrativeandMedicalRecordsData"
+  );
 
   // Filter data by Medicaid, CHIP, and Combined Rates
   const medicaidData = (data?.find((item) => item.column == "Medicaid")
@@ -163,9 +157,15 @@ const collectRatesForDisplay = (
     }
   };
   for (let medicaidRate of Object.values(medicaidData).flat()) {
+    medicaidRate["measure-eligible population"] = (
+      data?.find((item) => item.column == "Medicaid") as SeparatedData
+    )["measure-eligible population"];
     rememberRate(medicaidRate, "Medicaid");
   }
   for (let chipRate of Object.values(chipData).flat()) {
+    chipRate["measure-eligible population"] = (
+      data?.find((item) => item.column == "CHIP") as SeparatedData
+    )["measure-eligible population"];
     rememberRate(chipRate, "Separate CHIP");
   }
   for (let combinedRate of combinedRatesData) {
