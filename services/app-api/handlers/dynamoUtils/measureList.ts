@@ -60,6 +60,7 @@ export interface MeasureMetaData {
   measure: string;
   autocompleteOnCreation?: boolean;
   placeholder?: boolean;
+  mandatory?: boolean;
 }
 
 export const measures: Measure = {
@@ -1054,6 +1055,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "AMM-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1082,6 +1084,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CDF-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1106,14 +1109,17 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUA-AD",
+      mandatory: true,
     },
     {
       type: "A",
       measure: "FUH-AD",
+      mandatory: true,
     },
     {
       type: "A",
       measure: "FUM-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1122,6 +1128,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "HPCMI-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1130,10 +1137,12 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "IET-AD",
+      mandatory: true,
     },
     {
       type: "A",
       measure: "MSC-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1147,6 +1156,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "OUD-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1175,10 +1185,12 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "SAA-AD",
+      mandatory: true,
     },
     {
       type: "A",
       measure: "SSD-AD",
+      mandatory: true,
     },
     {
       type: "C",

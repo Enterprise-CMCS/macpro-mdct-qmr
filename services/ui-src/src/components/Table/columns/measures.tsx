@@ -83,6 +83,25 @@ export const measuresColumns = (
         );
       },
     },
+    // {
+    //   header: "Mandatory",
+    //   id: "mandatory_column_header",
+    //   styleProps: { textAlign: "center" },
+    //   cell: (data: MeasureTableItem.Data) => {
+    //     console.log(data);
+    //     return (
+    //       <CUI.Badge
+    //         fontSize="xs"
+    //         colorScheme="blue"
+    //         textTransform="capitalize"
+    //         borderRadius="lg"
+    //         px="2"
+    //       >
+    //         <CUI.Text fontWeight="normal">Mandatory</CUI.Text>
+    //       </CUI.Badge>
+    //     );
+    //   },
+    // },
     {
       header: "Reporting FFY " + year,
       id: "reporting_column_header",
