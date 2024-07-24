@@ -5,12 +5,6 @@ import { AdminstrativeCalculation, HybridCalculation } from "../calculations";
 import { MeasureParameters } from "../../../types";
 import { FormattedMeasureData } from "../calculations/types";
 
-//add new calculations to this array
-const dataSrcCalculations: RateCalculation[] = [
-  new AdminstrativeCalculation(),
-  new HybridCalculation(),
-];
-
 export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
   return data.map((item) => {
     const column = Types.Program[item?.coreSet.at(-1) as "M" | "C"];
@@ -32,8 +26,12 @@ export const formatMeasureData = (data: (Types.Measure | undefined)[]) => {
 };
 
 //checks to see which set of data is valid, and only return those for calculation
-export const removeEmptyRates = (data: FormattedMeasureData[]) => {
-  return data.filter((program) => Object.values(program.rates).length > 0);
+export const removeInvalidRates = (data: FormattedMeasureData[]) => {
+  //remove programs with empty rates or unfilled data source
+  return data.filter(
+    (program) =>
+      program.dataSource.length > 0 && Object.values(program.rates).length > 0
+  );
 };
 
 export const calculateAndPutRate = async (
@@ -45,6 +43,12 @@ export const calculateAndPutRate = async (
     coreSet!.includes(type)
   )!;
 
+  //add new calculations to this array
+  const dataSrcCalculations: RateCalculation[] = [
+    new AdminstrativeCalculation(measure),
+    new HybridCalculation(measure),
+  ];
+
   //only do the rate calculation if the measure is adult or child and is a split
   if (
     coreSet.length === 4 &&
@@ -55,7 +59,7 @@ export const calculateAndPutRate = async (
     const formattedData = formatMeasureData(data);
 
     //check which data is valid for summation
-    const validatedData = removeEmptyRates(formattedData);
+    const validatedData = removeInvalidRates(formattedData);
 
     //based on the measure data, it will check against the calculations that exist and see which one is a match
     const rateCalc: RateCalculation | undefined = dataSrcCalculations.find(
@@ -63,8 +67,8 @@ export const calculateAndPutRate = async (
     );
 
     const combinedRates = [
-      ...(rateCalc?.adjustForDisplay(formattedData) ?? formattedData),
-      rateCalc ? rateCalc.calculate(measure!, validatedData) : {},
+      ...(rateCalc?.expandRates(formattedData) ?? formattedData),
+      rateCalc ? rateCalc.calculate(validatedData) : {},
     ];
 
     //write to the data to the rates table

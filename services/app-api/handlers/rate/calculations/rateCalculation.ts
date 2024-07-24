@@ -4,11 +4,14 @@ import { DataSource, FormattedMeasureData } from "./types";
 
 export abstract class RateCalculation {
   abstract dataSrcMap: { [key in Program]: DataSource[] }[];
+  public measure: string;
 
-  constructor() {}
+  constructor(measure: string) {
+    this.measure = measure;
+  }
   abstract getFormula(measure: string): Function;
 
-  public adjustForDisplay(arr: FormattedMeasureData[]) {
+  public expandRates(arr: FormattedMeasureData[]) {
     return arr;
   }
 
@@ -74,8 +77,8 @@ export abstract class RateCalculation {
     return uid.map((id) => rates.filter((rate) => rate.uid === id));
   }
 
-  public calculate(measure: string, data: FormattedMeasureData[]) {
-    const formula: Function = this.getFormula(measure);
+  public calculate(data: FormattedMeasureData[]) {
+    const formula: Function = this.getFormula(this.measure);
     const rates = data?.map((item) => item.rates);
     const flattenRates = rates.map((rate) => Object.values(rate)).flat(2);
 
