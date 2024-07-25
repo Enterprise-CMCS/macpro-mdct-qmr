@@ -24,7 +24,13 @@ export const ComplexNoNonZeroNumOrDenomOMS = (
         errorArray.push(
           ...ComplexNoNonZeroNumOrDenom(
             [],
-            [{ rate: rateData[key][opmKey] }],
+            [
+              {
+                rate: isLegacyLabel()
+                  ? rateData[opmKey]["OPM"]
+                  : rateData[key][opmKey],
+              },
+            ],
             ndrFormulas,
             `${errorLocation} - ${description}`
           )
