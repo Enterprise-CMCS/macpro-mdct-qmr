@@ -57,7 +57,10 @@ const verticalTable = (
       ))}
       <CUI.List padding="0 0 1rem 2rem">
         <CUI.Text fontWeight="bold" mb="2">
-          {programTypes[2]}: {table["Combined Rate"]?.rate}
+          {programTypes[2]}:{" "}
+          {table["Combined Rate"]?.["weighted rate"] != "-"
+            ? table["Combined Rate"]?.["weighted rate"]
+            : table["Combined Rate"]?.rate}
         </CUI.Text>
       </CUI.List>
       <CUI.Divider borderColor="gray.300" />
