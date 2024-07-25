@@ -52,7 +52,7 @@ export interface Measure {
         [key: string]: StandardRateShape[];
       };
     };
-    HybridMeasurePopulationIncluded: string;
+    HybridMeasurePopulationIncluded?: string;
   };
 }
 
