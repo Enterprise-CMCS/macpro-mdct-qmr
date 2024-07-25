@@ -60,6 +60,14 @@ export const commonQuestionsLabel = {
   DefinitionsOfPopulation: {
     defineDenomOther:
       "Define the other denominator population (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    measureEligiblePopDenom: {
+      question:
+        "Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?",
+      optionYes:
+        "Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.",
+      optionNo:
+        "No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.",
+    },
     explainExcludedPop:
       "Explain which populations are excluded and why (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     specSizeOfPop: "Specify the size of the population excluded:",
