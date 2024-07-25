@@ -32,9 +32,10 @@ type Props = {
 
 const verticalTable = (
   table: TableDataShape,
-  rateComponents:
-    | typeof defaultRateComponents
-    | (typeof defaultRateComponents & typeof hybridRateComponents)
+  rateComponents: (
+    | typeof defaultRateComponents[number]
+    | typeof hybridRateComponents[number]
+  )[]
 ) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
@@ -66,9 +67,10 @@ const verticalTable = (
 
 const horizontalTable = (
   table: TableDataShape,
-  rateComponents:
-    | typeof defaultRateComponents
-    | (typeof defaultRateComponents & typeof hybridRateComponents)
+  rateComponents: (
+    | typeof defaultRateComponents[number]
+    | typeof hybridRateComponents[number]
+  )[]
 ) => {
   return (
     <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
@@ -109,9 +111,7 @@ const getRateComponent = (json: CombinedRatePayload) => {
     "HybridAdministrativeandMedicalRecordsData"
   );
 
-  if (isHybrid) return [...defaultRateComponents, ...hybridRateComponents];
-
-  return defaultRateComponents;
+  return [...defaultRateComponents, ...(isHybrid ? hybridRateComponents : [])];
 };
 
 export const CombinedRateNDR = ({ json }: Props) => {
