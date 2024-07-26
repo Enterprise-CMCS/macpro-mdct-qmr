@@ -1,9 +1,12 @@
 import { cleanString } from "utils";
-import { data } from "./rateLabelText";
+import * as Labels from "./RateLabelTexts";
 
 describe("rate label text", () => {
   it("generated ids should match hardcoded ids", () => {
-    for (let [measureAbbr, groups] of Object.entries(data)) {
+    for (let [measureAbbr, groups] of [
+      ...Object.entries(Labels.RateLabel2021.data),
+      ...Object.entries(Labels.RateLabel2021.data),
+    ]) {
       const mismatches = [];
       for (let groupType of ["categories", "qualifiers"] as const) {
         for (let group of groups[groupType]) {
