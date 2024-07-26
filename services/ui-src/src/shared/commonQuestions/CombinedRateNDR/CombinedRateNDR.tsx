@@ -4,7 +4,7 @@ import {
   RateCategoryMap,
   RateDataShape,
 } from "./CombinedRateTypes";
-import * as Labels from "labels/RateTextLabels";
+import * as Labels from "labels/RateLabelTexts";
 
 const programTypes = ["Medicaid", "Separate CHIP", "Combined Rate"] as const;
 const rateComponents = ["numerator", "denominator", "rate"] as const;
