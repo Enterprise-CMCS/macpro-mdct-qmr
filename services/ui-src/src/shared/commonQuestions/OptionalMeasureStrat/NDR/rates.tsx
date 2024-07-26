@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import * as QMR from "components";
-import { LabelData, isLegacyLabel, stringToLabelData } from "utils";
+import { LabelData, isLegacyLabel } from "utils";
 import { ContextProps, usePerformanceMeasureContext } from "../context";
 
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
@@ -68,15 +68,15 @@ export const useStandardRateArray: RateArrayBuilder = (name) => {
 
   const rateArrays: React.ReactElement[][] = [];
 
-  if (typeof qualifiers[0] === "string" || isLegacyLabel()) {
+  if (isLegacyLabel()) {
     const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
-    stringToLabelData(quals)?.forEach((qual: LabelData, qualIndex) => {
+    quals?.forEach((qual: LabelData, qualIndex) => {
       let ndrSets: React.ReactElement[] = [];
       if (IUHHPerformanceMeasureArray) {
         ndrSets = IUHHRateArrayQualifierAndTotals(
           context,
           name,
-          stringToLabelData(categories),
+          categories,
           qual,
           qualIndex
         );
@@ -84,7 +84,7 @@ export const useStandardRateArray: RateArrayBuilder = (name) => {
         ndrSets = StandardPerformanceMeasureLegacy(
           context,
           name,
-          stringToLabelData(categories),
+          categories,
           qual,
           qualIndex
         );
@@ -156,7 +156,7 @@ export const useQualRateArray: RateArrayBuilder = (name) => {
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   let rateArrays: React.ReactElement[][] = [];
 
-  stringToLabelData(quals).forEach((singleQual, qualIndex) => {
+  quals.forEach((singleQual, qualIndex) => {
     const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
       rateArrays.push([RateComponent(context, cleanedName)]);

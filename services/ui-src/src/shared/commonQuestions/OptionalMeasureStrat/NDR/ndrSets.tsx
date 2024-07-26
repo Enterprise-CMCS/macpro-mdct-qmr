@@ -9,7 +9,7 @@ import {
   useAgeGroupsCheckboxes,
 } from "./ndrCheckboxes";
 import { TotalNDRSets } from "./totalNDRSets";
-import { isLegacyLabel, stringToLabelData } from "utils";
+import { isLegacyLabel } from "utils";
 
 interface NdrProps {
   name: string;
@@ -81,7 +81,7 @@ const AIFHHNDRSets = ({ name }: NdrProps) => {
 const PCRNDRSets = ({ name }: NdrProps) => {
   const { rateReadOnly, qualifiers, customMask } =
     usePerformanceMeasureContext();
-  const rates = stringToLabelData(qualifiers).map((qual, i) => {
+  const rates = qualifiers.map((qual, i) => {
     return { label: qual.label, id: i };
   });
   // ! Waiting for data source refactor to type data source here

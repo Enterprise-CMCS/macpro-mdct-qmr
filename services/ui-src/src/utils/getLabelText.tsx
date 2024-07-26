@@ -1,4 +1,3 @@
-import { cleanString } from "utils";
 import { data as data2021 } from "../measures/2021/rateLabelText";
 import { data as data2022 } from "../measures/2022/rateLabelText";
 import { data as data2023 } from "../measures/2023/rateLabelText";
@@ -37,16 +36,6 @@ export const getLabelText = (): { [key: string]: string } => {
     };
   }
   return {};
-};
-
-//this function is to convert legacy data structure that's used for 2021 & 2022 data to work with year >= 2023 components
-export const stringToLabelData = (arr: string[] | LabelData[]): LabelData[] => {
-  if (typeof arr[0] === "string") {
-    return (arr as string[]).map((qual: string) => {
-      return { id: cleanString(qual), label: qual, text: qual };
-    });
-  }
-  return arr as LabelData[];
 };
 
 //pre-2023, the system was using string types for categories & qualifiers. we want to be able to identify it as it determines our data structure for those years
