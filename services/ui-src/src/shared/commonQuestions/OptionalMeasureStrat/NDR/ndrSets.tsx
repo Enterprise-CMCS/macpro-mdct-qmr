@@ -33,12 +33,12 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
 };
 
 const IUHHNDRSets = ({ name }: NdrProps) => {
-  const { calcTotal, qualifiers } = usePerformanceMeasureContext();
+  const { calcTotal } = usePerformanceMeasureContext();
   const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.iuhh-rate`);
 
   return (
     <>
-      {(ageGroupsOptions && typeof qualifiers[0] === "string") ||
+      {ageGroupsOptions ||
         (isLegacyLabel() && (
           <QMR.Checkbox
             name={`${name}.iuhh-rate.options`}
