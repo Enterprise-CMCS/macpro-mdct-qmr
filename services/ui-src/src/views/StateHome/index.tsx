@@ -20,6 +20,7 @@ import { coreSets, CoreSetField } from "shared/coreSetByYear";
 
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { Link } from "react-router-dom";
+import { statesWithoutCombinedRates } from "utils";
 
 interface HandleDeleteData {
   state: string;
@@ -44,6 +45,10 @@ const ReportingYear = () => {
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
   const releasedTwentyTwentyFour = useFlags()?.["release2024"];
+  // Certain states do not have separate chip and medicaid so we will not
+  // display the Combined Rates button for those states
+  const showCombinedRatesButton =
+    state && !statesWithoutCombinedRates.includes(state);
 
   let reportingyearOptions: IRepYear[] =
     reportingYears && reportingYears.length
@@ -86,7 +91,7 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
-      {year === "2024" && (
+      {year === "2024" && showCombinedRatesButton && (
         <CUI.Box mt="22px">
           <Link
             to={`/${state}/${year}/combined-rates`}
