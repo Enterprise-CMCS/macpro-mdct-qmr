@@ -1,5 +1,4 @@
 import * as DC from "dataConstants";
-import * as Types from "measures/2023/shared/CommonQuestions/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { OmsNode } from "shared/types";
 import { LabelData, isLegacyLabel } from "utils";
@@ -8,6 +7,9 @@ import {
   OmsNodes as OMS,
   DataDrivenTypes as DDT,
   PerformanceMeasure,
+  OtherRatesFields,
+  DataDrivenTypes,
+  OptionalMeasureStratification,
 } from "measures/2023/shared/CommonQuestions/types";
 
 // Test Rate Objects
@@ -216,7 +218,7 @@ export const generateOtherPerformanceMeasureData = (
   testData: RateFields[],
   numberOfFields = 3
 ) => {
-  const data: Types.OtherRatesFields[] = [];
+  const data: OtherRatesFields[] = [];
 
   for (let index = 0; index < numberOfFields; index++) {
     data.push({ rate: testData });
@@ -242,19 +244,17 @@ export const locationDictionary = (s: string[]) => {
 export const generateOmsFormData = (
   rateData: OMS.OmsRateFields,
   addToSelections = true,
-  renderData?: Types.DataDrivenTypes.OptionalMeasureStrat
+  renderData?: DataDrivenTypes.OptionalMeasureStrat
 ) => {
   const data = renderData ?? isLegacyLabel() ? OMSData(2021) : OMSData(2023);
   const description = "TestAdditionalCategoryOrSubCategory";
-  const omsData: Types.OptionalMeasureStratification = {
+  const omsData: OptionalMeasureStratification = {
     OptionalMeasureStratification: { options: [], selections: {} },
   };
 
   // urban/domestic - english/spanish - etc
-  const createMidLevelNode = (
-    node: OmsNode
-  ): Types.OmsNodes.MidLevelOMSNode => {
-    const midNode: Types.OmsNodes.MidLevelOMSNode = {};
+  const createMidLevelNode = (node: OmsNode): OMS.MidLevelOMSNode => {
+    const midNode: OMS.MidLevelOMSNode = {};
     if (!!node.options?.length) {
       midNode.aggregate = "NoIndependentData";
       for (const opt of node.options) {
@@ -276,10 +276,8 @@ export const generateOmsFormData = (
   };
 
   // race - sex - geography - etc
-  const createTopLevelNode = (
-    node: OmsNode
-  ): Types.OmsNodes.TopLevelOmsNode => {
-    const topNode: Types.OmsNodes.TopLevelOmsNode = {};
+  const createTopLevelNode = (node: OmsNode): OMS.TopLevelOmsNode => {
+    const topNode: OMS.TopLevelOmsNode = {};
     if (!node.options) {
       topNode.rateData = rateData;
     }
@@ -293,7 +291,7 @@ export const generateOmsFormData = (
       }
     }
     if (node.addMore) {
-      const tempAdd: Types.OmsNodes.AddtnlOmsNode = {
+      const tempAdd: OMS.AddtnlOmsNode = {
         description,
         rateData,
         additionalSubCategories: [{ description, rateData }],
