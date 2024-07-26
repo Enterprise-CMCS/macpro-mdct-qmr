@@ -8,7 +8,7 @@ import {
   OmsNodes as OMS,
   DataDrivenTypes as DDT,
   PerformanceMeasure,
-} from "measures/2024/shared/CommonQuestions/types";
+} from "measures/2023/shared/CommonQuestions/types";
 
 // Test Rate Objects
 export const partialRate: RateFields = {
