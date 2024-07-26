@@ -8,7 +8,6 @@ import {
   DataDrivenTypes as DDT,
   PerformanceMeasure,
   OtherRatesFields,
-  DataDrivenTypes,
   OptionalMeasureStratification,
 } from "measures/2023/shared/CommonQuestions/types";
 
@@ -244,7 +243,7 @@ export const locationDictionary = (s: string[]) => {
 export const generateOmsFormData = (
   rateData: OMS.OmsRateFields,
   addToSelections = true,
-  renderData?: DataDrivenTypes.OptionalMeasureStrat
+  renderData?: DDT.OptionalMeasureStrat
 ) => {
   const data = renderData ?? isLegacyLabel() ? OMSData(2021) : OMSData(2023);
   const description = "TestAdditionalCategoryOrSubCategory";
