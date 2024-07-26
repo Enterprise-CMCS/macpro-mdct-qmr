@@ -9,7 +9,7 @@ import {
   simpleRate,
   partialRate,
   generateOtherPerformanceMeasureData,
-} from "utils/testUtils/2023/validationHelpers";
+} from "utils/testUtils/validationHelpers";
 import { LabelData } from "utils";
 
 jest.mock("utils/getLabelText", () => ({

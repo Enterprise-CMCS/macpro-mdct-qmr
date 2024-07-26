@@ -11,7 +11,7 @@ import {
   simpleRate,
   partialRate,
   generatePmQualifierRateData,
-} from "utils/testUtils/2023/validationHelpers";
+} from "utils/testUtils/validationHelpers";
 
 describe("Testing Equal Denominators For All Qualifiers Validation", () => {
   const noCat: LabelData[] = [];

@@ -11,7 +11,7 @@ import {
   simpleRate,
   partialRate,
   generateOtherPerformanceMeasureData,
-} from "utils/testUtils/2023/validationHelpers";
+} from "utils/testUtils/validationHelpers";
 
 jest.mock("utils/getLabelText", () => ({
   isLegacyLabel: () => true,
