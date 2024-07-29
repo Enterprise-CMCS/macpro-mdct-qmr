@@ -2,8 +2,6 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { updateCoreSetProgress } from "../../libs/updateCoreProgress";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
-import { createCoreSet } from "./create";
 import {
   hasRolePermissions,
   hasStatePermissions,
@@ -11,6 +9,7 @@ import {
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { CoreSet, UserRoles } from "../../types";
 import { CoreSetField, coreSets } from "../../libs/coreSetByYearPreloaded";
+import { getCoreSetFromTable, postCoreSet } from "../../storage/table";
 
 export const coreSetList = handler(async (event, context) => {
   // action limited to any admin type user and state users from corresponding state
@@ -59,19 +58,14 @@ export const coreSetList = handler(async (event, context) => {
   // check if any coresets should be preloaded and requery the db
   for (const coreSet of filteredCoreSets) {
     for (const abbr of coreSet.abbr) {
-      let createCoreSetEvent = {
-        ...event,
-        pathParameters: {
-          ...event.pathParameters,
-          coreSet: abbr,
-        },
+      const createCoreSetEvent = {
+        state,
+        year: year.toString(),
+        coreSet: abbr,
       };
-      const createCoreSetResult = await createCoreSet(
-        createCoreSetEvent,
-        context
-      );
+      const createCoreSetResult = await postCoreSet(createCoreSetEvent);
 
-      if (createCoreSetResult.statusCode !== 200) {
+      if (createCoreSetResult.status !== 200) {
         return {
           status: StatusCodes.SERVER_ERROR,
           body: "Creation failed",
@@ -105,15 +99,12 @@ export const getCoreSet = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const dynamoKey = createCompoundKey(event);
-  const params = {
-    TableName: process.env.coreSetTableName!,
-    Key: {
-      compoundKey: dynamoKey,
-      coreSet: event!.pathParameters!.coreSet!,
-    },
-  };
-  const queryValue = await dynamoDb.get(params);
+  const { state, year, coreSet } = event.pathParameters!;
+  const queryValue = await getCoreSetFromTable({
+    state: state!,
+    year: year!,
+    coreSet: coreSet!,
+  });
   return {
     status: StatusCodes.SUCCESS,
     body: {

@@ -1,4 +1,4 @@
-import { putToTable, getMeasureFromTable, getMeasureByCoreSet } from "./table";
+import { postToTable, getMeasureFromTable, getMeasureByCoreSet } from "./table";
 import dynamodbLib from "../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../handlers/dynamoUtils/convertToDynamoExpressionVars";
 import { testData } from "../test-util/testData";
@@ -18,8 +18,8 @@ jest.mock("../handlers/dynamoUtils/convertToDynamoExpressionVars", () => ({
 }));
 
 describe("Test functions", () => {
-  it("Test putToTable function", async () => {
-    const res = await putToTable("mockTable", {}, {}, {});
+  it("Test postToTable function", async () => {
+    const res = await postToTable("mockTable", {}, {}, {});
 
     expect(convertToDynamoExpression).toHaveBeenCalled();
     expect(dynamodbLib.update).toHaveBeenCalled();

@@ -1,5 +1,5 @@
 import * as Types from "../../../types";
-import { putToTable, getMeasureByCoreSet } from "../../../storage/table";
+import { postToTable, getMeasureByCoreSet } from "../../../storage/table";
 import { RateCalculation } from "../calculations/rateCalculation";
 import { AdminstrativeCalculation } from "../calculations";
 import { MeasureParameters } from "../../../types";
@@ -61,7 +61,7 @@ export const calculateAndPutRate = async (
     ];
 
     //write to the data to the rates table
-    return await putToTable(
+    return await postToTable(
       process.env.rateTableName!,
       combinedRates,
       {
