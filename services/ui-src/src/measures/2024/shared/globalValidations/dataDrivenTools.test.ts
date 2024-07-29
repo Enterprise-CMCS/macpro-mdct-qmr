@@ -4,7 +4,7 @@ import {
   generateOmsQualifierRateData,
   generatePmQualifierRateData,
   simpleRate,
-} from "utils/testUtils/2024/validationHelpers";
+} from "utils/testUtils/validationHelpers";
 import {
   convertOmsDataToRateArray,
   getPerfMeasureRateArray,

@@ -22,6 +22,7 @@ export interface StandardRateShape {
   numerator?: string;
   denominator?: string;
   rate?: string;
+  ["weighted rate"]?: string;
 }
 
 export interface Measure {
@@ -51,6 +52,7 @@ export interface Measure {
         [key: string]: StandardRateShape[];
       };
     };
+    HybridMeasurePopulationIncluded?: string;
   };
 }
 

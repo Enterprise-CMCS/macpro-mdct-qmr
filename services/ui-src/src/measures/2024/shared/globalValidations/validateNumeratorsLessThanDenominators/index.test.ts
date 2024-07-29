@@ -10,7 +10,7 @@ import {
   simpleRate,
   partialRate,
   generateOtherPerformanceMeasureData,
-} from "utils/testUtils/2024/validationHelpers";
+} from "utils/testUtils/validationHelpers";
 
 describe("Testing Numerator Less Than Denominator", () => {
   const categories = [

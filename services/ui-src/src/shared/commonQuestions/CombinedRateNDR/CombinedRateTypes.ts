@@ -13,6 +13,8 @@ export type RateDataShape = {
   numerator?: string;
   denominator?: string;
   rate?: string;
+  "measure-eligible population": string;
+  "weighted rate"?: string;
 };
 
 export type RateCategoryMap = {
@@ -22,6 +24,7 @@ export type RateCategoryMap = {
 export type SeparatedData = {
   column: Program;
   dataSource: DataSource[];
+  "measure-eligible population": string;
   rates: RateCategoryMap;
 };
 

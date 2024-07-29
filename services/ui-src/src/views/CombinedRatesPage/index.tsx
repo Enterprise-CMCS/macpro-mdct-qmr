@@ -7,6 +7,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
+import { statesWithoutCombinedRates } from "utils";
 
 const measuresWithoutPerformanceData = ["CSQ", "CPC-CH", "CPA-AD"];
 
@@ -96,6 +97,18 @@ export const CombinedRatesPage = () => {
 
   if (isLoading || !data.Items) {
     return <QMR.LoadingWave />;
+  }
+
+  // block display from states that do not have combined rates
+  if (state && statesWithoutCombinedRates.includes(state)) {
+    return (
+      <CUI.Box data-testid="unauthorized-container">
+        <QMR.Notification
+          alertStatus="error"
+          alertTitle={`Combined rates for ${state} are not supported`}
+        />
+      </CUI.Box>
+    );
   }
 
   return (
