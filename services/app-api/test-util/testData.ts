@@ -1,5 +1,5 @@
 import { DataSource } from "../handlers/rate/calculations/types";
-import { CoreSetAbbr, MeasureStatus } from "../types";
+import { CoreSetAbbr, Measure, MeasureStatus } from "../types";
 
 export const testData = [
   {
@@ -7,6 +7,7 @@ export const testData = [
     compoundKey: "MA2024ACSCAMM-AD",
     measure: "AMM-AD",
     data: {
+      DataSource: [DataSource.Administrative],
       DataSourceSelections: [],
       PerformanceMeasure: {
         rates: {
@@ -22,15 +23,12 @@ export const testData = [
           ],
         },
       },
-      MeasurementSpecification: "NCQA/HEDIS",
-      DataSource: [DataSource.Administrative],
     },
     year: 2024,
     lastAltered: 1718052665862,
     coreSet: CoreSetAbbr.ACSC,
     state: "MA",
     lastAlteredBy: "Sammy States",
-    reporting: null,
     status: MeasureStatus.INCOMPLETE,
   },
   {
@@ -38,6 +36,7 @@ export const testData = [
     compoundKey: "MA2024ACSMAMM-AD",
     measure: "AMM-AD",
     data: {
+      DataSource: [DataSource.Administrative, DataSource.EHR],
       DataSourceSelections: [],
       PerformanceMeasure: {
         rates: {
@@ -53,15 +52,12 @@ export const testData = [
           ],
         },
       },
-      MeasurementSpecification: "NCQA/HEDIS",
-      DataSource: [DataSource.Administrative, DataSource.EHR],
     },
     year: 2024,
     lastAltered: 1718052680450,
     coreSet: CoreSetAbbr.ACSM,
     state: "MA",
     lastAlteredBy: "Sammy States",
-    reporting: null,
     status: MeasureStatus.INCOMPLETE,
   },
 ];
