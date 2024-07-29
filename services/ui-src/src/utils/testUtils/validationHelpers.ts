@@ -1,18 +1,15 @@
-/**  
-NOTE: legacy file used for 2021 & 2022 unit test
-Use folder testUtils/2023/validationHelpers.ts for unit test 2023 and later
-*/
 import * as DC from "dataConstants";
-import * as Types from "measures/2022/shared/CommonQuestions/types";
-import { OmsNode } from "shared/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
-import { cleanString } from "utils";
+import { OmsNode } from "shared/types";
+import { LabelData, isLegacyLabel } from "utils";
 import {
   RateFields,
   OmsNodes as OMS,
   DataDrivenTypes as DDT,
   PerformanceMeasure,
-} from "measures/2022/shared/CommonQuestions/types";
+  OtherRatesFields,
+  OptionalMeasureStratification,
+} from "measures/2023/shared/CommonQuestions/types";
 
 // Test Rate Objects
 export const partialRate: RateFields = {
@@ -79,14 +76,14 @@ export const emptyRate: RateFields = {
  * Helper function to prep oms validation test data  by slotting test data in qualifier order
  *
  * @param categories should always at least contain "singleCategory"
- * @param qualifiers a non-negotiable string array
+ * @param qualifiers a non-negotiable LabelData array
  * @param testData what test data to place in the qualifier location in rate data
  *
  * @note testData MUST be the same length as chosen qualifiers
  */
 export const generateOmsQualifierRateData = (
-  categories: string[],
-  qualifiers: string[],
+  categories: LabelData[],
+  qualifiers: LabelData[],
   testData: RateFields[]
 ) => {
   if (testData.length !== qualifiers.length) {
@@ -94,14 +91,22 @@ export const generateOmsQualifierRateData = (
     return {};
   }
   const rateData: OMS.OmsRateFields = {};
-  const cats = categories.length ? categories : [DC.SINGLE_CATEGORY];
-  rateData.options = qualifiers.map((s) => cleanString(s));
+  const cats = categories.length
+    ? categories.map((item) => item.id)
+    : [DC.SINGLE_CATEGORY];
+  rateData.options = qualifiers.map((s) => s.id);
+  const legacy = isLegacyLabel();
 
-  for (const [i, q] of qualifiers.map((q) => cleanString(q)).entries()) {
-    for (const c of cats.map((c) => cleanString(c))) {
+  for (const [i, q] of qualifiers.map((q) => q.id).entries()) {
+    for (const c of cats) {
       rateData.rates ??= {};
-      rateData.rates[q] ??= {};
-      rateData.rates[q][c] = [testData[i]];
+      if (legacy) {
+        rateData.rates[q] ??= {};
+        rateData.rates[q][c] = [testData[i]];
+      } else {
+        rateData.rates[c] ??= {};
+        rateData.rates[c][q] = [testData[i]];
+      }
     }
   }
 
@@ -112,14 +117,14 @@ export const generateOmsQualifierRateData = (
  * Helper function to prep oms validation test data  by slotting test data in category order
  *
  * @param categories should be longer than just singleCategory
- * @param qualifiers a non-negotiable string array
+ * @param qualifiers a non-negotiable LabelData array
  * @param testData what test data to place in the category location in rate data
  *
  * @note testData MUST be the same length as chosen categories
  */
 export const generateOmsCategoryRateData = (
-  categories: string[],
-  qualifiers: string[],
+  categories: LabelData[],
+  qualifiers: LabelData[],
   testData: RateFields[]
 ) => {
   if (testData.length !== categories.length) {
@@ -128,13 +133,19 @@ export const generateOmsCategoryRateData = (
   }
 
   const rateData: OMS.OmsRateFields = {};
-  rateData.options = qualifiers.map((s) => cleanString(s));
+  rateData.options = qualifiers.map((s) => s.id);
+  const legacy = isLegacyLabel();
 
-  for (const [i, c] of categories.map((c) => cleanString(c)).entries()) {
-    for (const q of qualifiers.map((q) => cleanString(q))) {
+  for (const [i, c] of categories.map((c) => c.id).entries()) {
+    for (const q of qualifiers.map((q) => q.id)) {
       rateData.rates ??= {};
-      rateData.rates[q] ??= {};
-      rateData.rates[q][c] = [testData[i]];
+      if (legacy) {
+        rateData.rates[q] ??= {};
+        rateData.rates[q][c] = [testData[i]];
+      } else {
+        rateData.rates[c] ??= {};
+        rateData.rates[c][q] = [testData[i]];
+      }
     }
   }
 
@@ -157,11 +168,11 @@ export const generatePmQualifierRateData = (
   }
   const rateData: PerformanceMeasure = { PerformanceMeasure: { rates: {} } };
   const cats = pmd.categories?.length
-    ? pmd.categories
-    : [{ id: DC.SINGLE_CATEGORY }];
+    ? pmd.categories.map((item) => item.id)
+    : [DC.SINGLE_CATEGORY];
 
   for (let i = 0; i < pmd.qualifiers.length; i++) {
-    for (const c of cats?.map((c) => c.id) ?? []) {
+    for (const c of cats ?? []) {
       rateData.PerformanceMeasure!.rates![c] ??= [];
       rateData?.PerformanceMeasure?.rates?.[c]?.push(testData[i]);
     }
@@ -206,7 +217,7 @@ export const generateOtherPerformanceMeasureData = (
   testData: RateFields[],
   numberOfFields = 3
 ) => {
-  const data: Types.OtherRatesFields[] = [];
+  const data: OtherRatesFields[] = [];
 
   for (let index = 0; index < numberOfFields; index++) {
     data.push({ rate: testData });
@@ -232,26 +243,25 @@ export const locationDictionary = (s: string[]) => {
 export const generateOmsFormData = (
   rateData: OMS.OmsRateFields,
   addToSelections = true,
-  renderData?: Types.DataDrivenTypes.OptionalMeasureStrat
+  renderData?: DDT.OptionalMeasureStrat
 ) => {
-  const data = renderData ?? OMSData(2021);
+  const data = renderData ?? isLegacyLabel() ? OMSData(2021) : OMSData(2023);
   const description = "TestAdditionalCategoryOrSubCategory";
-  const omsData: Types.OptionalMeasureStratification = {
+  const omsData: OptionalMeasureStratification = {
     OptionalMeasureStratification: { options: [], selections: {} },
   };
 
   // urban/domestic - english/spanish - etc
-  const createMidLevelNode = (
-    node: OmsNode
-  ): Types.OmsNodes.MidLevelOMSNode => {
-    const midNode: Types.OmsNodes.MidLevelOMSNode = {};
+  const createMidLevelNode = (node: OmsNode): OMS.MidLevelOMSNode => {
+    const midNode: OMS.MidLevelOMSNode = {};
     if (!!node.options?.length) {
       midNode.aggregate = "NoIndependentData";
       for (const opt of node.options) {
         midNode.options ??= [];
+        midNode.label ??= "";
         midNode.selections ??= {};
-        addToSelections && midNode.options.push(cleanString(opt.id));
-        midNode.selections[cleanString(opt.id)] = {
+        addToSelections && midNode.options.push(opt.id);
+        midNode.selections[opt.id] = {
           rateData,
           additionalSubCategories: [{ description, rateData }],
         };
@@ -265,23 +275,22 @@ export const generateOmsFormData = (
   };
 
   // race - sex - geography - etc
-  const createTopLevelNode = (
-    node: OmsNode
-  ): Types.OmsNodes.TopLevelOmsNode => {
-    const topNode: Types.OmsNodes.TopLevelOmsNode = {};
+  const createTopLevelNode = (node: OmsNode): OMS.TopLevelOmsNode => {
+    const topNode: OMS.TopLevelOmsNode = {};
     if (!node.options) {
       topNode.rateData = rateData;
     }
     if (!!node.options?.length) {
       for (const opt of node.options) {
         topNode.options ??= [];
+        topNode.label ??= "";
         topNode.selections ??= {};
-        addToSelections && topNode.options.push(cleanString(opt.id));
-        topNode.selections[cleanString(opt.id)] = createMidLevelNode(opt);
+        addToSelections && topNode.options.push(opt.id);
+        topNode.selections[opt.id] = createMidLevelNode(opt);
       }
     }
     if (node.addMore) {
-      const tempAdd: Types.OmsNodes.AddtnlOmsNode = {
+      const tempAdd: OMS.AddtnlOmsNode = {
         description,
         rateData,
         additionalSubCategories: [{ description, rateData }],
@@ -293,11 +302,10 @@ export const generateOmsFormData = (
 
   // makes top level node for each omsnode
   const createBaseOMS = (node: OmsNode) => {
-    const cleanLabel = cleanString(node.id);
     addToSelections &&
-      omsData.OptionalMeasureStratification.options.push(cleanLabel);
+      omsData.OptionalMeasureStratification.options.push(node.id);
     omsData.OptionalMeasureStratification.selections ??= {};
-    omsData.OptionalMeasureStratification.selections[cleanLabel] =
+    omsData.OptionalMeasureStratification.selections[node.id] =
       createTopLevelNode(node);
   };
 

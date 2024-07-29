@@ -7,7 +7,7 @@ import {
   simpleRate,
   partialRate,
   generateOtherPerformanceMeasureData,
-} from "utils/testUtils/2023/validationHelpers";
+} from "utils/testUtils/validationHelpers";
 
 describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
   const categories = [

@@ -1,8 +1,5 @@
 import * as DC from "dataConstants";
-import {
-  simpleRate,
-  partialRate,
-} from "utils/testUtils/2023/validationHelpers";
+import { simpleRate, partialRate } from "utils/testUtils/validationHelpers";
 import { validateDualPopInformationPM } from ".";
 
 describe("Testing Dual Population Selection Validation", () => {

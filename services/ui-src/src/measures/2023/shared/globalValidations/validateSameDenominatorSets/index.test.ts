@@ -6,7 +6,7 @@ import {
   doubleRate,
   lowerRate,
   higherRate,
-} from "utils/testUtils/2023/validationHelpers";
+} from "utils/testUtils/validationHelpers";
 
 describe("Testing Same Denominator Set Validation", () => {
   const categories = [
