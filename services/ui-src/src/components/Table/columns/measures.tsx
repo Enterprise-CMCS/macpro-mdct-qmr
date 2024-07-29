@@ -55,6 +55,7 @@ const MeasureStatusText = ({
 export const measuresColumns = (
   year: string
 ): TableColumn<MeasureTableItem.Data>[] => {
+  const displayMandatoryColumn = year === "2024";
   return [
     {
       header: "Abbreviation",
@@ -83,25 +84,30 @@ export const measuresColumns = (
         );
       },
     },
-    // {
-    //   header: "Mandatory",
-    //   id: "mandatory_column_header",
-    //   styleProps: { textAlign: "center" },
-    //   cell: (data: MeasureTableItem.Data) => {
-    //     console.log(data);
-    //     return (
-    //       <CUI.Badge
-    //         fontSize="xs"
-    //         colorScheme="blue"
-    //         textTransform="capitalize"
-    //         borderRadius="lg"
-    //         px="2"
-    //       >
-    //         <CUI.Text fontWeight="normal">Mandatory</CUI.Text>
-    //       </CUI.Badge>
-    //     );
-    //   },
-    // },
+    ...(displayMandatoryColumn
+      ? [
+          {
+            header: "Mandatory",
+            id: "mandatory_column_header",
+            styleProps: { textAlign: "center" },
+            cell: (data: MeasureTableItem.Data) => {
+              return (
+                <CUI.Badge
+                  fontSize="xs"
+                  backgroundColor="blue.50"
+                  textTransform="capitalize"
+                  borderRadius="lg"
+                  px="2"
+                >
+                  {data?.mandatory && (
+                    <CUI.Text fontWeight="normal">Mandatory</CUI.Text>
+                  )}
+                </CUI.Badge>
+              );
+            },
+          },
+        ]
+      : []),
     {
       header: "Reporting FFY " + year,
       id: "reporting_column_header",
