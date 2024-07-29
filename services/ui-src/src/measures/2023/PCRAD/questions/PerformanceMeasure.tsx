@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../../shared/CommonQuestions/types";
-import { PerformanceMeasureData } from "../../shared/CommonQuestions/PerformanceMeasure/data";
+import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
 import { PCRRate } from "components/PCRRate";
 import { LabelData } from "utils";

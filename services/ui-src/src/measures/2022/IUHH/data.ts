@@ -6,12 +6,28 @@ export const { categories, qualifiers } = getCatQualLabels("IU-HH");
 const measureName = "IUHH";
 
 const inputFieldNames = [
-  "Number of Enrollee Months",
-  "Discharges",
-  "Discharges per 1,000 Enrollee Months",
-  "Days",
-  "Days per 1,000 Enrollee Months",
-  "Average Length of Stay",
+  {
+    id: "Number of Enrollee Months",
+    label: "Number of Enrollee Months",
+    text: "Number of Enrollee Months",
+  },
+  { id: "Discharges", label: "Discharges", text: "Discharges" },
+  {
+    id: "Discharges per 1,000 Enrollee Months",
+    label: "Discharges per 1,000 Enrollee Months",
+    text: "Discharges per 1,000 Enrollee Months",
+  },
+  { id: "Days", label: "Days", text: "Days" },
+  {
+    id: "Days per 1,000 Enrollee Months",
+    label: "Days per 1,000 Enrollee Months",
+    text: "Days per 1,000 Enrollee Months",
+  },
+  {
+    id: "Average Length of Stay",
+    label: "Average Length of Stay",
+    text: "Average Length of Stay",
+  },
 ];
 
 // Rate structure by index in row

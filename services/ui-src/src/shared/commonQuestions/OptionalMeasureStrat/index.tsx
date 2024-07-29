@@ -58,7 +58,7 @@ export const buildOmsCheckboxes = ({
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   measureName?: string;
-  inputFieldNames?: string[] | LabelData[];
+  inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
@@ -201,17 +201,13 @@ export const OptionalMeasureStrat = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDataSourceSwitch]);
 
-  let cleanedQual = qualifiers;
-  let cleanedCat = categories;
-
-  if (typeof qualifiers[0] !== "string") {
-    cleanedQual = (qualifiers as Types.QualifierLabelData[]).filter(
-      (qual) => !qual.excludeFromOMS
-    );
-    cleanedCat = (categories as Types.CategoryLabelData[]).filter(
-      (cat) => !cat.excludeFromOMS
-    );
-  }
+  //filter out cat & qual that do not want to capture OMS data
+  const cleanedQual = (qualifiers as Types.QualifierLabelData[]).filter(
+    (qual) => !qual.excludeFromOMS
+  );
+  const cleanedCat = (categories as Types.CategoryLabelData[]).filter(
+    (cat) => !cat.excludeFromOMS
+  );
 
   return (
     <QMR.CoreQuestionWrapper
