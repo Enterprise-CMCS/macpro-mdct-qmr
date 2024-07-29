@@ -105,7 +105,8 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},
           ndrForumlas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`
+          `Optional Measure Stratification: ${locationDictionary(label)}`,
+          OPM.map((item: any) => item.description)
         ),
         ...GV.ComplexValueSameCrossCategoryOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},
@@ -118,7 +119,8 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
           ndrForumlas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`
+          `Optional Measure Stratification: ${locationDictionary(label)}`,
+          OPM.map((item: any) => item.description)
         ),
       ];
 };

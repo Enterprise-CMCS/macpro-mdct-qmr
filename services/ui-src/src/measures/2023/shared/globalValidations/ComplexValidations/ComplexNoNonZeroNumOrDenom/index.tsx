@@ -1,3 +1,6 @@
+import { cleanString, isLegacyLabel } from "utils";
+import * as DC from "dataConstants";
+
 interface NDRforumla {
   numerator: number;
   denominator: number;
@@ -7,21 +10,32 @@ interface NDRforumla {
 export const ComplexNoNonZeroNumOrDenomOMS = (
   rateData: any,
   ndrFormulas: NDRforumla[],
-  errorLocation: string
+  errorLocation: string,
+  descriptions: string[]
 ) => {
   let errorArray: any[] = [];
   for (const key in rateData) {
     if (key === "OPM") {
-      for (const opmLabel in rateData[key]) {
+      descriptions.forEach((description) => {
+        const opmKey = isLegacyLabel()
+          ? cleanString(description)
+          : `${DC.OPM_KEY}${cleanString(description)}`;
+
         errorArray.push(
           ...ComplexNoNonZeroNumOrDenom(
             [],
-            [{ rate: rateData[key][opmLabel] }],
+            [
+              {
+                rate: isLegacyLabel()
+                  ? rateData[opmKey]["OPM"]
+                  : rateData[key][opmKey],
+              },
+            ],
             ndrFormulas,
-            `${errorLocation} - ${opmLabel}`
+            `${errorLocation} - ${description}`
           )
         );
-      }
+      });
     } else {
       for (const category in rateData[key]) {
         errorArray.push(
