@@ -289,16 +289,16 @@ const StateHome = () => {
     });
 
   //we are using the order of the coresetabbr enums to determine the order of the table items
-  const sortedTableItems: CoreSetTableItem.Data[] = Object.values(CoreSetAbbr)
-    .map((abbr) => {
-      if (abbr === "HHCS")
-        return formattedTableItems.filter((item) =>
-          item.coreSet.includes(abbr)
-        );
-      return formattedTableItems.find((item) => item.coreSet === abbr);
-    })
-    .filter((item) => item != undefined)
-    .flat();
+  const sortedTableItems = Object.values(CoreSetAbbr).map((abbr) => {
+    if (abbr === "HHCS")
+      return formattedTableItems.filter((item) => item.coreSet.includes(abbr));
+    return formattedTableItems.find((item) => item.coreSet === abbr);
+  });
+
+  //removing any undefine or empty items
+  const filteredTableItems = sortedTableItems
+    .flat()
+    .filter((item) => item != undefined);
 
   return (
     <QMR.StateLayout
@@ -310,7 +310,7 @@ const StateHome = () => {
         <BannerCard />
       </CUI.Box>
       <Heading />
-      <QMR.Table data={sortedTableItems} columns={QMR.coreSetColumns} />
+      <QMR.Table data={filteredTableItems} columns={QMR.coreSetColumns} />
       <CUI.Stack direction={{ base: "column", md: "row" }} spacing="6">
         <AddCoreSetCards coreSetCards={coreSetCards} />
       </CUI.Stack>
