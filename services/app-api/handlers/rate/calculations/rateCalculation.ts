@@ -17,9 +17,14 @@ export abstract class RateCalculation {
 
   public check(arr: FormattedMeasureData[]): boolean {
     const chipSources =
-      arr.find((data) => data.column === "CHIP")?.dataSource ?? [];
+      arr.find((data) => data.column === "CHIP")?.dataSource.sort() ?? [];
     const medicaidSources =
-      arr.find((data) => data.column === "Medicaid")?.dataSource ?? [];
+      arr.find((data) => data.column === "Medicaid")?.dataSource.sort() ?? [];
+
+    this.dataSrcMap.forEach((src) => {
+      src.CHIP.sort();
+      src.Medicaid.sort();
+    });
 
     // If neither measure has any data source, we will not use this calculation
     if (chipSources.length === 0 && medicaidSources.length === 0) {
@@ -27,14 +32,22 @@ export abstract class RateCalculation {
     }
 
     return this.dataSrcMap.some((dataSrc) => {
-      // If a measure has no data sources, .every() returns true
-      // This is good because we still want to calculate even if only one measure is complete.
-      const chipSourcesMatch = chipSources.every((chipSrc) =>
-        dataSrc.CHIP.includes(chipSrc)
-      );
-      const medicaidSourcesMatch = medicaidSources.every((medSrc) =>
-        dataSrc.Medicaid.includes(medSrc)
-      );
+      // we still want to calculate even if only one measure is complete.
+      // we need exact matching of the values of data source to the data source map.
+      //length is checked for the same amount of items and index is checked to make sure its a match
+      const chipSourcesMatch =
+        chipSources.length === 0 ||
+        (chipSources.length === dataSrc.CHIP.length &&
+          dataSrc.CHIP.every(
+            (chipSrc, idx) => chipSources.indexOf(chipSrc) === idx
+          ));
+
+      const medicaidSourcesMatch =
+        medicaidSources.length === 0 ||
+        (medicaidSources.length === dataSrc.Medicaid.length &&
+          dataSrc.Medicaid.every(
+            (medSrc, idx) => medicaidSources.indexOf(medSrc) === idx
+          ));
       return chipSourcesMatch && medicaidSourcesMatch;
     });
   }

@@ -1,14 +1,14 @@
-import { RateCalculation } from "./rateCalculation";
-import { DataSource, FormattedMeasureData, UniqMeasureAbbr } from "./types";
+import { HybridCalculation } from "./hybridCalculation";
+import { DataSource } from "./types";
 
-export class HybridOtherCalculation extends RateCalculation {
+export class HybridOtherCalculation extends HybridCalculation {
   dataSrcMap = [
     {
       Medicaid: [DataSource.Administrative],
       CHIP: [DataSource.Hybrid],
     },
     {
-      Medicaid: [DataSource.Administrative], //case management
+      Medicaid: [DataSource.CaseMagementRecordReview],
       CHIP: [DataSource.Administrative],
     },
     {
@@ -44,11 +44,4 @@ export class HybridOtherCalculation extends RateCalculation {
       CHIP: [DataSource.Hybrid],
     },
   ];
-  check(arr: FormattedMeasureData[]): boolean {
-    return false;
-  }
-
-  getFormula(measure: string): Function {
-    return () => {};
-  }
 }
