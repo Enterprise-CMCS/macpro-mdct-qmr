@@ -296,8 +296,8 @@ const StateHome = () => {
         );
       return formattedTableItems.find((item) => item.coreSet === abbr);
     })
-    .flat()
-    .filter((item) => item != undefined);
+    .filter((item) => item != undefined)
+    .flat();
 
   return (
     <QMR.StateLayout
