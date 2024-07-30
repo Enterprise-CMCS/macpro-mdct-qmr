@@ -1,4 +1,4 @@
-import { Program, StandardRateShape } from "../../../types";
+import { Program, StandardRateShape, StandardValueShape } from "../../../types";
 import { fixRounding } from "../../../utils/constants/math";
 import { DataSource, FormattedMeasureData } from "./types";
 
@@ -64,7 +64,7 @@ export abstract class RateCalculation {
   }
 
   //creates an array where the rates have been grouped by uid, makes it easier for summation
-  public groupRates(rates: StandardRateShape[]) {
+  public groupRates(rates: StandardRateShape[] | StandardValueShape[]) {
     //create an array with all the uids
     const uid = rates
       .filter(

@@ -54,7 +54,7 @@ export class HybridCalculation extends RateCalculation {
         this.totalMeasureEligiablePopulation;
 
       for (const [key, value] of Object.entries(data.rates)) {
-        data.rates[key] = value.map((rate) => {
+        data.rates[key] = (value as StandardRateShape[]).map((rate) => {
           rate["weighted rate"] =
             isNaN(weight) || !rate.rate
               ? ""

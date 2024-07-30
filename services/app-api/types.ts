@@ -25,6 +25,12 @@ export interface StandardRateShape {
   ["weighted rate"]?: string;
 }
 
+export interface StandardValueShape {
+  label: string;
+  uid?: string;
+  value?: string;
+}
+
 export interface Measure {
   compoundKey: string;
   coreSet: CoreSetAbbr;

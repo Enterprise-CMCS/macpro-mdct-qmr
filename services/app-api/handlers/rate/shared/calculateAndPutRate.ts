@@ -1,7 +1,7 @@
 import * as Types from "../../../types";
 import { putToTable, getMeasureByCoreSet } from "../../../storage/table";
 import { RateCalculation } from "../calculations/rateCalculation";
-import { AdminstrativeCalculation, HybridCalculation } from "../calculations";
+import * as Calc from "../calculations";
 import { MeasureParameters } from "../../../types";
 import { FormattedMeasureData } from "../calculations/types";
 
@@ -45,8 +45,9 @@ export const calculateAndPutRate = async (
 
   //add new calculations to this array
   const dataSrcCalculations: RateCalculation[] = [
-    new AdminstrativeCalculation(measure),
-    new HybridCalculation(measure),
+    new Calc.PCRCalculation(measure),
+    new Calc.AdminstrativeCalculation(measure),
+    new Calc.HybridCalculation(measure),
   ];
 
   //only do the rate calculation if the measure is adult or child and is a split
@@ -70,6 +71,8 @@ export const calculateAndPutRate = async (
       ...(rateCalc?.expandRates(formattedData) ?? formattedData),
       rateCalc ? rateCalc.calculate(validatedData) : {},
     ];
+
+    console.log("combinedRates", JSON.stringify(combinedRates));
 
     //write to the data to the rates table
     return await putToTable(
