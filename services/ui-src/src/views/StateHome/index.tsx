@@ -291,10 +291,12 @@ const StateHome = () => {
   //we are using the order of the coresetabbr enums to determine the order of the table items
   const sortedTableItems: CoreSetTableItem.Data[] = [];
   Object.values(CoreSetAbbr).forEach((abbr) => {
-    if (abbr === "HHCS")
+    if (abbr === "HHCS") {
       sortedTableItems.push(
         ...formattedTableItems.filter((item) => item.coreSet.includes(abbr))
       );
+      return;
+    }
     const coreSetItem = formattedTableItems.find(
       (item) => item.coreSet === abbr
     );
