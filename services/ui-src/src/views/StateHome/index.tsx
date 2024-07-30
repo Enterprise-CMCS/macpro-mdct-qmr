@@ -287,6 +287,18 @@ const StateHome = () => {
       };
     });
 
+  //we are using the order of the coresetabbr enums to determine the order of the table items
+  const sortedTableItems = Object.values(CoreSetAbbr)
+    .map((abbr) => {
+      if (abbr === "HHCS")
+        return formattedTableItems.filter((item) =>
+          item.coreSet.includes(abbr)
+        );
+      return formattedTableItems.find((item) => item.coreSet === abbr);
+    })
+    .flat()
+    .filter((item) => item != undefined);
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -297,7 +309,7 @@ const StateHome = () => {
         <BannerCard />
       </CUI.Box>
       <Heading />
-      <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
+      <QMR.Table data={sortedTableItems} columns={QMR.coreSetColumns} />
       <CUI.Stack direction={{ base: "column", md: "row" }} spacing="6">
         <AddCoreSetCards coreSetCards={coreSetCards} />
       </CUI.Stack>

@@ -75,12 +75,12 @@ export interface Banner {
 }
 
 export const enum CoreSetAbbr {
-  ACS = "ACS", // adult
-  ACSM = "ACSM", // adult medicaid
-  ACSC = "ACSC", // adult chip
   CCS = "CCS", // child
   CCSM = "CCSM", // child medicaid
   CCSC = "CCSC", // child chip
+  ACS = "ACS", // adult
+  ACSM = "ACSM", // adult medicaid
+  ACSC = "ACSC", // adult chip
   HHCS = "HHCS", // health homes
 }
 

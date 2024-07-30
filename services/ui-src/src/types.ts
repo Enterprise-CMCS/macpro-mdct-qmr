@@ -1,10 +1,11 @@
+//this is also used to determine the order of the coreSets in the homepage table so ordering matters
 export enum CoreSetAbbr {
-  ACS = "ACS",
-  ACSM = "ACSM",
-  ACSC = "ACSC",
   CCS = "CCS",
   CCSM = "CCSM",
   CCSC = "CCSC",
+  ACS = "ACS",
+  ACSM = "ACSM",
+  ACSC = "ACSC",
   HHCS = "HHCS",
 }
 
