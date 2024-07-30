@@ -109,10 +109,8 @@ describe("Export All Measures", () => {
   });
 
   it("Test Child Core Set", () => {
-    cy.contains("tr", "Child").within(() => {
-      cy.get('[aria-label="Action Menu for ' + abbr + '"]').click();
-      cy.get('[aria-label="Export for ' + abbr + '"]').click();
-    });
+    cy.get('[aria-label="Action Menu for ' + abbr + '"]').click();
+    cy.get('[aria-label="Export for ' + abbr + '"]').click();
 
     // Check all measures + CSQ present
     for (const measureAbbr of measureAbbrList2024.CHILD) {
