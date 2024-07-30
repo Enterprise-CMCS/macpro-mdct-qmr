@@ -21,6 +21,7 @@ import { coreSets, CoreSetField } from "shared/coreSetByYear";
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { Link } from "react-router-dom";
 import { statesWithoutCombinedRates } from "utils";
+import { CoreSetTableItem } from "components/Table/types";
 
 interface HandleDeleteData {
   state: string;
@@ -288,7 +289,7 @@ const StateHome = () => {
     });
 
   //we are using the order of the coresetabbr enums to determine the order of the table items
-  const sortedTableItems = Object.values(CoreSetAbbr)
+  const sortedTableItems: CoreSetTableItem.Data[] = Object.values(CoreSetAbbr)
     .map((abbr) => {
       if (abbr === "HHCS")
         return formattedTableItems.filter((item) =>
