@@ -21,10 +21,10 @@ export abstract class RateCalculation {
     const medicaidSources =
       arr.find((data) => data.column === "Medicaid")?.dataSource.sort() ?? [];
 
-    this.dataSrcMap.forEach((src) => {
+    for (const src of this.dataSrcMap) {
       src.CHIP.sort();
       src.Medicaid.sort();
-    });
+    }
 
     // If neither measure has any data source, we will not use this calculation
     if (chipSources.length === 0 && medicaidSources.length === 0) {
@@ -38,15 +38,13 @@ export abstract class RateCalculation {
       const chipSourcesMatch =
         chipSources.length === 0 ||
         (chipSources.length === dataSrc.CHIP.length &&
-          dataSrc.CHIP.every(
-            (chipSrc, idx) => chipSources.indexOf(chipSrc) === idx
-          ));
+          dataSrc.CHIP.every((chipSrc, idx) => chipSources[idx] === chipSrc));
 
       const medicaidSourcesMatch =
         medicaidSources.length === 0 ||
         (medicaidSources.length === dataSrc.Medicaid.length &&
           dataSrc.Medicaid.every(
-            (medSrc, idx) => medicaidSources.indexOf(medSrc) === idx
+            (medSrc, idx) => medicaidSources[idx] === medSrc
           ));
       return chipSourcesMatch && medicaidSourcesMatch;
     });

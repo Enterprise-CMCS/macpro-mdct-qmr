@@ -20,6 +20,7 @@ type TableKeys = {
   uid: string;
   label: string;
   category?: string;
+  type: string;
 };
 /** An intermediate shape, not guaranteed to have an entry for every program type */
 type PartialTableDataShape = TableKeys &
@@ -105,6 +106,37 @@ const horizontalTable = (
   );
 };
 
+const horizontalValueTable = (tables: TableDataShape[]) => {
+  return (
+    <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
+      <CUI.Thead>
+        <CUI.Tr>
+          <CUI.Td></CUI.Td>
+          {programTypes.map((programTypes, index) => (
+            <CUI.Th key={index} sx={sx.header}>
+              {programTypes}
+            </CUI.Th>
+          ))}
+        </CUI.Tr>
+      </CUI.Thead>
+      <CUI.Tbody>
+        {tables.map((table) => (
+          <CUI.Tr sx={sx.row}>
+            <CUI.Th sx={sx.verticalHeader} scope="row">
+              {table.label}
+            </CUI.Th>
+            {programTypes.map((programType, ptIndex) => (
+              <CUI.Td key={ptIndex} isNumeric sx={sx.content}>
+                {table[programType].value}
+              </CUI.Td>
+            ))}
+          </CUI.Tr>
+        ))}
+      </CUI.Tbody>
+    </CUI.Table>
+  );
+};
+
 const getRateComponent = (json: CombinedRatePayload) => {
   const dataSources = json.data
     .map((item) => (item as SeparatedData)?.dataSource)
@@ -122,11 +154,14 @@ export const CombinedRateNDR = ({ json }: Props) => {
   const tables = collectRatesForDisplay(json);
   provideDefaultValues(tables);
   sortRates(tables, json.year, json.measure);
+
+  const rateTables = tables.filter((table) => table.type === "rate");
+  const valueTables = tables.filter((table) => table.type === "value");
   const rateComponents = getRateComponent(json);
 
   return (
     <CUI.Box sx={sx.tableContainer} mb="3rem">
-      {tables.map((table, index) => {
+      {rateTables.map((table, index) => {
         return (
           <CUI.Box key={index} as={"section"}>
             {table.category ? (
@@ -147,6 +182,12 @@ export const CombinedRateNDR = ({ json }: Props) => {
           </CUI.Box>
         );
       })}
+      {valueTables.length > 0 && (
+        <>
+          <CUI.Hide below="md">{horizontalValueTable(valueTables)}</CUI.Hide>
+          {/* <CUI.Show below="md">{verticalTable(table, rateComponents)}</CUI.Show> */}
+        </>
+      )}
     </CUI.Box>
   );
 };
@@ -176,6 +217,7 @@ const collectRatesForDisplay = (
 
   const rememberRate = (rate: RateDataShape, program: ProgramType) => {
     let existingTable = tables.find((t) => t.uid === rate.uid);
+    let type = rate.value ? "value" : "rate";
     if (existingTable) {
       existingTable[program] = rate;
     } else {
@@ -184,6 +226,7 @@ const collectRatesForDisplay = (
         category: rate.category,
         label: rate.label,
         [program]: rate,
+        type: type,
       });
     }
   };

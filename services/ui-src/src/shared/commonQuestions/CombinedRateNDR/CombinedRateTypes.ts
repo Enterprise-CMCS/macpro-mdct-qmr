@@ -13,6 +13,7 @@ export type RateDataShape = {
   numerator?: string;
   denominator?: string;
   rate?: string;
+  value?: string;
   "measure-eligible population": string;
   "weighted rate"?: string;
 };
