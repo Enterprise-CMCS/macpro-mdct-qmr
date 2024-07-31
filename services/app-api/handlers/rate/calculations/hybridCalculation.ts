@@ -15,7 +15,7 @@ export class HybridCalculation extends RateCalculation {
     },
   ];
 
-  protected totalMeasureEligiablePopulation: number = 0;
+  protected totalMeasureEligiblePopulation: number = 0;
 
   sum(arr: StandardRateShape[][]) {
     return arr?.map((rates) => {
@@ -51,7 +51,7 @@ export class HybridCalculation extends RateCalculation {
 
       const weight =
         Number(data["measure-eligible population"]) /
-        this.totalMeasureEligiablePopulation;
+        this.totalMeasureEligiblePopulation;
 
       for (const [key, value] of Object.entries(data.rates)) {
         data.rates[key] = (value as StandardRateShape[]).map((rate) => {
@@ -70,7 +70,7 @@ export class HybridCalculation extends RateCalculation {
   }
 
   calculate(data: FormattedMeasureData[]) {
-    this.totalMeasureEligiablePopulation = data
+    this.totalMeasureEligiblePopulation = data
       .filter((item) => item["measure-eligible population"])
       .reduce((acc, item) => {
         return (acc += Number(item["measure-eligible population"]));
