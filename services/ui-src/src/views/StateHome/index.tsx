@@ -40,6 +40,16 @@ interface IRepYear {
   value: string;
 }
 
+const CoreSetDisplayOrder = [
+  CoreSetAbbr.CCS,
+  CoreSetAbbr.CCSM,
+  CoreSetAbbr.CCSC,
+  CoreSetAbbr.ACS,
+  CoreSetAbbr.ACSM,
+  CoreSetAbbr.ACSC,
+  CoreSetAbbr.HHCS,
+];
+
 const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
@@ -287,6 +297,12 @@ const StateHome = () => {
       };
     });
 
+  const sortedTableItems = CoreSetDisplayOrder.flatMap((abbr) =>
+    abbr === CoreSetAbbr.HHCS
+      ? formattedTableItems.filter((item) => item.coreSet.startsWith(abbr))
+      : formattedTableItems.filter((item) => item.coreSet === abbr)
+  );
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -297,7 +313,7 @@ const StateHome = () => {
         <BannerCard />
       </CUI.Box>
       <Heading />
-      <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
+      <QMR.Table data={sortedTableItems} columns={QMR.coreSetColumns} />
       <CUI.Stack direction={{ base: "column", md: "row" }} spacing="6">
         <AddCoreSetCards coreSetCards={coreSetCards} />
       </CUI.Stack>
