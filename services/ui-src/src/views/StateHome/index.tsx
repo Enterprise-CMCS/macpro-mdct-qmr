@@ -21,7 +21,6 @@ import { coreSets, CoreSetField } from "shared/coreSetByYear";
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { Link } from "react-router-dom";
 import { statesWithoutCombinedRates } from "utils";
-import { CoreSetTableItem } from "components/Table/types";
 
 interface HandleDeleteData {
   state: string;
@@ -40,6 +39,16 @@ interface IRepYear {
   displayValue: string;
   value: string;
 }
+
+const CoreSetDisplayOrder = [
+  CoreSetAbbr.CCS,
+  CoreSetAbbr.CCSM,
+  CoreSetAbbr.CCSC,
+  CoreSetAbbr.ACS,
+  CoreSetAbbr.ACSM,
+  CoreSetAbbr.ACSC,
+  CoreSetAbbr.HHCS,
+];
 
 const ReportingYear = () => {
   const navigate = useNavigate();
@@ -288,20 +297,11 @@ const StateHome = () => {
       };
     });
 
-  //we are using the order of the coresetabbr enums to determine the order of the table items
-  const sortedTableItems: CoreSetTableItem.Data[] = [];
-  Object.values(CoreSetAbbr).forEach((abbr) => {
-    if (abbr === "HHCS") {
-      sortedTableItems.push(
-        ...formattedTableItems.filter((item) => item.coreSet.includes(abbr))
-      );
-      return;
-    }
-    const coreSetItem = formattedTableItems.find(
-      (item) => item.coreSet === abbr
-    );
-    if (coreSetItem) sortedTableItems.push(coreSetItem);
-  });
+  const sortedTableItems = CoreSetDisplayOrder.flatMap((abbr) =>
+    abbr === CoreSetAbbr.HHCS
+      ? formattedTableItems.filter((item) => item.coreSet.startsWith(abbr))
+      : formattedTableItems.filter((item) => item.coreSet === abbr)
+  );
 
   return (
     <QMR.StateLayout
