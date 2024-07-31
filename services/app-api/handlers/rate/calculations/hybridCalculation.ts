@@ -15,7 +15,7 @@ export class HybridCalculation extends RateCalculation {
     },
   ];
 
-  private totalMeasureEligiablePopulation: number = 0;
+  protected totalMeasureEligiablePopulation: number = 0;
 
   sum(arr: StandardRateShape[][]) {
     return arr?.map((rates) => {
