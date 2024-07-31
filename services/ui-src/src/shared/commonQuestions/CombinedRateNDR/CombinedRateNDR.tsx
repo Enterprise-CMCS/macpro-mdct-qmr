@@ -110,10 +110,11 @@ const getRateComponent = (json: CombinedRatePayload) => {
     .map((item) => (item as SeparatedData)?.dataSource)
     .flat();
 
-  const isHybrid = dataSources?.includes(
-    "HybridAdministrativeandMedicalRecordsData"
-  );
-
+  const hybridDataSources = [
+    "HybridAdministrativeandMedicalRecordsData",
+    "Casemanagementrecordreview",
+  ];
+  const isHybrid = dataSources?.some((src) => hybridDataSources.includes(src));
   return [...defaultRateComponents, ...(isHybrid ? hybridRateComponents : [])];
 };
 

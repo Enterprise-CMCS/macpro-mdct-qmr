@@ -45,9 +45,10 @@ export const calculateAndPutRate = async (
 
   //add new calculations to this array
   const dataSrcCalculations: RateCalculation[] = [
-    new Calc.PCRCalculation(measure),
     new Calc.AdminstrativeCalculation(measure),
     new Calc.HybridCalculation(measure),
+    new Calc.HybridOtherCalculation(measure),
+    new Calc.PCRCalculation(measure),
   ];
 
   //only do the rate calculation if the measure is adult or child and is a split
