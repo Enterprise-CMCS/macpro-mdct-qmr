@@ -40,10 +40,12 @@ export interface Measure {
   year: number;
   placeholder?: boolean;
   /**
-   * The `autoCompleted` property is not present on measures in the database;
-   * it is set on fetch, according to the metadata in measureList.ts.
+   * The `autoCompleted` and `mandatory` properties are not present on
+   * measures in the database; they are set on fetch, according to the
+   * metadata in measureList.ts.
    */
   autoCompleted?: boolean;
+  mandatory?: boolean;
   data?: {
     DataSource?: DataSource[];
     DataSourceSelections?: unknown;
