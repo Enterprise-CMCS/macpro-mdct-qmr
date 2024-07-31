@@ -73,8 +73,6 @@ export const calculateAndPutRate = async (
       rateCalc ? rateCalc.calculate(validatedData) : {},
     ];
 
-    console.log("combinedRates", JSON.stringify(combinedRates));
-
     //write to the data to the rates table
     return await putToTable(
       process.env.rateTableName!,

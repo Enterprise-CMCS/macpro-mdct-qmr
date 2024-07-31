@@ -18,14 +18,27 @@ export class PCRCalculation extends RateCalculation {
   sum(arr: StandardValueShape[][]) {
     return arr?.map((rates) => {
       return rates?.reduce((prev, curr) => {
-        const value = Number(prev.value) + Number(curr.value);
+        const value = (
+          Number(prev.value ?? 0) + Number(curr.value ?? 0)
+        ).toString();
         return {
           label: curr.label ?? "",
-          value: value.toString(),
+          value: value ?? "",
           uid: curr?.uid,
         };
       });
     });
+  }
+  expandRates(arr: FormattedMeasureData[]) {
+    arr.map((data) => {
+      for (const [key, value] of Object.entries(data.rates)) {
+        data.rates[key] = value.map((item) => {
+          return { ...item, value: "" };
+        });
+      }
+      return data;
+    });
+    return arr;
   }
 
   getFormula(type: string): Function {
@@ -83,11 +96,12 @@ export class PCRCalculation extends RateCalculation {
       "O/E Ratio",
       "Outlier Rate",
     ]) {
-      valueLookup[key] = this.getFormula(key)(valueLookup);
+      valueLookup[key] = this.getFormula(key)(valueLookup) ?? "";
     }
 
     return rates.map((rate) => {
-      return { ...rate, value: valueLookup[rate.label.split("(")[0].trim()] };
+      const value = valueLookup[rate.label.split("(")[0].trim()] ?? "";
+      return { ...rate, value: value };
     });
   };
 

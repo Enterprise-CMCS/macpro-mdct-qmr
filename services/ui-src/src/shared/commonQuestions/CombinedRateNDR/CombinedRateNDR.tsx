@@ -137,6 +137,30 @@ const horizontalValueTable = (tables: TableDataShape[]) => {
   );
 };
 
+const verticalValueTable = (tables: TableDataShape[]) => {
+  return (
+    <CUI.VStack align="flex-start" mt="4">
+      {programTypes.slice(0, -1).map((programType, ptIndex) => (
+        <CUI.List
+          key={ptIndex}
+          padding="0 0 1rem 2rem"
+          textTransform="capitalize"
+        >
+          <CUI.Text fontWeight="bold" mb="2">
+            {programType}
+          </CUI.Text>
+          {tables.map((table, rIndex) => (
+            <CUI.ListItem key={rIndex} pl="7">
+              {table.label}: {table[programType].value}
+            </CUI.ListItem>
+          ))}
+        </CUI.List>
+      ))}
+      <CUI.Divider borderColor="gray.300" />
+    </CUI.VStack>
+  );
+};
+
 const getRateComponent = (json: CombinedRatePayload) => {
   const dataSources = json.data
     .map((item) => (item as SeparatedData)?.dataSource)
@@ -185,7 +209,7 @@ export const CombinedRateNDR = ({ json }: Props) => {
       {valueTables.length > 0 && (
         <>
           <CUI.Hide below="md">{horizontalValueTable(valueTables)}</CUI.Hide>
-          {/* <CUI.Show below="md">{verticalTable(table, rateComponents)}</CUI.Show> */}
+          <CUI.Show below="md">{verticalValueTable(valueTables)}</CUI.Show>
         </>
       )}
     </CUI.Box>
@@ -217,7 +241,8 @@ const collectRatesForDisplay = (
 
   const rememberRate = (rate: RateDataShape, program: ProgramType) => {
     let existingTable = tables.find((t) => t.uid === rate.uid);
-    let type = rate.value ? "value" : "rate";
+    let type = rate.hasOwnProperty("value") ? "value" : "rate";
+
     if (existingTable) {
       existingTable[program] = rate;
     } else {
@@ -264,6 +289,10 @@ function provideDefaultValues(
       const mep =
         table[programType]?.["measure-eligible population"] ?? notAnswered;
       const weightRate = table[programType]?.["weighted rate"] ?? "-";
+      const value =
+        !table[programType]?.["value"] || table[programType]?.["value"] === ""
+          ? notAnswered
+          : table[programType]?.["value"];
 
       // Add value back to table object
       table[programType] = {
@@ -273,6 +302,7 @@ function provideDefaultValues(
         rate,
         ["measure-eligible population"]: mep,
         ["weighted rate"]: weightRate,
+        value,
       };
     }
   }
