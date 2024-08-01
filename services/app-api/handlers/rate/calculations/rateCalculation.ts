@@ -1,4 +1,4 @@
-import { Program, StandardRateShape, StandardValueShape } from "../../../types";
+import { Program, RateNDRShape, StandardRateShape } from "../../../types";
 import { fixRounding } from "../../../utils/constants/math";
 import { DataSource, FormattedMeasureData } from "./types";
 
@@ -50,7 +50,7 @@ export abstract class RateCalculation {
     });
   }
 
-  public sum(arr: StandardRateShape[][], rateFormula: Function) {
+  public sum(arr: RateNDRShape[][], rateFormula: Function) {
     return arr?.map((rates) =>
       rates?.reduce((prev, curr) => {
         const numerator =
@@ -75,10 +75,10 @@ export abstract class RateCalculation {
   }
 
   //creates an array where the rates have been grouped by uid, makes it easier for summation
-  public groupRates(rates: StandardRateShape[] | StandardValueShape[]) {
+  public groupRates(rates: StandardRateShape[]) {
     //create an array with all the uids
     const uid = rates
-      .filter(
+      ?.filter(
         (value, index, array) =>
           array.findIndex((item) => item.uid === value.uid) === index
       )

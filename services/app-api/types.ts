@@ -18,6 +18,9 @@ export interface CoreSet {
 export interface StandardRateShape {
   label: string;
   uid?: string;
+}
+
+export interface RateNDRShape extends StandardRateShape {
   category?: string;
   numerator?: string;
   denominator?: string;
@@ -25,7 +28,7 @@ export interface StandardRateShape {
   ["weighted rate"]?: string;
 }
 
-export interface StandardValueShape {
+export interface RateValueShape extends StandardRateShape {
   label: string;
   uid?: string;
   value?: string;

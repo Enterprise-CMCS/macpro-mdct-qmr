@@ -1,4 +1,4 @@
-import { StandardValueShape } from "../../../types";
+import { RateValueShape } from "../../../types";
 import { fixRounding } from "../../../utils/constants/math";
 import { RateCalculation } from "./rateCalculation";
 import { DataSource, FormattedMeasureData } from "./types";
@@ -15,7 +15,7 @@ export class PCRCalculation extends RateCalculation {
     return super.check(arr);
   }
 
-  sum(arr: StandardValueShape[][]) {
+  sum(arr: RateValueShape[][]) {
     return arr?.map((rates) => {
       return rates?.reduce((prev, curr) => {
         const value = (
@@ -83,7 +83,7 @@ export class PCRCalculation extends RateCalculation {
     }
     return () => {};
   }
-  private rateByFormula = (rates: StandardValueShape[]) => {
+  private rateByFormula = (rates: RateValueShape[]) => {
     //build the value look up by name
     const valueLookup = Object.fromEntries(
       rates.map((rate) => [rate.label.split("(")[0].trim(), rate.value])

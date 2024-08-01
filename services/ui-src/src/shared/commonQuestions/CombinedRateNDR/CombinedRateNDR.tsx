@@ -31,7 +31,7 @@ type Props = {
   json: CombinedRatePayload;
 };
 
-const verticalTable = (
+const verticalRateTable = (
   table: TableDataShape,
   rateComponents: (
     | typeof defaultRateComponents[number]
@@ -69,7 +69,7 @@ const verticalTable = (
   );
 };
 
-const horizontalTable = (
+const horizontalRateTable = (
   table: TableDataShape,
   rateComponents: (
     | typeof defaultRateComponents[number]
@@ -198,10 +198,10 @@ export const CombinedRateNDR = ({ json }: Props) => {
               </CUI.Heading>
             )}
             <CUI.Hide below="md">
-              {horizontalTable(table, rateComponents)}
+              {horizontalRateTable(table, rateComponents)}
             </CUI.Hide>
             <CUI.Show below="md">
-              {verticalTable(table, rateComponents)}
+              {verticalRateTable(table, rateComponents)}
             </CUI.Show>
           </CUI.Box>
         );

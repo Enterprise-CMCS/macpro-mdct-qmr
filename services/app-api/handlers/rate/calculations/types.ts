@@ -1,9 +1,4 @@
-import {
-  Measure,
-  Program,
-  StandardRateShape,
-  StandardValueShape,
-} from "../../../types";
+import { Measure, Program, StandardRateShape } from "../../../types";
 
 export enum DataSource {
   Administrative = "AdministrativeData",
@@ -26,6 +21,6 @@ export interface FormattedMeasureData {
   >;
   "measure-eligible population"?: string;
   rates: {
-    [key: string]: StandardRateShape[] | StandardValueShape[];
+    [key: string]: StandardRateShape[];
   };
 }
