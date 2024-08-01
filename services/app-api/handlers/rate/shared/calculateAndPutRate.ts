@@ -46,6 +46,7 @@ export const calculateAndPutRate = async (
   //add new calculations to this array
   const dataSrcCalculations: RateCalculation[] = [
     new Calc.PCRCalculation(measure),
+    new Calc.CPUCalculation(measure),
     new Calc.AdminstrativeCalculation(measure),
     new Calc.HybridCalculation(measure),
     new Calc.HybridOtherCalculation(measure),

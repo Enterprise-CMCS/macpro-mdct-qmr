@@ -1,4 +1,4 @@
-import { RateNDRShape, StandardRateShape } from "../../../types";
+import { RateNDRShape } from "../../../types";
 import { fixRounding } from "../../../utils/constants/math";
 import { RateCalculation } from "./rateCalculation";
 import { DataSource, FormattedMeasureData } from "./types";
