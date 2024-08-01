@@ -32,8 +32,8 @@ export class PCRCalculation extends RateCalculation {
   expandRates(arr: FormattedMeasureData[]) {
     arr.map((data) => {
       for (const [key, value] of Object.entries(data.rates)) {
-        data.rates[key] = value.map((item) => {
-          return { ...item, value: "" };
+        data.rates[key] = value.map((item: RateValueShape) => {
+          return { ...item, value: item.value ?? "" };
         });
       }
       return data;
@@ -48,6 +48,9 @@ export class PCRCalculation extends RateCalculation {
           const countOfObserved30DayReadmissions =
             values["Count of Observed 30-Day Readmissions"];
           const countOfIHS = values["Count of Index Hospital Stays"];
+
+          if (!countOfObserved30DayReadmissions || !countOfIHS) return "";
+
           return fixRounding(
             (countOfObserved30DayReadmissions / countOfIHS) * 100,
             4
@@ -58,6 +61,9 @@ export class PCRCalculation extends RateCalculation {
           const countOfExpected30DayReadmissions =
             values["Count of Expected 30-Day Readmissions"];
           const countOfIHS = values["Count of Index Hospital Stays"];
+
+          if (!countOfExpected30DayReadmissions || !countOfIHS) return "";
+
           return fixRounding(
             (countOfExpected30DayReadmissions / countOfIHS) * 100,
             4
@@ -67,6 +73,9 @@ export class PCRCalculation extends RateCalculation {
         return (values: any) => {
           const ORR = values["Observed Readmission Rate"];
           const ERR = values["Expected Readmission Rate"];
+
+          if (!ORR || !ERR) return "";
+
           return fixRounding(ORR / ERR, 4).toFixed(4);
         };
       case "Outlier Rate":
@@ -74,6 +83,10 @@ export class PCRCalculation extends RateCalculation {
           const numberOfOutliers = values["Number of Outliers"];
           const countOfBeneficiariesInMedicaidPopulation =
             values["Count of Beneficiaries in Medicaid Population"];
+
+          if (!numberOfOutliers || !countOfBeneficiariesInMedicaidPopulation)
+            return "";
+
           return fixRounding(
             (numberOfOutliers / countOfBeneficiariesInMedicaidPopulation) *
               1000,
@@ -96,7 +109,7 @@ export class PCRCalculation extends RateCalculation {
       "O/E Ratio",
       "Outlier Rate",
     ]) {
-      valueLookup[key] = this.getFormula(key)(valueLookup) ?? "";
+      valueLookup[key] = this.getFormula(key)(valueLookup);
     }
 
     return rates.map((rate) => {

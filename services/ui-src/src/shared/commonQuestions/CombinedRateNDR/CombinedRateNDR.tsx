@@ -207,10 +207,10 @@ export const CombinedRateNDR = ({ json }: Props) => {
         );
       })}
       {valueTables.length > 0 && (
-        <>
+        <CUI.Box mt="12" as={"section"}>
           <CUI.Hide below="md">{horizontalValueTable(valueTables)}</CUI.Hide>
           <CUI.Show below="md">{verticalValueTable(valueTables)}</CUI.Show>
-        </>
+        </CUI.Box>
       )}
     </CUI.Box>
   );
