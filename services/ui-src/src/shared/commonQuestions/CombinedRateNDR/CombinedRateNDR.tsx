@@ -114,7 +114,9 @@ const horizontalValueTable = (tables: TableDataShape[]) => {
           <CUI.Td></CUI.Td>
           {programTypes.map((programTypes, index) => (
             <CUI.Th key={index} sx={sx.header}>
-              {programTypes}
+              {programTypes === "Combined Rate"
+                ? "Combined Count"
+                : programTypes}
             </CUI.Th>
           ))}
         </CUI.Tr>
@@ -147,7 +149,7 @@ const verticalValueTable = (tables: TableDataShape[]) => {
           textTransform="capitalize"
         >
           <CUI.Text fontWeight="bold" mb="2">
-            {programType}
+            {programType === "Combined Rate" ? "Combined Count" : programTypes}
           </CUI.Text>
           {tables.map((table, rIndex) => (
             <CUI.ListItem key={rIndex} pl="7">
