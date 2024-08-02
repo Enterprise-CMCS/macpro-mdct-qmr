@@ -1,4 +1,4 @@
-import { Program, StandardRateShape } from "../../../types";
+import { Program, RateNDRShape, StandardRateShape } from "../../../types";
 import { fixRounding } from "../../../utils/constants/math";
 import { DataSource, FormattedMeasureData } from "./types";
 
@@ -21,10 +21,10 @@ export abstract class RateCalculation {
     const medicaidSources =
       arr.find((data) => data.column === "Medicaid")?.dataSource.sort() ?? [];
 
-    this.dataSrcMap.forEach((src) => {
+    for (const src of this.dataSrcMap) {
       src.CHIP.sort();
       src.Medicaid.sort();
-    });
+    }
 
     // If neither measure has any data source, we will not use this calculation
     if (chipSources.length === 0 && medicaidSources.length === 0) {
@@ -38,21 +38,19 @@ export abstract class RateCalculation {
       const chipSourcesMatch =
         chipSources.length === 0 ||
         (chipSources.length === dataSrc.CHIP.length &&
-          dataSrc.CHIP.every(
-            (chipSrc, idx) => chipSources.indexOf(chipSrc) === idx
-          ));
+          dataSrc.CHIP.every((chipSrc, idx) => chipSources[idx] === chipSrc));
 
       const medicaidSourcesMatch =
         medicaidSources.length === 0 ||
         (medicaidSources.length === dataSrc.Medicaid.length &&
           dataSrc.Medicaid.every(
-            (medSrc, idx) => medicaidSources.indexOf(medSrc) === idx
+            (medSrc, idx) => medicaidSources[idx] === medSrc
           ));
       return chipSourcesMatch && medicaidSourcesMatch;
     });
   }
 
-  public sum(arr: StandardRateShape[][], rateFormula: Function) {
+  public sum(arr: RateNDRShape[][], rateFormula: Function) {
     return arr?.map((rates) =>
       rates?.reduce((prev, curr) => {
         const numerator =
@@ -80,7 +78,7 @@ export abstract class RateCalculation {
   public groupRates(rates: StandardRateShape[]) {
     //create an array with all the uids
     const uid = rates
-      .filter(
+      ?.filter(
         (value, index, array) =>
           array.findIndex((item) => item.uid === value.uid) === index
       )

@@ -1,4 +1,4 @@
-import { StandardRateShape } from "../../../types";
+import { RateNDRShape } from "../../../types";
 import { fixRounding } from "../../../utils/constants/math";
 import { RateCalculation } from "./rateCalculation";
 import { DataSource, FormattedMeasureData } from "./types";
@@ -15,9 +15,9 @@ export class HybridCalculation extends RateCalculation {
     },
   ];
 
-  protected totalMeasureEligiablePopulation: number = 0;
+  protected totalMeasureEligiblePopulation: number = 0;
 
-  sum(arr: StandardRateShape[][]) {
+  sum(arr: RateNDRShape[][]) {
     return arr?.map((rates) => {
       return rates?.reduce((prev, curr) => {
         const calculable = !(!prev["weighted rate"] || !curr["weighted rate"]);
@@ -51,10 +51,10 @@ export class HybridCalculation extends RateCalculation {
 
       const weight =
         Number(data["measure-eligible population"]) /
-        this.totalMeasureEligiablePopulation;
+        this.totalMeasureEligiblePopulation;
 
       for (const [key, value] of Object.entries(data.rates)) {
-        data.rates[key] = value.map((rate) => {
+        data.rates[key] = (value as RateNDRShape[]).map((rate) => {
           rate["weighted rate"] =
             isNaN(weight) || !rate.rate
               ? ""
@@ -70,7 +70,7 @@ export class HybridCalculation extends RateCalculation {
   }
 
   calculate(data: FormattedMeasureData[]) {
-    this.totalMeasureEligiablePopulation = data
+    this.totalMeasureEligiblePopulation = data
       .filter((item) => item["measure-eligible population"])
       .reduce((acc, item) => {
         return (acc += Number(item["measure-eligible population"]));
