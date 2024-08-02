@@ -18,10 +18,20 @@ export interface CoreSet {
 export interface StandardRateShape {
   label: string;
   uid?: string;
+}
+
+export interface RateNDRShape extends StandardRateShape {
   category?: string;
   numerator?: string;
   denominator?: string;
   rate?: string;
+  ["weighted rate"]?: string;
+}
+
+export interface RateValueShape extends StandardRateShape {
+  label: string;
+  uid?: string;
+  value?: string;
 }
 
 export interface Measure {
@@ -39,10 +49,12 @@ export interface Measure {
   year: number;
   placeholder?: boolean;
   /**
-   * The `autoCompleted` property is not present on measures in the database;
-   * it is set on fetch, according to the metadata in measureList.ts.
+   * The `autoCompleted` and `mandatory` properties are not present on
+   * measures in the database; they are set on fetch, according to the
+   * metadata in measureList.ts.
    */
   autoCompleted?: boolean;
+  mandatory?: boolean;
   data?: {
     DataSource?: DataSource[];
     DataSourceSelections?: unknown;
@@ -51,6 +63,7 @@ export interface Measure {
         [key: string]: StandardRateShape[];
       };
     };
+    HybridMeasurePopulationIncluded?: string;
   };
 }
 

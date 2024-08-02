@@ -65,9 +65,18 @@ export const commonQuestionsLabel = {
   },
   DefinitionsOfPopulation: {
     defineDenomOther: "Define the other denominator population:",
+    measureEligiblePopDenom: {
+      question:
+        "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes beneficiaries who move between programs (Medicaid and CHIP), plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+      optionYes:
+        "Yes, this denominator includes the total measure-eligible population as defined by the Technical Specifications for this measure.",
+      optionNo:
+        "No, this denominator does not include the total measure-eligible population as defined by the Technical Specifications for this measure.",
+    },
     explainExcludedPop:
       "Explain which populations are excluded and why (<em>text in this field is included in publicly-reported state-specific comments</em>):",
-    specSizeOfPop: "Specify the size of the population excluded:",
+    specSizeOfPop:
+      "Specify the size of the excluded measure-eligible population:",
     deliverySysOther:
       "Describe the Other Delivery System represented in the denominator (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     useCoreSetSpecificOptions: true,

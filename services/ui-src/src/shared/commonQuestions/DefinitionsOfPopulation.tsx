@@ -440,17 +440,20 @@ export const DefinitionOfPopulation = ({
       <CUI.Box my="5">
         <QMR.RadioButton
           formLabelProps={{ fontWeight: "600" }}
-          label="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
+          label={
+            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
+          }
           {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC)}
           options={[
             {
               displayValue:
-                "Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.",
+                labels.DefinitionsOfPopulation.measureEligiblePopDenom
+                  .optionYes,
               value: DC.YES,
             },
             {
               displayValue:
-                "No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.",
+                labels.DefinitionsOfPopulation.measureEligiblePopDenom.optionNo,
               value: DC.NO,
               children: [
                 <QMR.TextArea
