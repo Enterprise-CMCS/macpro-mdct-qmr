@@ -67,6 +67,13 @@ export interface Measure {
   };
 }
 
+export interface CoreSetParameters {
+  state: string;
+  year: string;
+  coreSet: string;
+  lastAlteredBy?: string;
+}
+
 export interface MeasureParameters {
   state: string;
   year: string;
