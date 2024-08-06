@@ -1,4 +1,5 @@
 import { DataSource } from "./handlers/rate/calculations/types";
+import { coreSets, states } from "./utils/constants/constants";
 
 export interface CoreSet {
   compoundKey: string;
@@ -145,3 +146,19 @@ export interface APIGatewayProxyEvent {
 }
 
 export type EventParameters = Record<string, string | undefined>;
+
+export type State = typeof states[number];
+
+export const isState = (state: unknown): state is State => {
+  return states.includes(state as State);
+};
+
+export const isValidYear = (year: unknown) => {
+  return (
+    year === "2021" || year === "2022" || year === "2023" || year === "2024"
+  );
+};
+
+export const isCoreSet = (coreSet: string) => {
+  return coreSets.includes(coreSet) || coreSet.startsWith("HHCS_");
+};
