@@ -47,7 +47,7 @@ const AdultChipData: DataDriven = {
   title: "Adult Core Set Qualifiers: CHIP",
   questionTitle: "Adult Core Set Questions: CHIP",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Separate CHIP enrollees (age 21 and older) were enrolled in each delivery system?`,
+    `As of September 30, ${year}, what percentage of your separate CHIP enrollees (age 21 and older) were enrolled in each delivery system?`,
   textTable: [["Ages 21 to 64"], ["Age 65 and older"]],
   fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
@@ -81,8 +81,13 @@ const AdultMedicaidData: DataDriven = {
   title: "Adult Core Set Qualifiers: Medicaid",
   questionTitle: "Adult Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
-  textTable: [["Ages 21 to 64"], ["Age 65 and older"]],
+    `As of September 30, ${year}, what percentage of your Yell (Title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
+  textTable: [
+    ["Medicaid (Title XIX & XXI)", "Ages 21 to 64"],
+    ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
+  ],
+  // ["Medicaid", "Under Age 21"],
+  // ["CHIP", "Under Age 21"],
   fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
     CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
@@ -152,8 +157,8 @@ const ChildChipData: DataDriven = {
   title: "Child Core Set Qualifiers: CHIP",
   questionTitle: "Child Core Set Questions: CHIP",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Separate CHIP enrollees (under age 21) were enrolled in each delivery system?`,
-  textTable: [["CHIP", "Under Age 21"]],
+    `As of September 30, ${year}, what percentage of your separate CHIP enrollees (under age 21) were enrolled in each delivery system?`,
+  textTable: [["SEPARATE CHIP", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [
