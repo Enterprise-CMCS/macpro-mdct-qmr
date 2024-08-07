@@ -253,8 +253,8 @@ const StateHome = () => {
   if (
     isLoading ||
     !data.Items ||
-    mutation.isLoading ||
-    resetCoreSetMutation.isLoading
+    mutation.isPending ||
+    resetCoreSetMutation.isPending
   ) {
     return <QMR.LoadingWave />;
   }
