@@ -14,30 +14,26 @@ const AdultData: DataDriven = {
   questionTitle: "Adult Core Set Questions",
   qualifierHeader: (year) =>
     `As of September 30, ${year}, what percentage of your Medicaid/CHIP enrollees (above age 21) were enrolled in each delivery system?`,
-  textTable: [["Ages 21 to 64"], ["Age 65 and older"]],
-  fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
+  textTable: [["Medicaid (Title XIX & XXI)", "Ages 21 to 64"]],
+  fieldValues: ["TwentyOneToSixtyFour"],
   formData: {
     CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
     PercentageEnrolledInEachDeliverySystem: [
       {
         label: "Fee-for-Service",
         TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
       },
       {
         label: "PCCM",
         TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
       },
       {
         label: "Managed Care",
         TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
       },
       {
         label: "Integrated Care Model (ICM)",
         TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
       },
     ],
   },
@@ -152,7 +148,7 @@ const ChildChipData: DataDriven = {
   questionTitle: "Child Core Set Questions: CHIP",
   qualifierHeader: (year) =>
     `As of September 30, ${year}, what percentage of your separate CHIP enrollees (under age 21) were enrolled in each delivery system?`,
-  textTable: [["SEPARATE CHIP", "Under Age 21"]],
+  textTable: [["Separate CHIP", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [
