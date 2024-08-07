@@ -115,8 +115,8 @@ export const AddAdultCoreSet = () => {
                   <CUI.HStack paddingTop="5">
                     <QMR.ContainedButton
                       buttonProps={{ type: "submit", background: "blue.500" }}
-                      buttonText={mutation.isLoading ? "Loading" : "Create"}
-                      disabledStatus={!watchReportType || mutation.isLoading}
+                      buttonText={mutation.isPending ? "Loading" : "Create"}
+                      disabledStatus={!watchReportType || mutation.isPending}
                     />
                     <QMR.ContainedButton
                       buttonProps={{ color: "blue", colorScheme: "white" }}
