@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { AnyObject, CoreSetAbbr, UserRoles } from "types";
 import { useUser } from "hooks/authHooks";
 

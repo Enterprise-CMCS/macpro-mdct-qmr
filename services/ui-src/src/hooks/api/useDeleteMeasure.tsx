@@ -1,6 +1,6 @@
 import * as Api from "libs/api";
 import { CoreSetAbbr } from "types";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 interface DeleteMeasure {
   coreSet: CoreSetAbbr;

@@ -5,7 +5,7 @@ import { CoreSetTableItem } from "components/Table/types";
 import { useEditCoreSet } from "hooks/api";
 import { useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   coreSet: CoreSetAbbr;

@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { createMeasure } from "libs/api";
 import { CoreSetAbbr, Params } from "types";
 

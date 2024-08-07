@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { editCoreSet } from "libs/api";
 import { CoreSetAbbr, Params } from "types";
 import { CoreSetTableItem } from "components/Table/types";

@@ -1,5 +1,5 @@
 import { CoreSetAbbr, MeasureStatus } from "types";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { editMeasure, listMeasures } from "libs/api";
 
 interface GetMeasures {

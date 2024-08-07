@@ -1,6 +1,6 @@
 import { CoreSetTableItem } from "components/Table/types";
 import { CoreSetAbbr } from "types";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { SubmitCoreSetButton } from ".";
