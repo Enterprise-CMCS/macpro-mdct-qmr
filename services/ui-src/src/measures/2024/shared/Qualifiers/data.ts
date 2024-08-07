@@ -81,7 +81,7 @@ const AdultMedicaidData: DataDriven = {
   title: "Adult Core Set Qualifiers: Medicaid",
   questionTitle: "Adult Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid (title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
+    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
   textTable: [["Ages 21 to 64"], ["Age 65 and older"]],
   fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
@@ -182,8 +182,8 @@ const ChildMedicaidData: DataDriven = {
   title: "Child Core Set Qualifiers: Medicaid",
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid (title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system (optional)?`,
-  textTable: [["Medicaid", "Under Age 21"]],
+    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system (optional)?`,
+  textTable: [["Medicaid (Title XIX & XXI)", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [
