@@ -20,12 +20,14 @@ export const useGetReportingYears = () => {
   const { state, year } = useParams();
 
   if ((state || statePath) && (year || yearPath)) {
-    return useQuery(["reportingYears", state, year], () =>
-      getYears({
-        state: state || statePath,
-        year: year || yearPath,
-      })
-    );
+    return useQuery({
+      queryKey: ["reportingYears", state, year],
+      queryFn: () =>
+        getYears({
+          state: state || statePath,
+          year: year || yearPath,
+        }),
+    });
   }
   throw Error("state or year unavailable");
 };

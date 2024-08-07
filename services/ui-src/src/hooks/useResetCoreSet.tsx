@@ -12,23 +12,25 @@ interface CoreSetData {
 export const useResetCoreSet = () => {
   const { mutate: deleteCoreSet } = useDeleteCoreSet();
   const { mutate: addCoreSet } = useAddCoreSet();
-  return useMutation(async (data: CoreSetData) => {
-    await new Promise<void>((resolve, reject) => {
-      deleteCoreSet(data, {
-        onSuccess: () => {
-          addCoreSet(data.coreSet, {
-            onSuccess: () => {
-              resolve();
-            },
-            onError: (err) => {
-              reject(err);
-            },
-          });
-        },
-        onError: (err) => {
-          reject(err);
-        },
+  return useMutation({
+    mutationFn: async (data: CoreSetData) => {
+      await new Promise<void>((resolve, reject) => {
+        deleteCoreSet(data, {
+          onSuccess: () => {
+            addCoreSet(data.coreSet, {
+              onSuccess: () => {
+                resolve();
+              },
+              onError: (err) => {
+                reject(err);
+              },
+            });
+          },
+          onError: (err) => {
+            reject(err);
+          },
+        });
       });
-    });
+    },
   });
 };

@@ -31,5 +31,7 @@ const addMeasure = ({
 };
 
 export const useAddMeasure = () => {
-  return useMutation((data: CreateMeasure) => addMeasure({ ...data }));
+  return useMutation({
+    mutationFn: (data: CreateMeasure) => addMeasure({ ...data }),
+  });
 };

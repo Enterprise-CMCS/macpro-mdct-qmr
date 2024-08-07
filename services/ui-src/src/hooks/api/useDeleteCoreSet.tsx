@@ -17,5 +17,7 @@ const deleteCoreSet = async ({ state, year, coreSet }: DeleteCoreSet) => {
 };
 
 export const useDeleteCoreSet = () => {
-  return useMutation((data: DeleteCoreSet) => deleteCoreSet(data));
+  return useMutation({
+    mutationFn: (data: DeleteCoreSet) => deleteCoreSet(data),
+  });
 };

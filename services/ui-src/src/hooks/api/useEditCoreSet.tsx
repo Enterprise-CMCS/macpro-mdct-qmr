@@ -29,9 +29,10 @@ const _editCoreSet = ({ body, coreSet, state, year }: EditCoreSet & Params) => {
 };
 
 export const useEditCoreSet = () => {
-  return useMutation((data: EditCoreSet) =>
-    _editCoreSet({
-      ...data,
-    })
-  );
+  return useMutation({
+    mutationFn: (data: EditCoreSet) =>
+      _editCoreSet({
+        ...data,
+      }),
+  });
 };
