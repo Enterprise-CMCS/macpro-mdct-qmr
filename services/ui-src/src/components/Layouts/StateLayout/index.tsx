@@ -8,7 +8,7 @@ interface Props {
   buttons?: ReactElement<any, any>;
 }
 
-export const StateLayout: React.FC<Props> = ({
+export const StateLayout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   breadcrumbItems,
   buttons,

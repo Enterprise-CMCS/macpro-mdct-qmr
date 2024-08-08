@@ -5,12 +5,12 @@ import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import { QueryProvider } from "query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
 import { UserProvider, ApiProvider } from "hooks/authHooks";
 import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
+import { DevTools } from "hooks/DevTools";
 
 Amplify.configure({
   Storage: {
@@ -45,7 +45,7 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
                 <App />
               </LDProvider>
             </ChakraProvider>
-            <ReactQueryDevtools />
+            <DevTools />
           </QueryProvider>
         </ApiProvider>
       </UserProvider>
