@@ -71,7 +71,7 @@ export const AddHHCoreSet = () => {
       const coreset: unknown = `${CoreSetAbbr.HHCS}_${data["HealthHomeCoreSet-SPA"]}`;
       mutation.mutate(coreset as CoreSetAbbr, {
         onSuccess: () => {
-          queryClient.refetchQueries(["coreSets", state, year]);
+          queryClient.refetchQueries({ queryKey: ["coreSets", state, year] });
           navigate(`/${state}/${year}`);
         },
       });

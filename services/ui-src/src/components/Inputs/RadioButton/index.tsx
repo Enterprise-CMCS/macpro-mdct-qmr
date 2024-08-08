@@ -6,7 +6,7 @@ import { ControllerRules } from "global";
 
 export interface RadioButtonOption {
   displayValue: string;
-  value: string | number;
+  value: string;
   children?: JSX.Element[];
   removable?: boolean;
   onDelete?: () => void;

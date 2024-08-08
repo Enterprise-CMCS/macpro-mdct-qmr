@@ -52,7 +52,9 @@ export const AddChildCoreSet = () => {
           onSuccess: () => {
             mutation.mutate(CoreSetAbbr.CCSC, {
               onSuccess: () => {
-                queryClient.refetchQueries(["coreSets", state, year]);
+                queryClient.refetchQueries({
+                  queryKey: ["coreSets", state, year],
+                });
                 navigate(`/${state}/${year}`);
               },
             });
@@ -62,7 +64,7 @@ export const AddChildCoreSet = () => {
       case ReportType.COMBINED:
         mutation.mutate(CoreSetAbbr.CCS, {
           onSuccess: () => {
-            queryClient.refetchQueries(["coreSets", state, year]);
+            queryClient.refetchQueries({ queryKey: ["coreSets", state, year] });
             navigate(`/${state}/${year}`);
           },
         });

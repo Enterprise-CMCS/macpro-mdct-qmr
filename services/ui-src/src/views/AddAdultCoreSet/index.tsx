@@ -52,7 +52,9 @@ export const AddAdultCoreSet = () => {
           onSuccess: () => {
             mutation.mutate(CoreSetAbbr.ACSC, {
               onSuccess: () => {
-                queryClient.refetchQueries(["coreSets", state, year]);
+                queryClient.refetchQueries({
+                  queryKey: ["coreSets", state, year],
+                });
                 navigate(`/${state}/${year}`);
               },
             });
@@ -62,7 +64,7 @@ export const AddAdultCoreSet = () => {
       case ReportType.COMBINED:
         mutation.mutate(CoreSetAbbr.ACS, {
           onSuccess: () => {
-            queryClient.refetchQueries(["coreSets", state, year]);
+            queryClient.refetchQueries({ queryKey: ["coreSets", state, year] });
             navigate(`/${state}/${year}`);
           },
         });

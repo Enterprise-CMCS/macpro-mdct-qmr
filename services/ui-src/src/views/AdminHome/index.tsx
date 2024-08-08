@@ -39,7 +39,7 @@ export const AdminHome = () => {
         <CUI.Button
           colorScheme="blue"
           onClick={() => navigate(`/${locality}/${releaseYearByFlag}`)}
-          isFullWidth
+          width="full"
           data-cy="Go To State Home"
         >
           Go To State Home
@@ -56,7 +56,7 @@ export const AdminHome = () => {
           <CUI.Button
             colorScheme="blue"
             onClick={() => navigate(`/admin/banner`)}
-            isFullWidth
+            width="full"
             data-cy="Banner Editor"
             maxW="xs"
           >

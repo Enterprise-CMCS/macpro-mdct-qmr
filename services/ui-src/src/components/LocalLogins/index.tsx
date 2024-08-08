@@ -53,7 +53,7 @@ const LocalLogin = () => {
         />
         <CUI.Button
           colorScheme="teal"
-          isFullWidth
+          width="full"
           data-cy="login-with-cognito-button"
           type="submit"
         >
@@ -78,7 +78,7 @@ export const LocalLogins = ({ loginWithIDM }: Props) => {
         <CUI.Divider />
       </CUI.Box>
       <CUI.Stack spacing={8}>
-        <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
+        <CUI.Button colorScheme="teal" onClick={loginWithIDM} width="full">
           Login with IDM
         </CUI.Button>
         <LocalLogin />
