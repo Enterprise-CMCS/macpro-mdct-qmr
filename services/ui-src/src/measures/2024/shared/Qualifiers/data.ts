@@ -14,26 +14,33 @@ const AdultData: DataDriven = {
   questionTitle: "Adult Core Set Questions",
   qualifierHeader: (year) =>
     `As of September 30, ${year}, what percentage of your Medicaid/CHIP enrollees (above age 21) were enrolled in each delivery system?`,
-  textTable: [["Medicaid (Title XIX & XXI)", "Ages 21 to 64"]],
-  fieldValues: ["TwentyOneToSixtyFour"],
+  textTable: [
+    ["Medicaid (Title XIX & XXI)", "Ages 21 to 64"],
+    ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
+  ],
+  fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
     CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
     PercentageEnrolledInEachDeliverySystem: [
       {
         label: "Fee-for-Service",
         TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
       },
       {
         label: "PCCM",
         TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
       },
       {
         label: "Managed Care",
         TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
       },
       {
         label: "Integrated Care Model (ICM)",
         TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
       },
     ],
   },
@@ -45,25 +52,29 @@ const AdultChipData: DataDriven = {
   qualifierHeader: (year) =>
     `As of September 30, ${year}, what percentage of your separate CHIP enrollees (age 21 and older) were enrolled in each delivery system?`,
   textTable: [["Separate CHIP", "Ages 21 to 64"]],
-  fieldValues: ["TwentyOneToSixtyFour"],
+  fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
     CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
     PercentageEnrolledInEachDeliverySystem: [
       {
         label: "Fee-for-Service",
         TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
       },
       {
         label: "PCCM",
         TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
       },
       {
         label: "Managed Care",
         TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
       },
       {
         label: "Integrated Care Model (ICM)",
         TwentyOneToSixtyFour: "",
+        GreaterThanSixtyFour: "",
       },
     ],
   },
