@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "index.scss";
 import App from "App";
 import * as serviceWorker from "serviceWorker";
@@ -33,7 +33,9 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
     deferInitialization: false,
   });
 
-  ReactDOM.render(
+  const container = document.getElementById("root");
+  const root = createRoot(container!);
+  root.render(
     <Router>
       <UserProvider>
         <ApiProvider>
@@ -47,8 +49,7 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
           </QueryProvider>
         </ApiProvider>
       </UserProvider>
-    </Router>,
-    document.getElementById("root")
+    </Router>
   );
 })().catch((e) => {
   throw e;
