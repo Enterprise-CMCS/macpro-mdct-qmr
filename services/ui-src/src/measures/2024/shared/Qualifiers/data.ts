@@ -112,7 +112,7 @@ const ChildData: DataDriven = {
   qualifierHeader: (year) =>
     `As of September 30, ${year}, what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?`,
   textTable: [
-    ["Medicaid", "Under Age 21"],
+    ["Medicaid (TITLE XIX & XXI)", "Under Age 21"],
     ["CHIP", "Under Age 21"],
   ],
   fieldValues: ["UnderTwentyOneMedicaid", "UnderTwentyOneCHIP"],
