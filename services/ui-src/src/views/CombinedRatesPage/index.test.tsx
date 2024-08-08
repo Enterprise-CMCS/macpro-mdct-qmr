@@ -15,7 +15,7 @@ jest.mock("react-router-dom", () => ({
 }));
 
 const useGetMeasuresValues = {
-  isLoading: false,
+  isPending: false,
   error: undefined,
   isError: undefined,
   data: {

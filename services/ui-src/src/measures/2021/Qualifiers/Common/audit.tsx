@@ -34,7 +34,7 @@ export const Audit = ({ type, year }: Props) => {
   const { fields, append, remove, replace } = useFieldArray({
     name: "CoreSetMeasuresAuditedOrValidatedDetails",
   });
-  const { data, isLoading } = useGetMeasures();
+  const { data, isPending } = useGetMeasures();
 
   const multiSelectList: ICheckbox[] =
     data?.Items
@@ -63,7 +63,7 @@ export const Audit = ({ type, year }: Props) => {
         };
       }) ?? [];
 
-  if (isLoading || !data.Items) {
+  if (isPending || !data.Items) {
     return <QMR.LoadingWave />;
   }
 

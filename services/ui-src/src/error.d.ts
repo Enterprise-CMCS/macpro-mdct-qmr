@@ -5,4 +5,4 @@ interface FormError {
   errorList?: string[];
 }
 
-type RateComp = React.FC<any>;
+type RateComp = React.FC<React.PropsWithChildren<any>>;

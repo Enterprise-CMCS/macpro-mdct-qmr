@@ -5,7 +5,7 @@ import { CoreSetTableItem } from "components/Table/types";
 import { useEditCoreSet } from "hooks/api";
 import { useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   coreSet: CoreSetAbbr;
@@ -60,7 +60,7 @@ export const SubmitCoreSetButton = ({
     }
   };
   const helperText = `Complete all ${helperTextFiller()}Core Set Questions${subSetTextFiller()}and ${helperTextFiller()}Core Set Measures${subSetTextFiller()}to submit FFY ${year}`;
-  const { mutate, isLoading } = useEditCoreSet();
+  const { mutate, isPending } = useEditCoreSet();
   const queryClient = useQueryClient();
   const userInfo = useUser();
 
@@ -75,7 +75,7 @@ export const SubmitCoreSetButton = ({
         <ContainedButton
           buttonText={"Submit Core Set"}
           disabledStatus={
-            isLoading ||
+            isPending ||
             !userInfo.isStateUser ||
             coreSetStatus !== CoreSetTableItem.Status.COMPLETED
           }
