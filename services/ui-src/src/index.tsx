@@ -10,7 +10,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
 import { UserProvider, ApiProvider } from "hooks/authHooks";
 import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
-import { DevTools } from "hooks/DevTools";
+import { DevToolsReactQuery } from "hooks/DevToolsReactQuery";
 
 Amplify.configure({
   Storage: {
@@ -45,7 +45,7 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
                 <App />
               </LDProvider>
             </ChakraProvider>
-            <DevTools />
+            <DevToolsReactQuery />
           </QueryProvider>
         </ApiProvider>
       </UserProvider>
