@@ -193,11 +193,11 @@ export const MeasureWrapper = ({
   all of the methods defined here can be passed as props to every measure below
   */
 
-  const { mutate: updateMeasure, isLoading: mutationRunning } =
+  const { mutate: updateMeasure, isPending: mutationRunning } =
     useUpdateMeasure();
   const {
     data: apiData,
-    isLoading: loadingData,
+    isPending: loadingData,
     refetch,
   } = useGetMeasure({
     coreSet: params.coreSetId as CoreSetAbbr,

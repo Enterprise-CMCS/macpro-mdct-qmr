@@ -68,7 +68,7 @@ const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
 
 const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   // get the core set qualifier measure for the coreset and display the status
-  const { data, isLoading } = useGetMeasure({
+  const { data, isPending } = useGetMeasure({
     coreSet: coreSetId,
     measure: "CSQ",
   });
@@ -96,7 +96,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
         </CUI.Text>
       </Link>
 
-      {isLoading ? (
+      {isPending ? (
         <CUI.SkeletonText maxW={48} noOfLines={1} mt="1" />
       ) : (
         <QualifierStatus isComplete={isComplete} />
@@ -113,7 +113,7 @@ const useMeasureTableDataBuilder = () => {
   const { state, year, coreSetId } = useParams();
   const {
     data,
-    isLoading,
+    isPending,
     isError,
     refetch: refetchMeasures,
     error,
@@ -137,7 +137,7 @@ const useMeasureTableDataBuilder = () => {
 
   useEffect(() => {
     let mounted = true;
-    if (!isLoading && !isError && data && data.Items && mounted) {
+    if (!isPending && !isError && data && data.Items && mounted) {
       const handleDeleteMeasure = (data: HandleDeleteMeasureData) => {
         deleteMeasure(data, {
           onSuccess: () => {
@@ -232,7 +232,7 @@ const useMeasureTableDataBuilder = () => {
     data,
     deleteMeasure,
     isError,
-    isLoading,
+    isPending,
     isStateUser,
     navigate,
     queryClient,
@@ -243,7 +243,7 @@ const useMeasureTableDataBuilder = () => {
   return {
     coreSetStatus,
     measures,
-    isLoading,
+    isPending,
     isError,
     error,
     refetchMeasures,
@@ -282,7 +282,7 @@ export const CoreSet = () => {
   const {
     coreSetStatus,
     measures,
-    isLoading,
+    isPending,
     isError,
     error,
     refetchMeasures,
@@ -413,7 +413,7 @@ export const CoreSet = () => {
         </CUI.Box>
       </CUI.Stack>
       <CUI.Box mt="4">
-        <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
+        <QMR.LoadingWrapper isLoaded={!isPending && measures.length > 0}>
           {!isError && (
             <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
           )}

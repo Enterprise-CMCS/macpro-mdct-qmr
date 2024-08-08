@@ -33,7 +33,7 @@ export const defaultMockValues = {
   useDeleteMeasureValues: { mutate: jest.fn() },
   useEditCoreSetValues: {
     mutate: jest.fn(),
-    isLoading: false,
+    isPending: false,
   },
   useGetCoreSetsValues: {
     data: {
@@ -51,7 +51,7 @@ export const defaultMockValues = {
         },
       ],
     },
-    isLoading: false,
+    isPending: false,
     error: undefined,
   },
   useGetMeasureValues: {
@@ -70,13 +70,13 @@ export const defaultMockValues = {
         year: 2021,
       },
     },
-    isLoading: false,
+    isPending: false,
     refetch: jest.fn(),
     isError: false,
     error: undefined,
   },
   useGetMeasuresValues: {
-    isLoading: false,
+    isPending: false,
     error: undefined,
     isError: undefined,
     data: {
@@ -98,13 +98,13 @@ export const defaultMockValues = {
     },
   },
   useGetReportingYearsValues: {
-    isLoading: false,
+    isPending: false,
     error: undefined,
     isError: undefined,
     data: ["2021"],
   },
   useGetBannerValues: {
-    isLoading: false,
+    isPending: false,
     error: undefined,
     isError: undefined,
     isFetched: true,
@@ -132,7 +132,7 @@ export const defaultMockValues = {
     },
   },
   useGetRateValues: {
-    isLoading: false,
+    isPending: false,
     error: undefined,
     isError: undefined,
     data: {
