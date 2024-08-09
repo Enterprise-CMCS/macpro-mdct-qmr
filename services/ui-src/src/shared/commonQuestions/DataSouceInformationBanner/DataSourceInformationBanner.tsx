@@ -1,12 +1,17 @@
 import * as CUI from "@chakra-ui/react";
 import { AnyObject } from "types";
+import { CombinedRatesPayload } from "../CombinedRateNDR/CombinedRateTypes";
 
-interface Props {
-  data: AnyObject[];
-}
-const columns = ["Medicaid", "Separate CHIP"];
+type Props = {
+  payload: CombinedRatesPayload;
+};
 
-const DataSourceRecord: Record<string, string> = {
+const programDisplayNames = {
+  Medicaid: "Medicaid",
+  CHIP: "Separate CHIP",
+} as const;
+
+const dataSourceDisplayNames: Record<string, string> = {
   AdministrativeData: "Administrative Data",
   HybridAdministrativeandMedicalRecordsData:
     "Hybrid (Administrative and Medical Records Data)",
@@ -16,13 +21,12 @@ const DataSourceRecord: Record<string, string> = {
   Casemanagementrecordreview: "Case management record review",
 };
 
-export const DataSourceInformationBanner = ({ data }: Props) => {
-  const filteredData = columns.map(
-    (column) => data?.find((item) => column.includes(item?.column)) ?? {}
-  );
-
+export const DataSourceInformationBanner = ({
+  payload: { DataSources },
+}: Props) => {
+  const columns = ["Medicaid", "CHIP"] as const;
   const dataSourceSubsection = (dataSource: string) => {
-    return DataSourceRecord[dataSource] ?? dataSource;
+    return dataSourceDisplayNames[dataSource] ?? dataSource;
   };
 
   const renderData = columns.map((column, idx) => {
@@ -38,12 +42,11 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
           sx={sx.header}
           data-cy={`data-source-component-${column}-heading`}
         >
-          {`${column} Data Source`}
+          {`${programDisplayNames[column]} Data Source`}
         </CUI.Heading>
 
-        {filteredData?.[idx]?.dataSource &&
-        filteredData?.[idx]?.dataSource.length > 0 ? (
-          filteredData?.[idx]?.dataSource?.map((dataSource: string) => {
+        {DataSources[column].DataSource.length ? (
+          DataSources[column].DataSource.map((dataSource: string) => {
             return (
               <CUI.UnorderedList key={`${dataSource}-${idx}`}>
                 <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
@@ -51,7 +54,7 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
                 </CUI.Heading>
                 {dataSourceSelections(
                   dataSource,
-                  filteredData?.[idx]?.dataSourceSelections!
+                  DataSources[column].DataSourceSelections
                 ).map((item, srcIdx) => (
                   <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
                     {item}

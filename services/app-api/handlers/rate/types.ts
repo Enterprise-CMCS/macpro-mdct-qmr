@@ -1,4 +1,4 @@
-import { Measure, Program, StandardRateShape } from "../../../types";
+import { Measure, Program, StandardRateShape } from "../../types";
 
 export enum DataSource {
   Administrative = "AdministrativeData",
