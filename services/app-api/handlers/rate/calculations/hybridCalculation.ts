@@ -58,7 +58,7 @@ export class HybridCalculation extends RateCalculation {
           rate["weighted rate"] =
             isNaN(weight) || !rate.rate
               ? ""
-              : fixRounding(formula(rate.rate, weight), 1).toFixed(1);
+              : fixRounding(formula(Number(rate.rate), weight), 1).toFixed(1);
           return rate;
         });
       }
