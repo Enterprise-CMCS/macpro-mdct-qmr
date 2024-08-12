@@ -52,29 +52,25 @@ const AdultChipData: DataDriven = {
   qualifierHeader: (year) =>
     `As of September 30, ${year}, what percentage of your separate CHIP enrollees (age 21 and older) were enrolled in each delivery system?`,
   textTable: [["Separate CHIP", "Ages 21 to 64"]],
-  fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
+  fieldValues: ["TwentyOneToSixtyFour"],
   formData: {
     CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
     PercentageEnrolledInEachDeliverySystem: [
       {
         label: "Fee-for-Service",
         TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
       },
       {
         label: "PCCM",
         TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
       },
       {
         label: "Managed Care",
         TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
       },
       {
         label: "Integrated Care Model (ICM)",
         TwentyOneToSixtyFour: "",
-        GreaterThanSixtyFour: "",
       },
     ],
   },
