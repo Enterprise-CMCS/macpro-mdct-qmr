@@ -39,8 +39,8 @@ export class HybridCalculation extends RateCalculation {
   }
 
   getFormula(measure: string): Function {
-    return (numerator: number, denominator: number, weight: number) =>
-      fixRounding(weight, 5) * fixRounding((numerator / denominator) * 100, 1);
+    return (rate: number, weight: number) =>
+      fixRounding(weight, 5) * fixRounding(rate, 1);
   }
 
   expandRates(arr: FormattedMeasureData[]) {
@@ -58,10 +58,7 @@ export class HybridCalculation extends RateCalculation {
           rate["weighted rate"] =
             isNaN(weight) || !rate.rate
               ? ""
-              : fixRounding(
-                  formula(rate.numerator, rate.denominator, weight),
-                  1
-                ).toFixed(1);
+              : fixRounding(formula(Number(rate.rate), weight), 1).toFixed(1);
           return rate;
         });
       }
