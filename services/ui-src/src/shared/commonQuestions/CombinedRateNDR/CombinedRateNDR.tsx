@@ -59,20 +59,17 @@ const verticalRateTable = (
 };
 
 const horizontalRateTable = (
-  table: TableDataShape,
-  rateComponents: (
-    | typeof defaultRateComponents[number]
-    | typeof hybridRateComponents[number]
-  )[]
+  table: CombinedRatesPayload["Rates"][number],
+  rateComponents: ReturnType<typeof getRateComponents>
 ) => {
   return (
     <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
       <CUI.Thead>
         <CUI.Tr>
           <CUI.Td></CUI.Td>
-          {programTypes.map((programTypes, index) => (
+          {(["Medicaid", "CHIP", "Combined"] as const).map((programType, index) => (
             <CUI.Th key={index} sx={sx.header}>
-              {programTypes}
+              {programDisplayNames[programType]}
             </CUI.Th>
           ))}
         </CUI.Tr>
@@ -83,7 +80,7 @@ const horizontalRateTable = (
             <CUI.Th sx={sx.verticalHeader} scope="row">
               {rateComponent}
             </CUI.Th>
-            {programTypes.map((programType, ptIndex) => (
+            {(["Medicaid", "CHIP", "Combined"] as const).map((programType, ptIndex) => (
               <CUI.Td key={ptIndex} isNumeric sx={sx.content}>
                 {table[programType]?.[rateComponent]}
               </CUI.Td>
@@ -92,63 +89,6 @@ const horizontalRateTable = (
         ))}
       </CUI.Tbody>
     </CUI.Table>
-  );
-};
-
-const horizontalValueTable = (tables: TableDataShape[]) => {
-  return (
-    <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
-      <CUI.Thead>
-        <CUI.Tr>
-          <CUI.Td></CUI.Td>
-          {programTypes.map((programTypes, index) => (
-            <CUI.Th key={index} sx={sx.header}>
-              {programTypes === "Combined Rate"
-                ? "Combined Count"
-                : programTypes}
-            </CUI.Th>
-          ))}
-        </CUI.Tr>
-      </CUI.Thead>
-      <CUI.Tbody>
-        {tables.map((table) => (
-          <CUI.Tr sx={sx.row}>
-            <CUI.Th sx={sx.verticalHeader} scope="row">
-              {table.label}
-            </CUI.Th>
-            {programTypes.map((programType, ptIndex) => (
-              <CUI.Td key={ptIndex} isNumeric sx={sx.content}>
-                {table[programType].value}
-              </CUI.Td>
-            ))}
-          </CUI.Tr>
-        ))}
-      </CUI.Tbody>
-    </CUI.Table>
-  );
-};
-
-const verticalValueTable = (tables: TableDataShape[]) => {
-  return (
-    <CUI.VStack align="flex-start" mt="4">
-      {programTypes.slice(0, -1).map((programType, ptIndex) => (
-        <CUI.List
-          key={ptIndex}
-          padding="0 0 1rem 2rem"
-          textTransform="capitalize"
-        >
-          <CUI.Text fontWeight="bold" mb="2">
-            {programType === "Combined Rate" ? "Combined Count" : programTypes}
-          </CUI.Text>
-          {tables.map((table, rIndex) => (
-            <CUI.ListItem key={rIndex} pl="7">
-              {table.label}: {table[programType].value}
-            </CUI.ListItem>
-          ))}
-        </CUI.List>
-      ))}
-      <CUI.Divider borderColor="gray.300" />
-    </CUI.VStack>
   );
 };
 
@@ -191,12 +131,6 @@ export const CombinedRateNDR = ({
           </CUI.Box>
         );
       })}
-      {valueTables.length > 0 && (
-        <CUI.Box mt="12" as={"section"}>
-          <CUI.Hide below="md">{horizontalValueTable(valueTables)}</CUI.Hide>
-          <CUI.Show below="md">{verticalValueTable(valueTables)}</CUI.Show>
-        </CUI.Box>
-      )}
     </CUI.Box>
   );
 };
@@ -208,37 +142,22 @@ export const CombinedRateNDR = ({
 // so it is less confusing to use a standard function declaration here.
 // Usage note: Normally assertion functions throw errors when an object isn't of the asserted type,
 // but it is also valid to coerce it into that type instead, as we do here.
-function provideDefaultValues(
-  tables: PartialTableDataShape[]
-): asserts tables is TableDataShape[] {
+const provideDefaultValues = (
+  tables: CombinedRatesPayload["Rates"]
+) => {
   for (let table of tables) {
-    for (let programType of programTypes) {
-      const notAnswered = programType === "Combined Rate" ? "" : "Not reported";
-      // Set values to not answered if key doesn't exist
-      const numerator = table[programType]?.numerator ?? notAnswered;
-      const denominator = table[programType]?.denominator ?? notAnswered;
-      const rate = table[programType]?.rate ?? "-";
-      const mep =
-        table[programType]?.["measure-eligible population"] ?? notAnswered;
-      const weightRate = table[programType]?.["weighted rate"] ?? "-";
-      const value =
-        !table[programType]?.["value"] || table[programType]?.["value"] === ""
-          ? notAnswered
-          : table[programType]?.["value"];
+    for (let programType of (["Medicaid", "CHIP", "Combined"]) as const) {
+      const notAnswered = programType === "Combined" ? "" : "Not reported";
+      const rateObj = table[programType];
 
-      // Add value back to table object
-      table[programType] = {
-        ...table[programType]!,
-        numerator,
-        denominator,
-        rate,
-        ["measure-eligible population"]: mep,
-        ["weighted rate"]: weightRate,
-        value,
-      };
+      rateObj.numerator ??= notAnswered;
+      rateObj.denominator ??= notAnswered;
+      rateObj.rate ??= "-";
+      rateObj.population ??= notAnswered;
+      rateObj.weightedRate ??= "-"
     }
   }
-}
+};
 
 /**
  * Sort the rates in-place, to match how they are displayed on individual measure pages.
@@ -253,7 +172,7 @@ const sortRates = (
   const { categories, qualifiers } = rateTextLabel.getCatQualLabels(
     measure as keyof typeof rateTextLabel.data
   );
-  // Build an array of uids in the order they are displayed in the pm section
+  // An array of uids in the correct order for display
   const uidOrder = categories.flatMap((cat) =>
     qualifiers.map((qual) => `${cat.id}.${qual.id}`)
   );

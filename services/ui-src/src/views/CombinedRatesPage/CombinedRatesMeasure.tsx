@@ -1,10 +1,11 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
 import { useGetRate } from "hooks/api";
-import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
 import { LoadingWrapper } from "components";
+import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
+import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
+import { AdditionalCombinedValues } from "shared/commonQuestions/AdditionalCombinedValues/AdditionalCombinedValues";
 
 interface Props {
   year: string;
@@ -97,7 +98,7 @@ export const CombinedRatesMeasure = ({
               year={year}
               measure={measure}
             />
-            <AdditionalValuesTable payload={combinedRateData} />
+            <AdditionalCombinedValues payload={combinedRateData} />
           </>
         )}
       </LoadingWrapper>
