@@ -224,30 +224,36 @@ const collectRatesForDisplay = (
   const tables: PartialTableDataShape[] = [];
   const data = json.data;
 
-  const medicaidObject = data?.find((item) => item.column == "Medicaid");
-  const chipObject = data?.find((item) => item.column == "CHIP");
+  const separatedMedicaid = data?.find(
+    (item) => item.column == "Medicaid"
+  ) as SeparatedData;
+  const separatedChip = data?.find(
+    (item) => item.column == "CHIP"
+  ) as SeparatedData;
 
   // Filter data by Medicaid, CHIP, and Combined Rates
-  const medicaidData = medicaidObject?.rates ?? ({} as RateCategoryMap);
-  const chipData = chipObject?.rates ?? ({} as RateCategoryMap);
+  const medicaidData =
+    data?.find((item) => item.column == "Medicaid")?.rates ??
+    ({} as RateCategoryMap);
+  const chipData =
+    data?.find((item) => item.column == "CHIP")?.rates ??
+    ({} as RateCategoryMap);
   const combinedRatesData = (data?.find(
     (item) => item.column == "Combined Rate"
   )?.rates ?? []) as RateDataShape[];
 
-  const medicaidIsHybrid = (medicaidObject as SeparatedData)[
-    "dataSource"
-  ].includes("HybridAdministrativeandMedicalRecordsData");
-  const chipIsHybrid = (chipObject as SeparatedData)["dataSource"].includes(
-    "HybridAdministrativeandMedicalRecordsData"
-  );
+  const medicaidIsHybrid =
+    separatedMedicaid.dataSource.includes(
+      "HybridAdministrativeandMedicalRecordsData"
+    ) || separatedMedicaid.dataSource.includes("Casemanagementrecordreview");
+  const chipIsHybrid =
+    separatedChip.dataSource.includes(
+      "HybridAdministrativeandMedicalRecordsData"
+    ) || separatedChip.dataSource.includes("Casemanagementrecordreview");
 
   //extra fields to track for hybrid data
-  const medicaidMEP = (
-    data?.find((item) => item.column == "Medicaid") as SeparatedData
-  )["measure-eligible population"];
-  const chipMEP = (
-    data?.find((item) => item.column == "CHIP") as SeparatedData
-  )["measure-eligible population"];
+  const medicaidMEP = separatedMedicaid["measure-eligible population"];
+  const chipMEP = separatedChip["measure-eligible population"];
 
   const rememberRate = (rate: RateDataShape, program: ProgramType) => {
     let existingTable = tables.find((t) => t.uid === rate.uid);
@@ -266,11 +272,10 @@ const collectRatesForDisplay = (
     }
   };
   for (let medicaidRate of Object.values(medicaidData).flat()) {
-    if (medicaidMEP)
-      medicaidRate["measure-eligible population"] =
-        !medicaidIsHybrid && !medicaidMEP
-          ? medicaidRate.denominator
-          : medicaidMEP;
+    medicaidRate["measure-eligible population"] =
+      !medicaidIsHybrid && !medicaidMEP
+        ? medicaidRate.denominator
+        : medicaidMEP;
     rememberRate(medicaidRate, "Medicaid");
   }
   for (let chipRate of Object.values(chipData).flat()) {

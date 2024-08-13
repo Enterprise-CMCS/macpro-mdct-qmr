@@ -2,6 +2,7 @@ export type Program = "CHIP" | "Medicaid";
 export type DataSource =
   | "AdministrativeData"
   | "ElectronicHealthRecords"
+  | "Casemanagementrecordreview"
   | "HybridAdministrativeandMedicalRecordsData";
 export type CategoryId = string;
 export type QualifierId = string;
