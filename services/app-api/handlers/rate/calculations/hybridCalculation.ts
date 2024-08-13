@@ -55,7 +55,11 @@ export class HybridCalculation extends RateCalculation {
       for (const [key, value] of Object.entries(data.rates)) {
         data.rates[key] = (value as RateNDRShape[]).map((rate) => {
           let weight;
-          if (!isHybridDataSource && !data["measure-eligible population"]) {
+          if (
+            this.totalMeasureEligiblePopulation !== 0 &&
+            !isHybridDataSource &&
+            !data["measure-eligible population"]
+          ) {
             weight =
               Number(rate.denominator) /
               (this.totalMeasureEligiblePopulation + Number(rate.denominator));
