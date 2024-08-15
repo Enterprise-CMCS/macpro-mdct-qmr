@@ -62,7 +62,7 @@ export const CombinedRatesMeasure = ({
       <CUI.Heading fontSize="xl" mt="2" mb="2">
         {measure} - {measureName}
       </CUI.Heading>
-      <CUI.Text>
+      <CUI.Text mt="4">
         This page displays data reported for this measure in the Medicaid and
         Separate CHIP reports. The QMR system automatically calculates a
         combined Medicaid and CHIP rate based on these data, which is displayed
