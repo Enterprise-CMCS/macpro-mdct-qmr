@@ -208,17 +208,14 @@ const useMeasureTableDataBuilder = () => {
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
       mounted && setMeasures(measureTableData);
 
-      let numCompleteItems = 0;
-      // include qualifier in core set status check
-      for (const m of data.Items as MeasureData[]) {
-        if (m.status === "complete") {
-          numCompleteItems++;
-        }
-      }
-      const numberOfCoreSets = 1;
+      // Edge case: Dev environments Complete All Button marks placeholders as complete.
+      const completeItems = (data.Items as MeasureData[]).filter(
+        (item) => !item.placeholder && item.status === MeasureStatus.COMPLETE
+      );
+      const numberOfCoreSets = 1; // Include qualifier in core set status check
 
       const coreStatus =
-        filteredItems.length + numberOfCoreSets === numCompleteItems
+        measureTableData.length + numberOfCoreSets === completeItems.length
           ? CoreSetTableItem.Status.COMPLETED
           : CoreSetTableItem.Status.IN_PROGRESS;
       setCoreSetStatus(coreStatus);
