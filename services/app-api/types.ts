@@ -25,12 +25,9 @@ export interface RateNDRShape extends StandardRateShape {
   numerator?: string;
   denominator?: string;
   rate?: string;
-  ["weighted rate"]?: string;
 }
 
 export interface RateValueShape extends StandardRateShape {
-  label: string;
-  uid?: string;
   value?: string;
 }
 
@@ -56,8 +53,19 @@ export interface Measure {
   autoCompleted?: boolean;
   mandatory?: boolean;
   data?: {
+    /**
+     * An array of strings from the `DataSource` enum.
+     * Lists the top-level checkboxes selected for the Data Source question.
+     * 
+     * This type is correct as of 2024. Prior years have exceptions:
+     * * The measure FVA-AD (obsolete in 2024) would have a single string
+     *   instead of an array; it would be `"CAHPS 5.1H"` or `"Other"`.
+     * * The measure AUD-CH (obsolete in 2022) could include in its array the
+     *   string `"Other"`, as opposed to the standard `"OtherDataSource"`.
+     */
     DataSource?: DataSource[];
-    DataSourceSelections?: unknown;
+    // TODO, can we make this type more specific?
+    DataSourceSelections?: string[];
     PerformanceMeasure?: {
       rates?: {
         [key: string]: StandardRateShape[];
@@ -174,12 +182,16 @@ export type CombinedRatesPayload = {
     Combined: number | undefined;
   }[];
 };
+
 type DataSourcePayload = {
   includesHybrid: boolean;
+  isNotApplicable: boolean;
   DataSource: DataSource[];
   DataSourceSelections: unknown;
 };
+
 type WeightedRateShape = {
+  isReported: boolean;
   numerator?: number;
   denominator?: number;
   rate?: number;

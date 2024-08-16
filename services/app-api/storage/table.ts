@@ -63,16 +63,16 @@ export const putCombinedRatesToTable = async (
       compoundKey: `${state}${year}${coreSet}${measure}`,
       measure,
     },
-    UpdateExpression: `SET #lastAltered=:lastAltered, #data=:data, #measure=:measure`,
+    UpdateExpression: `SET #lastAltered=:lastAltered, #data=:data, #state=:state`,
     ExpressionAttributeNames: {
       "#lastAltered": "lastAltered",
       "#data": "data",
-      "#measure": "measure",
+      "#state": "state",
     },
     ExpressionAttributeValues: {
       ":lastAltered": Date.now(),
       ":data": formattedMeasures,
-      ":measure": measure,
+      ":state": state,
     },
   });
 };

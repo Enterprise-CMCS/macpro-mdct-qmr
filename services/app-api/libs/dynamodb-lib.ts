@@ -19,6 +19,8 @@ import { logger } from "./debug-lib";
 
 export type QmrDynamoTableType = CoreSet | Measure | Banner;
 
+const noöp = () => {};
+
 const localConfig = {
   endpoint: process.env.DYNAMODB_URL,
   region: "localhost",
@@ -26,7 +28,12 @@ const localConfig = {
     accessKeyId: "LOCALFAKEKEY", // pragma: allowlist secret
     secretAccessKey: "LOCALFAKESECRET", // pragma: allowlist secret
   },
-  logger,
+  logger: {
+    ...console,
+    trace: noöp,
+    debug: noöp,
+    info: noöp,
+  },
 };
 
 const awsConfig = {
@@ -38,7 +45,10 @@ export const getConfig = () => {
   return process.env.DYNAMODB_URL ? localConfig : awsConfig;
 };
 
-const client = DynamoDBDocumentClient.from(new DynamoDBClient(getConfig()));
+const client = DynamoDBDocumentClient.from(
+  new DynamoDBClient(getConfig()),
+  { marshallOptions: { removeUndefinedValues: true }}
+);
 
 export default {
   put: (params: PutCommandInput) => client.send(new PutCommand(params)),

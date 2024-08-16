@@ -12,6 +12,7 @@ import {
   RateNDRShape,
   RateValueShape,
 } from "../../types";
+import { fixRounding } from "../../utils/constants/math";
 import { DataSource as DataSourceTypes } from "./types";
 
 /**
@@ -41,7 +42,10 @@ export const calculateAndPutRate = async (
 
   const payload = calculateCombinedRates(measure, medicaidMeasure, chipMeasure);
 
-  await putCombinedRatesToTable(pathParameters, payload);
+  await putCombinedRatesToTable(
+    { ...pathParameters, coreSet: coreSetAbbrs.combined },
+    payload
+  );
 };
 
 /**
@@ -114,10 +118,28 @@ const getDataSources = (
 ): CombinedRatesPayload["DataSources"]["Medicaid" | "CHIP"] => {
   const DataSource = measure?.data?.DataSource ?? [];
   const DataSourceSelections = measure?.data?.DataSourceSelections ?? [];
+  
   const includesHybrid =
     DataSource.includes(DataSourceTypes.Hybrid) ||
     DataSource.includes(DataSourceTypes.CaseMagementRecordReview);
-  return { DataSource, DataSourceSelections, includesHybrid };
+  
+  // TODO is this correct?
+  const includesOther = false;// DataSourceSelections
+  //  .some((selection) => selection.match(/other/i));
+  // TODO how do we find ECDS?
+  const includesECDS = false;
+  // TODO where do we find other measure specification?
+  const otherSpecification = false;
+  // If the measure was not found in the DB, it's not "N/A", it's "not reported"
+  const isNotApplicable = !!measure &&
+    (includesOther || includesECDS || otherSpecification);
+
+  return {
+    includesHybrid,
+    isNotApplicable,
+    DataSource,
+    DataSourceSelections,
+  };
 };
 
 /**
@@ -130,38 +152,45 @@ const combineRates = (
   medicaidMeasure: Measure | undefined,
   chipMeasure: Measure | undefined
 ): CombinedRatesPayload["Rates"] => {
-  const useWeightedCalculation =
-    DataSources.Medicaid.includesHybrid || DataSources.CHIP.includesHybrid;
-
   const [medicaidRates, chipRates] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
     .map((rateMap) =>
       Object.values(rateMap)
         .flat(1)
+        // TODO: is it possible for an NDR rate to have only "numerator" with denominator empty and rate property missing entirely?
         .filter((rate): rate is RateNDRShape => "rate" in rate)
     );
 
   const uniqueRateIds = [...medicaidRates, ...chipRates]
     .map((rate) => rate.uid)
-    .filter((uid, i, arr) => i === arr.indexOf(uid))
-    .filter(isDefined);
+    .filter(isDefined)
+    .filter((uid, i, arr) => i === arr.indexOf(uid));
 
   const rateField = (
     rate: RateNDRShape | undefined,
     field: keyof RateNDRShape
   ) => (rate?.[field] ? Number(rate?.[field]) : undefined);
 
+  const useWeightedCalculation =
+    DataSources.Medicaid.includesHybrid || DataSources.CHIP.includesHybrid;
+
   if (!useWeightedCalculation) {
     return uniqueRateIds.map((uid) => {
       const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
       const chipRate = chipRates.find((rate) => rate.uid === uid);
 
+      // TODO: defaulting undefined numerator to zero
+      // means we can't distinguish between unfilled rates
+      // and actual user-provided zeroes. Edge case. Fix.
       const combinedNumerator =
-        (rateField(chipRate, "numerator") ?? 0) +
+        (rateField(medicaidRate, "numerator") ?? 0) +
         (rateField(chipRate, "numerator") ?? 0);
       const combinedDenominator =
-        (rateField(chipRate, "denominator") ?? 0) +
+        (rateField(medicaidRate, "denominator") ?? 0) +
         (rateField(chipRate, "denominator") ?? 0);
+      // TODO, this could give us NaN, or Infinity.
+      // What would be stored in the DB?
+      // Maybe store undefined instead.
       const combinedRate = transformQuotient(
         measureAbbr,
         combinedNumerator / combinedDenominator
@@ -172,16 +201,20 @@ const combineRates = (
         category: medicaidRate?.category ?? chipRate?.category,
         label: medicaidRate?.label ?? chipRate?.label,
         Medicaid: {
+          isReported: !!medicaidRate,
+          // TODO: this could turn undefineds into zeros. See above. Fix.
           numerator: rateField(medicaidRate, "numerator"),
           denominator: rateField(medicaidRate, "denominator"),
           rate: rateField(medicaidRate, "rate"),
         },
         CHIP: {
+          isReported: !!chipRate,
           numerator: rateField(chipRate, "numerator"),
           denominator: rateField(chipRate, "denominator"),
           rate: rateField(chipRate, "rate"),
         },
         Combined: {
+          isReported: true,
           numerator: combinedNumerator,
           denominator: combinedDenominator,
           rate: combinedRate,
@@ -195,12 +228,14 @@ const combineRates = (
       const chipRate = chipRates.find((rate) => rate.uid === uid);
 
       const combinedNumerator =
-        (rateField(chipRate, "numerator") ?? 0) +
+        (rateField(medicaidRate, "numerator") ?? 0) +
         (rateField(chipRate, "numerator") ?? 0);
       const combinedDenominator =
-        (rateField(chipRate, "denominator") ?? 0) +
+        (rateField(medicaidRate, "denominator") ?? 0) +
         (rateField(chipRate, "denominator") ?? 0);
 
+      // If there's a user-entered population for an admin source, use it.
+      // TODO wtf. but ok fine. fix.
       const medicaidPopulation = DataSources.Medicaid.includesHybrid
         ? Number(medicaidMeasure?.data?.HybridMeasurePopulationIncluded ?? 0)
         : rateField(medicaidRate, "denominator") ?? 0;
@@ -209,18 +244,21 @@ const combineRates = (
         : rateField(chipRate, "denominator") ?? 0;
 
       const totalPopulation = medicaidPopulation + chipPopulation;
+      // TODO NaN, Inf. Fix.
       const medicaidWeight = medicaidPopulation / totalPopulation;
       const chipWeight = chipPopulation / totalPopulation;
 
       const medicaidWeightedRate =
         medicaidWeight * (rateField(medicaidRate, "rate") ?? 0);
-      const chipWeightedRate = chipWeight * (rateField(chipRate, "rate") ?? 0);
+      const chipWeightedRate =
+        chipWeight * (rateField(chipRate, "rate") ?? 0);
 
       return {
         uid: uid,
         category: medicaidRate?.category ?? chipRate?.category,
         label: medicaidRate?.label ?? chipRate?.label,
         Medicaid: {
+          isReported: !!medicaidRate,
           numerator: rateField(medicaidRate, "numerator"),
           denominator: rateField(medicaidRate, "denominator"),
           rate: rateField(medicaidRate, "rate"),
@@ -228,6 +266,7 @@ const combineRates = (
           weightedRate: medicaidWeightedRate,
         },
         CHIP: {
+          isReported: !!chipRate,
           numerator: rateField(chipRate, "numerator"),
           denominator: rateField(chipRate, "denominator"),
           rate: rateField(chipRate, "rate"),
@@ -235,6 +274,7 @@ const combineRates = (
           weightedRate: chipWeightedRate,
         },
         Combined: {
+          isReported: true,
           numerator: combinedNumerator,
           denominator: combinedDenominator,
           population: totalPopulation,
@@ -319,6 +359,7 @@ const calculateAdditionalValues = (
     stayCount.Combined = (stayCount.Medicaid ?? 0) + (stayCount.CHIP ?? 0);
     obsReadmissionCount.Combined =
       (obsReadmissionCount.Medicaid ?? 0) + (obsReadmissionCount.CHIP ?? 0);
+    // TODO, NaN, Inf. Fix.
     obsReadmissionRate.Combined =
       (100 * obsReadmissionCount.Combined) / stayCount.Combined;
     expReadmissionCount.Combined =
@@ -332,7 +373,13 @@ const calculateAdditionalValues = (
     outlierCount.Combined =
       (outlierCount.Medicaid ?? 0) + (outlierCount.CHIP ?? 0);
     outlierRate.Combined =
-      (1000 * outlierCount.Combined) / beneficaryCount.Combined;
+      1000 * outlierCount.Combined / beneficaryCount.Combined;
+
+    // We used unrounded values during calculation; round them now.
+    obsReadmissionRate.Combined = fixRounding(obsReadmissionRate.Combined, 4);
+    expReadmissionCount.Combined = fixRounding(expReadmissionCount.Combined, 4);
+    obsExpRatio.Combined = fixRounding(obsExpRatio.Combined, 4);
+    outlierRate.Combined = fixRounding(outlierRate.Combined, 1);
 
     return [
       stayCount,

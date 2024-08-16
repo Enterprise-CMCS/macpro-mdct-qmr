@@ -5,6 +5,8 @@ export enum DataSource {
   EHR = "ElectronicHealthRecords",
   Hybrid = "HybridAdministrativeandMedicalRecordsData",
   CaseMagementRecordReview = "Casemanagementrecordreview",
+  ECDS = "ElectronicClinicalDataSystemsECDS",
+  Other = "OtherDataSource",
 }
 
 export enum UniqMeasureAbbr {

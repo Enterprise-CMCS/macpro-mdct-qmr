@@ -8,24 +8,24 @@ type Props = {
 const programDisplayNames = {
   Medicaid: "Medicaid",
   CHIP: "Separate CHIP",
-  Combined: "Combined Rate",
+  Combined: "Combined Count",
 } as const;
 
-const verticalValueTable = (tables: TableDataShape[]) => {
+const verticalValueTable = (tables: CombinedRatesPayload["AdditionalValues"]) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
-      {(["Medicaid", "CHIP"] as const).map((programType, ptIndex) => (
+      {(["Medicaid", "CHIP", "Combined"] as const).map((programType, ptIndex) => (
         <CUI.List
           key={ptIndex}
           padding="0 0 1rem 2rem"
           textTransform="capitalize"
         >
           <CUI.Text fontWeight="bold" mb="2">
-            {programType === "Combined" ? "Combined Count" : programDisplayNames[programType]}
+            {programDisplayNames[programType]}
           </CUI.Text>
           {tables.map((table, rIndex) => (
             <CUI.ListItem key={rIndex} pl="7">
-              {table.label}: {table[programType].value}
+              {table.label}: {table[programType]}
             </CUI.ListItem>
           ))}
         </CUI.List>
@@ -35,30 +35,28 @@ const verticalValueTable = (tables: TableDataShape[]) => {
   );
 };
 
-const horizontalValueTable = (tables: any[]) => {
+const horizontalValueTable = (tables: CombinedRatesPayload["AdditionalValues"]) => {
   return (
     <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
       <CUI.Thead>
         <CUI.Tr>
           <CUI.Td></CUI.Td>
-          {programTypes.map((programTypes, index) => (
+          {(["Medicaid", "CHIP", "Combined"] as const).map((programType, index) => (
             <CUI.Th key={index} sx={sx.header}>
-              {programTypes === "Combined Rate"
-                ? "Combined Count"
-                : programTypes}
+              {programDisplayNames[programType]}
             </CUI.Th>
           ))}
         </CUI.Tr>
       </CUI.Thead>
       <CUI.Tbody>
-        {tables.map((table) => (
-          <CUI.Tr sx={sx.row}>
+        {tables.map((table, tIndex) => (
+          <CUI.Tr sx={sx.row} key={tIndex}>
             <CUI.Th sx={sx.verticalHeader} scope="row">
               {table.label}
             </CUI.Th>
-            {programTypes.map((programType, ptIndex) => (
+            {(["Medicaid", "CHIP", "Combined"] as const).map((programType, ptIndex) => (
               <CUI.Td key={ptIndex} isNumeric sx={sx.content}>
-                {table[programType].value}
+                {table[programType]}
               </CUI.Td>
             ))}
           </CUI.Tr>
@@ -77,8 +75,8 @@ export const AdditionalCombinedValues = ({
     <CUI.Box sx={sx.tableContainer} mb="3rem">
       {AdditionalValues.length > 0 && (
         <CUI.Box mt="12" as={"section"}>
-          <CUI.Hide below="md">{horizontalValueTable(valueTables)}</CUI.Hide>
-          <CUI.Show below="md">{verticalValueTable(valueTables)}</CUI.Show>
+          <CUI.Hide below="md">{horizontalValueTable(AdditionalValues)}</CUI.Hide>
+          <CUI.Show below="md">{verticalValueTable(AdditionalValues)}</CUI.Show>
         </CUI.Box>
       )}
     </CUI.Box>
@@ -88,12 +86,9 @@ export const AdditionalCombinedValues = ({
 /**
  * Fill in strings such as `"-"` and `"Not reported"` for any undefined values.
  */
-// Syntax note: it is possible to make custom assertions with arrow functions, but the syntax is surprisingly odd,
-// so it is less confusing to use a standard function declaration here.
-// Usage note: Normally assertion functions throw errors when an object isn't of the asserted type,
-// but it is also valid to coerce it into that type instead, as we do here.
 const provideDefaultValues = (
-  tables: CombinedRatesPayload["AdditionalValues"]
+  // TODO something better here
+  tables: any//CombinedRatesPayload["AdditionalValues"]
 ) => {
   for (let table of tables) {
     table.Medicaid ??= "Not Reported";

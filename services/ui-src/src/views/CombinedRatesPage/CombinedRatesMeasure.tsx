@@ -41,12 +41,14 @@ export const CombinedRatesMeasure = ({
   const typeSuffix = measure?.slice(-2); // used to determine if measure is adult or child type
   const combinedCoreSetAbbr = CoreSetSuffixRecord[typeSuffix] ?? "";
 
-  const { data: combinedRateData } = useGetRate({
+  const queryResult = useGetRate({
     measure,
     state: state!,
     coreSet: combinedCoreSetAbbr,
     year,
   });
+  const combinedRateData = queryResult.data;
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -89,7 +91,7 @@ export const CombinedRatesMeasure = ({
           </CUI.Link>
         </CUI.ListItem>
       </CUI.UnorderedList>
-      <LoadingWrapper isLoaded={!!combinedRateData}>
+      <LoadingWrapper isLoaded={!queryResult.isLoading}>
         {combinedRateData && (
           <>
             <DataSourceInformationBanner payload={combinedRateData} />

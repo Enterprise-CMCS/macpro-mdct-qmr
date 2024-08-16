@@ -48,7 +48,7 @@ const verticalRateTable = (
       <CUI.List padding="0 0 1rem 2rem">
         <CUI.Text fontWeight="bold" mb="2">
           {programDisplayNames["Combined"]}:{" "}
-          {table.Combined.weightedRate !== "-"
+          {(table.Combined.weightedRate as any) /* TODO something better here */ !== "-"
             ? table.Combined.weightedRate
             : table.Combined?.rate}
         </CUI.Text>
@@ -138,12 +138,9 @@ export const CombinedRateNDR = ({
 /**
  * Fill in strings such as `"-"` and `"Not reported"` for any undefined values.
  */
-// Syntax note: it is possible to make custom assertions with arrow functions, but the syntax is surprisingly odd,
-// so it is less confusing to use a standard function declaration here.
-// Usage note: Normally assertion functions throw errors when an object isn't of the asserted type,
-// but it is also valid to coerce it into that type instead, as we do here.
 const provideDefaultValues = (
-  tables: CombinedRatesPayload["Rates"]
+  // TODO something better here
+  tables: any // CombinedRatesPayload["Rates"]
 ) => {
   for (let table of tables) {
     for (let programType of (["Medicaid", "CHIP", "Combined"]) as const) {
