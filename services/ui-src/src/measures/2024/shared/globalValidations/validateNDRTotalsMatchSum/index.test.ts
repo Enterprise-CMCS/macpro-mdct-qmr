@@ -20,7 +20,7 @@ describe("Testing PM Total vs Sum validations", () => {
     const result = valNumerator[0];
     expect(result.errorLocation).toBe("Performance Measure");
     expect(result.errorMessage).toBe(
-      "Numerators must be the sum for each category of performance measures"
+      "The numerators for each diagnosis cohort should sum to the total SUD numerator."
     );
   });
 
@@ -31,7 +31,7 @@ describe("Testing PM Total vs Sum validations", () => {
     const result = valNumerator[0];
     expect(result.errorLocation).toBe("Performance Measure");
     expect(result.errorMessage).toBe(
-      "Numerators must be the sum for each category of performance measures"
+      "The numerators for each diagnosis cohort should sum to the total SUD numerator."
     );
   });
 
@@ -44,7 +44,7 @@ describe("Testing PM Total vs Sum validations", () => {
     const result = valDenominators[0];
     expect(result.errorLocation).toBe("Performance Measure");
     expect(result.errorMessage).toBe(
-      "Denominators must be the sum for each category of performance measures"
+      "The denominators for each diagnosis cohort should sum to the total SUD denominator."
     );
   });
 
@@ -57,7 +57,7 @@ describe("Testing PM Total vs Sum validations", () => {
     const result = valDenominators[0];
     expect(result.errorLocation).toBe("Performance Measure");
     expect(result.errorMessage).toBe(
-      "Denominators must be the sum for each category of performance measures"
+      "The denominators for each diagnosis cohort should sum to the total SUD denominator."
     );
   });
 });
