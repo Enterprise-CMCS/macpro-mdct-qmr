@@ -5,15 +5,18 @@ import {
 import {
   CombinedRatesPayload,
   CoreSetAbbr,
+  DataSource as DataSourceTypes,
   isCoreSetAbbr,
   isDefined,
+  isRateNDRShape,
+  isRateValueShape,
   Measure,
+  MeasurementSpecificationType,
   MeasureParameters,
   RateNDRShape,
   RateValueShape,
 } from "../../types";
 import { fixRounding } from "../../utils/constants/math";
-import { DataSource as DataSourceTypes } from "./types";
 
 /**
  * Given the identifiers of a measure:
@@ -117,21 +120,23 @@ const getDataSources = (
   measure: Measure | undefined
 ): CombinedRatesPayload["DataSources"]["Medicaid" | "CHIP"] => {
   const DataSource = measure?.data?.DataSource ?? [];
-  const DataSourceSelections = measure?.data?.DataSourceSelections ?? [];
+  const DataSourceSelections = measure?.data?.DataSourceSelections ?? {};
+  const MeasurementSpecification = measure?.data?.MeasurementSpecification;
   
   const includesHybrid =
     DataSource.includes(DataSourceTypes.Hybrid) ||
     DataSource.includes(DataSourceTypes.CaseMagementRecordReview);
-  
-  // TODO is this correct?
-  const includesOther = false;// DataSourceSelections
-  //  .some((selection) => selection.match(/other/i));
-  // TODO how do we find ECDS?
-  const includesECDS = false;
-  // TODO where do we find other measure specification?
-  const otherSpecification = false;
+
+  // This checks for top-level Other, as well as "Other admin data source"
+  // TODO, is that correct?
+  const includesOther = DataSource.includes(DataSourceTypes.Other) ||
+    Object.keys(DataSourceSelections).some((key) => key.includes("Other"));
+  const includesECDS = DataSource.includes(DataSourceTypes.ECDS);
+  const otherSpecification =
+    MeasurementSpecification === MeasurementSpecificationType.Other;
   // If the measure was not found in the DB, it's not "N/A", it's "not reported"
-  const isNotApplicable = !!measure &&
+  const measureExists = !!measure
+  const isNotApplicable = measureExists &&
     (includesOther || includesECDS || otherSpecification);
 
   return {
@@ -157,19 +162,13 @@ const combineRates = (
     .map((rateMap) =>
       Object.values(rateMap)
         .flat(1)
-        // TODO: is it possible for an NDR rate to have only "numerator" with denominator empty and rate property missing entirely?
-        .filter((rate): rate is RateNDRShape => "rate" in rate)
+        .filter(isRateNDRShape)
     );
 
   const uniqueRateIds = [...medicaidRates, ...chipRates]
     .map((rate) => rate.uid)
     .filter(isDefined)
     .filter((uid, i, arr) => i === arr.indexOf(uid));
-
-  const rateField = (
-    rate: RateNDRShape | undefined,
-    field: keyof RateNDRShape
-  ) => (rate?.[field] ? Number(rate?.[field]) : undefined);
 
   const useWeightedCalculation =
     DataSources.Medicaid.includesHybrid || DataSources.CHIP.includesHybrid;
@@ -179,22 +178,18 @@ const combineRates = (
       const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
       const chipRate = chipRates.find((rate) => rate.uid === uid);
 
-      // TODO: defaulting undefined numerator to zero
-      // means we can't distinguish between unfilled rates
-      // and actual user-provided zeroes. Edge case. Fix.
-      const combinedNumerator =
-        (rateField(medicaidRate, "numerator") ?? 0) +
-        (rateField(chipRate, "numerator") ?? 0);
-      const combinedDenominator =
-        (rateField(medicaidRate, "denominator") ?? 0) +
-        (rateField(chipRate, "denominator") ?? 0);
-      // TODO, this could give us NaN, or Infinity.
-      // What would be stored in the DB?
-      // Maybe store undefined instead.
-      const combinedRate = transformQuotient(
-        measureAbbr,
-        combinedNumerator / combinedDenominator
-      );
+      const mNumerator = parseQmrNumber(medicaidRate?.numerator);
+      const mDenominator = parseQmrNumber(medicaidRate?.denominator);
+      const mRate = parseQmrNumber(medicaidRate?.rate);
+
+      const cNumerator = parseQmrNumber(chipRate?.numerator);
+      const cDenominator = parseQmrNumber(chipRate?.denominator);
+      const cRate = parseQmrNumber(chipRate?.rate);
+
+      const combinedNumerator = addSafely(mNumerator, cNumerator);
+      const combinedDenominator = addSafely(mDenominator, cDenominator);
+      const quotient = divideSafely(combinedNumerator, combinedDenominator);
+      const combinedRate = transformQuotient(measureAbbr, quotient);
 
       return {
         uid: uid,
@@ -202,16 +197,15 @@ const combineRates = (
         label: medicaidRate?.label ?? chipRate?.label,
         Medicaid: {
           isReported: !!medicaidRate,
-          // TODO: this could turn undefineds into zeros. See above. Fix.
-          numerator: rateField(medicaidRate, "numerator"),
-          denominator: rateField(medicaidRate, "denominator"),
-          rate: rateField(medicaidRate, "rate"),
+          numerator: mNumerator,
+          denominator: mDenominator,
+          rate: mRate,
         },
         CHIP: {
           isReported: !!chipRate,
-          numerator: rateField(chipRate, "numerator"),
-          denominator: rateField(chipRate, "denominator"),
-          rate: rateField(chipRate, "rate"),
+          numerator: cNumerator,
+          denominator: cDenominator,
+          rate: cRate,
         },
         Combined: {
           isReported: true,
@@ -227,31 +221,40 @@ const combineRates = (
       const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
       const chipRate = chipRates.find((rate) => rate.uid === uid);
 
-      const combinedNumerator =
-        (rateField(medicaidRate, "numerator") ?? 0) +
-        (rateField(chipRate, "numerator") ?? 0);
-      const combinedDenominator =
-        (rateField(medicaidRate, "denominator") ?? 0) +
-        (rateField(chipRate, "denominator") ?? 0);
+      const mNumerator = parseQmrNumber(medicaidRate?.numerator);
+      const mDenominator = parseQmrNumber(medicaidRate?.denominator);
+      const mRate = parseQmrNumber(medicaidRate?.rate);
 
-      // If there's a user-entered population for an admin source, use it.
-      // TODO wtf. but ok fine. fix.
-      const medicaidPopulation = DataSources.Medicaid.includesHybrid
-        ? Number(medicaidMeasure?.data?.HybridMeasurePopulationIncluded ?? 0)
-        : rateField(medicaidRate, "denominator") ?? 0;
-      const chipPopulation = DataSources.CHIP.includesHybrid
-        ? Number(chipMeasure?.data?.HybridMeasurePopulationIncluded ?? 0)
-        : rateField(chipRate, "denominator") ?? 0;
+      const cNumerator = parseQmrNumber(chipRate?.numerator);
+      const cDenominator = parseQmrNumber(chipRate?.denominator);
+      const cRate = parseQmrNumber(chipRate?.rate);
 
-      const totalPopulation = medicaidPopulation + chipPopulation;
-      // TODO NaN, Inf. Fix.
-      const medicaidWeight = medicaidPopulation / totalPopulation;
-      const chipWeight = chipPopulation / totalPopulation;
+      const combinedNumerator = addSafely(mNumerator, cNumerator);
+      const combinedDenominator = addSafely(mDenominator, cDenominator);
+      
+      /*
+       * For hybrid measures, we expect the user to enter the population.
+       * For admin measures, we expect to use the rate denominator instead.
+       * But IF a user enters a population on an admin measure, we will use it.
+       * Maybe we should disable the population input unless the user selects
+       * a hybrid data source? It seems they shouldn't use it for admin.
+       */
+      let medicaidPopulation = parseQmrNumber(medicaidMeasure?.data?.HybridMeasurePopulationIncluded);
+      if (medicaidPopulation === undefined && !DataSources.Medicaid.includesHybrid) {
+        medicaidPopulation = mDenominator;
+      }
+      let chipPopulation = parseQmrNumber(chipMeasure?.data?.HybridMeasurePopulationIncluded);
+      if (chipPopulation === undefined && !DataSources.Medicaid.includesHybrid) {
+        chipPopulation = cDenominator;
+      }
 
-      const medicaidWeightedRate =
-        medicaidWeight * (rateField(medicaidRate, "rate") ?? 0);
-      const chipWeightedRate =
-        chipWeight * (rateField(chipRate, "rate") ?? 0);
+      const totalPopulation = addSafely(medicaidPopulation, chipPopulation);
+      const mWeight = divideSafely(medicaidPopulation, totalPopulation);
+      const cWeight = divideSafely(chipPopulation, totalPopulation);
+
+      const mWeightedRate = multiplySafely(mWeight, mRate);
+      const cWeightedRate = multiplySafely(cWeight, cRate);
+      const combinedWeightedRate = addSafely(mWeightedRate, cWeightedRate);
 
       return {
         uid: uid,
@@ -259,26 +262,26 @@ const combineRates = (
         label: medicaidRate?.label ?? chipRate?.label,
         Medicaid: {
           isReported: !!medicaidRate,
-          numerator: rateField(medicaidRate, "numerator"),
-          denominator: rateField(medicaidRate, "denominator"),
-          rate: rateField(medicaidRate, "rate"),
+          numerator: mNumerator,
+          denominator: mDenominator,
+          rate: mRate,
           population: medicaidPopulation,
-          weightedRate: medicaidWeightedRate,
+          weightedRate: mWeightedRate,
         },
         CHIP: {
           isReported: !!chipRate,
-          numerator: rateField(chipRate, "numerator"),
-          denominator: rateField(chipRate, "denominator"),
-          rate: rateField(chipRate, "rate"),
+          numerator: cNumerator,
+          denominator: cDenominator,
+          rate: cRate,
           population: chipPopulation,
-          weightedRate: chipWeightedRate,
+          weightedRate: cWeightedRate,
         },
         Combined: {
           isReported: true,
           numerator: combinedNumerator,
           denominator: combinedDenominator,
           population: totalPopulation,
-          weightedRate: medicaidWeightedRate + chipWeightedRate,
+          weightedRate: combinedWeightedRate,
         },
       };
     });
@@ -289,7 +292,8 @@ const combineRates = (
  * Most measures display as a percentage, but certain measures are expressed
  * instead as per-thousand, per-hundred-thousand, or an inverted percent.
  */
-const transformQuotient = (measureAbbr: string, quotient: number) => {
+const transformQuotient = (measureAbbr: string, quotient: number | undefined) => {
+  if (quotient === undefined) return undefined;
   switch (measureAbbr) {
     case "AAB-AD":
       return (1 - quotient) * 100;
@@ -319,7 +323,7 @@ const calculateAdditionalValues = (
     .map((rateMap) =>
       Object.values(rateMap)
         .flat(1)
-        .filter((rate): rate is RateValueShape => "value" in rate)
+        .filter(isRateValueShape)
     );
 
   const findValues = (uid: string) => {
@@ -330,8 +334,8 @@ const calculateAdditionalValues = (
     const chipValue = chipValues.find((rate) => rate.uid === uid);
 
     fieldObj.label = medicaidValue?.label ?? chipValue?.label ?? "";
-    fieldObj.Medicaid = Number(medicaidValue?.value ?? 0);
-    fieldObj.CHIP = Number(chipValue?.value ?? 0);
+    fieldObj.Medicaid = parseQmrNumber(medicaidValue?.value);
+    fieldObj.CHIP = parseQmrNumber(chipValue?.value);
 
     return fieldObj;
   };
@@ -340,9 +344,8 @@ const calculateAdditionalValues = (
     const unreachable = findValues("HLXNLW.7dC1vt");
     const refusal = findValues("HLXNLW.6zIwnx");
 
-    unreachable.Combined =
-      (unreachable.Medicaid ?? 0) + (unreachable.CHIP ?? 0);
-    refusal.Combined = (refusal.Medicaid ?? 0) + (refusal.CHIP ?? 0);
+    unreachable.Combined = addSafely(unreachable.Medicaid, unreachable.CHIP);
+    refusal.Combined = addSafely(refusal.Medicaid, refusal.CHIP);
 
     return [unreachable, refusal];
   } else if (measureAbbr === "PCR-AD") {
@@ -356,30 +359,21 @@ const calculateAdditionalValues = (
     const outlierCount = findValues("zcwVcA.pBILL1");
     const outlierRate = findValues("zcwVcA.Nfe4Cn");
 
-    stayCount.Combined = (stayCount.Medicaid ?? 0) + (stayCount.CHIP ?? 0);
-    obsReadmissionCount.Combined =
-      (obsReadmissionCount.Medicaid ?? 0) + (obsReadmissionCount.CHIP ?? 0);
-    // TODO, NaN, Inf. Fix.
-    obsReadmissionRate.Combined =
-      (100 * obsReadmissionCount.Combined) / stayCount.Combined;
-    expReadmissionCount.Combined =
-      (expReadmissionCount.Medicaid ?? 0) + (expReadmissionCount.CHIP ?? 0);
-    expReadmissionRate.Combined =
-      (100 * expReadmissionCount.Combined) / stayCount.Combined;
-    obsExpRatio.Combined =
-      obsReadmissionRate.Combined / expReadmissionRate.Combined;
-    beneficaryCount.Combined =
-      (beneficaryCount.Medicaid ?? 0) + (beneficaryCount.CHIP ?? 0);
-    outlierCount.Combined =
-      (outlierCount.Medicaid ?? 0) + (outlierCount.CHIP ?? 0);
-    outlierRate.Combined =
-      1000 * outlierCount.Combined / beneficaryCount.Combined;
+    stayCount.Combined = addSafely(stayCount.Medicaid, stayCount.CHIP);
+    obsReadmissionCount.Combined = addSafely(obsReadmissionCount.Medicaid, obsReadmissionCount.CHIP);
+    obsReadmissionRate.Combined = multiplySafely(divideSafely(obsReadmissionCount.Combined, stayCount.Combined), 100);
+    expReadmissionCount.Combined = addSafely(expReadmissionCount.Medicaid, expReadmissionCount.CHIP);
+    expReadmissionRate.Combined = multiplySafely(divideSafely(expReadmissionCount.Combined, stayCount.Combined), 100);
+    obsExpRatio.Combined = divideSafely(obsReadmissionRate.Combined, expReadmissionRate.Combined);
+    beneficaryCount.Combined = addSafely(beneficaryCount.Medicaid, beneficaryCount.CHIP);
+    outlierCount.Combined = addSafely(outlierCount.Medicaid, outlierCount.CHIP);
+    outlierRate.Combined = multiplySafely(divideSafely(outlierCount.Combined, beneficaryCount.Combined), 1000);
 
     // We used unrounded values during calculation; round them now.
-    obsReadmissionRate.Combined = fixRounding(obsReadmissionRate.Combined, 4);
-    expReadmissionCount.Combined = fixRounding(expReadmissionCount.Combined, 4);
-    obsExpRatio.Combined = fixRounding(obsExpRatio.Combined, 4);
-    outlierRate.Combined = fixRounding(outlierRate.Combined, 1);
+    obsReadmissionRate.Combined = roundSafely(obsReadmissionRate.Combined, 4);
+    expReadmissionCount.Combined = roundSafely(expReadmissionCount.Combined, 4);
+    obsExpRatio.Combined = roundSafely(obsExpRatio.Combined, 4);
+    outlierRate.Combined = roundSafely(outlierRate.Combined, 1);
 
     return [
       stayCount,
@@ -396,4 +390,33 @@ const calculateAdditionalValues = (
     // For all other measures, there are no Additional Values
     return [];
   }
+};
+
+const parseQmrNumber = (str: string | undefined) => {
+  if (str === undefined) return undefined;
+  if (str === "") return undefined;
+  return Number(str);
+};
+
+const addSafely = (x: number | undefined, y: number | undefined) => {
+  if (x === undefined && y === undefined) return undefined;
+  if (x === undefined) return Number(y);
+  if (y === undefined) return Number(x);
+  return Number(x) + Number(y);
+};
+
+const divideSafely = (x: number | undefined, y: number | undefined) => {
+  if (x === undefined || y === undefined) return undefined;
+  if (y === 0) return undefined;
+  return x / y;
+};
+
+const multiplySafely = (x: number | undefined, y: number | undefined) => {
+  if (x === undefined || y === undefined) return undefined;
+  return x * y;
+};
+
+const roundSafely = (x: number | undefined, numbersAfterDecimal: number) => {
+  if (x === undefined) return undefined;
+  return fixRounding(x, numbersAfterDecimal);
 };

@@ -1,0 +1,156 @@
+benmartin@Coforma-J7459XDMVG-Ben-Martin rate % node dsSelectionScan.js
+Beginning scan 2024-08-16T19:21:18.837Z
+Scanning page #1
+Scanning page #2
+Scanning page #3
+Scanning page #4
+Scanning page #5
+Scanning page #6
+Scanning page #7
+Scanning page #8
+Scanning page #9
+Scanning page #10
+Scanning page #11
+Scanning page #12
+Scanning page #13
+Scanning page #14
+Scanning page #15
+Scanning page #16
+Scanning page #17
+keys:
+AdministrativeData0-AdministrativeDataOther(:)
+    count: 3
+    states: KS, VA, WA
+    years: 2021, 2022
+    measures: AMR-AD, CCS-AD, PQI92-HH
+AdministrativeData0-AdministrativeDataOther(:description)
+    count: 2484
+    states: AK, AL, AR, AZ, CA... (35 total)
+    years: 2021, 2022, 2023
+    measures: AAB-AD, AAB-CH, ADD-CH, AIF-HH, AMB-CH... (68 total)
+AdministrativeData0(:)
+    count: 18
+    states: AK, DE, KS, MD, MI... (6 total)
+    years: 2021, 2022
+    measures: ADD-CH, AMB-CH, AMM-AD, CCP-AD, CCP-CH... (15 total)
+AdministrativeData0(:selected)
+    count: 6615
+    states: AK, AL, AR, AZ, CA... (52 total)
+    years: 2021, 2022, 2023
+    measures: AAB-AD, AAB-CH, ADD-CH, AIF-HH, AMB-CH... (71 total)
+Casemanagementrecordreview0(:selected)
+    count: 3
+    states: AZ, HI, TN
+    years: 2023
+    measures: CPU-AD
+ElectronicHealthRecords(:)
+    count: 6
+    states: KS, WI
+    years: 2021, 2022, 2023
+    measures: BCS-AD, CBP-HH, CDF-HH, WCC-CH
+ElectronicHealthRecords(:description)
+    count: 80
+    states: AR, CT, GA, IN, KS... (17 total)
+    years: 2021, 2022, 2023
+    measures: ADD-CH, AMM-AD, BCS-AD, CBP-AD, CBP-HH... (22 total)
+HybridAdministrativeandMedicalRecordsData0-AdministrativeDataOther(:)
+    count: 2
+    states: KS
+    years: 2021, 2022
+    measures: CIS-CH
+HybridAdministrativeandMedicalRecordsData0-AdministrativeDataOther(:description)
+    count: 68
+    states: AZ, CA, DC, DE, FL... (25 total)
+    years: 2021, 2022, 2023
+    measures: CIS-CH
+HybridAdministrativeandMedicalRecordsData0-Other(:description)
+    count: 476
+    states: AZ, CA, DC, DE, FL... (28 total)
+    years: 2021, 2022, 2023
+    measures: CBP-AD, CBP-HH, CCS-AD, DEV-CH, HBD-AD... (14 total)
+HybridAdministrativeandMedicalRecordsData0-OtherDataSource(:description)
+    count: 3
+    states: AR, FL, PA
+    years: 2021
+    measures: PC01-AD
+HybridAdministrativeandMedicalRecordsData0(:)
+    count: 6
+    states: CT, MD, MS, UT
+    years: 2021, 2022
+    measures: CIS-CH, HPC-AD, IMA-CH, PPC-AD, PPC-CH
+HybridAdministrativeandMedicalRecordsData0(:selected)
+    count: 859
+    states: AR, AZ, CA, CO, CT... (42 total)
+    years: 2021, 2022, 2023
+    measures: CBP-AD, CBP-HH, CCS-AD, CIS-CH, DEV-CH... (16 total)
+HybridAdministrativeandMedicalRecordsData1(:)
+    count: 6
+    states: KS, WI
+    years: 2022, 2023
+    measures: IMA-CH, LSC-CH, PPC-AD, PPC-CH, WCC-CH
+HybridAdministrativeandMedicalRecordsData1(:selected)
+    count: 859
+    states: AR, AZ, CA, CO, CT... (42 total)
+    years: 2021, 2022, 2023
+    measures: CBP-AD, CBP-HH, CCS-AD, CIS-CH, DEV-CH... (16 total)
+Other(:description)
+    count: 4
+    states: AL, ND, SC, WV
+    years: 2021
+    measures: AUD-CH
+OtherDataSource(:description)
+    count: 129
+    states: AR, CA, CO, CT, DE... (24 total)
+    years: 2021, 2022, 2023
+    measures: AAB-AD, AAB-CH, ADD-CH, AIF-HH, AMB-CH... (53 total)
+
+
+selections:
+AdministrativeDataOther
+    count: 2557
+    states: AK, AL, AR, AZ, CA... (35 total)
+    years: 2021, 2022, 2023
+    measures: AAB-AD, AAB-CH, ADD-CH, AIF-HH, AMB-CH... (68 total)
+ElectronicHealthRecordEHRData
+    count: 751
+    states: AR, AZ, CA, CO, CT... (40 total)
+    years: 2021, 2022, 2023
+    measures: CBP-AD, CBP-HH, CCS-AD, CIS-CH, CPU-AD... (17 total)
+ImmunizationRegistry
+    count: 119
+    states: AL, AR, AZ, CA, CO... (27 total)
+    years: 2021, 2022
+    measures: CIS-CH, IMA-CH
+ImmunizationRegistryImmunizationInformationSystemIIS
+    count: 61
+    states: AL, AR, AZ, CA, CO... (26 total)
+    years: 2023
+    measures: CIS-CH, IMA-CH
+MedicaidManagementInformationSystemMMIS
+    count: 4706
+    states: AK, AL, AR, AZ, CA... (47 total)
+    years: 2021, 2022, 2023
+    measures: AAB-AD, AAB-CH, ADD-CH, AIF-HH, AMB-CH... (72 total)
+Other
+    count: 476
+    states: AZ, CA, DC, DE, FL... (28 total)
+    years: 2021, 2022, 2023
+    measures: CBP-AD, CBP-HH, CCS-AD, DEV-CH, HBD-AD... (14 total)
+OtherDataSource
+    count: 3
+    states: AR, FL, PA
+    years: 2021
+    measures: PC01-AD
+Paper
+    count: 605
+    states: AR, AZ, CA, CO, CT... (34 total)
+    years: 2021, 2022, 2023
+    measures: CBP-AD, CCS-AD, CIS-CH, CPU-AD, DEV-CH... (14 total)
+VitalRecords
+    count: 14
+    states: AL, CO, DE, ME, TN... (6 total)
+    years: 2021, 2022, 2023
+    measures: PPC-CH
+
+
+Scan complete 2024-08-16T19:21:24.417Z

@@ -1,5 +1,3 @@
-import { DataSource } from "./handlers/rate/types";
-
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;
@@ -15,20 +13,27 @@ export interface CoreSet {
   year: number;
 }
 
-export interface StandardRateShape {
-  label: string;
-  uid?: string;
-}
+export type StandardRateShape = RateNDRShape | RateValueShape;
 
-export interface RateNDRShape extends StandardRateShape {
+export interface RateNDRShape {
+  uid?: string;
+  label: string;
   category?: string;
   numerator?: string;
   denominator?: string;
   rate?: string;
 }
+export const isRateNDRShape = (rate: StandardRateShape): rate is RateNDRShape => {
+  return ["numerator", "denominator", "rate"].some((field) => field in rate);
+}
 
-export interface RateValueShape extends StandardRateShape {
+export interface RateValueShape {
+  uid?: string;
+  label: string;
   value?: string;
+}
+export const isRateValueShape = (rate: StandardRateShape): rate is RateValueShape => {
+  return "value" in rate;
 }
 
 export interface Measure {
@@ -64,8 +69,12 @@ export interface Measure {
      *   string `"Other"`, as opposed to the standard `"OtherDataSource"`.
      */
     DataSource?: DataSource[];
-    // TODO, can we make this type more specific?
-    DataSourceSelections?: string[];
+    // TODO can we make this type more specific?
+    // Do we know the exhaustive list of keys?
+    // The exhaustive list of possible selected values?
+    // How can we keep that in sync with the rest of the app?
+    DataSourceSelections?: DataSourceSelectionsType;
+    MeasurementSpecification: MeasurementSpecificationType;
     PerformanceMeasure?: {
       rates?: {
         [key: string]: StandardRateShape[];
@@ -73,6 +82,77 @@ export interface Measure {
     };
     HybridMeasurePopulationIncluded?: string;
   };
+}
+
+export enum DataSource {
+  Administrative = "AdministrativeData",
+  EHR = "ElectronicHealthRecords",
+  Hybrid = "HybridAdministrativeandMedicalRecordsData",
+  CaseMagementRecordReview = "Casemanagementrecordreview",
+  ECDS = "ElectronicClinicalDataSystemsECDS",
+  Other = "OtherDataSource",
+}
+
+export type DataSourceSelectionsType = {
+  [key in DataSourceSelectedParentKeys]?: {
+    selected?: DataSourceSelectedValueType[];
+  }
+} & {
+  [key in DataSourceDescriptionParentKeys]?: {
+    description?: string;
+  }
+};
+
+enum DataSourceSelectedParentKeys {
+  /** Only appears for FUA-AD, PQI01-AD, PQI15-AD in VAL in 2021. Possibly a bug? */
+  _Admin = "AdministrativeData",
+  Admin = "AdministrativeData0",
+  CaseManagementRecordReview = "Casemanagementrecordreview0",
+  Hybrid0 = "HybridAdministrativeandMedicalRecordsData0",
+  Hybrid1 = "HybridAdministrativeandMedicalRecordsData1",
+};
+
+enum DataSourceDescriptionParentKeys {
+  AdminOther = "AdministrativeData0-AdministrativeDataOther",
+  EHR = "ElectronicHealthRecords",
+  HybridAdminOther = "HybridAdministrativeandMedicalRecordsData0-AdministrativeDataOther",
+  HybridOther = "HybridAdministrativeandMedicalRecordsData0-Other",
+  /** Only appears for PC01-AD, in 2021 */
+  _HybridOther = "HybridAdministrativeandMedicalRecordsData0-OtherDataSource",
+  /** Only appears for AUD-CH (obsolete in 2022) */
+  _Other = "Other",
+  Other = "OtherDataSource",
+};
+
+enum DataSourceSelectedValueType {
+  MMIS = "MedicaidManagementInformationSystemMMIS",
+  AdminOther = "AdministrativeDataOther",
+  EHR = "ElectronicHealthRecordEHRData",
+  /** Only appears for PC01-AD, in 2021 */
+  _Other = "Other",
+  Paper = "Paper",
+  /** Renamed in 2023 to `ImmunizationRegistryImmunizationInformationSystemIIS` */
+  _ImmunizationRegistry = "ImmunizationRegistry",
+  ImmunizationRegistry = "ImmunizationRegistryImmunizationInformationSystemIIS",
+  VitalRecords = "VitalRecords",
+  Other = "OtherDataSource",
+};
+
+export enum MeasurementSpecificationType {
+  DQA = "ADA-DQA",
+  AHRQ = "AHRQ",
+  AHRQ_NCQA = "AHRQ-NCQA",
+  /** Only for AUD-CH (obsolete in 2022) */
+  CDC = "CDC",
+  CMS = "CMS",
+  HRSA = "HRSA",
+  NCQA_HEDIS = "NCQA/HEDIS",
+  OHSU = "OHSU",
+  OPA = "OPA",
+  Other = "Other",
+  PQA = "PQA",
+  /** Only for PC01-AD (obsolete in 2022) */
+  TheJointCommission = "TheJointCommission",
 }
 
 export interface MeasureParameters {

@@ -1,0 +1,81 @@
+DataSpecificationScan - PROD
+benmartin@Coforma-J7459XDMVG-Ben-Martin rate % node dataSpecScan.js 
+Beginning scan 2024-08-16T19:58:12.238Z
+Scanning page #1
+Scanning page #2
+Scanning page #3
+Scanning page #4
+Scanning page #5
+Scanning page #6
+Scanning page #7
+Scanning page #8
+Scanning page #9
+Scanning page #10
+Scanning page #11
+Scanning page #12
+Scanning page #13
+Scanning page #14
+Scanning page #15
+Scanning page #16
+Scanning page #17
+specs:
+ADA-DQA
+    count: 254
+    states: AK, AL, AR, AZ, CA... (44 total)
+    years: 2021, 2022, 2023
+    measures: OEV-CH, SFM-CH, TFL-CH
+AHRQ
+    count: 503
+    states: AL, AR, AZ, CA, CO... (45 total)
+    years: 2021, 2022, 2023
+    measures: PQI01-AD, PQI05-AD, PQI08-AD, PQI15-AD, PQI92-HH
+AHRQ-NCQA
+    count: 222
+    states: AK, AL, AR, AZ, CA... (45 total)
+    years: 2021, 2022, 2023
+    measures: CPA-AD, CPC-CH
+CDC
+    count: 4
+    states: AL, ND, SC, WV
+    years: 2021
+    measures: AUD-CH
+CMS
+    count: 508
+    states: AK, AL, AR, AZ, CA... (46 total)
+    years: 2021, 2022, 2023
+    measures: AIF-HH, CDF-AD, CDF-CH, CDF-HH, IU-HH... (7 total)
+HRSA
+    count: 35
+    states: AZ, CA, CO, DC, DE... (17 total)
+    years: 2021, 2022, 2023
+    measures: HVL-AD
+NCQA/HEDIS
+    count: 5283
+    states: AK, AL, AR, AZ, CA... (52 total)
+    years: 2021, 2022, 2023
+    measures: AAB-AD, AAB-CH, ADD-CH, AMB-CH, AMB-HH... (47 total)
+OHSU
+    count: 125
+    states: AK, AL, AR, AZ, CA... (43 total)
+    years: 2021, 2022, 2023
+    measures: DEV-CH
+OPA
+    count: 493
+    states: AK, AL, AR, AZ, CA... (42 total)
+    years: 2021, 2022, 2023
+    measures: CCP-AD, CCP-CH, CCW-AD, CCW-CH
+Other
+    count: 103
+    states: AR, IA, IN, KS, MD... (16 total)
+    years: 2021, 2022, 2023
+    measures: AIF-HH, AMB-CH, AMR-AD, AMR-CH, CBP-AD... (28 total)
+PQA
+    count: 206
+    states: AL, AR, AZ, CA, CO... (40 total)
+    years: 2021, 2022, 2023
+    measures: COB-AD, OHD-AD
+TheJointCommission
+    count: 8
+    states: AR, FL, IA, LA, NY... (8 total)
+    years: 2021
+    measures: PC01-AD

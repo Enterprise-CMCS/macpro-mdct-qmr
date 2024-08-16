@@ -1,0 +1,58 @@
+DataSpecificationScan - DEV
+benmartin@Coforma-J7459XDMVG-Ben-Martin rate % node dataSpecScan.js 
+Beginning scan 2024-08-16T19:57:48.966Z
+Scanning page #1
+specs:
+ADA-DQA
+    count: 3
+    states: MA
+    years: 2023
+    measures: OEV-CH, SFM-CH, TFL-CH
+AHRQ
+    count: 1
+    states: MD
+    years: 2022
+    measures: PQI08-AD
+AHRQ-NCQA
+    count: 1
+    states: MA
+    years: 2023
+    measures: CPC-CH
+CDC
+    count: 1
+    states: MD
+    years: 2021
+    measures: AUD-CH
+CMS
+    count: 17
+    states: IA, MA, MD, ME, NC... (6 total)
+    years: 2021, 2022, 2023, 2024
+    measures: AIF-HH, CDF-CH, CDF-HH, IU-HH, OUD-AD
+NCQA/HEDIS
+    count: 98
+    states: DC, DE, FL, IA, IN... (10 total)
+    years: 2021, 2022, 2023, 2024
+    measures: AAB-AD, AAB-CH, ADD-CH, AMB-CH, AMB-HH... (42 total)
+OHSU
+    count: 1
+    states: MA
+    years: 2023
+    measures: DEV-CH
+OPA
+    count: 10
+    states: FL, MA, MD, ME, NJ... (6 total)
+    years: 2021, 2022, 2023, 2024
+    measures: CCP-AD, CCP-CH, CCW-AD, CCW-CH
+Other
+    count: 22
+    states: AK, DC, FL, IA, MA... (9 total)
+    years: 2021, 2022, 2023, 2024, 
+    measures: AAB-AD, AAB-CH, AIF-HH, AMB-HH, AMM-AD... (17 total)
+PQA
+    count: 2
+    states: MD, MI
+    years: 2021, 2022
+    measures: COB-AD
+
+
+Scan complete 2024-08-16T19:57:49.652Z

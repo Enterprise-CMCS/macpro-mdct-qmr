@@ -199,7 +199,6 @@ const testCases = {
             denominator: "7",
             rate: "85.7",
           },
-          // TODO NOTE! Neither numerator nor denominator nor rate exists.
           {
             label: "Continuation and Maintenance (C&M) Phase",
             uid: "ugoYfe.jfj0f8",
