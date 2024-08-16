@@ -34,29 +34,37 @@ export const MSCAD = ({
         measureName={name}
         measureAbbreviation={measureId}
       />
-      <Q.HowDidYouReport
-        reportingYear={year}
-        healthHomeMeasure
-        removeLessThan30
-      />
-      {data[DC.DID_REPORT] !== DC.NO && (
+      {data["DidCollect"] !== "no" && (
         <>
-          <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
-          <Q.DataSource type="adult" />
-          <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
-          {isPrimaryMeasureSpecSelected && (
+          <Q.HowDidYouReport
+            reportingYear={year}
+            // is this a health home
+            healthHomeMeasure
+            removeLessThan30
+          />
+          {data[DC.DID_REPORT] !== DC.NO && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} rateReadOnly={false} />
-              <CMQ.DeviationFromMeasureSpec />
+              <CMQ.StatusOfData />
+              <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
+              <Q.DataSource type="adult" />
+              <CMQ.DateRange type="adult" />
+              <CMQ.DefinitionOfPopulation />
+              {isPrimaryMeasureSpecSelected && (
+                <>
+                  <CMQ.PerformanceMeasure
+                    data={PMD.data}
+                    rateReadOnly={false}
+                  />
+                  <CMQ.DeviationFromMeasureSpec />
+                </>
+              )}
+              {/* Show Other Performance Measures when isHedis is not true  */}
+              {isOtherMeasureSpecSelected && (
+                <CMQ.OtherPerformanceMeasure rateAlwaysEditable />
+              )}
+              {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
             </>
           )}
-          {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherMeasureSpecSelected && (
-            <CMQ.OtherPerformanceMeasure rateAlwaysEditable />
-          )}
-          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
       <CMQ.AdditionalNotes />
