@@ -33,7 +33,7 @@ export const CPAAD = ({
         <>
           <Q.HowDidYouReport />
           <Q.DataSource type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <Q.DefinitionOfPopulation coreSetId={coreSetId as string} />
           <Q.PerformanceMeasure />
         </>
       )}
