@@ -118,3 +118,87 @@ export interface TimeShape {
   minute: number;
   second: number;
 }
+
+export enum DataSource {
+  Administrative = "AdministrativeData",
+  EHR = "ElectronicHealthRecords",
+  Hybrid = "HybridAdministrativeandMedicalRecordsData",
+  CaseMagementRecordReview = "Casemanagementrecordreview",
+  ECDS = "ElectronicClinicalDataSystemsECDS",
+  Other = "OtherDataSource",
+};
+
+/**
+ * This is the shape of data saved to the Rates table
+ */
+export type CombinedRatesPayload = {
+  DataSources: {
+    Medicaid: DataSourcePayload;
+    CHIP: DataSourcePayload;
+  };
+  Rates: {
+    uid: string;
+    category?: string;
+    label?: string;
+    Medicaid: WeightedRateShape;
+    CHIP: WeightedRateShape;
+    Combined: WeightedRateShape;
+  }[];
+  AdditionalValues: {
+    uid: string;
+    label: string;
+    Medicaid: number | undefined;
+    CHIP: number | undefined;
+    Combined: number | undefined;
+  }[];
+};
+
+export type DataSourcePayload = {
+  includesHybrid: boolean;
+  isNotApplicable: boolean;
+  DataSource: DataSource[];
+  /** Note: this is a simplified version of the typedef found in app-api. */
+  DataSourceSelections: {
+    [key: string]: {
+      selected?: string[];
+      description?: string;
+    }
+  };
+};
+
+export type WeightedRateShape = {
+  isReported: boolean;
+  numerator?: number;
+  denominator?: number;
+  rate?: number;
+  population?: number;
+  weightedRate?: number;
+};
+
+export enum ProgramTypes {
+  Medicaid = "Medicaid",
+  CHIP = "CHIP",
+  Combined = "Combined",
+};
+
+export const ProgramTypeList = [
+  ProgramTypes.Medicaid,
+  ProgramTypes.CHIP,
+  ProgramTypes.Combined,
+] as const;
+
+/**
+ * This utility is most useful when filtering undefined values from an array,
+ * _while convincing Typescript you've done so_.
+ *
+ * @example
+ * const a = words.map(word => getThirdChar(word));
+ * // a's type is (string | undefined)[]
+ *
+ * const b = a.filter(char => char !== undefined);
+ * // b's type is still (string | undefined)[], boo!
+ *
+ * const c = a.filter(isDefined);
+ * // c's type is just string[], hurray!
+ */
+export const isDefined = <T>(x: T | undefined): x is T => x !== undefined;

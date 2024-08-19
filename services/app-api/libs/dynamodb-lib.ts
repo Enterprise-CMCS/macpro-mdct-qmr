@@ -47,7 +47,7 @@ export const getConfig = () => {
 
 const client = DynamoDBDocumentClient.from(
   new DynamoDBClient(getConfig()),
-  { marshallOptions: { removeUndefinedValues: true }}
+  { marshallOptions: { removeUndefinedValues: true } }
 );
 
 export default {

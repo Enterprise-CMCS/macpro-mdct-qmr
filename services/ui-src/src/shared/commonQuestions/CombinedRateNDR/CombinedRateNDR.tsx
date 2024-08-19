@@ -1,115 +1,42 @@
 import * as CUI from "@chakra-ui/react";
-import { CombinedRatesPayload, WeightedRateShape } from "./CombinedRateTypes";
+import { CombinedRatesPayload, ProgramTypeList, ProgramTypes } from "types";
 import * as Labels from "labels/RateLabelTexts";
-
-type Props = {
-  payload: CombinedRatesPayload;
-  year: string;
-  measure: string;
-};
-
-const programDisplayNames = {
-  Medicaid: "Medicaid",
-  CHIP: "Separate CHIP",
-  Combined: "Combined Rate",
-} as const;
-
-const rateComponentDisplayNames = {
-  numerator: "numerator",
-  denominator: "denominator",
-  rate: "rate",
-  population: "measure-eligible population",
-  weightedRate: "weighted rate",
-} as const;
-
-const verticalRateTable = (
-  table: CombinedRatesPayload["Rates"][number],
-  rateComponents: ReturnType<typeof getRateComponents>
-) => {
-  return (
-    <CUI.VStack align="flex-start" mt="4">
-      {(["Medicaid", "CHIP"] as const).map((programType, ptIndex) => (
-        <CUI.List
-          key={ptIndex}
-          padding="0 0 1rem 2rem"
-          textTransform="capitalize"
-        >
-          <CUI.Text fontWeight="bold" mb="2">
-            {programDisplayNames[programType]}
-          </CUI.Text>
-          {rateComponents.map((rateComponent, rIndex) => (
-            <CUI.ListItem key={rIndex} pl="7">
-              {rateComponentDisplayNames[rateComponent]}:{" "}
-              {table[programType][rateComponent]}
-            </CUI.ListItem>
-          ))}
-        </CUI.List>
-      ))}
-      <CUI.List padding="0 0 1rem 2rem">
-        <CUI.Text fontWeight="bold" mb="2">
-          {programDisplayNames["Combined"]}:{" "}
-          {(table.Combined.weightedRate as any) /* TODO something better here */ !== "-"
-            ? table.Combined.weightedRate
-            : table.Combined?.rate}
-        </CUI.Text>
-      </CUI.List>
-      <CUI.Divider borderColor="gray.300" />
-    </CUI.VStack>
-  );
-};
-
-const horizontalRateTable = (
-  table: CombinedRatesPayload["Rates"][number],
-  rateComponents: ReturnType<typeof getRateComponents>
-) => {
-  return (
-    <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
-      <CUI.Thead>
-        <CUI.Tr>
-          <CUI.Td></CUI.Td>
-          {(["Medicaid", "CHIP", "Combined"] as const).map((programType, index) => (
-            <CUI.Th key={index} sx={sx.header}>
-              {programDisplayNames[programType]}
-            </CUI.Th>
-          ))}
-        </CUI.Tr>
-      </CUI.Thead>
-      <CUI.Tbody>
-        {rateComponents.map((rateComponent, rIndex) => (
-          <CUI.Tr key={rIndex} sx={sx.row}>
-            <CUI.Th sx={sx.verticalHeader} scope="row">
-              {rateComponent}
-            </CUI.Th>
-            {(["Medicaid", "CHIP", "Combined"] as const).map((programType, ptIndex) => (
-              <CUI.Td key={ptIndex} isNumeric sx={sx.content}>
-                {table[programType]?.[rateComponent]}
-              </CUI.Td>
-            ))}
-          </CUI.Tr>
-        ))}
-      </CUI.Tbody>
-    </CUI.Table>
-  );
-};
-
-const getRateComponents = (
-  DataSources: CombinedRatesPayload["DataSources"]
-): (keyof WeightedRateShape)[] => {
-  const includeWeights =
-    DataSources.Medicaid.includesHybrid || DataSources.CHIP.includesHybrid;
-  return includeWeights
-    ? ["numerator", "denominator", "rate", "population", "weightedRate"]
-    : ["numerator", "denominator", "rate"];
-};
 
 export const CombinedRateNDR = ({
   payload: { DataSources, Rates },
   year,
   measure,
 }: Props) => {
-  const rateComponents = getRateComponents(DataSources);
-  provideDefaultValues(Rates);
   sortRates(Rates, year, measure);
+
+  const includeWeights =
+    DataSources.Medicaid.includesHybrid || DataSources.CHIP.includesHybrid;
+  const rateComponents = includeWeights
+    ? ["numerator", "denominator", "rate", "population", "weightedRate"] as const
+    : ["numerator", "denominator", "rate"] as const;
+
+  const displayValue = (
+    table: (typeof Rates)[number],
+    program: ProgramTypes,
+    rateComponent: typeof rateComponents[number]
+  ) => {
+    const value = table[program][rateComponent];
+    if (value !== undefined) {
+      return value.toString();
+    }
+    else if (rateComponent === "rate" || rateComponent === "weightedRate") {
+      return "-";
+    }
+    else if (program === ProgramTypes.Combined) {
+      return "";
+    }
+    else if (DataSources[program].isNotApplicable) {
+      return "Not applicable";
+    }
+    else {
+      return "Not reported";
+    }
+  };
 
   return (
     <CUI.Box sx={sx.tableContainer} mb="3rem">
@@ -123,37 +50,63 @@ export const CombinedRateNDR = ({
               {heading}
             </CUI.Heading>
             <CUI.Hide below="md">
-              {horizontalRateTable(table, rateComponents)}
+              <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
+                <CUI.Thead>
+                  <CUI.Tr>
+                    <CUI.Td></CUI.Td>
+                    {ProgramTypeList.map((programType, index) =>
+                      <CUI.Th key={index} sx={sx.header}>
+                        {programDisplayNames[programType]}
+                      </CUI.Th>
+                    )}
+                  </CUI.Tr>
+                </CUI.Thead>
+                <CUI.Tbody>
+                  {rateComponents.map((rateComponent, rIndex) => (
+                    <CUI.Tr key={rIndex} sx={sx.row}>
+                      <CUI.Th sx={sx.verticalHeader} scope="row">
+                        {rateComponentDisplayNames[rateComponent]}
+                      </CUI.Th>
+                      {ProgramTypeList.map((programType, ptIndex) =>
+                        <CUI.Td key={ptIndex} sx={sx.header}>
+                          {displayValue(table, programType, rateComponent)}
+                        </CUI.Td>
+                      )}
+                    </CUI.Tr>
+                  ))}
+                </CUI.Tbody>
+              </CUI.Table>
             </CUI.Hide>
             <CUI.Show below="md">
-              {verticalRateTable(table, rateComponents)}
+              <CUI.VStack align="flex-start" mt="4">
+                {[ProgramTypes.Medicaid, ProgramTypes.CHIP].map((programType, ptIndex) =>
+                  <CUI.List key={ptIndex} padding="0 0 1rem 2rem">
+                    <CUI.Text fontWeight="bold" mb="2">
+                      {programDisplayNames[programType]}
+                    </CUI.Text>
+                    {rateComponents.map((rateComponent, rIndex) => (
+                      <CUI.ListItem key={rIndex} pl="7">
+                        {rateComponentDisplayNames[rateComponent]}:{" "}
+                        {displayValue(table, programType, rateComponent)}
+                      </CUI.ListItem>
+                    ))}
+                  </CUI.List>
+                )}
+                {/* TODO: Where are the other Combined components? Numerator, Denominator, Population? */}
+                <CUI.List padding="0 0 1rem 2rem">
+                  <CUI.Text fontWeight="bold" mb="2">
+                    {programDisplayNames.Combined}:{" "}
+                    {table.Combined.weightedRate ?? table.Combined.rate ?? "-"}
+                  </CUI.Text>
+                </CUI.List>
+                <CUI.Divider borderColor="gray.300" />
+              </CUI.VStack>
             </CUI.Show>
           </CUI.Box>
         );
       })}
     </CUI.Box>
   );
-};
-
-/**
- * Fill in strings such as `"-"` and `"Not reported"` for any undefined values.
- */
-const provideDefaultValues = (
-  // TODO something better here
-  tables: any // CombinedRatesPayload["Rates"]
-) => {
-  for (let table of tables) {
-    for (let programType of (["Medicaid", "CHIP", "Combined"]) as const) {
-      const notAnswered = programType === "Combined" ? "" : "Not reported";
-      const rateObj = table[programType];
-
-      rateObj.numerator ??= notAnswered;
-      rateObj.denominator ??= notAnswered;
-      rateObj.rate ??= "-";
-      rateObj.population ??= notAnswered;
-      rateObj.weightedRate ??= "-"
-    }
-  }
 };
 
 /**
@@ -174,6 +127,26 @@ const sortRates = (
     qualifiers.map((qual) => `${cat.id}.${qual.id}`)
   );
   tables.sort((a, b) => uidOrder.indexOf(a.uid) - uidOrder.indexOf(b.uid));
+};
+
+const programDisplayNames = {
+  Medicaid: "Medicaid",
+  CHIP: "Separate CHIP",
+  Combined: "Combined Rate",
+} as const;
+
+const rateComponentDisplayNames = {
+  numerator: "Numerator",
+  denominator: "Denominator",
+  rate: "Rate",
+  population: "Measure-Eligible Population",
+  weightedRate: "Weighted Rate",
+} as const;
+
+type Props = {
+  payload: CombinedRatesPayload;
+  year: string;
+  measure: string;
 };
 
 const sx = {

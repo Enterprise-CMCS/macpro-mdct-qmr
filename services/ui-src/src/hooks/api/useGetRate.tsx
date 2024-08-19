@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { getRate } from "libs/api";
-import { CombinedRatesPayload } from "shared/commonQuestions/CombinedRateNDR/CombinedRateTypes";
+import { CombinedRatesPayload } from "types";
 
 interface GetRate {
   measure: string;

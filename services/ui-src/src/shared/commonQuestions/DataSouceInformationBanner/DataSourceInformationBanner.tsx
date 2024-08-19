@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import { AnyObject } from "types";
-import { CombinedRatesPayload } from "../CombinedRateNDR/CombinedRateTypes";
+import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
 
 type Props = {
   payload: CombinedRatesPayload;
@@ -101,7 +100,7 @@ export const DataSourceInformationBanner = ({
 
 export const dataSourceSelections = (
   dataSource: string,
-  dataSourceSelections: AnyObject
+  dataSourceSelections: DataSourcePayload["DataSourceSelections"]
 ) => {
   let selected = [];
   //filter the dataSourceSelections object keys that matches the dataSource name
@@ -114,13 +113,13 @@ export const dataSourceSelections = (
   if (dataSourceKey && dataSourceKey.length > 0) {
     //if more than one key exist, it is possibly a nested data source
     if (dataSourceKey.length > 1) {
-      const dataSources: string[] = dataSourceValue
-        .filter((source) => source.selected)
+      const dataSources = dataSourceValue
         .map((item) => item.selected)
+        .filter(isDefined)
         .flat();
 
       selected.push(
-        ...dataSources.map((source: string) => {
+        ...dataSources.map((source) => {
           const sourceKey = dataSourceKey.find((key) => key.includes(source));
           const formattedSource = formatCamelCaseWithInitialisms(source);
           return sourceKey

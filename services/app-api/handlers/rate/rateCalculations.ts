@@ -13,8 +13,6 @@ import {
   Measure,
   MeasurementSpecificationType,
   MeasureParameters,
-  RateNDRShape,
-  RateValueShape,
 } from "../../types";
 import { fixRounding } from "../../utils/constants/math";
 
@@ -189,7 +187,9 @@ const combineRates = (
       const combinedNumerator = addSafely(mNumerator, cNumerator);
       const combinedDenominator = addSafely(mDenominator, cDenominator);
       const quotient = divideSafely(combinedNumerator, combinedDenominator);
-      const combinedRate = transformQuotient(measureAbbr, quotient);
+      let combinedRate = transformQuotient(measureAbbr, quotient);
+
+      combinedRate = roundSafely(combinedRate, 1);
 
       return {
         uid: uid,
@@ -234,7 +234,7 @@ const combineRates = (
       
       /*
        * For hybrid measures, we expect the user to enter the population.
-       * For admin measures, we expect to use the rate denominator instead.
+       * For admin measures, we expect to use the rate's denominator instead.
        * But IF a user enters a population on an admin measure, we will use it.
        * Maybe we should disable the population input unless the user selects
        * a hybrid data source? It seems they shouldn't use it for admin.
@@ -252,9 +252,13 @@ const combineRates = (
       const mWeight = divideSafely(medicaidPopulation, totalPopulation);
       const cWeight = divideSafely(chipPopulation, totalPopulation);
 
-      const mWeightedRate = multiplySafely(mWeight, mRate);
-      const cWeightedRate = multiplySafely(cWeight, cRate);
-      const combinedWeightedRate = addSafely(mWeightedRate, cWeightedRate);
+      let mWeightedRate = multiplySafely(mWeight, mRate);
+      let cWeightedRate = multiplySafely(cWeight, cRate);
+      let combinedWeightedRate = addSafely(mWeightedRate, cWeightedRate);
+
+      mWeightedRate = roundSafely(mWeightedRate, 1);
+      cWeightedRate = roundSafely(cWeightedRate, 1);
+      combinedWeightedRate = roundSafely(combinedWeightedRate, 1);
 
       return {
         uid: uid,
@@ -400,9 +404,9 @@ const parseQmrNumber = (str: string | undefined) => {
 
 const addSafely = (x: number | undefined, y: number | undefined) => {
   if (x === undefined && y === undefined) return undefined;
-  if (x === undefined) return Number(y);
-  if (y === undefined) return Number(x);
-  return Number(x) + Number(y);
+  if (x === undefined) return y;
+  if (y === undefined) return x;
+  return x + y;
 };
 
 const divideSafely = (x: number | undefined, y: number | undefined) => {

@@ -69,10 +69,20 @@ export interface Measure {
      *   string `"Other"`, as opposed to the standard `"OtherDataSource"`.
      */
     DataSource?: DataSource[];
-    // TODO can we make this type more specific?
-    // Do we know the exhaustive list of keys?
-    // The exhaustive list of possible selected values?
-    // How can we keep that in sync with the rest of the app?
+    /**
+     * A map of data source keys to sub-objects, which may contain selected
+     * arrays, or string descriptions.
+     * 
+     * Certain keys may have selected arrays, other keys may have string
+     * descriptions. No key will ever have both.
+     * 
+     * The type definition enumerates the specific keys observed in the wild;
+     * it is complete as of 2024. However there is no mechanism (yet) tying
+     * this type definition to the actual data generation process,
+     * so it may be incomplete for future years. It is probably worthwhile
+     * keeping around (even without such a mechanism), to give concrete
+     * examples of typical data shapes.
+     */
     DataSourceSelections?: DataSourceSelectionsType;
     MeasurementSpecification: MeasurementSpecificationType;
     PerformanceMeasure?: {
@@ -82,7 +92,7 @@ export interface Measure {
     };
     HybridMeasurePopulationIncluded?: string;
   };
-}
+};
 
 export enum DataSource {
   Administrative = "AdministrativeData",
@@ -91,7 +101,7 @@ export enum DataSource {
   CaseMagementRecordReview = "Casemanagementrecordreview",
   ECDS = "ElectronicClinicalDataSystemsECDS",
   Other = "OtherDataSource",
-}
+};
 
 export type DataSourceSelectionsType = {
   [key in DataSourceSelectedParentKeys]?: {
@@ -104,12 +114,12 @@ export type DataSourceSelectionsType = {
 };
 
 enum DataSourceSelectedParentKeys {
-  /** Only appears for FUA-AD, PQI01-AD, PQI15-AD in VAL in 2021. Possibly a bug? */
-  _Admin = "AdministrativeData",
   Admin = "AdministrativeData0",
   CaseManagementRecordReview = "Casemanagementrecordreview0",
   Hybrid0 = "HybridAdministrativeandMedicalRecordsData0",
   Hybrid1 = "HybridAdministrativeandMedicalRecordsData1",
+  /** Only appears for FUA-AD, PQI01-AD, PQI15-AD, in VAL, in 2021. Possibly a bug? */
+  _Admin = "AdministrativeData",
 };
 
 enum DataSourceDescriptionParentKeys {
@@ -117,40 +127,40 @@ enum DataSourceDescriptionParentKeys {
   EHR = "ElectronicHealthRecords",
   HybridAdminOther = "HybridAdministrativeandMedicalRecordsData0-AdministrativeDataOther",
   HybridOther = "HybridAdministrativeandMedicalRecordsData0-Other",
+  Other = "OtherDataSource",
   /** Only appears for PC01-AD, in 2021 */
   _HybridOther = "HybridAdministrativeandMedicalRecordsData0-OtherDataSource",
   /** Only appears for AUD-CH (obsolete in 2022) */
   _Other = "Other",
-  Other = "OtherDataSource",
 };
 
 enum DataSourceSelectedValueType {
-  MMIS = "MedicaidManagementInformationSystemMMIS",
   AdminOther = "AdministrativeDataOther",
   EHR = "ElectronicHealthRecordEHRData",
-  /** Only appears for PC01-AD, in 2021 */
-  _Other = "Other",
+  ImmunizationRegistry = "ImmunizationRegistryImmunizationInformationSystemIIS",
+  MMIS = "MedicaidManagementInformationSystemMMIS",
+  Other = "OtherDataSource",
   Paper = "Paper",
+  VitalRecords = "VitalRecords",
   /** Renamed in 2023 to `ImmunizationRegistryImmunizationInformationSystemIIS` */
   _ImmunizationRegistry = "ImmunizationRegistry",
-  ImmunizationRegistry = "ImmunizationRegistryImmunizationInformationSystemIIS",
-  VitalRecords = "VitalRecords",
-  Other = "OtherDataSource",
+  /** Only appears for PC01-AD, in 2021 */
+  _Other = "Other",
 };
 
 export enum MeasurementSpecificationType {
-  DQA = "ADA-DQA",
   AHRQ = "AHRQ",
   AHRQ_NCQA = "AHRQ-NCQA",
-  /** Only for AUD-CH (obsolete in 2022) */
-  CDC = "CDC",
   CMS = "CMS",
+  DQA = "ADA-DQA",
   HRSA = "HRSA",
   NCQA_HEDIS = "NCQA/HEDIS",
   OHSU = "OHSU",
   OPA = "OPA",
   Other = "Other",
   PQA = "PQA",
+  /** Only for AUD-CH (obsolete in 2022) */
+  CDC = "CDC",
   /** Only for PC01-AD (obsolete in 2022) */
   TheJointCommission = "TheJointCommission",
 }
@@ -257,9 +267,9 @@ export type CombinedRatesPayload = {
   AdditionalValues: {
     uid: string;
     label: string;
-    Medicaid: number | undefined;
-    CHIP: number | undefined;
-    Combined: number | undefined;
+    Medicaid?: number;
+    CHIP?: number;
+    Combined?: number;
   }[];
 };
 
@@ -267,7 +277,7 @@ type DataSourcePayload = {
   includesHybrid: boolean;
   isNotApplicable: boolean;
   DataSource: DataSource[];
-  DataSourceSelections: unknown;
+  DataSourceSelections: DataSourceSelectionsType;
 };
 
 type WeightedRateShape = {
