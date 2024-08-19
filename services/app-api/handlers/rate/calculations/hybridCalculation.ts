@@ -39,8 +39,8 @@ export class HybridCalculation extends RateCalculation {
   }
 
   getFormula(measure: string): Function {
-    return (numerator: number, denominator: number, weight: number) =>
-      fixRounding(weight, 5) * fixRounding((numerator / denominator) * 100, 1);
+    return (rate: number, weight: number) =>
+      fixRounding(weight, 5) * fixRounding(rate, 1);
   }
 
   expandRates(arr: FormattedMeasureData[]) {
@@ -48,20 +48,31 @@ export class HybridCalculation extends RateCalculation {
 
     return arr.map((data) => {
       if (data.dataSource.length <= 0) return data;
-
-      const weight =
-        Number(data["measure-eligible population"]) /
-        this.totalMeasureEligiblePopulation;
+      const isHybridDataSource =
+        data.dataSource.includes(DataSource.Hybrid) ||
+        data.dataSource.includes(DataSource.CaseMagementRecordReview);
 
       for (const [key, value] of Object.entries(data.rates)) {
         data.rates[key] = (value as RateNDRShape[]).map((rate) => {
+          let weight;
+          if (
+            this.totalMeasureEligiblePopulation !== 0 &&
+            !isHybridDataSource &&
+            !data["measure-eligible population"]
+          ) {
+            weight =
+              Number(rate.denominator) /
+              (this.totalMeasureEligiblePopulation + Number(rate.denominator));
+          } else {
+            weight =
+              Number(data["measure-eligible population"]) /
+              this.totalMeasureEligiblePopulation;
+          }
+
           rate["weighted rate"] =
             isNaN(weight) || !rate.rate
               ? ""
-              : fixRounding(
-                  formula(rate.numerator, rate.denominator, weight),
-                  1
-                ).toFixed(1);
+              : fixRounding(formula(Number(rate.rate), weight), 1).toFixed(1);
           return rate;
         });
       }
