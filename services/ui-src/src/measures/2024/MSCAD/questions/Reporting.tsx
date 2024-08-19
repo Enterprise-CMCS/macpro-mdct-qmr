@@ -1,6 +1,7 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
+import * as DC from "dataConstants";
 import { FormData } from "../types";
 import { WhyAreYouNotReporting } from "shared/commonQuestions/WhyAreYouNotReporting";
 
@@ -17,7 +18,7 @@ export const Reporting = ({
 }: Props) => {
   const register = useCustomRegister<FormData>();
   const { watch } = useFormContext<FormData>();
-  const watchRadioStatus = watch("DidCollect");
+  const watchRadioStatus = watch(DC.DID_COLLECT);
 
   return (
     <>
@@ -26,20 +27,20 @@ export const Reporting = ({
         label="Did you collect this measure?"
       >
         <QMR.RadioButton
-          {...register("DidCollect")}
+          {...register(DC.DID_COLLECT)}
           options={[
             {
               displayValue: `Yes, we did collect data for Medical Assistance with Smoking and Tobacco Use Cessation (MSC-AD) for FFY ${reportingYear} quality measure reporting.`,
-              value: "yes",
+              value: DC.YES,
             },
             {
               displayValue: `No, we did not collect data for Medical Assistance with Smoking and Tobacco Use Cessation (MSC-AD) for FFY ${reportingYear} quality measure reporting.`,
-              value: "no",
+              value: DC.NO,
             },
           ]}
         />
       </QMR.CoreQuestionWrapper>
-      {watchRadioStatus?.includes("no") && (
+      {watchRadioStatus === DC.NO && (
         <WhyAreYouNotReporting
           healthHomeMeasure={healthHomeMeasure}
           removeLessThan30={removeLessThan30}
