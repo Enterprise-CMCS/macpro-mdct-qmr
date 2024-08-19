@@ -411,8 +411,6 @@ export const DefinitionOfPopulation = ({
   const params = useParams();
   const coreSetType = healthHomeMeasure ? "HHCS" : params.coreSetId;
 
-  const mepDenomLabels = labels.DefinitionsOfPopulation.measureEligiblePopDenom;
-
   return (
     <QMR.CoreQuestionWrapper
       testid="definition-of-population"
@@ -447,18 +445,23 @@ export const DefinitionOfPopulation = ({
         <QMR.RadioButton
           formLabelProps={{ fontWeight: "600" }}
           label={
-            healthHomeMeasure && mepDenomLabels.healthHomeQuestion
-              ? mepDenomLabels.healthHomeQuestion
-              : mepDenomLabels.question
+            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question[
+              coreSetType!
+            ] ??
+            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
+              .default
           }
           {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC)}
           options={[
             {
-              displayValue: mepDenomLabels.optionYes,
+              displayValue:
+                labels.DefinitionsOfPopulation.measureEligiblePopDenom
+                  .optionYes,
               value: DC.YES,
             },
             {
-              displayValue: mepDenomLabels.optionNo,
+              displayValue:
+                labels.DefinitionsOfPopulation.measureEligiblePopDenom.optionNo,
               value: DC.NO,
               children: [
                 <QMR.TextArea

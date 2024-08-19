@@ -66,10 +66,11 @@ export const commonQuestionsLabel = {
   DefinitionsOfPopulation: {
     defineDenomOther: "Define the other denominator population:",
     measureEligiblePopDenom: {
-      question:
-        "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes beneficiaries who move between programs (Medicaid and CHIP), plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
-      healthHomeQuestion:
-        "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes enrollees who move between health home providers, plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+      question: {
+        default:
+          "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes beneficiaries who move between programs (Medicaid and CHIP), plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+        HHCS: "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes enrollees who move between health home providers, plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+      },
       optionYes:
         "Yes, this denominator includes the total measure-eligible population as defined by the Technical Specifications for this measure.",
       optionNo:
