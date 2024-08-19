@@ -3,9 +3,6 @@ import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
 import * as DC from "dataConstants";
-import { WhyAreYouNotReporting } from "shared/commonQuestions/WhyAreYouNotReporting";
-import { useFormContext } from "react-hook-form";
-import * as Types from "../types";
 
 interface Props {
   reportingYear: string;
@@ -13,14 +10,8 @@ interface Props {
   removeLessThan30?: boolean;
 }
 
-export const HowDidYouReport = ({
-  healthHomeMeasure,
-  removeLessThan30,
-  reportingYear,
-}: Props) => {
+export const HowDidYouReport = ({ reportingYear }: Props) => {
   const register = useCustomRegister<FormData>();
-  const { watch } = useFormContext<Types.FormData>();
-  const watchRadioStatus = watch(DC.DID_REPORT);
 
   return (
     <QMR.CoreQuestionWrapper
@@ -53,12 +44,6 @@ export const HowDidYouReport = ({
                     },
                   ]}
                 />
-                {watchRadioStatus === DC.NO && (
-                  <WhyAreYouNotReporting
-                    healthHomeMeasure={healthHomeMeasure}
-                    removeLessThan30={removeLessThan30}
-                  />
-                )}
               </QMR.CoreQuestionWrapper>,
             ],
           },
