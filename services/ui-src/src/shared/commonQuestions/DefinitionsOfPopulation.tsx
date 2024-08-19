@@ -11,7 +11,7 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 interface Props {
   childMeasure?: boolean;
@@ -29,6 +29,57 @@ interface CoreSetSpecificOptions {
     helpText: JSX.Element;
   };
 }
+
+const surveyMeasures = ["CPA-AD"];
+
+const surveyMeasureOptions: CoreSetSpecificOptions = {
+  ACSM: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: "Medicaid (Title XIX)",
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: "SurveySampleIncMedicareMedicaidDualEligible",
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the survey sample.
+          For example, if your survey sample includes both non-dual Medicaid
+          (Title XIX) beneficiaries and Individuals Dually Eligible for Medicare
+          and Medicaid, select both Medicaid population (Title XIX) and
+          Individuals Dually Eligible for Medicare and Medicaid.
+        </CUI.Text>
+      </>
+    ),
+  },
+  ACSC: {
+    options: [
+      {
+        displayValue: "Separate CHIP (Title XXI)",
+        value: "Separate CHIP (Title XXI)",
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: "Individuals Dually Eligible for Medicare and Medicaid",
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3">
+          Please select all populations that are included in the survey sample.
+          For example, if your survey sample includes both Separate CHIP (Title
+          XXI) beneficiaries and Individuals Dually Eligible for Medicare and
+          Medicaid, select both Separate CHIP (Title XXI) and Individuals Dually
+          Eligible for Medicare and Medicaid.
+        </CUI.Text>
+      </>
+    ),
+  },
+};
 
 const defOfDenomOptions: { [coreSetType: string]: DefOfDenomOption[] } = {
   standard: [
@@ -299,15 +350,20 @@ const StandardDefinitions = (
 const CoreSetSpecificDefinitions = (
   register: any,
   labels: AnyObject,
-  coreSetType: string
+  coreSetType: string,
+  measureName?: string
 ) => {
+  const options =
+    measureName && surveyMeasures.includes(measureName)
+      ? surveyMeasureOptions
+      : coreSetSpecificOptions;
   return (
     <CUI.Box>
-      {coreSetSpecificOptions[coreSetType].helpText}
+      {options[coreSetType].helpText}
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         options={[
-          ...coreSetSpecificOptions[coreSetType].options,
+          ...options[coreSetType].options,
           {
             displayValue: "Other",
             value: DC.DENOMINATOR_INC_OTHER,
@@ -405,7 +461,13 @@ export const DefinitionOfPopulation = ({
   const labels: any = useContext(SharedContext);
 
   const params = useParams();
+  const { pathname } = useLocation();
   const coreSetType = healthHomeMeasure ? "HHCS" : params.coreSetId;
+
+  const measureName = pathname.substring(
+    pathname.lastIndexOf("/") + 1,
+    pathname.length
+  );
 
   return (
     <QMR.CoreQuestionWrapper
@@ -419,7 +481,8 @@ export const DefinitionOfPopulation = ({
         ? CoreSetSpecificDefinitions(
             register,
             labels.DefinitionsOfPopulation,
-            coreSetType
+            coreSetType,
+            measureName
           )
         : childMeasure
         ? ChildDefinitions(register)
