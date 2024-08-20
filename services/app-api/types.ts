@@ -25,7 +25,7 @@ export interface RateNDRShape {
 }
 export const isRateNDRShape = (rate: StandardRateShape): rate is RateNDRShape => {
   return ["numerator", "denominator", "rate"].some((field) => field in rate);
-}
+};
 
 export interface RateValueShape {
   uid?: string;
@@ -34,7 +34,7 @@ export interface RateValueShape {
 }
 export const isRateValueShape = (rate: StandardRateShape): rate is RateValueShape => {
   return "value" in rate;
-}
+};
 
 export interface Measure {
   compoundKey: string;
@@ -273,7 +273,7 @@ export type CombinedRatesPayload = {
   }[];
 };
 
-type DataSourcePayload = {
+export type DataSourcePayload = {
   includesHybrid: boolean;
   isNotApplicable: boolean;
   DataSource: DataSource[];

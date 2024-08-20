@@ -1,47 +1,120 @@
-import { putToTable, getMeasureFromTable, getMeasureByCoreSet } from "./table";
+import {
+  getMeasureFromTable,
+  putCombinedRatesToTable,
+  getCombinedRatesFromTable
+} from "./table";
 import dynamodbLib from "../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../handlers/dynamoUtils/convertToDynamoExpressionVars";
-import { testData } from "../test-util/testData";
 import { StatusCodes } from "../utils/constants/constants";
-import { MeasureParameters } from "../types";
+import { CombinedRatesPayload, DataSourcePayload, MeasureParameters } from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   update: jest.fn(),
-  get: jest.fn((params) =>
-    testData.find((data) => data.coreSet === params.Key.coreSet)
-  ),
+  get: jest.fn(),
 }));
 
-jest.mock("../handlers/dynamoUtils/convertToDynamoExpressionVars", () => ({
-  __esModule: true,
-  convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
-}));
+const mockMeasureParameters = {
+  state: "CO",
+  measure: "ZZZ-AD",
+  coreSet: "ACS",
+  year: "2024",
+};
 
-describe("Test functions", () => {
-  it("Test putToTable function", async () => {
-    const res = await putToTable("mockTable", {}, {}, {});
+const mockMeasure = {
+  coreSet: "ACSM",
+  data: {
+    DataSource: ["AdministrativeData"],
+    PerformanceMeasure: {
+      rates: {
+        cat0: [
+          {
+            uid: "cat0.qual0",
+            label: "mock rate",
+            numerator: "2",
+            denominator: "10",
+            rate: "20",
+          },
+        ],
+      },
+    },
+  },
+};
 
-    expect(convertToDynamoExpression).toHaveBeenCalled();
-    expect(dynamodbLib.update).toHaveBeenCalled();
-    expect(res.status).toBe(StatusCodes.SUCCESS);
+const mockCombinedRate = {
+  DataSources: {
+    Medicaid: { DataSource: ["AdministrativeData"] } as DataSourcePayload,
+    CHIP: { DataSource: ["AdministrativeData"] } as DataSourcePayload,
+  },
+  Rates: [
+    {
+      uid: "cot0.qual0",
+      label: "mock rate",
+      Medicaid: {
+        numerator: 2,
+        denominator: 10,
+        rate: 20,
+      },
+      CHIP: {},
+      Combined: {},
+    },
+  ],
+  AdditionalValues: [],
+} as CombinedRatesPayload;
+
+describe("Test database helper functions", () => {
+  beforeAll(() => {
+    process.env.measureTableName = "local-measures";
+    process.env.rateTableName = "local-rates";
   });
-  it("Test getMeasureFromTable function", async () => {
-    const res = await getMeasureFromTable({
-      coreSet: "ACSM",
-    } as MeasureParameters);
 
-    expect(convertToDynamoExpression).toHaveBeenCalled();
-    expect(dynamodbLib.get).toHaveBeenCalled();
-    expect(res).toBeDefined();
-  });
-  it("Test getMeasureByCoreSet function", async () => {
-    const res = await getMeasureByCoreSet("ACS", {
-      state: "MA",
-      year: "2024",
-      measure: "AMM-AD",
-      coreSet: "unused",
+  it("should fetch a measure from the measure table", async () => {
+    (dynamodbLib.get as jest.Mock).mockResolvedValueOnce(mockMeasure);
+    
+    const result = await getMeasureFromTable(mockMeasureParameters);
+
+    expect(result).toBe(mockMeasure);
+    expect(dynamodbLib.get).toHaveBeenCalledWith({
+      TableName: "local-measures",
+      Key: {
+        compoundKey: "CO2024ACSZZZ-AD",
+        coreSet: "ACS",
+      },
     });
-    expect(dynamodbLib.get).toHaveBeenCalled();
-    expect(res).toHaveLength(2);
+  });
+
+  it("should store a rate from the combined rates table", async () => {
+    await putCombinedRatesToTable(mockMeasureParameters, mockCombinedRate);
+
+    expect(dynamodbLib.update).toHaveBeenCalledWith({
+      TableName: "local-rates",
+      Key: {
+        compoundKey: "CO2024ACSZZZ-AD",
+        measure: "ZZZ-AD",
+      },
+      UpdateExpression: expect.any(String),
+      ExpressionAttributeNames: expect.any(Object),
+      ExpressionAttributeValues: {
+        ":lastAltered": expect.any(Number),
+        ":data": mockCombinedRate,
+        ":state": "CO",
+      },
+    });
+  });
+
+  it("should fetch a rate from the combined rates table", async () => {
+    (dynamodbLib.get as jest.Mock).mockResolvedValueOnce({
+      data: mockCombinedRate
+    });
+    
+    const result = await getCombinedRatesFromTable(mockMeasureParameters);
+
+    expect(result).toBe(mockCombinedRate);
+    expect(dynamodbLib.get).toHaveBeenCalledWith({
+      TableName: "local-rates",
+      Key: {
+        compoundKey: "CO2024ACSZZZ-AD",
+        measure: "ZZZ-AD",
+      },
+    });
   });
 });
