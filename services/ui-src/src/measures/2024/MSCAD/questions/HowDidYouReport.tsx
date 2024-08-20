@@ -6,8 +6,6 @@ import * as DC from "dataConstants";
 
 interface Props {
   reportingYear: string;
-  healthHomeMeasure?: boolean;
-  removeLessThan30?: boolean;
 }
 
 export const HowDidYouReport = ({ reportingYear }: Props) => {

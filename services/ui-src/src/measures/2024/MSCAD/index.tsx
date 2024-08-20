@@ -29,11 +29,7 @@ export const MSCAD = ({
       <Q.Reporting reportingYear={year} />
       {data["DidCollect"] !== "no" && (
         <>
-          <Q.HowDidYouReport
-            reportingYear={year}
-            healthHomeMeasure
-            removeLessThan30
-          />
+          <Q.HowDidYouReport reportingYear={year} />
           <>
             {data[DC.DID_REPORT] !== DC.NO && (
               <>

@@ -7,15 +7,9 @@ import { WhyAreYouNotReporting } from "shared/commonQuestions/WhyAreYouNotReport
 
 interface Props {
   reportingYear: string;
-  healthHomeMeasure?: boolean;
-  removeLessThan30?: boolean;
 }
 
-export const Reporting = ({
-  reportingYear,
-  healthHomeMeasure,
-  removeLessThan30,
-}: Props) => {
+export const Reporting = ({ reportingYear }: Props) => {
   const register = useCustomRegister<FormData>();
   const { watch } = useFormContext<FormData>();
   const watchRadioStatus = watch(DC.DID_COLLECT);
@@ -40,12 +34,7 @@ export const Reporting = ({
           ]}
         />
       </QMR.CoreQuestionWrapper>
-      {watchRadioStatus === DC.NO && (
-        <WhyAreYouNotReporting
-          healthHomeMeasure={healthHomeMeasure}
-          removeLessThan30={removeLessThan30}
-        />
-      )}
+      {watchRadioStatus === DC.NO && <WhyAreYouNotReporting />}
     </>
   );
 };
