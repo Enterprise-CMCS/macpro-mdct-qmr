@@ -244,16 +244,42 @@ export const MeasureWrapper = ({
     validateAndSetErrors(data);
   };
 
+  //compare two objects and return true if the values in them are different
+  const areObjectsDifferent = (objectA: AnyObject, objectB: AnyObject) => {
+    for (const key of Object.keys(objectA ?? objectB)) {
+      //if the value is an object or array, we want to go down another layer
+      if (typeof objectA?.[key] === "object") {
+        //once we see a difference we want to break out of the loop and return true to trigger a save
+        if (areObjectsDifferent(objectA?.[key], objectB?.[key])) {
+          return true;
+        }
+      } else {
+        if (objectA?.[key] !== objectB?.[key]) return true;
+      }
+    }
+    return false;
+  };
+
+  const hasDataChanged = (data: any) => {
+    //there are some instances where there is not change to the data but the way we load the data triggers react hook form to think there is.
+    //this function is to do a comparison between the defaultValues (prev saved data) and data (data waiting to be saved)
+    if (Object.keys(methods.formState.dirtyFields).length === 0) return false;
+
+    //instead of looping through all the data, we will loop through only the keys that react hook form indicated has a change
+    const fieldKeys = Object.keys(methods.formState.dirtyFields);
+
+    //check if any field has changed
+    return fieldKeys.some((key) =>
+      areObjectsDifferent(methods.formState.defaultValues?.[key], data?.[key])
+    );
+  };
+
   const handleSave = (data: any) => {
     /* only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
 
-    if (
-      !mutationRunning &&
-      !loadingData &&
-      Object.keys(methods.formState.dirtyFields).length > 0
-    ) {
+    if (!mutationRunning && !loadingData && hasDataChanged(data)) {
       updateMeasure(
         {
           data,
