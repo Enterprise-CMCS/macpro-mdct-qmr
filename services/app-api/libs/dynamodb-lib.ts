@@ -19,8 +19,6 @@ import { logger } from "./debug-lib";
 
 export type QmrDynamoTableType = CoreSet | Measure | Banner;
 
-const noöp = () => {};
-
 const localConfig = {
   endpoint: process.env.DYNAMODB_URL,
   region: "localhost",
@@ -28,12 +26,7 @@ const localConfig = {
     accessKeyId: "LOCALFAKEKEY", // pragma: allowlist secret
     secretAccessKey: "LOCALFAKESECRET", // pragma: allowlist secret
   },
-  logger: {
-    ...console,
-    trace: noöp,
-    debug: noöp,
-    info: noöp,
-  },
+  logger,
 };
 
 const awsConfig = {
