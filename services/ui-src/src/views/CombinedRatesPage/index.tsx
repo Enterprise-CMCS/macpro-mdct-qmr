@@ -9,7 +9,7 @@ import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { statesWithoutCombinedRates } from "utils";
 
-const measuresWithoutPerformanceData = ["CSQ", "CPC-CH", "CPA-AD"];
+const measuresWithoutPerformanceData = ["CSQ", "CPC-CH", "CPA-AD", "MSC-AD"];
 
 const GetColumns = () => {
   return [
@@ -140,7 +140,9 @@ export const CombinedRatesPage = () => {
           The following measures are excluded from the combined rates page
           because states are not asked to report performance measure data for
           these measures for FFY 2024 Core Set reporting in the online reporting
-          system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, NCIIDD-AD
+          system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, NCIIDD-AD. MSC-AD is also
+          excluded from the combined rates page because the measure uses survey
+          data.
         </CUI.Text>
         <CUI.Tabs
           width="100%"

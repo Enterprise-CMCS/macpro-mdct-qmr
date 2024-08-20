@@ -229,7 +229,7 @@ const completedMeasureData = {
           denominator: "55",
         },
         {
-          label: "Ages 65 to 75",
+          label: "Ages 66 to 75",
           rate: "100.0",
           numerator: "55",
           denominator: "55",
