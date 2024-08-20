@@ -73,9 +73,9 @@ describe("Combined Rates - Additional Values", () => {
     const { container } = render(<AdditionalCombinedValues payload={payload} />);
 
     const cells = container.querySelectorAll("tbody tr td");
-    expect(cells[0]).toHaveTextContent("Not Reported");
-    expect(cells[1]).toHaveTextContent("Not Applicable");
-    expect(cells[2]).toHaveTextContent("");
+    expect(cells[0]).toHaveTextContent("Not Reported"); // Medicaid
+    expect(cells[1]).toHaveTextContent("Not Applicable"); // CHIP
+    expect(cells[2]).toHaveTextContent(""); // Combined
   });
 
   it("Should render certain values with trailing zeroes", () => {
