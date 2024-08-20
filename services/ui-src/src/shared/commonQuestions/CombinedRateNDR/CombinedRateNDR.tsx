@@ -31,10 +31,10 @@ export const CombinedRateNDR = ({
       return "";
     }
     else if (DataSources[program].isNotApplicable) {
-      return "Not applicable";
+      return "Not Applicable";
     }
     else {
-      return "Not reported";
+      return "Not Reported";
     }
   };
 
@@ -155,14 +155,12 @@ const sx = {
   },
   header: {
     textAlign: "right",
-    "text-transform": "capitalize",
     fontSize: "16px",
     color: "black",
     letterSpacing: "normal",
   },
   verticalHeader: {
     fontWeight: "semibold",
-    "text-transform": "capitalize",
     fontSize: "16px",
     color: "black",
     letterSpacing: "normal",
