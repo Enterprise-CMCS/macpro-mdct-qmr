@@ -22,7 +22,12 @@ export const CombinedRateNDR = ({
   ) => {
     const value = table[program][rateComponent];
     if (value !== undefined) {
-      return value.toString();
+      if (rateComponent === "rate" || rateComponent === "weightedRate") {
+        return value.toFixed(1);
+      }
+      else {
+        return value.toString();
+      }
     }
     else if (rateComponent === "rate" || rateComponent === "weightedRate") {
       return "-";
@@ -50,6 +55,7 @@ export const CombinedRateNDR = ({
               {heading}
             </CUI.Heading>
             <CUI.Hide below="md">
+              {/* This is the desktop version of the table */}
               <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
                 <CUI.Thead>
                   <CUI.Tr>
@@ -78,6 +84,7 @@ export const CombinedRateNDR = ({
               </CUI.Table>
             </CUI.Hide>
             <CUI.Show below="md">
+            {/* This is the mobile version of the table */}
               <CUI.VStack align="flex-start" mt="4">
                 {[ProgramTypes.Medicaid, ProgramTypes.CHIP].map((programType, ptIndex) =>
                   <CUI.List key={ptIndex} padding="0 0 1rem 2rem">
@@ -92,7 +99,6 @@ export const CombinedRateNDR = ({
                     ))}
                   </CUI.List>
                 )}
-                {/* TODO: Where are the other Combined components? Numerator, Denominator, Population? */}
                 <CUI.List padding="0 0 1rem 2rem">
                   <CUI.Text fontWeight="bold" mb="2">
                     {programDisplayNames.Combined}:{" "}
@@ -164,13 +170,6 @@ const sx = {
     fontSize: "16px",
     color: "black",
     letterSpacing: "normal",
-  },
-  content: {
-    textAlign: "right",
-    paddingleft: "0px",
-    "&:nth-child(4)": {
-      fontWeight: "bold",
-    },
   },
   row: { borderBottom: "0.1px solid #D6D7D9" },
 };

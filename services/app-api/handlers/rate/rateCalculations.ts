@@ -135,10 +135,7 @@ export const getDataSources = (
 
   // If the measure was not found in the DB, it's not "N/A", it's "not reported"
   const measureExists = !!measure;
-  // This checks for top-level Other, as well as "Other admin data source"
-  // TODO, is that correct?
-  const includesOther = DataSource.includes(DataSourceTypes.Other) ||
-    Object.keys(DataSourceSelections).some((key) => key.includes("Other"));
+  const includesOther = DataSource.includes(DataSourceTypes.Other)
   const includesECDS = DataSource.includes(DataSourceTypes.ECDS);
   const otherSpecification =
     MeasurementSpecification === MeasurementSpecificationType.Other;
@@ -378,6 +375,7 @@ const calculateAdditionalValues = (
     // We used unrounded values during calculation; round them now.
     obsReadmissionRate.Combined = roundSafely(obsReadmissionRate.Combined, 4);
     expReadmissionCount.Combined = roundSafely(expReadmissionCount.Combined, 4);
+    expReadmissionRate.Combined = roundSafely(expReadmissionRate.Combined, 4);
     obsExpRatio.Combined = roundSafely(obsExpRatio.Combined, 4);
     outlierRate.Combined = roundSafely(outlierRate.Combined, 1);
 

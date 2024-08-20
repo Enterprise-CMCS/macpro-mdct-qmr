@@ -10,15 +10,22 @@ export const AdditionalCombinedValues = ({
   ) => {
     const value = row[program];
     if (value !== undefined) {
-      return value.toString();
+      switch (row.uid) {
+        case "zcwVcA.GWePur": // PCR Obs. Read. rate
+        case "zcwVcA.ciVWdY": // PCR Exp. Read. count
+        case "zcwVcA.qi3Vd7": // PCR Exp. Read. rate
+        case "zcwVcA.SczxqV": // PCR O/E ratio
+          return value.toFixed(4);
+        case "zcwVcA.Nfe4Cn": // PCR Outlier rate
+          return value.toFixed(1);
+        default:
+          return value.toString();
+      }
     }
     else if (program === ProgramTypes.Combined) {
       return "";
     }
     else if (DataSources[program].isNotApplicable) {
-      // TODO: Can the additional values from CPU-AD or PCR-AD ever be
-      // non-applicable (sourced from other data, or defined by an other spec)?
-      // If not, we do not need to account for it here.
       return "Not Applicable";
     }
     else {
@@ -31,6 +38,7 @@ export const AdditionalCombinedValues = ({
       {AdditionalValues.length > 0 && (
         <CUI.Box mt="12" as={"section"}>
           <CUI.Hide below="md">
+            {/* This is the desktop version of the table */}
             <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
               <CUI.Thead>
                 <CUI.Tr>
@@ -59,13 +67,10 @@ export const AdditionalCombinedValues = ({
             </CUI.Table>
           </CUI.Hide>
           <CUI.Show below="md">
+            {/* This is the mobile version of the table */}
             <CUI.VStack align="flex-start" mt="4">
               {ProgramTypeList.map((programType, ptIndex) => (
-                <CUI.List
-                  key={ptIndex}
-                  padding="0 0 1rem 2rem"
-                  textTransform="capitalize"
-                >
+                <CUI.List key={ptIndex} padding="0 0 1rem 2rem">
                   <CUI.Text fontWeight="bold" mb="2">
                     {programDisplayNames[programType]}
                   </CUI.Text>
@@ -101,14 +106,12 @@ const sx = {
   },
   header: {
     textAlign: "right",
-    "text-transform": "capitalize",
     fontSize: "16px",
     color: "black",
     letterSpacing: "normal",
   },
   verticalHeader: {
     fontWeight: "semibold",
-    "text-transform": "capitalize",
     fontSize: "16px",
     color: "black",
     letterSpacing: "normal",
@@ -116,7 +119,7 @@ const sx = {
   content: {
     textAlign: "right",
     paddingleft: "0px",
-    "&:nth-child(4)": {
+    "&:nth-of-type(3)": {
       fontWeight: "bold",
     },
   },
