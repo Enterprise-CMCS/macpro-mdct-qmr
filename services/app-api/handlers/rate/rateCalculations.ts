@@ -90,6 +90,14 @@ const calculateCombinedRates = (
     CHIP: getDataSources(chipMeasure),
   };
 
+  // Measures reported with other data sources or other specs are not usable.
+  if (DataSources.Medicaid.isNotApplicable) {
+    medicaidMeasure = undefined;
+  }
+  if (DataSources.CHIP.isNotApplicable) {
+    chipMeasure = undefined;
+  }
+
   const Rates = combineRates(
     measureAbbr,
     DataSources,
@@ -114,7 +122,7 @@ const calculateCombinedRates = (
  * Pull the data sources and sub-selections out of the measure.
  * The `includesHybrid` flag determines if the Combined Rate needs weighting.
  */
-const getDataSources = (
+export const getDataSources = (
   measure: Measure | undefined
 ): CombinedRatesPayload["DataSources"]["Medicaid" | "CHIP"] => {
   const DataSource = measure?.data?.DataSource ?? [];
@@ -125,6 +133,8 @@ const getDataSources = (
     DataSource.includes(DataSourceTypes.Hybrid) ||
     DataSource.includes(DataSourceTypes.CaseMagementRecordReview);
 
+  // If the measure was not found in the DB, it's not "N/A", it's "not reported"
+  const measureExists = !!measure;
   // This checks for top-level Other, as well as "Other admin data source"
   // TODO, is that correct?
   const includesOther = DataSource.includes(DataSourceTypes.Other) ||
@@ -132,8 +142,6 @@ const getDataSources = (
   const includesECDS = DataSource.includes(DataSourceTypes.ECDS);
   const otherSpecification =
     MeasurementSpecification === MeasurementSpecificationType.Other;
-  // If the measure was not found in the DB, it's not "N/A", it's "not reported"
-  const measureExists = !!measure
   const isNotApplicable = measureExists &&
     (includesOther || includesECDS || otherSpecification);
 
@@ -196,19 +204,16 @@ const combineRates = (
         category: medicaidRate?.category ?? chipRate?.category,
         label: medicaidRate?.label ?? chipRate?.label,
         Medicaid: {
-          isReported: !!medicaidRate,
           numerator: mNumerator,
           denominator: mDenominator,
           rate: mRate,
         },
         CHIP: {
-          isReported: !!chipRate,
           numerator: cNumerator,
           denominator: cDenominator,
           rate: cRate,
         },
         Combined: {
-          isReported: true,
           numerator: combinedNumerator,
           denominator: combinedDenominator,
           rate: combinedRate,
@@ -244,7 +249,7 @@ const combineRates = (
         medicaidPopulation = mDenominator;
       }
       let chipPopulation = parseQmrNumber(chipMeasure?.data?.HybridMeasurePopulationIncluded);
-      if (chipPopulation === undefined && !DataSources.Medicaid.includesHybrid) {
+      if (chipPopulation === undefined && !DataSources.CHIP.includesHybrid) {
         chipPopulation = cDenominator;
       }
 
@@ -265,7 +270,6 @@ const combineRates = (
         category: medicaidRate?.category ?? chipRate?.category,
         label: medicaidRate?.label ?? chipRate?.label,
         Medicaid: {
-          isReported: !!medicaidRate,
           numerator: mNumerator,
           denominator: mDenominator,
           rate: mRate,
@@ -273,7 +277,6 @@ const combineRates = (
           weightedRate: mWeightedRate,
         },
         CHIP: {
-          isReported: !!chipRate,
           numerator: cNumerator,
           denominator: cDenominator,
           rate: cRate,
@@ -281,7 +284,6 @@ const combineRates = (
           weightedRate: cWeightedRate,
         },
         Combined: {
-          isReported: true,
           numerator: combinedNumerator,
           denominator: combinedDenominator,
           population: totalPopulation,

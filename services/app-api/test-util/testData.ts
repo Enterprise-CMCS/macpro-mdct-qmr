@@ -1,5 +1,4 @@
-import { DataSource } from "../handlers/rate/types";
-import { CoreSetAbbr, MeasureStatus, Program } from "../types";
+import { CoreSetAbbr, DataSource, MeasureStatus, Program } from "../types";
 
 export const testData = [
   {

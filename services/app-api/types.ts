@@ -84,7 +84,7 @@ export interface Measure {
      * examples of typical data shapes.
      */
     DataSourceSelections?: DataSourceSelectionsType;
-    MeasurementSpecification: MeasurementSpecificationType;
+    MeasurementSpecification?: MeasurementSpecificationType;
     PerformanceMeasure?: {
       rates?: {
         [key: string]: StandardRateShape[];
@@ -281,7 +281,6 @@ type DataSourcePayload = {
 };
 
 type WeightedRateShape = {
-  isReported: boolean;
   numerator?: number;
   denominator?: number;
   rate?: number;

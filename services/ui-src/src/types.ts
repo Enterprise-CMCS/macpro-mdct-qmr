@@ -167,7 +167,6 @@ export type DataSourcePayload = {
 };
 
 export type WeightedRateShape = {
-  isReported: boolean;
   numerator?: number;
   denominator?: number;
   rate?: number;
