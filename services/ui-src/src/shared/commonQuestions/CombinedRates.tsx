@@ -20,8 +20,6 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
     ? labels.CombinedRates.healthHome
     : labels.CombinedRates.notHealthHome;
 
-  console.log(labels);
-
   return (
     <>
       {Number(labels.year) < 2024 && (
