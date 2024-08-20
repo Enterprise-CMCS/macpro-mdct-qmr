@@ -51,8 +51,10 @@ export const main = async () => {
     }
 
     logger.info("Migration complete!");
+    return { status: 200 };
   }
   catch (err) {
     logger.error("Error!", err);
+    return { status: 500 };
   }
 };
