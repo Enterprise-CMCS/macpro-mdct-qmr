@@ -133,7 +133,7 @@ Cypress.Commands.add(
 // Correct sections visible when user is not reporting data on measure
 Cypress.Commands.add(
   "displaysSectionsWhenUserNotReporting",
-  (coreSet: string, year) => {
+  (coreSet: string, year: string) => {
     cy.wait(1000);
     cy.get('[data-cy="DidReport1"]').click();
 
