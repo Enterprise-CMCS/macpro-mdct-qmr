@@ -12,11 +12,17 @@ export const CombinedRateNDR = ({
   const includeWeights =
     DataSources.Medicaid.includesHybrid || DataSources.CHIP.includesHybrid;
   const rateComponents = includeWeights
-    ? ["numerator", "denominator", "rate", "population", "weightedRate"] as const
-    : ["numerator", "denominator", "rate"] as const;
+    ? ([
+        "numerator",
+        "denominator",
+        "rate",
+        "population",
+        "weightedRate",
+      ] as const)
+    : (["numerator", "denominator", "rate"] as const);
 
   const displayValue = (
-    table: (typeof Rates)[number],
+    table: typeof Rates[number],
     program: ProgramTypes,
     rateComponent: typeof rateComponents[number]
   ) => {
@@ -24,21 +30,16 @@ export const CombinedRateNDR = ({
     if (value !== undefined) {
       if (rateComponent === "rate" || rateComponent === "weightedRate") {
         return value.toFixed(1);
-      }
-      else {
+      } else {
         return value.toString();
       }
-    }
-    else if (rateComponent === "rate" || rateComponent === "weightedRate") {
+    } else if (rateComponent === "rate" || rateComponent === "weightedRate") {
       return "-";
-    }
-    else if (program === ProgramTypes.Combined) {
+    } else if (program === ProgramTypes.Combined) {
       return "";
-    }
-    else if (DataSources[program].isNotApplicable) {
+    } else if (DataSources[program].isNotApplicable) {
       return "Not Applicable";
-    }
-    else {
+    } else {
       return "Not Reported";
     }
   };
@@ -56,15 +57,20 @@ export const CombinedRateNDR = ({
             </CUI.Heading>
             <CUI.Hide below="md">
               {/* This is the desktop version of the table */}
-              <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
+              <CUI.Table
+                variant="unstyled"
+                mt="4"
+                size="md"
+                verticalAlign="top"
+              >
                 <CUI.Thead>
                   <CUI.Tr>
                     <CUI.Td></CUI.Td>
-                    {ProgramTypeList.map((programType, index) =>
+                    {ProgramTypeList.map((programType, index) => (
                       <CUI.Th key={index} sx={sx.header}>
                         {programDisplayNames[programType]}
                       </CUI.Th>
-                    )}
+                    ))}
                   </CUI.Tr>
                 </CUI.Thead>
                 <CUI.Tbody>
@@ -73,31 +79,33 @@ export const CombinedRateNDR = ({
                       <CUI.Th sx={sx.verticalHeader} scope="row">
                         {rateComponentDisplayNames[rateComponent]}
                       </CUI.Th>
-                      {ProgramTypeList.map((programType, ptIndex) =>
+                      {ProgramTypeList.map((programType, ptIndex) => (
                         <CUI.Td key={ptIndex} sx={sx.header}>
                           {displayValue(table, programType, rateComponent)}
                         </CUI.Td>
-                      )}
+                      ))}
                     </CUI.Tr>
                   ))}
                 </CUI.Tbody>
               </CUI.Table>
             </CUI.Hide>
             <CUI.Show below="md">
-            {/* This is the mobile version of the table */}
+              {/* This is the mobile version of the table */}
               <CUI.VStack align="flex-start" mt="4">
-                {[ProgramTypes.Medicaid, ProgramTypes.CHIP].map((programType, ptIndex) =>
-                  <CUI.List key={ptIndex} padding="0 0 1rem 2rem">
-                    <CUI.Text fontWeight="bold" mb="2">
-                      {programDisplayNames[programType]}
-                    </CUI.Text>
-                    {rateComponents.map((rateComponent, rIndex) => (
-                      <CUI.ListItem key={rIndex} pl="7">
-                        {rateComponentDisplayNames[rateComponent]}:{" "}
-                        {displayValue(table, programType, rateComponent)}
-                      </CUI.ListItem>
-                    ))}
-                  </CUI.List>
+                {[ProgramTypes.Medicaid, ProgramTypes.CHIP].map(
+                  (programType, ptIndex) => (
+                    <CUI.List key={ptIndex} padding="0 0 1rem 2rem">
+                      <CUI.Text fontWeight="bold" mb="2">
+                        {programDisplayNames[programType]}
+                      </CUI.Text>
+                      {rateComponents.map((rateComponent, rIndex) => (
+                        <CUI.ListItem key={rIndex} pl="7">
+                          {rateComponentDisplayNames[rateComponent]}:{" "}
+                          {displayValue(table, programType, rateComponent)}
+                        </CUI.ListItem>
+                      ))}
+                    </CUI.List>
+                  )
                 )}
                 <CUI.List padding="0 0 1rem 2rem">
                   <CUI.Text fontWeight="bold" mb="2">

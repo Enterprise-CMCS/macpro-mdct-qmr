@@ -261,7 +261,7 @@ describe("Combined Rate Calculations", () => {
 
     let combinedRate: number | undefined;
     (putCombinedRatesToTable as jest.Mock).mockImplementation(
-      (params, payload) => {
+      (_params, payload) => {
         combinedRate = payload.Rates[0]?.Combined.rate;
       }
     );
@@ -335,39 +335,36 @@ describe("Combined Rate Calculations", () => {
 
     await calculateAndPutRate(parameters);
 
-    expect(putCombinedRatesToTable).toHaveBeenCalledWith(
-      expect.any(Object),
-      {
-        AdditionalValues: [],
-        DataSources: expect.any(Object),
-        Rates: [
-          {
-            uid: "cat0.qual0",
-            label: "mock rate",
-            CHIP: {
-              denominator: 5,
-              numerator: 3,
-              rate: 60,
-              population: 2,
-              weightedRate: 17.1,
-            },
-            Medicaid: {
-              denominator: 10,
-              numerator: 2,
-              rate: 20,
-              population: 5,
-              weightedRate: 14.3,
-            },
-            Combined: {
-              denominator: 15,
-              numerator: 5,
-              population: 7,
-              weightedRate: 31.4,
-            },
+    expect(putCombinedRatesToTable).toHaveBeenCalledWith(expect.any(Object), {
+      AdditionalValues: [],
+      DataSources: expect.any(Object),
+      Rates: [
+        {
+          uid: "cat0.qual0",
+          label: "mock rate",
+          CHIP: {
+            denominator: 5,
+            numerator: 3,
+            rate: 60,
+            population: 2,
+            weightedRate: 17.1,
           },
-        ],
-      }
-    );
+          Medicaid: {
+            denominator: 10,
+            numerator: 2,
+            rate: 20,
+            population: 5,
+            weightedRate: 14.3,
+          },
+          Combined: {
+            denominator: 15,
+            numerator: 5,
+            population: 7,
+            weightedRate: 31.4,
+          },
+        },
+      ],
+    });
   });
 
   it("Should weight the admin rate by its denominator in hybrid+admin calculations", async () => {
@@ -421,18 +418,15 @@ describe("Combined Rate Calculations", () => {
 
     await calculateAndPutRate(parameters);
 
-    expect(putCombinedRatesToTable).toHaveBeenCalledWith(
-      expect.any(Object),
-      {
-        AdditionalValues: [],
-        DataSources: expect.any(Object),
-        Rates: [
-          expect.objectContaining({
-            CHIP: expect.objectContaining({ population: 5 })
-          }),
-        ],
-      }
-    );
+    expect(putCombinedRatesToTable).toHaveBeenCalledWith(expect.any(Object), {
+      AdditionalValues: [],
+      DataSources: expect.any(Object),
+      Rates: [
+        expect.objectContaining({
+          CHIP: expect.objectContaining({ population: 5 }),
+        }),
+      ],
+    });
   });
 
   it("Should calculate additional values for CPU-AD", async () => {
@@ -503,9 +497,9 @@ describe("Combined Rate Calculations", () => {
             Medicaid: 8,
             Combined: 8,
           },
-        ]
+        ],
       })
-    )
+    );
   });
 
   it("Should calculate additional values for PCR-AD", async () => {
@@ -620,8 +614,8 @@ describe("Combined Rate Calculations", () => {
             CHIP: 300,
             Combined: 200,
           }),
-        ]
+        ],
       })
-    )
+    );
   });
 });

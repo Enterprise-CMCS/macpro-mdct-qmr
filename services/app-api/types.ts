@@ -23,7 +23,9 @@ export interface RateNDRShape {
   denominator?: string;
   rate?: string;
 }
-export const isRateNDRShape = (rate: StandardRateShape): rate is RateNDRShape => {
+export const isRateNDRShape = (
+  rate: StandardRateShape
+): rate is RateNDRShape => {
   return ["numerator", "denominator", "rate"].some((field) => field in rate);
 };
 
@@ -32,7 +34,9 @@ export interface RateValueShape {
   label: string;
   value?: string;
 }
-export const isRateValueShape = (rate: StandardRateShape): rate is RateValueShape => {
+export const isRateValueShape = (
+  rate: StandardRateShape
+): rate is RateValueShape => {
   return "value" in rate;
 };
 
@@ -61,7 +65,7 @@ export interface Measure {
     /**
      * An array of strings from the `DataSource` enum.
      * Lists the top-level checkboxes selected for the Data Source question.
-     * 
+     *
      * This type is correct as of 2024. Prior years have exceptions:
      * * The measure FVA-AD (obsolete in 2024) would have a single string
      *   instead of an array; it would be `"CAHPS 5.1H"` or `"Other"`.
@@ -72,10 +76,10 @@ export interface Measure {
     /**
      * A map of data source keys to sub-objects, which may contain selected
      * arrays, or string descriptions.
-     * 
+     *
      * Certain keys may have selected arrays, other keys may have string
      * descriptions. No key will ever have both.
-     * 
+     *
      * The type definition enumerates the specific keys observed in the wild;
      * it is complete as of 2024. However there is no mechanism (yet) tying
      * this type definition to the actual data generation process,
@@ -92,7 +96,7 @@ export interface Measure {
     };
     HybridMeasurePopulationIncluded?: string;
   };
-};
+}
 
 export enum DataSource {
   Administrative = "AdministrativeData",
@@ -101,16 +105,16 @@ export enum DataSource {
   CaseMagementRecordReview = "Casemanagementrecordreview",
   ECDS = "ElectronicClinicalDataSystemsECDS",
   Other = "OtherDataSource",
-};
+}
 
 export type DataSourceSelectionsType = {
   [key in DataSourceSelectedParentKeys]?: {
     selected?: DataSourceSelectedValueType[];
-  }
+  };
 } & {
   [key in DataSourceDescriptionParentKeys]?: {
     description?: string;
-  }
+  };
 };
 
 enum DataSourceSelectedParentKeys {
@@ -120,7 +124,7 @@ enum DataSourceSelectedParentKeys {
   Hybrid1 = "HybridAdministrativeandMedicalRecordsData1",
   /** Only appears for FUA-AD, PQI01-AD, PQI15-AD, in VAL, in 2021. Possibly a bug? */
   _Admin = "AdministrativeData",
-};
+}
 
 enum DataSourceDescriptionParentKeys {
   AdminOther = "AdministrativeData0-AdministrativeDataOther",
@@ -132,7 +136,7 @@ enum DataSourceDescriptionParentKeys {
   _HybridOther = "HybridAdministrativeandMedicalRecordsData0-OtherDataSource",
   /** Only appears for AUD-CH (obsolete in 2022) */
   _Other = "Other",
-};
+}
 
 enum DataSourceSelectedValueType {
   AdminOther = "AdministrativeDataOther",
@@ -146,7 +150,7 @@ enum DataSourceSelectedValueType {
   _ImmunizationRegistry = "ImmunizationRegistry",
   /** Only appears for PC01-AD, in 2021 */
   _Other = "Other",
-};
+}
 
 export enum MeasurementSpecificationType {
   AHRQ = "AHRQ",

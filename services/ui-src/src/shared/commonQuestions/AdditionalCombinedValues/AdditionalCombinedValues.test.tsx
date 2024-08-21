@@ -39,7 +39,9 @@ describe("Combined Rates - Additional Values", () => {
       ],
     };
 
-    const { container } = render(<AdditionalCombinedValues payload={payload} />);
+    const { container } = render(
+      <AdditionalCombinedValues payload={payload} />
+    );
 
     const columnHeaders = ["Medicaid", "Separate CHIP", "Combined Count"];
     for (let header of columnHeaders) {
@@ -70,7 +72,9 @@ describe("Combined Rates - Additional Values", () => {
       ],
     };
 
-    const { container } = render(<AdditionalCombinedValues payload={payload} />);
+    const { container } = render(
+      <AdditionalCombinedValues payload={payload} />
+    );
 
     const cells = container.querySelectorAll("tbody tr td");
     expect(cells[0]).toHaveTextContent("Not Reported"); // Medicaid
@@ -110,14 +114,17 @@ describe("Combined Rates - Additional Values", () => {
       ],
     };
 
-    const { container } = render(<AdditionalCombinedValues payload={payload} />);
+    const { container } = render(
+      <AdditionalCombinedValues payload={payload} />
+    );
 
     const columnHeaders = ["Medicaid", "Separate CHIP", "Combined Count"];
     for (let header of columnHeaders) {
       expect(screen.queryByText(header)).toBeInTheDocument();
     }
-    const table = [...container.querySelectorAll("tbody tr")]
-      .map((row) => row.querySelectorAll("td"));
+    const table = [...container.querySelectorAll("tbody tr")].map((row) =>
+      row.querySelectorAll("td")
+    );
 
     // "Normal" values; no special rendering
     expect(table[0][0]).toHaveTextContent("1");

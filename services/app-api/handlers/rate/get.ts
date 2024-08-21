@@ -1,4 +1,7 @@
-import { hasRolePermissions, hasStatePermissions } from "../../libs/authorization";
+import {
+  hasRolePermissions,
+  hasStatePermissions,
+} from "../../libs/authorization";
 import handler from "../../libs/handler-lib";
 import { getCombinedRatesFromTable } from "../../storage/table";
 import { MeasureParameters, UserRoles } from "../../types";

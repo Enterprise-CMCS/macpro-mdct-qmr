@@ -126,7 +126,7 @@ export enum DataSource {
   CaseMagementRecordReview = "Casemanagementrecordreview",
   ECDS = "ElectronicClinicalDataSystemsECDS",
   Other = "OtherDataSource",
-};
+}
 
 /**
  * This is the shape of data saved to the Rates table
@@ -162,7 +162,7 @@ export type DataSourcePayload = {
     [key: string]: {
       selected?: string[];
       description?: string;
-    }
+    };
   };
 };
 
@@ -178,7 +178,7 @@ export enum ProgramTypes {
   Medicaid = "Medicaid",
   CHIP = "CHIP",
   Combined = "Combined",
-};
+}
 
 export const ProgramTypeList = [
   ProgramTypes.Medicaid,

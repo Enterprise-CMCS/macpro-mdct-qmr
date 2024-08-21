@@ -5,8 +5,8 @@ export const AdditionalCombinedValues = ({
   payload: { AdditionalValues, DataSources },
 }: Props) => {
   const displayValue = (
-    row: (typeof AdditionalValues)[number],
-    program: ProgramTypes,
+    row: typeof AdditionalValues[number],
+    program: ProgramTypes
   ) => {
     const value = row[program];
     if (value !== undefined) {
@@ -21,14 +21,11 @@ export const AdditionalCombinedValues = ({
         default:
           return value.toString();
       }
-    }
-    else if (program === ProgramTypes.Combined) {
+    } else if (program === ProgramTypes.Combined) {
       return "";
-    }
-    else if (DataSources[program].isNotApplicable) {
+    } else if (DataSources[program].isNotApplicable) {
       return "Not Applicable";
-    }
-    else {
+    } else {
       return "Not Reported";
     }
   };

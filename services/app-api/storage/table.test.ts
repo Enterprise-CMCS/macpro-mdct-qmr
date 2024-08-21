@@ -1,12 +1,15 @@
 import {
   getMeasureFromTable,
   putCombinedRatesToTable,
-  getCombinedRatesFromTable
+  getCombinedRatesFromTable,
 } from "./table";
 import dynamodbLib from "../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../handlers/dynamoUtils/convertToDynamoExpressionVars";
 import { StatusCodes } from "../utils/constants/constants";
-import { CombinedRatesPayload, DataSourcePayload, MeasureParameters } from "../types";
+import {
+  CombinedRatesPayload,
+  DataSourcePayload,
+} from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   update: jest.fn(),
@@ -69,7 +72,7 @@ describe("Test database helper functions", () => {
 
   it("should fetch a measure from the measure table", async () => {
     (dynamodbLib.get as jest.Mock).mockResolvedValueOnce(mockMeasure);
-    
+
     const result = await getMeasureFromTable(mockMeasureParameters);
 
     expect(result).toBe(mockMeasure);
@@ -103,9 +106,9 @@ describe("Test database helper functions", () => {
 
   it("should fetch a rate from the combined rates table", async () => {
     (dynamodbLib.get as jest.Mock).mockResolvedValueOnce({
-      data: mockCombinedRate
+      data: mockCombinedRate,
     });
-    
+
     const result = await getCombinedRatesFromTable(mockMeasureParameters);
 
     expect(result).toBe(mockCombinedRate);

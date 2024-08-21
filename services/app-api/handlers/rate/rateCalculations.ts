@@ -128,19 +128,19 @@ export const getDataSources = (
   const DataSource = measure?.data?.DataSource ?? [];
   const DataSourceSelections = measure?.data?.DataSourceSelections ?? {};
   const MeasurementSpecification = measure?.data?.MeasurementSpecification;
-  
+
   const includesHybrid =
     DataSource.includes(DataSourceTypes.Hybrid) ||
     DataSource.includes(DataSourceTypes.CaseMagementRecordReview);
 
   // If the measure was not found in the DB, it's not "N/A", it's "not reported"
   const measureExists = !!measure;
-  const includesOther = DataSource.includes(DataSourceTypes.Other)
+  const includesOther = DataSource.includes(DataSourceTypes.Other);
   const includesECDS = DataSource.includes(DataSourceTypes.ECDS);
   const otherSpecification =
     MeasurementSpecification === MeasurementSpecificationType.Other;
-  const isNotApplicable = measureExists &&
-    (includesOther || includesECDS || otherSpecification);
+  const isNotApplicable =
+    measureExists && (includesOther || includesECDS || otherSpecification);
 
   return {
     includesHybrid,
@@ -162,11 +162,7 @@ const combineRates = (
 ): CombinedRatesPayload["Rates"] => {
   const [medicaidRates, chipRates] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
-    .map((rateMap) =>
-      Object.values(rateMap)
-        .flat(1)
-        .filter(isRateNDRShape)
-    );
+    .map((rateMap) => Object.values(rateMap).flat(1).filter(isRateNDRShape));
 
   const uniqueRateIds = [...medicaidRates, ...chipRates]
     .map((rate) => rate.uid)
@@ -233,7 +229,7 @@ const combineRates = (
 
       const combinedNumerator = addSafely(mNumerator, cNumerator);
       const combinedDenominator = addSafely(mDenominator, cDenominator);
-      
+
       /*
        * For hybrid measures, we expect the user to enter the population.
        * For admin measures, we expect to use the rate's denominator instead.
@@ -241,11 +237,18 @@ const combineRates = (
        * Maybe we should disable the population input unless the user selects
        * a hybrid data source? It seems they shouldn't use it for admin.
        */
-      let medicaidPopulation = parseQmrNumber(medicaidMeasure?.data?.HybridMeasurePopulationIncluded);
-      if (medicaidPopulation === undefined && !DataSources.Medicaid.includesHybrid) {
+      let medicaidPopulation = parseQmrNumber(
+        medicaidMeasure?.data?.HybridMeasurePopulationIncluded
+      );
+      if (
+        medicaidPopulation === undefined &&
+        !DataSources.Medicaid.includesHybrid
+      ) {
         medicaidPopulation = mDenominator;
       }
-      let chipPopulation = parseQmrNumber(chipMeasure?.data?.HybridMeasurePopulationIncluded);
+      let chipPopulation = parseQmrNumber(
+        chipMeasure?.data?.HybridMeasurePopulationIncluded
+      );
       if (chipPopulation === undefined && !DataSources.CHIP.includesHybrid) {
         chipPopulation = cDenominator;
       }
@@ -295,7 +298,10 @@ const combineRates = (
  * Most measures display as a percentage, but certain measures are expressed
  * instead as per-thousand, per-hundred-thousand, or an inverted percent.
  */
-const transformQuotient = (measureAbbr: string, quotient: number | undefined) => {
+const transformQuotient = (
+  measureAbbr: string,
+  quotient: number | undefined
+) => {
   if (quotient === undefined) return undefined;
   switch (measureAbbr) {
     case "AAB-AD":
@@ -323,11 +329,7 @@ const calculateAdditionalValues = (
 ): CombinedRatesPayload["AdditionalValues"] => {
   const [medicaidValues, chipValues] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
-    .map((rateMap) =>
-      Object.values(rateMap)
-        .flat(1)
-        .filter(isRateValueShape)
-    );
+    .map((rateMap) => Object.values(rateMap).flat(1).filter(isRateValueShape));
 
   const findValues = (uid: string) => {
     const fieldObj = {
@@ -363,14 +365,35 @@ const calculateAdditionalValues = (
     const outlierRate = findValues("zcwVcA.Nfe4Cn");
 
     stayCount.Combined = addSafely(stayCount.Medicaid, stayCount.CHIP);
-    obsReadmissionCount.Combined = addSafely(obsReadmissionCount.Medicaid, obsReadmissionCount.CHIP);
-    obsReadmissionRate.Combined = multiplySafely(divideSafely(obsReadmissionCount.Combined, stayCount.Combined), 100);
-    expReadmissionCount.Combined = addSafely(expReadmissionCount.Medicaid, expReadmissionCount.CHIP);
-    expReadmissionRate.Combined = multiplySafely(divideSafely(expReadmissionCount.Combined, stayCount.Combined), 100);
-    obsExpRatio.Combined = divideSafely(obsReadmissionRate.Combined, expReadmissionRate.Combined);
-    beneficaryCount.Combined = addSafely(beneficaryCount.Medicaid, beneficaryCount.CHIP);
+    obsReadmissionCount.Combined = addSafely(
+      obsReadmissionCount.Medicaid,
+      obsReadmissionCount.CHIP
+    );
+    obsReadmissionRate.Combined = multiplySafely(
+      divideSafely(obsReadmissionCount.Combined, stayCount.Combined),
+      100
+    );
+    expReadmissionCount.Combined = addSafely(
+      expReadmissionCount.Medicaid,
+      expReadmissionCount.CHIP
+    );
+    expReadmissionRate.Combined = multiplySafely(
+      divideSafely(expReadmissionCount.Combined, stayCount.Combined),
+      100
+    );
+    obsExpRatio.Combined = divideSafely(
+      obsReadmissionRate.Combined,
+      expReadmissionRate.Combined
+    );
+    beneficaryCount.Combined = addSafely(
+      beneficaryCount.Medicaid,
+      beneficaryCount.CHIP
+    );
     outlierCount.Combined = addSafely(outlierCount.Medicaid, outlierCount.CHIP);
-    outlierRate.Combined = multiplySafely(divideSafely(outlierCount.Combined, beneficaryCount.Combined), 1000);
+    outlierRate.Combined = multiplySafely(
+      divideSafely(outlierCount.Combined, beneficaryCount.Combined),
+      1000
+    );
 
     // We used unrounded values during calculation; round them now.
     obsReadmissionRate.Combined = roundSafely(obsReadmissionRate.Combined, 4);

@@ -1,4 +1,4 @@
-import { CombinedRateNDR } from "./CombinedRateNDR";;
+import { CombinedRateNDR } from "./CombinedRateNDR";
 import { render, screen } from "@testing-library/react";
 import { DataSource } from "types";
 
@@ -82,9 +82,9 @@ const completeWeightedRate = {
 const incompleteRate = {
   uid: "SU6HXz.kINeRZ",
   label: "Ages 18 to 64",
-  Medicaid: { },
-  CHIP: { },
-  Combined: { },
+  Medicaid: {},
+  CHIP: {},
+  Combined: {},
 };
 
 describe("Combined Rate NDR tables", () => {
@@ -96,9 +96,9 @@ describe("Combined Rate NDR tables", () => {
         Medicaid: hybridDataSource,
         CHIP: adminDataSource,
       },
-      Rates: [ completeWeightedRate ],
+      Rates: [completeWeightedRate],
       AdditionalValues: [],
-    }
+    };
 
     render(<CombinedRateNDR {...{ payload, year, measure }} />);
 
@@ -115,14 +115,16 @@ describe("Combined Rate NDR tables", () => {
         Medicaid: adminDataSource,
         CHIP: adminDataSource,
       },
-      Rates: [ completeRate ],
+      Rates: [completeRate],
       AdditionalValues: [],
-    }
+    };
 
     render(<CombinedRateNDR {...{ payload, year, measure }} />);
 
     expect(screen.getByText("Rate")).toBeInTheDocument();
-    expect(screen.queryByText("Measure-Eligible Population")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Measure-Eligible Population")
+    ).not.toBeInTheDocument();
     expect(screen.queryByText("Weighted Rate")).not.toBeInTheDocument();
   });
 
@@ -134,16 +136,16 @@ describe("Combined Rate NDR tables", () => {
         Medicaid: adminDataSource,
         CHIP: nonApplicableDataSource,
       },
-      Rates: [ incompleteRate ],
+      Rates: [incompleteRate],
       AdditionalValues: [],
-    }
+    };
 
     const props = { payload, year, measure };
     const { container } = render(<CombinedRateNDR {...props} />);
 
-    const tableCells = [...container.querySelectorAll("table tr")]
-      .map((row) => [...row.querySelectorAll("th, td")]
-        .map((cell) => cell.textContent));
+    const tableCells = [...container.querySelectorAll("table tr")].map((row) =>
+      [...row.querySelectorAll("th, td")].map((cell) => cell.textContent)
+    );
 
     // First, confirm the column headers & row headers are what we expect
     expect(tableCells[0][1]).toBe("Medicaid");
@@ -187,7 +189,7 @@ describe("Combined Rate NDR tables", () => {
         },
       ],
       AdditionalValues: [],
-    }
+    };
 
     const props = { payload, year, measure };
     const { container } = render(<CombinedRateNDR {...props} />);

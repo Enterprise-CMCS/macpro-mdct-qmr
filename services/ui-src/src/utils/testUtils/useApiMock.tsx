@@ -152,7 +152,7 @@ export const defaultMockValues = {
             },
           },
           DataSource: ["AdministrativeData"],
-        }
+        },
       },
       Rates: [
         {
@@ -174,7 +174,7 @@ export const defaultMockValues = {
             denominator: 10,
             rate: 30,
           },
-        }
+        },
       ],
       AdditionalValues: [],
     },
