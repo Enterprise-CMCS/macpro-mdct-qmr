@@ -30,8 +30,7 @@ export const parseLabelToHTML = (label: string): React.ReactElement => {
           const camelCaseProperty = property
             .trim()
             .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-          styleObj[camelCaseProperty as keyof React.CSSProperties] =
-            value.trim();
+          styleObj[camelCaseProperty] = value.trim() as any; // Use 'any' to bypass type checking for values
         }
         return styleObj;
       }, {});
