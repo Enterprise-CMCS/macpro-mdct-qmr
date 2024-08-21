@@ -58,7 +58,7 @@ describe("Combined Rates - Additional Values", () => {
     const payload = {
       DataSources: {
         Medicaid: {} as DataSourcePayload,
-        CHIP: { isNotApplicable: true } as DataSourcePayload,
+        CHIP: { isUnusableForCalc: true } as DataSourcePayload,
       },
       Rates: [],
       AdditionalValues: [

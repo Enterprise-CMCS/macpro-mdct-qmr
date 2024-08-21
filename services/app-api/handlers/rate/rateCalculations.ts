@@ -91,10 +91,10 @@ const calculateCombinedRates = (
   };
 
   // Measures reported with other data sources or other specs are not usable.
-  if (DataSources.Medicaid.isNotApplicable) {
+  if (DataSources.Medicaid.isUnusableForCalc) {
     medicaidMeasure = undefined;
   }
-  if (DataSources.CHIP.isNotApplicable) {
+  if (DataSources.CHIP.isUnusableForCalc) {
     chipMeasure = undefined;
   }
 
@@ -120,7 +120,7 @@ const calculateCombinedRates = (
 
 /**
  * Pull the data sources and sub-selections out of the measure.
- * The `includesHybrid` flag determines if the Combined Rate needs weighting.
+ * The `requiresWeightedCalc` flag determines if the Combined Rate needs weighting.
  */
 export const getDataSources = (
   measure: Measure | undefined
@@ -129,7 +129,7 @@ export const getDataSources = (
   const DataSourceSelections = measure?.data?.DataSourceSelections ?? {};
   const MeasurementSpecification = measure?.data?.MeasurementSpecification;
 
-  const includesHybrid =
+  const requiresWeightedCalc =
     DataSource.includes(DataSourceTypes.Hybrid) ||
     DataSource.includes(DataSourceTypes.CaseMagementRecordReview);
 
@@ -139,12 +139,12 @@ export const getDataSources = (
   const includesECDS = DataSource.includes(DataSourceTypes.ECDS);
   const otherSpecification =
     MeasurementSpecification === MeasurementSpecificationType.Other;
-  const isNotApplicable =
+  const isUnusableForCalc =
     measureExists && (includesOther || includesECDS || otherSpecification);
 
   return {
-    includesHybrid,
-    isNotApplicable,
+    requiresWeightedCalc,
+    isUnusableForCalc,
     DataSource,
     DataSourceSelections,
   };
@@ -169,52 +169,12 @@ const combineRates = (
     .filter(isDefined)
     .filter((uid, i, arr) => i === arr.indexOf(uid));
 
-  const useWeightedCalculation =
-    DataSources.Medicaid.includesHybrid || DataSources.CHIP.includesHybrid;
-
-  if (!useWeightedCalculation) {
-    return uniqueRateIds.map((uid) => {
-      const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
-      const chipRate = chipRates.find((rate) => rate.uid === uid);
-
-      const mNumerator = parseQmrNumber(medicaidRate?.numerator);
-      const mDenominator = parseQmrNumber(medicaidRate?.denominator);
-      const mRate = parseQmrNumber(medicaidRate?.rate);
-
-      const cNumerator = parseQmrNumber(chipRate?.numerator);
-      const cDenominator = parseQmrNumber(chipRate?.denominator);
-      const cRate = parseQmrNumber(chipRate?.rate);
-
-      const combinedNumerator = addSafely(mNumerator, cNumerator);
-      const combinedDenominator = addSafely(mDenominator, cDenominator);
-      const quotient = divideSafely(combinedNumerator, combinedDenominator);
-      let combinedRate = transformQuotient(measureAbbr, quotient);
-
-      combinedRate = roundSafely(combinedRate, 1);
-
-      return {
-        uid: uid,
-        category: medicaidRate?.category ?? chipRate?.category,
-        label: medicaidRate?.label ?? chipRate?.label,
-        Medicaid: {
-          numerator: mNumerator,
-          denominator: mDenominator,
-          rate: mRate,
-        },
-        CHIP: {
-          numerator: cNumerator,
-          denominator: cDenominator,
-          rate: cRate,
-        },
-        Combined: {
-          numerator: combinedNumerator,
-          denominator: combinedDenominator,
-          rate: combinedRate,
-        },
-      };
-    });
-  } else {
-    // We use the weighted calculation if at least one measure has Hybrid data
+  if (
+    DataSources.Medicaid.requiresWeightedCalc ||
+    DataSources.CHIP.requiresWeightedCalc
+  ) {
+    // If either measure has a Hybrid data source, we calculate the combined
+    // rate, weighted by the individual measures' eligible populations.
     return uniqueRateIds.map((uid) => {
       const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
       const chipRate = chipRates.find((rate) => rate.uid === uid);
@@ -242,14 +202,17 @@ const combineRates = (
       );
       if (
         medicaidPopulation === undefined &&
-        !DataSources.Medicaid.includesHybrid
+        !DataSources.Medicaid.requiresWeightedCalc
       ) {
         medicaidPopulation = mDenominator;
       }
       let chipPopulation = parseQmrNumber(
         chipMeasure?.data?.HybridMeasurePopulationIncluded
       );
-      if (chipPopulation === undefined && !DataSources.CHIP.includesHybrid) {
+      if (
+        chipPopulation === undefined &&
+        !DataSources.CHIP.requiresWeightedCalc
+      ) {
         chipPopulation = cDenominator;
       }
 
@@ -288,6 +251,47 @@ const combineRates = (
           denominator: combinedDenominator,
           population: totalPopulation,
           weightedRate: combinedWeightedRate,
+        },
+      };
+    });
+  } else {
+    return uniqueRateIds.map((uid) => {
+      const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
+      const chipRate = chipRates.find((rate) => rate.uid === uid);
+
+      const mNumerator = parseQmrNumber(medicaidRate?.numerator);
+      const mDenominator = parseQmrNumber(medicaidRate?.denominator);
+      const mRate = parseQmrNumber(medicaidRate?.rate);
+
+      const cNumerator = parseQmrNumber(chipRate?.numerator);
+      const cDenominator = parseQmrNumber(chipRate?.denominator);
+      const cRate = parseQmrNumber(chipRate?.rate);
+
+      const combinedNumerator = addSafely(mNumerator, cNumerator);
+      const combinedDenominator = addSafely(mDenominator, cDenominator);
+      const quotient = divideSafely(combinedNumerator, combinedDenominator);
+      let combinedRate = transformQuotient(measureAbbr, quotient);
+
+      combinedRate = roundSafely(combinedRate, 1);
+
+      return {
+        uid: uid,
+        category: medicaidRate?.category ?? chipRate?.category,
+        label: medicaidRate?.label ?? chipRate?.label,
+        Medicaid: {
+          numerator: mNumerator,
+          denominator: mDenominator,
+          rate: mRate,
+        },
+        CHIP: {
+          numerator: cNumerator,
+          denominator: cDenominator,
+          rate: cRate,
+        },
+        Combined: {
+          numerator: combinedNumerator,
+          denominator: combinedDenominator,
+          rate: combinedRate,
         },
       };
     });

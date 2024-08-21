@@ -80,8 +80,8 @@ describe("Combined Rate Calculations", () => {
           selections: ["MedicaidManagementInformationSystemMMIS"],
         },
       },
-      includesHybrid: false,
-      isNotApplicable: false,
+      requiresWeightedCalc: false,
+      isUnusableForCalc: false,
     });
   });
 
@@ -91,8 +91,8 @@ describe("Combined Rate Calculations", () => {
     expect(dsPayload).toEqual({
       DataSource: [],
       DataSourceSelections: {},
-      includesHybrid: false,
-      isNotApplicable: false,
+      requiresWeightedCalc: false,
+      isUnusableForCalc: false,
     });
   });
 
@@ -102,16 +102,16 @@ describe("Combined Rate Calculations", () => {
         DataSource: ["AdministrativeData"],
       } as Measure["data"],
     } as Measure);
-    expect(dsPayload.includesHybrid).toBe(false);
-    expect(dsPayload.isNotApplicable).toBe(false);
+    expect(dsPayload.requiresWeightedCalc).toBe(false);
+    expect(dsPayload.isUnusableForCalc).toBe(false);
 
     dsPayload = getDataSources({
       data: {
         DataSource: ["ElectronicHealthRecords"],
       } as Measure["data"],
     } as Measure);
-    expect(dsPayload.includesHybrid).toBe(false);
-    expect(dsPayload.isNotApplicable).toBe(false);
+    expect(dsPayload.requiresWeightedCalc).toBe(false);
+    expect(dsPayload.isUnusableForCalc).toBe(false);
   });
 
   it("Should treat Hybrid & CMRR as hybrid data sources", async () => {
@@ -120,16 +120,16 @@ describe("Combined Rate Calculations", () => {
         DataSource: ["HybridAdministrativeandMedicalRecordsData"],
       } as Measure["data"],
     } as Measure);
-    expect(dsPayload.includesHybrid).toBe(true);
-    expect(dsPayload.isNotApplicable).toBe(false);
+    expect(dsPayload.requiresWeightedCalc).toBe(true);
+    expect(dsPayload.isUnusableForCalc).toBe(false);
 
     dsPayload = getDataSources({
       data: {
         DataSource: ["Casemanagementrecordreview"],
       } as Measure["data"],
     } as Measure);
-    expect(dsPayload.includesHybrid).toBe(true);
-    expect(dsPayload.isNotApplicable).toBe(false);
+    expect(dsPayload.requiresWeightedCalc).toBe(true);
+    expect(dsPayload.isUnusableForCalc).toBe(false);
   });
 
   it("Should treat ECDS and Other data sources as unusable for calculations", async () => {
@@ -138,14 +138,14 @@ describe("Combined Rate Calculations", () => {
         DataSource: ["ElectronicClinicalDataSystemsECDS"],
       } as Measure["data"],
     } as Measure);
-    expect(dsPayload.isNotApplicable).toBe(true);
+    expect(dsPayload.isUnusableForCalc).toBe(true);
 
     dsPayload = getDataSources({
       data: {
         DataSource: ["OtherDataSource"],
       } as Measure["data"],
     } as Measure);
-    expect(dsPayload.isNotApplicable).toBe(true);
+    expect(dsPayload.isUnusableForCalc).toBe(true);
   });
 
   it("Should treat measures reported with nonstandard specifications as unusable for calculations", async () => {
@@ -155,7 +155,7 @@ describe("Combined Rate Calculations", () => {
         MeasurementSpecification: "Other",
       } as Measure["data"],
     } as Measure);
-    expect(dsPayload.isNotApplicable).toBe(true);
+    expect(dsPayload.isUnusableForCalc).toBe(true);
   });
 
   it("Should use the standard formula to combine admin+admin rates", async () => {
@@ -216,14 +216,14 @@ describe("Combined Rate Calculations", () => {
           Medicaid: {
             DataSource: ["AdministrativeData"],
             DataSourceSelections: {},
-            includesHybrid: false,
-            isNotApplicable: false,
+            requiresWeightedCalc: false,
+            isUnusableForCalc: false,
           },
           CHIP: {
             DataSource: ["AdministrativeData", "ElectronicHealthRecords"],
             DataSourceSelections: {},
-            includesHybrid: false,
-            isNotApplicable: false,
+            requiresWeightedCalc: false,
+            isUnusableForCalc: false,
           },
         },
         Rates: [

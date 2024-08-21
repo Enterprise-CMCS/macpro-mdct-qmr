@@ -9,8 +9,8 @@ const adminDataSource = {
       selected: ["MedicaidManagementInformationSystemMMIS"],
     },
   },
-  includesHybrid: false,
-  isNotApplicable: false,
+  requiresWeightedCalc: false,
+  isUnusableForCalc: false,
 };
 
 const hybridDataSource = {
@@ -23,8 +23,8 @@ const hybridDataSource = {
       selected: ["Paper"],
     },
   },
-  includesHybrid: true,
-  isNotApplicable: false,
+  requiresWeightedCalc: true,
+  isUnusableForCalc: false,
 };
 
 const nonApplicableDataSource = {
@@ -34,8 +34,8 @@ const nonApplicableDataSource = {
       selected: ["MedicaidManagementInformationSystemMMIS"],
     },
   },
-  includesHybrid: false,
-  isNotApplicable: true,
+  requiresWeightedCalc: false,
+  isUnusableForCalc: true,
 };
 
 const completeRate = {

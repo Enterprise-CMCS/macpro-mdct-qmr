@@ -154,8 +154,8 @@ export type CombinedRatesPayload = {
 };
 
 export type DataSourcePayload = {
-  includesHybrid: boolean;
-  isNotApplicable: boolean;
+  requiresWeightedCalc: boolean;
+  isUnusableForCalc: boolean;
   DataSource: DataSource[];
   /** Note: this is a simplified version of the typedef found in app-api. */
   DataSourceSelections: {

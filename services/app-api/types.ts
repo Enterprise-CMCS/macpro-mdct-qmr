@@ -278,8 +278,8 @@ export type CombinedRatesPayload = {
 };
 
 export type DataSourcePayload = {
-  includesHybrid: boolean;
-  isNotApplicable: boolean;
+  requiresWeightedCalc: boolean;
+  isUnusableForCalc: boolean;
   DataSource: DataSource[];
   DataSourceSelections: DataSourceSelectionsType;
 };

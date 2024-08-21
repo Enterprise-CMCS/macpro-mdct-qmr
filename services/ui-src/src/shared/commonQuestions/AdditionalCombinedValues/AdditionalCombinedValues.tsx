@@ -23,7 +23,7 @@ export const AdditionalCombinedValues = ({
       }
     } else if (program === ProgramTypes.Combined) {
       return "";
-    } else if (DataSources[program].isNotApplicable) {
+    } else if (DataSources[program].isUnusableForCalc) {
       return "Not Applicable";
     } else {
       return "Not Reported";

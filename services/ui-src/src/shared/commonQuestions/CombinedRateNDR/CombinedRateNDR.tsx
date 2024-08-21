@@ -10,7 +10,8 @@ export const CombinedRateNDR = ({
   sortRates(Rates, year, measure);
 
   const includeWeights =
-    DataSources.Medicaid.includesHybrid || DataSources.CHIP.includesHybrid;
+    DataSources.Medicaid.requiresWeightedCalc ||
+    DataSources.CHIP.requiresWeightedCalc;
   const rateComponents = includeWeights
     ? ([
         "numerator",
@@ -37,7 +38,7 @@ export const CombinedRateNDR = ({
       return "-";
     } else if (program === ProgramTypes.Combined) {
       return "";
-    } else if (DataSources[program].isNotApplicable) {
+    } else if (DataSources[program].isUnusableForCalc) {
       return "Not Applicable";
     } else {
       return "Not Reported";
