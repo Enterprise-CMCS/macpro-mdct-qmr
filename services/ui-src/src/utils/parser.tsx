@@ -6,11 +6,35 @@ import { v4 as uuidv4 } from "uuid";
  *
  * Doesn't work with `<br>` tags.
  */
-export const parseLabelToHTML = (label: string) => {
+export const parseLabelToHTML = (label: string): React.ReactElement => {
   const attributesOf = (element: Element) => {
-    return Object.fromEntries(
-      [...element.attributes].map((attr) => [attr.name, attr.value])
-    );
+    const attributes: { [key: string]: string | React.CSSProperties } = {};
+
+    [...element.attributes].forEach((attr) => {
+      if (attr.name === "style") {
+        attributes.style = parseStyleString(attr.value);
+      } else {
+        attributes[attr.name] = attr.value;
+      }
+    });
+
+    return attributes;
+  };
+
+  const parseStyleString = (styleString: string): React.CSSProperties => {
+    return styleString
+      .split(";")
+      .reduce((styleObj: React.CSSProperties, styleProp) => {
+        const [property, value] = styleProp.split(":");
+        if (property && value) {
+          const camelCaseProperty = property
+            .trim()
+            .replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+          styleObj[camelCaseProperty as keyof React.CSSProperties] =
+            value.trim();
+        }
+        return styleObj;
+      }, {});
   };
 
   const convertNodetoReactElement = (node: Node): StringOrElement => {
