@@ -445,7 +445,11 @@ export const DefinitionOfPopulation = ({
         <QMR.RadioButton
           formLabelProps={{ fontWeight: "600" }}
           label={
+            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question[
+              coreSetType!
+            ] ??
             labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
+              .default
           }
           {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC)}
           options={[
