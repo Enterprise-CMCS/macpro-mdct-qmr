@@ -29,11 +29,17 @@ plugins:
   - serverless-bundle
   - serverless-iam-helper
   - serverless-s3-bucket-helper
+  - "@enterprise-cmcs/serverless-waf-plugin"
 
 custom:
   project: "qmr"
   stage: ${opt:stage, self:provider.stage}
   region: ${opt:region, self:provider.region}
+  wafPlugin:
+    name: ${self:service}-${self:custom.stage}-webacl-waf
+  wafExcludeRules:
+    awsCommon:
+      - "SizeRestrictions_BODY"
   serverlessTerminationProtection:
     stages:
       - master
@@ -99,6 +105,18 @@ resources:
               MaxLength: 256
         AdminCreateUserConfig:
           AllowAdminCreateUserOnly: True # This setting disables self sign-up for users
+        UserPoolAddOns:
+          AdvancedSecurityMode: ENFORCED
+        UserPoolTags:
+          Name: ${self:custom.stage}-user-pool
+
+    # Associate the WAF Web ACL with the Cognito User Pool
+    CognitoUserPoolWAFAssociation:
+      Type: 'AWS::WAFv2::WebACLAssociation'
+      Properties:
+        ResourceArn: !GetAtt CognitoUserPool.Arn
+        WebACLArn: !GetAtt WafPluginAcl.Arn
+
     CognitoUserPoolClient:
       Type: AWS::Cognito::UserPoolClient
       Properties:
