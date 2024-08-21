@@ -73,7 +73,7 @@ export const DataSourceInformationBanner = ({
 
   return (
     <>
-      <CUI.Show above="md">
+      <CUI.Hide below="md">
         <CUI.Flex
           tabIndex={0}
           aria-label="Combined Rate Data Source Information Banner"
@@ -82,7 +82,7 @@ export const DataSourceInformationBanner = ({
         >
           {renderData}
         </CUI.Flex>
-      </CUI.Show>
+      </CUI.Hide>
 
       <CUI.Show below="md">
         <CUI.Flex
