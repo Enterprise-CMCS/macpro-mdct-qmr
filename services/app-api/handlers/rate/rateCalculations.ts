@@ -119,8 +119,8 @@ const calculateCombinedRates = (
 };
 
 /**
- * Pull the data sources and sub-selections out of the measure.
- * The `requiresWeightedCalc` flag determines if the Combined Rate needs weighting.
+ * Pull the data sources and sub-selections out of the measure,
+ * and determine how they will affect the calculation.
  */
 export const getDataSources = (
   measure: Measure | undefined
@@ -129,22 +129,23 @@ export const getDataSources = (
   const DataSourceSelections = measure?.data?.DataSourceSelections ?? {};
   const MeasurementSpecification = measure?.data?.MeasurementSpecification;
 
-  const requiresWeightedCalc =
-    DataSource.includes(DataSourceTypes.Hybrid) ||
-    DataSource.includes(DataSourceTypes.CaseMagementRecordReview);
-
-  // If the measure was not found in the DB, it's not "N/A", it's "not reported"
-  const measureExists = !!measure;
-  const includesOther = DataSource.includes(DataSourceTypes.Other);
-  const includesECDS = DataSource.includes(DataSourceTypes.ECDS);
-  const otherSpecification =
+  const hasOtherDataSource = DataSource.includes(DataSourceTypes.Other);
+  const hasECDSDataSource = DataSource.includes(DataSourceTypes.ECDS);
+  const hasOtherSpecification =
     MeasurementSpecification === MeasurementSpecificationType.Other;
   const isUnusableForCalc =
-    measureExists && (includesOther || includesECDS || otherSpecification);
+    hasOtherDataSource || hasECDSDataSource || hasOtherSpecification;
+
+  // There is no need to flag a measure as requiring weights
+  // if it is not usable for combined calculations in the first place.
+  const requiresWeightedCalc =
+    !isUnusableForCalc &&
+    (DataSource.includes(DataSourceTypes.Hybrid) ||
+      DataSource.includes(DataSourceTypes.CaseMagementRecordReview));
 
   return {
-    requiresWeightedCalc,
     isUnusableForCalc,
+    requiresWeightedCalc,
     DataSource,
     DataSourceSelections,
   };
