@@ -118,32 +118,25 @@ const ChildData: DataDriven = {
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
     `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system?`,
-  textTable: [
-    ["Medicaid (TITLE XIX & XXI)", "Under Age 21"],
-    ["CHIP", "Under Age 21"],
-  ],
-  fieldValues: ["UnderTwentyOneMedicaid", "UnderTwentyOneCHIP"],
+  textTable: [["Medicaid (TITLE XIX & XXI)", "Under Age 21"]],
+  fieldValues: ["UnderTwentyOneMedicaid"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [
       {
         label: "Fee-for-Service",
         UnderTwentyOneMedicaid: "",
-        UnderTwentyOneCHIP: "",
       },
       {
         label: "PCCM",
         UnderTwentyOneMedicaid: "",
-        UnderTwentyOneCHIP: "",
       },
       {
         label: "Managed Care",
         UnderTwentyOneMedicaid: "",
-        UnderTwentyOneCHIP: "",
       },
       {
         label: "Integrated Care Model (ICM)",
         UnderTwentyOneMedicaid: "",
-        UnderTwentyOneCHIP: "",
       },
     ],
     CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
