@@ -18,7 +18,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AnyObject, CoreSetAbbr, MeasureStatus } from "types";
-import { areSomeRatesCompleted } from "utils/form";
+import { areObjectsDifferent, areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
@@ -242,22 +242,6 @@ export const MeasureWrapper = ({
   const handleValidation = (data: any) => {
     handleSave(data);
     validateAndSetErrors(data);
-  };
-
-  //compare two objects and return true if the values in them are different
-  const areObjectsDifferent = (objectA: AnyObject, objectB: AnyObject) => {
-    for (const key of Object.keys(objectA ?? objectB)) {
-      //if the value is an object or array, we want to go down another layer
-      if (typeof objectA?.[key] === "object") {
-        //once we see a difference we want to break out of the loop and return true to trigger a save
-        if (areObjectsDifferent(objectA?.[key], objectB?.[key])) {
-          return true;
-        }
-      } else {
-        if (objectA?.[key] !== objectB?.[key]) return true;
-      }
-    }
-    return false;
   };
 
   const hasDataChanged = (data: any) => {
