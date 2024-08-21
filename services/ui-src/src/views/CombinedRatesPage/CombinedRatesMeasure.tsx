@@ -62,19 +62,27 @@ export const CombinedRatesMeasure = ({
       <CUI.Heading fontSize="xl" mt="2" mb="2">
         {measure} - {measureName}
       </CUI.Heading>
+      <CUI.Heading fontSize="md" mt="4">
+        About the Combined Medicaid and CHIP Rate
+      </CUI.Heading>
       <CUI.Text mt="4">
         This page displays data reported for this measure in the Medicaid and
         Separate CHIP reports. The QMR system automatically calculates a
         combined Medicaid and CHIP rate based on these data, which is displayed
         in the “Combined Rate” column below. Please note, the combined Medicaid
         and CHIP rates will change if states update the individual Medicaid or
-        Separate CHIP reports. This page is not editable. If your state would
-        like to make edits to the data reported in the individual Medicaid or
-        Separate CHIP reports, please click on the links to these reports below.
-        The report will open in a new tab. Save and complete your measure
-        updates and return to the combined rates page to view the updated
-        combined Medicaid and CHIP rate. For more information on how the
-        combined Medicaid and CHIP rates are calculated, please see{" "}
+        Separate CHIP reports.
+        <br />
+        <br />
+        This page is not editable. If your state would like to make edits to the
+        data reported in the individual Medicaid or Separate CHIP reports,
+        please click on the links to these reports below. The report will open
+        in a new tab. Save and complete your measure updates and return to the
+        combined rates page to view the updated combined Medicaid and CHIP rate.{" "}
+        <br />
+        <br />
+        For more information on how the combined Medicaid and CHIP rates are
+        calculated, please see{" "}
         <CUI.Link
           href={`https://www.medicaid.gov/quality-of-care/downloads/QMRCoreSetCombinedRates.pdf`}
           aria-label="Link to Reporting Medicaid and Separate CHIP Data"
