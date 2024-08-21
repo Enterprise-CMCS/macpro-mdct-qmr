@@ -27,7 +27,7 @@ export const MSCAD = ({
   return (
     <>
       <Q.Reporting reportingYear={year} />
-      {data["DidCollect"] !== "no" && (
+      {data[DC.DID_COLLECT] !== DC.NO && (
         <>
           <Q.HowDidYouReport reportingYear={year} />
           <>
