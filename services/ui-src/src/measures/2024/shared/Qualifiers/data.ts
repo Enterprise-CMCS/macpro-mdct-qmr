@@ -184,7 +184,7 @@ const ChildMedicaidData: DataDriven = {
   title: "Child Core Set Qualifiers: Medicaid",
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system (optional)?`,
+    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system?`,
   textTable: [["Medicaid (Title XIX & XXI)", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
