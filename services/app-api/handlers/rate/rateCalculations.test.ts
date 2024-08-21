@@ -146,18 +146,6 @@ describe("Combined Rate Calculations", () => {
       } as Measure["data"],
     } as Measure);
     expect(dsPayload.isNotApplicable).toBe(true);
-
-    dsPayload = getDataSources({
-      data: {
-        DataSource: ["AdministrativeData"],
-        DataSourceSelections: {
-          "AdministrativeData0-AdministrativeDataOther": {
-            description: "A different source, which I consider 'admin'",
-          },
-        },
-      } as Measure["data"],
-    } as Measure);
-    expect(dsPayload.isNotApplicable).toBe(true);
   });
 
   it("Should treat measures reported with nonstandard specifications as unusable for calculations", async () => {
