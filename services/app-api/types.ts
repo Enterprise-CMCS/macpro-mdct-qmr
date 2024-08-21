@@ -253,13 +253,23 @@ export interface APIGatewayProxyEvent {
 export type EventParameters = Record<string, string | undefined>;
 
 /**
- * This is the shape of data saved to the Rates table
+ * This is the shape of data saved to the Rates table.
  */
 export type CombinedRatesPayload = {
+  /**
+   * Lists the data sources the user entered when completing the rate.
+   * Also includes flags indicating how those sources affect the calculation.
+   */
   DataSources: {
     Medicaid: DataSourcePayload;
     CHIP: DataSourcePayload;
   };
+  /**
+   * Lists all of the rates completed in at least one core set.
+   * If a rate was left empty for both Medicaid and CHIP, it will be omitted.
+   *
+   * This list may not be in sorted order; the frontend re-sorts on render.
+   */
   Rates: {
     uid: string;
     category?: string;
@@ -268,6 +278,10 @@ export type CombinedRatesPayload = {
     CHIP: WeightedRateShape;
     Combined: WeightedRateShape;
   }[];
+  /**
+   * Certain measures collect numbers outside of the usual
+   * numerator/denominator/rate triplets. Those values are listed here.
+   */
   AdditionalValues: {
     uid: string;
     label: string;
@@ -278,9 +292,24 @@ export type CombinedRatesPayload = {
 };
 
 export type DataSourcePayload = {
-  requiresWeightedCalc: boolean;
+  /**
+   * If a measure was reported with "Other" or "ECDS" as a data source,
+   * or if it uses an alternative measure specification,
+   * we cannot perform combined rate calculations on it.
+   */
   isUnusableForCalc: boolean;
+  /**
+   * If a measure was reported with a hybrid data source,
+   * we must weight the combined rate according to measure populations.
+   */
+  requiresWeightedCalc: boolean;
+  /**
+   * Top-level data source selections.
+   */
   DataSource: DataSource[];
+  /**
+   * Data source sub-selections and descriptions.
+   */
   DataSourceSelections: DataSourceSelectionsType;
 };
 
@@ -288,6 +317,12 @@ type WeightedRateShape = {
   numerator?: number;
   denominator?: number;
   rate?: number;
+  /**
+   * For measures with a hybrid data source, this is the
+   * Measure-Eligible Population. For measures with an admin data source,
+   * this is the denominator for the rate - unless it is overridden by a
+   * user-entered population at the measure level.
+   */
   population?: number;
   weightedRate?: number;
 };
