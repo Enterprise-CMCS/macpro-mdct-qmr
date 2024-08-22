@@ -18,7 +18,7 @@ const DataSourceRecord: Record<string, string> = {
 
 export const DataSourceInformationBanner = ({ data }: Props) => {
   const filteredData = columns.map(
-    (column) => data?.find((item) => item?.column === column) ?? {}
+    (column) => data?.find((item) => column.includes(item?.column)) ?? {}
   );
 
   const dataSourceSubsection = (dataSource: string) => {

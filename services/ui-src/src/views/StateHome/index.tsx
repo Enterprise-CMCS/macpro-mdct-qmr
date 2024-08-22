@@ -20,6 +20,7 @@ import { coreSets, CoreSetField } from "shared/coreSetByYear";
 
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { Link } from "react-router-dom";
+import { statesWithoutCombinedRates } from "utils";
 
 interface HandleDeleteData {
   state: string;
@@ -39,11 +40,25 @@ interface IRepYear {
   value: string;
 }
 
+const CoreSetDisplayOrder = [
+  CoreSetAbbr.CCS,
+  CoreSetAbbr.CCSM,
+  CoreSetAbbr.CCSC,
+  CoreSetAbbr.ACS,
+  CoreSetAbbr.ACSM,
+  CoreSetAbbr.ACSC,
+  CoreSetAbbr.HHCS,
+];
+
 const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
   const releasedTwentyTwentyFour = useFlags()?.["release2024"];
+  // Certain states do not have separate chip and medicaid so we will not
+  // display the Combined Rates button for those states
+  const showCombinedRatesButton =
+    state && !statesWithoutCombinedRates.includes(state);
 
   let reportingyearOptions: IRepYear[] =
     reportingYears && reportingYears.length
@@ -86,7 +101,7 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
-      {year === "2024" && (
+      {year === "2024" && showCombinedRatesButton && (
         <CUI.Box mt="22px">
           <Link
             to={`/${state}/${year}/combined-rates`}
@@ -282,6 +297,12 @@ const StateHome = () => {
       };
     });
 
+  const sortedTableItems = CoreSetDisplayOrder.flatMap((abbr) =>
+    abbr === CoreSetAbbr.HHCS
+      ? formattedTableItems.filter((item) => item.coreSet.startsWith(abbr))
+      : formattedTableItems.filter((item) => item.coreSet === abbr)
+  );
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -292,7 +313,7 @@ const StateHome = () => {
         <BannerCard />
       </CUI.Box>
       <Heading />
-      <QMR.Table data={formattedTableItems} columns={QMR.coreSetColumns} />
+      <QMR.Table data={sortedTableItems} columns={QMR.coreSetColumns} />
       <CUI.Stack direction={{ base: "column", md: "row" }} spacing="6">
         <AddCoreSetCards coreSetCards={coreSetCards} />
       </CUI.Stack>

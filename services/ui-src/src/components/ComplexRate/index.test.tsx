@@ -14,13 +14,41 @@ jest.mock("../../utils/getMeasureYear", () => ({
 
 // Example input fields
 export const aifhhQualifiers = [
-  "Number of Enrollee Months",
-  "Number of Short-Term Admissions",
-  "Short-Term Admissions per 1,000 Enrollee Months",
-  "Number of Medium-Term Admissions",
-  "Medium-Term Admissions per 1,000 Enrollee Months",
-  "Number of Long-Term Admissions",
-  "Long-Term Admissions per 1,000 Enrollee Months",
+  {
+    label: "Number of Enrollee Months",
+    id: "Number of Enrollee Months",
+    text: "Number of Enrollee Months",
+  },
+  {
+    label: "Number of Short-Term Admissions",
+    id: "Number of Short-Term Admissions",
+    text: "Number of Short-Term Admissions",
+  },
+  {
+    label: "Short-Term Admissions per 1,000 Enrollee Months",
+    id: "Short-Term Admissions per 1,000 Enrollee Months",
+    text: "Short-Term Admissions per 1,000 Enrollee Months",
+  },
+  {
+    label: "Number of Medium-Term Admissions",
+    id: "Number of Medium-Term Admissions",
+    text: "Number of Medium-Term Admissions",
+  },
+  {
+    label: "Medium-Term Admissions per 1,000 Enrollee Months",
+    id: "Medium-Term Admissions per 1,000 Enrollee Months",
+    text: "Medium-Term Admissions per 1,000 Enrollee Months",
+  },
+  {
+    label: "Number of Long-Term Admissions",
+    id: "Number of Long-Term Admissions",
+    text: "Number of Long-Term Admissions",
+  },
+  {
+    label: "Long-Term Admissions per 1,000 Enrollee Months",
+    id: "Long-Term Admissions per 1,000 Enrollee Months",
+    text: "Long-Term Admissions per 1,000 Enrollee Months",
+  },
 ];
 
 const aifhhNdrFormulas = [
@@ -48,8 +76,9 @@ const aifhhNdrFormulas = [
 ];
 
 const aifhhRates = aifhhQualifiers.map((item, idx) => ({
-  label: item,
+  label: item.label,
   id: idx,
+  text: item.text,
 }));
 
 describe("Test the AIFHHRate component when readOnly is false", () => {
@@ -74,7 +103,7 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
 
   test("Check that AIFHHRATE component renders and includes correct labels", () => {
     aifhhQualifiers.forEach((qual) => {
-      expect(screen.getAllByText(qual)[0]).toBeVisible();
+      expect(screen.getAllByText(qual.label)[0]).toBeVisible();
     });
   });
 
@@ -87,11 +116,13 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
     ];
 
     aifhhNdrFormulas.forEach((ndr, i) => {
-      const numerator = screen.getAllByLabelText(aifhhQualifiers[ndr.num])[0];
-      const denominator = screen.getAllByLabelText(
-        aifhhQualifiers[ndr.denom]
+      const numerator = screen.getAllByLabelText(
+        aifhhQualifiers[ndr.num].label
       )[0];
-      const rate = screen.getAllByLabelText(aifhhQualifiers[ndr.rate])[0];
+      const denominator = screen.getAllByLabelText(
+        aifhhQualifiers[ndr.denom].label
+      )[0];
+      const rate = screen.getAllByLabelText(aifhhQualifiers[ndr.rate].label)[0];
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");
@@ -104,12 +135,28 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
 });
 
 const iuhhQualifiers = [
-  "Number of Enrollee Months",
-  "Discharges",
-  "Discharges per 1,000 Enrollee Months",
-  "Days",
-  "Days per 1,000 Enrollee Months",
-  "Average Length of Stay",
+  {
+    id: "Number of Enrollee Months",
+    label: "Number of Enrollee Months",
+    text: "Number of Enrollee Months",
+  },
+  { id: "Discharges", label: "Discharges", text: "Discharges" },
+  {
+    id: "Discharges per 1,000 Enrollee Months",
+    label: "Discharges per 1,000 Enrollee Months",
+    text: "Discharges per 1,000 Enrollee Months",
+  },
+  { id: "Days", label: "Days", text: "Days" },
+  {
+    id: "Days per 1,000 Enrollee Months",
+    label: "Days per 1,000 Enrollee Months",
+    text: "Days per 1,000 Enrollee Months",
+  },
+  {
+    id: "Average Length of Stay",
+    label: "Average Length of Stay",
+    text: "Average Length of Stay",
+  },
 ];
 
 // Rate structure by index in row
@@ -160,7 +207,7 @@ describe("Test the IUHHRate component when readOnly is false", () => {
 
   test("Check that IUHHRate component renders and includes correct labels", () => {
     iuhhQualifiers.forEach((qual) => {
-      expect(screen.getAllByText(qual)[0]).toBeVisible();
+      expect(screen.getAllByText(qual.label)[0]).toBeVisible();
     });
   });
 
@@ -172,11 +219,13 @@ describe("Test the IUHHRate component when readOnly is false", () => {
     ];
 
     iuhhNdrFormulas.forEach((ndr, i) => {
-      const numerator = screen.getAllByLabelText(iuhhQualifiers[ndr.num])[0];
-      const denominator = screen.getAllByLabelText(
-        iuhhQualifiers[ndr.denom]
+      const numerator = screen.getAllByLabelText(
+        iuhhQualifiers[ndr.num].label
       )[0];
-      const rate = screen.getAllByLabelText(iuhhQualifiers[ndr.rate])[0];
+      const denominator = screen.getAllByLabelText(
+        iuhhQualifiers[ndr.denom].label
+      )[0];
+      const rate = screen.getAllByLabelText(iuhhQualifiers[ndr.rate].label)[0];
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");

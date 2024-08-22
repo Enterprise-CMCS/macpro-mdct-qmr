@@ -1,6 +1,6 @@
 import { LabelData } from "utils";
 import { OmsNode } from "shared/types";
-import { PerformanceMeasureData } from "./PerformanceMeasure/data";
+import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
 

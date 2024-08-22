@@ -2,6 +2,7 @@ export type Program = "CHIP" | "Medicaid";
 export type DataSource =
   | "AdministrativeData"
   | "ElectronicHealthRecords"
+  | "Casemanagementrecordreview"
   | "HybridAdministrativeandMedicalRecordsData";
 export type CategoryId = string;
 export type QualifierId = string;
@@ -13,6 +14,9 @@ export type RateDataShape = {
   numerator?: string;
   denominator?: string;
   rate?: string;
+  value?: string;
+  "measure-eligible population": string;
+  "weighted rate"?: string;
 };
 
 export type RateCategoryMap = {
@@ -22,6 +26,7 @@ export type RateCategoryMap = {
 export type SeparatedData = {
   column: Program;
   dataSource: DataSource[];
+  "measure-eligible population": string;
   rates: RateCategoryMap;
 };
 

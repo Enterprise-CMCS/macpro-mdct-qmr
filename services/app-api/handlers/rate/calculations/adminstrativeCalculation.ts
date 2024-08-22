@@ -1,4 +1,3 @@
-import { Measure, Program } from "../../../types";
 import { RateCalculation } from "./rateCalculation";
 import { DataSource, FormattedMeasureData, UniqMeasureAbbr } from "./types";
 
@@ -31,11 +30,6 @@ export class AdminstrativeCalculation extends RateCalculation {
     const medicaidSources =
       arr.find((data) => data.column === "Medicaid")?.dataSource ?? [];
 
-    // If neither measure has any data source, we will not use this calculation
-    if (chipSources.length === 0 && medicaidSources.length === 0) {
-      return false;
-    }
-
     // If the user had selected hybrid as a data source, we will not use this calculation
     const isHybrid = [chipSources, medicaidSources].some((srcs) => {
       return (srcs as string[])?.includes(DataSource.Hybrid);
@@ -45,17 +39,7 @@ export class AdminstrativeCalculation extends RateCalculation {
       return false;
     }
 
-    return this.dataSrcMap.some((dataSrc) => {
-      // If a measure has no data sources, .every() returns true
-      // This is good because we still want to calculate even if only one measure is complete.
-      const chipSourcesMatch = chipSources.every((chipSrc) =>
-        dataSrc.CHIP.includes(chipSrc)
-      );
-      const medicaidSourcesMatch = medicaidSources.every((medSrc) =>
-        dataSrc.Medicaid.includes(medSrc)
-      );
-      return chipSourcesMatch && medicaidSourcesMatch;
-    });
+    return super.check(arr);
   }
 
   getFormula(measure: string): Function {

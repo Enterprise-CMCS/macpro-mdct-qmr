@@ -19,7 +19,7 @@ interface Props extends QMR.InputWrapperProps {
   calcTotal?: boolean;
   allowNumeratorGreaterThanDenominator?: boolean;
   categoryName?: string;
-  inputFieldNames?: string[] | LabelData[];
+  inputFieldNames?: LabelData[];
   measureName?: string;
   ndrFormulas?: ndrFormula[];
 }
@@ -120,19 +120,7 @@ export const ComplexRate = ({
 
   // Quick reference list of all rate indices
   const rateLocations = ndrFormulas.map((ndr) => ndr.rate);
-
-  // We need every input field to have a label
-  let inputFields: LabelData[] | { label: string; id?: never }[] = [];
-  if (inputFieldNames.length > 0) {
-    // Pre-2023 input field names are strings
-    if (typeof inputFieldNames[0] === "string") {
-      inputFields = (inputFieldNames as string[]).map((field) => {
-        return { label: field };
-      });
-    }
-    // Post-2023 input field names are LabelData
-    else inputFields = inputFieldNames as LabelData[];
-  }
+  let inputFields: LabelData[] = inputFieldNames;
 
   const { field } = useController({
     name,

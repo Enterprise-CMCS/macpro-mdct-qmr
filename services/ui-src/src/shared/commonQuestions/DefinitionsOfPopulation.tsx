@@ -170,6 +170,10 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_MEDICAID_POP,
       },
       {
+        displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+      },
+      {
         displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
         value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
       },
@@ -178,11 +182,13 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
       <>
         <CUI.Text mt="3">
           Please select all populations that are included in the denominator.
-          For example, if your data include both Medicaid (Title XIX) enrollees
-          and individuals dually eligible for Medicare and Medicaid, select:
+          For example, if your data include Medicaid (Title XIX) beneficiaries,
+          Medicaid-Expansion CHIP (Title XXI) beneficiaries, and individuals
+          dually eligible for Medicare and Medicaid, select:
         </CUI.Text>
         <CUI.UnorderedList m="5" ml="10">
           <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
+          <CUI.ListItem>Medicaid-Expansion CHIP (Title XXI)</CUI.ListItem>
           <CUI.ListItem>
             Individuals Dually Eligible for Medicare and Medicaid
           </CUI.ListItem>
@@ -197,22 +203,20 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_MEDICAID_POP,
       },
       {
-        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
-        value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+        displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+        value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
       },
     ],
     helpText: (
       <>
         <CUI.Text mb="2">
           Please select all populations that are included in the denominator.
-          For example, if your data include both Medicaid (Title XIX) enrollees
-          and individuals dually eligible for Medicare and Medicaid, select:
+          For example, if your data include both Medicaid (Title XIX) and
+          Medicaid-Expansion CHIP (Title XXI) beneficiaries, select both:
         </CUI.Text>
         <CUI.UnorderedList m="5" ml="10">
           <CUI.ListItem>Medicaid (Title XIX)</CUI.ListItem>
-          <CUI.ListItem>
-            Individuals Dually Eligible for Medicare and Medicaid
-          </CUI.ListItem>
+          <CUI.ListItem>Medicaid-Expansion CHIP (Title XXI)</CUI.ListItem>
         </CUI.UnorderedList>
       </>
     ),
@@ -440,17 +444,24 @@ export const DefinitionOfPopulation = ({
       <CUI.Box my="5">
         <QMR.RadioButton
           formLabelProps={{ fontWeight: "600" }}
-          label="Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?"
+          label={
+            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question[
+              coreSetType!
+            ] ??
+            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
+              .default
+          }
           {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC)}
           options={[
             {
               displayValue:
-                "Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.",
+                labels.DefinitionsOfPopulation.measureEligiblePopDenom
+                  .optionYes,
               value: DC.YES,
             },
             {
               displayValue:
-                "No, this denominator does not represent the total measure-eligible population as defined by the Technical Specifications for this measure.",
+                labels.DefinitionsOfPopulation.measureEligiblePopDenom.optionNo,
               value: DC.NO,
               children: [
                 <QMR.TextArea

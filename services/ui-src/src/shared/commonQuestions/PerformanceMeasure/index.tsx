@@ -1,13 +1,14 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
+import * as Types from "../../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { LabelData, getLabelText } from "utils";
+import { getLabelText, isLegacyLabel, LabelData } from "utils";
 import { ndrFormula } from "types";
 import { useFlags } from "launchdarkly-react-client-sdk";
+import { useParams } from "react-router-dom";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -69,16 +70,18 @@ const CategoryNdrSets = ({
       {categories.map((cat) => {
         let rates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
           label: qual.label,
-          uid: cat.id + "." + qual.id,
+          uid: isLegacyLabel() ? undefined : cat.id + "." + qual.id,
           id: idx,
         }));
 
         rates = rates?.length ? rates : [{ id: 0 }];
 
         //temporary check to make IETRate component work again, will be updated during the refactor
-        const registerId = measureName?.includes("IET")
-          ? `${DC.PERFORMANCE_MEASURE}.${DC.RATES}`
-          : `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`;
+        const registerId =
+          !isLegacyLabel() && measureName?.includes("IET")
+            ? `${DC.PERFORMANCE_MEASURE}.${DC.RATES}`
+            : `${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${cat.id}`;
+
         return (
           <CUI.Box key={cat.id}>
             <CUI.Text fontWeight="bold" my="5">
@@ -113,9 +116,6 @@ const CategoryNdrSets = ({
   );
 };
 
-/** If no categories, we still need a rate for the PM
- * 2023 and onward, categories are expected to have at least object filled for creating uid in database
- */
 const QualifierNdrSets = ({
   rateReadOnly,
   categories = [],
@@ -136,9 +136,9 @@ const QualifierNdrSets = ({
   const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
-  const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
-    label: item.label,
-    uid: `${categoryID}.${item.id}`, //this uid is used to map to the N/D/R data's id key in the database
+  const rates: QMR.IRate[] = qualifiers.map((qual, idx) => ({
+    label: qual.label,
+    uid: isLegacyLabel() ? undefined : `${categoryID}.${qual.id}`, //this uid exist from 2023 onward
     id: idx,
   }));
   return (
@@ -190,6 +190,7 @@ const arrayIsReadOnly = (dataSource: string[]) => {
     dataSource?.every((source) => source === "AdministrativeData") ?? false
   );
 };
+
 /** Data Driven Performance Measure Comp */
 export const PerformanceMeasure = ({
   data,
@@ -207,10 +208,15 @@ export const PerformanceMeasure = ({
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
-  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2023"];
+  const { year } = useParams();
+  //for years after 2023, we use a flag to determine showing the covid message
+  const pheIsCurrent =
+    parseInt(year!) < 2023 || useFlags()?.[`periodOfHealthEmergency${year}`];
+
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
+
   let readOnly = false;
   if (rateReadOnly !== undefined) {
     readOnly = rateReadOnly;
@@ -267,6 +273,23 @@ export const PerformanceMeasure = ({
             );
           })}
         </CUI.UnorderedList>
+      )}
+      {data.questionListOrderedItems && (
+        <CUI.OrderedList m="5" ml="10" spacing={5}>
+          {data.questionListOrderedItems.map((item, idx) => {
+            return (
+              <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
+                {data.questionListTitles?.[idx] && (
+                  <CUI.Text display="inline" fontWeight="600">
+                    {data.questionListTitles?.[idx]}
+                    <br />
+                  </CUI.Text>
+                )}
+                {item}
+              </CUI.ListItem>
+            );
+          })}
+        </CUI.OrderedList>
       )}
       {showtextbox && (
         <QMR.TextArea
