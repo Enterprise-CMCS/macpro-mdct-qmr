@@ -178,7 +178,7 @@
   dependencies:
     tslib "^2.3.1"
 
-"@aws-sdk/client-dynamodb@^3.606.0":
+"@aws-sdk/client-dynamodb@^3.609.0":
   version "3.616.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-dynamodb/-/client-dynamodb-3.616.0.tgz#c7066d5ac5d338c4b838ceeacf99225b58c1f45f"
   integrity sha512-Yi5w3friyXS3tdhgoOkwE6QRwEeAUKIIDRGvAb21ZDRR+1aOyeHAwVcaNy+Q+zL4zXsvTIZh8puIC+F7rmTVsA==
@@ -732,6 +732,22 @@
     "@smithy/protocol-http" "^4.1.0"
     "@smithy/signature-v4" "^4.1.0"
     "@smithy/smithy-client" "^3.1.11"
+    "@smithy/types" "^3.3.0"
+    "@smithy/util-middleware" "^3.0.3"
+    fast-xml-parser "4.4.1"
+    tslib "^2.6.2"
+
+"@aws-sdk/core@3.635.0":
+  version "3.635.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/core/-/core-3.635.0.tgz#74b7d0d7fa3aa39f87ea5cf4e6c97d4d84f4ef14"
+  integrity sha512-i1x/E/sgA+liUE1XJ7rj1dhyXpAKO1UKFUcTTHXok2ARjWTvszHnSXMOsB77aPbmn0fUp1JTx2kHUAZ1LVt5Bg==
+  dependencies:
+    "@smithy/core" "^2.4.0"
+    "@smithy/node-config-provider" "^3.1.4"
+    "@smithy/property-provider" "^3.1.3"
+    "@smithy/protocol-http" "^4.1.0"
+    "@smithy/signature-v4" "^4.1.0"
+    "@smithy/smithy-client" "^3.2.0"
     "@smithy/types" "^3.3.0"
     "@smithy/util-middleware" "^3.0.3"
     fast-xml-parser "4.4.1"
@@ -1714,6 +1730,16 @@
     "@smithy/util-endpoints" "^2.0.5"
     tslib "^2.6.2"
 
+"@aws-sdk/util-endpoints@3.632.0":
+  version "3.632.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/util-endpoints/-/util-endpoints-3.632.0.tgz#f8716bdc75fc322babc6a3faf943ee1d0e462124"
+  integrity sha512-LlYMU8pAbcEQphOpE6xaNLJ8kPGhklZZTVzZVpVW477NaaGgoGTMYNXTABYHcxeF5E2lLrxql9OmVpvr8GWN8Q==
+  dependencies:
+    "@aws-sdk/types" "3.609.0"
+    "@smithy/types" "^3.3.0"
+    "@smithy/util-endpoints" "^2.0.5"
+    tslib "^2.6.2"
+
 "@aws-sdk/util-hex-encoding@3.58.0":
   version "3.58.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/util-hex-encoding/-/util-hex-encoding-3.58.0.tgz#d999eb19329933a94563881540a06d7ac7f515f5"
@@ -2200,6 +2226,22 @@
     "@smithy/util-middleware" "^3.0.3"
     tslib "^2.6.2"
 
+"@smithy/core@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@smithy/core/-/core-2.4.0.tgz#56e917b6ab2dffeba681a05395c40a757d681147"
+  integrity sha512-cHXq+FneIF/KJbt4q4pjN186+Jf4ZB0ZOqEaZMBhT79srEyGDDBV31NqBRBjazz8ppQ1bJbDJMY9ba5wKFV36w==
+  dependencies:
+    "@smithy/middleware-endpoint" "^3.1.0"
+    "@smithy/middleware-retry" "^3.0.15"
+    "@smithy/middleware-serde" "^3.0.3"
+    "@smithy/protocol-http" "^4.1.0"
+    "@smithy/smithy-client" "^3.2.0"
+    "@smithy/types" "^3.3.0"
+    "@smithy/util-body-length-browser" "^3.0.0"
+    "@smithy/util-middleware" "^3.0.3"
+    "@smithy/util-utf8" "^3.0.0"
+    tslib "^2.6.2"
+
 "@smithy/credential-provider-imds@^3.1.4":
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/@smithy/credential-provider-imds/-/credential-provider-imds-3.1.4.tgz#797116f68cc3ffa658469558cc014f25d9febe09"
@@ -2250,18 +2292,18 @@
     tslib "^2.6.2"
 
 "@smithy/eventstream-serde-node@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-node/-/eventstream-serde-node-3.0.4.tgz#6301752ca51b3ebabcd2dec112f1dacd990de4c1"
-  integrity sha512-mjlG0OzGAYuUpdUpflfb9zyLrBGgmQmrobNT8b42ZTsGv/J03+t24uhhtVEKG/b2jFtPIHF74Bq+VUtbzEKOKg==
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-node/-/eventstream-serde-node-3.0.5.tgz#2bbf5c9312a28f23bc55ae284efa9499f8b8f982"
+  integrity sha512-+upXvnHNyZP095s11jF5dhGw/Ihzqwl5G+/KtMnoQOpdfC3B5HYCcDVG9EmgkhJMXJlM64PyN5gjJl0uXFQehQ==
   dependencies:
-    "@smithy/eventstream-serde-universal" "^3.0.4"
+    "@smithy/eventstream-serde-universal" "^3.0.5"
     "@smithy/types" "^3.3.0"
     tslib "^2.6.2"
 
-"@smithy/eventstream-serde-universal@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-universal/-/eventstream-serde-universal-3.0.4.tgz#6754de5b94bdc286d8ef1d6bcf22d80f6ab68f30"
-  integrity sha512-Od9dv8zh3PgOD7Vj4T3HSuox16n0VG8jJIM2gvKASL6aCtcS8CfHZDWe1Ik3ZXW6xBouU+45Q5wgoliWDZiJ0A==
+"@smithy/eventstream-serde-universal@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@smithy/eventstream-serde-universal/-/eventstream-serde-universal-3.0.5.tgz#e1cc2f71f4d174a03e00ce4b563395a81dd17bec"
+  integrity sha512-5u/nXbyoh1s4QxrvNre9V6vfyoLWuiVvvd5TlZjGThIikc3G+uNiG9uOTCWweSRjv1asdDIWK7nOmN7le4RYHQ==
   dependencies:
     "@smithy/eventstream-codec" "^3.1.2"
     "@smithy/types" "^3.3.0"
@@ -2441,6 +2483,21 @@
     "@smithy/protocol-http" "^4.1.0"
     "@smithy/service-error-classification" "^3.0.3"
     "@smithy/smithy-client" "^3.1.11"
+    "@smithy/types" "^3.3.0"
+    "@smithy/util-middleware" "^3.0.3"
+    "@smithy/util-retry" "^3.0.3"
+    tslib "^2.6.2"
+    uuid "^9.0.1"
+
+"@smithy/middleware-retry@^3.0.15":
+  version "3.0.15"
+  resolved "https://registry.yarnpkg.com/@smithy/middleware-retry/-/middleware-retry-3.0.15.tgz#9b96900cde70d8aafd267e13f4e79241be90e0c7"
+  integrity sha512-iTMedvNt1ApdvkaoE8aSDuwaoc+BhvHqttbA/FO4Ty+y/S5hW6Ci/CTScG7vam4RYJWZxdTElc3MEfHRVH6cgQ==
+  dependencies:
+    "@smithy/node-config-provider" "^3.1.4"
+    "@smithy/protocol-http" "^4.1.0"
+    "@smithy/service-error-classification" "^3.0.3"
+    "@smithy/smithy-client" "^3.2.0"
     "@smithy/types" "^3.3.0"
     "@smithy/util-middleware" "^3.0.3"
     "@smithy/util-retry" "^3.0.3"
@@ -2690,6 +2747,18 @@
     "@smithy/protocol-http" "^4.0.4"
     "@smithy/types" "^3.3.0"
     "@smithy/util-stream" "^3.1.1"
+    tslib "^2.6.2"
+
+"@smithy/smithy-client@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@smithy/smithy-client/-/smithy-client-3.2.0.tgz#6db94024e4bdaefa079ac68dbea23dafbea230c8"
+  integrity sha512-pDbtxs8WOhJLJSeaF/eAbPgXg4VVYFlRcL/zoNYA5WbG3wBL06CHtBSg53ppkttDpAJ/hdiede+xApip1CwSLw==
+  dependencies:
+    "@smithy/middleware-endpoint" "^3.1.0"
+    "@smithy/middleware-stack" "^3.0.3"
+    "@smithy/protocol-http" "^4.1.0"
+    "@smithy/types" "^3.3.0"
+    "@smithy/util-stream" "^3.1.3"
     tslib "^2.6.2"
 
 "@smithy/types@^3.1.0", "@smithy/types@^3.2.0":
