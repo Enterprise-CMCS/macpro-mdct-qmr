@@ -11,8 +11,19 @@ import {
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { CoreSet, UserRoles } from "../../types";
 import { CoreSetField, coreSets } from "../../libs/coreSetByYearPreloaded";
+import {
+  parseGetCoreSetParameters,
+  parseSpecificCoreSetParameters,
+} from "../../utils/parseParameters";
 
 export const coreSetList = handler(async (event, context) => {
+  const { allParamsValid, state, year } = parseGetCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {
@@ -29,8 +40,8 @@ export const coreSetList = handler(async (event, context) => {
     TableName: process.env.coreSetTableName!,
     ...convertToDynamoExpression(
       {
-        state: event!.pathParameters!.state!,
-        year: parseInt(event!.pathParameters!.year!),
+        state: state,
+        year: parseInt(year),
       },
       "list"
     ),
@@ -38,9 +49,6 @@ export const coreSetList = handler(async (event, context) => {
 
   // using coreSetByYear to see if it's a year that should have
   // coresets generated from login
-  const year = parseInt(event!.pathParameters!.year!);
-  const state = event!.pathParameters!.state!;
-
   const coreSetsByYear = coreSets[
     year as keyof typeof coreSets
   ] as CoreSetField[];
@@ -93,6 +101,13 @@ export const coreSetList = handler(async (event, context) => {
 });
 
 export const getCoreSet = handler(async (event, context) => {
+  const { allParamsValid, coreSet } = parseSpecificCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {
@@ -110,7 +125,7 @@ export const getCoreSet = handler(async (event, context) => {
     TableName: process.env.coreSetTableName!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event!.pathParameters!.coreSet!,
+      coreSet: coreSet,
     },
   };
   const queryValue = await dynamoDb.get(params);

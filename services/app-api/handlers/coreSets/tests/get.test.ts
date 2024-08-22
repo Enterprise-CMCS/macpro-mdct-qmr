@@ -45,66 +45,81 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
-describe("Test Get Core Set Functions", () => {
-  beforeAll(() => {
-    process.env.coreSetTableName = "EXAMPLE TABLE";
-  });
+const event = { ...testEvent };
+process.env.coreSetTableName = "EXAMPLE TABLE";
 
+describe("Test Get Core Set Functions", () => {
   beforeEach(() => {
     (createCoreSet as jest.Mock).mockReset();
     (dynamodbLib.scanAll as jest.Mock).mockReset();
     (updateCoreSetProgress as jest.Mock).mockReset();
     mockHasRolePermissions.mockImplementation(() => false);
+    event.pathParameters = {
+      state: "AL",
+      year: "2021",
+      coreSet: CoreSetAbbr.ACS,
+    };
   });
 
   test("Test getCoreSet unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
-    const res = await getCoreSet(
-      { ...testEvent, pathParameters: { coreSet: "ACS" } },
-      null
-    );
+    const res = await getCoreSet(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
+  test("Test getCoreSet with missing path params", async () => {
+    event.pathParameters = null;
+    mockHasRolePermissions.mockImplementation(() => true);
+    mockHasStatePermissions.mockImplementation(() => false);
+    const res = await getCoreSet(event, null);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  test("Test getCoreSet with invalid path params", async () => {
+    event.pathParameters = {
+      coreSet: "THC", // invalid coreset
+      year: "2023",
+      state: "FL",
+    };
+
+    mockHasRolePermissions.mockImplementation(() => true);
+    mockHasStatePermissions.mockImplementation(() => false);
+    const res = await getCoreSet(event, null);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
   test("Test getCoreSet", async () => {
-    await getCoreSet(
-      { ...testEvent, pathParameters: { coreSet: "ACS" } },
-      null
-    );
+    await getCoreSet(event, null);
 
     expect(dynamodbLib.get).toHaveBeenCalled();
     expect(createCompoundKey).toHaveBeenCalled();
-    expect(createCompoundKey).toHaveBeenCalledWith({
-      ...testEvent,
-      pathParameters: { coreSet: "ACS" },
-    });
+    expect(createCompoundKey).toHaveBeenCalledWith(event);
   });
 
   test("Test coreSetList unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
-    const res = await coreSetList(
-      { ...testEvent, pathParameters: { coreSet: "ACS" } },
-      null
-    );
+    const res = await coreSetList(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test coreSetList should autopopulate adult core sets in 2023", async () => {
+    event.pathParameters = {
+      coreSet: CoreSetAbbr.ACS,
+      year: "2023",
+      state: "FL",
+    };
+
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => true);
     (dynamodbLib.scanAll as jest.Mock).mockResolvedValue([]);
     (createCoreSet as jest.Mock).mockResolvedValue({ statusCode: 200 });
-    const res = await coreSetList(
-      {
-        ...testEvent,
-        pathParameters: { coreSet: CoreSetAbbr.ACS, year: "2023", state: "FL" },
-      },
-      null
-    );
+    const res = await coreSetList(event, null);
     expect(createCoreSet).toBeCalled();
     expect(res.statusCode).toBe(200);
   });
@@ -121,13 +136,7 @@ describe("Test Get Core Set Functions", () => {
     (dynamodbLib.scanAll as jest.Mock).mockResolvedValue([]);
     (createCoreSet as jest.Mock).mockResolvedValue({ statusCode: 500 });
 
-    const res = await coreSetList(
-      {
-        ...testEvent,
-        pathParameters: { coreSet: CoreSetAbbr.ACS, year: "2023", state: "FL" },
-      },
-      null
-    );
+    const res = await coreSetList(event, null);
     expect(res.statusCode).toBe(500);
     expect(createCoreSet).toHaveBeenCalled();
     expect(dynamodbLib.scanAll).toHaveBeenCalled();
@@ -140,13 +149,7 @@ describe("Test Get Core Set Functions", () => {
     (updateCoreSetProgress as jest.Mock).mockImplementation((coreSets) =>
       coreSets.forEach((cs: any) => (cs.progress.numComplete = 1))
     );
-    const res = await coreSetList(
-      {
-        ...testEvent,
-        pathParameters: { coreSet: CoreSetAbbr.ACS, year: "2021", state: "FL" },
-      },
-      null
-    );
+    const res = await coreSetList(event, null);
 
     expect(res.body).toContain('"progress":{"numComplete":1}');
     expect(dynamodbLib.scanAll).toHaveBeenCalled();

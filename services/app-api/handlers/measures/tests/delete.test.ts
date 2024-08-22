@@ -21,17 +21,20 @@ jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
-const event: APIGatewayProxyEvent = {
-  ...testEvent,
-  body: `{"data": {}, "description": "sample desc"}`,
-  headers: { "cognito-identity-id": "test" },
-  pathParameters: { coreSet: "ACS" },
-};
+const event = { ...testEvent };
 process.env.measureTableName = "SAMPLE TABLE";
 
 describe("Test Delete Measure Handler", () => {
   beforeEach(() => {
     mockHasStatePermissions.mockImplementation(() => true);
+    event.headers = { "cognito-identity-id": "test" };
+    event.body = `{"data": {}, "description": "sample desc"}`;
+    event.pathParameters = {
+      state: "IN",
+      year: "2022",
+      coreSet: "ACS",
+      measure: "AAB-AD",
+    };
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {
@@ -39,6 +42,27 @@ describe("Test Delete Measure Handler", () => {
     const res = await deleteMeasure(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
+  test("Test missing params", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    event.pathParameters = null;
+    const res = await deleteMeasure(event, null);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  test("Test invalid params", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    event.pathParameters = {
+      state: "YA",
+      year: "2020",
+      coreSet: "YLTR",
+      measure: "EEE-EE",
+    };
+    const res = await deleteMeasure(event, null);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
   });
 
   test("Test Successful Run of Measure Deletion", async () => {

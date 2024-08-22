@@ -9,8 +9,20 @@ import {
 } from "../../libs/authorization";
 import { Measure, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import {
+  parseSpecificCoreSetParameters,
+  parseSpecificMeasureParameters,
+} from "../../utils/parseParameters";
 
 export const listMeasures = handler(async (event, context) => {
+  const { allParamsValid, state, year, coreSet } =
+    parseSpecificCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {
@@ -22,11 +34,6 @@ export const listMeasures = handler(async (event, context) => {
       };
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
-
-  const state = event.pathParameters?.state;
-  const year = event.pathParameters?.year as string;
-  const coreSet = event.pathParameters?.coreSet;
-
   const params = {
     TableName: process.env.measureTableName!,
     ...convertToDynamoExpression(
@@ -37,7 +44,7 @@ export const listMeasures = handler(async (event, context) => {
 
   let queriedMeasures = await dynamoDb.scanAll<Measure>(params);
   for (let v of queriedMeasures) {
-    const measure = measures[parseInt(year)]?.filter(
+    const measure = measures[parseInt(year as string)]?.filter(
       (m) => m.measure === (v as Measure)?.measure
     )[0];
 
@@ -54,6 +61,13 @@ export const listMeasures = handler(async (event, context) => {
 });
 
 export const getMeasure = handler(async (event, context) => {
+  const { allParamsValid } = parseSpecificMeasureParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {

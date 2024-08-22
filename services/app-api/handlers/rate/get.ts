@@ -1,15 +1,23 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { StatusCodes } from "../../utils/constants/constants";
+import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseSpecificMeasureParameters } from "../../utils/parseParameters";
 
 export const getRate = handler(async (event, context) => {
-  const { year, state, coreSet, measure } = event.pathParameters!;
+  const { allParamsValid, year, state, coreSet, measure } =
+    parseSpecificMeasureParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   const dynamoKey = `${state}${year}${coreSet}${measure}`;
   const params = {
     TableName: process.env.rateTableName!,
     Key: {
       compoundKey: dynamoKey,
-      measure: event!.pathParameters!.measure!,
+      measure: measure,
     },
   };
   const queryValue = await dynamoDb.get(params);

@@ -7,8 +7,16 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseSpecificCoreSetParameters } from "../../utils/parseParameters";
 
 export const editCoreSet = handler(async (event, context) => {
+  const { allParamsValid, coreSet } = parseSpecificCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to state users from corresponding state
   if (!hasStatePermissions(event)) {
     return {
@@ -24,7 +32,7 @@ export const editCoreSet = handler(async (event, context) => {
     TableName: process.env.coreSetTableName!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event!.pathParameters!.coreSet!,
+      coreSet: coreSet,
     },
     ...convertToDynamoExpression(
       {

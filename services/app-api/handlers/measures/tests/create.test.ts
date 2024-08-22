@@ -21,19 +21,25 @@ jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
+const event = { ...testEvent };
+process.env.measureTableName = "SAMPLE TABLE";
+
 describe("Test Create Measure Handler", () => {
   beforeEach(() => {
     mockHasRolePermissions.mockImplementation(() => false);
+    event.headers = { "cognito-identity-id": "test" };
+    event.body = `{"data": {}, "description": "sample desc"}`;
+    event.pathParameters = {
+      state: "IN",
+      year: "2022",
+      coreSet: "ACS",
+      measure: "AAB-AD",
+    };
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
-      headers: { "cognito-identity-id": "test" },
-    };
     const res = await createMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
@@ -41,11 +47,7 @@ describe("Test Create Measure Handler", () => {
   });
 
   test("Test Successful Run of Measure Creation with description", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc", "detailedDescription": "sample detailed desc"}`,
-      headers: { "cognito-identity-id": "test" },
-    };
+    event.body = `{"data": {}, "description": "sample desc", "detailedDescription": "sample detailed desc"}`;
 
     const res = await createMeasure(event, null);
 
@@ -56,16 +58,34 @@ describe("Test Create Measure Handler", () => {
   });
 
   test("Test Successful Run of Measure Creation without description", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}}`,
-      headers: { "cognito-identity-id": "test" },
-    };
+    event.body = `{"data": {}}`;
 
     const res = await createMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("test");
     expect(res.body).toContain("FL2020ACSFUA-AD");
+  });
+
+  test("Fails with bad request when path params are missing", async () => {
+    event.pathParameters = null;
+
+    const res = await createMeasure(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+  test("Fails with bad request when params exist but are not valid", async () => {
+    event.pathParameters = {
+      state: "YA",
+      year: "2020",
+      coreSet: "YLTR",
+      measure: "EEE-EE",
+    };
+
+    const res = await createMeasure(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
   });
 });

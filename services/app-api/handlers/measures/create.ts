@@ -7,8 +7,17 @@ import {
 } from "../../libs/authorization";
 import { MeasureStatus, CoreSetAbbr, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseSpecificMeasureParameters } from "../../utils/parseParameters";
 
 export const createMeasure = handler(async (event, context) => {
+  const { allParamsValid, state, year, coreSet, measure } =
+    parseSpecificMeasureParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {
@@ -27,10 +36,10 @@ export const createMeasure = handler(async (event, context) => {
     TableName: process.env.measureTableName!,
     Item: {
       compoundKey: dynamoKey,
-      state: event!.pathParameters!.state!,
-      year: parseInt(event!.pathParameters!.year!),
-      coreSet: event!.pathParameters!.coreSet! as CoreSetAbbr,
-      measure: event!.pathParameters!.measure!,
+      state: state,
+      year: parseInt(year),
+      coreSet: coreSet as CoreSetAbbr,
+      measure: measure,
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],

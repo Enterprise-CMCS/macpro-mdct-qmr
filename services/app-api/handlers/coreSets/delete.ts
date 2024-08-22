@@ -5,8 +5,17 @@ import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpress
 import { hasStatePermissions } from "../../libs/authorization";
 import { Measure } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseSpecificCoreSetParameters } from "../../utils/parseParameters";
 
 export const deleteCoreSet = handler(async (event, context) => {
+  const { allParamsValid, state, year, coreSet } =
+    parseSpecificCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to state users from corresponding state
   if (!hasStatePermissions(event)) {
     return {
@@ -14,10 +23,6 @@ export const deleteCoreSet = handler(async (event, context) => {
       body: Errors.UNAUTHORIZED,
     };
   }
-
-  const state = event!.pathParameters!.state!;
-  const year = parseInt(event!.pathParameters!.year!);
-  const coreSet = event!.pathParameters!.coreSet!;
 
   const dynamoKey = createCompoundKey(event);
   const params = {
@@ -29,7 +34,7 @@ export const deleteCoreSet = handler(async (event, context) => {
   };
 
   await dynamoDb.delete(params);
-  await deleteDependentMeasures(state, year, coreSet);
+  await deleteDependentMeasures(state, parseInt(year), coreSet);
 
   return {
     status: StatusCodes.SUCCESS,

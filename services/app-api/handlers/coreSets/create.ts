@@ -9,8 +9,17 @@ import {
 } from "../../libs/authorization";
 import * as Types from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseSpecificCoreSetParameters } from "../../utils/parseParameters";
 
 export const createCoreSet = handler(async (event, context) => {
+  const { allParamsValid, state, year, coreSet } =
+    parseSpecificCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [Types.UserRoles.STATE_USER]);
   if (isStateUser) {
@@ -22,11 +31,6 @@ export const createCoreSet = handler(async (event, context) => {
       };
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
-
-  // The State Year and ID are all part of the path
-  const state = event!.pathParameters!.state!;
-  const year = event!.pathParameters!.year!;
-  const coreSet = event!.pathParameters!.coreSet! as Types.CoreSetAbbr;
   const type = coreSet!.substring(0, 1);
 
   const coreSetQuery = await getCoreSet(event, context);
@@ -40,7 +44,12 @@ export const createCoreSet = handler(async (event, context) => {
   }
   const dynamoKey = createCompoundKey(event);
 
-  await createDependentMeasures(state, parseInt(year), coreSet, type);
+  await createDependentMeasures(
+    state,
+    parseInt(year),
+    coreSet as Types.CoreSetAbbr,
+    type
+  );
 
   // filter out qualifier and account for autocomplete measures on creation
   let autoCompletedMeasures = 0;

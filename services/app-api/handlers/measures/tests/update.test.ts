@@ -31,10 +31,7 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
-const event: APIGatewayProxyEvent = {
-  ...testEvent,
-  pathParameters: { coreSet: "ACS" },
-};
+const event = { ...testEvent };
 process.env.measureTableName = "SAMPLE TABLE";
 
 describe("Test Update Measure Handler", () => {
@@ -42,9 +39,36 @@ describe("Test Update Measure Handler", () => {
     mockHasStatePermissions.mockImplementation(() => true);
     event.headers = { "cognito-identity-id": "test" };
     event.body = `{"data": {}, "status": "status"}`;
+    event.pathParameters = {
+      state: "IN",
+      year: "2022",
+      coreSet: "ACS",
+      measure: "AAB-AD",
+    };
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    event.pathParameters = null;
+    const res = await editMeasure(event, null);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  test("Test unauthorized user attempt (incorrect state)", async () => {
+    mockHasStatePermissions.mockImplementation(() => false);
+    event.pathParameters = {
+      state: "YA",
+      year: "2020",
+      coreSet: "YLTR",
+      measure: "EEE-EE",
+    };
+    const res = await editMeasure(event, null);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  test("Test request with missing path params", async () => {
     mockHasStatePermissions.mockImplementation(() => false);
     const res = await editMeasure(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);

@@ -1,3 +1,4 @@
+import { measures } from "./handlers/dynamoUtils/measureList";
 import { DataSource } from "./handlers/rate/calculations/types";
 import { coreSets, states } from "./utils/constants/constants";
 
@@ -153,12 +154,24 @@ export const isState = (state: unknown): state is State => {
   return states.includes(state as State);
 };
 
-export const isValidYear = (year: unknown) => {
-  return (
-    year === "2021" || year === "2022" || year === "2023" || year === "2024"
-  );
+export const isValidYear = (year: string) => {
+  const reportingYears = Object.keys(measures);
+  return reportingYears.includes(year);
 };
 
-export const isCoreSet = (coreSet: string) => {
-  return coreSets.includes(coreSet) || coreSet.startsWith("HHCS_");
+export const isCoreSet = (coreSet: string | undefined) => {
+  return coreSet && (coreSets.includes(coreSet) || coreSet.startsWith("HHCS_"));
+};
+
+export const isMeasure = (
+  year: string | undefined,
+  measure: string | undefined
+) => {
+  return (
+    year &&
+    isValidYear(year) &&
+    !!measures[parseInt(year)].find((measureObject) => {
+      return measureObject.measure == measure;
+    })
+  );
 };
