@@ -6,7 +6,8 @@ export interface FormRateField {
   numerator?: string;
   label?: string;
   rate?: string;
-  isTotal?: string;
+  category?: string;
+  isTotal?: boolean;
 }
 
 export type locationDictionaryFunction = (labels: string[]) => string;

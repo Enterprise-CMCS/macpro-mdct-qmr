@@ -109,7 +109,8 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           rateData?.["aifhh-rate"]?.rates ?? {},
           rates ?? [],
           ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`
+          `Optional Measure Stratification: ${locationDictionary(label)}`,
+          OPM.map((item: any) => item.description)
         ),
         ...GV.ComplexValidateNDRTotalsOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
@@ -123,7 +124,8 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           rateData?.rates,
           rates ?? [],
           ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`
+          `Optional Measure Stratification: ${locationDictionary(label)}`,
+          OPM.map((item: any) => item.description)
         ),
       ];
 };

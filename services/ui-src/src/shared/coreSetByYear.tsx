@@ -1,5 +1,5 @@
 import { SPA } from "libs/spaLib";
-import { AnyObject } from "types";
+import { AnyObject, CoreSetAbbr } from "types";
 
 export type CoreSetType = "coreSet" | "text";
 
@@ -24,12 +24,12 @@ const getHHStates = (year: string) => {
 
 export const coreSetType = (abbr: string) => {
   const list = {
-    Adult: ["ACS", "ACSM", "ACSC"],
-    Child: ["CCS", "CCSM", "CCSC"],
-    "Health Home": ["HHCS"],
+    Adult: [CoreSetAbbr.ACS, CoreSetAbbr.ACSM, CoreSetAbbr.ACSC],
+    Child: [CoreSetAbbr.CCS, CoreSetAbbr.CCSM, CoreSetAbbr.CCSC],
+    "Health Home": [CoreSetAbbr.HHCS],
   };
   for (const [key, value] of Object.entries(list)) {
-    if (value.includes(abbr)) return key;
+    if (value.includes(abbr as CoreSetAbbr)) return key;
   }
   return;
 };
@@ -65,6 +65,21 @@ export const coreSetTitles = (year: string, abbr: string, type?: string) => {
   const subType = type || "Measures";
   let name = `${coreSetType(abbr)} Core Set ${subType}`;
   return subTitle ? `${name}: ${subTitle}` : name;
+};
+
+//seperated coresets have unique titles for their breadcrumb menu. this is only for 2024 and onward
+export const coreSetBreadCrumbTitle = (
+  year: string
+): { [key: string]: string } | undefined => {
+  if (parseInt(year) >= 2024)
+    return {
+      [CoreSetAbbr.ACSC]: "(Separate CHIP)",
+      [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
+      [CoreSetAbbr.CCSC]: "(Separate CHIP)",
+      [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI))",
+    };
+
+  return undefined;
 };
 
 export const coreSets: CoreSetFields = {

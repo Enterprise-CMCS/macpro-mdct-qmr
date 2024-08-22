@@ -1,15 +1,16 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { useApiMock } from "utils/testUtils/useApiMock";
-import { RouterWrappedComp } from "utils/testing";
+import { BrowserRouter as Router } from "react-router-dom";
 import { CombinedRatesPage } from "views";
+import { measureDescriptions } from "measures/measureDescriptions";
 expect.extend(toHaveNoViolations);
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
-  useParams: () => ({
+  useParams: jest.fn().mockReturnValue({
     year: "2024",
-    state: "OH",
+    state: "AL",
   }),
 }));
 
@@ -26,8 +27,7 @@ const useGetMeasuresValues = {
         lastAltered: 1642167976771,
         compoundKey: "AL2024ACSIET-AD",
         measure: "IET-AD",
-        description:
-          "Initiation and Engagement of Alcohol and Other Drug Abuse or Dependence Treatment",
+        description: measureDescriptions[2024]["IET-AD"],
         state: "AL",
         status: "incomplete",
         year: 2024,
@@ -39,8 +39,7 @@ const useGetMeasuresValues = {
         lastAltered: 1642167976771,
         compoundKey: "AL2024ACSAAB-AD",
         measure: "AAB-AD",
-        description:
-          "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Ages 3 Months to 17 Years",
+        description: measureDescriptions[2024]["AAB-AD"],
         state: "AL",
         status: "incomplete",
         year: 2024,
@@ -54,9 +53,9 @@ describe("Test Combined Rates Page", () => {
     const apiData = { useGetMeasuresValues: useGetMeasuresValues };
     useApiMock(apiData);
     render(
-      <RouterWrappedComp>
+      <Router>
         <CombinedRatesPage />
-      </RouterWrappedComp>
+      </Router>
     );
   });
   it("renders", () => {
@@ -90,9 +89,9 @@ describe("Test accessibility", () => {
     const apiData = {};
     useApiMock(apiData);
     const { container } = render(
-      <RouterWrappedComp>
+      <Router>
         <CombinedRatesPage />
-      </RouterWrappedComp>
+      </Router>
     );
     expect(await axe(container)).toHaveNoViolations();
   });

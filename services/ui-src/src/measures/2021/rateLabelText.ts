@@ -4,9 +4,9 @@
  * Changing the text property of these objects will change the text that is displayed to the user.
  */
 
-import { LabelData, cleanString } from "utils";
+import { LabelData } from "utils";
 
-export const data = {
+export const rawData = {
     "ADD-CH": {
         "categories": [],
         "qualifiers": [
@@ -659,7 +659,7 @@ export const data = {
             },
             {
                 "label": "Total (Age 13 and older)",
-                "id": "Total",
+                "id": "TotalAge13andolder",
                 "text": "Total (Age 13 and older)"
             }
         ]
@@ -1465,20 +1465,16 @@ export const data = {
     }
 }
 
-export const getCatQualLabels = (measure: keyof typeof data) => {
-  const qualifiers: LabelData[] = data[measure].qualifiers.map((item) => ({
-    id: cleanString(item.label), //for some reason the system would create the id from the label instead of using the id key that existed
-    label: item.label,
-    text: item.text,
-  }));
-  const categories: LabelData[] = data[measure].categories.map((item) => ({
-    id: cleanString(item.label), //for some reason the system would create the id from the label instead of using the id key that existed
-    label: item.label,
-    text: item.text,
-  }));
+type MeasureAbbreviation = keyof typeof rawData;
+type RateLabelDataShape = {
+    [key in MeasureAbbreviation]: {
+        categories: LabelData[];
+        qualifiers: LabelData[];
+    };
+};
 
-  return {
-    qualifiers,
-    categories,
-  };
+export const data: RateLabelDataShape = rawData;
+
+export const getCatQualLabels = (measure: MeasureAbbreviation) => {
+    return data[measure];
 };

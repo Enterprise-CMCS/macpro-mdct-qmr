@@ -11,4 +11,4 @@ export * from "shared/commonQuestions/WhyAreYouNotReporting";
 export * from "shared/commonQuestions/OptionalMeasureStrat";
 export * from "shared/commonQuestions/DeviationFromMeasureSpecificationTextField";
 export * from "shared/commonQuestions/MeasurementSpecification";
-export * from "./PerformanceMeasure";
+export * from "shared/commonQuestions/PerformanceMeasure/index";

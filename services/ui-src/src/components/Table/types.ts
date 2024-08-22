@@ -51,6 +51,7 @@ export namespace MeasureTableItem {
     actions: IKebabMenuItem[];
     reporting: string | undefined | null;
     autoCompleted?: boolean;
+    mandatory?: boolean;
   };
 
   export interface StatusTextProps {

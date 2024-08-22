@@ -3,17 +3,24 @@ import {
   CombinedRatePayload,
   RateCategoryMap,
   RateDataShape,
+  SeparatedData,
 } from "./CombinedRateTypes";
-import * as Labels from "labels/RateTextLabels";
+import * as Labels from "labels/RateLabelTexts";
 
 const programTypes = ["Medicaid", "Separate CHIP", "Combined Rate"] as const;
-const rateComponents = ["numerator", "denominator", "rate"] as const;
+const defaultRateComponents = ["numerator", "denominator", "rate"] as const;
+const hybridRateComponents = [
+  "measure-eligible population",
+  "weighted rate",
+] as const;
+
 type ProgramType = typeof programTypes[number];
 /** Identifying info for each table we will display on the page */
 type TableKeys = {
   uid: string;
   label: string;
   category?: string;
+  type: string;
 };
 /** An intermediate shape, not guaranteed to have an entry for every program type */
 type PartialTableDataShape = TableKeys &
@@ -24,7 +31,13 @@ type Props = {
   json: CombinedRatePayload;
 };
 
-const verticalTable = (table: TableDataShape) => {
+const verticalRateTable = (
+  table: TableDataShape,
+  rateComponents: (
+    | typeof defaultRateComponents[number]
+    | typeof hybridRateComponents[number]
+  )[]
+) => {
   return (
     <CUI.VStack align="flex-start" mt="4">
       {programTypes.slice(0, -1).map((programType, ptIndex) => (
@@ -45,7 +58,10 @@ const verticalTable = (table: TableDataShape) => {
       ))}
       <CUI.List padding="0 0 1rem 2rem">
         <CUI.Text fontWeight="bold" mb="2">
-          {programTypes[2]}: {table["Combined Rate"]?.rate}
+          {programTypes[2]}:{" "}
+          {table["Combined Rate"]?.["weighted rate"] != "-"
+            ? table["Combined Rate"]?.["weighted rate"]
+            : table["Combined Rate"]?.rate}
         </CUI.Text>
       </CUI.List>
       <CUI.Divider borderColor="gray.300" />
@@ -53,7 +69,13 @@ const verticalTable = (table: TableDataShape) => {
   );
 };
 
-const horizontalTable = (table: TableDataShape) => {
+const horizontalRateTable = (
+  table: TableDataShape,
+  rateComponents: (
+    | typeof defaultRateComponents[number]
+    | typeof hybridRateComponents[number]
+  )[]
+) => {
   return (
     <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
       <CUI.Thead>
@@ -84,14 +106,88 @@ const horizontalTable = (table: TableDataShape) => {
   );
 };
 
+const horizontalValueTable = (tables: TableDataShape[]) => {
+  return (
+    <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
+      <CUI.Thead>
+        <CUI.Tr>
+          <CUI.Td></CUI.Td>
+          {programTypes.map((programTypes, index) => (
+            <CUI.Th key={index} sx={sx.header}>
+              {programTypes === "Combined Rate"
+                ? "Combined Count"
+                : programTypes}
+            </CUI.Th>
+          ))}
+        </CUI.Tr>
+      </CUI.Thead>
+      <CUI.Tbody>
+        {tables.map((table) => (
+          <CUI.Tr sx={sx.row}>
+            <CUI.Th sx={sx.verticalHeader} scope="row">
+              {table.label}
+            </CUI.Th>
+            {programTypes.map((programType, ptIndex) => (
+              <CUI.Td key={ptIndex} isNumeric sx={sx.content}>
+                {table[programType].value}
+              </CUI.Td>
+            ))}
+          </CUI.Tr>
+        ))}
+      </CUI.Tbody>
+    </CUI.Table>
+  );
+};
+
+const verticalValueTable = (tables: TableDataShape[]) => {
+  return (
+    <CUI.VStack align="flex-start" mt="4">
+      {programTypes.slice(0, -1).map((programType, ptIndex) => (
+        <CUI.List
+          key={ptIndex}
+          padding="0 0 1rem 2rem"
+          textTransform="capitalize"
+        >
+          <CUI.Text fontWeight="bold" mb="2">
+            {programType === "Combined Rate" ? "Combined Count" : programTypes}
+          </CUI.Text>
+          {tables.map((table, rIndex) => (
+            <CUI.ListItem key={rIndex} pl="7">
+              {table.label}: {table[programType].value}
+            </CUI.ListItem>
+          ))}
+        </CUI.List>
+      ))}
+      <CUI.Divider borderColor="gray.300" />
+    </CUI.VStack>
+  );
+};
+
+const getRateComponent = (json: CombinedRatePayload) => {
+  const dataSources = json.data
+    .map((item) => (item as SeparatedData)?.dataSource)
+    .flat();
+
+  const hybridDataSources = [
+    "HybridAdministrativeandMedicalRecordsData",
+    "Casemanagementrecordreview",
+  ];
+  const isHybrid = dataSources?.some((src) => hybridDataSources.includes(src));
+  return [...defaultRateComponents, ...(isHybrid ? hybridRateComponents : [])];
+};
+
 export const CombinedRateNDR = ({ json }: Props) => {
   const tables = collectRatesForDisplay(json);
   provideDefaultValues(tables);
   sortRates(tables, json.year, json.measure);
 
+  const rateTables = tables.filter((table) => table.type === "rate");
+  const valueTables = tables.filter((table) => table.type === "value");
+  const rateComponents = getRateComponent(json);
+
   return (
     <CUI.Box sx={sx.tableContainer} mb="3rem">
-      {tables.map((table, index) => {
+      {rateTables.map((table, index) => {
         return (
           <CUI.Box key={index} as={"section"}>
             {table.category ? (
@@ -103,11 +199,21 @@ export const CombinedRateNDR = ({ json }: Props) => {
                 {table.label}
               </CUI.Heading>
             )}
-            <CUI.Hide below="md">{horizontalTable(table)}</CUI.Hide>
-            <CUI.Show below="md">{verticalTable(table)}</CUI.Show>
+            <CUI.Hide below="md">
+              {horizontalRateTable(table, rateComponents)}
+            </CUI.Hide>
+            <CUI.Show below="md">
+              {verticalRateTable(table, rateComponents)}
+            </CUI.Show>
           </CUI.Box>
         );
       })}
+      {valueTables.length > 0 && (
+        <CUI.Box mt="12" as={"section"}>
+          <CUI.Hide below="md">{horizontalValueTable(valueTables)}</CUI.Hide>
+          <CUI.Show below="md">{verticalValueTable(valueTables)}</CUI.Show>
+        </CUI.Box>
+      )}
     </CUI.Box>
   );
 };
@@ -118,17 +224,41 @@ const collectRatesForDisplay = (
   const tables: PartialTableDataShape[] = [];
   const data = json.data;
 
+  const separatedMedicaid = data?.find(
+    (item) => item.column == "Medicaid"
+  ) as SeparatedData;
+  const separatedChip = data?.find(
+    (item) => item.column == "CHIP"
+  ) as SeparatedData;
+
   // Filter data by Medicaid, CHIP, and Combined Rates
-  const medicaidData = (data?.find((item) => item.column == "Medicaid")
-    ?.rates ?? {}) as RateCategoryMap;
-  const chipData = (data?.find((item) => item.column == "CHIP")?.rates ??
-    {}) as RateCategoryMap;
+  const medicaidData =
+    data?.find((item) => item.column == "Medicaid")?.rates ??
+    ({} as RateCategoryMap);
+  const chipData =
+    data?.find((item) => item.column == "CHIP")?.rates ??
+    ({} as RateCategoryMap);
   const combinedRatesData = (data?.find(
     (item) => item.column == "Combined Rate"
   )?.rates ?? []) as RateDataShape[];
 
+  const medicaidIsHybrid =
+    separatedMedicaid.dataSource.includes(
+      "HybridAdministrativeandMedicalRecordsData"
+    ) || separatedMedicaid.dataSource.includes("Casemanagementrecordreview");
+  const chipIsHybrid =
+    separatedChip.dataSource.includes(
+      "HybridAdministrativeandMedicalRecordsData"
+    ) || separatedChip.dataSource.includes("Casemanagementrecordreview");
+
+  //extra fields to track for hybrid data
+  const medicaidMEP = separatedMedicaid["measure-eligible population"];
+  const chipMEP = separatedChip["measure-eligible population"];
+
   const rememberRate = (rate: RateDataShape, program: ProgramType) => {
     let existingTable = tables.find((t) => t.uid === rate.uid);
+    let type = rate.hasOwnProperty("value") ? "value" : "rate";
+
     if (existingTable) {
       existingTable[program] = rate;
     } else {
@@ -137,13 +267,20 @@ const collectRatesForDisplay = (
         category: rate.category,
         label: rate.label,
         [program]: rate,
+        type: type,
       });
     }
   };
   for (let medicaidRate of Object.values(medicaidData).flat()) {
+    medicaidRate["measure-eligible population"] =
+      !medicaidIsHybrid && !medicaidMEP
+        ? medicaidRate.denominator
+        : medicaidMEP;
     rememberRate(medicaidRate, "Medicaid");
   }
   for (let chipRate of Object.values(chipData).flat()) {
+    chipRate["measure-eligible population"] =
+      !chipIsHybrid && !chipMEP ? chipRate.denominator : chipMEP;
     rememberRate(chipRate, "Separate CHIP");
   }
   for (let combinedRate of combinedRatesData) {
@@ -169,12 +306,23 @@ function provideDefaultValues(
       const numerator = table[programType]?.numerator ?? notAnswered;
       const denominator = table[programType]?.denominator ?? notAnswered;
       const rate = table[programType]?.rate ?? "-";
+      const mep =
+        table[programType]?.["measure-eligible population"] ?? notAnswered;
+      const weightRate = table[programType]?.["weighted rate"] ?? "-";
+      const value =
+        !table[programType]?.["value"] || table[programType]?.["value"] === ""
+          ? notAnswered
+          : table[programType]?.["value"];
+
       // Add value back to table object
       table[programType] = {
         ...table[programType]!,
         numerator,
         denominator,
         rate,
+        ["measure-eligible population"]: mep,
+        ["weighted rate"]: weightRate,
+        value,
       };
     }
   }

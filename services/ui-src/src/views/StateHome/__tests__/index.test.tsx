@@ -122,7 +122,7 @@ describe("Test StateHome 2024", () => {
     mockUseUser.mockImplementation(() => useUser);
     mockUseParams.mockReturnValue({
       year: "2024",
-      state: "OH",
+      state: "IN",
     });
     useApiMock({});
     render(testComponent);

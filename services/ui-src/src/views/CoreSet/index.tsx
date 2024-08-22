@@ -19,6 +19,7 @@ import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
 import { Alert } from "@cmsgov/design-system";
+import { parseLabelToHTML } from "utils";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -198,6 +199,7 @@ const useMeasureTableDataBuilder = () => {
             lastDateModified: item.lastAltered,
             createdAt: item.createdAt,
             autoCompleted: item.autoCompleted,
+            mandatory: item.mandatory,
             id: item.measure,
             userCreated: item.userCreated,
             actions: actions,
@@ -206,17 +208,14 @@ const useMeasureTableDataBuilder = () => {
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
       mounted && setMeasures(measureTableData);
 
-      let numCompleteItems = 0;
-      // include qualifier in core set status check
-      for (const m of data.Items as MeasureData[]) {
-        if (m.status === "complete") {
-          numCompleteItems++;
-        }
-      }
-      const numberOfCoreSets = 1;
+      // Edge case: Dev environments Complete All Button marks placeholders as complete.
+      const completeItems = (data.Items as MeasureData[]).filter(
+        (item) => !item.placeholder && item.status === MeasureStatus.COMPLETE
+      );
+      const numberOfCoreSets = 1; // Include qualifier in core set status check
 
       const coreStatus =
-        filteredItems.length + numberOfCoreSets === numCompleteItems
+        measureTableData.length + numberOfCoreSets === completeItems.length
           ? CoreSetTableItem.Status.COMPLETED
           : CoreSetTableItem.Status.IN_PROGRESS;
       setCoreSetStatus(coreStatus);
@@ -314,8 +313,9 @@ export const CoreSet = () => {
   );
 
   const coreSetInstructions: { [key: string]: string } = {
-    CC: "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets.",
-    HH: "States with approved Health Home Programs in operation by June 30, 2023 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets.",
+    AC: "Beginning with FFY 2024 reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as mandatory in the measure list below. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
+    CC: "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
+    HH: "States with approved Health Home Programs in operation by June 30, 2023 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets</a>.",
   };
 
   const coreSetPrefix = coreSet[0].slice(0, 2);
@@ -333,7 +333,9 @@ export const CoreSet = () => {
       {Number(year) >= 2024 && coreSetInstructions[coreSetPrefix] && (
         <CUI.Box mb="8">
           <Alert heading="Mandatory Measure Instructions">
-            <CUI.Text>{coreSetInstructions[coreSetPrefix]}</CUI.Text>
+            <CUI.Text sx={{ "& a": { textDecoration: "underline" } }}>
+              {parseLabelToHTML(coreSetInstructions[coreSetPrefix])}
+            </CUI.Text>
           </Alert>
         </CUI.Box>
       )}
