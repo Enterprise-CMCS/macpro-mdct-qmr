@@ -414,9 +414,7 @@ export const MeasureWrapper = ({
 
   const breadCrumbName =
     separatedCoreSet?.[params.coreSetId] ??
-    `${measureId} ${
-      apiData?.Item ? `- ${formatTitle(apiData?.Item?.description)}` : ""
-    }`;
+    `- ${formatTitle(apiData?.Item?.description)}`;
 
   return (
     <FormProvider {...methods}>
