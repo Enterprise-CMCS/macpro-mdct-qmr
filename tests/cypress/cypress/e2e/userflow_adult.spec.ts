@@ -47,8 +47,8 @@ describe("Measure: CDF-AD", () => {
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
-    cy.displaysSectionsWhenUserNotReporting(abbr);
-    cy.displaysSectionsWhenUserIsReporting(abbr);
+    cy.displaysSectionsWhenUserNotReporting(abbr, testingYear);
+    cy.displaysSectionsWhenUserIsReporting(abbr, testingYear);
   });
 
   it(

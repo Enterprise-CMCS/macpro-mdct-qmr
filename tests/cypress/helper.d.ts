@@ -30,10 +30,16 @@ declare namespace Cypress {
     goToMeasure(measure: MeasureList | string): Chainable<Element>;
 
     // Correct sections visible when user is reporting data on measure
-    displaysSectionsWhenUserIsReporting(coreSet: string): Chainable<Element>;
+    displaysSectionsWhenUserIsReporting(
+      coreSet: string,
+      year: string
+    ): Chainable<Element>;
 
     // Correct sections visible when user is not reporting data on measure
-    displaysSectionsWhenUserNotReporting(coreSet: string): Chainable<Element>;
+    displaysSectionsWhenUserNotReporting(
+      coreSet: string,
+      year: string
+    ): Chainable<Element>;
 
     // removes child core set from main page
     deleteChildCoreSets(): Chainable<Element>;
