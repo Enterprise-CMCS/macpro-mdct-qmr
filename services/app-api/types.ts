@@ -313,7 +313,7 @@ export type DataSourcePayload = {
   DataSourceSelections: DataSourceSelectionsType;
 };
 
-type WeightedRateShape = {
+export type WeightedRateShape = {
   numerator?: number;
   denominator?: number;
   rate?: number;

@@ -13,6 +13,7 @@ import {
   Measure,
   MeasurementSpecificationType,
   MeasureParameters,
+  WeightedRateShape,
 } from "../../types";
 import { fixRounding } from "../../utils/constants/math";
 
@@ -90,14 +91,6 @@ const calculateCombinedRates = (
     CHIP: getDataSources(chipMeasure),
   };
 
-  // Measures reported with other data sources or other specs are not usable.
-  if (DataSources.Medicaid.isUnusableForCalc) {
-    medicaidMeasure = undefined;
-  }
-  if (DataSources.CHIP.isUnusableForCalc) {
-    chipMeasure = undefined;
-  }
-
   const Rates = combineRates(
     measureAbbr,
     DataSources,
@@ -107,6 +100,7 @@ const calculateCombinedRates = (
 
   const AdditionalValues = calculateAdditionalValues(
     measureAbbr,
+    DataSources,
     medicaidMeasure,
     chipMeasure
   );
@@ -184,13 +178,6 @@ const combineRates = (
       const mDenominator = parseQmrNumber(medicaidRate?.denominator);
       const mRate = parseQmrNumber(medicaidRate?.rate);
 
-      const cNumerator = parseQmrNumber(chipRate?.numerator);
-      const cDenominator = parseQmrNumber(chipRate?.denominator);
-      const cRate = parseQmrNumber(chipRate?.rate);
-
-      const combinedNumerator = addSafely(mNumerator, cNumerator);
-      const combinedDenominator = addSafely(mDenominator, cDenominator);
-
       /*
        * For hybrid measures, we expect the user to enter the population.
        * For admin measures, we expect to use the rate's denominator instead.
@@ -207,6 +194,18 @@ const combineRates = (
       ) {
         medicaidPopulation = mDenominator;
       }
+
+      const Medicaid: WeightedRateShape = {
+        numerator: mNumerator,
+        denominator: mDenominator,
+        rate: mRate,
+        population: medicaidPopulation,
+      };
+
+      const cNumerator = parseQmrNumber(chipRate?.numerator);
+      const cDenominator = parseQmrNumber(chipRate?.denominator);
+      const cRate = parseQmrNumber(chipRate?.rate);
+
       let chipPopulation = parseQmrNumber(
         chipMeasure?.data?.HybridMeasurePopulationIncluded
       );
@@ -217,42 +216,55 @@ const combineRates = (
         chipPopulation = cDenominator;
       }
 
-      const totalPopulation = addSafely(medicaidPopulation, chipPopulation);
-      const mWeight = divideSafely(medicaidPopulation, totalPopulation);
-      const cWeight = divideSafely(chipPopulation, totalPopulation);
+      const CHIP: WeightedRateShape = {
+        numerator: cNumerator,
+        denominator: cDenominator,
+        rate: cRate,
+        population: chipPopulation,
+      };
 
-      let mWeightedRate = multiplySafely(mWeight, mRate);
-      let cWeightedRate = multiplySafely(cWeight, cRate);
-      let combinedWeightedRate = addSafely(mWeightedRate, cWeightedRate);
+      let Combined;
+      if (DataSources.Medicaid.isUnusableForCalc && DataSources.CHIP.isUnusableForCalc) {
+        Combined = {};
+      }
+      else if (DataSources.Medicaid.isUnusableForCalc) {
+        CHIP.weightedRate = cRate;
+        Combined = {
+          population: chipPopulation,
+          weightedRate: cRate,
+        };
+      }
+      else if (DataSources.CHIP.isUnusableForCalc) {
+        Medicaid.weightedRate = mRate;
+        Combined = {
+          population: medicaidPopulation,
+          weightedRate: mRate,
+        };
+      }
+      else {
+        const totalPopulation = addSafely(medicaidPopulation, chipPopulation);
+        const mWeight = divideSafely(medicaidPopulation, totalPopulation);
+        const cWeight = divideSafely(chipPopulation, totalPopulation);
+  
+        const mWeightedRate = multiplySafely(mWeight, mRate);
+        const cWeightedRate = multiplySafely(cWeight, cRate);
+        const combinedRate = addSafely(mWeightedRate, cWeightedRate);
 
-      mWeightedRate = roundSafely(mWeightedRate, 1);
-      cWeightedRate = roundSafely(cWeightedRate, 1);
-      combinedWeightedRate = roundSafely(combinedWeightedRate, 1);
+        Medicaid.weightedRate = roundSafely(mWeightedRate, 1);
+        CHIP.weightedRate = roundSafely(cWeightedRate, 1);
+        Combined = {
+          population: totalPopulation,
+          weightedRate: roundSafely(combinedRate, 1),
+        };
+      }
 
       return {
         uid: uid,
         category: medicaidRate?.category ?? chipRate?.category,
         label: medicaidRate?.label ?? chipRate?.label,
-        Medicaid: {
-          numerator: mNumerator,
-          denominator: mDenominator,
-          rate: mRate,
-          population: medicaidPopulation,
-          weightedRate: mWeightedRate,
-        },
-        CHIP: {
-          numerator: cNumerator,
-          denominator: cDenominator,
-          rate: cRate,
-          population: chipPopulation,
-          weightedRate: cWeightedRate,
-        },
-        Combined: {
-          numerator: combinedNumerator,
-          denominator: combinedDenominator,
-          population: totalPopulation,
-          weightedRate: combinedWeightedRate,
-        },
+        Medicaid,
+        CHIP,
+        Combined,
       };
     });
   } else {
@@ -263,37 +275,51 @@ const combineRates = (
       const mNumerator = parseQmrNumber(medicaidRate?.numerator);
       const mDenominator = parseQmrNumber(medicaidRate?.denominator);
       const mRate = parseQmrNumber(medicaidRate?.rate);
+      const Medicaid = {
+        numerator: mNumerator,
+        denominator: mDenominator,
+        rate: mRate,
+      };
 
       const cNumerator = parseQmrNumber(chipRate?.numerator);
       const cDenominator = parseQmrNumber(chipRate?.denominator);
       const cRate = parseQmrNumber(chipRate?.rate);
+      const CHIP = {
+        numerator: cNumerator,
+        denominator: cDenominator,
+        rate: cRate,
+      };
 
-      const combinedNumerator = addSafely(mNumerator, cNumerator);
-      const combinedDenominator = addSafely(mDenominator, cDenominator);
-      const quotient = divideSafely(combinedNumerator, combinedDenominator);
-      let combinedRate = transformQuotient(measureAbbr, quotient);
-
-      combinedRate = roundSafely(combinedRate, 1);
+      let Combined;
+      if (DataSources.Medicaid.isUnusableForCalc && DataSources.CHIP.isUnusableForCalc) {
+        Combined = {};
+      }
+      else if (DataSources.Medicaid.isUnusableForCalc) {
+        Combined = { rate: cRate };
+      }
+      else if (DataSources.CHIP.isUnusableForCalc) {
+        Combined = { rate: mRate };
+      }
+      else {
+        const combinedNumerator = addSafely(mNumerator, cNumerator);
+        const combinedDenominator = addSafely(mDenominator, cDenominator);
+        const quotient = divideSafely(combinedNumerator, combinedDenominator);
+        const combinedRate = transformQuotient(measureAbbr, quotient);
+  
+        Combined = {
+          numerator: combinedNumerator,
+          denominator: combinedDenominator,
+          rate: roundSafely(combinedRate, 1),
+        };
+      }
 
       return {
         uid: uid,
         category: medicaidRate?.category ?? chipRate?.category,
         label: medicaidRate?.label ?? chipRate?.label,
-        Medicaid: {
-          numerator: mNumerator,
-          denominator: mDenominator,
-          rate: mRate,
-        },
-        CHIP: {
-          numerator: cNumerator,
-          denominator: cDenominator,
-          rate: cRate,
-        },
-        Combined: {
-          numerator: combinedNumerator,
-          denominator: combinedDenominator,
-          rate: combinedRate,
-        },
+        Medicaid,
+        CHIP,
+        Combined,
       };
     });
   }
@@ -329,6 +355,7 @@ const transformQuotient = (
  */
 const calculateAdditionalValues = (
   measureAbbr: string,
+  DataSources: CombinedRatesPayload["DataSources"],
   medicaidMeasure: Measure | undefined,
   chipMeasure: Measure | undefined
 ): CombinedRatesPayload["AdditionalValues"] => {
@@ -354,8 +381,18 @@ const calculateAdditionalValues = (
     const unreachable = findValues("HLXNLW.7dC1vt");
     const refusal = findValues("HLXNLW.6zIwnx");
 
-    unreachable.Combined = addSafely(unreachable.Medicaid, unreachable.CHIP);
-    refusal.Combined = addSafely(refusal.Medicaid, refusal.CHIP);
+    if (DataSources.Medicaid.isUnusableForCalc && DataSources.CHIP.isUnusableForCalc) {
+      // Both unusable? Nothing to combine.
+    } else if (DataSources.Medicaid.isUnusableForCalc) {
+      unreachable.Combined = unreachable.CHIP;
+      refusal.Combined = refusal.CHIP;
+    } else if (DataSources.CHIP.isUnusableForCalc) {
+      unreachable.Combined = unreachable.Medicaid;
+      refusal.Combined = refusal.Medicaid;
+    } else {
+      unreachable.Combined = addSafely(unreachable.Medicaid, unreachable.CHIP);
+      refusal.Combined = addSafely(refusal.Medicaid, refusal.CHIP);
+    }
 
     return [unreachable, refusal];
   } else if (measureAbbr === "PCR-AD") {
@@ -369,36 +406,60 @@ const calculateAdditionalValues = (
     const outlierCount = findValues("zcwVcA.pBILL1");
     const outlierRate = findValues("zcwVcA.Nfe4Cn");
 
-    stayCount.Combined = addSafely(stayCount.Medicaid, stayCount.CHIP);
-    obsReadmissionCount.Combined = addSafely(
-      obsReadmissionCount.Medicaid,
-      obsReadmissionCount.CHIP
-    );
-    obsReadmissionRate.Combined = multiplySafely(
-      divideSafely(obsReadmissionCount.Combined, stayCount.Combined),
-      100
-    );
-    expReadmissionCount.Combined = addSafely(
-      expReadmissionCount.Medicaid,
-      expReadmissionCount.CHIP
-    );
-    expReadmissionRate.Combined = multiplySafely(
-      divideSafely(expReadmissionCount.Combined, stayCount.Combined),
-      100
-    );
-    obsExpRatio.Combined = divideSafely(
-      obsReadmissionRate.Combined,
-      expReadmissionRate.Combined
-    );
-    beneficaryCount.Combined = addSafely(
-      beneficaryCount.Medicaid,
-      beneficaryCount.CHIP
-    );
-    outlierCount.Combined = addSafely(outlierCount.Medicaid, outlierCount.CHIP);
-    outlierRate.Combined = multiplySafely(
-      divideSafely(outlierCount.Combined, beneficaryCount.Combined),
-      1000
-    );
+    if (DataSources.Medicaid.isUnusableForCalc && DataSources.CHIP.isUnusableForCalc) {
+      // Both unusable? Nothing to combine.
+    } else if (DataSources.Medicaid.isUnusableForCalc) {
+      stayCount.Combined = stayCount.CHIP;
+      obsReadmissionCount.Combined = obsReadmissionCount.CHIP;
+      obsReadmissionRate.Combined = obsReadmissionRate.CHIP;
+      expReadmissionCount.Combined = expReadmissionCount.CHIP;
+      expReadmissionRate.Combined = expReadmissionRate.CHIP;
+      obsExpRatio.Combined = obsExpRatio.CHIP;
+      beneficaryCount.Combined = beneficaryCount.CHIP;
+      outlierCount.Combined = outlierCount.CHIP;
+      outlierRate.Combined = outlierRate.CHIP;
+    } else if (DataSources.CHIP.isUnusableForCalc) {
+      stayCount.Combined = stayCount.CHIP;
+      obsReadmissionCount.Combined = obsReadmissionCount.Medicaid;
+      obsReadmissionRate.Combined = obsReadmissionRate.Medicaid;
+      expReadmissionCount.Combined = expReadmissionCount.Medicaid;
+      expReadmissionRate.Combined = expReadmissionRate.Medicaid;
+      obsExpRatio.Combined = obsExpRatio.Medicaid;
+      beneficaryCount.Combined = beneficaryCount.Medicaid;
+      outlierCount.Combined = outlierCount.Medicaid;
+      outlierRate.Combined = outlierRate.Medicaid;
+    } else {
+      stayCount.Combined = addSafely(stayCount.Medicaid, stayCount.CHIP);
+      obsReadmissionCount.Combined = addSafely(
+        obsReadmissionCount.Medicaid,
+        obsReadmissionCount.CHIP
+      );
+      obsReadmissionRate.Combined = multiplySafely(
+        divideSafely(obsReadmissionCount.Combined, stayCount.Combined),
+        100
+      );
+      expReadmissionCount.Combined = addSafely(
+        expReadmissionCount.Medicaid,
+        expReadmissionCount.CHIP
+      );
+      expReadmissionRate.Combined = multiplySafely(
+        divideSafely(expReadmissionCount.Combined, stayCount.Combined),
+        100
+      );
+      obsExpRatio.Combined = divideSafely(
+        obsReadmissionRate.Combined,
+        expReadmissionRate.Combined
+      );
+      beneficaryCount.Combined = addSafely(
+        beneficaryCount.Medicaid,
+        beneficaryCount.CHIP
+      );
+      outlierCount.Combined = addSafely(outlierCount.Medicaid, outlierCount.CHIP);
+      outlierRate.Combined = multiplySafely(
+        divideSafely(outlierCount.Combined, beneficaryCount.Combined),
+        1000
+      );
+    }
 
     // We used unrounded values during calculation; round them now.
     obsReadmissionRate.Combined = roundSafely(obsReadmissionRate.Combined, 4);
