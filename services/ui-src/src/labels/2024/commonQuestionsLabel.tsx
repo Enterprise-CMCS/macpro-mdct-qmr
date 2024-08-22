@@ -10,23 +10,6 @@ export const commonQuestionsLabel = {
         "Please add any additional notes or comments on the measure not otherwise captured above (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     },
   },
-  CombinedRates: {
-    notHealthHome: {
-      question:
-        "Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate?",
-      optionYes:
-        "Yes, we combined rates from multiple reporting units to create a State-Level rate.",
-      optionNo:
-        "No, we did not combine rates from multiple reporting units to create a State-Level rate.",
-      notWeightedRate:
-        "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a State-Level rate.",
-      weightedRate:
-        "The rates are weighted based on the size of the measure-eligible population for each reporting unit.",
-      weightedRateOther:
-        "The rates are weighted based on another weighting factor.",
-      weightedRateOtherExplain: "Describe the other weighting factor:",
-    },
-  },
   DataSource: {
     ehrSrc: "Describe the data source:",
     describeDataSrc:

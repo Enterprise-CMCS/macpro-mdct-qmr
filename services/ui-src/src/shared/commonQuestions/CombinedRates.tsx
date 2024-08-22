@@ -17,12 +17,12 @@ export const CombinedRates = ({ healthHomeMeasure }: Props) => {
   const labels: any = useContext(SharedContext);
 
   const combinedLabel = healthHomeMeasure
-    ? labels.CombinedRates.healthHome
-    : labels.CombinedRates.notHealthHome;
+    ? labels.CombinedRates?.healthHome
+    : labels.CombinedRates?.notHealthHome;
 
   return (
     <>
-      {Number(labels.year) < 2024 && (
+      {labels.CombinedRates && (
         <QMR.CoreQuestionWrapper
           testid="combined-rates"
           label={labels.CombinedRates.header}
