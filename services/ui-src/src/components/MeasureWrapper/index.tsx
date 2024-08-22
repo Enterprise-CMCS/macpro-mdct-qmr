@@ -463,7 +463,7 @@ export const MeasureWrapper = ({
                         params.coreSetId as CoreSetAbbr
                       ) && (
                         <CUI.Heading size="md" mb={6}>
-                          {formatTitle()}
+                          {measureId}: {formatTitle()}
                         </CUI.Heading>
                       )}
                       <CUI.Text fontSize="sm">

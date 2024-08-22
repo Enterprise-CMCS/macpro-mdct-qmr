@@ -74,9 +74,9 @@ export const coreSetBreadCrumbTitle = (
   if (parseInt(year) >= 2024)
     return {
       [CoreSetAbbr.ACSC]: "(Separate CHIP)",
-      [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI)))",
+      [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
       [CoreSetAbbr.CCSC]: "(Separate CHIP)",
-      [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI)))",
+      [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI))",
     };
 
   return undefined;
