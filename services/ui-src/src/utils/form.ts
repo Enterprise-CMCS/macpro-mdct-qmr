@@ -52,7 +52,11 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
 
 //compare two objects and return true if the values in them are different
 export const areObjectsDifferent = (objectA: AnyObject, objectB: AnyObject) => {
-  for (const key of Object.keys(objectA ?? objectB)) {
+  const uniqueKeys = [
+    ...Object.keys(objectA ?? {}),
+    ...Object.keys(objectB ?? {}),
+  ].filter((key, index, arr) => index === arr.indexOf(key));
+  for (const key of uniqueKeys) {
     //if the value is an object or array, we want to go down another layer
     if (typeof objectA?.[key] === "object") {
       //once we see a difference we want to break out of the loop and return true to trigger a save
