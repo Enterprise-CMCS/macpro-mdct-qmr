@@ -36,6 +36,29 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
       </>
     ),
   },
+  ACS: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: "Medicaid (Title XIX)",
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: "SurveySampleIncMedicareMedicaidDualEligible",
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3" mb="3">
+          Please select all populations that are included in the survey sample.
+          For example, if your survey sample includes both non-dual Medicaid
+          (Title XIX) beneficiaries and Individuals Dually Eligible for Medicare
+          and Medicaid, select both Medicaid population (Title XIX) and
+          Individuals Dually Eligible for Medicare and Medicaid.
+        </CUI.Text>
+      </>
+    ),
+  },
   ACSC: {
     options: [
       {
