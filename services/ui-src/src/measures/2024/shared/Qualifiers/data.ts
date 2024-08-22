@@ -10,10 +10,10 @@ export interface DataDriven {
 }
 
 const AdultData: DataDriven = {
-  title: "Adult Core Set Qualifiers",
-  questionTitle: "Adult Core Set Questions",
+  title: "Adult Core Set Qualifiers: Medicaid",
+  questionTitle: "Adult Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid/CHIP enrollees (above age 21) were enrolled in each delivery system?`,
+    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
   textTable: [
     ["Medicaid (Title XIX & XXI)", "Ages 21 to 64"],
     ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
@@ -114,36 +114,29 @@ const AdultMedicaidData: DataDriven = {
 };
 
 const ChildData: DataDriven = {
-  title: "Child Core Set Qualifiers: Medicaid & CHIP",
-  questionTitle: "Child Core Set Questions: Medicaid & CHIP",
+  title: "Child Core Set Qualifiers: Medicaid",
+  questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid/CHIP enrollees (under age 21) were enrolled in each delivery system?`,
-  textTable: [
-    ["Medicaid (TITLE XIX & XXI)", "Under Age 21"],
-    ["CHIP", "Under Age 21"],
-  ],
-  fieldValues: ["UnderTwentyOneMedicaid", "UnderTwentyOneCHIP"],
+    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system?`,
+  textTable: [["Medicaid (TITLE XIX & XXI)", "Under Age 21"]],
+  fieldValues: ["UnderTwentyOneMedicaid"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [
       {
         label: "Fee-for-Service",
         UnderTwentyOneMedicaid: "",
-        UnderTwentyOneCHIP: "",
       },
       {
         label: "PCCM",
         UnderTwentyOneMedicaid: "",
-        UnderTwentyOneCHIP: "",
       },
       {
         label: "Managed Care",
         UnderTwentyOneMedicaid: "",
-        UnderTwentyOneCHIP: "",
       },
       {
         label: "Integrated Care Model (ICM)",
         UnderTwentyOneMedicaid: "",
-        UnderTwentyOneCHIP: "",
       },
     ],
     CoreSetMeasuresAuditedOrValidatedDetails: [initialAuditValues],
