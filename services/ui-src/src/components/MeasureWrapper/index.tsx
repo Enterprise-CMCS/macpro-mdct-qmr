@@ -26,6 +26,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { CompleteCoreSets } from "./complete";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
+import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -402,12 +403,18 @@ export const MeasureWrapper = ({
     return null;
   }
 
+  const separatedCoreSet = coreSetBreadCrumbTitle(year);
+
   const formatTitle = (customDescription?: string) => {
     const foundMeasureDescription =
       measureDescriptions?.[year]?.[measureId] || customDescription;
 
     return foundMeasureDescription || "";
   };
+
+  const breadCrumbName =
+    separatedCoreSet?.[params.coreSetId] ??
+    `- ${formatTitle(apiData?.Item?.description)}`;
 
   return (
     <FormProvider {...methods}>
@@ -429,11 +436,7 @@ export const MeasureWrapper = ({
             path: `/${params.state}/${year}/${params.coreSetId}/${measureId}`,
             name:
               defaultVals?.title ??
-              `${measureId} ${
-                apiData?.Item
-                  ? `- ${formatTitle(apiData?.Item?.description)}`
-                  : ""
-              }`,
+              `${measureId} ${apiData?.Item ? breadCrumbName : ""}`,
           },
         ]}
         buttons={
@@ -455,13 +458,22 @@ export const MeasureWrapper = ({
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
                   {measureId !== "CSQ" && (
-                    <CUI.Text fontSize="sm">
-                      For technical questions regarding use of this application,
-                      please reach out to MDCT_Help@cms.hhs.gov. For
-                      content-related questions about measure specifications, or
-                      what information to enter in each field, please reach out
-                      to MACQualityTA@cms.hhs.gov.
-                    </CUI.Text>
+                    <>
+                      {Object.keys(separatedCoreSet ?? []).includes(
+                        params.coreSetId as CoreSetAbbr
+                      ) && (
+                        <CUI.Heading size="md" mb={6}>
+                          {measureId}: {formatTitle()}
+                        </CUI.Heading>
+                      )}
+                      <CUI.Text fontSize="sm">
+                        For technical questions regarding use of this
+                        application, please reach out to MDCT_Help@cms.hhs.gov.
+                        For content-related questions about measure
+                        specifications, or what information to enter in each
+                        field, please reach out to MACQualityTA@cms.hhs.gov.
+                      </CUI.Text>
+                    </>
                   )}
                   <SharedContext.Provider value={shared}>
                     <Measure
