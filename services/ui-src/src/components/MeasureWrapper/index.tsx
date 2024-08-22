@@ -26,6 +26,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { CompleteCoreSets } from "./complete";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
+import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -402,12 +403,7 @@ export const MeasureWrapper = ({
     return null;
   }
 
-  const separatedCoreSet: { [key: string]: string } = {
-    [CoreSetAbbr.ACSC]: "(Separate CHIP)",
-    [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI)))",
-    [CoreSetAbbr.CCSC]: "(Separate CHIP)",
-    [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI)))",
-  };
+  const separatedCoreSet = coreSetBreadCrumbTitle(year);
 
   const formatTitle = (customDescription?: string) => {
     const foundMeasureDescription =
@@ -417,7 +413,7 @@ export const MeasureWrapper = ({
   };
 
   const breadCrumbName =
-    separatedCoreSet[params.coreSetId] ??
+    separatedCoreSet?.[params.coreSetId] ??
     `${measureId} ${
       apiData?.Item ? `- ${formatTitle(apiData?.Item?.description)}` : ""
     }`;
@@ -465,7 +461,7 @@ export const MeasureWrapper = ({
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
                   {measureId !== "CSQ" && (
                     <>
-                      {Object.keys(separatedCoreSet).includes(
+                      {Object.keys(separatedCoreSet ?? []).includes(
                         params.coreSetId as CoreSetAbbr
                       ) && (
                         <CUI.Heading size="md" mb={6}>
