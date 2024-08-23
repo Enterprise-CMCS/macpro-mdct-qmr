@@ -63,6 +63,7 @@ export const CombinedRateNDR = ({
                 mt="4"
                 size="md"
                 verticalAlign="top"
+                textTransform="initial"
               >
                 <CUI.Thead>
                   <CUI.Tr>

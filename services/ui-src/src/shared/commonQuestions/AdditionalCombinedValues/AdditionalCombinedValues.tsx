@@ -39,7 +39,13 @@ export const AdditionalCombinedValues = ({
         <CUI.Box mt="12" as={"section"}>
           <CUI.Hide below="md">
             {/* This is the desktop version of the table */}
-            <CUI.Table variant="unstyled" mt="4" size="md" verticalAlign="top">
+            <CUI.Table
+              variant="unstyled"
+              mt="4"
+              size="md"
+              verticalAlign="top"
+              textTransform="initial"
+            >
               <CUI.Thead>
                 <CUI.Tr>
                   <CUI.Td></CUI.Td>
