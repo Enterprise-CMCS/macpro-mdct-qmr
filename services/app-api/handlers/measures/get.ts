@@ -37,15 +37,15 @@ export const listMeasures = handler(async (event, context) => {
   const params = {
     TableName: process.env.measureTableName!,
     ...convertToDynamoExpression(
-      { state: state, year: parseInt(year as string), coreSet: coreSet },
+      { state: state, year: parseInt(year), coreSet: coreSet },
       "list"
     ),
   };
 
   let queriedMeasures = await dynamoDb.scanAll<Measure>(params);
   for (let v of queriedMeasures) {
-    const measure = measures[parseInt(year)]?.filter(
-      (m) => m.measure === (v as Measure)?.measure
+    const measure = measures[parseInt(year as string)]?.filter(
+      (m) => m.measure === (v as Measure)?.measurex
     )[0];
 
     v.autoCompleted = !!measure?.autocompleteOnCreation;
