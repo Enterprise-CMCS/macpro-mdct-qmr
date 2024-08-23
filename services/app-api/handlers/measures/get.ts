@@ -37,7 +37,7 @@ export const listMeasures = handler(async (event, context) => {
   const params = {
     TableName: process.env.measureTableName!,
     ...convertToDynamoExpression(
-      { state: state, year: parseInt(year), coreSet: coreSet },
+      { state: state, year: parseInt(year as string), coreSet: coreSet },
       "list"
     ),
   };
