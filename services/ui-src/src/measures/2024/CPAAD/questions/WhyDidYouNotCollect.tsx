@@ -9,7 +9,7 @@ export const WhyDidYouNotCollect = () => {
   return (
     <QMR.CoreQuestionWrapper
       testid="why-did-you-not-collect"
-      label="Why did you not collect this measure"
+      label="Why did you not collect this measure?"
     >
       <QMR.Checkbox
         {...register("WhyDidYouNotCollect")}
