@@ -10,11 +10,8 @@ import * as DC from "dataConstants";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const MSCAD = ({
-  name,
   year,
-  measureId,
   setValidationFunctions,
-
   isPrimaryMeasureSpecSelected,
   showOptionalMeasureStrat,
   isOtherMeasureSpecSelected,
@@ -29,34 +26,35 @@ export const MSCAD = ({
 
   return (
     <>
-      <Q.Reporting
-        reportingYear={year}
-        measureName={name}
-        measureAbbreviation={measureId}
-      />
-      <Q.HowDidYouReport
-        reportingYear={year}
-        healthHomeMeasure
-        removeLessThan30
-      />
-      {data[DC.DID_REPORT] !== DC.NO && (
+      <Q.Reporting reportingYear={year} />
+      {data[DC.DID_COLLECT] !== DC.NO && (
         <>
-          <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
-          <Q.DataSource type="adult" />
-          <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation />
-          {isPrimaryMeasureSpecSelected && (
-            <>
-              <CMQ.PerformanceMeasure data={PMD.data} rateReadOnly={false} />
-              <CMQ.DeviationFromMeasureSpec />
-            </>
-          )}
-          {/* Show Other Performance Measures when isHedis is not true  */}
-          {isOtherMeasureSpecSelected && (
-            <CMQ.OtherPerformanceMeasure rateAlwaysEditable />
-          )}
-          {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
+          <Q.HowDidYouReport reportingYear={year} />
+          <>
+            {data[DC.DID_REPORT] !== DC.NO && (
+              <>
+                <CMQ.StatusOfData />
+                <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
+                <Q.DataSource type="adult" />
+                <CMQ.DateRange type="adult" />
+                <CMQ.DefinitionOfPopulation />
+                {isPrimaryMeasureSpecSelected && (
+                  <>
+                    <CMQ.PerformanceMeasure
+                      data={PMD.data}
+                      rateReadOnly={false}
+                    />
+                    <CMQ.DeviationFromMeasureSpec />
+                  </>
+                )}
+                {/* Show Other Performance Measures when isHedis is not true  */}
+                {isOtherMeasureSpecSelected && (
+                  <CMQ.OtherPerformanceMeasure rateAlwaysEditable />
+                )}
+                {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
+              </>
+            )}
+          </>
         </>
       )}
       <CMQ.AdditionalNotes />
