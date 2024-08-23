@@ -1,6 +1,6 @@
 import { measures } from "./handlers/dynamoUtils/measureList";
 import { DataSource } from "./handlers/rate/calculations/types";
-import { coreSets, states } from "./utils/constants/constants";
+import { states } from "./utils/constants/constants";
 
 export interface CoreSet {
   compoundKey: string;

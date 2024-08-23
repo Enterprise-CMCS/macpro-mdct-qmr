@@ -82,5 +82,3 @@ export const states = [
   "WI",
   "WY",
 ];
-
-export const coreSets = ["ACSM", "ACSC", "CCSM", "CCSC", "ACS", "CCS"];
