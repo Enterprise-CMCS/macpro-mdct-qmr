@@ -1,4 +1,6 @@
 import * as CUI from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
+import { Alert } from "@cmsgov/design-system";
 import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
 
 type Props = {
@@ -23,12 +25,30 @@ const dataSourceDisplayNames: Record<string, string> = {
 export const DataSourceInformationBanner = ({
   payload: { DataSources },
 }: Props) => {
-  const columns = ["Medicaid", "CHIP"] as const;
+  const programTypes = ["Medicaid", "CHIP"] as const;
   const dataSourceSubsection = (dataSource: string) => {
     return dataSourceDisplayNames[dataSource] ?? dataSource;
   };
 
-  const renderData = columns.map((column, idx) => {
+  const unusableExplanation = (ds: DataSourcePayload) => {
+    const explanations = {
+      hasECDSDataSource: `These data were reported using the Electronic Clinical Data System (ECDS) Data Source (alone or in
+combination with other data sources). The data will not be used to calculate a combined rate below.`,
+      hasOtherDataSource: `These data were reported using “Other” Data Source (alone or in combination with other data sources).
+The data will not be used to calculate a combined rate below.`,
+      hasOtherSpecification: `These data were reported using “Other” Specifications. Therefore, the data are not shown below and
+will not be used to calculate a combined rate.`,
+    };
+    return Object.entries(explanations)
+      .filter(([flag, _text]) => ds[flag as keyof typeof explanations])
+      .map(([_flag, text]) => (
+        <Alert style={{marginTop:"1em"}} variation="warn">
+          <CUI.Text>{text}</CUI.Text>
+        </Alert>
+      ));
+  };
+
+  const renderData = programTypes.map((programType, idx) => {
     return (
       <CUI.Box
         sx={sx.infoBannerDesktop.section}
@@ -39,13 +59,13 @@ export const DataSourceInformationBanner = ({
           tabIndex={0}
           pt={"1.25rem"}
           sx={sx.header}
-          data-cy={`data-source-component-${column}-heading`}
+          data-cy={`data-source-component-${programType}-heading`}
         >
-          {`${programDisplayNames[column]} Data Source`}
+          {`${programDisplayNames[programType]} Data Source`}
         </CUI.Heading>
 
-        {DataSources[column].DataSource.length ? (
-          DataSources[column].DataSource.map((dataSource: string) => {
+        {DataSources[programType].DataSource.length ? (
+          DataSources[programType].DataSource.map((dataSource: string) => {
             return (
               <CUI.UnorderedList key={`${dataSource}-${idx}`}>
                 <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
@@ -53,7 +73,7 @@ export const DataSourceInformationBanner = ({
                 </CUI.Heading>
                 {dataSourceSelections(
                   dataSource,
-                  DataSources[column].DataSourceSelections
+                  DataSources[programType].DataSourceSelections
                 ).map((item, srcIdx) => (
                   <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
                     {item}
@@ -67,6 +87,7 @@ export const DataSourceInformationBanner = ({
             Not reported
           </CUI.Text>
         )}
+        {unusableExplanation(DataSources[programType])}
       </CUI.Box>
     );
   });
