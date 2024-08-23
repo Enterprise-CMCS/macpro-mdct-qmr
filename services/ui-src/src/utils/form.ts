@@ -1,4 +1,5 @@
 import * as Types from "measures/2021/CommonQuestions/types";
+import { AnyObject } from "types";
 
 /**
  * Given a PerformanceMeasure or OtherPerformanceMeasure object, return true if any of the rates are
@@ -47,4 +48,24 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
   }
 
   return ratesExist;
+};
+
+//compare two objects and return true if the values in them are different
+export const areObjectsDifferent = (objectA: AnyObject, objectB: AnyObject) => {
+  const uniqueKeys = [
+    ...Object.keys(objectA ?? {}),
+    ...Object.keys(objectB ?? {}),
+  ].filter((key, index, arr) => index === arr.indexOf(key));
+  for (const key of uniqueKeys) {
+    //if the value is an object or array, we want to go down another layer
+    if (typeof objectA?.[key] === "object") {
+      //once we see a difference we want to break out of the loop and return true to trigger a save
+      if (areObjectsDifferent(objectA?.[key], objectB?.[key])) {
+        return true;
+      }
+    } else {
+      if (objectA?.[key] !== objectB?.[key]) return true;
+    }
+  }
+  return false;
 };
