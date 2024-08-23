@@ -160,7 +160,10 @@ export const isValidYear = (year: string) => {
 };
 
 export const isCoreSetAbbr = (coreSet: string): coreSet is CoreSetAbbr => {
-  return Object.values(CoreSetAbbr).includes(coreSet as CoreSetAbbr);
+  return (
+    Object.values(CoreSetAbbr).includes(coreSet as CoreSetAbbr) ||
+    coreSet.startsWith(CoreSetAbbr.HHCS)
+  );
 };
 
 export const isMeasure = (year: string, measure: string | undefined) => {
