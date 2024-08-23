@@ -89,7 +89,7 @@ export interface Banner {
   lastAlteredBy: string;
 }
 
-export const enum CoreSetAbbr {
+export enum CoreSetAbbr {
   ACS = "ACS", // adult
   ACSM = "ACSM", // adult medicaid
   ACSC = "ACSC", // adult chip
@@ -159,19 +159,12 @@ export const isValidYear = (year: string) => {
   return reportingYears.includes(year);
 };
 
-export const isCoreSet = (coreSet: string | undefined) => {
-  return coreSet && (coreSets.includes(coreSet) || coreSet.startsWith("HHCS_"));
+export const isCoreSetAbbr = (coreSet: string): coreSet is CoreSetAbbr => {
+  return Object.values(CoreSetAbbr).includes(coreSet as CoreSetAbbr);
 };
 
-export const isMeasure = (
-  year: string | undefined,
-  measure: string | undefined
-) => {
-  return (
-    year &&
-    isValidYear(year) &&
-    !!measures[parseInt(year)].find((measureObject) => {
-      return measureObject.measure == measure;
-    })
+export const isMeasure = (year: string, measure: string | undefined) => {
+  return measures[parseInt(year)]?.some(
+    (measureObject) => measureObject.measure === measure
   );
 };

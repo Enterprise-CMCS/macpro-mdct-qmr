@@ -1,7 +1,7 @@
 import { logger } from "../libs/debug-lib";
 import {
   APIGatewayProxyEvent,
-  isCoreSet,
+  isCoreSetAbbr,
   isMeasure,
   isState,
   isValidYear,
@@ -32,7 +32,7 @@ export const parseSpecificCoreSetParameters = (event: APIGatewayProxyEvent) => {
     logger.warn("Invalid or missing year in path");
     return { allParamsValid: false as const };
   }
-  if (!coreSet || !isCoreSet(coreSet)) {
+  if (!coreSet || !isCoreSetAbbr(coreSet)) {
     logger.warn("Invalid or missing coreset in path");
     return { allParamsValid: false as const };
   }
@@ -50,7 +50,7 @@ export const parseSpecificMeasureParameters = (event: APIGatewayProxyEvent) => {
     logger.warn("Invalid or missing year in path");
     return { allParamsValid: false as const };
   }
-  if (!coreSet || !isCoreSet(coreSet)) {
+  if (!coreSet || !isCoreSetAbbr(coreSet)) {
     logger.warn("Invalid or missing coreset in path");
     return { allParamsValid: false as const };
   }

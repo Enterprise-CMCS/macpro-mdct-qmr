@@ -50,7 +50,6 @@ describe("Testing the Create CoreSet Functions", () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
     (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
-    const list = measures[2021].filter((measure) => measure.type === "A");
     const res = await createCoreSet(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
@@ -78,7 +77,6 @@ describe("Testing the Create CoreSet Functions", () => {
   test("Test createCoreSet with missing path params", async () => {
     event.pathParameters = null;
     (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
-    const list = measures[2021].filter((measure) => measure.type === "A");
     const res = await createCoreSet(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
@@ -91,7 +89,6 @@ describe("Testing the Create CoreSet Functions", () => {
       coreSet: CoreSetAbbr.ACS,
     };
     (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
-    const list = measures[2021].filter((measure) => measure.type === "A");
     const res = await createCoreSet(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);

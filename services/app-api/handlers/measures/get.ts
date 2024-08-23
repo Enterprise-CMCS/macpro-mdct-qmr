@@ -61,7 +61,7 @@ export const listMeasures = handler(async (event, context) => {
 });
 
 export const getMeasure = handler(async (event, context) => {
-  const { allParamsValid } = parseSpecificMeasureParameters(event);
+  const { allParamsValid, coreSet } = parseSpecificMeasureParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,
@@ -85,7 +85,7 @@ export const getMeasure = handler(async (event, context) => {
     TableName: process.env.measureTableName!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event.pathParameters!.coreSet!,
+      coreSet: coreSet,
     },
   };
   const queryValue = await dynamoDb.get<Measure>(params);

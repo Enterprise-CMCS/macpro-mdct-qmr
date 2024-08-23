@@ -38,7 +38,7 @@ export const createMeasure = handler(async (event, context) => {
       compoundKey: dynamoKey,
       state: state,
       year: parseInt(year),
-      coreSet: coreSet as CoreSetAbbr,
+      coreSet: coreSet,
       measure: measure,
       createdAt: Date.now(),
       lastAltered: Date.now(),
