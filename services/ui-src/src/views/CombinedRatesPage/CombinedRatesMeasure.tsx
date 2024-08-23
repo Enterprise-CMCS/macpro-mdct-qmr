@@ -122,7 +122,11 @@ export const CombinedRatesMeasure = ({
               year={year}
               measure={measure}
             />
-            <AdditionalCombinedValues payload={combinedRateData} />
+            <AdditionalCombinedValues
+              payload={combinedRateData}
+              year={year}
+              measure={measure}
+            />
           </>
         )}
       </LoadingWrapper>

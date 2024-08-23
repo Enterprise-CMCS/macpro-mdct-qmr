@@ -12,8 +12,13 @@ describe("Combined Rates - Additional Values", () => {
       Rates: [],
       AdditionalValues: [],
     };
+    const props = {
+      payload,
+      year: "2024",
+      measure: "ADD-CH",
+    };
 
-    render(<AdditionalCombinedValues payload={payload} />);
+    render(<AdditionalCombinedValues {...props} />);
 
     const columnHeaders = ["Medicaid", "Separate CHIP", "Combined Count"];
     for (let header of columnHeaders) {
@@ -38,16 +43,18 @@ describe("Combined Rates - Additional Values", () => {
         },
       ],
     };
+    const props = {
+      payload,
+      year: "2024",
+      measure: "ADD-CH",
+    };
 
-    const { container } = render(
-      <AdditionalCombinedValues payload={payload} />
-    );
+    const { container } = render(<AdditionalCombinedValues {...props} />);
 
     const columnHeaders = ["Medicaid", "Separate CHIP", "Combined Count"];
     for (let header of columnHeaders) {
       expect(screen.getByText(header)).toBeInTheDocument();
     }
-    expect(screen.getByText("Mock Value Label")).toBeInTheDocument();
     const cells = [...container.querySelectorAll("tbody td")];
     expect(cells[0]).toHaveTextContent("15");
     expect(cells[1]).toHaveTextContent("10");
@@ -71,10 +78,13 @@ describe("Combined Rates - Additional Values", () => {
         },
       ],
     };
+    const props = {
+      payload,
+      year: "2024",
+      measure: "ADD-CH",
+    };
 
-    const { container } = render(
-      <AdditionalCombinedValues payload={payload} />
-    );
+    const { container } = render(<AdditionalCombinedValues {...props} />);
 
     const cells = container.querySelectorAll("tbody tr td");
     expect(cells[0]).toHaveTextContent("Not Reported"); // Medicaid
@@ -113,10 +123,13 @@ describe("Combined Rates - Additional Values", () => {
         },
       ],
     };
+    const props = {
+      payload,
+      year: "2024",
+      measure: "PCR-AD",
+    };
 
-    const { container } = render(
-      <AdditionalCombinedValues payload={payload} />
-    );
+    const { container } = render(<AdditionalCombinedValues {...props} />);
 
     const columnHeaders = ["Medicaid", "Separate CHIP", "Combined Count"];
     for (let header of columnHeaders) {
@@ -140,5 +153,33 @@ describe("Combined Rates - Additional Values", () => {
     expect(table[2][0]).toHaveTextContent("1.0000");
     expect(table[2][1]).toHaveTextContent("2.0000");
     expect(table[2][2]).toHaveTextContent("3.0000");
+  });
+
+  it("should look up labels by UID", () => {
+    const payload = {
+      DataSources: {
+        Medicaid: {} as DataSourcePayload,
+        CHIP: {} as DataSourcePayload,
+      },
+      Rates: [],
+      AdditionalValues: [
+        {
+          uid: "zcwVcA.pBILL1",
+          label: "mock label - will be overridden",
+          Medicaid: 1,
+          CHIP: 2,
+          Combined: 3,
+        },
+      ],
+    };
+    const props = {
+      payload,
+      year: "2024",
+      measure: "PCR-AD",
+    };
+
+    render(<AdditionalCombinedValues {...props} />);
+
+    expect(screen.getByText("Number of Outliers")).toBeInTheDocument();
   });
 });
