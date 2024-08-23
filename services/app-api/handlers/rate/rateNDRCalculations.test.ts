@@ -1,8 +1,9 @@
 import { CombinedRatesPayload, Measure } from "../../types";
 import { combineRates } from "./rateNDRCalculations";
 
+
 describe("NDR calculations for Combined Rates", () => {
-  it("Should use the standard formula to combine admin+admin rates", async () => {
+  it("Should use the standard formula to combine admin+admin rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
@@ -62,7 +63,7 @@ describe("NDR calculations for Combined Rates", () => {
     ]);
   });
 
-  it("Should use special transformations for certain measures", async () => {
+  it("Should use special transformations for certain measures", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
@@ -132,7 +133,7 @@ describe("NDR calculations for Combined Rates", () => {
     expect(result[0].Combined.rate).toBe(33333.3);
   });
 
-  it("Should use a weighted calculation for hybrid+hybrid rates", async () => {
+  it("Should use a weighted calculation for hybrid+hybrid rates", () => {
     const dataSources = {
       Medicaid: { requiresWeightedCalc: true },
       CHIP: { requiresWeightedCalc: true },
@@ -209,7 +210,7 @@ describe("NDR calculations for Combined Rates", () => {
     ]);
   });
 
-  it("Should weight the admin rate by its denominator in hybrid+admin calculations", async () => {
+  it("Should weight the admin rate by its denominator in hybrid+admin calculations", () => {
     const dataSources = {
       Medicaid: { requiresWeightedCalc: true },
       CHIP: {},

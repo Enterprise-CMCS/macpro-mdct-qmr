@@ -4,8 +4,6 @@ import {
   getCombinedRatesFromTable,
 } from "./table";
 import dynamodbLib from "../libs/dynamodb-lib";
-import { convertToDynamoExpression } from "../handlers/dynamoUtils/convertToDynamoExpressionVars";
-import { StatusCodes } from "../utils/constants/constants";
 import { CombinedRatesPayload, DataSourcePayload } from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({

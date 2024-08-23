@@ -84,7 +84,7 @@ export const calculateAdditionalValues = (
       outlierCount.Combined = outlierCount.CHIP;
       outlierRate.Combined = outlierRate.CHIP;
     } else if (DataSources.CHIP.isUnusableForCalc) {
-      stayCount.Combined = stayCount.CHIP;
+      stayCount.Combined = stayCount.Medicaid;
       obsReadmissionCount.Combined = obsReadmissionCount.Medicaid;
       obsReadmissionRate.Combined = obsReadmissionRate.Medicaid;
       expReadmissionCount.Combined = expReadmissionCount.Medicaid;

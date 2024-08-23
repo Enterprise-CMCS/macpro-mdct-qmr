@@ -5,6 +5,7 @@ import {
 import { MeasureParameters } from "../../types";
 import { calculateAndPutRate } from "./rateCalculations";
 
+
 jest.mock("../../storage/table", () => ({
   getMeasureFromTable: jest.fn(),
   putCombinedRatesToTable: jest.fn(),
