@@ -3,12 +3,12 @@ import { CombinedRates } from "./CombinedRates";
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import SharedContext from "shared/SharedContext";
-import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
+import commonQuestionsLabel from "labels/2023/commonQuestionsLabel";
 
 describe("Test CombinedRates component", () => {
   beforeEach(() => {
     renderWithHookForm(
-      <SharedContext.Provider value={commonQuestionsLabel}>
+      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: 2023 }}>
         <CombinedRates />
       </SharedContext.Provider>
     );
@@ -99,7 +99,7 @@ describe("Test CombinedRates component", () => {
 describe("Test CombinedRates component for Health Homes", () => {
   beforeEach(() => {
     renderWithHookForm(
-      <SharedContext.Provider value={commonQuestionsLabel}>
+      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: 2023 }}>
         <CombinedRates healthHomeMeasure />
       </SharedContext.Provider>
     );

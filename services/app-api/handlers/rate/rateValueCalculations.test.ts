@@ -2,7 +2,7 @@ import { CombinedRatesPayload, Measure } from "../../types";
 import { calculateAdditionalValues } from "./rateValueCalculations";
 
 describe("Additional Value calculations for Combined Rates", () => {
-  it("Should calculate additional values for CPU-AD", async () => {
+  it("Should calculate additional values for CPU-AD", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
@@ -71,7 +71,49 @@ describe("Additional Value calculations for Combined Rates", () => {
     ]);
   });
 
-  it("Should calculate additional values for PCR-AD", async () => {
+  it("Should copy the values of one CPU-AD measure, if the other is unusable", () => {
+    const dataSources = {
+      Medicaid: {},
+      CHIP: {},
+    } as CombinedRatesPayload["DataSources"];
+    const measure = {
+      data: {
+        DataSource: ["ElectronicHealthRecords"],
+        PerformanceMeasure: {
+          rates: {
+            HLXNLW: [
+              {
+                uid: "HLXNLW.7dC1vt",
+                label: "Unreachable",
+                value: "4",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    dataSources.CHIP.isUnusableForCalc = true;
+    let result = calculateAdditionalValues(
+      "CPU-AD",
+      dataSources,
+      measure,
+      undefined
+    );
+    expect(result[0].Combined).toBe(4); // Copied from Medicaid
+
+    dataSources.CHIP.isUnusableForCalc = false;
+    dataSources.Medicaid.isUnusableForCalc = true;
+    result = calculateAdditionalValues(
+      "CPU-AD",
+      dataSources,
+      undefined,
+      measure
+    );
+    expect(result[0].Combined).toBe(4); // Copied from CHIP
+  });
+
+  it("Should calculate additional values for PCR-AD", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
@@ -182,5 +224,41 @@ describe("Additional Value calculations for Combined Rates", () => {
         Combined: 200,
       }),
     ]);
+  });
+
+  it("Should copy the values of one PCR-AD measure, if the other is unusable", () => {
+    const dataSources = {
+      Medicaid: {},
+      CHIP: {},
+    } as CombinedRatesPayload["DataSources"];
+    const measure = {
+      data: {
+        DataSource: ["ElectronicHealthRecords"],
+        PerformanceMeasure: {
+          rates: {
+            HLXNLW: [{ uid: "zcwVcA.Z31BMw", value: "5", label: "stay count" }],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    dataSources.CHIP.isUnusableForCalc = true;
+    let result = calculateAdditionalValues(
+      "PCR-AD",
+      dataSources,
+      measure,
+      undefined
+    );
+    expect(result[0].Combined).toBe(5); // Copied from Medicaid
+
+    dataSources.CHIP.isUnusableForCalc = false;
+    dataSources.Medicaid.isUnusableForCalc = true;
+    result = calculateAdditionalValues(
+      "PCR-AD",
+      dataSources,
+      undefined,
+      measure
+    );
+    expect(result[0].Combined).toBe(5); // Copied from CHIP
   });
 });

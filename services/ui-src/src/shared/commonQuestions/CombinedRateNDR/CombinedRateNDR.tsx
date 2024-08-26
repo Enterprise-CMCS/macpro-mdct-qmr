@@ -173,12 +173,14 @@ const sx = {
     fontSize: "16px",
     color: "black",
     letterSpacing: "normal",
+    textTransform: "initial",
   },
   verticalHeader: {
     fontWeight: "semibold",
     fontSize: "16px",
     color: "black",
     letterSpacing: "normal",
+    textTransform: "initial",
   },
   row: { borderBottom: "0.1px solid #D6D7D9" },
 };
