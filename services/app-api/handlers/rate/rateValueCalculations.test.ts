@@ -98,17 +98,17 @@ describe("Additional Value calculations for Combined Rates", () => {
       "CPU-AD",
       dataSources,
       measure,
-      undefined,
+      undefined
     );
     expect(result[0].Combined).toBe(4); // Copied from Medicaid
-    
+
     dataSources.CHIP.isUnusableForCalc = false;
     dataSources.Medicaid.isUnusableForCalc = true;
     result = calculateAdditionalValues(
       "CPU-AD",
       dataSources,
       undefined,
-      measure,
+      measure
     );
     expect(result[0].Combined).toBe(4); // Copied from CHIP
   });
@@ -236,9 +236,7 @@ describe("Additional Value calculations for Combined Rates", () => {
         DataSource: ["ElectronicHealthRecords"],
         PerformanceMeasure: {
           rates: {
-            HLXNLW: [
-              { uid: "zcwVcA.Z31BMw", value: "5", label: "stay count" },
-            ],
+            HLXNLW: [{ uid: "zcwVcA.Z31BMw", value: "5", label: "stay count" }],
           },
         },
       } as Measure["data"],
@@ -249,17 +247,17 @@ describe("Additional Value calculations for Combined Rates", () => {
       "PCR-AD",
       dataSources,
       measure,
-      undefined,
+      undefined
     );
     expect(result[0].Combined).toBe(5); // Copied from Medicaid
-    
+
     dataSources.CHIP.isUnusableForCalc = false;
     dataSources.Medicaid.isUnusableForCalc = true;
     result = calculateAdditionalValues(
       "PCR-AD",
       dataSources,
       undefined,
-      measure,
+      measure
     );
     expect(result[0].Combined).toBe(5); // Copied from CHIP
   });
