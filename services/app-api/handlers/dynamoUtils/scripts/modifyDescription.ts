@@ -1,6 +1,5 @@
 import prompt from "prompt-sync";
 import dynamoDb from "../../../libs/dynamodb-lib";
-import { DynamoUpdate } from "../../../types";
 import { stateAbbreviations } from "../measureList";
 
 // the year, environment, measure, and text to change to need to be passed in
@@ -16,7 +15,7 @@ const fetchMeasuresByName = async () => {
   let changeDescriptionTo;
 
   for (const abbreviation of stateAbbreviations) {
-    const foundMeasure = await dynamoDb.query({
+    const foundMeasure = (await dynamoDb.queryAll({
       TableName: tableName,
       KeyConditionExpression: "compoundKey = :compoundKey",
       ExpressionAttributeValues: {
@@ -24,31 +23,21 @@ const fetchMeasuresByName = async () => {
           measureType === "C" ? "CCS" : "ACS"
         }${measureName.toUpperCase()}`,
       },
-    });
+    })) as any[];
 
-    if (
-      foundMeasure.Items &&
-      foundMeasure.Items.length > 0 &&
-      !changeDescriptionTo
-    ) {
-      console.log(
-        `The current description is: ${foundMeasure.Items[0].description}`
-      );
+    if (foundMeasure && foundMeasure.length > 0 && !changeDescriptionTo) {
+      console.log(`The current description is: ${foundMeasure[0].description}`);
       changeDescriptionTo = p("What would you like to change it to: ");
       console.log(changeDescriptionTo);
     }
 
-    if (
-      foundMeasure.Items &&
-      foundMeasure.Items.length > 0 &&
-      changeDescriptionTo
-    ) {
-      foundMeasure.Items[0].description = changeDescriptionTo;
-      const params: DynamoUpdate = {
+    if (foundMeasure && foundMeasure.length > 0 && changeDescriptionTo) {
+      foundMeasure[0].description = changeDescriptionTo;
+      const params = {
         TableName: tableName,
         Key: {
-          compoundKey: foundMeasure.Items[0].compoundKey,
-          coreSet: foundMeasure.Items[0].coreSet,
+          compoundKey: foundMeasure[0].compoundKey,
+          coreSet: foundMeasure[0].coreSet,
         },
         UpdateExpression: "set #description = :description",
         ExpressionAttributeValues: {

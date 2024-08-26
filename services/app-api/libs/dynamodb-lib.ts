@@ -38,7 +38,9 @@ export const getConfig = () => {
   return process.env.DYNAMODB_URL ? localConfig : awsConfig;
 };
 
-const client = DynamoDBDocumentClient.from(new DynamoDBClient(getConfig()));
+const client = DynamoDBDocumentClient.from(new DynamoDBClient(getConfig()), {
+  marshallOptions: { removeUndefinedValues: true },
+});
 
 export default {
   put: (params: PutCommandInput) => client.send(new PutCommand(params)),

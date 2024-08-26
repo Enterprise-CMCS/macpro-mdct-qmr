@@ -1,9 +1,87 @@
 import {
+  DataSourceInformationBanner,
   dataSourceSelections,
   formatCamelCaseWithInitialisms,
 } from "./DataSourceInformationBanner";
+import { render } from "@testing-library/react";
+import { CombinedRatesPayload } from "types";
 
 describe("DataSourceInformationBanner", () => {
+  it("should render data sources correctly", () => {
+    const payload = {
+      DataSources: {
+        Medicaid: {
+          DataSource: ["AdministrativeData", "ElectronicHealthRecords"],
+          DataSourceSelections: {
+            AdministrativeData0: {
+              selected: ["MedicaidManagementInformationSystemMMIS"],
+            },
+            ElectronicHealthRecords: {
+              description: "These are health records stored with electricity",
+            },
+          },
+          requiresWeightedCalc: false,
+          isUnusableForCalc: false,
+        },
+        CHIP: {
+          DataSource: ["HybridAdministrativeandMedicalRecordsData"],
+          DataSourceSelections: {
+            HybridAdministrativeandMedicalRecordsData0: {
+              selected: [
+                "ImmunizationRegistryImmunizationInformationSystemIIS",
+              ],
+            },
+            HybridAdministrativeandMedicalRecordsData1: {
+              selected: ["OtherDataSource"],
+            },
+            "HybridAdministrativeandMedicalRecordsData1-OtherDataSource": {
+              description: "A little bird told me",
+            },
+          },
+          requiresWeightedCalc: true,
+          isUnusableForCalc: false,
+        },
+      },
+      Rates: [],
+      AdditionalValues: [],
+    } as CombinedRatesPayload;
+    const props = { payload };
+
+    const { container } = render(<DataSourceInformationBanner {...props} />);
+
+    const sections = container.querySelectorAll("section");
+    expect(sections.length).toBe(2);
+
+    const medicaidSection = sections[0];
+    expect(medicaidSection.querySelector("h2")).toHaveTextContent(
+      "Medicaid Data Source"
+    );
+    expect(medicaidSection).toHaveTextContent(/Administrative Data/);
+    expect(medicaidSection).toHaveTextContent(
+      /Medicaid Management Information System \(MMIS\)/
+    );
+    expect(medicaidSection).toHaveTextContent(
+      /Electronic Health Record \(EHR\) Data/
+    );
+    expect(medicaidSection).toHaveTextContent(
+      /These are health records stored with electricity/
+    );
+
+    const chipSection = sections[1];
+    expect(chipSection.querySelector("h2")).toHaveTextContent(
+      "Separate CHIP Data Source"
+    );
+    expect(chipSection).toHaveTextContent(
+      /Hybrid \(Administrative and Medical Records Data\)/
+    );
+    expect(chipSection).toHaveTextContent(
+      /Immunization Registry Immunization Information System \(IIS\)/
+    );
+    expect(chipSection).toHaveTextContent(
+      /Other Data Source - A little bird told me/
+    );
+  });
+
   describe("dataSourceSelections", () => {
     const selections = {
       ElectronicHealthRecords: {
