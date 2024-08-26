@@ -1,7 +1,6 @@
 import { CombinedRatesPayload, Measure } from "../../types";
 import { combineRates } from "./rateNDRCalculations";
 
-
 describe("NDR calculations for Combined Rates", () => {
   it("Should use the standard formula to combine admin+admin rates", () => {
     const dataSources = {

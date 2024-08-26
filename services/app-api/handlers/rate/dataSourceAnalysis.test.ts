@@ -1,7 +1,6 @@
 import { Measure } from "../../types";
 import { collectDataSourcesForMeasure } from "./dataSourceAnalysis";
 
-
 describe("Data source analysis for Combined Rates", () => {
   it("Should pull data source information out of a measure", () => {
     const measure = {
