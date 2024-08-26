@@ -299,6 +299,9 @@ export type DataSourcePayload = {
    * we cannot perform combined rate calculations on it.
    */
   isUnusableForCalc: boolean;
+  hasOtherDataSource: boolean;
+  hasECDSDataSource: boolean;
+  hasOtherSpecification: boolean;
   /**
    * If a measure was reported with a hybrid data source,
    * we must weight the combined rate according to measure populations.

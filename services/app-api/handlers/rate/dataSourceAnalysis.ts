@@ -39,6 +39,9 @@ export const collectDataSourcesForMeasure = (measure: Measure | undefined) => {
 
   return {
     isUnusableForCalc,
+    hasOtherDataSource,
+    hasECDSDataSource,
+    hasOtherSpecification,
     requiresWeightedCalc,
     DataSource,
     DataSourceSelections,

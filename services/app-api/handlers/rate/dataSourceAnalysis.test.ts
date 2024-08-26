@@ -26,6 +26,9 @@ describe("Data source analysis for Combined Rates", () => {
       },
       requiresWeightedCalc: false,
       isUnusableForCalc: false,
+      hasECDSDataSource: false,
+      hasOtherDataSource: false,
+      hasOtherSpecification: false,
     });
   });
 
@@ -37,6 +40,9 @@ describe("Data source analysis for Combined Rates", () => {
       DataSourceSelections: {},
       requiresWeightedCalc: false,
       isUnusableForCalc: false,
+      hasECDSDataSource: false,
+      hasOtherDataSource: false,
+      hasOtherSpecification: false,
     });
   });
 
