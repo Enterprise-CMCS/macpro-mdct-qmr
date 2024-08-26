@@ -1,6 +1,5 @@
 import {
   DataSourceInformationBanner,
-  DataSourceInformationBanner,
   dataSourceSelections,
   formatCamelCaseWithInitialisms,
 } from "./DataSourceInformationBanner";
