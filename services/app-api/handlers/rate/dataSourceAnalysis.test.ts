@@ -2,7 +2,7 @@ import { Measure } from "../../types";
 import { collectDataSourcesForMeasure } from "./dataSourceAnalysis";
 
 describe("Data source analysis for Combined Rates", () => {
-  it("Should pull data source information out of a measure", async () => {
+  it("Should pull data source information out of a measure", () => {
     const measure = {
       data: {
         DataSource: ["AdministrativeData"],
@@ -32,7 +32,7 @@ describe("Data source analysis for Combined Rates", () => {
     });
   });
 
-  it("Should handle data sources for nonexistent measures", async () => {
+  it("Should handle data sources for nonexistent measures", () => {
     const dsPayload = collectDataSourcesForMeasure(undefined);
 
     expect(dsPayload).toEqual({
@@ -46,7 +46,7 @@ describe("Data source analysis for Combined Rates", () => {
     });
   });
 
-  it("Should treat Admin & EHR as admin data sources", async () => {
+  it("Should treat Admin & EHR as admin data sources", () => {
     let dsPayload = collectDataSourcesForMeasure({
       data: {
         DataSource: ["AdministrativeData"],
@@ -64,7 +64,7 @@ describe("Data source analysis for Combined Rates", () => {
     expect(dsPayload.isUnusableForCalc).toBe(false);
   });
 
-  it("Should treat Hybrid & CMRR as hybrid data sources", async () => {
+  it("Should treat Hybrid & CMRR as hybrid data sources", () => {
     let dsPayload = collectDataSourcesForMeasure({
       data: {
         DataSource: ["HybridAdministrativeandMedicalRecordsData"],
@@ -82,7 +82,7 @@ describe("Data source analysis for Combined Rates", () => {
     expect(dsPayload.isUnusableForCalc).toBe(false);
   });
 
-  it("Should treat ECDS and Other data sources as unusable for calculations", async () => {
+  it("Should treat ECDS and Other data sources as unusable for calculations", () => {
     let dsPayload = collectDataSourcesForMeasure({
       data: {
         DataSource: ["ElectronicClinicalDataSystemsECDS"],
@@ -98,7 +98,7 @@ describe("Data source analysis for Combined Rates", () => {
     expect(dsPayload.isUnusableForCalc).toBe(true);
   });
 
-  it("Should treat measures reported with nonstandard specifications as unusable for calculations", async () => {
+  it("Should treat measures reported with nonstandard specifications as unusable for calculations", () => {
     let dsPayload = collectDataSourcesForMeasure({
       data: {
         DataSource: ["AdministrativeData"],
