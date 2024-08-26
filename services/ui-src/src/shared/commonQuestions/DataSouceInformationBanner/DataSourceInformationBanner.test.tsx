@@ -3,8 +3,26 @@ import {
   dataSourceSelections,
   formatCamelCaseWithInitialisms,
 } from "./DataSourceInformationBanner";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { CombinedRatesPayload } from "types";
+
+const emptyDataSource = {
+  DataSource: [],
+  DataSourceSelections: {},
+  requiresWeightedCalc: false,
+  isUnusableForCalc: false,
+  hasECDSDataSource: false,
+  hasOtherDataSource: false,
+  hasOtherSpecification: false,
+};
+const emptyPayload = {
+  DataSources: {
+    Medicaid: emptyDataSource,
+    CHIP: emptyDataSource,
+  },
+  Rates: [],
+  AdditionalValues: [],
+} as CombinedRatesPayload;
 
 describe("DataSourceInformationBanner", () => {
   it("should render data sources correctly", () => {
@@ -22,6 +40,9 @@ describe("DataSourceInformationBanner", () => {
           },
           requiresWeightedCalc: false,
           isUnusableForCalc: false,
+          hasECDSDataSource: false,
+          hasOtherDataSource: false,
+          hasOtherSpecification: false,
         },
         CHIP: {
           DataSource: ["HybridAdministrativeandMedicalRecordsData"],
@@ -40,6 +61,9 @@ describe("DataSourceInformationBanner", () => {
           },
           requiresWeightedCalc: true,
           isUnusableForCalc: false,
+          hasECDSDataSource: false,
+          hasOtherDataSource: false,
+          hasOtherSpecification: false,
         },
       },
       Rates: [],
@@ -80,6 +104,65 @@ describe("DataSourceInformationBanner", () => {
     expect(chipSection).toHaveTextContent(
       /Other Data Source - A little bird told me/
     );
+  });
+
+  it("should render an explanation for why ECDS-sourced data is excluded from the combined rate", () => {
+    const payload = {
+      ...emptyPayload,
+      DataSources: {
+        ...emptyPayload.DataSources,
+        Medicaid: {
+          ...emptyDataSource,
+          hasECDSDataSource: true,
+        },
+      },
+    };
+
+    const props = { payload };
+    render(<DataSourceInformationBanner {...props} />);
+    expect(
+      screen.getByText(
+        /These data were reported using the Electronic Clinical Data System/
+      )
+    ).toBeInTheDocument();
+  });
+
+  it("should render an explanation for why Other-sourced data is excluded from the combined rate", () => {
+    const payload = {
+      ...emptyPayload,
+      DataSources: {
+        ...emptyPayload.DataSources,
+        Medicaid: {
+          ...emptyDataSource,
+          hasOtherDataSource: true,
+        },
+      },
+    };
+    const props = { payload };
+    render(<DataSourceInformationBanner {...props} />);
+    expect(
+      screen.getByText(/These data were reported using “Other” Data Source/)
+    ).toBeInTheDocument();
+  });
+
+  it("should render an explanation for why data with an Other specification is not displayed", () => {
+    const payload = {
+      ...emptyPayload,
+      DataSources: {
+        ...emptyPayload.DataSources,
+        Medicaid: {
+          ...emptyDataSource,
+          hasOtherSpecification: true,
+        },
+      },
+    };
+    const props = { payload };
+    render(<DataSourceInformationBanner {...props} />);
+    expect(
+      screen.getByText(
+        /These data were reported using “Other” Specifications. Therefore,/
+      )
+    ).toBeInTheDocument();
   });
 
   describe("dataSourceSelections", () => {

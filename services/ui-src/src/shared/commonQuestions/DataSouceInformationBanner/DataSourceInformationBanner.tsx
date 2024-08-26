@@ -1,5 +1,4 @@
 import * as CUI from "@chakra-ui/react";
-import { Icon } from "@chakra-ui/react";
 import { Alert } from "@cmsgov/design-system";
 import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
 
@@ -32,17 +31,20 @@ export const DataSourceInformationBanner = ({
 
   const unusableExplanation = (ds: DataSourcePayload) => {
     const explanations = {
-      hasECDSDataSource: `These data were reported using the Electronic Clinical Data System (ECDS) Data Source (alone or in
-combination with other data sources). The data will not be used to calculate a combined rate below.`,
-      hasOtherDataSource: `These data were reported using “Other” Data Source (alone or in combination with other data sources).
-The data will not be used to calculate a combined rate below.`,
-      hasOtherSpecification: `These data were reported using “Other” Specifications. Therefore, the data are not shown below and
-will not be used to calculate a combined rate.`,
+      hasECDSDataSource: `These data were reported using the Electronic Clinical Data System (ECDS) Data Source
+        (alone or in combination with other data sources).
+        The data will not be used to calculate a combined rate below.`,
+      hasOtherDataSource: `These data were reported using “Other” Data Source
+        (alone or in combination with other data sources).
+        The data will not be used to calculate a combined rate below.`,
+      hasOtherSpecification: `These data were reported using “Other” Specifications.
+        Therefore, the data are not shown below
+        and will not be used to calculate a combined rate.`,
     };
     return Object.entries(explanations)
       .filter(([flag, _text]) => ds[flag as keyof typeof explanations])
-      .map(([_flag, text]) => (
-        <Alert style={{marginTop:"1em"}} variation="warn">
+      .map(([flag, text]) => (
+        <Alert key={flag} style={{ marginTop: "1em" }} variation="warn">
           <CUI.Text>{text}</CUI.Text>
         </Alert>
       ));
