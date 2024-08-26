@@ -11,6 +11,9 @@ const adminDataSource = {
   },
   requiresWeightedCalc: false,
   isUnusableForCalc: false,
+  hasECDSDataSource: false,
+  hasOtherDataSource: false,
+  hasOtherSpecification: false,
 };
 
 const hybridDataSource = {
@@ -25,6 +28,9 @@ const hybridDataSource = {
   },
   requiresWeightedCalc: true,
   isUnusableForCalc: false,
+  hasECDSDataSource: false,
+  hasOtherDataSource: false,
+  hasOtherSpecification: false,
 };
 
 const nonApplicableDataSource = {
@@ -36,6 +42,9 @@ const nonApplicableDataSource = {
   },
   requiresWeightedCalc: false,
   isUnusableForCalc: true,
+  hasECDSDataSource: false,
+  hasOtherDataSource: false,
+  hasOtherSpecification: true,
 };
 
 const completeRate = {
@@ -87,7 +96,7 @@ const incompleteRate = {
   Combined: {},
 };
 
-describe("Combined Rate NDR tables", () => {
+describe("Combined Rate NDR section", () => {
   it("Should display weighted rate for hybrid-sourced data", () => {
     const year = "2024";
     const measure = "AAB-AD";
