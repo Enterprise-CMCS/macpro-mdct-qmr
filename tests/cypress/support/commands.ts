@@ -101,7 +101,7 @@ Cypress.Commands.add("goToMeasure", (measure) => {
 // Correct sections visible when user is reporting data on measure
 Cypress.Commands.add(
   "displaysSectionsWhenUserIsReporting",
-  (coreSet: string) => {
+  (coreSet: string, year: string) => {
     cy.get('[data-cy="DidReport0"]').click();
 
     // these sections should not exist when a user selects they are reporting
@@ -118,7 +118,7 @@ Cypress.Commands.add(
       '[data-cy="Definition of Population Included in the Measure"]'
     ).should("be.visible");
 
-    if (coreSet === "HHCS") {
+    if (coreSet === "HHCS" && Number(year) < 2024) {
       cy.get(
         '[data-cy="Combined Rate(s) from Multiple Reporting Units"]'
       ).should("be.visible");
@@ -133,7 +133,7 @@ Cypress.Commands.add(
 // Correct sections visible when user is not reporting data on measure
 Cypress.Commands.add(
   "displaysSectionsWhenUserNotReporting",
-  (coreSet: string) => {
+  (coreSet: string, year: string) => {
     cy.wait(1000);
     cy.get('[data-cy="DidReport1"]').click();
 
@@ -146,7 +146,7 @@ Cypress.Commands.add(
       '[data-cy="Definition of Population Included in the Measure"]'
     ).should("not.exist");
 
-    if (coreSet === "HHCS") {
+    if (coreSet === "HHCS" && Number(year) < 2024) {
       cy.get(
         '[data-cy="Combined Rate(s) from Multiple Reporting Units"]'
       ).should("not.exist");

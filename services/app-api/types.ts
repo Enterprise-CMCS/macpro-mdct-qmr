@@ -1,5 +1,3 @@
-import { DataSource } from "./handlers/rate/calculations/types";
-
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;
@@ -15,14 +13,32 @@ export interface CoreSet {
   year: number;
 }
 
-export interface StandardRateShape {
-  label: string;
+export type StandardRateShape = RateNDRShape | RateValueShape;
+
+export interface RateNDRShape {
   uid?: string;
+  label: string;
   category?: string;
   numerator?: string;
   denominator?: string;
   rate?: string;
 }
+export const isRateNDRShape = (
+  rate: StandardRateShape
+): rate is RateNDRShape => {
+  return ["numerator", "denominator", "rate"].some((field) => field in rate);
+};
+
+export interface RateValueShape {
+  uid?: string;
+  label: string;
+  value?: string;
+}
+export const isRateValueShape = (
+  rate: StandardRateShape
+): rate is RateValueShape => {
+  return "value" in rate;
+};
 
 export interface Measure {
   compoundKey: string;
@@ -39,19 +55,119 @@ export interface Measure {
   year: number;
   placeholder?: boolean;
   /**
-   * The `autoCompleted` property is not present on measures in the database;
-   * it is set on fetch, according to the metadata in measureList.ts.
+   * The `autoCompleted` and `mandatory` properties are not present on
+   * measures in the database; they are set on fetch, according to the
+   * metadata in measureList.ts.
    */
   autoCompleted?: boolean;
+  mandatory?: boolean;
   data?: {
+    /**
+     * An array of strings from the `DataSource` enum.
+     * Lists the top-level checkboxes selected for the Data Source question.
+     *
+     * This type is correct as of 2024. Prior years have exceptions:
+     * * The measure FVA-AD (obsolete in 2024) would have a single string
+     *   instead of an array; it would be `"CAHPS 5.1H"` or `"Other"`.
+     * * The measure AUD-CH (obsolete in 2022) could include in its array the
+     *   string `"Other"`, as opposed to the standard `"OtherDataSource"`.
+     */
     DataSource?: DataSource[];
-    DataSourceSelections?: unknown;
+    /**
+     * A map of data source keys to sub-objects, which may contain selected
+     * arrays, or string descriptions.
+     *
+     * Certain keys may have selected arrays, other keys may have string
+     * descriptions. No key will ever have both.
+     *
+     * The type definition enumerates the specific keys observed in the wild;
+     * it is complete as of 2024. However there is no mechanism (yet) tying
+     * this type definition to the actual data generation process,
+     * so it may be incomplete for future years. It is probably worthwhile
+     * keeping around (even without such a mechanism), to give concrete
+     * examples of typical data shapes.
+     */
+    DataSourceSelections?: DataSourceSelectionsType;
+    MeasurementSpecification?: MeasurementSpecificationType;
     PerformanceMeasure?: {
       rates?: {
         [key: string]: StandardRateShape[];
       };
     };
+    HybridMeasurePopulationIncluded?: string;
   };
+}
+
+export enum DataSource {
+  Administrative = "AdministrativeData",
+  EHR = "ElectronicHealthRecords",
+  Hybrid = "HybridAdministrativeandMedicalRecordsData",
+  CaseMagementRecordReview = "Casemanagementrecordreview",
+  ECDS = "ElectronicClinicalDataSystemsECDS",
+  Other = "OtherDataSource",
+}
+
+export type DataSourceSelectionsType = {
+  [key in DataSourceSelectedParentKeys]?: {
+    selected?: DataSourceSelectedValueType[];
+  };
+} &
+  {
+    [key in DataSourceDescriptionParentKeys]?: {
+      description?: string;
+    };
+  };
+
+enum DataSourceSelectedParentKeys {
+  Admin = "AdministrativeData0",
+  CaseManagementRecordReview = "Casemanagementrecordreview0",
+  Hybrid0 = "HybridAdministrativeandMedicalRecordsData0",
+  Hybrid1 = "HybridAdministrativeandMedicalRecordsData1",
+  /** Only appears for FUA-AD, PQI01-AD, PQI15-AD, in VAL, in 2021. Possibly a bug? */
+  _Admin = "AdministrativeData",
+}
+
+enum DataSourceDescriptionParentKeys {
+  AdminOther = "AdministrativeData0-AdministrativeDataOther",
+  EHR = "ElectronicHealthRecords",
+  HybridAdminOther = "HybridAdministrativeandMedicalRecordsData0-AdministrativeDataOther",
+  HybridOther = "HybridAdministrativeandMedicalRecordsData0-Other",
+  Other = "OtherDataSource",
+  /** Only appears for PC01-AD, in 2021 */
+  _HybridOther = "HybridAdministrativeandMedicalRecordsData0-OtherDataSource",
+  /** Only appears for AUD-CH (obsolete in 2022) */
+  _Other = "Other",
+}
+
+enum DataSourceSelectedValueType {
+  AdminOther = "AdministrativeDataOther",
+  EHR = "ElectronicHealthRecordEHRData",
+  ImmunizationRegistry = "ImmunizationRegistryImmunizationInformationSystemIIS",
+  MMIS = "MedicaidManagementInformationSystemMMIS",
+  Other = "OtherDataSource",
+  Paper = "Paper",
+  VitalRecords = "VitalRecords",
+  /** Renamed in 2023 to `ImmunizationRegistryImmunizationInformationSystemIIS` */
+  _ImmunizationRegistry = "ImmunizationRegistry",
+  /** Only appears for PC01-AD, in 2021 */
+  _Other = "Other",
+}
+
+export enum MeasurementSpecificationType {
+  AHRQ = "AHRQ",
+  AHRQ_NCQA = "AHRQ-NCQA",
+  CMS = "CMS",
+  DQA = "ADA-DQA",
+  HRSA = "HRSA",
+  NCQA_HEDIS = "NCQA/HEDIS",
+  OHSU = "OHSU",
+  OPA = "OPA",
+  Other = "Other",
+  PQA = "PQA",
+  /** Only for AUD-CH (obsolete in 2022) */
+  CDC = "CDC",
+  /** Only for PC01-AD (obsolete in 2022) */
+  TheJointCommission = "TheJointCommission",
 }
 
 export interface MeasureParameters {
@@ -74,7 +190,7 @@ export interface Banner {
   lastAlteredBy: string;
 }
 
-export const enum CoreSetAbbr {
+export enum CoreSetAbbr {
   ACS = "ACS", // adult
   ACSM = "ACSM", // adult medicaid
   ACSC = "ACSC", // adult chip
@@ -83,6 +199,10 @@ export const enum CoreSetAbbr {
   CCSC = "CCSC", // child chip
   HHCS = "HHCS", // health homes
 }
+
+export const isCoreSetAbbr = (coreSet: string): coreSet is CoreSetAbbr => {
+  return Object.values(CoreSetAbbr).includes(coreSet as CoreSetAbbr);
+};
 
 export enum Program {
   M = "Medicaid",
@@ -132,3 +252,97 @@ export interface APIGatewayProxyEvent {
 }
 
 export type EventParameters = Record<string, string | undefined>;
+
+/**
+ * This is the shape of data saved to the Rates table.
+ */
+export type CombinedRatesPayload = {
+  /**
+   * Lists the data sources the user entered when completing the rate.
+   * Also includes flags indicating how those sources affect the calculation.
+   */
+  DataSources: {
+    Medicaid: DataSourcePayload;
+    CHIP: DataSourcePayload;
+  };
+  /**
+   * Lists all of the rates completed in at least one core set.
+   * If a rate was left empty for both Medicaid and CHIP, it will be omitted.
+   *
+   * This list may not be in sorted order; the frontend re-sorts on render.
+   */
+  Rates: {
+    uid: string;
+    category?: string;
+    label?: string;
+    Medicaid: WeightedRateShape;
+    CHIP: WeightedRateShape;
+    Combined: WeightedRateShape;
+  }[];
+  /**
+   * Certain measures collect numbers outside of the usual
+   * numerator/denominator/rate triplets. Those values are listed here.
+   */
+  AdditionalValues: {
+    uid: string;
+    label: string;
+    Medicaid?: number;
+    CHIP?: number;
+    Combined?: number;
+  }[];
+};
+
+export type DataSourcePayload = {
+  /**
+   * If a measure was reported with "Other" or "ECDS" as a data source,
+   * or if it uses an alternative measure specification,
+   * we cannot perform combined rate calculations on it.
+   */
+  isUnusableForCalc: boolean;
+  hasOtherDataSource: boolean;
+  hasECDSDataSource: boolean;
+  hasOtherSpecification: boolean;
+  /**
+   * If a measure was reported with a hybrid data source,
+   * we must weight the combined rate according to measure populations.
+   */
+  requiresWeightedCalc: boolean;
+  /**
+   * Top-level data source selections.
+   */
+  DataSource: DataSource[];
+  /**
+   * Data source sub-selections and descriptions.
+   */
+  DataSourceSelections: DataSourceSelectionsType;
+};
+
+export type WeightedRateShape = {
+  numerator?: number;
+  denominator?: number;
+  rate?: number;
+  /**
+   * For measures with a hybrid data source, this is the
+   * Measure-Eligible Population. For measures with an admin data source,
+   * this is the denominator for the rate - unless it is overridden by a
+   * user-entered population at the measure level.
+   */
+  population?: number;
+  weightedRate?: number;
+};
+
+/**
+ * This utility is most useful when filtering undefined values from an array,
+ * _while convincing Typescript you've done so_.
+ *
+ * @example
+ * const a = words.map(word => getThirdChar(word));
+ * // a's type is (string | undefined)[]
+ *
+ * const b = a.filter(char => char !== undefined);
+ * // b's type is still (string | undefined)[], boo!
+ *
+ * const c = a.filter(isDefined);
+ * // c's type is just string[], hurray!
+ */
+export const isDefined = <T>(x: T | undefined): x is T => x !== undefined;

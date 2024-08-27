@@ -1,7 +1,7 @@
 import { LabelData } from "utils";
 import { validateTotalNDR, validateOMSTotalNDR } from ".";
 
-import * as VH from "utils/testUtils/2023/validationHelpers";
+import * as VH from "utils/testUtils/validationHelpers";
 
 jest.mock("utils/getLabelText", () => ({
   isLegacyLabel: () => true,

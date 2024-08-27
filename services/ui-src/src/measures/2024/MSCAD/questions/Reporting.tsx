@@ -1,16 +1,18 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
+import { useFormContext } from "react-hook-form";
 import * as DC from "dataConstants";
+import { FormData } from "../types";
+import { WhyAreYouNotReporting } from "shared/commonQuestions/WhyAreYouNotReporting";
 
 interface Props {
-  measureName: string;
-  measureAbbreviation: string;
   reportingYear: string;
 }
 
 export const Reporting = ({ reportingYear }: Props) => {
-  const register = useCustomRegister<Types.FormData>();
+  const register = useCustomRegister<FormData>();
+  const { watch } = useFormContext<FormData>();
+  const watchRadioStatus = watch(DC.DID_COLLECT);
 
   return (
     <>
@@ -32,6 +34,7 @@ export const Reporting = ({ reportingYear }: Props) => {
           ]}
         />
       </QMR.CoreQuestionWrapper>
+      {watchRadioStatus === DC.NO && <WhyAreYouNotReporting />}
     </>
   );
 };

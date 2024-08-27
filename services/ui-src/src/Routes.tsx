@@ -44,9 +44,6 @@ const AddStateSpecificMeasure = lazy(() =>
     default: module.AddStateSpecificMeasure,
   }))
 );
-const ApiTester = lazy(() =>
-  import("views/ApiTester").then((module) => ({ default: module.ApiTester }))
-);
 const NotFound = lazy(() =>
   import("views/NotFound").then((module) => ({ default: module.NotFound }))
 );
@@ -188,7 +185,6 @@ export function AppRoutes() {
           path=":state/:year/:coreSetId/add-ssm"
           element={<AddStateSpecificMeasure />}
         />
-        <Route path="api-test" element={<ApiTester />} />
         {measureRoutes.map((m: MeasureRoute) => (
           <Route {...m} />
         ))}

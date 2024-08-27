@@ -16,9 +16,14 @@ const MSCADValidation = (data: Types.DefaultFormData) => {
   const deviationReason = data[DC.DEVIATION_REASON];
 
   let errorArray: any[] = [];
-  if (data[DC.DID_REPORT] === "no") {
+  if (data[DC.DID_COLLECT] === "no") {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
+  }
+
+  // this prevents all the errors for filling out form to show up
+  if (data[DC.DID_REPORT] === "no") {
+    return [];
   }
 
   errorArray = [

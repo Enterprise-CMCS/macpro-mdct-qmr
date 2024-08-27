@@ -24,6 +24,7 @@
   "homepage": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr#readme",
   "devDependencies": {
     "@serverless/compose": "^1.3.0",
+    "@stratiformdigital/serverless-stage-destroyer": "^2.0.0",
     "@types/dotenv": "^8.2.0",
     "@types/flat": "^5.0.2",
     "@types/node": "^20.12.7",
@@ -38,7 +39,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^2.x",
     "prettier": "^2.4.1",
-    "serverless": "^3.38.0",
+    "serverless": "^3.39.0",
     "serverless-bundle": "^6.0.0",
     "serverless-dotenv-plugin": "^4.0.0",
     "serverless-iam-helper": "github:Enterprise-CMCS/serverless-iam-helper",
@@ -48,8 +49,7 @@
     "serverless-s3-bucket-helper": "Enterprise-CMCS/serverless-s3-bucket-helper#0.1.0",
     "serverless-stack-termination-protection": "^1.0.4",
     "typescript": "^4.0.5",
-    "yargs": "^16.1.1",
-    "@stratiformdigital/serverless-stage-destroyer": "^2.0.0"
+    "yargs": "^16.1.1"
   },
   "dependencies": {
     "@enterprise-cmcs/serverless-waf-plugin": "^1.4.0",

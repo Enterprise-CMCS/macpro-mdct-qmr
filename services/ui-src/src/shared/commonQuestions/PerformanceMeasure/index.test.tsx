@@ -1,7 +1,7 @@
 import {
   exampleData,
   PerformanceMeasureData,
-} from "measures/2024/shared/CommonQuestions/PerformanceMeasure/data";
+} from "shared/commonQuestions/PerformanceMeasure/data";
 import { data as PCRData } from "measures/2024/PCRAD/data";
 import { data as CBPdata } from "measures/2024/CBPAD/data";
 import fireEvent from "@testing-library/user-event";
@@ -9,7 +9,16 @@ import { PerformanceMeasure } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { PCRRate } from "components";
-import { mockLDFlags } from "../../../../../../setupJest";
+import { mockLDFlags } from "../../../../setupJest";
+import { LabelData } from "utils";
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: jest.fn().mockReturnValue({
+    year: "2024",
+    state: "OH",
+  }),
+}));
 
 interface Props {
   component?: RateComp | undefined;
@@ -109,7 +118,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(PCR-XX) Ensure component renders", () => {
     // modifying data to be easier to check
-    PCRData.qualifiers = PCRData.qualifiers!.map((qual) => ({
+    PCRData.qualifiers = PCRData.qualifiers!.map((qual: LabelData) => ({
       id: qual.id,
       text: `qual ${qual.label}`,
       label: `qual ${qual.label}`,

@@ -9,7 +9,7 @@ import {
   doubleRate,
   simpleRate,
   partialRate,
-} from "utils/testUtils/2024/validationHelpers";
+} from "utils/testUtils/validationHelpers";
 
 describe("Testing Equal Qualifier Denominators Across Category Validation", () => {
   const categories = [

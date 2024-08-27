@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as QMR from "components";
-import { LabelData, isLegacyLabel, stringToLabelData } from "utils";
+import { LabelData, isLegacyLabel } from "utils";
 import { ComponentFlagType, usePerformanceMeasureContext } from "../context";
 import { useTotalAutoCalculation } from "../omsUtil";
 
@@ -40,12 +40,11 @@ const TotalNDR = ({
     rateCalculation,
   } = usePerformanceMeasureContext();
 
-  const lastQualifier = qualifier ?? stringToLabelData(qualifiers).slice(-1)[0];
+  const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
   const cleanedQualifier = lastQualifier.id;
   const cleanedCategory = category.id;
 
-  const type = typeof qualifiers[0] === "string" || isLegacyLabel();
-  const cleanedName = type
+  const cleanedName = isLegacyLabel()
     ? `${name}.rates.${cleanedQualifier}.${cleanedCategory}`
     : `${name}.rates.${cleanedCategory}.${cleanedQualifier}`;
 
@@ -101,19 +100,13 @@ export const TotalNDRSets = ({
   const rateArray: React.ReactElement[] = [];
 
   const { qualifiers, categories } = usePerformanceMeasureContext();
-  const cleanedCategories: LabelData[] = stringToLabelData(categories);
-  const cleanedQualifiers: LabelData[] = stringToLabelData(qualifiers);
-  const totalQual = cleanedQualifiers.slice(-1)[0];
+  const totalQual = qualifiers.slice(-1)[0];
 
-  const type = typeof qualifiers[0] === "string" || isLegacyLabel();
-  const ndrCategory =
-    !type && cleanedCategories[0]?.id ? cleanedCategories[0] : undefined;
+  const type = isLegacyLabel();
+  const ndrCategory = !type && categories[0]?.id ? categories[0] : undefined;
 
-  if (
-    cleanedCategories.length &&
-    cleanedCategories.some((item) => item.label)
-  ) {
-    cleanedCategories.forEach((cat, idx) => {
+  if (categories.length && categories.some((item) => item.label)) {
+    categories.forEach((cat, idx) => {
       rateArray.push(
         <CUI.Box key={`${name}.${idx}.totalWrapper`}>
           <TotalNDR

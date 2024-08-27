@@ -4,7 +4,7 @@ import * as DC from "dataConstants";
 import { useWatch } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { cleanString } from "utils/cleanString";
-import { LabelData, getLabelText, stringToLabelData } from "utils";
+import { LabelData, getLabelText } from "utils";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 
@@ -20,7 +20,7 @@ type TopLevelOptions = {
 }[];
 
 interface Props {
-  categories: string[] | LabelData[];
+  categories: LabelData[];
   customTotalLabel?: string;
   measureName?: string;
 }
@@ -135,10 +135,6 @@ export const DeviationFromMeasureSpec = ({
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
-  const formattedCategories = stringToLabelData(categories).map(
-    (item) => item.label
-  );
-
   const getTopLvlDeviationOptions = ({
     categories,
     customTotalLabel,
@@ -244,7 +240,7 @@ export const DeviationFromMeasureSpec = ({
                 {...register(DC.DEVIATION_OPTIONS)}
                 label={labels.DeviationFromMeasureSpecification.optionsText}
                 options={getTopLvlDeviationOptions({
-                  categories: formattedCategories,
+                  categories: categories.map((cat) => cat.label),
                   customTotalLabel,
                 })}
               />,
