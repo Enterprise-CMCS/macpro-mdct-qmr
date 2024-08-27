@@ -18,12 +18,13 @@ interface Props {
   hybridMeasure?: boolean;
   populationSampleSize?: boolean;
   healthHomeMeasure?: boolean;
+  coreSetOptions?: CoreSetSpecificOptions;
 }
 interface DefOfDenomOption {
   displayValue: string;
   value: string;
 }
-interface CoreSetSpecificOptions {
+export interface CoreSetSpecificOptions {
   [coreSetId: string]: {
     options: DefOfDenomOption[];
     helpText: JSX.Element;
@@ -303,15 +304,17 @@ const StandardDefinitions = (
 const CoreSetSpecificDefinitions = (
   register: any,
   labels: AnyObject,
-  coreSetType: string
+  coreSetType: string,
+  coreSetOptions?: CoreSetSpecificOptions
 ) => {
+  const options = coreSetOptions ?? coreSetSpecificOptions;
   return (
     <CUI.Box>
-      {coreSetSpecificOptions[coreSetType].helpText}
+      {options[coreSetType].helpText}
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         options={[
-          ...coreSetSpecificOptions[coreSetType].options,
+          ...options[coreSetType].options,
           {
             displayValue: "Other",
             value: DC.DENOMINATOR_INC_OTHER,
@@ -402,6 +405,7 @@ export const DefinitionOfPopulation = ({
   populationSampleSize,
   hybridMeasure,
   healthHomeMeasure,
+  coreSetOptions,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
 
@@ -423,7 +427,8 @@ export const DefinitionOfPopulation = ({
         ? CoreSetSpecificDefinitions(
             register,
             labels.DefinitionsOfPopulation,
-            coreSetType
+            coreSetType,
+            coreSetOptions
           )
         : childMeasure
         ? ChildDefinitions(register)
@@ -445,7 +450,11 @@ export const DefinitionOfPopulation = ({
         <QMR.RadioButton
           formLabelProps={{ fontWeight: "600" }}
           label={
+            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question[
+              coreSetType!
+            ] ??
             labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
+              .default
           }
           {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC)}
           options={[

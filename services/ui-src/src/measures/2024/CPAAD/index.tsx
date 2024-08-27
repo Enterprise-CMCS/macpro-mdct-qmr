@@ -2,10 +2,87 @@ import * as Q from "./questions";
 import * as CMQ from "measures/2023/shared/CommonQuestions";
 import { useParams } from "react-router-dom";
 import * as QMR from "components";
+import * as CUI from "@chakra-ui/react";
 import { useFormContext } from "react-hook-form";
 import { FormData } from "./types";
 import { validationFunctions } from "./validation";
 import { useEffect } from "react";
+
+const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
+  ACSM: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: "Medicaid (Title XIX)",
+      },
+      {
+        displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+        value: "SurveySampleIncCHIP",
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: "SurveySampleIncMedicareMedicaidDualEligible",
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3" mb="3">
+          Please select all populations that are included in the survey sample.
+          For example, if your survey sample includes both non-dual Medicaid
+          (Title XIX) beneficiaries and Individuals Dually Eligible for Medicare
+          and Medicaid, select both Medicaid population (Title XIX) and
+          Individuals Dually Eligible for Medicare and Medicaid.
+        </CUI.Text>
+      </>
+    ),
+  },
+  ACS: {
+    options: [
+      {
+        displayValue: "Medicaid (Title XIX)",
+        value: "Medicaid (Title XIX)",
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: "SurveySampleIncMedicareMedicaidDualEligible",
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3" mb="3">
+          Please select all populations that are included in the survey sample.
+          For example, if your survey sample includes both non-dual Medicaid
+          (Title XIX) beneficiaries and Individuals Dually Eligible for Medicare
+          and Medicaid, select both Medicaid population (Title XIX) and
+          Individuals Dually Eligible for Medicare and Medicaid.
+        </CUI.Text>
+      </>
+    ),
+  },
+  ACSC: {
+    options: [
+      {
+        displayValue: "Separate CHIP (Title XXI)",
+        value: "Separate CHIP (Title XXI)",
+      },
+      {
+        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        value: "Individuals Dually Eligible for Medicare and Medicaid",
+      },
+    ],
+    helpText: (
+      <>
+        <CUI.Text mt="3" mb="3">
+          Please select all populations that are included in the survey sample.
+          For example, if your survey sample includes both Separate CHIP (Title
+          XXI) beneficiaries and Individuals Dually Eligible for Medicare and
+          Medicaid, select both Separate CHIP (Title XXI) and Individuals Dually
+          Eligible for Medicare and Medicaid.
+        </CUI.Text>
+      </>
+    ),
+  },
+};
 
 export const CPAAD = ({
   name,
@@ -33,7 +110,7 @@ export const CPAAD = ({
         <>
           <Q.HowDidYouReport />
           <Q.DataSource type="adult" />
-          <CMQ.DefinitionOfPopulation />
+          <CMQ.DefinitionOfPopulation coreSetOptions={defOfDenomOptions} />
           <Q.PerformanceMeasure />
         </>
       )}

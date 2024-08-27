@@ -107,6 +107,8 @@ provider:
     docraptorApiKey: ${self:custom.docraptorApiKey}
 
 functions:
+  migrateExistingCombinedRates:
+    handler: handlers/rate/migrateExistingCombinedRates.main
   listMeasures:
     handler: handlers/measures/get.listMeasures
     events:

@@ -58,8 +58,10 @@ export const commonQuestionsLabel = {
   DefinitionsOfPopulation: {
     defineDenomOther: "Define the other denominator population:",
     measureEligiblePopDenom: {
-      question:
-        "Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?",
+      question: {
+        default:
+          "Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?",
+      },
       optionYes:
         "Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.",
       optionNo:
