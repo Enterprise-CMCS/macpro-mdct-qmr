@@ -3,7 +3,7 @@ import { Alert } from "@cmsgov/design-system";
 import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
 
 type Props = {
-  payload: CombinedRatesPayload;
+  payload?: CombinedRatesPayload;
 };
 
 const programDisplayNames = {
@@ -21,15 +21,14 @@ const dataSourceDisplayNames: Record<string, string> = {
   Casemanagementrecordreview: "Case management record review",
 };
 
-export const DataSourceInformationBanner = ({
-  payload: { DataSources },
-}: Props) => {
+export const DataSourceInformationBanner = ({ payload }: Props) => {
+  const DataSources = payload?.DataSources;
   const programTypes = ["Medicaid", "CHIP"] as const;
   const dataSourceSubsection = (dataSource: string) => {
     return dataSourceDisplayNames[dataSource] ?? dataSource;
   };
 
-  const unusableExplanation = (ds: DataSourcePayload) => {
+  const unusableExplanation = (dataSources: DataSourcePayload | undefined) => {
     const explanations = {
       hasECDSDataSource: `These data were reported using the Electronic Clinical Data System (ECDS) Data Source
         (alone or in combination with other data sources).
@@ -42,7 +41,9 @@ export const DataSourceInformationBanner = ({
         and will not be used to calculate a combined rate.`,
     };
     return Object.entries(explanations)
-      .filter(([flag, _text]) => ds[flag as keyof typeof explanations])
+      .filter(
+        ([flag, _text]) => dataSources?.[flag as keyof typeof explanations]
+      )
       .map(([flag, text]) => (
         <Alert key={flag} style={{ marginTop: "1em" }} variation="warn">
           <CUI.Text>{text}</CUI.Text>
@@ -66,7 +67,7 @@ export const DataSourceInformationBanner = ({
           {`${programDisplayNames[programType]} Data Source`}
         </CUI.Heading>
 
-        {DataSources[programType].DataSource.length ? (
+        {DataSources?.[programType].DataSource.length ? (
           DataSources[programType].DataSource.map((dataSource: string) => {
             return (
               <CUI.UnorderedList key={`${dataSource}-${idx}`}>
@@ -89,7 +90,7 @@ export const DataSourceInformationBanner = ({
             Not reported
           </CUI.Text>
         )}
-        {unusableExplanation(DataSources[programType])}
+        {unusableExplanation(DataSources?.[programType])}
       </CUI.Box>
     );
   });

@@ -93,17 +93,24 @@ export const combineRates = (
 
       let Combined;
       if (
-        DataSources.Medicaid.isUnusableForCalc &&
-        DataSources.CHIP.isUnusableForCalc
+        (DataSources.Medicaid.isUnusableForCalc ||
+          mNumerator! > mDenominator!) &&
+        (DataSources.CHIP.isUnusableForCalc || cNumerator! > cDenominator!)
       ) {
         Combined = {};
-      } else if (DataSources.Medicaid.isUnusableForCalc) {
+      } else if (
+        DataSources.Medicaid.isUnusableForCalc ||
+        mNumerator! > mDenominator!
+      ) {
         CHIP.weightedRate = cRate;
         Combined = {
           population: chipPopulation,
           weightedRate: cRate,
         };
-      } else if (DataSources.CHIP.isUnusableForCalc) {
+      } else if (
+        DataSources.CHIP.isUnusableForCalc ||
+        cNumerator! > cDenominator!
+      ) {
         Medicaid.weightedRate = mRate;
         Combined = {
           population: medicaidPopulation,
@@ -160,13 +167,20 @@ export const combineRates = (
 
       let Combined;
       if (
-        DataSources.Medicaid.isUnusableForCalc &&
-        DataSources.CHIP.isUnusableForCalc
+        (DataSources.Medicaid.isUnusableForCalc ||
+          mNumerator! > mDenominator!) &&
+        (DataSources.CHIP.isUnusableForCalc || cNumerator! > cDenominator!)
       ) {
         Combined = {};
-      } else if (DataSources.Medicaid.isUnusableForCalc) {
+      } else if (
+        DataSources.Medicaid.isUnusableForCalc ||
+        mNumerator! > mDenominator!
+      ) {
         Combined = { rate: cRate };
-      } else if (DataSources.CHIP.isUnusableForCalc) {
+      } else if (
+        DataSources.CHIP.isUnusableForCalc ||
+        cNumerator! > cDenominator!
+      ) {
         Combined = { rate: mRate };
       } else {
         const combinedNumerator = addSafely(mNumerator, cNumerator);
