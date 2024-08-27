@@ -7,7 +7,7 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { calculateAndPutRate } from "../rate/shared/calculateAndPutRate";
+import { calculateAndPutRate } from "../rate/rateCalculations";
 import { MeasureParameters } from "../../types";
 
 export const editMeasure = handler(async (event, context) => {

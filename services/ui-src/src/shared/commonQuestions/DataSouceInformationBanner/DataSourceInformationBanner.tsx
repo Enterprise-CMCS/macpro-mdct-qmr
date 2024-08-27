@@ -1,12 +1,17 @@
 import * as CUI from "@chakra-ui/react";
-import { AnyObject } from "types";
+import { Alert } from "@cmsgov/design-system";
+import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
 
-interface Props {
-  data: AnyObject[];
-}
-const columns = ["Medicaid", "Separate CHIP"];
+type Props = {
+  payload: CombinedRatesPayload;
+};
 
-const DataSourceRecord: Record<string, string> = {
+const programDisplayNames = {
+  Medicaid: "Medicaid",
+  CHIP: "Separate CHIP",
+} as const;
+
+const dataSourceDisplayNames: Record<string, string> = {
   AdministrativeData: "Administrative Data",
   HybridAdministrativeandMedicalRecordsData:
     "Hybrid (Administrative and Medical Records Data)",
@@ -16,16 +21,36 @@ const DataSourceRecord: Record<string, string> = {
   Casemanagementrecordreview: "Case management record review",
 };
 
-export const DataSourceInformationBanner = ({ data }: Props) => {
-  const filteredData = columns.map(
-    (column) => data?.find((item) => column.includes(item?.column)) ?? {}
-  );
-
+export const DataSourceInformationBanner = ({
+  payload: { DataSources },
+}: Props) => {
+  const programTypes = ["Medicaid", "CHIP"] as const;
   const dataSourceSubsection = (dataSource: string) => {
-    return DataSourceRecord[dataSource] ?? dataSource;
+    return dataSourceDisplayNames[dataSource] ?? dataSource;
   };
 
-  const renderData = columns.map((column, idx) => {
+  const unusableExplanation = (ds: DataSourcePayload) => {
+    const explanations = {
+      hasECDSDataSource: `These data were reported using the Electronic Clinical Data System (ECDS) Data Source
+        (alone or in combination with other data sources).
+        The data will not be used to calculate a combined rate below.`,
+      hasOtherDataSource: `These data were reported using “Other” Data Source
+        (alone or in combination with other data sources).
+        The data will not be used to calculate a combined rate below.`,
+      hasOtherSpecification: `These data were reported using “Other” Specifications.
+        Therefore, the data are not shown below
+        and will not be used to calculate a combined rate.`,
+    };
+    return Object.entries(explanations)
+      .filter(([flag, _text]) => ds[flag as keyof typeof explanations])
+      .map(([flag, text]) => (
+        <Alert key={flag} style={{ marginTop: "1em" }} variation="warn">
+          <CUI.Text>{text}</CUI.Text>
+        </Alert>
+      ));
+  };
+
+  const renderData = programTypes.map((programType, idx) => {
     return (
       <CUI.Box
         sx={sx.infoBannerDesktop.section}
@@ -36,14 +61,13 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
           tabIndex={0}
           pt={"1.25rem"}
           sx={sx.header}
-          data-cy={`data-source-component-${column}-heading`}
+          data-cy={`data-source-component-${programType}-heading`}
         >
-          {`${column} Data Source`}
+          {`${programDisplayNames[programType]} Data Source`}
         </CUI.Heading>
 
-        {filteredData?.[idx]?.dataSource &&
-        filteredData?.[idx]?.dataSource.length > 0 ? (
-          filteredData?.[idx]?.dataSource?.map((dataSource: string) => {
+        {DataSources[programType].DataSource.length ? (
+          DataSources[programType].DataSource.map((dataSource: string) => {
             return (
               <CUI.UnorderedList key={`${dataSource}-${idx}`}>
                 <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
@@ -51,7 +75,7 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
                 </CUI.Heading>
                 {dataSourceSelections(
                   dataSource,
-                  filteredData?.[idx]?.dataSourceSelections!
+                  DataSources[programType].DataSourceSelections
                 ).map((item, srcIdx) => (
                   <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
                     {item}
@@ -65,13 +89,14 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
             Not reported
           </CUI.Text>
         )}
+        {unusableExplanation(DataSources[programType])}
       </CUI.Box>
     );
   });
 
   return (
     <>
-      <CUI.Show above="md">
+      <CUI.Hide below="md">
         <CUI.Flex
           tabIndex={0}
           aria-label="Combined Rate Data Source Information Banner"
@@ -80,7 +105,7 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
         >
           {renderData}
         </CUI.Flex>
-      </CUI.Show>
+      </CUI.Hide>
 
       <CUI.Show below="md">
         <CUI.Flex
@@ -98,7 +123,7 @@ export const DataSourceInformationBanner = ({ data }: Props) => {
 
 export const dataSourceSelections = (
   dataSource: string,
-  dataSourceSelections: AnyObject
+  dataSourceSelections: DataSourcePayload["DataSourceSelections"]
 ) => {
   let selected = [];
   //filter the dataSourceSelections object keys that matches the dataSource name
@@ -111,13 +136,13 @@ export const dataSourceSelections = (
   if (dataSourceKey && dataSourceKey.length > 0) {
     //if more than one key exist, it is possibly a nested data source
     if (dataSourceKey.length > 1) {
-      const dataSources: string[] = dataSourceValue
-        .filter((source) => source.selected)
+      const dataSources = dataSourceValue
         .map((item) => item.selected)
+        .filter(isDefined)
         .flat();
 
       selected.push(
-        ...dataSources.map((source: string) => {
+        ...dataSources.map((source) => {
           const sourceKey = dataSourceKey.find((key) => key.includes(source));
           const formattedSource = formatCamelCaseWithInitialisms(source);
           return sourceKey

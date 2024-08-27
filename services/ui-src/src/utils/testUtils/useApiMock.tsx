@@ -136,67 +136,47 @@ export const defaultMockValues = {
     error: undefined,
     isError: undefined,
     data: {
-      Item: {
-        compoundKey: "MA2024CCSAAB-CH",
-        measure: "AAB-CH",
-        state: "MA",
-        data: [
-          {
-            column: "CHIP",
-            dataSourceSelections: {
-              AdministrativeData0: {
-                selected: ["MedicaidManagementInformationSystemMMIS"],
-              },
-            },
-            dataSource: ["AdministrativeData"],
-            rates: {
-              ZCy3XP: [
-                {
-                  uid: "ZCy3XP.xS5HMm",
-                  label: "Ages 3 months to 17 years",
-                  rate: "0.0",
-                  numerator: "1",
-                  denominator: "1",
-                },
-              ],
+      DataSources: {
+        Medicaid: {
+          DataSourceSelections: {
+            AdministrativeData0: {
+              selected: ["MedicaidManagementInformationSystemMMIS"],
             },
           },
-          {
-            column: "Medicaid",
-            dataSourceSelections: {
-              AdministrativeData0: {
-                selected: ["MedicaidManagementInformationSystemMMIS"],
-              },
-            },
-            dataSource: ["AdministrativeData"],
-            rates: {
-              ZCy3XP: [
-                {
-                  uid: "ZCy3XP.xS5HMm",
-                  label: "Ages 3 months to 17 years",
-                  rate: "0.0",
-                  numerator: "2",
-                  denominator: "2",
-                },
-              ],
+          DataSource: ["AdministrativeData"],
+        },
+        CHIP: {
+          DataSourceSelections: {
+            AdministrativeData0: {
+              selected: ["MedicaidManagementInformationSystemMMIS"],
             },
           },
-          {
-            column: "Combined Rate",
-            rates: [
-              {
-                uid: "ZCy3XP.xS5HMm",
-                label: "Ages 3 months to 17 years",
-                category: "",
-                rate: "0.0",
-                numerator: "3",
-                denominator: "3",
-              },
-            ],
-          },
-        ],
-        year: "2024",
+          DataSource: ["AdministrativeData"],
+        },
       },
+      Rates: [
+        {
+          uid: "DFukSh.g91VU9",
+          label: "Ages 18 to 64",
+          category: "Effective Acute Phase Treatment",
+          Medicaid: {
+            numerator: 2,
+            denominator: 5,
+            rate: 40,
+          },
+          CHIP: {
+            numerator: 1,
+            denominator: 5,
+            rate: 20,
+          },
+          Combined: {
+            numerator: 3,
+            denominator: 10,
+            rate: 30,
+          },
+        },
+      ],
+      AdditionalValues: [],
     },
   },
 };
