@@ -213,13 +213,20 @@ export const combineRates = (
  * However, for those measures, the "Total" qualifier still ends up correct.
  *
  * I am writing this comment two days from go-live, so our decision is
- * to hide the rates for those individual qualifiers.
+ * to simply hide the rates for those individual qualifiers.
  */
 const ratesToNeverShow = [
   // DEV-CH: never show the individual age group rates
-  "rnFOY6.V9moUD",
-  "rnFOY6.8syeJa",
-  "rnFOY6.UjlL0h",
+  "rnFOY6.V9moUD", // by 12 months
+  "rnFOY6.8syeJa", // by 24 months
+  "rnFOY6.UjlL0h", // by 36 months
+  // WCC-CH: never show the individual age group rates
+  "4TXd3h.iWwR8Z", // BMI, 3-11
+  "4TXd3h.BFwD7g", // BMI, 12-17
+  "cKH5gj.iWwR8Z", // Nutrition, 3-11
+  "cKH5gj.BFwD7g", // Nutrition, 12-17
+  "1POxYx.iWwR8Z", // Activity, 3-11
+  "1POxYx.BFwD7g", // Activity, 12-17
 ];
 
 /**
