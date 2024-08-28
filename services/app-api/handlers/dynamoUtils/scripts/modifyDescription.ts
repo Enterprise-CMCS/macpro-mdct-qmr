@@ -1,6 +1,6 @@
 import prompt from "prompt-sync";
 import dynamoDb from "../../../libs/dynamodb-lib";
-import { stateAbbreviations } from "../measureList";
+import { states } from "../../../utils/constants/constants";
 
 // the year, environment, measure, and text to change to need to be passed in
 const fetchMeasuresByName = async () => {
@@ -14,7 +14,7 @@ const fetchMeasuresByName = async () => {
   const tableName = p("What table would you like to modify: ");
   let changeDescriptionTo;
 
-  for (const abbreviation of stateAbbreviations) {
+  for (const abbreviation of states) {
     const foundMeasure = (await dynamoDb.queryAll({
       TableName: tableName,
       KeyConditionExpression: "compoundKey = :compoundKey",
