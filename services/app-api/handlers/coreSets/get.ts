@@ -12,12 +12,12 @@ import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { CoreSet, UserRoles } from "../../types";
 import { CoreSetField, coreSets } from "../../libs/coreSetByYearPreloaded";
 import {
-  parseGetCoreSetParameters,
-  parseSpecificCoreSetParameters,
+  parseStateAndYearParameters,
+  parseCoreSetParameters,
 } from "../../utils/parseParameters";
 
 export const coreSetList = handler(async (event, context) => {
-  const { allParamsValid, state, year } = parseGetCoreSetParameters(event);
+  const { allParamsValid, state, year } = parseStateAndYearParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,
@@ -102,7 +102,7 @@ export const coreSetList = handler(async (event, context) => {
 
 export const getCoreSet = handler(async (event, context) => {
   const { allParamsValid, year, state, coreSet } =
-    parseSpecificCoreSetParameters(event);
+    parseCoreSetParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,

@@ -7,12 +7,12 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { parseSpecificMeasureParameters } from "../../utils/parseParameters";
+import { parseMeasureParameters } from "../../utils/parseParameters";
 import { calculateAndPutRate } from "../rate/rateCalculations";
 
 export const editMeasure = handler(async (event, context) => {
   const { allParamsValid, state, year, coreSet, measure } =
-    parseSpecificMeasureParameters(event);
+    parseMeasureParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,

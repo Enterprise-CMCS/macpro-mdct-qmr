@@ -6,11 +6,11 @@ import handler from "../../libs/handler-lib";
 import { getCombinedRatesFromTable } from "../../storage/table";
 import { MeasureParameters, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { parseSpecificMeasureParameters } from "../../utils/parseParameters";
+import { parseMeasureParameters } from "../../utils/parseParameters";
 
 export const getRate = handler(async (event, context) => {
   const { allParamsValid, year, state, coreSet, measure } =
-    parseSpecificMeasureParameters(event);
+    parseMeasureParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,

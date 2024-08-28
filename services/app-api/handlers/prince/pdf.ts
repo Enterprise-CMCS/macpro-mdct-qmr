@@ -3,13 +3,13 @@ import createDOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { parseSpecificCoreSetParameters } from "../../utils/parseParameters";
+import { parseCoreSetParameters } from "../../utils/parseParameters";
 
 const windowEmulator: any = new JSDOM("").window;
 const DOMPurify = createDOMPurify(windowEmulator);
 
 export const getPDF = handler(async (event, _context) => {
-  const { allParamsValid } = parseSpecificCoreSetParameters(event);
+  const { allParamsValid } = parseCoreSetParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,

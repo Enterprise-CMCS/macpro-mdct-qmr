@@ -5,11 +5,11 @@ import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpress
 import { hasStatePermissions } from "../../libs/authorization";
 import { Measure } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { parseSpecificCoreSetParameters } from "../../utils/parseParameters";
+import { parseCoreSetParameters } from "../../utils/parseParameters";
 
 export const deleteCoreSet = handler(async (event, context) => {
   const { allParamsValid, state, year, coreSet } =
-    parseSpecificCoreSetParameters(event);
+    parseCoreSetParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,

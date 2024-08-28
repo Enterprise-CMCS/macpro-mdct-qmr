@@ -1,13 +1,24 @@
 import { logger } from "../libs/debug-lib";
 import {
   APIGatewayProxyEvent,
+  isBannerId,
   isCoreSetAbbr,
   isMeasure,
   isState,
   isValidYear,
 } from "../types";
 
-export const parseGetCoreSetParameters = (event: APIGatewayProxyEvent) => {
+export const parseBannerParameters = (event: APIGatewayProxyEvent) => {
+  const { bannerId } = event.pathParameters ?? {};
+
+  if (!bannerId || !isBannerId(bannerId)) {
+    logger.warn("Invalid or missing banner id in path");
+    return null;
+  }
+  return bannerId;
+};
+
+export const parseStateAndYearParameters = (event: APIGatewayProxyEvent) => {
   const { state, year } = event.pathParameters ?? {};
 
   if (!state || !isState(state)) {
@@ -21,7 +32,7 @@ export const parseGetCoreSetParameters = (event: APIGatewayProxyEvent) => {
   return { allParamsValid: true as const, state, year };
 };
 
-export const parseSpecificCoreSetParameters = (event: APIGatewayProxyEvent) => {
+export const parseCoreSetParameters = (event: APIGatewayProxyEvent) => {
   const { state, year, coreSet } = event.pathParameters ?? {};
 
   if (!state || !isState(state)) {
@@ -39,7 +50,7 @@ export const parseSpecificCoreSetParameters = (event: APIGatewayProxyEvent) => {
   return { allParamsValid: true as const, state, year, coreSet };
 };
 
-export const parseSpecificMeasureParameters = (event: APIGatewayProxyEvent) => {
+export const parseMeasureParameters = (event: APIGatewayProxyEvent) => {
   const { state, year, coreSet, measure } = event.pathParameters ?? {};
 
   if (!state || !isState(state)) {

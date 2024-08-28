@@ -10,13 +10,13 @@ import {
 import { Measure, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import {
-  parseSpecificCoreSetParameters,
-  parseSpecificMeasureParameters,
+  parseCoreSetParameters,
+  parseMeasureParameters,
 } from "../../utils/parseParameters";
 
 export const listMeasures = handler(async (event, context) => {
   const { allParamsValid, state, year, coreSet } =
-    parseSpecificCoreSetParameters(event);
+    parseCoreSetParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,
@@ -62,7 +62,7 @@ export const listMeasures = handler(async (event, context) => {
 
 export const getMeasure = handler(async (event, context) => {
   const { allParamsValid, state, year, coreSet, measure } =
-    parseSpecificMeasureParameters(event);
+    parseMeasureParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,

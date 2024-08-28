@@ -82,3 +82,5 @@ export const states = [
   "WI",
   "WY",
 ];
+
+export const bannerIds = ["admin-banner-id"];

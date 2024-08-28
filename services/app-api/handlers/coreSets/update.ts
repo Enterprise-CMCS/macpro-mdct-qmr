@@ -7,11 +7,11 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { parseSpecificCoreSetParameters } from "../../utils/parseParameters";
+import { parseCoreSetParameters } from "../../utils/parseParameters";
 
 export const editCoreSet = handler(async (event, context) => {
   const { allParamsValid, year, state, coreSet } =
-    parseSpecificCoreSetParameters(event);
+    parseCoreSetParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,

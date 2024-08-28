@@ -9,11 +9,11 @@ import {
 } from "../../libs/authorization";
 import * as Types from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { parseSpecificCoreSetParameters } from "../../utils/parseParameters";
+import { parseCoreSetParameters } from "../../utils/parseParameters";
 
 export const createCoreSet = handler(async (event, context) => {
   const { allParamsValid, state, year, coreSet } =
-    parseSpecificCoreSetParameters(event);
+    parseCoreSetParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,

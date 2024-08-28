@@ -1,5 +1,5 @@
 import { measures } from "./handlers/dynamoUtils/measureList";
-import { states } from "./utils/constants/constants";
+import { states, bannerIds } from "./utils/constants/constants";
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;
@@ -373,4 +373,8 @@ export const isMeasure = (year: string, measure: string | undefined) => {
   return measures[parseInt(year)]?.some(
     (measureObject) => measureObject.measure === measure
   );
+};
+
+export const isBannerId = (bannerId: string) => {
+  return bannerIds.includes(bannerId);
 };
