@@ -1,3 +1,5 @@
+import { measures } from "./handlers/dynamoUtils/measureList";
+import { states, bannerIds } from "./utils/constants/constants";
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;
@@ -177,6 +179,12 @@ export interface MeasureParameters {
   measure: string;
 }
 
+export interface CoreSetParameters {
+  state: string;
+  year: string;
+  coreSet: string;
+}
+
 /** This type subject to change, if/when we move to a multi-banner system. */
 export interface Banner {
   key: string;
@@ -201,7 +209,10 @@ export enum CoreSetAbbr {
 }
 
 export const isCoreSetAbbr = (coreSet: string): coreSet is CoreSetAbbr => {
-  return Object.values(CoreSetAbbr).includes(coreSet as CoreSetAbbr);
+  return (
+    Object.values(CoreSetAbbr).includes(coreSet as CoreSetAbbr) ||
+    coreSet.startsWith("HHCS")
+  );
 };
 
 export enum Program {
@@ -346,3 +357,24 @@ export type WeightedRateShape = {
  * // c's type is just string[], hurray!
  */
 export const isDefined = <T>(x: T | undefined): x is T => x !== undefined;
+
+export type State = typeof states[number];
+
+export const isState = (state: unknown): state is State => {
+  return states.includes(state as State);
+};
+
+export const isValidYear = (year: string) => {
+  const reportingYears = Object.keys(measures);
+  return reportingYears.includes(year);
+};
+
+export const isMeasure = (year: string, measure: string | undefined) => {
+  return measures[parseInt(year)]?.some(
+    (measureObject) => measureObject.measure === measure
+  );
+};
+
+export const isBannerId = (bannerId: string) => {
+  return bannerIds.includes(bannerId);
+};

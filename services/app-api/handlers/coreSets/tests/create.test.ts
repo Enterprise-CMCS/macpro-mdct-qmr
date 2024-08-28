@@ -25,7 +25,7 @@ jest.mock("../../../libs/authorization", () => ({
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   __esModule: true,
-  createCompoundKey: jest.fn().mockReturnValue("FL2021ACSFUA-AD"),
+  createCoreSetKey: jest.fn().mockReturnValue("FL2021ACSFUA-AD"),
 }));
 
 jest.mock("../get", () => ({
@@ -33,60 +33,65 @@ jest.mock("../get", () => ({
   getCoreSet: jest.fn(),
 }));
 
+const event = { ...testEvent };
+
 describe("Testing the Create CoreSet Functions", () => {
   beforeEach(() => {
     (getCoreSet as jest.Mock).mockReset();
     mockHasRolePermissions.mockImplementation(() => false);
+    event.pathParameters = {
+      state: "FL",
+      year: "2021",
+      coreSet: CoreSetAbbr.ACS,
+    };
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
     (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
-    const list = measures[2021].filter((measure) => measure.type === "A");
-    const res = await createCoreSet(
-      {
-        ...testEvent,
-        pathParameters: {
-          state: "FL",
-          year: "2021",
-          coreSet: CoreSetAbbr.ACS,
-        },
-      },
-      null
-    );
+    const res = await createCoreSet(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
+  });
+
+  test("Test createCoreSet", async () => {
+    (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
+    const list = measures[2021].filter((measure) => measure.type === "A");
+    const res = await createCoreSet(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
+    expect(dynamoDb.put).toHaveBeenCalledTimes(list.length + 1);
   });
 
   test("Test createCoreSet but coreSet exists", async () => {
     (getCoreSet as jest.Mock).mockReturnValue({
       body: JSON.stringify({ test: "test" }),
     });
-    const res = await createCoreSet(
-      {
-        ...testEvent,
-        pathParameters: { state: "FL", year: "2021", coreSet: CoreSetAbbr.ACS },
-      },
-      null
-    );
+    const res = await createCoreSet(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
     expect(res.body).toContain(Errors.CORESET_ALREADY_EXISTS);
   });
 
-  test("Test createCoreSet", async () => {
+  test("Test createCoreSet with missing path params", async () => {
+    event.pathParameters = null;
     (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
-    const list = measures[2021].filter((measure) => measure.type === "A");
-    const res = await createCoreSet(
-      {
-        ...testEvent,
-        pathParameters: { state: "FL", year: "2021", coreSet: CoreSetAbbr.ACS },
-      },
-      null
-    );
+    const res = await createCoreSet(event, null);
 
-    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(dynamoDb.put).toHaveBeenCalledTimes(list.length + 1);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+  test("Test createCoreSet with invalid path params", async () => {
+    event.pathParameters = {
+      state: "FL",
+      year: "2019", // invalid year
+      coreSet: CoreSetAbbr.ACS,
+    };
+    (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
+    const res = await createCoreSet(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
   });
 });

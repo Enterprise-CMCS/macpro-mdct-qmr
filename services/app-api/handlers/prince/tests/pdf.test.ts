@@ -1,6 +1,7 @@
 import { getPDF } from "../pdf";
 import { fetch } from "cross-fetch";
 import { testEvent } from "../../../test-util/testEvents";
+import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.spyOn(console, "warn").mockImplementation();
 
@@ -26,20 +27,17 @@ const sanitizedHtml = "<p>abc</p>";
 const base64EncodedDangerousHtml =
   Buffer.from(dangerousHtml).toString("base64");
 
-const noBodyEvent = {
-  ...testEvent,
-  body: null,
-};
-
-const dangerousHtmlBodyEvent = {
-  ...testEvent,
-  body: base64EncodedDangerousHtml,
-};
+const event = { ...testEvent };
 
 describe("Test GetPDF handler", () => {
   beforeEach(() => {
     process.env = {
       docraptorApiKey: "mock api key", // pragma: allowlist secret
+    };
+    event.pathParameters = {
+      state: "AZ",
+      year: "2023",
+      coreSet: "CCSC",
     };
   });
 
@@ -48,14 +46,16 @@ describe("Test GetPDF handler", () => {
   });
 
   it("should throw error when no body provided", async () => {
-    const res = await getPDF(noBodyEvent, null);
+    event.body = null;
+    const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(500);
     expect(res.body).toContain("Missing request body");
   });
 
   it("should throw error when body is not type string", async () => {
-    const res = await getPDF(testEvent, null);
+    event.body = "{}";
+    const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(500);
     expect(res.body).toContain("must be base64-encoded HTML");
@@ -63,15 +63,39 @@ describe("Test GetPDF handler", () => {
 
   it("should throw error when config not defined", async () => {
     delete process.env.docraptorApiKey;
+    event.body = base64EncodedDangerousHtml;
 
-    const res = await getPDF(dangerousHtmlBodyEvent, null);
+    const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(500);
     expect(res.body).toContain("No config found to make request to PDF API");
   });
 
+  it("should throw error when path params are missing", async () => {
+    event.pathParameters = null;
+
+    const res = await getPDF(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  it("should throw error when path params are invalid", async () => {
+    event.pathParameters = {
+      state: "YU", // invalid state
+      year: "2022",
+      coreSet: "ACS",
+    };
+
+    const res = await getPDF(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
   it("should call PDF API with sanitized html", async () => {
-    const res = await getPDF(dangerousHtmlBodyEvent, null);
+    event.body = base64EncodedDangerousHtml;
+    const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(200);
 
@@ -99,13 +123,8 @@ describe("Test GetPDF handler", () => {
   it("should remove CSS comments before calling PDF API", async () => {
     const htmlWithCssComment = `<html><head><style>/* emphasize <p> tags */ p {color:red;}</style></head><body><p>Hi</p></body></html>`;
     const htmlWithoutComment = `<html><head><style> p {color:red;}</style></head><body><p>Hi</p></body></html>`;
-    const res = await getPDF(
-      {
-        ...testEvent,
-        body: Buffer.from(htmlWithCssComment).toString("base64"),
-      },
-      null
-    );
+    event.body = Buffer.from(htmlWithCssComment).toString("base64");
+    const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(200);
 
@@ -127,7 +146,9 @@ describe("Test GetPDF handler", () => {
       text: jest.fn().mockResolvedValue("<error>It broke.</error>"),
     });
 
-    const res = await getPDF(dangerousHtmlBodyEvent, null);
+    event.body = base64EncodedDangerousHtml;
+
+    const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(500);
 
