@@ -27,10 +27,11 @@ export const combineRates = (
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
     .map((rateMap) => Object.values(rateMap).flat(1).filter(isRateNDRShape));
 
-  const uniqueRateIds = [...medicaidRates, ...chipRates]
+  let uniqueRateIds = [...medicaidRates, ...chipRates]
     .map((rate) => rate.uid)
     .filter(isDefined)
-    .filter((uid, i, arr) => i === arr.indexOf(uid));
+    .filter((uid, i, arr) => i === arr.indexOf(uid))
+    .filter((uid) => !ratesToNeverShow.includes(uid));
 
   if (
     DataSources.Medicaid.requiresWeightedCalc ||
@@ -206,6 +207,27 @@ export const combineRates = (
     });
   }
 };
+
+/**
+ * For certain measures, CMS uses a different formula for certain qualifiers.
+ * However, for those measures, the "Total" qualifier still ends up correct.
+ *
+ * I am writing this comment two days from go-live, so our decision is
+ * to simply hide the rates for those individual qualifiers.
+ */
+const ratesToNeverShow = [
+  // DEV-CH: never show the individual age group rates
+  "rnFOY6.V9moUD", // by 12 months
+  "rnFOY6.8syeJa", // by 24 months
+  "rnFOY6.UjlL0h", // by 36 months
+  // WCC-CH: never show the individual age group rates
+  "4TXd3h.iWwR8Z", // BMI, 3-11
+  "4TXd3h.BFwD7g", // BMI, 12-17
+  "cKH5gj.iWwR8Z", // Nutrition, 3-11
+  "cKH5gj.BFwD7g", // Nutrition, 12-17
+  "1POxYx.iWwR8Z", // Activity, 3-11
+  "1POxYx.BFwD7g", // Activity, 12-17
+];
 
 /**
  * Most measures display as a percentage, but certain measures are expressed

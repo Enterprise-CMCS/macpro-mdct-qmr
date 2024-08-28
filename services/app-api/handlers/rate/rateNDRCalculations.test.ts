@@ -62,6 +62,55 @@ describe("NDR calculations for Combined Rates", () => {
     ]);
   });
 
+  it("Should exclude certain rates from the payload", () => {
+    const dataSources = {
+      Medicaid: {},
+      CHIP: {},
+    } as CombinedRatesPayload["DataSources"];
+
+    const medicaidMeasure = {
+      data: {
+        DataSource: ["AdministrativeData"],
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "2",
+                denominator: "10",
+                rate: "20",
+              },
+            ],
+            rnFOY6: [
+              {
+                uid: "rnFOY6.V9moUD",
+                label: "Children screened by 12 months of age",
+                numerator: "2",
+                denominator: "10",
+                rate: "20",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    // Most measures: percentage
+    let result = combineRates(
+      "ZZZ-AD",
+      dataSources,
+      medicaidMeasure,
+      undefined
+    );
+
+    expect(result.length).toBe(1);
+    expect(result.find((rate) => rate.uid === "cat0.qual0")).toBeDefined();
+    expect(
+      result.find((rate) => rate.uid === "rnFOY6.V9moUD")
+    ).not.toBeDefined();
+  });
+
   it("Should use special transformations for certain measures", () => {
     const dataSources = {
       Medicaid: {},
