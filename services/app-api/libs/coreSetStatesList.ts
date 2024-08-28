@@ -1,8 +1,8 @@
-import { stateAbbreviations } from "../handlers/dynamoUtils/measureList";
+import { states } from "../utils/constants/constants";
 
 //this is for 2024 onward. the array contains the states where the coreset is loaded and separate. There should be 2 of the coreSet type
 export const stateLoadedSeparateList = (year: string) => {
-  return stateAbbreviations.filter(
+  return states.filter(
     (state) =>
       stateCombinedLoadedList[year] &&
       !stateCombinedLoadedList[year].includes(state)
