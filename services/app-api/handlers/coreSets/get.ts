@@ -2,7 +2,7 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { updateCoreSetProgress } from "../../libs/updateCoreProgress";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import { createCoreSet } from "./create";
 import {
   hasRolePermissions,
@@ -101,7 +101,8 @@ export const coreSetList = handler(async (event, context) => {
 });
 
 export const getCoreSet = handler(async (event, context) => {
-  const { allParamsValid, coreSet } = parseSpecificCoreSetParameters(event);
+  const { allParamsValid, year, state, coreSet } =
+    parseSpecificCoreSetParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,
@@ -120,7 +121,7 @@ export const getCoreSet = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createCoreSetKey({ state, year, coreSet });
   const params = {
     TableName: process.env.coreSetTableName!,
     Key: {

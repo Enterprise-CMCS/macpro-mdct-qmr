@@ -17,17 +17,12 @@ jest.mock("../../../libs/authorization", () => ({
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   __esModule: true,
-  createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
+  createCoreSetKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
 jest.mock("../../../libs/updateCoreProgress", () => ({
   __esModule: true,
   updateCoreSetProgress: jest.fn(),
-}));
-
-jest.mock("../../dynamoUtils/createCompoundKey", () => ({
-  __esModule: true,
-  createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
 const event = { ...testEvent };

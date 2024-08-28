@@ -1,7 +1,7 @@
 import dynamodbLib from "../../../libs/dynamodb-lib";
 import { testEvent } from "../../../test-util/testEvents";
 import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
-import { createCompoundKey } from "../../dynamoUtils/createCompoundKey";
+import { createCoreSetKey } from "../../dynamoUtils/createCompoundKey";
 import { editCoreSet } from "../update";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 import { CoreSetAbbr } from "../../../types";
@@ -19,7 +19,7 @@ jest.mock("../../../libs/authorization", () => ({
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   __esModule: true,
-  createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
+  createCoreSetKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
@@ -73,7 +73,7 @@ describe("Testing Updating Core Set Functions", () => {
     Date.now = jest.fn(() => 20);
     const res = await editCoreSet(event, null);
 
-    expect(createCompoundKey).toHaveBeenCalled();
+    expect(createCoreSetKey).toHaveBeenCalled();
     expect(dynamodbLib.update).toHaveBeenCalled();
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
       {
@@ -91,7 +91,7 @@ describe("Testing Updating Core Set Functions", () => {
     Date.now = jest.fn(() => 20);
     const res = await editCoreSet(event, null);
 
-    expect(createCompoundKey).toHaveBeenCalled();
+    expect(createCoreSetKey).toHaveBeenCalled();
     expect(dynamodbLib.update).toHaveBeenCalled();
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
       {

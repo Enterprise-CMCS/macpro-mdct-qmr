@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
@@ -35,7 +35,7 @@ export const editMeasure = handler(async (event, context) => {
     detailedDescription,
   } = JSON.parse(event!.body!);
 
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
   const lastAlteredBy = getUserNameFromJwt(event);
 
   const descriptionParams =

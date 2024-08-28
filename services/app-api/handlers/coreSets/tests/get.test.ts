@@ -4,8 +4,8 @@ import { testEvent } from "../../../test-util/testEvents";
 
 import dynamodbLib from "../../../libs/dynamodb-lib";
 import { updateCoreSetProgress } from "../../../libs/updateCoreProgress";
-import { createCompoundKey } from "../../dynamoUtils/createCompoundKey";
-import { CoreSet, CoreSetAbbr } from "../../../types";
+import { createCoreSetKey } from "../../dynamoUtils/createCompoundKey";
+import { CoreSetAbbr } from "../../../types";
 import { createCoreSet } from "../create";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
@@ -37,7 +37,7 @@ jest.mock("../../../libs/updateCoreProgress", () => ({
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   __esModule: true,
-  createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
+  createCoreSetKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
@@ -96,8 +96,12 @@ describe("Test Get Core Set Functions", () => {
     await getCoreSet(event, null);
 
     expect(dynamodbLib.get).toHaveBeenCalled();
-    expect(createCompoundKey).toHaveBeenCalled();
-    expect(createCompoundKey).toHaveBeenCalledWith(event);
+    expect(createCoreSetKey).toHaveBeenCalled();
+    expect(createCoreSetKey).toHaveBeenCalledWith({
+      state: "AL",
+      year: "2021",
+      coreSet: "ACS",
+    });
   });
 
   test("Test coreSetList unauthorized user attempt (incorrect state)", async () => {

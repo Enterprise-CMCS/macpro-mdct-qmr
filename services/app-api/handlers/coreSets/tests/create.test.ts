@@ -25,7 +25,7 @@ jest.mock("../../../libs/authorization", () => ({
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   __esModule: true,
-  createCompoundKey: jest.fn().mockReturnValue("FL2021ACSFUA-AD"),
+  createCoreSetKey: jest.fn().mockReturnValue("FL2021ACSFUA-AD"),
 }));
 
 jest.mock("../get", () => ({

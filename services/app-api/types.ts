@@ -179,6 +179,12 @@ export interface MeasureParameters {
   measure: string;
 }
 
+export interface CoreSetParameters {
+  state: string;
+  year: string;
+  coreSet: string;
+}
+
 /** This type subject to change, if/when we move to a multi-banner system. */
 export interface Banner {
   key: string;
@@ -203,7 +209,10 @@ export enum CoreSetAbbr {
 }
 
 export const isCoreSetAbbr = (coreSet: string): coreSet is CoreSetAbbr => {
-  return Object.values(CoreSetAbbr).includes(coreSet as CoreSetAbbr);
+  return (
+    Object.values(CoreSetAbbr).includes(coreSet as CoreSetAbbr) ||
+    coreSet.startsWith("HHCS")
+  );
 };
 
 export enum Program {

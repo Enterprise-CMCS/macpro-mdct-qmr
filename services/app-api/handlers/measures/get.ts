@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import { measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,
@@ -61,7 +61,8 @@ export const listMeasures = handler(async (event, context) => {
 });
 
 export const getMeasure = handler(async (event, context) => {
-  const { allParamsValid, coreSet } = parseSpecificMeasureParameters(event);
+  const { allParamsValid, state, year, coreSet, measure } =
+    parseSpecificMeasureParameters(event);
   if (!allParamsValid) {
     return {
       status: StatusCodes.BAD_REQUEST,
@@ -80,7 +81,7 @@ export const getMeasure = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
   const params = {
     TableName: process.env.measureTableName!,
     Key: {

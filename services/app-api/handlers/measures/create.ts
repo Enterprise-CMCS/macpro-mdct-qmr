@@ -1,11 +1,11 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import { MeasureStatus, CoreSetAbbr, UserRoles } from "../../types";
+import { MeasureStatus, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseSpecificMeasureParameters } from "../../utils/parseParameters";
 
@@ -31,7 +31,7 @@ export const createMeasure = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const body = JSON.parse(event!.body!);
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
   const params = {
     TableName: process.env.measureTableName!,
     Item: {

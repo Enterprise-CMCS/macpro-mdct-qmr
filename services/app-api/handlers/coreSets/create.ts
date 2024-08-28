@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,
@@ -42,7 +42,7 @@ export const createCoreSet = handler(async (event, context) => {
       body: Errors.CORESET_ALREADY_EXISTS,
     };
   }
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createCoreSetKey({ state, year, coreSet });
 
   await createDependentMeasures(
     state,

@@ -1,6 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { hasStatePermissions } from "../../libs/authorization";
 import { Measure } from "../../types";
@@ -24,7 +24,7 @@ export const deleteCoreSet = handler(async (event, context) => {
     };
   }
 
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createCoreSetKey({ state, year, coreSet });
   const params = {
     TableName: process.env.coreSetTableName!,
     Key: {
