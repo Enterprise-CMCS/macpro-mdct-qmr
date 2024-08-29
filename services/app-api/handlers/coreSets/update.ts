@@ -1,14 +1,23 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseCoreSetParameters } from "../../utils/parseParameters";
 
 export const editCoreSet = handler(async (event, context) => {
+  const { allParamsValid, year, state, coreSet } =
+    parseCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to state users from corresponding state
   if (!hasStatePermissions(event)) {
     return {
@@ -18,13 +27,13 @@ export const editCoreSet = handler(async (event, context) => {
   }
 
   const { submitted, status } = JSON.parse(event!.body!);
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createCoreSetKey({ state, year, coreSet });
   const lastAlteredBy = getUserNameFromJwt(event);
   const params = {
     TableName: process.env.coreSetTableName!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event!.pathParameters!.coreSet!,
+      coreSet: coreSet,
     },
     ...convertToDynamoExpression(
       {

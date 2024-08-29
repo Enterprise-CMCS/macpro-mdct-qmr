@@ -3,8 +3,16 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { hasRolePermissions } from "../../libs/authorization";
 import { UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseBannerParameters } from "../../utils/parseParameters";
 
 export const deleteBanner = handler(async (event, _context) => {
+  const bannerId = parseBannerParameters(event);
+  if (!bannerId) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to admin users
   if (!hasRolePermissions(event, [UserRoles.ADMIN])) {
     return {
@@ -13,16 +21,12 @@ export const deleteBanner = handler(async (event, _context) => {
     };
   }
 
-  if (!event?.pathParameters?.bannerId!) {
-    throw new Error(Errors.NO_KEY);
-  } else {
-    const params: any = {
-      TableName: process.env.bannerTableName!,
-      Key: {
-        key: event?.pathParameters?.bannerId!,
-      },
-    };
-    await dynamoDb.delete(params);
-    return { status: StatusCodes.SUCCESS, body: params };
-  }
+  const params: any = {
+    TableName: process.env.bannerTableName!,
+    Key: {
+      key: bannerId,
+    },
+  };
+  await dynamoDb.delete(params);
+  return { status: StatusCodes.SUCCESS, body: params };
 });
