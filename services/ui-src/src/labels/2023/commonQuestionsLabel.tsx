@@ -129,6 +129,9 @@ export const commonQuestionsLabel = {
     section:
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
   },
+  PerformanceMeasure: {
+    phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. While reporting of the Core Sets is voluntary, CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
+  },
   WhyAreYouNotReporting: {
     periodOfHealthEmergencyFlag: true,
     limitWithDataCollection:
