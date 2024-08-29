@@ -25,7 +25,7 @@ const testEvent = {
     "cognito-identity-id": "test",
   } as EventParameters,
   pathParameters: {
-    bannerId: "testKey",
+    bannerId: "admin-banner-id",
   } as EventParameters,
 } as APIGatewayProxyEvent;
 
@@ -49,25 +49,27 @@ describe("Test fetchBanner API method", () => {
     expect(parsedBody.Item.link).toEqual("https://www.example.com");
   });
 
-  test("Test bannerKey not provided throws 500 error", async () => {
-    const noKeyEvent: APIGatewayProxyEvent = {
-      ...testEvent,
-      pathParameters: {},
-    };
-    const res = await fetchBanner(noKeyEvent, null);
+  test("Test bannerKey not provided throws bad request error", async () => {
+    testEvent.pathParameters = {};
+    const res = await fetchBanner(testEvent, null);
 
-    expect(res.statusCode).toBe(StatusCodes.SERVER_ERROR);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
     expect(res.body).toContain(Errors.NO_KEY);
   });
 
-  test("Test bannerKey empty throws 500 error", async () => {
-    const noKeyEvent: APIGatewayProxyEvent = {
-      ...testEvent,
-      pathParameters: { bannerId: "" },
-    };
-    const res = await fetchBanner(noKeyEvent, null);
+  test("Test bannerKey empty throws bad request error", async () => {
+    testEvent.pathParameters = { bannerId: "" };
+    const res = await fetchBanner(testEvent, null);
 
-    expect(res.statusCode).toBe(StatusCodes.SERVER_ERROR);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  test("Test bannerKey invalid throws bad request error", async () => {
+    testEvent.pathParameters = { bannerId: "key-that-doesnt-exist" };
+    const res = await fetchBanner(testEvent, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
     expect(res.body).toContain(Errors.NO_KEY);
   });
 });

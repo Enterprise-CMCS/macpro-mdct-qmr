@@ -2,12 +2,20 @@ import { fetch } from "cross-fetch"; // TODO delete this line and uninstall this
 import createDOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 import handler from "../../libs/handler-lib";
-import { StatusCodes } from "../../utils/constants/constants";
+import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseCoreSetParameters } from "../../utils/parseParameters";
 
 const windowEmulator: any = new JSDOM("").window;
 const DOMPurify = createDOMPurify(windowEmulator);
 
 export const getPDF = handler(async (event, _context) => {
+  const { allParamsValid } = parseCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   const rawBody = event.body; // will be base64-encoded HTML, like "PGh0bWw..."
   if (!rawBody) {
     throw new Error("Missing request body");

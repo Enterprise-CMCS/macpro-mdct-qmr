@@ -10,10 +10,7 @@ jest.mock("../../../libs/authorization", () => ({
   hasRolePermissions: () => mockHasRolePermissions(),
 }));
 
-const testEvent: APIGatewayProxyEvent = {
-  ...proxyEvent,
-  httpMethod: "DEL",
-};
+const event = { ...proxyEvent, httpMethod: "DEL" };
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   delete: jest.fn().mockResolvedValue("DELETED"),
@@ -25,36 +22,38 @@ describe("Test deleteBanner API method", () => {
   });
 
   test("Test Successful Banner Deletion", async () => {
-    const res = await deleteBanner(testEvent, null);
+    const res = await deleteBanner(event, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
   });
 
   test("Test unauthorized user attempt", async () => {
     mockHasRolePermissions.mockImplementation(() => false);
-    const res = await deleteBanner(testEvent, null);
+    const res = await deleteBanner(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
-  test("Test bannerKey not provided throws 500 error", async () => {
-    const noKeyEvent: APIGatewayProxyEvent = {
-      ...testEvent,
-      pathParameters: {},
-    };
-    const res = await deleteBanner(noKeyEvent, null);
+  test("Test bannerKey not provided throws bad request error", async () => {
+    event.pathParameters = {};
+    const res = await deleteBanner(event, null);
 
-    expect(res.statusCode).toBe(StatusCodes.SERVER_ERROR);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
     expect(res.body).toContain(Errors.NO_KEY);
   });
 
-  test("Test bannerKey empty throws 500 error", async () => {
-    const noKeyEvent: APIGatewayProxyEvent = {
-      ...testEvent,
-      pathParameters: { bannerId: "" },
-    };
-    const res = await deleteBanner(noKeyEvent, null);
+  test("Test bannerKey empty throws bad request error", async () => {
+    event.pathParameters = { bannerId: "" };
+    const res = await deleteBanner(event, null);
 
-    expect(res.statusCode).toBe(StatusCodes.SERVER_ERROR);
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  test("Test bannerKey invalid throws bad request error", async () => {
+    event.pathParameters = { bannerId: "hi-how-are-you" };
+    const res = await deleteBanner(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
     expect(res.body).toContain(Errors.NO_KEY);
   });
 });
