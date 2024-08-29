@@ -11,12 +11,16 @@ import { screen } from "@testing-library/react";
 import { PCRRate } from "components";
 import { mockLDFlags } from "../../../../setupJest";
 import { LabelData } from "utils";
+import SharedContext from "shared/SharedContext";
+import commonQuestionsLabel2024 from "labels/2024/commonQuestionsLabel";
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
-  useParams: jest.fn().mockReturnValue({
+jest.mock("hooks/api/usePathParams", () => ({
+  ...jest.requireActual("hooks/api/usePathParams"),
+  usePathParams: jest.fn().mockReturnValue({
+    state: "DC",
     year: "2024",
-    state: "OH",
+    coreSet: "HHCS",
+    measureId: "PCR-HH",
   }),
 }));
 
@@ -38,13 +42,15 @@ const renderComponent = ({
   hybridMeasure,
 }: Props) =>
   renderWithHookForm(
-    <PerformanceMeasure
-      data={data}
-      calcTotal={calcTotal}
-      RateComponent={component}
-      rateReadOnly={rateReadOnly}
-      hybridMeasure={hybridMeasure}
-    />
+    <SharedContext.Provider value={commonQuestionsLabel2024}>
+      <PerformanceMeasure
+        data={data}
+        calcTotal={calcTotal}
+        RateComponent={component}
+        rateReadOnly={rateReadOnly}
+        hybridMeasure={hybridMeasure}
+      />
+    </SharedContext.Provider>
   );
 
 // TODO: Mock the datasource change to trigger rate editability
