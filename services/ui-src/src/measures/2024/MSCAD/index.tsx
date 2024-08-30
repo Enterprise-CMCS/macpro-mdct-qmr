@@ -1,7 +1,7 @@
 import * as Q from "./questions";
 import * as QMR from "components";
 import * as CMQ from "shared/commonQuestions";
-import * as Types from "shared/types";
+import { DefaultFormData } from "shared/types/FormData";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 import { useEffect } from "react";
@@ -21,7 +21,7 @@ export const MSCAD = ({
       setValidationFunctions(validationFunctions);
     }
   }, [setValidationFunctions]);
-  const { watch } = useFormContext<Types.DefaultFormData>();
+  const { watch } = useFormContext<DefaultFormData>();
   const data = watch();
 
   return (

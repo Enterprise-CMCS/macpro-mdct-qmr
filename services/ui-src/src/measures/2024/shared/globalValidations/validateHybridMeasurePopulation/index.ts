@@ -2,10 +2,10 @@ import {
   CASE_MANAGEMENT_RECORD_REVIEW_DATA,
   HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA,
 } from "dataConstants";
-import * as Types from "shared/types";
+import { DefaultFormData } from "shared/types/FormData";
 
 export const validateHybridMeasurePopulation = (
-  data: Types.DefaultFormData,
+  data: DefaultFormData,
   errorMessage?: string
 ) => {
   const errorArray: FormError[] = [];

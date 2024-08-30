@@ -1,5 +1,5 @@
 import * as Types from "shared/types";
-import * as Type from "shared/types";
+import { DefaultFormData } from "shared/types/FormData";
 
 export namespace Measure {
   export interface Props {
@@ -24,11 +24,11 @@ export namespace Measure {
 
   export interface Form
     extends Types.MeasurementSpecification,
-      Type.AdditionalNotes,
-      Type.CombinedRates,
+      Types.AdditionalNotes,
+      Types.CombinedRates,
       Types.DateRange,
       Types.DefinitionOfPopulation,
-      Type.StatusOfData,
+      Types.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.DataSource,
@@ -105,4 +105,4 @@ export namespace Measure {
   }
 }
 
-export type FormData = Types.DefaultFormData;
+export type FormData = DefaultFormData;
