@@ -5,7 +5,7 @@ import {
   simpleRate,
   generateOmsFormData,
 } from "utils/testUtils/validationHelpers";
-import { DefaultFormData } from "measures/2024/shared/CommonQuestions/types";
+import { DefaultFormData } from "shared/types/FormData";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 describe("Testing OMS validation processor", () => {

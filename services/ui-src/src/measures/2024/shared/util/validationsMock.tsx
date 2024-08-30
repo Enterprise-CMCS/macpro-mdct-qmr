@@ -25,7 +25,7 @@ import * as ComplexNoNonZeroNumOrDenom from "measures/2024/shared/globalValidati
 import * as ComplexValidateNDRTotals from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 import * as ComplexValueSameCrossCategory from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
-import { DefaultFormData } from "measures/2024/shared/CommonQuestions/types";
+import { DefaultFormData } from "shared/types/FormData";
 
 /**
  * Replicate the behavior of the validateAndSetErrors() function in the MeasureWrapper

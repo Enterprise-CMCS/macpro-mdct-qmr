@@ -1,4 +1,4 @@
-import * as Types from "measures/2024/shared/CommonQuestions/types";
+import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { OmsValidationCallback, UnifiedValFuncProps as UVFP } from "../types";
 import {

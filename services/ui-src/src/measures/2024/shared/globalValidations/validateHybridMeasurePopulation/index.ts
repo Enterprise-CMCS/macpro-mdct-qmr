@@ -2,7 +2,7 @@ import {
   CASE_MANAGEMENT_RECORD_REVIEW_DATA,
   HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA,
 } from "dataConstants";
-import * as Types from "measures/2024/shared/CommonQuestions/types";
+import * as Types from "shared/types";
 
 export const validateHybridMeasurePopulation = (
   data: Types.DefaultFormData,

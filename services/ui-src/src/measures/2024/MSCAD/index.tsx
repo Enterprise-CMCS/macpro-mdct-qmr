@@ -1,7 +1,7 @@
 import * as Q from "./questions";
 import * as QMR from "components";
-import * as CMQ from "measures/2024/shared/CommonQuestions";
-import * as Types from "measures/2024/shared/CommonQuestions/types";
+import * as CMQ from "shared/commonQuestions";
+import * as Types from "shared/types";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 import { useEffect } from "react";

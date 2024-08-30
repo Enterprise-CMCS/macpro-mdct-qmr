@@ -1,6 +1,4 @@
 import { LabelData } from "utils";
-import { OmsNode } from "shared/types";
-import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
 
@@ -271,9 +269,9 @@ export interface DeviationFromMeasureSpecification {
 }
 
 export namespace DataDrivenTypes {
-  export type OptionalMeasureStrat = OmsNode[];
-  export type SingleOmsNode = OmsNode;
-  export type PerformanceMeasure = PerformanceMeasureData;
+  export type OptionalMeasureStrat = Types.OmsNode[];
+  export type SingleOmsNode = Types.OmsNode;
+  export type PerformanceMeasure = Types.PerformanceMeasureData;
   export type DataSource = Types.DataSourceData;
 }
 export type DeviationKeys =
@@ -283,16 +281,17 @@ export type DeviationKeys =
   | "RateDeviationsSelected";
 
 export type DefaultFormData = Types.AdditionalNotes &
-  DidCollect &
+  Types.DidCollect &
   Types.StatusOfData &
-  WhyAreYouNotReporting &
-  DidReport &
+  Types.WhyAreYouNotReporting &
+  Types.DidReport &
   Types.CombinedRates &
-  DateRange &
-  DefinitionOfPopulation &
-  MeasurementSpecification &
-  OtherPerformanceMeasure &
-  OptionalMeasureStratification &
-  PerformanceMeasure &
-  DeviationFromMeasureSpecification &
-  DataSource;
+  Types.DateRange &
+  Types.DefinitionOfPopulation &
+  Types.MeasurementSpecification &
+  Types.OtherPerformanceMeasure &
+  Types.OptionalMeasureStratification &
+  Types.PerformanceMeasure &
+  Types.DeviationFromMeasureSpecification &
+  Types.DeviationFromMeasureSpecificationTextField &
+  Types.DataSource;
