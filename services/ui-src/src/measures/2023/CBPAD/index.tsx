@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import * as QMR from "components";
-import * as CMQ from "measures/2023/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
 //form type
-import { DefaultFormData as FormData } from "measures/2023/shared/CommonQuestions/types";
+import { DefaultFormData as FormData } from "shared/types/FormData";
 
 export const CBPAD = ({
   name,

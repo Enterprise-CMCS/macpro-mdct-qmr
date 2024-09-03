@@ -4,10 +4,8 @@ import {
   locationDictionaryFunction,
   RateData,
 } from "../types";
-import {
-  OmsNodes as OMS,
-  DefaultFormData,
-} from "measures/2023/shared/CommonQuestions/types";
+import { OmsNodes as OMS } from "shared/types";
+import { DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
 import { LabelData, cleanString } from "utils";
 

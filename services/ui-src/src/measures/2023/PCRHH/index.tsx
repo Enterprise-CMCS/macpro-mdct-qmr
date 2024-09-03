@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import * as CMQ from "measures/2023/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
