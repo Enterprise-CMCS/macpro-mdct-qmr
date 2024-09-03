@@ -18,7 +18,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AnyObject, CoreSetAbbr, MeasureStatus } from "types";
-import { areSomeRatesCompleted } from "utils/form";
+import { areObjectsDifferent, areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
@@ -245,16 +245,26 @@ export const MeasureWrapper = ({
     validateAndSetErrors(data);
   };
 
+  const hasDataChanged = (data: any) => {
+    //there are some instances where there is not change to the data but the way we load the data triggers react hook form to think there is.
+    //this function is to do a comparison between the defaultValues (prev saved data) and data (data waiting to be saved)
+    if (Object.keys(methods.formState.dirtyFields).length === 0) return false;
+
+    //instead of looping through all the data, we will loop through only the keys that react hook form indicated has a change
+    const fieldKeys = Object.keys(methods.formState.dirtyFields);
+
+    //check if any field has changed
+    return fieldKeys.some((key) =>
+      areObjectsDifferent(methods.formState.defaultValues?.[key], data?.[key])
+    );
+  };
+
   const handleSave = (data: any) => {
     /* only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
 
-    if (
-      !mutationRunning &&
-      !loadingData &&
-      Object.keys(methods.formState.dirtyFields).length > 0
-    ) {
+    if (!mutationRunning && !loadingData && hasDataChanged(data)) {
       updateMeasure(
         {
           data,

@@ -8,7 +8,9 @@ import { useWatch } from "react-hook-form";
 import { getLabelText, isLegacyLabel, LabelData } from "utils";
 import { ndrFormula } from "types";
 import { useFlags } from "launchdarkly-react-client-sdk";
-import { useParams } from "react-router-dom";
+import { usePathParams } from "hooks/api/usePathParams";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -208,7 +210,7 @@ export const PerformanceMeasure = ({
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
-  const { year } = useParams();
+  const { year } = usePathParams();
   //for years after 2023, we use a flag to determine showing the covid message
   const pheIsCurrent =
     parseInt(year!) < 2023 || useFlags()?.[`periodOfHealthEmergency${year}`];
@@ -227,6 +229,8 @@ export const PerformanceMeasure = ({
   }
 
   data.questionText = data.questionText ?? [];
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper
@@ -299,14 +303,7 @@ export const PerformanceMeasure = ({
       )}
       {hybridMeasure && pheIsCurrent && (
         <CUI.Box my="5">
-          <CUI.Text>
-            CMS recognizes that social distancing will make onsite medical chart
-            reviews inadvisable during the COVID-19 pandemic. As such, hybrid
-            measures that rely on such techniques will be particularly
-            challenging during this time. While reporting of the Core Sets is
-            voluntary, CMS encourages states that can collect information safely
-            to continue reporting the measures they have reported in the past.
-          </CUI.Text>
+          <CUI.Text>{labels?.PerformanceMeasure?.phe}</CUI.Text>
           <QMR.TextArea
             formLabelProps={{ mt: 5 }}
             {...register("PerformanceMeasure.hybridExplanation")}

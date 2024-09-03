@@ -81,8 +81,8 @@ export const Rate = ({
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
       // human readable text for Mathematica only needed for FFY 2023+
-      if (getMeasureYear() >= 2023) {
-        prevRate[index]["category"] = categoryName ?? undefined;
+      if (getMeasureYear() >= 2023 && categoryName) {
+        prevRate[index]["category"] = categoryName;
       }
     });
 

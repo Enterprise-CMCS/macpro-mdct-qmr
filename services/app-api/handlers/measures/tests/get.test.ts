@@ -7,9 +7,7 @@ import {
 
 import dbLib from "../../../libs/dynamodb-lib";
 
-import { APIGatewayProxyEvent } from "../../../types";
 import { testEvent } from "../../../test-util/testEvents";
-import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
@@ -29,7 +27,7 @@ jest.mock("../../../libs/authorization", () => ({
 
 jest.mock("../../dynamoUtils/createCompoundKey", () => ({
   __esModule: true,
-  createCompoundKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
+  createMeasureKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
@@ -37,36 +35,31 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
+const event = { ...testEvent };
+process.env.measureTableName = "SAMPLE TABLE";
+
 describe("Test Get Measure Handlers", () => {
   beforeEach(() => {
     mockHasRolePermissions.mockImplementation(() => false);
+    event.headers = { "cognito-identity-id": "test" };
+    event.body = `{"data": {}, "description": "sample desc"}`;
+    event.pathParameters = {
+      state: "IN",
+      year: "2022",
+      coreSet: "ACS",
+      measure: "AAB-AD",
+    };
   });
 
   test("Test getMeasure unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
-      headers: { "cognito-identity-id": "test" },
-      pathParameters: { coreSet: "ACS" },
-    };
-    process.env.measureTableName = "SAMPLE TABLE";
-
     const res = await getMeasure(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
   test("Test Fetching a Measure", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
-      headers: { "cognito-identity-id": "test" },
-      pathParameters: { coreSet: "ACS" },
-    };
-    process.env.measureTableName = "SAMPLE TABLE";
-
     const res = await getMeasure(event, null);
 
     expect(res.statusCode).toBe(200);
@@ -80,16 +73,37 @@ describe("Test Get Measure Handlers", () => {
     });
   });
 
+  test("Test Fetching a Measure with missing params", async () => {
+    event.pathParameters = null;
+
+    const res = await getMeasure(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  test("Test Fetching a Measure with invalid params", async () => {
+    event.pathParameters = {
+      state: "YA",
+      year: "2020",
+      coreSet: "YLTR",
+      measure: "EEE-EE",
+    };
+
+    const res = await getMeasure(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
   test("Test listMeasures unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
-      headers: { "cognito-identity-id": "test" },
-      pathParameters: { coreSet: "ACS" },
+    event.pathParameters = {
+      state: "IN",
+      year: "2022",
+      coreSet: "ACS",
     };
-    process.env.measureTableName = "SAMPLE TABLE";
 
     const res = await listMeasures(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
@@ -97,13 +111,7 @@ describe("Test Get Measure Handlers", () => {
   });
 
   test("Test Successfully Fetching a List of Measures", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
-      headers: { "cognito-identity-id": "test" },
-      pathParameters: { coreSet: "ACS", state: "FL", year: "2020" },
-    };
-    process.env.measureTableName = "SAMPLE TABLE";
+    event.pathParameters = { coreSet: "ACS", state: "FL", year: "2021" };
 
     const res = await listMeasures(event, null);
 
@@ -116,41 +124,38 @@ describe("Test Get Measure Handlers", () => {
     });
   });
 
-  test("Test Fetching a List of Measures with no Path Parameters", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{"data": {}, "description": "sample desc"}`,
-      headers: { "cognito-identity-id": "test" },
-      pathParameters: null,
-    };
-    process.env.measureTableName = "SAMPLE TABLE";
+  test("Test fetching List of Measures with no Path Parameters", async () => {
+    event.pathParameters = null;
 
     const res = await listMeasures(event, null);
 
-    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(convertToDynamoExpression).toHaveBeenCalledWith(
-      { state: undefined, year: NaN, coreSet: undefined },
-      "list"
-    );
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
+  });
+
+  test("Test fetching List of Measures with invalid Path Parameters", async () => {
+    event.pathParameters = {
+      state: "YA",
+      year: "2020",
+      coreSet: "YLTR",
+    };
+
+    const res = await listMeasures(event, null);
+
+    expect(res.statusCode).toBe(StatusCodes.BAD_REQUEST);
+    expect(res.body).toContain(Errors.NO_KEY);
   });
 
   test("Test getReportingYears", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{ "year1": true, "year2": true, "year3": true }`,
-      headers: { "cognito-identity-id": "test" },
-    };
+    event.body = `{ "year1": true, "year2": true, "year3": true }`;
+
     const res = await getReportingYears(event, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toBe('["2021","2022","2023","2024"]');
   });
 
   test("Test getMeasureListInfo works when called with an empty object", async () => {
-    const event: APIGatewayProxyEvent = {
-      ...testEvent,
-      body: `{{}}`,
-      headers: { "cognito-identity-id": "test" },
-    };
+    event.body = `{{}}`;
     const res = await getMeasureListInfo(event, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
   });
