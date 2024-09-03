@@ -1,6 +1,6 @@
 import * as Api from "libs/api";
 import { CoreSetAbbr } from "types";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 interface DeleteMeasure {
   coreSet: CoreSetAbbr;
@@ -24,5 +24,7 @@ const deleteMeasure = async ({
 };
 
 export const useDeleteMeasure = () => {
-  return useMutation((data: DeleteMeasure) => deleteMeasure(data));
+  return useMutation({
+    mutationFn: (data: DeleteMeasure) => deleteMeasure(data),
+  });
 };

@@ -51,7 +51,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
           data: {},
         },
       },
-      isLoading: false,
+      isPending: false,
       refetch: jest.fn(),
       isError: false,
       error: undefined,

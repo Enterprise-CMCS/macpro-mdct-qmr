@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { AnyObject, CoreSetAbbr, UserRoles } from "types";
 import { useUser } from "hooks/authHooks";
 
@@ -52,7 +52,9 @@ export const AddAdultCoreSet = () => {
           onSuccess: () => {
             mutation.mutate(CoreSetAbbr.ACSC, {
               onSuccess: () => {
-                queryClient.refetchQueries(["coreSets", state, year]);
+                queryClient.refetchQueries({
+                  queryKey: ["coreSets", state, year],
+                });
                 navigate(`/${state}/${year}`);
               },
             });
@@ -62,7 +64,7 @@ export const AddAdultCoreSet = () => {
       case ReportType.COMBINED:
         mutation.mutate(CoreSetAbbr.ACS, {
           onSuccess: () => {
-            queryClient.refetchQueries(["coreSets", state, year]);
+            queryClient.refetchQueries({ queryKey: ["coreSets", state, year] });
             navigate(`/${state}/${year}`);
           },
         });
@@ -115,8 +117,8 @@ export const AddAdultCoreSet = () => {
                   <CUI.HStack paddingTop="5">
                     <QMR.ContainedButton
                       buttonProps={{ type: "submit", background: "blue.500" }}
-                      buttonText={mutation.isLoading ? "Loading" : "Create"}
-                      disabledStatus={!watchReportType || mutation.isLoading}
+                      buttonText={mutation.isPending ? "Loading" : "Create"}
+                      disabledStatus={!watchReportType || mutation.isPending}
                     />
                     <QMR.ContainedButton
                       buttonProps={{ color: "blue", colorScheme: "white" }}

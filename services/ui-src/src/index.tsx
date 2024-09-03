@@ -1,16 +1,16 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "index.scss";
 import App from "App";
 import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import { QueryProvider } from "query";
-import { ReactQueryDevtools } from "react-query/devtools";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "theme";
 import { UserProvider, ApiProvider } from "hooks/authHooks";
 import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
+import { DevToolsReactQuery } from "hooks/DevToolsReactQuery";
 
 Amplify.configure({
   Storage: {
@@ -33,7 +33,9 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
     deferInitialization: false,
   });
 
-  ReactDOM.render(
+  const container = document.getElementById("root");
+  const root = createRoot(container!);
+  root.render(
     <Router>
       <UserProvider>
         <ApiProvider>
@@ -43,12 +45,11 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
                 <App />
               </LDProvider>
             </ChakraProvider>
-            <ReactQueryDevtools />
+            <DevToolsReactQuery />
           </QueryProvider>
         </ApiProvider>
       </UserProvider>
-    </Router>,
-    document.getElementById("root")
+    </Router>
   );
 })().catch((e) => {
   throw e;

@@ -1,5 +1,5 @@
 import { AddStateSpecificMeasure } from ".";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { useApiMock } from "utils/testUtils/useApiMock";

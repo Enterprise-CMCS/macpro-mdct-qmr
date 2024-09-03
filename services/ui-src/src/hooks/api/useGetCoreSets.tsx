@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getAllCoreSets } from "libs/api";
 import { useParams } from "react-router-dom";
 
@@ -17,9 +17,10 @@ const getCoreSets = async ({ state, year }: GetCoreSets) => {
 export const useGetCoreSets = (releasedTwentyTwentyFour: boolean) => {
   const { state, year } = useParams();
   if (state && year && (releasedTwentyTwentyFour || year !== "2024")) {
-    return useQuery(["coreSets", state, year], () =>
-      getCoreSets({ state, year })
-    );
+    return useQuery({
+      queryKey: ["coreSets", state, year],
+      queryFn: () => getCoreSets({ state, year }),
+    });
   }
   throw Error("state or year unavailable");
 };
