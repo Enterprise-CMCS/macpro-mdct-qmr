@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
-import * as Types from "measures/2022/shared/CommonQuestions/types";
-import { DataDrivenTypes as DDT } from "measures/2022/shared/CommonQuestions/types";
+import * as Types from "shared/types";
+import { DataDrivenTypes as DDT } from "shared/types";
 import { LabelData, cleanString } from "utils";
 import { FormRateField as PM, RateData } from "./types";
 

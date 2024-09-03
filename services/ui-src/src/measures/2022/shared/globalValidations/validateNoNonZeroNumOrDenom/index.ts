@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as Types from "measures/2022/shared/CommonQuestions/types";
+import * as Types from "shared/types";
 import {
   OmsValidationCallback,
   FormRateField,
