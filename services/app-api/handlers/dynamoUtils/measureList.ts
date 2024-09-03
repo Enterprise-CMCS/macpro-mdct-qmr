@@ -2,64 +2,12 @@ interface Measure {
   [year: number]: MeasureMetaData[];
 }
 
-export const stateAbbreviations = [
-  "AL",
-  "AK",
-  "AZ",
-  "AR",
-  "CA",
-  "CO",
-  "CT",
-  "DE",
-  "FL",
-  "GA",
-  "HI",
-  "ID",
-  "IL",
-  "IN",
-  "IA",
-  "KS",
-  "KY",
-  "LA",
-  "ME",
-  "MD",
-  "MA",
-  "MI",
-  "MN",
-  "MS",
-  "MO",
-  "MT",
-  "NE",
-  "NV",
-  "NH",
-  "NJ",
-  "NM",
-  "NY",
-  "NC",
-  "ND",
-  "OH",
-  "OK",
-  "OR",
-  "PA",
-  "RI",
-  "SC",
-  "SD",
-  "TN",
-  "TX",
-  "UT",
-  "VT",
-  "VA",
-  "WA",
-  "WV",
-  "WI",
-  "WY",
-];
-
 export interface MeasureMetaData {
   type: "A" | "C" | "H";
   measure: string;
   autocompleteOnCreation?: boolean;
   placeholder?: boolean;
+  mandatory?: boolean;
 }
 
 export const measures: Measure = {
@@ -1054,6 +1002,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "AMM-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1082,6 +1031,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CDF-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1106,14 +1056,17 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUA-AD",
+      mandatory: true,
     },
     {
       type: "A",
       measure: "FUH-AD",
+      mandatory: true,
     },
     {
       type: "A",
       measure: "FUM-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1122,6 +1075,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "HPCMI-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1130,10 +1084,12 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "IET-AD",
+      mandatory: true,
     },
     {
       type: "A",
       measure: "MSC-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1147,6 +1103,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "OUD-AD",
+      mandatory: true,
     },
     {
       type: "A",
@@ -1175,196 +1132,243 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "SAA-AD",
+      mandatory: true,
     },
     {
       type: "A",
       measure: "SSD-AD",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "AAB-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "ADD-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "AMB-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "AMR-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "APM-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "APP-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "CCP-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "CCW-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "CDF-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "CHL-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "CIS-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "CPC-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "DEV-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "FUA-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "FUH-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "FUM-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "IMA-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "LSC-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "LBW-CH",
+      mandatory: true,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "LRCD-CH",
+      mandatory: true,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "OEV-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "PPC2-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "SFM-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "TFL-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "W30-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "WCC-CH",
+      mandatory: true,
     },
     {
       type: "C",
       measure: "WCV-CH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "AIF-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "AMB-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "CBP-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "CDF-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "COL-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "FUA-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "FUH-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "FUM-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "IET-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "IU-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "OUD-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "PCR-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "PQI92-HH",
+      mandatory: true,
     },
     {
       type: "H",
       measure: "SS-1-HH",
+      mandatory: true,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-2-HH",
+      mandatory: true,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-3-HH",
+      mandatory: true,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-4-HH",
+      mandatory: true,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-5-HH",
+      mandatory: true,
       placeholder: true,
     },
   ],

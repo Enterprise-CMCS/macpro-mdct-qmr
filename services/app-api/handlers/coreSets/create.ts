@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,
@@ -9,8 +9,17 @@ import {
 } from "../../libs/authorization";
 import * as Types from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseCoreSetParameters } from "../../utils/parseParameters";
 
 export const createCoreSet = handler(async (event, context) => {
+  const { allParamsValid, state, year, coreSet } =
+    parseCoreSetParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [Types.UserRoles.STATE_USER]);
   if (isStateUser) {
@@ -22,11 +31,6 @@ export const createCoreSet = handler(async (event, context) => {
       };
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
-
-  // The State Year and ID are all part of the path
-  const state = event!.pathParameters!.state!;
-  const year = event!.pathParameters!.year!;
-  const coreSet = event!.pathParameters!.coreSet! as Types.CoreSetAbbr;
   const type = coreSet!.substring(0, 1);
 
   const coreSetQuery = await getCoreSet(event, context);
@@ -38,9 +42,14 @@ export const createCoreSet = handler(async (event, context) => {
       body: Errors.CORESET_ALREADY_EXISTS,
     };
   }
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createCoreSetKey({ state, year, coreSet });
 
-  await createDependentMeasures(state, parseInt(year), coreSet, type);
+  await createDependentMeasures(
+    state,
+    parseInt(year),
+    coreSet as Types.CoreSetAbbr,
+    type
+  );
 
   // filter out qualifier and account for autocomplete measures on creation
   let autoCompletedMeasures = 0;

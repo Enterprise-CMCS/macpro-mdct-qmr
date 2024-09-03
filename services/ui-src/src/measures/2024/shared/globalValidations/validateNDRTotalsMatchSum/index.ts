@@ -46,7 +46,7 @@ export function validateNDRTotalsMatchSum(
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
-          "Numerators must be the sum for each category of performance measures",
+          "The numerators for each diagnosis cohort should sum to the total SUD numerator.",
       });
     }
 
@@ -57,7 +57,7 @@ export function validateNDRTotalsMatchSum(
       errorArray.push({
         errorLocation: "Performance Measure",
         errorMessage:
-          "Denominators must be the sum for each category of performance measures",
+          "The denominators for each diagnosis cohort should sum to the total SUD denominator.",
       });
     }
   }

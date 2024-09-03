@@ -61,8 +61,10 @@ export const commonQuestionsLabel = {
     defineDenomOther:
       "Define the other denominator population (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     measureEligiblePopDenom: {
-      question:
-        "Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?",
+      question: {
+        default:
+          "Does this denominator represent your total measure-eligible population as defined by the Technical Specifications for this measure?",
+      },
       optionYes:
         "Yes, this denominator represents the total measure-eligible population as defined by the Technical Specifications for this measure.",
       optionNo:
@@ -126,6 +128,9 @@ export const commonQuestionsLabel = {
   OptionalMeasureStratification: {
     section:
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
+  },
+  PerformanceMeasure: {
+    phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. While reporting of the Core Sets is voluntary, CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
   },
   WhyAreYouNotReporting: {
     periodOfHealthEmergencyFlag: true,

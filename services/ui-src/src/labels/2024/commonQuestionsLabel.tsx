@@ -10,39 +10,6 @@ export const commonQuestionsLabel = {
         "Please add any additional notes or comments on the measure not otherwise captured above (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     },
   },
-  CombinedRates: {
-    header: "Combined Rate(s) from Multiple Reporting Units",
-    healthHome: {
-      question:
-        "Did you combine rates from multiple reporting units (e.g. Health Home Providers) to create a Health Home Program-Level rate?",
-      optionYes:
-        "Yes, we combined rates from multiple reporting units to create a Health Home Program-Level rate.",
-      optionNo:
-        "No, we did not combine rates from multiple reporting units to create a Program-Level rate for Health Home measures.",
-      notWeightedRate:
-        "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a Program-Level rate.",
-      weightedRate:
-        "The rates are weighted based on the size of the measure-eligible population for each reporting unit.",
-      weightedRateOther:
-        "The rates are weighted based on another weighting factor.",
-      weightedRateOtherExplain: "Describe the other weighting factor:",
-    },
-    notHealthHome: {
-      question:
-        "Did you combine rates from multiple reporting units (e.g. health plans, delivery systems, programs) to create a State-Level rate?",
-      optionYes:
-        "Yes, we combined rates from multiple reporting units to create a State-Level rate.",
-      optionNo:
-        "No, we did not combine rates from multiple reporting units to create a State-Level rate.",
-      notWeightedRate:
-        "The rates are not weighted based on the size of the measure-eligible population. All reporting units are given equal weights when calculating a State-Level rate.",
-      weightedRate:
-        "The rates are weighted based on the size of the measure-eligible population for each reporting unit.",
-      weightedRateOther:
-        "The rates are weighted based on another weighting factor.",
-      weightedRateOtherExplain: "Describe the other weighting factor:",
-    },
-  },
   DataSource: {
     ehrSrc: "Describe the data source:",
     describeDataSrc:
@@ -66,8 +33,11 @@ export const commonQuestionsLabel = {
   DefinitionsOfPopulation: {
     defineDenomOther: "Define the other denominator population:",
     measureEligiblePopDenom: {
-      question:
-        "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes beneficiaries who move between programs (Medicaid and CHIP), plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+      question: {
+        default:
+          "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes beneficiaries who move between programs (Medicaid and CHIP), plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+        HHCS: "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes enrollees who move between health home providers, plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+      },
       optionYes:
         "Yes, this denominator includes the total measure-eligible population as defined by the Technical Specifications for this measure.",
       optionNo:
@@ -137,6 +107,9 @@ export const commonQuestionsLabel = {
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
     additionalContext:
       "If the state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below (optional)",
+  },
+  PerformanceMeasure: {
+    phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
   },
   WhyAreYouNotReporting: {
     periodOfHealthEmergencyFlag: true,

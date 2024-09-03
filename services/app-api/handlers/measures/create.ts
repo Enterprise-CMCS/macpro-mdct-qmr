@@ -1,14 +1,23 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import { MeasureStatus, CoreSetAbbr, UserRoles } from "../../types";
+import { MeasureStatus, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
+import { parseMeasureParameters } from "../../utils/parseParameters";
 
 export const createMeasure = handler(async (event, context) => {
+  const { allParamsValid, state, year, coreSet, measure } =
+    parseMeasureParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to any admin type user and state users from corresponding state
   const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {
@@ -22,15 +31,15 @@ export const createMeasure = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const body = JSON.parse(event!.body!);
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
   const params = {
     TableName: process.env.measureTableName!,
     Item: {
       compoundKey: dynamoKey,
-      state: event!.pathParameters!.state!,
-      year: parseInt(event!.pathParameters!.year!),
-      coreSet: event!.pathParameters!.coreSet! as CoreSetAbbr,
-      measure: event!.pathParameters!.measure!,
+      state: state,
+      year: parseInt(year),
+      coreSet: coreSet,
+      measure: measure,
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],

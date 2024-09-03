@@ -1,18 +1,13 @@
-import { APIGatewayProxyEvent } from "../../types";
+import { CoreSetParameters, MeasureParameters } from "../../types";
 
-export const createCompoundKey = (event: APIGatewayProxyEvent) => {
-  if (!event.pathParameters) throw new Error("No Path Parameters Object");
-  if (
-    !event.pathParameters.state ||
-    !event.pathParameters.year ||
-    !event.pathParameters.coreSet
-  )
-    throw new Error("Be sure to include year, coreset, and state in the path");
-
-  const state = event.pathParameters.state;
-  const year = event.pathParameters.year;
-  const coreSet = event.pathParameters.coreSet;
-  const measure = event.pathParameters.measure ?? "";
+export const createMeasureKey = (measureParams: MeasureParameters) => {
+  const { state, year, coreSet, measure } = measureParams;
 
   return `${state}${year}${coreSet}${measure}`;
+};
+
+export const createCoreSetKey = (coreSetParams: CoreSetParameters) => {
+  const { state, year, coreSet } = coreSetParams;
+
+  return `${state}${year}${coreSet}`;
 };

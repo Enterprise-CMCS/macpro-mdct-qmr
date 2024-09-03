@@ -1,16 +1,24 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCompoundKey } from "../dynamoUtils/createCompoundKey";
+import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { calculateAndPutRate } from "../rate/shared/calculateAndPutRate";
-import { MeasureParameters } from "../../types";
+import { parseMeasureParameters } from "../../utils/parseParameters";
+import { calculateAndPutRate } from "../rate/rateCalculations";
 
 export const editMeasure = handler(async (event, context) => {
+  const { allParamsValid, state, year, coreSet, measure } =
+    parseMeasureParameters(event);
+  if (!allParamsValid) {
+    return {
+      status: StatusCodes.BAD_REQUEST,
+      body: Errors.NO_KEY,
+    };
+  }
   // action limited to state users from corresponding state
   if (!hasStatePermissions(event)) {
     return {
@@ -27,7 +35,7 @@ export const editMeasure = handler(async (event, context) => {
     detailedDescription,
   } = JSON.parse(event!.body!);
 
-  const dynamoKey = createCompoundKey(event);
+  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
   const lastAlteredBy = getUserNameFromJwt(event);
 
   const descriptionParams =
@@ -41,7 +49,7 @@ export const editMeasure = handler(async (event, context) => {
     TableName: process.env.measureTableName!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: event!.pathParameters!.coreSet!,
+      coreSet: coreSet,
     },
     ...convertToDynamoExpression(
       {
@@ -58,11 +66,14 @@ export const editMeasure = handler(async (event, context) => {
   await dynamoDb.update(params);
 
   //in 2024 and onward, we added a new feature called combined rates which requires rate calculations to the rates table
-  if (parseInt(event!.pathParameters!.year!) >= 2024) {
+  if (parseInt(year) >= 2024) {
     //after updating the database with the latest values for the measure, we run the combine rates calculations for said measure
-    await calculateAndPutRate(
-      event!.pathParameters! as unknown as MeasureParameters
-    ); // TODO, fix this ugly double cast
+    await calculateAndPutRate({
+      state,
+      year,
+      coreSet,
+      measure,
+    });
   }
 
   return { status: StatusCodes.SUCCESS, body: params };
