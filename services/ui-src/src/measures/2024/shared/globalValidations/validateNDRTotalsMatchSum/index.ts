@@ -1,4 +1,4 @@
-import { RateFields } from "measures/2024/shared/CommonQuestions/types";
+import { RateFields } from "shared/types";
 import { FormRateField } from "measures/2024/shared/globalValidations/types";
 
 export function validateNDRTotalsMatchSum(

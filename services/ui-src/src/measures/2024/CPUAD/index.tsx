@@ -1,6 +1,6 @@
 import * as PMD from "./data";
 import * as QMR from "components";
-import * as CMQ from "measures/2024/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import { CPUADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";

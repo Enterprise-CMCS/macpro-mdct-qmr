@@ -2,6 +2,12 @@ import * as DC from "dataConstants";
 
 type YesNo = typeof DC.YES | typeof DC.NO;
 
+export type DeviationKeys =
+  | "numerator"
+  | "denominator"
+  | "Other"
+  | "RateDeviationsSelected";
+
 export interface DeviationFromMeasureSpecification {
   [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
   [DC.DEVIATION_OPTIONS]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected

@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as Types from "measures/2024/shared/CommonQuestions/types";
+import { DefaultFormData } from "shared/types/FormData";
 import {
   OmsValidationCallback,
   FormRateField,
@@ -109,7 +109,7 @@ export const validateNoNonZeroNumOrDenomPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   _qualifiers: LabelData[],
-  data: Types.DefaultFormData
+  data: DefaultFormData
 ) => {
   const errorArray: FormError[] = [];
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(

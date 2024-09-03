@@ -1,7 +1,6 @@
-import * as Types from "measures/2023/shared/CommonQuestions/types";
-import * as Type from "shared/types";
+import * as Types from "shared/types";
 
-export interface FormData extends Type.AdditionalNotes, Types.DidCollect {
+export interface FormData extends Types.AdditionalNotes, Types.DidCollect {
   //HowDidYouReport
   HowDidYouReport: string[];
   "HowDidYouReport-Explanation": string;

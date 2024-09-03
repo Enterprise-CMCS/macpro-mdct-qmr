@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
-import { DataDrivenTypes } from "../shared/CommonQuestions/types";
+import { DataDrivenTypes } from "shared/types/FormData";
 
 export const { categories, qualifiers } = getCatQualLabels("CPU-AD");
 

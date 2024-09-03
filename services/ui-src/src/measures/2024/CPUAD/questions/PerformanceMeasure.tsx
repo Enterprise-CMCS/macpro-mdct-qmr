@@ -2,7 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../../shared/CommonQuestions/types";
+import * as Types from "shared/types";
 import { useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
 import { NdrSetProps, Props } from "shared/types/TypePerformanceMeasure";

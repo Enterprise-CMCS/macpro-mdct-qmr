@@ -1,4 +1,4 @@
-import * as Types from "measures/2024/shared/CommonQuestions/types";
+import * as Types from "shared/types";
 
 export const validateDateRangeRadioButtonCompletion = (
   data: Types.DateRange,

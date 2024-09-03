@@ -1,4 +1,4 @@
-import * as CMQ from "measures/2024/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
