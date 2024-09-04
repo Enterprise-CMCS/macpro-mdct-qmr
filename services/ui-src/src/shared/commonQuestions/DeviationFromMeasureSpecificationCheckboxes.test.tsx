@@ -1,5 +1,5 @@
 import { renderWithHookForm } from "utils";
-import { DeviationFromMeasureSpec } from "./DeviationFromMeasureSpecificationCheckboxes";
+import { DeviationFromMeasureSpecificationCheckboxes } from "./DeviationFromMeasureSpecificationCheckboxes";
 import { fireEvent, screen } from "@testing-library/react";
 import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 import SharedContext from "shared/SharedContext";
@@ -8,7 +8,9 @@ describe("Test DeviationFromMeasureSpec Component", () => {
   beforeEach(() => {
     renderWithHookForm(
       <SharedContext.Provider value={commonQuestionsLabel}>
-        <DeviationFromMeasureSpec categories={[]}></DeviationFromMeasureSpec>
+        <DeviationFromMeasureSpecificationCheckboxes
+          categories={[]}
+        ></DeviationFromMeasureSpecificationCheckboxes>
       </SharedContext.Provider>
     );
   });
