@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import * as Types from "../../CommonQuestions/types";
+import * as Types from "shared/types";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";

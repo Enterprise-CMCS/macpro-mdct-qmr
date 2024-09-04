@@ -1,4 +1,4 @@
-import * as CMQ from "../CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as QMR from "components";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
