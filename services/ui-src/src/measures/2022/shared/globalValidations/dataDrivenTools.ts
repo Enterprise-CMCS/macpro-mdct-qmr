@@ -124,8 +124,8 @@ export const omsLocationDictionary = (
 };
 
 export const getDeviationNDRArray = (
-  deviationOptions: Types.DeviationFromMeasureSpecificationCheckboxesification[typeof DC.DEVIATION_OPTIONS],
-  data: Types.DeviationFromMeasureSpecificationCheckboxesification[typeof DC.DEVIATIONS],
+  deviationOptions: Types.DeviationFromMeasureSpecificationCheckboxes[typeof DC.DEVIATION_OPTIONS],
+  data: Types.DeviationFromMeasureSpecificationCheckboxes[typeof DC.DEVIATIONS],
   ageGroups?: boolean
 ) => {
   let deviationArray: any[] = [];

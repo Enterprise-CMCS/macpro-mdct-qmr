@@ -1,5 +1,4 @@
 import * as DC from "dataConstants";
-import * as Types from "shared/types";
 import {
   OmsValidationCallback,
   FormRateField,
@@ -10,6 +9,7 @@ import {
   getOtherPerformanceMeasureRateArray,
 } from "../dataDrivenTools";
 import { LabelData } from "utils";
+import { DefaultFormData } from "shared/types/FormData";
 
 interface ValProps extends UVFP {
   hybridData?: boolean;
@@ -109,7 +109,7 @@ export const validateNoNonZeroNumOrDenomPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   _qualifiers: LabelData[],
-  data: Types.DefaultFormData
+  data: DefaultFormData
 ) => {
   const errorArray: FormError[] = [];
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(

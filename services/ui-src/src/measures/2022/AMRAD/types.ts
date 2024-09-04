@@ -33,7 +33,7 @@ export namespace Measure {
       Types.WhyAreYouNotReporting,
       Types.DataSource,
       Types.PerformanceMeasure,
-      Types.DeviationFromMeasureSpecificationCheckboxesification,
+      Types.DeviationFromMeasureSpecificationCheckboxes,
       Types.OtherPerformanceMeasure {
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeasure-AgeRates-Persistent-Asthma": {
