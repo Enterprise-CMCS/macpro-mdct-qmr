@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "shared/types/FormData";
+import { DataDrivenTypes } from "shared/types";
 import { getCatQualLabels } from "../rateLabelText";
 
 export const { categories, qualifiers } = getCatQualLabels("BCS-AD");

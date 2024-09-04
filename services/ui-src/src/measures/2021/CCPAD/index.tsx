@@ -6,7 +6,7 @@ import * as PMD from "./data";
 import { useFormContext } from "react-hook-form";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 //form type
-import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 export const CCPAD = ({
   name,

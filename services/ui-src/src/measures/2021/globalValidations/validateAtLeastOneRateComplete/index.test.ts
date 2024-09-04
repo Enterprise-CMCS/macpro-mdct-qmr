@@ -1,15 +1,15 @@
 import * as DC from "dataConstants";
 import * as HELP from "../testHelpers/_helper";
-import { DefaultFormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 import { testFormData } from "../testHelpers/_testFormData";
 import { validateAtLeastOneRateComplete } from ".";
 
 /* Ensure that at least 1 NDR in a set is complete for either the Performance Measure or Other Performance Measure */
 describe("atLeastOneRateComplete", () => {
-  let formData: DefaultFormData;
+  let formData: FormData;
 
   const _run_validation = (
-    data: DefaultFormData,
+    data: FormData,
     errorMessage?: string
   ): FormError[] => {
     const { ageGroups, performanceMeasureArray, OPM } = HELP.test_setup(data);
@@ -25,7 +25,7 @@ describe("atLeastOneRateComplete", () => {
   };
 
   // Check that the provided Form Data returns a certain number of validation errors.
-  const check_errors = (data: DefaultFormData, numErrors: number) => {
+  const check_errors = (data: FormData, numErrors: number) => {
     const errorArray = _run_validation(data);
     expect(errorArray.length).toBe(numErrors);
   };

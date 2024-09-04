@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "shared/types/FormData";
+import { DataDrivenTypes } from "shared/types";
 import * as DC from "dataConstants";
 
 export const dataSourceData: DataDrivenTypes.DataSource = {

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import * as Q from "./questions";
-import * as CMQ from "measures/2021/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";

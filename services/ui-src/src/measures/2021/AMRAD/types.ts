@@ -1,5 +1,4 @@
-import * as Types from "measures/2021/CommonQuestions/types";
-import * as Type from "shared/types";
+import * as Types from "shared/types";
 
 export namespace Measure {
   export interface Props {
@@ -24,16 +23,16 @@ export namespace Measure {
 
   export interface Form
     extends Types.MeasurementSpecification,
-      Type.AdditionalNotes,
-      Type.CombinedRates,
+      Types.AdditionalNotes,
+      Types.CombinedRates,
       Types.DateRange,
       Types.DefinitionOfPopulation,
-      Type.StatusOfData,
+      Types.StatusOfData,
       Types.DidReport,
       Types.WhyAreYouNotReporting,
       Types.DataSource,
       Types.PerformanceMeasure,
-      Types.DeviationFromMeasureSpecificationCheckboxesification,
+      Types.DeviationFromMeasureSpecificationCheckboxes,
       Types.OtherPerformanceMeasure {
     "PerformanceMeasure-Explanation": string;
     "PerformanceMeasure-AgeRates-Persistent-Asthma": {

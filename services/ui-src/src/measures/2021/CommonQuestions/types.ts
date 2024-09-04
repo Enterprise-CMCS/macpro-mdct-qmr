@@ -1,5 +1,3 @@
-import { OmsNode } from "shared/types";
-import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
 import { LabelData } from "utils";
@@ -248,7 +246,7 @@ export interface OptionalMeasureStratification {
     };
   };
 }
-export interface DeviationFromMeasureSpecificationCheckboxesification {
+export interface DeviationFromMeasureSpecificationCheckboxes {
   [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
   [DC.DEVIATION_OPTIONS]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected
   [DC.DEVIATIONS]: {
@@ -264,12 +262,6 @@ export interface DeviationFromMeasureSpecificationCheckboxesification {
   };
 }
 
-export namespace DataDrivenTypes {
-  export type OptionalMeasureStrat = OmsNode[];
-  export type SingleOmsNode = OmsNode;
-  export type PerformanceMeasure = PerformanceMeasureData;
-  export type DataSource = Types.DataSourceData;
-}
 export type DeviationKeys =
   | "numerator"
   | "denominator"
@@ -288,5 +280,5 @@ export type DefaultFormData = Types.AdditionalNotes &
   OtherPerformanceMeasure &
   OptionalMeasureStratification &
   PerformanceMeasure &
-  DeviationFromMeasureSpecificationCheckboxesification &
+  DeviationFromMeasureSpecificationCheckboxes &
   DataSource;
