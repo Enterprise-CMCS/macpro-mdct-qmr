@@ -9,7 +9,7 @@ import {
   getOtherPerformanceMeasureRateArray,
 } from "../dataDrivenTools";
 import { LabelData } from "utils";
-import { DefaultFormData } from "shared/types/FormData";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 interface ValProps extends UVFP {
   hybridData?: boolean;
@@ -75,7 +75,7 @@ export const validateRateZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   _qualifiers: LabelData[],
-  data: DefaultFormData,
+  data: FormData,
   errorMessage?: string
 ): FormError[] => {
   const errorArray: FormError[] = [];
