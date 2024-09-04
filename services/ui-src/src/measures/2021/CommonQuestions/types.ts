@@ -248,7 +248,7 @@ export interface OptionalMeasureStratification {
     };
   };
 }
-export interface DeviationFromMeasureSpecification {
+export interface DeviationFromMeasureSpecificationCheckboxesification {
   [DC.DID_CALCS_DEVIATE]: YesNo; // does the calculation of the measure deviate from the measure specification
   [DC.DEVIATION_OPTIONS]: string[]; // if YES selected from DID_CALCS_DEVIATE -> which deviations options selected
   [DC.DEVIATIONS]: {
@@ -288,5 +288,5 @@ export type DefaultFormData = Types.AdditionalNotes &
   OtherPerformanceMeasure &
   OptionalMeasureStratification &
   PerformanceMeasure &
-  DeviationFromMeasureSpecification &
+  DeviationFromMeasureSpecificationCheckboxesification &
   DataSource;

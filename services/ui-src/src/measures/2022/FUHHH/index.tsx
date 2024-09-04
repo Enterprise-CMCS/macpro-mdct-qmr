@@ -48,7 +48,7 @@ export const FUHHH = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
-              <CMQ.DeviationFromMeasureSpec
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.categories}
                 customTotalLabel={PMD.qualifiers[3].label}
               />

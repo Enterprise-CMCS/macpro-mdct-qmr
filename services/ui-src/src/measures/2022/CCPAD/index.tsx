@@ -1,4 +1,4 @@
-import * as CMQ from "../shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as QMR from "components";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
@@ -47,7 +47,9 @@ export const CCPAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
+                categories={PMD.categories}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

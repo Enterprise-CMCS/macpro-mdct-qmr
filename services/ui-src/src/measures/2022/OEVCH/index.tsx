@@ -47,7 +47,7 @@ export const OEVCH = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
-              <CMQ.DeviationFromMeasureSpec
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.categories}
                 customTotalLabel={PMD.qualifiers.slice(-1)[0].label} // use the actual Total label
               />

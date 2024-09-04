@@ -12,7 +12,7 @@ export interface FormData
     Types.OtherPerformanceMeasure,
     Types.MeasurementSpecification,
     Types.PerformanceMeasure,
-    Types.DeviationFromMeasureSpecification,
+    Types.DeviationFromMeasureSpecificationCheckboxesification,
     Types.OptionalMeasureStratification {
   //DataSource
   "DataSource-CAHPS-Version": string;

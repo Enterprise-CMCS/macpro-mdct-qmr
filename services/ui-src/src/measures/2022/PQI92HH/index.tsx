@@ -54,7 +54,7 @@ export const PQI92HH = ({
                 customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 calcTotal={true}
               />
-              <CMQ.DeviationFromMeasureSpec
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.qualifiers}
                 customTotalLabel={PMD.qualifiers[2].label}
               />

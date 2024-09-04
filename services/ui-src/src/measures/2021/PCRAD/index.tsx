@@ -49,7 +49,7 @@ export const PCRAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <PCRADPerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.qualifiers}
                 measureName={measureId}
               />

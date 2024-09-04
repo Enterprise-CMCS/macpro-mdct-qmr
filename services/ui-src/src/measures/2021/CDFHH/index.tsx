@@ -51,7 +51,7 @@ export const CDFHH = ({
                 rateScale={100}
                 calcTotal
               />
-              <CMQ.DeviationFromMeasureSpec
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 customTotalLabel="Total (Age 12 and older)"
                 categories={PMD.categories}
               />

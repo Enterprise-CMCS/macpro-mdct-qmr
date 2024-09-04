@@ -53,7 +53,7 @@ export const IUHH = ({
                 RateComponent={QMR.ComplexRate}
                 calcTotal={true}
               />
-              <CMQ.DeviationFromMeasureSpec
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.categories}
                 measureName={measureId}
               />

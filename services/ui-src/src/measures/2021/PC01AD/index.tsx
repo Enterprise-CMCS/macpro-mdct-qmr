@@ -53,7 +53,9 @@ export const PC01AD = ({
                 rateReadOnly={rateReadOnly}
                 hybridMeasure
               />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
+                categories={PMD.categories}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

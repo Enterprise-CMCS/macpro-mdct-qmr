@@ -93,7 +93,9 @@ export const AMRAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
-              <CMQ.DeviationFromMeasureSpec categories={[]} />
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
+                categories={[]}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

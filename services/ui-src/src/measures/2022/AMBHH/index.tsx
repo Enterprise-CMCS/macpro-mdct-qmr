@@ -54,7 +54,7 @@ export const AMBHH = ({
                 customMask={positiveNumbersWithMaxDecimalPlaces(1)}
                 calcTotal
               />
-              <CMQ.DeviationFromMeasureSpec
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.categories}
                 customTotalLabel={PMD.qualifiers[4].label}
               />
