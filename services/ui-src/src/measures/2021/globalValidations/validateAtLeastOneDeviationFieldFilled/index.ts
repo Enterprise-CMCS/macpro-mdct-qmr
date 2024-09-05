@@ -1,4 +1,4 @@
-import * as Types from "measures/2021/CommonQuestions/types";
+import * as Types from "shared/types";
 import { FormRateField } from "../types";
 import { LabelData } from "utils";
 

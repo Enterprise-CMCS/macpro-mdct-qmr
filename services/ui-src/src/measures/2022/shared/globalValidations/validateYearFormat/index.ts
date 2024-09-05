@@ -1,4 +1,4 @@
-import { DateRange } from "measures/2022/shared/CommonQuestions/types";
+import { DateRange } from "shared/types";
 
 export const validateYearFormat = (
   dateRange: DateRange["DateRange"],

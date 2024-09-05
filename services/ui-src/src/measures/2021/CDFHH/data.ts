@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { DataDrivenTypes } from "measures/2021/CommonQuestions/types";
+import { DataDrivenTypes } from "shared/types";
 import { getCatQualLabels } from "../rateLabelText";
 
 export const { categories, qualifiers } = getCatQualLabels("CDF-HH");

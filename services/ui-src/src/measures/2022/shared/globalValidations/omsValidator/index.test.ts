@@ -5,7 +5,7 @@ import {
   simpleRate,
   generateOmsFormData,
 } from "utils/testUtils/validationHelpers";
-import { DefaultFormData } from "measures/2022/shared/CommonQuestions/types";
+import { DefaultFormDataLegacy as DefaultFormData } from "shared/types/FormData";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 jest.mock("utils/getLabelText", () => ({

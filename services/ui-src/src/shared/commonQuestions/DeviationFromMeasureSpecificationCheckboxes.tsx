@@ -120,7 +120,7 @@ export const PCRADgetLowLvlDeviationOptions = ({
   return getRateTextAreaOptions(name);
 };
 
-export const DeviationFromMeasureSpec = ({
+export const DeviationFromMeasureSpecificationCheckboxes = ({
   categories,
   measureName = "",
   customTotalLabel,

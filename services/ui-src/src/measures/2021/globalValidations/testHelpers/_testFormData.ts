@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import { DefaultFormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 /* Seed Data for validation tests - Uses DefaultFormData to ensure that our data matches the shape of production data.*/
-export const testFormData: DefaultFormData = {
+export const testFormData: FormData = {
   [DC.ADDITIONAL_NOTES]: "",
   [DC.ADDITIONAL_NOTES_UPLOAD]: [],
   [DC.DID_COLLECT]: "yes",

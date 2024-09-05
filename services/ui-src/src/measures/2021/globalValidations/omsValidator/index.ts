@@ -3,15 +3,13 @@ import {
   locationDictionaryFunction,
   RateData,
 } from "../types";
-import {
-  OmsNodes as OMS,
-  DefaultFormData,
-} from "measures/2021/CommonQuestions/types";
+import { OmsNodes as OMS } from "shared/types";
 import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
 import { LabelData } from "utils";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 interface OmsValidationProps {
-  data: DefaultFormData;
+  data: FormData;
   qualifiers: LabelData[];
   categories: LabelData[];
   locationDictionary: locationDictionaryFunction;
@@ -72,7 +70,7 @@ export const omsValidations = ({
 };
 
 const validateNDRs = (
-  data: DefaultFormData,
+  data: FormData,
   callbackArr: OmsValidationCallback[],
   qualifiers: LabelData[],
   categories: LabelData[],

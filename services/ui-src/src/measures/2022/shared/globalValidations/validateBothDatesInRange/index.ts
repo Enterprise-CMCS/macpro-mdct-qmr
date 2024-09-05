@@ -1,4 +1,4 @@
-import { DateRange } from "measures/2022/shared/CommonQuestions/types";
+import { DateRange } from "shared/types";
 
 // Ensure the user populates the data range
 export const validateBothDatesCompleted = (

@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/2022/shared/CommonQuestions/types";
+import { DataDrivenTypes } from "shared/types";
 import { getCatQualLabels } from "../rateLabelText";
 
 export const { categories, qualifiers } = getCatQualLabels("FUA-AD");

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import * as CUI from "@chakra-ui/react";
-import * as CMQ from "measures/2021/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as QMR from "components";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";

@@ -1,4 +1,4 @@
-import * as Types from "measures/2022/shared/CommonQuestions/types";
+import * as Types from "shared/types";
 
 export const validateAtLeastOneDataSource = (
   data: Types.DataSource,

@@ -23,7 +23,7 @@ import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "measures/
 import * as ComplexValidateNDRTotals from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 import * as ComplexValueSameCrossCategory from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
-import { DefaultFormData } from "measures/2022/shared/CommonQuestions/types";
+import { DefaultFormDataLegacy as DefaultFormData } from "shared/types/FormData";
 
 /**
  * Replicate the behavior of the validateAndSetErrors() function in the MeasureWrapper

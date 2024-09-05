@@ -9,7 +9,7 @@ import {
   OtherRatesFields,
   OptionalMeasureStratification,
 } from "shared/types";
-import { DataDrivenTypes as DDT } from "shared/types/FormData";
+import { DataDrivenTypes as DDT } from "shared/types";
 
 // Test Rate Objects
 export const partialRate: RateFields = {

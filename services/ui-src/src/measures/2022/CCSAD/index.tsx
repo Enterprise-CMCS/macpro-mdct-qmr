@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import * as CMQ from "measures/2022/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 //form type
-import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 export const CCSAD = ({
   name,
@@ -47,7 +47,9 @@ export const CCSAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
+                categories={PMD.categories}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as Types from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 import {
   OmsValidationCallback,
   FormRateField,
@@ -75,7 +75,7 @@ export const validateRateZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   _qualifiers: LabelData[],
-  data: Types.DefaultFormData,
+  data: FormData,
   errorMessage?: string
 ): FormError[] => {
   const errorArray: FormError[] = [];
