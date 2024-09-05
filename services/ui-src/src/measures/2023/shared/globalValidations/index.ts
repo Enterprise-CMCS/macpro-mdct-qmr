@@ -30,7 +30,7 @@ export * from "./validateSameDenominatorSets";
 
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
-export { PCRnoNonZeroNumOrDenom } from "./PCRValidations/PCRnoNonZeroNumOrDenom";
+export { PCRnoNonZeroNumOrDenom } from "shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
 
 //Complex Measure Specific Validations
 export { ComplexAtLeastOneRateComplete } from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
