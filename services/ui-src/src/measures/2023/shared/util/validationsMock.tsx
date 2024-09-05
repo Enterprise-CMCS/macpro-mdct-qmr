@@ -18,7 +18,7 @@ import * as validateOneQualRateHigherThanOtherQual from "measures/2023/shared/gl
 import * as validateReasonForNotReporting from "measures/2023/shared/globalValidations/validateReasonForNotReporting";
 import * as validateRequiredRadioButtonForCombinedRates from "measures/2023/shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
 import * as validateTotals from "measures/2023/shared/globalValidations/validateTotals";
-import * as PCRatLeastOneRateComplete from "measures/2023/shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
+import * as PCRatLeastOneRateComplete from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 import * as PCRnoNonZeroNumOrDenom from "measures/2023/shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
 import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "measures/2023/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
