@@ -17,7 +17,7 @@ import * as validateTotals from "measures/2022/shared/globalValidations/validate
 import * as PCRatLeastOneRateComplete from "measures/2022/shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 import * as PCRnoNonZeroNumOrDenom from "measures/2022/shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
 import * as PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec from "measures/2022/shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
-import * as ComplexAtLeastOneRateComplete from "measures/2022/shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
+import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "measures/2022/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
 import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexValidateNDRTotals from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";

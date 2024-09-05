@@ -33,7 +33,7 @@ export { PCRatLeastOneRateComplete } from "./PCRValidations/PCRatLeastOneRateCom
 export { PCRnoNonZeroNumOrDenom } from "./PCRValidations/PCRnoNonZeroNumOrDenom";
 
 //Complex Measure Specific Validations
-export { ComplexAtLeastOneRateComplete } from "./ComplexValidations/ComplexAtLeastOneRateComplete";
+export { ComplexAtLeastOneRateComplete } from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 export {
   ComplexNoNonZeroNumOrDenom,
   ComplexNoNonZeroNumOrDenomOMS,
