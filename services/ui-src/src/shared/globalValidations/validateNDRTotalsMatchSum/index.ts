@@ -1,5 +1,5 @@
 import { RateFields } from "shared/types";
-import { FormRateField } from "measures/2024/shared/globalValidations/types";
+import { FormRateField } from "shared/types/TypeValidations";
 
 export function validateNDRTotalsMatchSum(
   performanceMeasureArray: FormRateField[][]
