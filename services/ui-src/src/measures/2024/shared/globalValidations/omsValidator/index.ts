@@ -6,7 +6,7 @@ import {
 } from "../types";
 import { OmsNodes as OMS } from "shared/types";
 import { DefaultFormData } from "shared/types/FormData";
-import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
+import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { LabelData, cleanString } from "utils";
 
 interface OmsValidationProps {

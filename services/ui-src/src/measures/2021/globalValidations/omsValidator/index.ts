@@ -4,7 +4,7 @@ import {
   RateData,
 } from "../types";
 import { OmsNodes as OMS } from "shared/types";
-import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
+import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { LabelData } from "utils";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
