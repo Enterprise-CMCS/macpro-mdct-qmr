@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
-import { test_setup } from "../testHelpers/_helper";
-import { testFormData } from "../testHelpers/_testFormData";
+import { test_setup } from "measures/2024/shared/globalValidations/testHelpers/_helper";
+import { testFormData } from "measures/2024/shared/globalValidations/testHelpers/_testFormData";
 import { validateRequiredRadioButtonForCombinedRates } from ".";
 
 describe("validateRequiredRadioButtonForCombinedRates", () => {

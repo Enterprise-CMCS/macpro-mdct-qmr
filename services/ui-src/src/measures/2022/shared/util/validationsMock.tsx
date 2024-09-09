@@ -12,7 +12,7 @@ import * as validateOneCatRateHigherThanOtherCat from "shared/globalValidations/
 import * as validateOneQualDenomHigherThanOtherDenomOMS from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
 import * as validateOneQualRateHigherThanOtherQual from "measures/2022/shared/globalValidations/validateOneQualRateHigherThanOtherQual";
 import * as validateReasonForNotReporting from "shared/globalValidations/validateReasonForNotReporting";
-import * as validateRequiredRadioButtonForCombinedRates from "measures/2022/shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
+import * as validateRequiredRadioButtonForCombinedRates from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
 import * as validateTotals from "measures/2022/shared/globalValidations/validateTotals";
 import * as PCRatLeastOneRateComplete from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 import * as PCRnoNonZeroNumOrDenom from "shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";

@@ -21,7 +21,7 @@ export * from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 export * from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
 export * from "./validateOneQualRateHigherThanOtherQual";
 export * from "shared/globalValidations/validateReasonForNotReporting";
-export * from "./validateRequiredRadioButtonForCombinedRates";
+export * from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
 export * from "./validateTotals";
 export * from "./validateYearFormat";
 export * from "./validateOPMRates";
