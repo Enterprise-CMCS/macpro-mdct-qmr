@@ -9,7 +9,7 @@ import * as validateRateNotZero from "measures/2022/shared/globalValidations/val
 import * as validateRateZero from "measures/2022/shared/globalValidations/validateRateZero";
 import * as validateNumeratorsLessThanDenominators from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 import * as validateOneCatRateHigherThanOtherCat from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
-import * as validateOneQualDenomHigherThanOtherDenomOMS from "measures/2022/shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
+import * as validateOneQualDenomHigherThanOtherDenomOMS from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
 import * as validateOneQualRateHigherThanOtherQual from "measures/2022/shared/globalValidations/validateOneQualRateHigherThanOtherQual";
 import * as validateReasonForNotReporting from "measures/2022/shared/globalValidations/validateReasonForNotReporting";
 import * as validateRequiredRadioButtonForCombinedRates from "measures/2022/shared/globalValidations/validateRequiredRadioButtonForCombinedRates";

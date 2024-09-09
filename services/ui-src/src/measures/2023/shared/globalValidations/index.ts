@@ -18,7 +18,7 @@ export * from "./validateRateNotZero";
 export * from "./validateRateZero";
 export * from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 export * from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
-export * from "./validateOneQualDenomHigherThanOtherDenomOMS";
+export * from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
 export * from "./validateOneQualRateHigherThanOtherQual";
 export * from "./validateReasonForNotReporting";
 export * from "./validateRequiredRadioButtonForCombinedRates";
