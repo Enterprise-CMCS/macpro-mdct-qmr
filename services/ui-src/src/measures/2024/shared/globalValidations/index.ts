@@ -27,7 +27,7 @@ export * from "./validateTotals";
 export * from "shared/globalValidations/validateYearFormat";
 export * from "shared/globalValidations/validateOPMRates";
 export * from "./validateHedisYear";
-export * from "./validateSameDenominatorSets";
+export * from "shared/globalValidations/validateSameDenominatorSets";
 export * from "./validateNDRTotalsMatchSum";
 
 // PCR-XX Specific Validations

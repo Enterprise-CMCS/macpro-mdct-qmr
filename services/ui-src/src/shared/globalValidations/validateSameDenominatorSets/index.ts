@@ -1,4 +1,4 @@
-import { OmsValidationCallback } from "../types";
+import { OmsValidationCallback } from "../../types/TypeValidations";
 
 export const validateSameDenominatorSets =
   (errorMessage?: string): OmsValidationCallback =>
