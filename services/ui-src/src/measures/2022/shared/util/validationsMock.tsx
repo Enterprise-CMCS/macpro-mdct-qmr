@@ -1,4 +1,4 @@
-import * as validateAtLeastOneDataSource from "measures/2022/shared/globalValidations/validateAtLeastOneDataSource";
+import * as validateAtLeastOneDataSource from "shared/globalValidations/validateAtLeastOneDataSource";
 import * as validateAtLeastOneDeviationFieldFilled from "measures/2022/shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 import * as validateAtLeastOneRateComplete from "measures/2022/shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "measures/2022/shared/globalValidations/validateBothDatesInRange";

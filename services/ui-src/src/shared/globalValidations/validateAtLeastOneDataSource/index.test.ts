@@ -1,6 +1,6 @@
-import { testFormData } from "../testHelpers/_testFormData";
 import * as DC from "dataConstants";
 import { validateAtLeastOneDataSource } from ".";
+import { testFormData } from "measures/2024/shared/globalValidations/testHelpers/_testFormData";
 
 describe("validateOneDataSource", () => {
   let formData: any;

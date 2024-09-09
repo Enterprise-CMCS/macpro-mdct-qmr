@@ -1,4 +1,4 @@
-import * as validateAtLeastOneDataSource from "measures/2023/shared/globalValidations/validateAtLeastOneDataSource";
+import * as validateAtLeastOneDataSource from "shared/globalValidations/validateAtLeastOneDataSource";
 import * as validateAtLeastOneDefinitionOfPopulation from "measures/2023/shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
 import * as validateAtLeastOneDataSourceType from "measures/2023/shared/globalValidations/validateAtLeastOneDataSourceType";
 import * as validateAtLeastOneDeliverySystem from "measures/2023/shared/globalValidations/validateAtLeastOneDeliverySystem";

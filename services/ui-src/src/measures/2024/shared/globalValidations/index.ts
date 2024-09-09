@@ -2,7 +2,7 @@ export * from "./dataDrivenTools";
 export * from "./omsValidator";
 export * as Types from "./types";
 
-export * from "./validateAtLeastOneDataSource";
+export * from "shared/globalValidations/validateAtLeastOneDataSource";
 export * from "./validateAtLeastOneDefinitionOfPopulation";
 export * from "./validateHybridMeasurePopulation";
 export * from "./validateAtLeastOneDataSourceType";
