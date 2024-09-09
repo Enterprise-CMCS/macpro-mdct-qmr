@@ -1,5 +1,5 @@
 import * as validateAtLeastOneDataSource from "shared/globalValidations/validateAtLeastOneDataSource";
-import * as validateAtLeastOneDefinitionOfPopulation from "measures/2023/shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
+import * as validateAtLeastOneDefinitionOfPopulation from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
 import * as validateAtLeastOneDataSourceType from "measures/2023/shared/globalValidations/validateAtLeastOneDataSourceType";
 import * as validateAtLeastOneDeliverySystem from "shared/globalValidations/validateAtLeastOneDeliverySystem";
 import * as validateAtLeastOneDeviationFieldFilled from "measures/2023/shared/globalValidations/validateAtLeastOneDeviationFieldFilled";

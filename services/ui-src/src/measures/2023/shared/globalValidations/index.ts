@@ -3,7 +3,7 @@ export * from "./omsValidator";
 export * as Types from "./types";
 
 export * from "shared/globalValidations/validateAtLeastOneDataSource";
-export * from "./validateAtLeastOneDefinitionOfPopulation";
+export * from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
 export * from "./validateAtLeastOneDataSourceType";
 export * from "shared/globalValidations/validateAtLeastOneDeliverySystem";
 export * from "./validateAtLeastOneDeviationFieldFilled";
