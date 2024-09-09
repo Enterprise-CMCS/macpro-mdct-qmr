@@ -23,7 +23,7 @@ export * from "./validateYearFormat";
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 export { PCRnoNonZeroNumOrDenom } from "shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
-export { PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec";
+export { PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 
 //Complex Measure Specific Validations
 export { ComplexAtLeastOneRateComplete } from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
