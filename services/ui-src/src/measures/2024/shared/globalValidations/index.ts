@@ -25,7 +25,7 @@ export * from "shared/globalValidations/validateReasonForNotReporting";
 export * from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
 export * from "./validateTotals";
 export * from "shared/globalValidations/validateYearFormat";
-export * from "./validateOPMRates";
+export * from "shared/globalValidations/validateOPMRates";
 export * from "./validateHedisYear";
 export * from "./validateSameDenominatorSets";
 export * from "./validateNDRTotalsMatchSum";
