@@ -23,7 +23,7 @@ export * from "./validateOneQualRateHigherThanOtherQual";
 export * from "shared/globalValidations/validateReasonForNotReporting";
 export * from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
 export * from "./validateTotals";
-export * from "./validateYearFormat";
+export * from "shared/globalValidations/validateYearFormat";
 export * from "./validateOPMRates";
 export * from "./validateHedisYear";
 export * from "./validateSameDenominatorSets";
