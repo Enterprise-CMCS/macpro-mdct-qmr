@@ -7,7 +7,7 @@ import * as validateEqualCategoryDenominators from "measures/2022/shared/globalV
 import * as validateEqualQualifierDenominators from "shared/globalValidations/validateEqualQualifierDenominators";
 import * as validateRateNotZero from "measures/2022/shared/globalValidations/validateRateNotZero";
 import * as validateRateZero from "measures/2022/shared/globalValidations/validateRateZero";
-import * as validateNumeratorsLessThanDenominators from "measures/2022/shared/globalValidations/validateNumeratorsLessThanDenominators";
+import * as validateNumeratorsLessThanDenominators from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 import * as validateOneCatRateHigherThanOtherCat from "measures/2022/shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 import * as validateOneQualDenomHigherThanOtherDenomOMS from "measures/2022/shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
 import * as validateOneQualRateHigherThanOtherQual from "measures/2022/shared/globalValidations/validateOneQualRateHigherThanOtherQual";

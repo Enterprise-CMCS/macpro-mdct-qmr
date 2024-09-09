@@ -11,7 +11,7 @@ export * from "./validateEqualCategoryDenominators";
 export * from "shared/globalValidations/validateEqualQualifierDenominators";
 export * from "./validateRateNotZero";
 export * from "./validateRateZero";
-export * from "./validateNumeratorsLessThanDenominators";
+export * from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 export * from "./validateOneCatRateHigherThanOtherCat";
 export * from "./validateOneQualDenomHigherThanOtherDenomOMS";
 export * from "./validateOneQualRateHigherThanOtherQual";

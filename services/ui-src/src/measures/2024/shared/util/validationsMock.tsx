@@ -11,7 +11,7 @@ import * as validateEqualQualifierDenominators from "shared/globalValidations/va
 import * as validateFfsRadioButtonCompletion from "measures/2024/shared/globalValidations/validateFfsRadioButtonCompletion";
 import * as validateRateNotZero from "measures/2024/shared/globalValidations/validateRateNotZero";
 import * as validateRateZero from "measures/2024/shared/globalValidations/validateRateZero";
-import * as validateNumeratorsLessThanDenominators from "measures/2024/shared/globalValidations/validateNumeratorsLessThanDenominators";
+import * as validateNumeratorsLessThanDenominators from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 import * as validateOneCatRateHigherThanOtherCat from "measures/2024/shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 import * as validateOneQualDenomHigherThanOtherDenomOMS from "measures/2024/shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
 import * as validateOneQualRateHigherThanOtherQual from "measures/2024/shared/globalValidations/validateOneQualRateHigherThanOtherQual";
