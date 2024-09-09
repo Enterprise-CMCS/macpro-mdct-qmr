@@ -1,10 +1,11 @@
+//note: I'm not sure if this is used
 import * as DC from "dataConstants";
 import { DefaultFormData } from "shared/types/FormData";
 import {
   OmsValidationCallback,
   FormRateField,
   UnifiedValFuncProps as UVFP,
-} from "../types";
+} from "../../types/TypeValidations";
 import {
   convertOmsDataToRateArray,
   getOtherPerformanceMeasureRateArray,
