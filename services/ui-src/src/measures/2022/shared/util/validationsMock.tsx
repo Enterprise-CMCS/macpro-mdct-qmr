@@ -4,7 +4,7 @@ import * as validateAtLeastOneRateComplete from "shared/globalValidations/valida
 import * as validateBothDatesInRange from "shared/globalValidations/validateBothDatesInRange";
 import * as validateDualPopInformation from "measures/2022/shared/globalValidations/validateDualPopInformation";
 import * as validateEqualCategoryDenominators from "measures/2022/shared/globalValidations/validateEqualCategoryDenominators";
-import * as validateEqualQualifierDenominators from "measures/2022/shared/globalValidations/validateEqualQualifierDenominators";
+import * as validateEqualQualifierDenominators from "shared/globalValidations/validateEqualQualifierDenominators";
 import * as validateRateNotZero from "measures/2022/shared/globalValidations/validateRateNotZero";
 import * as validateRateZero from "measures/2022/shared/globalValidations/validateRateZero";
 import * as validateNumeratorsLessThanDenominators from "measures/2022/shared/globalValidations/validateNumeratorsLessThanDenominators";

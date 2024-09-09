@@ -2,7 +2,7 @@ import {
   OmsValidationCallback,
   FormRateField,
   UnifiedValFuncProps as UVFP,
-} from "../types";
+} from "../../types/TypeValidations";
 import { convertOmsDataToRateArray } from "../dataDrivenTools";
 import { LabelData } from "utils";
 

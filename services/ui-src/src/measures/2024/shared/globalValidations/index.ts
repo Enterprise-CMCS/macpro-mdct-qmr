@@ -13,7 +13,7 @@ export * from "shared/globalValidations/validateBothDatesInRange";
 export * from "./validateDateRangeRadioButtonCompletion";
 export * from "./validateDualPopInformation";
 export * from "./validateEqualCategoryDenominators";
-export * from "./validateEqualQualifierDenominators";
+export * from "shared/globalValidations/validateEqualQualifierDenominators";
 export * from "./validateFfsRadioButtonCompletion";
 export * from "./validateRateNotZero";
 export * from "./validateRateZero";

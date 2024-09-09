@@ -8,7 +8,7 @@ export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "shared/globalValidations/validateBothDatesInRange";
 export * from "./validateDualPopInformation";
 export * from "./validateEqualCategoryDenominators";
-export * from "./validateEqualQualifierDenominators";
+export * from "shared/globalValidations/validateEqualQualifierDenominators";
 export * from "./validateRateNotZero";
 export * from "./validateRateZero";
 export * from "./validateNumeratorsLessThanDenominators";
