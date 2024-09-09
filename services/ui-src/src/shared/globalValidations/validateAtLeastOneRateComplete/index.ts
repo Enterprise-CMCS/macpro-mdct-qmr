@@ -1,5 +1,5 @@
 import { LabelData } from "utils";
-import { FormRateField } from "../types";
+import { FormRateField } from "../../types/TypeValidations";
 import { validatePartialRateCompletionPM } from "../validatePartialRateCompletion";
 
 export const validateAtLeastOneRateComplete = (

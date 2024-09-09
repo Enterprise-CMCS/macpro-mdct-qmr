@@ -4,7 +4,7 @@ export * as Types from "./types";
 
 export * from "shared/globalValidations/validateAtLeastOneDataSource";
 export * from "./validateAtLeastOneDeviationFieldFilled";
-export * from "./validateAtLeastOneRateComplete";
+export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "./validateBothDatesInRange";
 export * from "./validateDualPopInformation";
 export * from "./validateEqualCategoryDenominators";

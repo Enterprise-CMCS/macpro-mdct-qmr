@@ -3,7 +3,7 @@ import * as validateAtLeastOneDefinitionOfPopulation from "measures/2023/shared/
 import * as validateAtLeastOneDataSourceType from "measures/2023/shared/globalValidations/validateAtLeastOneDataSourceType";
 import * as validateAtLeastOneDeliverySystem from "measures/2023/shared/globalValidations/validateAtLeastOneDeliverySystem";
 import * as validateAtLeastOneDeviationFieldFilled from "measures/2023/shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
-import * as validateAtLeastOneRateComplete from "measures/2023/shared/globalValidations/validateAtLeastOneRateComplete";
+import * as validateAtLeastOneRateComplete from "shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "measures/2023/shared/globalValidations/validateBothDatesInRange";
 import * as validateDualPopInformation from "measures/2023/shared/globalValidations/validateDualPopInformation";
 import * as validateEqualCategoryDenominators from "measures/2023/shared/globalValidations/validateEqualCategoryDenominators";

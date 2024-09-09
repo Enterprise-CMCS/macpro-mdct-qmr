@@ -8,7 +8,7 @@ export * from "./validateHybridMeasurePopulation";
 export * from "./validateAtLeastOneDataSourceType";
 export * from "./validateAtLeastOneDeliverySystem";
 export * from "./validateAtLeastOneDeviationFieldFilled";
-export * from "./validateAtLeastOneRateComplete";
+export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "./validateBothDatesInRange";
 export * from "./validateDateRangeRadioButtonCompletion";
 export * from "./validateDualPopInformation";
