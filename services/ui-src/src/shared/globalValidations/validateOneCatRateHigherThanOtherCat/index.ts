@@ -1,6 +1,9 @@
 import * as Types from "shared/types";
 
-import { OmsValidationCallback, UnifiedValFuncProps as UVFP } from "../types";
+import {
+  OmsValidationCallback,
+  UnifiedValFuncProps as UVFP,
+} from "../../types/TypeValidations";
 import {
   getPerfMeasureRateArray,
   convertOmsDataToRateArray,

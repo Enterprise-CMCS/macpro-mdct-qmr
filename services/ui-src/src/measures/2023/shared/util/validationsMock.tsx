@@ -12,7 +12,7 @@ import * as validateFfsRadioButtonCompletion from "measures/2023/shared/globalVa
 import * as validateRateNotZero from "measures/2023/shared/globalValidations/validateRateNotZero";
 import * as validateRateZero from "measures/2023/shared/globalValidations/validateRateZero";
 import * as validateNumeratorsLessThanDenominators from "shared/globalValidations/validateNumeratorsLessThanDenominators";
-import * as validateOneCatRateHigherThanOtherCat from "measures/2023/shared/globalValidations/validateOneCatRateHigherThanOtherCat";
+import * as validateOneCatRateHigherThanOtherCat from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 import * as validateOneQualDenomHigherThanOtherDenomOMS from "measures/2023/shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
 import * as validateOneQualRateHigherThanOtherQual from "measures/2023/shared/globalValidations/validateOneQualRateHigherThanOtherQual";
 import * as validateReasonForNotReporting from "measures/2023/shared/globalValidations/validateReasonForNotReporting";

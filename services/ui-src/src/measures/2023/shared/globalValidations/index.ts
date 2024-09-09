@@ -17,7 +17,7 @@ export * from "./validateFfsRadioButtonCompletion";
 export * from "./validateRateNotZero";
 export * from "./validateRateZero";
 export * from "shared/globalValidations/validateNumeratorsLessThanDenominators";
-export * from "./validateOneCatRateHigherThanOtherCat";
+export * from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 export * from "./validateOneQualDenomHigherThanOtherDenomOMS";
 export * from "./validateOneQualRateHigherThanOtherQual";
 export * from "./validateReasonForNotReporting";
