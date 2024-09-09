@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import { testFormData } from "../testHelpers/_testFormData";
+import { testFormData } from "measures/2024/shared/globalValidations/testHelpers/_testFormData";
 import { validateHedisYear } from ".";
 
-describe("Hedis Year Validation - FY 2023", () => {
+describe("Hedis Year Validation - FY 2024", () => {
   let formData: any;
 
   const run_validation = (data: any): FormError[] => {
@@ -15,9 +15,9 @@ describe("Hedis Year Validation - FY 2023", () => {
 
   it("Should not show hedis validation error", () => {
     const hedisOptions = [
-      "DC.HEDIS_MY_2020",
       "DC.HEDIS_MY_2021",
       "DC.HEDIS_MY_2022",
+      "DC.HEDIS_MY_2023",
     ];
     for (let i = 0; i < hedisOptions.length - 1; i++) {
       formData[DC.MEASUREMENT_SPECIFICATION_HEDIS] = hedisOptions[i];

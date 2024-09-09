@@ -25,7 +25,7 @@ export * from "shared/globalValidations/validateRequiredRadioButtonForCombinedRa
 export * from "./validateTotals";
 export * from "shared/globalValidations/validateYearFormat";
 export * from "shared/globalValidations/validateOPMRates";
-export * from "./validateHedisYear";
+export * from "shared/globalValidations/validateHedisYear";
 export * from "shared/globalValidations/validateSameDenominatorSets";
 
 // PCR-XX Specific Validations
