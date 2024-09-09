@@ -9,7 +9,7 @@ export * from "./validateAtLeastOneDeliverySystem";
 export * from "./validateAtLeastOneDeviationFieldFilled";
 export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "shared/globalValidations/validateBothDatesInRange";
-export * from "./validateDateRangeRadioButtonCompletion";
+export * from "shared/globalValidations/validateDateRangeRadioButtonCompletion";
 export * from "./validateDualPopInformation";
 export * from "./validateEqualCategoryDenominators";
 export * from "shared/globalValidations/validateEqualQualifierDenominators";
