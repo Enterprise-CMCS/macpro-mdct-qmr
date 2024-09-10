@@ -104,8 +104,11 @@ export const omsLocationDictionary = (
       checkNode(option);
     }
 
-    if (isLegacyLabel()) dictionary[cleanString(node.id)] = node.id;
-    else dictionary[node.id] = node.label!;
+    if (isLegacyLabel()) {
+      dictionary[cleanString(node.id)] = node.id;
+    } else {
+      dictionary[node.id] = node.label!;
+    }
   };
 
   for (const node of renderData) {
