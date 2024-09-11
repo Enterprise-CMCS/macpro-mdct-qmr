@@ -1,4 +1,4 @@
-import { validatePartialRateCompletionPM } from "../../validatePartialRateCompletion";
+import { validatePartialRateCompletionPM } from "shared/globalValidations/validatePartialRateCompletion";
 
 /* At least one NDR set must be complete (OPM or PM) */
 export const ComplexAtLeastOneRateComplete = (
