@@ -38,14 +38,13 @@ const IUHHNDRSets = ({ name }: NdrProps) => {
 
   return (
     <>
-      {ageGroupsOptions ||
-        (isLegacyLabel() && (
-          <QMR.Checkbox
-            name={`${name}.iuhh-rate.options`}
-            key={`${name}.iuhh-rate.options`}
-            options={ageGroupsOptions}
-          />
-        ))}
+      {isLegacyLabel() && (
+        <QMR.Checkbox
+          name={`${name}.iuhh-rate.options`}
+          key={`${name}.iuhh-rate.options`}
+          options={ageGroupsOptions}
+        />
+      )}
       {calcTotal && (
         <TotalNDRSets
           componentFlag={"IU"}
