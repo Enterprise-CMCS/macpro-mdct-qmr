@@ -1,10 +1,14 @@
-import { DynamoDBClient, paginateScan } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  DynamoDBDocumentClient,
+  paginateScan,
+  PutCommand,
+} from "@aws-sdk/lib-dynamodb";
 
 const transformMeasureTable = async () => {
-  const dbClient = buildClient(!!process.env.DYNAMODB_URL);
-  const tableName = "local-measures";
-  const newTableName = "local-cs-measures";
+  const dbClient = buildClient(false);
+  const tableName = "cmdct-3960-measures";
+  const newTableName = "cmdct-3960-cs-measures";
   console.log(`Processing table ${tableName}`);
   for await (let entry of scan(dbClient, tableName)) {
     add(dbClient, newTableName, entry);
@@ -25,11 +29,13 @@ async function add(client: DynamoDBDocumentClient, table: string, entry: any) {
   const params = {
     TableName: table,
     Item: {
+      ...entry,
       compoundKey: newCompoundKey,
-      coreSet: entry.coreSet,
     },
   };
-  await client.send(new PutCommand(params));
+  console.log("PARAMS!!!!!!!!", params.Item);
+  console.log("ENTRY!!!!!!!", entry);
+  // await client.send(new PutCommand(params));
 }
 
 function buildClient(isLocal: boolean) {
@@ -60,3 +66,5 @@ function buildClient(isLocal: boolean) {
     );
   }
 }
+
+transformMeasureTable();

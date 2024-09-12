@@ -107,12 +107,12 @@ resources:
         AttributeDefinitions:
           - AttributeName: compoundKey
             AttributeType: S
-          - AttributeName: coreSet
+          - AttributeName: measure
             AttributeType: S
         KeySchema:
           - AttributeName: compoundKey
             KeyType: HASH
-          - AttributeName: coreSet
+          - AttributeName: measure
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
     BannerTable:
