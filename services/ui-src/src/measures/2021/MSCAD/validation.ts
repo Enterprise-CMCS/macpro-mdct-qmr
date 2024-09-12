@@ -1,10 +1,10 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
-import * as Types from "measures/2021/CommonQuestions/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
-const MSCADValidation = (data: Types.DefaultFormData) => {
+const MSCADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const OPM = data[DC.OPM_RATES];

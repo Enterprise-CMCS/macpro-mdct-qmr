@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "measures/2022/shared/CommonQuestions/types";
+import * as Types from "shared/types";
 import { useEffect } from "react";
 
 interface Props {

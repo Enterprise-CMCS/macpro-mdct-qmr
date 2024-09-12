@@ -1,4 +1,4 @@
-import * as CMQ from "measures/2022/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as DC from "dataConstants";
 import * as PMD from "./data";
 import * as QMR from "components";
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 //form type
-import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 export const OEVCH = ({
   name,
@@ -47,7 +47,7 @@ export const OEVCH = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
-              <CMQ.DeviationFromMeasureSpec
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.categories}
                 customTotalLabel={PMD.qualifiers.slice(-1)[0].label} // use the actual Total label
               />

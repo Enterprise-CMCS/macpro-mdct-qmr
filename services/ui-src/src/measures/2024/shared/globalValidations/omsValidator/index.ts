@@ -4,11 +4,9 @@ import {
   locationDictionaryFunction,
   RateData,
 } from "../types";
-import {
-  OmsNodes as OMS,
-  DefaultFormData,
-} from "measures/2024/shared/CommonQuestions/types";
-import { validatePartialRateCompletionOMS } from "../validatePartialRateCompletion";
+import { OmsNodes as OMS } from "shared/types";
+import { DefaultFormData } from "shared/types/FormData";
+import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { LabelData, cleanString } from "utils";
 
 interface OmsValidationProps {

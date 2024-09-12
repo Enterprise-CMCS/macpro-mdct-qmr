@@ -1,6 +1,6 @@
 import * as PMD from "./data";
 import * as QMR from "components";
-import * as CMQ from "measures/2022/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
@@ -9,7 +9,7 @@ import { validationFunctions } from "./validation";
 import { AABRateCalculation } from "utils/rateFormulas";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 //form type
-import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 export const AABAD = ({
   name,
@@ -53,7 +53,9 @@ export const AABAD = ({
                 data={PMD.data}
                 rateCalc={AABRateCalculation}
               />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
+                categories={PMD.categories}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && (

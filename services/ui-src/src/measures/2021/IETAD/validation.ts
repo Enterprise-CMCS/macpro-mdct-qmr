@@ -3,7 +3,7 @@ import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
-import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 /** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
 const sameDenominatorSets: GV.Types.OmsValidationCallback = ({

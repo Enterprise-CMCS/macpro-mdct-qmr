@@ -1,4 +1,4 @@
-import * as CMQ from "measures/2022/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as QMR from "components";
 import * as PMD from "./data";
 import { useFormContext, useWatch } from "react-hook-form";
@@ -93,7 +93,9 @@ export const AMRAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
-              <CMQ.DeviationFromMeasureSpec categories={[]} />
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
+                categories={[]}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

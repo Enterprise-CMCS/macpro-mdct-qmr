@@ -3,7 +3,7 @@ import * as DC from "dataConstants";
 import * as GV from "measures/2021/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
-import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const DEVCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;

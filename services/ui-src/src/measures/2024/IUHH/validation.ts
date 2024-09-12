@@ -3,7 +3,7 @@ import * as GV from "measures/2024/shared/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
-import { DefaultFormData as FormData } from "measures/2024/shared/CommonQuestions/types";
+import { DefaultFormData as FormData } from "shared/types/FormData";
 
 // Rate structure by index in row
 const ndrForumlas = [

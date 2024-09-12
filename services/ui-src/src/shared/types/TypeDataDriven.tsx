@@ -1,8 +1,8 @@
-import { OmsNode } from "./TypeOptionalMeasureStratification";
-import { PerformanceMeasureData } from "./TypePerformanceMeasure";
+import * as Types from "shared/types";
 
 export namespace DataDrivenTypes {
-  export type OptionalMeasureStrat = OmsNode[];
-  export type SingleOmsNode = OmsNode;
-  export type PerformanceMeasure = PerformanceMeasureData;
+  export type OptionalMeasureStrat = Types.OmsNode[];
+  export type SingleOmsNode = Types.OmsNode;
+  export type PerformanceMeasure = Types.PerformanceMeasureData;
+  export type DataSource = Types.DataSourceData;
 }

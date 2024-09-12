@@ -1,8 +1,6 @@
 import * as DC from "dataConstants";
-import {
-  DefaultFormData,
-  RateFields,
-} from "measures/2022/shared/CommonQuestions/types";
+import { RateFields } from "shared/types";
+import { DefaultFormDataLegacy as DefaultFormData } from "shared/types/FormData";
 import { exampleData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
 

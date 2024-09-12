@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import * as CMQ from "measures/2021/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import { validationFunctions } from "./validation";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 import * as QMR from "components";
 //form type
-import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 export const COBAD = ({
   name,
@@ -47,7 +47,9 @@ export const COBAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
+                categories={PMD.categories}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

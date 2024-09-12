@@ -5,11 +5,11 @@ import { LabelData, isLegacyLabel } from "utils";
 import {
   RateFields,
   OmsNodes as OMS,
-  DataDrivenTypes as DDT,
   PerformanceMeasure,
   OtherRatesFields,
   OptionalMeasureStratification,
-} from "measures/2023/shared/CommonQuestions/types";
+} from "shared/types";
+import { DataDrivenTypes as DDT } from "shared/types";
 
 // Test Rate Objects
 export const partialRate: RateFields = {

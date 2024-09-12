@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as GV from "measures/2023/shared/globalValidations";
 //form type
-import { DefaultFormData as FormData } from "measures/2023/shared/CommonQuestions/types";
+import { DefaultFormData as FormData } from "shared/types/FormData";
 
 export interface FormRateField {
   denominator?: string;

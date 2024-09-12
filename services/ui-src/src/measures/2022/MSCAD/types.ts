@@ -1,4 +1,4 @@
-import * as Types from "measures/2022/shared/CommonQuestions/types";
+import * as Types from "shared/types";
 import * as Type from "shared/types";
 
 export interface FormData
@@ -12,7 +12,7 @@ export interface FormData
     Types.OtherPerformanceMeasure,
     Types.MeasurementSpecification,
     Types.PerformanceMeasure,
-    Types.DeviationFromMeasureSpecification,
+    Types.DeviationFromMeasureSpecificationCheckboxes,
     Types.OptionalMeasureStratification {
   //DataSource
   "DataSource-CAHPS-Version": string;

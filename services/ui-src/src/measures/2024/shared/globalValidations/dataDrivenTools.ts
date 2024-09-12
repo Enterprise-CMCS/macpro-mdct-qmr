@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
-import * as Types from "measures/2024/shared/CommonQuestions/types";
-import { DataDrivenTypes as DDT } from "measures/2024/shared/CommonQuestions/types";
+import * as Types from "shared/types";
+import { DataDrivenTypes as DDT } from "shared/types";
 import { LabelData } from "utils";
 import { FormRateField as PM, RateData } from "./types";
 
@@ -124,8 +124,8 @@ export const omsLocationDictionary = (
 };
 
 export const getDeviationReason = (
-  deviationOptions: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_OPTIONS],
-  data: Types.DeviationFromMeasureSpecification[typeof DC.DEVIATION_REASON]
+  deviationOptions: Types.DeviationFromMeasureSpecificationTextField[typeof DC.DEVIATION_OPTIONS],
+  data: Types.DeviationFromMeasureSpecificationTextField[typeof DC.DEVIATION_REASON]
 ) => {
   let deviationReason: string = "";
   if (deviationOptions) {

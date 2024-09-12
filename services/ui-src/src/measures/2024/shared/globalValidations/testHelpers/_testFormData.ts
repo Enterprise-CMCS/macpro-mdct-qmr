@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { DefaultFormData } from "measures/2024/shared/CommonQuestions/types";
+import { DefaultFormData } from "shared/types/FormData";
 
 /* Seed Data for validation tests - Uses DefaultFormData to ensure that our data matches the shape of production data.*/
 export const testFormData: DefaultFormData = {

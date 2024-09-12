@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import * as CMQ from "measures/2021/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
 //form type
-import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 export const PQI08AD = ({
   name,
@@ -53,7 +53,9 @@ export const PQI08AD = ({
                 allowNumeratorGreaterThanDenominator
                 customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               />
-              <CMQ.DeviationFromMeasureSpec categories={PMD.categories} />
+              <CMQ.DeviationFromMeasureSpecificationCheckboxes
+                categories={PMD.categories}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && (
