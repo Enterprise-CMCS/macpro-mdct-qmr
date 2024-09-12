@@ -96,25 +96,6 @@ resources:
           - AttributeName: coreSet
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
-    MeasureTable2:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:custom.measureTableName2}
-        PointInTimeRecoverySpecification:
-          PointInTimeRecoveryEnabled: true
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
-        AttributeDefinitions:
-          - AttributeName: compoundKey
-            AttributeType: S
-          - AttributeName: measure
-            AttributeType: S
-        KeySchema:
-          - AttributeName: compoundKey
-            KeyType: HASH
-          - AttributeName: measure
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
     BannerTable:
       Type: AWS::DynamoDB::Table
       Properties:
