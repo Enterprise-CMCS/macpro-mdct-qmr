@@ -1,5 +1,4 @@
 import * as DC from "dataConstants";
-import * as Types from "measures/2022/shared/CommonQuestions/types";
 import {
   OmsValidationCallback,
   FormRateField,
@@ -10,6 +9,7 @@ import {
   getOtherPerformanceMeasureRateArray,
 } from "../dataDrivenTools";
 import { LabelData } from "utils";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 interface ValProps extends UVFP {
   hybridData?: boolean;
@@ -75,7 +75,7 @@ export const validateRateZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   _qualifiers: LabelData[],
-  data: Types.DefaultFormData,
+  data: FormData,
   errorMessage?: string
 ): FormError[] => {
   const errorArray: FormError[] = [];

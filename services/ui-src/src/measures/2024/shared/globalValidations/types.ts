@@ -1,4 +1,4 @@
-import { OmsNodes as OMS } from "measures/2024/shared/CommonQuestions/types";
+import { OmsNodes as OMS } from "shared/types";
 import { LabelData } from "utils";
 
 export interface FormRateField {

@@ -5,8 +5,8 @@ import {
   simpleRate,
   generateOmsFormData,
 } from "utils/testUtils/validationHelpers";
-import { DefaultFormData } from "measures/2021/CommonQuestions/types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 jest.mock("utils/getLabelText", () => ({
   isLegacyLabel: () => true,
@@ -33,7 +33,7 @@ describe("Testing OMS validation processor", () => {
           simpleRate,
           simpleRate,
         ])
-      ) as DefaultFormData,
+      ) as FormData,
       validationCallbacks: [],
     });
 
@@ -53,7 +53,7 @@ describe("Testing OMS validation processor", () => {
         ]),
         true,
         OMSData(2021, false)
-      ) as DefaultFormData,
+      ) as FormData,
       validationCallbacks: [],
     });
 
@@ -72,7 +72,7 @@ describe("Testing OMS validation processor", () => {
           simpleRate,
         ]),
         false
-      ) as DefaultFormData,
+      ) as FormData,
       validationCallbacks: [],
     });
 
@@ -89,7 +89,7 @@ describe("Testing OMS validation processor", () => {
       data: generateOmsFormData(
         generateOmsQualifierRateData(categories, qualifiers, [{}, {}]),
         true
-      ) as DefaultFormData,
+      ) as FormData,
       validationCallbacks: [],
     });
     expect(errors.length).toBe(134);
@@ -118,7 +118,7 @@ describe("Testing OMS validation processor", () => {
           simpleRate,
           simpleRate,
         ])
-      ) as DefaultFormData,
+      ) as FormData,
       validationCallbacks: [
         () => {
           return [

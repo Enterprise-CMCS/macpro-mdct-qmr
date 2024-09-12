@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/2024/shared/CommonQuestions/types";
+import { DataDrivenTypes } from "shared/types";
 import { getCatQualLabels } from "../rateLabelText";
 
 export const { categories, qualifiers } = getCatQualLabels("W30-CH");

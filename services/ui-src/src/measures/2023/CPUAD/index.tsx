@@ -1,6 +1,6 @@
 import * as PMD from "./data";
 import * as QMR from "components";
-import * as CMQ from "measures/2023/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";

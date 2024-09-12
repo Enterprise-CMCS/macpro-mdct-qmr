@@ -1,4 +1,4 @@
-import { DataDrivenTypes } from "measures/2024/shared/CommonQuestions/types";
+import { DataDrivenTypes } from "shared/types";
 import * as DC from "dataConstants";
 
 export const dataSourceData: DataDrivenTypes.DataSource = {

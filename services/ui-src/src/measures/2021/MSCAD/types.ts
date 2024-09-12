@@ -1,18 +1,17 @@
-import * as Types from "measures/2021/CommonQuestions/types";
-import * as Type from "shared/types";
+import * as Types from "shared/types";
 
 export interface FormData
   extends Types.DefinitionOfPopulation,
-    Type.StatusOfData,
+    Types.StatusOfData,
     Types.DateRange,
     Types.DidReport,
-    Type.AdditionalNotes,
+    Types.AdditionalNotes,
     Types.WhyAreYouNotReporting,
-    Type.CombinedRates,
+    Types.CombinedRates,
     Types.OtherPerformanceMeasure,
     Types.MeasurementSpecification,
     Types.PerformanceMeasure,
-    Types.DeviationFromMeasureSpecification,
+    Types.DeviationFromMeasureSpecificationCheckboxes,
     Types.OptionalMeasureStratification {
   //DataSource
   "DataSource-CAHPS-Version": string;

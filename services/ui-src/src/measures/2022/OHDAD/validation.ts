@@ -3,7 +3,7 @@ import * as GV from "measures/2022/shared/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
-import { DefaultFormData as FormData } from "measures/2022/shared/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const OHDValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;

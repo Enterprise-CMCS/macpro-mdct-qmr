@@ -1,18 +1,18 @@
 import * as Q from "./questions";
 import * as QMR from "components";
-import * as CMQ from "measures/2022/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import { useParams } from "react-router-dom";
-import * as Types from "measures/2022/shared/CommonQuestions/types";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 import { useEffect } from "react";
+import { DefaultFormDataLegacy } from "shared/types/FormData";
 
 export const CPCCH = ({
   name,
   year,
   setValidationFunctions,
 }: QMR.MeasureWrapperProps) => {
-  const { watch } = useFormContext<Types.DefaultFormData>();
+  const { watch } = useFormContext<DefaultFormDataLegacy>();
   const { coreSetId } = useParams();
   const data = watch();
 

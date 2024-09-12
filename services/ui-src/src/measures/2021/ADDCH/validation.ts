@@ -4,7 +4,7 @@ import * as PMD from "./data";
 import { getPerfMeasureRateArray } from "../globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
-import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const ADDCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;

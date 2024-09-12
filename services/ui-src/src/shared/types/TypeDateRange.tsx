@@ -12,5 +12,5 @@ export interface DateRange {
     [DC.END_DATE]: MonthYear;
     [DC.START_DATE]: MonthYear;
   };
-  [DC.MEASUREMENT_PERIOD_CORE_SET]: YesNo; // if state adhered to Core Set specifications in defining the measurement period for calculating measure
+  [DC.MEASUREMENT_PERIOD_CORE_SET]?: YesNo; // if state adhered to Core Set specifications in defining the measurement period for calculating measure
 }

@@ -3,7 +3,7 @@ import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
-import { DefaultFormData as FormData } from "measures/2021/CommonQuestions/types";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const AMBHHValidation = (data: FormData) => {
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];

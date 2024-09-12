@@ -1,5 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import * as Types from "measures/2024/shared/CommonQuestions/types";
+import * as Types from "shared/types";
 import * as QMR from "components";
 import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { PCRRate } from "components/PCRRate";

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import * as CMQ from "measures/2023/shared/CommonQuestions";
+import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
 //form type
-import { DefaultFormData as FormData } from "measures/2023/shared/CommonQuestions/types";
+import { DefaultFormData as FormData } from "shared/types/FormData";
 
 export const PQI92HH = ({
   name,
