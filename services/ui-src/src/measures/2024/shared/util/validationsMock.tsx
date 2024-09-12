@@ -21,7 +21,7 @@ import * as validateTotals from "measures/2024/shared/globalValidations/validate
 import * as PCRatLeastOneRateComplete from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 import * as PCRnoNonZeroNumOrDenom from "shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
 import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
-import * as ComplexNoNonZeroNumOrDenom from "measures/2024/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
+import * as ComplexNoNonZeroNumOrDenom from "shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
 import * as ComplexValidateNDRTotals from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 import * as ComplexValueSameCrossCategory from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";

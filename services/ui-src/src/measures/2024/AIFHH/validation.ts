@@ -42,8 +42,6 @@ const AIFHHValidation = (data: FormData) => {
   OPM = data[DC.OPM_RATES];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
-  console.log("OPM", OPM);
-
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
@@ -106,17 +104,17 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
     ? [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
+          [],
           ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`,
-          OPM.map((item: any) => item.description)
+          `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
       ]
     : [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
+          OPM,
           ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`,
-          OPM.map((item: any) => item.description)
+          `Optional Measure Stratification: ${locationDictionary(label)}`
         ),
       ];
 };

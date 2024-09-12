@@ -1,5 +1,6 @@
 import { cleanString, isLegacyLabel } from "utils";
 import * as DC from "dataConstants";
+import { AnyObject } from "types";
 
 interface NDRforumla {
   numerator: number;
@@ -9,41 +10,52 @@ interface NDRforumla {
 
 export const ComplexNoNonZeroNumOrDenomOMS = (
   rateData: any,
+  OPM: AnyObject[],
   ndrFormulas: NDRforumla[],
-  errorLocation: string,
-  descriptions: string[]
+  errorLocation: string
 ) => {
   let errorArray: any[] = [];
-  for (const key in rateData) {
-    if (key === "OPM") {
-      descriptions.forEach((description) => {
-        const opmKey = isLegacyLabel()
-          ? cleanString(description)
-          : `${DC.OPM_KEY}${cleanString(description)}`;
 
+  //OMS errors for OPM data
+  if (OPM && OPM.length > 0) {
+    const keyList = OPM?.map((item: any) => {
+      return {
+        id: isLegacyLabel()
+          ? cleanString(item.description)
+          : `${DC.OPM_KEY}${cleanString(item.description)}`,
+        desc: item.description,
+      };
+    });
+
+    for (const id of keyList.map((key) => key.id)) {
+      if (rateData[id]) {
+        const description = keyList.find((key) => key.id === id)?.desc;
         errorArray.push(
           ...ComplexNoNonZeroNumOrDenom(
             [],
             [
               {
                 rate: isLegacyLabel()
-                  ? rateData[opmKey]["OPM"]
-                  : rateData[key][opmKey],
+                  ? rateData[id]["OPM"]
+                  : rateData["OPM"][id],
               },
             ],
             ndrFormulas,
             `${errorLocation} - ${description}`
           )
         );
-      });
-    } else {
+      }
+    }
+  } else {
+    for (const key in rateData) {
       for (const category in rateData[key]) {
+        const label = rateData[key][category]?.[0]?.label;
         errorArray.push(
           ...ComplexNoNonZeroNumOrDenom(
             [rateData[key][category]],
             false,
             ndrFormulas,
-            `${errorLocation} - ${key} - ${category}`
+            `${errorLocation} - ${label}`
           )
         );
       }
