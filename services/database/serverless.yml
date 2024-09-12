@@ -20,6 +20,7 @@ custom:
   measureTableName: ${self:custom.stage}-measures
   bannerTableName: ${self:custom.stage}-banners
   rateTableName: ${self:custom.stage}-rates
+  measureTableName2: ${self:custom.stage}-cs-measures
   dynamodb:
     stages:
       - local
@@ -34,7 +35,7 @@ provider:
   region: us-east-1
   stackTags:
     PROJECT: ${self:custom.project}
-    SERVICE: ${self:service}  
+    SERVICE: ${self:service}
 
 resources:
   Resources:
@@ -80,6 +81,25 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.measureTableName}
+        PointInTimeRecoverySpecification:
+          PointInTimeRecoveryEnabled: true
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        AttributeDefinitions:
+          - AttributeName: compoundKey
+            AttributeType: S
+          - AttributeName: coreSet
+            AttributeType: S
+        KeySchema:
+          - AttributeName: compoundKey
+            KeyType: HASH
+          - AttributeName: coreSet
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
+    MeasureTable2:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.measureTableName2}
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
         StreamSpecification:
