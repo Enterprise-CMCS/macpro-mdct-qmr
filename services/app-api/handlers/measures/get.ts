@@ -36,10 +36,10 @@ export const listMeasures = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
   const params = {
     TableName: "cmdct-3960-measure", // TODO: change this back to use env variable
-    ...convertToDynamoExpression(
-      { state: state, year: parseInt(year), coreSet: coreSet },
-      "list"
-    ),
+    // ...convertToDynamoExpression(
+    //   { state: state, year: parseInt(year), coreSet: coreSet },
+    //   "list"
+    // ),
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
       ":compoundKey": `${state}${year}${coreSet}`,
