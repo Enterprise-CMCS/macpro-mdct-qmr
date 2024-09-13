@@ -40,6 +40,7 @@ export const listMeasures = handler(async (event, context) => {
       { state: state, year: parseInt(year), coreSet: coreSet },
       "list"
     ),
+    KeyConditionExpression: "compoundKey = :compoundKey",
   };
 
   let queriedMeasures = await dynamoDb.queryAll<Measure>(params);
