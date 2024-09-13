@@ -29,6 +29,11 @@ const apiData: any = {};
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
+jest.mock("utils/getLabelText", () => ({
+  ...jest.requireActual("utils/getLabelText"),
+  isLegacyLabel: () => true,
+}));
+
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
   let component: JSX.Element;
   beforeEach(() => {
