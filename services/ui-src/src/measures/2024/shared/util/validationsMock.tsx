@@ -22,7 +22,7 @@ import * as PCRatLeastOneRateComplete from "shared/globalValidations/PCRValidati
 import * as PCRnoNonZeroNumOrDenom from "shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
 import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "measures/2024/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
-import * as ComplexValidateNDRTotals from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
+import * as ComplexValidateNDRTotals from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 import * as ComplexValueSameCrossCategory from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
 import { DefaultFormData } from "shared/types/FormData";

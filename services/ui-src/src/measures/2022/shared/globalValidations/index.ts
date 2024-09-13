@@ -35,7 +35,7 @@ export { ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./ComplexV
 export {
   ComplexValidateNDRTotals,
   ComplexValidateNDRTotalsOMS,
-} from "./ComplexValidations/ComplexValidateNDRTotals";
+} from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 export { ComplexValidateDualPopInformation } from "./ComplexValidations/ComplexValidateDualPopInformation";
 export {
   ComplexValueSameCrossCategory,
