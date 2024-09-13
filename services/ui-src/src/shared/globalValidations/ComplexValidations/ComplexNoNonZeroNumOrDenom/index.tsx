@@ -1,6 +1,4 @@
-import { cleanString, isLegacyLabel } from "utils";
-import * as DC from "dataConstants";
-import { AnyObject } from "types";
+import { LabelData } from "utils";
 
 interface NDRforumla {
   numerator: number;
@@ -10,55 +8,31 @@ interface NDRforumla {
 
 export const ComplexNoNonZeroNumOrDenomOMS = (
   rateData: any,
-  OPM: AnyObject[],
+  isOPM: boolean,
   ndrFormulas: NDRforumla[],
-  errorLocation: string
+  errorLocation: string,
+  rateLabel: LabelData[]
 ) => {
   let errorArray: any[] = [];
 
-  //OMS errors for OPM data
-  if (OPM && OPM.length > 0) {
-    const keyList = OPM?.map((item: any) => {
-      return {
-        id: isLegacyLabel()
-          ? cleanString(item.description)
-          : `${DC.OPM_KEY}${cleanString(item.description)}`,
-        desc: item.description,
-      };
-    });
+  //key for 2023+ = category id and for 2022- = qualifier id
+  for (const key in rateData) {
+    //opmKey for 2023+ = qualifer id and for 2022- = category id
+    for (const opmKey in rateData[key]) {
+      const rate = rateData[key][opmKey];
+      //rateLabel is either the categories array or the qualifiers array and since we don't know which one it could be, we search with key and opmKey
+      const desc = rateLabel.find(
+        (_rateLabel) => _rateLabel.id === key || _rateLabel.id === opmKey
+      );
 
-    for (const id of keyList.map((key) => key.id)) {
-      if (rateData[id]) {
-        const description = keyList.find((key) => key.id === id)?.desc;
-        errorArray.push(
-          ...ComplexNoNonZeroNumOrDenom(
-            [],
-            [
-              {
-                rate: isLegacyLabel()
-                  ? rateData[id]["OPM"]
-                  : rateData["OPM"][id],
-              },
-            ],
-            ndrFormulas,
-            `${errorLocation} - ${description}`
-          )
-        );
-      }
-    }
-  } else {
-    for (const key in rateData) {
-      for (const category in rateData[key]) {
-        const label = rateData[key][category]?.[0]?.label;
-        errorArray.push(
-          ...ComplexNoNonZeroNumOrDenom(
-            [rateData[key][category]],
-            false,
-            ndrFormulas,
-            `${errorLocation} - ${label}`
-          )
-        );
-      }
+      errorArray.push(
+        ...ComplexNoNonZeroNumOrDenom(
+          isOPM ? [] : [rate],
+          isOPM ? [{ rate: rate }] : false,
+          ndrFormulas,
+          `${errorLocation} - ${desc?.label}`
+        )
+      );
     }
   }
 

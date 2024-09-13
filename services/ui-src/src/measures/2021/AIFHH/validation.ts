@@ -99,14 +99,16 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,
+  qualifiers,
 }) => {
   return OPM === undefined
     ? [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
-          [],
+          false,
           ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`
+          `Optional Measure Stratification: ${locationDictionary(label)}`,
+          qualifiers
         ),
         ...GV.ComplexValidateNDRTotalsOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
@@ -118,9 +120,10 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
     : [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
-          OPM,
+          true,
           ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`
+          `Optional Measure Stratification: ${locationDictionary(label)}`,
+          qualifiers
         ),
       ];
 };
