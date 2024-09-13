@@ -110,7 +110,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           rates ?? [],
           ndrForumlas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
-          OPM.map((item: any) => item.description)
+          OPM?.map((item: any) => item.description)
         ),
         ...GV.ComplexValidateNDRTotalsOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},

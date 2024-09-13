@@ -24,7 +24,7 @@ import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/Complex
 import * as ComplexNoNonZeroNumOrDenom from "measures/2024/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
 import * as ComplexValidateNDRTotals from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
-import * as ComplexValueSameCrossCategory from "measures/2024/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
+import * as ComplexValueSameCrossCategory from "shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
 import { DefaultFormData } from "shared/types/FormData";
 
 /**
