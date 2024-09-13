@@ -12,7 +12,7 @@ import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   get: jest.fn().mockResolvedValue("single measure"),
-  scanAll: jest
+  queryAll: jest
     .fn()
     .mockResolvedValue([{ measure: "CSQ" }, { measure: "LBW-CH" }]),
 }));
@@ -118,7 +118,7 @@ describe("Test Get Measure Handlers", () => {
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("CSQ");
     expect(res.body).toContain("LBW-CH");
-    expect(dbLib.scanAll).toHaveBeenCalledWith({
+    expect(dbLib.queryAll).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       testValue: "test",
     });

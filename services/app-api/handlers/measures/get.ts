@@ -42,7 +42,7 @@ export const listMeasures = handler(async (event, context) => {
     ),
   };
 
-  let queriedMeasures = await dynamoDb.scanAll<Measure>(params);
+  let queriedMeasures = await dynamoDb.queryAll<Measure>(params);
   for (let v of queriedMeasures) {
     const measure = measures[parseInt(year as string)]?.filter(
       (m) => m.measure === (v as Measure)?.measure

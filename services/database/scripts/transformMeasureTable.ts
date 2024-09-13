@@ -6,9 +6,9 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 
 const transformMeasureTable = async () => {
-  const dbClient = buildClient(false);
-  const tableName = "cmdct-3960-measures";
-  const newTableName = "cmdct-3960-cs-measures";
+  const dbClient = buildClient(true);
+  const tableName = "local-measures";
+  const newTableName = "local-measure";
   console.log(`Processing table ${tableName}`);
   for await (let entry of scan(dbClient, tableName)) {
     add(dbClient, newTableName, entry);
@@ -33,9 +33,7 @@ async function add(client: DynamoDBDocumentClient, table: string, entry: any) {
       compoundKey: newCompoundKey,
     },
   };
-  console.log("PARAMS!!!!!!!!", params.Item);
-  console.log("ENTRY!!!!!!!", entry);
-  // await client.send(new PutCommand(params));
+  await client.send(new PutCommand(params));
 }
 
 function buildClient(isLocal: boolean) {
