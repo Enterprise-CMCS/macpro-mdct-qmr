@@ -42,7 +42,7 @@ export const listMeasures = handler(async (event, context) => {
     // ),
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
-      ":compoundKey": `${state}${year}${coreSet}`,
+      ":compoundKey": `${state}${parseInt(year)}${coreSet}`,
     },
   };
 
