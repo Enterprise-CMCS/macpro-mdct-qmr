@@ -1,4 +1,4 @@
-import { isLegacyLabel, LabelData } from "utils";
+import { cleanString, isLegacyLabel, LabelData } from "utils";
 
 export const ComplexValueSameCrossCategoryOMS = (
   rateData: any,
@@ -78,7 +78,7 @@ export const ComplexValueSameCrossCategory = ({
     for (const category of rateData) {
       for (const qualifier of category.slice(0, -1)) {
         const cleanQual = isLegacyLabel()
-          ? qualifier.id
+          ? cleanString(qualifier.label)
           : qualifier.uid.split(".")[1];
         if (tempValues[cleanQual]?.value) {
           if (
