@@ -28,14 +28,14 @@ export const validateOPMRates = (
         errorMessage: errorMessage ?? "Measure description must be unique.",
       });
     }
-  }
 
-  //check to see if the rate has been described for other performance measure
-  if (otherPerformanceMeasure.find((rates) => !rates.description)) {
-    errorArray.push({
-      errorLocation: `Other Performance Measure`,
-      errorMessage: "Rate name required",
-    });
+    //check to see if the rate has been described for other performance measure
+    if (otherPerformanceMeasure.find((rates) => !rates.description)) {
+      errorArray.push({
+        errorLocation: `Other Performance Measure`,
+        errorMessage: "Rate name required",
+      });
+    }
   }
 
   return errorArray;
