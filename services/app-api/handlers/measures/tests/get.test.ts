@@ -37,6 +37,7 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
 
 const event = { ...testEvent };
 process.env.measureTableName = "SAMPLE TABLE";
+process.env.measureTable = "SAMPLE TABLE";
 
 describe("Test Get Measure Handlers", () => {
   beforeEach(() => {
@@ -120,7 +121,10 @@ describe("Test Get Measure Handlers", () => {
     expect(res.body).toContain("LBW-CH");
     expect(dbLib.queryAll).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
-      testValue: "test",
+      KeyConditionExpression: "compoundKey = :compoundKey",
+      ExpressionAttributeValues: {
+        ":compoundKey": "FL2021ACS",
+      },
     });
   });
 
