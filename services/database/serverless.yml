@@ -137,6 +137,8 @@ resources:
       Value: !GetAtt CoreSetTable.StreamArn
     MeasureTableName:
       Value: !Ref MeasureTable
+    MeasureTable:
+      Value: !Ref CSMeasureTable
     MeasureTableArn:
       Value: !GetAtt MeasureTable.Arn
     MeasureTableStreamArn:
