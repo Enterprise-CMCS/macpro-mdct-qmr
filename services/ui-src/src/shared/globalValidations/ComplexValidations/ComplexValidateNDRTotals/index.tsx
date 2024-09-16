@@ -31,8 +31,6 @@ export const ComplexValidateNDRTotalsOMS = (
   const totalData = rateData["Total"];
   const categoryID = categories[0]?.id ?? DC.SINGLE_CATEGORY;
 
-  console.log("categoryID", categoryID);
-
   // build performanceMeasureArray
   let performanceMeasureArray = [];
   const cleanedCategories = categories;
