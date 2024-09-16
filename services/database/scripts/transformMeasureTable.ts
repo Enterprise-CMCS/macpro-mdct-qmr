@@ -33,6 +33,7 @@ async function add(client: DynamoDBDocumentClient, table: string, entry: any) {
       compoundKey: newCompoundKey,
     },
   };
+  console.log("ADDING:", entry);
   await client.send(new PutCommand(params));
 }
 
