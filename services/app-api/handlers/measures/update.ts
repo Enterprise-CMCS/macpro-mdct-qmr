@@ -68,7 +68,7 @@ export const editMeasure = handler(async (event, context) => {
     //after updating the database with the latest values for the measure, we run the combine rates calculations for said measure
     await calculateAndPutRate({
       state,
-      year: year.toString(),
+      year,
       coreSet,
       measure,
     });

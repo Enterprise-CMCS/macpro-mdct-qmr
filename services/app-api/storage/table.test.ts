@@ -15,7 +15,7 @@ const mockMeasureParameters = {
   state: "CO",
   measure: "ZZZ-AD",
   coreSet: "ACS",
-  year: "2024",
+  year: 2024,
 };
 
 const mockMeasure = {

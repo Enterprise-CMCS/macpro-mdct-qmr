@@ -174,7 +174,7 @@ export enum MeasurementSpecificationType {
 
 export interface RateParameters {
   state: string;
-  year: string;
+  year: number;
   coreSet: string;
   measure: string;
 }
