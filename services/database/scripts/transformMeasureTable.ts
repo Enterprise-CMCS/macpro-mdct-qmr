@@ -4,14 +4,22 @@ import {
   paginateScan,
   PutCommand,
 } from "@aws-sdk/lib-dynamodb";
+import prompt from "prompt-sync";
 
 const transformMeasureTable = async () => {
-  const dbClient = buildClient(true);
-  const tableName = "local-measures";
-  const newTableName = "local-measure";
-  console.log(`Processing table ${tableName}`);
-  for await (let entry of scan(dbClient, tableName)) {
-    add(dbClient, newTableName, entry);
+  let stage = "local";
+  const isLocal = !!process.env.DYNAMODB_URL;
+  const dbClient = buildClient(isLocal);
+  const p = prompt();
+  if (!isLocal) {
+    stage = p("What environment would you like to modify: ");
+  }
+
+  const oldTable = `${stage}-measures`;
+  const newTable = `${stage}-measure`;
+  console.log(`Processing table ${oldTable}`);
+  for await (let entry of scan(dbClient, oldTable)) {
+    add(dbClient, newTable, entry);
   }
 };
 
@@ -33,7 +41,6 @@ async function add(client: DynamoDBDocumentClient, table: string, entry: any) {
       compoundKey: newCompoundKey,
     },
   };
-  console.log("ADDING:", entry);
   await client.send(new PutCommand(params));
 }
 

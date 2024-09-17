@@ -35,20 +35,14 @@ export const listMeasures = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
   const params = {
-    TableName: process.env.measureTable, // TODO: change this back to use env variable
-    // ...convertToDynamoExpression(
-    //   { state: state, year: parseInt(year), coreSet: coreSet },
-    //   "list"
-    // ),
+    TableName: process.env.measureTable,
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
       ":compoundKey": `${state}${parseInt(year)}${coreSet}`,
     },
   };
 
-  console.log("PARAMS", params);
   const queriedMeasures = await dynamoDb.queryAll<Measure>(params);
-  console.log("QUERIED MEASURES", queriedMeasures);
   for (let v of queriedMeasures) {
     const measure = measures[parseInt(year as string)]?.filter(
       (m) => m.measure === (v as Measure)?.measure
