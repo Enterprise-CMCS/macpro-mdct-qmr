@@ -1,10 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
-import {
-  createCoreSetKey,
-  createMeasureKey,
-} from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,
@@ -45,7 +41,6 @@ export const createCoreSet = handler(async (event, context) => {
       body: Errors.CORESET_ALREADY_EXISTS,
     };
   }
-  const dynamoKey = createCoreSetKey({ state, year, coreSet });
 
   await createDependentMeasures(
     state,
@@ -56,7 +51,7 @@ export const createCoreSet = handler(async (event, context) => {
 
   // filter out qualifier and account for autocomplete measures on creation
   let autoCompletedMeasures = 0;
-  const measuresLengthWithoutQualifiers = measures[parseInt(year)].filter(
+  const measuresLengthWithoutQualifiers = measures[year].filter(
     (measure: MeasureMetaData) => {
       if (measure.autocompleteOnCreation && measure.type === type) {
         autoCompletedMeasures++;
@@ -73,9 +68,9 @@ export const createCoreSet = handler(async (event, context) => {
   const params = {
     TableName: process.env.coreSetTableName!,
     Item: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}${coreSet}`,
       state: state,
-      year: parseInt(year),
+      year: year,
       coreSet: coreSet,
       createdAt: Date.now(),
       lastAltered: Date.now(),
@@ -94,11 +89,11 @@ export const createCoreSet = handler(async (event, context) => {
 
 const createDependentMeasures = async (
   state: string,
-  year: string,
+  year: number,
   coreSet: Types.CoreSetAbbr,
   type: string
 ) => {
-  const filteredMeasures = measures[parseInt(year)].filter(
+  const filteredMeasures = measures[year].filter(
     (measure: MeasureMetaData) => measure.type === type
   );
 
@@ -107,11 +102,10 @@ const createDependentMeasures = async (
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
-    const dynamoKey = createMeasureKey({ state, year, coreSet });
     const params = {
       TableName: process.env.measureTable!,
       Item: {
-        compoundKey: dynamoKey,
+        compoundKey: `${state}${year}${coreSet}`,
         state: state,
         year: year,
         coreSet: coreSet,

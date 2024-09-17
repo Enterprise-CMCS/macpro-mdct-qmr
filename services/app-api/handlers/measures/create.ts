@@ -1,6 +1,5 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import {
   hasRolePermissions,
   hasStatePermissions,
@@ -31,13 +30,12 @@ export const createMeasure = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const body = JSON.parse(event!.body!);
-  const dynamoKey = createMeasureKey({ state, year, coreSet });
   const params = {
     TableName: process.env.measureTable!,
     Item: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}${coreSet}`,
       state: state,
-      year: parseInt(year),
+      year: year,
       coreSet: coreSet,
       measure: measure,
       createdAt: Date.now(),

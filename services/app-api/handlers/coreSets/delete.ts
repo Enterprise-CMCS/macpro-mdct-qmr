@@ -1,10 +1,5 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import {
-  createCoreSetKey,
-  createMeasureKey,
-} from "../dynamoUtils/createCompoundKey";
-import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { hasStatePermissions } from "../../libs/authorization";
 import { Measure } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
@@ -27,11 +22,10 @@ export const deleteCoreSet = handler(async (event, context) => {
     };
   }
 
-  const dynamoKey = createCoreSetKey({ state, year, coreSet });
   const params = {
     TableName: process.env.coreSetTableName!,
     Key: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}${coreSet}`,
       coreSet: coreSet,
     },
   };
@@ -47,18 +41,17 @@ export const deleteCoreSet = handler(async (event, context) => {
 
 const deleteDependentMeasures = async (
   state: string,
-  year: string,
+  year: number,
   coreSet: string
 ) => {
   const measures = await getMeasures(state, year, coreSet);
   const Items = measures;
 
   for await (const { measure } of Items) {
-    const dynamoKey = createMeasureKey({ state, year, coreSet });
     const params = {
       TableName: process.env.measureTable!,
       Key: {
-        compoundKey: dynamoKey,
+        compoundKey: `${state}${year}${coreSet}`,
         coreSet: coreSet,
       },
     };
@@ -67,13 +60,12 @@ const deleteDependentMeasures = async (
   }
 };
 
-const getMeasures = async (state: string, year: string, coreSet: string) => {
-  const dynamoKey = createMeasureKey({ state, year, coreSet });
+const getMeasures = async (state: string, year: number, coreSet: string) => {
   const params = {
     TableName: process.env.measureTable!,
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
-      ":compoundKey": dynamoKey,
+      ":compoundKey": `${state}${year}${coreSet}`,
     },
   };
   const queryValue = await dynamoDb.queryAll<Measure>(params);

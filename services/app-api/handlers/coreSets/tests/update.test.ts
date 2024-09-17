@@ -1,7 +1,6 @@
 import dynamodbLib from "../../../libs/dynamodb-lib";
 import { testEvent } from "../../../test-util/testEvents";
 import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
-import { createCoreSetKey } from "../../dynamoUtils/createCompoundKey";
 import { editCoreSet } from "../update";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 import { CoreSetAbbr } from "../../../types";
@@ -15,11 +14,6 @@ jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../dynamoUtils/createCompoundKey", () => ({
-  __esModule: true,
-  createCoreSetKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
@@ -73,7 +67,6 @@ describe("Testing Updating Core Set Functions", () => {
     Date.now = jest.fn(() => 20);
     const res = await editCoreSet(event, null);
 
-    expect(createCoreSetKey).toHaveBeenCalled();
     expect(dynamodbLib.update).toHaveBeenCalled();
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
       {
@@ -84,14 +77,13 @@ describe("Testing Updating Core Set Functions", () => {
       "post"
     );
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("FL2020ACSFUA-AD");
+    expect(res.body).toContain("WA2021ACS");
   });
 
   test("Test with no user id", async () => {
     Date.now = jest.fn(() => 20);
     const res = await editCoreSet(event, null);
 
-    expect(createCoreSetKey).toHaveBeenCalled();
     expect(dynamodbLib.update).toHaveBeenCalled();
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
       {
@@ -102,6 +94,6 @@ describe("Testing Updating Core Set Functions", () => {
       "post"
     );
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("FL2020ACSFUA-AD");
+    expect(res.body).toContain("WA2021ACS");
   });
 });

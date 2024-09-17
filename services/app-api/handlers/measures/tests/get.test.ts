@@ -25,11 +25,6 @@ jest.mock("../../../libs/authorization", () => ({
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
-jest.mock("../../dynamoUtils/createCompoundKey", () => ({
-  __esModule: true,
-  createMeasureKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
-}));
-
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   __esModule: true,
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
@@ -68,8 +63,8 @@ describe("Test Get Measure Handlers", () => {
     expect(dbLib.get).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       Key: {
-        compoundKey: "FL2020ACSFUA-AD",
-        coreSet: "ACS",
+        compoundKey: "IN2022ACS",
+        measure: "AAB-AD",
       },
     });
   });

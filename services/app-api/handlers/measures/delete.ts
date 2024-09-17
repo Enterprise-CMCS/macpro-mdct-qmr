@@ -1,6 +1,5 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import { hasStatePermissions } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
@@ -22,11 +21,10 @@ export const deleteMeasure = handler(async (event, context) => {
     };
   }
 
-  const dynamoKey = createMeasureKey({ state, year, coreSet });
   const params = {
     TableName: process.env.measureTable!,
     Key: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}${coreSet}`,
       measure: measure,
     },
   };

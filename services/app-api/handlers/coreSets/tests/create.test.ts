@@ -23,11 +23,6 @@ jest.mock("../../../libs/authorization", () => ({
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
-jest.mock("../../dynamoUtils/createCompoundKey", () => ({
-  __esModule: true,
-  createCoreSetKey: jest.fn().mockReturnValue("FL2021ACSFUA-AD"),
-}));
-
 jest.mock("../get", () => ({
   __esModule: true,
   getCoreSet: jest.fn(),
