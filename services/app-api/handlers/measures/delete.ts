@@ -22,12 +22,12 @@ export const deleteMeasure = handler(async (event, context) => {
     };
   }
 
-  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
+  const dynamoKey = createMeasureKey({ state, year, coreSet });
   const params = {
-    TableName: process.env.measureTableName!,
+    TableName: process.env.measureTable!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: coreSet,
+      measure: measure,
     },
   };
 

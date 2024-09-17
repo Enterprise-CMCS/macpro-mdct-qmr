@@ -1,9 +1,9 @@
 import { CoreSetParameters, MeasureParameters } from "../../types";
 
 export const createMeasureKey = (measureParams: MeasureParameters) => {
-  const { state, year, coreSet, measure } = measureParams;
+  const { state, year, coreSet } = measureParams;
 
-  return `${state}${year}${coreSet}${measure}`;
+  return `${state}${year}${coreSet}`;
 };
 
 export const createCoreSetKey = (coreSetParams: CoreSetParameters) => {

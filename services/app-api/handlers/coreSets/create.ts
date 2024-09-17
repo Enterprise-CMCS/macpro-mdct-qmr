@@ -1,7 +1,10 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
-import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
+import {
+  createCoreSetKey,
+  createMeasureKey,
+} from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,
@@ -46,7 +49,7 @@ export const createCoreSet = handler(async (event, context) => {
 
   await createDependentMeasures(
     state,
-    parseInt(year),
+    year,
     coreSet as Types.CoreSetAbbr,
     type
   );
@@ -91,11 +94,11 @@ export const createCoreSet = handler(async (event, context) => {
 
 const createDependentMeasures = async (
   state: string,
-  year: number,
+  year: string,
   coreSet: Types.CoreSetAbbr,
   type: string
 ) => {
-  const filteredMeasures = measures[year].filter(
+  const filteredMeasures = measures[parseInt(year)].filter(
     (measure: MeasureMetaData) => measure.type === type
   );
 
@@ -104,10 +107,9 @@ const createDependentMeasures = async (
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
-    // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
-    const dynamoKey = `${state}${year}${coreSet}${measureId}`;
+    const dynamoKey = createMeasureKey({ state, year, coreSet });
     const params = {
-      TableName: process.env.measureTableName!,
+      TableName: process.env.measureTable!,
       Item: {
         compoundKey: dynamoKey,
         state: state,

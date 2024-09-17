@@ -31,9 +31,9 @@ export const createMeasure = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const body = JSON.parse(event!.body!);
-  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
+  const dynamoKey = createMeasureKey({ state, year, coreSet });
   const params = {
-    TableName: process.env.measureTableName!,
+    TableName: process.env.measureTable!,
     Item: {
       compoundKey: dynamoKey,
       state: state,

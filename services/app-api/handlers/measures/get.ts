@@ -1,6 +1,5 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import { measures } from "../dynamoUtils/measureList";
 import {
@@ -34,11 +33,12 @@ export const listMeasures = handler(async (event, context) => {
       };
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
+  const dynamoKey = createMeasureKey({ state, year, coreSet });
   const params = {
-    TableName: process.env.measureTable,
+    TableName: process.env.measureTable!,
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
-      ":compoundKey": `${state}${parseInt(year)}${coreSet}`,
+      ":compoundKey": dynamoKey,
     },
   };
 
@@ -81,12 +81,12 @@ export const getMeasure = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
+  const dynamoKey = createMeasureKey({ state, year, coreSet });
   const params = {
-    TableName: process.env.measureTableName!,
+    TableName: process.env.measureTable!,
     Key: {
       compoundKey: dynamoKey,
-      coreSet: coreSet,
+      measure: measure,
     },
   };
   const queryValue = await dynamoDb.get<Measure>(params);
