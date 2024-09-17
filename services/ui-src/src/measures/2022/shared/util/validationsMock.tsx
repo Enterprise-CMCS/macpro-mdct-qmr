@@ -2,7 +2,7 @@ import * as validateAtLeastOneDataSource from "shared/globalValidations/validate
 import * as validateAtLeastOneDeviationFieldFilled from "measures/2022/shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 import * as validateAtLeastOneRateComplete from "shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "shared/globalValidations/validateBothDatesInRange";
-import * as validateDualPopInformation from "measures/2022/shared/globalValidations/validateDualPopInformation";
+import * as validateDualPopInformation from "shared/globalValidations/validateDualPopInformation";
 import * as validateEqualCategoryDenominators from "measures/2022/shared/globalValidations/validateEqualCategoryDenominators";
 import * as validateEqualQualifierDenominators from "shared/globalValidations/validateEqualQualifierDenominators";
 import * as validateRateNotZero from "measures/2022/shared/globalValidations/validateRateNotZero";

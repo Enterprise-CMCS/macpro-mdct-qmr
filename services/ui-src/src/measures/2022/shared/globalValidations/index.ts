@@ -6,7 +6,7 @@ export * from "shared/globalValidations/validateAtLeastOneDataSource";
 export * from "./validateAtLeastOneDeviationFieldFilled";
 export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "shared/globalValidations/validateBothDatesInRange";
-export * from "./validateDualPopInformation";
+export * from "shared/globalValidations/validateDualPopInformation";
 export * from "./validateEqualCategoryDenominators";
 export * from "shared/globalValidations/validateEqualQualifierDenominators";
 export * from "./validateRateNotZero";
