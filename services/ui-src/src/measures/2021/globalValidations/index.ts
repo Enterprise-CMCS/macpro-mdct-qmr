@@ -10,7 +10,7 @@ export * from "./validateDualPopInformation";
 export * from "./validateEqualCategoryDenominators";
 export * from "shared/globalValidations/validateEqualQualifierDenominators";
 export * from "./validateRateNotZero";
-export * from "./validateRateZero";
+export * from "shared/globalValidations/validateRateZero";
 export * from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 export * from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 export * from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";

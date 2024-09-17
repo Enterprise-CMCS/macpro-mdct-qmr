@@ -1,15 +1,15 @@
 import * as DC from "dataConstants";
-import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 import {
   OmsValidationCallback,
   FormRateField,
   UnifiedValFuncProps as UVFP,
-} from "../types";
+} from "../../types/TypeValidations";
 import {
   convertOmsDataToRateArray,
   getOtherPerformanceMeasureRateArray,
 } from "../dataDrivenTools";
 import { LabelData } from "utils";
+import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 
 interface ValProps extends UVFP {
   hybridData?: boolean;
@@ -75,7 +75,7 @@ export const validateRateZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   _qualifiers: LabelData[],
-  data: FormData,
+  data: DefaultFormDataLegacy | DefaultFormData,
   errorMessage?: string
 ): FormError[] => {
   const errorArray: FormError[] = [];
