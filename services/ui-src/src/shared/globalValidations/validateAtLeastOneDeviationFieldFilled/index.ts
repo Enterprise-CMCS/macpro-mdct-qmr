@@ -1,5 +1,5 @@
 import * as Types from "shared/types";
-import { FormRateField } from "../types";
+import { FormRateField } from "shared/types/TypeValidations";
 import { LabelData } from "utils";
 
 // When a user inputs data in multiple NDR sets in a performance measure

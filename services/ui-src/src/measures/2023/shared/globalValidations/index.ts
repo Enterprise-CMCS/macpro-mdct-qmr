@@ -6,7 +6,7 @@ export * from "shared/globalValidations/validateAtLeastOneDataSource";
 export * from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
 export * from "./validateAtLeastOneDataSourceType";
 export * from "shared/globalValidations/validateAtLeastOneDeliverySystem";
-export * from "./validateAtLeastOneDeviationFieldFilled";
+export * from "shared/globalValidations/validateDeviationTextFieldFilled";
 export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "shared/globalValidations/validateBothDatesInRange";
 export * from "shared/globalValidations/validateDateRangeRadioButtonCompletion";
