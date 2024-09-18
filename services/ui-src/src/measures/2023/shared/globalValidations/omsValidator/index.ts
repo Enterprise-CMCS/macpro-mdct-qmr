@@ -7,7 +7,7 @@ import {
 import { OmsNodes as OMS } from "shared/types";
 import { DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
-import { LabelData, cleanString } from "utils";
+import { LabelData, cleanString, isLegacyLabel } from "utils";
 
 interface OmsValidationProps {
   data: DefaultFormData;
@@ -31,29 +31,33 @@ export const omsValidations = ({
 }: OmsValidationProps) => {
   const opmCats: LabelData[] = [{ id: "OPM", text: "OPM", label: "OPM" }];
   const opmQuals: LabelData[] = [];
-  let isOPM = false;
-  if (
+  const isOPM: boolean =
     data.MeasurementSpecification === "Other" &&
-    data["OtherPerformanceMeasure-Rates"]
-  ) {
-    isOPM = true;
+    !!data["OtherPerformanceMeasure-Rates"];
+
+  if (isOPM) {
     opmQuals.push(
-      ...data["OtherPerformanceMeasure-Rates"].map((rate) => ({
-        id: rate.description
-          ? `${DC.OPM_KEY}${cleanString(rate.description)}`
-          : "Fill out description",
-        label: rate.description ?? "Fill out description",
-        text: "",
-      }))
+      ...data["OtherPerformanceMeasure-Rates"].map((rate) => {
+        const id =
+          !isLegacyLabel() && rate.description
+            ? `${DC.OPM_KEY}${cleanString(rate.description)}`
+            : rate.description;
+
+        return {
+          id: id ? id : "Fill out description",
+          label: rate.description ? rate.description : "Fill out description",
+          text: "",
+        };
+      })
     );
   }
   const cats =
     categories.length === 0
       ? [
           {
-            id: "singleCategory",
-            text: "singleCategory",
-            label: "singleCategory",
+            id: DC.SINGLE_CATEGORY,
+            text: DC.SINGLE_CATEGORY,
+            label: DC.SINGLE_CATEGORY,
           },
         ]
       : categories;

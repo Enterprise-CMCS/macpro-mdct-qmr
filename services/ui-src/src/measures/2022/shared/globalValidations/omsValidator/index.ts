@@ -1,3 +1,4 @@
+import * as DC from "dataConstants";
 import {
   OmsValidationCallback,
   locationDictionaryFunction,
@@ -5,9 +6,8 @@ import {
 } from "../types";
 import { OmsNodes as OMS } from "shared/types";
 import { DefaultFormDataLegacy as DefaultFormData } from "shared/types/FormData";
-
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
-import { LabelData } from "utils";
+import { LabelData, cleanString, isLegacyLabel } from "utils";
 
 interface OmsValidationProps {
   data: DefaultFormData;
@@ -31,17 +31,21 @@ export const omsValidations = ({
 }: OmsValidationProps) => {
   const opmCats: LabelData[] = [{ id: "OPM", text: "OPM", label: "OPM" }];
   const opmQuals: LabelData[] = [];
-  let isOPM = false;
-  if (
+  const isOPM: boolean =
     data.MeasurementSpecification === "Other" &&
-    data["OtherPerformanceMeasure-Rates"]
-  ) {
-    isOPM = true;
+    !!data["OtherPerformanceMeasure-Rates"];
+
+  if (isOPM) {
     opmQuals.push(
       ...data["OtherPerformanceMeasure-Rates"].map((rate) => {
+        const id =
+          !isLegacyLabel() && rate.description
+            ? `${DC.OPM_KEY}${cleanString(rate.description)}`
+            : rate.description;
+
         return {
-          id: rate.description ?? "Fill out description",
-          label: rate.description ?? "Fill out description",
+          id: id ? id : "Fill out description",
+          label: rate.description ? rate.description : "Fill out description",
           text: "",
         };
       })
@@ -51,9 +55,9 @@ export const omsValidations = ({
     categories.length === 0
       ? [
           {
-            id: "singleCategory",
-            label: "singleCategory",
-            text: "singleCategory",
+            id: DC.SINGLE_CATEGORY,
+            text: DC.SINGLE_CATEGORY,
+            label: DC.SINGLE_CATEGORY,
           },
         ]
       : categories;
@@ -212,6 +216,7 @@ const validateNDRs = (
     if (rateData?.["pcr-rate"]) {
       return rateData["pcr-rate"].every((o) => !!o?.value);
     }
+
     for (const qual of qualifiers.map((s) => s.id)) {
       for (const cat of categories.map((s) => s.id)) {
         if (rateData.rates?.[qual]?.[cat]) {
