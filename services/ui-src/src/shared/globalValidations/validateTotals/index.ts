@@ -1,5 +1,8 @@
-import { OmsValidationCallback, FormRateField } from "../types";
-import { LabelData } from "utils";
+import {
+  OmsValidationCallback,
+  FormRateField,
+} from "../../types/TypeValidations";
+import { isLegacyLabel, LabelData } from "utils";
 
 const validateOMSTotalNDRErrorMessage = (
   fieldType: string,
@@ -35,7 +38,11 @@ export const validateOMSTotalNDR =
       let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
       let denominatorSum: any = null;
       for (const qual of qualifiers.map((s) => s.id)) {
-        ndrSets.push(rateData.rates?.[cat]?.[qual]?.[0]);
+        if (isLegacyLabel()) {
+          ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
+        } else {
+          ndrSets.push(rateData.rates?.[cat]?.[qual]?.[0]);
+        }
       }
 
       // The last NDR set is the total
@@ -110,6 +117,8 @@ export const validateTotalNDR = (
 ): FormError[] => {
   let errorArray: FormError[] = [];
 
+  console.log("validate total ndr");
+
   performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
     let numeratorSum: any = null;
@@ -135,6 +144,8 @@ export const validateTotalNDR = (
     if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
 
+      console.log("cheese");
+
       const parsedNum = parseFloat(totalNDR.numerator ?? "");
       const parsedDen = parseFloat(totalNDR.denominator ?? "");
       if (
@@ -143,10 +154,10 @@ export const validateTotalNDR = (
         !isNaN(parsedNum)
       ) {
         const qualifier =
-          (categories && categories[idx].label) || totalNDR.label || "";
+          (categories && categories[idx].label) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: errorMessageFunc(qualifier, "Numerator"),
+          errorMessage: errorMessageFunc(qualifier!, "Numerator"),
         });
       }
       if (
@@ -155,10 +166,10 @@ export const validateTotalNDR = (
         !isNaN(parsedDen)
       ) {
         const qualifier =
-          (categories && categories[idx].label) || totalNDR.label || "";
+          (categories && categories[idx].label) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: errorMessageFunc(qualifier, "Denominator"),
+          errorMessage: errorMessageFunc(qualifier!, "Denominator"),
         });
       }
     } else if (numeratorSum && denominatorSum) {
@@ -166,11 +177,10 @@ export const validateTotalNDR = (
         (categories &&
           categories[idx]?.label &&
           `${categories[idx].label} - ${totalNDR.label}`) ||
-        totalNDR.label ||
-        "";
+        totalNDR.label;
       errorArray.push({
         errorLocation: errorLocation,
-        errorMessage: errorMessageFunc(fieldLabel, "Total"),
+        errorMessage: errorMessageFunc(fieldLabel!, "Total"),
       });
     }
   });

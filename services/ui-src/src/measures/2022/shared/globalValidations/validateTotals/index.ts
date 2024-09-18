@@ -35,7 +35,7 @@ export const validateOMSTotalNDR =
       let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
       let denominatorSum: any = null;
       for (const qual of qualifiers.map((s) => s.id)) {
-        ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
+        ndrSets.push(rateData.rates?.[cat]?.[qual]?.[0]);
       }
 
       // The last NDR set is the total
@@ -131,7 +131,7 @@ export const validateTotalNDR = (
       }
     });
 
-    let totalNDR: any = ndrSet[ndrSet.length - 1];
+    let totalNDR = ndrSet[ndrSet.length - 1];
     if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
 
@@ -142,8 +142,8 @@ export const validateTotalNDR = (
         numeratorSum !== null &&
         !isNaN(parsedNum)
       ) {
-        const qualifier: string =
-          (categories && categories[idx]?.label) || totalNDR.label;
+        const qualifier =
+          (categories && categories[idx].label) || totalNDR.label || "";
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage: errorMessageFunc(qualifier, "Numerator"),
@@ -154,19 +154,20 @@ export const validateTotalNDR = (
         denominatorSum !== null &&
         !isNaN(parsedDen)
       ) {
-        const qualifier: string =
-          (categories && categories[idx]?.label) || totalNDR.label;
+        const qualifier =
+          (categories && categories[idx].label) || totalNDR.label || "";
         errorArray.push({
           errorLocation: errorLocation,
           errorMessage: errorMessageFunc(qualifier, "Denominator"),
         });
       }
     } else if (numeratorSum && denominatorSum) {
-      const fieldLabel: string =
+      const fieldLabel =
         (categories &&
           categories[idx]?.label &&
           `${categories[idx].label} - ${totalNDR.label}`) ||
-        totalNDR.label;
+        totalNDR.label ||
+        "";
       errorArray.push({
         errorLocation: errorLocation,
         errorMessage: errorMessageFunc(fieldLabel, "Total"),
