@@ -14,7 +14,7 @@ export * from "shared/globalValidations/validateDateRangeRadioButtonCompletion";
 export * from "./validateDualPopInformation";
 export * from "./validateEqualCategoryDenominators";
 export * from "shared/globalValidations/validateEqualQualifierDenominators";
-export * from "./validateFfsRadioButtonCompletion";
+export * from "shared/globalValidations/validateFfsRadioButtonCompletion";
 export * from "./validateRateNotZero";
 export * from "./validateRateZero";
 export * from "shared/globalValidations/validateNumeratorsLessThanDenominators";
