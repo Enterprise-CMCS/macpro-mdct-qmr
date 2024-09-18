@@ -3,7 +3,7 @@ import * as validateAtLeastOneDeviationFieldFilled from "measures/2022/shared/gl
 import * as validateAtLeastOneRateComplete from "shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "shared/globalValidations/validateBothDatesInRange";
 import * as validateDualPopInformation from "shared/globalValidations/validateDualPopInformation";
-import * as validateEqualCategoryDenominators from "measures/2022/shared/globalValidations/validateEqualCategoryDenominators";
+import * as validateEqualCategoryDenominators from "shared/globalValidations/validateEqualCategoryDenominators";
 import * as validateEqualQualifierDenominators from "shared/globalValidations/validateEqualQualifierDenominators";
 import * as validateRateNotZero from "measures/2022/shared/globalValidations/validateRateNotZero";
 import * as validateRateZero from "measures/2022/shared/globalValidations/validateRateZero";
