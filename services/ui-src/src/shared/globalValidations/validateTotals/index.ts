@@ -117,8 +117,6 @@ export const validateTotalNDR = (
 ): FormError[] => {
   let errorArray: FormError[] = [];
 
-  console.log("validate total ndr");
-
   performanceMeasureArray.forEach((ndrSet, idx) => {
     // If this measure has a totalling NDR, the last NDR set is the total.
     let numeratorSum: any = null;
@@ -143,8 +141,6 @@ export const validateTotalNDR = (
     let totalNDR = ndrSet[ndrSet.length - 1];
     if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
-
-      console.log("cheese");
 
       const parsedNum = parseFloat(totalNDR.numerator ?? "");
       const parsedDen = parseFloat(totalNDR.denominator ?? "");
