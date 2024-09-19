@@ -31,7 +31,7 @@ export {
   ComplexNoNonZeroNumOrDenom,
   ComplexNoNonZeroNumOrDenomOMS,
 } from "./ComplexValidations/ComplexNoNonZeroNumOrDenom";
-export { ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec } from "./ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec";
+export { ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec } from "shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 export {
   ComplexValidateNDRTotals,
   ComplexValidateNDRTotalsOMS,
