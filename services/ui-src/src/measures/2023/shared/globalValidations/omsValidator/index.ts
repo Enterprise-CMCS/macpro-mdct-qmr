@@ -81,6 +81,7 @@ const getOMSRates = (
   locationDictionary: locationDictionaryFunction
 ) => {
   const omsRates = [];
+
   //loop through the OMS selections and pull out any that has a rateData (when there's a checkbox selected)
   for (const topLevelKey of Object.keys(
     data.OptionalMeasureStratification.selections
@@ -90,27 +91,62 @@ const getOMSRates = (
     if (topLevel.selections) {
       for (const midLevelKey of Object.keys(topLevel.selections)) {
         const midLevel = topLevel.selections[midLevelKey];
+        const midLabel = locationDictionary([topLevelKey, midLevelKey]);
         if (midLevel.rateData) {
-          omsRates.push({
-            key: locationDictionary([topLevelKey, midLevelKey]),
-            ...midLevel,
-          });
+          omsRates.push({ key: midLabel, ...midLevel });
+        }
+
+        //if user choose to [+Add Another Sub-Category]
+        if (midLevel.additionalSubCategories) {
+          omsRates.push(
+            ...midLevel.additionalSubCategories.map((sub) => ({
+              key: `${midLabel} - ${sub.description}`,
+              rateData: sub.rateData,
+            }))
+          );
         }
         if (midLevel.selections) {
+          //low level keys are aggregated/disaggregated data that user will select yes or no to
           for (const lowLevelKey of Object.keys(midLevel.selections)) {
+            const lowLabel = locationDictionary([
+              topLevelKey,
+              midLevelKey,
+              lowLevelKey,
+            ]);
             const lowLevel = midLevel.selections[lowLevelKey];
             if (lowLevel.rateData) {
-              omsRates.push({
-                key: locationDictionary([
-                  topLevelKey,
-                  midLevelKey,
-                  lowLevelKey,
-                ]),
-                ...lowLevel,
-              });
+              omsRates.push({ key: lowLabel, ...lowLevel });
             }
           }
         }
+      }
+    }
+
+    //if user choose to [+Add Another Classification]
+    if (topLevel.additionalSelections) {
+      const additional = topLevel.additionalSelections?.map((selection) => ({
+        key: `${locationDictionary([topLevelKey])} - ${selection.description}`,
+        rateData: selection.rateData,
+      }));
+
+      if (additional) {
+        omsRates.push(...additional);
+      }
+
+      //if user choose to [+Add Another Sub-Category] after adding a new Classification
+      const additionalSubCategories = topLevel.additionalSelections
+        .filter((additional) => additional.additionalSubCategories)
+        .flatMap((additional) =>
+          additional.additionalSubCategories?.map((subCat) => ({
+            key: `${locationDictionary([topLevelKey])} - ${
+              additional.description
+            } - ${subCat.description}`,
+            rateData: subCat.rateData,
+          }))
+        );
+
+      if (additionalSubCategories) {
+        omsRates.push(...additionalSubCategories);
       }
     }
   }
@@ -169,12 +205,12 @@ const validateNDRs = (
 
   const errorsNDR = omsRates.map((data) => {
     const errorLogs = [];
-    if (data.rateData?.rates) {
+    if (data?.rateData?.rates) {
       errorLogs.push(
         ...errorForNDRFields(data.rateData?.rates, data.key, locationDictionary)
       );
     } else {
-      errorLogs.push(errorForNDRSelection(data.key));
+      errorLogs.push(errorForNDRSelection(data!.key));
     }
     return errorLogs;
   });
