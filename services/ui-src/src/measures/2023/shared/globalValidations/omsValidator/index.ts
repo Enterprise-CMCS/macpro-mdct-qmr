@@ -14,14 +14,12 @@ interface OmsValidationProps {
   qualifiers: LabelData[];
   categories: LabelData[];
   locationDictionary: locationDictionaryFunction;
-  checkIsFilled?: boolean;
   validationCallbacks: OmsValidationCallback[];
   customTotalLabel?: string;
   dataSource?: string[];
 }
 export const omsValidations = ({
   categories,
-  checkIsFilled = true,
   data,
   locationDictionary,
   qualifiers,
@@ -67,7 +65,6 @@ export const omsValidations = ({
     opmQuals.length ? opmQuals : qualifiers,
     opmQuals.length ? opmCats : cats,
     locationDictionary,
-    checkIsFilled,
     isOPM,
     customTotalLabel,
     dataSource
@@ -80,7 +77,6 @@ const validateNDRs = (
   qualifiers: LabelData[],
   categories: LabelData[],
   locationDictionary: locationDictionaryFunction,
-  checkIsFilled: boolean,
   isOPM: boolean,
   customTotalLabel?: string,
   dataSource?: string[]
@@ -166,30 +162,29 @@ const validateNDRs = (
       );
     }
 
-    if (checkIsFilled) {
-      isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
+    isFilled[label[0]] = isFilled[label[0]] || checkNdrsFilled(rateData);
 
-      // check for complex rate type and assign appropriate tag
-      const rateType = !!rateData?.["iuhh-rate"]
-        ? "iuhh-rate"
-        : !!rateData?.["aifhh-rate"]
-        ? "aifhh-rate"
-        : undefined;
+    // check for complex rate type and assign appropriate tag
+    const rateType = !!rateData?.["iuhh-rate"]
+      ? "iuhh-rate"
+      : !!rateData?.["aifhh-rate"]
+      ? "aifhh-rate"
+      : undefined;
 
-      if (!rateData?.["pcr-rate"])
-        errorArray.push(
-          ...validatePartialRateCompletionOMS(rateType)({
-            rateData,
-            categories,
-            qualifiers,
-            label,
-            locationDictionary,
-            isOPM,
-            customTotalLabel,
-            dataSource,
-          })
-        );
-    }
+    if (!rateData?.["pcr-rate"])
+      errorArray.push(
+        ...validatePartialRateCompletionOMS(rateType)({
+          rateData,
+          categories,
+          qualifiers,
+          label,
+          locationDictionary,
+          isOPM,
+          customTotalLabel,
+          dataSource,
+        })
+      );
+
     const locationReduced = label.reduce(
       (prev, curr, i) => `${prev}${i ? "-" : ""}${curr}`,
       ""
@@ -289,6 +284,9 @@ const validateNDRs = (
   const checkIsDisaggregateFilled = (locations: string[], selection: any) => {
     isDisaggregateFilled[locations[1]] = selection !== undefined;
   };
+
+  console.log("options", data.OptionalMeasureStratification);
+
   // Loop through top level nodes for validation
   for (const key of data.OptionalMeasureStratification?.options ?? []) {
     isFilled[key] = false;
@@ -298,26 +296,25 @@ const validateNDRs = (
     );
   }
 
-  if (checkIsFilled) {
-    let checks = [isFilled, isDeepFilled, isDisaggregateFilled];
+  let checks = [isFilled, isDeepFilled, isDisaggregateFilled];
 
-    //if at least one sub-classifications qualifiers is false (no rate data entered), we want to generate an error message,
-    //else if all is false, we will ignore it as another error message would already be there
-    if (!Object.values(isClassificationFilled).every((v) => v === false))
-      checks.push(isClassificationFilled);
+  //if at least one sub-classifications qualifiers is false (no rate data entered), we want to generate an error message,
+  //else if all is false, we will ignore it as another error message would already be there
+  if (!Object.values(isClassificationFilled).every((v) => v === false))
+    checks.push(isClassificationFilled);
 
-    for (const check of checks) {
-      for (const classKey in check) {
-        if (!check[classKey]) {
-          errorArray.push({
-            errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              classKey.split("-")
-            )}`,
-            errorMessage: "Must fill out at least one NDR set.",
-          });
-        }
+  for (const check of checks) {
+    for (const classKey in check) {
+      if (!check[classKey]) {
+        errorArray.push({
+          errorLocation: `Optional Measure Stratification: ${locationDictionary(
+            classKey.split("-")
+          )}`,
+          errorMessage: "Must fill out at least one NDR set.",
+        });
       }
     }
   }
+
   return errorArray;
 };
