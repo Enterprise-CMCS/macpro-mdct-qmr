@@ -81,7 +81,6 @@ describe("Testing OMS validation processor", () => {
       qualifiers,
       locationDictionary,
       dataSource: [],
-      checkIsFilled: true,
       data: generateOmsFormData(
         generateOmsQualifierRateData(categories, qualifiers, [{}, {}]),
         true
