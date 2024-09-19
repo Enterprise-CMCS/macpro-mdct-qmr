@@ -264,29 +264,20 @@ const validateNDRs = (
       [key]
     );
   }
-  if (checkIsFilled) {
-    // check at least one ndr filled for a category
-    for (const topLevelKey in isFilled) {
-      if (!isFilled[topLevelKey]) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [topLevelKey]
-          )}`,
-          errorMessage: "Must fill out at least one NDR set.",
-        });
-      }
-    }
 
-    // check selected qualifiers were filled
-    for (const topLevelKey in isDeepFilled) {
-      if (!isDeepFilled[topLevelKey]) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            topLevelKey.split("-")
-          )}`,
-          errorMessage:
-            "For any category selected, all NDR sets must be filled.",
-        });
+  if (checkIsFilled) {
+    let checks = [isFilled, isDeepFilled];
+
+    for (const check of checks) {
+      for (const classKey in check) {
+        if (!check[classKey]) {
+          errorArray.push({
+            errorLocation: `Optional Measure Stratification: ${locationDictionary(
+              classKey.split("-")
+            )}`,
+            errorMessage: "Must fill out at least one NDR set.",
+          });
+        }
       }
     }
   }

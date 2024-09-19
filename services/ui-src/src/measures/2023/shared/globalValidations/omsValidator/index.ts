@@ -297,37 +297,18 @@ const validateNDRs = (
       [key]
     );
   }
-  if (checkIsFilled) {
-    // check at least one ndr filled for a category
-    for (const topLevelKey in isFilled) {
-      if (!isFilled[topLevelKey]) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [topLevelKey]
-          )}`,
-          errorMessage: "Must fill out at least one NDR set.",
-        });
-      }
-    }
 
-    // check selected qualifiers were filled
-    for (const topLevelKey in isDeepFilled) {
-      if (!isDeepFilled[topLevelKey]) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            topLevelKey.split("-")
-          )}`,
-          errorMessage:
-            "For any category selected, all NDR sets must be filled.",
-        });
-      }
-    }
+  if (checkIsFilled) {
+    let checks = [isFilled, isDeepFilled, isDisaggregateFilled];
 
     //if at least one sub-classifications qualifiers is false (no rate data entered), we want to generate an error message,
     //else if all is false, we will ignore it as another error message would already be there
-    if (!Object.values(isClassificationFilled).every((v) => v === false)) {
-      for (const classKey in isClassificationFilled) {
-        if (!isClassificationFilled[classKey]) {
+    if (!Object.values(isClassificationFilled).every((v) => v === false))
+      checks.push(isClassificationFilled);
+
+    for (const check of checks) {
+      for (const classKey in check) {
+        if (!check[classKey]) {
           errorArray.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
               classKey.split("-")
@@ -335,19 +316,6 @@ const validateNDRs = (
             errorMessage: "Must fill out at least one NDR set.",
           });
         }
-      }
-    }
-
-    //checking if the user has selected no to aggregate data for certain classifictions (i.e. asian, native hawaiian or pacific islanders)
-    //keeping the error message seperate in case we want to have unique messages in the future
-    for (const classKey in isDisaggregateFilled) {
-      if (!isDisaggregateFilled[classKey]) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            classKey.split("-")
-          )}`,
-          errorMessage: "Must fill out at least one NDR set.",
-        });
       }
     }
   }
