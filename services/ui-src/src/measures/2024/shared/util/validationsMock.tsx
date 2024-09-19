@@ -14,7 +14,7 @@ import * as validateRateZero from "measures/2024/shared/globalValidations/valida
 import * as validateNumeratorsLessThanDenominators from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 import * as validateOneCatRateHigherThanOtherCat from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 import * as validateOneQualDenomHigherThanOtherDenomOMS from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
-import * as validateOneQualRateHigherThanOtherQual from "measures/2024/shared/globalValidations/validateOneQualRateHigherThanOtherQual";
+import * as validateOneQualRateHigherThanOtherQual from "shared/globalValidations/validateOneQualRateHigherThanOtherQual";
 import * as validateReasonForNotReporting from "shared/globalValidations/validateReasonForNotReporting";
 import * as validateRequiredRadioButtonForCombinedRates from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
 import * as validateTotals from "measures/2024/shared/globalValidations/validateTotals";
