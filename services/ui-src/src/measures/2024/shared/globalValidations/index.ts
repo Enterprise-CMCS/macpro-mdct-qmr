@@ -15,7 +15,7 @@ export * from "shared/globalValidations/validateDualPopInformation";
 export * from "shared/globalValidations/validateEqualCategoryDenominators";
 export * from "shared/globalValidations/validateEqualQualifierDenominators";
 export * from "shared/globalValidations/validateFfsRadioButtonCompletion";
-export * from "./validateRateNotZero";
+export * from "shared/globalValidations/validateRateNotZero";
 export * from "./validateRateZero";
 export * from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 export * from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
