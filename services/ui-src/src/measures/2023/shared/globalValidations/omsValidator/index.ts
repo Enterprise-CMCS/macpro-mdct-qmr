@@ -76,6 +76,22 @@ export const omsValidations = ({
   );
 };
 
+//if the user had checked an OMS that opened up an NDR and did not fill that NDR, this is the error telling them to fill it
+const errorToFillNDR = (label: string) => {
+  return {
+    errorLocation: `Optional Measure Stratification: ${label}`,
+    errorMessage: "For any category selected, all NDR sets must be filled.",
+  };
+};
+
+//if checkbox selected is not one that shows an NDR set, this is the error that shows up
+const errorForNDRSelection = (label: string) => {
+  return {
+    errorLocation: `Optional Measure Stratification: ${label}`,
+    errorMessage: "Must fill out at least one NDR set.",
+  };
+};
+
 const getOMSRates = (
   data: OptionalMeasureStratification,
   locationDictionary: locationDictionaryFunction
@@ -92,8 +108,15 @@ const getOMSRates = (
       for (const midLevelKey of Object.keys(topLevel.selections)) {
         const midLevel = topLevel.selections[midLevelKey];
         const midLabel = locationDictionary([topLevelKey, midLevelKey]);
-        if (midLevel.rateData) {
-          omsRates.push({ key: midLabel, ...midLevel });
+        if (midLevel) {
+          //for checkboxes that open up to sub-classifications, we only want to track it when no subclassification has been checked
+          if (
+            !(
+              midLevel.aggregate === "NoIndependentData" &&
+              midLevel.options?.length! > 0
+            )
+          )
+            omsRates.push({ key: midLabel, ...midLevel });
         }
 
         //if user choose to [+Add Another Sub-Category]
@@ -114,7 +137,7 @@ const getOMSRates = (
               lowLevelKey,
             ]);
             const lowLevel = midLevel.selections[lowLevelKey];
-            if (lowLevel.rateData) {
+            if (lowLevel) {
               omsRates.push({ key: lowLabel, ...lowLevel });
             }
           }
@@ -153,41 +176,62 @@ const getOMSRates = (
   return omsRates;
 };
 
-const errorForNDRFields = (
+//this function is not used to validate AIF-HH, IU-HH or PCR measure's OMS
+const validateNDR = (
   rates: OMS.OmsRateFields,
   labels: string,
   locationDictionary: locationDictionaryFunction
 ) => {
   const errors = [];
-  for (const catId of Object.keys(rates)) {
-    const qualifers = (rates as AnyObject)[catId] as {
+  for (const topKey of Object.keys(rates)) {
+    const midKey = (rates as AnyObject)[topKey] as {
       [key: string]: RateFields[];
     };
     errors.push(
-      Object.keys(qualifers)
+      Object.keys(midKey)
         .filter(
           (qualId: string) =>
-            !qualifers[qualId].every(
+            !midKey[qualId].every(
               (ndr: RateFields) => ndr.numerator && ndr.denominator && ndr.rate
             )
         )
-        .map((qualId: string) => ({
-          errorLocation: `Optional Measure Stratification: ${labels} - ${locationDictionary(
-            [catId, qualId]
-          )}`,
-          errorMessage:
-            "For any category selected, all NDR sets must be filled.",
-        }))
+        .map((qualId: string) =>
+          errorToFillNDR(`${labels} - ${locationDictionary([topKey, qualId])})`)
+        )
     );
   }
   return errors.flat();
 };
 
-const errorForNDRSelection = (key: string) => {
-  return {
-    errorLocation: `Optional Measure Stratification: ${key}`,
-    errorMessage: "Must fill out at least one NDR set.",
-  };
+const validateFields = (
+  data: OMS.OmsRateFields,
+  labels: string,
+  locationDictionary: locationDictionaryFunction
+) => {
+  const errors = [];
+  const section = data?.rates ?? {};
+
+  for (const topKey of Object.keys(section)) {
+    for (const midKey of Object.keys(section[topKey])) {
+      const fields: { label: string; value?: string }[] = (
+        section[topKey][midKey][0] as AnyObject
+      ).fields;
+      if (!fields.every((field) => !!field?.value))
+        errors.push(
+          errorToFillNDR(`${labels} - ${locationDictionary([topKey, midKey])}`)
+        );
+    }
+  }
+  return errors;
+};
+
+const validateValues = (
+  data: { label: string; value?: string }[],
+  labels: string
+) => {
+  return data.every((field) => !!field?.value)
+    ? []
+    : [errorToFillNDR(`${labels}`)];
 };
 
 const validateNDRs = (
@@ -203,14 +247,44 @@ const validateNDRs = (
   let errorArray: FormError[] = [];
   const omsRates = getOMSRates(data, locationDictionary);
 
+  //validation when only the top node is selected
+  //error for OPM
+
+  //running callbacks
+
   const errorsNDR = omsRates.map((data) => {
     const errorLogs = [];
-    if (data?.rateData?.rates) {
-      errorLogs.push(
-        ...errorForNDRFields(data.rateData?.rates, data.key, locationDictionary)
-      );
-    } else {
-      errorLogs.push(errorForNDRSelection(data!.key));
+    if (data) {
+      if ((data?.rateData as AnyObject)?.["aifhh-rate"]) {
+        errorLogs.push(
+          ...validateFields(
+            (data.rateData as AnyObject)?.["aifhh-rate"],
+            data.key,
+            locationDictionary
+          )
+        );
+      } else if ((data?.rateData as AnyObject)?.["iuhh-rate"]) {
+        errorLogs.push(
+          ...validateFields(
+            (data.rateData as AnyObject)?.["iuhh-rate"],
+            data.key,
+            locationDictionary
+          )
+        );
+      } else if ((data?.rateData as AnyObject)?.["pcr-rate"]) {
+        errorLogs.push(
+          ...validateValues(
+            (data.rateData as AnyObject)?.["pcr-rate"],
+            data.key
+          )
+        );
+      } else if (data?.rateData?.rates) {
+        errorLogs.push(
+          ...validateNDR(data.rateData?.rates, data.key, locationDictionary)
+        );
+      } else {
+        errorLogs.push(errorForNDRSelection(data!.key));
+      }
     }
     return errorLogs;
   });
