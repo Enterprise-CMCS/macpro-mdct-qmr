@@ -6,14 +6,19 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 import prompt from "prompt-sync";
 
+/***
+ * Run with `npx tsx transformMeasureTable.ts`
+ */
 const transformMeasureTable = async () => {
   let stage = "local";
-  const isLocal = !!process.env.DYNAMODB_URL;
-  const dbClient = buildClient(isLocal);
   const p = prompt();
+  const runLocally = p("Do you want to run this script locally? Y/N: ");
+  const isLocal = runLocally === "Y" ? true : false;
   if (!isLocal) {
-    stage = p("What environment would you like to modify: ");
+    stage = p("What environment are we running on (e.g. master, val, prod)? ");
   }
+
+  const dbClient = buildClient(isLocal);
 
   const oldTable = `${stage}-measures`;
   const newTable = `${stage}-measure`;

@@ -61,7 +61,7 @@ const mockCombinedRate = {
 
 describe("Test database helper functions", () => {
   beforeAll(() => {
-    process.env.measureTableName = "local-measures";
+    process.env.measureTable = "local-measure";
     process.env.rateTableName = "local-rates";
   });
 
@@ -72,10 +72,10 @@ describe("Test database helper functions", () => {
 
     expect(result).toBe(mockMeasure);
     expect(dynamodbLib.get).toHaveBeenCalledWith({
-      TableName: "local-measures",
+      TableName: "local-measure",
       Key: {
-        compoundKey: "CO2024ACSZZZ-AD",
-        coreSet: "ACS",
+        compoundKey: "CO2024ACS",
+        measure: "ZZZ-AD",
       },
     });
   });

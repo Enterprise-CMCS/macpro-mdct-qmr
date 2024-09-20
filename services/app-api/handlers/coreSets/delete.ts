@@ -52,7 +52,7 @@ const deleteDependentMeasures = async (
       TableName: process.env.measureTable!,
       Key: {
         compoundKey: `${state}${year}${coreSet}`,
-        coreSet: coreSet,
+        measure: measure,
       },
     };
 

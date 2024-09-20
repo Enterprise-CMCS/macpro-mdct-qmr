@@ -5,10 +5,10 @@ import { RateParameters, CombinedRatesPayload } from "../types";
 export const getMeasureFromTable = async (parameters: RateParameters) => {
   const { state, year, coreSet, measure } = parameters;
   return await dynamoDb.get<Types.Measure>({
-    TableName: process.env.measureTableName,
+    TableName: process.env.measureTable,
     Key: {
-      compoundKey: `${state}${year}${coreSet}${measure}`,
-      coreSet: coreSet,
+      compoundKey: `${state}${year}${coreSet}`,
+      measure: measure,
     },
   });
 };

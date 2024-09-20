@@ -15,7 +15,6 @@ jest.mock("../../../libs/authorization", () => ({
 }));
 
 const event = { ...testEvent };
-process.env.measureTableName = "SAMPLE TABLE";
 
 describe("Test Create Measure Handler", () => {
   beforeEach(() => {
