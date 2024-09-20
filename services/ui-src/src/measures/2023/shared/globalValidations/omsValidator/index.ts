@@ -144,6 +144,10 @@ const getOMSRates = (
         }
       }
     }
+    //if no options are selected, we want to generate a warning for that too
+    else if (!topLevel.options || topLevel.options.length === 0) {
+      omsRates.push({ key: locationDictionary([topLevelKey]), ...topLevel });
+    }
 
     //if user choose to [+Add Another Classification]
     if (topLevel.additionalSelections) {
@@ -247,43 +251,75 @@ const validateNDRs = (
   let errorArray: FormError[] = [];
   const omsRates = getOMSRates(data, locationDictionary);
 
-  //validation when only the top node is selected
   //error for OPM
 
-  //running callbacks
-
   const errorsNDR = omsRates.map((data) => {
+    const label = data?.key!;
+    const rateData = data?.rateData as AnyObject;
     const errorLogs = [];
-    if (data) {
-      if ((data?.rateData as AnyObject)?.["aifhh-rate"]) {
+
+    if (rateData) {
+      if (rateData?.["aifhh-rate"]) {
+        errorLogs.push(
+          ...validateFields(rateData?.["aifhh-rate"], label, locationDictionary)
+        );
+      } else if (rateData?.["iuhh-rate"]) {
         errorLogs.push(
           ...validateFields(
-            (data.rateData as AnyObject)?.["aifhh-rate"],
-            data.key,
+            (rateData as AnyObject)?.["iuhh-rate"],
+            label,
             locationDictionary
           )
         );
-      } else if ((data?.rateData as AnyObject)?.["iuhh-rate"]) {
+      } else if (rateData?.["pcr-rate"]) {
         errorLogs.push(
-          ...validateFields(
-            (data.rateData as AnyObject)?.["iuhh-rate"],
-            data.key,
-            locationDictionary
-          )
+          ...validateValues((rateData as AnyObject)?.["pcr-rate"], label)
         );
-      } else if ((data?.rateData as AnyObject)?.["pcr-rate"]) {
+      } else if (rateData?.rates) {
         errorLogs.push(
-          ...validateValues(
-            (data.rateData as AnyObject)?.["pcr-rate"],
-            data.key
-          )
-        );
-      } else if (data?.rateData?.rates) {
-        errorLogs.push(
-          ...validateNDR(data.rateData?.rates, data.key, locationDictionary)
+          ...validateNDR(rateData?.rates, label, locationDictionary)
         );
       } else {
-        errorLogs.push(errorForNDRSelection(data!.key));
+        errorLogs.push(errorForNDRSelection(label));
+      }
+
+      //running any callback functions
+      for (const callback of callbackArr) {
+        errorLogs.push(
+          ...callback({
+            rateData,
+            categories,
+            qualifiers,
+            label: [label],
+            locationDictionary,
+            isOPM,
+            customTotalLabel,
+            dataSource,
+          })
+        );
+      }
+
+      //validate partial rates
+      if (!rateData?.["pcr-rate"]) {
+        // check for complex rate type and assign appropriate tag
+        const rateType = !!rateData?.["iuhh-rate"]
+          ? "iuhh-rate"
+          : !!rateData?.["aifhh-rate"]
+          ? "aifhh-rate"
+          : undefined;
+
+        errorLogs.push(
+          ...validatePartialRateCompletionOMS(rateType)({
+            rateData,
+            categories,
+            qualifiers,
+            label: [label],
+            locationDictionary,
+            isOPM,
+            customTotalLabel,
+            dataSource,
+          })
+        );
       }
     }
     return errorLogs;
