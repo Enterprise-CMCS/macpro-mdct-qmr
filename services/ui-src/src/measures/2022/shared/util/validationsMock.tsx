@@ -2,15 +2,15 @@ import * as validateAtLeastOneDataSource from "shared/globalValidations/validate
 import * as validateAtLeastOneDeviationFieldFilled from "measures/2022/shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 import * as validateAtLeastOneRateComplete from "shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "shared/globalValidations/validateBothDatesInRange";
-import * as validateDualPopInformation from "measures/2022/shared/globalValidations/validateDualPopInformation";
-import * as validateEqualCategoryDenominators from "measures/2022/shared/globalValidations/validateEqualCategoryDenominators";
+import * as validateDualPopInformation from "shared/globalValidations/validateDualPopInformation";
+import * as validateEqualCategoryDenominators from "shared/globalValidations/validateEqualCategoryDenominators";
 import * as validateEqualQualifierDenominators from "shared/globalValidations/validateEqualQualifierDenominators";
-import * as validateRateNotZero from "measures/2022/shared/globalValidations/validateRateNotZero";
+import * as validateRateNotZero from "shared/globalValidations/validateRateNotZero";
 import * as validateRateZero from "measures/2022/shared/globalValidations/validateRateZero";
 import * as validateNumeratorsLessThanDenominators from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 import * as validateOneCatRateHigherThanOtherCat from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 import * as validateOneQualDenomHigherThanOtherDenomOMS from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
-import * as validateOneQualRateHigherThanOtherQual from "measures/2022/shared/globalValidations/validateOneQualRateHigherThanOtherQual";
+import * as validateOneQualRateHigherThanOtherQual from "shared/globalValidations/validateOneQualRateHigherThanOtherQual";
 import * as validateReasonForNotReporting from "shared/globalValidations/validateReasonForNotReporting";
 import * as validateRequiredRadioButtonForCombinedRates from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
 import * as validateTotals from "measures/2022/shared/globalValidations/validateTotals";
@@ -19,7 +19,7 @@ import * as PCRnoNonZeroNumOrDenom from "shared/globalValidations/PCRValidations
 import * as PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
-import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
+import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexValidateNDRTotals from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 import * as ComplexValueSameCrossCategory from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";

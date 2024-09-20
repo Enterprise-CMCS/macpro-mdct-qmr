@@ -2,7 +2,7 @@ import * as Types from "shared/types";
 import {
   OmsValidationCallback,
   UnifiedValidationFunction as UVF,
-} from "../types";
+} from "shared/types/TypeValidations";
 import {
   convertOmsDataToRateArray,
   getPerfMeasureRateArray,

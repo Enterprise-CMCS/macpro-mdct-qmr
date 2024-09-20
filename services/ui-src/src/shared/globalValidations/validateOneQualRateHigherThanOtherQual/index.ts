@@ -1,6 +1,9 @@
 import * as Types from "shared/types";
 import * as DC from "dataConstants";
-import { OmsValidationCallback, UnifiedValFuncProps as UVFP } from "../types";
+import {
+  OmsValidationCallback,
+  UnifiedValFuncProps as UVFP,
+} from "../../types/TypeValidations";
 import {
   getPerfMeasureRateArray,
   convertOmsDataToRateArray,
@@ -48,7 +51,9 @@ const _validation = ({
         parseFloat(ratefields[higherIndex]?.rate ?? "")
     ) {
       const notSingleCategory: boolean =
-        categories?.length && categories[0].label !== DC.SINGLE_CATEGORY
+        categories?.length &&
+        categories[0].label !== DC.SINGLE_CATEGORY &&
+        categories[0].label
           ? true
           : false;
       errorArray.push({
