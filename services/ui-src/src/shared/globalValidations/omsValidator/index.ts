@@ -3,7 +3,7 @@ import {
   OmsValidationCallback,
   locationDictionaryFunction,
   RateData,
-} from "../types";
+} from "../../types/TypeValidations";
 import {
   OmsNodes as OMS,
   OptionalMeasureStratification,
@@ -11,7 +11,7 @@ import {
 } from "shared/types";
 import { DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
-import { LabelData, cleanString, isLegacyLabel } from "utils";
+import { cleanString, isLegacyLabel, LabelData } from "utils";
 import { AnyObject } from "types";
 
 interface OmsValidationProps {
@@ -23,58 +23,6 @@ interface OmsValidationProps {
   customTotalLabel?: string;
   dataSource?: string[];
 }
-export const omsValidations = ({
-  categories,
-  data,
-  locationDictionary,
-  qualifiers,
-  validationCallbacks,
-  customTotalLabel,
-  dataSource,
-}: OmsValidationProps) => {
-  const opmCats: LabelData[] = [{ id: "OPM", text: "OPM", label: "OPM" }];
-  const opmQuals: LabelData[] = [];
-  const isOPM: boolean =
-    data.MeasurementSpecification === "Other" &&
-    !!data["OtherPerformanceMeasure-Rates"];
-
-  if (isOPM) {
-    opmQuals.push(
-      ...data["OtherPerformanceMeasure-Rates"].map((rate) => {
-        const id =
-          !isLegacyLabel() && rate.description
-            ? `${DC.OPM_KEY}${cleanString(rate.description)}`
-            : rate.description;
-
-        return {
-          id: id ? id : "Fill out description",
-          label: rate.description ? rate.description : "Fill out description",
-          text: "",
-        };
-      })
-    );
-  }
-  const cats =
-    categories.length === 0
-      ? [
-          {
-            id: DC.SINGLE_CATEGORY,
-            text: DC.SINGLE_CATEGORY,
-            label: DC.SINGLE_CATEGORY,
-          },
-        ]
-      : categories;
-  return validateNDRs(
-    data,
-    validationCallbacks,
-    opmQuals.length ? opmQuals : qualifiers,
-    opmQuals.length ? opmCats : cats,
-    locationDictionary,
-    isOPM,
-    customTotalLabel,
-    dataSource
-  );
-};
 
 //if the user had checked an OMS that opened up an NDR and did not fill that NDR, this is the error telling them to fill it
 const errorToFillNDR = (label: string) => {
@@ -96,9 +44,11 @@ const getOMSRates = (
   data: OptionalMeasureStratification,
   locationDictionary: locationDictionaryFunction
 ) => {
+  if (!data.OptionalMeasureStratification.selections) return [];
+
   const omsRates = [];
 
-  //loop through the OMS selections and pull out any that has a rateData (when there's a checkbox selected)
+  //loop through the OMS selections and pull out any object that has a rateData (when there's a checkbox selected)
   for (const topLevelKey of Object.keys(
     data.OptionalMeasureStratification.selections
   )) {
@@ -200,7 +150,7 @@ const validateNDR = (
             )
         )
         .map((qualId: string) =>
-          errorToFillNDR(`${labels} - ${locationDictionary([topKey, qualId])})`)
+          errorToFillNDR(`${labels} - ${locationDictionary([topKey, qualId])}`)
         )
     );
   }
@@ -230,7 +180,7 @@ const validateFields = (
 };
 
 const validateValues = (
-  data: { label: string; value?: string }[],
+  data: { id?: number; value?: string; label?: string }[],
   labels: string
 ) => {
   return data.every((field) => !!field?.value)
@@ -238,54 +188,65 @@ const validateValues = (
     : [errorToFillNDR(`${labels}`)];
 };
 
-const validateNDRs = (
-  data: DefaultFormData,
-  callbackArr: OmsValidationCallback[],
-  qualifiers: LabelData[],
-  categories: LabelData[],
-  locationDictionary: locationDictionaryFunction,
-  isOPM: boolean,
-  customTotalLabel?: string,
-  dataSource?: string[]
-) => {
+export const omsValidations = ({
+  categories,
+  data,
+  locationDictionary,
+  qualifiers,
+  validationCallbacks,
+  customTotalLabel,
+  dataSource,
+}: OmsValidationProps) => {
+  const isOPM: boolean =
+    data.MeasurementSpecification === "Other" &&
+    !!data["OtherPerformanceMeasure-Rates"];
+
   let errorArray: FormError[] = [];
   const omsRates = getOMSRates(data, locationDictionary);
 
-  //error for OPM
+  const opmLocationDictionary: locationDictionaryFunction = (ids: string[]) => {
+    const keyMap = new Map();
+    for (const opm of data["OtherPerformanceMeasure-Rates"]) {
+      const id = !isLegacyLabel()
+        ? `${DC.OPM_KEY}${cleanString(opm.description!)}`
+        : cleanString(opm.description!);
+      keyMap.set(id, opm.description);
+    }
+    const labels = ids.filter((id) => keyMap.has(id));
+    return labels.length > 0 ? keyMap.get(labels[0]) : "";
+  };
 
-  const errorsNDR = omsRates.map((data) => {
-    const label = data?.key!;
-    const rateData = data?.rateData as AnyObject;
-    const errorLogs = [];
+  //error for OPM
+  for (const omsRate of omsRates) {
+    const label = omsRate?.key!;
+    const rateData = omsRate?.rateData as RateData;
 
     if (rateData) {
       if (rateData?.["aifhh-rate"]) {
-        errorLogs.push(
+        errorArray.push(
           ...validateFields(rateData?.["aifhh-rate"], label, locationDictionary)
         );
       } else if (rateData?.["iuhh-rate"]) {
-        errorLogs.push(
-          ...validateFields(
-            (rateData as AnyObject)?.["iuhh-rate"],
-            label,
-            locationDictionary
-          )
+        errorArray.push(
+          ...validateFields(rateData?.["iuhh-rate"], label, locationDictionary)
         );
       } else if (rateData?.["pcr-rate"]) {
-        errorLogs.push(
-          ...validateValues((rateData as AnyObject)?.["pcr-rate"], label)
-        );
+        errorArray.push(...validateValues(rateData?.["pcr-rate"], label));
       } else if (rateData?.rates) {
-        errorLogs.push(
-          ...validateNDR(rateData?.rates, label, locationDictionary)
+        errorArray.push(
+          ...validateNDR(
+            rateData?.rates,
+            label,
+            isOPM ? opmLocationDictionary : locationDictionary
+          )
         );
       } else {
-        errorLogs.push(errorForNDRSelection(label));
+        errorArray.push(errorForNDRSelection(label));
       }
 
       //running any callback functions
-      for (const callback of callbackArr) {
-        errorLogs.push(
+      for (const callback of validationCallbacks) {
+        errorArray.push(
           ...callback({
             rateData,
             categories,
@@ -298,7 +259,6 @@ const validateNDRs = (
           })
         );
       }
-
       //validate partial rates
       if (!rateData?.["pcr-rate"]) {
         // check for complex rate type and assign appropriate tag
@@ -308,7 +268,7 @@ const validateNDRs = (
           ? "aifhh-rate"
           : undefined;
 
-        errorLogs.push(
+        errorArray.push(
           ...validatePartialRateCompletionOMS(rateType)({
             rateData,
             categories,
@@ -321,11 +281,9 @@ const validateNDRs = (
           })
         );
       }
+    } else {
+      errorArray.push(errorForNDRSelection(label));
     }
-    return errorLogs;
-  });
-
-  errorArray = errorArray.concat(...errorsNDR);
-
+  }
   return errorArray;
 };

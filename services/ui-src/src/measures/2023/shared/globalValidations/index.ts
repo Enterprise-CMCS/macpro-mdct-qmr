@@ -1,5 +1,5 @@
 export * from "./dataDrivenTools";
-export * from "./omsValidator";
+export * from "shared/globalValidations/omsValidator";
 export * as Types from "./types";
 
 export * from "shared/globalValidations/validateAtLeastOneDataSource";
