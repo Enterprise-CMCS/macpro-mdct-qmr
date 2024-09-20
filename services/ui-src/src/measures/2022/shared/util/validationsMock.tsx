@@ -5,8 +5,8 @@ import * as validateBothDatesInRange from "shared/globalValidations/validateBoth
 import * as validateDualPopInformation from "shared/globalValidations/validateDualPopInformation";
 import * as validateEqualCategoryDenominators from "shared/globalValidations/validateEqualCategoryDenominators";
 import * as validateEqualQualifierDenominators from "shared/globalValidations/validateEqualQualifierDenominators";
+import * as validateRateZero from "shared/globalValidations/validateRateZero";
 import * as validateRateNotZero from "shared/globalValidations/validateRateNotZero";
-import * as validateRateZero from "measures/2022/shared/globalValidations/validateRateZero";
 import * as validateNumeratorsLessThanDenominators from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 import * as validateOneCatRateHigherThanOtherCat from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 import * as validateOneQualDenomHigherThanOtherDenomOMS from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
