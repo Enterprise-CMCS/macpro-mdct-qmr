@@ -1,5 +1,5 @@
 import * as validateAtLeastOneDataSource from "shared/globalValidations/validateAtLeastOneDataSource";
-import * as validateAtLeastOneDeviationFieldFilled from "measures/2022/shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
+import * as validateAtLeastOneDeviationFieldFilled from "shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 import * as validateAtLeastOneRateComplete from "shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "shared/globalValidations/validateBothDatesInRange";
 import * as validateDualPopInformation from "shared/globalValidations/validateDualPopInformation";

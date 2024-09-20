@@ -3,7 +3,7 @@ export * from "./omsValidator";
 export * as Types from "./types";
 
 export * from "shared/globalValidations/validateAtLeastOneDataSource";
-export * from "./validateAtLeastOneDeviationFieldFilled";
+export * from "shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "shared/globalValidations/validateBothDatesInRange";
 export * from "shared/globalValidations/validateDualPopInformation";
