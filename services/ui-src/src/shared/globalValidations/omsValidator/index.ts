@@ -9,13 +9,13 @@ import {
   OptionalMeasureStratification,
   RateFields,
 } from "shared/types";
-import { DefaultFormData } from "shared/types/FormData";
+import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { cleanString, isLegacyLabel, LabelData } from "utils";
 import { AnyObject } from "types";
 
 interface OmsValidationProps {
-  data: DefaultFormData;
+  data: DefaultFormData | DefaultFormDataLegacy;
   qualifiers: LabelData[];
   categories: LabelData[];
   locationDictionary: locationDictionaryFunction;
@@ -188,6 +188,23 @@ const validateValues = (
     : [errorToFillNDR(`${labels}`)];
 };
 
+const buildOPMLocationDictionary = (
+  ids: string[],
+  opmData:
+    | DefaultFormData["OtherPerformanceMeasure-Rates"]
+    | DefaultFormDataLegacy["OtherPerformanceMeasure-Rates"]
+) => {
+  const keyMap = new Map();
+  for (const opm of opmData) {
+    const id = !isLegacyLabel()
+      ? `${DC.OPM_KEY}${cleanString(opm.description!)}`
+      : cleanString(opm.description!);
+    keyMap.set(id, opm.description);
+  }
+  const labels = ids.filter((id) => keyMap.has(id));
+  return labels.length > 0 ? keyMap.get(labels[0]) : "";
+};
+
 export const omsValidations = ({
   categories,
   data,
@@ -204,19 +221,15 @@ export const omsValidations = ({
   let errorArray: FormError[] = [];
   const omsRates = getOMSRates(data, locationDictionary);
 
-  const opmLocationDictionary: locationDictionaryFunction = (ids: string[]) => {
-    const keyMap = new Map();
-    for (const opm of data["OtherPerformanceMeasure-Rates"]) {
-      const id = !isLegacyLabel()
-        ? `${DC.OPM_KEY}${cleanString(opm.description!)}`
-        : cleanString(opm.description!);
-      keyMap.set(id, opm.description);
-    }
-    const labels = ids.filter((id) => keyMap.has(id));
-    return labels.length > 0 ? keyMap.get(labels[0]) : "";
+  //build a dictionary for opm to find the description labels in the error text
+  const opmLocationDictionary = (ids: string[]) => {
+    return buildOPMLocationDictionary(
+      ids,
+      data["OtherPerformanceMeasure-Rates"]
+    );
   };
 
-  //error for OPM
+  //build the error array for the rates in OMS
   for (const omsRate of omsRates) {
     const label = omsRate?.key!;
     const rateData = omsRate?.rateData as RateData;
