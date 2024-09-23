@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { testFormData } from "../testHelpers/_testFormData";
+import { testFormData } from "measures/2024/shared/globalValidations/testHelpers/_testFormData";
 import { validateAtLeastOneDeviationFieldFilled } from ".";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
@@ -48,7 +48,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     formData[DC.DID_CALCS_DEVIATE] = DC.YES;
     errorArray = _run_validation(formData);
     expect(errorArray.length).toBe(1);
-    expect(errorArray[0].errorMessage).toBe("Deviation(s) must be explained");
+    expect(errorArray[0].errorMessage).toBe("Variation(s) must be explained");
   });
 
   it("Error message text should match provided errorMessage", () => {

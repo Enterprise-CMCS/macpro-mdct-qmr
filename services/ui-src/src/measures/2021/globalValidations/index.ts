@@ -3,14 +3,14 @@ export * from "./omsValidator";
 export * as Types from "./types";
 
 export * from "shared/globalValidations/validateAtLeastOneDataSource";
-export * from "./validateAtLeastOneDeviationFieldFilled";
+export * from "shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "shared/globalValidations/validateBothDatesInRange";
 export * from "shared/globalValidations/validateDualPopInformation";
 export * from "shared/globalValidations/validateEqualCategoryDenominators";
 export * from "shared/globalValidations/validateEqualQualifierDenominators";
+export * from "shared/globalValidations/validateRateZero";
 export * from "shared/globalValidations/validateRateNotZero";
-export * from "./validateRateZero";
 export * from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 export * from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 export * from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
@@ -35,8 +35,8 @@ export { ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec } from "shared/glo
 export {
   ComplexValidateNDRTotals,
   ComplexValidateNDRTotalsOMS,
-} from "./ComplexValidations/ComplexValidateNDRTotals";
-export { ComplexValidateDualPopInformation } from "./ComplexValidations/ComplexValidateDualPopInformation";
+} from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
+export { ComplexValidateDualPopInformation } from "shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 export {
   ComplexValueSameCrossCategory,
   ComplexValueSameCrossCategoryOMS,

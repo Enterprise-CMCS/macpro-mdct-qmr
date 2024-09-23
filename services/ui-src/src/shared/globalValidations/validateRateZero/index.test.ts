@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
-import { testFormData } from "../testHelpers/_testFormData";
 import { validateRateZeroOMS, validateRateZeroPM } from ".";
+
+import { testFormData } from "measures/2024/shared/globalValidations/testHelpers/_testFormData";
 
 import {
   generateOmsQualifierRateData,
@@ -10,21 +11,17 @@ import {
   partialRate,
   generateOtherPerformanceMeasureData,
 } from "utils/testUtils/validationHelpers";
-import { LabelData } from "utils";
-
-jest.mock("utils/getLabelText", () => ({
-  isLegacyLabel: () => true,
-}));
 
 describe("Testing Non-Zero/No Zero Numerator/Rate Validation", () => {
-  const categories: LabelData[] = [
-    { id: "Test Cat 1", label: "Test Cat 1", text: "Test Cat 1" },
-    { id: "Test Cat 2", label: "Test Cat 2", text: "Test Cat 2" },
+  const categories = [
+    { label: "Test Cat 1", text: "Test Cat 1", id: "Test Cat 1" },
+    { label: "Test Cat 2", text: "Test Cat 2", id: "Test Cat 2" },
   ];
-  const qualifiers: LabelData[] = [
-    { id: "Test Qual 1", label: "Test Qual 1", text: "Test Qual 1" },
-    { id: "Test Qual 2", label: "Test Qual 2", text: "Test Qual 2" },
+  const qualifiers = [
+    { label: "Test Qual 1", text: "Test Qual 1", id: "Test Qual 1" },
+    { label: "Test Qual 2", text: "Test Qual 2", id: "Test Qual 2" },
   ];
+
   const baseOMSInfo = {
     categories,
     qualifiers,
