@@ -1,4 +1,5 @@
 import { LabelData } from "utils";
+import * as DC from "dataConstants";
 
 interface NDRforumla {
   numerator: number;
@@ -28,34 +29,35 @@ export const ComplexValidateNDRTotalsOMS = (
   const qualifierObj = { ...rateData };
   delete qualifierObj["Total"];
   const totalData = rateData["Total"];
+  const categoryID = categories[0]?.id ?? DC.SINGLE_CATEGORY;
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];
-  const cleanedCategories = categories.map((cat) => cat.id);
-  if (cleanedCategories.length !== 0) {
+  const cleanedCategories = categories;
+  if (cleanedCategories.length > 0) {
     for (const cat of cleanedCategories) {
       let row = [];
       for (const q in qualifierObj) {
-        const qual = qualifierObj[q]?.[cat]?.[0] ?? {};
+        const qual = qualifierObj[q]?.[cat.id]?.[0] ?? {};
         if (qual) {
           row.push(qual);
         }
       }
       if (row) {
-        row.push(totalData[cat][0]);
+        row.push(totalData[cat.id][0]);
         performanceMeasureArray.push(row);
       }
     }
   } else {
     let row = [];
     for (const q in qualifierObj) {
-      const qual = qualifierObj[q]?.["singleCategory"]?.[0] ?? {};
+      const qual = qualifierObj[q]?.[categoryID]?.[0] ?? {};
       if (qual) {
         row.push(qual);
       }
     }
     if (row) {
-      row.push(totalData["singleCategory"][0]);
+      row.push(totalData[categoryID][0]);
       performanceMeasureArray.push(row);
     }
   }
@@ -116,8 +118,8 @@ export const ComplexValidateNDRTotals = (
       categoryTotal?.fields?.forEach((field: Field, x: number) => {
         if (
           !rateLocations.includes(x) &&
-          ((!field?.value && categorySums[x] !== undefined) ||
-            (field?.value && categorySums[x] !== parseFloat(field.value)))
+          field?.value &&
+          categorySums[x] !== parseFloat(field.value)
         ) {
           errorArray.push({
             errorLocation: `${errorLocation} - ${

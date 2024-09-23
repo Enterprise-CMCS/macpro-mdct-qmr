@@ -43,7 +43,7 @@ export {
 export {
   ComplexValidateNDRTotals,
   ComplexValidateNDRTotalsOMS,
-} from "./ComplexValidations/ComplexValidateNDRTotals";
+} from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 export { ComplexValidateDualPopInformation } from "shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 export {
   ComplexValueSameCrossCategory,
