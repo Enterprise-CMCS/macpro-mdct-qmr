@@ -7,20 +7,20 @@ export * from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation
 export * from "shared/globalValidations/validateHybridMeasurePopulation";
 export * from "./validateAtLeastOneDataSourceType";
 export * from "shared/globalValidations/validateAtLeastOneDeliverySystem";
-export * from "./validateAtLeastOneDeviationFieldFilled";
+export * from "shared/globalValidations/validateDeviationTextFieldFilled";
 export * from "shared/globalValidations/validateAtLeastOneRateComplete";
 export * from "shared/globalValidations/validateBothDatesInRange";
 export * from "shared/globalValidations/validateDateRangeRadioButtonCompletion";
-export * from "./validateDualPopInformation";
-export * from "./validateEqualCategoryDenominators";
+export * from "shared/globalValidations/validateDualPopInformation";
+export * from "shared/globalValidations/validateEqualCategoryDenominators";
 export * from "shared/globalValidations/validateEqualQualifierDenominators";
-export * from "./validateFfsRadioButtonCompletion";
-export * from "./validateRateNotZero";
-export * from "./validateRateZero";
+export * from "shared/globalValidations/validateRateZero";
+export * from "shared/globalValidations/validateFfsRadioButtonCompletion";
+export * from "shared/globalValidations/validateRateNotZero";
 export * from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 export * from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
 export * from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenomOMS";
-export * from "./validateOneQualRateHigherThanOtherQual";
+export * from "shared/globalValidations/validateOneQualRateHigherThanOtherQual";
 export * from "shared/globalValidations/validateReasonForNotReporting";
 export * from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
 export * from "./validateTotals";
@@ -43,8 +43,8 @@ export {
 export {
   ComplexValidateNDRTotals,
   ComplexValidateNDRTotalsOMS,
-} from "./ComplexValidations/ComplexValidateNDRTotals";
-export { ComplexValidateDualPopInformation } from "./ComplexValidations/ComplexValidateDualPopInformation";
+} from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
+export { ComplexValidateDualPopInformation } from "shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 export {
   ComplexValueSameCrossCategory,
   ComplexValueSameCrossCategoryOMS,
