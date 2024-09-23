@@ -13,14 +13,14 @@ import * as validateOneQualDenomHigherThanOtherDenomOMS from "shared/globalValid
 import * as validateOneQualRateHigherThanOtherQual from "shared/globalValidations/validateOneQualRateHigherThanOtherQual";
 import * as validateReasonForNotReporting from "shared/globalValidations/validateReasonForNotReporting";
 import * as validateRequiredRadioButtonForCombinedRates from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
-import * as validateTotals from "measures/2022/shared/globalValidations/validateTotals";
+import * as validateTotals from "shared/globalValidations/validateTotals";
 import * as PCRatLeastOneRateComplete from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 import * as PCRnoNonZeroNumOrDenom from "shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
 import * as PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "measures/2022/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
+import * as ComplexValidateNDRTotals from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
-import * as ComplexValidateNDRTotals from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
 import * as ComplexValueSameCrossCategory from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
 import { DefaultFormDataLegacy as DefaultFormData } from "shared/types/FormData";
