@@ -109,7 +109,7 @@ resources:
           - AttributeName: key
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
-    CSMeasureTable:
+    QualityMeasureTable:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: ${self:custom.measureTable}
