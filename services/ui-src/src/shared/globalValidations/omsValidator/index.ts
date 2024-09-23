@@ -53,8 +53,17 @@ const getOMSRates = (
     data.OptionalMeasureStratification.selections
   )) {
     const topLevel = data.OptionalMeasureStratification.selections[topLevelKey];
-    //mid level and lower is where to get the rate data
-    if (topLevel.selections) {
+
+    //if no options are selected, we want to generate a warning
+    if (
+      !topLevel.options ||
+      (topLevel.options.length === 0 && !topLevel.additionalSelections) ||
+      topLevel.additionalSelections?.length === 0
+    ) {
+      omsRates.push({ key: locationDictionary([topLevelKey]), ...topLevel });
+    }
+    //if there are selections, we want to transverse the object to get to the sub categories
+    else if (topLevel.selections) {
       for (const midLevelKey of Object.keys(topLevel.selections)) {
         const midLevel = topLevel.selections[midLevelKey];
         const midLabel = locationDictionary([topLevelKey, midLevelKey]);
@@ -94,10 +103,6 @@ const getOMSRates = (
         }
       }
     }
-    //if no options are selected, we want to generate a warning for that too
-    else if (!topLevel.options || topLevel.options.length === 0) {
-      omsRates.push({ key: locationDictionary([topLevelKey]), ...topLevel });
-    }
 
     //if user choose to [+Add Another Classification]
     if (topLevel.additionalSelections) {
@@ -105,7 +110,6 @@ const getOMSRates = (
         key: `${locationDictionary([topLevelKey])} - ${selection.description}`,
         rateData: selection.rateData,
       }));
-
       if (additional) {
         omsRates.push(...additional);
       }
