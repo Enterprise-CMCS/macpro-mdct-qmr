@@ -138,7 +138,7 @@ resources:
     MeasureTableName:
       Value: !Ref MeasureTable
     MeasureTable:
-      Value: !Ref CSMeasureTable
+      Value: !Ref QualityMeasureTable
     MeasureTableArn:
       Value: !GetAtt MeasureTable.Arn
     MeasureTableStreamArn:
