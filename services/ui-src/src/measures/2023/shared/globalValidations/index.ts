@@ -46,4 +46,4 @@ export { ComplexValidateDualPopInformation } from "shared/globalValidations/Comp
 export {
   ComplexValueSameCrossCategory,
   ComplexValueSameCrossCategoryOMS,
-} from "./ComplexValidations/ComplexValueSameCrossCategory";
+} from "shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";

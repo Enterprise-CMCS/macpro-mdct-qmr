@@ -1,4 +1,4 @@
-import { LabelData, cleanString } from "utils";
+import { cleanString, isLegacyLabel, LabelData } from "utils";
 
 export const ComplexValueSameCrossCategoryOMS = (
   rateData: any,
@@ -14,17 +14,15 @@ export const ComplexValueSameCrossCategoryOMS = (
 
   const qualifierLabels: any = {};
   for (const q of qualifiers) {
-    const qCleaned = q.id;
-    qualifierLabels[qCleaned] = q;
+    qualifierLabels[q.id] = q.label;
   }
-  const cleanedCategories = categories.map((cat) => cat.id);
 
   // build performanceMeasureArray
   let performanceMeasureArray = [];
-  for (const cat of cleanedCategories) {
+  for (const cat of categories) {
     let row = [];
     for (const q in qualifierObj) {
-      const qual = qualifierObj[q]?.[cat]?.[0];
+      const qual = qualifierObj[q]?.[cat.id]?.[0];
       if (qual) {
         qual.label = qualifierLabels[q];
         row.push(qual);
@@ -32,14 +30,13 @@ export const ComplexValueSameCrossCategoryOMS = (
     }
     // only need to add total data if other data exists
     if (row.length > 0) {
-      const catTotal = { ...totalData[cat][0] };
+      const catTotal = { ...totalData[cat.id][0] };
       catTotal.label = "Total";
       row.push(catTotal);
       performanceMeasureArray.push(row);
     }
   }
 
-  // if (performanceMeasureArray)
   let errorArray: any[] = ComplexValueSameCrossCategory({
     rateData: performanceMeasureArray,
     OPM: undefined,
@@ -80,7 +77,9 @@ export const ComplexValueSameCrossCategory = ({
     } = {};
     for (const category of rateData) {
       for (const qualifier of category.slice(0, -1)) {
-        const cleanQual = cleanString(qualifier.label);
+        const cleanQual = isLegacyLabel()
+          ? cleanString(qualifier.label)
+          : qualifier.uid.split(".")[1];
         if (tempValues[cleanQual]?.value) {
           if (
             qualifier.fields[fieldIndex]?.value &&

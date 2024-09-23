@@ -19,10 +19,10 @@ import * as PCRnoNonZeroNumOrDenom from "shared/globalValidations/PCRValidations
 import * as PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
+import * as ComplexValueSameCrossCategory from "shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
 import * as ComplexValidateNDRTotals from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexValidateDualPopInformation from "shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
-import * as ComplexValueSameCrossCategory from "measures/2022/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
 import { DefaultFormDataLegacy as DefaultFormData } from "shared/types/FormData";
 
 /**
