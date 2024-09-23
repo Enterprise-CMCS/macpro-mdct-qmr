@@ -23,7 +23,7 @@ export * from "shared/globalValidations/validateOneQualDenomHigherThanOtherDenom
 export * from "shared/globalValidations/validateOneQualRateHigherThanOtherQual";
 export * from "shared/globalValidations/validateReasonForNotReporting";
 export * from "shared/globalValidations/validateRequiredRadioButtonForCombinedRates";
-export * from "./validateTotals";
+export * from "shared/globalValidations/validateTotals";
 export * from "shared/globalValidations/validateYearFormat";
 export * from "shared/globalValidations/validateOPMRates";
 export * from "shared/globalValidations/validateHedisYear";
