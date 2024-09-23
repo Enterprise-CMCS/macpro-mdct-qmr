@@ -39,7 +39,7 @@ export { ComplexAtLeastOneRateComplete } from "shared/globalValidations/ComplexV
 export {
   ComplexNoNonZeroNumOrDenom,
   ComplexNoNonZeroNumOrDenomOMS,
-} from "./ComplexValidations/ComplexNoNonZeroNumOrDenom";
+} from "shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
 export {
   ComplexValidateNDRTotals,
   ComplexValidateNDRTotalsOMS,
@@ -48,4 +48,4 @@ export { ComplexValidateDualPopInformation } from "shared/globalValidations/Comp
 export {
   ComplexValueSameCrossCategory,
   ComplexValueSameCrossCategoryOMS,
-} from "./ComplexValidations/ComplexValueSameCrossCategory";
+} from "shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";

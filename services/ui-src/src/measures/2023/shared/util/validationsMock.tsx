@@ -21,10 +21,10 @@ import * as validateTotals from "shared/globalValidations/validateTotals";
 import * as PCRatLeastOneRateComplete from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 import * as PCRnoNonZeroNumOrDenom from "shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
 import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
-import * as ComplexNoNonZeroNumOrDenom from "measures/2023/shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
+import * as ComplexNoNonZeroNumOrDenom from "shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
+import * as ComplexValueSameCrossCategory from "shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
 import * as ComplexValidateNDRTotals from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
 import * as ComplexValidateDualPopInformation from "shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
-import * as ComplexValueSameCrossCategory from "measures/2023/shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
 import { DefaultFormData } from "shared/types/FormData";
 
 /**

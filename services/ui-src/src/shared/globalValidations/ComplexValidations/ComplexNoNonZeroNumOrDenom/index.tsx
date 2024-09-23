@@ -1,5 +1,4 @@
-import { cleanString, isLegacyLabel } from "utils";
-import * as DC from "dataConstants";
+import { LabelData } from "utils";
 
 interface NDRforumla {
   numerator: number;
@@ -9,44 +8,31 @@ interface NDRforumla {
 
 export const ComplexNoNonZeroNumOrDenomOMS = (
   rateData: any,
+  isOPM: boolean,
   ndrFormulas: NDRforumla[],
   errorLocation: string,
-  descriptions: string[]
+  rateLabel: LabelData[]
 ) => {
   let errorArray: any[] = [];
-  for (const key in rateData) {
-    if (key === "OPM") {
-      descriptions.forEach((description) => {
-        const opmKey = isLegacyLabel()
-          ? cleanString(description)
-          : `${DC.OPM_KEY}${cleanString(description)}`;
 
-        errorArray.push(
-          ...ComplexNoNonZeroNumOrDenom(
-            [],
-            [
-              {
-                rate: isLegacyLabel()
-                  ? rateData[opmKey]["OPM"]
-                  : rateData[key][opmKey],
-              },
-            ],
-            ndrFormulas,
-            `${errorLocation} - ${description}`
-          )
-        );
-      });
-    } else {
-      for (const category in rateData[key]) {
-        errorArray.push(
-          ...ComplexNoNonZeroNumOrDenom(
-            [rateData[key][category]],
-            false,
-            ndrFormulas,
-            `${errorLocation} - ${key} - ${category}`
-          )
-        );
-      }
+  //key for 2023+ = category id and for 2022- = qualifier id
+  for (const key in rateData) {
+    //opmKey for 2023+ = qualifer id and for 2022- = category id
+    for (const opmKey in rateData[key]) {
+      const rate = rateData[key][opmKey];
+      //rateLabel is either the categories array or the qualifiers array and since we don't know which one it could be, we search with key and opmKey
+      const desc = rateLabel.find(
+        (_rateLabel) => _rateLabel.id === key || _rateLabel.id === opmKey
+      );
+
+      errorArray.push(
+        ...ComplexNoNonZeroNumOrDenom(
+          isOPM ? [] : [rate],
+          isOPM ? [{ rate: rate }] : false,
+          ndrFormulas,
+          `${errorLocation} - ${desc?.label}`
+        )
+      );
     }
   }
 

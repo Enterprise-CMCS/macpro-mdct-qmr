@@ -289,12 +289,15 @@ const AIFHHRateArray = (
   const { AIFHHPerformanceMeasureArray } = context;
   const rateArrays: React.ReactElement[][] = [];
   AIFHHPerformanceMeasureArray?.forEach((measure) => {
+    const label = measure?.[qualIndex]?.label;
     //Confirm that there is at least 1 rate complete
     const rate1 = !!measure?.[qualIndex]?.fields?.[2]?.value;
     const rate2 = !!measure?.[qualIndex]?.fields?.[4]?.value;
     const rate3 = !!measure?.[qualIndex]?.fields?.[6]?.value;
     const rate =
-      rate1 || rate2 || rate3 ? [ComplexRateComponent(context, name)] : [];
+      rate1 || rate2 || rate3
+        ? [ComplexRateComponent(context, name, label)]
+        : [];
     rateArrays.push(rate);
   });
   return rateArrays;
