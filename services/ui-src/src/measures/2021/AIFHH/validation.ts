@@ -84,7 +84,7 @@ const AIFHHValidation = (data: FormData) => {
       data,
       qualifiers: PMD.qualifiers,
       categories: PMD.categories,
-      locationDictionary: GV.oms(
+      locationDictionary: GV.omsLocationDictionary(
         OMSData(2021, true),
         PMD.qualifiers,
         PMD.categories
