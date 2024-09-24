@@ -2,7 +2,6 @@ import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { updateCoreSetProgress } from "../../libs/updateCoreProgress";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import { createCoreSet } from "./create";
 import {
   hasRolePermissions,
@@ -41,7 +40,7 @@ export const coreSetList = handler(async (event, context) => {
     ...convertToDynamoExpression(
       {
         state: state,
-        year: parseInt(year),
+        year: year,
       },
       "list"
     ),
@@ -121,11 +120,10 @@ export const getCoreSet = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const dynamoKey = createCoreSetKey({ state, year, coreSet });
   const params = {
     TableName: process.env.coreSetTableName!,
     Key: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}${coreSet}`,
       coreSet: coreSet,
     },
   };
