@@ -131,8 +131,8 @@ export const validatePartialRateCompletionOMS =
             rateData: rateData?.[singleValueFieldFlag],
             categories: !!(
               isOPM ||
-              categories[0].label === SINGLE_CATEGORY ||
-              !categories[0].label
+              categories[0]?.label === SINGLE_CATEGORY ||
+              !categories[0]?.label
             )
               ? undefined
               : categories,
@@ -151,8 +151,8 @@ export const validatePartialRateCompletionOMS =
             ),
             categories: !!(
               isOPM ||
-              categories[0].label === SINGLE_CATEGORY ||
-              !categories[0].label
+              categories[0]?.label === SINGLE_CATEGORY ||
+              !categories[0]?.label
             )
               ? undefined
               : categories,
