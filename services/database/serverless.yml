@@ -21,6 +21,7 @@ custom:
   bannerTableName: ${self:custom.stage}-banners
   rateTableName: ${self:custom.stage}-rates
   measureTable: ${self:custom.stage}-measure
+  coreSetTable: ${self:custom.stage}-coreSet
   dynamodb:
     stages:
       - local
@@ -128,6 +129,25 @@ resources:
           - AttributeName: measure
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
+    QualityCoreSetTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.coreSetTable}
+        PointInTimeRecoverySpecification:
+          PointInTimeRecoveryEnabled: true
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+        AttributeDefinitions:
+          - AttributeName: compoundKey
+            AttributeType: S
+          - AttributeName: coreSet
+            AttributeType: S
+        KeySchema:
+          - AttributeName: compoundKey
+            KeyType: HASH
+          - AttributeName: coreSet
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
   Outputs:
     CoreSetTableName:
       Value: !Ref CoreSetTable
@@ -143,6 +163,8 @@ resources:
       Value: !GetAtt MeasureTable.Arn
     MeasureTableStreamArn:
       Value: !GetAtt MeasureTable.StreamArn
+    CoreSetTable:
+      Value: !Ref QualityCoreSetTable
     RateTableName:
       Value: !Ref RateTable
     RateTableArn:
