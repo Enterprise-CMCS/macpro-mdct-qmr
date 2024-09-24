@@ -123,10 +123,18 @@ export const omsLocationDictionary = (
     dictionary[cat.id] = cat.label;
   }
 
+  dictionary[DC.SINGLE_CATEGORY] = "";
+
   return (labels: string[]) =>
     labels.reduce((prevValue, currentValue, index) => {
       if (index === 0) {
         return dictionary[currentValue] ?? currentValue;
+      }
+      if (prevValue === "") {
+        return `${dictionary[currentValue] ?? currentValue}`;
+      }
+      if (dictionary[currentValue] === "") {
+        return prevValue;
       }
       return `${prevValue} - ${dictionary[currentValue] ?? currentValue}`;
     }, "");
