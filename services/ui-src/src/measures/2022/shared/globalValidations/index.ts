@@ -1,4 +1,4 @@
-export * from "./dataDrivenTools";
+export * from "shared/globalValidations/dataDrivenTools";
 export * from "shared/globalValidations/omsValidator";
 export * as Types from "./types";
 
