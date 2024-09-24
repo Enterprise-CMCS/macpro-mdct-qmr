@@ -44,7 +44,7 @@ const getOMSRates = (
   data: OptionalMeasureStratification,
   locationDictionary: locationDictionaryFunction
 ) => {
-  if (!data.OptionalMeasureStratification.selections) return [];
+  if (!data?.OptionalMeasureStratification?.selections) return [];
 
   const omsRates = [];
 
