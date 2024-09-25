@@ -15,6 +15,7 @@ bannerTableName=local-banners
 coreSetTableName=local-coreSets
 DYNAMO_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
 measureTableName=local-measures
+measureTable=local-measure
 rateTableName=local-rates
 
 # LAUNCHDARKLY
