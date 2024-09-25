@@ -1,4 +1,4 @@
-import { testFormData } from "../testHelpers/_testFormData";
+import { testFormData } from "measures/2024/shared/globalValidations/testHelpers/_testFormData";
 import * as DC from "dataConstants";
 import { validateAtLeastOneDataSourceType } from ".";
 
@@ -35,6 +35,15 @@ describe("validateOneDataSourceType", () => {
     };
     _check_errors(formData, 1);
   });
+  it("When a Data Source Selected array is empty, a validation warning shows", () => {
+    formData[DC.DATA_SOURCE] = DC.ADMINISTRATIVE_DATA;
+    formData[DC.DATA_SOURCE_SELECTIONS] = {
+      AdministrativeData0: {
+        selected: [],
+      },
+    };
+    _check_errors(formData, 1);
+  });
 
   it("Error message text should match default errorMessage", () => {
     formData[DC.DATA_SOURCE] = [];
@@ -52,7 +61,7 @@ describe("validateOneDataSourceType", () => {
     formData[DC.DATA_SOURCE] = [];
     formData[DC.DATA_SOURCE_SELECTIONS] = {
       OtherDataSource: {
-        selected: undefined,
+        description: undefined,
       },
     };
     errorArray = [...validateAtLeastOneDataSourceType(formData)];
