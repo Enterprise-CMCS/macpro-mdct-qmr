@@ -31,7 +31,7 @@
     "react-textarea-autosize": "^8.5.3",
     "sass": "^1.77.8",
     "uuid": "^8.3.2",
-    "vite": "^5.4.1",
+    "vite": "^5.4.6",
     "vite-tsconfig-paths": "^4.3.2",
     "xml2js": "0.6.0"
   },

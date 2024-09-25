@@ -6,18 +6,13 @@ import { CoreSetAbbr } from "../../../types";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   delete: jest.fn(),
-  scanAll: jest.fn(),
+  queryAll: jest.fn(),
 }));
 
 const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
   isAuthenticated: jest.fn().mockReturnValue(true),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../dynamoUtils/createCompoundKey", () => ({
-  __esModule: true,
-  createCoreSetKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
 }));
 
 jest.mock("../../../libs/updateCoreProgress", () => ({
@@ -29,7 +24,7 @@ const event = { ...testEvent };
 
 describe("Testing Delete Core Set Functions", () => {
   beforeEach(() => {
-    (db.scanAll as jest.Mock).mockReset();
+    (db.queryAll as jest.Mock).mockReset();
     (db.delete as jest.Mock).mockReset();
     mockHasStatePermissions.mockImplementation(() => true);
     event.pathParameters = {
@@ -67,7 +62,7 @@ describe("Testing Delete Core Set Functions", () => {
   });
 
   test("Test deleteCoreSet with associated measures", async () => {
-    (db.scanAll as jest.Mock).mockReturnValue([
+    (db.queryAll as jest.Mock).mockReturnValue([
       testMeasure,
       testMeasure,
       testMeasure,
@@ -75,16 +70,16 @@ describe("Testing Delete Core Set Functions", () => {
 
     await deleteCoreSet(event, null);
 
-    expect(db.scanAll).toHaveBeenCalled();
+    expect(db.queryAll).toHaveBeenCalled();
     expect(db.delete).toHaveBeenCalledTimes(4);
   });
 
   test("Test deleteCoreSet with no associated measures", async () => {
-    (db.scanAll as jest.Mock).mockReturnValue([]);
+    (db.queryAll as jest.Mock).mockReturnValue([]);
 
     await deleteCoreSet(event, null);
 
-    expect(db.scanAll).toHaveBeenCalled();
+    expect(db.queryAll).toHaveBeenCalled();
     expect(db.delete).toHaveBeenCalled();
   });
 });

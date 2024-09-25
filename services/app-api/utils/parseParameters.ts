@@ -29,7 +29,7 @@ export const parseStateAndYearParameters = (event: APIGatewayProxyEvent) => {
     logger.warn("Invalid or missing year in path");
     return { allParamsValid: false as const };
   }
-  return { allParamsValid: true as const, state, year };
+  return { allParamsValid: true as const, state, year: parseInt(year) };
 };
 
 export const parseCoreSetParameters = (event: APIGatewayProxyEvent) => {
@@ -47,7 +47,12 @@ export const parseCoreSetParameters = (event: APIGatewayProxyEvent) => {
     logger.warn("Invalid or missing coreset in path");
     return { allParamsValid: false as const };
   }
-  return { allParamsValid: true as const, state, year, coreSet };
+  return {
+    allParamsValid: true as const,
+    state,
+    year: parseInt(year),
+    coreSet,
+  };
 };
 
 export const parseMeasureParameters = (event: APIGatewayProxyEvent) => {
@@ -69,5 +74,11 @@ export const parseMeasureParameters = (event: APIGatewayProxyEvent) => {
     logger.warn("Invalid or missing measure in path");
     return { allParamsValid: false as const };
   }
-  return { allParamsValid: true as const, state, year, coreSet, measure };
+  return {
+    allParamsValid: true as const,
+    state,
+    year: parseInt(year),
+    coreSet,
+    measure,
+  };
 };
