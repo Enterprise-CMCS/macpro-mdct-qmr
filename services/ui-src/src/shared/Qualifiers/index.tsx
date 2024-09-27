@@ -1,15 +1,13 @@
 import * as QMR from "components";
-import * as Common from "shared/Qualifiers/Common";
+import * as Common from "./Common";
 import * as CUI from "@chakra-ui/react";
 
-import { Data } from "labels/2021/qualifierFormsData";
+import * as Form from "labels/QualifierFormsDatas";
 import { useEffect, useState } from "react";
 import { validationFunctions } from "shared/Qualifiers/validationFunctions";
 import { DeliverySystems } from "shared/Qualifiers/deliverySystems";
 import { useParams } from "react-router-dom";
 import * as Types from "types";
-
-export * from "labels/2021/qualifierFormsData";
 
 export const Qualifier = ({
   setValidationFunctions,
@@ -39,7 +37,14 @@ export const Qualifier = ({
     }
   }, [setValidationFunctions, coreSetId, setType, coreSet]);
 
-  const data = Data[coreSet];
+  const data =
+    Form[
+      `QualifierFormsData${year}` as
+        | "QualifierFormsData2021"
+        | "QualifierFormsData2022"
+        | "QualifierFormsData2023"
+        | "QualifierFormsData2024"
+    ].Data[coreSet];
 
   return (
     <>
@@ -51,7 +56,7 @@ export const Qualifier = ({
           <QMR.SupportLinks />
           {type === "HH" && <QMR.HealthHomeInfo />}
         </CUI.Box>
-        <CUI.OrderedList>
+        <CUI.OrderedList width="100%">
           {type === "HH" && (
             <>
               <Common.AdministrativeQuestions />
