@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import * as Common from "./Common";
+import * as Common from "shared/Qualifiers/Common";
 import { useFieldArray, useWatch } from "react-hook-form";
 import { DeliverySystem } from "./types";
 import { BsPercent } from "react-icons/bs";

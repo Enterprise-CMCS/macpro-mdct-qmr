@@ -1,5 +1,5 @@
 import * as QMR from "components";
-import * as Common from "./Common";
+import * as Common from "shared/Qualifiers/Common";
 import * as CUI from "@chakra-ui/react";
 
 import { Data } from "./data";

@@ -1,4 +1,4 @@
-import { initialAuditValues } from "./Common";
+import { initialAuditValues } from "shared/Qualifiers/Common";
 
 export interface DataDriven {
   title: string;
