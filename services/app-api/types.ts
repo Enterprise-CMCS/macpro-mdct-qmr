@@ -179,18 +179,6 @@ export interface RateParameters {
   measure: string;
 }
 
-export interface MeasureParameters {
-  state: string;
-  year: string;
-  coreSet: string;
-}
-
-export interface CoreSetParameters {
-  state: string;
-  year: string;
-  coreSet: string;
-}
-
 /** This type subject to change, if/when we move to a multi-banner system. */
 export interface Banner {
   key: string;

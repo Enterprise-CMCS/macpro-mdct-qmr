@@ -28,7 +28,7 @@ const uploadFileToS3 = async (filePath, scanResult) => {
 const syncDynamoToS3 = handler(async (_event, _context) => {
   console.log("Syncing Dynamo to Uploads");
   const measureResults = await scanAll(process.env.measureTable);
-  const coreSetResults = await scanAll(process.env.coreSetTableName);
+  const coreSetResults = await scanAll(process.env.coreSetTable);
   const rateResults = await scanAll(process.env.rateTableName);
 
   const measureCsv = await arrayToCsv(measureResults);

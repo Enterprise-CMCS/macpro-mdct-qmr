@@ -1,7 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { updateCoreSetProgress } from "../../libs/updateCoreProgress";
-import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { createCoreSet } from "./create";
 import {
   hasRolePermissions,
@@ -36,14 +35,11 @@ export const coreSetList = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const params = {
-    TableName: process.env.coreSetTableName!,
-    ...convertToDynamoExpression(
-      {
-        state: state,
-        year: year,
-      },
-      "list"
-    ),
+    TableName: process.env.coreSetTable!,
+    KeyConditionExpression: "compoundKey = :compoundKey",
+    ExpressionAttributeValues: {
+      ":compoundKey": `${state}${year}`,
+    },
   };
 
   // using coreSetByYear to see if it's a year that should have
@@ -51,7 +47,10 @@ export const coreSetList = handler(async (event, context) => {
   const coreSetsByYear = coreSets[
     year as keyof typeof coreSets
   ] as CoreSetField[];
-  let results = await dynamoDb.scanAll<CoreSet>(params);
+
+  let results = await dynamoDb.queryAll<CoreSet>(params);
+
+  let shouldQueryForNewlyCreatedCoreSets = false;
 
   const filteredCoreSets = coreSetsByYear.filter((coreSet) => {
     const matchedCoreSet = results.find((existingCoreSet: CoreSet) =>
@@ -83,10 +82,16 @@ export const coreSetList = handler(async (event, context) => {
           status: StatusCodes.SERVER_ERROR,
           body: "Creation failed",
         };
+      } else {
+        shouldQueryForNewlyCreatedCoreSets = true;
       }
     }
   }
-  results = await dynamoDb.scanAll<CoreSet>(params);
+
+  // re-query the database if there were newly created coresets in the loop above
+  if (shouldQueryForNewlyCreatedCoreSets) {
+    results = await dynamoDb.queryAll<CoreSet>(params);
+  }
 
   // Update the progress measure numComplete
   await updateCoreSetProgress(results, event, context);
@@ -121,9 +126,9 @@ export const getCoreSet = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTable!,
     Key: {
-      compoundKey: `${state}${year}${coreSet}`,
+      compoundKey: `${state}${year}`,
       coreSet: coreSet,
     },
   };
