@@ -2,25 +2,28 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Common from ".";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
+import * as Types from "./../../types/TypeQualifierForm";
 import {
   allPositiveIntegersWith10Digits,
   allPositiveIntegersWith3Digits,
+  isLegacyLabel,
 } from "utils";
 import { useFormContext } from "react-hook-form";
-import { HHCSQualifierForm } from "../types";
 
 export const AdministrativeQuestions = () => {
   const register = useCustomRegister<Types.HHCSQualifierForm>();
   const padding = "10px";
 
-  const { setValue, watch } = useFormContext<HHCSQualifierForm>();
+  const { setValue, watch } = useFormContext<Types.HHCSQualifierForm>();
   const data = watch();
 
   //function to only invoke when the value has changed for number of adult or number of children
   //only want the function to run when the value of numberOfAdults or numberOfChildren change
   //the numberOfIndividuals needs to allow overwrite from states; is NOT always the sum of children + adult
   const sumOnChange = (v: any) => {
+    //auto sum was introduced in 2023
+    if (isLegacyLabel()) return v;
+
     if (data.AdministrativeData) {
       let name: string = v.target.name;
       let numOfAdults = name.includes("numberOfAdults")
