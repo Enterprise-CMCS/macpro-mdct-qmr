@@ -1,4 +1,7 @@
-import { HHCSQualifierForm, DeliverySystem } from "../types";
+import {
+  HHCSQualifierForm,
+  DeliverySystem,
+} from "../../types/TypeQualifierForm";
 
 const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
