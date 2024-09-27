@@ -2,14 +2,14 @@ import * as QMR from "components";
 import * as Common from "shared/Qualifiers/Common";
 import * as CUI from "@chakra-ui/react";
 
-import { Data } from "./data";
+import { Data } from "labels/2024/qualifierFormsData";
 import { useEffect, useState } from "react";
 import { validationFunctions } from "./validationFunctions";
 import { DeliverySystems } from "./deliverySystems";
 import { useParams } from "react-router-dom";
 import * as Types from "types";
 
-export * from "./data";
+export * from "labels/2024/qualifierFormsData";
 
 export const Qualifier = ({
   setValidationFunctions,
