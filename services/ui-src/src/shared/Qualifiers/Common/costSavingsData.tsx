@@ -1,9 +1,9 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
-import * as Common from "../Common";
+import * as Common from ".";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
+import * as Types from "./../../types/TypeQualifierForm";
 import { allPositiveIntegersWith10Digits } from "utils";
 
 interface Props {
@@ -15,7 +15,7 @@ export const CostSavingsData = ({ year }: Props) => {
   const padding = "10px";
 
   return (
-    <CUI.ListItem mr="4">
+    <CUI.ListItem m="4">
       <Common.QualifierHeader header="Cost Savings Data" description="" />
       <QMR.NumberInput
         {...register("yearlyCostSavings")}
