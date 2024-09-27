@@ -2,12 +2,11 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Common from "shared/Qualifiers/Common";
 import { useFieldArray, useWatch } from "react-hook-form";
-import { DeliverySystem } from "shared/types/TypeQualifierForm";
+import { DataDriven, DeliverySystem } from "shared/types/TypeQualifierForm";
 import { BsPercent } from "react-icons/bs";
 import { percentageAllowOneDecimalMax } from "utils";
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
-import { DataDriven } from "labels/2023/qualifierFormsData";
 
 const initialDeliverySystemValue = {
   label: "",
@@ -29,7 +28,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
   const values = useWatch({ name: "PercentageEnrolledInEachDeliverySystem" });
 
   return (
-    <CUI.ListItem mr="4">
+    <CUI.ListItem m="4">
       <Common.QualifierHeader
         header="Delivery System"
         description={data.qualifierHeader(

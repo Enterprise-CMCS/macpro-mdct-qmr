@@ -1,3 +1,12 @@
+export interface DataDriven {
+  title: string;
+  formData: any;
+  questionTitle: string;
+  qualifierHeader: (year: string) => string;
+  textTable: string[][];
+  fieldValues: string[];
+}
+
 interface BaseQualifierForm {
   AdministrativeData: AdministrativeQuestions;
   CostSavingsData: CostSavingsData;

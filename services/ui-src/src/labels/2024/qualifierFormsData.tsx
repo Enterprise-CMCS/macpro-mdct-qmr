@@ -1,13 +1,5 @@
 import { initialAuditValues } from "shared/Qualifiers/Common";
-
-export interface DataDriven {
-  title: string;
-  formData: any;
-  questionTitle: string;
-  qualifierHeader: (year: string) => string;
-  textTable: string[][];
-  fieldValues: string[];
-}
+import { DataDriven } from "shared/types/TypeQualifierForm";
 
 const AdultData: DataDriven = {
   title: "Adult Core Set Qualifiers: Medicaid",

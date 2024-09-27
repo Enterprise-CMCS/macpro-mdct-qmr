@@ -5,11 +5,9 @@ import * as CUI from "@chakra-ui/react";
 import { Data } from "labels/2024/qualifierFormsData";
 import { useEffect, useState } from "react";
 import { validationFunctions } from "shared/Qualifiers/validationFunctions";
-import { DeliverySystems } from "./deliverySystems";
+import { DeliverySystems } from "shared/Qualifiers/deliverySystems";
 import { useParams } from "react-router-dom";
 import * as Types from "types";
-
-export * from "labels/2024/qualifierFormsData";
 
 export const Qualifier = ({
   setValidationFunctions,
