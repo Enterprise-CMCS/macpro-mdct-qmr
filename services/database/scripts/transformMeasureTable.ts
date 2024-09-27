@@ -38,14 +38,30 @@ async function* scan(client: DynamoDBDocumentClient, table: string) {
 }
 
 async function add(client: DynamoDBDocumentClient, table: string, entry: any) {
-  const newCompoundKey = `${entry.state}${entry.year}${entry.coreSet}`;
+  const { compoundKey, coreSet } = entry;
+
+  const state = entry.state || compoundKey.substring(0, 2);
+  const year = entry.year || compoundKey.substring(2, 6);
+  let measure = entry.measure;
+  if (!measure) {
+    const coreSetIndex = compoundKey.indexOf(coreSet);
+    measure = compoundKey.substring(
+      coreSetIndex + coreSet.length,
+      compoundKey.length
+    );
+  }
+  const newCompoundKey = `${state}${year}${coreSet}`;
   const params = {
     TableName: table,
     Item: {
       ...entry,
       compoundKey: newCompoundKey,
+      state,
+      year,
+      measure,
     },
   };
+
   await client.send(new PutCommand(params));
 }
 
