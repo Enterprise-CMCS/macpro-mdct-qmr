@@ -1,5 +1,7 @@
-import { CCSCQualifierForm } from "../../types/TypeQualifierForm";
-import { DeliverySystem } from "../../types/TypeQualifierForm";
+import {
+  CCSCQualifierForm,
+  DeliverySystem,
+} from "../../types/TypeQualifierForm";
 
 const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];

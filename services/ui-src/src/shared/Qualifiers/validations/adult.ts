@@ -1,5 +1,7 @@
-import { ACSQualifierForm } from "../../types/TypeQualifierForm";
-import { DeliverySystem } from "../../types/TypeQualifierForm";
+import {
+  ACSQualifierForm,
+  DeliverySystem,
+} from "../../types/TypeQualifierForm";
 
 const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
