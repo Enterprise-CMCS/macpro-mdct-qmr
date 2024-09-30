@@ -29,6 +29,17 @@ export interface DataSourceData {
   optionsLabel: string;
 }
 
+export const dataSourceDisplayNames: Record<string, string> = {
+  AdministrativeData: "Administrative Data",
+  AdministrativeDataOther: "Administrative Data Other",
+  HybridAdministrativeandMedicalRecordsData:
+    "Hybrid (Administrative and Medical Records Data)",
+  OtherDataSource: "Other Data Source",
+  ElectronicHealthRecords: "Electronic Health Record (EHR) Data",
+  ElectronicClinicalDataSystemsECDS: "Electronic Clinical Data Systems (ECDS)",
+  Casemanagementrecordreview: "Case management record review",
+};
+
 export const defaultData: DataSourceData = {
   optionsLabel:
     "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
