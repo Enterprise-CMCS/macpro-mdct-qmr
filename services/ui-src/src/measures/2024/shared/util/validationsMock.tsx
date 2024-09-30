@@ -1,6 +1,6 @@
 import * as validateAtLeastOneDataSource from "shared/globalValidations/validateAtLeastOneDataSource";
 import * as validateAtLeastOneDefinitionOfPopulation from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
-import * as validateAtLeastOneDataSourceType from "measures/2024/shared/globalValidations/validateAtLeastOneDataSourceType";
+import * as validateAtLeastOneDataSourceType from "shared/globalValidations/validateAtLeastOneDataSourceType";
 import * as validateAtLeastOneDeliverySystem from "shared/globalValidations/validateAtLeastOneDeliverySystem";
 import * as validateAtLeastOneDeviationFieldFilled from "shared/globalValidations/validateDeviationTextFieldFilled";
 import * as validateAtLeastOneRateComplete from "shared/globalValidations/validateAtLeastOneRateComplete";
