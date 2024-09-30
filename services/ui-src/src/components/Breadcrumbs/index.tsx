@@ -23,6 +23,7 @@ export const Breadcrumbs = ({ items, color }: Props) => {
           <Link
             to={items[items.length - 2].path}
             aria-label="Return to measures list"
+            className="logo-link"
           >
             <HiOutlineChevronLeft className="hidden-print-items" />
           </Link>
@@ -41,6 +42,7 @@ export const Breadcrumbs = ({ items, color }: Props) => {
             }
             color={color}
             _visited={{ color }}
+            _focus={{ background: "transparent" }}
             key={`${idx}-${item.path}`}
           >
             {item.name}
