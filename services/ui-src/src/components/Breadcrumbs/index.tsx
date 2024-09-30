@@ -28,7 +28,7 @@ export const Breadcrumbs = ({ items, color }: Props) => {
           </Link>
         </CUI.Center>
       )}
-      <CUI.Stack direction={["column", "row"]}>
+      <CUI.Stack direction={["column", "row"]} marginRight="0.75rem">
         {filteredItems?.map((item, idx) => (
           <CUI.Heading
             size="md"

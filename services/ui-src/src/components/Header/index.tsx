@@ -25,7 +25,7 @@ export function Header({ handleLogout }: Props) {
                 alt="logout"
                 sx={{ maxWidth: "24px", marginRight: "0.25rem" }}
               />
-              Logout
+              <CUI.Hide below="md">Logout</CUI.Hide>
             </CUI.Button>
           </CUI.Flex>
         </CUI.Container>
