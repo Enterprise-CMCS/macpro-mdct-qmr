@@ -12,7 +12,7 @@ export function Header({ handleLogout }: Props) {
     <CUI.Box data-testid="header" className="hidden-print-items" zIndex={3}>
       <UsaBanner />
       {/* using hex color here for branded color */}
-      <CUI.Box bg="#0071bc">
+      <CUI.Box bg="blue.800">
         <CUI.Container maxW="7xl">
           <CUI.Flex py="4" alignItems="center">
             <Link to="/" aria-label="State home page" className="logo-link">
@@ -20,6 +20,11 @@ export function Header({ handleLogout }: Props) {
             </Link>
             <CUI.Spacer flex={6} />
             <CUI.Button onClick={handleLogout} variant="link-white">
+              <CUI.Image
+                src="/header/logout.svg"
+                alt="logout"
+                sx={{ maxWidth: "24px", marginRight: "0.25rem" }}
+              />
               Logout
             </CUI.Button>
           </CUI.Flex>
