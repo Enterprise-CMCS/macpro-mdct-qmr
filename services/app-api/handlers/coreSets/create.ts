@@ -66,9 +66,9 @@ export const createCoreSet = handler(async (event, context) => {
   ).length;
 
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTable!,
     Item: {
-      compoundKey: `${state}${year}${coreSet}`,
+      compoundKey: `${state}${year}`,
       state: state,
       year: year,
       coreSet: coreSet,

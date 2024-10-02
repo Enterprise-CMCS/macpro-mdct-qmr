@@ -2,7 +2,7 @@ import KafkaSourceLib from "../../../libs/kafka-source-lib";
 
 class PostKafkaData extends KafkaSourceLib {
   topicPrefix = "aws.mdct.qmr.cdc";
-  tables = ["coreSets", "measures"];
+  tables = ["coreSet", "measure"];
 }
 
 const postKafkaData = new PostKafkaData();

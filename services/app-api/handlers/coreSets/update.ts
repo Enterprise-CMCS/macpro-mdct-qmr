@@ -28,9 +28,9 @@ export const editCoreSet = handler(async (event, context) => {
   const { submitted, status } = JSON.parse(event!.body!);
   const lastAlteredBy = getUserNameFromJwt(event);
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTable!,
     Key: {
-      compoundKey: `${state}${year}${coreSet}`,
+      compoundKey: `${state}${year}`,
       coreSet: coreSet,
     },
     ...convertToDynamoExpression(

@@ -77,7 +77,7 @@ describe("Testing Updating Core Set Functions", () => {
       "post"
     );
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("WA2021ACS");
+    expect(res.body).toContain("WA2021");
   });
 
   test("Test with no user id", async () => {
@@ -94,6 +94,6 @@ describe("Testing Updating Core Set Functions", () => {
       "post"
     );
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("WA2021ACS");
+    expect(res.body).toContain("WA2021");
   });
 });
