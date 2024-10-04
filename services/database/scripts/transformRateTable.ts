@@ -7,7 +7,7 @@ import {
 import prompt from "prompt-sync";
 
 /***
- * Run with `npx tsx transformMeasureTable.ts`
+ * Run with `npx tsx transformRateTable.ts`
  */
 const transformMeasureTable = async () => {
   let stage = "local";
@@ -38,7 +38,12 @@ async function* scan(client: DynamoDBDocumentClient, table: string) {
 }
 
 async function add(client: DynamoDBDocumentClient, table: string, entry: any) {
-  const { state, year, coreSet } = entry;
+  const { compoundKey, measure } = entry;
+
+  const state = entry.state || compoundKey.substring(0, 2);
+  const year = entry.year || compoundKey.substring(2, 6);
+  const coreSet =
+    entry.coreSet || compoundKey.substring(6, compoundKey.indexOf(measure));
 
   const newCompoundKey = `${state}${year}${coreSet}`;
   const params = {
@@ -46,6 +51,9 @@ async function add(client: DynamoDBDocumentClient, table: string, entry: any) {
     Item: {
       ...entry,
       compoundKey: newCompoundKey,
+      state,
+      year,
+      coreSet,
     },
   };
 

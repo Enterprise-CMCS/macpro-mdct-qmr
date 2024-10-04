@@ -27,9 +27,37 @@ const uploadFileToS3 = async (filePath, scanResult) => {
 
 const syncDynamoToS3 = handler(async (_event, _context) => {
   console.log("Syncing Dynamo to Uploads");
-  const measureResults = await scanAll(process.env.measureTable);
-  const coreSetResults = await scanAll(process.env.coreSetTable);
-  const rateResults = await scanAll(process.env.rateTableName);
+  let measureResults = await scanAll(process.env.measureTable);
+  let coreSetResults = await scanAll(process.env.coreSetTable);
+  let rateResults = await scanAll(process.env.rateTable);
+
+  // TODO: We currently have to account for legacy compound keys for the measure, coreSet and
+  // rate tables until changes are made on the consumer end. We will be able to remove these
+  // result reassigments (lines 38-61) once the proper updates are made on the consumer end.
+  measureResults = measureResults.map((measureResult) => {
+    const { state, year, coreSet, measure } = measureResult;
+    const legacyCompoundKey = `${state}${year}${coreSet}${measure}`;
+    return {
+      ...measureResult,
+      compoundKey: legacyCompoundKey,
+    };
+  });
+  coreSetResults = coreSetResults.map((coreSetResult) => {
+    const { state, year, coreSet } = coreSetResult;
+    const legacyCompoundKey = `${state}${year}${coreSet}`;
+    return {
+      ...coreSetResult,
+      compoundKey: legacyCompoundKey,
+    };
+  });
+  rateResults = rateResults.map((rateResult) => {
+    const { state, year, coreSet, measure } = rateResult;
+    const legacyCompoundKey = `${state}${year}${coreSet}${measure}`;
+    return {
+      ...rateResult,
+      compoundKey: legacyCompoundKey,
+    };
+  });
 
   const measureCsv = await arrayToCsv(measureResults);
   await uploadFileToS3(`coreSetData/CSVmeasures/${Date.now()}.csv`, measureCsv);
