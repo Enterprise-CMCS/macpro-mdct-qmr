@@ -127,11 +127,8 @@ export const omsLocationDictionary = (
 
   return (labels: string[]) =>
     labels.reduce((prevValue, currentValue, index) => {
-      if (index === 0) {
+      if (index === 0 || prevValue === "") {
         return dictionary[currentValue] ?? currentValue;
-      }
-      if (prevValue === "") {
-        return `${dictionary[currentValue] ?? currentValue}`;
       }
       if (dictionary[currentValue] === "") {
         return prevValue;

@@ -106,29 +106,28 @@ const getOMSRates = (
 
     //if user choose to [+Add Another Classification]
     if (topLevel.additionalSelections) {
-      const additional = topLevel.additionalSelections?.map((selection) => ({
-        key: `${locationDictionary([topLevelKey])} - ${selection.description}`,
-        rateData: selection.rateData,
-      }));
-      if (additional) {
-        omsRates.push(...additional);
-      }
+      omsRates.push(
+        ...topLevel.additionalSelections?.map((selection) => ({
+          key: `${locationDictionary([topLevelKey])} - ${
+            selection.description
+          }`,
+          rateData: selection.rateData,
+        }))
+      );
 
       //if user choose to [+Add Another Sub-Category] after adding a new Classification
-      const additionalSubCategories = topLevel.additionalSelections
-        .filter((additional) => additional.additionalSubCategories)
-        .flatMap((additional) =>
-          additional.additionalSubCategories?.map((subCat) => ({
-            key: `${locationDictionary([topLevelKey])} - ${
-              additional.description
-            } - ${subCat.description}`,
-            rateData: subCat.rateData,
-          }))
-        );
-
-      if (additionalSubCategories) {
-        omsRates.push(...additionalSubCategories);
-      }
+      omsRates.push(
+        ...topLevel.additionalSelections
+          .filter((additional) => additional.additionalSubCategories)
+          .flatMap((additional) =>
+            additional.additionalSubCategories?.map((subCat) => ({
+              key: `${locationDictionary([topLevelKey])} - ${
+                additional.description
+              } - ${subCat.description}`,
+              rateData: subCat.rateData,
+            }))
+          )
+      );
     }
   }
   return omsRates;
