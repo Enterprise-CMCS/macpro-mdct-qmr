@@ -1,4 +1,9 @@
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const {
+  S3Client,
+  PutObjectCommand,
+  ListObjectsV2Command,
+  DeleteObjectsCommand,
+} = require("@aws-sdk/client-s3");
 const { handler } = require("../libs/handler-lib");
 const { scanAll } = require("../libs/dynamodb-lib");
 const { flatten } = require("flat");
@@ -10,8 +15,7 @@ const arrayToCsv = async (scanResult) => {
   return resultsCsvData;
 };
 
-const uploadFileToS3 = async (filePath, scanResult) => {
-  const client = new S3Client({ region: "us-east-1" });
+const uploadFileToS3 = async (client, filePath, scanResult) => {
   const uploadParams = {
     Bucket: process.env.dynamoSnapshotS3BucketName,
     Key: filePath,
@@ -25,35 +29,90 @@ const uploadFileToS3 = async (filePath, scanResult) => {
   }
 };
 
+const cleanupFolders = async (client) => {
+  const paths = ["CSVmeasures", "CSVcoreSet", "CSVrate"];
+
+  for (const folder in paths) {
+    const path = `coreSetData/${folder}/`;
+    const params = {
+      Bucket: process.env.dynamoSnapshotS3BucketName,
+      Prefix: path,
+      MaxKeys: 1000, // Limited by 1000 per delete
+    };
+    const response = await client.send(new ListObjectsV2Command(params));
+    const files = response.Contents.map((file) => file.Key);
+    console.log("Files found:");
+    console.log(files);
+
+    const cutOffDate = new Date();
+    cutOffDate.setMonth(cutOffDate.getMonth() - 3);
+
+    const outdated = files.filter(
+      (file) => new Date(file.split("/").pop().slice(0, -4)) < cutOffDate
+    );
+    if (!outdated.length) continue;
+
+    console.log("Files to delete:");
+    console.log(outdated);
+
+    const deleteParams = {
+      Bucket: process.env.dynamoSnapshotS3BucketName,
+      Delete: {
+        Objects: outdated.map((file) => ({ Key: file })),
+      },
+    };
+    await client.send(new DeleteObjectsCommand(deleteParams));
+  }
+};
+
 const syncDynamoToS3 = handler(async (_event, _context) => {
+  const client = new S3Client({ region: "us-east-1" });
+
   console.log("Syncing Dynamo to Uploads");
   const measureResults = await scanAll(process.env.measureTable);
   const coreSetResults = await scanAll(process.env.coreSetTable);
   const rateResults = await scanAll(process.env.rateTableName);
 
   const measureCsv = await arrayToCsv(measureResults);
-  await uploadFileToS3(`coreSetData/CSVmeasures/${Date.now()}.csv`, measureCsv);
   await uploadFileToS3(
+    client,
+    `coreSetData/CSVmeasures/${Date.now()}.csv`,
+    measureCsv
+  );
+  await uploadFileToS3(
+    client,
     `coreSetData/JSONmeasures/${Date.now()}.json`,
     JSON.stringify(measureResults)
   );
   console.log("Uploaded measures file to s3");
 
   const coreSetCsv = await arrayToCsv(coreSetResults);
-  await uploadFileToS3(`coreSetData/CSVcoreSet/${Date.now()}.csv`, coreSetCsv);
   await uploadFileToS3(
+    client,
+    `coreSetData/CSVcoreSet/${Date.now()}.csv`,
+    coreSetCsv
+  );
+  await uploadFileToS3(
+    client,
     `coreSetData/JSONcoreSet/${Date.now()}.json`,
     JSON.stringify(coreSetResults)
   );
   console.log("Uploaded coreSet file to s3");
 
   const rateCsv = await arrayToCsv(rateResults);
-  await uploadFileToS3(`coreSetData/CSVrate/${Date.now()}.csv`, rateCsv);
   await uploadFileToS3(
+    client,
+    `coreSetData/CSVrate/${Date.now()}.csv`,
+    rateCsv
+  );
+  await uploadFileToS3(
+    client,
     `coreSetData/JSONrate/${Date.now()}.json`,
     JSON.stringify(rateResults)
   );
   console.log("Uploaded rate file to s3");
+
+  await cleanupFolders(client);
 });
 
 module.exports = {
