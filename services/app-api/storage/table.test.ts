@@ -95,6 +95,8 @@ describe("Test database helper functions", () => {
         ":lastAltered": expect.any(Number),
         ":data": mockCombinedRate,
         ":state": "CO",
+        ":year": 2024,
+        ":coreSet": "ACS",
       },
     });
   });
