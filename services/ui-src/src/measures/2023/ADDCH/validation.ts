@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2023/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
 import { getPerfMeasureRateArray } from "../shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";

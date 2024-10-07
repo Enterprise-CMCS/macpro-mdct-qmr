@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 import * as PMD from "./data";
 import { useFormContext } from "react-hook-form";
-import { getPerfMeasureRateArray } from "measures/2024/shared/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 

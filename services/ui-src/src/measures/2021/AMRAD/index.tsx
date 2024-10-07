@@ -3,7 +3,7 @@ import * as QMR from "components";
 import * as PMD from "./data";
 import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./types";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { useEffect } from "react";
 import { validationFunctions } from "./validation";
 //form type
