@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { clearMocks } from "measures/2023/shared/util/validationsMock";
+import { clearMocks } from "shared/util/validationsMock";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 

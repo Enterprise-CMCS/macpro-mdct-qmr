@@ -14,7 +14,7 @@ import {
   mockValidateAndSetErrors,
   clearMocks,
   validationsMockObj as V,
-} from "measures/2024/shared/util/validationsMock";
+} from "shared/util/validationsMock";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
