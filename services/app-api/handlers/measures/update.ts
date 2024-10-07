@@ -1,7 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createMeasureKey } from "../dynamoUtils/createCompoundKey";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
@@ -35,7 +34,6 @@ export const editMeasure = handler(async (event, context) => {
     detailedDescription,
   } = JSON.parse(event!.body!);
 
-  const dynamoKey = createMeasureKey({ state, year, coreSet, measure });
   const lastAlteredBy = getUserNameFromJwt(event);
 
   const descriptionParams =
@@ -46,10 +44,10 @@ export const editMeasure = handler(async (event, context) => {
         }
       : {};
   const params = {
-    TableName: process.env.measureTableName!,
+    TableName: process.env.measureTable!,
     Key: {
-      compoundKey: dynamoKey,
-      coreSet: coreSet,
+      compoundKey: `${state}${year}${coreSet}`,
+      measure: measure,
     },
     ...convertToDynamoExpression(
       {
@@ -66,7 +64,7 @@ export const editMeasure = handler(async (event, context) => {
   await dynamoDb.update(params);
 
   //in 2024 and onward, we added a new feature called combined rates which requires rate calculations to the rates table
-  if (parseInt(year) >= 2024) {
+  if (year >= 2024) {
     //after updating the database with the latest values for the measure, we run the combine rates calculations for said measure
     await calculateAndPutRate({
       state,

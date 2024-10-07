@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { Alert } from "@cmsgov/design-system";
+import { dataSourceDisplayNames } from "shared/types";
 import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
 
 type Props = {
@@ -10,16 +11,6 @@ const programDisplayNames = {
   Medicaid: "Medicaid",
   CHIP: "Separate CHIP",
 } as const;
-
-const dataSourceDisplayNames: Record<string, string> = {
-  AdministrativeData: "Administrative Data",
-  HybridAdministrativeandMedicalRecordsData:
-    "Hybrid (Administrative and Medical Records Data)",
-  OtherDataSource: "Other Data Source",
-  ElectronicHealthRecords: "Electronic Health Record (EHR) Data",
-  ElectronicClinicalDataSystemsECDS: "Electronic Clinical Data Systems (ECDS)",
-  Casemanagementrecordreview: "Case management record review",
-};
 
 export const DataSourceInformationBanner = ({ payload }: Props) => {
   const DataSources = payload?.DataSources;

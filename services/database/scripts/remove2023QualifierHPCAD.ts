@@ -83,7 +83,7 @@ async function correctHPC(
   }
 
   const command = new UpdateCommand({
-    TableName: `${STAGE_NAME}-measures`,
+    TableName: `${STAGE_NAME}-measure`,
     Key: {
       compoundKey: measure.compoundKey,
       coreSet: measure.coreSet,
@@ -102,7 +102,7 @@ async function correctHPC(
 
 async function* all2023CsqMeasures(client: DynamoDBDocumentClient) {
   const query = {
-    TableName: `${STAGE_NAME}-measures`,
+    TableName: `${STAGE_NAME}-measure`,
     FilterExpression: "#year = :year AND #measure = :measure",
     ExpressionAttributeNames: {
       "#year": "year",
