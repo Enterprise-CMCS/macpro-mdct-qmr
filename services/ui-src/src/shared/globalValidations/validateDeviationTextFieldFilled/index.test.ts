@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import { testFormData } from "./../testHelpers/_testFormData";
-import { validateAtLeastOneDeviationFieldFilled } from ".";
+import { validateDeviationTextFieldFilled } from ".";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   let formData: any = {};
@@ -10,7 +10,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
     const deviationReason = data[DC.DEVIATION_REASON];
     return [
-      ...validateAtLeastOneDeviationFieldFilled(
+      ...validateDeviationTextFieldFilled(
         didCalculationsDeviate,
         deviationReason,
         errorMessage

@@ -2,7 +2,8 @@ import * as validateAtLeastOneDataSource from "shared/globalValidations/validate
 import * as validateAtLeastOneDefinitionOfPopulation from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
 import * as validateAtLeastOneDataSourceType from "shared/globalValidations/validateAtLeastOneDataSourceType";
 import * as validateAtLeastOneDeliverySystem from "shared/globalValidations/validateAtLeastOneDeliverySystem";
-import * as validateAtLeastOneDeviationFieldFilled from "shared/globalValidations/validateDeviationTextFieldFilled";
+import * as validateDeviationTextFieldFilled from "shared/globalValidations/validateDeviationTextFieldFilled";
+import * as validateAtLeastOneDeviationFieldFilled from "shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 import * as validateAtLeastOneRateComplete from "shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "shared/globalValidations/validateBothDatesInRange";
 import * as validateDualPopInformation from "shared/globalValidations/validateDualPopInformation";
@@ -68,6 +69,10 @@ export const validationsMockObj: any = {
   validateAtLeastOneDeviationFieldFilled: jest.spyOn(
     validateAtLeastOneDeviationFieldFilled,
     "validateAtLeastOneDeviationFieldFilled"
+  ),
+  validateDeviationTextFieldFilled: jest.spyOn(
+    validateDeviationTextFieldFilled,
+    "validateDeviationTextFieldFilled"
   ),
   validateAtLeastOneRateComplete: jest.spyOn(
     validateAtLeastOneRateComplete,
