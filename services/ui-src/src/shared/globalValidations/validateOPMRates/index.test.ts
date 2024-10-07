@@ -25,6 +25,9 @@ describe("OPM Validation", () => {
     formData[DC.OPM_RATES][0][DC.DESCRIPTION] = "";
     formData[DC.OPM_RATES][1][DC.DESCRIPTION] = "";
     const errorArray = run_validation(formData);
-    expect(errorArray.length).toBe(0);
+    expect(errorArray.length).toBe(1);
+    expect(
+      errorArray.some((e) => e.errorMessage.includes("Rate name required"))
+    );
   });
 });

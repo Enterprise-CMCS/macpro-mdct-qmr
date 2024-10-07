@@ -7,6 +7,7 @@ import {
 } from "utils/testUtils/validationHelpers";
 import { DefaultFormData } from "shared/types/FormData";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+import { omsLocationDictionary } from "../dataDrivenTools";
 
 describe("Testing OMS validation processor", () => {
   const categories = [
@@ -67,7 +68,7 @@ describe("Testing OMS validation processor", () => {
           simpleRate,
           simpleRate,
         ]),
-        false
+        true
       ) as DefaultFormData,
       validationCallbacks: [],
     });
@@ -79,22 +80,19 @@ describe("Testing OMS validation processor", () => {
     const errors = omsValidations({
       categories,
       qualifiers,
-      locationDictionary,
+      locationDictionary: omsLocationDictionary(
+        OMSData(2021, true),
+        qualifiers,
+        categories
+      ),
       dataSource: [],
-      checkIsFilled: true,
       data: generateOmsFormData(
         generateOmsQualifierRateData(categories, qualifiers, [{}, {}]),
         true
       ) as DefaultFormData,
       validationCallbacks: [],
     });
-
-    expect(errors.length).toBe(136);
-    expect(
-      errors.some((e) =>
-        e.errorMessage.includes("Must fill out at least one NDR set.")
-      )
-    );
+    expect(errors.length).toBe(236);
     expect(
       errors.some((e) =>
         e.errorMessage.includes(
@@ -124,6 +122,6 @@ describe("Testing OMS validation processor", () => {
         },
       ],
     });
-    expect(errors.length).toBe(74);
+    expect(errors.length).toBe(59);
   });
 });
