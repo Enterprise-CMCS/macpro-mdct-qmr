@@ -2,7 +2,7 @@ import * as DC from "dataConstants";
 import * as Types from "shared/types";
 import { DataDrivenTypes as DDT } from "shared/types";
 import { LabelData, cleanString, isLegacyLabel } from "utils";
-import { FormRateField as PM, RateData } from "../types/TypeValidations";
+import { FormRateField as PM } from "../types/TypeValidations";
 
 /**
  * Extracts Performance Measure Rates into double array for validation.
@@ -51,7 +51,7 @@ export const getOtherPerformanceMeasureRateArray = (
 export const convertOmsDataToRateArray = (
   categories: LabelData[],
   qualifiers: LabelData[],
-  rateData: RateData
+  rateData: Types.OmsNodes.OmsRateData
 ) => {
   const rateArray: PM[][] = [];
 

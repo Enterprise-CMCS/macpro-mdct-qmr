@@ -2,17 +2,11 @@ import * as DC from "dataConstants";
 import {
   OmsValidationCallback,
   locationDictionaryFunction,
-  RateData,
 } from "../../types/TypeValidations";
-import {
-  OmsNodes as OMS,
-  OptionalMeasureStratification,
-  RateFields,
-} from "shared/types";
+import { OmsNodes as OMS, OptionalMeasureStratification } from "shared/types";
 import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { cleanString, isLegacyLabel, LabelData } from "utils";
-import { AnyObject } from "types";
 
 interface OmsValidationProps {
   data: DefaultFormData | DefaultFormDataLegacy;
@@ -43,7 +37,10 @@ const errorForNDRSelection = (label: string) => {
 const getOMSRates = (
   data: OptionalMeasureStratification,
   locationDictionary: locationDictionaryFunction
-) => {
+): {
+  key: string;
+  rateData?: OMS.OmsRateData;
+}[] => {
   if (!data?.OptionalMeasureStratification?.selections) return [];
 
   const omsRates = [];
@@ -120,7 +117,7 @@ const getOMSRates = (
         ...topLevel.additionalSelections
           .filter((additional) => additional.additionalSubCategories)
           .flatMap((additional) =>
-            additional.additionalSubCategories?.map((subCat) => ({
+            additional.additionalSubCategories!.map((subCat) => ({
               key: `${locationDictionary([topLevelKey])} - ${
                 additional.description
               } - ${subCat.description}`,
@@ -135,24 +132,22 @@ const getOMSRates = (
 
 //this function is not used to validate AIF-HH, IU-HH or PCR measure's OMS
 const validateNDR = (
-  rates: OMS.OmsRateFields,
+  rates: NonNullable<OMS.OmsRateFields["rates"]>,
   labels: string,
   locationDictionary: locationDictionaryFunction
 ) => {
   const errors = [];
   for (const topKey of Object.keys(rates)) {
-    const midKey = (rates as AnyObject)[topKey] as {
-      [key: string]: RateFields[];
-    };
+    const midKey = rates[topKey];
     errors.push(
       Object.keys(midKey)
         .filter(
-          (qualId: string) =>
+          (qualId) =>
             !midKey[qualId].every(
-              (ndr: RateFields) => ndr.numerator && ndr.denominator && ndr.rate
+              (ndr) => ndr.numerator && ndr.denominator && ndr.rate
             )
         )
-        .map((qualId: string) =>
+        .map((qualId) =>
           errorToFillNDR(`${labels} - ${locationDictionary([topKey, qualId])}`)
         )
     );
@@ -161,7 +156,7 @@ const validateNDR = (
 };
 
 const validateFields = (
-  data: OMS.OmsRateFields,
+  data: OMS.OmsRateMap,
   labels: string,
   locationDictionary: locationDictionaryFunction
 ) => {
@@ -170,9 +165,7 @@ const validateFields = (
 
   for (const topKey of Object.keys(section)) {
     for (const midKey of Object.keys(section[topKey])) {
-      const fields: { label: string; value?: string }[] = (
-        section[topKey][midKey][0] as AnyObject
-      ).fields;
+      const fields = section[topKey][midKey][0].fields;
       if (!fields.every((field) => !!field?.value))
         errors.push(
           errorToFillNDR(`${labels} - ${locationDictionary([topKey, midKey])}`)
@@ -182,10 +175,7 @@ const validateFields = (
   return errors;
 };
 
-const validateValues = (
-  data: { id?: number; value?: string; label?: string }[],
-  labels: string
-) => {
+const validateValues = (data: OMS.OmsRateArray, labels: string) => {
   return data.every((field) => !!field?.value)
     ? []
     : [errorToFillNDR(`${labels}`)];
@@ -235,71 +225,83 @@ export const omsValidations = ({
   //build the error array for the rates in OMS
   for (const omsRate of omsRates) {
     const label = omsRate?.key!;
-    const rateData = omsRate?.rateData as RateData;
+    const rateData = omsRate?.rateData;
 
-    if (rateData) {
-      if (rateData?.["aifhh-rate"]) {
-        errorArray.push(
-          ...validateFields(rateData?.["aifhh-rate"], label, locationDictionary)
-        );
-      } else if (rateData?.["iuhh-rate"]) {
-        errorArray.push(
-          ...validateFields(rateData?.["iuhh-rate"], label, locationDictionary)
-        );
-      } else if (rateData?.["pcr-rate"]) {
-        errorArray.push(...validateValues(rateData?.["pcr-rate"], label));
-      } else if (rateData?.rates) {
-        errorArray.push(
-          ...validateNDR(
-            rateData?.rates,
-            label,
-            isOPM ? opmLocationDictionary : locationDictionary
-          )
-        );
-      } else {
-        errorArray.push(errorForNDRSelection(label));
-      }
+    if (!rateData) {
+      errorArray.push(errorForNDRSelection(label));
+      continue;
+    }
 
-      //running any callback functions
-      for (const callback of validationCallbacks) {
-        errorArray.push(
-          ...callback({
-            rateData,
-            categories,
-            qualifiers,
-            label: [label],
-            locationDictionary,
-            isOPM,
-            customTotalLabel,
-            dataSource,
-          })
-        );
-      }
-      //validate partial rates
-      if (!rateData?.["pcr-rate"]) {
-        // check for complex rate type and assign appropriate tag
-        const rateType = !!rateData?.["iuhh-rate"]
-          ? "iuhh-rate"
-          : !!rateData?.["aifhh-rate"]
-          ? "aifhh-rate"
-          : undefined;
-
-        errorArray.push(
-          ...validatePartialRateCompletionOMS(rateType)({
-            rateData,
-            categories,
-            qualifiers,
-            label: [label],
-            locationDictionary,
-            isOPM,
-            customTotalLabel,
-            dataSource,
-          })
-        );
-      }
+    if (rateData[OMS.CustomKeys.Aifhh]) {
+      errorArray.push(
+        ...validateFields(
+          rateData[OMS.CustomKeys.Aifhh]!,
+          label,
+          locationDictionary
+        )
+      );
+    } else if (rateData[OMS.CustomKeys.Iuhh]) {
+      errorArray.push(
+        ...validateFields(
+          rateData[OMS.CustomKeys.Iuhh]!,
+          label,
+          locationDictionary
+        )
+      );
+    } else if (rateData[OMS.CustomKeys.Pcr]) {
+      errorArray.push(...validateValues(rateData[OMS.CustomKeys.Pcr]!, label));
+    } else if (rateData.rates) {
+      errorArray.push(
+        ...validateNDR(
+          rateData.rates,
+          label,
+          isOPM ? opmLocationDictionary : locationDictionary
+        )
+      );
     } else {
       errorArray.push(errorForNDRSelection(label));
     }
+
+    //running any callback functions
+    for (const callback of validationCallbacks) {
+      errorArray.push(
+        ...callback({
+          rateData,
+          categories,
+          qualifiers,
+          label: [label],
+          locationDictionary,
+          isOPM,
+          customTotalLabel,
+          dataSource,
+        })
+      );
+    }
+
+    if (rateData[OMS.CustomKeys.Pcr]) {
+      // No need to validate partial completion for PCR-AD or PCR-HH
+      continue;
+    }
+
+    let rateType = undefined;
+    if (rateData[OMS.CustomKeys.Aifhh]) {
+      rateType = OMS.CustomKeys.Aifhh as const;
+    } else if (rateData[OMS.CustomKeys.Iuhh]) {
+      rateType = OMS.CustomKeys.Iuhh as const;
+    }
+
+    errorArray.push(
+      ...validatePartialRateCompletionOMS(rateType)({
+        rateData,
+        categories,
+        qualifiers,
+        label: [label],
+        locationDictionary,
+        isOPM,
+        customTotalLabel,
+        dataSource,
+      })
+    );
   }
   return errorArray;
 };
