@@ -27,7 +27,7 @@ const OEVCHValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

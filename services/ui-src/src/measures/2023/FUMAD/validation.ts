@@ -65,7 +65,7 @@ const FUMADValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

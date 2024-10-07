@@ -35,7 +35,7 @@ const AABCHValidation = (data: FormData) => {
       ageGroups,
       PMD.categories
     ),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

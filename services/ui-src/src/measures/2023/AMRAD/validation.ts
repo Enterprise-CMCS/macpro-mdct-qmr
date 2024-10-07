@@ -31,7 +31,7 @@ const AMRADValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

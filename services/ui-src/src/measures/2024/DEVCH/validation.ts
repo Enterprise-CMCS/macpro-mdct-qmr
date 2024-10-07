@@ -56,7 +56,7 @@ const DEVCHValidation = (data: FormData) => {
     ...GV.validateHybridMeasurePopulation(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

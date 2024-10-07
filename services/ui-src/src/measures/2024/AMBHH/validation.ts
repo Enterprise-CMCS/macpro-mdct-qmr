@@ -56,7 +56,7 @@ const AMBHHValidation = (data: FormData) => {
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

@@ -46,7 +46,7 @@ const PQI05Validation = (data: FormData) => {
       1,
       ageGroups.map((item) => item.label)
     ),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

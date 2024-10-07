@@ -47,7 +47,7 @@ const FVAADValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

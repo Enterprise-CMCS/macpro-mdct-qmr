@@ -36,7 +36,7 @@ const CCPADValidation = (data: FormData) => {
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

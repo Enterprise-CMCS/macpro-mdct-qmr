@@ -38,7 +38,7 @@ const OUDValidation = (data: FormData) => {
       OPM,
       PMD.qualifiers
     ),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

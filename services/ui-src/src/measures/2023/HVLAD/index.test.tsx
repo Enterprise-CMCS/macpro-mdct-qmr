@@ -176,7 +176,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateBothDatesCompleted).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSourceType).not.toHaveBeenCalled();
-    expect(V.validateAtLeastOneDeviationFieldFilled).not.toHaveBeenCalled();
+    expect(V.validateDeviationTextFieldFilled).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).not.toHaveBeenCalled();
@@ -201,7 +201,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(V.validateBothDatesCompleted).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSource).toHaveBeenCalled();
     expect(V.validateAtLeastOneDataSourceType).toHaveBeenCalled();
-    expect(V.validateAtLeastOneDeviationFieldFilled).toHaveBeenCalled();
+    expect(V.validateDeviationTextFieldFilled).toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatPM).not.toHaveBeenCalled();
     expect(V.validateOneCatRateHigherThanOtherCatOMS).not.toHaveBeenCalled();
     expect(V.validateNumeratorLessThanDenominatorOMS).toHaveBeenCalled();

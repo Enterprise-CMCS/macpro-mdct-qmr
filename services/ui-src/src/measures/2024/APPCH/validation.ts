@@ -48,7 +48,7 @@ const APPCHValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

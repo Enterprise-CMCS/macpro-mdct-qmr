@@ -55,7 +55,7 @@ const PQI92Validation = (data: FormData) => {
       age65PlusIndex,
       definitionOfDenominator
     ),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

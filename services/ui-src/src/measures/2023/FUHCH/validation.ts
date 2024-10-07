@@ -67,7 +67,7 @@ const FUHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

@@ -48,7 +48,7 @@ const HBDADValidation = (data: FormData) => {
       DefinitionOfDenominator,
       "Ages 65 to 75"
     ),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

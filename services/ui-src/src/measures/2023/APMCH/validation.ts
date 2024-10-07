@@ -65,7 +65,7 @@ const APMCHValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

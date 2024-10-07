@@ -61,7 +61,7 @@ const PCRHHValidation = (data: FormData) => {
     // Performance Measure Validations
     ...GV.PCRatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
     ...GV.PCRnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

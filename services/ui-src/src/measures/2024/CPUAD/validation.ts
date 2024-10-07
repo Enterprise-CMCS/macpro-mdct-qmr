@@ -49,7 +49,7 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateHybridMeasurePopulation(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

@@ -54,7 +54,7 @@ const PQI08Validation = (data: FormData) => {
       PMD.qualifiers,
       data
     ),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

@@ -75,7 +75,7 @@ const FUAADValidation = (data: FormData) => {
         GV.validateRateNotZeroOMS(),
       ],
     }),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

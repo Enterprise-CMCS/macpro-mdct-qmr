@@ -66,7 +66,7 @@ const OHDValidation = (data: FormData) => {
         GV.validateRateNotZeroOMS(),
       ],
     }),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

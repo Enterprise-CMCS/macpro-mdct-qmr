@@ -72,7 +72,7 @@ const CBPValidation = (data: FormData) => {
         GV.validateOMSTotalNDR(),
       ],
     }),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

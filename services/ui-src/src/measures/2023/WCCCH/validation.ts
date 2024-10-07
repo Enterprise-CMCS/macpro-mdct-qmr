@@ -71,7 +71,7 @@ const WCCHValidation = (data: FormData) => {
       undefined,
       validateEqualQualifierDenominatorsErrorMessage
     ),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

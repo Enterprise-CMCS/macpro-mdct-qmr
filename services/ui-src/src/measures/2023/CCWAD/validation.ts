@@ -48,7 +48,7 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

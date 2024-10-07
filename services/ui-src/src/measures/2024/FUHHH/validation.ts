@@ -55,7 +55,7 @@ const FUHHHValidation = (data: FormData) => {
       DefinitionOfDenominator
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

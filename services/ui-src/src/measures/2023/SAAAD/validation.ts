@@ -64,7 +64,7 @@ const SAAADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateAtLeastOneDataSourceType(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

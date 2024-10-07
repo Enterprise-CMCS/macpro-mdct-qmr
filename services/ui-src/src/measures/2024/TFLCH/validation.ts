@@ -54,7 +54,7 @@ const TFLCHValidation = (data: FormData) => {
     ...GV.validateFfsRadioButtonCompletion(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...sameDenominatorError,
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

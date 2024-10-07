@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "shared/globalValidations";
+import * as GV from "measures/2021/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type

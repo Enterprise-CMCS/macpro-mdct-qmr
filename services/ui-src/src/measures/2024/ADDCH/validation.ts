@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
-import { getPerfMeasureRateArray } from "../shared/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
@@ -45,7 +45,7 @@ const ADDCHValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

@@ -69,7 +69,7 @@ const AIFHHValidation = (data: FormData) => {
     // Performance Measure Validations
     ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
     ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrFormulas),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

@@ -70,7 +70,7 @@ const COBADValidation = (data: FormData) => {
         GV.validateEqualQualifierDenominatorsOMS(),
       ],
     }),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

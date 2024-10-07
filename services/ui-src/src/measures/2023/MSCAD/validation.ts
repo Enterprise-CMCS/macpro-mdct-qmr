@@ -52,7 +52,7 @@ const MSCADValidation = (data: DefaultFormData) => {
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

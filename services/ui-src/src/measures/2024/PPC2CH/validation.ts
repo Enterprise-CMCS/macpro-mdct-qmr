@@ -39,7 +39,7 @@ const PPC2CHValidation = (data: FormData) => {
         GV.validateRateZeroOMS(),
       ],
     }),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

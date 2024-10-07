@@ -44,7 +44,7 @@ const FUMHHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // Performance Measure Validations
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

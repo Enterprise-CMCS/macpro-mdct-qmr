@@ -62,7 +62,7 @@ const CCWCHValidation = (data: FormData) => {
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),
