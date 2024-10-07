@@ -86,8 +86,7 @@
       "!src/views/DemoMeasure/**/*.{ts,tsx}",
       "!src/components/Upload/index.tsx",
       "!src/views/Qualifiers/**/*.{ts,tsx}",
-      "!src/measures/2021/**/*.{ts,tsx}",
-      "!src/measures/globalValidations/testHelpers/*.{ts,tsx}"
+      "!src/measures/2021/**/*.{ts,tsx}"
     ],
     "moduleDirectories": [
       "node_modules",
