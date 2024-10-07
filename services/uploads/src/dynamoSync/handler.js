@@ -32,7 +32,7 @@ const uploadFileToS3 = async (client, filePath, scanResult) => {
 const cleanupFolders = async (client) => {
   const paths = ["CSVmeasures", "CSVcoreSet", "CSVrate"];
 
-  for (const folder in paths) {
+  for (const folder of paths) {
     const path = `coreSetData/${folder}/`;
     const params = {
       Bucket: process.env.dynamoSnapshotS3BucketName,
@@ -40,6 +40,7 @@ const cleanupFolders = async (client) => {
       MaxKeys: 1000, // Limited by 1000 per delete
     };
     const response = await client.send(new ListObjectsV2Command(params));
+    console.log(response);
     const files = response.Contents.map((file) => file.Key);
     console.log("Files found:");
     console.log(files);
@@ -47,14 +48,15 @@ const cleanupFolders = async (client) => {
     const cutOffDate = new Date();
     cutOffDate.setMonth(cutOffDate.getMonth() - 3);
 
-    const outdated = files.filter(
-      (file) => new Date(file.split("/").pop().slice(0, -4)) < cutOffDate
-    );
-    if (!outdated.length) continue;
+    const outdated = files.filter((file) => {
+      const dateString = file.split("/").pop().slice(0, -4);
+      return new Date(parseInt(dateString)) < cutOffDate;
+    });
 
     console.log("Files to delete:");
     console.log(outdated);
 
+    if (outdated.length <= 0) continue;
     const deleteParams = {
       Bucket: process.env.dynamoSnapshotS3BucketName,
       Delete: {
