@@ -1,6 +1,6 @@
 export * from "shared/globalValidations/dataDrivenTools";
 export * from "shared/globalValidations/omsValidator";
-export * as Types from "./types";
+export * as Types from "shared/types/TypeValidations";
 
 export * from "shared/globalValidations/validateAtLeastOneDataSource";
 export * from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
