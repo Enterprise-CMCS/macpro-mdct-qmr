@@ -11,6 +11,8 @@ services:
     params:
       CoreSetTableName: ${database.CoreSetTableName}
       MeasureTableName: ${database.MeasureTableName}
+      MeasureTable: ${database.MeasureTable}
+      CoreSetTable: ${database.CoreSetTable}
       RateTableName: ${database.RateTableName}
 
   app-api:
@@ -19,6 +21,8 @@ services:
       CoreSetTableName: ${database.CoreSetTableName}
       CoreSetTableStreamArn: ${database.CoreSetTableStreamArn}
       MeasureTableName: ${database.MeasureTableName}
+      MeasureTable: ${database.MeasureTable}
+      CoreSetTable: ${database.CoreSetTable}
       MeasureTableStreamArn: ${database.MeasureTableStreamArn}
       RateTableName: ${database.RateTableName}
       RateTableStreamArn: ${database.RateTableStreamArn}

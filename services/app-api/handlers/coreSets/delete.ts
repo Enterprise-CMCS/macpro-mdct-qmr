@@ -1,7 +1,5 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
-import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
 import { hasStatePermissions } from "../../libs/authorization";
 import { Measure } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
@@ -24,17 +22,16 @@ export const deleteCoreSet = handler(async (event, context) => {
     };
   }
 
-  const dynamoKey = createCoreSetKey({ state, year, coreSet });
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTable!,
     Key: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}`,
       coreSet: coreSet,
     },
   };
 
   await dynamoDb.delete(params);
-  await deleteDependentMeasures(state, parseInt(year), coreSet);
+  await deleteDependentMeasures(state, year, coreSet);
 
   return {
     status: StatusCodes.SUCCESS,
@@ -51,12 +48,11 @@ const deleteDependentMeasures = async (
   const Items = measures;
 
   for await (const { measure } of Items) {
-    const dynamoKey = `${state}${year}${coreSet}${measure}`;
     const params = {
-      TableName: process.env.measureTableName!,
+      TableName: process.env.measureTable!,
       Key: {
-        compoundKey: dynamoKey,
-        coreSet: coreSet,
+        compoundKey: `${state}${year}${coreSet}`,
+        measure: measure,
       },
     };
 
@@ -66,12 +62,12 @@ const deleteDependentMeasures = async (
 
 const getMeasures = async (state: string, year: number, coreSet: string) => {
   const params = {
-    TableName: process.env.measureTableName!,
-    ...convertToDynamoExpression(
-      { state: state, year: year, coreSet: coreSet },
-      "list"
-    ),
+    TableName: process.env.measureTable!,
+    KeyConditionExpression: "compoundKey = :compoundKey",
+    ExpressionAttributeValues: {
+      ":compoundKey": `${state}${year}${coreSet}`,
+    },
   };
-  const queryValue = await dynamoDb.scanAll<Measure>(params);
+  const queryValue = await dynamoDb.queryAll<Measure>(params);
   return queryValue;
 };

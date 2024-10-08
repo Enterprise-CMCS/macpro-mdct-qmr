@@ -8,7 +8,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^2.9.11",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.1",
     "aws-amplify": "^5.3.4",
     "base-64": "^1.0.0",
     "date-fns": "^2.26.0",
@@ -31,7 +31,7 @@
     "react-textarea-autosize": "^8.3.3",
     "sass": "^1.72.0",
     "uuid": "^8.3.2",
-    "vite": "^5.4.1",
+    "vite": "^5.4.6",
     "vite-tsconfig-paths": "^4.3.2",
     "xml2js": "0.6.0"
   },
@@ -124,7 +124,7 @@
     ]
   },
   "devDependencies": {
-    "@aws-sdk/types": "^3.38.0",
+    "@aws-sdk/types": "^3.662.0",
     "@babel/core": "^7.13.16",
     "@babel/plugin-transform-react-jsx": "^7.13.12",
     "@babel/preset-env": "^7.13.15",
