@@ -34,8 +34,6 @@ export const putCombinedRatesToTable = async (
       ":lastAltered": Date.now(),
       ":data": combinedRates,
       ":state": state,
-      ":year": year,
-      ":coreSet": coreSet,
     },
   });
 };
