@@ -8,6 +8,10 @@ body,
   font-size: 16px; // sets the value of 1rem
 }
 
+label {
+  margin-block: 0;
+}
+
 #app-wrapper {
   display: flex;
   flex-direction: column;

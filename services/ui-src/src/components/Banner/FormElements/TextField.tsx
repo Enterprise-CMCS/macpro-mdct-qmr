@@ -25,7 +25,7 @@ export const TextField = ({
 
   // prepare error message, hint, and classes
   const formErrorState = form?.formState?.errors;
-  const errorMessage = formErrorState?.[name]?.message;
+  const errorMessage = formErrorState?.[name]?.message as string;
 
   return (
     <CmsdsTextField
