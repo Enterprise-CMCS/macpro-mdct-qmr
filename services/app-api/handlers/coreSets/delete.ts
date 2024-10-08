@@ -23,9 +23,9 @@ export const deleteCoreSet = handler(async (event, context) => {
   }
 
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTable!,
     Key: {
-      compoundKey: `${state}${year}${coreSet}`,
+      compoundKey: `${state}${year}`,
       coreSet: coreSet,
     },
   };

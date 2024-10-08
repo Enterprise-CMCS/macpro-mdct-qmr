@@ -1,11 +1,11 @@
-export * from "./dataDrivenTools";
-export * from "./omsValidator";
+export * from "shared/globalValidations/dataDrivenTools";
+export * from "shared/globalValidations/omsValidator";
 export * as Types from "./types";
 
 export * from "shared/globalValidations/validateAtLeastOneDataSource";
 export * from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
 export * from "shared/globalValidations/validateHybridMeasurePopulation";
-export * from "./validateAtLeastOneDataSourceType";
+export * from "shared/globalValidations/validateAtLeastOneDataSourceType";
 export * from "shared/globalValidations/validateAtLeastOneDeliverySystem";
 export * from "shared/globalValidations/validateDeviationTextFieldFilled";
 export * from "shared/globalValidations/validateAtLeastOneRateComplete";
