@@ -1,4 +1,8 @@
 import * as validateAtLeastOneDataSource from "shared/globalValidations/validateAtLeastOneDataSource";
+import * as validateAtLeastOneDefinitionOfPopulation from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
+import * as validateAtLeastOneDataSourceType from "shared/globalValidations/validateAtLeastOneDataSourceType";
+import * as validateAtLeastOneDeliverySystem from "shared/globalValidations/validateAtLeastOneDeliverySystem";
+import * as validateDeviationTextFieldFilled from "shared/globalValidations/validateDeviationTextFieldFilled";
 import * as validateAtLeastOneDeviationFieldFilled from "shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 import * as validateAtLeastOneRateComplete from "shared/globalValidations/validateAtLeastOneRateComplete";
 import * as validateBothDatesInRange from "shared/globalValidations/validateBothDatesInRange";
@@ -6,6 +10,7 @@ import * as validateDualPopInformation from "shared/globalValidations/validateDu
 import * as validateEqualCategoryDenominators from "shared/globalValidations/validateEqualCategoryDenominators";
 import * as validateEqualQualifierDenominators from "shared/globalValidations/validateEqualQualifierDenominators";
 import * as validateRateZero from "shared/globalValidations/validateRateZero";
+import * as validateFfsRadioButtonCompletion from "shared/globalValidations/validateFfsRadioButtonCompletion";
 import * as validateRateNotZero from "shared/globalValidations/validateRateNotZero";
 import * as validateNumeratorsLessThanDenominators from "shared/globalValidations/validateNumeratorsLessThanDenominators";
 import * as validateOneCatRateHigherThanOtherCat from "shared/globalValidations/validateOneCatRateHigherThanOtherCat";
@@ -16,14 +21,14 @@ import * as validateRequiredRadioButtonForCombinedRates from "shared/globalValid
 import * as validateTotals from "shared/globalValidations/validateTotals";
 import * as PCRatLeastOneRateComplete from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
 import * as PCRnoNonZeroNumOrDenom from "shared/globalValidations/PCRValidations/PCRnoNonZeroNumOrDenom";
-import * as PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexAtLeastOneRateComplete from "shared/globalValidations/ComplexValidations/ComplexAtLeastOneRateComplete";
 import * as ComplexNoNonZeroNumOrDenom from "shared/globalValidations/ComplexValidations/ComplexNoNonZeroNumOrDenom";
 import * as ComplexValueSameCrossCategory from "shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
 import * as ComplexValidateNDRTotals from "shared/globalValidations/ComplexValidations/ComplexValidateNDRTotals";
-import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexValidateDualPopInformation from "shared/globalValidations/ComplexValidations/ComplexValidateDualPopInformation";
-import { DefaultFormDataLegacy as DefaultFormData } from "shared/types/FormData";
+import * as PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
+import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
+import { DefaultFormData } from "shared/types/FormData";
 
 /**
  * Replicate the behavior of the validateAndSetErrors() function in the MeasureWrapper
@@ -49,9 +54,25 @@ export const validationsMockObj: any = {
     validateAtLeastOneDataSource,
     "validateAtLeastOneDataSource"
   ),
+  validateAtLeastOneDefinitionOfPopulation: jest.spyOn(
+    validateAtLeastOneDefinitionOfPopulation,
+    "validateAtLeastOneDefinitionOfPopulation"
+  ),
+  validateAtLeastOneDataSourceType: jest.spyOn(
+    validateAtLeastOneDataSourceType,
+    "validateAtLeastOneDataSourceType"
+  ),
+  validateAtLeastOneDeliverySystem: jest.spyOn(
+    validateAtLeastOneDeliverySystem,
+    "validateAtLeastOneDeliverySystem"
+  ),
   validateAtLeastOneDeviationFieldFilled: jest.spyOn(
     validateAtLeastOneDeviationFieldFilled,
     "validateAtLeastOneDeviationFieldFilled"
+  ),
+  validateDeviationTextFieldFilled: jest.spyOn(
+    validateDeviationTextFieldFilled,
+    "validateDeviationTextFieldFilled"
   ),
   validateAtLeastOneRateComplete: jest.spyOn(
     validateAtLeastOneRateComplete,
@@ -80,6 +101,10 @@ export const validationsMockObj: any = {
   validateEqualQualifierDenominatorsOMS: jest.spyOn(
     validateEqualQualifierDenominators,
     "validateEqualQualifierDenominatorsOMS"
+  ),
+  validateFfsRadioButtonCompletion: jest.spyOn(
+    validateFfsRadioButtonCompletion,
+    "validateFfsRadioButtonCompletion"
   ),
   validateRateNotZeroPM: jest.spyOn(
     validateRateNotZero,
@@ -137,10 +162,6 @@ export const validationsMockObj: any = {
     PCRnoNonZeroNumOrDenom,
     "PCRnoNonZeroNumOrDenom"
   ),
-  PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec: jest.spyOn(
-    PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec,
-    "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"
-  ),
   ComplexAtLeastOneRateComplete: jest.spyOn(
     ComplexAtLeastOneRateComplete,
     "ComplexAtLeastOneRateComplete"
@@ -148,10 +169,6 @@ export const validationsMockObj: any = {
   ComplexNoNonZeroNumOrDenom: jest.spyOn(
     ComplexNoNonZeroNumOrDenom,
     "ComplexNoNonZeroNumOrDenom"
-  ),
-  ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec: jest.spyOn(
-    ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
-    "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"
   ),
   ComplexValidateNDRTotals: jest.spyOn(
     ComplexValidateNDRTotals,
@@ -164,5 +181,13 @@ export const validationsMockObj: any = {
   ComplexValueSameCrossCategory: jest.spyOn(
     ComplexValueSameCrossCategory,
     "ComplexValueSameCrossCategory"
+  ),
+  PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec: jest.spyOn(
+    PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec,
+    "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"
+  ),
+  ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec: jest.spyOn(
+    ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
+    "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"
   ),
 };

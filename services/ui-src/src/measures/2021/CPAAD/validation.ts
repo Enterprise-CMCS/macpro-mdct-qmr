@@ -1,5 +1,5 @@
 import { FormData } from "./types";
-import { validateReasonForNotReporting } from "measures/2021/globalValidations";
+import { validateReasonForNotReporting } from "shared/globalValidations";
 import * as DC from "dataConstants";
 
 const CPAADValidation = (data: FormData) => {

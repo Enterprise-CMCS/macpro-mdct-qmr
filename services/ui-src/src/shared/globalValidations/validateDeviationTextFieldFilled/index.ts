@@ -18,7 +18,7 @@ const getLabels = (year: number) => {
   }
 };
 
-export const validateAtLeastOneDeviationFieldFilled = (
+export const validateDeviationTextFieldFilled = (
   didCalculationsDeviate: boolean,
   deviationReason: string,
   errorMessage?: string

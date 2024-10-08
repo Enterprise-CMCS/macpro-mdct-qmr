@@ -1,6 +1,6 @@
 export * from "shared/globalValidations/dataDrivenTools";
 export * from "shared/globalValidations/omsValidator";
-export * as Types from "./types";
+export * as Types from "shared/types/TypeValidations";
 
 export * from "shared/globalValidations/validateAtLeastOneDataSource";
 export * from "shared/globalValidations/validateAtLeastOneDefinitionOfPopulation";
@@ -29,6 +29,7 @@ export * from "shared/globalValidations/validateOPMRates";
 export * from "shared/globalValidations/validateHedisYear";
 export * from "shared/globalValidations/validateSameDenominatorSets";
 export * from "shared/globalValidations/validateNDRTotalsMatchSum";
+export * from "shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
@@ -49,3 +50,5 @@ export {
   ComplexValueSameCrossCategory,
   ComplexValueSameCrossCategoryOMS,
 } from "shared/globalValidations/ComplexValidations/ComplexValueSameCrossCategory";
+export { PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec } from "shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
+export { ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec } from "shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
