@@ -514,7 +514,7 @@ to make in order to get that year working.
 
 1. Go into the `index.tsx` file for the directory you just created
    (`services/ui-src/src/measures/2022/index.tsx`) and update the name of the export
-   (`twentyTwentyOneMeasures` -> `twentyTwentyTwoMeasures`)
+   (`twentyTwentyOneMeasures` -> `twentyTwentyTwoMeasures`) and change the import year for `import { Data } from "labels/{year}/qualifierFormsData"` to the next year;
 
 2. Go to the `services/ui-src/src/measures/index.tsx` file and add that new export
    (before and after shown below)
@@ -541,13 +541,7 @@ to make in order to get that year working.
 
    ![After](./.images/afterImportUpdate.png?raw=true)
 
-5. Go to the `/services/ui-src/src/utils/testUtils`, create a new directory for the latest year (e.g. 2024), and copy over the `validationHelpers.ts` and `validationHelpers.test.ts` files
-
-   **NOTE:** Remember to update the imports in these files to reflect the latest year.
-
-6. Copy over the `/globalValidations`, `/CommonQuestions`, and `/Qualifiers` directories to the latest year
-
-7. Similar to Step 4, update import names from the previous year to the most recent year
+5. Similar to Step 4, update import names from the previous year to the most recent year
 
    Before
 
@@ -557,9 +551,31 @@ to make in order to get that year working.
 
    ![After](./.images/afterCommonComponentUpdate.png?raw=true)
 
-8. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
+6. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
 
-9. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
+7. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
+
+8. In `src/labels` copy the past year’s folder to the latest year (e.g. 2021 -> 2022)
+
+9. Go to the `src/labels/QualifierFormsDatas.tsx` and add the newly created files from `src/labels/{year}/qualifierFormsData` as an import
+
+10. Go to the `src/labels/Labels.tsx` and add the newly created files from `src/labels/{year}/commonQuestionsLabel` as an import
+
+11. Go to the `src/labels/RateLabelTexts.tsx` and add the newly created files from `src/labels/{year}/rateLabelText` as an import
+
+12. In `services/app-api/libs/coreSetByYearPreloaded.ts` , copy over the prior year's entry into the array.
+
+13. In `services/app-api/libs/coreSetStatesList.ts` , copy over the prior year's entry into the array.
+
+14. In `src/hooks/api/useGetCoreSets.tsx` , changed `releasedTwentyTwentyFive` to `releasedTwentyTwentySix`
+
+### Cypress 
+
+1. In `test/cypress/support/constants.ts` change the const from measureAbbrList{year} to the coming year and do a quick search and replace for any instance of that variable call.
+
+### LaunchDarkly Flag
+
+1. In `services/ui-src/src/views/StateHome/index.tsx` look for the a line of code similar to this `const releasedTwentyTwentyFour = useFlags()?.["release2024"];` change the year to the latest year and do a quick search and replace with the new variable name.
 
 ## Things to Look Out For (Gotchas)
 

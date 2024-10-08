@@ -1,4 +1,4 @@
-import { measureAbbrList2024, testingYear } from "../../support/constants";
+import { measureAbbrList2025, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
@@ -120,7 +120,7 @@ describe("Export All Measures", () => {
     cy.get('[aria-label="Export for ' + abbr + '"]').click();
 
     // Check all measures + CSQ present
-    for (const measureAbbr of measureAbbrList2024.ADULT) {
+    for (const measureAbbr of measureAbbrList2025.ADULT) {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");

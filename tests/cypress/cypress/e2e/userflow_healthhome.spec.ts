@@ -1,4 +1,4 @@
-import { measureAbbrList2024, testingYear } from "../../support/constants";
+import { measureAbbrList2025, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for healthhome core set
@@ -124,7 +124,7 @@ describe("Export All Measures", () => {
     });
 
     // Check all measures + CSQ present
-    for (const measureAbbr of measureAbbrList2024.HEALTH_HOME) {
+    for (const measureAbbr of measureAbbrList2025.HEALTH_HOME) {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");
