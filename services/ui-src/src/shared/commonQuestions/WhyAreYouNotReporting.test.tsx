@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 import SharedContext from "shared/SharedContext";
 import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
 
-mockLDFlags.setDefault({ periodOfHealthEmergency2024: false });
+mockLDFlags.setDefault({ periodOfHealthEmergency2025: false });
 
 describe("WhyAreYouNotReporting component initial appearance", () => {
   beforeEach(() => {
@@ -201,7 +201,7 @@ describe("WhyAreYouNotReporting component, Health Homes", () => {
 
 describe("Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic (PHE active)", () => {
   it("renders textBox correctly", () => {
-    mockLDFlags.set({ periodOfHealthEmergency2024: true });
+    mockLDFlags.set({ periodOfHealthEmergency2025: true });
     renderWithHookForm(
       <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2024" }}>
         <WhyAreYouNotReporting />

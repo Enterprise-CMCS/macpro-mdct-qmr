@@ -87,15 +87,15 @@ export const commonQuestionsLabel = {
       "If your state substantially varied from the measure specifications (including different methodology, timeframe, or reported age groups), please report your data using “Other” specifications.",
     options: [
       {
-        displayValue: "HEDIS MY 2023 (FFY 2025 Core Set Reporting)",
+        displayValue: "HEDIS MY 2024 (FFY 2025 Core Set Reporting)",
         value: DC.HEDIS_MY_2023,
       },
       {
-        displayValue: "HEDIS MY 2022 (FFY 2024 Core Set Reporting)",
+        displayValue: "HEDIS MY 2023 (FFY 2024 Core Set Reporting)",
         value: DC.HEDIS_MY_2022,
       },
       {
-        displayValue: "HEDIS MY 2021 (FFY 2023 Core Set Reporting)",
+        displayValue: "HEDIS MY 2022 (FFY 2023 Core Set Reporting)",
         value: DC.HEDIS_MY_2021,
       },
     ],

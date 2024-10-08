@@ -567,7 +567,9 @@ to make in order to get that year working.
 
 13. In `services/app-api/libs/coreSetStatesList.ts` , copy over the prior year's entry into the array.
 
-14. In `src/hooks/api/useGetCoreSets.tsx` , changed `releasedTwentyTwentyFive` to `releasedTwentyTwentySix`
+14. In `src/hooks/api/useGetCoreSets.tsx` , changed `releasedTwentyTwentyFive` to `releasedTwentyTwentySix`.
+
+15. In `services/ui-src/src/config.ts` change `currentReportingYear` to the new reporting year.
 
 ### Cypress 
 
@@ -576,6 +578,8 @@ to make in order to get that year working.
 ### LaunchDarkly Flag
 
 1. In `services/ui-src/src/views/StateHome/index.tsx` look for the a line of code similar to this `const releasedTwentyTwentyFour = useFlags()?.["release2024"];` change the year to the latest year and do a quick search and replace with the new variable name.
+
+2. Search for `periodOfHealthEmergency2025` and change it to the next year.
 
 ## Things to Look Out For (Gotchas)
 

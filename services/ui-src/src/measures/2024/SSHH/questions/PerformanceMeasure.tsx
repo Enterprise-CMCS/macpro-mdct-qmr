@@ -31,7 +31,7 @@ export const PerformanceMeasure = ({
 }: Props) => {
   const { control, reset } = useFormContext();
 
-  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2024"];
+  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2025"];
 
   const { fields, remove, append } = useFieldArray({
     name: DC.OPM_RATES,

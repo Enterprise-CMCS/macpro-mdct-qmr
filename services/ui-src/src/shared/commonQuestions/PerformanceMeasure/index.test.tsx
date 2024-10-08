@@ -32,7 +32,7 @@ interface Props {
   hybridMeasure: undefined | boolean;
 }
 
-mockLDFlags.setDefault({ periodOfHealthEmergency2024: false });
+mockLDFlags.setDefault({ periodOfHealthEmergency2025: false });
 
 const renderComponent = ({
   component,
@@ -159,7 +159,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(rateTextBox).toHaveDisplayValue("123");
   });
 
-  test("periodOfHealthEmergency2024 flag is set to false, covid text and textbox should not render", () => {
+  test("periodOfHealthEmergency2025 flag is set to false, covid text and textbox should not render", () => {
     props.data = CBPdata;
     props.hybridMeasure = true;
     renderComponent(props);
@@ -169,8 +169,8 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(covidText).toBeNull();
   });
 
-  test("periodOfHealthEmergency2024 flag is set to true, covid text and textbox should render", () => {
-    mockLDFlags.set({ periodOfHealthEmergency2024: true });
+  test("periodOfHealthEmergency2025 flag is set to true, covid text and textbox should render", () => {
+    mockLDFlags.set({ periodOfHealthEmergency2025: true });
     props.data = CBPdata;
     props.hybridMeasure = true;
     renderComponent(props);
