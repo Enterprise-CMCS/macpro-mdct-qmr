@@ -74,8 +74,8 @@ export const HorizontalTable = <T extends TableData>({
           </CUI.Tr>
         </CUI.Thead>
         <CUI.Tbody data-cy={"tableBody"}>
-          {data?.map((row) => (
-            <CUI.Tr key={row.id + "_tr"}>
+          {data?.map((row, idx) => (
+            <CUI.Tr key={row.id + "_tr" + idx}>
               {columns.map((column) => {
                 const element = column.cell(row);
                 return (
