@@ -62,7 +62,7 @@ describe("submit coreset", () => {
     });
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-AL2024"]').should(
+    cy.get('[data-cy="Status-AL2025"]').should(
       "contain.text",
       "in progress2 of 27 complete"
     );
@@ -75,7 +75,7 @@ describe("submit coreset", () => {
       waitForAnimations: false,
     });
     cy.wait(4000);
-    cy.get('[data-cy="Status-AL2024"]').should(
+    cy.get('[data-cy="Status-AL2025"]').should(
       "contain.text",
       "complete27 of 27 complete"
     );
@@ -90,7 +90,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-AL2024"]').should(
+    cy.get('[data-cy="Status-AL2025"]').should(
       "contain.text",
       "submitted27 of 27 complete"
     );

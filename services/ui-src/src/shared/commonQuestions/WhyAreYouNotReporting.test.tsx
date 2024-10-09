@@ -4,7 +4,7 @@ import { WhyAreYouNotReporting } from "./WhyAreYouNotReporting";
 import { mockLDFlags } from "../../../setupJest";
 import userEvent from "@testing-library/user-event";
 import SharedContext from "shared/SharedContext";
-import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
+import commonQuestionsLabel from "labels/2025/commonQuestionsLabel";
 
 mockLDFlags.setDefault({ periodOfHealthEmergency2025: false });
 
@@ -203,7 +203,7 @@ describe("Limitations with data collection, reporting, or accuracy due to the CO
   it("renders textBox correctly", () => {
     mockLDFlags.set({ periodOfHealthEmergency2025: true });
     renderWithHookForm(
-      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2024" }}>
+      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2025" }}>
         <WhyAreYouNotReporting />
       </SharedContext.Provider>
     );

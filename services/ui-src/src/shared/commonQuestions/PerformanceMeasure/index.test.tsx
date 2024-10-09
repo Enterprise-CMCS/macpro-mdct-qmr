@@ -2,8 +2,8 @@ import {
   exampleData,
   PerformanceMeasureData,
 } from "shared/commonQuestions/PerformanceMeasure/data";
-import { data as PCRData } from "measures/2024/PCRAD/data";
-import { data as CBPdata } from "measures/2024/CBPAD/data";
+import { data as PCRData } from "measures/2025/PCRAD/data";
+import { data as CBPdata } from "measures/2025/CBPAD/data";
 import fireEvent from "@testing-library/user-event";
 import { PerformanceMeasure } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
@@ -12,13 +12,13 @@ import { PCRRate } from "components";
 import { mockLDFlags } from "../../../../setupJest";
 import { LabelData } from "utils";
 import SharedContext from "shared/SharedContext";
-import commonQuestionsLabel2024 from "labels/2024/commonQuestionsLabel";
+import commonQuestionsLabel2025 from "labels/2025/commonQuestionsLabel";
 
 jest.mock("hooks/api/usePathParams", () => ({
   ...jest.requireActual("hooks/api/usePathParams"),
   usePathParams: jest.fn().mockReturnValue({
     state: "DC",
-    year: "2024",
+    year: "2025",
     coreSet: "HHCS",
     measureId: "PCR-HH",
   }),
@@ -42,7 +42,7 @@ const renderComponent = ({
   hybridMeasure,
 }: Props) =>
   renderWithHookForm(
-    <SharedContext.Provider value={commonQuestionsLabel2024}>
+    <SharedContext.Provider value={commonQuestionsLabel2025}>
       <PerformanceMeasure
         data={data}
         calcTotal={calcTotal}
