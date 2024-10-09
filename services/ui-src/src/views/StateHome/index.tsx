@@ -70,7 +70,7 @@ const ReportingYear = () => {
 
   if (!releasedTwentyTwentyFive) {
     reportingyearOptions = reportingyearOptions.filter(
-      (entry) => entry.value !== "2024"
+      (entry) => entry.value !== "2025"
     );
   }
 
@@ -101,7 +101,7 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
-      {year === "2024" && showCombinedRatesButton && (
+      {year! >= "2024" && showCombinedRatesButton && (
         <CUI.Box mt="22px">
           <Link
             to={`/${state}/${year}/combined-rates`}
