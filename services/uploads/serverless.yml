@@ -57,6 +57,10 @@ custom:
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
   rateTableName: ${env:rateTableName, param:RateTableName}
+  s3SyncFrequencyMap: # Frequency rate to load data to mathematica s3 bucket. High frequency avail for testing purposes.
+    high: cron(30 * * * ? *)
+    low: cron(30 1 * * ? *) # Run 8:30 Eastern, before 9PM Mathematica ingestion
+  s3SyncFrequency: ${env:s3SyncFrequency, ssm:/configuration/${self:custom.stage}/s3SyncFrequency, ssm:/configuration/default/s3SyncFrequency,"low"}
   serverlessTerminationProtection:
     stages:
       - master
@@ -90,7 +94,7 @@ functions:
     memorySize: 4096
     timeout: 120
     events:
-      - schedule: cron(30 * * * ? *)
+      - schedule: ${self:custom.s3SyncFrequencyMap.${self:custom.s3SyncFrequency}}
     environment:
       coreSetTableName: ${self:custom.coreSetTableName}
       measureTableName: ${self:custom.measureTableName}
