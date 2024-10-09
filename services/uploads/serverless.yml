@@ -55,6 +55,7 @@ custom:
   measureTableName: ${env:measureTableName, param:MeasureTableName}
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
+  rateTable: ${env:rateTable, param:RateTable}
   rateTableName: ${env:rateTableName, param:RateTableName}
   serverlessTerminationProtection:
     stages:
@@ -95,6 +96,7 @@ functions:
       measureTableName: ${self:custom.measureTableName}
       measureTable: ${self:custom.measureTable}
       coreSetTable: ${self:custom.coreSetTable}
+      rateTable: ${self:custom.rateTable}
       rateTableName: ${self:custom.rateTableName}
       dynamoSnapshotS3BucketName: !Ref DynamoSnapshotBucket
   avScan:

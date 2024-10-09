@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
-import { DefaultFormData } from "shared/types/FormData";
+import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 
 /* Seed Data for validation tests - Uses DefaultFormData to ensure that our data matches the shape of production data.*/
-export const testFormData: DefaultFormData = {
+export const testFormData: DefaultFormDataLegacy | DefaultFormData = {
   [DC.ADDITIONAL_NOTES]: "",
   [DC.ADDITIONAL_NOTES_UPLOAD]: [],
   [DC.DID_COLLECT]: "yes",
@@ -78,7 +78,7 @@ export const testFormData: DefaultFormData = {
   [DC.MEASUREMENT_PERIOD_CORE_SET]: "yes",
   [DC.MEASUREMENT_SPECIFICATION]: DC.NCQA,
 
-  [DC.MEASUREMENT_SPECIFICATION_HEDIS]: DC.HEDIS_MY_2020,
+  [DC.MEASUREMENT_SPECIFICATION_HEDIS]: DC.HEDIS_MY_2021,
   [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION]: "",
   [DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD]: new File([], ""),
   [DC.OPM_EXPLAINATION]: "",
@@ -334,6 +334,7 @@ export const testFormData: DefaultFormData = {
   [DC.DID_CALCS_DEVIATE]: "no",
   [DC.DEVIATION_OPTIONS]: [],
   [DC.DEVIATION_REASON]: "",
+  [DC.DEVIATIONS]: {},
 
   [DC.DATA_SOURCE]: [DC.ADMINISTRATIVE_DATA],
   [DC.DATA_SOURCE_SELECTIONS]: {

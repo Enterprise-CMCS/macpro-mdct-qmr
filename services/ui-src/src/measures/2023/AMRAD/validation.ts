@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2023/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
 import { FormData } from "./types";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
@@ -31,7 +31,7 @@ const AMRADValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

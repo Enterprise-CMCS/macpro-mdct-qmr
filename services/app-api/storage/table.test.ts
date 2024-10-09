@@ -62,7 +62,7 @@ const mockCombinedRate = {
 describe("Test database helper functions", () => {
   beforeAll(() => {
     process.env.measureTable = "local-measure";
-    process.env.rateTableName = "local-rates";
+    process.env.rateTable = "local-rate";
   });
 
   it("should fetch a measure from the measure table", async () => {
@@ -84,9 +84,9 @@ describe("Test database helper functions", () => {
     await putCombinedRatesToTable(mockMeasureParameters, mockCombinedRate);
 
     expect(dynamodbLib.update).toHaveBeenCalledWith({
-      TableName: "local-rates",
+      TableName: "local-rate",
       Key: {
-        compoundKey: "CO2024ACSZZZ-AD",
+        compoundKey: "CO2024ACS",
         measure: "ZZZ-AD",
       },
       UpdateExpression: expect.any(String),
@@ -95,6 +95,8 @@ describe("Test database helper functions", () => {
         ":lastAltered": expect.any(Number),
         ":data": mockCombinedRate,
         ":state": "CO",
+        ":year": 2024,
+        ":coreSet": "ACS",
       },
     });
   });
@@ -108,9 +110,9 @@ describe("Test database helper functions", () => {
 
     expect(result).toBe(mockCombinedRate);
     expect(dynamodbLib.get).toHaveBeenCalledWith({
-      TableName: "local-rates",
+      TableName: "local-rate",
       Key: {
-        compoundKey: "CO2024ACSZZZ-AD",
+        compoundKey: "CO2024ACS",
         measure: "ZZZ-AD",
       },
     });

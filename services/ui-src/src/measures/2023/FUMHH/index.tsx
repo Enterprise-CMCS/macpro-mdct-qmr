@@ -1,7 +1,7 @@
 import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { getPerfMeasureRateArray } from "measures/2023/shared/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";

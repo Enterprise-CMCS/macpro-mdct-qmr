@@ -19,21 +19,25 @@ export const putCombinedRatesToTable = async (
 ) => {
   const { year, state, coreSet, measure } = parameters;
   await dynamoDb.update({
-    TableName: process.env.rateTableName!,
+    TableName: process.env.rateTable!,
     Key: {
-      compoundKey: `${state}${year}${coreSet}${measure}`,
+      compoundKey: `${state}${year}${coreSet}`,
       measure,
     },
-    UpdateExpression: `SET #lastAltered=:lastAltered, #data=:data, #state=:state`,
+    UpdateExpression: `SET #lastAltered=:lastAltered, #data=:data, #state=:state, #year=:year, #coreSet=:coreSet`,
     ExpressionAttributeNames: {
       "#lastAltered": "lastAltered",
       "#data": "data",
       "#state": "state",
+      "#year": "year",
+      "#coreSet": "coreSet",
     },
     ExpressionAttributeValues: {
       ":lastAltered": Date.now(),
       ":data": combinedRates,
       ":state": state,
+      ":year": year,
+      ":coreSet": coreSet,
     },
   });
 };
@@ -43,9 +47,9 @@ export const getCombinedRatesFromTable = async (
 ): Promise<CombinedRatesPayload> => {
   const { year, state, coreSet, measure } = parameters;
   const queryValue = await dynamoDb.get({
-    TableName: process.env.rateTableName!,
+    TableName: process.env.rateTable!,
     Key: {
-      compoundKey: `${state}${year}${coreSet}${measure}`,
+      compoundKey: `${state}${year}${coreSet}`,
       measure,
     },
   });

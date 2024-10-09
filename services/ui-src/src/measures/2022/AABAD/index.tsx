@@ -7,7 +7,7 @@ import { useFormContext } from "react-hook-form";
 
 import { validationFunctions } from "./validation";
 import { AABRateCalculation } from "utils/rateFormulas";
-import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 

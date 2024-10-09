@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
-import { test_setup } from "measures/2022/shared/globalValidations/testHelpers/_helper";
-import { testFormData } from "measures/2022/shared/globalValidations/testHelpers/_testFormData";
-import { getDeviationNDRArray } from "measures/2022/shared/globalValidations";
+import { test_setup } from "./../testHelpers/_helper";
+import { testFormData } from "./../testHelpers/_testFormData";
+import { getDeviationNDRArray } from "./../dataDrivenTools";
 import { validateAtLeastOneDeviationFieldFilled } from ".";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
