@@ -14,7 +14,7 @@ import { clearMocks } from "shared/util/validationsMock";
 
 expect.extend(toHaveNoViolations);
 
-mockLDFlags.setDefault({ periodOfHealthEmergency2025: false });
+mockLDFlags.setDefault({ periodOfHealthEmergency2024: false });
 
 // Test Setup
 const measureAbbr = "SS-1-HH";
@@ -111,7 +111,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(screen.queryByText("Performance Measure")).toBeInTheDocument();
   });
 
-  it("does not show covid text if periodOfHealthEmergency2025 flag is disabled", async () => {
+  it("does not show covid text if periodOfHealthEmergency2024 flag is disabled", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -122,8 +122,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     ).not.toBeInTheDocument();
   });
 
-  it("shows covid text if periodOfHealthEmergency2025 flag is enabled", async () => {
-    mockLDFlags.setDefault({ periodOfHealthEmergency2025: true });
+  it("shows covid text if periodOfHealthEmergency2024 flag is enabled", async () => {
+    mockLDFlags.setDefault({ periodOfHealthEmergency2024: true });
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
