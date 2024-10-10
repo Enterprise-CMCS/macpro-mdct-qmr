@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2022/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
@@ -99,18 +99,16 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,
+  qualifiers,
 }) => {
-  const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
-    return { rate: [rateData?.rates?.[x]?.OPM?.[0]] };
-  });
   return OPM === undefined
     ? [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
-          rates ?? [],
+          false,
           ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
-          OPM.map((item: any) => item.description)
+          qualifiers
         ),
         ...GV.ComplexValidateNDRTotalsOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
@@ -122,10 +120,10 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
     : [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
-          rates ?? [],
+          true,
           ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
-          OPM.map((item: any) => item.description)
+          qualifiers
         ),
       ];
 };

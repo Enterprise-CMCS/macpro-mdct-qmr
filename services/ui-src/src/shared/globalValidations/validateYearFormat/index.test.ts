@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { testFormData } from "measures/2024/shared/globalValidations/testHelpers/_testFormData";
+import { testFormData } from "./../testHelpers/_testFormData";
 import { validateYearFormat } from ".";
 
 /* This validation checks that start and end date years match YYYY format. */

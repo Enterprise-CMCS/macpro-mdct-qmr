@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { validationFunctions } from "./validation";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
 //form type

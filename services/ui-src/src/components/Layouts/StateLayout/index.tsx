@@ -27,7 +27,6 @@ export const StateLayout: React.FC<Props> = ({
     return () => window.removeEventListener("scroll", stickNavbar);
   }, []);
 
-  const singleNavigationItem = breadcrumbItems.length === 1;
   return (
     <>
       <CUI.Box
@@ -41,7 +40,7 @@ export const StateLayout: React.FC<Props> = ({
         className="state-layout-container"
         data-cy="state-layout-container"
       >
-        <CUI.Box bg={singleNavigationItem ? "blue.700" : "blue.100"}>
+        <CUI.Box bg={"blue.100"}>
           <CUI.Flex
             maxW="7xl"
             p="3"
@@ -50,10 +49,7 @@ export const StateLayout: React.FC<Props> = ({
             justifyContent="center"
             flexWrap={{ base: "wrap", lg: "nowrap" }}
           >
-            <QMR.Breadcrumbs
-              items={breadcrumbItems}
-              color={singleNavigationItem ? "white" : "inherit"}
-            />
+            <QMR.Breadcrumbs items={breadcrumbItems} color={"inherit"} />
             {buttons}
           </CUI.Flex>
         </CUI.Box>

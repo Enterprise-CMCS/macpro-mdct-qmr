@@ -5,7 +5,7 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
-import { getPerfMeasureRateArray } from "measures/2024/shared/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 

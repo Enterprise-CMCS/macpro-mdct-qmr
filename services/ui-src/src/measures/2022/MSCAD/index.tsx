@@ -5,7 +5,7 @@ import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
-import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { FormData } from "./types";
 
 export const MSCAD = ({

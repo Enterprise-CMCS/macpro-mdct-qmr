@@ -1,7 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
@@ -27,12 +26,11 @@ export const editCoreSet = handler(async (event, context) => {
   }
 
   const { submitted, status } = JSON.parse(event!.body!);
-  const dynamoKey = createCoreSetKey({ state, year, coreSet });
   const lastAlteredBy = getUserNameFromJwt(event);
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTable!,
     Key: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}`,
       coreSet: coreSet,
     },
     ...convertToDynamoExpression(

@@ -29,7 +29,7 @@ export const MeasureButtons = ({
             disabledStatus={!isStateUser || isLoading}
             buttonText={isLoading ? "Saving" : "Save"}
             buttonProps={{
-              minWidth: "10rem",
+              padding: "0 1.5rem",
               colorScheme: "blue",
               isFullWidth: true,
             }}
@@ -42,9 +42,11 @@ export const MeasureButtons = ({
           icon="print"
           buttonText="Print"
           buttonProps={{
-            minWidth: "10rem",
-            colorScheme: "blue",
+            padding: "0 1.5rem",
             isFullWidth: true,
+            colorScheme: "blue",
+            variant: "outline",
+            color: "blue.500",
           }}
           onClick={window.print}
         />

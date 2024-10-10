@@ -2,6 +2,7 @@ import { data as data2021 } from "../measures/2021/rateLabelText";
 import { data as data2022 } from "../measures/2022/rateLabelText";
 import { data as data2023 } from "../measures/2023/rateLabelText";
 import { data as data2024 } from "../measures/2024/rateLabelText";
+import { data as data2025 } from "../measures/2025/rateLabelText";
 
 type LabelText = { [key: string]: string };
 export interface LabelData {
@@ -16,6 +17,7 @@ const yearMap: { [id: string]: any } = {
   "2022": data2022,
   "2023": data2023,
   "2024": data2024,
+  "2025": data2025,
 };
 
 const addLabelTextData = (acc: LabelText, data: LabelData) => {

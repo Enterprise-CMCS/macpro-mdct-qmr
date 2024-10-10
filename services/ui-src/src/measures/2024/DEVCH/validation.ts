@@ -1,6 +1,6 @@
 import * as PMD from "./data";
 import * as DC from "dataConstants";
-import * as GV from "measures/2024/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
@@ -56,7 +56,7 @@ const DEVCHValidation = (data: FormData) => {
     ...GV.validateHybridMeasurePopulation(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

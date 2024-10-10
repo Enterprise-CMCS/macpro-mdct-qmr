@@ -14,13 +14,7 @@ jest.mock("../../../libs/authorization", () => ({
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
-jest.mock("../../dynamoUtils/createCompoundKey", () => ({
-  __esModule: true,
-  createMeasureKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
-}));
-
 const event = { ...testEvent };
-process.env.measureTableName = "SAMPLE TABLE";
 
 describe("Test Create Measure Handler", () => {
   beforeEach(() => {
@@ -52,7 +46,7 @@ describe("Test Create Measure Handler", () => {
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("sample desc");
     expect(res.body).toContain("sample detailed desc");
-    expect(res.body).toContain("FL2020ACSFUA-AD");
+    expect(res.body).toContain("IN2022ACS");
   });
 
   test("Test Successful Run of Measure Creation without description", async () => {
@@ -62,7 +56,7 @@ describe("Test Create Measure Handler", () => {
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("test");
-    expect(res.body).toContain("FL2020ACSFUA-AD");
+    expect(res.body).toContain("IN2022ACS");
   });
 
   test("Fails with bad request when path params are missing", async () => {

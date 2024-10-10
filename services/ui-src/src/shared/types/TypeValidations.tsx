@@ -12,12 +12,6 @@ export interface FormRateField {
 
 export type locationDictionaryFunction = (labels: string[]) => string;
 
-export interface RateData extends OMS.OmsRateFields {
-  "pcr-rate"?: { id?: number; value?: string; label?: string }[];
-  "iuhh-rate"?: any;
-  "aifhh-rate"?: any;
-}
-
 export interface UnifiedValFuncProps {
   categories?: LabelData[];
   qualifiers?: LabelData[];
@@ -31,7 +25,7 @@ export type UnifiedValidationFunction = (
 ) => FormError[];
 
 export type OmsValidationCallback = (data: {
-  rateData: RateData;
+  rateData: OMS.OmsRateData;
   qualifiers: LabelData[];
   categories: LabelData[];
   label: string[];

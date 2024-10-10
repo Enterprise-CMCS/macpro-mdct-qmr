@@ -1,7 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
-import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,
@@ -42,18 +41,17 @@ export const createCoreSet = handler(async (event, context) => {
       body: Errors.CORESET_ALREADY_EXISTS,
     };
   }
-  const dynamoKey = createCoreSetKey({ state, year, coreSet });
 
   await createDependentMeasures(
     state,
-    parseInt(year),
+    year,
     coreSet as Types.CoreSetAbbr,
     type
   );
 
   // filter out qualifier and account for autocomplete measures on creation
   let autoCompletedMeasures = 0;
-  const measuresLengthWithoutQualifiers = measures[parseInt(year)].filter(
+  const measuresLengthWithoutQualifiers = measures[year].filter(
     (measure: MeasureMetaData) => {
       if (measure.autocompleteOnCreation && measure.type === type) {
         autoCompletedMeasures++;
@@ -68,11 +66,11 @@ export const createCoreSet = handler(async (event, context) => {
   ).length;
 
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTable!,
     Item: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}`,
       state: state,
-      year: parseInt(year),
+      year: year,
       coreSet: coreSet,
       createdAt: Date.now(),
       lastAltered: Date.now(),
@@ -104,12 +102,10 @@ const createDependentMeasures = async (
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
-    // Dynamo only accepts one row as a key, so we are using a combination for the dynamoKey
-    const dynamoKey = `${state}${year}${coreSet}${measureId}`;
     const params = {
-      TableName: process.env.measureTableName!,
+      TableName: process.env.measureTable!,
       Item: {
-        compoundKey: dynamoKey,
+        compoundKey: `${state}${year}${coreSet}`,
         state: state,
         year: year,
         coreSet: coreSet,

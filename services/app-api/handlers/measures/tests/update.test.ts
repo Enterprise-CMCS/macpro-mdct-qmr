@@ -18,18 +18,13 @@ jest.mock("../../../libs/authorization", () => ({
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
-jest.mock("../../dynamoUtils/createCompoundKey", () => ({
-  __esModule: true,
-  createMeasureKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
-}));
-
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   __esModule: true,
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
 const event = { ...testEvent };
-process.env.measureTableName = "SAMPLE TABLE";
+process.env.measureTable = "SAMPLE TABLE";
 
 describe("Test Update Measure Handler", () => {
   beforeEach(() => {
@@ -78,8 +73,8 @@ describe("Test Update Measure Handler", () => {
     const res = await editMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("FL2020ACSFUA-AD");
-    expect(res.body).toContain('"coreSet":"ACS"');
+    expect(res.body).toContain("IN2022ACS");
+    expect(res.body).toContain('"measure":"AAB-AD"');
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
       {
         status: "status",
@@ -93,8 +88,8 @@ describe("Test Update Measure Handler", () => {
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       Key: {
-        compoundKey: "FL2020ACSFUA-AD",
-        coreSet: "ACS",
+        compoundKey: "IN2022ACS",
+        measure: "AAB-AD",
       },
       testValue: "test",
     });
@@ -107,8 +102,8 @@ describe("Test Update Measure Handler", () => {
     const res = await editMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("FL2020ACSFUA-AD");
-    expect(res.body).toContain('"coreSet":"ACS"');
+    expect(res.body).toContain("IN2022ACS");
+    expect(res.body).toContain('"measure":"AAB-AD"');
     expect(convertToDynamoExpression).toHaveBeenCalledWith(
       {
         status: "status",
@@ -122,8 +117,8 @@ describe("Test Update Measure Handler", () => {
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       Key: {
-        compoundKey: "FL2020ACSFUA-AD",
-        coreSet: "ACS",
+        compoundKey: "IN2022ACS",
+        measure: "AAB-AD",
       },
       testValue: "test",
     });

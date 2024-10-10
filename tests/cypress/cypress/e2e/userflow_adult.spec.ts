@@ -1,4 +1,4 @@
-import { measureAbbrList2024, testingYear } from "../../support/constants";
+import { measureAbbrList2025, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
@@ -68,7 +68,7 @@ describe("submit coreset", () => {
     });
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
+    cy.get('[data-cy="Status-AL2025"]').should(
       "contain.text",
       "in progress1 of 33 complete"
     );
@@ -82,7 +82,7 @@ describe("submit coreset", () => {
       waitForAnimations: false,
     });
     cy.wait(4000);
-    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
+    cy.get('[data-cy="Status-AL2025"]').should(
       "contain.text",
       "complete33 of 33 complete"
     );
@@ -97,7 +97,7 @@ describe("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-AL2024' + abbr + '"]').should(
+    cy.get('[data-cy="Status-AL2025"]').should(
       "contain.text",
       "submitted33 of 33 complete"
     );
@@ -120,7 +120,7 @@ describe("Export All Measures", () => {
     cy.get('[aria-label="Export for ' + abbr + '"]').click();
 
     // Check all measures + CSQ present
-    for (const measureAbbr of measureAbbrList2024.ADULT) {
+    for (const measureAbbr of measureAbbrList2025.ADULT) {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");

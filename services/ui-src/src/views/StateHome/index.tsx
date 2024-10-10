@@ -54,7 +54,7 @@ const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
-  const releasedTwentyTwentyFour = useFlags()?.["release2024"];
+  const releasedTwentyTwentyFive = useFlags()?.["release2025"];
   // Certain states do not have separate chip and medicaid so we will not
   // display the Combined Rates button for those states
   const showCombinedRatesButton =
@@ -68,9 +68,9 @@ const ReportingYear = () => {
         }))
       : [{ displayValue: `${year} Core Set`, value: `${year}` }];
 
-  if (!releasedTwentyTwentyFour) {
+  if (!releasedTwentyTwentyFive) {
     reportingyearOptions = reportingyearOptions.filter(
-      (entry) => entry.value !== "2024"
+      (entry) => entry.value !== "2025"
     );
   }
 
@@ -101,7 +101,7 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
-      {year === "2024" && showCombinedRatesButton && (
+      {year! >= "2024" && showCombinedRatesButton && (
         <CUI.Box mt="22px">
           <Link
             to={`/${state}/${year}/combined-rates`}
@@ -152,9 +152,9 @@ const StateHome = () => {
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
   const resetCoreSetMutation = useResetCoreSet();
-  const releasedTwentyTwentyFour = useFlags()?.["release2024"];
+  const releasedTwentyTwentyFive = useFlags()?.["release2025"];
   const { data, error, isLoading } = Api.useGetCoreSets(
-    releasedTwentyTwentyFour
+    releasedTwentyTwentyFive
   );
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();

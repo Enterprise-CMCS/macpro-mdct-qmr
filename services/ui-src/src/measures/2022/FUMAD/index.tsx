@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import * as CMQ from "shared/commonQuestions";
 import * as QMR from "components";
 import * as PMD from "./data";
-import { getPerfMeasureRateArray } from "measures/2022/shared/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { validationFunctions } from "./validation";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";

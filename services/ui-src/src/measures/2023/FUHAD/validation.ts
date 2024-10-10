@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import * as PMD from "./data";
-import * as GV from "../shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
@@ -74,7 +74,7 @@ const FUHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

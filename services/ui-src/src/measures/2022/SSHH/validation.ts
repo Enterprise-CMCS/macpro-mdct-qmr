@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2022/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 

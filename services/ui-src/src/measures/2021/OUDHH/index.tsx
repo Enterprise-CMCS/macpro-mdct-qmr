@@ -4,7 +4,7 @@ import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { validationFunctions } from "./validation";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 

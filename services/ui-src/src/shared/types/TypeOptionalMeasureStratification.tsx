@@ -19,6 +19,34 @@ export interface OmsNode {
 }
 
 export namespace OmsNodes {
+  /**
+   * OMS rate data is shaped differently for certain measures,
+   * with an extra layer of nesting before the rate data, under these keys.
+   */
+  export enum CustomKeys {
+    Aifhh = "aifhh-rate",
+    Iuhh = "iuhh-rate",
+    Pcr = "pcr-rate",
+  }
+
+  export interface OmsRateMap {
+    rates?: {
+      [topKey: string]: {
+        [midKey: string]: {
+          fields: {
+            value?: string;
+          }[];
+        }[];
+      };
+    };
+  }
+
+  export type OmsRateArray = {
+    id?: number;
+    value?: string;
+    label?: string;
+  }[];
+
   export interface OmsRateFields {
     [DC.OPTIONS]?: string[];
     [DC.RATES]?: {
@@ -29,10 +57,45 @@ export namespace OmsNodes {
       };
     };
     [DC.TOTAL]?: RateFields[];
+    [CustomKeys.Aifhh]?: never;
+    [CustomKeys.Iuhh]?: never;
+    [CustomKeys.Pcr]?: never;
   }
 
+  export interface AifOmsNode {
+    rates?: never;
+    [CustomKeys.Aifhh]?: OmsRateMap;
+    [CustomKeys.Iuhh]?: never;
+    [CustomKeys.Pcr]?: never;
+  }
+
+  export interface IuOmsNode {
+    rates?: never;
+    [CustomKeys.Aifhh]?: never;
+    [CustomKeys.Iuhh]?: OmsRateMap;
+    [CustomKeys.Pcr]?: never;
+  }
+
+  export interface PcrOmsNode {
+    rates?: never;
+    [CustomKeys.Aifhh]?: never;
+    [CustomKeys.Iuhh]?: never;
+    [CustomKeys.Pcr]?: OmsRateArray;
+  }
+
+  /*
+   * Note that these types are fairly repetitive, with optional keys as `never`
+   * This is only to appease the typescript spirits, so there are no complaints
+   * when we check for the presence of CustomKeys on the object.
+   */
+  export type OmsRateData =
+    | OmsRateFields // if just ndr sets
+    | AifOmsNode
+    | IuOmsNode
+    | PcrOmsNode;
+
   export interface LowLevelOmsNode {
-    [DC.RATE_DATA]?: OmsRateFields; // if just ndr sets
+    [DC.RATE_DATA]?: OmsRateData;
     [DC.SUB_CAT_OPTIONS]?: string[]; // for additional subCats/add anothers
     [DC.SUB_CATS]?: {
       [DC.DESCRIPTION]?: string;

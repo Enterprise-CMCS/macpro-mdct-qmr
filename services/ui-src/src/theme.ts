@@ -52,7 +52,7 @@ export const theme = extendTheme({
           padding: "0",
           margin: "0",
           _active: {
-            color: "#FFFFFF90",
+            color: "#FFFFFF",
             textDecoration: "underline",
           },
           _hover: {
@@ -65,6 +65,6 @@ export const theme = extendTheme({
   },
   colors: {
     gray: { 50: "#F1F1F1", 300: "#D6D7D9", 500: "#71767A" },
-    blue: { 800: "#112E51" },
+    blue: { 100: "#EEFBFF", 500: "#0071BC", 800: "#00395E" },
   },
 });

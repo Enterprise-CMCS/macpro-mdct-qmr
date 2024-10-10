@@ -55,7 +55,7 @@ const MeasureStatusText = ({
 export const measuresColumns = (
   year: string
 ): TableColumn<MeasureTableItem.Data>[] => {
-  const displayMandatoryColumn = year === "2024";
+  const displayMandatoryColumn = year >= "2024";
   return [
     {
       header: "Abbreviation",

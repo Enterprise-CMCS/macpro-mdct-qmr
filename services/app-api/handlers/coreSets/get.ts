@@ -1,8 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { updateCoreSetProgress } from "../../libs/updateCoreProgress";
-import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
-import { createCoreSetKey } from "../dynamoUtils/createCompoundKey";
 import { createCoreSet } from "./create";
 import {
   hasRolePermissions,
@@ -37,24 +35,22 @@ export const coreSetList = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const params = {
-    TableName: process.env.coreSetTableName!,
-    ...convertToDynamoExpression(
-      {
-        state: state,
-        year: parseInt(year),
-      },
-      "list"
-    ),
+    TableName: process.env.coreSetTable!,
+    KeyConditionExpression: "compoundKey = :compoundKey",
+    ExpressionAttributeValues: {
+      ":compoundKey": `${state}${year}`,
+    },
   };
 
-  // using coreSetByYear to see if it's a year that should have
-  // coresets generated from login
+  // using coreSetByYear to see if it's a year that should have coresets generated from login
   const coreSetsByYear = coreSets[
     year as keyof typeof coreSets
   ] as CoreSetField[];
-  let results = await dynamoDb.scanAll<CoreSet>(params);
 
-  const filteredCoreSets = coreSetsByYear.filter((coreSet) => {
+  let results = await dynamoDb.queryAll<CoreSet>(params);
+
+  // Find all the coresets that exist in coreSetsByYear but do not exist in the db
+  const missingCoreSets = coreSetsByYear.filter((coreSet) => {
     const matchedCoreSet = results.find((existingCoreSet: CoreSet) =>
       coreSet.abbr.includes(existingCoreSet.coreSet)
     );
@@ -64,30 +60,32 @@ export const coreSetList = handler(async (event, context) => {
     );
   });
 
-  // check if any coresets should be preloaded and requery the db
-  for (const coreSet of filteredCoreSets) {
-    for (const abbr of coreSet.abbr) {
-      let createCoreSetEvent = {
-        ...event,
-        pathParameters: {
-          ...event.pathParameters,
-          coreSet: abbr,
-        },
-      };
-      const createCoreSetResult = await createCoreSet(
-        createCoreSetEvent,
-        context
-      );
-
-      if (createCoreSetResult.statusCode !== 200) {
-        return {
-          status: StatusCodes.SERVER_ERROR,
-          body: "Creation failed",
+  // If any missing coreSets are found, create said missing coresets and re-query the db
+  if (missingCoreSets.length > 0) {
+    for (const coreSet of missingCoreSets) {
+      for (const abbr of coreSet.abbr) {
+        let createCoreSetEvent = {
+          ...event,
+          pathParameters: {
+            ...event.pathParameters,
+            coreSet: abbr,
+          },
         };
+        const createCoreSetResult = await createCoreSet(
+          createCoreSetEvent,
+          context
+        );
+
+        if (createCoreSetResult.statusCode !== 200) {
+          return {
+            status: StatusCodes.SERVER_ERROR,
+            body: "Creation failed",
+          };
+        }
       }
     }
+    results = await dynamoDb.queryAll<CoreSet>(params);
   }
-  results = await dynamoDb.scanAll<CoreSet>(params);
 
   // Update the progress measure numComplete
   await updateCoreSetProgress(results, event, context);
@@ -121,11 +119,10 @@ export const getCoreSet = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const dynamoKey = createCoreSetKey({ state, year, coreSet });
   const params = {
-    TableName: process.env.coreSetTableName!,
+    TableName: process.env.coreSetTable!,
     Key: {
-      compoundKey: dynamoKey,
+      compoundKey: `${state}${year}`,
       coreSet: coreSet,
     },
   };

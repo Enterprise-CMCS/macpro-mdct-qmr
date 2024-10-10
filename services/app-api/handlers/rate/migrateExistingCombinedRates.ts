@@ -20,7 +20,7 @@ export const main = async () => {
     logger.info("Scanning for existing combined rates");
 
     const allExistingRates = await dynamodbLib.scanAll<any>({
-      TableName: process.env.rateTableName,
+      TableName: process.env.rateTable,
     });
     logger.info(`Found ${allExistingRates.length} existing rates`);
 

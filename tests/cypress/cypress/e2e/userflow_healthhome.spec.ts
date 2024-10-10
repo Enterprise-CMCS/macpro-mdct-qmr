@@ -1,4 +1,4 @@
-import { measureAbbrList2024, testingYear } from "../../support/constants";
+import { measureAbbrList2025, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for healthhome core set
@@ -17,7 +17,7 @@ describe(`healthhome core set workflow test`, () => {
   });
 });
 
-// fill out a measure for 2024
+// fill out a measure for 2025
 describe("Measure: AMB-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
@@ -66,7 +66,7 @@ describe.skip("submit coreset", () => {
     cy.get('[aria-label="Reset All Measures for HHCS_15-014"]').click();
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-CT2024HHCS_15-014"]').should(
+    cy.get('[data-cy="Status-CT2025HHCS_15-014"]').should(
       "contain.text",
       "not started0 of 13 complete"
     );
@@ -76,7 +76,7 @@ describe.skip("submit coreset", () => {
     cy.get('[data-cy="health home-kebab-menu"]').click();
     cy.get('[aria-label="Complete All Measures for HHCS_15-014"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-CT2024HHCS_15-014"]').should(
+    cy.get('[data-cy="Status-CT2025HHCS_15-014"]').should(
       "contain.text",
       "complete13 of 13 complete"
     );
@@ -91,7 +91,7 @@ describe.skip("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-CT2024HHCS_15-014"]').should(
+    cy.get('[data-cy="Status-CT2025HHCS_15-014"]').should(
       "contain.text",
       "submitted13 of 13 complete"
     );
@@ -124,14 +124,14 @@ describe("Export All Measures", () => {
     });
 
     // Check all measures + CSQ present
-    for (const measureAbbr of measureAbbrList2024.HEALTH_HOME) {
+    for (const measureAbbr of measureAbbrList2025.HEALTH_HOME) {
       cy.get(`#${measureAbbr}`).should("be.visible");
     }
     cy.get("#CSQ").should("be.visible");
   });
 });
 
-//some features have been removed from 2024 but we should still test for 2023
+//some features have been removed from 2025 but we should still test for 2023
 describe("Test uploading a file", () => {
   beforeEach(() => {
     cy.loginHealthHome();

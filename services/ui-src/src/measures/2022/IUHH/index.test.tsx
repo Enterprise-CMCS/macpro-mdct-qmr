@@ -14,7 +14,7 @@ import {
   mockValidateAndSetErrors,
   clearMocks,
   validationsMockObj as V,
-} from "measures/2022/shared/util/validationsMock";
+} from "shared/util/validationsMock";
 import { axe, toHaveNoViolations } from "jest-axe";
 expect.extend(toHaveNoViolations);
 
@@ -28,6 +28,11 @@ const apiData: any = {};
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
+
+jest.mock("utils/getLabelText", () => ({
+  ...jest.requireActual("utils/getLabelText"),
+  isLegacyLabel: () => true,
+}));
 
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
   let component: JSX.Element;

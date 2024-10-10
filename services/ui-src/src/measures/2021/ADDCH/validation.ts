@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2021/globalValidations";
+import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
-import { getPerfMeasureRateArray } from "../globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
