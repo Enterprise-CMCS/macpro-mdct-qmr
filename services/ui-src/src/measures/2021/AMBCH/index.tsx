@@ -1,7 +1,7 @@
 import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { getPerfMeasureRateArray } from "measures/2021/globalValidations";
+import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";

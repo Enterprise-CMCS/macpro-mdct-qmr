@@ -1,8 +1,15 @@
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const {
+  S3Client,
+  PutObjectCommand,
+  ListObjectsV2Command,
+  DeleteObjectsCommand,
+} = require("@aws-sdk/client-s3");
 const { handler } = require("../libs/handler-lib");
 const { scanAll } = require("../libs/dynamodb-lib");
 const { flatten } = require("flat");
 const { parseAsync } = require("json2csv");
+
+const client = new S3Client({ region: "us-east-1" });
 
 const arrayToCsv = async (scanResult) => {
   const flattenedResults = scanResult.map((item) => flatten(item));
@@ -11,7 +18,6 @@ const arrayToCsv = async (scanResult) => {
 };
 
 const uploadFileToS3 = async (filePath, scanResult) => {
-  const client = new S3Client({ region: "us-east-1" });
   const uploadParams = {
     Bucket: process.env.dynamoSnapshotS3BucketName,
     Key: filePath,
@@ -25,11 +31,71 @@ const uploadFileToS3 = async (filePath, scanResult) => {
   }
 };
 
+const cleanupFolders = async () => {
+  const paths = ["CSVmeasures", "CSVcoreSet", "CSVrate"];
+
+  for (const folder of paths) {
+    const path = `coreSetData/${folder}/`;
+    const params = {
+      Bucket: process.env.dynamoSnapshotS3BucketName,
+      Prefix: path,
+      MaxKeys: 1000, // Limited by 1000 per delete
+    };
+    const response = await client.send(new ListObjectsV2Command(params));
+    const files = response.Contents.map((file) => file.Key);
+
+    const cutOffDate = new Date();
+    cutOffDate.setDate(cutOffDate.getDate() - 7);
+
+    const outdated = files.filter((file) => {
+      const dateString = file.split("/").pop().slice(0, -4);
+      return new Date(parseInt(dateString)) < cutOffDate;
+    });
+
+    if (outdated.length <= 0) continue;
+    const deleteParams = {
+      Bucket: process.env.dynamoSnapshotS3BucketName,
+      Delete: {
+        Objects: outdated.map((file) => ({ Key: file })),
+      },
+    };
+    await client.send(new DeleteObjectsCommand(deleteParams));
+  }
+};
+
 const syncDynamoToS3 = handler(async (_event, _context) => {
   console.log("Syncing Dynamo to Uploads");
-  const measureResults = await scanAll(process.env.measureTableName);
-  const coreSetResults = await scanAll(process.env.coreSetTableName);
-  const rateResults = await scanAll(process.env.rateTableName);
+  let measureResults = await scanAll(process.env.measureTable);
+  let coreSetResults = await scanAll(process.env.coreSetTable);
+  let rateResults = await scanAll(process.env.rateTable);
+
+  // TODO: We currently have to account for legacy compound keys for the measure, coreSet and
+  // rate tables until changes are made on the consumer end. We will be able to remove these
+  // result reassigments (lines 38-61) once the proper updates are made on the consumer end.
+  measureResults = measureResults.map((measureResult) => {
+    const { state, year, coreSet, measure } = measureResult;
+    const legacyCompoundKey = `${state}${year}${coreSet}${measure}`;
+    return {
+      ...measureResult,
+      compoundKey: legacyCompoundKey,
+    };
+  });
+  coreSetResults = coreSetResults.map((coreSetResult) => {
+    const { state, year, coreSet } = coreSetResult;
+    const legacyCompoundKey = `${state}${year}${coreSet}`;
+    return {
+      ...coreSetResult,
+      compoundKey: legacyCompoundKey,
+    };
+  });
+  rateResults = rateResults.map((rateResult) => {
+    const { state, year, coreSet, measure } = rateResult;
+    const legacyCompoundKey = `${state}${year}${coreSet}${measure}`;
+    return {
+      ...rateResult,
+      compoundKey: legacyCompoundKey,
+    };
+  });
 
   const measureCsv = await arrayToCsv(measureResults);
   await uploadFileToS3(`coreSetData/CSVmeasures/${Date.now()}.csv`, measureCsv);
@@ -54,6 +120,8 @@ const syncDynamoToS3 = handler(async (_event, _context) => {
     JSON.stringify(rateResults)
   );
   console.log("Uploaded rate file to s3");
+
+  await cleanupFolders();
 });
 
 module.exports = {

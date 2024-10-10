@@ -12,7 +12,7 @@ import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   get: jest.fn().mockResolvedValue("single measure"),
-  scanAll: jest
+  queryAll: jest
     .fn()
     .mockResolvedValue([{ measure: "CSQ" }, { measure: "LBW-CH" }]),
 }));
@@ -25,18 +25,13 @@ jest.mock("../../../libs/authorization", () => ({
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
-jest.mock("../../dynamoUtils/createCompoundKey", () => ({
-  __esModule: true,
-  createMeasureKey: jest.fn().mockReturnValue("FL2020ACSFUA-AD"),
-}));
-
 jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
   __esModule: true,
   convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
 const event = { ...testEvent };
-process.env.measureTableName = "SAMPLE TABLE";
+process.env.measureTable = "SAMPLE TABLE";
 
 describe("Test Get Measure Handlers", () => {
   beforeEach(() => {
@@ -67,8 +62,8 @@ describe("Test Get Measure Handlers", () => {
     expect(dbLib.get).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       Key: {
-        compoundKey: "FL2020ACSFUA-AD",
-        coreSet: "ACS",
+        compoundKey: "IN2022ACS",
+        measure: "AAB-AD",
       },
     });
   });
@@ -118,9 +113,12 @@ describe("Test Get Measure Handlers", () => {
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("CSQ");
     expect(res.body).toContain("LBW-CH");
-    expect(dbLib.scanAll).toHaveBeenCalledWith({
+    expect(dbLib.queryAll).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
-      testValue: "test",
+      KeyConditionExpression: "compoundKey = :compoundKey",
+      ExpressionAttributeValues: {
+        ":compoundKey": "FL2021ACS",
+      },
     });
   });
 
@@ -151,7 +149,7 @@ describe("Test Get Measure Handlers", () => {
 
     const res = await getReportingYears(event, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toBe('["2021","2022","2023","2024"]');
+    expect(res.body).toBe('["2021","2022","2023","2024","2025"]');
   });
 
   test("Test getMeasureListInfo works when called with an empty object", async () => {

@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2024/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
@@ -42,8 +42,6 @@ const AIFHHValidation = (data: FormData) => {
   OPM = data[DC.OPM_RATES];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
-  console.log("OPM", OPM);
-
   if (data[DC.DID_REPORT] === DC.NO) {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
@@ -71,7 +69,7 @@ const AIFHHValidation = (data: FormData) => {
     // Performance Measure Validations
     ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
     ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrFormulas),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),
@@ -101,22 +99,25 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
   rateData,
   locationDictionary,
   label,
+  qualifiers,
 }) => {
   return OPM === undefined
     ? [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
+          false,
           ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
-          OPM.map((item: any) => item.description)
+          qualifiers
         ),
       ]
     : [
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
+          true,
           ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
-          OPM.map((item: any) => item.description)
+          qualifiers
         ),
       ];
 };

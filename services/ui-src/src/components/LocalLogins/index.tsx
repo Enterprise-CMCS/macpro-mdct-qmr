@@ -70,14 +70,16 @@ interface Props {
 
 export const LocalLogins = ({ loginWithIDM }: Props) => {
   return (
-    <CUI.Container maxW="sm" h="full" my="auto">
-      <CUI.Box textAlign="center" mb="6">
-        <CUI.Heading mb="2" size="md" alignSelf="center">
-          Developer Login{" "}
+    <CUI.Container maxW="sm">
+      <CUI.Box textAlign="center">
+        <CUI.Heading as="h1" size="xl" marginY={"6rem"}>
+          Quality Measure Reporting
         </CUI.Heading>
-        <CUI.Divider />
       </CUI.Box>
       <CUI.Stack spacing={8}>
+        <CUI.Heading mb="2" size="md" alignSelf="center">
+          Log In with IDM
+        </CUI.Heading>
         <CUI.Button colorScheme="teal" onClick={loginWithIDM} isFullWidth>
           Login with IDM
         </CUI.Button>

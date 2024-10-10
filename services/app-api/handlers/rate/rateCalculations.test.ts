@@ -2,7 +2,7 @@ import {
   getMeasureFromTable,
   putCombinedRatesToTable,
 } from "../../storage/table";
-import { MeasureParameters } from "../../types";
+import { RateParameters } from "../../types";
 import { calculateAndPutRate } from "./rateCalculations";
 
 jest.mock("../../storage/table", () => ({
@@ -21,15 +21,15 @@ describe("Combined Rate Calculations", () => {
   });
 
   it("Should not calculate a combined rate for core sets that are already combined", async () => {
-    await calculateAndPutRate({ coreSet: "ACS" } as MeasureParameters);
-    await calculateAndPutRate({ coreSet: "CCS" } as MeasureParameters);
-    await calculateAndPutRate({ coreSet: "HHCS" } as MeasureParameters);
+    await calculateAndPutRate({ coreSet: "ACS" } as RateParameters);
+    await calculateAndPutRate({ coreSet: "CCS" } as RateParameters);
+    await calculateAndPutRate({ coreSet: "HHCS" } as RateParameters);
 
     expect(getMeasureFromTable).not.toHaveBeenCalled();
   });
 
   it("Should calculate combined rates for separated child core sets", async () => {
-    await calculateAndPutRate({ coreSet: "CCSM" } as MeasureParameters);
+    await calculateAndPutRate({ coreSet: "CCSM" } as RateParameters);
 
     expect(getMeasureFromTable).toHaveBeenCalledWith(
       expect.objectContaining({ coreSet: "CCSM" })
@@ -44,7 +44,7 @@ describe("Combined Rate Calculations", () => {
   });
 
   it("Should calculate combined rates for separated asult core sets", async () => {
-    await calculateAndPutRate({ coreSet: "ACSC" } as MeasureParameters);
+    await calculateAndPutRate({ coreSet: "ACSC" } as RateParameters);
 
     expect(getMeasureFromTable).toHaveBeenCalledWith(
       expect.objectContaining({ coreSet: "ACSM" })

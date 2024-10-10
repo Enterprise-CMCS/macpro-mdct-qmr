@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { testFormData } from "measures/2024/shared/globalValidations/testHelpers/_testFormData";
+import { testFormData } from "./../testHelpers/_testFormData";
 import { validateOPMRates } from ".";
 
 describe("OPM Validation", () => {
@@ -25,6 +25,9 @@ describe("OPM Validation", () => {
     formData[DC.OPM_RATES][0][DC.DESCRIPTION] = "";
     formData[DC.OPM_RATES][1][DC.DESCRIPTION] = "";
     const errorArray = run_validation(formData);
-    expect(errorArray.length).toBe(0);
+    expect(errorArray.length).toBe(1);
+    expect(
+      errorArray.some((e) => e.errorMessage.includes("Rate name required"))
+    );
   });
 });

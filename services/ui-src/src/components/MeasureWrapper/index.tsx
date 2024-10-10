@@ -147,7 +147,9 @@ export const MeasureWrapper = ({
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
   const shared: AnyObject = {
-    ...Labels[`CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024"],
+    ...Labels[
+      `CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024" | "CQ2025"
+    ],
     year: year,
   };
 

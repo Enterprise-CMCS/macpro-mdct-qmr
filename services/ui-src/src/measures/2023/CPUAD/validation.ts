@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2023/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
@@ -49,7 +49,7 @@ const CPUADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     ...GV.validateAtLeastOneDataSourceType(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

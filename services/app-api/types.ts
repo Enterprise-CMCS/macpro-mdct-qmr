@@ -172,17 +172,11 @@ export enum MeasurementSpecificationType {
   TheJointCommission = "TheJointCommission",
 }
 
-export interface MeasureParameters {
+export interface RateParameters {
   state: string;
-  year: string;
+  year: number;
   coreSet: string;
   measure: string;
-}
-
-export interface CoreSetParameters {
-  state: string;
-  year: string;
-  coreSet: string;
 }
 
 /** This type subject to change, if/when we move to a multi-banner system. */
