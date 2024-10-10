@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import IdleTimer from "react-idle-timer";
+import { useIdleTimer } from "react-idle-timer";
 import * as CUI from "@chakra-ui/react";
 import { useFormContext } from "react-hook-form";
 import { useUser } from "hooks/authHooks";
@@ -13,7 +13,6 @@ export const SessionTimeout = ({ handleSave }: Props) => {
   const { getValues } = useFormContext();
   const { logout } = useUser();
 
-  let idleTimer: any = useRef(null);
   let logoutTimer: any = useRef(null);
 
   const onIdle = () => {
@@ -34,19 +33,15 @@ export const SessionTimeout = ({ handleSave }: Props) => {
     setShowModal(false);
   };
 
+  const idleTimer = useIdleTimer({
+    onIdle,
+    stopOnIdle: true,
+    timeout: 1000 * 60 * 55, // 55 mins
+    debounce: 500,
+  });
+
   return (
     <>
-      <IdleTimer
-        ref={(ref: any) => {
-          idleTimer = ref;
-        }}
-        element={document}
-        stopOnIdle
-        onIdle={onIdle}
-        timeout={1000 * 60 * 55} // 55 mins
-        debounce={500}
-      />
-
       <CUI.Modal isOpen={showModal} onClose={() => {}}>
         <CUI.ModalOverlay />
         <CUI.ModalContent>
