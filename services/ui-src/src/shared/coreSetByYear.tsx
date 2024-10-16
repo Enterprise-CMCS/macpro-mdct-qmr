@@ -1,5 +1,6 @@
 import { SPA } from "libs/spaLib";
 import { AnyObject, CoreSetAbbr } from "types";
+import { featuresByYear } from "utils/featuresByYear";
 
 export type CoreSetType = "coreSet" | "text";
 
@@ -34,12 +35,12 @@ export const coreSetType = (abbr: string) => {
   return;
 };
 
-export const coreSetSubTitles = (year: string, abbr: string) => {
+export const coreSetSubTitles = (abbr: string) => {
   let lastChar = abbr[abbr.length - 1];
   let coreType = coreSetType(abbr) || "";
   let list: AnyObject = {};
   //using the last char of the abbr, we can determine if there's a subtitle
-  if (parseInt(year) <= 2023) {
+  if (!featuresByYear.uniqueCoreSetTitles) {
     list = {
       C: "Chip",
       M: "Medicaid",
@@ -60,18 +61,18 @@ export const coreSetSubTitles = (year: string, abbr: string) => {
   return list[lastChar] || "";
 };
 
-export const coreSetTitles = (year: string, abbr: string, type?: string) => {
-  const subTitle = coreSetSubTitles(year, abbr);
+export const coreSetTitles = (abbr: string, type?: string) => {
+  const subTitle = coreSetSubTitles(abbr);
   const subType = type || "Measures";
   let name = `${coreSetType(abbr)} Core Set ${subType}`;
   return subTitle ? `${name}: ${subTitle}` : name;
 };
 
 //seperated coresets have unique titles for their breadcrumb menu. this is only for 2024 and onward
-export const coreSetBreadCrumbTitle = (
-  year: string
-): { [key: string]: string } | undefined => {
-  if (parseInt(year) >= 2024)
+export const coreSetBreadCrumbTitle = ():
+  | { [key: string]: string }
+  | undefined => {
+  if (featuresByYear.uniqueCoreSetTitles)
     return {
       [CoreSetAbbr.ACSC]: "(Separate CHIP)",
       [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
