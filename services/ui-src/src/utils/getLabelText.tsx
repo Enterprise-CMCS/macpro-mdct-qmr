@@ -3,6 +3,7 @@ import { data as data2022 } from "../measures/2022/rateLabelText";
 import { data as data2023 } from "../measures/2023/rateLabelText";
 import { data as data2024 } from "../measures/2024/rateLabelText";
 import { data as data2025 } from "../measures/2025/rateLabelText";
+import { featuresByYear } from "./featuresByYear";
 
 type LabelText = { [key: string]: string };
 export interface LabelData {
@@ -42,8 +43,5 @@ export const getLabelText = (): { [key: string]: string } => {
 
 //pre-2023, the system was using string types for categories & qualifiers. we want to be able to identify it as it determines our data structure for those years
 export const isLegacyLabel = () => {
-  const { pathname } = window.location;
-  const params = pathname.split("/");
-  const year = Number(params[2]);
-  return year < 2023;
+  return featuresByYear.hasQualCatLabels;
 };

@@ -5,9 +5,14 @@ import fireEvent from "@testing-library/user-event";
 import SharedContext from "shared/SharedContext";
 import commonQuestionsLabel2022 from "labels/2022/commonQuestionsLabel";
 import commonQuestionsLabel2024 from "labels/2024/commonQuestionsLabel";
+import { getMeasureYear } from "utils/getMeasureYear";
+
+jest.mock("../../utils/getMeasureYear");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 describe("DateRange component, adult", () => {
   beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2024);
     renderWithHookForm(
       <SharedContext.Provider
         value={{ ...commonQuestionsLabel2024, year: "2024" }}
@@ -126,6 +131,7 @@ describe("DateRange component, Health Home", () => {
 
 describe("DateRange component renders correctly for < 2023", () => {
   beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2022);
     renderWithHookForm(
       <SharedContext.Provider
         value={{ ...commonQuestionsLabel2022, year: "2022" }}

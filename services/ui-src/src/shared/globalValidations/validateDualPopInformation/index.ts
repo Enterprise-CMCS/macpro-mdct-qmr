@@ -1,21 +1,17 @@
 import * as DC from "dataConstants";
 import { FormRateField } from "shared/types/TypeValidations";
-import { getMeasureYear } from "utils/getMeasureYear";
+import { featuresByYear } from "utils/featuresByYear";
 
-export const getLabels = (year: number, errorReplacementText: string) => {
-  switch (year) {
-    case 2021:
-    case 2022:
-    case 2023:
-      return {
-        checkmarkWarning: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
-        missingDataWarning: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
-      };
-    default:
-      return {
-        missingDataWarning: `"Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for ${errorReplacementText}`,
-      };
+export const getLabels = (errorReplacementText: string) => {
+  if (featuresByYear.displayCheckmarkWarning) {
+    return {
+      checkmarkWarning: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
+      missingDataWarning: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
+    };
   }
+  return {
+    missingDataWarning: `"Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for ${errorReplacementText}`,
+  };
 };
 
 export const validateDualPopInformationPM = (
@@ -29,8 +25,7 @@ export const validateDualPopInformationPM = (
     return [];
   }
 
-  const year = getMeasureYear();
-  const labels = getLabels(year, errorReplacementText);
+  const labels = getLabels(errorReplacementText);
 
   const dualEligible = DefinitionOfDenominator
     ? DefinitionOfDenominator.indexOf(

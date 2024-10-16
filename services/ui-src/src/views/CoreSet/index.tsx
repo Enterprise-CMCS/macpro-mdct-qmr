@@ -20,6 +20,7 @@ import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
 import { Alert } from "@cmsgov/design-system";
 import { parseLabelToHTML } from "utils";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -92,7 +93,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetTitles(year!, coreSetInfo[0], "Questions") + spaName}
+          {coreSetTitles(coreSetInfo[0], "Questions") + spaName}
         </CUI.Text>
       </Link>
 
@@ -326,19 +327,20 @@ export const CoreSet = () => {
         { path: `/${state}/${year}`, name: `FFY ${year}` },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: coreSetTitles(year, coreSet[0]) + spaName,
+          name: coreSetTitles(coreSet[0]) + spaName,
         },
       ]}
     >
-      {Number(year) >= 2024 && coreSetInstructions[coreSetPrefix] && (
-        <CUI.Box mb="8">
-          <Alert heading="Mandatory Reporting">
-            <CUI.Text sx={{ "& a": { textDecoration: "underline" } }}>
-              {parseLabelToHTML(coreSetInstructions[coreSetPrefix])}
-            </CUI.Text>
-          </Alert>
-        </CUI.Box>
-      )}
+      {featuresByYear.hasMandatoryReporting &&
+        coreSetInstructions[coreSetPrefix] && (
+          <CUI.Box mb="8">
+            <Alert heading="Mandatory Reporting">
+              <CUI.Text sx={{ "& a": { textDecoration: "underline" } }}>
+                {parseLabelToHTML(coreSetInstructions[coreSetPrefix])}
+              </CUI.Text>
+            </Alert>
+          </CUI.Box>
+        )}
       <QMR.UpdateInfoModal
         closeModal={closeModal}
         handleModalResponse={handleModalResponse}

@@ -21,6 +21,7 @@ import { coreSets, CoreSetField } from "shared/coreSetByYear";
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { Link } from "react-router-dom";
 import { statesWithoutCombinedRates } from "utils";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface HandleDeleteData {
   state: string;
@@ -101,7 +102,7 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
-      {year! >= "2024" && showCombinedRatesButton && (
+      {featuresByYear.hasCombinedRates && showCombinedRatesButton && (
         <CUI.Box mt="22px">
           <Link
             to={`/${state}/${year}/combined-rates`}

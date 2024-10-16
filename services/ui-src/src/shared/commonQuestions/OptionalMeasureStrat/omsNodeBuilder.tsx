@@ -8,6 +8,7 @@ import { SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./NDR/ndrSets";
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -101,12 +102,12 @@ const renderRadioButtonOptions = ({
   omsNode,
   name,
   label,
-  year,
 }: ChildCheckBoxOptionProps) => {
   //this was the legacy way of displaying the sub categories
-  const flagYesSubCat = year! <= 2022 && !!omsNode?.flagSubCat;
+  const flagYesSubCat =
+    featuresByYear.hasQualCatLabels && !!omsNode?.flagSubCat;
   //in 2023, we moved the sub categories to the no option and changed the yes
-  const flagNoSubCat = year! >= 2023;
+  const flagNoSubCat = !featuresByYear.hasQualCatLabels;
 
   return [
     {
@@ -130,7 +131,6 @@ const buildChildCheckboxOption = ({
   omsNode,
   name,
   label,
-  year,
 }: ChildCheckBoxOptionProps) => {
   let children = [];
   const id = omsNode?.id ? cleanString(omsNode.id) : "ID_NOT_SET";
@@ -146,7 +146,7 @@ const buildChildCheckboxOption = ({
       <QMR.RadioButton
         name={`${name}.aggregate`}
         key={`${name}.aggregate`}
-        options={renderRadioButtonOptions({ omsNode, name, label, year })}
+        options={renderRadioButtonOptions({ omsNode, name, label })}
         label={label?.checkboxOpt}
       />,
     ];
@@ -183,7 +183,6 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
               omsNode: lvlTwoOption,
               name: `${props.name}.selections.${cleanedId}`,
               label: labels,
-              year: props.year,
             });
           }),
         ]}
