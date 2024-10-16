@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { useUser } from "hooks/authHooks";
 import { CoreSetAbbr } from "types";
+import { getMeasureYear } from "utils/getMeasureYear";
 expect.extend(toHaveNoViolations);
 
 const queryClient = new QueryClient();
@@ -15,6 +16,9 @@ const queryClient = new QueryClient();
 const mockedNavigate = jest.fn();
 
 const mockUseParams = useParams as jest.Mock;
+
+jest.mock("../../../utils/getMeasureYear");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
   if (typeof options?.onSuccess === "function") return options.onSuccess();
@@ -120,6 +124,7 @@ describe("Test 2023 state without health home core sets", () => {
 describe("Test StateHome 2024", () => {
   beforeEach(() => {
     mockUseUser.mockImplementation(() => useUser);
+    mockGetMeasureYear.mockReturnValue(2024);
     mockUseParams.mockReturnValue({
       year: "2024",
       state: "IN",
