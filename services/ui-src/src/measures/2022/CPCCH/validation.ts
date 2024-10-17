@@ -1,5 +1,5 @@
 import { FormData } from "./types";
-import { validateReasonForNotReporting } from "measures/2022/shared/globalValidations";
+import { validateReasonForNotReporting } from "shared/globalValidations";
 import * as DC from "dataConstants";
 
 const CPCCHValidation = (data: FormData) => {

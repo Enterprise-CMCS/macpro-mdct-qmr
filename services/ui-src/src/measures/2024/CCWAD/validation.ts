@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2024/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
@@ -47,7 +47,7 @@ const CCWADValidation = (data: FormData) => {
     ...GV.validateOPMRates(OPM),
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

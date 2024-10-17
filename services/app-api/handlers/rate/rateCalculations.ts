@@ -6,7 +6,7 @@ import {
   CoreSetAbbr,
   isCoreSetAbbr,
   Measure,
-  MeasureParameters,
+  RateParameters,
 } from "../../types";
 import { collectDataSources } from "./dataSourceAnalysis";
 import { combineRates } from "./rateNDRCalculations";
@@ -19,9 +19,7 @@ import { calculateAdditionalValues } from "./rateValueCalculations";
  * 3. Perform all calculations
  * 4. Store the results to the Rates table
  */
-export const calculateAndPutRate = async (
-  pathParameters: MeasureParameters
-) => {
+export const calculateAndPutRate = async (pathParameters: RateParameters) => {
   const { coreSet, measure } = pathParameters;
   if (!isCoreSetAbbr(coreSet)) {
     return;

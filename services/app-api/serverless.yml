@@ -46,6 +46,9 @@ custom:
   coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
   coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableStreamArn}
   measureTableName: ${env:measureTableName, param:MeasureTableName}
+  measureTable: ${env:measureTable, param:MeasureTable}
+  coreSetTable: ${env:coreSetTable, param:CoreSetTable}
+  rateTable: ${env:rateTable, param:RateTable}
   measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:MeasureTableStreamArn}
   rateTableName: ${env:rateTableName, param:RateTableName}
   rateTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:RateTableStreamArn}
@@ -101,6 +104,9 @@ provider:
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
+    measureTable: ${self:custom.measureTable}
+    coreSetTable: ${self:custom.coreSetTable}
+    rateTable: ${self:custom.rateTable}
     rateTableName: ${self:custom.rateTableName}
     bannerTableName: ${self:custom.bannerTableName}
     stage: ${opt:stage, self:provider.stage}

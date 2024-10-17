@@ -1,51 +1,55 @@
 import dynamoDb from "../libs/dynamodb-lib";
 import * as Types from "../types";
-import { MeasureParameters, CombinedRatesPayload } from "../types";
+import { RateParameters, CombinedRatesPayload } from "../types";
 
-export const getMeasureFromTable = async (parameters: MeasureParameters) => {
+export const getMeasureFromTable = async (parameters: RateParameters) => {
   const { state, year, coreSet, measure } = parameters;
   return await dynamoDb.get<Types.Measure>({
-    TableName: process.env.measureTableName,
+    TableName: process.env.measureTable,
     Key: {
-      compoundKey: `${state}${year}${coreSet}${measure}`,
-      coreSet: coreSet,
+      compoundKey: `${state}${year}${coreSet}`,
+      measure: measure,
     },
   });
 };
 
 export const putCombinedRatesToTable = async (
-  parameters: MeasureParameters,
+  parameters: RateParameters,
   combinedRates: CombinedRatesPayload
 ) => {
   const { year, state, coreSet, measure } = parameters;
   await dynamoDb.update({
-    TableName: process.env.rateTableName!,
+    TableName: process.env.rateTable!,
     Key: {
-      compoundKey: `${state}${year}${coreSet}${measure}`,
+      compoundKey: `${state}${year}${coreSet}`,
       measure,
     },
-    UpdateExpression: `SET #lastAltered=:lastAltered, #data=:data, #state=:state`,
+    UpdateExpression: `SET #lastAltered=:lastAltered, #data=:data, #state=:state, #year=:year, #coreSet=:coreSet`,
     ExpressionAttributeNames: {
       "#lastAltered": "lastAltered",
       "#data": "data",
       "#state": "state",
+      "#year": "year",
+      "#coreSet": "coreSet",
     },
     ExpressionAttributeValues: {
       ":lastAltered": Date.now(),
       ":data": combinedRates,
       ":state": state,
+      ":year": year,
+      ":coreSet": coreSet,
     },
   });
 };
 
 export const getCombinedRatesFromTable = async (
-  parameters: MeasureParameters
+  parameters: RateParameters
 ): Promise<CombinedRatesPayload> => {
   const { year, state, coreSet, measure } = parameters;
   const queryValue = await dynamoDb.get({
-    TableName: process.env.rateTableName!,
+    TableName: process.env.rateTable!,
     Key: {
-      compoundKey: `${state}${year}${coreSet}${measure}`,
+      compoundKey: `${state}${year}${coreSet}`,
       measure,
     },
   });

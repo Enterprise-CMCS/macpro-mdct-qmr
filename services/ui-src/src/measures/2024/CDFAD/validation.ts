@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import * as GV from "measures/2024/shared/globalValidations";
+import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
@@ -67,7 +67,7 @@ const CDFADValidation = (data: FormData) => {
         GV.validateRateNotZeroOMS(),
       ],
     }),
-    ...GV.validateAtLeastOneDeviationFieldFilled(
+    ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),

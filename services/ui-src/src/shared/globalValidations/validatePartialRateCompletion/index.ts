@@ -9,6 +9,7 @@ import {
   OmsValidationCallback,
 } from "../../types/TypeValidations";
 import { LabelData } from "utils";
+import { OmsNodes as OMS } from "shared/types";
 
 type ErrorMessageFunc = (
   multipleQuals: boolean,
@@ -118,7 +119,7 @@ const _singleValueValidation = ({
 
 export const validatePartialRateCompletionOMS =
   (
-    singleValueFieldFlag?: "iuhh-rate" | "aifhh-rate",
+    singleValueFieldFlag?: OMS.CustomKeys.Aifhh | OMS.CustomKeys.Iuhh,
     errorMessageFunc?: ErrorMessageFunc
   ): OmsValidationCallback =>
   ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
@@ -131,8 +132,8 @@ export const validatePartialRateCompletionOMS =
             rateData: rateData?.[singleValueFieldFlag],
             categories: !!(
               isOPM ||
-              categories[0].label === SINGLE_CATEGORY ||
-              !categories[0].label
+              categories[0]?.label === SINGLE_CATEGORY ||
+              !categories[0]?.label
             )
               ? undefined
               : categories,
@@ -151,8 +152,8 @@ export const validatePartialRateCompletionOMS =
             ),
             categories: !!(
               isOPM ||
-              categories[0].label === SINGLE_CATEGORY ||
-              !categories[0].label
+              categories[0]?.label === SINGLE_CATEGORY ||
+              !categories[0]?.label
             )
               ? undefined
               : categories,
