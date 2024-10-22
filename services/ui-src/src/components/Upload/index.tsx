@@ -4,7 +4,7 @@ import * as QMR from "components";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
 import { useController, useFormContext } from "react-hook-form";
-import { Storage } from "aws-amplify";
+import { downloadData, getUrl, remove, uploadData } from "aws-amplify/storage";
 import { saveAs } from "file-saver";
 import { useUser } from "hooks/authHooks";
 import { createSafeS3Key } from "utils";
@@ -57,21 +57,26 @@ export const Upload = ({
         )}`;
 
         try {
-          const stored = await Storage.put(targetPathname, fileToUpload, {
-            contentType: fileToUpload.type,
-            progressCallback(progress) {
-              const progressRatio = (progress.loaded / progress.total) * 100;
-              setUploadStatus(progressRatio);
+          const stored = await uploadData({
+            key: targetPathname,
+            data: fileToUpload,
+            options: {
+              contentType: fileToUpload.type,
+              onProgress: ({ transferredBytes, totalBytes }) => {
+                const progressRatio = (transferredBytes / totalBytes!) * 100;
+                setUploadStatus(progressRatio);
+              },
             },
-          });
+          }).result;
 
-          const url = await Storage.get(stored.key);
+          const res = await getUrl({ key: stored.key });
+          const url = await res.url;
 
           let result = {
             s3Key: stored.key,
             filename: fileToUpload.name,
             contentType: fileToUpload.type,
-            url: url.split("?", 1)[0], //We only need the permalink part of the URL since the S3 bucket policy allows for public read
+            url: url, //We only need the permalink part of the URL since the S3 bucket policy allows for public read
           };
 
           retPromise = Promise.resolve(result);
@@ -264,10 +269,9 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
 
   const handleSave = async () => {
     setIsProcessing(true);
-    const data = await Storage.get(file.s3Key, {
-      download: true,
-    });
-    saveAs(data.Body as Blob, file.filename);
+
+    const { body } = await downloadData({ path: file.s3Key }).result;
+    saveAs(body as unknown as Blob, file.filename);
     setIsProcessing(false);
   };
 
@@ -306,7 +310,7 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
         aria-label={`Delete file-upload-${file.filename}`}
         background="none"
         onClick={async () => {
-          await Storage.remove(file.s3Key);
+          await remove({ path: file.s3Key });
           clearFile(index);
         }}
       >
