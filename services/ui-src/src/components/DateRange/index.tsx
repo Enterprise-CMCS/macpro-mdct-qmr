@@ -88,7 +88,7 @@ export const DateRange = ({ name }: Props) => {
   return (
     <CUI.Stack>
       <CUI.Box height="212px">
-        <CUI.FormControl position="absolute" height="auto">
+        <CUI.FormControl position="absolute">
           <CUI.FormLabel id={`${name}.startDate-label`} fontWeight={500}>
             {"Start Date"}
           </CUI.FormLabel>
