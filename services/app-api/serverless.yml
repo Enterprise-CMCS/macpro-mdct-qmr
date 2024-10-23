@@ -101,6 +101,7 @@ provider:
           Resource:
             - ${self:custom.coreSetTableStreamArn}
             - ${self:custom.measureTableStreamArn}
+            - ${self:custom.rateTableStreamArn}
   environment:
     coreSetTableName: ${self:custom.coreSetTableName}
     measureTableName: ${self:custom.measureTableName}
@@ -275,6 +276,12 @@ functions:
       - stream:
           type: dynamodb
           arn: ${self:custom.coreSetTableStreamArn}
+          startingPosition: TRIM_HORIZON
+          maximumRetryAttempts: 2
+          enabled: true
+      - stream:
+          type: dynamodb
+          arn: ${self:custom.rateTableStreamArn}
           startingPosition: TRIM_HORIZON
           maximumRetryAttempts: 2
           enabled: true
