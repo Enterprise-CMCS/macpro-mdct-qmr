@@ -799,7 +799,7 @@ semver@^7.1.1, semver@^7.3.5:
 
 serverless-disable-functions@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npmjs.org/serverless-disable-functions/-/serverless-disable-functions-1.0.0.tgz"
+  resolved "https://registry.yarnpkg.com/serverless-disable-functions/-/serverless-disable-functions-1.0.0.tgz#d93ac66084e829f93542220c2c2a5410a1339c4b"
   integrity sha512-wUfndxhUlfK8ICqeSWqoAHUtotWlRYGffAeuqwp7iwqkM/utch3XO6i+0H7mkOx3X/Zd1G4A9ivzvZg0Vo9JYw==
 
 serverless-plugin-common-excludes@^4.0.0:
