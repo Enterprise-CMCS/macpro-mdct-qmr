@@ -169,30 +169,24 @@ resources:
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
   Outputs:
-    CoreSetTableName:
-      Value: !Ref CoreSetTable
+    CoreSetTable:
+      Value: !Ref QualityCoreSetTable
     CoreSetTableArn:
-      Value: !GetAtt CoreSetTable.Arn
+      Value: !GetAtt QualityCoreSetTable.Arn
     CoreSetTableStreamArn:
-      Value: !GetAtt CoreSetTable.StreamArn
-    MeasureTableName:
-      Value: !Ref MeasureTable
+      Value: !GetAtt QualityCoreSetTable.StreamArn
     MeasureTable:
       Value: !Ref QualityMeasureTable
     MeasureTableArn:
-      Value: !GetAtt MeasureTable.Arn
+      Value: !GetAtt QualityMeasureTable.Arn
     MeasureTableStreamArn:
-      Value: !GetAtt MeasureTable.StreamArn
-    CoreSetTable:
-      Value: !Ref QualityCoreSetTable
+      Value: !GetAtt QualityMeasureTable.StreamArn
     RateTable:
       Value: !Ref CombinedRateTable
-    RateTableName:
-      Value: !Ref RateTable
     RateTableArn:
-      Value: !GetAtt RateTable.Arn
+      Value: !GetAtt CombinedRateTable.Arn
     RateTableStreamArn:
-      Value: !GetAtt RateTable.StreamArn
+      Value: !GetAtt CombinedRateTable.StreamArn
     BannerTableName:
       Value: !Ref BannerTable
     BannerTableArn:

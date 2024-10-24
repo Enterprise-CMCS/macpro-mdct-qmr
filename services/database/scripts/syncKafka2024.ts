@@ -13,7 +13,7 @@ import prompt from "prompt-sync";
  */
 
 const lastModifiedField = "lastAltered";
-const tables = ["-coreSet", "-measure"];
+const tables = ["-coreSet", "-measure", "-rate"];
 const syncTime = new Date().toISOString();
 
 // I/O
