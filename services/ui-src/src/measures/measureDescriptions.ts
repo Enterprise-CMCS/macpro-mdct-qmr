@@ -403,6 +403,7 @@ export const measureDescriptions: MeasureList = {
     // Adult
     "AAB-AD":
       "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older",
+    "AIS-AD": "Adult Immunization Status",
     "AMM-AD": "Antidepressant Medication Management",
     "AMR-AD": "Asthma Medication Ratio: Ages 19 to 64",
     "BCS-AD": "Breast Cancer Screening",
@@ -418,6 +419,8 @@ export const measureDescriptions: MeasureList = {
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
     "CPU-AD":
       "Long-Term Services and Supports Comprehensive Care Plan and Update",
+    "EDV-AD":
+      "Ambulatory Care Sensitive Emergency Department Visits for Non-Traumatic Dental Conditions in Adults",
     "FUA-AD":
       "Follow-Up After Emergency Department Visit for Substance Use: Age 18 and Older",
     "FUH-AD":
@@ -430,17 +433,21 @@ export const measureDescriptions: MeasureList = {
       "Diabetes Care for People with Serious Mental Illness: Hemoglobin A1C (HbA1c) Poor Control (>9.0%)",
     "HVL-AD": "HIV Viral Load Suppression",
     "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
+    "LRCD-AD": "Low-Risk Cesarean Delivery: Age 20 and Older",
     "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
     "NCIIDD-AD": "National Core Indicators Survey",
+    "OEVP-AD": "Oral Evaluation During Pregnancy: Ages 21 to 44",
     "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
+    "PDS-AD": "Postpartum Depression Screening and Follow-Up: Age 21 and Older",
     "PPC2-AD": "Prenatal and Postpartum Care: Age 21 and Over",
     "PQI01-AD": "PQI 01: Diabetes Short-Term Complications Admission Rate",
     "PQI05-AD":
       "PQI 05: Chronic Obstructive Pulmonary Disease (COPD) or Asthma in Older Adults Admission Rate",
     "PQI08-AD": "PQI 08: Heart Failure Admission Rate",
     "PQI15-AD": "PQI 15: Asthma in Younger Adults Admission Rate",
+    "PRS-AD": "Prenatal Immunization Status: Age 21 and Older",
     "SAA-AD":
       "Adherence to Antipsychotic Medications for Individuals With Schizophrenia",
     "SSD-AD":
@@ -476,7 +483,10 @@ export const measureDescriptions: MeasureList = {
     "LRCD-CH": "Low-Risk Cesarean Delivery",
     "LSC-CH": "Lead Screening in Children",
     "OEV-CH": "Oral Evaluation, Dental Services",
+    "OEVP-CH": "Oral Evaluation During Pregnancy: Ages 15 to 20",
     "PPC2-CH": "Prenatal and Postpartum Care: Under Age 21",
+    "PDS-CH": "Postpartum Depression Screening and Follow-Up: Under Age 21",
+    "PRS-CH": "Prenatal Immunization Status: Under Age 21 ",
     "SFM-CH": "Sealant Receipt on Permanent First Molars",
     "TFL-CH": "Prevention: Topical Fluoride for Children",
     "W30-CH": "Well-Child Visits in the First 30 Months of Life",

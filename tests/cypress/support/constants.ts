@@ -3,6 +3,7 @@ export const testingYear = "2025";
 export const measureAbbrList2025 = {
   ADULT: [
     "AAB-AD",
+    // "AIS-AD", //TO-DO: turn on when measure has been added
     "AMM-AD",
     "AMR-AD",
     "BCS-AD",
@@ -15,6 +16,7 @@ export const measureAbbrList2025 = {
     "COB-AD",
     "COL-AD",
     "CPA-AD",
+    // "EDV-AD", //TO-DO: turn on when measure has been added
     "FUA-AD",
     "FUH-AD",
     "FUM-AD",
@@ -22,16 +24,20 @@ export const measureAbbrList2025 = {
     "HPCMI-AD",
     "HVL-AD",
     "IET-AD",
+    // "LRCD-AD", //TO-DO: turn on when measure has been added
     "MSC-AD",
     "NCIIDD-AD", // complete on creation
+    // "OEVP-AD", //TO-DO: turn on when measure has been added
     "OHD-AD",
     "OUD-AD",
     "PCR-AD",
+    // "PDS-AD", //TO-DO: turn on when measure has been added
     "PPC2-AD",
     "PQI01-AD",
     "PQI05-AD",
     "PQI08-AD",
     "PQI15-AD",
+    // "PRS-AD", //TO-DO: turn on when measure has been added
     "SAA-AD",
     "SSD-AD",
   ],
@@ -57,6 +63,9 @@ export const measureAbbrList2025 = {
     "LRCD-CH", // complete on creation
     "LSC-CH",
     "OEV-CH",
+    // "OEVP-CH", //TO-DO: turn on when measure has been added
+    // "PDS-CH", //TO-DO: turn on when measure has been added
+    // "PRS-CH", //TO-DO: turn on when measure has been added
     "PPC2-CH",
     "SFM-CH",
     "TFL-CH",
