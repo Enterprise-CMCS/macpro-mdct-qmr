@@ -51,8 +51,6 @@ custom:
       - local
   iamPath: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path,"/"}
   iamPermissionsBoundaryPolicy: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
-  coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
-  measureTableName: ${env:measureTableName, param:MeasureTableName}
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
@@ -96,8 +94,6 @@ functions:
     events:
       - schedule: ${self:custom.s3SyncFrequencyMap.${self:custom.s3SyncFrequency}}
     environment:
-      coreSetTableName: ${self:custom.coreSetTableName}
-      measureTableName: ${self:custom.measureTableName}
       measureTable: ${self:custom.measureTable}
       coreSetTable: ${self:custom.coreSetTable}
       rateTable: ${self:custom.rateTable}

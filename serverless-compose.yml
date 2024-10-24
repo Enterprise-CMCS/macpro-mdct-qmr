@@ -9,24 +9,18 @@ services:
   uploads:
     path: services/uploads
     params:
-      CoreSetTableName: ${database.CoreSetTableName}
-      MeasureTableName: ${database.MeasureTableName}
       MeasureTable: ${database.MeasureTable}
       CoreSetTable: ${database.CoreSetTable}
       RateTable: ${database.RateTable}
-      RateTableName: ${database.RateTableName}
 
   app-api:
     path: services/app-api
     params:
-      CoreSetTableName: ${database.CoreSetTableName}
-      CoreSetTableStreamArn: ${database.CoreSetTableStreamArn}
-      MeasureTableName: ${database.MeasureTableName}
-      MeasureTable: ${database.MeasureTable}
       CoreSetTable: ${database.CoreSetTable}
-      RateTable: ${database.RateTable}
+      CoreSetTableStreamArn: ${database.CoreSetTableStreamArn}
+      MeasureTable: ${database.MeasureTable}
       MeasureTableStreamArn: ${database.MeasureTableStreamArn}
-      RateTableName: ${database.RateTableName}
+      RateTable: ${database.RateTable}
       RateTableStreamArn: ${database.RateTableStreamArn}
       BannerTableName: ${database.BannerTableName}
 
