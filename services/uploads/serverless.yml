@@ -54,7 +54,6 @@ custom:
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
-  rateTableName: ${env:rateTableName, param:RateTableName}
   s3SyncFrequencyMap: # Frequency rate to load data to mathematica s3 bucket. High frequency avail for testing purposes.
     high: cron(30 * * * ? *)
     low: cron(30 1 * * ? *) # Run 8:30 Eastern, before 9PM Mathematica ingestion
@@ -97,7 +96,6 @@ functions:
       measureTable: ${self:custom.measureTable}
       coreSetTable: ${self:custom.coreSetTable}
       rateTable: ${self:custom.rateTable}
-      rateTableName: ${self:custom.rateTableName}
       dynamoSnapshotS3BucketName: !Ref DynamoSnapshotBucket
   avScan:
     handler: src/antivirus.lambdaHandleEvent
