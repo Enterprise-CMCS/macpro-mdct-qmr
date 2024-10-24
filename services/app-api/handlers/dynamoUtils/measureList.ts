@@ -1400,6 +1400,10 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "AIS-AD",
+    },
+    {
+      type: "A",
       measure: "BCS-AD",
     },
     {
@@ -1445,6 +1449,10 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "EDV-AD",
+    },
+    {
+      type: "A",
       measure: "FUA-AD",
       mandatory: true,
     },
@@ -1478,6 +1486,10 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "LRCD-AD",
+    },
+    {
+      type: "A",
       measure: "MSC-AD",
       mandatory: true,
     },
@@ -1485,6 +1497,10 @@ export const measures: Measure = {
       type: "A",
       measure: "NCIIDD-AD",
       autocompleteOnCreation: true,
+    },
+    {
+      type: "A",
+      measure: "OEVP-AD",
     },
     {
       type: "A",
@@ -1498,6 +1514,10 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "PCR-AD",
+    },
+    {
+      type: "A",
+      measure: "PDS-AD",
     },
     {
       type: "A",
@@ -1518,6 +1538,10 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "PQI15-AD",
+    },
+    {
+      type: "A",
+      measure: "PRS-AD",
     },
     {
       type: "A",
@@ -1638,8 +1662,20 @@ export const measures: Measure = {
     },
     {
       type: "C",
+      measure: "OEVP-CH",
+    },
+    {
+      type: "C",
+      measure: "PDS-CH",
+    },
+    {
+      type: "C",
       measure: "PPC2-CH",
       mandatory: true,
+    },
+    {
+      type: "C",
+      measure: "PRS-CH",
     },
     {
       type: "C",
