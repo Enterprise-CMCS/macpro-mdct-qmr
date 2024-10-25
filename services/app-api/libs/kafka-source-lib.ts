@@ -100,7 +100,12 @@ class KafkaSourceLib {
   }
 
   unmarshall(r: any) {
-    return unmarshall(r);
+    try {
+      return unmarshall(r);
+    } catch (e) {
+      console.error("Unmarshall Failed:", r);
+      throw e;
+    }
   }
 
   createDynamoPayload(record: any): KafkaPayload {
