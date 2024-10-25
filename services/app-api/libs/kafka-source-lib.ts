@@ -108,7 +108,7 @@ class KafkaSourceLib {
     const { eventID, eventName } = record;
     const dynamoRecord = {
       NewImage: this.unmarshall(dynamodb.NewImage),
-      OldImage: this.unmarshall(dynamodb.OldImage ?? {}),
+      OldImage: !dynamodb.OldImage ? {} : this.unmarshall(dynamodb.OldImage),
       Keys: this.unmarshall(dynamodb.Keys),
     };
     return {
