@@ -59,6 +59,15 @@ custom:
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
+params:
+  master:
+    topicNamespace: ""
+  val:
+    topicNamespace: ""
+  prod:
+    topicNamespace: ""
+  default:
+    topicNamespace: --${self:custom.project}--${sls:stage}--
 provider:
   name: aws
   runtime: nodejs20.x
@@ -282,6 +291,7 @@ functions:
     environment:
       BOOTSTRAP_BROKER_STRING_TLS: ${self:custom.bootstrapBrokerStringTls}
       STAGE: ${self:custom.stage}
+      topicNamespace: ${param:topicNamespace}
     maximumRetryAttempts: 2
     timeout: 120
     memorySize: 2048

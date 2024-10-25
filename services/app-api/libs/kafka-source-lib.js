@@ -2,6 +2,9 @@ const dynamoUtils = require("@aws-sdk/util-dynamodb");
 const { Kafka } = require("kafkajs");
 
 const STAGE = process.env.STAGE;
+this.topicNamespace = process.env.topicNamespace
+  ? process.env.topicNamespace
+  : "";
 const kafka = new Kafka({
   clientId: `qmr-${STAGE}`,
   brokers: process.env.BOOTSTRAP_BROKER_STRING_TLS.split(","),
@@ -76,9 +79,9 @@ class KafkaSourceLib {
 
   topic(t) {
     if (this.version) {
-      return `${this.topicPrefix}.${t}.${this.version}`;
+      return `${this.topicNamespace}${this.topicPrefix}.${t}.${this.version}`;
     } else {
-      return `${this.topicPrefix}.${t}`;
+      return `${this.topicNamespace}${this.topicPrefix}.${t}`;
     }
   }
 
