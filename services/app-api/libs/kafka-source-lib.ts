@@ -31,21 +31,18 @@ class KafkaSourceLib {
    * topicPrefix = "[data_center].[system_of_record].[business_domain].[event_type]";
    * version = "some version";
    * tables = [list of table mappings];
-   * buckets = [list of bucket mappings];
    */
 
   topicPrefix: string;
   version: string | null;
   tables: SourceTopicMapping[];
-  buckets: SourceTopicMapping[];
   connected: boolean;
   topicNamespace: string;
   stage: string;
   constructor(
     topicPrefix: string,
     version: string | null,
-    tables: SourceTopicMapping[],
-    buckets: SourceTopicMapping[]
+    tables: SourceTopicMapping[]
   ) {
     if (!process.env.BOOTSTRAP_BROKER_STRING_TLS) {
       throw new Error("Missing Broker Config. ");
@@ -58,7 +55,6 @@ class KafkaSourceLib {
     this.topicPrefix = topicPrefix;
     this.version = version;
     this.tables = tables;
-    this.buckets = buckets;
 
     const brokerStrings = process.env.BOOTSTRAP_BROKER_STRING_TLS;
     kafka = new Kafka({
