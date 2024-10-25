@@ -100,21 +100,16 @@ class KafkaSourceLib {
   }
 
   unmarshall(r: any) {
-    try {
-      return unmarshall(r);
-    } catch (e) {
-      console.error("Unmarshall Failed:", r);
-      throw e;
-    }
+    if (!r) return {};
+    return unmarshall(r);
   }
 
   createDynamoPayload(record: any): KafkaPayload {
     const dynamodb = record.dynamodb;
     const { eventID, eventName } = record;
-    console.log(record); // TODO: remove after debug
     const dynamoRecord = {
       NewImage: this.unmarshall(dynamodb.NewImage),
-      OldImage: !dynamodb.OldImage ? {} : this.unmarshall(dynamodb.OldImage),
+      OldImage: this.unmarshall(dynamodb.OldImage),
       Keys: this.unmarshall(dynamodb.Keys),
     };
     return {
