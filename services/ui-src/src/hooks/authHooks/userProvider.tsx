@@ -1,6 +1,10 @@
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { getCurrentUser, signOut } from "aws-amplify/auth";
+import {
+  fetchAuthSession,
+  signInWithRedirect,
+  signOut,
+} from "aws-amplify/auth";
 import config from "config";
 
 import { UserContext, UserContextInterface } from "./userContext";
@@ -10,13 +14,8 @@ interface Props {
   children?: ReactNode;
 }
 
-const authenticateWithIDM = () => {
-  const domain = config.cognito.APP_CLIENT_DOMAIN;
-  const responseType = "token";
-  const redirectSignIn = config.cognito.REDIRECT_SIGNIN;
-  const clientId = config.cognito.APP_CLIENT_ID;
-  const url = `https://${domain}/oauth2/authorize?identity_provider=Okta&redirect_uri=${redirectSignIn}&response_type=${responseType}&client_id=${clientId}`;
-  window.location.assign(url);
+const authenticateWithIDM = async () => {
+  await signInWithRedirect({ provider: { custom: "Okta" } });
 };
 
 export const UserProvider = ({ children }: Props) => {
@@ -24,6 +23,9 @@ export const UserProvider = ({ children }: Props) => {
   const isProduction = window.location.origin.includes(config.PROD_URL);
 
   const [user, setUser] = useState<any>(null);
+  const [userRole, setUserRole] = useState<UserRoles>();
+  const [isStateUser, setIsStateUser] = useState<boolean>(false);
+  const [userState, setUserState] = useState<any>("");
   const [showLocalLogins, setShowLocalLogins] = useState(false);
 
   const logout = useCallback(async () => {
@@ -45,30 +47,44 @@ export const UserProvider = ({ children }: Props) => {
 
     // Authenticate
     try {
-      const authenticatedUser = await getCurrentUser();
-      setUser(authenticatedUser);
+      const tokens = (await fetchAuthSession()).tokens;
+      if (!tokens?.idToken) {
+        throw new Error("Missing tokens auth session.");
+      }
+      const payload = tokens.idToken.payload;
+      const { email, given_name, family_name } = payload as Record<
+        string,
+        string
+      >;
+      // "custom:cms_roles" is an string of concat roles so we need to check for the one applicable to qmr
+      const role = (payload?.["custom:cms_roles"] as string | undefined)
+        ?.split(",")
+        .find((r) => r.includes("mdctqmr"));
+      setUserRole(role as UserRoles);
+
+      const userIsStateUser = role === UserRoles.STATE_USER;
+      setIsStateUser(userIsStateUser); // excludes all admin-type users (admin, approver, help desk, internal)
+
+      const state = payload?.["custom:cms_state"];
+      setUserState(state);
+
+      const currentUser = {
+        email,
+        given_name,
+        family_name,
+        userRole,
+        state,
+        userIsStateUser,
+      };
+      setUser(currentUser);
     } catch (e) {
       if (isProduction) {
-        authenticateWithIDM();
+        await authenticateWithIDM();
       } else {
         setShowLocalLogins(true);
       }
     }
   }, [isProduction, location]);
-
-  // "custom:cms_roles" is an string of concat roles so we need to check for the one applicable to qmr
-  const userRole = (
-    user?.signInUserSession?.idToken?.payload?.["custom:cms_roles"] as
-      | string
-      | undefined
-  )
-    ?.split(",")
-    .find((r) => r.includes("mdctqmr"));
-
-  const isStateUser = userRole === UserRoles.STATE_USER; // excludes all admin-type users (admin, approver, help desk, internal)
-
-  const userState =
-    user?.signInUserSession?.idToken?.payload?.["custom:cms_state"];
 
   // rerender on auth state change, checking router location
   useEffect(() => {
