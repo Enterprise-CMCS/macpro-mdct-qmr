@@ -87,16 +87,18 @@ export const DateRangeError = ({ name }: { name: string }) => {
 export const DateRange = ({ name }: Props) => {
   return (
     <CUI.Stack>
-      <CUI.FormControl>
-        <CUI.FormLabel id={`${name}.startDate-label`} fontWeight={500}>
-          {"Start Date"}
-        </CUI.FormLabel>
-        <MonthPicker name={`${name}.startDate`} />
-        <CUI.FormLabel pt={5} fontWeight={500}>
-          {"End Date"}
-        </CUI.FormLabel>
-        <MonthPicker name={`${name}.endDate`} />
-      </CUI.FormControl>
+      <CUI.Box height="212px">
+        <CUI.FormControl position="absolute">
+          <CUI.FormLabel id={`${name}.startDate-label`} fontWeight={500}>
+            {"Start Date"}
+          </CUI.FormLabel>
+          <MonthPicker name={`${name}.startDate`} />
+          <CUI.FormLabel pt={5} fontWeight={500}>
+            {"End Date"}
+          </CUI.FormLabel>
+          <MonthPicker name={`${name}.endDate`} />
+        </CUI.FormControl>
+      </CUI.Box>
       <DateRangeError name={name} />
     </CUI.Stack>
   );

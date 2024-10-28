@@ -43,14 +43,11 @@ custom:
     path: ../../.env
   docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
   bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
-  coreSetTableName: ${env:coreSetTableName, param:CoreSetTableName}
   coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableStreamArn}
-  measureTableName: ${env:measureTableName, param:MeasureTableName}
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
   measureTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:MeasureTableStreamArn}
-  rateTableName: ${env:rateTableName, param:RateTableName}
   rateTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:RateTableStreamArn}
   bannerTableName: ${env:bannerTableName, param:BannerTableName}
   webAclName: ${self:service}-${self:custom.stage}-webacl-waf
@@ -62,6 +59,15 @@ custom:
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
+params:
+  master:
+    topicNamespace: ""
+  val:
+    topicNamespace: ""
+  prod:
+    topicNamespace: ""
+  default:
+    topicNamespace: --${self:custom.project}--${sls:stage}--
 provider:
   name: aws
   runtime: nodejs20.x
@@ -101,13 +107,11 @@ provider:
           Resource:
             - ${self:custom.coreSetTableStreamArn}
             - ${self:custom.measureTableStreamArn}
+            - ${self:custom.rateTableStreamArn}
   environment:
-    coreSetTableName: ${self:custom.coreSetTableName}
-    measureTableName: ${self:custom.measureTableName}
     measureTable: ${self:custom.measureTable}
     coreSetTable: ${self:custom.coreSetTable}
     rateTable: ${self:custom.rateTable}
-    rateTableName: ${self:custom.rateTableName}
     bannerTableName: ${self:custom.bannerTableName}
     stage: ${opt:stage, self:provider.stage}
     docraptorApiKey: ${self:custom.docraptorApiKey}
@@ -278,9 +282,16 @@ functions:
           startingPosition: TRIM_HORIZON
           maximumRetryAttempts: 2
           enabled: true
+      - stream:
+          type: dynamodb
+          arn: ${self:custom.rateTableStreamArn}
+          startingPosition: TRIM_HORIZON
+          maximumRetryAttempts: 2
+          enabled: true
     environment:
       BOOTSTRAP_BROKER_STRING_TLS: ${self:custom.bootstrapBrokerStringTls}
       STAGE: ${self:custom.stage}
+      topicNamespace: ${param:topicNamespace}
     maximumRetryAttempts: 2
     timeout: 120
     memorySize: 2048
