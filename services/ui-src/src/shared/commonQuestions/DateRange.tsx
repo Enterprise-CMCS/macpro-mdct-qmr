@@ -94,7 +94,7 @@ export const DateRange = ({ type }: Props) => {
 
   return (
     <QMR.CoreQuestionWrapper testid="date-range" label="Date Range">
-      {featuresByYear.optionalDateRangeTracking
+      {featuresByYear.allowImplicitMeasureDates
         ? RadioDateRangeElement(labels.DateRange, link, register)
         : StandardDateRangeElement(labels.DateRange, link, register)}
     </QMR.CoreQuestionWrapper>
