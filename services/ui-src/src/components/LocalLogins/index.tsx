@@ -1,8 +1,8 @@
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
+import { signIn } from "aws-amplify/auth";
 import { useFormFields } from "../../libs/hooksLib";
-import { Auth } from "aws-amplify";
 
 const LocalLogin = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const LocalLogin = () => {
   async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      await Auth.signIn(fields.email, fields.password);
+      await signIn({ username: fields.email, password: fields.password });
       navigate(`/`);
     } catch (error) {
       console.log("Error while logging in.", error);
