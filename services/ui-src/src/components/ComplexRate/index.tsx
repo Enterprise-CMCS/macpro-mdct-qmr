@@ -159,7 +159,7 @@ export const ComplexRate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
-      if (featuresByYear.humanReadableTextForMathematica) {
+      if (featuresByYear.setCategoryForComplexRate) {
         prevRate[index]["category"] = categoryName ?? undefined;
       }
     });

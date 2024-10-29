@@ -20,7 +20,7 @@ export const useGetCoreSets = (releasedTwentyTwentyFive: boolean) => {
   if (
     state &&
     year &&
-    (releasedTwentyTwentyFive || featuresByYear.yearIsNot2025)
+    (releasedTwentyTwentyFive || featuresByYear.reportingYearReleased)
   ) {
     return useQuery(["coreSets", state, year], () =>
       getCoreSets({ state, year })

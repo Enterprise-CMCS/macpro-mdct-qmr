@@ -40,7 +40,7 @@ export const coreSetSubTitles = (abbr: string) => {
   let coreType = coreSetType(abbr) || "";
   let list: AnyObject = {};
   //using the last char of the abbr, we can determine if there's a subtitle
-  if (!featuresByYear.uniqueCoreSetTitles) {
+  if (!featuresByYear.hasCombinedRates) {
     list = {
       C: "Chip",
       M: "Medicaid",
@@ -72,7 +72,7 @@ export const coreSetTitles = (abbr: string, type?: string) => {
 export const coreSetBreadCrumbTitle = ():
   | { [key: string]: string }
   | undefined => {
-  if (featuresByYear.uniqueCoreSetTitles)
+  if (featuresByYear.hasCombinedRates)
     return {
       [CoreSetAbbr.ACSC]: "(Separate CHIP)",
       [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",

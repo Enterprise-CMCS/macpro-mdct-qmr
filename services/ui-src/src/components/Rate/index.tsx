@@ -80,7 +80,7 @@ export const Rate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
-      if (featuresByYear.humanReadableTextForMathematica && categoryName) {
+      if (featuresByYear.setCategoryForComplexRate && categoryName) {
         prevRate[index]["category"] = categoryName;
       }
     });

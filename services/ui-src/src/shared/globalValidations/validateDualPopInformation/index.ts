@@ -3,7 +3,7 @@ import { FormRateField } from "shared/types/TypeValidations";
 import { featuresByYear } from "utils/featuresByYear";
 
 export const getLabels = (errorReplacementText: string) => {
-  if (featuresByYear.displayCheckmarkWarning) {
+  if (featuresByYear.shouldValidateDuallyEligibleCheckbox) {
     return {
       checkmarkWarning: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
       missingDataWarning: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,

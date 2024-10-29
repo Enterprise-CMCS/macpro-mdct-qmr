@@ -84,7 +84,7 @@ export const measuresColumns = (
         );
       },
     },
-    ...(featuresByYear.displayMandatoryColumn
+    ...(featuresByYear.displayMandatoryMeasuresColumn
       ? [
           {
             header: "Mandatory",

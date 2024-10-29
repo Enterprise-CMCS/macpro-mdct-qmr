@@ -214,7 +214,8 @@ export const PerformanceMeasure = ({
   const { year } = usePathParams();
   //for years after 2023, we use a flag to determine showing the covid message
   const pheIsCurrent =
-    featuresByYear.pheYear || useFlags()?.[`periodOfHealthEmergency${year}`];
+    featuresByYear.periodOfHealthEmergency ||
+    useFlags()?.[`periodOfHealthEmergency${year}`];
 
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
