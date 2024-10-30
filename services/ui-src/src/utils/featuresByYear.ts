@@ -89,4 +89,15 @@ export const featuresByYear = {
   get displayDeviationlanguage() {
     return getMeasureYear() >= 2023;
   },
+  /**
+   * Prior to 2023, the OMS section included every rate from the PM section,
+   * allowed for subcategorization of every category, and included categories
+   * such as "primary language" and "disability status".
+   *
+   * In 2023 we excluded some rates, disabled some custom subcategorizations,
+   * and removed several categories and sub-categories entirely.
+   */
+  get hasStreamlinedOms() {
+    return getMeasureYear() >= 2023;
+  },
 };

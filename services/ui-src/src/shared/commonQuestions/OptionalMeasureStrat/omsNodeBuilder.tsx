@@ -30,36 +30,31 @@ interface NdrNodeProps {
   flagSubCat: boolean;
 }
 
-const omsLabels = (year: number, omsNode: OmsNode) => {
-  switch (year) {
-    case 2022:
-    case 2021: {
-      return {
-        checkboxOpt: `Are you only reporting aggregated data for all ${
-          omsNode.aggregateTitle || omsNode.id
-        } categories?`,
-        YesAggregateData: `Yes, we are only reporting aggregated data for all ${
-          omsNode?.aggregateTitle || omsNode?.id
-        } categories.`,
-        NoIndependentData: `No, we are reporting independent data for all ${
-          omsNode?.aggregateTitle || omsNode?.id
-        } categories`,
-      };
-    }
-    default: {
-      return {
-        checkboxOpt: `Are you reporting aggregate data for the ${
-          omsNode.aggregateTitle || omsNode.label
-        } category?`,
-        YesAggregateData: `Yes, we are reporting aggregate data for the ${
-          omsNode?.aggregateTitle || omsNode?.label
-        } categories.`,
-        NoIndependentData: `No, we are reporting disaggregated data for ${
-          omsNode?.aggregateTitle || omsNode?.label
-        } sub-categories`,
-      };
-    }
+const omsLabels = (omsNode: OmsNode) => {
+  if (featuresByYear.hasStreamlinedOms) {
+    return {
+      checkboxOpt: `Are you reporting aggregate data for the ${
+        omsNode.aggregateTitle || omsNode.label
+      } category?`,
+      YesAggregateData: `Yes, we are reporting aggregate data for the ${
+        omsNode?.aggregateTitle || omsNode?.label
+      } categories.`,
+      NoIndependentData: `No, we are reporting disaggregated data for ${
+        omsNode?.aggregateTitle || omsNode?.label
+      } sub-categories`,
+    };
   }
+  return {
+    checkboxOpt: `Are you only reporting aggregated data for all ${
+      omsNode.aggregateTitle || omsNode.id
+    } categories?`,
+    YesAggregateData: `Yes, we are only reporting aggregated data for all ${
+      omsNode?.aggregateTitle || omsNode?.id
+    } categories.`,
+    NoIndependentData: `No, we are reporting independent data for all ${
+      omsNode?.aggregateTitle || omsNode?.id
+    } categories`,
+  };
 };
 
 const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
@@ -177,7 +172,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
             const cleanedId =
               cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
 
-            const labels = omsLabels(props.year!, lvlTwoOption);
+            const labels = omsLabels(lvlTwoOption);
 
             return buildChildCheckboxOption({
               omsNode: lvlTwoOption,

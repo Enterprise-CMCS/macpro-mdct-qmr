@@ -1,6 +1,7 @@
 import { SPA } from "libs/spaLib";
-import { AnyObject, CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "types";
 import { featuresByYear } from "utils/featuresByYear";
+import { assertExhaustive } from "utils/typing";
 
 export type CoreSetType = "coreSet" | "text";
 
@@ -36,29 +37,40 @@ export const coreSetType = (abbr: string) => {
 };
 
 export const coreSetSubTitles = (abbr: string) => {
-  let lastChar = abbr[abbr.length - 1];
-  let coreType = coreSetType(abbr) || "";
-  let list: AnyObject = {};
-  //using the last char of the abbr, we can determine if there's a subtitle
-  if (!featuresByYear.hasCombinedRates) {
-    list = {
-      C: "Chip",
-      M: "Medicaid",
-      MC: "Medicaid & CHIP",
-    };
-    lastChar = lastChar === "S" && coreType === "Child" ? "MC" : lastChar;
+  if (featuresByYear.hasCombinedRates) {
+    switch (abbr) {
+      case CoreSetAbbr.ACS:
+      case CoreSetAbbr.ACSM:
+      case CoreSetAbbr.CCS:
+      case CoreSetAbbr.CCSM:
+        return "Medicaid (Title XIX & XXI)";
+      case CoreSetAbbr.ACSC:
+      case CoreSetAbbr.CCSC:
+        return "Separate CHIP";
+      case CoreSetAbbr.HHCS:
+        return "";
+      default:
+        assertExhaustive(abbr as never);
+        return "";
+    }
   } else {
-    list = {
-      C: "Separate CHIP",
-      M: "Medicaid (Title XIX & XXI)",
-      MC: "Medicaid (Title XIX & XXI)",
-    };
-    lastChar =
-      lastChar === "S" && (coreType === "Adult" || coreType === "Child")
-        ? "MC"
-        : lastChar;
+    switch (abbr) {
+      case CoreSetAbbr.CCS:
+        return "Medicaid & CHIP";
+      case CoreSetAbbr.ACSM:
+      case CoreSetAbbr.CCSM:
+        return "Medicaid";
+      case CoreSetAbbr.ACSC:
+      case CoreSetAbbr.CCSC:
+        return "CHIP";
+      case CoreSetAbbr.ACS:
+      case CoreSetAbbr.HHCS:
+        return "";
+      default:
+        assertExhaustive(abbr as never);
+        return "";
+    }
   }
-  return list[lastChar] || "";
 };
 
 export const coreSetTitles = (abbr: string, type?: string) => {
