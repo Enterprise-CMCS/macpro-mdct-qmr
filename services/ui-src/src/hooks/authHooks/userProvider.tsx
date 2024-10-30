@@ -52,10 +52,6 @@ export const UserProvider = ({ children }: Props) => {
         throw new Error("Missing tokens auth session.");
       }
       const payload = tokens.idToken.payload;
-      const { email, given_name, family_name } = payload as Record<
-        string,
-        string
-      >;
       // "custom:cms_roles" is an string of concat roles so we need to check for the one applicable to qmr
       const role = (payload?.["custom:cms_roles"] as string | undefined)
         ?.split(",")
@@ -67,16 +63,9 @@ export const UserProvider = ({ children }: Props) => {
 
       const state = payload?.["custom:cms_state"];
       setUserState(state);
-
-      const currentUser = {
-        email,
-        given_name,
-        family_name,
-        userRole,
-        state,
-        userIsStateUser,
-      };
-      setUser(currentUser);
+      setUser({
+        ...payload,
+      });
     } catch (e) {
       if (isProduction) {
         await authenticateWithIDM();
