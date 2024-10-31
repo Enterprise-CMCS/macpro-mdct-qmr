@@ -36,7 +36,7 @@ export const coreSetType = (abbr: string) => {
   return;
 };
 
-export const coreSetSubTitles = (abbr: string) => {
+export const coreSetSubTitles = (abbr: CoreSetAbbr) => {
   if (featuresByYear.hasCombinedRates) {
     switch (abbr) {
       case CoreSetAbbr.ACS:
@@ -50,7 +50,7 @@ export const coreSetSubTitles = (abbr: string) => {
       case CoreSetAbbr.HHCS:
         return "";
       default:
-        assertExhaustive(abbr as never);
+        assertExhaustive(abbr);
         return "";
     }
   } else {
@@ -67,14 +67,14 @@ export const coreSetSubTitles = (abbr: string) => {
       case CoreSetAbbr.HHCS:
         return "";
       default:
-        assertExhaustive(abbr as never);
+        assertExhaustive(abbr);
         return "";
     }
   }
 };
 
 export const coreSetTitles = (abbr: string, type?: string) => {
-  const subTitle = coreSetSubTitles(abbr);
+  const subTitle = coreSetSubTitles(abbr as CoreSetAbbr);
   const subType = type || "Measures";
   let name = `${coreSetType(abbr)} Core Set ${subType}`;
   return subTitle ? `${name}: ${subTitle}` : name;
