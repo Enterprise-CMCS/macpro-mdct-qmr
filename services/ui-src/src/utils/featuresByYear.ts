@@ -62,7 +62,7 @@ export const featuresByYear = {
   },
   /**
    * Prior to 2024, we didn't distinguish mandatory measures from optional ones.
-   * In 2024, we added a the mandatory flag as column in the measure table,
+   * In 2024, we added the mandatory flag as column in the measure table,
    * so that users can see at a glance which measures are mandatory.
    */
   get displayMandatoryMeasuresColumn() {
