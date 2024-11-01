@@ -1,21 +1,17 @@
-import { getMeasureYear } from "utils/getMeasureYear";
+import { featuresByYear } from "utils/featuresByYear";
 
 // When a user indicates that there is a deviation, they must add an explanation in the textarea.
-const getLabels = (year: number) => {
-  switch (year) {
-    case 2021:
-    case 2022:
-    case 2023:
-      return {
-        location: "Deviations from Measure Specifications",
-        message: "Deviation(s) must be explained",
-      };
-    default:
-      return {
-        location: "Variations from Measure Specifications",
-        message: "Variation(s) must be explained",
-      };
+const getLabels = () => {
+  if (featuresByYear.displayDeviationlanguage) {
+    return {
+      location: "Deviations from Measure Specifications",
+      message: "Deviation(s) must be explained",
+    };
   }
+  return {
+    location: "Variations from Measure Specifications",
+    message: "Variation(s) must be explained",
+  };
 };
 
 export const validateDeviationTextFieldFilled = (
@@ -26,8 +22,7 @@ export const validateDeviationTextFieldFilled = (
   let errorArray: FormError[] = [];
   let reasonGiven: boolean = false;
 
-  const year = getMeasureYear();
-  const labels = getLabels(year);
+  const labels = getLabels();
 
   if (didCalculationsDeviate) {
     if (!!deviationReason) {
