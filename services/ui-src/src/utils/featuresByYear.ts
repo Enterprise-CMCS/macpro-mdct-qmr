@@ -100,4 +100,12 @@ export const featuresByYear = {
   get hasStreamlinedOms() {
     return getMeasureYear() >= 2023;
   },
+  /**
+   * Prior to 2025, we display FFY before the year name.
+   *
+   * In 2025 and beyond, we will not display the FFY language in front of the year.
+   */
+  get displayFFYLanguage() {
+    return getMeasureYear() < 2025;
+  },
 };
