@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { getAllCoreSets } from "libs/api";
 import { useParams } from "react-router-dom";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface GetCoreSets {
   state: string;
@@ -16,7 +17,11 @@ const getCoreSets = async ({ state, year }: GetCoreSets) => {
 
 export const useGetCoreSets = (releasedTwentyTwentyFive: boolean) => {
   const { state, year } = useParams();
-  if (state && year && (releasedTwentyTwentyFive || year !== "2025")) {
+  if (
+    state &&
+    year &&
+    (releasedTwentyTwentyFive || featuresByYear.reportingYearReleased)
+  ) {
     return useQuery(["coreSets", state, year], () =>
       getCoreSets({ state, year })
     );

@@ -5,7 +5,6 @@ import objectPath from "object-path";
 import { useEffect } from "react";
 import { getLabelText } from "utils";
 import { defaultRateCalculation } from "utils/rateFormulas";
-import { getMeasureYear } from "utils/getMeasureYear";
 
 import {
   allNumbers,
@@ -14,6 +13,7 @@ import {
   rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
 } from "utils";
+import { featuresByYear } from "utils/featuresByYear";
 export interface IRate {
   label?: string;
   id: number;
@@ -80,8 +80,7 @@ export const Rate = ({
       }
       prevRate[index]["label"] = rate.label ?? undefined;
       prevRate[index]["uid"] = rate.uid ?? undefined;
-      // human readable text for Mathematica only needed for FFY 2023+
-      if (getMeasureYear() >= 2023 && categoryName) {
+      if (featuresByYear.setCategoryForComplexRate && categoryName) {
         prevRate[index]["category"] = categoryName;
       }
     });
