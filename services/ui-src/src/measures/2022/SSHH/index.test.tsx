@@ -9,12 +9,9 @@ import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { mockLDFlags } from "../../../../setupJest";
 import { clearMocks } from "shared/util/validationsMock";
 
 expect.extend(toHaveNoViolations);
-
-mockLDFlags.setDefault({ periodOfHealthEmergency2022: false });
 
 // Test Setup
 const measureAbbr = "SS-1-HH";

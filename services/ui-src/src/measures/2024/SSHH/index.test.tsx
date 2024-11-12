@@ -9,12 +9,9 @@ import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { mockLDFlags } from "../../../../setupJest";
 import { clearMocks } from "shared/util/validationsMock";
 
 expect.extend(toHaveNoViolations);
-
-mockLDFlags.setDefault({ periodOfHealthEmergency2024: false });
 
 // Test Setup
 const measureAbbr = "SS-1-HH";
@@ -111,19 +108,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(screen.queryByText("Performance Measure")).toBeInTheDocument();
   });
 
-  it("does not show covid text if periodOfHealthEmergency2024 flag is disabled", async () => {
-    apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    expect(
-      screen.queryByText(
-        "Describe any COVID-related difficulties encountered while collecting this data:"
-      )
-    ).not.toBeInTheDocument();
-  });
-
-  it("shows covid text if periodOfHealthEmergency2024 flag is enabled", async () => {
-    mockLDFlags.setDefault({ periodOfHealthEmergency2024: true });
+  it("Always shows covid text for 2024", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);

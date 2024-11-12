@@ -170,8 +170,7 @@ export const WhyAreYouNotReporting = ({
               />,
             ],
           },
-          ...(labels.WhyAreYouNotReporting &&
-          featuresByYear.displayCovidLanguage
+          ...(featuresByYear.displayCovidLanguage
             ? [
                 {
                   displayValue:
