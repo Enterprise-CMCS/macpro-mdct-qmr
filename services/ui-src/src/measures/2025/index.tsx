@@ -18,12 +18,6 @@ const ADDCH = lazy(() =>
 const AIFHH = lazy(() =>
   import("./AIFHH").then((module) => ({ default: module.AIFHH }))
 );
-const AMBCH = lazy(() =>
-  import("./AMBCH").then((module) => ({ default: module.AMBCH }))
-);
-const AMBHH = lazy(() =>
-  import("./AMBHH").then((module) => ({ default: module.AMBHH }))
-);
 const AMMAD = lazy(() =>
   import("./AMMAD").then((module) => ({ default: module.AMMAD }))
 );
@@ -195,9 +189,6 @@ const PQI01AD = lazy(() =>
 const PQI05AD = lazy(() =>
   import("./PQI05AD").then((module) => ({ default: module.PQI05AD }))
 );
-const PQI92HH = lazy(() =>
-  import("./PQI92HH").then((module) => ({ default: module.PQI92HH }))
-);
 const PQI08AD = lazy(() =>
   import("./PQI08AD").then((module) => ({ default: module.PQI08AD }))
 );
@@ -235,8 +226,6 @@ const twentyTwentyFiveMeasures = {
   "AAB-CH": AABCH,
   "ADD-CH": ADDCH,
   "AIF-HH": AIFHH,
-  "AMB-CH": AMBCH,
-  "AMB-HH": AMBHH,
   "AMM-AD": AMMAD,
   "AMR-AD": AMRAD,
   "AMR-CH": AMRCH,
@@ -303,7 +292,6 @@ const twentyTwentyFiveMeasures = {
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
-  "PQI92-HH": PQI92HH,
   // "PRS-AD": PRSAD, //TO DO: replace with real measure
   "SAA-AD": SAAAD,
   "SFM-CH": SFMCH,
