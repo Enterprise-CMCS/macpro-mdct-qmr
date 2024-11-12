@@ -6,6 +6,7 @@ import { CoreSetTableItem } from "components/Table/types";
 import { FormProvider, useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface NewMeasure {
   description: string;
@@ -128,7 +129,10 @@ export const AddStateSpecificMeasure = () => {
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}/${coreSetId}`, name: `FFY ${year}` },
+        {
+          path: `/${state}/${year}/${coreSetId}`,
+          name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
+        },
         {
           path: `/${state}/${year}/${coreSetId}/add-ssm`,
           name: "Add State Specific Measures",
