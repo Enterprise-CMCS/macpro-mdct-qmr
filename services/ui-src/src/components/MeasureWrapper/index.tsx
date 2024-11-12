@@ -27,6 +27,7 @@ import { CompleteCoreSets } from "./complete";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
+import { featuresByYear } from "utils/featuresByYear";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -438,7 +439,10 @@ export const MeasureWrapper = ({
       />
       <QMR.StateLayout
         breadcrumbItems={[
-          { path: `/${params.state}/${year}`, name: `FFY ${year}` },
+          {
+            path: `/${params.state}/${year}`,
+            name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
+          },
           // This next path object is to bring the user back to the measures list with the back button
           {
             path: `/${params.state}/${year}/${params.coreSetId}`,

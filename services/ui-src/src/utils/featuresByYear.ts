@@ -100,4 +100,13 @@ export const featuresByYear = {
   get hasStreamlinedOms() {
     return getMeasureYear() >= 2023;
   },
+  /**
+   * Prior to 2025, we displayed FFY before the year name. This was done in part
+   * to differentiate Federal Fiscal Year and HEDIS Medical Year.
+   *
+   * In 2025, stakeholders decided this explicit differentiation was unneeded.
+   */
+  get displayFFYLanguage() {
+    return getMeasureYear() < 2025;
+  },
 };
