@@ -21,6 +21,7 @@ import { coreSets, CoreSetField } from "shared/coreSetByYear";
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { Link } from "react-router-dom";
 import { statesWithoutCombinedRates } from "utils";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface HandleDeleteData {
   state: string;
@@ -101,7 +102,7 @@ const ReportingYear = () => {
           </option>
         ))}
       </CUI.Select>
-      {year! >= "2024" && showCombinedRatesButton && (
+      {featuresByYear.hasCombinedRates && showCombinedRatesButton && (
         <CUI.Box mt="22px">
           <Link
             to={`/${state}/${year}/combined-rates`}
@@ -134,7 +135,9 @@ const Heading = () => {
     <CUI.Box display={{ base: "block", md: "flex" }}>
       <CUI.Box maxW="3xl" pb="6" pr={{ md: "4rem" }}>
         <CUI.Heading size="lg" data-cy="reporting-year-heading">
-          {`FFY ${year} Core Set Measures Reporting`}
+          {`${
+            featuresByYear.displayFFYLanguage ? "FFY" : ""
+          } ${year} Core Set Measures Reporting`}
         </CUI.Heading>
         <CUI.Text fontWeight="bold" pt="6">
           Complete each group of Core Set Measures below. Once a group is

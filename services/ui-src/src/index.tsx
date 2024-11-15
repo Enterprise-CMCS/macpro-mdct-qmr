@@ -4,6 +4,7 @@ import App from "App";
 import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
+import "aws-amplify/auth/enable-oauth-listener";
 import { QueryProvider } from "query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import config from "config";
@@ -14,9 +15,34 @@ import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
 
 Amplify.configure({
   Storage: {
-    region: config.s3.REGION,
-    bucket: config.s3.BUCKET,
-    identityPoolId: config.cognito.IDENTITY_POOL_ID,
+    S3: {
+      region: config.s3.REGION,
+      bucket: config.s3.BUCKET,
+    },
+  },
+  API: {
+    REST: {
+      coreSet: {
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION,
+      },
+    },
+  },
+  Auth: {
+    Cognito: {
+      userPoolId: config.cognito.USER_POOL_ID,
+      identityPoolId: config.cognito.IDENTITY_POOL_ID,
+      userPoolClientId: config.cognito.APP_CLIENT_ID,
+      loginWith: {
+        oauth: {
+          domain: config.cognito.APP_CLIENT_DOMAIN,
+          redirectSignIn: [config.cognito.REDIRECT_SIGNIN],
+          redirectSignOut: [config.cognito.REDIRECT_SIGNOUT],
+          scopes: ["email", "openid", "profile"],
+          responseType: "code",
+        },
+      },
+    },
   },
 });
 

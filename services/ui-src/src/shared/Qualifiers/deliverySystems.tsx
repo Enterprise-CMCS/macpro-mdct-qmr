@@ -31,9 +31,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
     <CUI.ListItem m="4">
       <Common.QualifierHeader
         header="Delivery System"
-        description={data.qualifierHeader(
-          year ? `${parseInt(year) - 1}` : "2020"
-        )}
+        description={data.qualifierHeader(`${parseInt(year) - 1}`)}
       />
       <CUI.Table variant="simple" mt="4" size="md" verticalAlign="top">
         <CUI.Thead>

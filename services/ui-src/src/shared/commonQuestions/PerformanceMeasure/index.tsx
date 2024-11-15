@@ -11,6 +11,7 @@ import { useFlags } from "launchdarkly-react-client-sdk";
 import { usePathParams } from "hooks/api/usePathParams";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -213,7 +214,8 @@ export const PerformanceMeasure = ({
   const { year } = usePathParams();
   //for years after 2023, we use a flag to determine showing the covid message
   const pheIsCurrent =
-    parseInt(year!) < 2023 || useFlags()?.[`periodOfHealthEmergency${year}`];
+    featuresByYear.periodOfHealthEmergency ||
+    useFlags()?.[`periodOfHealthEmergency${year}`];
 
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,

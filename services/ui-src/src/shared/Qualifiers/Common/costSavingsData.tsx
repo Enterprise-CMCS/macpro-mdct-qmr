@@ -5,6 +5,7 @@ import * as Common from ".";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "./../../types/TypeQualifierForm";
 import { allPositiveIntegersWith10Digits } from "utils";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   year: string;
@@ -21,7 +22,9 @@ export const CostSavingsData = ({ year }: Props) => {
         {...register("yearlyCostSavings")}
         mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
-        label={`Amount of cost savings for FFY ${parseInt(year) - 1}`}
+        label={`Amount of cost savings for ${
+          featuresByYear.displayFFYLanguage ? "FFY" : ""
+        } ${parseInt(year) - 1}`}
       />
       <QMR.TextArea
         {...register("costSavingsMethodology")}
