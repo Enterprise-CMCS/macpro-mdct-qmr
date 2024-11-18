@@ -2,9 +2,9 @@ import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import * as DC from "dataConstants";
-import { useFlags } from "launchdarkly-react-client-sdk";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   healthHomeMeasure?: boolean;
@@ -18,7 +18,6 @@ export const WhyAreYouNotReporting = ({
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
-  const pheIsCurrent = useFlags()?.[`periodOfHealthEmergency${labels.year}`];
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
 
   return (
@@ -171,9 +170,7 @@ export const WhyAreYouNotReporting = ({
               />,
             ],
           },
-          //for years 2023 and over, check the flag to see if the label should be enabled
-          ...(!labels.WhyAreYouNotReporting?.periodOfHealthEmergencyFlag ||
-          pheIsCurrent
+          ...(featuresByYear.displayCovidLanguage
             ? [
                 {
                   displayValue:
