@@ -81,74 +81,6 @@ export const data = {
         ],
         "categories": [{"id":"ZyxRR5", "label": "", "text":""}]
     },
-    "AMB-CH": {
-        "qualifiers": [
-            {
-                "label": "< Age 1",
-                "text": "< Age 1",
-                "id": "AElhke",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 1 to 9",
-                "text": "Ages 1 to 9",
-                "id": "lvn4pe",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 10 to 19",
-                "text": "Ages 10 to 19",
-                "id": "9IODyt",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages unknown",
-                "text": "Ages unknown",
-                "id": "mIA2wL",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Total (Ages <1 to 19)",
-                "text": "Total (Ages <1 to 19)",
-                "id": "Total"
-            }
-        ],
-        "categories": [{"id":"8KgPDM", "label": "", "text":""}]
-    },
-    "AMB-HH": {
-        "qualifiers": [
-            {
-                "label": "Ages 0 to 17",
-                "text": "Ages 0 to 17",
-                "id": "dmwUgG",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 18 to 64",
-                "text": "Ages 18 to 64",
-                "id": "JmMRlc",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Age 65 and older",
-                "text": "Age 65 and older",
-                "id": "ISVyAj",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages unknown",
-                "text": "Ages unknown",
-                "id": "f2dfi8",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Total (All Ages)",
-                "text": "Total (All Ages)",
-                "id": "Total"
-            }
-        ],
-        "categories": [{"id":"9pQZSL", "label": "", "text":""}]
-    },
     "AMM-AD": {
         "qualifiers": [
             {
@@ -1594,28 +1526,6 @@ export const data = {
             }
         ],
         "categories": [{"id":"Z4aIZZ", "label": "", "text":""}]
-    },
-    "PQI92-HH": {
-        "qualifiers": [
-            {
-                "label": "Ages 18 to 64",
-                "text": "Ages 18 to 64",
-                "id": "cxWfJ4",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Age 65 and older",
-                "text": "Age 65 and older",
-                "id": "ttjYve",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Total (Age 18 and older)",
-                "text": "Total (Age 18 and older)",
-                "id": "Total"
-            }
-        ],
-        "categories": [{"id":"mIBZOk", "label": "", "text":""}]
     },
     "SAA-AD": {
         "qualifiers": [
