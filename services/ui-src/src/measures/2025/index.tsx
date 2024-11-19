@@ -231,6 +231,7 @@ const WCVCH = lazy(() =>
 
 const twentyTwentyFiveMeasures = {
   "AAB-AD": AABAD,
+  // "AIS-AD": AISAD, //TO DO: replace with real measure
   "AAB-CH": AABCH,
   "ADD-CH": ADDCH,
   "AIF-HH": AIFHH,
@@ -262,6 +263,7 @@ const twentyTwentyFiveMeasures = {
   "CPC-CH": CPCCH,
   "CPU-AD": CPUAD,
   "DEV-CH": DEVCH,
+  // "EDV-AD": EDVAD, //TO DO: replace with real measure
   "FUA-AD": FUAAD,
   "FUA-CH": FUACH,
   "FUA-HH": FUAHH,
@@ -279,23 +281,30 @@ const twentyTwentyFiveMeasures = {
   "IMA-CH": IMACH,
   "IU-HH": IUHH,
   "LBW-CH": LBWCH,
+  // "LRCD-AD": LRCDAD, //TO DO: replace with real measure
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
   "LSC-CH": LSCCH,
   "NCIIDD-AD": NCIIDDAD,
   "OEV-CH": OEVCH,
+  // "OEVP-AD": OEVPAD, //TO DO: replace with real measure
+  // "OEVP-CH": OEVPCH, //TO DO: replace with real measure
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
   "OUD-HH": OUDHH,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
+  // "PDS-AD": PDSAD, //TO DO: replace with real measure
+  // "PDS-CH": PDSCH, //TO DO: replace with real measure
   "PPC2-AD": PPC2AD,
   "PPC2-CH": PPC2CH,
+  // "PRS-CH": PRSCH, //TO DO: replace with real measure
   "PQI01-AD": PQI01AD,
   "PQI05-AD": PQI05AD,
   "PQI08-AD": PQI08AD,
   "PQI15-AD": PQI15AD,
   "PQI92-HH": PQI92HH,
+  // "PRS-AD": PRSAD, //TO DO: replace with real measure
   "SAA-AD": SAAAD,
   "SFM-CH": SFMCH,
   "SSD-AD": SSDAD,

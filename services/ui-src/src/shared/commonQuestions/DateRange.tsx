@@ -6,6 +6,7 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
+import { featuresByYear } from "utils/featuresByYear";
 
 const measurementPeriodTableLinks = {
   adult:
@@ -91,12 +92,9 @@ export const DateRange = ({ type }: Props) => {
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
-  //tracking date range had switched to being optional starting 2023
-  const useRadioDateRange: boolean = labels.year >= 2023;
-
   return (
     <QMR.CoreQuestionWrapper testid="date-range" label="Date Range">
-      {useRadioDateRange
+      {featuresByYear.allowImplicitMeasureDates
         ? RadioDateRangeElement(labels.DateRange, link, register)
         : StandardDateRangeElement(labels.DateRange, link, register)}
     </QMR.CoreQuestionWrapper>

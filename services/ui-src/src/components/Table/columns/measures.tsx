@@ -4,6 +4,7 @@ import { BsCheck } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { MeasureTableItem, TableColumn } from "../types";
+import { featuresByYear } from "utils/featuresByYear";
 
 // Get status string from measure data
 const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
@@ -55,7 +56,6 @@ const MeasureStatusText = ({
 export const measuresColumns = (
   year: string
 ): TableColumn<MeasureTableItem.Data>[] => {
-  const displayMandatoryColumn = year >= "2024";
   return [
     {
       header: "Abbreviation",
@@ -84,7 +84,7 @@ export const measuresColumns = (
         );
       },
     },
-    ...(displayMandatoryColumn
+    ...(featuresByYear.displayMandatoryMeasuresColumn
       ? [
           {
             header: "Mandatory",
@@ -109,7 +109,8 @@ export const measuresColumns = (
         ]
       : []),
     {
-      header: "Reporting FFY " + year,
+      header:
+        `Reporting ${featuresByYear.displayFFYLanguage ? "FFY" : ""} ` + year,
       id: "reporting_column_header",
       styleProps: { textAlign: "center" },
       cell: (data: MeasureTableItem.Data) => {

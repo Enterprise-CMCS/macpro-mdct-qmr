@@ -8,6 +8,7 @@ import { SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./NDR/ndrSets";
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -29,36 +30,31 @@ interface NdrNodeProps {
   flagSubCat: boolean;
 }
 
-const omsLabels = (year: number, omsNode: OmsNode) => {
-  switch (year) {
-    case 2022:
-    case 2021: {
-      return {
-        checkboxOpt: `Are you only reporting aggregated data for all ${
-          omsNode.aggregateTitle || omsNode.id
-        } categories?`,
-        YesAggregateData: `Yes, we are only reporting aggregated data for all ${
-          omsNode?.aggregateTitle || omsNode?.id
-        } categories.`,
-        NoIndependentData: `No, we are reporting independent data for all ${
-          omsNode?.aggregateTitle || omsNode?.id
-        } categories`,
-      };
-    }
-    default: {
-      return {
-        checkboxOpt: `Are you reporting aggregate data for the ${
-          omsNode.aggregateTitle || omsNode.label
-        } category?`,
-        YesAggregateData: `Yes, we are reporting aggregate data for the ${
-          omsNode?.aggregateTitle || omsNode?.label
-        } categories.`,
-        NoIndependentData: `No, we are reporting disaggregated data for ${
-          omsNode?.aggregateTitle || omsNode?.label
-        } sub-categories`,
-      };
-    }
+const omsLabels = (omsNode: OmsNode) => {
+  if (featuresByYear.hasStreamlinedOms) {
+    return {
+      checkboxOpt: `Are you reporting aggregate data for the ${
+        omsNode.aggregateTitle || omsNode.label
+      } category?`,
+      YesAggregateData: `Yes, we are reporting aggregate data for the ${
+        omsNode?.aggregateTitle || omsNode?.label
+      } categories.`,
+      NoIndependentData: `No, we are reporting disaggregated data for ${
+        omsNode?.aggregateTitle || omsNode?.label
+      } sub-categories`,
+    };
   }
+  return {
+    checkboxOpt: `Are you only reporting aggregated data for all ${
+      omsNode.aggregateTitle || omsNode.id
+    } categories?`,
+    YesAggregateData: `Yes, we are only reporting aggregated data for all ${
+      omsNode?.aggregateTitle || omsNode?.id
+    } categories.`,
+    NoIndependentData: `No, we are reporting independent data for all ${
+      omsNode?.aggregateTitle || omsNode?.id
+    } categories`,
+  };
 };
 
 const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
@@ -101,12 +97,12 @@ const renderRadioButtonOptions = ({
   omsNode,
   name,
   label,
-  year,
 }: ChildCheckBoxOptionProps) => {
   //this was the legacy way of displaying the sub categories
-  const flagYesSubCat = year! <= 2022 && !!omsNode?.flagSubCat;
+  const flagYesSubCat =
+    featuresByYear.hasQualCatLabels && !!omsNode?.flagSubCat;
   //in 2023, we moved the sub categories to the no option and changed the yes
-  const flagNoSubCat = year! >= 2023;
+  const flagNoSubCat = !featuresByYear.hasQualCatLabels;
 
   return [
     {
@@ -130,7 +126,6 @@ const buildChildCheckboxOption = ({
   omsNode,
   name,
   label,
-  year,
 }: ChildCheckBoxOptionProps) => {
   let children = [];
   const id = omsNode?.id ? cleanString(omsNode.id) : "ID_NOT_SET";
@@ -146,7 +141,7 @@ const buildChildCheckboxOption = ({
       <QMR.RadioButton
         name={`${name}.aggregate`}
         key={`${name}.aggregate`}
-        options={renderRadioButtonOptions({ omsNode, name, label, year })}
+        options={renderRadioButtonOptions({ omsNode, name, label })}
         label={label?.checkboxOpt}
       />,
     ];
@@ -177,13 +172,12 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
             const cleanedId =
               cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
 
-            const labels = omsLabels(props.year!, lvlTwoOption);
+            const labels = omsLabels(lvlTwoOption);
 
             return buildChildCheckboxOption({
               omsNode: lvlTwoOption,
               name: `${props.name}.selections.${cleanedId}`,
               label: labels,
-              year: props.year,
             });
           }),
         ]}
