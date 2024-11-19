@@ -1,10 +1,8 @@
 import * as QMR from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
-import { useFlags } from "launchdarkly-react-client-sdk";
 
 export const WhyDidYouNotCollect = () => {
-  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2023"];
   const register = useCustomRegister<FormData>();
   return (
     <QMR.CoreQuestionWrapper
@@ -147,23 +145,6 @@ export const WhyDidYouNotCollect = () => {
               />,
             ],
           },
-          ...(pheIsCurrent
-            ? [
-                {
-                  displayValue:
-                    "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
-                  value: "LimitationWithDatCollecitonReportAccuracyCovid",
-                  children: [
-                    <QMR.TextArea
-                      label="Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
-                      {...register(
-                        "LimitationWithDatCollecitonReportAccuracyCovid"
-                      )}
-                    />,
-                  ],
-                },
-              ]
-            : []),
           {
             displayValue: "Small sample size (less than 30)",
             value: "SmallSampleSizeLessThan30",
