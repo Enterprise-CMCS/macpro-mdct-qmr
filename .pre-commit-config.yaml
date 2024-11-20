@@ -26,6 +26,6 @@ repos:
     hooks:
       - id: branch-name-validation
         name: branch-name-validation
-        entry: .github/branchNameValidation.sh
+        entry: .github/branch-name-validation.sh
         language: script
         pass_filenames: false
