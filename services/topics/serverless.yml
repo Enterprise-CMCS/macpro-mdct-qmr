@@ -1,6 +1,6 @@
 service: topics
 
-frameworkVersion: "3"
+frameworkVersion: "4"
 
 package:
   individually: true
