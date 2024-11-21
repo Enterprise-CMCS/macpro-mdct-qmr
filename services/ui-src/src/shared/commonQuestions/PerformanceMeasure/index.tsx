@@ -7,8 +7,6 @@ import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
 import { getLabelText, isLegacyLabel, LabelData } from "utils";
 import { ndrFormula } from "types";
-import { useFlags } from "launchdarkly-react-client-sdk";
-import { usePathParams } from "hooks/api/usePathParams";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { featuresByYear } from "utils/featuresByYear";
@@ -211,11 +209,6 @@ export const PerformanceMeasure = ({
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const register = useCustomRegister<Types.PerformanceMeasure>();
-  const { year } = usePathParams();
-  //for years after 2023, we use a flag to determine showing the covid message
-  const pheIsCurrent =
-    featuresByYear.periodOfHealthEmergency ||
-    useFlags()?.[`periodOfHealthEmergency${year}`];
 
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
@@ -303,7 +296,7 @@ export const PerformanceMeasure = ({
           {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
         />
       )}
-      {hybridMeasure && pheIsCurrent && (
+      {hybridMeasure && featuresByYear.displayCovidLanguage && (
         <CUI.Box my="5">
           <CUI.Text>{labels?.PerformanceMeasure?.phe}</CUI.Text>
           <QMR.TextArea

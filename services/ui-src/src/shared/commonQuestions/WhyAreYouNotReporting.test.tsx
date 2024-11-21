@@ -1,12 +1,13 @@
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { WhyAreYouNotReporting } from "./WhyAreYouNotReporting";
-import { mockLDFlags } from "../../../setupJest";
 import userEvent from "@testing-library/user-event";
 import SharedContext from "shared/SharedContext";
-import commonQuestionsLabel from "labels/2025/commonQuestionsLabel";
+import commonQuestionsLabel from "labels/2024/commonQuestionsLabel";
+import { getMeasureYear } from "utils/getMeasureYear";
 
-mockLDFlags.setDefault({ periodOfHealthEmergency2025: false });
+jest.mock("utils/getMeasureYear");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 describe("WhyAreYouNotReporting component initial appearance", () => {
   beforeEach(() => {
@@ -200,10 +201,13 @@ describe("WhyAreYouNotReporting component, Health Homes", () => {
 });
 
 describe("Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic (PHE active)", () => {
+  beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2024);
+  });
+
   it("renders textBox correctly", () => {
-    mockLDFlags.set({ periodOfHealthEmergency2025: true });
     renderWithHookForm(
-      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2025" }}>
+      <SharedContext.Provider value={{ ...commonQuestionsLabel, year: "2024" }}>
         <WhyAreYouNotReporting />
       </SharedContext.Provider>
     );
