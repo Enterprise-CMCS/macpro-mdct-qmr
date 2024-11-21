@@ -33,7 +33,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.665.0",
     "@aws-sdk/lib-dynamodb": "^3.662.0",
-    "@aws-sdk/util-dynamodb": "^3.665.0",
+    "@aws-sdk/util-dynamodb": "^3.682.0",
     "aws4": "^1.13.1",
     "cross-fetch": "^4.0.0",
     "dompurify": "^3.1.6",
