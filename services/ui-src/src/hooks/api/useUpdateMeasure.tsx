@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { editMeasure } from "libs/api";
 import { CoreSetAbbr, Params, MeasureStatus } from "types";
 import { usePathParams } from "./usePathParams";

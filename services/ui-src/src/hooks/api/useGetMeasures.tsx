@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { listMeasures } from "libs/api";
 import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router-dom";

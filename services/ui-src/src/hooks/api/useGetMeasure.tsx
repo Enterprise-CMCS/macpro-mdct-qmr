@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import * as API from "libs/api";
 import { Params } from "types";
 import { usePathParams } from "./usePathParams";
