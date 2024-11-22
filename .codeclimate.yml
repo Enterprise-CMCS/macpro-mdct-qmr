@@ -18,7 +18,7 @@ checks:
   similar-code:
     enabled: false
   identical-code:
-    enabled: false
+    enabled: true
 exclude_patterns:
   - "**/node_modules/"
   - ".github/"
