@@ -178,7 +178,7 @@ export const MeasureWrapper = ({
   }
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const toast = createStandaloneToast();
+  const { toast } = createStandaloneToast();
   const toastFailtoSave = () => {
     return toast({
       status: "error",

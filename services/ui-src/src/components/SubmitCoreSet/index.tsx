@@ -68,7 +68,7 @@ export const SubmitCoreSetButton = ({
   const queryClient = useQueryClient();
   const userInfo = useUser();
 
-  const toast = createStandaloneToast();
+  const { toast } = createStandaloneToast();
 
   const urlParams = useParams();
   const state = urlParams.state !== undefined ? urlParams.state : "";

@@ -4,34 +4,6 @@ exports[`Test Table Component renders coreset table correctly 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
-    <div
-      id="chakra-toast-portal"
-    >
-      <ul
-        id="chakra-toast-manager-top"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; margin: 0px auto;"
-      />
-      <ul
-        id="chakra-toast-manager-top-left"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
-      />
-      <ul
-        id="chakra-toast-manager-top-right"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
-      />
-      <ul
-        id="chakra-toast-manager-bottom-left"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
-      />
-      <ul
-        id="chakra-toast-manager-bottom"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; margin: 0px auto;"
-      />
-      <ul
-        id="chakra-toast-manager-bottom-right"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
-      />
-    </div>
     <div>
       <table
         class="chakra-table css-cyiq3i"
@@ -129,34 +101,6 @@ exports[`Test Table Component renders measures table correctly 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
-    <div
-      id="chakra-toast-portal"
-    >
-      <ul
-        id="chakra-toast-manager-top"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; margin: 0px auto;"
-      />
-      <ul
-        id="chakra-toast-manager-top-left"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
-      />
-      <ul
-        id="chakra-toast-manager-top-right"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
-      />
-      <ul
-        id="chakra-toast-manager-bottom-left"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
-      />
-      <ul
-        id="chakra-toast-manager-bottom"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; margin: 0px auto;"
-      />
-      <ul
-        id="chakra-toast-manager-bottom-right"
-        style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column;"
-      />
-    </div>
     <div>
       <table
         class="chakra-table css-cyiq3i"

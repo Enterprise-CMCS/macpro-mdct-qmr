@@ -37,7 +37,7 @@ export const Upload = ({
     ".png",
   ],
 }: IUploadProps) => {
-  const toast = createStandaloneToast();
+  const { toast } = createStandaloneToast();
 
   const { control } = useFormContext();
   const [uploadStatus, setUploadStatus] = React.useState(0);

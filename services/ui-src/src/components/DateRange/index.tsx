@@ -29,7 +29,7 @@ export const currentMonth = parseInt(format(new Date(), "M"));
 export const DateRangeError = ({ name }: { name: string }) => {
   const { setValue, watch } = useFormContext();
   const range = watch(name);
-  const toast = createStandaloneToast();
+  const { toast } = createStandaloneToast();
   const startYear = parseInt(range?.startDate?.selectedYear);
   const startMonth = parseInt(range?.startDate?.selectedMonth);
 
