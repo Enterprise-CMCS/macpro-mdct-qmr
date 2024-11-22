@@ -7,6 +7,7 @@ import {
   SetStateAction,
 } from "react";
 import * as CUI from "@chakra-ui/react";
+import { createStandaloneToast } from "@chakra-ui/toast";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useForm,
@@ -177,7 +178,7 @@ export const MeasureWrapper = ({
   }
 
   const [showModal, setShowModal] = useState<boolean>(false);
-  const toast = CUI.useToast();
+  const toast = createStandaloneToast();
   const toastFailtoSave = () => {
     return toast({
       status: "error",

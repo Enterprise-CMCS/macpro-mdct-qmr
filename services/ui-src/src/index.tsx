@@ -1,4 +1,4 @@
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "index.scss";
 import App from "App";
 import * as serviceWorker from "serviceWorker";
@@ -6,9 +6,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Amplify } from "aws-amplify";
 import "aws-amplify/auth/enable-oauth-listener";
 import { QueryProvider } from "query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
+import { createStandaloneToast } from "@chakra-ui/toast";
 import { theme } from "theme";
 import { UserProvider, ApiProvider } from "hooks/authHooks";
 import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
@@ -59,7 +60,9 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
     deferInitialization: false,
   });
 
-  ReactDOM.render(
+  const { ToastContainer } = createStandaloneToast();
+
+  createRoot(document.getElementById("root")!).render(
     <Router>
       <UserProvider>
         <ApiProvider>
@@ -67,14 +70,14 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
             <ChakraProvider theme={theme}>
               <LDProvider>
                 <App />
+                <ToastContainer />
               </LDProvider>
             </ChakraProvider>
             <ReactQueryDevtools />
           </QueryProvider>
         </ApiProvider>
       </UserProvider>
-    </Router>,
-    document.getElementById("root")
+    </Router>
   );
 })().catch((e) => {
   throw e;

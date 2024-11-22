@@ -1,4 +1,5 @@
-import { Box, Text, useToast } from "@chakra-ui/react";
+import { createStandaloneToast } from "@chakra-ui/toast";
+import { Box, Text } from "@chakra-ui/react";
 import { ContainedButton } from "components/ContainedButton";
 import { CoreSetAbbr } from "types";
 import { CoreSetTableItem } from "components/Table/types";
@@ -67,7 +68,7 @@ export const SubmitCoreSetButton = ({
   const queryClient = useQueryClient();
   const userInfo = useUser();
 
-  const toast = useToast();
+  const toast = createStandaloneToast();
 
   const urlParams = useParams();
   const state = urlParams.state !== undefined ? urlParams.state : "";
