@@ -16,5 +16,8 @@ const _getBanner = async (bannerKey: string) => {
 };
 
 export const useGetBanner = (bannerKey: string) => {
-  return useQuery(bannerKey, () => _getBanner(bannerKey));
+  return useQuery({
+    queryKey: [bannerKey],
+    queryFn: () => _getBanner(bannerKey),
+  });
 };

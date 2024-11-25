@@ -22,9 +22,10 @@ export const useGetCoreSets = (releasedTwentyTwentyFive: boolean) => {
     year &&
     (releasedTwentyTwentyFive || featuresByYear.reportingYearReleased)
   ) {
-    return useQuery(["coreSets", state, year], () =>
-      getCoreSets({ state, year })
-    );
+    return useQuery({
+      queryKey: ["coreSets", state, year],
+      queryFn: () => getCoreSets({ state, year }),
+    });
   }
   throw Error("state or year unavailable");
 };

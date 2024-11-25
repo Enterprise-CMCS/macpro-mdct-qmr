@@ -23,17 +23,23 @@ export const useGetMeasure = ({ coreSet, measure }: GetMeasure) => {
   const { state, year } = useParams();
 
   if ((state || statePath) && (year || yearPath)) {
-    return useQuery(
-      ["measure", state || statePath, year || yearPath, coreSet, measure],
-      () =>
+    return useQuery({
+      queryKey: [
+        "measure",
+        state || statePath,
+        year || yearPath,
+        coreSet,
+        measure,
+      ],
+      queryFn: () =>
         getMeasure({
           state: state || statePath,
           year: year || yearPath,
           coreSet,
           measure,
         }),
-      { refetchOnWindowFocus: false }
-    );
+      refetchOnWindowFocus: false,
+    });
   }
   throw Error("state or year unavailable");
 };
