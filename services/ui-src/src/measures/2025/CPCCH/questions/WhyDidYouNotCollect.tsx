@@ -146,17 +146,6 @@ export const WhyDidYouNotCollect = () => {
             ],
           },
           {
-            displayValue:
-              "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
-            value: "LimitationWithDatCollecitonReportAccuracyCovid",
-            children: [
-              <QMR.TextArea
-                label="Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
-                {...register("LimitationWithDatCollecitonReportAccuracyCovid")}
-              />,
-            ],
-          },
-          {
             displayValue: "Small sample size (less than 30)",
             value: "SmallSampleSizeLessThan30",
             children: [

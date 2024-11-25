@@ -5,12 +5,12 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/07b73163d1474a114cb9/test_coverage)](https://codeclimate.com/repos/644971d1d763981eff6ed851/test_coverage)
 
 ### Integration Environment Deploy Status:
-| Branch  | Build Status |
-| ------------- | ------------- |
-| master  | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg)  |
-| val  | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=val)  |
-| prod  | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=prod)  |
 
+| Branch | Build Status                                                                                                     |
+| ------ | ---------------------------------------------------------------------------------------------------------------- |
+| master | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg)             |
+| val    | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=val)  |
+| prod   | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=prod) |
 
 QMR is the CMCS MDCT application for collecting state data for related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
@@ -73,9 +73,10 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 ## Local Development Setup
 
 ### Running MDCT Workspace Setup
-Team members are encouraged to setup all MDCT Products using the script located in the [MDCT Tools Repository](https://github.com/Enterprise-CMCS/macpro-mdct-tools). Please refer to the README for instructions running the MDCT Workspace Setup. After Running workspace setup team members can refer to the Running the project locally section below to proceed with running the application. 
 
-The following are prerequisites for local development.  **If you have run the MDCT Workspace setup script please ignore this section it is not needed.**
+Team members are encouraged to setup all MDCT Products using the script located in the [MDCT Tools Repository](https://github.com/Enterprise-CMCS/macpro-mdct-tools). Please refer to the README for instructions running the MDCT Workspace Setup. After Running workspace setup team members can refer to the Running the project locally section below to proceed with running the application.
+
+The following are prerequisites for local development. **If you have run the MDCT Workspace setup script please ignore this section it is not needed.**
 
 1. [Create an SSH Key and link it to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 1. Clone this repository locally
@@ -195,16 +196,14 @@ yarn install
 
 To run the end-to-end (E2E) `Cypress` tests:
 
-
 from the root of the directory
+
 ```
 ./run update-env
 yarn test
 ```
 
 **note:** this will ensure you are using the latest values from 1Password and update your .env files
-
-
 
 The `Cypress` application will kick off, where you can find a list of all the available E2E tests.
 
@@ -399,7 +398,7 @@ A known issue with this utility is that right now it only `ands` arguments, so i
 
 ## Database
 
-We are using DynamoDb for our database solution for QMR. When looking for the databases in AWS search for `branchName-tableName` to find the tables for your branch.
+We are using DynamoDB for our database solution for QMR. When looking for the databases in AWS search for `branchName-tableName` to find the tables for your branch.
 
 ### Tables
 
@@ -571,7 +570,7 @@ to make in order to get that year working.
 
 15. In `services/ui-src/src/config.ts` change `currentReportingYear` to the new reporting year.
 
-### Cypress 
+### Cypress
 
 1. In `test/cypress/support/constants.ts` change the const from measureAbbrList{year} to the coming year and do a quick search and replace for any instance of that variable call.
 

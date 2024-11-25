@@ -1565,11 +1565,6 @@ export const measures: Measure = {
     },
     {
       type: "C",
-      measure: "AMB-CH",
-      mandatory: true,
-    },
-    {
-      type: "C",
       measure: "AMR-CH",
       mandatory: true,
     },
@@ -1709,11 +1704,6 @@ export const measures: Measure = {
     },
     {
       type: "H",
-      measure: "AMB-HH",
-      mandatory: true,
-    },
-    {
-      type: "H",
       measure: "CBP-HH",
       mandatory: true,
     },
@@ -1760,11 +1750,6 @@ export const measures: Measure = {
     {
       type: "H",
       measure: "PCR-HH",
-      mandatory: true,
-    },
-    {
-      type: "H",
-      measure: "PQI92-HH",
       mandatory: true,
     },
     {

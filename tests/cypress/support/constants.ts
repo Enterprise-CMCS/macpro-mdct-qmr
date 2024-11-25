@@ -44,7 +44,6 @@ export const measureAbbrList2025 = {
   CHILD: [
     "AAB-CH",
     "ADD-CH",
-    "AMB-CH",
     "AMR-CH",
     "APM-CH",
     "APP-CH",
@@ -75,7 +74,6 @@ export const measureAbbrList2025 = {
   ],
   HEALTH_HOME: [
     "AIF-HH",
-    "AMB-HH",
     "CBP-HH",
     "CDF-HH",
     "COL-HH",
@@ -86,6 +84,5 @@ export const measureAbbrList2025 = {
     "IU-HH",
     "OUD-HH",
     "PCR-HH",
-    "PQI92-HH",
   ],
 };

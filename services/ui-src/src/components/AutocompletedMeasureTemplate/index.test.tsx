@@ -1,8 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { AutocompletedMeasureTemplate } from ".";
+import { getMeasureYear } from "utils/getMeasureYear";
+
+jest.mock("utils/getMeasureYear");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 beforeEach(() => {
+  mockGetMeasureYear.mockReturnValue(2021);
   render(
     <RouterWrappedComp>
       <AutocompletedMeasureTemplate

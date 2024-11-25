@@ -30,14 +30,14 @@ export const HowDidYouReport = ({ reportingYear }: Props) => {
               <QMR.CoreQuestionWrapper testid="did-report" label="">
                 <QMR.RadioButton
                   {...register(DC.DID_REPORT)}
-                  label={`Would you like to enter data for this measure in the QMR system for FFY ${reportingYear} reporting?`}
+                  label={`Would you like to enter data for this measure in the QMR system for ${reportingYear} reporting?`}
                   options={[
                     {
-                      displayValue: `Yes, I would like to enter data for this measure in the QMR system for FFY ${reportingYear} reporting.`,
+                      displayValue: `Yes, I would like to enter data for this measure in the QMR system for ${reportingYear} reporting.`,
                       value: DC.YES,
                     },
                     {
-                      displayValue: `No, I would not like to enter data for this measure in the QMR system for FFY ${reportingYear} reporting.`,
+                      displayValue: `No, I would not like to enter data for this measure in the QMR system for ${reportingYear} reporting.`,
                       value: DC.NO,
                     },
                   ]}

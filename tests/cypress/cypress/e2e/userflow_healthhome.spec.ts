@@ -18,12 +18,12 @@ describe(`healthhome core set workflow test`, () => {
 });
 
 // fill out a measure for 2025
-describe("Measure: AMB-HH", () => {
+describe("Measure: CBP-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
     cy.goToHealthHomeSetMeasures();
-    cy.goToMeasure("AMB-HH");
+    cy.goToMeasure("CBP-HH");
   });
 
   it("Ensure correct sections display if user is/not reporting", () => {
@@ -68,7 +68,7 @@ describe.skip("submit coreset", () => {
     // confirm reset
     cy.get('[data-cy="Status-CT2025HHCS_15-014"]').should(
       "contain.text",
-      "not started0 of 13 complete"
+      "not started0 of 11 complete"
     );
   });
   it("submit and confirm submission", () => {
@@ -78,7 +78,7 @@ describe.skip("submit coreset", () => {
     cy.wait(4000);
     cy.get('[data-cy="Status-CT2025HHCS_15-014"]').should(
       "contain.text",
-      "complete13 of 13 complete"
+      "complete11 of 11 complete"
     );
 
     // submit core set
@@ -93,7 +93,7 @@ describe.skip("submit coreset", () => {
     cy.visit("/");
     cy.get('[data-cy="Status-CT2025HHCS_15-014"]').should(
       "contain.text",
-      "submitted13 of 13 complete"
+      "submitted11 of 11 complete"
     );
   });
 });
