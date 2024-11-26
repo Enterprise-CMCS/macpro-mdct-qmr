@@ -35,7 +35,7 @@ export const CBPHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (

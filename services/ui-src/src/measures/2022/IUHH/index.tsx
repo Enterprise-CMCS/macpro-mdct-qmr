@@ -36,7 +36,7 @@ export const IUHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (

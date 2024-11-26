@@ -35,7 +35,7 @@ export const AMBHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (
