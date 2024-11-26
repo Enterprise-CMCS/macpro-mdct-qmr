@@ -35,7 +35,7 @@ export const FUMHH = ({
         measureAbbreviation={measureId}
         measureName={name}
         reportingYear={year}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (

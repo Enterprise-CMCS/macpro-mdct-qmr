@@ -28,7 +28,7 @@ export const PCRHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
         removeLessThan30
       />
 
