@@ -56,7 +56,7 @@ export const DEVCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
+              coreset="child"
               calcTotal
             />
           )}

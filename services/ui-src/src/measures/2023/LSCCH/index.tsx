@@ -53,7 +53,7 @@ export const LSCCH = ({
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              adultMeasure={false}
+              coreset="child"
               calcTotal
               categories={PMD.categories}
               performanceMeasureArray={performanceMeasureArray}

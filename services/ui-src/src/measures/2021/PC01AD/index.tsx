@@ -65,8 +65,8 @@ export const PC01AD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
-              isSingleSex={true}
+              coreset="adult"
+              excludeOptions={["Sex"]}
             />
           )}
         </>

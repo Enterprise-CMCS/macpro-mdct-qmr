@@ -56,8 +56,8 @@ export const PPC2CH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
-              isSingleSex
+              coreset="child"
+              excludeOptions={["O8BrOa"]}
             />
           )}
         </>

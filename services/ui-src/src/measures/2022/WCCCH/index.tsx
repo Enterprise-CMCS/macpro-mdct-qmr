@@ -59,7 +59,7 @@ export const WCCCH = ({
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure={false}
+              coreset="child"
               calcTotal
             />
           )}

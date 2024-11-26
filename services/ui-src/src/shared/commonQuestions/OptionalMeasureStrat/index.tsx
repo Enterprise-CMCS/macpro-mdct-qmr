@@ -16,8 +16,8 @@ interface OmsCheckboxProps {
   name: string;
   /** data object for dynamic rendering */
   data: Types.OmsNode[];
-  isSingleSex: boolean;
   year: number;
+  excludeOptions: string[];
 }
 
 /**
@@ -27,11 +27,11 @@ interface OmsCheckboxProps {
 export const buildOmsCheckboxes = ({
   name,
   data,
-  isSingleSex,
+  excludeOptions,
   year,
 }: OmsCheckboxProps) => {
   return data
-    .filter((d) => !isSingleSex || (d.id !== "O8BrOa" && d.id !== "Sex")) // remove sex as a top level option if isSingleSex
+    .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
     .map((lvlOneOption) => {
       const displayValue = lvlOneOption.label;
       const value = cleanString(lvlOneOption.id);
@@ -69,7 +69,7 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   rateMultiplicationValue?: number;
   allowNumeratorGreaterThanDenominator?: boolean;
   customMask?: RegExp;
-  isSingleSex?: boolean;
+  excludeOptions?: string[];
   rateAlwaysEditable?: boolean;
   numberOfDecimals?: number;
   componentFlag?: ComponentFlagType;
@@ -85,13 +85,13 @@ interface DataDrivenProp {
   /** data array for dynamic rendering */
   data: Types.OmsNode[];
   /** cannot set adultMeasure if using custom data*/
-  adultMeasure?: never;
+  coreset?: never;
 }
 
 /** default data is being used for this component */
 interface DefaultDataProp {
   /** is this an adult measure? Should this contain the ACA portion? */
-  adultMeasure: boolean;
+  coreset: string;
   /** cannot set data if using default data */
   data?: never;
 }
@@ -132,11 +132,11 @@ export const OptionalMeasureStrat = ({
   ndrFormulas,
   data,
   calcTotal = false,
-  adultMeasure,
+  coreset,
   rateMultiplicationValue,
   allowNumeratorGreaterThanDenominator = false,
   customMask,
-  isSingleSex = false,
+  excludeOptions = [],
   rateAlwaysEditable,
   numberOfDecimals = 1,
   componentFlag = "DEFAULT",
@@ -150,7 +150,7 @@ export const OptionalMeasureStrat = ({
   const labels: any = useContext(SharedContext);
   const year = labels.year;
 
-  const omsData = data ?? OMSData(year, adultMeasure);
+  const omsData = data ?? OMSData(year, coreset);
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<OMSType>();
   const values = getValues();
@@ -167,7 +167,7 @@ export const OptionalMeasureStrat = ({
   const checkBoxOptions = buildOmsCheckboxes({
     ...register("OptionalMeasureStratification"),
     data: omsData,
-    isSingleSex,
+    excludeOptions,
     year,
   });
 

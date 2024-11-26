@@ -44,7 +44,7 @@ export const FUMHH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="health" />
-          <CMQ.DefinitionOfPopulation healthHomeMeasure />
+          <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure calcTotal data={PMD.data} />
@@ -54,10 +54,10 @@ export const FUMHH = ({
           {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure rateMultiplicationValue={100} />
           )}
-          <CMQ.CombinedRates healthHomeMeasure />
+          <CMQ.CombinedRates coreset="health" />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              adultMeasure={false}
+              coreset="health"
               calcTotal
               categories={PMD.categories}
               performanceMeasureArray={performanceMeasureArray}

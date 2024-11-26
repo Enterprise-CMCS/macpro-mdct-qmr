@@ -45,7 +45,7 @@ export const IUHH = ({
           <CMQ.MeasurementSpecification type="CMS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="health" />
-          <CMQ.DefinitionOfPopulation healthHomeMeasure={true} />
+          <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure
@@ -62,7 +62,7 @@ export const IUHH = ({
               customMask={xNumbersYDecimals(12, 1)}
             />
           )}
-          <CMQ.CombinedRates healthHomeMeasure={true} />
+          <CMQ.CombinedRates coreset="health" />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
@@ -71,7 +71,7 @@ export const IUHH = ({
               inputFieldNames={PMD.data.inputFieldNames}
               ndrFormulas={PMD.data.ndrFormulas}
               allowNumeratorGreaterThanDenominator
-              adultMeasure={false}
+              coreset="health"
               calcTotal={true}
               customMask={xNumbersYDecimals(12, 1)}
               IUHHPerformanceMeasureArray={performanceMeasureArray}

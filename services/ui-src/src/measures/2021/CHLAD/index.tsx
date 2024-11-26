@@ -59,8 +59,8 @@ export const CHLAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
-              isSingleSex
+              coreset="adult"
+              excludeOptions={["Sex"]}
             />
           )}
         </>

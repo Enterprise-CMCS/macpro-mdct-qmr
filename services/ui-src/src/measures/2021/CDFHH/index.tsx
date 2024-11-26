@@ -43,7 +43,7 @@ export const CDFHH = ({
           <CMQ.MeasurementSpecification type="CMS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="health" />
-          <CMQ.DefinitionOfPopulation healthHomeMeasure />
+          <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure
@@ -60,14 +60,14 @@ export const CDFHH = ({
           {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure rateMultiplicationValue={100} />
           )}
-          <CMQ.CombinedRates healthHomeMeasure />
+          <CMQ.CombinedRates coreset="health" />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
               rateMultiplicationValue={100}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure={false}
+              coreset="health"
               calcTotal
             />
           )}
