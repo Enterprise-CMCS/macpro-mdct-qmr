@@ -43,7 +43,7 @@ export const DEVCH = ({
           <CMQ.MeasurementSpecification type="OHSU" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal hybridMeasure />

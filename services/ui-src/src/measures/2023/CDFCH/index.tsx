@@ -43,7 +43,7 @@ export const CDFCH = ({
           <CMQ.MeasurementSpecification type="CMS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure={true} />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />

@@ -43,7 +43,7 @@ export const WCCCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal hybridMeasure />

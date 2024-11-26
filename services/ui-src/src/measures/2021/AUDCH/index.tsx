@@ -43,7 +43,7 @@ export const AUDCH = ({
           <CMQ.MeasurementSpecification type="CDC" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure={true} />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
