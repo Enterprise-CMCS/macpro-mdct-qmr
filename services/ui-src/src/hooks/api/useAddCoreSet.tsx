@@ -20,9 +20,10 @@ const addCoreSet = async ({ state, year, coreSet }: AddCoreSet) => {
 export const useAddCoreSet = () => {
   const { state, year } = useParams();
   if (state && year) {
-    return useMutation((coreSet: CoreSetAbbr) =>
-      addCoreSet({ state, year, coreSet })
-    );
+    return useMutation({
+      mutationFn: (coreSet: CoreSetAbbr) =>
+        addCoreSet({ state, year, coreSet }),
+    });
   }
   throw Error("Missing required fields");
 };

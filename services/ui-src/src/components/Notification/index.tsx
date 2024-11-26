@@ -10,11 +10,12 @@ interface NotificationProps {
   close?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-enum BorderColor {
-  success = "green.500",
-  error = "red.500",
-  warning = "yellow.500",
-  info = "blue.500",
+enum ColorPalette {
+  success = "green",
+  error = "red",
+  warning = "yellow",
+  info = "blue",
+  loading = "gray",
 }
 
 export const Notification = ({
@@ -40,7 +41,7 @@ export const Notification = ({
     <CUI.Alert
       borderLeft="8px"
       className="hidden-print-items disabled-print-preview-items"
-      borderColor={BorderColor[alertStatus]}
+      colorPalette={ColorPalette[alertStatus]}
       py={3}
       status={alertStatus}
       {...alertProps}

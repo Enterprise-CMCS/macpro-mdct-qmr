@@ -24,5 +24,7 @@ const deleteMeasure = async ({
 };
 
 export const useDeleteMeasure = () => {
-  return useMutation((data: DeleteMeasure) => deleteMeasure(data));
+  return useMutation({
+    mutationFn: (data: DeleteMeasure) => deleteMeasure(data),
+  });
 };

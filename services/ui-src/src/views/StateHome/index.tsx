@@ -156,7 +156,7 @@ const StateHome = () => {
   const mutation = useUpdateAllMeasures();
   const resetCoreSetMutation = useResetCoreSet();
   const releasedTwentyTwentyFive = useFlags()?.["release2025"];
-  const { data, error, isLoading } = Api.useGetCoreSets(
+  const { data, error, isPending } = Api.useGetCoreSets(
     releasedTwentyTwentyFive
   );
   const { userState, userRole } = useUser();
@@ -254,10 +254,10 @@ const StateHome = () => {
   }
 
   if (
-    isLoading ||
+    isPending ||
     !data.Items ||
-    mutation.isLoading ||
-    resetCoreSetMutation.isLoading
+    mutation.isPending ||
+    resetCoreSetMutation.isPending
   ) {
     return <QMR.LoadingWave />;
   }

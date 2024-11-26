@@ -7,14 +7,12 @@ Object {
     <div>
       <table
         class="chakra-table css-cyiq3i"
-        role="table"
       >
         <thead
           class="css-0"
         >
           <tr
             class="css-0"
-            role="row"
           />
         </thead>
         <tbody
@@ -27,14 +25,12 @@ Object {
   "container": <div>
     <table
       class="chakra-table css-cyiq3i"
-      role="table"
     >
       <thead
         class="css-0"
       >
         <tr
           class="css-0"
-          role="row"
         />
       </thead>
       <tbody
@@ -104,14 +100,12 @@ Object {
     <div>
       <table
         class="chakra-table css-cyiq3i"
-        role="table"
       >
         <thead
           class="css-0"
         >
           <tr
             class="css-0"
-            role="row"
           />
         </thead>
         <tbody
@@ -124,14 +118,12 @@ Object {
   "container": <div>
     <table
       class="chakra-table css-cyiq3i"
-      role="table"
     >
       <thead
         class="css-0"
       >
         <tr
           class="css-0"
-          role="row"
         />
       </thead>
       <tbody
