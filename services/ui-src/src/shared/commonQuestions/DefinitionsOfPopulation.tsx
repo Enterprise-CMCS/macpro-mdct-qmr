@@ -17,7 +17,7 @@ interface Props {
   hybridMeasure?: boolean;
   populationSampleSize?: boolean;
   coreSetOptions?: CoreSetSpecificOptions;
-  coreset: string;
+  coreset?: string;
 }
 interface DefOfDenomOption {
   displayValue: string;
