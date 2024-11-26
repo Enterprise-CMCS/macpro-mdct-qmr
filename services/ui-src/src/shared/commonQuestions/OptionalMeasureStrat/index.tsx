@@ -150,7 +150,7 @@ export const OptionalMeasureStrat = ({
   const labels: any = useContext(SharedContext);
   const year = labels.year;
 
-  const omsData = data ?? OMSData(year, coreset);
+  const omsData = data ?? OMSData(year, coreset === "adult");
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<OMSType>();
   const values = getValues();

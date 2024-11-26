@@ -1,10 +1,10 @@
 import { OmsNode } from "shared/types";
 
-export const OMSData = (year: number, coreset?: string): OmsNode[] => {
+export const OMSData = (year: number, adultMeasure?: boolean): OmsNode[] => {
   switch (Number(year)) {
     case 2021:
     case 2022:
-      return dataLegacy(coreset === "adult");
+      return dataLegacy(adultMeasure);
     default:
       return data();
   }
