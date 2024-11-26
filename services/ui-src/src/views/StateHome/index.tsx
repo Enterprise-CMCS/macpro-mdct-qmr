@@ -156,7 +156,7 @@ const StateHome = () => {
   const mutation = useUpdateAllMeasures();
   const resetCoreSetMutation = useResetCoreSet();
   const releasedTwentyTwentyFive = useFlags()?.["release2025"];
-  const { data, error, isPending } = Api.useGetCoreSets(
+  const { data, error, isLoading } = Api.useGetCoreSets(
     releasedTwentyTwentyFive
   );
   const { userState, userRole } = useUser();
@@ -254,7 +254,7 @@ const StateHome = () => {
   }
 
   if (
-    isPending ||
+    isLoading ||
     !data.Items ||
     mutation.isPending ||
     resetCoreSetMutation.isPending
