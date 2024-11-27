@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getRate } from "libs/api";
 import { CombinedRatesPayload } from "types";
 
@@ -20,9 +20,10 @@ const _getRate = async ({ measure, state, coreSet, year }: GetRate) => {
 
 export const useGetRate = ({ measure, state, coreSet, year }: GetRate) => {
   if (measure && state && year) {
-    return useQuery(["rate", state, year, measure], () =>
-      _getRate({ measure, state, coreSet, year })
-    );
+    return useQuery({
+      queryKey: ["rate", state, year, measure],
+      queryFn: () => _getRate({ measure, state, coreSet, year }),
+    });
   }
   throw Error("state or year unavailable");
 };

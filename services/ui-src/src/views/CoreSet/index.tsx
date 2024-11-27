@@ -15,7 +15,7 @@ import {
   useGetMeasures,
   useUpdateMeasure,
 } from "hooks/api";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
 import { Alert } from "@cmsgov/design-system";

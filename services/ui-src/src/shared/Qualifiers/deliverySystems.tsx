@@ -132,7 +132,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
                   variant: "outline",
                   colorScheme: "blue",
                   color: "blue.500",
-                  isFullWidth: true,
+                  width: "full",
                 }}
                 onClick={() => append(initialDeliverySystemValue)}
               />
