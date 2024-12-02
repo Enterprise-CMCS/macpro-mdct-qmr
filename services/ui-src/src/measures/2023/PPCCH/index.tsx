@@ -43,7 +43,7 @@ export const PPCCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure={true} hybridMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
@@ -57,8 +57,8 @@ export const PPCCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
-              isSingleSex
+              coreset="child"
+              excludeOptions={["O8BrOa"]}
             />
           )}
         </>

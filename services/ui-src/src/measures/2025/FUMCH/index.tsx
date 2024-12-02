@@ -43,7 +43,7 @@ export const FUMCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" coreset="child" />
           <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure={true} />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
@@ -56,7 +56,7 @@ export const FUMCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
+              coreset="child"
             />
           )}
         </>

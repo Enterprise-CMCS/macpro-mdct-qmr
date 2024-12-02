@@ -7,18 +7,16 @@ import SharedContext from "shared/SharedContext";
 import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
-  healthHomeMeasure?: boolean;
+  coreset?: string;
   removeLessThan30?: boolean;
 }
 
-export const WhyAreYouNotReporting = ({
-  healthHomeMeasure,
-  removeLessThan30,
-}: Props) => {
+export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
   const register = useCustomRegister<Types.WhyAreYouNotReporting>();
+  const healthHomeMeasure = coreset === "health";
 
   return (
     <QMR.CoreQuestionWrapper

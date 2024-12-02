@@ -43,7 +43,7 @@ export const APPCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" coreset="child" />
           <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
@@ -56,7 +56,7 @@ export const APPCH = ({
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure={false}
+              coreset="child"
               calcTotal
             />
           )}

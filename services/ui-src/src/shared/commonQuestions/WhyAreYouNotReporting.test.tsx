@@ -180,7 +180,7 @@ describe(`Options`, () => {
 
 describe("WhyAreYouNotReporting component, Health Homes", () => {
   beforeEach(() => {
-    renderWithHookForm(<WhyAreYouNotReporting healthHomeMeasure />);
+    renderWithHookForm(<WhyAreYouNotReporting coreset="health" />);
   });
 
   it("renders the Health Homes version of the component", () => {

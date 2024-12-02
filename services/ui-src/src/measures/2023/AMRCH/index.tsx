@@ -43,7 +43,7 @@ export const AMRCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
@@ -57,7 +57,7 @@ export const AMRCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
+              coreset="child"
               calcTotal
             />
           )}

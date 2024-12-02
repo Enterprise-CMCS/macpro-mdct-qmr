@@ -57,7 +57,7 @@ export const CDFAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
+              coreset="adult"
             />
           )}
         </>

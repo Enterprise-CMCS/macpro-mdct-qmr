@@ -43,7 +43,7 @@ export const SFMCH = ({
           <CMQ.MeasurementSpecification type="ADA-DQA" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} showtextbox={false} />
@@ -59,7 +59,7 @@ export const SFMCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
+              coreset="child"
             />
           )}
         </>

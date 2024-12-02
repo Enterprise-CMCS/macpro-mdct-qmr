@@ -7,18 +7,19 @@ import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 
 interface Props {
-  healthHomeMeasure?: boolean;
+  coreset?: string;
 }
 
-export const CombinedRates = ({ healthHomeMeasure }: Props) => {
+export const CombinedRates = ({ coreset }: Props) => {
   const register = useCustomRegister<Types.CombinedRates>();
 
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
-  const combinedLabel = healthHomeMeasure
-    ? labels.CombinedRates?.healthHome
-    : labels.CombinedRates?.notHealthHome;
+  const combinedLabel =
+    coreset === "health"
+      ? labels.CombinedRates?.healthHome
+      : labels.CombinedRates?.notHealthHome;
 
   return (
     <>

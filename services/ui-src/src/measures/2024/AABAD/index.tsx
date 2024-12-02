@@ -67,7 +67,7 @@ export const AABAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
+              coreset="adult"
               rateCalc={AABRateCalculation}
               customPrompt={PMD.data.customPrompt}
             />
