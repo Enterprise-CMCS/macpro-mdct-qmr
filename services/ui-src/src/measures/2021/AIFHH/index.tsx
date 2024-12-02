@@ -36,7 +36,7 @@ export const AIFHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (
@@ -45,7 +45,7 @@ export const AIFHH = ({
           <CMQ.MeasurementSpecification type="CMS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="health" />
-          <CMQ.DefinitionOfPopulation healthHomeMeasure={true} />
+          <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure
@@ -65,7 +65,7 @@ export const AIFHH = ({
               customMask={xNumbersYDecimals(12, 1)}
             />
           )}
-          <CMQ.CombinedRates healthHomeMeasure={true} />
+          <CMQ.CombinedRates coreset="health" />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
@@ -74,7 +74,7 @@ export const AIFHH = ({
               inputFieldNames={PMD.data.inputFieldNames}
               ndrFormulas={PMD.data.ndrFormulas}
               allowNumeratorGreaterThanDenominator
-              adultMeasure={false}
+              coreset="health"
               calcTotal={true}
               customMask={xNumbersYDecimals(12, 1)}
               AIFHHPerformanceMeasureArray={performanceMeasureArray}

@@ -35,7 +35,7 @@ export const PQI92HH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (
@@ -44,7 +44,7 @@ export const PQI92HH = ({
           <CMQ.MeasurementSpecification type="AHRQ" />
           <CMQ.DataSource />
           <CMQ.DateRange type="health" />
-          <CMQ.DefinitionOfPopulation healthHomeMeasure={true} />
+          <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure
@@ -67,7 +67,7 @@ export const PQI92HH = ({
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
           )}
-          <CMQ.CombinedRates healthHomeMeasure={true} />
+          <CMQ.CombinedRates coreset="health" />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
@@ -75,7 +75,7 @@ export const PQI92HH = ({
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure={false}
+              coreset="health"
               allowNumeratorGreaterThanDenominator
               calcTotal
             />

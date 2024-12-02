@@ -10,7 +10,7 @@ interface Props {
   measureName: string;
   measureAbbreviation: string;
   reportingYear: string;
-  healthHomeMeasure?: boolean;
+  coreset?: string;
   removeLessThan30?: boolean;
 }
 
@@ -18,7 +18,7 @@ export const Reporting = ({
   measureName,
   reportingYear,
   measureAbbreviation,
-  healthHomeMeasure,
+  coreset,
   removeLessThan30,
 }: Props) => {
   const register = useCustomRegister<Types.DidReport>();
@@ -51,7 +51,7 @@ export const Reporting = ({
       </QMR.CoreQuestionWrapper>
       {watchRadioStatus === DC.NO && (
         <WhyAreYouNotReporting
-          healthHomeMeasure={healthHomeMeasure}
+          coreset={coreset}
           removeLessThan30={removeLessThan30}
         />
       )}

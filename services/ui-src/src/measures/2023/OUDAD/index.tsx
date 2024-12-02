@@ -56,7 +56,7 @@ export const OUDAD = ({
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure
+              coreset="adult"
             />
           )}
         </>

@@ -14,11 +14,10 @@ import { AnyObject } from "types";
 import { useParams } from "react-router-dom";
 
 interface Props {
-  childMeasure?: boolean;
   hybridMeasure?: boolean;
   populationSampleSize?: boolean;
-  healthHomeMeasure?: boolean;
   coreSetOptions?: CoreSetSpecificOptions;
+  coreset?: string;
 }
 interface DefOfDenomOption {
   displayValue: string;
@@ -401,11 +400,10 @@ const HybridDefinitions = (register: any, header: boolean = true) => {
 };
 
 export const DefinitionOfPopulation = ({
-  childMeasure,
   populationSampleSize,
   hybridMeasure,
-  healthHomeMeasure,
   coreSetOptions,
+  coreset,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
 
@@ -413,6 +411,8 @@ export const DefinitionOfPopulation = ({
   const labels: any = useContext(SharedContext);
 
   const params = useParams();
+  const childMeasure = coreset === "child";
+  const healthHomeMeasure = coreset === "health";
   const coreSetType = healthHomeMeasure ? "HHCS" : params.coreSetId;
 
   return (

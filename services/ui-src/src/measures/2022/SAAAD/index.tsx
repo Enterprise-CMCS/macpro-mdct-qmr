@@ -59,7 +59,7 @@ export const SAAAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
+              coreset="adult"
             />
           )}
         </>
