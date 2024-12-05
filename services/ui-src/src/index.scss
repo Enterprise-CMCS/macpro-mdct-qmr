@@ -8,6 +8,18 @@ body,
   font-size: 16px; // sets the value of 1rem
 }
 
+//removing the margin block pading added by the library
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+p {
+  margin-block: 0;
+}
+
 #app-wrapper {
   display: flex;
   flex-direction: column;
