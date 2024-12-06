@@ -67,7 +67,7 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
       <UserProvider>
         <ApiProvider>
           <QueryProvider>
-            <ChakraProvider theme={theme}>
+            <ChakraProvider cssVarsRoot="#root" theme={theme}>
               <LDProvider>
                 <App />
                 <ToastContainer />
