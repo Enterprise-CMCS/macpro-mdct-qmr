@@ -7,6 +7,7 @@ import * as Api from "hooks/api";
 import { useQueryClient } from "react-query";
 import { AnyObject, CoreSetAbbr, UserRoles } from "types";
 import { useUser } from "hooks/authHooks";
+import { featuresByYear } from "utils/featuresByYear";
 
 enum ReportType {
   SEPARATE = "separate",
@@ -72,7 +73,10 @@ export const AddAdultCoreSet = () => {
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}`, name: `FFY ${year}` },
+        {
+          path: `/${state}/${year}`,
+          name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
+        },
         { path: `/${state}/${year}/add-adult`, name: "Add Adult Core Set" },
       ]}
     >
