@@ -23,10 +23,10 @@ export const updateCoreSetProgress = async (
       (measure) => !measure.placeholder && measure.measure !== "CSQ"
     ).length;
 
-    coreSet.progress!.numComplete =
-      completedAmount ?? coreSet.progress!.numComplete;
+    coreSet.progress.numComplete =
+      completedAmount ?? coreSet.progress.numComplete;
 
-    coreSet.progress!.numAvailable =
-      availableAmount ?? coreSet.progress!.numAvailable;
+    coreSet.progress.numAvailable =
+      availableAmount ?? coreSet.progress.numAvailable;
   }
 };

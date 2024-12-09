@@ -21,7 +21,7 @@ export const commonQuestionsLabel = {
       "If you report using Other Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Source field is accurate, please continue reporting this measure.",
     warning: {
       [DC.ELECTRONIC_CLINIC_DATA_SYSTEMS]:
-        "If you report using Electronic Clinical Data Systems (ECDS), CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting for FFY 2025. If the information reported in the Data Source field is accurate, please continue reporting this measure.",
+        "If you report using Electronic Clinical Data Systems (ECDS), CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting for 2025. If the information reported in the Data Source field is accurate, please continue reporting this measure.",
     },
   },
   DataSourceCahps: {
@@ -87,15 +87,15 @@ export const commonQuestionsLabel = {
       "If your state substantially varied from the measure specifications (including different methodology, timeframe, or reported age groups), please report your data using “Other” specifications.",
     options: [
       {
-        displayValue: "HEDIS MY 2024 (FFY 2025 Core Set Reporting)",
+        displayValue: "HEDIS MY 2024 (2025 Core Set Reporting)",
         value: DC.HEDIS_MY_2023,
       },
       {
-        displayValue: "HEDIS MY 2023 (FFY 2024 Core Set Reporting)",
+        displayValue: "HEDIS MY 2023 (2024 Core Set Reporting)",
         value: DC.HEDIS_MY_2022,
       },
       {
-        displayValue: "HEDIS MY 2022 (FFY 2023 Core Set Reporting)",
+        displayValue: "HEDIS MY 2022 (2023 Core Set Reporting)",
         value: DC.HEDIS_MY_2021,
       },
     ],
@@ -110,13 +110,6 @@ export const commonQuestionsLabel = {
   },
   PerformanceMeasure: {
     phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
-  },
-  WhyAreYouNotReporting: {
-    periodOfHealthEmergencyFlag: true,
-    limitWithDataCollection:
-      "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
-    limitWithDataCollectionDesc:
-      "Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:",
   },
 };
 

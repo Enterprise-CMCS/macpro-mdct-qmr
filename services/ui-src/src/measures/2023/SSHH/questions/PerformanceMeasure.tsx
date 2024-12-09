@@ -5,7 +5,6 @@ import * as DC from "dataConstants";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "shared/types";
 import { useEffect } from "react";
-import { useFlags } from "launchdarkly-react-client-sdk";
 
 interface Props {
   hybridMeasure?: boolean;
@@ -30,8 +29,6 @@ export const PerformanceMeasure = ({
   rateAlwaysEditable,
 }: Props) => {
   const { control, reset } = useFormContext();
-
-  const pheIsCurrent = useFlags()?.["periodOfHealthEmergency2023"];
 
   const { fields, remove, append } = useFieldArray({
     name: DC.OPM_RATES,
@@ -76,7 +73,7 @@ export const PerformanceMeasure = ({
         formLabelProps={{ fontWeight: 700 }}
         {...register(DC.OPM_EXPLAINATION)}
       />
-      {hybridMeasure && pheIsCurrent && (
+      {hybridMeasure && (
         <CUI.Box my="5">
           <CUI.Text>
             CMS recognizes that social distancing will make onsite medical chart

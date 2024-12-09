@@ -8,6 +8,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { useQueryClient } from "react-query";
 import { useUser } from "hooks/authHooks";
 import { CoreSetAbbr, UserRoles } from "types";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface HealthHome {
   "HealthHomeCoreSet-SPA": string;
@@ -81,7 +82,10 @@ export const AddHHCoreSet = () => {
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}`, name: `FFY ${year}` },
+        {
+          path: `/${state}/${year}`,
+          name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
+        },
         { path: `/${state}/${year}/add-hh`, name: "Add Health Home Core Set" },
       ]}
     >

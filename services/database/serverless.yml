@@ -16,10 +16,7 @@ custom:
       - master
       - val
       - prod
-  coreSetTableName: ${self:custom.stage}-coreSets
-  measureTableName: ${self:custom.stage}-measures
   bannerTableName: ${self:custom.stage}-banners
-  rateTableName: ${self:custom.stage}-rates
   measureTable: ${self:custom.stage}-measure
   coreSetTable: ${self:custom.stage}-coreSet
   rateTable: ${self:custom.stage}-rate
@@ -41,63 +38,6 @@ provider:
 
 resources:
   Resources:
-    CoreSetTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:custom.coreSetTableName}
-        PointInTimeRecoverySpecification:
-          PointInTimeRecoveryEnabled: true
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
-        AttributeDefinitions:
-          - AttributeName: compoundKey
-            AttributeType: S
-          - AttributeName: coreSet
-            AttributeType: S
-        KeySchema:
-          - AttributeName: compoundKey
-            KeyType: HASH
-          - AttributeName: coreSet
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
-    RateTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:custom.rateTableName}
-        PointInTimeRecoverySpecification:
-          PointInTimeRecoveryEnabled: true
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
-        AttributeDefinitions:
-          - AttributeName: compoundKey
-            AttributeType: S
-          - AttributeName: measure
-            AttributeType: S
-        KeySchema:
-          - AttributeName: compoundKey
-            KeyType: HASH
-          - AttributeName: measure
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
-    MeasureTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:custom.measureTableName}
-        PointInTimeRecoverySpecification:
-          PointInTimeRecoveryEnabled: true
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
-        AttributeDefinitions:
-          - AttributeName: compoundKey
-            AttributeType: S
-          - AttributeName: coreSet
-            AttributeType: S
-        KeySchema:
-          - AttributeName: compoundKey
-            KeyType: HASH
-          - AttributeName: coreSet
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST # Set the capacity to auto-scale
     BannerTable:
       Type: AWS::DynamoDB::Table
       Properties:

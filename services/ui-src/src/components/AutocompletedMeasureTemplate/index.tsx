@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   measureTitle: string;
@@ -64,7 +65,9 @@ export const AutocompletedMeasureTemplate = ({
               return <CUI.Text key={`subText.${idx}`}>{text}</CUI.Text>;
             })}
           <CUI.Text fontWeight="700">
-            {`States are not asked to report data for this measure for FFY ${year} Core Set reporting in the online
+            {`States are not asked to report data for this measure for ${
+              featuresByYear.displayFFYLanguage ? "FFY" : ""
+            } ${year} Core Set reporting in the online
             reporting system.`}
           </CUI.Text>
         </CUI.Stack>

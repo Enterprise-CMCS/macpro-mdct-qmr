@@ -8,6 +8,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { statesWithoutCombinedRates } from "utils";
+import { featuresByYear } from "utils/featuresByYear";
 
 const measuresWithoutPerformanceData = ["CSQ", "CPC-CH", "CPA-AD", "MSC-AD"];
 
@@ -114,7 +115,10 @@ export const CombinedRatesPage = () => {
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}`, name: `FFY ${year}` },
+        {
+          path: `/${state}/${year}`,
+          name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
+        },
         {
           path: `/${state}/${year}`,
           name: "Combined Rates",

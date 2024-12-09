@@ -109,7 +109,8 @@ export const measuresColumns = (
         ]
       : []),
     {
-      header: "Reporting FFY " + year,
+      header:
+        `Reporting ${featuresByYear.displayFFYLanguage ? "FFY" : ""} ` + year,
       id: "reporting_column_header",
       styleProps: { textAlign: "center" },
       cell: (data: MeasureTableItem.Data) => {

@@ -133,7 +133,6 @@ export const commonQuestionsLabel = {
     phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. While reporting of the Core Sets is voluntary, CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
   },
   WhyAreYouNotReporting: {
-    periodOfHealthEmergencyFlag: true,
     limitWithDataCollection:
       "Limitations with data collection, reporting, or accuracy due to the COVID-19 pandemic",
     limitWithDataCollectionDesc:

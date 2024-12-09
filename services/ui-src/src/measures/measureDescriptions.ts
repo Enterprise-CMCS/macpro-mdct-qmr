@@ -458,7 +458,6 @@ export const measureDescriptions: MeasureList = {
       "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Ages 3 Months to 17 Years",
     "ADD-CH":
       "Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication",
-    "AMB-CH": "Ambulatory Care: Emergency Department (ED) Visits",
     "AMR-CH": "Asthma Medication Ratio: Ages 5 to 18",
     "APM-CH":
       "Metabolic Monitoring for Children and Adolescents on Antipsychotics",
@@ -496,7 +495,6 @@ export const measureDescriptions: MeasureList = {
 
     // Health Home
     "AIF-HH": "Admission to a Facility from the Community",
-    "AMB-HH": "Ambulatory Care: Emergency Department (ED) Visits",
     "CBP-HH": "Controlling High Blood Pressure",
     "CDF-HH": "Screening for Depression and Follow-Up Plan",
     "COL-HH": "Colorectal Cancer Screening",
@@ -506,7 +504,5 @@ export const measureDescriptions: MeasureList = {
     "IU-HH": "Inpatient Utilization",
     "OUD-HH": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-HH": "Plan All-Cause Readmissions",
-    "PQI92-HH":
-      "Prevention Quality Indicator (PQI) 92: Chronic Conditions Composite",
   },
 };

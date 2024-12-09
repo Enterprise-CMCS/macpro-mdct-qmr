@@ -41,6 +41,7 @@ export const SupportInfo = () => (
       <CUI.Link
         href="https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf"
         target={"_blank"}
+        textDecoration={"underline"}
         color="blue.600"
         aria-label="Initial Core Set Mandatory Reporting Guidance SHO"
       >
@@ -51,6 +52,7 @@ export const SupportInfo = () => (
       <CUI.Link
         href="https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf"
         target={"_blank"}
+        textDecoration={"underline"}
         color="blue.600"
         aria-label="SMD 24-002: Initial Core Set Mandatory Reporting Guidance for the Health Home Core Quality Measure Sets and Federal Fiscal Year 2025 Updates to the Health Home Core Quality Measure Sets"
       >

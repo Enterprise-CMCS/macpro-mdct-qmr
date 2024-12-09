@@ -37,14 +37,6 @@ export const featuresByYear = {
     return getMeasureYear() >= 2024;
   },
   /**
-   * Prior to 2023, we always displayed a message acknowledging
-   * the difficulty of data collection during the Covid pandemic.
-   * In 2023, we switched to controlling this message with a LaunchDarkly flag
-   */
-  get periodOfHealthEmergency() {
-    return getMeasureYear() < 2023;
-  },
-  /**
    * Prior to 2023, users were always required to fill out the measure dates,
    * even when they matched the Core Set's standard, specified range.
    * In 2023, we wrapped the dates in a "are your dates standard?" radio button,
@@ -99,5 +91,24 @@ export const featuresByYear = {
    */
   get hasStreamlinedOms() {
     return getMeasureYear() >= 2023;
+  },
+  /**
+   * Prior to 2025, we displayed FFY before the year name. This was done in part
+   * to differentiate Federal Fiscal Year and HEDIS Medical Year.
+   *
+   * In 2025, stakeholders decided this explicit differentiation was unneeded.
+   */
+  get displayFFYLanguage() {
+    return getMeasureYear() < 2025;
+  },
+  /**
+   * Prior to 2025, we want to display questions that involve referencing
+   * the COVID-19 pandemic.
+   *
+   * In 2025 and beyond, we do not want to display this language.
+   *
+   */
+  get displayCovidLanguage() {
+    return getMeasureYear() < 2025;
   },
 };
