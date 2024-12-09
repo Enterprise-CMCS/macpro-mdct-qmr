@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { AddHHCoreSet } from ".";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { UserRoles } from "types";
 import { useUser } from "hooks/authHooks";

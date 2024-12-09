@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 
 jest.mock("react-router-dom", () => {
@@ -17,6 +18,6 @@ jest.mock("react-router-dom", () => {
   };
 });
 
-export const RouterWrappedComp: React.FC = ({ children }) => (
-  <Router>{children}</Router>
-);
+export const RouterWrappedComp: React.FC<PropsWithChildren> = ({
+  children,
+}) => <Router>{children}</Router>;

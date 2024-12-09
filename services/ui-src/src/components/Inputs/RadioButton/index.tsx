@@ -76,7 +76,7 @@ export const RadioButton = ({
                 onDelete={option.onDelete}
               >
                 <CUI.Radio
-                  value={option.value}
+                  value={option.value as string}
                   key={option.value}
                   onClick={option.onClick}
                   data-cy={name + idx}

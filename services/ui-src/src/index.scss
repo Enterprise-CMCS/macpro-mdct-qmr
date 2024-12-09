@@ -8,6 +8,18 @@ body,
   font-size: 16px; // sets the value of 1rem
 }
 
+//removing the margin block pading added by the library
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+p {
+  margin-block: 0;
+}
+
 #app-wrapper {
   display: flex;
   flex-direction: column;
@@ -36,6 +48,31 @@ a:focus {
   background-color: transparent;
 }
 
+//added due to styling changes from cms design systems, from v^5.0.2 to v^11.1.0
+.ds-c-usa-banner__header {
+  padding: 4px 16px;
+  min-width: 100%;
+
+  button,
+  p {
+    width: auto;
+    font-size: 12px;
+  }
+}
+
+.ds-c-alert__icon.ds-c-icon {
+  width: 24px;
+  height: 24px;
+}
+
+button:not(button, [type="checkbox"], [type="radio"]),
+input:not(button, [type="checkbox"], [type="radio"]),
+select:not(button, [type="checkbox"], [type="radio"]),
+textarea:not(button, [type="checkbox"], [type="radio"]) {
+  margin-block: 0;
+}
+
+//print styling
 @media print {
   .logos {
     width: 170px;

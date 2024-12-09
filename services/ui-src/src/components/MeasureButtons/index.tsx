@@ -31,7 +31,7 @@ export const MeasureButtons = ({
             buttonProps={{
               padding: "0 1.5rem",
               colorScheme: "blue",
-              isFullWidth: true,
+              width: "full",
             }}
             onClick={handleSave}
           />
@@ -43,7 +43,7 @@ export const MeasureButtons = ({
           buttonText="Print"
           buttonProps={{
             padding: "0 1.5rem",
-            isFullWidth: true,
+            width: "full",
             colorScheme: "blue",
             variant: "outline",
             color: "blue.500",

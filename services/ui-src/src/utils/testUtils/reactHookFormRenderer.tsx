@@ -1,5 +1,8 @@
 import { render } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
+import { createStandaloneToast } from "@chakra-ui/toast";
+
+const { ToastContainer } = createStandaloneToast();
 
 interface WrapperProps {
   children: JSX.Element;
@@ -16,7 +19,12 @@ export const renderWithHookForm = (
   const Wrapper = ({ children }: WrapperProps) => {
     const methods = useForm({ defaultValues });
 
-    return <FormProvider {...methods}>{children}</FormProvider>;
+    return (
+      <FormProvider {...methods}>
+        {children}
+        <ToastContainer />
+      </FormProvider>
+    );
   };
 
   return render(ui, { wrapper: Wrapper });
