@@ -41,7 +41,7 @@ export const DeleteWrapper = ({
           <CUI.HStack
             id={"delete-button-stack"}
             top={0}
-            right={showText ? "-6rem" : "-3rem"}
+            right={showText ? "0" : "-3rem"}
             zIndex={2}
             position={"absolute"}
             padding={2}

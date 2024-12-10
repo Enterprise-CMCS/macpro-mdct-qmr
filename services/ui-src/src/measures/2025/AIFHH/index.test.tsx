@@ -73,9 +73,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
       </Suspense>
     );
   });
-  afterEach(() => {
-    screen.debug();
-  });
 
   it("should pass a11y tests", async () => {
     useApiMock(apiData);
