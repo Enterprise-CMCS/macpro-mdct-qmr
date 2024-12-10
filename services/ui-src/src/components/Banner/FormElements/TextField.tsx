@@ -34,18 +34,17 @@ export const TextField = ({
       label={label || ""}
       placeholder={placeholder}
       onChange={(e) => onChangeHandler(e)}
-      errorMessage={errorMessage as React.ReactNode}
+      errorMessage={errorMessage?.toString()}
       value={displayValue}
       {...props}
     />
   );
 };
-interface Props {
+interface Props extends React.PropsWithChildren {
   name: string;
   label?: string;
   placeholder?: string;
   nested?: boolean;
   [key: string]: any;
-  children?: React.ReactNode;
 }
 interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
