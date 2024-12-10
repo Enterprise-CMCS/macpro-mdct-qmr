@@ -16,7 +16,6 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: jest.fn(),
   })),
 });
-jest.retryTimes(3);
 
 jest.mock("hooks/api", () => ({
   useAddCoreSet: jest.fn(),

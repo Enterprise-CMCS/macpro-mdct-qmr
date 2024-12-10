@@ -74,11 +74,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     );
   });
 
+  expect(screen.queryByTestId("measure-wrapper-form")).toBeInTheDocument();
   it("measure should render", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     await waitFor(() => {
-      expect(screen.queryByTestId("measure-wrapper-form")).toBeInTheDocument();
       expect(screen.getByText(measureAbbr + " - " + description));
     });
   });
