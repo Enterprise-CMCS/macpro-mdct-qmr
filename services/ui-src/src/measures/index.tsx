@@ -5,6 +5,7 @@ import twentyTwentyThreeMeasures, { QualifierData as data2023 } from "./2023";
 import * as QMR from "components";
 import twentyTwentyFourMeasures, { QualifierData as data2024 } from "./2024";
 import twentyTwentyFiveMeasures, { QualifierData as data2025 } from "./2025";
+import measureImports from "./2021/index2";
 
 export type CustomValidator = (res: ResolverResult) => ResolverResult;
 
@@ -17,6 +18,15 @@ interface MeasuresByYear {
 interface IQualifierData {
   year: string;
   data: any;
+}
+
+interface MeasureByYearData {
+  [year:string]:{
+    [measure:string]: any;
+  }
+}
+export const measureByYearTest:MeasureByYearData = {
+  2020: measureImports,
 }
 
 const measuresByYear: MeasuresByYear = {
