@@ -9,7 +9,7 @@ provider:
   region: us-east-1
   stackTags:
     PROJECT: ${self:custom.project}
-    SERVICE: ${self:service}    
+    SERVICE: ${self:service}
   iam:
     role:
       path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
@@ -279,7 +279,7 @@ resources:
               FrameOption: "DENY"
               Override: true
             ContentSecurityPolicy:
-              ContentSecurityPolicy: "default-src 'self'; img-src 'self' data: https://www.google-analytics.com; script-src 'self' https://www.google-analytics.com https://ssl.google-analytics.com https://www.googletagmanager.com tags.tiqcdn.com tags.tiqcdn.cn tags-eu.tiqcdn.com https://*.adoberesources.net 'unsafe-inline'; style-src 'self' https://design.cms.gov/cdn/design-system/7.0.0/css/core-theme.css https://fonts.googleapis.com/css?family=PT+Serif|Open+Sans:300,400,600,700,800 https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css 'unsafe-inline'; connect-src https://*.amazonaws.com/ https://*.amazoncognito.com https://www.google-analytics.com https://*.launchdarkly.us https://adobe-ep.cms.gov https://adobedc.demdex.net; frame-ancestors 'none'; object-src 'none'"
+              ContentSecurityPolicy: "default-src 'self'; img-src 'self' data: https://www.google-analytics.com; script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://ssl.google-analytics.com https://www.googletagmanager.com tags.tiqcdn.com tags.tiqcdn.cn tags-eu.tiqcdn.com https://*.adoberesources.net; style-src 'self' 'unsafe-inline' https://design.cms.gov/cdn/design-system/7.0.0/css/core-theme.css https://fonts.googleapis.com/css?family=PT+Serif|Open+Sans:300,400,600,700,800 https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css; connect-src https://*.amazonaws.com/ https://*.amazoncognito.com https://www.google-analytics.com https://*.launchdarkly.us https://adobe-ep.cms.gov https://adobedc.demdex.net; frame-ancestors 'none'; object-src 'none'"
               Override: true
     ###############This code block enables logging on waf and sends all logs to s3.##################################
     WaflogsUploadBucket:
