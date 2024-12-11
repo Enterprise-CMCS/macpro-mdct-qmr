@@ -6,10 +6,9 @@ import { BreadCrumbItems } from "components";
 interface Props {
   breadcrumbItems: BreadCrumbItems;
   buttons?: ReactElement<any, any>;
-  children?: React.ReactNode;
 }
 
-export const StateLayout: React.FC<Props> = ({
+export const StateLayout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   breadcrumbItems,
   buttons,
