@@ -73,7 +73,7 @@ export const PQI08AD = ({
               rateMultiplicationValue={100000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure
+              coreset="adult"
               allowNumeratorGreaterThanDenominator
             />
           )}

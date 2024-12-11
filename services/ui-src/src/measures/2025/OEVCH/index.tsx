@@ -43,7 +43,7 @@ export const OEVCH = ({
           <CMQ.MeasurementSpecification type={DC.ADA_DQA} coreset="child" />
           <CMQ.DataSource type="child" />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
@@ -53,7 +53,7 @@ export const OEVCH = ({
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              adultMeasure={false}
+              coreset="child"
               calcTotal
               categories={PMD.categories}
               performanceMeasureArray={performanceMeasureArray}
