@@ -35,7 +35,7 @@ export const IETHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (
@@ -44,7 +44,7 @@ export const IETHH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource data={PMD.dataSourceData} />
           <CMQ.DateRange type="health" />
-          <CMQ.DefinitionOfPopulation healthHomeMeasure />
+          <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
@@ -54,14 +54,14 @@ export const IETHH = ({
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
-          <CMQ.CombinedRates healthHomeMeasure />
+          <CMQ.CombinedRates coreset="health" />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               calcTotal
-              adultMeasure={false}
+              coreset="health"
             />
           )}
         </>

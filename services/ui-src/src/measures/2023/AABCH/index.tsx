@@ -46,7 +46,7 @@ export const AABCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure
@@ -67,7 +67,7 @@ export const AABCH = ({
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              adultMeasure={false}
+              coreset="child"
               calcTotal
               categories={PMD.categories}
               customMask={mask}

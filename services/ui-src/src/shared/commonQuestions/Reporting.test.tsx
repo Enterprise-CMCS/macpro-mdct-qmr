@@ -53,7 +53,7 @@ describe("Test Reporting component on a Health Home Measure", () => {
         measureName="My Test Measure"
         reportingYear="2021"
         measureAbbreviation="MTM"
-        healthHomeMeasure
+        coreset="health"
       />
     );
   });

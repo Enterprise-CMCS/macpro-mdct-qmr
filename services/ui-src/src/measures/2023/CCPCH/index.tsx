@@ -44,7 +44,7 @@ export const CCPCH = ({
           <CMQ.MeasurementSpecification type="OPA" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
@@ -55,9 +55,9 @@ export const CCPCH = ({
           <CMQ.CombinedRates />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              adultMeasure={false}
+              coreset="child"
               categories={PMD.categories}
-              isSingleSex={true}
+              excludeOptions={["O8BrOa"]}
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
             />
