@@ -2,9 +2,14 @@ import fireEvent from "@testing-library/user-event";
 import { Reporting } from "./Reporting";
 import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
+import { getMeasureYear } from "utils/getMeasureYear";
+
+jest.mock("utils/getMeasureYear");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 describe("Test Reporting component", () => {
   beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2021);
     renderWithHookForm(
       <Reporting
         measureName="My Test Measure"
@@ -48,7 +53,7 @@ describe("Test Reporting component on a Health Home Measure", () => {
         measureName="My Test Measure"
         reportingYear="2021"
         measureAbbreviation="MTM"
-        healthHomeMeasure
+        coreset="health"
       />
     );
   });

@@ -35,7 +35,7 @@ export const AMBHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (
@@ -44,7 +44,7 @@ export const AMBHH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="health" />
-          <CMQ.DefinitionOfPopulation healthHomeMeasure />
+          <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure
@@ -64,7 +64,7 @@ export const AMBHH = ({
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
             />
           )}
-          <CMQ.CombinedRates healthHomeMeasure />
+          <CMQ.CombinedRates coreset="health" />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
@@ -72,7 +72,7 @@ export const AMBHH = ({
               rateMultiplicationValue={1000}
               customMask={positiveNumbersWithMaxDecimalPlaces(1)}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure={false}
+              coreset="health"
               calcTotal
               allowNumeratorGreaterThanDenominator
             />

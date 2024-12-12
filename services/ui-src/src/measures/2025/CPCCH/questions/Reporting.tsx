@@ -25,11 +25,11 @@ export const Reporting = ({ reportingYear }: Props) => {
           {...register("DidCollect")}
           options={[
             {
-              displayValue: `Yes, we did collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items (CPC-CH) for FFY ${reportingYear} quality measure reporting`,
+              displayValue: `Yes, we did collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items (CPC-CH) for ${reportingYear} quality measure reporting`,
               value: "yes",
             },
             {
-              displayValue: `No, we did not collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items (CPC-CH) for FFY ${reportingYear} quality measure reporting`,
+              displayValue: `No, we did not collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items (CPC-CH) for ${reportingYear} quality measure reporting`,
               value: "no",
             },
           ]}

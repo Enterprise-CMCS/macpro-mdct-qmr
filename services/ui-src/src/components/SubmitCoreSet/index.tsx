@@ -6,6 +6,7 @@ import { useEditCoreSet } from "hooks/api";
 import { useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
 import { useQueryClient } from "react-query";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   coreSet: CoreSetAbbr;
@@ -59,7 +60,9 @@ export const SubmitCoreSetButton = ({
         return " ";
     }
   };
-  const helperText = `Complete all ${helperTextFiller()}Core Set Questions${subSetTextFiller()}and ${helperTextFiller()}Core Set Measures${subSetTextFiller()}to submit FFY ${year}`;
+  const helperText = `Complete all ${helperTextFiller()}Core Set Questions${subSetTextFiller()}and ${helperTextFiller()}Core Set Measures${subSetTextFiller()}to submit ${
+    featuresByYear.displayFFYLanguage ? "FFY" : ""
+  } ${year}`;
   const { mutate, isLoading } = useEditCoreSet();
   const queryClient = useQueryClient();
   const userInfo = useUser();

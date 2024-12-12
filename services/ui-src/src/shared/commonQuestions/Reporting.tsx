@@ -4,12 +4,13 @@ import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
 import { WhyAreYouNotReporting } from "shared/commonQuestions/WhyAreYouNotReporting";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   measureName: string;
   measureAbbreviation: string;
   reportingYear: string;
-  healthHomeMeasure?: boolean;
+  coreset?: string;
   removeLessThan30?: boolean;
 }
 
@@ -17,7 +18,7 @@ export const Reporting = ({
   measureName,
   reportingYear,
   measureAbbreviation,
-  healthHomeMeasure,
+  coreset,
   removeLessThan30,
 }: Props) => {
   const register = useCustomRegister<Types.DidReport>();
@@ -34,11 +35,15 @@ export const Reporting = ({
           {...register(DC.DID_REPORT)}
           options={[
             {
-              displayValue: `Yes, I am reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
+              displayValue: `Yes, I am reporting ${measureName} (${measureAbbreviation}) for ${
+                featuresByYear.displayFFYLanguage ? "FFY" : ""
+              } ${reportingYear} quality measure reporting.`,
               value: DC.YES,
             },
             {
-              displayValue: `No, I am not reporting ${measureName} (${measureAbbreviation}) for FFY ${reportingYear} quality measure reporting.`,
+              displayValue: `No, I am not reporting ${measureName} (${measureAbbreviation}) for ${
+                featuresByYear.displayFFYLanguage ? "FFY" : ""
+              } ${reportingYear} quality measure reporting.`,
               value: DC.NO,
             },
           ]}
@@ -46,7 +51,7 @@ export const Reporting = ({
       </QMR.CoreQuestionWrapper>
       {watchRadioStatus === DC.NO && (
         <WhyAreYouNotReporting
-          healthHomeMeasure={healthHomeMeasure}
+          coreset={coreset}
           removeLessThan30={removeLessThan30}
         />
       )}

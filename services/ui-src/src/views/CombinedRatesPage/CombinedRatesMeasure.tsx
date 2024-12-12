@@ -6,6 +6,7 @@ import { LoadingWrapper } from "components";
 import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
 import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
 import { AdditionalCombinedValues } from "shared/commonQuestions/AdditionalCombinedValues/AdditionalCombinedValues";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   year: string;
@@ -54,7 +55,7 @@ export const CombinedRatesMeasure = ({
       breadcrumbItems={[
         {
           path: getPathToCombinedRatesTab(state!, year, combinedCoreSetAbbr),
-          name: `FFY ${year}`,
+          name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
         },
         {
           path: `/${state}/${year}`,

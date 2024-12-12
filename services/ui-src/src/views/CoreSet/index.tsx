@@ -324,7 +324,10 @@ export const CoreSet = () => {
   return (
     <QMR.StateLayout
       breadcrumbItems={[
-        { path: `/${state}/${year}`, name: `FFY ${year}` },
+        {
+          path: `/${state}/${year}`,
+          name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
+        },
         {
           path: `/${state}/${year}/${coreSetId}`,
           name: coreSetTitles(coreSet[0]) + spaName,

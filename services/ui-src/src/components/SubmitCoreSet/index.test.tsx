@@ -6,9 +6,13 @@ import { screen } from "@testing-library/react";
 import { SubmitCoreSetButton } from ".";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
+import { getMeasureYear } from "utils/getMeasureYear";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
+
+jest.mock("utils/getMeasureYear");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 interface Props {
   coreSet: CoreSetAbbr;
@@ -19,6 +23,7 @@ interface Props {
 }
 
 const renderTestComponent = (props: Props) => {
+  mockGetMeasureYear.mockReturnValue(2021);
   mockUseUser.mockImplementation(() => {
     return { isStateUser: props.isStateUser };
   });

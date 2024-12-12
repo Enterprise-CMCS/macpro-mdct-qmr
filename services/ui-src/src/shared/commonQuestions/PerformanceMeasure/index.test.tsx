@@ -9,10 +9,13 @@ import { PerformanceMeasure } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { PCRRate } from "components";
-import { mockLDFlags } from "../../../../setupJest";
 import { LabelData } from "utils";
 import SharedContext from "shared/SharedContext";
 import commonQuestionsLabel2025 from "labels/2025/commonQuestionsLabel";
+import { getMeasureYear } from "utils/getMeasureYear";
+
+jest.mock("utils/getMeasureYear");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 jest.mock("hooks/api/usePathParams", () => ({
   ...jest.requireActual("hooks/api/usePathParams"),
@@ -31,8 +34,6 @@ interface Props {
   rateReadOnly: undefined | boolean;
   hybridMeasure: undefined | boolean;
 }
-
-mockLDFlags.setDefault({ periodOfHealthEmergency2025: false });
 
 const renderComponent = ({
   component,
@@ -159,7 +160,8 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(rateTextBox).toHaveDisplayValue("123");
   });
 
-  test("periodOfHealthEmergency2025 flag is set to false, covid text and textbox should not render", () => {
+  test("In 2025, covid text and textbox should not render", () => {
+    mockGetMeasureYear.mockReturnValue(2025);
     props.data = CBPdata;
     props.hybridMeasure = true;
     renderComponent(props);
@@ -169,8 +171,8 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     expect(covidText).toBeNull();
   });
 
-  test("periodOfHealthEmergency2025 flag is set to true, covid text and textbox should render", () => {
-    mockLDFlags.set({ periodOfHealthEmergency2025: true });
+  test("In 2024 covid text and textbox should render", () => {
+    mockGetMeasureYear.mockReturnValue(2024);
     props.data = CBPdata;
     props.hybridMeasure = true;
     renderComponent(props);
