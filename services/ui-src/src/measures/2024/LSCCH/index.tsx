@@ -42,7 +42,7 @@ export const LSCCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" coreset="child" />
           <CMQ.DataSource data={PMD.dataSourceData} type="child" />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure hybridMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" hybridMeasure />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
@@ -52,7 +52,7 @@ export const LSCCH = ({
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              adultMeasure={false}
+              coreset="child"
               calcTotal
               categories={PMD.categories}
               performanceMeasureArray={performanceMeasureArray}

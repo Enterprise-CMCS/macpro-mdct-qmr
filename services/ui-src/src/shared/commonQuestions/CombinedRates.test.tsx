@@ -100,7 +100,7 @@ describe("Test CombinedRates component for Health Homes", () => {
   beforeEach(() => {
     renderWithHookForm(
       <SharedContext.Provider value={{ ...commonQuestionsLabel, year: 2023 }}>
-        <CombinedRates healthHomeMeasure />
+        <CombinedRates coreset="health" />
       </SharedContext.Provider>
     );
   });

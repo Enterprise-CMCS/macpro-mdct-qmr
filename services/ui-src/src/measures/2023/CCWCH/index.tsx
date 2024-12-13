@@ -43,7 +43,7 @@ export const CCWCH = ({
           <CMQ.MeasurementSpecification type="OPA" />
           <CMQ.DataSource />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation childMeasure />
+          <CMQ.DefinitionOfPopulation coreset="child" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} />
@@ -57,8 +57,8 @@ export const CCWCH = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={false}
-              isSingleSex
+              coreset="child"
+              excludeOptions={["O8BrOa"]}
             />
           )}
         </>

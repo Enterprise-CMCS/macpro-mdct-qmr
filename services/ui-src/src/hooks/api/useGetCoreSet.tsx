@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getCoreSet } from "libs/api";
 
 interface GetCoreSet {
@@ -17,9 +17,10 @@ const _getCoreSet = async ({ coreSetId, state, year }: GetCoreSet) => {
 
 export const useGetCoreSet = ({ coreSetId, state, year }: GetCoreSet) => {
   if (coreSetId && state && year) {
-    return useQuery(["coreSet", state, year, coreSetId], () =>
-      _getCoreSet({ coreSetId, state, year })
-    );
+    return useQuery({
+      queryKey: ["coreSet", state, year, coreSetId],
+      queryFn: () => _getCoreSet({ coreSetId, state, year }),
+    });
   }
   throw Error("state or year unavailable");
 };

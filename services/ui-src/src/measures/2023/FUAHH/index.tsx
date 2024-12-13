@@ -35,7 +35,7 @@ export const FUAHH = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        healthHomeMeasure
+        coreset="health"
       />
 
       {!isNotReportingData && (
@@ -44,7 +44,7 @@ export const FUAHH = ({
           <CMQ.MeasurementSpecification type="HEDIS" />
           <CMQ.DataSource />
           <CMQ.DateRange type="health" />
-          <CMQ.DefinitionOfPopulation healthHomeMeasure={true} />
+          <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
@@ -52,13 +52,13 @@ export const FUAHH = ({
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
-          <CMQ.CombinedRates healthHomeMeasure={true} />
+          <CMQ.CombinedRates coreset="health" />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               categories={PMD.categories}
               qualifiers={PMD.qualifiers}
               performanceMeasureArray={performanceMeasureArray}
-              adultMeasure={false}
+              coreset="health"
               calcTotal={true}
             />
           )}
