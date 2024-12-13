@@ -40,10 +40,10 @@ export const EDVAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type={DC.ADA_DQA} coreset="child" />
-          <CMQ.DataSource type="child" />
-          <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation coreset="child" />
+          <CMQ.MeasurementSpecification type={DC.ADA_DQA} coreset="adult" />
+          <CMQ.DataSource type="adult" />
+          <CMQ.DateRange type="adult" />
+          <CMQ.DefinitionOfPopulation coreset="adult" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal />
@@ -53,7 +53,7 @@ export const EDVAD = ({
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
-              coreset="child"
+              coreset="adult"
               calcTotal
               categories={PMD.categories}
               performanceMeasureArray={performanceMeasureArray}
