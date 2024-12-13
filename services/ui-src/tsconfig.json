@@ -2,16 +2,8 @@
   "compilerOptions": {
     "incremental": true,
     "target": "ESNext",
-    "types": [
-      "vite/client",
-      "@testing-library/jest-dom"
-    ],
-    "lib": [
-      "es6",
-      "dom",
-      "ES2021",
-      "dom.iterable"
-    ],
+    "types": ["vite/client", "@testing-library/jest-dom"],
+    "lib": ["es6", "dom", "ES2021", "dom.iterable"],
     "jsx": "react-jsx",
     "sourceMap": true,
     "module": "esnext",
@@ -33,7 +25,5 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

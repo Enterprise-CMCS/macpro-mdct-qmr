@@ -2,7 +2,7 @@ import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { TiArrowUnsorted } from "react-icons/ti";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -256,8 +256,8 @@ const StateHome = () => {
   if (
     isLoading ||
     !data.Items ||
-    mutation.isLoading ||
-    resetCoreSetMutation.isLoading
+    mutation.isPending ||
+    resetCoreSetMutation.isPending
   ) {
     return <QMR.LoadingWave />;
   }

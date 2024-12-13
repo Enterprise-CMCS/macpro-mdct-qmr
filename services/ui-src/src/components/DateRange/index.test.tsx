@@ -1,3 +1,4 @@
+import { waitFor } from "@testing-library/react";
 import { DateRange } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import userEvent from "@testing-library/user-event";
@@ -52,9 +53,11 @@ describe("Test DateRange", () => {
     userEvent.type(yearLabel, "2023");
     userEvent.type(endMonthLabel, "02");
     userEvent.type(endYearLabel, "2022");
-    expect(
-      screen.queryByText("Start Date must be before the End Date")
-    ).toBeInTheDocument();
+    waitFor(() => {
+      expect(
+        screen.queryByText("Start Date must be before the End Date")
+      ).toBeInTheDocument();
+    });
   });
 
   test("Check that error appears when start date is a date in the future", () => {
