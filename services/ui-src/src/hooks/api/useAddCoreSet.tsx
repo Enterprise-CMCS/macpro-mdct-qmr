@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { createCoreSet } from "libs/api";
 import { CoreSetAbbr } from "types";
 import { useParams } from "react-router-dom";
@@ -20,9 +20,10 @@ const addCoreSet = async ({ state, year, coreSet }: AddCoreSet) => {
 export const useAddCoreSet = () => {
   const { state, year } = useParams();
   if (state && year) {
-    return useMutation((coreSet: CoreSetAbbr) =>
-      addCoreSet({ state, year, coreSet })
-    );
+    return useMutation({
+      mutationFn: (coreSet: CoreSetAbbr) =>
+        addCoreSet({ state, year, coreSet }),
+    });
   }
   throw Error("Missing required fields");
 };

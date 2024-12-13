@@ -1,7 +1,7 @@
 import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import StateHome from "../index";
 import { RouterWrappedComp } from "utils/testing";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { useParams } from "react-router-dom";
