@@ -57,8 +57,8 @@ export const CCSAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
-              isSingleSex
+              coreset="adult"
+              excludeOptions={["O8BrOa"]}
             />
           )}
         </>

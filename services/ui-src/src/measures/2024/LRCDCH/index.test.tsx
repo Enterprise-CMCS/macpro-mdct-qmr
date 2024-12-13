@@ -74,7 +74,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     renderWithHookForm(component);
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
-      expect(screen.getByText(measureAbbr + " - " + description));
+      expect(screen.getAllByText(measureAbbr + " - " + description));
     });
   });
 

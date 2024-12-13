@@ -106,7 +106,7 @@ export const AMRAD = ({
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
               calcTotal={true}
-              adultMeasure
+              coreset="adult"
             />
           )}
         </>

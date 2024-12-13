@@ -57,7 +57,7 @@ export const COLAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure
+              coreset="adult"
             />
           )}
         </>
