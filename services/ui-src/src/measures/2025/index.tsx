@@ -96,6 +96,9 @@ const CPUAD = lazy(() =>
 const DEVCH = lazy(() =>
   import("./DEVCH").then((module) => ({ default: module.DEVCH }))
 );
+const EDVAD = lazy(() =>
+  import("./EDVAD").then((module) => ({ default: module.EDVAD }))
+);
 const FUAAD = lazy(() =>
   import("./FUAAD").then((module) => ({ default: module.FUAAD }))
 );
@@ -252,7 +255,7 @@ const twentyTwentyFiveMeasures = {
   "CPC-CH": CPCCH,
   "CPU-AD": CPUAD,
   "DEV-CH": DEVCH,
-  // "EDV-AD": EDVAD, //TO DO: replace with real measure
+  "EDV-AD": EDVAD, //TO DO: replace with real measure
   "FUA-AD": FUAAD,
   "FUA-CH": FUACH,
   "FUA-HH": FUAHH,
