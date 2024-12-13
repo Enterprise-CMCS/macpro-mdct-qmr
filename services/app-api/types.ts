@@ -113,12 +113,11 @@ export type DataSourceSelectionsType = {
   [key in DataSourceSelectedParentKeys]?: {
     selected?: DataSourceSelectedValueType[];
   };
-} &
-  {
-    [key in DataSourceDescriptionParentKeys]?: {
-      description?: string;
-    };
+} & {
+  [key in DataSourceDescriptionParentKeys]?: {
+    description?: string;
   };
+};
 
 enum DataSourceSelectedParentKeys {
   Admin = "AdministrativeData0",

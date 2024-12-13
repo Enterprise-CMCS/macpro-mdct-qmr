@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as CUI from "@chakra-ui/react";
+import { createStandaloneToast } from "@chakra-ui/toast";
 import * as QMR from "components";
 import { FolderIcon } from "components/FolderIcon";
 import { useDropzone } from "react-dropzone";
@@ -36,7 +37,7 @@ export const Upload = ({
     ".png",
   ],
 }: IUploadProps) => {
-  const toast = CUI.useToast();
+  const { toast } = createStandaloneToast();
 
   const { control } = useFormContext();
   const [uploadStatus, setUploadStatus] = React.useState(0);
