@@ -162,6 +162,12 @@ const NCIIDDAD = lazy(() =>
 const OEVCH = lazy(() =>
   import("./OEVCH").then((module) => ({ default: module.OEVCH }))
 );
+const OEVPAD = lazy(() =>
+  import("./OEVPAD").then((module) => ({ default: module.OEVPAD }))
+);
+const OEVPCH = lazy(() =>
+  import("./OEVPCH").then((module) => ({ default: module.OEVPCH }))
+);
 const OHDAD = lazy(() =>
   import("./OHDAD").then((module) => ({ default: module.OHDAD }))
 );
@@ -276,8 +282,8 @@ const twentyTwentyFiveMeasures = {
   "LSC-CH": LSCCH,
   "NCIIDD-AD": NCIIDDAD,
   "OEV-CH": OEVCH,
-  // "OEVP-AD": OEVPAD, //TO DO: replace with real measure
-  // "OEVP-CH": OEVPCH, //TO DO: replace with real measure
+  "OEVP-AD": OEVPAD,
+  "OEVP-CH": OEVPCH,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
   "OUD-HH": OUDHH,
