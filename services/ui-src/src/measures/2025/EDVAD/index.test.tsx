@@ -234,45 +234,7 @@ const OPMData = { MeasurementSpecification: "Other", DidReport: "yes" };
 const completedMeasureData = {
   PerformanceMeasure: {
     rates: {
-      singleCategory: [
-        {
-          label: "Age <1",
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
-        },
-        {
-          label: "Ages 1 to 2",
-        },
-        {
-          label: "Ages 3 to 5",
-        },
-        {
-          label: "Ages 6 to 7",
-        },
-        {
-          label: "Ages 8 to 9",
-        },
-        {
-          label: "Ages 10 to 11",
-        },
-        {
-          label: "Ages 12 to 14",
-        },
-        {
-          label: "Ages 15 to 18",
-        },
-        {
-          label: "Ages 19 to 20",
-        },
-        {
-          label: "Total ages <1 to 20 ",
-          isTotal: true,
-          rate: "100.0",
-          numerator: "55",
-          denominator: "55",
-        },
-      ],
+      singleCategory: [{}],
     },
   },
   MeasurementSpecification: "ADA-DQA",
