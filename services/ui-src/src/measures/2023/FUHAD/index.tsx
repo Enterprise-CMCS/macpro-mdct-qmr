@@ -57,7 +57,7 @@ export const FUHAD = ({
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
-              adultMeasure={true}
+              coreset="adult"
             />
           )}
         </>

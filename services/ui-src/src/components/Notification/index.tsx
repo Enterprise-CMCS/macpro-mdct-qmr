@@ -15,6 +15,7 @@ enum BorderColor {
   error = "red.500",
   warning = "yellow.500",
   info = "blue.500",
+  loading = "gray.500",
 }
 
 export const Notification = ({
