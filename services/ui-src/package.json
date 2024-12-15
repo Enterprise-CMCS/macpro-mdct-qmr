@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@chakra-ui/react": "2.5.5",
-    "@chakra-ui/toast": "2.0.0",
+    "@chakra-ui/toast": "2.1.0",
     "@chakra-ui/styled-system": "^2",
     "@cmsgov/design-system": "^11.1.0",
     "@emotion/react": "^11.13.3",
