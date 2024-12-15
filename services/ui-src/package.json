@@ -3,7 +3,7 @@
   "description": "",
   "version": "1.0.0",
   "dependencies": {
-    "@chakra-ui/react": "2.5.5",
+    "@chakra-ui/react": "2.10.4",
     "@chakra-ui/toast": "2.0.0",
     "@chakra-ui/styled-system": "^2",
     "@cmsgov/design-system": "^11.1.0",
