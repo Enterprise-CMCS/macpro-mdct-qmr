@@ -1,14 +1,15 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
-import * as PMD from "./data";
+import * as formData from "./data";
 import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const ADDCHValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const PMD = formData.data.performanceMeasure;
+  const ageGroups = PMD.qualifiers!;
+  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD);
   let errorArray: any[] = [];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
@@ -56,8 +57,8 @@ const ADDCHValidation = (data: FormData) => {
     // OMS Validations
     ...GV.omsValidations({
       data,
-      qualifiers: PMD.qualifiers,
-      categories: PMD.categories,
+      qualifiers: PMD.qualifiers!,
+      categories: PMD.categories!,
       locationDictionary: GV.omsLocationDictionary(
         OMSData(2021, true),
         PMD.qualifiers,
