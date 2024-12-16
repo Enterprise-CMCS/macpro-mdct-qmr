@@ -24,7 +24,7 @@ export const measureAbbrList2025 = {
     "HPCMI-AD",
     "HVL-AD",
     "IET-AD",
-    // "LRCD-AD", //TO-DO: turn on when measure has been added
+    "LRCD-AD",
     "MSC-AD",
     "NCIIDD-AD", // complete on creation
     // "OEVP-AD", //TO-DO: turn on when measure has been added

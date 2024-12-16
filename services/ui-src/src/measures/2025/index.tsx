@@ -150,6 +150,9 @@ const IUHH = lazy(() =>
 const LBWCH = lazy(() =>
   import("./LBWCH").then((module) => ({ default: module.LBWCH }))
 );
+const LRCDAD = lazy(() =>
+  import("./LRCDAD").then((module) => ({ default: module.LRCDAD }))
+);
 const LRCDCH = lazy(() =>
   import("./LRCDCH").then((module) => ({ default: module.LRCDCH }))
 );
@@ -273,7 +276,7 @@ const twentyTwentyFiveMeasures = {
   "IMA-CH": IMACH,
   "IU-HH": IUHH,
   "LBW-CH": LBWCH,
-  // "LRCD-AD": LRCDAD, //TO DO: replace with real measure
+  "LRCD-AD": LRCDAD,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
   "LSC-CH": LSCCH,
