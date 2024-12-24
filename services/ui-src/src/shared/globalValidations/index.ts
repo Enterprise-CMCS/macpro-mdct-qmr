@@ -30,6 +30,7 @@ export * from "shared/globalValidations/validateHedisYear";
 export * from "shared/globalValidations/validateSameDenominatorSets";
 export * from "shared/globalValidations/validateNDRTotalsMatchSum";
 export * from "shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
+export * from "shared/globalValidations/validateReporting";
 
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
