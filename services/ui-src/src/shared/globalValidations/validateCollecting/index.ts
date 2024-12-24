@@ -1,13 +1,13 @@
 import * as Types from "shared/types";
 import * as DC from "dataConstants";
 
-const validateReportingErrorMessage = () => {
+const validateCollectingErrorMessage = () => {
   return `You must provide an answer for this question`;
 };
 
-export const validateReporting = (
+export const validateCollecting = (
   data: Types.DidCollect,
-  errorMessageFunc = validateReportingErrorMessage
+  errorMessageFunc = validateCollectingErrorMessage
 ) => {
   const errorArray: FormError[] = [];
 
