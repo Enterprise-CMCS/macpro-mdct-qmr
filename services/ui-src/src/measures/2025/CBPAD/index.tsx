@@ -28,6 +28,9 @@ export const CBPAD = ({
   }, [setValidationFunctions]);
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const isHybrid = data?.DataSource.includes(
+    "HybridAdministrativeandMedicalRecordsData"
+  );
 
   return (
     <>
@@ -43,7 +46,7 @@ export const CBPAD = ({
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
           <CMQ.DataSource data={PMD.dataSourceData} type="adult" />
           <CMQ.DateRange type="adult" />
-          <CMQ.DefinitionOfPopulation hybridMeasure />
+          <CMQ.DefinitionOfPopulation hybridMeasure={isHybrid} />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
