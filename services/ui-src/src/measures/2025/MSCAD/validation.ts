@@ -28,6 +28,7 @@ const MSCADValidation = (data: DefaultFormData) => {
 
   errorArray = [
     ...errorArray,
+    ...GV.validateCollecting(data),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
