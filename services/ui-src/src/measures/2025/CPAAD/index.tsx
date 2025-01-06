@@ -110,7 +110,10 @@ export const CPAAD = ({
         <>
           <Q.HowDidYouReport />
           <Q.DataSource type="adult" />
-          <CMQ.DefinitionOfPopulation coreSetOptions={defOfDenomOptions} />
+          <CMQ.DefinitionOfPopulation
+            coreSetOptions={defOfDenomOptions}
+            deliverySystems={false}
+          />
           <Q.PerformanceMeasure />
         </>
       )}
