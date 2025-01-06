@@ -28,7 +28,7 @@ export const PPC2AD = ({
   }, [setValidationFunctions]);
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
-  const isHybrid = data?.DataSource.includes(
+  const isHybrid = data?.DataSource?.includes(
     "HybridAdministrativeandMedicalRecordsData"
   );
 
