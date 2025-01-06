@@ -31,7 +31,8 @@ export const commonQuestionsLabel = {
       "If you report using Other Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Source field is accurate, please continue reporting this measure.",
   },
   DefinitionsOfPopulation: {
-    defineDenomOther: "Define the other denominator population:",
+    defineDenomOther:
+      "Define the other denominator population (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     measureEligiblePopDenom: {
       question: {
         default:
