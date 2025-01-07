@@ -1,15 +1,16 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
-import * as PMD from "./data";
+import * as formData from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const CCWCHValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
+  const PMD = formData.data.performanceMeasure;
+  const ageGroups = PMD.qualifiers!;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD);
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
@@ -43,8 +44,8 @@ const CCWCHValidation = (data: FormData) => {
     ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD),
     ...GV.omsValidations({
       data,
-      qualifiers: PMD.qualifiers,
-      categories: PMD.categories,
+      qualifiers: PMD.qualifiers!,
+      categories: PMD.categories!,
       locationDictionary: GV.omsLocationDictionary(
         OMSData(2021, true),
         PMD.qualifiers,
@@ -60,7 +61,7 @@ const CCWCHValidation = (data: FormData) => {
     }),
     ...GV.validateEqualCategoryDenominatorsPM(
       data,
-      PMD.categories,
+      PMD.categories!,
       PMD.qualifiers
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

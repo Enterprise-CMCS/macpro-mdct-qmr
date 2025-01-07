@@ -1,12 +1,13 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
-import * as PMD from "./data";
+import * as formData from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const CCPCHValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
+  const PMD = formData.data.performanceMeasure;
+  const ageGroups = PMD.qualifiers!;
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -15,7 +16,7 @@ const CCPCHValidation = (data: FormData) => {
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD);
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
@@ -34,7 +35,7 @@ const CCPCHValidation = (data: FormData) => {
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories!),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
@@ -49,15 +50,15 @@ const CCPCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD, 1, 0),
 
     // OMS Specific Validations
     ...GV.omsValidations({
       data,
-      qualifiers: PMD.qualifiers,
-      categories: PMD.categories,
+      qualifiers: PMD.qualifiers!,
+      categories: PMD.categories!,
       locationDictionary: GV.omsLocationDictionary(
         OMSData(2021, true),
         PMD.qualifiers,
