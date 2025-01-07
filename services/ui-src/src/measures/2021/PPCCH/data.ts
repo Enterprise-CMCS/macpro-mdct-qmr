@@ -1,4 +1,3 @@
-import { DataDrivenTypes } from "shared/types";
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
@@ -8,7 +7,7 @@ export const { categories, qualifiers } = getCatQualLabels("PPC-CH");
 export const data: MeasureTemplateData = {
   type: "HEDIS",
   coreset: "child",
-  hybridMeasure:true,
+  hybridMeasure: true,
   performanceMeasure: {
     questionText: [
       "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year that received a prenatal care visit in the first trimester on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",
@@ -78,7 +77,7 @@ export const data: MeasureTemplateData = {
       },
     ],
   },
-  opm:{
-    excludeOptions:["Sex"]
-  }
+  opm: {
+    excludeOptions: ["Sex"],
+  },
 };
