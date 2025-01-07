@@ -23,13 +23,13 @@ interface IQualifierData {
 }
 
 interface MeasureByYearData {
-  [year:string]:{
-    [measure:string]: any;
-  }
+  [year: string]: {
+    [measure: string]: any;
+  };
 }
-export const measureByYearTest:MeasureByYearData = {
+export const measureByYearTest: MeasureByYearData = {
   2020: measureImports,
-}
+};
 
 const measuresByYear: MeasuresByYear = {
   2021: twentyTwentyOneMeasures,
