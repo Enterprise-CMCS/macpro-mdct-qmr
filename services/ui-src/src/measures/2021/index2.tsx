@@ -45,26 +45,18 @@ const CISCH_Data = await import("./CISCH/data").then((module) => module.data);
 const CISCH_Validations = await import("./CISCH/validation").then(
   (module) => module.validationFunctions
 );
-
-// const CPCCH_Validations = await import("./CPCCH/validation").then(
-//   (module) => module.validationFunctions
-// );
-
 const DEVCH_Data = await import("./DEVCH/data").then((module) => module.data);
 const DEVCH_Validations = await import("./DEVCH/validation").then(
   (module) => module.validationFunctions
 );
-
 const FUHCH_Data = await import("./FUHCH/data").then((module) => module.data);
 const FUHCH_Validations = await import("./FUHCH/validation").then(
   (module) => module.validationFunctions
 );
-
 const IMACH_Data = await import("./IMACH/data").then((module) => module.data);
 const IMACH_Validations = await import("./IMACH/validation").then(
   (module) => module.validationFunctions
 );
-
 const PPCCH_Data = await import("./PPCCH/data").then((module) => module.data);
 const PPCCH_Validations = await import("./PPCCH/validation").then(
   (module) => module.validationFunctions
@@ -93,7 +85,6 @@ const measureImports = {
   "APM-CH": { data: APMCH_Data, validationFunctions: APMCH_Validations },
   "APP-CH": { data: APPCH_Data, validationFunctions: APPCH_Validations },
   "AUD-CH": { data: AUDCH_Data, validationFunctions: AUDCH_Validations },
-
   "CCP-CH": { data: CCPCH_Data, validationFunctions: CCPCH_Validations },
   "CCW-CH": { data: CCWCH_Data, validationFunctions: CCWCH_Validations },
   "CDF-CH": { data: CDFCH_Data, validationFunctions: CDFCH_Validations },

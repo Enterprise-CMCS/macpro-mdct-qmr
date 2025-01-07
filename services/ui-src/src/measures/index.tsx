@@ -27,8 +27,8 @@ interface MeasureByYearData {
     [measure: string]: any;
   };
 }
-export const measureByYearTest: MeasureByYearData = {
-  2020: measureImports,
+export const newMeasureByYear: MeasureByYearData = {
+  2021: measureImports,
 };
 
 const measuresByYear: MeasuresByYear = {
