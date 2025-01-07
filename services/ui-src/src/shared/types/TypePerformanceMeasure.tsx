@@ -3,22 +3,6 @@ import { ndrFormula } from "types";
 import * as DC from "dataConstants";
 import { RateFields } from "./TypeRateFields";
 
-export interface Props {
-  data: PerformanceMeasureData;
-  rateReadOnly?: boolean;
-  calcTotal?: boolean;
-  rateScale?: number;
-  customMask?: RegExp;
-  hybridMeasure?: boolean;
-  showtextbox?: boolean;
-  allowNumeratorGreaterThanDenominator?: boolean;
-  RateComponent?: RateComp;
-  customNumeratorLabel?: string;
-  customDenominatorLabel?: string;
-  customRateLabel?: string;
-  rateCalc?: RateFormula;
-}
-
 export interface NdrSetProps {
   categories?: LabelData[];
   qualifiers?: LabelData[];
