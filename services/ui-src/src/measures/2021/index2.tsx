@@ -78,7 +78,6 @@ const measureImports = {
   "W30-CH": { data: W30CH_Data, validationFunctions: W30CH_Validations },
   "WCC-CH": { data: WCCCH_Data, validationFunctions: WCCCH_Validations },
   "WCV-CH": { data: WCVCH_Data, validationFunctions: WCVCH_Validations },
-
   Qualifier,
 };
 export default measureImports;
