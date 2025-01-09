@@ -11,7 +11,7 @@ const HPCADValidation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray =
-    GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
+    GV.getPerfMeasureRateArray(data, PMD.data.performanceMeasure) ?? [];
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,

@@ -9,7 +9,7 @@ const OUDValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
   const performanceMeasureArray =
-    GV.getPerfMeasureRateArray(data, PMD.data) ?? [];
+    GV.getPerfMeasureRateArray(data, PMD.data.performanceMeasure) ?? [];
   const dateRange = data[DC.DATE_RANGE];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;

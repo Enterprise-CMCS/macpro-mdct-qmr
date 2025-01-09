@@ -1,13 +1,12 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
-import * as formData from "./data";
+import * as PMD from "./data";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const AMBCHValidation = (data: FormData) => {
-  const PMD = formData.data.performanceMeasure;
-  const ageGroups = PMD.qualifiers!;
+  const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -17,7 +16,10 @@ const AMBCHValidation = (data: FormData) => {
 
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
@@ -50,8 +52,8 @@ const AMBCHValidation = (data: FormData) => {
     // OMS Validations
     ...GV.omsValidations({
       data,
-      qualifiers: PMD.qualifiers!,
-      categories: PMD.categories!,
+      qualifiers: PMD.qualifiers,
+      categories: PMD.categories,
       locationDictionary: GV.omsLocationDictionary(
         OMSData(2021, true),
         PMD.qualifiers,
