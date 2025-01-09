@@ -71,6 +71,7 @@ export const measureTemplate = ({
                 }
                 showtextbox={custom?.showtextbox}
                 hybridMeasure={hybridMeasure}
+                rateReadOnly={custom?.rateReadOnly}
               />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={performanceMeasure.categories}

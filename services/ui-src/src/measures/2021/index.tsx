@@ -10,80 +10,11 @@ the key should be the measure id as a string (with '-XX' included)
 const AIFHH = lazy(() =>
   import("./AIFHH").then((module) => ({ default: module.AIFHH }))
 );
-const AMBHH = lazy(() =>
-  import("./AMBHH").then((module) => ({ default: module.AMBHH }))
-);
-const AMMAD = lazy(() =>
-  import("./AMMAD").then((module) => ({ default: module.AMMAD }))
-);
-const AMRAD = lazy(() =>
-  import("./AMRAD").then((module) => ({ default: module.AMRAD }))
-);
-const BCSAD = lazy(() =>
-  import("./BCSAD").then((module) => ({ default: module.BCSAD }))
-);
-const CBPAD = lazy(() =>
-  import("./CBPAD").then((module) => ({ default: module.CBPAD }))
-);
-const CBPHH = lazy(() =>
-  import("./CBPHH").then((module) => ({ default: module.CBPHH }))
-);
-const CCPAD = lazy(() =>
-  import("./CCPAD").then((module) => ({ default: module.CCPAD }))
-);
-const CCSAD = lazy(() =>
-  import("./CCSAD").then((module) => ({ default: module.CCSAD }))
-);
-const CCWAD = lazy(() =>
-  import("./CCWAD").then((module) => ({ default: module.CCWAD }))
-);
-const CDFAD = lazy(() =>
-  import("./CDFAD").then((module) => ({ default: module.CDFAD }))
-);
-const CDFHH = lazy(() =>
-  import("./CDFHH").then((module) => ({ default: module.CDFHH }))
-);
-const CHLAD = lazy(() =>
-  import("./CHLAD").then((module) => ({ default: module.CHLAD }))
-);
-const COBAD = lazy(() =>
-  import("./COBAD").then((module) => ({ default: module.COBAD }))
-);
 const CPAAD = lazy(() =>
   import("./CPAAD").then((module) => ({ default: module.CPAAD }))
 );
 const CPCCH = lazy(() =>
   import("./CPCCH").then((module) => ({ default: module.CPCCH }))
-);
-const FUAAD = lazy(() =>
-  import("./FUAAD").then((module) => ({ default: module.FUAAD }))
-);
-const FUAHH = lazy(() =>
-  import("./FUAHH").then((module) => ({ default: module.FUAHH }))
-);
-const FUHHH = lazy(() =>
-  import("./FUHHH").then((module) => ({ default: module.FUHHH }))
-);
-const FUMAD = lazy(() =>
-  import("./FUMAD").then((module) => ({ default: module.FUMAD }))
-);
-const FVAAD = lazy(() =>
-  import("./FVAAD").then((module) => ({ default: module.FVAAD }))
-);
-const HVLAD = lazy(() =>
-  import("./HVLAD").then((module) => ({ default: module.HVLAD }))
-);
-const HPCAD = lazy(() =>
-  import("./HPCAD").then((module) => ({ default: module.HPCAD }))
-);
-const HPCMIAD = lazy(() =>
-  import("./HPCMIAD").then((module) => ({ default: module.HPCMIAD }))
-);
-const IETAD = lazy(() =>
-  import("./IETAD").then((module) => ({ default: module.IETAD }))
-);
-const IETHH = lazy(() =>
-  import("./IETHH").then((module) => ({ default: module.IETHH }))
 );
 const IUHH = lazy(() =>
   import("./IUHH").then((module) => ({ default: module.IUHH }))
@@ -100,15 +31,6 @@ const MSCAD = lazy(() =>
 const NCIDDSAD = lazy(() =>
   import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
 );
-const OHDAD = lazy(() =>
-  import("./OHDAD").then((module) => ({ default: module.OHDAD }))
-);
-const OUDAD = lazy(() =>
-  import("./OUDAD").then((module) => ({ default: module.OUDAD }))
-);
-const PC01AD = lazy(() =>
-  import("./PC01AD").then((module) => ({ default: module.PC01AD }))
-);
 const PCRAD = lazy(() =>
   import("./PCRAD").then((module) => ({ default: module.PCRAD }))
 );
@@ -118,108 +40,78 @@ const PCRHH = lazy(() =>
 const PDENTCH = lazy(() =>
   import("./PDENTCH").then((module) => ({ default: module.PDENTCH }))
 );
-const PPCAD = lazy(() =>
-  import("./PPCAD").then((module) => ({ default: module.PPCAD }))
-);
-const PQI01AD = lazy(() =>
-  import("./PQI01AD").then((module) => ({ default: module.PQI01AD }))
-);
-const PQI05AD = lazy(() =>
-  import("./PQI05AD").then((module) => ({ default: module.PQI05AD }))
-);
-const FUHAD = lazy(() =>
-  import("./FUHAD").then((module) => ({ default: module.FUHAD }))
-);
-const PQI08AD = lazy(() =>
-  import("./PQI08AD").then((module) => ({ default: module.PQI08AD }))
-);
-const PQI15AD = lazy(() =>
-  import("./PQI15AD").then((module) => ({ default: module.PQI15AD }))
-);
-const PQI92HH = lazy(() =>
-  import("./PQI92HH").then((module) => ({ default: module.PQI92HH }))
-);
-const SAAAD = lazy(() =>
-  import("./SAAAD").then((module) => ({ default: module.SAAAD }))
-);
-const SSDAD = lazy(() =>
-  import("./SSDAD").then((module) => ({ default: module.SSDAD }))
-);
 const SSHH = lazy(() =>
   import("./SSHH").then((module) => ({ default: module.SSHH }))
-);
-const OUDHH = lazy(() =>
-  import("./OUDHH").then((module) => ({ default: module.OUDHH }))
 );
 const twentyTwentyOneMeasures = {
   "ADD-CH": measureTemplate,
   "AIF-HH": AIFHH,
   "AMB-CH": measureTemplate,
-  "AMB-HH": AMBHH,
-  "AMM-AD": AMMAD,
-  "AMR-AD": AMRAD,
+  "AMB-HH": measureTemplate,
+  "AMM-AD": measureTemplate,
+  "AMR-AD": measureTemplate,
   "AMR-CH": measureTemplate,
   "APM-CH": measureTemplate,
   "APP-CH": measureTemplate,
   "AUD-CH": measureTemplate,
-  "BCS-AD": BCSAD,
-  "CBP-AD": CBPAD,
-  "CBP-HH": CBPHH,
-  "CCP-AD": CCPAD,
+  "BCS-AD": measureTemplate,
+  "CBP-AD": measureTemplate,
+  "CBP-HH": measureTemplate,
+  "CCP-AD": measureTemplate,
   "CCP-CH": measureTemplate,
-  "CCS-AD": CCSAD,
-  "CCW-AD": CCWAD,
+  "CCS-AD": measureTemplate,
+  "CCW-AD": measureTemplate,
   "CCW-CH": measureTemplate,
-  "CDF-AD": CDFAD,
+  "CDF-AD": measureTemplate,
   "CDF-CH": measureTemplate,
-  "CDF-HH": CDFHH,
-  "CHL-AD": CHLAD,
+  "CDF-HH": measureTemplate,
+  "CHL-AD": measureTemplate,
   "CHL-CH": measureTemplate,
   "CIS-CH": measureTemplate,
-  "COB-AD": COBAD,
+  "COB-AD": measureTemplate,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "DEV-CH": measureTemplate,
-  "FUA-AD": FUAAD,
-  "FUA-HH": FUAHH,
-  "FUH-AD": FUHAD,
+  "FUA-AD": measureTemplate,
+  "FUA-HH": measureTemplate,
+  "FUH-AD": measureTemplate,
   "FUH-CH": measureTemplate,
-  "FUH-HH": FUHHH,
-  "FUM-AD": FUMAD,
-  "FVA-AD": FVAAD,
-  "HVL-AD": HVLAD,
-  "HPC-AD": HPCAD,
-  "HPCMI-AD": HPCMIAD,
-  "IET-AD": IETAD,
-  "IET-HH": IETHH,
+  "FUH-HH": measureTemplate,
+  "FUM-AD": measureTemplate,
+  "FVA-AD": measureTemplate,
+  "HVL-AD": measureTemplate,
+  "HPC-AD": measureTemplate,
+  "HPCMI-AD": measureTemplate,
+  "IET-AD": measureTemplate,
+  "IET-HH": measureTemplate,
   "IMA-CH": measureTemplate,
   "IU-HH": IUHH,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
   "NCIDDS-AD": NCIDDSAD,
-  "OHD-AD": OHDAD,
-  "OUD-AD": OUDAD,
-  "OUD-HH": OUDHH,
-  "PC01-AD": PC01AD,
+  "OHD-AD": measureTemplate,
+  "OUD-AD": measureTemplate,
+  "OUD-HH": measureTemplate,
+  "PC01-AD": measureTemplate,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
   "PDENT-CH": PDENTCH,
-  "PPC-AD": PPCAD,
+  "PPC-AD": measureTemplate,
   "PPC-CH": measureTemplate,
-  "PQI01-AD": PQI01AD,
-  "PQI05-AD": PQI05AD,
-  "PQI08-AD": PQI08AD,
-  "PQI15-AD": PQI15AD,
-  "PQI92-HH": PQI92HH,
-  "SAA-AD": SAAAD,
+  "PQI01-AD": measureTemplate,
+  "PQI05-AD": measureTemplate,
+  "PQI08-AD": measureTemplate,
+  "PQI15-AD": measureTemplate,
+  "PQI92-HH": measureTemplate,
+  "SAA-AD": measureTemplate,
   "SFM-CH": measureTemplate,
   "SS-1-HH": SSHH,
   "SS-2-HH": SSHH,
   "SS-3-HH": SSHH,
   "SS-4-HH": SSHH,
   "SS-5-HH": SSHH,
-  "SSD-AD": SSDAD,
+  "SSD-AD": measureTemplate,
   "W30-CH": measureTemplate,
   "WCC-CH": measureTemplate,
   "WCV-CH": measureTemplate,
