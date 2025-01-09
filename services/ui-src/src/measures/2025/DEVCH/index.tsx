@@ -28,6 +28,9 @@ export const DEVCH = ({
   }, [setValidationFunctions]);
 
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const isHybrid = data?.DataSource?.includes(
+    "HybridAdministrativeandMedicalRecordsData"
+  );
 
   return (
     <>
@@ -43,7 +46,10 @@ export const DEVCH = ({
           <CMQ.MeasurementSpecification type="OHSU" coreset="child" />
           <CMQ.DataSource data={PMD.dataSourceData} type="child" />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation coreset="child" hybridMeasure />
+          <CMQ.DefinitionOfPopulation
+            coreset="child"
+            hybridMeasure={isHybrid}
+          />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal hybridMeasure />

@@ -21,6 +21,9 @@ export const LSCCH = ({
   const { watch } = useFormContext<FormData>();
   const data = watch();
   const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const isHybrid = data?.DataSource?.includes(
+    "HybridAdministrativeandMedicalRecordsData"
+  );
 
   useEffect(() => {
     if (setValidationFunctions) {
@@ -42,7 +45,10 @@ export const LSCCH = ({
           <CMQ.MeasurementSpecification type="HEDIS" coreset="child" />
           <CMQ.DataSource data={PMD.dataSourceData} type="child" />
           <CMQ.DateRange type="child" />
-          <CMQ.DefinitionOfPopulation coreset="child" hybridMeasure />
+          <CMQ.DefinitionOfPopulation
+            coreset="child"
+            hybridMeasure={isHybrid}
+          />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} hybridMeasure />
