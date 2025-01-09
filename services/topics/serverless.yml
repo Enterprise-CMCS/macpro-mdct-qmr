@@ -22,9 +22,9 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: us-east-1
-  stackTags:  
+  stackTags:
     PROJECT: ${self:custom.project}
-    SERVICE: ${self:service}  
+    SERVICE: ${self:service}
   iam:
     role:
       path: ${env:IAM_PATH, ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
@@ -94,7 +94,7 @@ functions:
       securityGroupIds:
         - Ref: LambdaSecurityGroup
       subnetIds: ${self:custom.privateSubnets}
-    timeout: 300     
+    timeout: 300
 
 resources:
   Resources:
