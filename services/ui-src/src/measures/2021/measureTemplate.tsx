@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
-import { newMeasureByYear } from "measures";
+import { measureTemplateData } from "./measureTemplateData";
 
 export const measureTemplate = ({
   name,
@@ -19,7 +19,7 @@ export const measureTemplate = ({
   const { watch } = useFormContext<FormData>();
   const data = watch();
 
-  const measure = newMeasureByYear[year][measureId];
+  const measure = measureTemplateData[measureId];
 
   const {
     type,

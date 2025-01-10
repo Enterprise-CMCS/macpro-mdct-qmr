@@ -1,6 +1,3 @@
-import { Qualifier } from "shared/Qualifiers";
-import { Data } from "labels/2021/qualifierFormsData";
-
 //child
 import { data as ADDCH_Data } from "./ADDCH/data";
 import { validationFunctions as ADDCH_Validations } from "./ADDCH/validation";
@@ -89,9 +86,6 @@ import { validationFunctions as CHLAD_Validations } from "./CHLAD/validation";
 
 import { data as COBAD_Data } from "./COBAD/data";
 import { validationFunctions as COBAD_Validations } from "./COBAD/validation";
-
-// import { data as CPAAD_Data } from "./CPAAD/data";
-// import { validationFunctions as CPAAD_Validations } from "./CPAAD/validation";
 
 import { data as FUAAD_Data } from "./FUAAD/data";
 import { validationFunctions as FUAAD_Validations } from "./FUAAD/validation";
@@ -187,7 +181,7 @@ import { validationFunctions as PCRHH_Validations } from "./PCRHH/validation";
 import { data as PQI92HH_Data } from "./PQI92HH/data";
 import { validationFunctions as PQI92HH_Validations } from "./PQI92HH/validation";
 
-const measureImports = {
+export const measureTemplateData: { [measure: string]: any } = {
   "ADD-CH": { data: ADDCH_Data, validationFunctions: ADDCH_Validations },
   "AMB-CH": { data: AMBCH_Data, validationFunctions: AMBCH_Validations },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: AMRCH_Validations },
@@ -207,7 +201,6 @@ const measureImports = {
   "W30-CH": { data: W30CH_Data, validationFunctions: W30CH_Validations },
   "WCC-CH": { data: WCCCH_Data, validationFunctions: WCCCH_Validations },
   "WCV-CH": { data: WCVCH_Data, validationFunctions: WCVCH_Validations },
-
   "AMM-AD": { data: AMMAD_Data, validationFunctions: AMMAD_Validations },
   "AMR-AD": { data: AMRAD_Data, validationFunctions: AMRAD_Validations },
   "BCS-AD": { data: BCSAD_Data, validationFunctions: BCSAD_Validations },
@@ -218,7 +211,6 @@ const measureImports = {
   "CDF-AD": { data: CDFAD_Data, validationFunctions: CDFAD_Validations },
   "CHL-AD": { data: CHLAD_Data, validationFunctions: CHLAD_Validations },
   "COB-AD": { data: COBAD_Data, validationFunctions: COBAD_Validations },
-  // "CPA-AD": { data: CPAAD_Data, validationFunctions: CPAAD_Validations },
   "FUA-AD": { data: FUAAD_Data, validationFunctions: FUAAD_Validations },
   "FUH-AD": { data: FUHAD_Data, validationFunctions: FUHAD_Validations },
   "FUM-AD": { data: FUMAD_Data, validationFunctions: FUMAD_Validations },
@@ -239,7 +231,6 @@ const measureImports = {
   "PQI15-AD": { data: PQI15AD_Data, validationFunctions: PQI15AD_Validations },
   "SAA-AD": { data: SAAAD_Data, validationFunctions: SAAAD_Validations },
   "SSD-AD": { data: SSDAD_Data, validationFunctions: SSDAD_Validations },
-
   "AIF-HH": { data: AIFHH_Data, validationFunctions: AIFHH_Validations },
   "AMB-HH": { data: AMBHH_Data, validationFunctions: AMBHH_Validations },
   "CBP-HH": { data: CBPHH_Data, validationFunctions: CBPHH_Validations },
@@ -251,8 +242,4 @@ const measureImports = {
   "OUD-HH": { data: OUDHH_Data, validationFunctions: OUDHH_Validations },
   "PCR-HH": { data: PCRHH_Data, validationFunctions: PCRHH_Validations },
   "PQI92-HH": { data: PQI92HH_Data, validationFunctions: PQI92HH_Validations },
-
-  Qualifier,
 };
-export default measureImports;
-export const QualifierData = Data;
