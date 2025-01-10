@@ -15,7 +15,7 @@ provider:
     SERVICE: ${self:service}
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
+      path: /delegatedadmin/developer/
       permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
       statements:
         - Effect: "Allow"
@@ -26,9 +26,7 @@ provider:
 plugins:
   - serverless-stack-termination-protection
   - serverless-plugin-scripts
-  - serverless-bundle
   - serverless-iam-helper
-  - serverless-s3-bucket-helper
   - "@enterprise-cmcs/serverless-waf-plugin"
 
 custom:
