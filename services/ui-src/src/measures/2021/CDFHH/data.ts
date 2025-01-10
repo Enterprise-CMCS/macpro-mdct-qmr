@@ -5,7 +5,7 @@ import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 export const { categories, qualifiers } = getCatQualLabels("CDF-HH");
 
 export const data: MeasureTemplateData = {
-  type: "HEDIS",
+  type: "CMS",
   coreset: "health",
   performanceMeasure: {
     questionText: [

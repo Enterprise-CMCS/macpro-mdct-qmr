@@ -11,6 +11,7 @@ export interface customData {
   customRateLabel?: string;
   allowNumeratorGreaterThanDenominator?: boolean;
   showtextbox?: boolean;
+  dataSrcRadio?: boolean;
   rateCalc?: RateFormula;
 }
 
