@@ -16,7 +16,10 @@ const AMBHHValidation = (data: FormData) => {
     data.Deviations
   );
   const dateRange = data[DC.DATE_RANGE];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   let errorArray: any[] = [];
 
   if (data[DC.DID_REPORT] === DC.NO) {

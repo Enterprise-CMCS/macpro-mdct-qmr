@@ -9,7 +9,10 @@ const PC01ADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
