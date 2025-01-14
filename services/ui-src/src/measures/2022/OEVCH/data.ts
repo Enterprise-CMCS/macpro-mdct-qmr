@@ -1,11 +1,10 @@
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
-import * as DC from "dataConstants";
 
 export const { categories, qualifiers } = getCatQualLabels("OEV-CH");
 
 export const data: MeasureTemplateData = {
-  type: "DC.ADA_DQA",
+  type: "ADA_DQA",
   coreset: "child",
   performanceMeasure: {
     questionText: [
