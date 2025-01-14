@@ -10,7 +10,10 @@ const FUAADValidation = (data: FormData) => {
   const sixtyDaysIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const dateRange = data[DC.DATE_RANGE];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
