@@ -15,7 +15,7 @@ export const data: MeasureTemplateData = {
   },
   custom: {
     calcTotal: true,
-    customTotalLabel: PMD.qualifiers[4].label,
+    customTotalLabel: qualifiers[4].label,
     rateScale: 1000,
     allowNumeratorGreaterThanDenominator: true,
   },

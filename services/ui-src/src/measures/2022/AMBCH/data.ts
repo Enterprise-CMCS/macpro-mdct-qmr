@@ -1,7 +1,6 @@
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
-import { AABRateCalculation } from "utils";
 export const { categories, qualifiers } = getCatQualLabels("AMB-CH");
 
 export const data: MeasureTemplateData = {
