@@ -14,4 +14,7 @@ export const data: MeasureTemplateData = {
     categories,
     qualifiers,
   },
+  custom: {
+    dataSrcRadio: true,
+  },
 };

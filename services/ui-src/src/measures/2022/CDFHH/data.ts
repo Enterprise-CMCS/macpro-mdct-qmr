@@ -36,7 +36,7 @@ export const data: MeasureTemplateData = {
   },
   custom: {
     calcTotal: true,
-    customTotalLabel: Total,
+    customTotalLabel: "Total (Age 12 and older)",
     rateScale: 100,
   },
 };

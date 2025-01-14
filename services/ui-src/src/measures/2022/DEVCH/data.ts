@@ -52,6 +52,6 @@ export const data: MeasureTemplateData = {
   },
   custom: {
     calcTotal: true,
-    customTotalLabel: Children,
+    customTotalLabel: "Children Total",
   },
 };

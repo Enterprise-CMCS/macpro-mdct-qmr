@@ -1,43 +1,43 @@
 import { lazy } from "react";
+import { measureTemplate } from "./measureTemplate";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2022/qualifierFormsData";
-import { measureTemplate } from "./measureTemplate";
 
-const CPAAD = lazy(() =>
-  import("./CPAAD").then((module) => ({ default: module.CPAAD }))
-);
-const LRCDCH = lazy(() =>
-  import("./LRCDCH").then((module) => ({ default: module.LRCDCH }))
-);
-const PCRHH = lazy(() =>
-  import("./PCRHH").then((module) => ({ default: module.PCRHH }))
-);
-const NCIDDSAD = lazy(() =>
-  import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
-);
-const MSCAD = lazy(() =>
-  import("./MSCAD").then((module) => ({ default: module.MSCAD }))
-);
-const IUHH = lazy(() =>
-  import("./IUHH").then((module) => ({ default: module.IUHH }))
-);
-const PCRAD = lazy(() =>
-  import("./PCRAD").then((module) => ({ default: module.PCRAD }))
-);
-const SSHH = lazy(() =>
-  import("./SSHH").then((module) => ({ default: module.SSHH }))
+const AIFHH = lazy(() =>
+  import("./AIFHH").then((module) => ({ default: module.AIFHH }))
 );
 const AMRAD = lazy(() =>
   import("./AMRAD").then((module) => ({ default: module.AMRAD }))
 );
-const LBWCH = lazy(() =>
-  import("./LBWCH").then((module) => ({ default: module.LBWCH }))
-);
-const AIFHH = lazy(() =>
-  import("./AIFHH").then((module) => ({ default: module.AIFHH }))
+const CPAAD = lazy(() =>
+  import("./CPAAD").then((module) => ({ default: module.CPAAD }))
 );
 const CPCCH = lazy(() =>
   import("./CPCCH").then((module) => ({ default: module.CPCCH }))
+);
+const IUHH = lazy(() =>
+  import("./IUHH").then((module) => ({ default: module.IUHH }))
+);
+const LBWCH = lazy(() =>
+  import("./LBWCH").then((module) => ({ default: module.LBWCH }))
+);
+const LRCDCH = lazy(() =>
+  import("./LRCDCH").then((module) => ({ default: module.LRCDCH }))
+);
+const MSCAD = lazy(() =>
+  import("./MSCAD").then((module) => ({ default: module.MSCAD }))
+);
+const NCIDDSAD = lazy(() =>
+  import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
+);
+const PCRAD = lazy(() =>
+  import("./PCRAD").then((module) => ({ default: module.PCRAD }))
+);
+const PCRHH = lazy(() =>
+  import("./PCRHH").then((module) => ({ default: module.PCRHH }))
+);
+const SSHH = lazy(() =>
+  import("./SSHH").then((module) => ({ default: module.SSHH }))
 );
 const twentyTwentyTwoMeasures = {
   "AAB-AD": measureTemplate,
