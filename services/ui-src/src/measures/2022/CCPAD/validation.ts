@@ -37,7 +37,12 @@ const CCPADValidation = (data: FormData) => {
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(
+      data,
+      PMD.data.performanceMeasure,
+      1,
+      0
+    ),
     ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
@@ -53,7 +58,10 @@ const CCPADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
 
     // OMS Specific Validations

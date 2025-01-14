@@ -71,7 +71,10 @@ const FUAHHValidation = (data: FormData) => {
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateTotalNDR(performanceMeasureArray),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
 
     // OMS Validations
     ...GV.omsValidations({

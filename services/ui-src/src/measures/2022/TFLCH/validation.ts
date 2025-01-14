@@ -38,9 +38,17 @@ const TFLCHValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     // Dental Services rate cannot be larger than the Dental or Oral Health Services rate
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
     // Oral Health Services rate cannot be larger than the Dental or Oral Health Services rate
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 2),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure,
+      0,
+      2
+    ),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,

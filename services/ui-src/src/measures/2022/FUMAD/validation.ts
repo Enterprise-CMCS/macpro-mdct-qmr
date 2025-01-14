@@ -64,7 +64,10 @@ const FUMADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

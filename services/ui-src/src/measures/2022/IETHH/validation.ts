@@ -106,7 +106,13 @@ const IETValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure,
+      0,
+      1,
+      2
+    ),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,

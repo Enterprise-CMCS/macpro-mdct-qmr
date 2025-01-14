@@ -52,9 +52,17 @@ const CCPCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
-    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(
+      data,
+      PMD.data.performanceMeasure,
+      1,
+      0
+    ),
 
     // OMS Specific Validations
     ...GV.omsValidations({
