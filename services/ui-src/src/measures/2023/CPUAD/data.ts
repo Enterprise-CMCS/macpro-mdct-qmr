@@ -6,6 +6,7 @@ export const { categories, qualifiers } = getCatQualLabels("CPU-AD");
 
 export const data: MeasureTemplateData = {
   type: "HEDIS",
+  coreset: "adult",
   performanceMeasure: {
     questionText: [
       "Percentage of beneficiaries receiving long-term services and supports (LTSS) services ages 18 and older who have documentation of a comprehensive long-term services and supports (LTSS) care plan in a specified time frame that includes core elements. The following rates are reported:",
