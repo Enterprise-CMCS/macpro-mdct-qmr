@@ -10,7 +10,10 @@ const TFLCHValidation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   let errorArray: any[] = [];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
@@ -32,9 +35,17 @@ const TFLCHValidation = (data: FormData) => {
   errorArray = [
     ...errorArray,
     // Dental Services rate cannot be larger than the Dental or Oral Health Services rate
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
     // Oral Health Services rate cannot be larger than the Dental or Oral Health Services rate
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 2),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure,
+      0,
+      2
+    ),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
