@@ -16,7 +16,7 @@ export interface customData {
   rateCalc?: RateFormula;
   customPrompt?: string;
   RateComponent?: RateComp;
-  populationSampleSize?: string;
+  populationSampleSize?: boolean;
 }
 
 export interface MeasureTemplateData {
