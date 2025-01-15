@@ -40,7 +40,7 @@ export const EDVAD = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type={DC.ADA_DQA} coreset="adult" />
+          <CMQ.MeasurementSpecification type="ADA-DQA" coreset="adult" />
           <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation coreset="adult" />
