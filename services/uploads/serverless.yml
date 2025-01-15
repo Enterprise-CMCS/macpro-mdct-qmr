@@ -1,7 +1,7 @@
 # Refer to the README.md file in within this service directory to configure all ssm parameters required for this service.
 service: uploads
 
-frameworkVersion: "3"
+frameworkVersion: "4"
 
 plugins:
   - serverless-plugin-scripts
@@ -9,7 +9,6 @@ plugins:
   - serverless-s3-local
   - serverless-stack-termination-protection
   - serverless-iam-helper
-  - serverless-s3-bucket-helper
 
 provider:
   name: aws
@@ -20,8 +19,8 @@ provider:
     SERVICE: ${self:service}
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
-      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
+      path: /delegatedadmin/developer/
+      permissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/cms-cloud-admin/developer-boundary-policy
       statements:
         - Effect: "Allow"
           Action:
@@ -49,8 +48,6 @@ custom:
   serverless-offline-ssm:
     stages:
       - local
-  iamPath: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path,"/"}
-  iamPermissionsBoundaryPolicy: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
@@ -438,12 +435,6 @@ resources:
               Principal:
                 Service: "lambda.amazonaws.com"
               Action: "sts:AssumeRole"
-        Path: ${self:custom.iamPath}
-        PermissionsBoundary:
-          Fn::If:
-            - CreatePermissionsBoundary
-            - !Sub arn:aws:iam::${AWS::AccountId}:policy${self:custom.iamPermissionsBoundaryPolicy}
-            - !Ref AWS::NoValue
         Policies:
           - PolicyName: "BucketAVScanRolePolicy"
             PolicyDocument:
@@ -506,12 +497,6 @@ resources:
               Principal:
                 Service: "lambda.amazonaws.com"
               Action: "sts:AssumeRole"
-        Path: ${self:custom.iamPath}
-        PermissionsBoundary:
-          Fn::If:
-            - CreatePermissionsBoundary
-            - !Sub arn:aws:iam::${AWS::AccountId}:policy${self:custom.iamPermissionsBoundaryPolicy}
-            - !Ref AWS::NoValue
         Policies:
           - PolicyName: "BucketAVDownloadRolePolicy"
             PolicyDocument:
