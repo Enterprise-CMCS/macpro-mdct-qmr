@@ -47,7 +47,7 @@ export const measureTemplate = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
-        removeLessThan30={custom.removeLessThan30}
+        removeLessThan30={custom?.removeLessThan30}
       />
 
       {!isNotReportingData && (
@@ -77,7 +77,7 @@ export const measureTemplate = ({
                 showtextbox={custom?.showtextbox}
                 hybridMeasure={hybridMeasure}
                 rateReadOnly={custom?.rateReadOnly}
-                rateCalc={custom.rateCalc}
+                rateCalc={custom?.rateCalc}
               />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={performanceMeasure.categories}

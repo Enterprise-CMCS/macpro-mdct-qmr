@@ -14,6 +14,8 @@ export interface customData {
   dataSrcRadio?: boolean;
   removeLessThan30?: boolean;
   rateCalc?: RateFormula;
+  customPrompt?: string;
+  RateComponent?: RateComp;
 }
 
 export interface MeasureTemplateData {

@@ -1,5 +1,4 @@
 import * as CMQ from "shared/commonQuestions";
-import * as DC from "dataConstants";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { getPerfMeasureRateArray } from "shared/globalValidations";
