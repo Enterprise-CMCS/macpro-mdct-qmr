@@ -1,6 +1,7 @@
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import * as DC from "dataConstants";
+import { IETRate } from "components";
 
 export const { categories, qualifiers } = getCatQualLabels("IET-AD");
 
@@ -41,6 +42,6 @@ export const data: MeasureTemplateData = {
   },
   custom: {
     calcTotal: true,
-    RateComponent: QMR.IETRate,
+    RateComponent: IETRate,
   },
 };

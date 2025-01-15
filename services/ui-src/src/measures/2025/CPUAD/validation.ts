@@ -8,10 +8,7 @@ import { DefaultFormData as FormData } from "shared/types/FormData";
 const CPUADValidation = (data: FormData) => {
   const carePlans = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(
-    data,
-    PMD.data.performanceMeasure
-  );
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
 
   let errorArray: any[] = [];
   const OPM = data[DC.OPM_RATES];
