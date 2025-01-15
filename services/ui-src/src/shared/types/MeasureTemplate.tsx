@@ -12,6 +12,7 @@ export interface customData {
   allowNumeratorGreaterThanDenominator?: boolean;
   showtextbox?: boolean;
   dataSrcRadio?: boolean;
+  removeLessThan30?: boolean;
   rateCalc?: RateFormula;
 }
 
