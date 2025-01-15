@@ -1,3 +1,4 @@
+import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
@@ -16,5 +17,6 @@ export const data: MeasureTemplateData = {
   custom: {
     rateScale: 100000,
     allowNumeratorGreaterThanDenominator: true,
+    customMask: positiveNumbersWithMaxDecimalPlaces(1),
   },
 };

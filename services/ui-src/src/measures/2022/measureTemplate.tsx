@@ -47,6 +47,7 @@ export const measureTemplate = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        removeLessThan30={custom.removeLessThan30}
       />
 
       {!isNotReportingData && (
