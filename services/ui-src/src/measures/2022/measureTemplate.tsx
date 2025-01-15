@@ -77,6 +77,7 @@ export const measureTemplate = ({
                 showtextbox={custom?.showtextbox}
                 hybridMeasure={hybridMeasure}
                 rateReadOnly={custom?.rateReadOnly}
+                rateCalc={custom.rateCalc}
               />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={performanceMeasure.categories}
@@ -93,7 +94,7 @@ export const measureTemplate = ({
               }
             />
           )}
-          <CMQ.CombinedRates />
+          <CMQ.CombinedRates coreset={coreset} />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               coreset={coreset}
