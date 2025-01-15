@@ -88,6 +88,7 @@ export const measureTemplate = ({
           {isOtherMeasureSpecSelected && (
             <CMQ.OtherPerformanceMeasure
               customMask={custom?.customMask}
+              customPrompt={custom?.customPrompt}
               rateMultiplicationValue={custom?.rateScale}
               allowNumeratorGreaterThanDenominator={
                 custom?.allowNumeratorGreaterThanDenominator
@@ -107,6 +108,7 @@ export const measureTemplate = ({
               allowNumeratorGreaterThanDenominator={
                 custom?.allowNumeratorGreaterThanDenominator
               }
+              customPrompt={custom?.customPrompt}
               excludeOptions={opm?.excludeOptions}
             />
           )}
