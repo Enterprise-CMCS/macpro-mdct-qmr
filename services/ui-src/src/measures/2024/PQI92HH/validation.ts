@@ -13,7 +13,10 @@ const PQI92Validation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
   const dateRange = data[DC.DATE_RANGE];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure.performanceMeasure
+  );
   let errorArray: any[] = [];
 
   if (data[DC.DID_REPORT] === DC.NO) {
