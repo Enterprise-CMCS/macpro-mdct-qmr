@@ -7,7 +7,6 @@ plugins:
   - serverless-s3-sync
   - serverless-cloudfront-invalidate
   - serverless-stack-termination-protection
-  - serverless-s3-bucket-helper
 
 provider:
   name: aws
@@ -54,6 +53,7 @@ custom:
     hooks:
       # Build the static archive and populate the config
       package:initialize: |
+        cd services/ui-src/
         set -e
         SKIP_PREFLIGHT_CHECK=true yarn run build
         export API_REGION=${self:custom.api_region}
@@ -75,6 +75,13 @@ custom:
         ./env.sh
         cp public/env-config.js build/env-config.js
 resources:
+  Resources:
+    Honk: # this is just because it won't deploy unless we have some resource being created
+      Type: AWS::SSM::Parameter
+      Properties:
+        Type: String
+        Value: 'honk'
+
   Outputs:
     ProdUrl:
       Value: !Sub ${ssm:/configuration/prodUrl, ""}

@@ -7,14 +7,12 @@ package:
   individually: true
 
 plugins:
-  # - serverless-plugin-typescript
   - serverless-associate-waf
   - "@enterprise-cmcs/serverless-waf-plugin"
   - serverless-offline-ssm
   - serverless-offline
   - serverless-stack-termination-protection
   - serverless-iam-helper
-  - serverless-s3-bucket-helper
   - serverless-dotenv-plugin
 
 custom:
@@ -81,8 +79,8 @@ provider:
     restApi: true
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
-      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
+      path: /delegatedadmin/developer/
+      permissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/cms-cloud-admin/developer-boundary-policy
       statements:
         - Effect: "Allow"
           Action: "execute-api:Invoke"

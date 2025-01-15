@@ -11,7 +11,6 @@ plugins:
   - serverless-plugin-scripts
   - serverless-disable-functions
   - serverless-stack-termination-protection
-  - serverless-bundle
   - "@stratiformdigital/serverless-iam-helper"
   - "@stratiformdigital/serverless-online"
   - "@stratiformdigital/serverless-s3-security-helper"
@@ -27,8 +26,8 @@ provider:
     SERVICE: ${self:service}
   iam:
     role:
-      path: ${env:IAM_PATH, ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
-      permissionsBoundary: ${env:IAM_PERMISSIONS_BOUNDARY, ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
+      path: /delegatedadmin/developer/
+      permissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/cms-cloud-admin/developer-boundary-policy
 
 custom:
   project: "qmr"

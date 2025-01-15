@@ -14,6 +14,9 @@ permissions:
   contents: read
   actions: read
 
+env:
+  SERVERLESS_LICENSE_KEY: ${{ secrets.SERVERLESS_LICENSE_KEY }}
+
 jobs:
   unit-tests:
     name: Unit Tests
@@ -52,13 +55,11 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-modulesDDD-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
       - name: set path
         run: |
           echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
       - name: deploy
-        env:
-          SERVERLESS_LICENSE_KEY: ${{ secrets.SERVERLESS_LICENSE_KEY }}
         run: |
           # When deploying multiple copies of this quickstart to the same AWS Account (not ideal), a prefix helps prevent stepping on each other.
           # This can optionally be set as an GitHub Actions Secret
@@ -72,7 +73,7 @@ jobs:
           echo "<$APPLICATION_ENDPOINT>" >> $GITHUB_STEP_SUMMARY
         working-directory: services
     outputs:
-      application_endpoint: ${{ steps.endpoint.outputs.application_endpoint}}
+      application_endpoint: ${{ steps.endpoint.outputs.application_endpoint }}
       BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION: ${{ steps.set_names.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION }}
       BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME: ${{ steps.set_names.outputs.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME }}
 
