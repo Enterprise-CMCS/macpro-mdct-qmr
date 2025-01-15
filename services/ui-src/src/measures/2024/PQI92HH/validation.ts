@@ -15,7 +15,7 @@ const PQI92Validation = (data: FormData) => {
   const dateRange = data[DC.DATE_RANGE];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
     data,
-    PMD.data.performanceMeasure.performanceMeasure
+    PMD.data.performanceMeasure
   );
   let errorArray: any[] = [];
 
