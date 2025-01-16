@@ -94,7 +94,6 @@ export const measureTemplate = ({
               }
             />
           )}
-          {coreset == "health" && <CMQ.CombinedRates coreset={coreset} />}
           {showOptionalMeasureStrat &&
             (custom.notCollectingOMS ? (
               <CMQ.NotCollectingOMS year={year} />
