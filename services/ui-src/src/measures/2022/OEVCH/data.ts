@@ -4,7 +4,7 @@ import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 export const { categories, qualifiers } = getCatQualLabels("OEV-CH");
 
 export const data: MeasureTemplateData = {
-  type: "ADA_DQA",
+  type: "ADA-DQA",
   coreset: "child",
   performanceMeasure: {
     questionText: [
