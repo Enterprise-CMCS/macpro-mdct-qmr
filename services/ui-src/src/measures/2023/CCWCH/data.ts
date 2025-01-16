@@ -18,6 +18,6 @@ export const data: MeasureTemplateData = {
     qualifiers,
   },
   opm: {
-    excludeOptions: ["Sex"],
+    excludeOptions: ["O8BrOa"],
   },
 };

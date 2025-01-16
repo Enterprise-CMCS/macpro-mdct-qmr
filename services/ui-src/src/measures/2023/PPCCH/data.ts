@@ -54,6 +54,6 @@ export const data: MeasureTemplateData = {
     ],
   },
   opm: {
-    excludeOptions: ["Sex"],
+    excludeOptions: ["O8BrOa"],
   },
 };

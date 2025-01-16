@@ -99,7 +99,7 @@ export const measureTemplate = ({
             />
           )}
           {showOptionalMeasureStrat &&
-            (custom.notCollectingOMS ? (
+            (custom?.notCollectingOMS ? (
               <CMQ.NotCollectingOMS year={year} />
             ) : (
               <CMQ.OptionalMeasureStrat

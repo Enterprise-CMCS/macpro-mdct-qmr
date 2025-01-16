@@ -96,7 +96,7 @@ export const measureTemplate = ({
           )}
           <CMQ.CombinedRates coreset={coreset} />
           {showOptionalMeasureStrat &&
-            (custom.notCollectingOMS ? (
+            (custom?.notCollectingOMS ? (
               <CMQ.NotCollectingOMS year={year} />
             ) : (
               <CMQ.OptionalMeasureStrat
