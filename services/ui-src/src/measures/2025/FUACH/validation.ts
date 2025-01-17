@@ -8,7 +8,10 @@ import { DefaultFormData as FormData } from "shared/types/FormData";
 
 const FUACHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const performanceMeasureArray = getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
@@ -51,7 +54,10 @@ const FUACHValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
 
     // OMS Validations
     ...GV.omsValidations({
