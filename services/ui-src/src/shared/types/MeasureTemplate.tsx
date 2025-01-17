@@ -1,3 +1,4 @@
+import { LabelData } from "utils";
 import { DataDrivenTypes } from "./TypeDataDriven";
 
 export interface customData {
@@ -28,5 +29,8 @@ export interface MeasureTemplateData {
   custom?: customData;
   opm?: {
     excludeOptions?: string[];
+    inputFieldNames?: LabelData[];
+    ndrFormulas: any;
+    componentFlag: string;
   };
 }

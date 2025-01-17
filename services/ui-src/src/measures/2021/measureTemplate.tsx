@@ -107,7 +107,11 @@ export const measureTemplate = ({
               allowNumeratorGreaterThanDenominator={
                 custom?.allowNumeratorGreaterThanDenominator
               }
+              inputFieldNames={opm?.inputFieldNames}
+              componentFlag={opm?.componentFlag}
+              ndrFormulas={opm?.ndrFormulas}
               excludeOptions={opm?.excludeOptions}
+              measureName={measureId}
             />
           )}
         </>
