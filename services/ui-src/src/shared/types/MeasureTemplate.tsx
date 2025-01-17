@@ -30,7 +30,7 @@ export interface MeasureTemplateData {
   opm?: {
     excludeOptions?: string[];
     inputFieldNames?: LabelData[];
-    ndrFormulas: any;
-    componentFlag: string;
+    ndrFormulas?: any;
+    componentFlag?: string;
   };
 }
