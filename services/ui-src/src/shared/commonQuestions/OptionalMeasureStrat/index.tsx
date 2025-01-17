@@ -123,8 +123,6 @@ const arrayIsReadOnly = (dataSource: string[]) => {
  */
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
-  IUHHPerformanceMeasureArray,
-  AIFHHPerformanceMeasureArray,
   qualifiers = [],
   categories = [],
   measureName,
@@ -149,6 +147,14 @@ export const OptionalMeasureStrat = ({
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
   const year = labels.year;
+
+  const IUHHPerformanceMeasureArray =
+    measureName === "IUHH" ? performanceMeasureArray : [];
+  const AIFHHPerformanceMeasureArray =
+    measureName === "AIFHH" ? performanceMeasureArray : [];
+
+  if (IUHHPerformanceMeasureArray || AIFHHPerformanceMeasureArray)
+    performanceMeasureArray = [];
 
   const omsData = data ?? OMSData(year, coreset === "adult");
   const { control, watch, getValues, setValue, unregister } =

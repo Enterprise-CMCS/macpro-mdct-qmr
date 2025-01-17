@@ -74,7 +74,7 @@ export const IUHH = ({
               coreset="health"
               calcTotal={true}
               customMask={xNumbersYDecimals(12, 1)}
-              IUHHPerformanceMeasureArray={performanceMeasureArray}
+              performanceMeasureArray={performanceMeasureArray}
               componentFlag={"IU"}
             />
           )}

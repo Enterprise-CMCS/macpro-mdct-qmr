@@ -29,6 +29,8 @@ export const measureTemplate = ({
     hybridMeasure,
     custom,
     opm,
+    inputFieldNames,
+    ndrFormulas,
   } = measure.data;
   const performanceMeasureArray = getPerfMeasureRateArray(
     data,
@@ -109,9 +111,13 @@ export const measureTemplate = ({
                 allowNumeratorGreaterThanDenominator={
                   custom?.allowNumeratorGreaterThanDenominator
                 }
+                inputFieldNames={opm?.inputFieldNames}
+                componentFlag={opm?.componentFlag}
+                ndrFormulas={opm?.ndrFormulas}
                 excludeOptions={opm?.excludeOptions}
                 customPrompt={custom?.customPrompt}
                 rateCalc={custom?.rateCalc}
+                measureName={measureId}
               />
             ))}
         </>
