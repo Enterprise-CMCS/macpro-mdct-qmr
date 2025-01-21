@@ -17,5 +17,6 @@ export const data: MeasureTemplateData = {
   custom: {
     removeLessThan30: true,
     dataSrcRadio: true,
+    notCollectingOMS: true,
   },
 };

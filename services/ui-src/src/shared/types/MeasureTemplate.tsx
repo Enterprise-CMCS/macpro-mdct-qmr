@@ -17,6 +17,7 @@ export interface customData {
   customPrompt?: string;
   RateComponent?: RateComp;
   populationSampleSize?: boolean;
+  notCollectingOMS?: boolean;
 }
 
 export interface MeasureTemplateData {

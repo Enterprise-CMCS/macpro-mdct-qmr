@@ -37,5 +37,6 @@ export const data: MeasureTemplateData = {
   },
   custom: {
     populationSampleSize: true,
+    notCollectingOMS: true,
   },
 };

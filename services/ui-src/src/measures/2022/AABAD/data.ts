@@ -19,5 +19,7 @@ export const data: MeasureTemplateData = {
   },
   custom: {
     rateCalc: AABRateCalculation,
+    customPrompt:
+      "Enter a number for the numerator and the denominator.  The measure is reported as an inverted rate. The formula for the Rate = (1 - (Numerator/Denominator)) x 100",
   },
 };
