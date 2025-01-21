@@ -51,7 +51,4 @@ export const data: MeasureTemplateData = {
       { value: DC.OTHER_DATA_SOURCE, description: true },
     ],
   },
-  custom: {
-    calcTotal: true,
-  },
 };

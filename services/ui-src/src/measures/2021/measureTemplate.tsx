@@ -48,6 +48,7 @@ export const measureTemplate = ({
         measureName={name}
         measureAbbreviation={measureId}
         removeLessThan30={custom?.removeLessThan30}
+        coreset={coreset}
       />
 
       {!isNotReportingData && (

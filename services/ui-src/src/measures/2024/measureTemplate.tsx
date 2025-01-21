@@ -53,11 +53,11 @@ export const measureTemplate = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type={type} />
+          <CMQ.MeasurementSpecification type={type} coreset={coreset} />
           {custom?.dataSrcRadio ? (
             <CMQ.DataSourceRadio />
           ) : (
-            <CMQ.DataSource data={dataSource} />
+            <CMQ.DataSource data={dataSource} type={coreset} />
           )}
           <CMQ.DateRange type={coreset} />
           <CMQ.DefinitionOfPopulation

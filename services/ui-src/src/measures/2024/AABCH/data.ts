@@ -17,9 +17,7 @@ export const data: MeasureTemplateData = {
     qualifiers,
   },
   custom: {
-    calcTotal: true,
     customMask: positiveNumbersWithMaxDecimalPlaces(1),
-    allowNumeratorGreaterThanDenominator: true,
     rateCalc: AABRateCalculation,
   },
 };
