@@ -6,7 +6,7 @@ export const { categories, qualifiers } = getCatQualLabels("PQI15-AD");
 
 export const data: MeasureTemplateData = {
   type: "AHRQ",
-  coreset: "health",
+  coreset: "adult",
   performanceMeasure: {
     questionText: [
       "Number of inpatient hospital admissions for asthma per 100,000 beneficiary months for beneficiaries ages 18 to 39.",

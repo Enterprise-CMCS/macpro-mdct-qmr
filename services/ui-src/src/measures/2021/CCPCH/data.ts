@@ -1,4 +1,3 @@
-// import { DataDrivenTypes } from "shared/types";
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 

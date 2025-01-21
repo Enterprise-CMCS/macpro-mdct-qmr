@@ -47,6 +47,8 @@ export const measureTemplate = ({
         reportingYear={year}
         measureName={name}
         measureAbbreviation={measureId}
+        removeLessThan30={custom?.removeLessThan30}
+        coreset={coreset}
       />
 
       {!isNotReportingData && (
@@ -76,6 +78,7 @@ export const measureTemplate = ({
                 showtextbox={custom?.showtextbox}
                 hybridMeasure={hybridMeasure}
                 rateReadOnly={custom?.rateReadOnly}
+                rateCalc={custom?.rateCalc}
               />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={performanceMeasure.categories}
@@ -92,7 +95,7 @@ export const measureTemplate = ({
               }
             />
           )}
-          <CMQ.CombinedRates />
+          <CMQ.CombinedRates coreset={coreset} />
           {showOptionalMeasureStrat && (
             <CMQ.OptionalMeasureStrat
               coreset={coreset}

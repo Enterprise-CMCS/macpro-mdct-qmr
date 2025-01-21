@@ -12,7 +12,12 @@ export interface customData {
   allowNumeratorGreaterThanDenominator?: boolean;
   showtextbox?: boolean;
   dataSrcRadio?: boolean;
+  removeLessThan30?: boolean;
   rateCalc?: RateFormula;
+  customPrompt?: string;
+  RateComponent?: RateComp;
+  populationSampleSize?: boolean;
+  notCollectingOMS?: boolean;
 }
 
 export interface MeasureTemplateData {

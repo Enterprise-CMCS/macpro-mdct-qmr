@@ -10,7 +10,10 @@ const FUMADValidation = (data: FormData) => {
   const sixtyDaysIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
@@ -63,7 +66,10 @@ const FUMADValidation = (data: FormData) => {
     ...GV.validateHedisYear(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateOPMRates(OPM),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
