@@ -10,9 +10,6 @@ the key should be the measure id as a string (with '-XX' included)
 const AMRAD = lazy(() =>
   import("./AMRAD").then((module) => ({ default: module.AMRAD }))
 );
-const AIFHH = lazy(() =>
-  import("./AIFHH").then((module) => ({ default: module.AIFHH }))
-);
 const CPAAD = lazy(() =>
   import("./CPAAD").then((module) => ({ default: module.CPAAD }))
 );
@@ -45,7 +42,7 @@ const SSHH = lazy(() =>
 );
 const twentyTwentyOneMeasures = {
   "ADD-CH": measureTemplate,
-  "AIF-HH": AIFHH,
+  "AIF-HH": measureTemplate,
   "AMB-CH": measureTemplate,
   "AMB-HH": measureTemplate,
   "AMM-AD": measureTemplate,

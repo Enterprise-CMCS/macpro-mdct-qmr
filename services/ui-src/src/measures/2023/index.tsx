@@ -3,9 +3,6 @@ import { measureTemplate } from "./measureTemplate";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2023/qualifierFormsData";
 
-const AIFHH = lazy(() =>
-  import("./AIFHH").then((module) => ({ default: module.AIFHH }))
-);
 const AMRAD = lazy(() =>
   import("./AMRAD").then((module) => ({ default: module.AMRAD }))
 );
@@ -40,7 +37,7 @@ const twentyTwentyThreeMeasures = {
   "AAB-AD": measureTemplate,
   "AAB-CH": measureTemplate,
   "ADD-CH": measureTemplate,
-  "AIF-HH": AIFHH,
+  "AIF-HH": measureTemplate,
   "AMB-CH": measureTemplate,
   "AMB-HH": measureTemplate,
   "AMM-AD": measureTemplate,
