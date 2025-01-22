@@ -29,7 +29,6 @@ export const measureTemplate = ({
     hybridMeasure,
     custom,
     opm,
-    inputFieldNames,
   } = measure.data;
   const performanceMeasureArray = getPerfMeasureRateArray(
     data,

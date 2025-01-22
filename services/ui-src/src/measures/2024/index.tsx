@@ -18,9 +18,6 @@ const CPCCH = lazy(() =>
 const CPUAD = lazy(() =>
   import("./CPUAD").then((module) => ({ default: module.CPUAD }))
 );
-const IUHH = lazy(() =>
-  import("./IUHH").then((module) => ({ default: module.IUHH }))
-);
 const LBWCH = lazy(() =>
   import("./LBWCH").then((module) => ({ default: module.LBWCH }))
 );
@@ -90,7 +87,7 @@ const twentyTwentyFourMeasures = {
   "IET-AD": measureTemplate,
   "IET-HH": measureTemplate,
   "IMA-CH": measureTemplate,
-  "IU-HH": IUHH,
+  "IU-HH": measureTemplate,
   "LBW-CH": LBWCH,
   "LRCD-CH": LRCDCH,
   "LSC-CH": measureTemplate,

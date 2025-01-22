@@ -29,8 +29,6 @@ export const measureTemplate = ({
     hybridMeasure,
     custom,
     opm,
-    inputFieldNames,
-    ndrFormulas,
   } = measure.data;
   const performanceMeasureArray = getPerfMeasureRateArray(
     data,
