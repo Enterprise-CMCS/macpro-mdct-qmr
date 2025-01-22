@@ -19,5 +19,5 @@ if [ $output = "url" ]; then
 fi
 
 cd $service
-serverless info --stage $stage --json | jq --arg output $output '.outputs[] | select(.OutputKey == $output) | .OutputValue'
+serverless info --stage $stage --json | jq --raw-output --arg output $output '.outputs[] | select(.OutputKey == $output) | .OutputValue'
 cd ..
