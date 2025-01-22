@@ -5,6 +5,55 @@ import { xNumbersYDecimals } from "utils";
 
 export const { categories, qualifiers } = getCatQualLabels("IU-HH");
 
+const inputFieldNames = [
+  {
+    id: "Number of Enrollee Months",
+    label: "Number of Enrollee Months",
+    text: "Number of Enrollee Months",
+  },
+  { id: "Discharges", label: "Discharges", text: "Discharges" },
+  {
+    id: "Discharges per 1,000 Enrollee Months",
+    label: "Discharges per 1,000 Enrollee Months",
+    text: "Discharges per 1,000 Enrollee Months",
+  },
+  { id: "Days", label: "Days", text: "Days" },
+  {
+    id: "Days per 1,000 Enrollee Months",
+    label: "Days per 1,000 Enrollee Months",
+    text: "Days per 1,000 Enrollee Months",
+  },
+  {
+    id: "Average Length of Stay",
+    label: "Average Length of Stay",
+    text: "Average Length of Stay",
+  },
+];
+
+const ndrFormulas = [
+  // Discharges per 1,000 Enrollee Months
+  {
+    num: 1,
+    denom: 0,
+    rate: 2,
+    mult: 1000,
+  },
+  // Days per 1,000 Enrollee Months
+  {
+    num: 3,
+    denom: 0,
+    rate: 4,
+    mult: 1000,
+  },
+  // Average Length of Stay
+  {
+    num: 3,
+    denom: 1,
+    rate: 5,
+    mult: 1,
+  },
+];
+
 export const data: MeasureTemplateData = {
   type: "CMS",
   coreset: "health",
@@ -17,6 +66,9 @@ export const data: MeasureTemplateData = {
     questionListItems: [],
     categories,
     qualifiers,
+    inputFieldNames,
+    ndrFormulas,
+    measureName: "UIHH",
   },
   custom: {
     calcTotal: true,
@@ -25,52 +77,6 @@ export const data: MeasureTemplateData = {
     RateComponent: ComplexRate,
   },
   opm: {
-    inputFieldNames: [
-      {
-        id: "Number of Enrollee Months",
-        label: "Number of Enrollee Months",
-        text: "Number of Enrollee Months",
-      },
-      { id: "Discharges", label: "Discharges", text: "Discharges" },
-      {
-        id: "Discharges per 1,000 Enrollee Months",
-        label: "Discharges per 1,000 Enrollee Months",
-        text: "Discharges per 1,000 Enrollee Months",
-      },
-      { id: "Days", label: "Days", text: "Days" },
-      {
-        id: "Days per 1,000 Enrollee Months",
-        label: "Days per 1,000 Enrollee Months",
-        text: "Days per 1,000 Enrollee Months",
-      },
-      {
-        id: "Average Length of Stay",
-        label: "Average Length of Stay",
-        text: "Average Length of Stay",
-      },
-    ],
-    ndrFormulas: [
-      // Discharges per 1,000 Enrollee Months
-      {
-        num: 1,
-        denom: 0,
-        rate: 2,
-        mult: 1000,
-      },
-      // Days per 1,000 Enrollee Months
-      {
-        num: 3,
-        denom: 0,
-        rate: 4,
-        mult: 1000,
-      },
-      // Average Length of Stay
-      {
-        num: 3,
-        denom: 1,
-        rate: 5,
-        mult: 1,
-      },
-    ],
+    componentFlag: "IU",
   },
 };

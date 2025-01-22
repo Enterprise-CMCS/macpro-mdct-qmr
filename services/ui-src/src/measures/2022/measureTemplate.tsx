@@ -110,12 +110,12 @@ export const measureTemplate = ({
               allowNumeratorGreaterThanDenominator={
                 custom?.allowNumeratorGreaterThanDenominator
               }
-              inputFieldNames={opm?.inputFieldNames}
               componentFlag={opm?.componentFlag}
-              ndrFormulas={opm?.ndrFormulas}
               customPrompt={custom?.customPrompt}
               excludeOptions={opm?.excludeOptions}
-              measureName={measureId}
+              inputFieldNames={performanceMeasure?.inputFieldNames}
+              ndrFormulas={performanceMeasure?.ndrFormulas}
+              measureName={performanceMeasure?.measureName}
             />
           )}
         </>

@@ -149,12 +149,12 @@ export const OptionalMeasureStrat = ({
   const year = labels.year;
 
   const IUHHPerformanceMeasureArray =
-    measureName === "IUHH" ? performanceMeasureArray : [];
+    measureName === "IUHH" ? performanceMeasureArray : undefined;
   const AIFHHPerformanceMeasureArray =
-    measureName === "AIFHH" ? performanceMeasureArray : [];
+    measureName === "AIFHH" ? performanceMeasureArray : undefined;
 
   if (IUHHPerformanceMeasureArray || AIFHHPerformanceMeasureArray)
-    performanceMeasureArray = [];
+    performanceMeasureArray = undefined;
 
   const omsData = data ?? OMSData(year, coreset === "adult");
   const { control, watch, getValues, setValue, unregister } =

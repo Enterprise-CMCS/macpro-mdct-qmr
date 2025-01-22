@@ -5,6 +5,68 @@ import { xNumbersYDecimals } from "utils";
 
 export const { categories, qualifiers } = getCatQualLabels("AIF-HH");
 
+const inputFieldNames = [
+  {
+    label: "Number of Enrollee Months",
+    text: "Number of Enrollee Months",
+    id: "QFSYON",
+  },
+  {
+    label: "Number of Short-Term Admissions",
+    text: "Number of Short-Term Admissions",
+    id: "tMeLfq",
+  },
+  {
+    label: "Short-Term Admissions per 1,000 Enrollee Months",
+    text: "Short-Term Admissions per 1,000 Enrollee Months",
+    id: "bxkVCC",
+  },
+  {
+    label: "Number of Medium-Term Admissions",
+    text: "Number of Medium-Term Admissions",
+    id: "KBOnkQ",
+  },
+  {
+    label: "Medium-Term Admissions per 1,000 Enrollee Months",
+    text: "Medium-Term Admissions per 1,000 Enrollee Months",
+    id: "5RO62J",
+  },
+  {
+    label: "Number of Long-Term Admissions",
+    text: "Number of Long-Term Admissions",
+    id: "m3HvMS",
+  },
+  {
+    label: "Long-Term Admissions per 1,000 Enrollee Months",
+    text: "Long-Term Admissions per 1,000 Enrollee Months",
+    id: "dFMGFi",
+  },
+];
+
+const ndrFormulas = [
+  // Short-Term Admissions per 1,000 Enrollee Months
+  {
+    num: 1,
+    denom: 0,
+    rate: 2,
+    mult: 1000,
+  },
+  // Medium-Term Admissions per 1,000 Enrollee Months
+  {
+    num: 3,
+    denom: 0,
+    rate: 4,
+    mult: 1000,
+  },
+  // Long-Term Admissions per 1,000 Enrollee Months
+  {
+    num: 5,
+    denom: 0,
+    rate: 6,
+    mult: 1000,
+  },
+];
+
 export const data: MeasureTemplateData = {
   type: "CMS",
   coreset: "health",
@@ -27,6 +89,9 @@ export const data: MeasureTemplateData = {
     ],
     categories,
     qualifiers,
+    measureName: "AIFHH",
+    inputFieldNames,
+    ndrFormulas,
   },
   custom: {
     calcTotal: true,
@@ -35,65 +100,6 @@ export const data: MeasureTemplateData = {
     RateComponent: ComplexRate,
   },
   opm: {
-    inputFieldNames: [
-      {
-        label: "Number of Enrollee Months",
-        text: "Number of Enrollee Months",
-        id: "QFSYON",
-      },
-      {
-        label: "Number of Short-Term Admissions",
-        text: "Number of Short-Term Admissions",
-        id: "tMeLfq",
-      },
-      {
-        label: "Short-Term Admissions per 1,000 Enrollee Months",
-        text: "Short-Term Admissions per 1,000 Enrollee Months",
-        id: "bxkVCC",
-      },
-      {
-        label: "Number of Medium-Term Admissions",
-        text: "Number of Medium-Term Admissions",
-        id: "KBOnkQ",
-      },
-      {
-        label: "Medium-Term Admissions per 1,000 Enrollee Months",
-        text: "Medium-Term Admissions per 1,000 Enrollee Months",
-        id: "5RO62J",
-      },
-      {
-        label: "Number of Long-Term Admissions",
-        text: "Number of Long-Term Admissions",
-        id: "m3HvMS",
-      },
-      {
-        label: "Long-Term Admissions per 1,000 Enrollee Months",
-        text: "Long-Term Admissions per 1,000 Enrollee Months",
-        id: "dFMGFi",
-      },
-    ],
-    ndrFormulas: [
-      // Short-Term Admissions per 1,000 Enrollee Months
-      {
-        num: 1,
-        denom: 0,
-        rate: 2,
-        mult: 1000,
-      },
-      // Medium-Term Admissions per 1,000 Enrollee Months
-      {
-        num: 3,
-        denom: 0,
-        rate: 4,
-        mult: 1000,
-      },
-      // Long-Term Admissions per 1,000 Enrollee Months
-      {
-        num: 5,
-        denom: 0,
-        rate: 6,
-        mult: 1000,
-      },
-    ],
+    componentFlag: "AIF",
   },
 };
