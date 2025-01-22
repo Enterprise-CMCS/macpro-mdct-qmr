@@ -68,7 +68,7 @@ export const data: MeasureTemplateData = {
     qualifiers,
     inputFieldNames,
     ndrFormulas,
-    measureName: "UIHH",
+    measureName: "IUHH",
   },
   custom: {
     calcTotal: true,
