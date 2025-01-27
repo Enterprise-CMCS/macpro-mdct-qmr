@@ -9,7 +9,6 @@ package:
 plugins:
   - serverless-associate-waf
   - "@enterprise-cmcs/serverless-waf-plugin"
-  - serverless-offline-ssm
   - serverless-offline
   - serverless-stack-termination-protection
   - serverless-iam-helper
@@ -17,12 +16,6 @@ plugins:
 
 custom:
   project: "qmr"
-  serverless-offline-ssm:
-    stages:
-      - local
-    ssm:
-      "/s3bucket/uploads": "local-uploads"
-      "/s3bucket/snapshots": "local-dynamo-snapshots"
   serverlessPluginTypescript:
     tsConfigFileLocation: "./tsconfig.json"
   stage: ${opt:stage, self:provider.stage}
@@ -40,7 +33,7 @@ custom:
   dotenv:
     path: ../../.env
   docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
-  bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
+  bootstrapBrokerStringTls: ${env:bootstrapBrokerStringTls, ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
@@ -49,11 +42,11 @@ custom:
   coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableStreamArn}
   rateTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:RateTableStreamArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl-waf
-  vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
+  vpcId: ${env:vpcId, ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
   privateSubnets:
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/a/id, ssm:/configuration/default/vpc/subnets/private/a/id, ''}
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/b/id, ssm:/configuration/default/vpc/subnets/private/b/id, ''}
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/c/id, ssm:/configuration/default/vpc/subnets/private/c/id, ''}
+    - ${env:privateSubnetAId, ssm:/configuration/${self:custom.stage}/vpc/subnets/private/a/id, ssm:/configuration/default/vpc/subnets/private/a/id, ''}
+    - ${env:privateSubnetBId, ssm:/configuration/${self:custom.stage}/vpc/subnets/private/b/id, ssm:/configuration/default/vpc/subnets/private/b/id, ''}
+    - ${env:privateSubnetCId, ssm:/configuration/${self:custom.stage}/vpc/subnets/private/c/id, ssm:/configuration/default/vpc/subnets/private/c/id, ''}
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2

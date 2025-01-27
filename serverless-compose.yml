@@ -1,3 +1,5 @@
+# "org" ensures this Service is used with the correct Serverless Framework License Key.
+org: macbis
 services:
   # wave 1: no dependencies
   database:
