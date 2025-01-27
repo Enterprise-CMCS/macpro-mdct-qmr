@@ -5,7 +5,6 @@ frameworkVersion: "4"
 
 plugins:
   - serverless-plugin-scripts
-  - serverless-offline-ssm
   - serverless-s3-local
   - serverless-stack-termination-protection
   - serverless-iam-helper
@@ -45,16 +44,15 @@ custom:
   project: "qmr"
   stage: ${opt:stage, self:provider.stage}
   region: ${opt:region, self:provider.region}
-  serverless-offline-ssm:
-    stages:
-      - local
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
+  mpriamrole: ${env:mpriamrole, ssm:/configuration/mpriamrole, "*"}
+  mprdeviam: ${env:mprdeviam, ssm:/configuration/mprdeviam, "*"}
   s3SyncFrequencyMap: # Frequency rate to load data to mathematica s3 bucket. High frequency avail for testing purposes.
     high: cron(30 * * * ? *)
     low: cron(30 1 * * ? *) # Run 8:30 Eastern, before 9PM Mathematica ingestion
-  s3SyncFrequency: ${env:s3SyncFrequency, ssm:/configuration/${self:custom.stage}/s3SyncFrequency, ssm:/configuration/default/s3SyncFrequency,"low"}
+  s3SyncFrequency: ${env:s3SyncFrequency, ssm:/configuration/${self:custom.stage}/s3SyncFrequency, ssm:/configuration/default/s3SyncFrequency, "low"}
   serverlessTerminationProtection:
     stages:
       - master
@@ -195,26 +193,26 @@ resources:
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole, "*"}
+                AWS: ${self:custom.mpriamrole}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole, "*"}
+                AWS: ${self:custom.mpriamrole}
             - Action:
                 - "s3:GetBucketLocation"
                 - "s3:ListBucket"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam, "*"}
+                AWS: ${self:custom.mprdeviam}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam, "*"}
+                AWS: ${self:custom.mprdeviam}
             - Action:
                 - "s3:PutObject"
               Effect: "Allow"
@@ -318,8 +316,8 @@ resources:
             - Effect: Allow
               Principal:
                 AWS:
-                  - ${ssm:/configuration/mpriamrole, "*"}
-                  - ${ssm:/configuration/mprdeviam, "*"}
+                  - ${self:custom.mpriamrole}
+                  - ${self:custom.mprdeviam}
                   - !GetAtt IamRoleLambdaExecution.Arn
               Action:
                 - "kms:Encrypt"
@@ -350,26 +348,26 @@ resources:
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole, "*"}
+                AWS: ${self:custom.mpriamrole}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole, "*"}
+                AWS: ${self:custom.mpriamrole}
             - Action:
                 - "s3:GetBucketLocation"
                 - "s3:ListBucket"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam, "*"}
+                AWS: ${self:custom.mprdeviam}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam, "*"}
+                AWS: ${self:custom.mprdeviam}
             - Action:
                 - "s3:PutObject"
               Effect: "Allow"
