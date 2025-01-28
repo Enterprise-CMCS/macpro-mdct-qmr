@@ -16,7 +16,7 @@ export const measureAbbrList2025 = {
     "COB-AD",
     "COL-AD",
     "CPA-AD",
-    // "EDV-AD", //TO-DO: turn on when measure has been added
+    "EDV-AD",
     "FUA-AD",
     "FUH-AD",
     "FUM-AD",
@@ -24,10 +24,10 @@ export const measureAbbrList2025 = {
     "HPCMI-AD",
     "HVL-AD",
     "IET-AD",
-    // "LRCD-AD", //TO-DO: turn on when measure has been added
+    "LRCD-AD",
     "MSC-AD",
     "NCIIDD-AD", // complete on creation
-    // "OEVP-AD", //TO-DO: turn on when measure has been added
+    "OEVP-AD",
     "OHD-AD",
     "OUD-AD",
     "PCR-AD",
@@ -62,7 +62,7 @@ export const measureAbbrList2025 = {
     "LRCD-CH", // complete on creation
     "LSC-CH",
     "OEV-CH",
-    // "OEVP-CH", //TO-DO: turn on when measure has been added
+    "OEVP-CH",
     // "PDS-CH", //TO-DO: turn on when measure has been added
     // "PRS-CH", //TO-DO: turn on when measure has been added
     "PPC2-CH",

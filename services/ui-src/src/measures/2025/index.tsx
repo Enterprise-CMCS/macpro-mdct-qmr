@@ -96,6 +96,9 @@ const CPUAD = lazy(() =>
 const DEVCH = lazy(() =>
   import("./DEVCH").then((module) => ({ default: module.DEVCH }))
 );
+const EDVAD = lazy(() =>
+  import("./EDVAD").then((module) => ({ default: module.EDVAD }))
+);
 const FUAAD = lazy(() =>
   import("./FUAAD").then((module) => ({ default: module.FUAAD }))
 );
@@ -147,6 +150,9 @@ const IUHH = lazy(() =>
 const LBWCH = lazy(() =>
   import("./LBWCH").then((module) => ({ default: module.LBWCH }))
 );
+const LRCDAD = lazy(() =>
+  import("./LRCDAD").then((module) => ({ default: module.LRCDAD }))
+);
 const LRCDCH = lazy(() =>
   import("./LRCDCH").then((module) => ({ default: module.LRCDCH }))
 );
@@ -161,6 +167,12 @@ const NCIIDDAD = lazy(() =>
 );
 const OEVCH = lazy(() =>
   import("./OEVCH").then((module) => ({ default: module.OEVCH }))
+);
+const OEVPAD = lazy(() =>
+  import("./OEVPAD").then((module) => ({ default: module.OEVPAD }))
+);
+const OEVPCH = lazy(() =>
+  import("./OEVPCH").then((module) => ({ default: module.OEVPCH }))
 );
 const OHDAD = lazy(() =>
   import("./OHDAD").then((module) => ({ default: module.OHDAD }))
@@ -252,7 +264,7 @@ const twentyTwentyFiveMeasures = {
   "CPC-CH": CPCCH,
   "CPU-AD": CPUAD,
   "DEV-CH": DEVCH,
-  // "EDV-AD": EDVAD, //TO DO: replace with real measure
+  "EDV-AD": EDVAD, //TO DO: replace with real measure
   "FUA-AD": FUAAD,
   "FUA-CH": FUACH,
   "FUA-HH": FUAHH,
@@ -270,14 +282,14 @@ const twentyTwentyFiveMeasures = {
   "IMA-CH": IMACH,
   "IU-HH": IUHH,
   "LBW-CH": LBWCH,
-  // "LRCD-AD": LRCDAD, //TO DO: replace with real measure
+  "LRCD-AD": LRCDAD,
   "LRCD-CH": LRCDCH,
   "MSC-AD": MSCAD,
   "LSC-CH": LSCCH,
   "NCIIDD-AD": NCIIDDAD,
   "OEV-CH": OEVCH,
-  // "OEVP-AD": OEVPAD, //TO DO: replace with real measure
-  // "OEVP-CH": OEVPCH, //TO DO: replace with real measure
+  "OEVP-AD": OEVPAD,
+  "OEVP-CH": OEVPCH,
   "OHD-AD": OHDAD,
   "OUD-AD": OUDAD,
   "OUD-HH": OUDHH,

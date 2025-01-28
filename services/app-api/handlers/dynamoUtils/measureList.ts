@@ -1487,6 +1487,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "LRCD-AD",
+      autocompleteOnCreation: true,
     },
     {
       type: "A",

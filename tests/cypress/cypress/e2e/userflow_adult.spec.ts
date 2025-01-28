@@ -70,7 +70,7 @@ describe("submit coreset", () => {
     // confirm reset
     cy.get('[data-cy="Status-AL2025"]').should(
       "contain.text",
-      "in progress1 of 39 complete"
+      "in progress2 of 39 complete"
     );
   });
 
