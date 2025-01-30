@@ -4,6 +4,9 @@ import { validationFunctions as AABAD_Validations } from "./AABAD/validation";
 import { data as ADDCH_Data } from "./ADDCH/data";
 import { validationFunctions as ADDCH_Validations } from "./ADDCH/validation";
 
+import { data as AIFHH_Data } from "./AIFHH/data";
+import { validationFunctions as AIFHH_Validations } from "./AIFHH/validation";
+
 import { data as AMBCH_Data } from "./AMBCH/data";
 import { validationFunctions as AMBCH_Validations } from "./AMBCH/validation";
 
@@ -124,6 +127,9 @@ import { validationFunctions as IETHH_Validations } from "./IETHH/validation";
 import { data as IMACH_Data } from "./IMACH/data";
 import { validationFunctions as IMACH_Validations } from "./IMACH/validation";
 
+import { data as IUHH_Data } from "./IUHH/data";
+import { validationFunctions as IUHH_Validations } from "./IUHH/validation";
+
 import { data as OEVCH_Data } from "./OEVCH/data";
 import { validationFunctions as OEVCH_Validations } from "./OEVCH/validation";
 
@@ -181,6 +187,7 @@ import { validationFunctions as WCVCH_Validations } from "./WCVCH/validation";
 export const measureTemplateData: { [measure: string]: any } = {
   "AAB-AD": { data: AABAD_Data, validationFunctions: AABAD_Validations },
   "ADD-CH": { data: ADDCH_Data, validationFunctions: ADDCH_Validations },
+  "AIF-HH": { data: AIFHH_Data, validationFunctions: AIFHH_Validations },
   "AMB-CH": { data: AMBCH_Data, validationFunctions: AMBCH_Validations },
   "AMB-HH": { data: AMBHH_Data, validationFunctions: AMBHH_Validations },
   "AMM-AD": { data: AMMAD_Data, validationFunctions: AMMAD_Validations },
@@ -221,6 +228,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "IET-AD": { data: IETAD_Data, validationFunctions: IETAD_Validations },
   "IET-HH": { data: IETHH_Data, validationFunctions: IETHH_Validations },
   "IMA-CH": { data: IMACH_Data, validationFunctions: IMACH_Validations },
+  "IU-HH": { data: IUHH_Data, validationFunctions: IUHH_Validations },
   "OEV-CH": { data: OEVCH_Data, validationFunctions: OEVCH_Validations },
   "OHD-AD": { data: OHDAD_Data, validationFunctions: OHDAD_Validations },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: OUDAD_Validations },

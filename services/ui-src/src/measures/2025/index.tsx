@@ -3,9 +3,6 @@ import { measureTemplate } from "./measureTemplate";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2025/qualifierFormsData";
 
-const AIFHH = lazy(() =>
-  import("./AIFHH").then((module) => ({ default: module.AIFHH }))
-);
 const AMRAD = lazy(() =>
   import("./AMRAD").then((module) => ({ default: module.AMRAD }))
 );
@@ -17,9 +14,6 @@ const CPCCH = lazy(() =>
 );
 const CPUAD = lazy(() =>
   import("./CPUAD").then((module) => ({ default: module.CPUAD }))
-);
-const IUHH = lazy(() =>
-  import("./IUHH").then((module) => ({ default: module.IUHH }))
 );
 const LBWCH = lazy(() =>
   import("./LBWCH").then((module) => ({ default: module.LBWCH }))
@@ -49,7 +43,7 @@ const twentyTwentyFiveMeasures = {
   "AAB-AD": measureTemplate,
   "AAB-CH": measureTemplate,
   "ADD-CH": measureTemplate,
-  "AIF-HH": AIFHH,
+  "AIF-HH": measureTemplate,
   // "AIS-AD": measureTemplate, //TO DO: replace with real measure
   "AMM-AD": measureTemplate,
   "AMR-AD": AMRAD,
@@ -93,7 +87,7 @@ const twentyTwentyFiveMeasures = {
   "IET-AD": measureTemplate,
   "IET-HH": measureTemplate,
   "IMA-CH": measureTemplate,
-  "IU-HH": IUHH,
+  "IU-HH": measureTemplate,
   "LBW-CH": LBWCH,
   "LRCD-AD": LRCDAD,
   "LRCD-CH": LRCDCH,

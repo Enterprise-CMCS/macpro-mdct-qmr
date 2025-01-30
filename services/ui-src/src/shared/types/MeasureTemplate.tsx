@@ -29,5 +29,6 @@ export interface MeasureTemplateData {
   custom?: customData;
   opm?: {
     excludeOptions?: string[];
+    componentFlag?: string;
   };
 }

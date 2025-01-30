@@ -77,11 +77,13 @@ export const measureTemplate = ({
                 showtextbox={custom?.showtextbox}
                 hybridMeasure={hybridMeasure}
                 rateReadOnly={custom?.rateReadOnly}
+                RateComponent={custom?.RateComponent}
                 rateCalc={custom?.rateCalc}
               />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={performanceMeasure.categories}
                 customTotalLabel={custom?.customTotalLabel}
+                measureName={measureId}
               />
             </>
           )}
@@ -108,8 +110,12 @@ export const measureTemplate = ({
               allowNumeratorGreaterThanDenominator={
                 custom?.allowNumeratorGreaterThanDenominator
               }
+              componentFlag={opm?.componentFlag}
               customPrompt={custom?.customPrompt}
               excludeOptions={opm?.excludeOptions}
+              inputFieldNames={performanceMeasure?.inputFieldNames}
+              ndrFormulas={performanceMeasure?.ndrFormulas}
+              measureName={performanceMeasure?.measureName}
             />
           )}
         </>
