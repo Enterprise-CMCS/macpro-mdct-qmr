@@ -19,3 +19,6 @@ package-lock.json
 tests/cypress/.env
 tests/cypress/cypress.env.json
 .vscode
+/.serverless
+/.cdk
+cdk.context.json

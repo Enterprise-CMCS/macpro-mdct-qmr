@@ -51,7 +51,10 @@ const IETValidation = (data: FormData) => {
   const age65PlusIndex = 2;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -103,7 +106,13 @@ const IETValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure,
+      0,
+      1,
+      2
+    ),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,

@@ -10,7 +10,10 @@ const IETValidation = (data: FormData) => {
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
@@ -77,7 +80,13 @@ const IETValidation = (data: FormData) => {
     ...filteredSameDenominatorErrors,
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data, 0, 1, 2),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure,
+      0,
+      1,
+      2
+    ),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations

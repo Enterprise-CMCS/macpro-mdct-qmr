@@ -13,3 +13,4 @@ export * from "shared/commonQuestions/PerformanceMeasure/index";
 export * from "shared/commonQuestions/Reporting";
 export * from "shared/commonQuestions/StatusOfData";
 export * from "shared/commonQuestions/WhyAreYouNotReporting";
+export * from "shared/commonQuestions/NotCollectingOMS";

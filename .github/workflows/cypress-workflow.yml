@@ -59,6 +59,7 @@ jobs:
           working-directory: tests/cypress
           spec: cypress/${{ inputs.test-path }}/${{ matrix.containers }}
           browser: chrome
+          headed: true
           config: baseUrl=${{ inputs.test-endpoint }}
           env: true
         env:

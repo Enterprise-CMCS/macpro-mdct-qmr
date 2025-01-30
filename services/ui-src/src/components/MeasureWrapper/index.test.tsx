@@ -4,7 +4,7 @@ import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "./";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
-import { AABAD } from "measures/2024/AABAD/index";
+import { CPUAD } from "measures/2024/CPUAD/index";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
@@ -146,13 +146,13 @@ describe("test measure floating bar menu", () => {
       <RouterWrappedComp>
         <MeasureWrapper
           measure={
-            <AABAD
+            <CPUAD
               name={
                 "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older"
               }
               year={"2024"}
               measureId={"AAB-AD"}
-            ></AABAD>
+            ></CPUAD>
           }
           name="testing-active"
           year="2021"
