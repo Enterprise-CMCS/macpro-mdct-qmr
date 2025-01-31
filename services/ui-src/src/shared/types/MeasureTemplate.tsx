@@ -1,3 +1,4 @@
+import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { DataDrivenTypes } from "./TypeDataDriven";
 
 export interface customData {
@@ -29,6 +30,6 @@ export interface MeasureTemplateData {
   custom?: customData;
   opm?: {
     excludeOptions?: string[];
-    componentFlag?: string;
+    componentFlag?: ComponentFlagType;
   };
 }
