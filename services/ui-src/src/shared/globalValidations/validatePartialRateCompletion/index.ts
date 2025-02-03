@@ -55,9 +55,9 @@ const _validation = ({
           errorLocation: location,
           errorMessage: errorMessageFunc(
             multipleQuals,
-            qualifiers?.[j].label!,
+            qualifiers?.[j]?.label!,
             multipleCats,
-            categories?.[i].label!
+            categories?.[i]?.label!
           ),
         });
       }

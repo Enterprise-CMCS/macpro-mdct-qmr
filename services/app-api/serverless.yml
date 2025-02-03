@@ -1,30 +1,21 @@
 # Refer to the README.md file in within this service directory to configure all ssm parameters required for this service.
 service: app-api
 
-frameworkVersion: "3"
+frameworkVersion: "4"
 
 package:
   individually: true
 
 plugins:
-  - serverless-plugin-typescript
   - serverless-associate-waf
   - "@enterprise-cmcs/serverless-waf-plugin"
-  - serverless-offline-ssm
   - serverless-offline
   - serverless-stack-termination-protection
   - serverless-iam-helper
-  - serverless-s3-bucket-helper
   - serverless-dotenv-plugin
 
 custom:
   project: "qmr"
-  serverless-offline-ssm:
-    stages:
-      - local
-    ssm:
-      "/s3bucket/uploads": "local-uploads"
-      "/s3bucket/snapshots": "local-dynamo-snapshots"
   serverlessPluginTypescript:
     tsConfigFileLocation: "./tsconfig.json"
   stage: ${opt:stage, self:provider.stage}
@@ -42,7 +33,7 @@ custom:
   dotenv:
     path: ../../.env
   docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
-  bootstrapBrokerStringTls: ${ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
+  bootstrapBrokerStringTls: ${env:bootstrapBrokerStringTls, ssm:/configuration/${self:custom.stage}/qmr/bootstrapBrokerStringTls, ssm:/configuration/default/qmr/bootstrapBrokerStringTls, ''}
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
@@ -51,11 +42,11 @@ custom:
   coreSetTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:CoreSetTableStreamArn}
   rateTableStreamArn: ${env:DYNAMO_TABLE_ARN, param:RateTableStreamArn}
   webAclName: ${self:service}-${self:custom.stage}-webacl-waf
-  vpcId: ${ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
+  vpcId: ${env:vpcId, ssm:/configuration/${self:custom.stage}/vpc/id, ssm:/configuration/default/vpc/id, ''}
   privateSubnets:
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/a/id, ssm:/configuration/default/vpc/subnets/private/a/id, ''}
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/b/id, ssm:/configuration/default/vpc/subnets/private/b/id, ''}
-    - ${ssm:/configuration/${self:custom.stage}/vpc/subnets/private/c/id, ssm:/configuration/default/vpc/subnets/private/c/id, ''}
+    - ${env:privateSubnetAId, ssm:/configuration/${self:custom.stage}/vpc/subnets/private/a/id, ssm:/configuration/default/vpc/subnets/private/a/id, ''}
+    - ${env:privateSubnetBId, ssm:/configuration/${self:custom.stage}/vpc/subnets/private/b/id, ssm:/configuration/default/vpc/subnets/private/b/id, ''}
+    - ${env:privateSubnetCId, ssm:/configuration/${self:custom.stage}/vpc/subnets/private/c/id, ssm:/configuration/default/vpc/subnets/private/c/id, ''}
   associateWaf:
     name: ${self:custom.webAclName}
     version: V2
@@ -81,8 +72,8 @@ provider:
     restApi: true
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
-      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
+      path: /delegatedadmin/developer/
+      permissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/cms-cloud-admin/developer-boundary-policy
       statements:
         - Effect: "Allow"
           Action: "execute-api:Invoke"

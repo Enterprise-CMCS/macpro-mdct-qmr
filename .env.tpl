@@ -27,3 +27,15 @@ CYPRESS_STATE_USER_2=op://mdct_devs/qmr_secrets/CYPRESS_STATE_USER_2
 CYPRESS_STATE_USER_4=op://mdct_devs/qmr_secrets/CYPRESS_STATE_USER_4
 CYPRESS_ADMIN_USER=op://mdct_devs/qmr_secrets/CYPRESS_ADMIN_USER
 CYPRESS_QMR_PASSWORD=op://mdct_devs/qmr_secrets/CYPRESS_QMR_PASSWORD # pragma: allowlist secret
+
+SERVERLESS_LICENSE_KEY=op://mdct_devs/qmr_secrets/SERVERLESS_LICENSE_KEY
+
+# SSM Section
+bootstrapBrokerStringTls=bootstrapBrokerStringTls
+vpcId=vpcId
+privateSubnetAId=privateSubnetAId
+privateSubnetBId=privateSubnetBId
+privateSubnetCId=privateSubnetCId
+mpriamrole=mpriamrole
+mprdeviam=mprdeviam
+s3SyncFrequency=low

@@ -1,9 +1,9 @@
-import { DataDrivenTypes } from "shared/types";
+import { xNumbersYDecimals } from "utils";
 import { getCatQualLabels } from "../rateLabelText";
+import { MeasureTemplateData } from "shared/types/MeasureTemplate";
+import { ComplexRate } from "components";
 
 export const { categories, qualifiers } = getCatQualLabels("IU-HH");
-
-const measureName = "IUHH";
 
 const inputFieldNames = [
   {
@@ -30,7 +30,6 @@ const inputFieldNames = [
   },
 ];
 
-// Rate structure by index in row
 const ndrFormulas = [
   // Discharges per 1,000 Enrollee Months
   {
@@ -55,16 +54,29 @@ const ndrFormulas = [
   },
 ];
 
-export const data: DataDrivenTypes.PerformanceMeasure = {
-  customPrompt:
-    "Enter the appropriate data below. Completion of at least one set of Numerator/Denominator/Rate (numeric entry, other than zero) is required.",
-  questionText: [
-    "Rate of acute inpatient care and services (total and mental and behavioral disorders) per 1,000 enrollee months among health home enrollees.",
-  ],
-  questionListItems: [],
-  measureName,
-  inputFieldNames,
-  ndrFormulas,
-  categories,
-  qualifiers,
+export const data: MeasureTemplateData = {
+  type: "CMS",
+  coreset: "health",
+  performanceMeasure: {
+    customPrompt:
+      "Enter the appropriate data below. Completion of at least one set of Numerator/Denominator/Rate (numeric entry, other than zero) is required.",
+    questionText: [
+      "Rate of acute inpatient care and services (total and mental and behavioral disorders) per 1,000 enrollee months among health home enrollees.",
+    ],
+    questionListItems: [],
+    categories,
+    qualifiers,
+    inputFieldNames,
+    ndrFormulas,
+    measureName: "IUHH",
+  },
+  custom: {
+    calcTotal: true,
+    customMask: xNumbersYDecimals(12, 1),
+    allowNumeratorGreaterThanDenominator: true,
+    RateComponent: ComplexRate,
+  },
+  opm: {
+    componentFlag: "IU",
+  },
 };
