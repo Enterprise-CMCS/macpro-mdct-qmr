@@ -199,7 +199,7 @@ export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
             fontWeight="bold"
             key="If the data source differed across"
           >
-            {labels.DataSource.srcExplanationText}
+            {parseLabelToHTML(labels.DataSource.srcExplanationText)}
           </CUI.Text>
           <QMR.TextArea
             label={labels.DataSource.srcDescription!}

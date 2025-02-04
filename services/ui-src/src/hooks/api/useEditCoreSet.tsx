@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { editCoreSet } from "libs/api";
 import { CoreSetAbbr, Params } from "types";
 import { CoreSetTableItem } from "components/Table/types";
@@ -29,9 +29,7 @@ const _editCoreSet = ({ body, coreSet, state, year }: EditCoreSet & Params) => {
 };
 
 export const useEditCoreSet = () => {
-  return useMutation((data: EditCoreSet) =>
-    _editCoreSet({
-      ...data,
-    })
-  );
+  return useMutation({
+    mutationFn: (data: EditCoreSet) => _editCoreSet({ ...data }),
+  });
 };

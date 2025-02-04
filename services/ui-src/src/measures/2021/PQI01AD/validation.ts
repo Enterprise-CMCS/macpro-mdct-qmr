@@ -11,7 +11,10 @@ const PQI01Validation = (data: FormData) => {
   const dateRange = data[DC.DATE_RANGE];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
 
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations

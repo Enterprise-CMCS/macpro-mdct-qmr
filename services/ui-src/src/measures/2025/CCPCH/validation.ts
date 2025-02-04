@@ -11,7 +11,10 @@ const CCPCHValidation = (data: FormData) => {
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
   const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
@@ -48,8 +51,16 @@ const CCPCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD.data),
-    ...GV.validateOneQualRateHigherThanOtherQualPM(data, PMD.data, 1, 0),
+    ...GV.validateOneCatRateHigherThanOtherCatPM(
+      data,
+      PMD.data.performanceMeasure
+    ),
+    ...GV.validateOneQualRateHigherThanOtherQualPM(
+      data,
+      PMD.data.performanceMeasure,
+      1,
+      0
+    ),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Specific Validations
