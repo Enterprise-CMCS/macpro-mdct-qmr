@@ -1,11 +1,10 @@
 service: database
 
-frameworkVersion: "3"
+frameworkVersion: "4"
 
 plugins:
   - serverless-dynamodb
   - serverless-stack-termination-protection
-  - serverless-s3-bucket-helper
 
 custom:
   project: "qmr"

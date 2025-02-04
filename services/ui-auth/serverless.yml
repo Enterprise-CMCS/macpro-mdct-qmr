@@ -1,7 +1,7 @@
 # Refer to the README.md file in within this service directory to configure all ssm parameters required for this service.
 service: ui-auth
 
-frameworkVersion: "3"
+frameworkVersion: "4"
 
 package:
   individually: true
@@ -12,11 +12,11 @@ provider:
   region: us-east-1
   stackTags:
     PROJECT: ${self:custom.project}
-    SERVICE: ${self:service}  
+    SERVICE: ${self:service}
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
-      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
+      path: /delegatedadmin/developer/
+      permissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/cms-cloud-admin/developer-boundary-policy
       statements:
         - Effect: "Allow"
           Action:
@@ -26,9 +26,7 @@ provider:
 plugins:
   - serverless-stack-termination-protection
   - serverless-plugin-scripts
-  - serverless-bundle
   - serverless-iam-helper
-  - serverless-s3-bucket-helper
   - "@enterprise-cmcs/serverless-waf-plugin"
 
 custom:

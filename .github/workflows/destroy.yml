@@ -62,7 +62,7 @@ jobs:
   # Notify the integrations channel when a destroy action fails
   notify_on_destroy_failure:
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - destroy
     if: ${{ failure() }}
     steps:
