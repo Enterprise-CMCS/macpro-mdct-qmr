@@ -126,6 +126,13 @@ resources:
                 SSEAlgorithm: aws:kms
                 KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        VersioningConfiguration:
+          Status: Enabled
         CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
@@ -336,6 +343,13 @@ resources:
                 SSEAlgorithm: aws:kms
                 KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        VersioningConfiguration:
+          Status: Enabled
     DynamoSnapshotBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -423,6 +437,13 @@ resources:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        VersioningConfiguration:
+          Status: Enabled
         AccessControl: Private
     BucketAVScanRole:
       Type: "AWS::IAM::Role"
