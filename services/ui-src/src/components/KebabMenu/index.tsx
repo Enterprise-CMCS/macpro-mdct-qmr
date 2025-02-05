@@ -90,7 +90,9 @@ export const KebabMenu = ({
   menuLabel,
 }: KebabMenuProps) => {
   const [deleteDialogIsOpen, setDeleteDialogIsOpen] = useState(false);
-  const handleCloseDeleteDialog = () => setDeleteDialogIsOpen(false);
+  const handleCloseDeleteDialog = () => {
+    setDeleteDialogIsOpen(false);
+  };
   const cancelRef = useRef();
   const { isStateUser } = useUser();
 
@@ -190,6 +192,7 @@ const DeleteMenuItemAlertDialog = ({
             onSubmit={(e) => {
               e.preventDefault();
               handleDelete();
+              onClose();
             }}
           >
             <CUI.AlertDialogHeader fontSize="lg" fontWeight="bold">
