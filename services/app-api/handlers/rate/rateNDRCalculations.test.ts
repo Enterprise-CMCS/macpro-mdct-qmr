@@ -177,7 +177,12 @@ describe("NDR calculations for Combined Rates", () => {
     expect(result[0].Combined.rate).toBe(333.3);
 
     // PQI-AD: per hundred thousand
-    result = combineRates("PQI-AD", dataSources, medicaidMeasure, chipMeasure);
+    result = combineRates(
+      "PQI01-AD",
+      dataSources,
+      medicaidMeasure,
+      chipMeasure
+    );
     expect(result[0].Combined.rate).toBe(33333.3);
   });
 
