@@ -27,8 +27,6 @@ export const main = async () => {
     );
     logger.info(`Found ${allExistingRates.length} existing rates`);
 
-    // The new shape for combined rates has an "AdditionalValues" property.
-    // If a rate doesn't have that property, it's the old shape.
     const ratesNeedingMigration = allExistingRates.filter((rate) =>
       rate.measure.startsWith("PQI")
     );
