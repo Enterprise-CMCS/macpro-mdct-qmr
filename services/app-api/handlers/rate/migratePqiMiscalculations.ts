@@ -4,17 +4,17 @@ import { CombinedRatesTableEntry } from "../../types";
 import { calculateAndPutRate } from "./rateCalculations";
 
 /**
- * This is a data migration function for the rates table.
- * During development of the feature, we changed the shape of its data.
- * This script will look at every entry in the table and,
- * if it is the old shape, recompute it from scratch and overwrite it.
+ * This is a data migration function for the combined rates table.
+ * During development of the feature, we broke the calculation for PQI measures.
+ * The broken calculation was deployed all the way to production,
+ * and states submitted data against it.
  *
- * We should only need to run this twice: once in DEV, and once in VAL.
- * The API version that produced the old data shape was never active in PROD.
+ * The measure data itself is not affected,
+ * but the Combined Rates page for any PQI measure will display
+ * a rate that is 1000x smaller than it should be.
  *
- * Once this script has been run, delete it! It should be idempotent but
- * there is no need to keep it around. Be sure to delete the function from
- * app-api/serverless.yml as well.
+ * Now that the calculation is fixed,
+ * this migration will correct all existing combined rate entries.
  */
 export const main = async () => {
   try {
