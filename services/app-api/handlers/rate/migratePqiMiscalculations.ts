@@ -1,4 +1,3 @@
-import { logger } from "../../libs/debug-lib";
 import dynamodbLib from "../../libs/dynamodb-lib";
 import { CombinedRatesTableEntry } from "../../types";
 import { calculateAndPutRate } from "./rateCalculations";
@@ -15,39 +14,46 @@ import { calculateAndPutRate } from "./rateCalculations";
  *
  * Now that the calculation is fixed,
  * this migration will correct all existing combined rate entries.
+ *
+ * IN ORDER TO RUN THIS SCRIPT YOU MUST SET THESE ENVIRONMENT VARIABLES
+ *   - rateTable (eg "val-rate")
+ *   - measureTable (eg "val-measure")
+ * AND UNCOMMENT THE `main()` CALL AT THE BOTTOM
  */
 export const main = async () => {
   try {
-    logger.info("Scanning for existing combined rates");
+    console.info("Scanning for existing combined rates");
 
     const allExistingRates = await dynamodbLib.scanAll<CombinedRatesTableEntry>(
       {
         TableName: process.env.rateTable,
       }
     );
-    logger.info(`Found ${allExistingRates.length} existing rates`);
+    console.info(`Found ${allExistingRates.length} existing rates`);
 
     const ratesNeedingMigration = allExistingRates.filter((rate) =>
       rate.measure.startsWith("PQI")
     );
-    logger.info(`Of those, ${ratesNeedingMigration.length} are PQI`);
+    console.info(`Of those, ${ratesNeedingMigration.length} are PQI`);
 
     for (let rate of ratesNeedingMigration) {
       const { state, year, coreSet, measure } = rate;
       const parameters = { state, year, coreSet, measure };
-      logger.info(`Processing rate ${JSON.stringify(parameters)}`);
+      console.info(`Processing rate ${JSON.stringify(parameters)}`);
 
       // The combined core set is either ACS or CCS.
       // We can build a separated core set abbr by adding "M" or "C",
       // and it doesn't matter which. An update for either will combine both.
       await calculateAndPutRate({ ...parameters, coreSet: coreSet + "M" });
-      logger.info("Calculation complete.");
+      console.info("Calculation complete.");
     }
 
-    logger.info("Migration complete!");
+    console.info("Migration complete!");
     return { status: 200 };
   } catch (err) {
-    logger.error("Error!", err);
+    console.error("Error!", err);
     return { status: 500 };
   }
 };
+
+// main(); // <- uncomment this to make the script actually, like, do stuff
