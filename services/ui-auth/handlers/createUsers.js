@@ -1,8 +1,8 @@
-import * as cognitolib from "../libs/cognito-lib";
+import * as cognitolib from "../libs/cognito-lib.js";
+import users from "../libs/users.json" assert { type: "json" };
 const userPoolId = process.env.userPoolId;
-const users = require("../libs/users.json");
 
-async function myHandler(event, context, callback) {
+export const handler = async (event, context, callback) => {
   console.log("USER POOL ID: ");
   console.log(userPoolId);
 
@@ -48,6 +48,4 @@ async function myHandler(event, context, callback) {
       /* swallow this exception and continue */
     }
   }
-}
-
-exports.handler = myHandler;
+};

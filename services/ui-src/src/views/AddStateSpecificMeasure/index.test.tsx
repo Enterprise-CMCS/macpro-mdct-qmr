@@ -1,6 +1,6 @@
 import { AddStateSpecificMeasure } from ".";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { render, screen } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { render, screen, waitFor } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { useApiMock } from "utils/testUtils/useApiMock";
 
@@ -61,14 +61,18 @@ describe("AddStateSpecificMeasure", () => {
         screen.getByText(/\+ Add Another/i).click();
       }
 
-      // Expect that we can add a 5th SSM
-      expect(screen.getAllByText(/Name the measure/i)).toHaveLength(4);
-      expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+      waitFor(() => {
+        // Expect that we can add a 5th SSM
+        expect(screen.getAllByText(/Name the measure/i)).toHaveLength(4);
+        expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+      });
 
       screen.getByText(/\+ Add Another/i).click();
 
-      expect(screen.getAllByText(/Name the measure/i)).toHaveLength(5);
-      expect(screen.getByText(/\+ Add Another/i)).toBeDisabled();
+      waitFor(() => {
+        expect(screen.getAllByText(/Name the measure/i)).toHaveLength(5);
+        expect(screen.getByText(/\+ Add Another/i)).toBeDisabled();
+      });
     });
   });
 

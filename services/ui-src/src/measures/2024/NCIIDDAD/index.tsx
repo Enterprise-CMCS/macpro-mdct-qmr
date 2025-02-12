@@ -5,7 +5,7 @@ interface Props {
   year: string;
 }
 
-export const NCIIDAD = ({ name, year }: Props) => {
+export const NCIIDDAD = ({ name, year }: Props) => {
   return (
     <QMR.AutocompletedMeasureTemplate
       year={year}

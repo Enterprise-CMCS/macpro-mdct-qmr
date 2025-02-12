@@ -7,7 +7,10 @@ import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const FVAADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   let errorArray: any[] = [];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];

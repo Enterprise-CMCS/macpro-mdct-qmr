@@ -38,7 +38,10 @@ const AIFHHValidation = (data: FormData) => {
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   OPM = data[DC.OPM_RATES];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 

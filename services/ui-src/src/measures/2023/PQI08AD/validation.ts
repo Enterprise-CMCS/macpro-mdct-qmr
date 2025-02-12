@@ -11,7 +11,10 @@ const PQI08Validation = (data: FormData) => {
   const dateRange = data[DC.DATE_RANGE];
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(data, PMD.data);
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.data.performanceMeasure
+  );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
   const validateDualPopInformationArray = [

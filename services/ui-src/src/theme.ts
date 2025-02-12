@@ -1,6 +1,13 @@
 import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
+  styles: {
+    global: {
+      "body, p": {
+        fontFamily: "Open Sans",
+      },
+    },
+  },
   fonts: {
     heading: "Open Sans",
     body: "Open Sans",

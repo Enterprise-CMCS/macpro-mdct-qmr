@@ -162,7 +162,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("In 2025, covid text and textbox should not render", () => {
     mockGetMeasureYear.mockReturnValue(2025);
-    props.data = CBPdata;
+    props.data = CBPdata.performanceMeasure;
     props.hybridMeasure = true;
     renderComponent(props);
     const covidText = screen.queryByLabelText(
@@ -173,7 +173,7 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("In 2024 covid text and textbox should render", () => {
     mockGetMeasureYear.mockReturnValue(2024);
-    props.data = CBPdata;
+    props.data = CBPdata.performanceMeasure;
     props.hybridMeasure = true;
     renderComponent(props);
     const covidText = screen.getByLabelText(

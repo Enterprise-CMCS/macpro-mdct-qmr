@@ -1,4 +1,4 @@
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { editMeasure } from "libs/api";
 import { CoreSetAbbr, Params, MeasureStatus } from "types";
 import { usePathParams } from "./usePathParams";
@@ -50,15 +50,16 @@ export const useUpdateMeasure = () => {
   const { state, year, coreSetId } = useParams();
 
   if ((state || statePath) && (year || yearPath) && (coreSet || coreSetId)) {
-    return useMutation((data: UpdateMeasure) =>
-      updateMeasure({
-        measure: measureId,
-        year: year || yearPath,
-        state: state || statePath,
-        coreSet: (coreSetId as CoreSetAbbr) || (coreSet as CoreSetAbbr),
-        ...data,
-      })
-    );
+    return useMutation({
+      mutationFn: (data: UpdateMeasure) =>
+        updateMeasure({
+          measure: measureId,
+          year: year || yearPath,
+          state: state || statePath,
+          coreSet: (coreSetId as CoreSetAbbr) || (coreSet as CoreSetAbbr),
+          ...data,
+        }),
+    });
   }
   throw Error("Missing required fields");
 };

@@ -1,5 +1,5 @@
 import { CoreSetAbbr, MeasureStatus } from "types";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { editMeasure, listMeasures } from "libs/api";
 
 interface GetMeasures {
@@ -56,20 +56,22 @@ interface Params {
 }
 
 export const useUpdateAllMeasures = () => {
-  return useMutation(async (data: Params) => {
-    await getMeasures({
-      state: data.state,
-      year: data.year,
-      coreSet: data.coreSet,
-    }).then(async (measureList) => {
-      for (const measureInfo of measureList?.Items) {
-        const measureData = measureInfo.data ?? {};
-        await updateMeasure({
-          ...measureInfo,
-          status: data.measureStatus,
-          data: measureData,
-        });
-      }
-    });
+  return useMutation({
+    mutationFn: async (data: Params) => {
+      await getMeasures({
+        state: data.state,
+        year: data.year,
+        coreSet: data.coreSet,
+      }).then(async (measureList) => {
+        for (const measureInfo of measureList?.Items) {
+          const measureData = measureInfo.data ?? {};
+          await updateMeasure({
+            ...measureInfo,
+            status: data.measureStatus,
+            data: measureData,
+          });
+        }
+      });
+    },
   });
 };

@@ -5,7 +5,7 @@ import { SPA } from "libs/spaLib";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/authHooks";
 import { CoreSetAbbr, UserRoles } from "types";
 import { featuresByYear } from "utils/featuresByYear";
@@ -72,7 +72,9 @@ export const AddHHCoreSet = () => {
       const coreset: unknown = `${CoreSetAbbr.HHCS}_${data["HealthHomeCoreSet-SPA"]}`;
       mutation.mutate(coreset as CoreSetAbbr, {
         onSuccess: () => {
-          queryClient.refetchQueries(["coreSets", state, year]);
+          queryClient.refetchQueries({
+            queryKey: ["coreSets", state, year],
+          });
           navigate(`/${state}/${year}`);
         },
       });
