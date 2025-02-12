@@ -260,6 +260,13 @@ export type EventParameters = Record<string, string | undefined>;
 /**
  * This is the shape of data saved to the Rates table.
  */
+export type CombinedRatesTableEntry = RateParameters & {
+  /** This will be `${stateAbbr}${year}${coreSetAbbr}`. Example: `MI2024ACS` */
+  compoundKey: string;
+  lastAltered: number;
+  data: CombinedRatesPayload;
+};
+
 export type CombinedRatesPayload = {
   /**
    * Lists the data sources the user entered when completing the rate.
