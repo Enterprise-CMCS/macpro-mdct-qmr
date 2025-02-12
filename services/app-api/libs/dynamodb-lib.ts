@@ -14,10 +14,14 @@ import {
   paginateScan,
   paginateQuery,
 } from "@aws-sdk/lib-dynamodb";
-import { CoreSet, Measure, Banner } from "../types";
+import { CoreSet, Measure, Banner, CombinedRatesTableEntry } from "../types";
 import { logger } from "./debug-lib";
 
-export type QmrDynamoTableType = CoreSet | Measure | Banner;
+export type QmrDynamoTableType =
+  | CoreSet
+  | Measure
+  | Banner
+  | CombinedRatesTableEntry;
 
 const localConfig = {
   endpoint: process.env.DYNAMODB_URL,
