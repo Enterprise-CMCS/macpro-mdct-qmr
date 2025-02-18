@@ -7,8 +7,8 @@ export const { categories, qualifiers } = getCatQualLabels("AIF-HH");
 
 const inputFieldNames = [
   {
-    label: "Number of Enrollee Months",
-    text: "Number of Enrollee Months",
+    label: "Number of Enrollee",
+    text: "Number of Enrollee",
     id: "QFSYON",
   },
   {
