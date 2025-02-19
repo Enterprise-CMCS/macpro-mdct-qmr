@@ -245,7 +245,10 @@ const transformQuotient = (
       return (1 - quotient) * 100;
     case "AMB-CH":
       return quotient * 1000;
-    case "PQI-AD":
+    case "PQI01-AD":
+    case "PQI05-AD":
+    case "PQI08-AD":
+    case "PQI15-AD":
       return quotient * 100000;
     default:
       return quotient * 100;

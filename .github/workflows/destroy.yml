@@ -16,6 +16,9 @@ permissions:
   contents: read
   actions: read
 
+env:
+  SERVERLESS_LICENSE_KEY: ${{ secrets.SERVERLESS_LICENSE_KEY }}
+
 jobs:
   destroy:
     # Protected branches should be designated as such in the GitHub UI.
@@ -50,19 +53,18 @@ jobs:
         env:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
-          STAGE_PREFIX: ${{ secrets.STAGE_PREFIX }}
       - name: Configure AWS credentials for GitHub Actions
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
       - name: Destroy
-        run: ./run destroy --stage $STAGE_PREFIX$branch_name --verify false
+        run: ./run destroy --stage $branch_name --verify false
 
   # Notify the integrations channel when a destroy action fails
   notify_on_destroy_failure:
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - destroy
     if: ${{ failure() }}
     steps:

@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { listMeasures } from "libs/api";
 import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router-dom";
@@ -32,13 +32,15 @@ export const useGetMeasures = (coreSetAbbr?: string) => {
     (year || yearPath) &&
     (coreSetId || coreSetPath)
   ) {
-    return useQuery(["measures", state, year, coreSetId || coreSetPath], () =>
-      getMeasures({
-        state: state || statePath,
-        year: year || yearPath,
-        coreSet: coreSetId || coreSetPath,
-      })
-    );
+    return useQuery({
+      queryKey: ["measures", state, year, coreSetId || coreSetPath],
+      queryFn: () =>
+        getMeasures({
+          state: state || statePath,
+          year: year || yearPath,
+          coreSet: coreSetId || coreSetPath,
+        }),
+    });
   }
   throw Error("state or year unavailable");
 };

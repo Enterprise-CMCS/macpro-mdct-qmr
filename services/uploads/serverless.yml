@@ -1,15 +1,13 @@
 # Refer to the README.md file in within this service directory to configure all ssm parameters required for this service.
 service: uploads
 
-frameworkVersion: "3"
+frameworkVersion: "4"
 
 plugins:
   - serverless-plugin-scripts
-  - serverless-offline-ssm
   - serverless-s3-local
   - serverless-stack-termination-protection
   - serverless-iam-helper
-  - serverless-s3-bucket-helper
 
 provider:
   name: aws
@@ -20,8 +18,8 @@ provider:
     SERVICE: ${self:service}
   iam:
     role:
-      path: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path, "/"}
-      permissionsBoundary: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
+      path: /delegatedadmin/developer/
+      permissionsBoundary: !Sub arn:aws:iam::${AWS::AccountId}:policy/cms-cloud-admin/developer-boundary-policy
       statements:
         - Effect: "Allow"
           Action:
@@ -46,18 +44,15 @@ custom:
   project: "qmr"
   stage: ${opt:stage, self:provider.stage}
   region: ${opt:region, self:provider.region}
-  serverless-offline-ssm:
-    stages:
-      - local
-  iamPath: ${ssm:/configuration/${self:custom.stage}/iam/path, ssm:/configuration/default/iam/path,"/"}
-  iamPermissionsBoundaryPolicy: ${ssm:/configuration/${self:custom.stage}/iam/permissionsBoundaryPolicy, ssm:/configuration/default/iam/permissionsBoundaryPolicy, ""}
   measureTable: ${env:measureTable, param:MeasureTable}
   coreSetTable: ${env:coreSetTable, param:CoreSetTable}
   rateTable: ${env:rateTable, param:RateTable}
+  mpriamrole: ${env:mpriamrole, ssm:/configuration/mpriamrole, "*"}
+  mprdeviam: ${env:mprdeviam, ssm:/configuration/mprdeviam, "*"}
   s3SyncFrequencyMap: # Frequency rate to load data to mathematica s3 bucket. High frequency avail for testing purposes.
     high: cron(30 * * * ? *)
     low: cron(30 1 * * ? *) # Run 8:30 Eastern, before 9PM Mathematica ingestion
-  s3SyncFrequency: ${env:s3SyncFrequency, ssm:/configuration/${self:custom.stage}/s3SyncFrequency, ssm:/configuration/default/s3SyncFrequency,"low"}
+  s3SyncFrequency: ${env:s3SyncFrequency, ssm:/configuration/${self:custom.stage}/s3SyncFrequency, ssm:/configuration/default/s3SyncFrequency, "low"}
   serverlessTerminationProtection:
     stages:
       - master
@@ -69,8 +64,9 @@ custom:
       package:initialize: |
         set -e
         curl -L --output lambda_layer.zip https://github.com/CMSgov/lambda-clamav-layer/releases/download/0.7/lambda_layer.zip
+        cp lambda_layer.zip services/uploads/lambda_layer.zip
       deploy:finalize: |
-        rm lambda_layer.zip
+        rm lambda_layer.zip services/uploads/lambda_layer.zip
         aws lambda invoke --region ${self:provider.region} --function-name ${self:service}-${self:custom.stage}-avDownloadDefinitions --invocation-type Event response.json
         cat response.json
         rm response.json
@@ -130,6 +126,13 @@ resources:
                 SSEAlgorithm: aws:kms
                 KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-attachments-${AWS::AccountId}
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        VersioningConfiguration:
+          Status: Enabled
         CorsConfiguration: # Set the CORS policy
           CorsRules:
             - AllowedOrigins:
@@ -197,26 +200,26 @@ resources:
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole, "*"}
+                AWS: ${self:custom.mpriamrole}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole, "*"}
+                AWS: ${self:custom.mpriamrole}
             - Action:
                 - "s3:GetBucketLocation"
                 - "s3:ListBucket"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam, "*"}
+                AWS: ${self:custom.mprdeviam}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${AttachmentsBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam, "*"}
+                AWS: ${self:custom.mprdeviam}
             - Action:
                 - "s3:PutObject"
               Effect: "Allow"
@@ -320,8 +323,8 @@ resources:
             - Effect: Allow
               Principal:
                 AWS:
-                  - ${ssm:/configuration/mpriamrole, "*"}
-                  - ${ssm:/configuration/mprdeviam, "*"}
+                  - ${self:custom.mpriamrole}
+                  - ${self:custom.mprdeviam}
                   - !GetAtt IamRoleLambdaExecution.Arn
               Action:
                 - "kms:Encrypt"
@@ -340,6 +343,13 @@ resources:
                 SSEAlgorithm: aws:kms
                 KMSMasterKeyID: !GetAtt BucketEncryptionKMSKey.Arn
         BucketName: !Sub ${self:service}-${self:custom.stage}-dynamosnapshots-${AWS::AccountId}
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        VersioningConfiguration:
+          Status: Enabled
     DynamoSnapshotBucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -352,26 +362,26 @@ resources:
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole, "*"}
+                AWS: ${self:custom.mpriamrole}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mpriamrole, "*"}
+                AWS: ${self:custom.mpriamrole}
             - Action:
                 - "s3:GetBucketLocation"
                 - "s3:ListBucket"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam, "*"}
+                AWS: ${self:custom.mprdeviam}
             - Action:
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: !Sub ${DynamoSnapshotBucket.Arn}/*
               Principal:
-                AWS: ${ssm:/configuration/mprdeviam, "*"}
+                AWS: ${self:custom.mprdeviam}
             - Action:
                 - "s3:PutObject"
               Effect: "Allow"
@@ -427,6 +437,13 @@ resources:
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: AES256
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+        VersioningConfiguration:
+          Status: Enabled
         AccessControl: Private
     BucketAVScanRole:
       Type: "AWS::IAM::Role"
@@ -438,12 +455,6 @@ resources:
               Principal:
                 Service: "lambda.amazonaws.com"
               Action: "sts:AssumeRole"
-        Path: ${self:custom.iamPath}
-        PermissionsBoundary:
-          Fn::If:
-            - CreatePermissionsBoundary
-            - !Sub arn:aws:iam::${AWS::AccountId}:policy${self:custom.iamPermissionsBoundaryPolicy}
-            - !Ref AWS::NoValue
         Policies:
           - PolicyName: "BucketAVScanRolePolicy"
             PolicyDocument:
@@ -506,12 +517,6 @@ resources:
               Principal:
                 Service: "lambda.amazonaws.com"
               Action: "sts:AssumeRole"
-        Path: ${self:custom.iamPath}
-        PermissionsBoundary:
-          Fn::If:
-            - CreatePermissionsBoundary
-            - !Sub arn:aws:iam::${AWS::AccountId}:policy${self:custom.iamPermissionsBoundaryPolicy}
-            - !Ref AWS::NoValue
         Policies:
           - PolicyName: "BucketAVDownloadRolePolicy"
             PolicyDocument:
