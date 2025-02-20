@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import * as topics from "../libs/topics-lib.js";
+const topics = require("../libs/topics-lib.js");
 
 const brokers = process.env.brokerString?.split(",") ?? [];
 
