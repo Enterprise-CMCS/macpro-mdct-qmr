@@ -30,7 +30,7 @@ jobs:
       - name: run unit tests
         run: ./test-unit.sh
       - name: publish test coverage to code climate
-        if: env.CODE_CLIMATE_ID != ''
+        if: env.CODE_CLIMATE_ID == ''
         uses: paambaati/codeclimate-action@v6
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_ID }}
