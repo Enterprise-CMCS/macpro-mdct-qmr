@@ -1,0 +1,76 @@
+name: Cypress Tests
+on:
+  workflow_call:
+    inputs:
+      test-path:
+        description: "Path to the test files"
+        required: true
+        type: string
+      test-endpoint:
+        description: "Endpoint to run tests against"
+        required: true
+        type: string
+    secrets:
+      cypress-user2:
+        description: "Cypress User 2"
+        required: true
+      cypress-user4:
+        description: "Cypress User 4"
+        required: true
+      cypress-admin-user:
+        description: "Cypress Admin User"
+        required: true
+      cypress-password:
+        description: "Cypress Password"
+        required: true
+
+jobs:
+  setup:
+    name: Setup Cypress Test Matrix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: set-test-matrix
+        run: |
+          TEST_MATRIX=$(ls -1 tests/cypress/cypress/${{ inputs.test-path }}/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')
+          echo "Test definitions: ${TEST_MATRIX}"
+          [ $(jq length <<< "${TEST_MATRIX}") -lt 1 ] && echo "No test definition found...exiting" && exit 1
+          echo "test-matrix=${TEST_MATRIX}" >> $GITHUB_OUTPUT
+    outputs:
+      test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix}}
+  e2e-tests:
+    name: Execute Cypress Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: ${{ fromJson(needs.setup.outputs.test-matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: set path
+        run: |
+          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: tests/cypress
+          spec: cypress/${{ inputs.test-path }}/${{ matrix.containers }}
+          browser: chrome
+          headed: true
+          config: baseUrl=${{ inputs.test-endpoint }}
+          env: true
+        env:
+          CYPRESS_STATE_USER_2: ${{ secrets.cypress-user2 }}
+          CYPRESS_STATE_USER_4: ${{ secrets.cypress-user4 }}
+          CYPRESS_ADMIN_USER: ${{ secrets.cypress-admin-user }}
+          CYPRESS_QMR_PASSWORD: ${{ secrets.cypress-password }}
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: ${{ matrix.containers }}-test-results
+          path: tests/cypress/screenshots/
+          retention-days: 14
