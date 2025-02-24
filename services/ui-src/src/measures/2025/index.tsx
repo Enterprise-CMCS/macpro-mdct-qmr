@@ -81,7 +81,7 @@ const twentyTwentyFiveMeasures = {
   "FUM-AD": measureTemplate,
   "FUM-CH": measureTemplate,
   "FUM-HH": measureTemplate,
-  "HBD-AD": measureTemplate,
+  "GSD-AD": measureTemplate,
   "HPCMI-AD": measureTemplate,
   "HVL-AD": measureTemplate,
   "IET-AD": measureTemplate,

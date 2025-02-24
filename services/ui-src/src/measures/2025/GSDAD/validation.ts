@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-const HBDADValidation = (data: FormData) => {
+const GSDADValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -85,4 +85,4 @@ const HBDADValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [HBDADValidation];
+export const validationFunctions = [GSDADValidation];
