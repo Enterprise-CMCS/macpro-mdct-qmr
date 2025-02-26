@@ -1468,7 +1468,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "HBD-AD",
+      measure: "GSD-AD",
     },
     {
       type: "A",

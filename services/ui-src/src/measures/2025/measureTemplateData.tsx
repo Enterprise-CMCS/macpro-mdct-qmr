@@ -106,8 +106,8 @@ import { validationFunctions as FUMCH_Validations } from "./FUMCH/validation";
 import { data as FUMHH_Data } from "./FUMHH/data";
 import { validationFunctions as FUMHH_Validations } from "./FUMHH/validation";
 
-import { data as HBDAD_Data } from "./HBDAD/data";
-import { validationFunctions as HBDAD_Validations } from "./HBDAD/validation";
+import { data as GSDAD_Data } from "./GSDAD/data";
+import { validationFunctions as GSDAD_Validations } from "./GSDAD/validation";
 
 import { data as HPCMIAD_Data } from "./HPCMIAD/data";
 import { validationFunctions as HPCMIAD_Validations } from "./HPCMIAD/validation";
@@ -224,7 +224,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "FUM-AD": { data: FUMAD_Data, validationFunctions: FUMAD_Validations },
   "FUM-CH": { data: FUMCH_Data, validationFunctions: FUMCH_Validations },
   "FUM-HH": { data: FUMHH_Data, validationFunctions: FUMHH_Validations },
-  "HBD-AD": { data: HBDAD_Data, validationFunctions: HBDAD_Validations },
+  "GSD-AD": { data: GSDAD_Data, validationFunctions: GSDAD_Validations },
   "HPCMI-AD": { data: HPCMIAD_Data, validationFunctions: HPCMIAD_Validations },
   "HVL-AD": { data: HVLAD_Data, validationFunctions: HVLAD_Validations },
   "IET-AD": { data: IETAD_Data, validationFunctions: IETAD_Validations },
