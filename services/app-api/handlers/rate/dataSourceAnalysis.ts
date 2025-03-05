@@ -28,7 +28,10 @@ export const collectDataSourcesForMeasure = (measure: Measure | undefined) => {
   const hasOtherSpecification =
     MeasurementSpecification === MeasurementSpecificationType.Other;
   const isUnusableForCalc =
-    hasOtherDataSource || hasECDSDataSource || hasOtherSpecification;
+    hasOtherDataSource ||
+    // In 2025 and forward, ECDS no longer prevents rate calculations
+    (hasECDSDataSource && measure?.year && measure.year < 2025) ||
+    hasOtherSpecification;
 
   // There is no need to flag a measure as requiring weights
   // if it is not usable for combined calculations in the first place.

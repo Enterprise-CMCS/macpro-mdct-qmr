@@ -305,12 +305,17 @@ export type CombinedRatesPayload = {
 
 export type DataSourcePayload = {
   /**
-   * If a measure was reported with "Other" or "ECDS" as a data source,
+   * If a measure was reported with "Other" as a data source,
    * or if it uses an alternative measure specification,
    * we cannot perform combined rate calculations on it.
    */
   isUnusableForCalc: boolean;
   hasOtherDataSource: boolean;
+  /**
+   * Prior to 2025, data sourced from ECDS was also unusable for combined rates.
+   * So in 2024, when this flag is true, `isUnusableForCalc` will also be true.
+   * In 2025 and on, `isUnusableForCalc` may be false even when this is true.
+   */
   hasECDSDataSource: boolean;
   hasOtherSpecification: boolean;
   /**

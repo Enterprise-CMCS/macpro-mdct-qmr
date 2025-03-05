@@ -113,6 +113,7 @@ describe("DataSourceInformationBanner", () => {
         ...emptyPayload.DataSources,
         Medicaid: {
           ...emptyDataSource,
+          isUnusableForCalc: true,
           hasECDSDataSource: true,
         },
       },
@@ -127,6 +128,28 @@ describe("DataSourceInformationBanner", () => {
     ).toBeInTheDocument();
   });
 
+  it("should not render an explanation for why ECDS-sourced data is excluded, if it wasn't excluded", () => {
+    const payload = {
+      ...emptyPayload,
+      DataSources: {
+        ...emptyPayload.DataSources,
+        Medicaid: {
+          ...emptyDataSource,
+          isUnusableForCalc: false,
+          hasECDSDataSource: true,
+        },
+      },
+    };
+
+    const props = { payload };
+    render(<DataSourceInformationBanner {...props} />);
+    expect(
+      screen.queryByText(
+        /These data were reported using the Electronic Clinical Data System/
+      )
+    ).not.toBeInTheDocument();
+  });
+
   it("should render an explanation for why Other-sourced data is excluded from the combined rate", () => {
     const payload = {
       ...emptyPayload,
@@ -134,6 +157,7 @@ describe("DataSourceInformationBanner", () => {
         ...emptyPayload.DataSources,
         Medicaid: {
           ...emptyDataSource,
+          isUnusableForCalc: true,
           hasOtherDataSource: true,
         },
       },
@@ -152,6 +176,7 @@ describe("DataSourceInformationBanner", () => {
         ...emptyPayload.DataSources,
         Medicaid: {
           ...emptyDataSource,
+          isUnusableForCalc: true,
           hasOtherSpecification: true,
         },
       },

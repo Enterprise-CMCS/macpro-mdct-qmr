@@ -82,20 +82,33 @@ describe("Data source analysis for Combined Rates", () => {
     expect(dsPayload.isUnusableForCalc).toBe(false);
   });
 
-  it("Should treat ECDS and Other data sources as unusable for calculations", () => {
-    let dsPayload = collectDataSourcesForMeasure({
-      data: {
-        DataSource: ["ElectronicClinicalDataSystemsECDS"],
-      } as Measure["data"],
-    } as Measure);
-    expect(dsPayload.isUnusableForCalc).toBe(true);
-
-    dsPayload = collectDataSourcesForMeasure({
+  it("Should treat Other data sources as unusable for calculations", () => {
+    const dsPayload = collectDataSourcesForMeasure({
       data: {
         DataSource: ["OtherDataSource"],
       } as Measure["data"],
     } as Measure);
     expect(dsPayload.isUnusableForCalc).toBe(true);
+  });
+
+  it("Should treat ECDS as unusable prior to 2025, and usable after", () => {
+    let dsPayload = collectDataSourcesForMeasure({
+      year: 2024,
+      data: {
+        DataSource: ["ElectronicClinicalDataSystemsECDS"],
+      } as Measure["data"],
+    } as Measure);
+    expect(dsPayload.hasECDSDataSource).toBe(true);
+    expect(dsPayload.isUnusableForCalc).toBe(true);
+
+    dsPayload = collectDataSourcesForMeasure({
+      year: 2025,
+      data: {
+        DataSource: ["ElectronicClinicalDataSystemsECDS"],
+      } as Measure["data"],
+    } as Measure);
+    expect(dsPayload.hasECDSDataSource).toBe(true);
+    expect(dsPayload.isUnusableForCalc).toBe(false);
   });
 
   it("Should treat measures reported with nonstandard specifications as unusable for calculations", () => {
