@@ -8,7 +8,8 @@ import Measures from "measures";
 import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 import { clearMocks } from "shared/util/validationsMock";
 
 expect.extend(toHaveNoViolations);

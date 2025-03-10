@@ -15,7 +15,8 @@ import {
   clearMocks,
   validationsMockObj as V,
 } from "shared/util/validationsMock";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 import * as DC from "dataConstants";
 
 expect.extend(toHaveNoViolations);

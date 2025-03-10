@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { AdminBannerView } from "../index";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 expect.extend(toHaveNoViolations);
 
 const testComponent = <AdminBannerView />;
