@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { BannerCard } from "../BannerCard";
 import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 expect.extend(toHaveNoViolations);
 
 const testComponent = <BannerCard />;

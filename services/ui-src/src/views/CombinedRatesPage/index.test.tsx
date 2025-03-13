@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CombinedRatesPage } from "views";

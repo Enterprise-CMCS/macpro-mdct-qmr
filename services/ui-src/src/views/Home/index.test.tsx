@@ -2,7 +2,8 @@ import { Home } from "./index";
 import { act } from "react-dom/test-utils";
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 expect.extend(toHaveNoViolations);
 
 const component = (

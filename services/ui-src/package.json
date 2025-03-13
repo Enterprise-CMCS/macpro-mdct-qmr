@@ -97,7 +97,8 @@
     ],
     "verbose": true,
     "moduleNameMapper": {
-      "\\.(css|less|scss)$": "<rootDir>/src/utils/testUtils/styleMock.ts"
+      "\\.(css|less|scss)$": "<rootDir>/src/utils/testUtils/styleMock.ts",
+      "^@ui-src/(.*)$": "<rootDir>/$1"
     },
     "setupFilesAfterEnv": [
       "<rootDir>/setupJest.ts"
