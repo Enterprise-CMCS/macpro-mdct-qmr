@@ -30,7 +30,11 @@ export const data: MeasureTemplateData = {
           },
         ],
       },
-      { value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS, description: true },
+      {
+        value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
+        description: true,
+        subOptions: [{ options: [{ value: DC.ADMINISTRATIVE_DATA }] }],
+      },
       { value: DC.ELECTRONIC_HEALTH_RECORDS, description: true },
       { value: DC.OTHER_DATA_SOURCE, description: true },
     ],
