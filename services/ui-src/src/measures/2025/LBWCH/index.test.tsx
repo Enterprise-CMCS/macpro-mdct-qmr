@@ -10,7 +10,8 @@ import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { clearMocks } from "shared/util/validationsMock";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 expect.extend(toHaveNoViolations);
 
 // Test Setup

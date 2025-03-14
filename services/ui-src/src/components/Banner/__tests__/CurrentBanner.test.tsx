@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { BannerData } from "types";
 import { CurrentBanner } from "../CurrentBanner";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 import { convertDateUtcToEt } from "utils";
 expect.extend(toHaveNoViolations);
 

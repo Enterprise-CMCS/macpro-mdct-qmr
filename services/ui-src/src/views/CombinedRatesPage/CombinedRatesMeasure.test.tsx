@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { RouterWrappedComp } from "utils/testing";

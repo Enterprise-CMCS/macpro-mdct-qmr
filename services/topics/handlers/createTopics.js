@@ -1,4 +1,4 @@
-import * as topics from "../libs/topics-lib.js";
+const topics = require("../libs/topics-lib.js");
 
 /**
  * String in the format of `--${event.project}--${event.stage}--`
