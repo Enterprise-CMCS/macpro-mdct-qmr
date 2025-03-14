@@ -4,7 +4,8 @@ import { RouterWrappedComp } from "utils/testing";
 import { territoryList } from "libs";
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
-import { axe, toHaveNoViolations } from "jest-axe";
+import { toHaveNoViolations } from "jest-axe";
+import axe from "@ui-src/axe-helper";
 expect.extend(toHaveNoViolations);
 
 const mockedNavigate = jest.fn();

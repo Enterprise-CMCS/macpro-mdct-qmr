@@ -20,6 +20,10 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
   };
 
   const unusableExplanation = (dataSources: DataSourcePayload | undefined) => {
+    if (!dataSources?.isUnusableForCalc) {
+      // If we did do the calculation, do not attempt to explain why we didn't.
+      return;
+    }
     const explanations = {
       hasECDSDataSource: `These data were reported using the Electronic Clinical Data System (ECDS) Data Source
         (alone or in combination with other data sources).

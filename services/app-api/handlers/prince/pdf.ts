@@ -83,6 +83,13 @@ function sanitizeHtml(htmlString: string) {
   const styleTags = doc.querySelectorAll("style");
   for (let i = 0; i < styleTags.length; i += 1) {
     const style = styleTags[i];
+    /*
+     * Currently, our tsconfig targets es5, which doesn't support the `s` flag
+     * on regular expressions. But this lambda runs on Node 20, which does.
+     * TS includes the `s` in its compiled output, but complains.
+     * TODO: Once we bump our TS target to ES2018 or later, delete this comment.
+     */
+    // @ts-ignore
     style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
   }
   const commentlessHtml = doc.querySelector("html")!.outerHTML;

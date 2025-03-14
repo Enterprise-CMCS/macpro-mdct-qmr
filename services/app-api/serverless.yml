@@ -107,6 +107,18 @@ provider:
     stage: ${opt:stage, self:provider.stage}
     docraptorApiKey: ${self:custom.docraptorApiKey}
 
+build:
+  esbuild:
+    bundle: true
+    # NPM packages to not be bundled, and instead be available in node_modules, and the zip file uploaded to Lambda.
+    #
+    # We specify jsdom here, to avoid issues with its internal `require.relative`
+    # Without this, we get the error "Cannot find module './xhr-sync-worker.js'"
+    # This solution adapted from https://stackoverflow.com/a/78865792
+    # See also this issue: https://github.com/evanw/esbuild/issues/1311
+    external:
+      - 'jsdom'
+
 functions:
   migrateExistingCombinedRates:
     handler: handlers/rate/migrateExistingCombinedRates.main
