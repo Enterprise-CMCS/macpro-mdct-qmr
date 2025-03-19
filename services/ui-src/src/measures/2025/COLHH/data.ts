@@ -32,8 +32,17 @@ export const data: MeasureTemplateData = {
       },
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
+        subOptions: [
+          {
+            options: [
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_CLINICAL_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.CASE_MANAGEMENT_SYSTEM },
+              { value: DC.ADMINISTRATIVE_DATA },
+            ],
+          },
+        ],
         description: true,
-        subOptions: [{ options: [{ value: DC.ADMINISTRATIVE_DATA }] }],
       },
       { value: DC.ELECTRONIC_HEALTH_RECORDS, description: true },
       { value: DC.OTHER_DATA_SOURCE, description: true },
