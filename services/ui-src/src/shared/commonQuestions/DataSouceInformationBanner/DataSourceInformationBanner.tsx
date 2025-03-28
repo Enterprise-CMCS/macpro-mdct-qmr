@@ -133,7 +133,7 @@ export const dataSourceSelections = (
     //if more than one key exist, it is possibly a nested data source
     if (dataSourceKey.length > 1) {
       const dataSources = dataSourceValue
-        .map((item) => item.selected)
+        .map((item) => item.selected ?? item.description)
         .filter(isDefined)
         .flat();
 
