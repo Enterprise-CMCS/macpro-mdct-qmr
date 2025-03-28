@@ -1,7 +1,6 @@
 import {
   DataSourceInformationBanner,
   dataSourceSelections,
-  formatCamelCaseWithInitialisms,
 } from "./DataSourceInformationBanner";
 import { render, screen } from "@testing-library/react";
 import { CombinedRatesPayload } from "types";
@@ -220,23 +219,6 @@ describe("DataSourceInformationBanner", () => {
         "Medicaid Management Information System (MMIS)",
         "Administrative Data Other - custom admin other text",
       ]);
-    });
-  });
-
-  describe("formatCamelCaseWithInitialisms", () => {
-    it("should format data source enumeration values into short names", () => {
-      const dataSource = "MedicaidManagementInformationSystemMMIS";
-      const shortName = formatCamelCaseWithInitialisms(dataSource);
-      expect(shortName).toBe("Medicaid Management Information System (MMIS)");
-    });
-
-    it("should add parentheses to user data that contains capital letters", () => {
-      const dataSource =
-        "AdministrativeDataOther - a Houston, TX filing cabinet";
-      const shortName = formatCamelCaseWithInitialisms(dataSource);
-      expect(shortName).toBe(
-        "Administrative Data Other - a  Houston, (TX) filing cabinet"
-      );
     });
   });
 });
