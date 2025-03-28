@@ -127,7 +127,9 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     
     ${
       /* ******* Prince doesn't support certain css elements like background colors or css grid out of the box. we have to brute force those styles here.
-      All of these css class names can be found by inspecting the elements on the pdf page in the browser. ********* */ ""
+      IMPORTANT NOTE: If there is a display regression, it's probably because these classes changed due to chakra updates or other unknowns.
+      It can easily be fixed by inspecting the elements on the pdf page in the browser and grabbing the css class names from there. 
+      ********* */ ""
     }
 
     .chakra-button { background: var(--chakra-colors-gray-100) !important; margin: 16px 8px }
@@ -137,16 +139,24 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
       /* Chakra radio buttons and checkboxes that are checked don't display colors correctly due to Prince pdf limitation with background colors. 
       These styles below manually add the background colors back to the checked radio buttons and checkboxes */ ""
     }
-    .css-gzpnyx[data-checked], .css-1oi6yiz[data-checked] { background: var(--chakra-colors-blue-500) !important; border-color: var(--chakra-colors-blue-500) !important; }
-    .css-gzpnyx[data-checked]::before { content: ""; width: 50%; height: 50%; border-radius: 50%; background: var(--chakra-colors-white) !important; }
+        ${
+          /* .css-edb818[data-checked] is checkbox css class and .css-ym696e[data-checked] is radio css class. 
+      IMPORTANT NOTE: If checkboxes and radio buttons ever stop displaying correctly, it's probably because these classes changed due to chakra updates or other unknowns.
+      You can find the new classes if you go to the export pdf page and inspect the checkbox and radio elements */ ""
+        }
+    .css-edb818[data-checked], .css-ym696e[data-checked] { background: var(--chakra-colors-blue-500) !important; border-color: var(--chakra-colors-blue-500) !important; }
+    .css-ym696e[data-checked]::before { content: ""; width: 50%; height: 50%; border-radius: 50%; background: var(--chakra-colors-white) !important; }
     .chakra-checkbox__control * { color: var(--chakra-colors-white) !important; display: flex !important }
     ${
       /* On line 61 of this file, we are replacing text-align: right with text-align: center. 
       There are few places where we don't want to do this so we are overriding those styles below for some inputs.
-      The classes below are targeting the core set qualifiers Delivery System percentage inputs and elements inside the inputs */ ""
+      The classes below are targeting the core set qualifiers Delivery System percentage inputs and elements inside the inputs
+      css-xumdn4 is the main Delivery System percentage input element. 
+      css-10xl6g is the number inside the input, and css-wgu2i7 is the total percentage number
+      */ ""
     }
     .css-xumdn4 { padding-right: 16px !important }
-    .css-1pkmg65, .css-18akmna { text-align: right !important; padding-right: 40px !important; }
+    .css-10xl6g, .css-wgu2i7 { text-align: right !important; padding-right: 35px !important; }
     ${
       /* The below css classes are targeting icons in inputs need to have display: flex (that display is getting removed on line 61) */ ""
     }
