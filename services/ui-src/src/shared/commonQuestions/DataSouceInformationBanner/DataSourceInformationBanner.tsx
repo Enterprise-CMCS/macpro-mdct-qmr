@@ -166,6 +166,16 @@ export const dataSourceSelections = (
 };
 
 export const formatCamelCaseWithInitialisms = (str: string) => {
+  //some of the strings are not formatting correctly so this does a hard replace instead
+  switch (str) {
+    case "ElectronichealthrecordEHRpersonalhealthregistryPHR":
+      return "Electronic health record (EHR) / personal health registry (PHR)";
+    case "HealthinformationexchangeHIEclinicalregistry":
+      return "Health information exchange (HIE) / clinical registry";
+    case "CaseManagementsystem":
+      return "Case Management system";
+  }
+
   let spacedString = str
     .replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3")
     .trim();

@@ -110,13 +110,13 @@ export const ELECTRONIC_CLINIC_DATA_SYSTEMS =
   "Electronic Clinical Data Systems (ECDS)";
 export const ELECTRONIC_HEALTH_RECORDS = "Electronic Health Records";
 export const ELECTRONIC_HEALTH_RECORDS_CLINICAL_REGISTRY =
-  "Electronic health record (EHR)/personal health registry (PHR)";
+  "Electronic health record (EHR) / personal health registry (PHR)";
 export const EXCLUDE_FROM_OMS = "excludeFromOMS";
 export const EXPLAINATION = "explanation";
 export const FFS = "FFS";
 export const HEALTH_HOME_QUALIFIER_FILE_UPLOAD = "costSavingsFile";
 export const HEALTH_INFORMATION_EXCHANGE =
-  "Health information exchange (HIE)/clinical registry";
+  "Health information exchange (HIE) / clinical registry";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";
