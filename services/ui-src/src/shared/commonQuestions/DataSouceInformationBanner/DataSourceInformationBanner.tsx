@@ -140,7 +140,7 @@ export const dataSourceSelections = (
       selected.push(
         ...dataSources.map((source) => {
           const sourceKey = dataSourceKey.find((key) => key.includes(source));
-          const formattedSource = formatCamelCaseWithInitialisms(source);
+          const formattedSource = lookupDataSource(source);
           return sourceKey
             ? `${formattedSource} - ${
                 dataSourceSelections[sourceKey]?.description ?? "Not Answered"
@@ -154,9 +154,7 @@ export const dataSourceSelections = (
 
       //either description is null or selected is null, only one will exist on the object
       const value = selectedValue
-        ? (selectedValue as any[]).map((item) =>
-            formatCamelCaseWithInitialisms(item)
-          )
+        ? (selectedValue as any[]).map((item) => lookupDataSource(item))
         : [!!description ? description : "Not Answered"];
 
       selected.push(...value);
@@ -165,23 +163,8 @@ export const dataSourceSelections = (
   return selected;
 };
 
-export const formatCamelCaseWithInitialisms = (str: string) => {
-  //some of the strings are not formatting correctly so this does a hard replace instead
-  switch (str) {
-    case "ElectronichealthrecordEHRpersonalhealthregistryPHR":
-      return "Electronic health record (EHR) / personal health registry (PHR)";
-    case "HealthinformationexchangeHIEclinicalregistry":
-      return "Health information exchange (HIE) / clinical registry";
-    case "CaseManagementsystem":
-      return "Case Management system";
-  }
-
-  let spacedString = str
-    .replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3")
-    .trim();
-  spacedString = spacedString.replace(/([A-Z]+)(?=[A-Z][a-z]|\s|$)/g, "($1)");
-
-  return spacedString;
+export const lookupDataSource = (str: string) => {
+  return dataSourceDisplayNames[str] ?? str;
 };
 
 const sx = {
