@@ -98,7 +98,7 @@ describe("DataSourceInformationBanner", () => {
       /Hybrid \(Administrative and Medical Records Data\)/
     );
     expect(chipSection).toHaveTextContent(
-      /Immunization Registry Immunization Information System \(IIS\)/
+      /Immunization Registry\/Immunization Information System \(IIS\)/
     );
     expect(chipSection).toHaveTextContent(
       /Other Data Source - A little bird told me/

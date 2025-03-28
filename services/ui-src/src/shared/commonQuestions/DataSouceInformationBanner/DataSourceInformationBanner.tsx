@@ -126,8 +126,12 @@ export const dataSourceSelections = (
   const dataSourceKey = Object.keys(dataSourceSelections).filter((key) =>
     key.split("-")[0].includes(dataSource)
   );
+
+  //we want only they key for the top layer checkboxes
+  const parentKeys = dataSourceKey.filter((key) => !key.includes("-"));
+
   //use the key ids to obtain the values
-  const dataSourceValue = dataSourceKey.map((key) => dataSourceSelections[key]);
+  const dataSourceValue = parentKeys.map((key) => dataSourceSelections[key]);
 
   if (dataSourceKey && dataSourceKey.length > 0) {
     //if more than one key exist, it is possibly a nested data source
