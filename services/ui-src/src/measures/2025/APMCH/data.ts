@@ -40,8 +40,8 @@ export const data: MeasureTemplateData = {
         subOptions: [
           {
             options: [
-              { value: DC.ELECTRONIC_HEALTH_RECORDS_CLINICAL_REGISTRY },
-              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY },
               { value: DC.CASE_MANAGEMENT_SYSTEM },
               { value: DC.ADMINISTRATIVE_DATA },
             ],
