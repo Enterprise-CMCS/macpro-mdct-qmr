@@ -59,7 +59,9 @@ jobs:
           role-to-assume: ${{ env.AWS_OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
       - name: Destroy
-        run: ./run destroy --stage $branch_name --verify false
+        run: |
+          ./run destroy --stage $branch_name --verify false
+          serverless reconcile
 
   # Notify the integrations channel when a destroy action fails
   notify_on_destroy_failure:
