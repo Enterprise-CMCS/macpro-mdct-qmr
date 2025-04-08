@@ -27,9 +27,7 @@ custom:
       - "SizeRestrictions_BODY"
   serverlessTerminationProtection:
     stages:
-      - master
-      - val
-      - prod
+      - nonsense
   dotenv:
     path: ../../.env
   docraptorApiKey: ${env:docraptorApiKey, ssm:/${self:custom.stage}/pdf/docraptorApiKey, ssm:/default/pdf/docraptorApiKey}
@@ -117,7 +115,7 @@ build:
     # This solution adapted from https://stackoverflow.com/a/78865792
     # See also this issue: https://github.com/evanw/esbuild/issues/1311
     external:
-      - 'jsdom'
+      - "jsdom"
 
 functions:
   migrateExistingCombinedRates:
