@@ -40,9 +40,7 @@ custom:
       - "SizeRestrictions_BODY"
   serverlessTerminationProtection:
     stages:
-      - master
-      - val
-      - prod
+      - nonsense
   attachments_bucket_arn: ${param:AttachmentsBucketArn}
   api_gateway_rest_api_name: ${param:ApiGatewayRestApiName}
   okta_metadata_url: ${ssm:/configuration/${self:custom.stage}/okta_metadata_url, ""}
@@ -75,6 +73,7 @@ resources:
   Resources:
     CognitoUserPool:
       Type: AWS::Cognito::UserPool
+      DeletionPolicy: Retain
       Properties:
         UserPoolName: ${self:custom.stage}-user-pool
         UsernameAttributes:
@@ -110,7 +109,7 @@ resources:
 
     # Associate the WAF Web ACL with the Cognito User Pool
     CognitoUserPoolWAFAssociation:
-      Type: 'AWS::WAFv2::WebACLAssociation'
+      Type: "AWS::WAFv2::WebACLAssociation"
       Properties:
         ResourceArn: !GetAtt CognitoUserPool.Arn
         WebACLArn: !GetAtt WafPluginAcl.Arn

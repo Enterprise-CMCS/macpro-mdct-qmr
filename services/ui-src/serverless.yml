@@ -22,9 +22,7 @@ custom:
   region: ${opt:region, self:provider.region}
   serverlessTerminationProtection:
     stages:
-      - master
-      - val
-      - prod
+      - nonsense
   api_region: ${param:ApiRegion}
   api_url: ${param:ApiGatewayRestApiUrl}
   cognito_region: ${param:CognitoRegion}
@@ -80,7 +78,7 @@ resources:
       Type: AWS::SSM::Parameter
       Properties:
         Type: String
-        Value: 'honk'
+        Value: "honk"
 
   Outputs:
     ProdUrl:
