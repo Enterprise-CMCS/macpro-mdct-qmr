@@ -55,9 +55,7 @@ custom:
   s3SyncFrequency: ${env:s3SyncFrequency, ssm:/configuration/${self:custom.stage}/s3SyncFrequency, ssm:/configuration/default/s3SyncFrequency, "low"}
   serverlessTerminationProtection:
     stages:
-      - master
-      - val
-      - prod
+      - nonsense
   scripts:
     hooks:
       # This script is run locally when running 'serverless deploy'
@@ -119,6 +117,7 @@ resources:
   Resources:
     AttachmentsBucket:
       Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
       Properties:
         BucketEncryption:
           ServerSideEncryptionConfiguration:
@@ -336,6 +335,7 @@ resources:
 
     DynamoSnapshotBucket:
       Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
       Properties:
         BucketEncryption:
           ServerSideEncryptionConfiguration:
