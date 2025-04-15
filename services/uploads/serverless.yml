@@ -287,6 +287,7 @@ resources:
                 - !Sub ${AttachmentsBucket.Arn}/*.json
     BucketEncryptionKMSKey:
       Type: "AWS::KMS::Key"
+      DeletionPolicy: Retain
       Properties:
         Description: "Key for encrypting dynamo snapshots and upload buckets"
         EnableKeyRotation: true
