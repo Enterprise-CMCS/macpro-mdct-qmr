@@ -1,41 +1,21 @@
-LOCAL_LOGIN=true
-SKIP_PREFLIGHT_CHECK=true
+BRANCH_NAME=local-branch
+PROD_URL=placeholder
 
-# AWS
-API_URL=http://localhost:3030/local
-COGNITO_REDIRECT_SIGNOUT=http://localhost:3000/
-DYNAMODB_URL=http://localhost:8000
+# Cognito
+COGNITO_IDENTITY_POOL_ID=op://mdct_devs/qmr_secrets/COGNITO_IDENTITY_POOL_ID
+COGNITO_USER_POOL_ID=op://mdct_devs/qmr_secrets/COGNITO_USER_POOL_ID
+COGNITO_USER_POOL_CLIENT_DOMAIN=op://mdct_devs/qmr_secrets/COGNITO_USER_POOL_CLIENT_DOMAIN
+COGNITO_USER_POOL_CLIENT_ID=op://mdct_devs/qmr_secrets/COGNITO_USER_POOL_CLIENT_ID
 
-## S3 BUCKETS
+# S3
 S3_ATTACHMENTS_BUCKET_NAME=op://mdct_devs/qmr_secrets/S3_ATTACHMENTS_BUCKET_NAME
-S3_LOCAL_ENDPOINT=http://localhost:4569
-
-## DYNAMO TABLES
-bannerTableName=local-banners
-DYNAMO_TABLE_ARN=local_nonsense_if_unset_we_search_CF_for
-measureTable=local-measure
-coreSetTable=local-coreSet
-rateTable=local-rate
 
 # LAUNCHDARKLY
-LD_PROJECT_KEY=op://mdct_devs/qmr_secrets/LD_PROJECT_KEY
-LD_SDK_KEY=op://mdct_devs/qmr_secrets/LD_SDK_KEY # pragma: allowlist secret
+REACT_APP_LD_SDK_CLIENT=op://mdct_devs/qmr_secrets/REACT_APP_LD_SDK_CLIENT
 
-docraptorApiKey=YOUR_API_KEY_HERE # pragma: allowlist secret
+docraptorApiKey=op://mdct_devs/qmr_secrets/docraptorApiKey # pragma: allowlist secret
 
 CYPRESS_STATE_USER_2=op://mdct_devs/qmr_secrets/CYPRESS_STATE_USER_2
 CYPRESS_STATE_USER_4=op://mdct_devs/qmr_secrets/CYPRESS_STATE_USER_4
 CYPRESS_ADMIN_USER=op://mdct_devs/qmr_secrets/CYPRESS_ADMIN_USER
 CYPRESS_QMR_PASSWORD=op://mdct_devs/qmr_secrets/CYPRESS_QMR_PASSWORD # pragma: allowlist secret
-
-SERVERLESS_LICENSE_KEY=op://mdct_devs/qmr_secrets/SERVERLESS_LICENSE_KEY
-
-# SSM Section
-bootstrapBrokerStringTls=bootstrapBrokerStringTls
-vpcId=vpcId
-privateSubnetAId=privateSubnetAId
-privateSubnetBId=privateSubnetBId
-privateSubnetCId=privateSubnetCId
-mpriamrole=mpriamrole
-mprdeviam=mprdeviam
-s3SyncFrequency=low

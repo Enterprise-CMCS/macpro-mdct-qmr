@@ -31,7 +31,7 @@ export const createMeasure = handler(async (event, context) => {
 
   const body = JSON.parse(event!.body!);
   const params = {
-    TableName: process.env.measureTable!,
+    TableName: process.env.MeasuresTable!,
     Item: {
       compoundKey: `${state}${year}${coreSet}`,
       state: state,
