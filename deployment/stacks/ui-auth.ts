@@ -227,8 +227,6 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
     roles: { authenticated: cognitoAuthRole.roleArn },
   });
 
-  let bootstrapUsersFunction;
-
   if (bootstrapUsersPassword) {
     const lambdaApiRole = new iam.Role(scope, "BootstrapUsersLambdaApiRole", {
       permissionsBoundary: iamPermissionsBoundary,
@@ -261,7 +259,7 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
       },
     });
 
-    bootstrapUsersFunction = new lambda_nodejs.NodejsFunction(
+    const bootstrapUsersFunction = new lambda_nodejs.NodejsFunction(
       scope,
       "bootstrapUsers",
       {
@@ -277,32 +275,7 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
         },
       }
     );
-  }
 
-  if (!isLocalStack) {
-    const waf = new WafConstruct(
-      scope,
-      "CognitoWafConstruct",
-      { name: `${project}-${stage}-ui-auth` },
-      "REGIONAL"
-    );
-
-    new wafv2.CfnWebACLAssociation(scope, "CognitoUserPoolWAFAssociation", {
-      resourceArn: userPool.userPoolArn,
-      webAclArn: waf.webAcl.attrArn,
-    });
-  }
-
-  new ssm.StringParameter(scope, "CognitoUserPoolIdParameter", {
-    parameterName: `/${stage}/ui-auth/cognito_user_pool_id`,
-    stringValue: userPool.userPoolId,
-  });
-  new ssm.StringParameter(scope, "CognitoUserPoolClientIdParameter", {
-    parameterName: `/${stage}/ui-auth/cognito_user_pool_client_id`,
-    stringValue: userPoolClient.userPoolClientId,
-  });
-
-  if (bootstrapUsersFunction) {
     const bootstrapUsersInvoke = new cr.AwsCustomResource(
       scope,
       "InvokeBootstrapUsersFunction",
@@ -333,6 +306,20 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
     );
 
     bootstrapUsersInvoke.node.addDependency(bootstrapUsersFunction);
+  }
+
+  if (!isLocalStack) {
+    const waf = new WafConstruct(
+      scope,
+      "CognitoWafConstruct",
+      { name: `${project}-${stage}-ui-auth` },
+      "REGIONAL"
+    );
+
+    new wafv2.CfnWebACLAssociation(scope, "CognitoUserPoolWAFAssociation", {
+      resourceArn: userPool.userPoolArn,
+      webAclArn: waf.webAcl.attrArn,
+    });
   }
 
   return {

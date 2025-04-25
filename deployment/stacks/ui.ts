@@ -12,7 +12,6 @@ import {
   Aws,
 } from "aws-cdk-lib";
 import { WafConstruct } from "../constructs/waf";
-import { addIamPropertiesToBucketRole } from "../utils/s3";
 import { IManagedPolicy } from "aws-cdk-lib/aws-iam";
 import { isLocalStack } from "../local/util";
 
@@ -164,13 +163,6 @@ export function createUiComponents(props: CreateUiComponentsProps) {
   }
 
   const applicationEndpointUrl = `https://${distribution.distributionDomainName}/`;
-
-  addIamPropertiesToBucketRole(
-    scope,
-    "Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
-    iamPermissionsBoundary.managedPolicyArn,
-    iamPath
-  );
 
   return {
     applicationEndpointUrl,
