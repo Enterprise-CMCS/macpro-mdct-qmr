@@ -104,7 +104,6 @@ export function deployFrontend(props: DeployFrontendProps) {
     }
   );
 
-  console.log(process.env);
   const deployTimeConfig = new s3_deployment.DeployTimeSubstitutedFile(
     scope,
     "DeployTimeConfig",
@@ -113,7 +112,7 @@ export function deployFrontend(props: DeployFrontendProps) {
       destinationKey: "env-config.js",
       source: path.join("./deployment/stacks/", "env-config.template.js"),
       substitutions: {
-        branchName: process.env.BRANCH_NAME!,
+        branchName: process.env.branch_name!,
         attachmentsBucketName,
         apiGatewayRestApiUrl,
         applicationEndpointUrl,

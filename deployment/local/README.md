@@ -65,5 +65,5 @@ awslocal --version
 
 ```sh
 # example of something you'd pop in as YOUR_FUNCTION_NAME => app-api-localstack-getUserById
-awslocal lambda get-function-configuration --function-name app-api-localstack-getPDF --query "Environment.Variables"
+awslocal lambda get-function-configuration --function-name YOUR_FUNCTION_NAME --query "Environment.Variables"
 ```

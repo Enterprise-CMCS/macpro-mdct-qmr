@@ -12,7 +12,7 @@ const region = "us-east-1";
 export async function writeLocalUiEnvFile(apiUrl: string) {
   const envVariables = {
     PROD_URL: "mdctqmr.cms.gov",
-    BRANCH_NAME: process.env.BRANCH_NAME,
+    BRANCH_NAME: "local-branch",
     S3_ATTACHMENTS_BUCKET_REGION: "us-east-1",
     S3_ATTACHMENTS_BUCKET_NAME: process.env.S3_ATTACHMENTS_BUCKET_NAME,
     API_REGION: region,

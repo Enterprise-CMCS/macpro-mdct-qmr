@@ -8,14 +8,15 @@ export interface DeploymentConfigProperties {
   vpcName: string;
   kafkaAuthorizedSubnetIds: string;
   brokerString: string;
-  vpnIpSetArn: string;
-  vpnIpv6SetArn: string;
   mpriamrole: string;
   mprdeviam: string;
   oktaMetadataUrl: string;
   launchDarklyClient: string;
   redirectSignout: string;
   docraptorApiKey: string;
+  bootstrapUsersPassword?: string;
+  vpnIpSetArn?: string;
+  vpnIpv6SetArn?: string;
   cloudfrontCertificateArn?: string;
   cloudfrontDomainName?: string;
   secureCloudfrontDomainName?: string;
@@ -78,8 +79,6 @@ function validateConfig(config: {
     "vpcName",
     "kafkaAuthorizedSubnetIds",
     "brokerString",
-    "vpnIpSetArn",
-    "vpnIpv6SetArn",
     "mpriamrole",
     "mprdeviam",
     "oktaMetadataUrl",

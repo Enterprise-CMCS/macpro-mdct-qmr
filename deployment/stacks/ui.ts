@@ -25,8 +25,8 @@ interface CreateUiComponentsProps {
   iamPath: string;
   cloudfrontCertificateArn?: string;
   cloudfrontDomainName?: string;
-  vpnIpSetArn: string;
-  vpnIpv6SetArn: string;
+  vpnIpSetArn?: string;
+  vpnIpv6SetArn?: string;
 }
 
 export function createUiComponents(props: CreateUiComponentsProps) {
@@ -184,8 +184,8 @@ function setupWaf(
   stage: string,
   project: string,
   isDev: boolean,
-  vpnIpSetArn: string,
-  vpnIpv6SetArn: string
+  vpnIpSetArn?: string,
+  vpnIpv6SetArn?: string
 ) {
   const githubIpSet = new wafv2.CfnIPSet(scope, "GitHubIPSet", {
     name: `${stage}-gh-ipset`,
@@ -195,7 +195,7 @@ function setupWaf(
   });
 
   const wafRules: wafv2.CfnWebACL.RuleProperty[] = [];
-  if (isDev) {
+  if (isDev && vpnIpSetArn && vpnIpv6SetArn) {
     // Additional Rules for this WAF only because CMS asked to have the application made vpn only
     wafRules.push(
       {
