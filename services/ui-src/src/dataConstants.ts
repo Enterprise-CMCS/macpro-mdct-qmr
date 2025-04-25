@@ -15,6 +15,7 @@ export const AMOUNT_OF_POP_NOT_COVERED = "AmountOfPopulationNotCovered";
 export const BUDGET_CONSTRAINTS = "BudgetConstraints";
 export const CASE_MANAGEMENT_RECORD_REVIEW = "Case management record review";
 export const CASE_MANAGEMENT_RECORD_REVIEW_DATA = "Casemanagementrecordreview";
+export const CASE_MANAGEMENT_SYSTEM = "Case Management system";
 export const CATEGORIES = "categories";
 export const CDC = "CDC";
 export const CHANGE_IN_POP_EXPLANATION = "ChangeInPopulationExplanation";
@@ -108,10 +109,14 @@ export const ENTIRE_POP_NOT_COVERED = "EntirePopulationNotCovered";
 export const ELECTRONIC_CLINIC_DATA_SYSTEMS =
   "Electronic Clinical Data Systems (ECDS)";
 export const ELECTRONIC_HEALTH_RECORDS = "Electronic Health Records";
+export const ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY =
+  "Electronic health record (EHR) / personal health registry (PHR)";
 export const EXCLUDE_FROM_OMS = "excludeFromOMS";
 export const EXPLAINATION = "explanation";
 export const FFS = "FFS";
 export const HEALTH_HOME_QUALIFIER_FILE_UPLOAD = "costSavingsFile";
+export const HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY =
+  "Health information exchange (HIE) / clinical registry";
 export const HEDIS_2019 = "HEDIS 2019";
 export const HEDIS_2020 = "HEDIS 2020";
 export const HEDIS_MY_2020 = "HEDIS MY 2020";

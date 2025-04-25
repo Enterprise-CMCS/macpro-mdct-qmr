@@ -19,6 +19,9 @@ export const parseLabelToHTML = (label: string) => {
       return node.textContent!;
     } else if (node instanceof Element) {
       const tagName = node.tagName.toLowerCase();
+
+      if (tagName.includes("<") || tagName.includes(">")) return tagName;
+
       const props = {
         // The random key prevents browser warnings.
         key: uuidv4(),
