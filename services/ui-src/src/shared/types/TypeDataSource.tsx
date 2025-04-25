@@ -38,6 +38,17 @@ export const dataSourceDisplayNames: Record<string, string> = {
   ElectronicHealthRecords: "Electronic Health Record (EHR) Data",
   ElectronicClinicalDataSystemsECDS: "Electronic Clinical Data Systems (ECDS)",
   Casemanagementrecordreview: "Case management record review",
+  ElectronichealthrecordEHRpersonalhealthregistryPHR:
+    "Electronic health record (EHR) / personal health registry (PHR)",
+  HealthinformationexchangeHIEclinicalregistry:
+    "Health information exchange (HIE) / clinical registry",
+  CaseManagementsystem: "Case Management system",
+  MedicaidManagementInformationSystemMMIS:
+    "Medicaid Management Information System (MMIS)",
+  ImmunizationRegistryImmunizationInformationSystemIIS:
+    "Immunization Registry/Immunization Information System (IIS)",
+  ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
+  VitalRecords: "Vital Records",
 };
 
 export const defaultData: DataSourceData = {

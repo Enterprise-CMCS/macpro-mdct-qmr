@@ -126,21 +126,25 @@ export const dataSourceSelections = (
   const dataSourceKey = Object.keys(dataSourceSelections).filter((key) =>
     key.split("-")[0].includes(dataSource)
   );
+
+  //we want only they key for the top layer checkboxes
+  const parentKeys = dataSourceKey.filter((key) => !key.includes("-"));
+
   //use the key ids to obtain the values
-  const dataSourceValue = dataSourceKey.map((key) => dataSourceSelections[key]);
+  const dataSourceValue = parentKeys.map((key) => dataSourceSelections[key]);
 
   if (dataSourceKey && dataSourceKey.length > 0) {
     //if more than one key exist, it is possibly a nested data source
     if (dataSourceKey.length > 1) {
       const dataSources = dataSourceValue
-        .map((item) => item.selected)
+        .map((item) => item.selected ?? item.description)
         .filter(isDefined)
         .flat();
 
       selected.push(
         ...dataSources.map((source) => {
           const sourceKey = dataSourceKey.find((key) => key.includes(source));
-          const formattedSource = formatCamelCaseWithInitialisms(source);
+          const formattedSource = lookupDataSource(source);
           return sourceKey
             ? `${formattedSource} - ${
                 dataSourceSelections[sourceKey]?.description ?? "Not Answered"
@@ -154,9 +158,7 @@ export const dataSourceSelections = (
 
       //either description is null or selected is null, only one will exist on the object
       const value = selectedValue
-        ? (selectedValue as any[]).map((item) =>
-            formatCamelCaseWithInitialisms(item)
-          )
+        ? (selectedValue as any[]).map((item) => lookupDataSource(item))
         : [!!description ? description : "Not Answered"];
 
       selected.push(...value);
@@ -165,13 +167,8 @@ export const dataSourceSelections = (
   return selected;
 };
 
-export const formatCamelCaseWithInitialisms = (str: string) => {
-  let spacedString = str
-    .replace(/([a-z])([A-Z])|(?<!^)([A-Z][a-z])/g, "$1 $2$3")
-    .trim();
-  spacedString = spacedString.replace(/([A-Z]+)(?=[A-Z][a-z]|\s|$)/g, "($1)");
-
-  return spacedString;
+export const lookupDataSource = (str: string) => {
+  return dataSourceDisplayNames[str] ?? str;
 };
 
 const sx = {
