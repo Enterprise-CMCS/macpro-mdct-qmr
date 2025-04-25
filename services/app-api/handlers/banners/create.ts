@@ -4,6 +4,7 @@ import { hasRolePermissions } from "../../libs/authorization";
 import { UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseBannerParameters } from "../../utils/parseParameters";
+import { sanitizeObject } from "../../utils/sanitize/sanitize";
 
 export const createBanner = handler(async (event, _context) => {
   const bannerId = parseBannerParameters(event);
@@ -30,7 +31,7 @@ export const createBanner = handler(async (event, _context) => {
     );
   };
 
-  const payload = JSON.parse(event!.body!);
+  const payload = sanitizeObject(JSON.parse(event!.body!));
   if (!validPayload(payload)) throw new Error(Errors.INVALID_DATA);
   const params: any = {
     TableName: process.env.bannerTableName!,
