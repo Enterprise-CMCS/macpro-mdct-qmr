@@ -21,8 +21,6 @@ interface DeployFrontendProps {
   userPoolId: string;
   userPoolClientId: string;
   userPoolClientDomain: string;
-  iamPermissionsBoundary: iam.IManagedPolicy;
-  iamPath: string;
   customResourceRole: iam.Role;
   launchDarklyClient: string;
   redirectSignout: string;
@@ -40,8 +38,6 @@ export function deployFrontend(props: DeployFrontendProps) {
     userPoolId,
     userPoolClientId,
     userPoolClientDomain,
-    iamPermissionsBoundary,
-    iamPath,
     uiBucket,
     launchDarklyClient,
     redirectSignout,
@@ -59,8 +55,6 @@ export function deployFrontend(props: DeployFrontendProps) {
 
   const deploymentRole = new iam.Role(scope, "BucketDeploymentRole", {
     assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
-    path: iamPath,
-    permissionsBoundary: iamPermissionsBoundary,
     inlinePolicies: {
       InlinePolicy: new iam.PolicyDocument({
         statements: [

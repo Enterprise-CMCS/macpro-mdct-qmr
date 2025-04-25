@@ -23,8 +23,6 @@ interface CreateUiAuthComponentsProps {
   applicationEndpointUrl: string;
   restApiId: string;
   customResourceRole: iam.Role;
-  iamPath: string;
-  iamPermissionsBoundary: IManagedPolicy;
   oktaMetadataUrl: string;
   attachmentsBucketArn: string;
   bootstrapUsersPassword?: string;
@@ -42,8 +40,6 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
     applicationEndpointUrl,
     restApiId,
     customResourceRole,
-    iamPath,
-    iamPermissionsBoundary,
     oktaMetadataUrl,
     attachmentsBucketArn,
     bootstrapUsersPassword,
@@ -168,8 +164,6 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
   );
 
   const cognitoAuthRole = new iam.Role(scope, "CognitoAuthRole", {
-    permissionsBoundary: iamPermissionsBoundary,
-    path: iamPath,
     assumedBy: new iam.FederatedPrincipal(
       "cognito-identity.amazonaws.com",
       {
@@ -229,8 +223,6 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
 
   if (bootstrapUsersPassword) {
     const lambdaApiRole = new iam.Role(scope, "BootstrapUsersLambdaApiRole", {
-      permissionsBoundary: iamPermissionsBoundary,
-      path: iamPath,
       assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
       managedPolicies: [
         iam.ManagedPolicy.fromAwsManagedPolicyName(

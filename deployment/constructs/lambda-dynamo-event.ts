@@ -9,8 +9,6 @@ import { DynamoDBTableIdentifiers } from "../constructs/dynamodb-table";
 
 interface LambdaDynamoEventProps
   extends Partial<lambda_nodejs.NodejsFunctionProps> {
-  iamPath: string;
-  iamPermissionsBoundary: iam.IManagedPolicy;
   stackName: string;
   tables: DynamoDBTableIdentifiers[];
   additionalPolicies?: iam.PolicyStatement[];
@@ -27,8 +25,6 @@ export class LambdaDynamoEventSource extends Construct {
       handler,
       memorySize = 1024,
       tables,
-      iamPermissionsBoundary,
-      iamPath,
       stackName,
       timeout = Duration.seconds(6),
       additionalPolicies = [],
@@ -42,8 +38,6 @@ export class LambdaDynamoEventSource extends Construct {
           "service-role/AWSLambdaVPCAccessExecutionRole"
         ),
       ],
-      permissionsBoundary: iamPermissionsBoundary,
-      path: iamPath,
       inlinePolicies: {
         LambdaPolicy: new iam.PolicyDocument({
           statements: [

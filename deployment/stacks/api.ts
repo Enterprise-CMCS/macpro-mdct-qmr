@@ -27,8 +27,6 @@ interface CreateApiComponentsProps {
   kafkaAuthorizedSubnets: ec2.ISubnet[];
   tables: DynamoDBTableIdentifiers[];
   brokerString: string;
-  iamPermissionsBoundary: iam.IManagedPolicy;
-  iamPath: string;
   docraptorApiKey: string;
 }
 
@@ -42,8 +40,6 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     kafkaAuthorizedSubnets,
     tables,
     brokerString,
-    iamPermissionsBoundary,
-    iamPath,
     docraptorApiKey,
   } = props;
 
@@ -139,8 +135,6 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     api,
     environment,
     additionalPolicies,
-    iamPermissionsBoundary,
-    iamPath,
   };
 
   // Api endpoints

@@ -18,8 +18,6 @@ import { DynamoDBTableIdentifiers } from "../constructs/dynamodb-table";
 interface createUploadsComponentsProps {
   scope: Construct;
   stage: string;
-  iamPermissionsBoundary: iam.IManagedPolicy;
-  iamPath: string;
   isDev: boolean;
   mpriamrole: string;
   mprdeviam: string;
@@ -27,16 +25,7 @@ interface createUploadsComponentsProps {
 }
 
 export function createUploadsComponents(props: createUploadsComponentsProps) {
-  const {
-    scope,
-    stage,
-    iamPermissionsBoundary,
-    iamPath,
-    isDev,
-    mpriamrole,
-    mprdeviam,
-    tables,
-  } = props;
+  const { scope, stage, isDev, mpriamrole, mprdeviam, tables } = props;
   const service = "uploads";
 
   const bucketEncryptionKey = new kms.Key(scope, "BucketEncryptionKMSKey", {
@@ -185,12 +174,6 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     enforceSSL: true,
   });
 
-  const commonProps = {
-    stackName: `${service}-${stage}`,
-    iamPermissionsBoundary,
-    iamPath,
-  };
-
   const useKmsStatement = new iam.PolicyStatement({
     effect: iam.Effect.ALLOW,
     actions: [
@@ -226,7 +209,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     handler: "syncDynamoToS3",
     timeout: Duration.minutes(2),
     memorySize: 4096,
-    ...commonProps,
+    stackName: `${service}-${stage}`,
     environment: {
       DYNAMO_BUCKET_NAME: dynamoBucket.bucketName,
       ...Object.fromEntries(
@@ -273,7 +256,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     memorySize: 3072,
     timeout: Duration.minutes(5),
     layers: [clamAvLayer],
-    ...commonProps,
+    stackName: `${service}-${stage}`,
     environment: {
       CLAMAV_BUCKET_NAME: clamDefsBucket.bucketName,
     },
@@ -298,7 +281,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
       memorySize: 3072,
       timeout: Duration.minutes(5),
       layers: [clamAvLayer],
-      ...commonProps,
+      stackName: `${service}-${stage}`,
       environment: {
         CLAMAV_BUCKET_NAME: clamDefsBucket.bucketName,
       },

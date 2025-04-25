@@ -20,8 +20,6 @@ import { isLocalStack } from "../local/util";
 interface LambdaProps extends Partial<NodejsFunctionProps> {
   handler: string;
   stackName: string;
-  iamPermissionsBoundary: IManagedPolicy;
-  iamPath: string;
   timeout?: Duration;
   memorySize?: number;
   api?: apigateway.RestApi;
@@ -54,8 +52,6 @@ export class Lambda extends Construct {
           "service-role/AWSLambdaVPCAccessExecutionRole"
         ),
       ],
-      permissionsBoundary: props.iamPermissionsBoundary,
-      path: props.iamPath,
       inlinePolicies: {
         LambdaPolicy: new PolicyDocument({
           statements: [

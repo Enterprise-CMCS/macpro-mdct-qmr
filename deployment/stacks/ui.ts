@@ -20,8 +20,6 @@ interface CreateUiComponentsProps {
   stage: string;
   project: string;
   isDev: boolean;
-  iamPermissionsBoundary: IManagedPolicy;
-  iamPath: string;
   cloudfrontCertificateArn?: string;
   cloudfrontDomainName?: string;
   vpnIpSetArn?: string;
@@ -34,8 +32,6 @@ export function createUiComponents(props: CreateUiComponentsProps) {
     stage,
     project,
     isDev,
-    iamPermissionsBoundary,
-    iamPath,
     cloudfrontCertificateArn,
     cloudfrontDomainName,
     vpnIpSetArn,
