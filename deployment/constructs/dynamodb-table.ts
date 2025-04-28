@@ -6,6 +6,7 @@ interface DynamoDBTableProps {
   readonly stage: string;
   readonly isDev: boolean;
   readonly name: string;
+  readonly streamable?: boolean;
   readonly partitionKey: { name: string; type: dynamodb.AttributeType };
   readonly sortKey?: { name: string; type: dynamodb.AttributeType };
   readonly lsi?: {
@@ -35,7 +36,16 @@ export class DynamoDBTable extends Construct {
 
   constructor(scope: Construct, id: string, props: DynamoDBTableProps) {
     super(scope, id);
-    const { stage, isDev, name, partitionKey, sortKey, lsi, gsi } = props;
+    const {
+      stage,
+      isDev,
+      name,
+      partitionKey,
+      sortKey,
+      lsi,
+      gsi,
+      streamable = true,
+    } = props;
 
     const tableName = `${stage}-${name}`;
     this.table = new dynamodb.Table(this, "Table", {
@@ -43,7 +53,7 @@ export class DynamoDBTable extends Construct {
       partitionKey: partitionKey,
       sortKey: sortKey,
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
+      ...(streamable && { stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES }),
       pointInTimeRecoverySpecification: {
         pointInTimeRecoveryEnabled: true,
       },

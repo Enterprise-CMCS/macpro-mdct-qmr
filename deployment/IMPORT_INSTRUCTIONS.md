@@ -7,6 +7,7 @@ rm -rf node_modules
 yarn install
 ./run update-env
 # COMMENT OUT all of .env file except SERVERLESS_LICENSE_KEY
+# COMMENT OUT all of services/ui-src/.env file
 ./run deploy --stage <YOUR_BRANCH_NAME>
 
 # CloudfrontLogBucket.BucketName -

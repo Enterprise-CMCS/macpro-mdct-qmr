@@ -16,6 +16,7 @@ export function createDataComponents(props: CreateDataComponentsProps) {
       stage,
       isDev,
       name: "banners",
+      streamable: false,
       partitionKey: { name: "key", type: dynamodb.AttributeType.STRING },
     }).identifiers,
     new DynamoDBTable(scope, "Measures", {
