@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { aws_dynamodb as dynamodb, aws_s3 as s3, Tags } from "aws-cdk-lib";
+import { aws_dynamodb as dynamodb } from "aws-cdk-lib";
 import { DynamoDBTable } from "../../constructs/dynamodb-table";
 
 interface CreateDataComponentsProps {
@@ -51,5 +51,4 @@ export function createDataComponents(props: CreateDataComponentsProps) {
       sortKey: { name: "measure", type: dynamodb.AttributeType.STRING },
     }),
   ];
-  tables.forEach((table) => Tags.of(table).add("SERVICE", service));
 }

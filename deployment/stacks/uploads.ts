@@ -7,7 +7,6 @@ import {
   aws_iam as iam,
   aws_events as events,
   aws_events_targets as targets,
-  CfnOutput,
   Duration,
   RemovalPolicy,
   Aws,

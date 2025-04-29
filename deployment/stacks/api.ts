@@ -4,8 +4,6 @@ import {
   aws_ec2 as ec2,
   aws_iam as iam,
   aws_logs as logs,
-  aws_s3 as s3,
-  aws_s3_notifications as s3notifications,
   aws_wafv2 as wafv2,
   CfnOutput,
   Duration,

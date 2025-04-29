@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { aws_cognito as cognito, RemovalPolicy, Tags } from "aws-cdk-lib";
+import { aws_cognito as cognito, RemovalPolicy } from "aws-cdk-lib";
 
 interface CreateUiAuthComponentsProps {
   scope: Construct;

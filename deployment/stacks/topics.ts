@@ -1,4 +1,3 @@
-// fix this!
 import { Construct } from "constructs";
 import {
   aws_ec2 as ec2,

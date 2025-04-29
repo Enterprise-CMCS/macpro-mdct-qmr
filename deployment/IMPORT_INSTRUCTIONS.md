@@ -27,13 +27,12 @@ yarn install
 ```sh
 rm -rf node_modules
 yarn install
-rm -rf .env
+./run update-env
 ./run deploy-prerequisites
 IMPORT_VARIANT=empty ./run deploy --stage <YOUR_BRANCH_NAME>
 IMPORT_VARIANT=imports_included PROJECT=qmr yarn cdk import --context stage=<YOUR_BRANCH_NAME> --force
 IMPORT_VARIANT=imports_included ./run deploy --stage <YOUR_BRANCH_NAME>
 ./run deploy --stage <YOUR_BRANCH_NAME>
-./run update-env
 ```
 
 Once final deploy is done, KMS key should have correct policy with an old lingering policy statement that can be removed. It is the one that has exactly 3 principals listed.
