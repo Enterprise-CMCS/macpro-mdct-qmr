@@ -234,6 +234,7 @@ resources:
     ###############This code block enables logging on waf and sends all logs to s3.##################################
     WaflogsUploadBucket:
       Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
       Properties:
         BucketName: !Sub ${AWS::AccountId}-${self:service}-${self:custom.stage}-waflogs
         BucketEncryption:
@@ -249,6 +250,7 @@ resources:
           Status: Enabled
     WaflogsUploadBucketPolicy:
       Type: "AWS::S3::BucketPolicy"
+      DeletionPolicy: Retain
       Properties:
         PolicyDocument:
           Version: "2012-10-17"
