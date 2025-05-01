@@ -489,22 +489,6 @@ export const data = {
                 "id": "VxUjMm",
                 "excludeFromOMS": true
             },
-            {
-                "label": "Combo 3",
-                "text": "Combo 3",
-                "id": "aI8KQ7"
-            },
-            {
-                "label": "Combo 7",
-                "text": "Combo 7",
-                "id": "xOvucQ",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Combo 10",
-                "text": "Combo 10",
-                "id": "UwzvFc"
-            }
         ],
         "categories": [{"id":"u7wDB2", "label": "", "text":""}]
     },
