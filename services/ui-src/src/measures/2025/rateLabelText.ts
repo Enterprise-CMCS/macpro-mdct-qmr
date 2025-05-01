@@ -318,8 +318,8 @@ export const data = {
     "CCS-AD": {
         "qualifiers": [
             {
-                "label": "Percentage of women ages 21 to 64 screened",
-                "text": "Percentage of women ages 21 to 64 screened",
+                "label": "Percentage of beneficiaries ages 21 to 64 screened",
+                "text": "Percentage of beneficiaries ages 21 to 64 screened",
                 "id": "VZUrlc"
             }
         ],
