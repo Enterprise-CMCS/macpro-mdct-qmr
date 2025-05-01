@@ -9,7 +9,7 @@ export const data: MeasureTemplateData = {
   coreset: "adult",
   performanceMeasure: {
     questionText: [
-      "Percentage of women ages 50 to 74 who had a mammogram to screen for breast cancer.",
+      "Percentage of beneficiaries ages 50 to 74 who were recommended for routine breast cancer screening and had a mammogram to screen for breast cancer.",
     ],
     questionListItems: [],
     categories,
@@ -19,18 +19,6 @@ export const data: MeasureTemplateData = {
     optionsLabel:
       "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
     options: [
-      {
-        value: DC.ADMINISTRATIVE_DATA,
-        subOptions: [
-          {
-            label: "What is the Administrative Data Source?",
-            options: [
-              { value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM },
-              { value: DC.ADMINISTRATIVE_DATA_OTHER, description: true },
-            ],
-          },
-        ],
-      },
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
         subOptions: [
