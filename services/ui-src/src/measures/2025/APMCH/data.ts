@@ -14,7 +14,7 @@ export const data: MeasureTemplateData = {
     questionListItems: [
       "The percentage of children and adolescents on antipsychotics who received blood glucose testing",
       "The percentage of children and adolescents on antipsychotics who received cholesterol testing",
-      "The ercentage of children and adolescents on antipsychotics who received blood glucose and cholesterol testing",
+      "The percentage of children and adolescents on antipsychotics who received blood glucose and cholesterol testing",
     ],
     categories,
     qualifiers,
