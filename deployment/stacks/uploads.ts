@@ -87,6 +87,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
+    autoDeleteObjects: isDev,
     versioned: true,
     enforceSSL: true,
     cors: [
@@ -159,6 +160,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
+    autoDeleteObjects: isDev,
     versioned: true,
     enforceSSL: true,
   });
@@ -166,7 +168,8 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
   const clamDefsBucket = new s3.Bucket(scope, "ClamDefsBucket", {
     bucketName: `${service}-${stage}-avscan-${Aws.ACCOUNT_ID}`,
     encryption: s3.BucketEncryption.S3_MANAGED,
-    removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
+    removalPolicy: RemovalPolicy.DESTROY,
+    autoDeleteObjects: true,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     accessControl: s3.BucketAccessControl.PRIVATE,
     versioned: true,
