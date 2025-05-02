@@ -10,7 +10,7 @@ export const data: MeasureTemplateData = {
   hybridMeasure: true,
   performanceMeasure: {
     questionText: [
-      "Percentage of children age 2 who had four diphtheria, tetanus and acellular pertussis (DTaP); three polio (IPV); one measles, mumps and rubella (MMR); three haemophilus influenza type B (HiB); three hepatitis B (Hep B), one chicken pox (VZV); four pneumococcal conjugate (PCV); one hepatitis A (HepA); two or three rotavirus (RV); and two influenza (flu) vaccines by their second birthday. The measure calculates a rate for each vaccine and three combination rates.",
+      "The percentage of beneficiaries age 19 and older who are up to date on recommended routine vaccines for influenza, tetanus and diphtheria (Td) or tetanus, diphtheria and acellular pertussis (Tdap), zoster and pneumococcal.",
     ],
     questionListItems: [],
     categories,
