@@ -22,7 +22,7 @@ const MSCADValidation = (data: DefaultFormData) => {
   }
 
   //if user didn't fill out collect this measure
-  if (data[DC.DID_COLLECT] === undefined) {
+  if (data[DC.DID_COLLECT] === undefined && data[DC.DID_REPORT] === "no") {
     errorArray = [...GV.validateCollecting(data)];
     return errorArray;
   }
@@ -34,6 +34,7 @@ const MSCADValidation = (data: DefaultFormData) => {
 
   errorArray = [
     ...errorArray,
+    ...GV.validateCollecting(data),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
