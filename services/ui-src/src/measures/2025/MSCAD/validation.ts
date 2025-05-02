@@ -21,6 +21,12 @@ const MSCADValidation = (data: DefaultFormData) => {
     return errorArray;
   }
 
+  //if user didn't fill out collect this measure but filled out the question below it
+  if (data[DC.DID_COLLECT] === undefined && data[DC.DID_REPORT] === "no") {
+    errorArray = [...GV.validateCollecting(data)];
+    return errorArray;
+  }
+
   // this prevents all the errors for filling out form to show up
   if (data[DC.DID_REPORT] === "no") {
     return [];
