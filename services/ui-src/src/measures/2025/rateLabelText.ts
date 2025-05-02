@@ -1607,38 +1607,14 @@ export const data = {
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 6 to 7",
-                "text": "Ages 6 to 7",
+                "label": "Ages 6 to 14",
+                "text": "Ages 6 to 14",
                 "id": "zcbPe0",
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 8 to 9",
-                "text": "Ages 8 to 9",
-                "id": "OdDTxr",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 10 to 11",
-                "text": "Ages 10 to 11",
-                "id": "Cjw7GS",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 12 to 14",
-                "text": "Ages 12 to 14",
-                "id": "muOeEP",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 15 to 18",
-                "text": "Ages 15 to 18",
-                "id": "fbpAPY",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 19 to 20",
-                "text": "Ages 19 to 20",
+                "label": "Ages 15 to 20",
+                "text": "Ages 15 to 20",
                 "id": "a6okZM",
                 "excludeFromOMS": true
             },
