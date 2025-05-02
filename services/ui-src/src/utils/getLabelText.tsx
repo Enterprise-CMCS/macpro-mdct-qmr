@@ -11,6 +11,7 @@ export interface LabelData {
   label: string;
   text: string;
   id: string;
+  excludeFromIds?: string[]; //currently used to hide qualifiers from some categories
 }
 
 const yearMap: { [id: string]: any } = {

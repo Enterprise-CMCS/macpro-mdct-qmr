@@ -69,11 +69,17 @@ const CategoryNdrSets = ({
   return (
     <>
       {categories.map((cat) => {
-        let rates: QMR.IRate[] | undefined = qualifiers?.map((qual, idx) => ({
-          label: qual.label,
-          uid: isLegacyLabel() ? undefined : cat.id + "." + qual.id,
-          id: idx,
-        }));
+        let rates: QMR.IRate[] | undefined = qualifiers
+          ?.map((qual, idx) =>
+            qual.excludeFromIds?.includes(cat.id)
+              ? undefined
+              : {
+                  label: qual.label,
+                  uid: isLegacyLabel() ? undefined : cat.id + "." + qual.id,
+                  id: idx,
+                }
+          )
+          .filter((rate) => rate != undefined);
 
         rates = rates?.length ? rates : [{ id: 0 }];
 

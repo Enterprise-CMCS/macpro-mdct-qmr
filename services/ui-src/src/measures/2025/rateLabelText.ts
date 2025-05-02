@@ -87,10 +87,17 @@ export const data = {
                 "label": "Age 19 to 65",
                 "text": "Age 19 to 65",
                 "id": "xz7TUf",
+                "excludeFromIds": ["HCnSrs", "B4SxBy"]
             },
             {
-                "label": "Age 65 and older",
-                "text": "Age 65 and older",
+                "label": "Age 50 to 65",
+                "text": "Age 50 to 65",
+                "id": "Fmvnxp",
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy"]
+            },
+            {
+                "label": "Age 66 and older",
+                "text": "Age 66 and older",
                 "id": "VooeEU",
             },
         ],
