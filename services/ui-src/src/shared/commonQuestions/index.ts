@@ -8,6 +8,7 @@ export * from "shared/commonQuestions/DeviationFromMeasureSpecificationTextField
 export * from "shared/commonQuestions/DeviationFromMeasureSpecificationCheckboxes";
 export * from "shared/commonQuestions/MeasurementSpecification";
 export * from "shared/commonQuestions/OptionalMeasureStrat";
+export * from "shared/commonQuestions/NewOptionalMeasureStrat";
 export * from "shared/commonQuestions/OtherPerformanceMeasure";
 export * from "shared/commonQuestions/PerformanceMeasure/index";
 export * from "shared/commonQuestions/Reporting";
