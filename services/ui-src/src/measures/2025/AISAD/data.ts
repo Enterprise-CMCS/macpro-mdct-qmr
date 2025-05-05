@@ -6,7 +6,7 @@ export const { categories, qualifiers } = getCatQualLabels("AIS-AD");
 
 export const data: MeasureTemplateData = {
   type: "HEDIS",
-  coreset: "child",
+  coreset: "adult",
   hybridMeasure: true,
   performanceMeasure: {
     questionText: [

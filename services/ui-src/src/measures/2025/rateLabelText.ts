@@ -84,14 +84,14 @@ export const data = {
     "AIS-AD": {
         "qualifiers": [
             {
-                "label": "Age 19 to 65",
-                "text": "Age 19 to 65",
+                "label": "Ages 19 to 65",
+                "text": "Ages 19 to 65",
                 "id": "xz7TUf",
                 "excludeFromIds": ["HCnSrs", "B4SxBy"]
             },
             {
-                "label": "Age 50 to 65",
-                "text": "Age 50 to 65",
+                "label": "Ages 50 to 65",
+                "text": "Ages 50 to 65",
                 "id": "Fmvnxp",
                 "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy"]
             },
