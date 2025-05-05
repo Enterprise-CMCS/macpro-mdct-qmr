@@ -22,6 +22,27 @@ const PRSADValidation = (data: FormData) => {
     errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
     return errorArray;
   }
+
+  let unfilteredSameDenominatorErrors: any[] = [];
+  for (let i = 0; i < performanceMeasureArray.length; i += 2) {
+    unfilteredSameDenominatorErrors = [
+      ...unfilteredSameDenominatorErrors,
+      ...GV.validateEqualQualifierDenominatorsPM(
+        [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
+        ageGroups
+      ),
+    ];
+  }
+
+  let filteredSameDenominatorErrors: any = [];
+  let errorList: string[] = [];
+  unfilteredSameDenominatorErrors.forEach((error) => {
+    if (!(errorList.indexOf(error.errorMessage) > -1)) {
+      errorList.push(error.errorMessage);
+      filteredSameDenominatorErrors.push(error);
+    }
+  });
+
   errorArray = [
     ...errorArray,
     ...GV.validateAtLeastOneRateComplete(
@@ -45,6 +66,8 @@ const PRSADValidation = (data: FormData) => {
       didCalculationsDeviate,
       deviationReason
     ),
+    ...filteredSameDenominatorErrors,
+    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -57,6 +80,11 @@ const PRSADValidation = (data: FormData) => {
       validationCallbacks: [
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS(),
+        GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
+        GV.validateOMSTotalNDR(),
+        GV.validateEqualQualifierDenominatorsOMS(),
       ],
     }),
   ];
