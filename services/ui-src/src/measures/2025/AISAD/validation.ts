@@ -21,6 +21,14 @@ const AISADValidation = (data: FormData) => {
     return errorArray;
   }
 
+  //Influenza & Td/Tdap, age group Age 19 to 65
+  const categoryGroup1 = ["VZ0nYO", "2Bh7J8"];
+  const ageGroup1 = ["xz7TUf", "VooeEU"];
+
+  //Zoster & Pneumococcal, age group Age 66 and older
+  const categoryGroup2 = ["HCnSrs", "B4SxBy"];
+  const ageGroup2 = ["VooeEU"];
+
   errorArray = [
     ...errorArray,
     ...GV.omsValidations({
@@ -37,6 +45,14 @@ const AISADValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateNotZeroOMS(),
         GV.validateRateZeroOMS(),
+        GV.validateEqualQualifierOfCategoryDenominatorsOMS(
+          PMD.categories.filter((cat) => categoryGroup1.includes(cat.id)),
+          ageGroups.filter((age) => ageGroup1.includes(age.id))
+        ),
+        GV.validateEqualQualifierOfCategoryDenominatorsOMS(
+          PMD.categories.filter((cat) => categoryGroup2.includes(cat.id)),
+          ageGroups.filter((age) => ageGroup2.includes(age.id))
+        ),
       ],
     }),
     ...GV.validateDeviationTextFieldFilled(
@@ -60,7 +76,16 @@ const AISADValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateEqualCategoryDenominatorsPM(data, PMD.categories, ageGroups),
+    ...GV.validateEqualQualifierOfCategoryDenominatorsPM(
+      data,
+      PMD.categories.filter((cat) => categoryGroup1.includes(cat.id)),
+      ageGroups.filter((age) => ageGroup1.includes(age.id))
+    ),
+    ...GV.validateEqualQualifierOfCategoryDenominatorsPM(
+      data,
+      PMD.categories.filter((cat) => categoryGroup2.includes(cat.id)),
+      ageGroups.filter((age) => ageGroup2.includes(age.id))
+    ),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
     ...GV.validateDateRangeRadioButtonCompletion(data),
