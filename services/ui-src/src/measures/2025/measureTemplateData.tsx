@@ -166,6 +166,9 @@ import { validationFunctions as PQI08AD_Validations } from "./PQI08AD/validation
 import { data as PQI15AD_Data } from "./PQI15AD/data";
 import { validationFunctions as PQI15AD_Validations } from "./PQI15AD/validation";
 
+import { data as PRSAD_Data } from "./PRSAD/data";
+import { validationFunctions as PRSAD_Validations } from "./PRSAD/validation";
+
 import { data as SAAAD_Data } from "./SAAAD/data";
 import { validationFunctions as SAAAD_Validations } from "./SAAAD/validation";
 
@@ -244,6 +247,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "PQI05-AD": { data: PQI05AD_Data, validationFunctions: PQI05AD_Validations },
   "PQI08-AD": { data: PQI08AD_Data, validationFunctions: PQI08AD_Validations },
   "PQI15-AD": { data: PQI15AD_Data, validationFunctions: PQI15AD_Validations },
+  "PRS-AD": { data: PRSAD_Data, validationFunctions: PRSAD_Validations },
   "SAA-AD": { data: SAAAD_Data, validationFunctions: SAAAD_Validations },
   "SFM-CH": { data: SFMCH_Data, validationFunctions: SFMCH_Validations },
   "SSD-AD": { data: SSDAD_Data, validationFunctions: SSDAD_Validations },

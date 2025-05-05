@@ -110,7 +110,7 @@ const twentyTwentyFiveMeasures = {
   "PQI05-AD": measureTemplate,
   "PQI08-AD": measureTemplate,
   "PQI15-AD": measureTemplate,
-  // "PRS-AD": measureTemplate, //TO DO: replace with real measure
+  "PRS-AD": measureTemplate,
   "SAA-AD": measureTemplate,
   "SFM-CH": measureTemplate,
   "SSD-AD": measureTemplate,
