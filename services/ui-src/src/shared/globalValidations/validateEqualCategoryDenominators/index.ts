@@ -21,12 +21,9 @@ const _validation: UVF = ({
   const locationArray: string[] = [];
   const denominatorArray: string[] = [];
 
-  const qualifierIds = qualifiers?.map((qual) => qual.id);
-
   for (const [i, rateSet] of rateData.entries()) {
     for (const [j, rate] of rateSet.entries()) {
-      const rateQualId = rate.uid?.split(".")[1];
-      if (rate && rate.denominator && qualifierIds?.includes(rateQualId!)) {
+      if (rate && rate.denominator) {
         denominatorArray.push(rate.denominator);
         locationArray.push(
           !!categories?.length &&
