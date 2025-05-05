@@ -58,6 +58,7 @@ export const validateEqualQualifierOfCategoryDenominatorsOMS =
     });
   };
 
+/** Checks that qualifiers of type in a category has the same denominator. NOTE: This validation was added in 2025 so it doesn't handle legacy rates  */
 export const validateEqualQualifierOfCategoryDenominatorsPM = (
   data: Types.PerformanceMeasure,
   categories: LabelData[],
