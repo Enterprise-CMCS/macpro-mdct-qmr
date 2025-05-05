@@ -623,9 +623,14 @@ export const data = {
     "EDV-AD": {
         "qualifiers": [
             {
-                "label": "",
-                "text": "",
+                "label": "Ages 18 to 64",
+                "text": "Ages 18 to 64",
                 "id": "v8WDHi",
+            },
+            {
+                "label": "Age 65 and older",
+                "text": "Age 65 and older",
+                "id": "wfUxHA",
             },
         ],
         "categories": [{"id":"EXQjVl", "label": "", "text":""}]
