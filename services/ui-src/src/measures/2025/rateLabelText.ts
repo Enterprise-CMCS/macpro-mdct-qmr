@@ -81,6 +81,47 @@ export const data = {
         ],
         "categories": [{"id":"ZyxRR5", "label": "", "text":""}]
     },
+    "AIS-AD": {
+        "qualifiers": [
+            {
+                "label": "Ages 19 to 65",
+                "text": "Ages 19 to 65",
+                "id": "xz7TUf",
+                "excludeFromIds": ["HCnSrs", "B4SxBy"]
+            },
+            {
+                "label": "Ages 50 to 65",
+                "text": "Ages 50 to 65",
+                "id": "Fmvnxp",
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy"]
+            },
+            {
+                "label": "Age 66 and older",
+                "text": "Age 66 and older",
+                "id": "VooeEU",
+            },
+        ],
+        "categories": [{
+            "label": "Influenza",
+            "text": "Influenza",
+            "id": "VZ0nYO",
+        },
+        {
+            "label": "Td/Tdap",
+            "text": "Td/Tdap",
+            "id": "2Bh7J8",
+        },
+        {
+            "label": "Zoster",
+            "text": "Zoster",
+            "id": "HCnSrs"
+        },
+        {
+            "label": "Pneumococcal",
+            "text": "Pneumococcal",
+            "id": "B4SxBy",
+        }]
+    },
     "AMM-AD": {
         "qualifiers": [
             {

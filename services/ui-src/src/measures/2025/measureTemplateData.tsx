@@ -10,6 +10,9 @@ import { validationFunctions as ADDCH_Validations } from "./ADDCH/validation";
 import { data as AIFHH_Data } from "./AIFHH/data";
 import { validationFunctions as AIFHH_Validations } from "./AIFHH/validation";
 
+import { data as AISAD_Data } from "./AISAD/data";
+import { validationFunctions as AISAD_Validations } from "./AISAD/validation";
+
 import { data as AMMAD_Data } from "./AMMAD/data";
 import { validationFunctions as AMMAD_Validations } from "./AMMAD/validation";
 
@@ -192,6 +195,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "AAB-CH": { data: AABCH_Data, validationFunctions: AABCH_Validations },
   "ADD-CH": { data: ADDCH_Data, validationFunctions: ADDCH_Validations },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: AIFHH_Validations },
+  "AIS-AD": { data: AISAD_Data, validationFunctions: AISAD_Validations },
   "AMM-AD": { data: AMMAD_Data, validationFunctions: AMMAD_Validations },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: AMRCH_Validations },
   "APM-CH": { data: APMCH_Data, validationFunctions: APMCH_Validations },
