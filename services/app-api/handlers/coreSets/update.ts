@@ -28,7 +28,7 @@ export const editCoreSet = handler(async (event, context) => {
   const { submitted, status } = JSON.parse(event!.body!);
   const lastAlteredBy = getUserNameFromJwt(event);
   const params = {
-    TableName: process.env.coreSetTable!,
+    TableName: process.env.QualityCoreSetsTable!,
     Key: {
       compoundKey: `${state}${year}`,
       coreSet: coreSet,

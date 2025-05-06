@@ -623,9 +623,14 @@ export const data = {
     "EDV-AD": {
         "qualifiers": [
             {
-                "label": "",
-                "text": "",
+                "label": "Ages 18 to 64",
+                "text": "Ages 18 to 64",
                 "id": "v8WDHi",
+            },
+            {
+                "label": "Age 65 and older",
+                "text": "Age 65 and older",
+                "id": "wfUxHA",
             },
         ],
         "categories": [{"id":"EXQjVl", "label": "", "text":""}]
@@ -1208,15 +1213,9 @@ export const data = {
     "OEV-CH": {
         "qualifiers": [
             {
-                "label": "Age <1",
-                "text": "Age <1",
+                "label": "Age < 3",
+                "text": "Age < 3",
                 "id": "cJpLzk",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 1 to 2",
-                "text": "Ages 1 to 2",
-                "id": "lUpXnj",
                 "excludeFromOMS": true
             },
             {
@@ -1226,44 +1225,20 @@ export const data = {
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 6 to 7",
-                "text": "Ages 6 to 7",
+                "label": "Ages 6 to 14",
+                "text": "Ages 6 to 14",
                 "id": "HQtz8Q",
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 8 to 9",
-                "text": "Ages 8 to 9",
-                "id": "lw6tF8",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 10 to 11",
-                "text": "Ages 10 to 11",
-                "id": "iS0hVY",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 12 to 14",
-                "text": "Ages 12 to 14",
-                "id": "OAxju0",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 15 to 18",
-                "text": "Ages 15 to 18",
+                "label": "Ages 15 to 20",
+                "text": "Ages 15 to 20",
                 "id": "0B13E5",
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 19 to 20",
-                "text": "Ages 19 to 20",
-                "id": "2v1LvP",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Total ages <1 to 20 (required rate)",
-                "text": "Total ages <1 to 20 (required rate)",
+                "label": "Total (< Age 21) (required rate)",
+                "text": "Total (< Age 21) (required rate)",
                 "id": "Total"
             }
         ],
@@ -1272,8 +1247,8 @@ export const data = {
     "OEVP-AD": {
         "qualifiers": [
             {
-                "label": "",
-                "text": "",
+                "label": "Ages 21 to 44",
+                "text": "Ages 21 to 44",
                 "id": "wnh2qA",
             },
         ],
@@ -1622,38 +1597,14 @@ export const data = {
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 6 to 7",
-                "text": "Ages 6 to 7",
+                "label": "Ages 6 to 14",
+                "text": "Ages 6 to 14",
                 "id": "zcbPe0",
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 8 to 9",
-                "text": "Ages 8 to 9",
-                "id": "OdDTxr",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 10 to 11",
-                "text": "Ages 10 to 11",
-                "id": "Cjw7GS",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 12 to 14",
-                "text": "Ages 12 to 14",
-                "id": "muOeEP",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 15 to 18",
-                "text": "Ages 15 to 18",
-                "id": "fbpAPY",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 19 to 20",
-                "text": "Ages 19 to 20",
+                "label": "Ages 15 to 20",
+                "text": "Ages 15 to 20",
                 "id": "a6okZM",
                 "excludeFromOMS": true
             },

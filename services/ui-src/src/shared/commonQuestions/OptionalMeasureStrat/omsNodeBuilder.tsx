@@ -1,5 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 import { OmsNode } from "shared/types";
 
@@ -161,6 +162,12 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     return <NDRSets name={`${props.name}.rateData`} />;
   }
 
+  //a flag added in 2025, if it's turned off, it'll hide [+Add Another Sex] button
+  const sogiFlag =
+    useFlags()?.["sogi-stratification-options"] &&
+    props.id === "O8BrOa" &&
+    props.year! >= 2025;
+
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       <QMR.Checkbox
@@ -182,7 +189,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           }),
         ]}
       />
-      {props.addMore && (
+      {props.addMore && (props.id !== "O8BrOa" || sogiFlag) && (
         <AddAnotherSection
           name={props.name}
           flagSubCat

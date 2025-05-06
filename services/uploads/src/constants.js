@@ -17,7 +17,7 @@
 
 // Various paths and application names on S3
 const CLAMAV_BUCKET_NAME = process.env.CLAMAV_BUCKET_NAME;
-const PATH_TO_AV_DEFINITIONS = process.env.PATH_TO_AV_DEFINITIONS;
+const PATH_TO_AV_DEFINITIONS = "lambda/s3-antivirus/av-definitions";
 const PATH_TO_FRESHCLAM = "/opt/bin/freshclam";
 const PATH_TO_CLAMAV = "/opt/bin/clamscan";
 const FRESHCLAM_CONFIG = "/opt/bin/freshclam.conf";
