@@ -11,7 +11,13 @@ export interface LabelData {
   label: string;
   text: string;
   id: string;
-  excludeFromIds?: string[]; //currently used to hide qualifiers from some categories
+  /**
+   * We use this to hide certain qualifiers from certain categories.
+   *
+   * For example, in AIS-AD, we don't ask about the Zoster vaccine
+   * for the 19-65 age group.
+   */
+  excludeFromIds?: string[];
 }
 
 const yearMap: { [id: string]: any } = {
