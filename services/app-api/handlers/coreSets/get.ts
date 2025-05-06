@@ -14,7 +14,7 @@ import {
   parseCoreSetParameters,
 } from "../../utils/parseParameters";
 
-export const coreSetList = handler(async (event, context) => {
+export const getAllCoreSets = handler(async (event, context) => {
   const { allParamsValid, state, year } = parseStateAndYearParameters(event);
   if (!allParamsValid) {
     return {
@@ -35,7 +35,7 @@ export const coreSetList = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const params = {
-    TableName: process.env.coreSetTable!,
+    TableName: process.env.QualityCoreSetsTable!,
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
       ":compoundKey": `${state}${year}`,
@@ -120,7 +120,7 @@ export const getCoreSet = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const params = {
-    TableName: process.env.coreSetTable!,
+    TableName: process.env.QualityCoreSetsTable!,
     Key: {
       compoundKey: `${state}${year}`,
       coreSet: coreSet,

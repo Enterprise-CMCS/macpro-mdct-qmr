@@ -26,7 +26,7 @@ export const main = async () => {
 
     const allExistingRates = await dynamodbLib.scanAll<CombinedRatesTableEntry>(
       {
-        TableName: process.env.rateTable,
+        TableName: process.env.CombinedRatesTable,
       }
     );
     console.info(`Found ${allExistingRates.length} existing rates`);

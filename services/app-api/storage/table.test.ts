@@ -61,8 +61,8 @@ const mockCombinedRate = {
 
 describe("Test database helper functions", () => {
   beforeAll(() => {
-    process.env.measureTable = "local-measure";
-    process.env.rateTable = "local-rate";
+    process.env.MeasuresTable = "local-measure";
+    process.env.CombinedRatesTable = "local-rate";
   });
 
   it("should fetch a measure from the measure table", async () => {
