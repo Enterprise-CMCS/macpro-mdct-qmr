@@ -163,9 +163,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   }
 
   const sogiFlag =
-    !useFlags()?.["sogi"] &&
-    props.parentDisplayName === "08Br0a" &&
-    props.year! >= parseInt("2025");
+    !useFlags()?.["sogi"] && props.id === "O8BrOa" && props.year! >= 2025;
 
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
