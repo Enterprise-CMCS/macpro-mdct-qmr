@@ -35,9 +35,4 @@ export const data: MeasureTemplateData = {
       },
     ],
   },
-  custom: {
-    rateScale: 100000,
-    customMask: positiveNumbersWithMaxDecimalPlaces(1),
-    allowNumeratorGreaterThanDenominator: true,
-  },
 };
