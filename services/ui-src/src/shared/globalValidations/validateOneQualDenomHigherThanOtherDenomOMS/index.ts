@@ -110,6 +110,7 @@ export const validateOneQualDenomHigherThanOtherDenomPM = (
   lowerIndex = 1,
   errorMessageFunc?: ErrorMessageFunc
 ) => {
+  console.log("IDK!!!!!", data);
   return _validation({
     higherIndex,
     location: "Performance Measure",

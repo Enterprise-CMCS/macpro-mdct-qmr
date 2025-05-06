@@ -36,6 +36,9 @@ const PCRAD = lazy(() =>
 const PCRHH = lazy(() =>
   import("./PCRHH").then((module) => ({ default: module.PCRHH }))
 );
+// const PSDAD = lazy(() =>
+//   import("./PDSAD").then((module) => ({ default: module.PDSAD }))
+// );
 const SSHH = lazy(() =>
   import("./SSHH").then((module) => ({ default: module.SSHH }))
 );
@@ -102,7 +105,7 @@ const twentyTwentyFiveMeasures = {
   "OUD-HH": measureTemplate,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
-  // "PDS-AD": measureTemplate, //TO DO: replace with real measure
+  "PDS-AD": measureTemplate, //TO DO: replace with real measure
   // "PDS-CH": measureTemplate, //TO DO: replace with real measure
   "PPC2-AD": measureTemplate,
   "PPC2-CH": measureTemplate,
