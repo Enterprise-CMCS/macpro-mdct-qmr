@@ -1,6 +1,5 @@
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
-import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import * as DC from "dataConstants";
 
 export const { categories, qualifiers } = getCatQualLabels("PRS-CH");
