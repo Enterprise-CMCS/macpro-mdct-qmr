@@ -162,7 +162,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     return <NDRSets name={`${props.name}.rateData`} />;
   }
 
-  //a flag added in 2025, if it's turned off, it'll hide add more for the sex (O8BrOa) category
+  //a flag added in 2025, if it's turned off, it'll hide [+Add Another Sex] button
   const sogiFlag =
     useFlags()?.["sogi-stratification-options"] &&
     props.id === "O8BrOa" &&
