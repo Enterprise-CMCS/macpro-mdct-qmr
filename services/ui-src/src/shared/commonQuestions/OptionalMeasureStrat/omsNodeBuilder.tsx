@@ -163,7 +163,9 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   }
 
   const sogiFlag =
-    !useFlags()?.["sogi"] && props.id === "O8BrOa" && props.year! >= 2025;
+    !useFlags()?.["sogi-stratification-options"] &&
+    props.id === "O8BrOa" &&
+    props.year! >= 2025;
 
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
