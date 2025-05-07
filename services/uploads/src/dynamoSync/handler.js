@@ -19,7 +19,7 @@ const arrayToCsv = async (scanResult) => {
 
 const uploadFileToS3 = async (filePath, scanResult) => {
   const uploadParams = {
-    Bucket: process.env.dynamoSnapshotS3BucketName,
+    Bucket: process.env.DYNAMO_BUCKET_NAME,
     Key: filePath,
     Body: scanResult,
   };
@@ -37,7 +37,7 @@ const cleanupFolders = async () => {
   for (const folder of paths) {
     const path = `coreSetData/${folder}/`;
     const params = {
-      Bucket: process.env.dynamoSnapshotS3BucketName,
+      Bucket: process.env.DYNAMO_BUCKET_NAME,
       Prefix: path,
       MaxKeys: 1000, // Limited by 1000 per delete
     };
@@ -54,7 +54,7 @@ const cleanupFolders = async () => {
 
     if (outdated.length <= 0) continue;
     const deleteParams = {
-      Bucket: process.env.dynamoSnapshotS3BucketName,
+      Bucket: process.env.DYNAMO_BUCKET_NAME,
       Delete: {
         Objects: outdated.map((file) => ({ Key: file })),
       },
@@ -65,9 +65,9 @@ const cleanupFolders = async () => {
 
 const syncDynamoToS3 = handler(async (_event, _context) => {
   console.log("Syncing Dynamo to Uploads");
-  let measureResults = await scanAll(process.env.measureTable);
-  let coreSetResults = await scanAll(process.env.coreSetTable);
-  let rateResults = await scanAll(process.env.rateTable);
+  let measureResults = await scanAll(process.env.MeasuresTable);
+  let coreSetResults = await scanAll(process.env.QualityCoreSetsTable);
+  let rateResults = await scanAll(process.env.CombinedRatesTable);
 
   // TODO: We currently have to account for legacy compound keys for the measure, coreSet and
   // rate tables until changes are made on the consumer end. We will be able to remove these

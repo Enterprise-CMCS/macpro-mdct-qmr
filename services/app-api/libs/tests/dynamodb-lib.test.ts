@@ -13,14 +13,6 @@ import { mockClient } from "aws-sdk-client-mock";
 const dynamoClientMock = mockClient(DynamoDBDocumentClient);
 
 describe("DynamoDB Library", () => {
-  let originalUrl: string | undefined;
-  beforeAll(() => {
-    originalUrl = process.env.DYNAMODB_URL;
-  });
-  afterAll(() => {
-    process.env.DYNAMODB_URL = originalUrl;
-  });
-
   beforeEach(() => {
     dynamoClientMock.reset();
   });
@@ -96,14 +88,7 @@ describe("DynamoDB Library", () => {
     expect(mockDelete).toHaveBeenCalled();
   });
 
-  test("Uses local config when appropriate", () => {
-    process.env.DYNAMODB_URL = "mock url";
-    const config = getConfig();
-    expect(config).toHaveProperty("region", "localhost");
-  });
-
-  test("Uses AWS config when appropriate", () => {
-    delete process.env.DYNAMODB_URL;
+  test("Uses AWS config", () => {
     const config = getConfig();
     expect(config).toHaveProperty("region", "us-east-1");
   });

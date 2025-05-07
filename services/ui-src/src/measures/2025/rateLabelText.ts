@@ -81,6 +81,47 @@ export const data = {
         ],
         "categories": [{"id":"ZyxRR5", "label": "", "text":""}]
     },
+    "AIS-AD": {
+        "qualifiers": [
+            {
+                "label": "Ages 19 to 65",
+                "text": "Ages 19 to 65",
+                "id": "xz7TUf",
+                "excludeFromIds": ["HCnSrs", "B4SxBy"]
+            },
+            {
+                "label": "Ages 50 to 65",
+                "text": "Ages 50 to 65",
+                "id": "Fmvnxp",
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy"]
+            },
+            {
+                "label": "Age 66 and older",
+                "text": "Age 66 and older",
+                "id": "VooeEU",
+            },
+        ],
+        "categories": [{
+            "label": "Influenza",
+            "text": "Influenza",
+            "id": "VZ0nYO",
+        },
+        {
+            "label": "Td/Tdap",
+            "text": "Td/Tdap",
+            "id": "2Bh7J8",
+        },
+        {
+            "label": "Zoster",
+            "text": "Zoster",
+            "id": "HCnSrs"
+        },
+        {
+            "label": "Pneumococcal",
+            "text": "Pneumococcal",
+            "id": "B4SxBy",
+        }]
+    },
     "AMM-AD": {
         "qualifiers": [
             {
@@ -489,22 +530,6 @@ export const data = {
                 "id": "VxUjMm",
                 "excludeFromOMS": true
             },
-            {
-                "label": "Combo 3",
-                "text": "Combo 3",
-                "id": "aI8KQ7"
-            },
-            {
-                "label": "Combo 7",
-                "text": "Combo 7",
-                "id": "xOvucQ",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Combo 10",
-                "text": "Combo 10",
-                "id": "UwzvFc"
-            }
         ],
         "categories": [{"id":"u7wDB2", "label": "", "text":""}]
     },
@@ -623,9 +648,14 @@ export const data = {
     "EDV-AD": {
         "qualifiers": [
             {
-                "label": "",
-                "text": "",
+                "label": "Ages 18 to 64",
+                "text": "Ages 18 to 64",
                 "id": "v8WDHi",
+            },
+            {
+                "label": "Age 65 and older",
+                "text": "Age 65 and older",
+                "id": "wfUxHA",
             },
         ],
         "categories": [{"id":"EXQjVl", "label": "", "text":""}]
@@ -1541,6 +1571,26 @@ export const data = {
             }
         ],
         "categories": [{"id":"Z4aIZZ", "label": "", "text":""}]
+    },
+    "PRS-AD": {
+        "qualifiers": [
+            {
+                "label": "Influenza: Age 21 and Older",
+                "text": "Influenza: Age 21 and Older",
+                "id": "DThCVU"
+            },
+            {
+                "label": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+                "text": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+                "id": "r1aUqr"
+            },
+            {
+                "label": "Combination: Age 21 and Older",
+                "text": "Combination: Age 21 and Older",
+                "id": "i5B6xM"
+            }
+        ],
+        "categories": [{"id":"SrcUG6", "label": "", "text":""}]
     },
     "SAA-AD": {
         "qualifiers": [

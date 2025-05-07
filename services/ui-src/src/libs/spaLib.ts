@@ -482,16 +482,16 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Serious and Persistent Mental Illness",
     },
     {
-      id: "18-0006",
+      id: "24-0021",
       state: "DC",
       name: "Chronic Care Management for Individuals with Serious and Persistent Mental Health Conditions",
     },
-    { id: "18-0007", state: "DC", name: "Chronic Conditions" },
+    { id: "24-0020", state: "DC", name: "Chronic Conditions" },
     { id: "22-0004", state: "IA", name: "Iowa Health Home Services" },
     {
-      id: "20-0011",
-      state: "IA",
-      name: "Iowa Severe and Persistent Mental Illness Health Home ",
+      id: "23-0001",
+      state: "ID",
+      name: "Intellectual Disabilities and Serious Mental Illness",
     },
     {
       id: "20-0004",
@@ -504,7 +504,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Health Home Chronic Conditions - Asthma",
     },
     {
-      id: "22-0033-CT",
+      id: "22-0033-CCT",
       state: "ME",
       name: "Maine Stage A Health Home Targeting Individuals with Chronic Conditions",
     },
@@ -514,7 +514,7 @@ export const SPA: { [year: string]: SPAi[] } = {
       state: "ME",
       name: "Maine Health Home for Beneficiaries Receiving Medication Assisted Treatment for Opioid Addiction",
     },
-    { id: "21-0005", state: "MD", name: "Maryland Health Home Services" },
+    { id: "24-0014", state: "MD", name: "Maryland Health Home Services" },
     {
       id: "20-1500",
       state: "MI",
@@ -522,11 +522,16 @@ export const SPA: { [year: string]: SPAi[] } = {
     },
     { id: "15-2000", state: "MI", name: "Michigan Care Team" },
     { id: "23-1500", state: "MI", name: "Opioid Health Home" },
-    { id: "22-0036", state: "MN", name: "Minnesota Behavioral Health Homes" },
+    { id: "24-0025", state: "MN", name: "Minnesota Behavioral Health Homes" },
     {
       id: "19-0020",
       state: "MO",
       name: "Community Mental Health Center Health Home",
+    },
+    {
+      id: "21-0005",
+      state: "MO",
+      name: "Developmental Disabilities Health Home",
     },
     { id: "19-0003", state: "MO", name: "Primary Care Clinic Health Home" },
     {
@@ -539,16 +544,16 @@ export const SPA: { [year: string]: SPAi[] } = {
       state: "NJ",
       name: "New Jersey Behavioral Health Home (Children)",
     },
-    { id: "18-0002", state: "NM", name: "CareLink New Mexico" },
+    { id: "23-0008", state: "NM", name: "CareLink New Mexico" },
     {
-      id: "22-0088",
+      id: "24-0023",
       state: "NY",
       name: "Health Home for High-Cost, High-Needs Enrollees ",
     },
     { id: "23-0062", state: "NY", name: "New York I/DD Health Home Services" },
-    { id: "22-0024", state: "NC", name: "Tailored Care Management" },
+    { id: "24-0028", state: "NC", name: "Tailored Care Management" },
     {
-      id: "18-009",
+      id: "23-0010",
       state: "RI",
       name: "Comprehensive Evaluation, Diagnosis, Assessment, Referral, & Reevaluation (CEDARR) Family Centers Health Home",
     },
@@ -585,6 +590,6 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "West Virginia Health Home for Individuals with Chronic Conditions",
     },
     { id: "12-008", state: "WI", name: "Individuals with HIV/AIDS" },
-    { id: "22-0013", state: "WI", name: "Substance Use Disorder Health Home" },
+    { id: "23-0021", state: "WI", name: "Substance Use Disorder Health Home" },
   ],
 };
