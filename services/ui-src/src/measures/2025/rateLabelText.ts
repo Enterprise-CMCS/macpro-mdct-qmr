@@ -1573,6 +1573,26 @@ export const data = {
         ],
         "categories": [{"id":"Z4aIZZ", "label": "", "text":""}]
     },
+    "PRS-AD": {
+        "qualifiers": [
+            {
+                "label": "Influenza: Age 21 and Older",
+                "text": "Influenza: Age 21 and Older",
+                "id": "DThCVU"
+            },
+            {
+                "label": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+                "text": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+                "id": "r1aUqr"
+            },
+            {
+                "label": "Combination: Age 21 and Older",
+                "text": "Combination: Age 21 and Older",
+                "id": "i5B6xM"
+            }
+        ],
+        "categories": [{"id":"SrcUG6", "label": "", "text":""}]
+    },
     "SAA-AD": {
         "qualifiers": [
             {
