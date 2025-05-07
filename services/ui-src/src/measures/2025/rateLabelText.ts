@@ -1442,6 +1442,21 @@ export const data = {
         ],
         "categories": [{"id":"YGJwmu", "label": "", "text":""}]
     },
+    "PDS-CH":{
+        "qualifiers":[
+            {
+                "label": "Depression Screening: Under Age 21", 
+                "text":"Under Age 21",
+                "id":"Au9Fm5" 
+            },
+            {
+                "label": "Follow-Up Positive Screen: Under Age 21", 
+                "text":"Under Age 21",
+                "id":"Au9Fm5" 
+            },
+        ],
+        "categories": [{"id":"0YSQj5", "label": "", "text":""}]
+    },
     "PPC2-AD": {
         "qualifiers": [
             {
