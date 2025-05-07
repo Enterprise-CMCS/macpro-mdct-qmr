@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-const PDSValidation = (data: FormData) => {
+const PDSCHValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
   const performanceMeasureArray =
@@ -69,4 +69,4 @@ const PDSValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PDSValidation];
+export const validationFunctions = [PDSCHValidation];
