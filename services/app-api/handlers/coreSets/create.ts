@@ -66,7 +66,7 @@ export const createCoreSet = handler(async (event, context) => {
   ).length;
 
   const params = {
-    TableName: process.env.coreSetTable!,
+    TableName: process.env.QualityCoreSetsTable!,
     Item: {
       compoundKey: `${state}${year}`,
       state: state,
@@ -103,7 +103,7 @@ const createDependentMeasures = async (
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
     const params = {
-      TableName: process.env.measureTable!,
+      TableName: process.env.MeasuresTable!,
       Item: {
         compoundKey: `${state}${year}${coreSet}`,
         state: state,

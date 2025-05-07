@@ -46,12 +46,6 @@ const EDVADValidation = (data: FormData) => {
     ),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
-    ...GV.validateNumeratorsLessThanDenominatorsPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
@@ -65,8 +59,6 @@ const EDVADValidation = (data: FormData) => {
         PMD.categories
       ),
       validationCallbacks: [
-        GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateOMSTotalNDR(),
         GV.validateRateNotZeroOMS(),
         GV.validateRateZeroOMS(),
       ],

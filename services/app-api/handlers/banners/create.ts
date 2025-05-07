@@ -34,7 +34,7 @@ export const createBanner = handler(async (event, _context) => {
   const payload = sanitizeObject(JSON.parse(event!.body!));
   if (!validPayload(payload)) throw new Error(Errors.INVALID_DATA);
   const params: any = {
-    TableName: process.env.bannerTableName!,
+    TableName: process.env.BannersTable!,
     Item: {
       key: bannerId,
       createdAt: Date.now(),

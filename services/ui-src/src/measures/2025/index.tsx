@@ -44,7 +44,7 @@ const twentyTwentyFiveMeasures = {
   "AAB-CH": measureTemplate,
   "ADD-CH": measureTemplate,
   "AIF-HH": measureTemplate,
-  // "AIS-AD": measureTemplate, //TO DO: replace with real measure
+  "AIS-AD": measureTemplate,
   "AMM-AD": measureTemplate,
   "AMR-AD": AMRAD,
   "AMR-CH": measureTemplate,
@@ -110,7 +110,7 @@ const twentyTwentyFiveMeasures = {
   "PQI05-AD": measureTemplate,
   "PQI08-AD": measureTemplate,
   "PQI15-AD": measureTemplate,
-  // "PRS-AD": measureTemplate, //TO DO: replace with real measure
+  "PRS-AD": measureTemplate,
   "PRS-CH": measureTemplate,
   "SAA-AD": measureTemplate,
   "SFM-CH": measureTemplate,
