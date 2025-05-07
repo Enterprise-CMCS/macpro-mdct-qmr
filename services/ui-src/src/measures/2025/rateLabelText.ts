@@ -1476,12 +1476,12 @@ export const data = {
         "qualifiers":[
             {
                 "label": "Depression Screening: Under Age 21", 
-                "text":"Under Age 21",
+                "text":"Depression Screening: Under Age 21",
                 "id":"Au9Fm5" 
             },
             {
                 "label": "Follow-Up Positive Screen: Under Age 21", 
-                "text":"Under Age 21",
+                "text":"Follow-Up Positive Screen: Under Age 21",
                 "id":"np7XV9" 
             },
         ],
