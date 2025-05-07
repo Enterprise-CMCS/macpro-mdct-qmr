@@ -111,6 +111,7 @@ const twentyTwentyFiveMeasures = {
   "PQI08-AD": measureTemplate,
   "PQI15-AD": measureTemplate,
   "PRS-AD": measureTemplate,
+  "PRS-CH": measureTemplate,
   "SAA-AD": measureTemplate,
   "SFM-CH": measureTemplate,
   "SSD-AD": measureTemplate,

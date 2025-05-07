@@ -1577,6 +1577,26 @@ export const data = {
         ],
         "categories": [{"id":"SrcUG6", "label": "", "text":""}]
     },
+    "PRS-CH": {
+        "qualifiers": [
+            {
+                "label": "Influenza: Under Age 21",
+                "text": "Influenza: Under Age 21",
+                "id": "D9V4Ql"
+            },
+            {
+                "label": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Under Age 21",
+                "text": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Under Age 21",
+                "id": "Btw7QZ"
+            },
+            {
+                "label": "Combination: Under Age 21",
+                "text": "Combination: Under Age 21",
+                "id": "bckEFl"
+            }
+        ],
+        "categories": [{"id":"ncf0He", "label": "", "text":""}]
+    },
     "SAA-AD": {
         "qualifiers": [
             {
