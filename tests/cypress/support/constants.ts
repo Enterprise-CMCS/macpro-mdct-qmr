@@ -64,7 +64,7 @@ export const measureAbbrList2025 = {
     "OEV-CH",
     "OEVP-CH",
     "PDS-CH",
-    "PRS-CH",
+    // "PRS-CH", //TO-DO: turn on when measure has been added
     "PPC2-CH",
     "SFM-CH",
     "TFL-CH",
