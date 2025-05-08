@@ -1,6 +1,5 @@
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
-import * as DC from "dataConstants";
 
 export const { categories, qualifiers } = getCatQualLabels("OEVP-CH");
 
