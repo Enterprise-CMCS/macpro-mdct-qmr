@@ -103,14 +103,15 @@ const twentyTwentyFiveMeasures = {
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
   "PDS-AD": measureTemplate,
-  // "PDS-CH": measureTemplate, //TO DO: replace with real measure
+  "PDS-CH": measureTemplate,
   "PPC2-AD": measureTemplate,
   "PPC2-CH": measureTemplate,
   "PQI01-AD": measureTemplate,
   "PQI05-AD": measureTemplate,
   "PQI08-AD": measureTemplate,
   "PQI15-AD": measureTemplate,
-  // "PRS-AD": measureTemplate, //TO DO: replace with real measure
+  "PRS-AD": measureTemplate,
+  "PRS-CH": measureTemplate,
   "SAA-AD": measureTemplate,
   "SFM-CH": measureTemplate,
   "SSD-AD": measureTemplate,

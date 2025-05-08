@@ -530,22 +530,6 @@ export const data = {
                 "id": "VxUjMm",
                 "excludeFromOMS": true
             },
-            {
-                "label": "Combo 3",
-                "text": "Combo 3",
-                "id": "aI8KQ7"
-            },
-            {
-                "label": "Combo 7",
-                "text": "Combo 7",
-                "id": "xOvucQ",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Combo 10",
-                "text": "Combo 10",
-                "id": "UwzvFc"
-            }
         ],
         "categories": [{"id":"u7wDB2", "label": "", "text":""}]
     },
@@ -1503,6 +1487,21 @@ export const data = {
          ],
          "categories": [{"id":"U3Zb2j", "label": "", "text":""}]
      },
+    "PDS-CH":{
+        "qualifiers":[
+            {
+                "label": "Depression Screening: Under Age 21", 
+                "text":"Depression Screening: Under Age 21",
+                "id":"Au9Fm5" 
+            },
+            {
+                "label": "Follow-Up Positive Screen: Under Age 21", 
+                "text":"Follow-Up Positive Screen: Under Age 21",
+                "id":"np7XV9" 
+            },
+        ],
+        "categories": [{"id":"0YSQj5", "label": "", "text":""}]
+    },
     "PPC2-AD": {
         "qualifiers": [
             {
@@ -1587,6 +1586,46 @@ export const data = {
             }
         ],
         "categories": [{"id":"Z4aIZZ", "label": "", "text":""}]
+    },
+    "PRS-AD": {
+        "qualifiers": [
+            {
+                "label": "Influenza: Age 21 and Older",
+                "text": "Influenza: Age 21 and Older",
+                "id": "DThCVU"
+            },
+            {
+                "label": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+                "text": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+                "id": "r1aUqr"
+            },
+            {
+                "label": "Combination: Age 21 and Older",
+                "text": "Combination: Age 21 and Older",
+                "id": "i5B6xM"
+            }
+        ],
+        "categories": [{"id":"SrcUG6", "label": "", "text":""}]
+    },
+    "PRS-CH": {
+        "qualifiers": [
+            {
+                "label": "Influenza: Under Age 21",
+                "text": "Influenza: Under Age 21",
+                "id": "D9V4Ql"
+            },
+            {
+                "label": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Under Age 21",
+                "text": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Under Age 21",
+                "id": "Btw7QZ"
+            },
+            {
+                "label": "Combination: Under Age 21",
+                "text": "Combination: Under Age 21",
+                "id": "bckEFl"
+            }
+        ],
+        "categories": [{"id":"ncf0He", "label": "", "text":""}]
     },
     "SAA-AD": {
         "qualifiers": [

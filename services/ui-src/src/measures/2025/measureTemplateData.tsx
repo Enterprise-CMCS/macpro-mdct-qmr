@@ -151,6 +151,9 @@ import { validationFunctions as OUDAD_Validations } from "./OUDAD/validation";
 import { data as OUDHH_Data } from "./OUDHH/data";
 import { validationFunctions as OUDHH_Validations } from "./OUDHH/validation";
 
+import { data as PDSCH_Data } from "./PDSCH/data";
+import { validationFunctions as PDSCH_Validations } from "./PDSCH/validation";
+
 import { data as PPC2AD_Data } from "./PPC2AD/data";
 import { validationFunctions as PPC2AD_Validations } from "./PPC2AD/validation";
 
@@ -171,6 +174,12 @@ import { validationFunctions as PQI08AD_Validations } from "./PQI08AD/validation
 
 import { data as PQI15AD_Data } from "./PQI15AD/data";
 import { validationFunctions as PQI15AD_Validations } from "./PQI15AD/validation";
+
+import { data as PRSAD_Data } from "./PRSAD/data";
+import { validationFunctions as PRSAD_Validations } from "./PRSAD/validation";
+
+import { data as PRSCH_Data } from "./PRSCH/data";
+import { validationFunctions as PRSCH_Validations } from "./PRSCH/validation";
 
 import { data as SAAAD_Data } from "./SAAAD/data";
 import { validationFunctions as SAAAD_Validations } from "./SAAAD/validation";
@@ -245,6 +254,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "OHD-AD": { data: OHDAD_Data, validationFunctions: OHDAD_Validations },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: OUDAD_Validations },
   "OUD-HH": { data: OUDHH_Data, validationFunctions: OUDHH_Validations },
+  "PDS-CH": { data: PDSCH_Data, validationFunctions: PDSCH_Validations },
   "PPC2-AD": { data: PPC2AD_Data, validationFunctions: PPC2AD_Validations },
   "PPC2-CH": { data: PPC2CH_Data, validationFunctions: PPC2CH_Validations },
   "PDS-AD": { data: PDSAD_Data, validationFunctions: PDSAD_Validations },
@@ -252,6 +262,8 @@ export const measureTemplateData: { [measure: string]: any } = {
   "PQI05-AD": { data: PQI05AD_Data, validationFunctions: PQI05AD_Validations },
   "PQI08-AD": { data: PQI08AD_Data, validationFunctions: PQI08AD_Validations },
   "PQI15-AD": { data: PQI15AD_Data, validationFunctions: PQI15AD_Validations },
+  "PRS-AD": { data: PRSAD_Data, validationFunctions: PRSAD_Validations },
+  "PRS-CH": { data: PRSCH_Data, validationFunctions: PRSCH_Validations },
   "SAA-AD": { data: SAAAD_Data, validationFunctions: SAAAD_Validations },
   "SFM-CH": { data: SFMCH_Data, validationFunctions: SFMCH_Validations },
   "SSD-AD": { data: SSDAD_Data, validationFunctions: SSDAD_Validations },
