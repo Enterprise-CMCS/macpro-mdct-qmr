@@ -1,5 +1,4 @@
 import * as QMR from "components";
-import * as CUI from "@chakra-ui/react";
 
 interface Props {
   name: string;
