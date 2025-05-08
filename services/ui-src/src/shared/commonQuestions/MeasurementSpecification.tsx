@@ -6,12 +6,11 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { Alert } from "@cmsgov/design-system";
+import { specifications, SpecificationType } from "shared/types";
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
-
   const hedisLabels: any = useContext(SharedContext);
-
   const options = hedisLabels.MeasureSpecifications.options;
 
   return (
@@ -32,96 +31,39 @@ const HEDISChildren = () => {
 };
 
 interface Props {
-  type:
-    | "ADA-DQA"
-    | "AHRQ"
-    | "AHRQ-NCQA"
-    | "CDC"
-    | "CMS"
-    | "HEDIS"
-    | "HRSA"
-    | "JOINT"
-    | "NCQA"
-    | "OHSU"
-    | "OPA"
-    | "PQA"
-    | "SAMHSA";
+  type: SpecificationType;
   coreset?: string;
 }
 
-const specifications = {
-  "ADA-DQA": {
-    displayValue:
-      "American Dental Association/Dental Quality Alliance (ADA/DQA)",
-    value: DC.ADA_DQA,
-  },
-  AHRQ: {
-    displayValue: "Agency for Healthcare Research and Quality (AHRQ)",
-    value: DC.AHRQ,
-  },
-  "AHRQ-NCQA": {
-    displayValue:
-      "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
-    value: DC.AHRQ_NCQA,
-  },
-  CDC: {
-    displayValue: "Centers for Disease Contol and Prevention (CDC)",
-    value: DC.CDC,
-  },
-  CMS: {
-    displayValue: "Centers for Medicare & Medicaid Services (CMS)",
-    value: DC.CMS,
-  },
-  HEDIS: {
-    displayValue:
-      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
-    value: DC.NCQA,
-    children: [<HEDISChildren key="HEDIS-Child" />],
-  },
-  HRSA: {
-    displayValue: "Health Resources and Services Administration (HRSA)",
-    value: DC.HRSA,
-  },
-  JOINT: {
-    displayValue: "The Joint Commission",
-    value: DC.JOINT_COMMISSION,
-  },
-  NCQA: {
-    displayValue: "National Committee for Quality Assurance (NCQA)",
-    value: DC.NCQA,
-  },
-  OHSU: {
-    displayValue: "Oregon Health and Science University (OHSU)",
-    value: DC.OHSU,
-  },
-  OPA: {
-    displayValue: "HHS Office of Population Affairs (OPA)",
-    value: DC.OPA,
-  },
-  PQA: {
-    displayValue: "Pharmacy Quality Alliance (PQA)",
-    value: DC.PQA,
-  },
-  SAMHSA: {
-    displayValue:
-      "Substance Abuse and Mental Health Services Administration (SAMHSA)",
-    value: DC.SAMHSA,
-  },
+export const Question = ({ type, coreset }: Props, year: number) => {
+  const coreSet = coreset;
+  const specification =
+    type === "HEDIS"
+      ? `${specifications[type].displayValue} Measurement Year ${year - 1}`
+      : specifications[type].displayValue;
+  return `Did your state use ${year} ${coreSet} Core Set measure specifications, which are based on ${specification} specifications to calculate this measure?`;
 };
 
 export const MeasurementSpecification = ({ type, coreset }: Props) => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
+  const context: any = useContext(SharedContext);
+  const { MeasureSpecifications, year } = context;
 
-  const measureSpecLabels: any = useContext(SharedContext);
+  let measureSpecs = specifications;
+  measureSpecs.HEDIS.children = MeasureSpecifications.options && [
+    <HEDISChildren key="HEDIS-Child" />,
+  ];
+
+  Question({ type, coreset }, year);
 
   return (
     <QMR.CoreQuestionWrapper
       testid="measurement-specification"
       label="Measurement Specification"
     >
-      {measureSpecLabels?.MeasureSpecifications?.additionalContext && (
+      {MeasureSpecifications?.additionalContext && (
         <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
-          {measureSpecLabels?.MeasureSpecifications?.additionalContext}
+          {MeasureSpecifications?.additionalContext}
         </CUI.Text>
       )}
 
@@ -129,7 +71,7 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
         <QMR.RadioButton
           {...register(DC.MEASUREMENT_SPECIFICATION)}
           options={[
-            specifications[type],
+            measureSpecs[type],
             {
               displayValue: "Other",
               value: DC.OTHER,
@@ -141,20 +83,16 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
                   key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
                 />,
                 (coreset === "adult" || coreset === "child") &&
-                  measureSpecLabels.MeasureSpecifications
-                    .otherMeasurementSpecWarning && (
+                  MeasureSpecifications.otherMeasurementSpecWarning && (
                     <CUI.Box mb="8">
                       <Alert heading="Please Note" variation="warn">
                         <CUI.Text>
-                          {
-                            measureSpecLabels.MeasureSpecifications
-                              .otherMeasurementSpecWarning
-                          }
+                          {MeasureSpecifications.otherMeasurementSpecWarning}
                         </CUI.Text>
                       </Alert>
                     </CUI.Box>
                   ),
-                measureSpecLabels.MeasureSpecifications.upload && (
+                MeasureSpecifications.upload && (
                   <QMR.Upload
                     label="If you need additional space to describe your state's methodology, please attach further documentation below."
                     {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}

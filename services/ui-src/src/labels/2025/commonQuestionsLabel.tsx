@@ -82,20 +82,6 @@ export const commonQuestionsLabel = {
   MeasureSpecifications: {
     additionalContext:
       "If your state substantially varied from the measure specifications (including different methodology, timeframe, or reported age groups), please report your data using “Other” specifications.",
-    options: [
-      {
-        displayValue: "HEDIS MY 2024 (2025 Core Set Reporting)",
-        value: DC.HEDIS_MY_2023,
-      },
-      {
-        displayValue: "HEDIS MY 2023 (2024 Core Set Reporting)",
-        value: DC.HEDIS_MY_2022,
-      },
-      {
-        displayValue: "HEDIS MY 2022 (2023 Core Set Reporting)",
-        value: DC.HEDIS_MY_2021,
-      },
-    ],
     otherMeasurementSpecWarning:
       "If you report using Other specifications, CMS will not be able to publicly report the performance rate. In addition, the rate will not be used to calculate a combined Medicaid and CHIP rate. If the information reported in the Specifications field is accurate, please continue reporting this measure.",
   },
