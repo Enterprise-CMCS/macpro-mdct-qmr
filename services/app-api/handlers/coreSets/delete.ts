@@ -23,7 +23,7 @@ export const deleteCoreSet = handler(async (event, context) => {
   }
 
   const params = {
-    TableName: process.env.coreSetTable!,
+    TableName: process.env.QualityCoreSetsTable!,
     Key: {
       compoundKey: `${state}${year}`,
       coreSet: coreSet,
@@ -49,7 +49,7 @@ const deleteDependentMeasures = async (
 
   for await (const { measure } of Items) {
     const params = {
-      TableName: process.env.measureTable!,
+      TableName: process.env.MeasuresTable!,
       Key: {
         compoundKey: `${state}${year}${coreSet}`,
         measure: measure,
@@ -62,7 +62,7 @@ const deleteDependentMeasures = async (
 
 const getMeasures = async (state: string, year: number, coreSet: string) => {
   const params = {
-    TableName: process.env.measureTable!,
+    TableName: process.env.MeasuresTable!,
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
       ":compoundKey": `${state}${year}${coreSet}`,

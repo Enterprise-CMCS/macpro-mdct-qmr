@@ -1,4 +1,4 @@
-import { getCoreSet, coreSetList } from "../get";
+import { getCoreSet, getAllCoreSets } from "../get";
 
 import { testEvent } from "../../../test-util/testEvents";
 
@@ -86,15 +86,15 @@ describe("Test Get Core Set Functions", () => {
     expect(dynamodbLib.get).toHaveBeenCalled();
   });
 
-  test("Test coreSetList unauthorized user attempt (incorrect state)", async () => {
+  test("Test getAllCoreSets unauthorized user attempt (incorrect state)", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => false);
-    const res = await coreSetList(event, null);
+    const res = await getAllCoreSets(event, null);
     expect(res.statusCode).toBe(StatusCodes.UNAUTHORIZED);
     expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
-  test("Test coreSetList should autopopulate adult core sets in 2023", async () => {
+  test("Test getAllCoreSets should autopopulate adult core sets in 2023", async () => {
     event.pathParameters = {
       coreSet: CoreSetAbbr.ACS,
       year: "2023",
@@ -105,12 +105,12 @@ describe("Test Get Core Set Functions", () => {
     mockHasStatePermissions.mockImplementation(() => true);
     (dynamodbLib.queryAll as jest.Mock).mockResolvedValue([]);
     (createCoreSet as jest.Mock).mockResolvedValue({ statusCode: 200 });
-    const res = await coreSetList(event, null);
+    const res = await getAllCoreSets(event, null);
     expect(createCoreSet).toBeCalled();
     expect(res.statusCode).toBe(200);
   });
 
-  test("Test coreSetList should not autopopulate core sets in 2024", async () => {
+  test("Test getAllCoreSets should not autopopulate core sets in 2024", async () => {
     mockHasRolePermissions.mockImplementation(() => true);
     mockHasStatePermissions.mockImplementation(() => true);
     (dynamodbLib.queryAll as jest.Mock).mockResolvedValue([]);
@@ -118,24 +118,24 @@ describe("Test Get Core Set Functions", () => {
     expect(createCoreSet).not.toBeCalled();
   });
 
-  test("Test coreSetList with no existing core sets and creating them fails", async () => {
+  test("Test getAllCoreSets with no existing core sets and creating them fails", async () => {
     (dynamodbLib.queryAll as jest.Mock).mockResolvedValue([]);
     (createCoreSet as jest.Mock).mockResolvedValue({ statusCode: 500 });
 
-    const res = await coreSetList(event, null);
+    const res = await getAllCoreSets(event, null);
     expect(res.statusCode).toBe(500);
     expect(createCoreSet).toHaveBeenCalled();
     expect(dynamodbLib.queryAll).toHaveBeenCalled();
   });
 
-  test("Test coreSetList with existing core sets and updateCoreSetProgress successful", async () => {
+  test("Test getAllCoreSets with existing core sets and updateCoreSetProgress successful", async () => {
     (dynamodbLib.queryAll as jest.Mock).mockResolvedValue([
       { coreSet: "ACS", progress: {} },
     ]);
     (updateCoreSetProgress as jest.Mock).mockImplementation((coreSets) =>
       coreSets.forEach((cs: any) => (cs.progress.numComplete = 1))
     );
-    const res = await coreSetList(event, null);
+    const res = await getAllCoreSets(event, null);
 
     expect(res.body).toContain('"progress":{"numComplete":1}');
     expect(dynamodbLib.queryAll).toHaveBeenCalled();

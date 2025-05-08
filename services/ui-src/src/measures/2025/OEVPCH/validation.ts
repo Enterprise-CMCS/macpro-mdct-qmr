@@ -51,7 +51,6 @@ const OEVPCHValidation = (data: FormData) => {
       OPM,
       ageGroups
     ),
-    ...GV.validateTotalNDR(performanceMeasureArray, undefined, undefined),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
 
     // OMS Validations
@@ -66,7 +65,6 @@ const OEVPCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateOMSTotalNDR(),
         GV.validateRateNotZeroOMS(),
         GV.validateRateZeroOMS(),
       ],

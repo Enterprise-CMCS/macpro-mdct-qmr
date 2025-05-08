@@ -24,7 +24,7 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
 }));
 
 const event = { ...testEvent };
-process.env.measureTable = "SAMPLE TABLE";
+process.env.MeasuresTable = "SAMPLE TABLE";
 
 describe("Test Update Measure Handler", () => {
   beforeEach(() => {

@@ -169,6 +169,7 @@ export enum MeasurementSpecificationType {
   CDC = "CDC",
   /** Only for PC01-AD (obsolete in 2022) */
   TheJointCommission = "TheJointCommission",
+  SAMHSA = "SAMHSA",
 }
 
 export interface RateParameters {

@@ -192,6 +192,7 @@ export const REPORTING_FINAL_DATA = "ReportingFinalData";
 export const REPORTING_PROVISIONAL_DATA = "ReportingProvisionalData";
 export const REQUIRES_DATA_LINKAGE = "RequireDataLinkage";
 export const REQUIRES_MEDICAL_RECORD_REVIEW = "RequiresMedicalRecordReview";
+export const SAMHSA = "SAMHSA";
 export const SELECTED = "selected";
 export const SELECTED_MONTH = "selectedMonth";
 export const SELECTED_OPTIONS = "SelectedOptions";
