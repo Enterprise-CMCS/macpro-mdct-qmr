@@ -32,6 +32,7 @@ const _validation = ({
   lowerIndex,
   errorMessageFunc = validateOneQualDenomHigherThanOtherDenomErrorMessage,
 }: ValProps) => {
+  console.log("WHAT THE FUCK!");
   const errorArray: FormError[] = [];
 
   for (const ratefields of rateData) {
