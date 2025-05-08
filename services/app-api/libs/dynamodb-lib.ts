@@ -23,23 +23,11 @@ export type QmrDynamoTableType =
   | Banner
   | CombinedRatesTableEntry;
 
-const localConfig = {
-  endpoint: process.env.DYNAMODB_URL,
-  region: "localhost",
-  credentials: {
-    accessKeyId: "LOCALFAKEKEY", // pragma: allowlist secret
-    secretAccessKey: "LOCALFAKESECRET", // pragma: allowlist secret
-  },
-  logger,
-};
-
-const awsConfig = {
-  region: "us-east-1",
-  logger,
-};
-
 export const getConfig = () => {
-  return process.env.DYNAMODB_URL ? localConfig : awsConfig;
+  return {
+    region: "us-east-1",
+    logger,
+  };
 };
 
 const client = DynamoDBDocumentClient.from(new DynamoDBClient(getConfig()), {

@@ -81,6 +81,47 @@ export const data = {
         ],
         "categories": [{"id":"ZyxRR5", "label": "", "text":""}]
     },
+    "AIS-AD": {
+        "qualifiers": [
+            {
+                "label": "Ages 19 to 65",
+                "text": "Ages 19 to 65",
+                "id": "xz7TUf",
+                "excludeFromIds": ["HCnSrs", "B4SxBy"]
+            },
+            {
+                "label": "Ages 50 to 65",
+                "text": "Ages 50 to 65",
+                "id": "Fmvnxp",
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy"]
+            },
+            {
+                "label": "Age 66 and older",
+                "text": "Age 66 and older",
+                "id": "VooeEU",
+            },
+        ],
+        "categories": [{
+            "label": "Influenza",
+            "text": "Influenza",
+            "id": "VZ0nYO",
+        },
+        {
+            "label": "Td/Tdap",
+            "text": "Td/Tdap",
+            "id": "2Bh7J8",
+        },
+        {
+            "label": "Zoster",
+            "text": "Zoster",
+            "id": "HCnSrs"
+        },
+        {
+            "label": "Pneumococcal",
+            "text": "Pneumococcal",
+            "id": "B4SxBy",
+        }]
+    },
     "AMM-AD": {
         "qualifiers": [
             {
@@ -318,8 +359,8 @@ export const data = {
     "CCS-AD": {
         "qualifiers": [
             {
-                "label": "Percentage of women ages 21 to 64 screened",
-                "text": "Percentage of women ages 21 to 64 screened",
+                "label": "Percentage of beneficiaries ages 21 to 64 screened",
+                "text": "Percentage of beneficiaries ages 21 to 64 screened",
                 "id": "VZUrlc"
             }
         ],
@@ -489,22 +530,6 @@ export const data = {
                 "id": "VxUjMm",
                 "excludeFromOMS": true
             },
-            {
-                "label": "Combo 3",
-                "text": "Combo 3",
-                "id": "aI8KQ7"
-            },
-            {
-                "label": "Combo 7",
-                "text": "Combo 7",
-                "id": "xOvucQ",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Combo 10",
-                "text": "Combo 10",
-                "id": "UwzvFc"
-            }
         ],
         "categories": [{"id":"u7wDB2", "label": "", "text":""}]
     },
@@ -623,9 +648,14 @@ export const data = {
     "EDV-AD": {
         "qualifiers": [
             {
-                "label": "",
-                "text": "",
+                "label": "Ages 18 to 64",
+                "text": "Ages 18 to 64",
                 "id": "v8WDHi",
+            },
+            {
+                "label": "Age 65 and older",
+                "text": "Age 65 and older",
+                "id": "wfUxHA",
             },
         ],
         "categories": [{"id":"EXQjVl", "label": "", "text":""}]
@@ -1208,15 +1238,9 @@ export const data = {
     "OEV-CH": {
         "qualifiers": [
             {
-                "label": "Age <1",
-                "text": "Age <1",
+                "label": "Age < 3",
+                "text": "Age < 3",
                 "id": "cJpLzk",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 1 to 2",
-                "text": "Ages 1 to 2",
-                "id": "lUpXnj",
                 "excludeFromOMS": true
             },
             {
@@ -1226,44 +1250,20 @@ export const data = {
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 6 to 7",
-                "text": "Ages 6 to 7",
+                "label": "Ages 6 to 14",
+                "text": "Ages 6 to 14",
                 "id": "HQtz8Q",
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 8 to 9",
-                "text": "Ages 8 to 9",
-                "id": "lw6tF8",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 10 to 11",
-                "text": "Ages 10 to 11",
-                "id": "iS0hVY",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 12 to 14",
-                "text": "Ages 12 to 14",
-                "id": "OAxju0",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 15 to 18",
-                "text": "Ages 15 to 18",
+                "label": "Ages 15 to 20",
+                "text": "Ages 15 to 20",
                 "id": "0B13E5",
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 19 to 20",
-                "text": "Ages 19 to 20",
-                "id": "2v1LvP",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Total ages <1 to 20 (required rate)",
-                "text": "Total ages <1 to 20 (required rate)",
+                "label": "Total (< Age 21) (required rate)",
+                "text": "Total (< Age 21) (required rate)",
                 "id": "Total"
             }
         ],
@@ -1272,8 +1272,8 @@ export const data = {
     "OEVP-AD": {
         "qualifiers": [
             {
-                "label": "",
-                "text": "",
+                "label": "Ages 21 to 44",
+                "text": "Ages 21 to 44",
                 "id": "wnh2qA",
             },
         ],
@@ -1282,8 +1282,8 @@ export const data = {
     "OEVP-CH": {
         "qualifiers": [
             {
-                "label": "",
-                "text": "",
+                "label": "Ages 15 to 20",
+                "text": "Ages 15 to 20",
                 "id": "Xq5NFt",
             },
         ],
@@ -1472,6 +1472,21 @@ export const data = {
         ],
         "categories": [{"id":"YGJwmu", "label": "", "text":""}]
     },
+    "PDS-CH":{
+        "qualifiers":[
+            {
+                "label": "Depression Screening: Under Age 21", 
+                "text": "Depression Screening: Under Age 21",
+                "id": "Au9Fm5" 
+            },
+            {
+                "label": "Follow-Up Positive Screen: Under Age 21", 
+                "text": "Follow-Up Positive Screen: Under Age 21",
+                "id": "np7XV9" 
+            },
+        ],
+        "categories": [{"id":"0YSQj5", "label": "", "text":""}]
+    },
     "PPC2-AD": {
         "qualifiers": [
             {
@@ -1557,6 +1572,46 @@ export const data = {
         ],
         "categories": [{"id":"Z4aIZZ", "label": "", "text":""}]
     },
+    "PRS-AD": {
+        "qualifiers": [
+            {
+                "label": "Influenza: Age 21 and Older",
+                "text": "Influenza: Age 21 and Older",
+                "id": "DThCVU"
+            },
+            {
+                "label": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+                "text": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+                "id": "r1aUqr"
+            },
+            {
+                "label": "Combination: Age 21 and Older",
+                "text": "Combination: Age 21 and Older",
+                "id": "i5B6xM"
+            }
+        ],
+        "categories": [{"id":"SrcUG6", "label": "", "text":""}]
+    },
+    "PRS-CH": {
+        "qualifiers": [
+            {
+                "label": "Influenza: Under Age 21",
+                "text": "Influenza: Under Age 21",
+                "id": "D9V4Ql"
+            },
+            {
+                "label": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Under Age 21",
+                "text": "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Under Age 21",
+                "id": "Btw7QZ"
+            },
+            {
+                "label": "Combination: Under Age 21",
+                "text": "Combination: Under Age 21",
+                "id": "bckEFl"
+            }
+        ],
+        "categories": [{"id":"ncf0He", "label": "", "text":""}]
+    },
     "SAA-AD": {
         "qualifiers": [
             {
@@ -1607,38 +1662,14 @@ export const data = {
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 6 to 7",
-                "text": "Ages 6 to 7",
+                "label": "Ages 6 to 14",
+                "text": "Ages 6 to 14",
                 "id": "zcbPe0",
                 "excludeFromOMS": true
             },
             {
-                "label": "Ages 8 to 9",
-                "text": "Ages 8 to 9",
-                "id": "OdDTxr",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 10 to 11",
-                "text": "Ages 10 to 11",
-                "id": "Cjw7GS",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 12 to 14",
-                "text": "Ages 12 to 14",
-                "id": "muOeEP",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 15 to 18",
-                "text": "Ages 15 to 18",
-                "id": "fbpAPY",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 19 to 20",
-                "text": "Ages 19 to 20",
+                "label": "Ages 15 to 20",
+                "text": "Ages 15 to 20",
                 "id": "a6okZM",
                 "excludeFromOMS": true
             },

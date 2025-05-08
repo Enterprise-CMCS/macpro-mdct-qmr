@@ -44,7 +44,8 @@ interface Props {
     | "NCQA"
     | "OHSU"
     | "OPA"
-    | "PQA";
+    | "PQA"
+    | "SAMHSA";
   coreset?: string;
 }
 
@@ -100,6 +101,11 @@ const specifications = {
   PQA: {
     displayValue: "Pharmacy Quality Alliance (PQA)",
     value: DC.PQA,
+  },
+  SAMHSA: {
+    displayValue:
+      "Substance Abuse and Mental Health Services Administration (SAMHSA)",
+    value: DC.SAMHSA,
   },
 };
 
