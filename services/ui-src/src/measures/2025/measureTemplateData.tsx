@@ -247,7 +247,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "OUD-HH": { data: OUDHH_Data, validationFunctions: OUDHH_Validations },
   "PPC2-AD": { data: PPC2AD_Data, validationFunctions: PPC2AD_Validations },
   "PPC2-CH": { data: PPC2CH_Data, validationFunctions: PPC2CH_Validations },
-  "PDS-AD": { data: PDSAD_Data, validationFunctions: OUDHH_Validations },
+  "PDS-AD": { data: PDSAD_Data, validationFunctions: PDSAD_Validations },
   "PQI01-AD": { data: PQI01AD_Data, validationFunctions: PQI01AD_Validations },
   "PQI05-AD": { data: PQI05AD_Data, validationFunctions: PQI05AD_Validations },
   "PQI08-AD": { data: PQI08AD_Data, validationFunctions: PQI08AD_Validations },

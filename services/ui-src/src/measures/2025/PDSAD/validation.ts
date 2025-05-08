@@ -21,39 +21,33 @@ const PDSValidation = (data: FormData) => {
     return errorArray;
   }
 
-  console.log("DATA IN VALIDATION", data);
-
   errorArray = [
+    ...errorArray,
+    ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      PMD.categories
+    ),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateOPMRates(OPM),
-    ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
     ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
-
-    // Performance Measure Validations
-    ...GV.validateAtLeastOneRateComplete(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      PMD.categories
-    ),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
-    ...GV.validateNumeratorsLessThanDenominatorsPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
-    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -65,10 +59,13 @@ const PDSValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateRateNotZeroOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
       ],
     }),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
   ];
 
   return errorArray;
