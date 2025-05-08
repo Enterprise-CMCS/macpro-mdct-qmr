@@ -1,6 +1,5 @@
 import * as Q from "./questions";
 import * as QMR from "components";
-import * as CMQ from "shared/commonQuestions";
 import { useParams } from "react-router-dom";
 import { DefaultFormData } from "shared/types/FormData";
 import { useFormContext } from "react-hook-form";
@@ -37,7 +36,7 @@ export const CPCCH = ({
           <Q.PerformanceMeasure />
         </>
       )}
-      <CMQ.AdditionalNotes />
+      <Q.AdditionalNotes />
     </>
   );
 };
