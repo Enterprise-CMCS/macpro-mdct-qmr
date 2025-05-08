@@ -25,7 +25,7 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
       value: "Other",
       children: [
         <QMR.TextArea
-          label="Define the Other survey population:"
+          label="Define the other survey population:"
           name="define-the-other-survey-population"
         />,
       ],
