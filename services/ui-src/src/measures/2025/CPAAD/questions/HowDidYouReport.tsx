@@ -8,8 +8,8 @@ export const HowDidYouReport = () => {
   return (
     <QMR.CoreQuestionWrapper label="Did you submit your CAHPS survey data to the AHRQ CAHPS Database during the June 2025 submission period?">
       <CUI.Text py="3">
-        HERRONote: States that reported this measure in the AHRQ CAHPS Database
-        will have the opportunity to preview the results in the spring.
+        Note: States that reported this measure in the AHRQ CAHPS Database will
+        have the opportunity to preview the results in the spring.
       </CUI.Text>
       <QMR.RadioButton
         {...register("HowDidYouReport")}
