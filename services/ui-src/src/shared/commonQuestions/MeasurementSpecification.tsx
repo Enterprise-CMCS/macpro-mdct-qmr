@@ -10,7 +10,7 @@ import { Specifications, SpecificationType } from "shared/types";
 
 interface Props {
   type: SpecificationType;
-  coreset?: string;
+  coreset: Types.CoreSetKey;
 }
 
 const HEDISChildren = () => {
@@ -39,15 +39,21 @@ export const MeasurementSpecificationQuestionYesNo = (
   { type, coreset }: Props,
   year: number
 ) => {
-  const coreSet = coreset;
+  const label = {
+    adult: "Adult",
+    child: "Child",
+    health: "Health Home",
+  };
+
   const specification =
     type === "HEDIS"
       ? `${Specifications[type].displayValue} Measurement Year ${year - 1}`
       : Specifications[type].displayValue;
   return (
     <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
-      Did your state use {year} {coreSet} Core Set measure specifications, which
-      are based on {specification} specifications to calculate this measure?
+      Did your state use {year} {label[coreset]} Core Set measure
+      specifications, which are based on {specification} specifications to
+      calculate this measure?
     </CUI.Text>
   );
 };

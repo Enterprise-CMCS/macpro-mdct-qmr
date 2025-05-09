@@ -18,7 +18,7 @@ const measurementPeriodTableLinks = {
 };
 
 interface Props {
-  type: "adult" | "child" | "health";
+  type: Types.CoreSetKey;
 }
 
 const descriptionElement = (label: AnyObject) => {
