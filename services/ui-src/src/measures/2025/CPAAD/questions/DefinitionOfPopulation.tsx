@@ -25,7 +25,7 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
       value: "Other",
       children: [
         <QMR.TextArea
-          label="Define the Other survey population:"
+          label="Define the other survey population:"
           name="define-the-other-survey-population"
         />,
       ],
@@ -59,7 +59,7 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
       label="Definition of Population Included in the Measure"
     >
       <CUI.Heading size="sm" as="h3">
-        Definition of population included in the survey sample
+        Definition of denominator
       </CUI.Heading>
       <CUI.Text mt="3" mb="3">
         Please select all populations that are included. For example, if your
