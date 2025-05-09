@@ -16,3 +16,4 @@ export * from "shared/types/TypeRateFields";
 export * from "shared/types/TypeReporting";
 export * from "shared/types/TypeStatusOfData";
 export * from "shared/types/TypeWhyAreYouNotReporting";
+export * from "shared/types/GlobalTypes";
