@@ -1472,6 +1472,21 @@ export const data = {
         ],
         "categories": [{"id":"YGJwmu", "label": "", "text":""}]
     },
+    "PDS-AD": {
+        "qualifiers": [
+             {
+                 "label": "Depression Screening: Age 21 and Older",
+                 "text": "Depression Screening: Age 21 and Older",
+                 "id": "39IwoL"
+             },
+             {
+                 "label": "Follow-Up on Positive Screen: Age 21 and Older",
+                 "text": "Follow-Up on Positive Screen: Age 21 and Older",
+                 "id": "61YpqF"
+             }
+         ],
+         "categories": [{"id":"U3Zb2j", "label": "", "text":""}]
+     },
     "PDS-CH":{
         "qualifiers":[
             {
