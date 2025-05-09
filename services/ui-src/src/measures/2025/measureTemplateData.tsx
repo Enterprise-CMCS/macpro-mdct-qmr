@@ -160,6 +160,9 @@ import { validationFunctions as PPC2AD_Validations } from "./PPC2AD/validation";
 import { data as PPC2CH_Data } from "./PPC2CH/data";
 import { validationFunctions as PPC2CH_Validations } from "./PPC2CH/validation";
 
+import { data as PDSAD_Data } from "./PDSAD/data";
+import { validationFunctions as PDSAD_Validations } from "./PDSAD/validation";
+
 import { data as PQI01AD_Data } from "./PQI01AD/data";
 import { validationFunctions as PQI01AD_Validations } from "./PQI01AD/validation";
 
@@ -254,6 +257,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "PDS-CH": { data: PDSCH_Data, validationFunctions: PDSCH_Validations },
   "PPC2-AD": { data: PPC2AD_Data, validationFunctions: PPC2AD_Validations },
   "PPC2-CH": { data: PPC2CH_Data, validationFunctions: PPC2CH_Validations },
+  "PDS-AD": { data: PDSAD_Data, validationFunctions: PDSAD_Validations },
   "PQI01-AD": { data: PQI01AD_Data, validationFunctions: PQI01AD_Validations },
   "PQI05-AD": { data: PQI05AD_Data, validationFunctions: PQI05AD_Validations },
   "PQI08-AD": { data: PQI08AD_Data, validationFunctions: PQI08AD_Validations },
