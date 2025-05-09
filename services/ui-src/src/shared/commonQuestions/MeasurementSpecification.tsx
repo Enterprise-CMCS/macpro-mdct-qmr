@@ -10,7 +10,7 @@ import { Specifications, SpecificationType } from "shared/types";
 
 interface Props {
   type: SpecificationType;
-  coreset: Types.CoreSetKey;
+  coreset?: Types.CoreSetKey;
 }
 
 const HEDISChildren = () => {
@@ -51,7 +51,7 @@ export const MeasurementSpecificationQuestionYesNo = (
       : Specifications[type].displayValue;
   return (
     <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
-      Did your state use {year} {label[coreset]} Core Set measure
+      Did your state use {year} {label[coreset!]} Core Set measure
       specifications, which are based on {specification} specifications to
       calculate this measure?
     </CUI.Text>
