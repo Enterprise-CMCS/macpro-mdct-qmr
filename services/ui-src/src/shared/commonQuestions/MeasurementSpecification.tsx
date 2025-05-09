@@ -6,7 +6,12 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { Alert } from "@cmsgov/design-system";
-import { specifications, SpecificationType } from "shared/types";
+import { Specifications, SpecificationType } from "shared/types";
+
+interface Props {
+  type: SpecificationType;
+  coreset?: string;
+}
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
@@ -30,18 +35,53 @@ const HEDISChildren = () => {
   );
 };
 
-interface Props {
-  type: SpecificationType;
-  coreset?: string;
-}
-
-export const Question = ({ type, coreset }: Props, year: number) => {
+export const MeasurementSpecificationQuestionYesNo = (
+  { type, coreset }: Props,
+  year: number
+) => {
   const coreSet = coreset;
   const specification =
     type === "HEDIS"
-      ? `${specifications[type].displayValue} Measurement Year ${year - 1}`
-      : specifications[type].displayValue;
-  return `Did your state use ${year} ${coreSet} Core Set measure specifications, which are based on ${specification} specifications to calculate this measure?`;
+      ? `${Specifications[type].displayValue} Measurement Year ${year - 1}`
+      : Specifications[type].displayValue;
+  return (
+    <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
+      Did your state use {year} {coreSet} Core Set measure specifications, which
+      are based on {specification} specifications to calculate this measure?
+    </CUI.Text>
+  );
+};
+
+export const MeasurementSpecificationOtherAlert = (
+  otherMeasurementSpecWarning: string
+) => {
+  return (
+    <CUI.Box mt="8">
+      <Alert heading="Please Note" variation="warn">
+        <CUI.Text>{otherMeasurementSpecWarning}</CUI.Text>
+      </Alert>
+    </CUI.Box>
+  );
+};
+
+export const MeasurementSpecificationOtherTextbox = (register: Function) => {
+  return (
+    <QMR.TextArea
+      textAreaProps={{ marginBottom: "10" }}
+      {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
+      label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
+      key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
+    />
+  );
+};
+
+export const MeasurementSpecificationUpload = (register: Function) => {
+  return (
+    <QMR.Upload
+      label="If you need additional space to describe your state's methodology, please attach further documentation below."
+      {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
+    />
+  );
 };
 
 export const MeasurementSpecification = ({ type, coreset }: Props) => {
@@ -49,12 +89,17 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
   const context: any = useContext(SharedContext);
   const { MeasureSpecifications, year } = context;
 
-  let measureSpecs = specifications;
-  measureSpecs.HEDIS.children = MeasureSpecifications.options && [
-    <HEDISChildren key="HEDIS-Child" />,
-  ];
+  const measureSpecs = { ...Specifications[type] };
 
-  Question({ type, coreset }, year);
+  if (type === "HEDIS")
+    measureSpecs.children = MeasureSpecifications.options && [
+      <HEDISChildren key="HEDIS-Child" />,
+    ];
+
+  //for 2025+, the display for the radio option is different but the value being saved in the database is the same, so this just does a label swap
+  measureSpecs.displayValue = MeasureSpecifications?.measureSpecYesNo
+    ? `Yes, our state used ${year} Core Set specifications to calculate this measure.`
+    : measureSpecs.displayValue;
 
   return (
     <QMR.CoreQuestionWrapper
@@ -67,37 +112,28 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
         </CUI.Text>
       )}
 
+      {MeasureSpecifications?.measureSpecYesNo &&
+        MeasurementSpecificationQuestionYesNo({ type, coreset }, year)}
+
       <div data-cy="measurement-specification-options">
         <QMR.RadioButton
           {...register(DC.MEASUREMENT_SPECIFICATION)}
           options={[
-            measureSpecs[type],
+            measureSpecs,
             {
-              displayValue: "Other",
+              displayValue: MeasureSpecifications?.measureSpecYesNo
+                ? "No, our state used Other specifications to calculate this measure."
+                : "Other",
               value: DC.OTHER,
               children: [
-                <QMR.TextArea
-                  textAreaProps={{ marginBottom: "10" }}
-                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
-                  label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
-                  key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
-                />,
+                MeasurementSpecificationOtherTextbox(register),
                 (coreset === "adult" || coreset === "child") &&
-                  MeasureSpecifications.otherMeasurementSpecWarning && (
-                    <CUI.Box mb="8">
-                      <Alert heading="Please Note" variation="warn">
-                        <CUI.Text>
-                          {MeasureSpecifications.otherMeasurementSpecWarning}
-                        </CUI.Text>
-                      </Alert>
-                    </CUI.Box>
+                  MeasureSpecifications.otherMeasurementSpecWarning &&
+                  MeasurementSpecificationOtherAlert(
+                    MeasureSpecifications.otherMeasurementSpecWarning
                   ),
-                MeasureSpecifications.upload && (
-                  <QMR.Upload
-                    label="If you need additional space to describe your state's methodology, please attach further documentation below."
-                    {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
-                  />
-                ),
+                MeasureSpecifications.upload &&
+                  MeasurementSpecificationUpload(register),
               ],
             },
           ]}

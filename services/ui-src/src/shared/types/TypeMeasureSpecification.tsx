@@ -15,7 +15,7 @@ export type SpecificationType =
   | "PQA"
   | "SAMHSA";
 
-type SpecifictionProps = {
+export type SpecifictionProps = {
   [type in SpecificationType]: {
     displayValue: string;
     value: string;
@@ -23,7 +23,7 @@ type SpecifictionProps = {
   };
 };
 
-export const specifications: SpecifictionProps = {
+export const Specifications: SpecifictionProps = {
   "ADA-DQA": {
     displayValue:
       "American Dental Association/Dental Quality Alliance (ADA/DQA)",
