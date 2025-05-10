@@ -30,6 +30,7 @@ export const data: MeasureTemplateData = {
             label: "What is the Administrative Data Source?",
             options: [
               { value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM },
+              { value: DC.VITAL_DATA_SOURCE },
               { value: DC.ADMINISTRATIVE_DATA_OTHER, description: true },
             ],
           },
@@ -42,6 +43,7 @@ export const data: MeasureTemplateData = {
             label: "What is the Administrative Data Source?",
             options: [
               { value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM },
+              { value: DC.VITAL_DATA_SOURCE },
               { value: DC.ADMINISTRATIVE_DATA_OTHER, description: true },
             ],
           },

@@ -44,7 +44,7 @@ export const editMeasure = handler(async (event, context) => {
         }
       : {};
   const params = {
-    TableName: process.env.measureTable!,
+    TableName: process.env.MeasuresTable!,
     Key: {
       compoundKey: `${state}${year}${coreSet}`,
       measure: measure,

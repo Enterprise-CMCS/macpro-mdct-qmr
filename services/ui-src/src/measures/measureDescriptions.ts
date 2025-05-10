@@ -479,7 +479,7 @@ export const measureDescriptions: MeasureList = {
       "Follow-Up After Emergency Department Visit for Mental Illness: Ages 6 to 17",
     "IMA-CH": "Immunizations for Adolescents",
     "LBW-CH": "Live Births Weighing Less Than 2,500 Grams",
-    "LRCD-CH": "Low-Risk Cesarean Delivery",
+    "LRCD-CH": "Low-Risk Cesarean Delivery: Under Age 20",
     "LSC-CH": "Lead Screening in Children",
     "OEV-CH": "Oral Evaluation, Dental Services",
     "OEVP-CH": "Oral Evaluation During Pregnancy: Ages 15 to 20",

@@ -33,7 +33,7 @@ export const listMeasures = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
   const params = {
-    TableName: process.env.measureTable!,
+    TableName: process.env.MeasuresTable!,
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
       ":compoundKey": `${state}${year}${coreSet}`,
@@ -80,7 +80,7 @@ export const getMeasure = handler(async (event, context) => {
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
   const params = {
-    TableName: process.env.measureTable!,
+    TableName: process.env.MeasuresTable!,
     Key: {
       compoundKey: `${state}${year}${coreSet}`,
       measure: measure,
