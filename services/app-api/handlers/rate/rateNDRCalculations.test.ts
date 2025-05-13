@@ -316,4 +316,54 @@ describe("NDR calculations for Combined Rates", () => {
     expect(result[0].CHIP.population).toBe(5);
     expect(result[0].Combined.weightedRate).toBe(40);
   });
+
+  it("Should treat 0/0 as 0, for Combined.rate only", () => {
+    const dataSources = {
+      Medicaid: {},
+      CHIP: {},
+    } as CombinedRatesPayload["DataSources"];
+
+    const medicaidMeasure = {
+      data: {
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "0",
+                denominator: "0",
+                rate: "0",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const chipMeasure = {
+      data: {
+        PerformanceMeasure: {
+          rates: {},
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const result = combineRates(
+      "ZZZ-AD",
+      dataSources,
+      medicaidMeasure,
+      chipMeasure
+    );
+
+    expect(result).toEqual([
+      {
+        uid: "cat0.qual0",
+        label: "mock rate",
+        CHIP: { denominator: undefined, numerator: undefined, rate: undefined },
+        Medicaid: { denominator: 0, numerator: 0, rate: 0 },
+        Combined: { denominator: 0, numerator: 0, rate: 0 },
+      },
+    ]);
+  });
 });

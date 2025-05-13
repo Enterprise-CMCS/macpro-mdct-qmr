@@ -26,7 +26,8 @@ export interface DeploymentConfigProperties {
 export const determineDeploymentConfig = async (stage: string) => {
   const project = process.env.PROJECT!;
   const isDev =
-    isLocalStack || !["master", "val", "production"].includes(stage);
+    isLocalStack ||
+    !["main", "master", "val", "prod", "production"].includes(stage);
   const secretConfigOptions = {
     ...(await loadDefaultSecret(project, stage)),
     ...(await loadStageSecret(project, stage)),
