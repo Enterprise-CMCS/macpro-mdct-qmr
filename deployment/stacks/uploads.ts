@@ -173,10 +173,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
       ],
       effect: iam.Effect.ALLOW,
       actions: ["s3:GetBucketLocation", "s3:ListBucket", "s3:GetObject"],
-      resources: [
-        attachmentsBucket.bucketArn,
-        `${attachmentsBucket.bucketArn}/*`,
-      ],
+      resources: [dynamoBucket.bucketArn, `${dynamoBucket.bucketArn}/*`],
     })
   );
 
