@@ -186,7 +186,10 @@ export const combineRates = (
       } else {
         const combinedNumerator = addSafely(mNumerator, cNumerator);
         const combinedDenominator = addSafely(mDenominator, cDenominator);
-        const quotient = divideSafely(combinedNumerator, combinedDenominator);
+        const quotient =
+          combinedDenominator === 0
+            ? 0
+            : divideSafely(combinedNumerator, combinedDenominator);
         const combinedRate = transformQuotient(measureAbbr, quotient);
 
         Combined = {
