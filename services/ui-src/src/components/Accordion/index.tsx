@@ -3,7 +3,6 @@ import {
   AccordionButton,
   AccordionItem as AccordionItemRoot,
   AccordionPanel,
-  background,
   Image,
   SystemStyleObject,
   Text,
@@ -47,9 +46,8 @@ const sx = {
   },
   accordionButton: {
     minHeight: "3.5rem",
-    bg: "palette.gray_lightest",
     textAlign: "left",
-    backgroundColor: "yellow",
+    backgroundColor: "#F2F2F2",
   },
   accordionPanel: {
     padding: "1.5rem 1rem 0.5rem",
