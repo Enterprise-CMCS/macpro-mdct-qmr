@@ -1,8 +1,8 @@
 # MDCT QMR (Quality Measure Reporting)
 
 [![CodeQL](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/07b73163d1474a114cb9/maintainability)](https://codeclimate.com/repos/644971d1d763981eff6ed851/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/07b73163d1474a114cb9/test_coverage)](https://codeclimate.com/repos/644971d1d763981eff6ed851/test_coverage)
+[![Maintainability](https://qlty.sh/badges/6725809c-a572-4a88-b347-bd7610d5f5c4/maintainability.svg)](https://qlty.sh/gh/Enterprise-CMCS/projects/macpro-mdct-qmr)
+[![Code Coverage](https://qlty.sh/badges/6725809c-a572-4a88-b347-bd7610d5f5c4/test_coverage.svg)](https://qlty.sh/gh/Enterprise-CMCS/projects/macpro-mdct-qmr)
 
 ### Integration Environment Deploy Status:
 
