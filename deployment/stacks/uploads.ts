@@ -165,6 +165,21 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     enforceSSL: true,
   });
 
+  dynamoBucket.addToResourcePolicy(
+    new iam.PolicyStatement({
+      principals: [
+        new iam.ArnPrincipal(mpriamrole),
+        new iam.ArnPrincipal(mprdeviam),
+      ],
+      effect: iam.Effect.ALLOW,
+      actions: ["s3:GetBucketLocation", "s3:ListBucket", "s3:GetObject"],
+      resources: [
+        attachmentsBucket.bucketArn,
+        `${attachmentsBucket.bucketArn}/*`,
+      ],
+    })
+  );
+
   const clamDefsBucket = new s3.Bucket(scope, "ClamDefsBucket", {
     bucketName: `${service}-${stage}-avscan-${Aws.ACCOUNT_ID}`,
     encryption: s3.BucketEncryption.S3_MANAGED,
