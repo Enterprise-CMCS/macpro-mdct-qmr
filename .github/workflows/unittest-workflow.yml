@@ -6,6 +6,10 @@ on:
         description: "Code Climate ID"
         required: false
 
+permissions:
+  contents: read
+  id-token: write # needed for qlty
+
 jobs:
   unit-tests:
     name: Unit Tests
