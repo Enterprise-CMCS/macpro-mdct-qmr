@@ -3,12 +3,13 @@ import * as CUI from "@chakra-ui/react";
 
 import { OmsNode } from "shared/types";
 
-import { AddAnotherSection } from "./additionalCategory";
-import { SubCatSection } from "./subCatClassification";
-import { NDRSets } from "./NDR/ndrSets";
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
+import { AccordionItem } from "components/Accordion";
+import { NDRSets } from "../OptionalMeasureStrat/NDR/ndrSets";
+import { AddAnotherSection } from "../OptionalMeasureStrat/additionalCategory";
+import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -161,27 +162,25 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     return <NDRSets name={`${props.name}.rateData`} />;
   }
 
+  const checkboxOptions = [
+    ...props.options.map((lvlTwoOption) => {
+      return buildChildCheckboxOption({
+        omsNode: lvlTwoOption,
+        name: `${props.name}.selections.${lvlTwoOption.id}`,
+        label: omsLabels(lvlTwoOption),
+      });
+    }),
+  ];
+
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
-      <QMR.Checkbox
-        name={`${props.name}.options`}
-        key={`${props.name}.options`}
-        options={[
-          ...props.options.map((lvlTwoOption) => {
-            //cleanString is used for year <= 2022 options, and has no effect on year >= 2023 ids
-            const cleanedId =
-              cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
-
-            const labels = omsLabels(lvlTwoOption);
-
-            return buildChildCheckboxOption({
-              omsNode: lvlTwoOption,
-              name: `${props.name}.selections.${cleanedId}`,
-              label: labels,
-            });
-          }),
-        ]}
-      />
+      {checkboxOptions.map((options) => (
+        <CUI.Accordion allowToggle>
+          <AccordionItem label={options.displayValue}>
+            {options.children}
+          </AccordionItem>
+        </CUI.Accordion>
+      ))}
       {props.addMore && (
         <AddAnotherSection
           name={props.name}

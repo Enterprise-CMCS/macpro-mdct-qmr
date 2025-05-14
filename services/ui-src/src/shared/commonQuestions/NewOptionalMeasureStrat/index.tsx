@@ -93,7 +93,6 @@ export const NewOptionalMeasureStrat = ({ coreset }: Props) => {
       </p>
       <Button onClick={ExpandAll}>Expand all</Button>
       <Button onClick={CollapseAll}>Collapse all</Button>
-      <Stratification data={omsData}></Stratification>
     </QMR.CoreQuestionWrapper>
   );
 };

@@ -1,8 +1,11 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "./../../types";
-import { OMSData } from "./data";
-import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
+import { OMSData } from "../OptionalMeasureStrat/data";
+import {
+  ComponentFlagType,
+  PerformanceMeasureProvider,
+} from "../OptionalMeasureStrat/context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";
@@ -15,6 +18,7 @@ import {
   stringIsReadOnly,
 } from "utils";
 import SharedContext from "shared/SharedContext";
+import { AccordionItem } from "components/Accordion";
 
 interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -237,10 +241,13 @@ export const OptionalMeasureStrat = ({
           Do not select categories and sub-classifications for which you will
           not be reporting any data.
         </CUI.Text>
-        <QMR.Checkbox
-          {...register("OptionalMeasureStratification.options")}
-          options={checkBoxOptions}
-        />
+        {checkBoxOptions.map((option) => (
+          <CUI.Accordion allowToggle>
+            <AccordionItem label={option.displayValue}>
+              {option.children}
+            </AccordionItem>
+          </CUI.Accordion>
+        ))}
       </PerformanceMeasureProvider>
     </QMR.CoreQuestionWrapper>
   );
