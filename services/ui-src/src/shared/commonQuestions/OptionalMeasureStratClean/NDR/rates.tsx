@@ -2,6 +2,7 @@ import * as DC from "dataConstants";
 import * as QMR from "components";
 import { LabelData } from "utils";
 import { ContextProps, usePerformanceMeasureContext } from "../context";
+import { complexRateFields } from "shared/types";
 
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
 
@@ -58,15 +59,14 @@ const ComplexRateComponent = (
 /** Creates Rate Component Arrays for every category with a filled qualifier */
 export const useStandardRateArray: RateArrayBuilder = (name) => {
   const context: ContextProps = usePerformanceMeasureContext();
-  const { categories, performanceMeasureArray, IUHHPerformanceMeasureArray } =
-    context;
+  const { categories, performanceMeasureArray, measureName } = context;
 
   const rateArrays: React.ReactElement[][] = [];
 
   //categories at this point has been filtered by excludeFromOMS
   (categories as LabelData[])?.forEach((cat) => {
     let ndrSets: React.ReactElement[] = [];
-    if (IUHHPerformanceMeasureArray) {
+    if (measureName === "IUHH") {
       ndrSets = IUHHRateArrayTotalsOnly(context, name, cat);
     } else if (performanceMeasureArray) {
       ndrSets = StandardPerformanceMeasure(context, name, cat);
@@ -84,7 +84,7 @@ export const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
     categories,
     calcTotal,
     performanceMeasureArray,
-    AIFHHPerformanceMeasureArray,
+    measureName,
   } = context;
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   let rateArrays: React.ReactElement[][] = [];
@@ -93,19 +93,23 @@ export const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
    * has been filled out in the Performance Measure.
    * This is determined by pulling the qualifier ID out of the rate UID.
    */
+
+  //PROBLEM?
   const completedQualifierIds = performanceMeasureArray?.[0]
     ?.filter((qualRateFields) => qualRateFields?.rate)
     .map((qualRateFields) => qualRateFields.uid?.split(".")[1]);
+
+  console.log(completedQualifierIds);
 
   (quals as LabelData[])?.forEach((singleQual, qualIndex) => {
     const categoryID =
       (categories as LabelData[])?.[0]?.id || DC.SINGLE_CATEGORY;
 
     const cleanedName = `${name}.rates.${categoryID}.${singleQual.id}`;
-    if (completedQualifierIds?.includes(singleQual.id)) {
-      rateArrays.push([RateComponent(context, cleanedName)]);
-    } else if (AIFHHPerformanceMeasureArray) {
+    if (measureName === "AIFHH") {
       rateArrays.push(...AIFHHRateArray(context, cleanedName, qualIndex));
+    } else if (completedQualifierIds?.includes(singleQual.id)) {
+      rateArrays.push([RateComponent(context, cleanedName)]);
     } else {
       rateArrays.push([]);
     }
@@ -149,14 +153,15 @@ const IUHHRateArrayTotalsOnly = (
   name: string,
   cat: LabelData
 ) => {
-  const { IUHHPerformanceMeasureArray, calcTotal } = context;
+  const { performanceMeasureArray, calcTotal } = context;
   const ndrSets: React.ReactElement[] = [];
-  const quals = IUHHPerformanceMeasureArray?.flatMap((arr) =>
-    arr.filter(
-      (rate) =>
-        rate.uid?.includes(cat.id) &&
-        (calcTotal ? !rate.uid?.includes("Total") : true)
-    )
+  const quals = (performanceMeasureArray as complexRateFields[][])?.flatMap(
+    (arr) =>
+      arr.filter(
+        (rate) =>
+          rate.uid?.includes(cat.id) &&
+          (calcTotal ? !rate.uid?.includes("Total") : true)
+      )
   );
   quals?.forEach((qual) => {
     const cleanedName = `${name}.rates.${qual.uid}`;
@@ -176,9 +181,9 @@ const AIFHHRateArray = (
   name: string,
   qualIndex: number
 ) => {
-  const { AIFHHPerformanceMeasureArray } = context;
+  const { performanceMeasureArray } = context;
   const rateArrays: React.ReactElement[][] = [];
-  AIFHHPerformanceMeasureArray?.forEach((measure) => {
+  (performanceMeasureArray as complexRateFields[][])?.forEach((measure) => {
     const label = measure?.[qualIndex]?.label;
     //Confirm that there is at least 1 rate complete
     const rate1 = !!measure?.[qualIndex]?.fields?.[2]?.value;

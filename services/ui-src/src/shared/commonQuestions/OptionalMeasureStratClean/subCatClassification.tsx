@@ -13,6 +13,11 @@ interface AddAnotherButtonProps {
   testid: string;
 }
 
+interface AdditonalCategoryProps {
+  /** name for react-hook-form registration */
+  name: string;
+}
+
 /**
  * Button for handling additional values in dynamic rendering
  */
@@ -38,11 +43,6 @@ export const AddAnotherButton = ({
     />
   );
 };
-
-interface AdditonalCategoryProps {
-  /** name for react-hook-form registration */
-  name: string;
-}
 
 /**
  * Additional [Race/Sex/Language/Etc] Category Section

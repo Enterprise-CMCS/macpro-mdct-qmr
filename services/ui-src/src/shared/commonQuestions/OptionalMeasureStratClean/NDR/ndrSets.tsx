@@ -33,7 +33,6 @@ const AgeGroupNDRSets = ({ name }: NdrProps) => {
 
 const IUHHNDRSets = ({ name }: NdrProps) => {
   const { calcTotal } = usePerformanceMeasureContext();
-  const ageGroupsOptions = useAgeGroupsCheckboxes(`${name}.iuhh-rate`);
 
   return (
     <>
@@ -122,28 +121,23 @@ export const NDRSets = ({ name }: NdrProps) => {
   const { OPM, componentFlag } = usePerformanceMeasureContext();
   const children: JSX.Element[] = [];
 
-  if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
-  switch (componentFlag) {
-    case "DEFAULT":
-      if (!OPM) {
+  if (OPM) {
+    children.push(<OPMNDRSets name={name} key={name} />);
+  } else {
+    switch (componentFlag) {
+      case "DEFAULT":
         children.push(<AgeGroupNDRSets name={name} key={name} />);
-      }
-      break;
-    case "IU":
-      if (!OPM) {
+        break;
+      case "IU":
         children.push(<IUHHNDRSets name={name} key={name} />);
-      }
-      break;
-    case "AIF":
-      if (!OPM) {
+        break;
+      case "AIF":
         children.push(<AIFHHNDRSets name={name} key={name} />);
-      }
-      break;
-    case "PCR":
-      if (!OPM) {
+        break;
+      case "PCR":
         children.push(<PCRNDRSets name={name} key={name} />);
-      }
-      break;
+        break;
+    }
   }
 
   return (

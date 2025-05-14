@@ -31,8 +31,6 @@ interface BaseProps extends Types.Qualifiers, Types.Categories {
   ndrFormulas?: ndrFormula[];
   /** string array for perfromance measure descriptions */
   performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
-  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   /** should the total for each portion of OMS be calculated? */
   calcTotal?: boolean;
   rateMultiplicationValue?: number;
@@ -122,7 +120,6 @@ export const OptionalMeasureStrat = ({
   ndrFormulas,
   data,
   calcTotal = false,
-  coreset,
   rateMultiplicationValue,
   allowNumeratorGreaterThanDenominator = false,
   customMask,
@@ -140,15 +137,7 @@ export const OptionalMeasureStrat = ({
   const labels: any = useContext(SharedContext);
   const year = labels.year;
 
-  const IUHHPerformanceMeasureArray =
-    measureName === "IUHH" ? performanceMeasureArray : undefined;
-  const AIFHHPerformanceMeasureArray =
-    measureName === "AIFHH" ? performanceMeasureArray : undefined;
-
-  if (IUHHPerformanceMeasureArray || AIFHHPerformanceMeasureArray)
-    performanceMeasureArray = undefined;
-
-  const omsData = data ?? OMSData(year, coreset === "adult");
+  const omsData = data ?? OMSData();
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<OMSType>();
   const values = getValues();
@@ -216,8 +205,6 @@ export const OptionalMeasureStrat = ({
         value={{
           OPM,
           performanceMeasureArray,
-          IUHHPerformanceMeasureArray,
-          AIFHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
           qualifiers: cleanedQual,
