@@ -8,7 +8,12 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { ndrFormula } from "types";
-import { LabelData, cleanString } from "utils";
+import {
+  LabelData,
+  arrayIsReadOnly,
+  cleanString,
+  stringIsReadOnly,
+} from "utils";
 import SharedContext from "shared/SharedContext";
 
 interface OmsCheckboxProps {
@@ -19,42 +24,6 @@ interface OmsCheckboxProps {
   year: number;
   excludeOptions: string[];
 }
-
-/**
- * Builds out parent level checkboxes
- * ex: Race, Ethnicity, Sex, Etc.
- */
-export const buildOmsCheckboxes = ({
-  name,
-  data,
-  excludeOptions,
-  year,
-}: OmsCheckboxProps) => {
-  return data
-    .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
-    .map((lvlOneOption) => {
-      const displayValue = lvlOneOption.label;
-      const value = cleanString(lvlOneOption.id);
-
-      const children = [
-        <TopLevelOmsChildren
-          options={lvlOneOption.options}
-          addMore={!!lvlOneOption.addMore}
-          parentDisplayName={
-            lvlOneOption.aggregateTitle! || lvlOneOption.label!
-          }
-          addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
-          name={`${name}.selections.${value}`}
-          key={`${name}.selections.${value}`}
-          id={value}
-          label={displayValue}
-          year={year}
-        />,
-      ];
-
-      return { value, displayValue, children };
-    });
-};
 
 interface BaseProps extends Types.Qualifiers, Types.Categories {
   measureName?: string;
@@ -105,17 +74,40 @@ type OMSType = Types.OptionalMeasureStratification & {
   "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
 };
 
-const stringIsReadOnly = (dataSource: string) => {
-  return dataSource === "AdministrativeData";
-};
+/**
+ * Builds out parent level checkboxes
+ * ex: Race, Ethnicity, Sex, Etc.
+ */
+export const buildOmsCheckboxes = ({
+  name,
+  data,
+  excludeOptions,
+  year,
+}: OmsCheckboxProps) => {
+  return data
+    .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
+    .map((lvlOneOption) => {
+      const displayValue = lvlOneOption.label;
+      const value = cleanString(lvlOneOption.id);
 
-const arrayIsReadOnly = (dataSource: string[]) => {
-  if (dataSource.length === 0) {
-    return false;
-  }
-  return (
-    dataSource?.every((source) => source === "AdministrativeData") ?? false
-  );
+      const children = [
+        <TopLevelOmsChildren
+          options={lvlOneOption.options}
+          addMore={!!lvlOneOption.addMore}
+          parentDisplayName={
+            lvlOneOption.aggregateTitle! || lvlOneOption.label!
+          }
+          addMoreSubCatFlag={!!lvlOneOption.addMoreSubCatFlag}
+          name={`${name}.selections.${value}`}
+          key={`${name}.selections.${value}`}
+          id={value}
+          label={displayValue}
+          year={year}
+        />,
+      ];
+
+      return { value, displayValue, children };
+    });
 };
 
 /**
