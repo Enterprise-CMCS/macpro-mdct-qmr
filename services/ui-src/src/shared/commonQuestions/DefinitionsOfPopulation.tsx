@@ -17,7 +17,7 @@ interface Props {
   hybridMeasure?: boolean;
   populationSampleSize?: boolean;
   coreSetOptions?: CoreSetSpecificOptions;
-  coreset?: string;
+  coreset?: Types.CoreSetKey;
   populationTotalTechSpec?: boolean;
   deliverySystems?: boolean;
   removeOtherOption?: boolean;

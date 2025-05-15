@@ -5,17 +5,15 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-const OEVPCHValidation = (data: FormData) => {
+const PDSValidation = (data: FormData) => {
+  const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
+  const performanceMeasureArray =
+    GV.getPerfMeasureRateArray(data, PMD.data.performanceMeasure) ?? [];
   const dateRange = data[DC.DATE_RANGE];
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationReason = data[DC.DEVIATION_REASON];
-  const OPM = data[DC.OPM_RATES];
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(
-    data,
-    PMD.data.performanceMeasure
-  );
-  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
   if (data[DC.DID_REPORT] === DC.NO) {
@@ -24,36 +22,32 @@ const OEVPCHValidation = (data: FormData) => {
   }
 
   errorArray = [
+    ...errorArray,
+    ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
+    ...GV.validateAtLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      PMD.categories
+    ),
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
+    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateOPMRates(OPM),
-    ...GV.validateAtLeastOneDataSource(data),
-    ...GV.validateAtLeastOneDataSourceType(data),
+    ...GV.validateNumeratorsLessThanDenominatorsPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
     ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
     ),
+    ...GV.validateAtLeastOneDataSource(data),
+    ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeliverySystem(data),
     ...GV.validateFfsRadioButtonCompletion(data),
-
-    // Performance Measure Validations
-    ...GV.validateAtLeastOneRateComplete(
-      performanceMeasureArray,
-      OPM,
-      ageGroups,
-      PMD.categories
-    ),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
-    ...GV.validateNumeratorsLessThanDenominatorsPM(
-      performanceMeasureArray,
-      OPM,
-      ageGroups
-    ),
-    ...GV.validateAtLeastOneDefinitionOfPopulation(data),
-
-    // OMS Validations
     ...GV.omsValidations({
       data,
       qualifiers: PMD.qualifiers,
@@ -65,13 +59,16 @@ const OEVPCHValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateRateNotZeroOMS(),
+        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS(),
+        GV.validateRateNotZeroOMS(),
       ],
     }),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
+    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
   ];
 
   return errorArray;
 };
 
-export const validationFunctions = [OEVPCHValidation];
+export const validationFunctions = [PDSValidation];

@@ -151,11 +151,17 @@ import { validationFunctions as OUDAD_Validations } from "./OUDAD/validation";
 import { data as OUDHH_Data } from "./OUDHH/data";
 import { validationFunctions as OUDHH_Validations } from "./OUDHH/validation";
 
+import { data as PDSCH_Data } from "./PDSCH/data";
+import { validationFunctions as PDSCH_Validations } from "./PDSCH/validation";
+
 import { data as PPC2AD_Data } from "./PPC2AD/data";
 import { validationFunctions as PPC2AD_Validations } from "./PPC2AD/validation";
 
 import { data as PPC2CH_Data } from "./PPC2CH/data";
 import { validationFunctions as PPC2CH_Validations } from "./PPC2CH/validation";
+
+import { data as PDSAD_Data } from "./PDSAD/data";
+import { validationFunctions as PDSAD_Validations } from "./PDSAD/validation";
 
 import { data as PQI01AD_Data } from "./PQI01AD/data";
 import { validationFunctions as PQI01AD_Validations } from "./PQI01AD/validation";
@@ -248,8 +254,10 @@ export const measureTemplateData: { [measure: string]: any } = {
   "OHD-AD": { data: OHDAD_Data, validationFunctions: OHDAD_Validations },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: OUDAD_Validations },
   "OUD-HH": { data: OUDHH_Data, validationFunctions: OUDHH_Validations },
+  "PDS-CH": { data: PDSCH_Data, validationFunctions: PDSCH_Validations },
   "PPC2-AD": { data: PPC2AD_Data, validationFunctions: PPC2AD_Validations },
   "PPC2-CH": { data: PPC2CH_Data, validationFunctions: PPC2CH_Validations },
+  "PDS-AD": { data: PDSAD_Data, validationFunctions: PDSAD_Validations },
   "PQI01-AD": { data: PQI01AD_Data, validationFunctions: PQI01AD_Validations },
   "PQI05-AD": { data: PQI05AD_Data, validationFunctions: PQI05AD_Validations },
   "PQI08-AD": { data: PQI08AD_Data, validationFunctions: PQI08AD_Validations },
