@@ -56,6 +56,16 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
         displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
         value: "SurveySampleIncMedicareMedicaidDualEligible",
       },
+      {
+        displayValue: "Other",
+        value: "Other",
+        children: [
+          <QMR.TextArea
+            label="Define the other survey population:"
+            name="define-the-other-survey-population"
+          />,
+        ],
+      },
     ],
     helpText: (
       <>
