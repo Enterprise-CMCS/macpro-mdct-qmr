@@ -18,11 +18,14 @@ interface Props {
   populationSampleSize?: boolean;
   coreSetOptions?: CoreSetSpecificOptions;
   coreset?: string;
+  populationTotalTechSpec?: boolean;
   deliverySystems?: boolean;
+  removeOtherOption?: boolean;
 }
 interface DefOfDenomOption {
   displayValue: string;
   value: string;
+  children?: React.ReactNode[];
 }
 export interface CoreSetSpecificOptions {
   [coreSetId: string]: {
@@ -279,7 +282,6 @@ const StandardDefinitions = (
           );
         })}
       </CUI.UnorderedList>
-
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         options={[
@@ -305,28 +307,30 @@ const CoreSetSpecificDefinitions = (
   register: any,
   labels: AnyObject,
   coreSetType: string,
-  coreSetOptions?: CoreSetSpecificOptions
+  coreSetOptions?: CoreSetSpecificOptions,
+  removeOtherOption?: boolean
 ) => {
   const options = coreSetOptions ?? coreSetSpecificOptions;
+  const otherOptions = [];
+  if (!removeOtherOption) {
+    otherOptions.push({
+      displayValue: "Other",
+      value: DC.DENOMINATOR_INC_OTHER,
+      children: [
+        <QMR.TextArea
+          formLabelProps={{ fontWeight: "400" }}
+          label={parseLabelToHTML(labels.defineDenomOther)}
+          {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+        />,
+      ],
+    });
+  }
   return (
     <CUI.Box>
       {options[coreSetType].helpText}
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
-        options={[
-          ...options[coreSetType].options,
-          {
-            displayValue: "Other",
-            value: DC.DENOMINATOR_INC_OTHER,
-            children: [
-              <QMR.TextArea
-                formLabelProps={{ fontWeight: "400" }}
-                label={parseLabelToHTML(labels.defineDenomOther)}
-                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
-              />,
-            ],
-          },
-        ]}
+        options={[...options[coreSetType].options, ...otherOptions]}
       />
     </CUI.Box>
   );
@@ -405,7 +409,9 @@ export const DefinitionOfPopulation = ({
   hybridMeasure,
   coreSetOptions,
   coreset,
+  populationTotalTechSpec = true,
   deliverySystems = true,
+  removeOtherOption = false,
 }: Props) => {
   const register = useCustomRegister<Types.DefinitionOfPopulation>();
 
@@ -430,7 +436,8 @@ export const DefinitionOfPopulation = ({
             register,
             labels.DefinitionsOfPopulation,
             coreSetType,
-            coreSetOptions
+            coreSetOptions,
+            removeOtherOption
           )
         : childMeasure
         ? ChildDefinitions(register)
@@ -449,47 +456,52 @@ export const DefinitionOfPopulation = ({
         </CUI.Box>
       )}
       <CUI.Box my="5">
-        <QMR.RadioButton
-          formLabelProps={{ fontWeight: "600" }}
-          label={
-            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question[
-              coreSetType!
-            ] ??
-            labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
-              .default
-          }
-          {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC)}
-          options={[
-            {
-              displayValue:
-                labels.DefinitionsOfPopulation.measureEligiblePopDenom
-                  .optionYes,
-              value: DC.YES,
-            },
-            {
-              displayValue:
-                labels.DefinitionsOfPopulation.measureEligiblePopDenom.optionNo,
-              value: DC.NO,
-              children: [
-                <QMR.TextArea
-                  {...register(
-                    DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN
-                  )}
-                  label={parseLabelToHTML(
-                    labels.DefinitionsOfPopulation.explainExcludedPop
-                  )}
-                />,
-                <CUI.Box mt="10" key="DenominatorDefineTotalTechSpec-No-Size">
-                  <QMR.NumberInput
-                    mask={allPositiveIntegers}
-                    {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE)}
-                    label={labels.DefinitionsOfPopulation.specSizeOfPop}
-                  />
-                </CUI.Box>,
-              ],
-            },
-          ]}
-        />
+        {populationTotalTechSpec && (
+          <QMR.RadioButton
+            formLabelProps={{ fontWeight: "600" }}
+            label={
+              labels.DefinitionsOfPopulation.measureEligiblePopDenom.question[
+                coreSetType!
+              ] ??
+              labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
+                .default
+            }
+            {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC)}
+            options={[
+              {
+                displayValue:
+                  labels.DefinitionsOfPopulation.measureEligiblePopDenom
+                    .optionYes,
+                value: DC.YES,
+              },
+              {
+                displayValue:
+                  labels.DefinitionsOfPopulation.measureEligiblePopDenom
+                    .optionNo,
+                value: DC.NO,
+                children: [
+                  <QMR.TextArea
+                    {...register(
+                      DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN
+                    )}
+                    label={parseLabelToHTML(
+                      labels.DefinitionsOfPopulation.explainExcludedPop
+                    )}
+                  />,
+                  <CUI.Box mt="10" key="DenominatorDefineTotalTechSpec-No-Size">
+                    <QMR.NumberInput
+                      mask={allPositiveIntegers}
+                      {...register(
+                        DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE
+                      )}
+                      label={labels.DefinitionsOfPopulation.specSizeOfPop}
+                    />
+                  </CUI.Box>,
+                ],
+              },
+            ]}
+          />
+        )}
       </CUI.Box>
       {(hybridMeasure || populationSampleSize) &&
         HybridDefinitions(register, !populationSampleSize)}
