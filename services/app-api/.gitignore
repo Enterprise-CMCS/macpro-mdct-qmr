@@ -40,19 +40,12 @@ jspm_packages
 .*.sw*
 Session.vim
 
-# Serverless
-.webpack
-
 # env
 env.yml
 .env
 
 # Jetbrains IDEs
 .idea
-
-# Serverless warmup plugin temp dir
-_warmup
-.warmup
 
 # Ignore Build Folder
 .build

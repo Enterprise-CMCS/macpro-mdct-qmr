@@ -35,10 +35,8 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
       - [Code Coverage Report](#code-coverage-report)
 - [Services](#services)
   - [Architecture Diagram](#architecture-diagram)
-  - [Serverless](#serverless)
-    - [Configuration - AWS Systems Manager Parameter Store (SSM)](#configuration---aws-systems-manager-parameter-store-ssm)
-    - [Deploy Single Service from Local](#deploy-single-service-from-local)
-    - [Destroy single service from Local](#destroy-single-service-from-local)
+  - [CDK](#cdk)
+    - [Configuration - AWS Secrets Manager](#configuration-aws-secrets-manager)
     - [Destroy Entire Branch from Local](#destroy-entire-branch-from-local)
   - [App API](#app-api)
     - [Overview](#overview)
@@ -100,22 +98,7 @@ The following are prerequisites for local development. **If you have run the MDC
    ```bash
    brew install yarn
    ```
-1. Install [Serverless](https://www.serverless.com/framework/docs/getting-started)
-   ```bash
-   yarn global add serverless
-   yarn upgrade serverless
-   ```
-1. Install the following Serverless plugins
-
-   ```bash
-   yarn add serverless-offline
-   yarn add serverless-dynamodb
-   yarn add serverless-s3-local
-
-   # or install simultaneously
-   yarn add serverless-offline && yarn add serverless-dynamodb && yarn add serverless-s3-local
-   ```
-
+1. Look up [here](deployment/local/README.md) for other things you'll need to install though it will prompt you when your `./run local` if you're missing something.
 1. Install all other node packages.
    ```bash
    yarn install  # can be skipped, will run automatically in dev script
@@ -125,13 +108,16 @@ The following are prerequisites for local development. **If you have run the MDC
 
 1. To run the project run the following command from the root of the directory
 
-   `./run local --update-env`
+   ```
+   ./run update-env
+   ./run local
+   ```
 
    Note: This will populate a .env file at the root of the directory as well as in the `/services/ui-src/` directory by authenticating to 1Password and pulling in development secrets. Both of those .env files are gitignored.
 
 If you do not have a 1Password account you can run `./run local` however you will need to reach out to a team member for .env values and populate those by hand both in the root of the repo as well as `/services/ui-src`
 
-To login a number of test users are provisioned via the `users.json`. See the [AWS section](#accessing-ssm-parameters) for more specific instructions and test user passwords.
+To login a number of test users are provisioned via the `users.json`. Look in the 1password secret named `qmr-secrets` for the test user password.
 
 ### Prettier
 
@@ -265,62 +251,17 @@ On the terminal, there will be a detailed coverage report followed by a coverage
 
 ![Architecture Diagram](./.images/architecture.svg?raw=true)
 
-## Serverless
+## CDK
 
-This project is built as a series of micro-services using the [Serverless Framework](https://www.serverless.com/framework/docs). Serverless looks and feels like a more useful version of CloudFormation Templates, and you can even write Cloudformation inside serverless files.
+This project is built as a series of micro-services using the [CDK](https://aws.amazon.com/cdk/). CDK allows you to write typescript that compiles into CloudFormation Templates.
 
-Every microservice in this project has a corresponding serverless file that deploys everything in the service to a cloudformation stack in AWS. Check out [The Docs](https://www.serverless.com/framework/docs) to learn more about it. But we'll cover a few things here.
-
-### Configuration - AWS Systems Manager Parameter Store (SSM)
+### Configuration AWS Secrets Manager
 
 ---
 
-The following values are used to configure the deployment of every service (see below for more background and context).
-| Parameter | Required? | Accepts a default? | Accepts a branch override? | Purpose |
-| --- | :---: | :---: | :---: | --- |
-| .../iam/path | N | Y | Y | Specifies the [IAM Path](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names) at which all IAM objects should be created. The default value is "/". The path variable in IAM is used for grouping related users and groups in a unique namespace, usually for organizational purposes.|
-| .../iam/permissionsBoundaryPolicy | N | Y | Y | Specifies the [IAM Permissions Boundary](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html) that should be attached to all IAM objects. A permissions boundary is an advanced feature for using a managed policy to set the maximum permissions that an identity-based policy can grant to an IAM entity. If set, this parmeter should contain the full ARN to the policy.|
+Look in `deployment/deployment-config.ts` and look at the `DeploymentConfigProperties` interface which should give you a sense of which values are being injected into the app. The values must either be in `qmr-default` secret or `qmr-STAGE` to be picked up. The secrets are json objects so they contain multiple values each.
 
-This project uses [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html), often referred to as simply SSM, to inject environment specific, project specific, and/or sensitive information into the deployment.
-In short, SSM is an AWS service that allows users to store (optionally) encrypted strings in a directory like hierarchy. For example, "/my/first/ssm/param" is a valid path for a parameter. Access to this service and even individual paramters is granted via AWS IAM.
-
-An example of environment specific information is the id of a VPC into which we want to deploy. This VPC id should not be checked in to git, as it may vary from environment to environment, so we would use SSM to store the id information and use the [Serverless Framework's SSM lookup capability](https://www.serverless.com/framework/docs/providers/aws/guide/variables/#reference-variables-using-the-ssm-parameter-store) to fetcn the information at deploy time.
-
-This project has also implemented a pattern for specifying defaults for variables, while allowing for branch (environment specific overrides). That pattern looks like this:
-
-```
-sesSourceEmailAddress: ${ssm:/configuration/${self:custom.stage}/sesSourceEmailAddress, ssm:/configuration/default/sesSourceEmailAddress}
-```
-
-The above syntax says "look for an ssm parameter at /configuration/<branch name>/sesSourceEmailAddress; if there isn't one, look for a parameter at /configuration/default/sesSourceEmailAddress". With this logic, we can specify a generic value for this variable that would apply to all environments deployed to a given account, but if we wish to set a different value for a specific environment (branch), we can create a parameter at the branch specific path and it will take precedence.
-
-In the above tabular documentation, you will see columns for "Accepts default?" and "Accepts a branch override?". These columns relate to the above convention of searching for a branch specific override but falling back to a default parameter. It's important to note if a parameter can accept a default or can accept an override, because not all can do both. For example, a parameter used to specify Okta App information cannot be set as a default, because Okta can only support one environment (branch) at a time; so, okta_metadata_url is a good example of a parameter that can only be specified on a branch by branch basis, and never as a default.
-
-In the above documentation, you will also see the Parameter value denoted as ".../iam/path", for example. This notation is meant to represent the core of the parameter's expected path. The "..." prefix is meant to be a placeholder for either "/configuration/default" (in the case of a default value) or "/configuration/myfavoritebranch" (in the case of specifying a branch specific override for the myfavoritebranch branch.
-
-### Deploy Single Service from Local
-
----
-
-As you are developing you may want to debug and not wait for the 12-20 minutes it takes for changes to go through GitHub actions. You can deploy individual services using serverless.
-
-1. Ensure all stages of the branch have deployed once through github actions
-1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
-1. Navigate to the service you are trying to deploy ie: `/services/app-api`
-1. Run `sls deploy --stage branchname`, where branchname is the name of your branch.
-
-### Destroy single service from Local
-
----
-
-Destroying is largely the same process as deploying.
-
-1. Ensure all stages of the branch have deployed once through github actions
-1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
-1. Navigate to the service you are trying to deploy ie: `/services/app-api`
-1. Run `sls remove --stage branchname`, where branchname is the name of your branch.
-
-Some known issues with this process of destroying is that S3 buckets will not be deleted properly, so I would recommend destroying through GithubActions or destroying the entire branch.
+No values should be specified in both secrets. Just don't do it. Ok if that did ever happen the stage value would supercede. But really I promise you don't need it.
 
 ### Destroy Entire Branch from Local
 
@@ -338,7 +279,7 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 
 ---
 
-The API service contains all of the API calls for the application. It is deployed with serverless and depends on the database service to exist first. It can be updated independently from the rest of the application as long as the inital infrastructure for the application has been created. This is to help speed up local deployment and debugging of branch resources and not for updates of any of the higher environments.
+The API service contains all of the API calls for the application. It is deployed with cdk and depends on the database service to exist first.
 
 ### Parameters
 
