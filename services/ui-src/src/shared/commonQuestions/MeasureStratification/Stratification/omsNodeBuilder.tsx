@@ -7,9 +7,9 @@ import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
 import { AccordionItem } from "components/Accordion";
-import { NDRSets } from "../OptionalMeasureStrat/NDR/ndrSets";
-import { AddAnotherSection } from "../OptionalMeasureStrat/additionalCategory";
-import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
+import { NDRSets } from "../../OptionalMeasureStrat/NDR/ndrSets";
+import { AddAnotherSection } from "shared/commonQuestions/OptionalMeasureStrat/Shared/additionalCategory";
+import { SubCatSection } from "shared/commonQuestions/OptionalMeasureStrat/Shared/subCatClassification";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */

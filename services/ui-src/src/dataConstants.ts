@@ -207,6 +207,7 @@ export const SUB_CAT_OPTIONS = "subCatOptions";
 export const TOTAL = "total";
 export const UID = "uid";
 export const VITAL_DATA_SOURCE = "Vital Records";
+export const VERSION = "version";
 export const WHY_ARE_YOU_NOT_REPORTING = "WhyAreYouNotReporting";
 export const WHY_ARE_YOU_NOT_REPORTING_OTHER = "WhyAreYouNotReporting-Other";
 export const WHY_IS_DATA_NOT_AVAILABLE = "WhyIsDataNotAvailable";

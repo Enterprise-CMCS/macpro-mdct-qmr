@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { NDRSets } from "./NDR/ndrSets";
+import { NDRSets } from "./../NDR/ndrSets";
 
 interface AddAnotherButtonProps {
   /** onClick state updating function for dynamic rendering */

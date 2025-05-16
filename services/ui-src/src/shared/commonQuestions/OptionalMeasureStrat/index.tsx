@@ -1,8 +1,11 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Types from "./../../types";
+import * as Types from "../../types";
 import { OMSData } from "./data";
-import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
+import {
+  PerformanceMeasureProvider,
+  ComponentFlagType,
+} from "./Shared/context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";

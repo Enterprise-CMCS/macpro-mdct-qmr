@@ -4,7 +4,7 @@ import * as Types from "shared/types";
 import * as QMR from "components";
 import { LabelData, cleanString, getLabelText, isLegacyLabel } from "utils";
 import { useFormContext } from "react-hook-form";
-import { ContextProps, usePerformanceMeasureContext } from "../context";
+import { ContextProps, usePerformanceMeasureContext } from "../Shared/context";
 import {
   useQualRateArray,
   useRatesForCompletedPmQualifiers,

@@ -1,4 +1,4 @@
-import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
+import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/Shared/context";
 import { DataDrivenTypes } from "./TypeDataDriven";
 
 export interface customData {

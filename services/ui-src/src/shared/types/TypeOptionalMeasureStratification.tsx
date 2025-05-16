@@ -1,5 +1,66 @@
 import * as DC from "dataConstants";
-import { RateFields } from "./TypeRateFields";
+import { OtherRatesFields, RateFields } from "./TypeRateFields";
+import { LabelData } from "utils";
+import { Qualifiers } from "./TypeQualifiers";
+import { Categories } from "./TypeCategories";
+import { ndrFormula } from "types";
+import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/Shared/context";
+
+export interface OmsCheckboxProps {
+  /** name for react-hook-form registration */
+  name: string;
+  /** data object for dynamic rendering */
+  data: OmsNode[];
+  year: number;
+  excludeOptions: string[];
+}
+
+export interface BaseProps extends Qualifiers, Categories {
+  measureName?: string;
+  inputFieldNames?: LabelData[];
+  ndrFormulas?: ndrFormula[];
+  /** string array for perfromance measure descriptions */
+  performanceMeasureArray?: RateFields[][];
+  /** should the total for each portion of OMS be calculated? */
+  calcTotal?: boolean;
+  rateMultiplicationValue?: number;
+  allowNumeratorGreaterThanDenominator?: boolean;
+  customMask?: RegExp;
+  excludeOptions?: string[];
+  rateAlwaysEditable?: boolean;
+  numberOfDecimals?: number;
+  componentFlag?: ComponentFlagType;
+  customNumeratorLabel?: string;
+  customDenominatorLabel?: string;
+  customRateLabel?: string;
+  customPrompt?: string;
+  rateCalc?: RateFormula;
+}
+
+/** data for dynamic rendering will be provided */
+interface DataDrivenProp {
+  /** data array for dynamic rendering */
+  data: OmsNode[];
+  /** cannot set adultMeasure if using custom data*/
+  coreset?: never;
+}
+
+/** default data is being used for this component */
+interface DefaultDataProp {
+  /** is this an adult measure? Should this contain the ACA portion? */
+  coreset: string;
+  /** cannot set data if using default data */
+  data?: never;
+}
+
+export type OMSProps = BaseProps & (DataDrivenProp | DefaultDataProp);
+
+/** OMS react-hook-form typing */
+export type OMSType = OptionalMeasureStratification & {
+  DataSource: string[];
+} & { MeasurementSpecification: string } & {
+  "OtherPerformanceMeasure-Rates": OtherRatesFields[];
+};
 
 export interface OmsNode {
   /** id value for option */
@@ -133,6 +194,7 @@ export namespace OmsNodes {
 
 export interface OptionalMeasureStratification {
   [DC.OMS]: {
+    [DC.VERSION]?: string;
     [DC.OPTIONS]: string[]; //checkbox
     [DC.SELECTIONS]: {
       [option: string]: OmsNodes.TopLevelOmsNode;

@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import * as QMR from "components";
 import { LabelData, isLegacyLabel } from "utils";
-import { ContextProps, usePerformanceMeasureContext } from "../context";
+import { ContextProps, usePerformanceMeasureContext } from "../Shared/context";
 import { complexRateFields } from "shared/types";
 
 type RateArrayBuilder = (name: string) => React.ReactElement[][];

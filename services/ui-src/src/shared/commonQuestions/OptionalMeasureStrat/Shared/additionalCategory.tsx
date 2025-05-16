@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { AddAnotherButton, SubCatSection } from "./subCatClassification";
-import { NDRSets } from "./NDR/ndrSets";
+import { NDRSets } from "./../NDR/ndrSets";
 
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
