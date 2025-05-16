@@ -5,9 +5,104 @@ export const OMSData = (year: number, adultMeasure?: boolean): OmsNode[] => {
     case 2021:
     case 2022:
       return dataLegacy(adultMeasure);
-    default:
+    case 2023:
+    case 2024:
       return data();
+    default:
+      return omb2024();
   }
+};
+
+const omb2024 = () => {
+  return [
+    {
+      id: "3dpUZu",
+      label: "Race and Ethnicity",
+      options: [
+        {
+          id: "ll9YP8",
+          flagSubCat: false,
+          label: "American Indian or Alaska Native",
+        },
+        {
+          id: "RKWD6S",
+          label: "Asian",
+          options: [
+            { id: "e68Cj8", flagSubCat: false, label: "Asian Indian" },
+            { id: "gCxXhf", flagSubCat: false, label: "Chinese" },
+            { id: "i2fIgY", flagSubCat: false, label: "Filipino" },
+            { id: "WxWvJ8", flagSubCat: false, label: "Japanese" },
+            { id: "78IBC7", flagSubCat: false, label: "Korean" },
+            { id: "GPgIYd", flagSubCat: false, label: "Vietnamese" },
+            { id: "5v7GMy", flagSubCat: false, label: "Other Asian" },
+          ],
+          flagSubCat: true,
+        },
+        {
+          id: "6NrBa5",
+          flagSubCat: false,
+          label: "Black or African American",
+        },
+        {
+          id: "Qu4kZK",
+          label: "Native Hawaiian or Other Pacific Islander",
+          options: [
+            {
+              id: "GDJJx4",
+              flagSubCat: false,
+              label: "Native Hawaiian",
+            },
+            {
+              id: "LgwPP1",
+              flagSubCat: false,
+              label: "Guamanian or Chamorro",
+            },
+            { id: "LTJcrA", flagSubCat: false, label: "Samoan" },
+            {
+              id: "Ri1PWc",
+              flagSubCat: false,
+              label: "Other Pacific Islander",
+            },
+          ],
+          flagSubCat: true,
+        },
+        { id: "szjphG", flagSubCat: false, label: "White" },
+        {
+          id: "OmjSBa",
+          flagSubCat: false,
+          label: "Two or More Races",
+        },
+        { id: "uZTnKi", flagSubCat: false, label: "Some Other Race" },
+        {
+          id: "nN7fNs",
+          flagSubCat: false,
+          label: "Missing or not reported",
+        },
+      ],
+      addMore: true,
+      addMoreSubCatFlag: false,
+    },
+    {
+      id: "O8BrOa",
+      label: "Sex",
+      options: [
+        { id: "KRwFRN", label: "Male" },
+        { id: "8M0aAo", label: "Female" },
+        { id: "BnVURC", label: "Missing or not reported" },
+      ],
+      addMore: true,
+    },
+    {
+      id: "afMbTr",
+      label: "Geography",
+      options: [
+        { id: "r07WKZ", label: "Urban" },
+        { id: "bbaSzG", label: "Rural" },
+        { id: "i11ZUj", label: "Missing or not reported" },
+      ],
+      addMore: true,
+    },
+  ];
 };
 
 const data = () => {
