@@ -28,7 +28,7 @@ export const DataSource = ({ type }: DataSourceProps) => {
             value: "Other",
             children: [
               <QMR.TextArea
-                label={<>Describe the data source:</>}
+                label="Describe the data source:"
                 {...register("DataSource-CAHPS-Version-Other")}
               />,
               (type === "adult" || type === "child") &&

@@ -311,20 +311,18 @@ const CoreSetSpecificDefinitions = (
   removeOtherOption?: boolean
 ) => {
   const options = coreSetOptions ?? coreSetSpecificOptions;
-  const otherOptions = [];
-  if (!removeOtherOption) {
-    otherOptions.push({
-      displayValue: "Other",
-      value: DC.DENOMINATOR_INC_OTHER,
-      children: [
-        <QMR.TextArea
-          formLabelProps={{ fontWeight: "400" }}
-          label={parseLabelToHTML(labels.defineDenomOther)}
-          {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
-        />,
-      ],
-    });
-  }
+  const otherOption = {
+    displayValue: "Other",
+    value: DC.DENOMINATOR_INC_OTHER,
+    children: [
+      <QMR.TextArea
+        formLabelProps={{ fontWeight: "400" }}
+        label={parseLabelToHTML(labels.defineDenomOther)}
+        {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
+      />,
+    ],
+  };
+  const otherOptions = removeOtherOption ? [] : [otherOption];
   return (
     <CUI.Box>
       {options[coreSetType].helpText}
