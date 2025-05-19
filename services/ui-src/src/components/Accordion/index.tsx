@@ -3,12 +3,11 @@ import {
   AccordionButton,
   AccordionItem as AccordionItemRoot,
   AccordionPanel,
-  Image,
   SystemStyleObject,
   Text,
 } from "@chakra-ui/react";
-import plusIcon from "/accordion/icon_plus.svg";
-import minusIcon from "/accordion/icon_minus.svg";
+import * as CUI from "@chakra-ui/react";
+import { FaPlus, FaMinus } from "react-icons/fa6";
 
 export const AccordionItem = ({ label, children, sx: sxOverride }: Props) => {
   return (
@@ -17,11 +16,7 @@ export const AccordionItem = ({ label, children, sx: sxOverride }: Props) => {
         <>
           <AccordionButton aria-label={label} title="accordion-button" mb={2}>
             <Text flex="1">{label}</Text>
-            <Image
-              src={isExpanded ? minusIcon : plusIcon}
-              alt={isExpanded ? "Collapse" : "Expand"}
-              sx={sx.accordionIcon}
-            />
+            <CUI.Icon fontSize={"xl"} as={isExpanded ? FaMinus : FaPlus} />
           </AccordionButton>
           <AccordionPanel sx={sx.accordionPanel}>{children}</AccordionPanel>
         </>
