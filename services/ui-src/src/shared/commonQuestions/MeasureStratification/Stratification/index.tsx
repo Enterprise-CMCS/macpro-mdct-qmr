@@ -3,7 +3,7 @@ import * as QMR from "components";
 import * as Types from "../../../types";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
 import { AccordionItem } from "components/Accordion";
@@ -23,6 +23,7 @@ export const buildOmsCheckboxes = ({
   data,
   excludeOptions,
   year,
+  accordion,
 }: Types.OmsCheckboxProps) => {
   return data
     .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
@@ -43,16 +44,13 @@ export const buildOmsCheckboxes = ({
           id={value}
           label={displayValue}
           year={year}
+          accordion={accordion}
         />,
       ];
 
       return { value, displayValue, children };
     });
 };
-
-export const ExpandAll = () => {};
-
-export const CollapseAll = () => {};
 
 /**
  * Final OMS built
@@ -80,6 +78,7 @@ export const Stratification = ({
   year,
   omsData,
 }: Types.OMSProps & StratificationProps) => {
+  const [accordionState, setAccordionState] = useState<number>();
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<Types.OMSType>();
   const values = getValues();
@@ -98,6 +97,7 @@ export const Stratification = ({
     data: omsData,
     excludeOptions,
     year,
+    accordion: accordionState,
   });
 
   let rateReadOnly = false;
@@ -173,13 +173,15 @@ export const Stratification = ({
           needed.
         </CUI.Text>
         <CUI.Box my={6}>
-          <CUI.Button onClick={ExpandAll}>Expand all</CUI.Button>
-          <CUI.Button onClick={CollapseAll} ml={6}>
+          <CUI.Button onClick={() => setAccordionState(0)}>
+            Expand all
+          </CUI.Button>
+          <CUI.Button onClick={() => setAccordionState(1)} ml={6}>
             Collapse all
           </CUI.Button>
         </CUI.Box>
         {checkBoxOptions.map((option) => (
-          <CUI.Accordion my={4} allowToggle>
+          <CUI.Accordion my={4} allowToggle index={accordionState}>
             <AccordionItem label={option.displayValue}>
               {option.children}
             </AccordionItem>

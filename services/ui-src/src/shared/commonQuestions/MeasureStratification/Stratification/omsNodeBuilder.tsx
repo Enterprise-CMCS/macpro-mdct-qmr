@@ -17,6 +17,7 @@ interface CheckboxChildrenProps extends OmsNode {
   /** name of parent category for additionalCategory rendering */
   parentDisplayName: string;
   year?: number;
+  accordion?: number;
 }
 
 interface ChildCheckBoxOptionProps {
@@ -173,7 +174,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <CUI.Accordion mt={4} allowToggle>
+        <CUI.Accordion mt={4} allowToggle index={props.accordion}>
           <AccordionItem label={options.displayValue}>
             {options.children}
           </AccordionItem>
