@@ -15,11 +15,7 @@ export const AccordionItem = ({ label, children, sx: sxOverride }: Props) => {
     <AccordionItemRoot sx={sxOverride ?? sx.root}>
       {({ isExpanded }) => (
         <>
-          <AccordionButton
-            sx={sx.accordionButton}
-            aria-label={label}
-            title="accordion-button"
-          >
+          <AccordionButton aria-label={label} title="accordion-button" mb={2}>
             <Text flex="1">{label}</Text>
             <Image
               src={isExpanded ? minusIcon : plusIcon}
@@ -43,14 +39,16 @@ interface Props {
 const sx = {
   root: {
     borderStyle: "none",
-  },
-  accordionButton: {
-    minHeight: "3.5rem",
-    textAlign: "left",
-    backgroundColor: "#F2F2F2",
+    ".chakra-accordion__button": {
+      minHeight: "3.5rem",
+      textAlign: "left",
+      backgroundColor: "#F2F2F2",
+    },
+    "div .chakra-accordion__button, div .chakra-accordion__button:hover": {
+      backgroundColor: "#E6F9FD",
+    },
   },
   accordionPanel: {
-    padding: "1.5rem 1rem 0.5rem",
     ".mobile &": {
       padding: "0.5rem 0",
     },

@@ -50,6 +50,10 @@ export const buildOmsCheckboxes = ({
     });
 };
 
+export const ExpandAll = () => {};
+
+export const CollapseAll = () => {};
+
 /**
  * Final OMS built
  */
@@ -135,10 +139,7 @@ export const Stratification = ({
   );
 
   return (
-    <QMR.CoreQuestionWrapper
-      testid="OMS"
-      label="Optional Measure Stratification"
-    >
+    <QMR.CoreQuestionWrapper testid="OMS" label="Enter Measure Stratification">
       <PerformanceMeasureProvider
         value={{
           OPM,
@@ -162,12 +163,23 @@ export const Stratification = ({
           rateCalculation: rateCalc,
         }}
       >
-        <CUI.Text py="3">
-          Do not select categories and sub-classifications for which you will
-          not be reporting any data.
+        <CUI.Text>
+          Do not select categories and sub-categories for which you will not be
+          reporting any data.
         </CUI.Text>
+        <CUI.Text>
+          For each category and sub-category, enter a number for the numerator
+          and denominator. The rate will auto-calculated but can be revised if
+          needed.
+        </CUI.Text>
+        <CUI.Box my={6}>
+          <CUI.Button onClick={ExpandAll}>Expand all</CUI.Button>
+          <CUI.Button onClick={CollapseAll} ml={6}>
+            Collapse all
+          </CUI.Button>
+        </CUI.Box>
         {checkBoxOptions.map((option) => (
-          <CUI.Accordion allowToggle>
+          <CUI.Accordion my={4} allowToggle>
             <AccordionItem label={option.displayValue}>
               {option.children}
             </AccordionItem>

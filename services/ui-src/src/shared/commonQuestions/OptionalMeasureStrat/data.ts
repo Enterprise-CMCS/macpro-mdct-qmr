@@ -7,7 +7,7 @@ export const OMSData = (year: number, adultMeasure?: boolean): OmsNode[] => {
       return dataLegacy(adultMeasure);
     case 2023:
     case 2024:
-      return data();
+      return omb1997();
     default:
       return omb2024();
   }
@@ -105,7 +105,7 @@ const omb2024 = () => {
   ];
 };
 
-const data = () => {
+const omb1997 = () => {
   return [
     {
       id: "3dpUZu",

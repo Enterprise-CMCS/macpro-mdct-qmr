@@ -4,6 +4,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { AddAnotherButton, SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./../NDR/ndrSets";
+import { AccordionItem } from "components/Accordion";
 
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
@@ -63,5 +64,54 @@ export const AddAnotherSection = ({
         testid={`${name}.additionalCategoriesButton`}
       />
     </CUI.Box>
+  );
+};
+
+export const AddAnotherSectionAccordian = ({
+  name,
+  parentName,
+}: AdditonalCategoryProps) => {
+  const { control } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    name: `${name}.additionalSelections`,
+    control,
+    shouldUnregister: true,
+  });
+
+  if (fields.length === 0) append({});
+
+  return (
+    <CUI.Accordion allowToggle mt={4}>
+      <AccordionItem label={`Add another ${parentName}`}>
+        <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
+          {fields.map((field: any, idx: number) => (
+            <QMR.DeleteWrapper
+              allowDeletion
+              onDelete={() => remove(idx)}
+              key={field.id}
+            >
+              <CUI.Stack spacing={"5"} my={4}>
+                <QMR.TextInput
+                  name={`${name}.additionalSelections.${idx}.description`}
+                  label={`Additional ${parentName}`}
+                  rules={{ required: true }}
+                />
+                <QMR.QuestionChild show key={field.id}>
+                  <NDRSets
+                    name={`${name}.additionalSelections.${idx}.rateData`}
+                  />
+                </QMR.QuestionChild>
+              </CUI.Stack>
+            </QMR.DeleteWrapper>
+          ))}
+          <AddAnotherButton
+            onClick={() => append({})}
+            additionalText={parentName}
+            key={`${name}.additionalCategoriesButton`}
+            testid={`${name}.additionalCategoriesButton`}
+          />
+        </CUI.Box>
+      </AccordionItem>
+    </CUI.Accordion>
   );
 };

@@ -8,7 +8,7 @@ import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
 import { AccordionItem } from "components/Accordion";
 import { NDRSets } from "../../OptionalMeasureStrat/NDR/ndrSets";
-import { AddAnotherSection } from "shared/commonQuestions/OptionalMeasureStrat/Shared/additionalCategory";
+import { AddAnotherSectionAccordian } from "shared/commonQuestions/OptionalMeasureStrat/Shared/additionalCategory";
 import { SubCatSection } from "shared/commonQuestions/OptionalMeasureStrat/Shared/subCatClassification";
 
 interface CheckboxChildrenProps extends OmsNode {
@@ -58,12 +58,10 @@ const omsLabels = (omsNode: OmsNode) => {
   };
 };
 
-const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
+const NdrNode = ({ name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
       <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
-      {/* flagSubCat is only used for year <= 2022 */}
-      {flagSubCat && <SubCatSection name={name} />}
     </CUI.Box>
   );
 };
@@ -175,14 +173,14 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <CUI.Accordion allowToggle>
+        <CUI.Accordion mt={4} allowToggle>
           <AccordionItem label={options.displayValue}>
             {options.children}
           </AccordionItem>
         </CUI.Accordion>
       ))}
       {props.addMore && (
-        <AddAnotherSection
+        <AddAnotherSectionAccordian
           name={props.name}
           flagSubCat
           parentName={props.parentDisplayName}
