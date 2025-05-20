@@ -6,7 +6,7 @@ import { OmsNode } from "shared/types";
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
-import { AccordionItem } from "components/Accordion";
+import { Accordion } from "components/Accordion";
 import { NDRSets } from "../../OptionalMeasureStrat/NDR/ndrSets";
 import { AddAnotherSectionAccordian } from "shared/commonQuestions/OptionalMeasureStrat/Shared/additionalCategory";
 import { SubCatSection } from "shared/commonQuestions/OptionalMeasureStrat/Shared/subCatClassification";
@@ -17,7 +17,7 @@ interface CheckboxChildrenProps extends OmsNode {
   /** name of parent category for additionalCategory rendering */
   parentDisplayName: string;
   year?: number;
-  accordion?: number;
+  accordion?: boolean;
 }
 
 interface ChildCheckBoxOptionProps {
@@ -174,18 +174,16 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <CUI.Accordion mt={4} allowToggle index={props.accordion}>
-          <AccordionItem label={options.displayValue}>
-            {options.children}
-          </AccordionItem>
-        </CUI.Accordion>
+        <Accordion state={props.accordion} label={options.displayValue}>
+          {options.children}
+        </Accordion>
       ))}
       {props.addMore && (
         <AddAnotherSectionAccordian
           name={props.name}
-          flagSubCat
           parentName={props.parentDisplayName}
           key={`${props.name}.AdditionalCategorySection`}
+          accordion={props.accordion}
         />
       )}
     </CUI.Box>

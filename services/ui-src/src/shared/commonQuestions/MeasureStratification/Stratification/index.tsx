@@ -6,7 +6,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
-import { AccordionItem } from "components/Accordion";
+import { Accordion } from "components/Accordion";
 import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/Shared/context";
 
 /**
@@ -78,7 +78,7 @@ export const Stratification = ({
   year,
   omsData,
 }: Types.OMSProps & StratificationProps) => {
-  const [accordionState, setAccordionState] = useState<number>();
+  const [accordionState, setAccordionState] = useState<boolean>(true);
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<Types.OMSType>();
   const values = getValues();
@@ -173,19 +173,21 @@ export const Stratification = ({
           needed.
         </CUI.Text>
         <CUI.Box my={6}>
-          <CUI.Button onClick={() => setAccordionState(0)}>
+          <CUI.Button variant="link" onClick={() => setAccordionState(false)}>
             Expand all
           </CUI.Button>
-          <CUI.Button onClick={() => setAccordionState(1)} ml={6}>
+          <CUI.Button
+            variant="link"
+            onClick={() => setAccordionState(true)}
+            ml={6}
+          >
             Collapse all
           </CUI.Button>
         </CUI.Box>
         {checkBoxOptions.map((option) => (
-          <CUI.Accordion my={4} allowToggle index={accordionState}>
-            <AccordionItem label={option.displayValue}>
-              {option.children}
-            </AccordionItem>
-          </CUI.Accordion>
+          <Accordion state={accordionState} label={option.displayValue}>
+            {option.children}
+          </Accordion>
         ))}
       </PerformanceMeasureProvider>
     </QMR.CoreQuestionWrapper>

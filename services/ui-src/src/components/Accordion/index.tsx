@@ -1,34 +1,69 @@
-import { ReactNode } from "react";
-import {
-  AccordionButton,
-  AccordionItem as AccordionItemRoot,
-  AccordionPanel,
-  SystemStyleObject,
-  Text,
-} from "@chakra-ui/react";
+import { MouseEventHandler, ReactNode, useMemo, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 
-export const AccordionItem = ({ label, children, sx: sxOverride }: Props) => {
+export const AccordionItem = ({
+  label,
+  children,
+  sx: sxOverride,
+  onClick,
+}: Props) => {
   return (
-    <AccordionItemRoot sx={sxOverride ?? sx.root}>
+    <CUI.AccordionItem sx={sxOverride ?? sx.root}>
       {({ isExpanded }) => (
         <>
-          <AccordionButton aria-label={label} title="accordion-button" mb={2}>
-            <Text flex="1">{label}</Text>
+          <CUI.AccordionButton
+            aria-label={label}
+            title="accordion-button"
+            mb={2}
+            onClick={onClick}
+          >
+            <CUI.Text flex="1">{label}</CUI.Text>
             <CUI.Icon fontSize={"xl"} as={isExpanded ? FaMinus : FaPlus} />
-          </AccordionButton>
-          <AccordionPanel sx={sx.accordionPanel}>{children}</AccordionPanel>
+          </CUI.AccordionButton>
+          <CUI.AccordionPanel sx={sx.accordionPanel}>
+            {children}
+          </CUI.AccordionPanel>
         </>
       )}
-    </AccordionItemRoot>
+    </CUI.AccordionItem>
+  );
+};
+
+export const Accordion = ({ label, children, state }: AProps) => {
+  const [index, setIndex] = useState<number>(0);
+
+  useMemo(() => {
+    if (state) setIndex(1);
+    else setIndex(0);
+  }, [state]);
+
+  const toggle = () => {
+    if (index === 1) setIndex(0);
+    else setIndex(1);
+  };
+
+  return (
+    <CUI.Accordion allowMultiple index={[index]}>
+      <AccordionItem label={label} onClick={toggle}>
+        {children}
+      </AccordionItem>
+    </CUI.Accordion>
   );
 };
 
 interface Props {
   children?: ReactNode | ReactNode[];
   label?: string;
-  sx?: SystemStyleObject;
+  sx?: CUI.SystemStyleObject;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}
+
+interface AProps {
+  children?: ReactNode | ReactNode[];
+  state?: boolean;
+  label?: string;
+  sx?: CUI.SystemStyleObject;
 }
 
 const sx = {

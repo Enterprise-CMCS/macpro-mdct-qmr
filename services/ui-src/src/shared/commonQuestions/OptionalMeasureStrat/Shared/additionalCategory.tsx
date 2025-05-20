@@ -4,7 +4,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { AddAnotherButton, SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./../NDR/ndrSets";
-import { AccordionItem } from "components/Accordion";
+import { Accordion } from "components/Accordion";
 
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
@@ -12,7 +12,8 @@ interface AdditonalCategoryProps {
   /** name of parent category for additional text */
   parentName: string;
   /** should the additional categories have a subCat option? */
-  flagSubCat: boolean;
+  flagSubCat?: boolean;
+  accordion?: boolean;
 }
 
 /**
@@ -70,6 +71,7 @@ export const AddAnotherSection = ({
 export const AddAnotherSectionAccordian = ({
   name,
   parentName,
+  accordion,
 }: AdditonalCategoryProps) => {
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
@@ -81,37 +83,35 @@ export const AddAnotherSectionAccordian = ({
   if (fields.length === 0) append({});
 
   return (
-    <CUI.Accordion allowToggle mt={4}>
-      <AccordionItem label={`Add another ${parentName}`}>
-        <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
-          {fields.map((field: any, idx: number) => (
-            <QMR.DeleteWrapper
-              allowDeletion
-              onDelete={() => remove(idx)}
-              key={field.id}
-            >
-              <CUI.Stack spacing={"5"} my={4}>
-                <QMR.TextInput
-                  name={`${name}.additionalSelections.${idx}.description`}
-                  label={`Additional ${parentName}`}
-                  rules={{ required: true }}
+    <Accordion label={`Add another ${parentName}`} state={accordion}>
+      <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
+        {fields.map((field: any, idx: number) => (
+          <QMR.DeleteWrapper
+            allowDeletion
+            onDelete={() => remove(idx)}
+            key={field.id}
+          >
+            <CUI.Stack spacing={"5"} my={4}>
+              <QMR.TextInput
+                name={`${name}.additionalSelections.${idx}.description`}
+                label={`Additional ${parentName}`}
+                rules={{ required: true }}
+              />
+              <QMR.QuestionChild show key={field.id}>
+                <NDRSets
+                  name={`${name}.additionalSelections.${idx}.rateData`}
                 />
-                <QMR.QuestionChild show key={field.id}>
-                  <NDRSets
-                    name={`${name}.additionalSelections.${idx}.rateData`}
-                  />
-                </QMR.QuestionChild>
-              </CUI.Stack>
-            </QMR.DeleteWrapper>
-          ))}
-          <AddAnotherButton
-            onClick={() => append({})}
-            additionalText={parentName}
-            key={`${name}.additionalCategoriesButton`}
-            testid={`${name}.additionalCategoriesButton`}
-          />
-        </CUI.Box>
-      </AccordionItem>
-    </CUI.Accordion>
+              </QMR.QuestionChild>
+            </CUI.Stack>
+          </QMR.DeleteWrapper>
+        ))}
+        <AddAnotherButton
+          onClick={() => append({})}
+          additionalText={parentName}
+          key={`${name}.additionalCategoriesButton`}
+          testid={`${name}.additionalCategoriesButton`}
+        />
+      </CUI.Box>
+    </Accordion>
   );
 };

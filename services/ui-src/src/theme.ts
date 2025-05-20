@@ -67,6 +67,11 @@ export const theme = extendTheme({
             textDecoration: "underline",
           },
         },
+        link: {
+          color: "#2b6cb0",
+          textDecoration: "underline",
+          padding: "0 1rem",
+        },
       },
     },
     Link: {
