@@ -62,7 +62,7 @@ export const featuresByYear = {
     return getMeasureYear() == 2024;
   },
   /**
-   * In 2025 we changed the mandatory boolean into a type enum
+   * In 2025 we changed the mandatory boolean into a measureType enum
    * it allows us to have more options and control over what is displayed
    */
   get displayTypeMeasuresColumn() {

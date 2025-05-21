@@ -102,8 +102,8 @@ export const measuresColumns = (
                   borderRadius="lg"
                   px="2"
                 >
-                  {data?.type && (
-                    <CUI.Text fontWeight="normal">{data?.type}</CUI.Text>
+                  {data?.measureType && (
+                    <CUI.Text fontWeight="normal">{data?.measureType}</CUI.Text>
                   )}
                 </CUI.Badge>
               );
