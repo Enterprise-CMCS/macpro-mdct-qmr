@@ -52,7 +52,7 @@ describe("Testing the Create CoreSet Functions", () => {
 
   test("Test createCoreSet", async () => {
     (getCoreSet as jest.Mock).mockReturnValue({ body: JSON.stringify({}) });
-    const list = measures[2021].filter((measure) => measure.type === "A");
+    const list = measures[2021].filter((measure) => measure.coreType === "A");
     const res = await createCoreSet(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
