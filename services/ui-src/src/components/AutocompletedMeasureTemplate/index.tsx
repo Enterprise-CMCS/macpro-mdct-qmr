@@ -67,8 +67,7 @@ export const AutocompletedMeasureTemplate = ({
           <CUI.Text fontWeight="700">
             {`States are not asked to report data for this measure for ${
               featuresByYear.displayFFYLanguage ? "FFY" : ""
-            } ${year} Core Set reporting in the online
-            reporting system.`}
+            } ${year} Core Set reporting.`}
           </CUI.Text>
         </CUI.Stack>
 

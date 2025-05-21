@@ -10,6 +10,9 @@ import { validationFunctions as ADDCH_Validations } from "./ADDCH/validation";
 import { data as AIFHH_Data } from "./AIFHH/data";
 import { validationFunctions as AIFHH_Validations } from "./AIFHH/validation";
 
+import { data as AISAD_Data } from "./AISAD/data";
+import { validationFunctions as AISAD_Validations } from "./AISAD/validation";
+
 import { data as AMMAD_Data } from "./AMMAD/data";
 import { validationFunctions as AMMAD_Validations } from "./AMMAD/validation";
 
@@ -148,11 +151,17 @@ import { validationFunctions as OUDAD_Validations } from "./OUDAD/validation";
 import { data as OUDHH_Data } from "./OUDHH/data";
 import { validationFunctions as OUDHH_Validations } from "./OUDHH/validation";
 
+import { data as PDSCH_Data } from "./PDSCH/data";
+import { validationFunctions as PDSCH_Validations } from "./PDSCH/validation";
+
 import { data as PPC2AD_Data } from "./PPC2AD/data";
 import { validationFunctions as PPC2AD_Validations } from "./PPC2AD/validation";
 
 import { data as PPC2CH_Data } from "./PPC2CH/data";
 import { validationFunctions as PPC2CH_Validations } from "./PPC2CH/validation";
+
+import { data as PDSAD_Data } from "./PDSAD/data";
+import { validationFunctions as PDSAD_Validations } from "./PDSAD/validation";
 
 import { data as PQI01AD_Data } from "./PQI01AD/data";
 import { validationFunctions as PQI01AD_Validations } from "./PQI01AD/validation";
@@ -165,6 +174,12 @@ import { validationFunctions as PQI08AD_Validations } from "./PQI08AD/validation
 
 import { data as PQI15AD_Data } from "./PQI15AD/data";
 import { validationFunctions as PQI15AD_Validations } from "./PQI15AD/validation";
+
+import { data as PRSAD_Data } from "./PRSAD/data";
+import { validationFunctions as PRSAD_Validations } from "./PRSAD/validation";
+
+import { data as PRSCH_Data } from "./PRSCH/data";
+import { validationFunctions as PRSCH_Validations } from "./PRSCH/validation";
 
 import { data as SAAAD_Data } from "./SAAAD/data";
 import { validationFunctions as SAAAD_Validations } from "./SAAAD/validation";
@@ -192,6 +207,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "AAB-CH": { data: AABCH_Data, validationFunctions: AABCH_Validations },
   "ADD-CH": { data: ADDCH_Data, validationFunctions: ADDCH_Validations },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: AIFHH_Validations },
+  "AIS-AD": { data: AISAD_Data, validationFunctions: AISAD_Validations },
   "AMM-AD": { data: AMMAD_Data, validationFunctions: AMMAD_Validations },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: AMRCH_Validations },
   "APM-CH": { data: APMCH_Data, validationFunctions: APMCH_Validations },
@@ -238,12 +254,16 @@ export const measureTemplateData: { [measure: string]: any } = {
   "OHD-AD": { data: OHDAD_Data, validationFunctions: OHDAD_Validations },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: OUDAD_Validations },
   "OUD-HH": { data: OUDHH_Data, validationFunctions: OUDHH_Validations },
+  "PDS-CH": { data: PDSCH_Data, validationFunctions: PDSCH_Validations },
   "PPC2-AD": { data: PPC2AD_Data, validationFunctions: PPC2AD_Validations },
   "PPC2-CH": { data: PPC2CH_Data, validationFunctions: PPC2CH_Validations },
+  "PDS-AD": { data: PDSAD_Data, validationFunctions: PDSAD_Validations },
   "PQI01-AD": { data: PQI01AD_Data, validationFunctions: PQI01AD_Validations },
   "PQI05-AD": { data: PQI05AD_Data, validationFunctions: PQI05AD_Validations },
   "PQI08-AD": { data: PQI08AD_Data, validationFunctions: PQI08AD_Validations },
   "PQI15-AD": { data: PQI15AD_Data, validationFunctions: PQI15AD_Validations },
+  "PRS-AD": { data: PRSAD_Data, validationFunctions: PRSAD_Validations },
+  "PRS-CH": { data: PRSCH_Data, validationFunctions: PRSCH_Validations },
   "SAA-AD": { data: SAAAD_Data, validationFunctions: SAAAD_Validations },
   "SFM-CH": { data: SFMCH_Data, validationFunctions: SFMCH_Validations },
   "SSD-AD": { data: SSDAD_Data, validationFunctions: SSDAD_Validations },

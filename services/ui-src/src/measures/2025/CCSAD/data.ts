@@ -10,12 +10,12 @@ export const data: MeasureTemplateData = {
   hybridMeasure: true,
   performanceMeasure: {
     questionText: [
-      "Percentage of women ages 21 to 64 who were screened for cervical cancer using any of the following criteria:",
+      "Percentage of beneficiaries ages 21 to 64 who were recommended for routine cervical cancer screening and were screened using any of the following criteria:",
     ],
     questionListItems: [
-      "Women ages 21 to 64 who had cervical cytology performed within the last 3 years",
-      "Women ages 30 to 64 who had cervical high-risk human papillomavirus (hrHPV)  testing performed within the last 5 years",
-      "Women ages 30 to 64 who had cervical cytology/high-risk human papillomavirus (hrHPV) cotesting within the last 5 years",
+      "Beneficiaries ages 21 to 64 who were recommended for routine cervical cancer screening and had cervical cytology performed within the last 3 years",
+      "Beneficiaries ages 30 to 64 who were recommended for routine cervical cancer screening and had cervical high-risk human papillomavirus (hrHPV)  testing performed within the last 5 years",
+      "Beneficiaries ages 30 to 64 who were recommended for routine cervical cancer screening and had cervical cytology/high-risk human papillomavirus (hrHPV) cotesting within the last 5 years",
     ],
     categories,
     qualifiers,

@@ -6,12 +6,16 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { Alert } from "@cmsgov/design-system";
+import { Specifications, SpecificationType } from "shared/types";
+
+interface Props {
+  type: SpecificationType;
+  coreset?: Types.CoreSetKey;
+}
 
 const HEDISChildren = () => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
-
   const hedisLabels: any = useContext(SharedContext);
-
   const options = hedisLabels.MeasureSpecifications.options;
 
   return (
@@ -31,129 +35,111 @@ const HEDISChildren = () => {
   );
 };
 
-interface Props {
-  type:
-    | "ADA-DQA"
-    | "AHRQ"
-    | "AHRQ-NCQA"
-    | "CDC"
-    | "CMS"
-    | "HEDIS"
-    | "HRSA"
-    | "JOINT"
-    | "NCQA"
-    | "OHSU"
-    | "OPA"
-    | "PQA";
-  coreset?: string;
-}
+export const MeasurementSpecificationQuestionYesNo = (
+  { type, coreset }: Props,
+  year: number
+) => {
+  const label = {
+    adult: "Adult",
+    child: "Child",
+    health: "Health Home",
+  };
 
-const specifications = {
-  "ADA-DQA": {
-    displayValue:
-      "American Dental Association/Dental Quality Alliance (ADA/DQA)",
-    value: DC.ADA_DQA,
-  },
-  AHRQ: {
-    displayValue: "Agency for Healthcare Research and Quality (AHRQ)",
-    value: DC.AHRQ,
-  },
-  "AHRQ-NCQA": {
-    displayValue:
-      "Agency for Healthcare Research and Quality (AHRQ) (survey instrument) and National Committee for Quality Assurance (survey administrative protocol)",
-    value: DC.AHRQ_NCQA,
-  },
-  CDC: {
-    displayValue: "Centers for Disease Contol and Prevention (CDC)",
-    value: DC.CDC,
-  },
-  CMS: {
-    displayValue: "Centers for Medicare & Medicaid Services (CMS)",
-    value: DC.CMS,
-  },
-  HEDIS: {
-    displayValue:
-      "National Committee for Quality Assurance (NCQA)/Healthcare Effectiveness Data and Information Set (HEDIS)",
-    value: DC.NCQA,
-    children: [<HEDISChildren key="HEDIS-Child" />],
-  },
-  HRSA: {
-    displayValue: "Health Resources and Services Administration (HRSA)",
-    value: DC.HRSA,
-  },
-  JOINT: {
-    displayValue: "The Joint Commission",
-    value: DC.JOINT_COMMISSION,
-  },
-  NCQA: {
-    displayValue: "National Committee for Quality Assurance (NCQA)",
-    value: DC.NCQA,
-  },
-  OHSU: {
-    displayValue: "Oregon Health and Science University (OHSU)",
-    value: DC.OHSU,
-  },
-  OPA: {
-    displayValue: "HHS Office of Population Affairs (OPA)",
-    value: DC.OPA,
-  },
-  PQA: {
-    displayValue: "Pharmacy Quality Alliance (PQA)",
-    value: DC.PQA,
-  },
+  const specification =
+    type === "HEDIS"
+      ? `${Specifications[type].displayValue} Measurement Year ${year - 1}`
+      : Specifications[type].displayValue;
+  return (
+    <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
+      Did your state use {year} {label[coreset!]} Core Set measure
+      specifications, which are based on {specification} specifications to
+      calculate this measure?
+    </CUI.Text>
+  );
+};
+
+export const MeasurementSpecificationOtherAlert = (
+  otherMeasurementSpecWarning: string
+) => {
+  return (
+    <CUI.Box mt="8">
+      <Alert heading="Please Note" variation="warn">
+        <CUI.Text>{otherMeasurementSpecWarning}</CUI.Text>
+      </Alert>
+    </CUI.Box>
+  );
+};
+
+export const MeasurementSpecificationOtherTextbox = (register: Function) => {
+  return (
+    <QMR.TextArea
+      textAreaProps={{ marginBottom: "10" }}
+      {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
+      label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
+      key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
+    />
+  );
+};
+
+export const MeasurementSpecificationUpload = (register: Function) => {
+  return (
+    <QMR.Upload
+      label="If you need additional space to describe your state's methodology, please attach further documentation below."
+      {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
+    />
+  );
 };
 
 export const MeasurementSpecification = ({ type, coreset }: Props) => {
   const register = useCustomRegister<Types.MeasurementSpecification>();
+  const context: any = useContext(SharedContext);
+  const { MeasureSpecifications, year } = context;
 
-  const measureSpecLabels: any = useContext(SharedContext);
+  const measureSpecs = { ...Specifications[type] };
+
+  if (type === "HEDIS")
+    measureSpecs.children = MeasureSpecifications.options && [
+      <HEDISChildren key="HEDIS-Child" />,
+    ];
+
+  //for 2025+, the display for the radio option is different but the value being saved in the database is the same, so this just does a label swap
+  measureSpecs.displayValue = MeasureSpecifications?.measureSpecYesNo
+    ? `Yes, our state used ${year} Core Set specifications to calculate this measure.`
+    : measureSpecs.displayValue;
 
   return (
     <QMR.CoreQuestionWrapper
       testid="measurement-specification"
       label="Measurement Specification"
     >
-      {measureSpecLabels?.MeasureSpecifications?.additionalContext && (
+      {MeasureSpecifications?.additionalContext && (
         <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
-          {measureSpecLabels?.MeasureSpecifications?.additionalContext}
+          {MeasureSpecifications?.additionalContext}
         </CUI.Text>
       )}
+
+      {MeasureSpecifications?.measureSpecYesNo &&
+        MeasurementSpecificationQuestionYesNo({ type, coreset }, year)}
 
       <div data-cy="measurement-specification-options">
         <QMR.RadioButton
           {...register(DC.MEASUREMENT_SPECIFICATION)}
           options={[
-            specifications[type],
+            measureSpecs,
             {
-              displayValue: "Other",
+              displayValue: MeasureSpecifications?.measureSpecYesNo
+                ? "No, our state used Other specifications to calculate this measure."
+                : "Other",
               value: DC.OTHER,
               children: [
-                <QMR.TextArea
-                  textAreaProps={{ marginBottom: "10" }}
-                  {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
-                  label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
-                  key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
-                />,
+                MeasurementSpecificationOtherTextbox(register),
                 (coreset === "adult" || coreset === "child") &&
-                  measureSpecLabels.MeasureSpecifications
-                    .otherMeasurementSpecWarning && (
-                    <CUI.Box mb="8">
-                      <Alert heading="Please Note" variation="warn">
-                        <CUI.Text>
-                          {
-                            measureSpecLabels.MeasureSpecifications
-                              .otherMeasurementSpecWarning
-                          }
-                        </CUI.Text>
-                      </Alert>
-                    </CUI.Box>
+                  MeasureSpecifications.otherMeasurementSpecWarning &&
+                  MeasurementSpecificationOtherAlert(
+                    MeasureSpecifications.otherMeasurementSpecWarning
                   ),
-                measureSpecLabels.MeasureSpecifications.upload && (
-                  <QMR.Upload
-                    label="If you need additional space to describe your state's methodology, please attach further documentation below."
-                    {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
-                  />
-                ),
+                MeasureSpecifications.upload &&
+                  MeasurementSpecificationUpload(register),
               ],
             },
           ]}

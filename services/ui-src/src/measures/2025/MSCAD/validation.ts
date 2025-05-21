@@ -21,6 +21,12 @@ const MSCADValidation = (data: DefaultFormData) => {
     return errorArray;
   }
 
+  //if user didn't fill out collect this measure
+  if (data[DC.DID_COLLECT] === undefined && data[DC.DID_REPORT] === "no") {
+    errorArray = [...GV.validateCollecting(data)];
+    return errorArray;
+  }
+
   // this prevents all the errors for filling out form to show up
   if (data[DC.DID_REPORT] === "no") {
     return [];
@@ -50,7 +56,6 @@ const MSCADValidation = (data: DefaultFormData) => {
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),

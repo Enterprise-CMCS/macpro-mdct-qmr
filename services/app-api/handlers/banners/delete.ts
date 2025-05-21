@@ -22,7 +22,7 @@ export const deleteBanner = handler(async (event, _context) => {
   }
 
   const params: any = {
-    TableName: process.env.bannerTableName!,
+    TableName: process.env.BannersTable!,
     Key: {
       key: bannerId,
     },

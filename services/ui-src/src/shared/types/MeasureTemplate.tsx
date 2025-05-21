@@ -1,5 +1,6 @@
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/Shared/context";
 import { DataDrivenTypes } from "./TypeDataDriven";
+import { CoreSetKey } from "./GlobalTypes";
 
 export interface customData {
   rateReadOnly?: boolean;
@@ -23,7 +24,7 @@ export interface customData {
 
 export interface MeasureTemplateData {
   type: string;
-  coreset: string;
+  coreset: CoreSetKey;
   hybridMeasure?: boolean;
   performanceMeasure: DataDrivenTypes.PerformanceMeasure;
   dataSource?: DataDrivenTypes.DataSource;
