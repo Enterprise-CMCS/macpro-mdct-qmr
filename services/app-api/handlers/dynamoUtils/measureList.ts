@@ -1521,6 +1521,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "PDS-AD",
+      reportType: ReportType.PROVISIONAL,
     },
     {
       type: "A",
@@ -1661,10 +1662,12 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "OEVP-CH",
+      reportType: ReportType.PROVISIONAL,
     },
     {
       type: "C",
       measure: "PDS-CH",
+      reportType: ReportType.PROVISIONAL,
     },
     {
       type: "C",
@@ -1674,6 +1677,7 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "PRS-CH",
+      reportType: ReportType.PROVISIONAL,
     },
     {
       type: "C",

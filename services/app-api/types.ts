@@ -18,8 +18,8 @@ export interface CoreSet {
 export type StandardRateShape = RateNDRShape | RateValueShape;
 
 export enum ReportType {
-  MANDATORY,
-  PROVISIONAL,
+  MANDATORY = "Mandatory",
+  PROVISIONAL = "Provisional",
 }
 
 export interface RateNDRShape {
