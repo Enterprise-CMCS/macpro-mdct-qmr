@@ -5,7 +5,7 @@ import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import { Measure, ReportType, UserRoles } from "../../types";
+import { Measure, MeasureType, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import {
   parseCoreSetParameters,
@@ -47,7 +47,7 @@ export const listMeasures = handler(async (event, context) => {
     )[0];
 
     v.autoCompleted = !!measure?.autocompleteOnCreation;
-    v.reportType = measure?.reportType;
+    v.measureType = measure?.measureType;
   }
 
   return {

@@ -1,4 +1,4 @@
-import { ReportType } from "../../types";
+import { MeasureType } from "../../types";
 
 interface Measure {
   [year: number]: MeasureMetaData[];
@@ -9,7 +9,7 @@ export interface MeasureMetaData {
   measure: string;
   autocompleteOnCreation?: boolean;
   placeholder?: boolean;
-  reportType?: ReportType;
+  measureType?: MeasureType;
 }
 
 export const measures: Measure = {
@@ -1004,7 +1004,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "AMM-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1033,7 +1033,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CDF-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1058,17 +1058,17 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUA-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUH-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUM-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1077,7 +1077,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "HPCMI-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1086,12 +1086,12 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "IET-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "MSC-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1105,7 +1105,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "OUD-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1134,243 +1134,243 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "SAA-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "SSD-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AAB-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "ADD-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMB-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMR-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "APM-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "APP-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCP-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCW-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CDF-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CHL-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CIS-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CPC-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "DEV-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUA-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUH-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUM-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "IMA-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "LSC-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "LBW-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "LRCD-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "OEV-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "PPC2-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "SFM-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "TFL-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "W30-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCC-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCV-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "AIF-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "AMB-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "CBP-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "CDF-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "COL-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUA-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUH-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUM-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "IET-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "IU-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "OUD-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "PCR-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "PQI92-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "SS-1-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-2-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-3-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-4-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-5-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
   ],
@@ -1394,7 +1394,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "AMM-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1427,7 +1427,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CDF-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1456,17 +1456,17 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUA-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUH-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUM-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1475,7 +1475,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "HPCMI-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1484,7 +1484,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "IET-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1494,7 +1494,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "MSC-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1512,7 +1512,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "OUD-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1521,7 +1521,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "PDS-AD",
-      reportType: ReportType.PROVISIONAL,
+      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "A",
@@ -1550,243 +1550,243 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "SAA-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "SSD-AD",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AAB-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "ADD-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMR-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "APM-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "APP-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCP-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCW-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CDF-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CHL-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CIS-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CPC-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "DEV-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUA-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUH-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUM-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "IMA-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "LSC-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "LBW-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "LRCD-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "OEV-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "OEVP-CH",
-      reportType: ReportType.PROVISIONAL,
+      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "C",
       measure: "PDS-CH",
-      reportType: ReportType.PROVISIONAL,
+      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "C",
       measure: "PPC2-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "PRS-CH",
-      reportType: ReportType.PROVISIONAL,
+      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "C",
       measure: "SFM-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "TFL-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "W30-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCC-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCV-CH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "AIF-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "CBP-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "CDF-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "COL-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUA-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUH-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUM-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "IET-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "IU-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "OUD-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "PCR-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "SS-1-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-2-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-3-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-4-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-5-HH",
-      reportType: ReportType.MANDATORY,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
   ],
