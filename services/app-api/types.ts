@@ -1,4 +1,4 @@
-import { measures } from "./handlers/dynamoUtils/measureList";
+import { measures, MeasureType } from "./handlers/dynamoUtils/measureList";
 import { states, bannerIds } from "./utils/constants/constants";
 export interface CoreSet {
   compoundKey: string;
