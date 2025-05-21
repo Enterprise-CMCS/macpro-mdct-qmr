@@ -56,6 +56,7 @@ export const featuresByYear = {
    * Prior to 2024, we didn't distinguish mandatory measures from optional ones.
    * In 2024, we added the mandatory flag as column in the measure table,
    * so that users can see at a glance which measures are mandatory.
+   * In 2025 we changed it to be reportType and allow it to have more options
    */
   get displayMandatoryMeasuresColumn() {
     return getMeasureYear() >= 2024;

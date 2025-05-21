@@ -1,3 +1,5 @@
+import { ReportType } from "../../types";
+
 interface Measure {
   [year: number]: MeasureMetaData[];
 }
@@ -7,7 +9,7 @@ export interface MeasureMetaData {
   measure: string;
   autocompleteOnCreation?: boolean;
   placeholder?: boolean;
-  mandatory?: boolean;
+  reportType?: ReportType;
 }
 
 export const measures: Measure = {
@@ -1002,7 +1004,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "AMM-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1031,7 +1033,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CDF-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1056,17 +1058,17 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUA-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUH-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUM-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1075,7 +1077,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "HPCMI-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1084,12 +1086,12 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "IET-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
       measure: "MSC-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1103,7 +1105,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "OUD-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1132,243 +1134,243 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "SAA-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
       measure: "SSD-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "AAB-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "ADD-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMB-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMR-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "APM-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "APP-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCP-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCW-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CDF-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CHL-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CIS-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CPC-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "DEV-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUA-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUH-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUM-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "IMA-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "LSC-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "LBW-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "LRCD-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "OEV-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "PPC2-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "SFM-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "TFL-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "W30-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCC-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCV-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "AIF-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "AMB-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "CBP-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "CDF-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "COL-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUA-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUH-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUM-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "IET-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "IU-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "OUD-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "PCR-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "PQI92-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "SS-1-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-2-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-3-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-4-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-5-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
   ],
@@ -1392,7 +1394,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "AMM-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1425,7 +1427,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CDF-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1454,17 +1456,17 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUA-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUH-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUM-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1473,7 +1475,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "HPCMI-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1482,7 +1484,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "IET-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1492,7 +1494,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "MSC-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1510,7 +1512,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "OUD-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
@@ -1547,114 +1549,114 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "SAA-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "A",
       measure: "SSD-AD",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "AAB-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "ADD-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMR-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "APM-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "APP-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCP-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCW-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CDF-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CHL-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CIS-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "CPC-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "DEV-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUA-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUH-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUM-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "IMA-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "LSC-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "LBW-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "LRCD-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "OEV-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
@@ -1667,7 +1669,7 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "PPC2-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
@@ -1676,111 +1678,111 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "SFM-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "TFL-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "W30-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCC-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCV-CH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "AIF-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "CBP-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "CDF-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "COL-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUA-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUH-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUM-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "IET-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "IU-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "OUD-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "PCR-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
     },
     {
       type: "H",
       measure: "SS-1-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-2-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-3-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-4-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-5-HH",
-      mandatory: true,
+      reportType: ReportType.MANDATORY,
       placeholder: true,
     },
   ],

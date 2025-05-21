@@ -99,8 +99,8 @@ export const measuresColumns = (
                   borderRadius="lg"
                   px="2"
                 >
-                  {data?.mandatory && (
-                    <CUI.Text fontWeight="normal">Mandatory</CUI.Text>
+                  {data?.reportType && (
+                    <CUI.Text fontWeight="normal">{data?.reportType}</CUI.Text>
                   )}
                 </CUI.Badge>
               );
