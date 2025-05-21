@@ -31,7 +31,7 @@ export enum MeasureStatus {
   INCOMPLETE = "incomplete",
 }
 
-export enum MeasureType {
+export enum Type {
   MANDATORY = "Mandatory",
   PROVISIONAL = "Provisional",
 }
@@ -50,7 +50,7 @@ export interface MeasureData<DataType = any> {
   detailedDescription?: string;
   lastAltered: number;
   autoCompleted?: boolean;
-  measureType?: MeasureType;
+  type?: Type;
   measure: string;
   state: string;
   status: "incomplete" | "complete" | undefined;

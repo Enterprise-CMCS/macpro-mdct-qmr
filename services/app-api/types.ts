@@ -17,7 +17,7 @@ export interface CoreSet {
 
 export type StandardRateShape = RateNDRShape | RateValueShape;
 
-export enum MeasureType {
+export enum Type {
   MANDATORY = "Mandatory",
   PROVISIONAL = "Provisional",
 }
@@ -62,12 +62,12 @@ export interface Measure {
   year: number;
   placeholder?: boolean;
   /**
-   * The `autoCompleted` and `measureType` properties are not present on
+   * The `autoCompleted` and `type` properties are not present on
    * measures in the database; they are set on fetch, according to the
    * metadata in measureList.ts.
    */
   autoCompleted?: boolean;
-  measureType?: MeasureType;
+  type?: Type;
   data?: {
     /**
      * An array of strings from the `DataSource` enum.

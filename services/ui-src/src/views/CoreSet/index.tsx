@@ -200,7 +200,7 @@ const useMeasureTableDataBuilder = () => {
             lastDateModified: item.lastAltered,
             createdAt: item.createdAt,
             autoCompleted: item.autoCompleted,
-            measureType: item.measureType,
+            type: item.type,
             id: item.measure,
             userCreated: item.userCreated,
             actions: actions,
