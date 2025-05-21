@@ -22,8 +22,8 @@ describe("Test deleteBanner API method", () => {
   });
 
   test("Test Successful Banner Deletion", async () => {
-    // const res = await deleteBanner(event, null);
-    // expect(res.statusCode).toBe(StatusCodes.SUCCESS);
+    const res = await deleteBanner(event, null);
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
   });
 
   test("Test unauthorized user attempt", async () => {
