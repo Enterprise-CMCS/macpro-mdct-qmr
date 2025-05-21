@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { MeasureTableItem, TableColumn } from "../types";
 import { featuresByYear } from "utils/featuresByYear";
-import { ReportType } from "types";
 
 // Get status string from measure data
 const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
