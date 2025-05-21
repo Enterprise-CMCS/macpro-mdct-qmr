@@ -17,11 +17,6 @@ export interface CoreSet {
 
 export type StandardRateShape = RateNDRShape | RateValueShape;
 
-export enum MeasureType {
-  MANDATORY = "Mandatory",
-  PROVISIONAL = "Provisional",
-}
-
 export interface RateNDRShape {
   uid?: string;
   label: string;

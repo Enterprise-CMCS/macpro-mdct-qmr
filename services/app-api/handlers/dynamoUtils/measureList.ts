@@ -1,4 +1,7 @@
-import { MeasureType } from "../../types";
+export enum MeasureType {
+  MANDATORY = "Mandatory",
+  PROVISIONAL = "Provisional",
+}
 
 interface Measure {
   [year: number]: MeasureMetaData[];
