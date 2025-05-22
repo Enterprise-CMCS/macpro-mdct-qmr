@@ -1,6 +1,6 @@
 import { IKebabMenuItem } from "components";
 import { ReactElement } from "react";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, MeasureType } from "types";
 
 export namespace CoreSetTableItem {
   export interface Progress {
@@ -51,7 +51,7 @@ export namespace MeasureTableItem {
     actions: IKebabMenuItem[];
     reporting: string | undefined | null;
     autoCompleted?: boolean;
-    mandatory?: boolean;
+    measureType?: MeasureType;
   };
 
   export interface StatusTextProps {

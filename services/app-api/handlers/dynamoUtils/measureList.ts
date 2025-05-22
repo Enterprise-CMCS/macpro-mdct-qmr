@@ -1,3 +1,8 @@
+export enum MeasureType {
+  MANDATORY = "Mandatory",
+  PROVISIONAL = "Provisional",
+}
+
 interface Measure {
   [year: number]: MeasureMetaData[];
 }
@@ -7,7 +12,7 @@ export interface MeasureMetaData {
   measure: string;
   autocompleteOnCreation?: boolean;
   placeholder?: boolean;
-  mandatory?: boolean;
+  measureType?: MeasureType;
 }
 
 export const measures: Measure = {
@@ -1002,7 +1007,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "AMM-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1031,7 +1036,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CDF-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1056,17 +1061,17 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUA-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUH-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUM-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1075,7 +1080,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "HPCMI-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1084,12 +1089,12 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "IET-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "MSC-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1103,7 +1108,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "OUD-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1132,243 +1137,243 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "SAA-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "SSD-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AAB-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "ADD-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMB-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMR-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "APM-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "APP-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCP-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCW-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CDF-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CHL-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CIS-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CPC-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "DEV-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUA-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUH-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUM-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "IMA-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "LSC-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "LBW-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "LRCD-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "OEV-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "PPC2-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "SFM-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "TFL-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "W30-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCC-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCV-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "AIF-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "AMB-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "CBP-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "CDF-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "COL-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUA-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUH-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUM-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "IET-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "IU-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "OUD-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "PCR-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "PQI92-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "SS-1-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-2-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-3-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-4-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-5-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
   ],
@@ -1392,7 +1397,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "AMM-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1425,7 +1430,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CDF-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1454,17 +1459,17 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "FUA-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUH-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "FUM-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1473,7 +1478,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "HPCMI-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1482,7 +1487,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "IET-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1492,7 +1497,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "MSC-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1510,7 +1515,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "OUD-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
@@ -1519,6 +1524,7 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "PDS-AD",
+      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "A",
@@ -1547,240 +1553,243 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "SAA-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "A",
       measure: "SSD-AD",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AAB-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "ADD-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "AMR-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "APM-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "APP-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCP-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CCW-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CDF-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CHL-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CIS-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "CPC-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "DEV-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUA-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUH-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "FUM-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "IMA-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "LSC-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "LBW-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "LRCD-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       autocompleteOnCreation: true,
     },
     {
       type: "C",
       measure: "OEV-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "OEVP-CH",
+      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "C",
       measure: "PDS-CH",
+      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "C",
       measure: "PPC2-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "PRS-CH",
+      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "C",
       measure: "SFM-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "TFL-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "W30-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCC-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "WCV-CH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "AIF-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "CBP-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "CDF-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "COL-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUA-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUH-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "FUM-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "IET-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "IU-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "OUD-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "PCR-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "H",
       measure: "SS-1-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-2-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-3-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-4-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
     {
       type: "H",
       measure: "SS-5-HH",
-      mandatory: true,
+      measureType: MeasureType.MANDATORY,
       placeholder: true,
     },
   ],
