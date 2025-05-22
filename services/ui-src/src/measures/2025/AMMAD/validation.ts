@@ -72,7 +72,6 @@ const AMMADValidation = (data: FormData) => {
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateOPMRates(OPM),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateAtLeastOneDeliverySystem(data),

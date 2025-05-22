@@ -5,10 +5,6 @@ import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.spyOn(console, "warn").mockImplementation();
 
-jest.mock("../../../libs/authorization", () => ({
-  isAuthenticated: jest.fn().mockReturnValue(true),
-}));
-
 jest.mock("cross-fetch", () => ({
   fetch: jest.fn().mockResolvedValue({
     status: 200,

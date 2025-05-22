@@ -9,7 +9,6 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
 const mockHasRolePermissions = jest.fn();
 const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
-  isAuthenticated: jest.fn().mockReturnValue(true),
   hasRolePermissions: () => mockHasRolePermissions(),
   hasStatePermissions: () => mockHasStatePermissions(),
 }));

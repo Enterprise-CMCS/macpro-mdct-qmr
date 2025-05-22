@@ -4,7 +4,6 @@ import dynamoDb from "../../../libs/dynamodb-lib";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/authorization", () => ({
-  isAuthenticated: jest.fn().mockReturnValue(true),
   hasPermissions: jest.fn().mockReturnValue(true),
 }));
 

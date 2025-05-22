@@ -27,7 +27,6 @@ const LSCCHValidation = (data: FormData) => {
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(data),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDataSourceType(data),
     ...GV.validateHybridMeasurePopulation(data),

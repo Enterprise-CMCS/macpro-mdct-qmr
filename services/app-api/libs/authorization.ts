@@ -9,14 +9,6 @@ interface DecodedToken {
   identities?: [{ userId?: string }];
 }
 
-export const isAuthenticated = (event: APIGatewayProxyEvent) => {
-  let authed;
-  if (event?.headers?.["x-api-key"]) {
-    authed = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
-  }
-  return !!authed;
-};
-
 export const hasRolePermissions = (
   event: APIGatewayProxyEvent,
   allowedRoles: UserRoles[]

@@ -51,15 +51,6 @@ export function createTopicsComponents(props: CreateTopicsComponentsProps) {
       project,
       topicNamespace: isDev ? `--${project}--${stage}--` : "",
     },
-    additionalPolicies: [
-      new iam.PolicyStatement({
-        effect: iam.Effect.ALLOW,
-        actions: ["ssm:GetParameter"],
-        resources: [
-          `arn:aws:ssm:${Aws.REGION}:${Aws.ACCOUNT_ID}:parameter/configuration/${stage}/*`,
-        ],
-      }),
-    ],
     vpc,
     vpcSubnets: { subnets: kafkaAuthorizedSubnets },
     securityGroups: [lambdaSecurityGroup],

@@ -15,8 +15,7 @@
     "@types/prompt-sync": "^4.2.3",
     "aws-dynamodb-local": "^0.0.10",
     "dynamodb-localhost": "https://github.com/99x/dynamodb-localhost#db30898f8c40932c7177be7b2f1a81360d12876d",
-    "prompt-sync": "^4.2.0",
-    "serverless-dynamodb": "^0.2.53"
+    "prompt-sync": "^4.2.0"
   },
   "dependencies": {
     "@aws-sdk/util-dynamodb": "^3.716.0",
