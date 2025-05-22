@@ -6,7 +6,7 @@ import { states } from "../../../utils/constants/constants";
 const fetchMeasuresByName = async () => {
   const p = prompt();
 
-  const coreType = p(
+  const type = p(
     "Enter the measure type (e.g. 'C' for Child, 'A' for Adult): "
   );
   const measureName = p("Name of measure to change: ");
@@ -20,7 +20,7 @@ const fetchMeasuresByName = async () => {
       KeyConditionExpression: "compoundKey = :compoundKey",
       ExpressionAttributeValues: {
         ":compoundKey": `${abbreviation}${year}${
-          coreType === "C" ? "CCS" : "ACS"
+          type === "C" ? "CCS" : "ACS"
         }${measureName.toUpperCase()}`,
       },
     })) as any[];

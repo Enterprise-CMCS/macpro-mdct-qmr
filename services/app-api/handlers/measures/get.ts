@@ -5,7 +5,7 @@ import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import { Measure, MeasureType, UserRoles } from "../../types";
+import { Measure, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import {
   parseCoreSetParameters,

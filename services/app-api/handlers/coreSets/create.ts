@@ -30,7 +30,7 @@ export const createCoreSet = handler(async (event, context) => {
       };
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
-  const coreType = coreSet!.substring(0, 1);
+  const type = coreSet!.substring(0, 1);
 
   const coreSetQuery = await getCoreSet(event, context);
   const coreSetExists = !!Object.keys(JSON.parse(coreSetQuery.body)).length;
@@ -46,18 +46,18 @@ export const createCoreSet = handler(async (event, context) => {
     state,
     year,
     coreSet as Types.CoreSetAbbr,
-    coreType
+    type
   );
 
   // filter out qualifier and account for autocomplete measures on creation
   let autoCompletedMeasures = 0;
   const measuresLengthWithoutQualifiers = measures[year].filter(
     (measure: MeasureMetaData) => {
-      if (measure.autocompleteOnCreation && measure.coreType === coreType) {
+      if (measure.autocompleteOnCreation && measure.type === type) {
         autoCompletedMeasures++;
       }
       return (
-        measure.coreType === coreType &&
+        measure.type === type &&
         measure.measure !== "CSQ" &&
         // Filter out placeholder state specific measures
         !measure.placeholder
@@ -91,10 +91,10 @@ const createDependentMeasures = async (
   state: string,
   year: number,
   coreSet: Types.CoreSetAbbr,
-  coreType: string
+  type: string
 ) => {
   const filteredMeasures = measures[year].filter(
-    (measure: MeasureMetaData) => measure.coreType === coreType
+    (measure: MeasureMetaData) => measure.type === type
   );
 
   let dependentMeasures = [];
