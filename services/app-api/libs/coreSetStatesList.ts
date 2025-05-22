@@ -32,7 +32,6 @@ export const stateCombinedLoadedList: { [key: string]: string[] } = {
   "2025": [
     "AK",
     "AS",
-    "DC",
     "GU",
     "HI",
     "NH",
