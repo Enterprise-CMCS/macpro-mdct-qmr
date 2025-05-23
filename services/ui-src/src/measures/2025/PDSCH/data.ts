@@ -40,6 +40,7 @@ export const data: MeasureTemplateData = {
         ],
         description: true,
       },
+      { value: "Other Data Source", description: true },
     ],
   },
 };
