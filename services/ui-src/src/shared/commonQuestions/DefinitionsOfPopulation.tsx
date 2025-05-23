@@ -143,12 +143,12 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
           Please select all populations that are included in the denominator.
           For example, if your data include both Separate CHIP (Title XXI)
           beneficiaries and individuals dually eligible for Medicare and
-          Medicaid, select:
+          Separate CHIP, select:
         </CUI.Text>
         <CUI.UnorderedList m="5" ml="10">
           <CUI.ListItem>Separate CHIP (Title XXI)</CUI.ListItem>
           <CUI.ListItem>
-            Individuals Dually Eligible for Medicare and Medicaid
+            Individuals Dually Eligible for Medicare and Separate CHIP
           </CUI.ListItem>
         </CUI.UnorderedList>
       </>
