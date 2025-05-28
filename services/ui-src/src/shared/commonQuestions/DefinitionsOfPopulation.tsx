@@ -133,7 +133,8 @@ const coreSetSpecificOptions: CoreSetSpecificOptions = {
         value: DC.DENOMINATOR_INC_CHIP,
       },
       {
-        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
+        displayValue:
+          "Individuals Dually Eligible for Medicare and Separate CHIP",
         value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
       },
     ],
