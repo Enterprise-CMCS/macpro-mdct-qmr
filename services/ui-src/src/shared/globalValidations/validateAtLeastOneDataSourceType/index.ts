@@ -1,4 +1,7 @@
 import * as Types from "shared/types";
+import { DataSource } from "../../../types";
+
+const OPTIONAL_DATA_SOURCES = new Set([DataSource.EHR, DataSource.ECDS]);
 
 export const validateAtLeastOneDataSourceType = (
   data: Types.DataSource,
@@ -7,16 +10,17 @@ export const validateAtLeastOneDataSourceType = (
   const errorArray: FormError[] = [];
   const dataSources = data.DataSourceSelections;
   if (dataSources) {
-    //find selected data sources with unfilled explanation boxes
+    //find selected data sources with unfilled explanation boxes, which are not optional
     const unfilledDataSources = Object.keys(dataSources).filter(
       (key) =>
-        "description" in dataSources[key] && !dataSources[key]["description"]
+        "description" in dataSources[key] &&
+        !dataSources[key]["description"] &&
+        !OPTIONAL_DATA_SOURCES.has(key as DataSource)
     );
     errorArray.push(
       ...unfilledDataSources.map((key) => {
         const lookupKey = key.split("-")?.[1] ?? key;
         const label = Types.dataSourceDisplayNames[lookupKey];
-
         return {
           errorLocation: "Data Source",
           errorMessage:
@@ -41,6 +45,5 @@ export const validateAtLeastOneDataSourceType = (
       }))
     );
   }
-
   return errorArray;
 };
