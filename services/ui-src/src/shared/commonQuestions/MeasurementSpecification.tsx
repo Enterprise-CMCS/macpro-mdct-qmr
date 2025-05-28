@@ -109,8 +109,6 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
   const context: any = useContext(SharedContext);
   const { MeasureSpecifications, year } = context;
 
-  console.log("Measure specifications: ", MeasureSpecifications);
-
   const measureSpecs = { ...Specifications[type] };
 
   if (type === "HEDIS")
