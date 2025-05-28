@@ -47,7 +47,7 @@ export const listMeasures = handler(async (event, context) => {
     )[0];
 
     v.autoCompleted = !!measure?.autocompleteOnCreation;
-    v.mandatory = !!measure?.mandatory;
+    v.measureType = measure?.measureType;
   }
 
   return {

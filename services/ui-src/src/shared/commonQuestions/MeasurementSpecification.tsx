@@ -50,11 +50,29 @@ export const MeasurementSpecificationQuestionYesNo = (
       ? `${Specifications[type].displayValue} Measurement Year ${year - 1}`
       : Specifications[type].displayValue;
   return (
-    <CUI.Text key="measureSpecAdditionalContext" size="sm" pb="3">
-      Did your state use {year} {label[coreset!]} Core Set measure
-      specifications, which are based on {specification} specifications to
-      calculate this measure?
-    </CUI.Text>
+    <>
+      <CUI.Text
+        key="measureSpecAdditionalContext-HelperText"
+        size="sm"
+        pb="3"
+        fontWeight="bold"
+      >
+        If your state substantially varied from the {label[coreset!]}
+        Core Set measure specifications (including different methodology,
+        timeframe, or reported age groups), please report your data using
+        “Other” specifications.
+      </CUI.Text>
+
+      <CUI.Text
+        key="measureSpecAdditionalContext-YesNoQuestion"
+        size="sm"
+        pb="3"
+      >
+        Did your state use {year} {label[coreset!]} Core Set measure
+        specifications, which are based on {specification} specifications to
+        calculate this measure?
+      </CUI.Text>
+    </>
   );
 };
 
