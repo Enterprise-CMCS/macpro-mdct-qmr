@@ -86,8 +86,9 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
         value: "Separate CHIP (Title XXI)",
       },
       {
-        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
-        value: "Individuals Dually Eligible for Medicare and Medicaid",
+        displayValue:
+          "Individuals Dually Eligible for Medicare and Separate CHIP",
+        value: "Individuals Dually Eligible for Medicare and Separate CHIP",
       },
       {
         displayValue: "Other",
