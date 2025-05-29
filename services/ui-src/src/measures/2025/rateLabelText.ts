@@ -534,19 +534,16 @@ export const data = {
                 "label": "Combination 3",
                 "text": "Combination 3",
                 "id": "tOQKqr",
-                "excludeFromOMS": true
             },
             {
                 "label": "Combination 7",
                 "text": "Combination 7",
                 "id": "rgGHvL",
-                "excludeFromOMS": true
             },
             {
                 "label": "Combination 10",
                 "text": "Combination 10",
                 "id": "4FWCtf",
-                "excludeFromOMS": true
             },
         ],
         "categories": [{"id":"u7wDB2", "label": "", "text":""}]
