@@ -83,4 +83,17 @@ describe("validateOneDataSourceType", () => {
     expect(errorArray.length).toBe(1);
     expect(errorArray[0].errorMessage).toBe(errorMessage);
   });
+
+  it("When data sources with optional descriptions are selected no validation warning shows", () => {
+    formData[DC.DATA_SOURCE] = [];
+    formData[DC.DATA_SOURCE_SELECTIONS] = {
+      ElectronicHealthRecords: {
+        description: undefined,
+      },
+      ElectronicClinicalDataSystemsECDS: {
+        description: undefined,
+      },
+    };
+    _check_errors(formData, 0);
+  });
 });
