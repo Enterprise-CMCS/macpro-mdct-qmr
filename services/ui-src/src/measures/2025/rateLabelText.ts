@@ -534,6 +534,7 @@ export const data = {
                 "label": "Combination 3",
                 "text": "Combination 3",
                 "id": "tOQKqr",
+                "excludeFromOMS": true
             },
             {
                 "label": "Combination 7",
