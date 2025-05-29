@@ -141,12 +141,21 @@ export const dataSourceSelections = (
         .filter(isDefined)
         .flat();
 
+      //addition to handle an option that has both a textbox and checkbox options
+      if (dataSources.every((item) => item === undefined))
+        selected.push("Not Answered");
+
       selected.push(
         ...dataSources.map((source) => {
           const sourceKey = dataSourceKey.find((key) => key.includes(source));
           const formattedSource = lookupDataSource(source);
+          const dash =
+            !formattedSource || !dataSourceSelections[sourceKey!]?.description
+              ? ""
+              : " - ";
+
           return sourceKey
-            ? `${formattedSource} - ${
+            ? `${formattedSource}${dash}${
                 dataSourceSelections[sourceKey]?.description ?? "Not Answered"
               }`
             : formattedSource;
@@ -157,9 +166,10 @@ export const dataSourceSelections = (
         dataSourceSelections[dataSourceKey[0]];
 
       //either description is null or selected is null, only one will exist on the object
-      const value = selectedValue
-        ? (selectedValue as any[]).map((item) => lookupDataSource(item))
-        : [!!description ? description : "Not Answered"];
+      const value =
+        selectedValue && selectedValue.length > 0
+          ? (selectedValue as any[]).map((item) => lookupDataSource(item))
+          : [!!description ? description : "Not Answered"];
 
       selected.push(...value);
     }

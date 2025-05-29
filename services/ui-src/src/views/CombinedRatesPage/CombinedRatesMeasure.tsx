@@ -50,6 +50,12 @@ export const CombinedRatesMeasure = ({
   });
   const combinedRateData = queryResult.data;
 
+  // In 2025 and forward, ECDS is no longer tracked
+  if (Number(year) >= 2025) {
+    delete combinedRateData?.DataSources.CHIP.hasECDSDataSource;
+    delete combinedRateData?.DataSources.Medicaid.hasECDSDataSource;
+  }
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[

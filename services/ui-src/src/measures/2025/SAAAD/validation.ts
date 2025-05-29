@@ -61,7 +61,6 @@ const SAAADValidation = (data: FormData) => {
     ...GV.validateDateRangeRadioButtonCompletion(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
