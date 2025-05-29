@@ -4,7 +4,7 @@ import { SPA } from "libs/spaLib";
 import { getPDF } from "libs/api";
 
 interface HookProps {
-  coreSetId: any;
+  coreSetId?: string;
   state?: string;
   year?: string;
 }
@@ -211,18 +211,20 @@ export const htmlStringCleanup = (html: string): string => {
  * Retrieve this core-set's SPA ID/Name if applicable
  */
 export const getSpaName = ({ coreSetId, state, year }: HookProps) => {
-  const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
-  const tempSpa =
-    coreSetInfo.length > 1
-      ? SPA[year!].filter(
-          (s) => s.id === coreSetInfo[1] && s.state === state
-        )[0]
-      : undefined;
-  const spaName =
-    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
-      ? `${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
-      : undefined;
-  return spaName;
+  if (!coreSetId || !state || !year) {
+    return undefined;
+  }
+  if (!coreSetId.includes("_") || !(year in SPA)) {
+    return undefined;
+  }
+
+  const spaId = coreSetId.split("_")[1];
+  const spa = SPA[year].find((s) => s.id === spaId && s.state === state);
+  if (!spa) {
+    return undefined;
+  }
+
+  return `${spa.state} ${spa.id} - ${spa.name}`;
 };
 
 /**

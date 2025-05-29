@@ -23,6 +23,7 @@ const PDSCHValidation = (data: FormData) => {
 
   errorArray = [
     ...errorArray,
+    ...GV.validateOneQualDenomHigherThanOtherDenomPM(data, PMD),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
@@ -60,6 +61,7 @@ const PDSCHValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
+        GV.validateOneQualDenomHigherThanOtherDenomOMS(),
       ],
     }),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),

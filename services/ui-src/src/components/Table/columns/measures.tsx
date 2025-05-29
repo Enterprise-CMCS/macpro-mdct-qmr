@@ -84,10 +84,13 @@ export const measuresColumns = (
         );
       },
     },
-    ...(featuresByYear.displayMandatoryMeasuresColumn
+    ...(featuresByYear.displayMandatoryMeasuresColumn ||
+    featuresByYear.displayTypeMeasuresColumn
       ? [
           {
-            header: "Mandatory",
+            header: featuresByYear.displayMandatoryMeasuresColumn
+              ? "Mandatory"
+              : "Type",
             id: "mandatory_column_header",
             styleProps: { textAlign: "center" },
             cell: (data: MeasureTableItem.Data) => {
@@ -99,8 +102,8 @@ export const measuresColumns = (
                   borderRadius="lg"
                   px="2"
                 >
-                  {data?.mandatory && (
-                    <CUI.Text fontWeight="normal">Mandatory</CUI.Text>
+                  {data?.measureType && (
+                    <CUI.Text fontWeight="normal">{data?.measureType}</CUI.Text>
                   )}
                 </CUI.Badge>
               );

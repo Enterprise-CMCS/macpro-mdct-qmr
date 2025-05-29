@@ -20,7 +20,7 @@ const condensedTopicList = [
 ];
 
 /**
- * Handler triggered on deploy by the serverless js to create known topics in bigmac
+ * Handler triggered on deploy to create known topics in bigmac
  * @param {*} event
  * @param {*} _context
  * @param {*} _callback

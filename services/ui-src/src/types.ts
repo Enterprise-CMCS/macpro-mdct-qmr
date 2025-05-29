@@ -31,6 +31,11 @@ export enum MeasureStatus {
   INCOMPLETE = "incomplete",
 }
 
+export enum MeasureType {
+  MANDATORY = "Mandatory",
+  PROVISIONAL = "Provisional",
+}
+
 export interface Params {
   state?: string;
   year?: string;
@@ -45,7 +50,7 @@ export interface MeasureData<DataType = any> {
   detailedDescription?: string;
   lastAltered: number;
   autoCompleted?: boolean;
-  mandatory?: boolean;
+  measureType?: MeasureType;
   measure: string;
   state: string;
   status: "incomplete" | "complete" | undefined;
@@ -162,7 +167,7 @@ export type DataSourcePayload = {
   requiresWeightedCalc: boolean;
   isUnusableForCalc: boolean;
   hasOtherDataSource: boolean;
-  hasECDSDataSource: boolean;
+  hasECDSDataSource?: boolean;
   hasOtherSpecification: boolean;
   DataSource: DataSource[];
   /** Note: this is a simplified version of the typedef found in app-api. */
