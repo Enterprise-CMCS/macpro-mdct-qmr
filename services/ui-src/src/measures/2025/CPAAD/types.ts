@@ -29,7 +29,7 @@ export interface FormData
   InformationNotCollected: string;
   "InformationNotCollected-Other": string;
   LimitationWithDatCollecitonReportAccuracyCovid: string;
-  SmallSampleSizeLessThan30: string;
+  SmallSampleSize: string;
   "WhyDidYouNotCollect-Other": string;
 
   //DefinitionOfPopulation

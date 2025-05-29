@@ -26,7 +26,7 @@ export interface FormData extends Types.AdditionalNotes, Types.DidCollect {
   InformationNotCollected: string;
   "InformationNotCollected-Other": string;
   LimitationWithDatCollecitonReportAccuracyCovid: string;
-  SmallSampleSizeLessThan30: string;
+  SmallSampleSize: string;
   "WhyDidYouNotCollect-Other": string;
 
   //DefinitionOfPopulation
