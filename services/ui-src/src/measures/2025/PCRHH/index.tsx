@@ -35,7 +35,7 @@ export const PCRHH = ({
       {!isNotReportingData && (
         <>
           <CMQ.StatusOfData />
-          <CMQ.MeasurementSpecification type="HEDIS" />
+          <CMQ.MeasurementSpecification type="HEDIS" coreset="health" />
           <CMQ.DataSource />
           <CMQ.DateRange type="health" />
           <CMQ.DefinitionOfPopulation coreset="health" />
