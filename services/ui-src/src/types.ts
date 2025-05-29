@@ -167,7 +167,7 @@ export type DataSourcePayload = {
   requiresWeightedCalc: boolean;
   isUnusableForCalc: boolean;
   hasOtherDataSource: boolean;
-  hasECDSDataSource: boolean;
+  hasECDSDataSource?: boolean;
   hasOtherSpecification: boolean;
   DataSource: DataSource[];
   /** Note: this is a simplified version of the typedef found in app-api. */
