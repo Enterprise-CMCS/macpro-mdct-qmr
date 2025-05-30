@@ -1,6 +1,5 @@
 import { testEvent } from "../../test-util/testEvents";
 import {
-  isAuthenticated,
   hasStatePermissions,
   hasRolePermissions,
   getUserNameFromJwt,
@@ -10,26 +9,6 @@ import jwtDecode from "jwt-decode";
 
 jest.mock("jwt-decode", () => jest.fn());
 const mockedDecode = jwtDecode as jest.MockedFunction<typeof jwtDecode>;
-
-describe("isAuthenticated checks if user is authenticated", () => {
-  beforeEach(() => {
-    mockedDecode.mockReturnValue({
-      "custom:cms_roles": UserRoles.ADMIN,
-    });
-  });
-
-  test("returns true with correctly formatted jwt key", () => {
-    const event = { ...testEvent };
-    event.headers = { "x-api-key": "test" };
-    expect(isAuthenticated(event)).toEqual(true);
-  });
-
-  test("returns false if missing jwt key", () => {
-    const event = { ...testEvent };
-    event.headers = {};
-    expect(isAuthenticated(event)).toEqual(false);
-  });
-});
 
 describe("hasRolePermissions checks if the user has one of a given set of roles", () => {
   const event = { ...testEvent };

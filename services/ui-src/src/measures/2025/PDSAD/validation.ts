@@ -59,9 +59,9 @@ const PDSValidation = (data: FormData) => {
       ),
       validationCallbacks: [
         GV.validateNumeratorLessThanDenominatorOMS(),
-        GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
+        GV.validateOneQualDenomHigherThanOtherDenomOMS(),
       ],
     }),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),

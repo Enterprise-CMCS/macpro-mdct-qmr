@@ -10,7 +10,7 @@ export const data: MeasureTemplateData = {
   hybridMeasure: true,
   performanceMeasure: {
     questionText: [
-      "Percentage of beneficiaries ages 18 to 75 with a serious mental illness and diabetes (type 1 and type 2) who had hemoglobin A1c (HbA1c) in poor control (> 9.0%).",
+      "Percentage of beneficiaries ages 18 to 75 with a serious mental illness and diabetes (type 1 and type 2) who had a glycemic status assessment result of (> 9.0%).",
     ],
     questionListItems: [],
     categories,

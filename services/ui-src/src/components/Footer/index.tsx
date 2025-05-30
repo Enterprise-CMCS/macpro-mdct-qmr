@@ -84,6 +84,17 @@ const HorizontalLogoFooter = () => {
   );
 };
 
+export const emailLink = () => {
+  return (
+    <CUI.Link
+      _hover={{ color: "white" }}
+      href={`mailto:${Libs.helpDeskContact.email}`}
+    >
+      {Libs.helpDeskContact.email}
+    </CUI.Link>
+  );
+};
+
 export function Footer(): JSX.Element {
   return (
     <CUI.Box
@@ -119,17 +130,7 @@ export function Footer(): JSX.Element {
             fontSize="sm"
             padding="0.5rem 0"
           >
-            <CUI.Text>
-              Email{" "}
-              <CUI.Link
-                _hover={{ color: "white" }}
-                href={`mailto:${Libs.helpDeskContact.email}`}
-              >
-                {" "}
-                {Libs.helpDeskContact.email}
-              </CUI.Link>{" "}
-              for help or feedback.
-            </CUI.Text>
+            <CUI.Text>Email {emailLink()} for help or feedback.</CUI.Text>
             <CUI.Spacer />
             <CUI.Text fontWeight="bold">
               7500 Security Boulevard Baltimore, MD 21244
