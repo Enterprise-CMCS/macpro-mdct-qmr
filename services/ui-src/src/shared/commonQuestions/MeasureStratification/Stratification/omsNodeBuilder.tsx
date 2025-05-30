@@ -1,15 +1,15 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useFlags } from "launchdarkly-react-client-sdk";
 
 import { OmsNode } from "shared/types";
 
-import { AddAnotherSection } from "./Shared/additionalCategory";
-import { SubCatSection } from "./Shared/subCatClassification";
-import { NDRSets } from "./NDR/ndrSets";
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
+import { Accordion } from "components/Accordion";
+import { NDRSets } from "../../OptionalMeasureStrat/NDR/ndrSets";
+import { AddAnotherSectionAccordian } from "shared/commonQuestions/OptionalMeasureStrat/Shared/additionalCategory";
+import { SubCatSection } from "shared/commonQuestions/OptionalMeasureStrat/Shared/subCatClassification";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -17,6 +17,7 @@ interface CheckboxChildrenProps extends OmsNode {
   /** name of parent category for additionalCategory rendering */
   parentDisplayName: string;
   year?: number;
+  accordion?: boolean;
 }
 
 interface ChildCheckBoxOptionProps {
@@ -58,12 +59,10 @@ const omsLabels = (omsNode: OmsNode) => {
   };
 };
 
-const NdrNode = ({ flagSubCat, name }: NdrNodeProps) => {
+const NdrNode = ({ name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
       <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
-      {/* flagSubCat is only used for year <= 2022 */}
-      {flagSubCat && <SubCatSection name={name} />}
     </CUI.Box>
   );
 };
@@ -162,39 +161,29 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     return <NDRSets name={`${props.name}.rateData`} />;
   }
 
-  //a flag added in 2025, if it's turned off, it'll hide [+Add Another Sex] button
-  const sogiFlag =
-    useFlags()?.["sogi-stratification-options"] &&
-    props.id === "O8BrOa" &&
-    props.year! >= 2025;
+  const checkboxOptions = [
+    ...props.options.map((lvlTwoOption) => {
+      return buildChildCheckboxOption({
+        omsNode: lvlTwoOption,
+        name: `${props.name}.selections.${lvlTwoOption.id}`,
+        label: omsLabels(lvlTwoOption),
+      });
+    }),
+  ];
 
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
-      <QMR.Checkbox
-        name={`${props.name}.options`}
-        key={`${props.name}.options`}
-        options={[
-          ...props.options.map((lvlTwoOption) => {
-            //cleanString is used for year <= 2022 options, and has no effect on year >= 2023 ids
-            const cleanedId =
-              cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
-
-            const labels = omsLabels(lvlTwoOption);
-
-            return buildChildCheckboxOption({
-              omsNode: lvlTwoOption,
-              name: `${props.name}.selections.${cleanedId}`,
-              label: labels,
-            });
-          }),
-        ]}
-      />
-      {props.addMore && (props.id !== "O8BrOa" || sogiFlag) && (
-        <AddAnotherSection
+      {checkboxOptions.map((options) => (
+        <Accordion state={props.accordion} label={options.displayValue}>
+          {options.children}
+        </Accordion>
+      ))}
+      {props.addMore && (
+        <AddAnotherSectionAccordian
           name={props.name}
-          flagSubCat
           parentName={props.parentDisplayName}
           key={`${props.name}.AdditionalCategorySection`}
+          accordion={props.accordion}
         />
       )}
     </CUI.Box>

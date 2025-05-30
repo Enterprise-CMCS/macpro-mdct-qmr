@@ -8,8 +8,6 @@ export type ComponentFlagType = "DEFAULT" | "AIF" | "IU" | "PCR";
 export interface ContextProps {
   OPM?: Types.OtherRatesFields[];
   performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
-  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
   rateReadOnly?: boolean;
   calcTotal?: boolean;
   categories: LabelData[];
