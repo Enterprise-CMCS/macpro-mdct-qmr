@@ -1,11 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Types from "../../types";
 import { Accordion } from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useContext } from "react";
-import { useFormContext } from "react-hook-form";
-import SharedContext from "shared/SharedContext";
 
 interface Props {
   register: Function;
@@ -44,7 +40,7 @@ export const GetLinks = (type: string) => {
     },
   };
 
-  let data = links[type as keyof typeof links];
+  const data = links[type as keyof typeof links];
 
   return (
     <CUI.Link href={data.link} target={"_blank"} aria-label={data.aria}>
@@ -63,13 +59,13 @@ export const StratificationOption = ({ register }: Props) => {
           More information about the race and ethnicity categories included in
           each option is available at [link].
         </CUI.Text>,
-        <CUI.List>
+        <CUI.UnorderedList padding="0 0 1rem 2rem">
           <CUI.ListItem>
             {GetLinks("1997-omb")}, as specified in the{" "}
             {GetLinks("hss-standard")}
           </CUI.ListItem>
           <CUI.ListItem mb={2}>{GetLinks("2024-omb")}</CUI.ListItem>,
-        </CUI.List>,
+        </CUI.UnorderedList>,
       ]}
       options={[
         {
@@ -93,18 +89,8 @@ export const StratificationOption = ({ register }: Props) => {
   );
 };
 
-export const MeasureStrat = (props: Types.OMSProps) => {
-  const labels: any = useContext(SharedContext);
-  const year = labels.year;
-  const { coreset } = props;
-
+export const MeasureStrat = () => {
   const register = useCustomRegister();
-  const { watch } = useFormContext<Types.OptionalMeasureStratification>();
-  const data = watch();
-
-  // const version = data.OptionalMeasureStratification?.version;
-  // const omsData =
-  //   version === "optional" ? OMSData(2024) : OMSData(year, coreset === "adult");
 
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
@@ -137,19 +123,6 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         </CUI.Text>
       </Accordion>
       <StratificationOption register={register}></StratificationOption>
-      {/* {(version === "optional" || version === "required") && (
-        <>
-          <CUI.Heading size="md" as="h2" my="6">
-            Measure Stratification Details
-          </CUI.Heading>
-          <AdditionalNotes></AdditionalNotes>
-          <Stratification
-            {...props}
-            omsData={omsData}
-            year={year}
-          ></Stratification>
-        </>
-      )} */}
     </QMR.CoreQuestionWrapper>
   );
 };
