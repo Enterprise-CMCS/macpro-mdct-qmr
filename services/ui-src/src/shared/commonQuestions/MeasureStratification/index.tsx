@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { Accordion } from "components";
 import { useCustomRegister } from "hooks/useCustomRegister";
+import * as Types from "../../types";
 
 interface Props {
   register: Function;
@@ -89,7 +90,7 @@ export const StratificationOption = ({ register }: Props) => {
   );
 };
 
-export const MeasureStrat = () => {
+export const MeasureStrat = (_props: Types.OMSProps) => {
   const register = useCustomRegister();
 
   return (
