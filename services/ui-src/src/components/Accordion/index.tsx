@@ -2,6 +2,7 @@ import { MouseEventHandler, ReactNode, useMemo, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 
+//accordion item and accordion need to be together to get the expand/collapse to work together
 export const AccordionItem = ({
   label,
   children,
