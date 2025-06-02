@@ -530,6 +530,22 @@ export const data = {
                 "id": "VxUjMm",
                 "excludeFromOMS": true
             },
+            {
+                "label": "Combination 3",
+                "text": "Combination 3",
+                "id": "tOQKqr",
+                "excludeFromOMS": true
+            },
+            {
+                "label": "Combination 7",
+                "text": "Combination 7",
+                "id": "rgGHvL",
+            },
+            {
+                "label": "Combination 10",
+                "text": "Combination 10",
+                "id": "4FWCtf",
+            },
         ],
         "categories": [{"id":"u7wDB2", "label": "", "text":""}]
     },
@@ -933,14 +949,14 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "HbA1c Control (<8.0%)",
-                "text": "HbA1c Control (<8.0%)",
+                "label": "Glycemic Status (<8.0%)",
+                "text": "Glycemic Status (<8.0%)",
                 "id":"F9V8xD",
                 "excludeFromOMS": true
             },
             {
-                "label": "HbA1c Poor Control (>9.0%)",
-                "text": "HbA1c Poor Control (>9.0%)",
+                "label": "Glycemic Status (>9.0%)",
+                "text": "Glycemic Status (>9.0%)",
                 "id":"MELFVb"
             }
         ]

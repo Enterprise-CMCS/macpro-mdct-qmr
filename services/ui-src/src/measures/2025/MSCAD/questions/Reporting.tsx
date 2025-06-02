@@ -34,7 +34,7 @@ export const Reporting = ({ reportingYear }: Props) => {
           ]}
         />
       </QMR.CoreQuestionWrapper>
-      {watchRadioStatus === DC.NO && <WhyAreYouNotReporting />}
+      {watchRadioStatus === DC.NO && <WhyAreYouNotReporting removeLessThan30 />}
     </>
   );
 };
