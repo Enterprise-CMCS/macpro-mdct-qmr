@@ -69,3 +69,16 @@ export const areObjectsDifferent = (objectA: AnyObject, objectB: AnyObject) => {
   }
   return false;
 };
+
+export const stringIsReadOnly = (dataSource: string) => {
+  return dataSource === "AdministrativeData";
+};
+
+export const arrayIsReadOnly = (dataSource: string[]) => {
+  if (dataSource.length === 0) {
+    return false;
+  }
+  return (
+    dataSource?.every((source) => source === "AdministrativeData") ?? false
+  );
+};
