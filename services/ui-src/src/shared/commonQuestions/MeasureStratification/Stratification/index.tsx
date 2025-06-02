@@ -1,90 +1,30 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Types from "../../types";
-import { OMSData } from "./data";
-import {
-  PerformanceMeasureProvider,
-  ComponentFlagType,
-} from "./Shared/context";
+import * as Types from "../../../types";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useContext, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { ndrFormula } from "types";
-import {
-  LabelData,
-  arrayIsReadOnly,
-  cleanString,
-  stringIsReadOnly,
-} from "utils";
-import SharedContext from "shared/SharedContext";
-
-interface OmsCheckboxProps {
-  /** name for react-hook-form registration */
-  name: string;
-  /** data object for dynamic rendering */
-  data: Types.OmsNode[];
-  year: number;
-  excludeOptions: string[];
-}
-
-interface BaseProps extends Types.Qualifiers, Types.Categories {
-  measureName?: string;
-  inputFieldNames?: LabelData[];
-  ndrFormulas?: ndrFormula[];
-  /** string array for perfromance measure descriptions */
-  performanceMeasureArray?: Types.RateFields[][];
-  /** should the total for each portion of OMS be calculated? */
-  calcTotal?: boolean;
-  rateMultiplicationValue?: number;
-  allowNumeratorGreaterThanDenominator?: boolean;
-  customMask?: RegExp;
-  excludeOptions?: string[];
-  rateAlwaysEditable?: boolean;
-  numberOfDecimals?: number;
-  componentFlag?: ComponentFlagType;
-  customNumeratorLabel?: string;
-  customDenominatorLabel?: string;
-  customRateLabel?: string;
-  customPrompt?: string;
-  rateCalc?: RateFormula;
-}
-
-/** data for dynamic rendering will be provided */
-interface DataDrivenProp {
-  /** data array for dynamic rendering */
-  data: Types.OmsNode[];
-  /** cannot set adultMeasure if using custom data*/
-  coreset?: never;
-}
-
-/** default data is being used for this component */
-interface DefaultDataProp {
-  /** is this an adult measure? Should this contain the ACA portion? */
-  coreset: string;
-  /** cannot set data if using default data */
-  data?: never;
-}
-
-type Props = BaseProps & (DataDrivenProp | DefaultDataProp);
-
-/** OMS react-hook-form typing */
-type OMSType = Types.OptionalMeasureStratification & {
-  DataSource: string[];
-} & { MeasurementSpecification: string } & {
-  "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
-};
+import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
+import { Accordion } from "components/Accordion";
+import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/Shared/context";
 
 /**
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
+interface StratificationProps {
+  year: number;
+  omsData: Types.OmsNode[];
+}
+
 export const buildOmsCheckboxes = ({
   name,
   data,
   excludeOptions,
   year,
-}: OmsCheckboxProps) => {
+  accordion,
+}: Types.OmsCheckboxProps) => {
   return data
     .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
     .map((lvlOneOption) => {
@@ -104,6 +44,7 @@ export const buildOmsCheckboxes = ({
           id={value}
           label={displayValue}
           year={year}
+          accordion={accordion}
         />,
       ];
 
@@ -114,16 +55,14 @@ export const buildOmsCheckboxes = ({
 /**
  * Final OMS built
  */
-export const OptionalMeasureStrat = ({
+export const Stratification = ({
   performanceMeasureArray,
   qualifiers = [],
   categories = [],
   measureName,
   inputFieldNames,
   ndrFormulas,
-  data,
   calcTotal = false,
-  coreset,
   rateMultiplicationValue,
   allowNumeratorGreaterThanDenominator = false,
   customMask,
@@ -136,14 +75,12 @@ export const OptionalMeasureStrat = ({
   customRateLabel = "Rate",
   customPrompt,
   rateCalc,
-}: Props) => {
-  //WIP: using form context to get the labels for this component temporarily.
-  const labels: any = useContext(SharedContext);
-  const year = labels.year;
-
-  const omsData = data ?? OMSData(year, coreset === "adult");
+  year,
+  omsData,
+}: Types.OMSProps & StratificationProps) => {
+  const [accordionState, setAccordionState] = useState<boolean>(true);
   const { control, watch, getValues, setValue, unregister } =
-    useFormContext<OMSType>();
+    useFormContext<Types.OMSType>();
   const values = getValues();
 
   const dataSourceWatch = watch("DataSource");
@@ -160,6 +97,7 @@ export const OptionalMeasureStrat = ({
     data: omsData,
     excludeOptions,
     year,
+    accordion: accordionState,
   });
 
   let rateReadOnly = false;
@@ -201,10 +139,7 @@ export const OptionalMeasureStrat = ({
   );
 
   return (
-    <QMR.CoreQuestionWrapper
-      testid="OMS"
-      label="Optional Measure Stratification"
-    >
+    <QMR.CoreQuestionWrapper testid="OMS" label="Enter Measure Stratification">
       <PerformanceMeasureProvider
         value={{
           OPM,
@@ -228,23 +163,32 @@ export const OptionalMeasureStrat = ({
           rateCalculation: rateCalc,
         }}
       >
-        <CUI.Text py="3">
-          {labels.OptionalMeasureStratification.section}
+        <CUI.Text>
+          Do not select categories and sub-categories for which you will not be
+          reporting any data.
         </CUI.Text>
-        {labels.OptionalMeasureStratification.additionalContext && (
-          <QMR.TextArea
-            label={labels.OptionalMeasureStratification.additionalContext}
-            {...register("OptionalMeasureStratification.additionalContext")}
-          />
-        )}
-        <CUI.Text py="3">
-          Do not select categories and sub-classifications for which you will
-          not be reporting any data.
+        <CUI.Text>
+          For each category and sub-category, enter a number for the numerator
+          and denominator. The rate will auto-calculated but can be revised if
+          needed.
         </CUI.Text>
-        <QMR.Checkbox
-          {...register("OptionalMeasureStratification.options")}
-          options={checkBoxOptions}
-        />
+        <CUI.Box my={6}>
+          <CUI.Button variant="link" onClick={() => setAccordionState(false)}>
+            Expand all
+          </CUI.Button>
+          <CUI.Button
+            variant="link"
+            onClick={() => setAccordionState(true)}
+            ml={6}
+          >
+            Collapse all
+          </CUI.Button>
+        </CUI.Box>
+        {checkBoxOptions.map((option) => (
+          <Accordion state={accordionState} label={option.displayValue}>
+            {option.children}
+          </Accordion>
+        ))}
       </PerformanceMeasureProvider>
     </QMR.CoreQuestionWrapper>
   );
