@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { RateFields } from "./TypeRateFields";
+import { OtherRatesFields, RateFields } from "./TypeRateFields";
 import { Categories, Qualifiers } from ".";
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { ndrFormula } from "types";
@@ -54,6 +54,13 @@ interface DefaultDataProp {
 }
 
 export type OMSProps = BaseProps & (DataDrivenProp | DefaultDataProp);
+
+/** OMS react-hook-form typing */
+export type OMSType = OptionalMeasureStratification & {
+  DataSource: string[];
+} & { MeasurementSpecification: string } & {
+  "OtherPerformanceMeasure-Rates": OtherRatesFields[];
+};
 
 export interface OmsNode {
   /** id value for option */

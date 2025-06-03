@@ -76,17 +76,17 @@ export const StratificationOption = ({ register }: Props) => {
         {
           displayValue:
             "1997 Office of Management and Budget (OMB) minimum race and ethnicity categories.",
-          value: "optional",
+          value: "1997-omb",
         },
         {
           displayValue:
             "Statistical Policy Directive #15: 2024 OMB race and ethnicity standards",
-          value: "required",
+          value: "2024-omb",
         },
         {
           displayValue:
             "I am not reporting measure stratification for this measure",
-          value: "none",
+          value: "not-reporting",
         },
       ]}
       {...register("OptionalMeasureStratification.version")}
@@ -105,7 +105,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
 
   const version = data.OptionalMeasureStratification?.version;
   const omsData =
-    version === "optional" ? OMSData(2024) : OMSData(year, coreset === "adult");
+    version === "1997-omb" ? OMSData(2024) : OMSData(year, coreset === "adult");
 
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
@@ -138,7 +138,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         </CUI.Text>
       </QMR.Accordion>
       <StratificationOption register={register}></StratificationOption>
-      {(version === "optional" || version === "required") && (
+      {(version === "1997-omb" || version === "2024-omb") && (
         <>
           <CUI.Heading size="md" as="h2" my="6">
             Measure Stratification Details

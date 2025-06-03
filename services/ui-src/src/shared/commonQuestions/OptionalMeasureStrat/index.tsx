@@ -46,15 +46,6 @@ export const buildOmsCheckboxes = ({
     });
 };
 
-// type Props = BaseProps & (DataDrivenProp | DefaultDataProp);
-
-/** OMS react-hook-form typing */
-type OMSType = Types.OptionalMeasureStratification & {
-  DataSource: string[];
-} & { MeasurementSpecification: string } & {
-  "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
-};
-
 /**
  * Final OMS built
  */
@@ -95,7 +86,7 @@ export const OptionalMeasureStrat = ({
 
   const omsData = data ?? OMSData(year, coreset === "adult");
   const { control, watch, getValues, setValue, unregister } =
-    useFormContext<OMSType>();
+    useFormContext<Types.OMSType>();
   const values = getValues();
 
   const dataSourceWatch = watch("DataSource");

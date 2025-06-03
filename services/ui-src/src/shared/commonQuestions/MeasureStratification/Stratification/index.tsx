@@ -113,20 +113,23 @@ export const Stratification = ({
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
    */
   useEffect(() => {
-    return () => {
-      //unregister does not clean the data properly
-      //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
-      setValue("OptionalMeasureStratification", {
-        options: [],
-        selections: {},
-      });
-      //this is definitely the wrong way to fix this issue but it cleans a layer deeper than setValue, we need to use both
-      control._defaultValues.OptionalMeasureStratification = {
-        options: [],
-        selections: {},
+    if (watchDataSourceSwitch === "Other") {
+      return () => {
+        //unregister does not clean the data properly
+        //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+        setValue("OptionalMeasureStratification", {
+          options: [],
+          selections: {},
+        });
+        //this is definitely the wrong way to fix this issue but it cleans a layer deeper than setValue, we need to use both
+        control._defaultValues.OptionalMeasureStratification = {
+          options: [],
+          selections: {},
+        };
+        unregister("OptionalMeasureStratification.options");
       };
-      unregister("OptionalMeasureStratification.options");
-    };
+    }
+    return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDataSourceSwitch]);
 
