@@ -5,6 +5,16 @@ import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/c
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
 
+export interface OmsCheckboxProps {
+  /** name for react-hook-form registration */
+  name: string;
+  /** data object for dynamic rendering */
+  data: OmsNode[];
+  year: number;
+  accordion?: boolean;
+  excludeOptions: string[];
+}
+
 export interface BaseProps extends Qualifiers, Categories {
   measureName?: string;
   inputFieldNames?: LabelData[];
@@ -177,6 +187,7 @@ export namespace OmsNodes {
 
 export interface OptionalMeasureStratification {
   [DC.OMS]: {
+    [DC.VERSION]?: string;
     [DC.OPTIONS]: string[]; //checkbox
     [DC.SELECTIONS]: {
       [option: string]: OmsNodes.TopLevelOmsNode;
