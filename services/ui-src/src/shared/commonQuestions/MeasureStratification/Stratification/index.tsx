@@ -6,7 +6,6 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
-import { Accordion } from "components/Accordion";
 import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/context";
 
 /**
@@ -188,9 +187,9 @@ export const Stratification = ({
           </CUI.Button>
         </CUI.Box>
         {checkBoxOptions.map((option) => (
-          <Accordion state={accordionState} label={option.displayValue}>
+          <QMR.Accordion state={accordionState} label={option.displayValue}>
             {option.children}
-          </Accordion>
+          </QMR.Accordion>
         ))}
       </PerformanceMeasureProvider>
     </QMR.CoreQuestionWrapper>

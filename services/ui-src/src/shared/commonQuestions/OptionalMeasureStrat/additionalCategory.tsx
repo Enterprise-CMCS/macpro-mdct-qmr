@@ -82,7 +82,7 @@ export const AddAnotherSectionAccordian = ({
   if (fields.length === 0) append({});
 
   return (
-    <CUI.Accordion label={`Add another ${parentName}`} state={accordion}>
+    <QMR.Accordion label={`Add another ${parentName}`} state={accordion}>
       <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
         {fields.map((field: any, idx: number) => (
           <QMR.DeleteWrapper
@@ -111,6 +111,6 @@ export const AddAnotherSectionAccordian = ({
           testid={`${name}.additionalCategoriesButton`}
         />
       </CUI.Box>
-    </CUI.Accordion>
+    </QMR.Accordion>
   );
 };
