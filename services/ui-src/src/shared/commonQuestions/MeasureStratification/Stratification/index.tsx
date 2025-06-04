@@ -3,7 +3,7 @@ import * as QMR from "components";
 import * as Types from "../../../types";
 import { TopLevelOmsChildren } from "../omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
 import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/context";
@@ -22,7 +22,6 @@ export const buildOmsCheckboxes = ({
   data,
   excludeOptions,
   year,
-  accordion,
 }: Types.OmsCheckboxProps) => {
   return data
     .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
@@ -43,7 +42,6 @@ export const buildOmsCheckboxes = ({
           id={value}
           label={displayValue}
           year={year}
-          accordion={accordion}
         />,
       ];
 
@@ -77,7 +75,6 @@ export const Stratification = ({
   year,
   omsData,
 }: Types.OMSProps & StratificationProps) => {
-  const [accordionState, setAccordionState] = useState<boolean>(true);
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<Types.OMSType>();
   const values = getValues();
@@ -96,7 +93,6 @@ export const Stratification = ({
     data: omsData,
     excludeOptions,
     year,
-    accordion: accordionState,
   });
 
   let rateReadOnly = false;
@@ -174,20 +170,23 @@ export const Stratification = ({
           and denominator. The rate will auto-calculated but can be revised if
           needed.
         </CUI.Text>
-        <CUI.Box my={6}>
-          <CUI.Button variant="link" onClick={() => setAccordionState(false)}>
-            Expand all
-          </CUI.Button>
-          <CUI.Button
-            variant="link"
-            onClick={() => setAccordionState(true)}
-            ml={6}
-          >
-            Collapse all
-          </CUI.Button>
-        </CUI.Box>
+        <CUI.UnorderedList
+          my={6}
+          aria-label="accordion controls"
+          variant="links"
+          display="flex"
+        >
+          <CUI.ListItem>
+            <CUI.Button variant="link">Expand all</CUI.Button>
+          </CUI.ListItem>
+          <CUI.ListItem>
+            <CUI.Button variant="link" ml={6}>
+              Collapse all
+            </CUI.Button>
+          </CUI.ListItem>
+        </CUI.UnorderedList>
         {checkBoxOptions.map((option) => (
-          <QMR.Accordion state={accordionState} label={option.displayValue}>
+          <QMR.Accordion externalControlled label={option.displayValue}>
             {option.children}
           </QMR.Accordion>
         ))}

@@ -11,7 +11,6 @@ export interface OmsCheckboxProps {
   /** data object for dynamic rendering */
   data: OmsNode[];
   year: number;
-  accordion?: boolean;
   excludeOptions: string[];
 }
 

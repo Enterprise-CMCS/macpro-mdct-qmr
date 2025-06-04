@@ -174,7 +174,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <Accordion state={props.accordion} label={options.displayValue}>
+        <Accordion externalControlled label={options.displayValue}>
           {options.children}
         </Accordion>
       ))}
@@ -183,7 +183,6 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           name={props.name}
           parentName={props.parentDisplayName}
           key={`${props.name}.AdditionalCategorySection`}
-          accordion={props.accordion}
         />
       )}
     </CUI.Box>
