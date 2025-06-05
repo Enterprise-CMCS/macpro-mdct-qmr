@@ -42,12 +42,18 @@ export const AddAnotherButton = ({
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
   name: string;
+  flagSubCat?: boolean;
+  flagSubLabel?: string;
 }
 
 /**
  * Additional [Race/Sex/Language/Etc] Category Section
  */
-export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
+export const SubCatSection = ({
+  name,
+  flagSubCat,
+  flagSubLabel,
+}: AdditonalCategoryProps) => {
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     name: `${name}.additionalSubCategories`,
@@ -82,12 +88,19 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
           </QMR.QuestionChild>
         </QMR.DeleteWrapper>
       ))}
-      <AddAnotherButton
-        onClick={() => append({})}
-        additionalText={"Sub-Category"}
-        key={`${name}.additionalSubCategoriesButton`}
-        testid={`${name}.additionalSubCategoriesButton`}
-      />
+      {flagSubCat && (
+        <>
+          <AddAnotherButton
+            onClick={() => append({})}
+            additionalText={"Sub-Category"}
+            key={`${name}.additionalSubCategoriesButton`}
+            testid={`${name}.additionalSubCategoriesButton`}
+          />
+          <CUI.Text mt="4" fontStyle="italic">
+            {flagSubLabel}
+          </CUI.Text>
+        </>
+      )}
     </CUI.Box>
   );
 };

@@ -24,6 +24,8 @@ const omb2024 = () => {
           label: "American Indian or Alaska Native alone or in combination",
           options: [],
           flagSubCat: true,
+          flagSubLabel:
+            "(Enter, for example, Navajo Nation, Blackfeet Tribe of the Blackfeet Indian Reservation of Montana, Native Village of Barrow Inupiat Traditional Government, Nome Eskimo Community, Aztec, Maya, etc.)",
         },
         {
           id: "RKWD6S",
@@ -38,6 +40,7 @@ const omb2024 = () => {
             { id: "5v7GMy", flagSubCat: false, label: "Other Asian" },
           ],
           flagSubCat: true,
+          flagSubLabel: "(Enter, for example, Pakistani, Hmong, Afghan, etc.)",
         },
         {
           id: "6NrBa5",
@@ -51,6 +54,8 @@ const omb2024 = () => {
             { id: "v9x98F", flagSubCat: false, label: "Somali" },
           ],
           flagSubCat: true,
+          flagSubLabel:
+            "(Enter, for example, Trinidadian and Tobagonian, Ghanian, Congolese, etc.)",
         },
         {
           id: "v767bB",
@@ -64,6 +69,8 @@ const omb2024 = () => {
             { id: "WydNDy", flagSubCat: false, label: "Guatemalan" },
           ],
           flagSubCat: true,
+          flagSubLabel:
+            "(Enter, for example, Colombian, Honduran, Spaniard, etc.)",
         },
         {
           id: "6dmrjv",
@@ -77,6 +84,7 @@ const omb2024 = () => {
             { id: "YYRo8f", flagSubCat: false, label: "Israeli" },
           ],
           flagSubCat: true,
+          flagSubLabel: "(Enter, for example, Moroccan, Yemeni, Kurdish, etc.)",
         },
         {
           id: "Qu4kZK",
@@ -90,10 +98,11 @@ const omb2024 = () => {
             { id: "NTwVSH", flagSubCat: false, label: "Marshallese" },
           ],
           flagSubCat: true,
+          flagSubLabel:
+            "(Enter, for example, Chuukese, Palauan, Tahitian, etc.)",
         },
         {
           id: "szjphG",
-          flagSubCat: false,
           label: "White alone or in combination",
           options: [
             { id: "kI1u5T", flagSubCat: false, label: "English" },
@@ -103,6 +112,9 @@ const omb2024 = () => {
             { id: "62QFXg", flagSubCat: false, label: "Polish" },
             { id: "27hKIg", flagSubCat: false, label: "Scottish" },
           ],
+          flagSubCat: true,
+          flagSubLabel:
+            "(Enter, for example, French, Swedish, Norwegian, etc.)",
         },
         {
           id: "nN7fNs",

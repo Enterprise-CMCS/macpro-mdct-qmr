@@ -70,6 +70,8 @@ export interface OmsNode {
   addMore?: boolean;
   /** should this node have a subCatOption? */
   flagSubCat?: boolean;
+  /** if this node have a a subCatOption does it have any label text */
+  flagSubLabel?: string;
   /** additional checkbox options below this node */
   options?: OmsNode[];
   /** should additional category values have subCatOptions? */
