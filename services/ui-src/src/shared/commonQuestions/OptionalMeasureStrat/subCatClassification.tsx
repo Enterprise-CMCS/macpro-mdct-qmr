@@ -42,7 +42,6 @@ export const AddAnotherButton = ({
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
   name: string;
-  flagSubCat?: boolean;
   flagSubLabel?: string;
 }
 
@@ -51,7 +50,6 @@ interface AdditonalCategoryProps {
  */
 export const SubCatSection = ({
   name,
-  flagSubCat,
   flagSubLabel,
 }: AdditonalCategoryProps) => {
   const { control } = useFormContext();
@@ -88,18 +86,16 @@ export const SubCatSection = ({
           </QMR.QuestionChild>
         </QMR.DeleteWrapper>
       ))}
-      {flagSubCat && (
-        <>
-          <AddAnotherButton
-            onClick={() => append({})}
-            additionalText={"Sub-Category"}
-            key={`${name}.additionalSubCategoriesButton`}
-            testid={`${name}.additionalSubCategoriesButton`}
-          />
-          <CUI.Text mt="4" fontStyle="italic">
-            {flagSubLabel}
-          </CUI.Text>
-        </>
+      <AddAnotherButton
+        onClick={() => append({})}
+        additionalText={"Sub-Category"}
+        key={`${name}.additionalSubCategoriesButton`}
+        testid={`${name}.additionalSubCategoriesButton`}
+      />
+      {flagSubLabel && (
+        <CUI.Text mt="4" fontStyle="italic">
+          {flagSubLabel}
+        </CUI.Text>
       )}
     </CUI.Box>
   );

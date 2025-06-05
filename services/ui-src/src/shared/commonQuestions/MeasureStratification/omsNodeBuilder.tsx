@@ -85,11 +85,7 @@ const NdrSubNode = (omsNode: OmsNode, flagSubCat: boolean, name: string) => {
         }
       />
       {flagSubCat && (
-        <SubCatSection
-          name={name}
-          flagSubCat={omsNode.flagSubCat}
-          flagSubLabel={omsNode.flagSubLabel}
-        />
+        <SubCatSection name={name} flagSubLabel={omsNode.flagSubLabel} />
       )}
     </>
   );
