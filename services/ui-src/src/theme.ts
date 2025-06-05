@@ -91,6 +91,12 @@ export const theme = extendTheme({
         },
       },
     },
+    Link: {
+      baseStyle: {
+        textDecoration: "underline",
+        color: "blue.600",
+      },
+    },
   },
   colors: {
     gray: { 50: "#F1F1F1", 300: "#D6D7D9", 500: "#71767A" },
