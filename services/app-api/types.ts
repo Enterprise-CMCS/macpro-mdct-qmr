@@ -1,4 +1,4 @@
-import { measures } from "./handlers/dynamoUtils/measureList";
+import { measures, MeasureType } from "./handlers/dynamoUtils/measureList";
 import { states, bannerIds } from "./utils/constants/constants";
 export interface CoreSet {
   compoundKey: string;
@@ -57,12 +57,12 @@ export interface Measure {
   year: number;
   placeholder?: boolean;
   /**
-   * The `autoCompleted` and `mandatory` properties are not present on
+   * The `autoCompleted` and `measureType` properties are not present on
    * measures in the database; they are set on fetch, according to the
    * metadata in measureList.ts.
    */
   autoCompleted?: boolean;
-  mandatory?: boolean;
+  measureType?: MeasureType;
   data?: {
     /**
      * An array of strings from the `DataSource` enum.

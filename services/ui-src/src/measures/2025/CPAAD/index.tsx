@@ -23,6 +23,16 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
         displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
         value: "SurveySampleIncMedicareMedicaidDualEligible",
       },
+      {
+        displayValue: "Other",
+        value: "Other",
+        children: [
+          <QMR.TextArea
+            label="Define the other survey population:"
+            name="define-the-other-survey-population"
+          />,
+        ],
+      },
     ],
     helpText: (
       <>
@@ -46,6 +56,16 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
         displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
         value: "SurveySampleIncMedicareMedicaidDualEligible",
       },
+      {
+        displayValue: "Other",
+        value: "Other",
+        children: [
+          <QMR.TextArea
+            label="Define the other survey population:"
+            name="define-the-other-survey-population"
+          />,
+        ],
+      },
     ],
     helpText: (
       <>
@@ -66,8 +86,19 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
         value: "Separate CHIP (Title XXI)",
       },
       {
-        displayValue: "Individuals Dually Eligible for Medicare and Medicaid",
-        value: "Individuals Dually Eligible for Medicare and Medicaid",
+        displayValue:
+          "Individuals Dually Eligible for Medicare and Separate CHIP",
+        value: "Individuals Dually Eligible for Medicare and Separate CHIP",
+      },
+      {
+        displayValue: "Other",
+        value: "Other",
+        children: [
+          <QMR.TextArea
+            label="Define the other survey population:"
+            name="define-the-other-survey-population"
+          />,
+        ],
       },
     ],
     helpText: (
@@ -113,11 +144,13 @@ export const CPAAD = ({
           <CMQ.DefinitionOfPopulation
             coreSetOptions={defOfDenomOptions}
             deliverySystems={false}
+            populationTotalTechSpec={false}
+            removeOtherOption={true}
           />
           <Q.PerformanceMeasure />
         </>
       )}
-      <CMQ.AdditionalNotes />
+      <Q.AdditionalNotes />
     </>
   );
 };

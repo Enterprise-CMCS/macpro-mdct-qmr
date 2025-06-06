@@ -9,14 +9,6 @@ interface DecodedToken {
   identities?: [{ userId?: string }];
 }
 
-export const isAuthenticated = (event: APIGatewayProxyEvent) => {
-  let authed;
-  if (event?.headers?.["x-api-key"]) {
-    authed = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
-  }
-  return !!authed;
-};
-
 export const hasRolePermissions = (
   event: APIGatewayProxyEvent,
   allowedRoles: UserRoles[]
@@ -67,7 +59,7 @@ export const hasStatePermissions = (event: APIGatewayProxyEvent) => {
 
 export const getUserNameFromJwt = (event: APIGatewayProxyEvent) => {
   let userName = "branchUser";
-  if (!event?.headers || !event.headers?.["x-api-key"]) return userName;
+  if (!event?.headers || !event.headers["x-api-key"]) return userName;
 
   const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
 
@@ -77,7 +69,7 @@ export const getUserNameFromJwt = (event: APIGatewayProxyEvent) => {
   }
 
   if (decoded.identities && decoded.identities[0]?.userId) {
-    userName = decoded?.identities[0].userId;
+    userName = decoded.identities[0].userId;
     return userName;
   }
 

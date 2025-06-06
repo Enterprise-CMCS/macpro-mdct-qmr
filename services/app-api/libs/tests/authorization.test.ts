@@ -1,39 +1,14 @@
 import { testEvent } from "../../test-util/testEvents";
 import {
-  isAuthenticated,
   hasStatePermissions,
   hasRolePermissions,
+  getUserNameFromJwt,
 } from "../authorization";
-import { UserRoles } from "../../types";
+import { APIGatewayProxyEvent, UserRoles } from "../../types";
+import jwtDecode from "jwt-decode";
 
-const mockedDecode = jest.fn();
-
-jest.mock("jwt-decode", () => ({
-  __esModule: true,
-  default: () => {
-    return mockedDecode();
-  },
-}));
-
-describe("isAuthenticated checks if user is authenticated", () => {
-  beforeEach(() => {
-    mockedDecode.mockReturnValue({
-      "custom:cms_roles": UserRoles.ADMIN,
-    });
-  });
-
-  test("returns true with correctly formatted jwt key", () => {
-    const event = { ...testEvent };
-    event.headers = { "x-api-key": "test" };
-    expect(isAuthenticated(event)).toEqual(true);
-  });
-
-  test("returns false if missing jwt key", () => {
-    const event = { ...testEvent };
-    event.headers = {};
-    expect(isAuthenticated(event)).toEqual(false);
-  });
-});
+jest.mock("jwt-decode", () => jest.fn());
+const mockedDecode = jwtDecode as jest.MockedFunction<typeof jwtDecode>;
 
 describe("hasRolePermissions checks if the user has one of a given set of roles", () => {
   const event = { ...testEvent };
@@ -106,5 +81,79 @@ describe("hasStatePermissions checks if the user's state matches event's state",
       "custom:cms_state": "PA",
     });
     expect(hasStatePermissions(event)).toEqual(false);
+  });
+});
+
+describe("getUserNameFromJwt", () => {
+  const mockEventWithToken = {
+    ...testEvent,
+    headers: { "x-api-key": "mock JWT" },
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should return a default if there is no event", () => {
+    const mockEvent = undefined as unknown as APIGatewayProxyEvent;
+    expect(getUserNameFromJwt(mockEvent)).toBe("branchUser");
+  });
+
+  it("should return a default if the event has no headers", () => {
+    const mockEvent = {} as APIGatewayProxyEvent;
+    expect(getUserNameFromJwt(mockEvent)).toBe("branchUser");
+  });
+
+  it("should return a default if the event has no token", () => {
+    const mockEvent = { headers: {} } as APIGatewayProxyEvent;
+    expect(getUserNameFromJwt(mockEvent)).toBe("branchUser");
+  });
+
+  it("should return a default if the event token has no names or identities", () => {
+    mockedDecode.mockReturnValueOnce({});
+    expect(getUserNameFromJwt(mockEventWithToken)).toBe("branchUser");
+  });
+
+  it("should return a default if the event token has only a first name, and no identities", () => {
+    mockedDecode.mockReturnValueOnce({
+      given_name: "Rosa",
+    });
+    expect(getUserNameFromJwt(mockEventWithToken)).toBe("branchUser");
+  });
+
+  it("should return a default if the event token has only a last name, and no identities", () => {
+    mockedDecode.mockReturnValueOnce({
+      family_name: "Parks",
+    });
+    expect(getUserNameFromJwt(mockEventWithToken)).toBe("branchUser");
+  });
+
+  it("should return a default if the event token has no names, and the identities array is empty", () => {
+    mockedDecode.mockReturnValueOnce({
+      identities: [],
+    });
+    expect(getUserNameFromJwt(mockEventWithToken)).toBe("branchUser");
+  });
+
+  it("should return a default if the event token has no names, and the 1st identity has no userId", () => {
+    mockedDecode.mockReturnValueOnce({
+      identities: [{}],
+    });
+    expect(getUserNameFromJwt(mockEventWithToken)).toBe("branchUser");
+  });
+
+  it("should return first and last name if they are both present", () => {
+    mockedDecode.mockReturnValueOnce({
+      given_name: "Rosa",
+      family_name: "Parks",
+    });
+    expect(getUserNameFromJwt(mockEventWithToken)).toBe("Rosa Parks");
+  });
+
+  it("should return userId if there is no name, but userId can be found", () => {
+    mockedDecode.mockReturnValueOnce({
+      identities: [{ userId: "mockUserId" }],
+    });
+    expect(getUserNameFromJwt(mockEventWithToken)).toBe("mockUserId");
   });
 });

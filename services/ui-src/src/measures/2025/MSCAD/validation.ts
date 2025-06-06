@@ -56,7 +56,6 @@ const MSCADValidation = (data: DefaultFormData) => {
     ...GV.validateAtLeastOneDefinitionOfPopulation(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateHedisYear(data),
     ...GV.validateOPMRates(OPM),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
     ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),

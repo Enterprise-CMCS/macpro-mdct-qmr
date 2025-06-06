@@ -128,11 +128,16 @@ const buildDataSourceOptions: DSCBFunc = ({
 const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
   options.forEach((options) => {
     if (options.description)
-      options.hint =
-        options.value === DC.ELECTRONIC_HEALTH_RECORDS && labels.ehrSrc
-          ? labels.ehrSrc!
-          : labels.describeDataSrc!;
-
+      if (options.value === DC.ELECTRONIC_HEALTH_RECORDS && labels.ehrSrc) {
+        options.hint = labels.ehrSrc;
+      } else if (
+        options.value === DC.ELECTRONIC_CLINIC_DATA_SYSTEMS &&
+        labels.describeOptionalDataSrc
+      ) {
+        options.hint = labels.describeOptionalDataSrc;
+      } else {
+        options.hint = labels.describeDataSrc;
+      }
     if (options.subOptions) {
       options.subOptions.forEach((subOption) => {
         addHintLabel(subOption.options, labels);

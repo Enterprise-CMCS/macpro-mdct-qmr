@@ -2,13 +2,12 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "./../../types";
 import { OMSData } from "./data";
-import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
+import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { ndrFormula } from "types";
-import { LabelData, cleanString } from "utils";
+import { cleanString } from "utils";
 import SharedContext from "shared/SharedContext";
 
 interface OmsCheckboxProps {
@@ -56,47 +55,7 @@ export const buildOmsCheckboxes = ({
     });
 };
 
-interface BaseProps extends Types.Qualifiers, Types.Categories {
-  measureName?: string;
-  inputFieldNames?: LabelData[];
-  ndrFormulas?: ndrFormula[];
-  /** string array for perfromance measure descriptions */
-  performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
-  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
-  /** should the total for each portion of OMS be calculated? */
-  calcTotal?: boolean;
-  rateMultiplicationValue?: number;
-  allowNumeratorGreaterThanDenominator?: boolean;
-  customMask?: RegExp;
-  excludeOptions?: string[];
-  rateAlwaysEditable?: boolean;
-  numberOfDecimals?: number;
-  componentFlag?: ComponentFlagType;
-  customNumeratorLabel?: string;
-  customDenominatorLabel?: string;
-  customRateLabel?: string;
-  customPrompt?: string;
-  rateCalc?: RateFormula;
-}
-
-/** data for dynamic rendering will be provided */
-interface DataDrivenProp {
-  /** data array for dynamic rendering */
-  data: Types.OmsNode[];
-  /** cannot set adultMeasure if using custom data*/
-  coreset?: never;
-}
-
-/** default data is being used for this component */
-interface DefaultDataProp {
-  /** is this an adult measure? Should this contain the ACA portion? */
-  coreset: string;
-  /** cannot set data if using default data */
-  data?: never;
-}
-
-type Props = BaseProps & (DataDrivenProp | DefaultDataProp);
+// type Props = BaseProps & (DataDrivenProp | DefaultDataProp);
 
 /** OMS react-hook-form typing */
 type OMSType = Types.OptionalMeasureStratification & {
@@ -143,7 +102,7 @@ export const OptionalMeasureStrat = ({
   customRateLabel = "Rate",
   customPrompt,
   rateCalc,
-}: Props) => {
+}: Types.OMSProps) => {
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
   const year = labels.year;
