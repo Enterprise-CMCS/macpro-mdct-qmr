@@ -1,19 +1,22 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import * as Types from "./../../types";
-import { OMSData } from "./data";
-import { PerformanceMeasureProvider } from "./context";
-import { TopLevelOmsChildren } from "./omsNodeBuilder";
+import * as Types from "../../../types";
+import { TopLevelOmsChildren } from "../omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
-import SharedContext from "shared/SharedContext";
+import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/context";
 
 /**
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
+interface StratificationProps {
+  year: number;
+  omsData: Types.OmsNode[];
+}
+
 export const buildOmsCheckboxes = ({
   name,
   data,
@@ -49,16 +52,14 @@ export const buildOmsCheckboxes = ({
 /**
  * Final OMS built
  */
-export const OptionalMeasureStrat = ({
+export const Stratification = ({
   performanceMeasureArray,
   qualifiers = [],
   categories = [],
   measureName,
   inputFieldNames,
   ndrFormulas,
-  data,
   calcTotal = false,
-  coreset,
   rateMultiplicationValue,
   allowNumeratorGreaterThanDenominator = false,
   customMask,
@@ -71,20 +72,9 @@ export const OptionalMeasureStrat = ({
   customRateLabel = "Rate",
   customPrompt,
   rateCalc,
-}: Types.OMSProps) => {
-  //WIP: using form context to get the labels for this component temporarily.
-  const labels: any = useContext(SharedContext);
-  const year = labels.year;
-
-  const IUHHPerformanceMeasureArray =
-    measureName === "IUHH" ? performanceMeasureArray : undefined;
-  const AIFHHPerformanceMeasureArray =
-    measureName === "AIFHH" ? performanceMeasureArray : undefined;
-
-  if (IUHHPerformanceMeasureArray || AIFHHPerformanceMeasureArray)
-    performanceMeasureArray = undefined;
-
-  const omsData = data ?? OMSData(year, coreset === "adult");
+  year,
+  omsData,
+}: Types.OMSProps & StratificationProps) => {
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<Types.OMSType>();
   const values = getValues();
@@ -118,20 +108,23 @@ export const OptionalMeasureStrat = ({
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
    */
   useEffect(() => {
-    return () => {
-      //unregister does not clean the data properly
-      //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
-      setValue("OptionalMeasureStratification", {
-        options: [],
-        selections: {},
-      });
-      //this is definitely the wrong way to fix this issue but it cleans a layer deeper than setValue, we need to use both
-      control._defaultValues.OptionalMeasureStratification = {
-        options: [],
-        selections: {},
+    if (watchDataSourceSwitch === "Other") {
+      return () => {
+        //unregister does not clean the data properly
+        //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+        setValue("OptionalMeasureStratification", {
+          options: [],
+          selections: {},
+        });
+        //this is definitely the wrong way to fix this issue but it cleans a layer deeper than setValue, we need to use both
+        control._defaultValues.OptionalMeasureStratification = {
+          options: [],
+          selections: {},
+        };
+        unregister("OptionalMeasureStratification.options");
       };
-      unregister("OptionalMeasureStratification.options");
-    };
+    }
+    return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDataSourceSwitch]);
 
@@ -144,16 +137,11 @@ export const OptionalMeasureStrat = ({
   );
 
   return (
-    <QMR.CoreQuestionWrapper
-      testid="OMS"
-      label="Optional Measure Stratification"
-    >
+    <QMR.CoreQuestionWrapper testid="OMS" label="Enter Measure Stratification">
       <PerformanceMeasureProvider
         value={{
           OPM,
           performanceMeasureArray,
-          IUHHPerformanceMeasureArray,
-          AIFHHPerformanceMeasureArray,
           rateReadOnly,
           calcTotal,
           qualifiers: cleanedQual,
@@ -173,23 +161,35 @@ export const OptionalMeasureStrat = ({
           rateCalculation: rateCalc,
         }}
       >
-        <CUI.Text py="3">
-          {labels.OptionalMeasureStratification.section}
+        <CUI.Text>
+          Do not select categories and sub-categories for which you will not be
+          reporting any data.
         </CUI.Text>
-        {labels.OptionalMeasureStratification.additionalContext && (
-          <QMR.TextArea
-            label={labels.OptionalMeasureStratification.additionalContext}
-            {...register("OptionalMeasureStratification.additionalContext")}
-          />
-        )}
-        <CUI.Text py="3">
-          Do not select categories and sub-classifications for which you will
-          not be reporting any data.
+        <CUI.Text>
+          For each category and sub-category, enter a number for the numerator
+          and denominator. The rate will auto-calculated but can be revised if
+          needed.
         </CUI.Text>
-        <QMR.Checkbox
-          {...register("OptionalMeasureStratification.options")}
-          options={checkBoxOptions}
-        />
+        <CUI.UnorderedList
+          my={6}
+          aria-label="accordion controls"
+          variant="links"
+          display="flex"
+        >
+          <CUI.ListItem>
+            <CUI.Button variant="link">Expand all</CUI.Button>
+          </CUI.ListItem>
+          <CUI.ListItem>
+            <CUI.Button variant="link" ml={6}>
+              Collapse all
+            </CUI.Button>
+          </CUI.ListItem>
+        </CUI.UnorderedList>
+        {checkBoxOptions.map((option) => (
+          <QMR.Accordion externalControlled label={option.displayValue}>
+            {option.children}
+          </QMR.Accordion>
+        ))}
       </PerformanceMeasureProvider>
     </QMR.CoreQuestionWrapper>
   );

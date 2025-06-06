@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode, useMemo, useState } from "react";
+import { MouseEventHandler, ReactNode, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 
@@ -8,7 +8,7 @@ export const AccordionItem = ({
   children,
   sx: sxOverride,
   onClick,
-}: Props) => {
+}: AccordionItemProps) => {
   return (
     <CUI.AccordionItem sx={sxOverride ?? sx.root}>
       {({ isExpanded }) => (
@@ -31,13 +31,24 @@ export const AccordionItem = ({
   );
 };
 
-export const Accordion = ({ label, children, state }: AProps) => {
-  const [index, setIndex] = useState<number>(0);
+export const Accordion = ({
+  label,
+  children,
+  externalControlled,
+}: AccordionProps) => {
+  const [index, setIndex] = useState<number>(1);
 
-  useMemo(() => {
-    if (state) setIndex(1);
-    else setIndex(0);
-  }, [state]);
+  if (externalControlled) {
+    //only way to really capture when the user has clicked expand all/ collapse all button for the measure stratification section
+    addEventListener("click", (event) => {
+      const label = (event.target as Element).innerHTML;
+      if (label === "Expand all") {
+        setIndex(0);
+      } else if (label === "Collapse all") {
+        setIndex(1);
+      }
+    });
+  }
 
   const toggle = () => {
     if (index === 1) setIndex(0);
@@ -53,16 +64,16 @@ export const Accordion = ({ label, children, state }: AProps) => {
   );
 };
 
-interface Props {
+interface AccordionItemProps {
   children?: ReactNode | ReactNode[];
   label?: string;
   sx?: CUI.SystemStyleObject;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-interface AProps {
+interface AccordionProps {
   children?: ReactNode | ReactNode[];
-  state?: boolean;
+  externalControlled?: boolean;
   label?: string;
   sx?: CUI.SystemStyleObject;
 }

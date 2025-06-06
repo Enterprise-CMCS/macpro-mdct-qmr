@@ -67,12 +67,28 @@ export const theme = extendTheme({
             textDecoration: "underline",
           },
         },
+        link: {
+          textDecoration: "underline",
+          color: "blue.600",
+        },
       },
     },
     Link: {
       baseStyle: {
         textDecoration: "underline",
         color: "blue.600",
+      },
+    },
+    List: {
+      variants: {
+        links: {
+          container: {
+            paddingLeft: "1rem",
+          },
+          item: {
+            listStyle: "none",
+          },
+        },
       },
     },
   },

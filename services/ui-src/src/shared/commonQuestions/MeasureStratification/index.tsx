@@ -1,8 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Accordion } from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../../types";
+import { useContext } from "react";
+import { useFormContext } from "react-hook-form";
+import { useCustomRegister } from "hooks/useCustomRegister";
+import { OMSData } from "../OptionalMeasureStrat/data";
+import { Stratification } from "./Stratification";
+import SharedContext from "shared/SharedContext";
 
 interface Props {
   register: Function;
@@ -72,17 +76,17 @@ export const StratificationOption = ({ register }: Props) => {
         {
           displayValue:
             "1997 Office of Management and Budget (OMB) minimum race and ethnicity categories.",
-          value: "optional",
+          value: "1997-omb",
         },
         {
           displayValue:
             "Statistical Policy Directive #15: 2024 OMB race and ethnicity standards",
-          value: "required",
+          value: "2024-omb",
         },
         {
           displayValue:
             "I am not reporting measure stratification for this measure",
-          value: "none",
+          value: "not-reporting",
         },
       ]}
       {...register("OptionalMeasureStratification.version")}
@@ -90,12 +94,22 @@ export const StratificationOption = ({ register }: Props) => {
   );
 };
 
-export const MeasureStrat = (_props: Types.OMSProps) => {
+export const MeasureStrat = (props: Types.OMSProps) => {
+  const labels: any = useContext(SharedContext);
+  const year = labels.year;
+  const { coreset } = props;
+
   const register = useCustomRegister();
+  const { watch } = useFormContext<Types.OptionalMeasureStratification>();
+  const data = watch();
+
+  const version = data.OptionalMeasureStratification?.version;
+  const omsData =
+    version === "1997-omb" ? OMSData(2024) : OMSData(year, coreset === "adult");
 
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
-      <Accordion label="Instructions">
+      <QMR.Accordion label="Instructions">
         <CUI.Text>
           Enter data below to stratify this measure by race, ethnicity, sex,
           and/or geography. Beginning with 2025 Core Sets reporting, states are
@@ -122,8 +136,20 @@ export const MeasureStrat = (_props: Types.OMSProps) => {
           can derive values of 1 to 10. Furthermore, CMS will suppress rates
           with a denominator less than 30 due to reliability concerns.
         </CUI.Text>
-      </Accordion>
+      </QMR.Accordion>
       <StratificationOption register={register}></StratificationOption>
+      {(version === "1997-omb" || version === "2024-omb") && (
+        <>
+          <CUI.Heading size="md" as="h2" my="6">
+            Measure Stratification Details
+          </CUI.Heading>
+          <Stratification
+            {...props}
+            omsData={omsData}
+            year={year}
+          ></Stratification>
+        </>
+      )}
     </QMR.CoreQuestionWrapper>
   );
 };

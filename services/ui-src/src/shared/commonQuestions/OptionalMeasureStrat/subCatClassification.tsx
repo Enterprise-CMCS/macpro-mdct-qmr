@@ -42,12 +42,16 @@ export const AddAnotherButton = ({
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
   name: string;
+  flagSubLabel?: string;
 }
 
 /**
  * Additional [Race/Sex/Language/Etc] Category Section
  */
-export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
+export const SubCatSection = ({
+  name,
+  flagSubLabel,
+}: AdditonalCategoryProps) => {
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     name: `${name}.additionalSubCategories`,
@@ -88,6 +92,11 @@ export const SubCatSection = ({ name }: AdditonalCategoryProps) => {
         key={`${name}.additionalSubCategoriesButton`}
         testid={`${name}.additionalSubCategoriesButton`}
       />
+      {flagSubLabel && (
+        <CUI.Text mt="4" fontStyle="italic">
+          {flagSubLabel}
+        </CUI.Text>
+      )}
     </CUI.Box>
   );
 };
