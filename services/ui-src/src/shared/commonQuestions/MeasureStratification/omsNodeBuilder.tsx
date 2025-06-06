@@ -10,6 +10,8 @@ import { Accordion } from "components/Accordion";
 import { NDRSets } from "../OptionalMeasureStrat/NDR/ndrSets";
 import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
 import { AddAnotherSectionAccordian } from "../OptionalMeasureStrat/additionalCategory";
+import { useFormContext } from "react-hook-form";
+import * as Types from "../../types";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -132,6 +134,8 @@ const buildChildCheckboxOption = ({
   let children = [];
   const id = omsNode?.id ? cleanString(omsNode.id) : "ID_NOT_SET";
 
+  const { resetField } = useFormContext<Types.OptionalMeasureStratification>();
+
   if (!omsNode?.options) {
     children = [
       <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
@@ -139,13 +143,24 @@ const buildChildCheckboxOption = ({
   }
   // catch condition for subCategory ex: Asian -> Korean
   else {
+    let options = renderRadioButtonOptions({ omsNode, name, label });
+
+    const clear = (name: string) => {
+      resetField(name as keyof Types.OptionalMeasureStratification);
+    };
+
     children = [
-      <QMR.RadioButton
-        name={`${name}.aggregate`}
-        key={`${name}.aggregate`}
-        options={renderRadioButtonOptions({ omsNode, name, label })}
-        label={label?.checkboxOpt}
-      />,
+      <CUI.Box display="flex" flexDir="row">
+        <QMR.RadioButton
+          name={`${name}.aggregate`}
+          key={`${name}.aggregate`}
+          options={options}
+          label={label?.checkboxOpt}
+        />
+        <CUI.Button variant="outline" onClick={() => clear(name)}>
+          Clear
+        </CUI.Button>
+      </CUI.Box>,
     ];
   }
   return {
