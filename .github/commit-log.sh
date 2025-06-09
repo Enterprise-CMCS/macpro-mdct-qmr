@@ -34,8 +34,8 @@ COMMIT_LOG=$(git log "origin/$BASE..origin/$HEAD" --no-merges --pretty=format:"%
       orig_line = output_line;
     }
 
-    # Remove empty square brackets
-    gsub(/\[\]/, "", output_line);
+    # Remove square brackets and contents
+    gsub(/\[.*\]/, "", output_line);
 
     # Trim leading/trailing spaces, dashes, and colons
     gsub(/^[ \-:]+|[ \-:]+$/, "", output_line);
