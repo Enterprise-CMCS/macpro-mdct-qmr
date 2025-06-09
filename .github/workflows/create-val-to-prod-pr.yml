@@ -62,7 +62,7 @@ jobs:
         set -euo pipefail
  
         current_date=$(date '+%-d %B %Y')
-        title="CARTS production release (${current_date})"
+        title="QMR production release (${current_date})"
 
         decoded_body="${RAW_BODY//%25/%}"
         decoded_body="${decoded_body//%0A/__NEWLINE__}"
