@@ -26,7 +26,7 @@ jobs:
       id: set-vars
       run: |
         echo "HEAD_BRANCH=val" >> $GITHUB_ENV
-        echo "BASE_BRANCH=production" >> $GITHUB_ENV
+        echo "BASE_BRANCH=prod" >> $GITHUB_ENV
     - name: Generate PR body
       id: pr_body
       run: |
