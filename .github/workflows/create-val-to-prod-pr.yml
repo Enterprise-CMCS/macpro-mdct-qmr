@@ -1,9 +1,9 @@
-name: Create master to val PR
+name: Create val to prod PR
 
 on:
   push:
     branches:
-      - master
+      - val
   workflow_dispatch:
 
 permissions:
@@ -25,8 +25,8 @@ jobs:
     - name: Set branch variables
       id: set-vars
       run: |
-        echo "HEAD_BRANCH=master" >> $GITHUB_ENV
-        echo "BASE_BRANCH=val" >> $GITHUB_ENV
+        echo "HEAD_BRANCH=val" >> $GITHUB_ENV
+        echo "BASE_BRANCH=production" >> $GITHUB_ENV
     - name: Generate PR body
       id: pr_body
       run: |
@@ -62,7 +62,7 @@ jobs:
         set -euo pipefail
  
         current_date=$(date '+%-d %B %Y')
-        title="CARTS val release (${current_date})"
+        title="CARTS production release (${current_date})"
 
         decoded_body="${RAW_BODY//%25/%}"
         decoded_body="${decoded_body//%0A/__NEWLINE__}"
