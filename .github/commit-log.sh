@@ -40,6 +40,9 @@ COMMIT_LOG=$(git log "origin/$BASE..origin/$HEAD" --no-merges --pretty=format:"%
     # Trim leading/trailing spaces, dashes, and colons
     gsub(/^[ \-:]+|[ \-:]+$/, "", output_line);
 
+    # Escape ampersands
+    gsub(/&/, "\\&", orig_line);
+
     # Add ticket or placeholder to the end
     printf "- %s (%s)\n", output_line, tickets ? tickets : "CMDCT-";
   }')
