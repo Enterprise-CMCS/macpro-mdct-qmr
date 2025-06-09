@@ -40,9 +40,6 @@ COMMIT_LOG=$(git log "origin/$BASE..origin/$HEAD" --no-merges --pretty=format:"%
     # Trim leading/trailing spaces, dashes, and colons
     gsub(/^[ \-:]+|[ \-:]+$/, "", output_line);
 
-    # Escape ampersands
-    gsub(/&/, "\\&", output_line);
-
     # Add ticket or placeholder to the end
     printf "- %s (%s)\n", output_line, tickets ? tickets : "CMDCT-";
   }')
@@ -72,7 +69,8 @@ fi
 TEMPLATE=$(echo "$TEMPLATE" | perl -0777 -pe 's/^[ \t]*<!--.*?-->[ \t]*\n?//gm')
 
 # Replace commits placeholder
-BODY="${TEMPLATE//- Description of work (CMDCT-)/$COMMIT_LOG}"
+export COMMIT_LOG
+BODY=$(perl -pe 'BEGIN { undef $/; $commit = $ENV{"COMMIT_LOG"} } s/- Description of work \(CMDCT-\)/$commit/' <<< "$TEMPLATE")
 
 # Create dependency updates table
 TABLE_HEADERS="| directory | package | prior version | upgraded version |
