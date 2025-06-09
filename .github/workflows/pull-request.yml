@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - "master"
+    types: [opened, reopened, ready_for_review, synchronize]
 
 permissions:
   id-token: write
@@ -14,19 +15,16 @@ permissions:
 jobs:
   assignAuthor:
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.type != 'Bot' }}
     steps:
       - uses: actions/checkout@v4
       - name: Assign PR to Creator
         run: |
-          if [ "$PR_AUTHOR_TYPE" != "Bot" ]
-            then
-              gh pr edit $PRNUM --add-assignee $PR_AUTHOR
-            fi
+          gh pr edit $PRNUM --add-assignee $PR_AUTHOR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRNUM: ${{ github.event.pull_request.number }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          PR_AUTHOR_TYPE: ${{ github.event.pull_request.user.type }}
   unit-tests:
     name: Unit Tests
     uses: ./.github/workflows/unittest-workflow.yml
