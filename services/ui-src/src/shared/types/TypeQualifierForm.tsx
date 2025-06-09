@@ -8,6 +8,7 @@ export interface DataDriven {
 }
 
 interface BaseQualifierForm {
+  GeneralAge?: string;
   AdministrativeData: AdministrativeQuestions;
   CostSavingsData: CostSavingsData;
   PercentageEnrolledInEachDeliverySystem: DeliverySystem[];

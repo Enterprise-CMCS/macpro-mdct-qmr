@@ -5,7 +5,7 @@ const AdultData: DataDriven = {
   title: "Adult Core Set Qualifiers: Medicaid",
   questionTitle: "Adult Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
+    `As of December 31, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
   textTable: [
     ["Medicaid (Title XIX & XXI)", "Ages 21 to 64"],
     ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
@@ -42,7 +42,7 @@ const AdultChipData: DataDriven = {
   title: "Adult Core Set Qualifiers: CHIP",
   questionTitle: "Adult Core Set Questions: CHIP",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your separate CHIP enrollees (age 21 and older) were enrolled in each delivery system?`,
+    `As of December 31, ${year}, what percentage of your separate CHIP enrollees (age 21 and older) were enrolled in each delivery system?`,
   textTable: [["Separate CHIP", "Ages 21 to 64"]],
   fieldValues: ["TwentyOneToSixtyFour"],
   formData: {
@@ -72,7 +72,7 @@ const AdultMedicaidData: DataDriven = {
   title: "Adult Core Set Qualifiers: Medicaid",
   questionTitle: "Adult Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
+    `As of December 31, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (age 21 and older) were enrolled in each delivery system?`,
   textTable: [
     ["Medicaid (Title XIX & XXI)", "Ages 21 to 64"],
     ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
@@ -109,7 +109,7 @@ const ChildData: DataDriven = {
   title: "Child Core Set Qualifiers: Medicaid",
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system?`,
+    `As of December 31, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system?`,
   textTable: [["Medicaid (TITLE XIX & XXI)", "Under Age 21"]],
   fieldValues: ["UnderTwentyOneMedicaid"],
   formData: {
@@ -139,7 +139,7 @@ const ChildChipData: DataDriven = {
   title: "Child Core Set Qualifiers: CHIP",
   questionTitle: "Child Core Set Questions: CHIP",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your separate CHIP enrollees (under age 21) were enrolled in each delivery system?`,
+    `As of December 31, ${year}, what percentage of your separate CHIP enrollees (under age 21) were enrolled in each delivery system?`,
   textTable: [["Separate CHIP", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
@@ -169,7 +169,7 @@ const ChildMedicaidData: DataDriven = {
   title: "Child Core Set Qualifiers: Medicaid",
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system?`,
+    `As of December 31, ${year}, what percentage of your Medicaid (Title XIX & XXI) enrollees (under age 21) were enrolled in each delivery system?`,
   textTable: [["Medicaid (Title XIX & XXI)", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
@@ -199,7 +199,7 @@ const HomeData: DataDriven = {
   title: "Health Home Core Set Qualifiers",
   questionTitle: `Health Home Core Set Questions: SPA ID:`,
   qualifierHeader: (year) =>
-    `As of September 30, ${year}, what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system?`,
+    `As of December 31, ${year}, what percentage of your Medicaid Health Home enrollees were enrolled in each delivery system?`,
   textTable: [["Ages 0 to 17"], ["Ages 18 to 64"], ["Age 65 and older"]],
   fieldValues: [
     "ZeroToSeventeen",

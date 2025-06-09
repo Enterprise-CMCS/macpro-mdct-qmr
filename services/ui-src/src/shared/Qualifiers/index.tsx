@@ -57,6 +57,7 @@ export const Qualifier = ({
           {type === "HH" && <QMR.HealthHomeInfo />}
         </CUI.Box>
         <CUI.OrderedList width="100%">
+          {type !== "HH" && <Common.GeneralAge></Common.GeneralAge>}
           {type === "HH" && (
             <>
               <Common.AdministrativeQuestions />
