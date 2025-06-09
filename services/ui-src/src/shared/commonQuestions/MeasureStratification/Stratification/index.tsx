@@ -177,10 +177,10 @@ export const Stratification = ({
           display="flex"
         >
           <CUI.ListItem>
-            <CUI.Button variant="link">Expand all</CUI.Button>
+            <CUI.Button variant="outline-primary">Expand all</CUI.Button>
           </CUI.ListItem>
           <CUI.ListItem>
-            <CUI.Button variant="link" ml={6}>
+            <CUI.Button variant="outline-primary" ml={6}>
               Collapse all
             </CUI.Button>
           </CUI.ListItem>

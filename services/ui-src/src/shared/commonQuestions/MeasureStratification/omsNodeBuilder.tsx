@@ -157,7 +157,7 @@ const buildChildCheckboxOption = ({
           options={options}
           label={label?.checkboxOpt}
         />
-        <CUI.Button variant="outline" onClick={() => clear(name)}>
+        <CUI.Button variant="outline-primary" onClick={() => clear(name)}>
           Clear
         </CUI.Button>
       </CUI.Box>,

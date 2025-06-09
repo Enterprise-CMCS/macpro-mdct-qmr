@@ -67,9 +67,10 @@ export const theme = extendTheme({
             textDecoration: "underline",
           },
         },
-        link: {
-          textDecoration: "underline",
+        "outline-primary": {
           color: "blue.600",
+          border: "1px solid #2b6cb0",
+          borderRadius: "0",
         },
       },
     },
