@@ -43,6 +43,15 @@ export const RadioButton = ({
 
   const path = objectPath.get(errors, name);
 
+  const getFieldValue = () => {
+    //when running a clear call, the radio button doesn't remove the selection even when the value is undefined. setting it to "" clears it
+    return !!valueAsArray
+      ? field.value?.[0]
+      : field.value !== undefined
+      ? field.value
+      : "";
+  };
+
   return (
     <QMR.InputWrapper
       isInvalid={!!path?.message || path?.type === "required"}
@@ -57,7 +66,7 @@ export const RadioButton = ({
         ref={field.ref}
         id={field.name + "_radiogroup"}
         size="lg"
-        value={!!valueAsArray ? field.value?.[0] : field.value}
+        value={getFieldValue()}
         onBlur={field.onBlur}
         onChange={(newValue) => {
           field.onChange(!!valueAsArray ? [newValue] : newValue);
