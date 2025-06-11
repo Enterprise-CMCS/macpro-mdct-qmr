@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - bs-auto-prs
   workflow_dispatch:
 
 permissions:
