@@ -5,6 +5,7 @@ export interface DataDriven {
   qualifierHeader: (year: string) => string;
   textTable: string[][];
   fieldValues: string[];
+  ageQuestion?: { label: string };
 }
 
 interface BaseQualifierForm {
