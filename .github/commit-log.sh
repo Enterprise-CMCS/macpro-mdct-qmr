@@ -17,10 +17,10 @@ COMMIT_LOG=$(git log "origin/$BASE..origin/$HEAD" --no-merges --pretty=format:"%
     # Remove original ticket(s)
     gsub(/[Cc][Mm][Dd][Cc][Tt][ -]?[0-9]+/, "", output_line);
 
-    # Remove square brackets and contents
+    # Remove square brackets and contents leftover from ticket removal
     gsub(/\[[^]]*\]/, "", output_line);
 
-    # Match all tickets from the lowercase line
+    # Match all tickets using the lowercased line
     while (match(lowercased_line, /cmdct[ -]?[0-9]+/)) {
       ticket = substr(lowercased_line, RSTART, RLENGTH);
       ref = ticket;
@@ -29,7 +29,7 @@ COMMIT_LOG=$(git log "origin/$BASE..origin/$HEAD" --no-merges --pretty=format:"%
       gsub(/[^0-9]/, "", ref);
       ticket_str = "CMDCT-" ref;
 
-      # Deduplicate
+      # Create a tickets string
       if (tickets !~ ticket_str) {
         tickets = tickets ? tickets ", " ticket_str : ticket_str;
       }
@@ -41,7 +41,7 @@ COMMIT_LOG=$(git log "origin/$BASE..origin/$HEAD" --no-merges --pretty=format:"%
     # Trim leading/trailing spaces, dashes, commas, and colons
     gsub(/^[ \t\-:,]+|[ \t\-:,]+$/, "", output_line);
 
-    # Add ticket(s) or placeholder to the end
+    # Append tickets or placeholder to the output
     printf "- %s (%s)\n", output_line, tickets ? tickets : "CMDCT-";
   }')
 
