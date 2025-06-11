@@ -10,15 +10,21 @@ COMMIT_LOG=$(git log "origin/$BASE..origin/$HEAD" --no-merges --pretty=format:"%
   sed -E 's/ *\(#[0-9]+\)*//g' | \
   awk '{
     orig_line = $0;
-    line = tolower($0);
+    lowercased_line = tolower($0);
     tickets = "";
     output_line = orig_line;
 
-    # Find ticket(s) in commit message, case-insensitive
-    while (match(line, /cmdct[ -]?[0-9]+/)) {
-      ticket = substr(orig_line, RSTART, RLENGTH);
-      ref = substr(line, RSTART, RLENGTH);
-      
+    # Remove original ticket(s)
+    gsub(/[Cc][Mm][Dd][Cc][Tt][ -]?[0-9]+/, "", output_line);
+
+    # Remove square brackets and contents
+    gsub(/\[[^]]*\]/, "", output_line);
+
+    # Match all tickets from the lowercase line
+    while (match(lowercased_line, /cmdct[ -]?[0-9]+/)) {
+      ticket = substr(lowercased_line, RSTART, RLENGTH);
+      ref = ticket;
+
       # Normalize ticket number
       gsub(/[^0-9]/, "", ref);
       ticket_str = "CMDCT-" ref;
@@ -28,19 +34,14 @@ COMMIT_LOG=$(git log "origin/$BASE..origin/$HEAD" --no-merges --pretty=format:"%
         tickets = tickets ? tickets ", " ticket_str : ticket_str;
       }
 
-      # Remove original ticket(s)
-      output_line = substr(output_line, 1, RSTART - 1) substr(output_line, RSTART + RLENGTH);
-      line = substr(line, RSTART + RLENGTH);
-      orig_line = output_line;
+      # Remove matched ticket, on to next match
+      lowercased_line = substr(lowercased_line, RSTART + RLENGTH);
     }
 
-    # Remove square brackets and contents
-    gsub(/\[.*\]/, "", output_line);
+    # Trim leading/trailing spaces, dashes, commas, and colons
+    gsub(/^[ \t\-:,]+|[ \t\-:,]+$/, "", output_line);
 
-    # Trim leading/trailing spaces, dashes, and colons
-    gsub(/^[ \-:]+|[ \-:]+$/, "", output_line);
-
-    # Add ticket or placeholder to the end
+    # Add ticket(s) or placeholder to the end
     printf "- %s (%s)\n", output_line, tickets ? tickets : "CMDCT-";
   }')
 
