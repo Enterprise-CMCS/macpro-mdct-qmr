@@ -51,83 +51,177 @@ const getOMSRates = (
   )) {
     const topLevel = data.OptionalMeasureStratification.selections[topLevelKey];
 
-    //if there are selections, we want to transverse the object to get to the sub categories
-    if (topLevel.selections) {
-      for (const midLevelKey of Object.keys(topLevel.selections)) {
-        const midLevel = topLevel.selections[midLevelKey];
-        const midLabel = locationDictionary([topLevelKey, midLevelKey]);
-        if (midLevel) {
-          //for checkboxes that open up to sub-classifications, we only want to track it when no subclassification has been checked
-          if (
-            !(
-              midLevel.aggregate === "NoIndependentData" &&
-              midLevel.options?.length! > 0
-            )
-          )
-            omsRates.push({ key: midLabel, ...midLevel });
-        }
+    const classificationRates = data.OptionalMeasureStratification.version
+      ? getAccordionClassificationRates(
+          topLevel,
+          topLevelKey,
+          locationDictionary
+        )
+      : getCheckboxClassificationRates(
+          topLevel,
+          topLevelKey,
+          locationDictionary
+        );
 
-        //if user choose to [+Add Another Sub-Category]
-        if (midLevel.additionalSubCategories) {
-          omsRates.push(
-            ...midLevel.additionalSubCategories.map((sub) => ({
-              key: `${midLabel} - ${sub.description}`,
-              rateData: sub.rateData,
-            }))
-          );
-        }
-        if (midLevel.selections) {
-          //low level keys are aggregated/disaggregated data that user will select yes or no to
-          for (const lowLevelKey of Object.keys(midLevel.selections)) {
-            const lowLabel = locationDictionary([
-              topLevelKey,
-              midLevelKey,
-              lowLevelKey,
-            ]);
-            const lowLevel = midLevel.selections[lowLevelKey];
-            if (lowLevel) {
-              omsRates.push({ key: lowLabel, ...lowLevel });
-            }
-          }
-        }
-      }
+    if (classificationRates.length > 0) {
+      omsRates.push(...classificationRates);
     }
-    //if no options are selected, we want to generate a warning
-    else if (
-      !topLevel.options ||
-      (topLevel.options.length === 0 && !topLevel.additionalSelections) ||
-      topLevel.additionalSelections?.length === 0
-    ) {
-      omsRates.push({ key: locationDictionary([topLevelKey]), ...topLevel });
-    }
-
     //if user choose to [+Add Another Classification]
     if (topLevel.additionalSelections) {
       omsRates.push(
-        ...topLevel.additionalSelections?.map((selection) => ({
-          key: `${locationDictionary([topLevelKey])} - ${
-            selection.description
-          }`,
-          rateData: selection.rateData,
-        }))
+        ...getAddAnotherClassificationRates(
+          topLevel,
+          topLevelKey,
+          locationDictionary
+        )
       );
 
       //if user choose to [+Add Another Sub-Category] after adding a new Classification
       omsRates.push(
-        ...topLevel.additionalSelections
-          .filter((additional) => additional.additionalSubCategories)
-          .flatMap((additional) =>
-            additional.additionalSubCategories!.map((subCat) => ({
-              key: `${locationDictionary([topLevelKey])} - ${
-                additional.description
-              } - ${subCat.description}`,
-              rateData: subCat.rateData,
-            }))
-          )
+        ...getAddAnotherSubCatRates(topLevel, topLevelKey, locationDictionary)
       );
     }
   }
+
   return omsRates;
+};
+
+const getCheckboxClassificationRates = (
+  topLevel: OMS.TopLevelOmsNode,
+  topLevelKey: string,
+  locationDictionary: locationDictionaryFunction
+) => {
+  const omsRates = [];
+
+  //if there are selections, we want to transverse the object to get to the sub categories
+  if (topLevel.selections) {
+    for (const midLevelKey of Object.keys(topLevel.selections)) {
+      const midLevel = topLevel.selections[midLevelKey];
+      const midLabel = locationDictionary([topLevelKey, midLevelKey]);
+      if (midLevel) {
+        //for checkboxes that open up to sub-classifications, we only want to track it when no subclassification has been checked
+        if (
+          !(
+            midLevel.aggregate === "NoIndependentData" &&
+            midLevel.options?.length! > 0
+          )
+        )
+          omsRates.push({ key: midLabel, ...midLevel });
+      }
+
+      //if user choose to [+Add Another Sub-Category]
+      if (midLevel.additionalSubCategories) {
+        omsRates.push(
+          ...midLevel.additionalSubCategories.map((sub) => ({
+            key: `${midLabel} - ${sub.description}`,
+            rateData: sub.rateData,
+          }))
+        );
+      }
+      if (midLevel.selections) {
+        //low level keys are aggregated/disaggregated data that user will select yes or no to
+        for (const lowLevelKey of Object.keys(midLevel.selections)) {
+          const lowLabel = locationDictionary([
+            topLevelKey,
+            midLevelKey,
+            lowLevelKey,
+          ]);
+          const lowLevel = midLevel.selections[lowLevelKey];
+          if (lowLevel) {
+            omsRates.push({ key: lowLabel, ...lowLevel });
+          }
+        }
+      }
+    }
+  }
+  //if no options are selected, we want to generate a warning
+  else if (
+    !topLevel.options ||
+    (topLevel.options.length === 0 && !topLevel.additionalSelections) ||
+    topLevel.additionalSelections?.length === 0
+  ) {
+    omsRates.push({ key: locationDictionary([topLevelKey]), ...topLevel });
+  }
+
+  return omsRates;
+};
+
+const getAccordionClassificationRates = (
+  topLevel: OMS.TopLevelOmsNode,
+  topLevelKey: string,
+  locationDictionary: locationDictionaryFunction
+) => {
+  const omsRates = [];
+  if (topLevel.selections) {
+    for (const midLevelKey of Object.keys(topLevel.selections)) {
+      const midLevel = topLevel.selections[midLevelKey];
+      const midLabel = locationDictionary([topLevelKey, midLevelKey]);
+
+      if ("aggregate" in midLevel) {
+        if (midLevel.aggregate != undefined) {
+          //low level keys are aggregated/disaggregated data that user will select yes or no to
+          if (
+            midLevel.aggregate === "NoIndependentData" &&
+            midLevel.options?.length! > 0
+          ) {
+            if (midLevel.selections) {
+              for (const lowLevelKey of Object.keys(midLevel.selections)) {
+                const lowLabel = locationDictionary([
+                  topLevelKey,
+                  midLevelKey,
+                  lowLevelKey,
+                ]);
+                const lowLevel = midLevel.selections[lowLevelKey];
+                if (lowLevel) {
+                  omsRates.push({ key: lowLabel, ...lowLevel });
+                }
+              }
+            }
+          } else {
+            omsRates.push({ key: midLabel, ...midLevel });
+          }
+        }
+      } else {
+        if (midLevel.rateData?.rates) {
+          omsRates.push({ key: midLabel, ...midLevel });
+        }
+      }
+    }
+  }
+
+  return omsRates;
+};
+
+const getAddAnotherClassificationRates = (
+  topLevel: OMS.TopLevelOmsNode,
+  topLevelKey: string,
+  locationDictionary: locationDictionaryFunction
+) => {
+  return (
+    topLevel.additionalSelections?.map((selection) => ({
+      key: `${locationDictionary([topLevelKey])} - ${selection.description}`,
+      rateData: selection.rateData,
+    })) ?? []
+  );
+};
+
+const getAddAnotherSubCatRates = (
+  topLevel: OMS.TopLevelOmsNode,
+  topLevelKey: string,
+  locationDictionary: locationDictionaryFunction
+) => {
+  return (
+    topLevel.additionalSelections
+      ?.filter((additional) => additional.additionalSubCategories)
+      .flatMap((additional) =>
+        additional.additionalSubCategories!.map((subCat) => ({
+          key: `${locationDictionary([topLevelKey])} - ${
+            additional.description
+          } - ${subCat.description}`,
+          rateData: subCat.rateData,
+        }))
+      ) ?? []
+  );
 };
 
 //this function is not used to validate AIF-HH, IU-HH or PCR measure's OMS

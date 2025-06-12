@@ -77,7 +77,7 @@ export const AddAnotherSectionAccordian = ({
     shouldUnregister: true,
   });
 
-  if (fields.length === 0) append({});
+  // if (fields.length === 0) append({});
 
   return (
     <QMR.Accordion label={`Add another ${parentName}`} externalControlled>
