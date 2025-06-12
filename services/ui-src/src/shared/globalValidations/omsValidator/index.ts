@@ -51,6 +51,7 @@ const getOMSRates = (
   )) {
     const topLevel = data.OptionalMeasureStratification.selections[topLevelKey];
 
+    //the key version was added when we changed to using accordion's instead of checkboxes to handle the nesting of the oms data
     const classificationRates = data.OptionalMeasureStratification.version
       ? getAccordionClassificationRates(
           topLevel,
