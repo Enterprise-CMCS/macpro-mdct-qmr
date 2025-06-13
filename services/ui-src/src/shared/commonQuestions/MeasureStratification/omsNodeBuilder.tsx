@@ -10,8 +10,6 @@ import { Accordion } from "components/Accordion";
 import { NDRSets } from "../OptionalMeasureStrat/NDR/ndrSets";
 import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
 import { AddAnotherSectionAccordian } from "../OptionalMeasureStrat/additionalCategory";
-import { useFormContext } from "react-hook-form";
-import * as Types from "../../types";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -134,8 +132,6 @@ const buildChildCheckboxOption = ({
   let children = [];
   const id = omsNode?.id ? cleanString(omsNode.id) : "ID_NOT_SET";
 
-  const { resetField } = useFormContext<Types.OptionalMeasureStratification>();
-
   if (!omsNode?.options) {
     children = [
       <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
@@ -145,10 +141,6 @@ const buildChildCheckboxOption = ({
   else {
     let options = renderRadioButtonOptions({ omsNode, name, label });
 
-    const clear = (name: string) => {
-      resetField(name as keyof Types.OptionalMeasureStratification);
-    };
-
     children = [
       <CUI.Box display="flex" flexDir="row">
         <QMR.RadioButton
@@ -156,10 +148,8 @@ const buildChildCheckboxOption = ({
           key={`${name}.aggregate`}
           options={options}
           label={label?.checkboxOpt}
+          clearable
         />
-        <CUI.Button variant="outline-primary" onClick={() => clear(name)}>
-          Clear
-        </CUI.Button>
       </CUI.Box>,
     ];
   }

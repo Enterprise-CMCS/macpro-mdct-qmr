@@ -7,6 +7,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
+import * as DC from "dataConstants";
 
 interface Props {
   register: Function;
@@ -54,6 +55,20 @@ export const GetLinks = (type: string) => {
   );
 };
 
+export const StratificationAdditionalNotes = ({ register }: Props) => {
+  return (
+    <QMR.CoreQuestionWrapper
+      testid="additional-notes"
+      label="Additional notes/comments (optional)"
+    >
+      <QMR.TextArea
+        label="If your state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below."
+        {...register(`OptionalMeasureStratification.${DC.ADDITIONAL_CONTEXT}`)}
+      />
+    </QMR.CoreQuestionWrapper>
+  );
+};
+
 export const StratificationOption = ({ register }: Props) => {
   return (
     <QMR.RadioButton
@@ -89,7 +104,7 @@ export const StratificationOption = ({ register }: Props) => {
           value: "not-reporting",
         },
       ]}
-      {...register("OptionalMeasureStratification.version")}
+      {...register(`OptionalMeasureStratification.${DC.VERSION}`)}
     ></QMR.RadioButton>
   );
 };
@@ -143,6 +158,9 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           <CUI.Heading size="md" as="h2" my="6">
             Measure Stratification Details
           </CUI.Heading>
+          <StratificationAdditionalNotes
+            register={register}
+          ></StratificationAdditionalNotes>
           <Stratification
             {...props}
             omsData={omsData}
