@@ -51,7 +51,7 @@ const getOMSRates = (
   )) {
     const topLevel = data.OptionalMeasureStratification.selections[topLevelKey];
 
-    //the key version was added when we changed to using accordion's instead of checkboxes to handle the nesting of the oms data
+    //the key version was added when we changed to using accordion's instead of checkboxes to handle the nesting of the oms data, makes it a good conditional
     const classificationRates = data.OptionalMeasureStratification.version
       ? getAccordionClassificationRates(
           topLevel,
@@ -153,35 +153,43 @@ const getAccordionClassificationRates = (
   locationDictionary: locationDictionaryFunction
 ) => {
   const omsRates = [];
+
+  //if there are selections, we want to transverse the object to get to the sub categories
   if (topLevel.selections) {
     for (const midLevelKey of Object.keys(topLevel.selections)) {
       const midLevel = topLevel.selections[midLevelKey];
       const midLabel = locationDictionary([topLevelKey, midLevelKey]);
 
-      if ("aggregate" in midLevel) {
-        if (midLevel.aggregate != undefined) {
-          //low level keys are aggregated/disaggregated data that user will select yes or no to
-          if (
-            midLevel.aggregate === "NoIndependentData" &&
-            midLevel.options?.length! > 0
-          ) {
-            if (midLevel.selections) {
-              for (const lowLevelKey of Object.keys(midLevel.selections)) {
-                const lowLabel = locationDictionary([
-                  topLevelKey,
-                  midLevelKey,
-                  lowLevelKey,
-                ]);
-                const lowLevel = midLevel.selections[lowLevelKey];
-                if (lowLevel) {
-                  omsRates.push({ key: lowLabel, ...lowLevel });
-                }
+      //aggregate haves different checks than non aggregate rate data
+      if (midLevel.aggregate != undefined) {
+        if (
+          midLevel.aggregate === "NoIndependentData" &&
+          midLevel.options?.length! > 0
+        ) {
+          if (midLevel.selections) {
+            for (const lowLevelKey of Object.keys(midLevel.selections)) {
+              const lowLabel = locationDictionary([
+                topLevelKey,
+                midLevelKey,
+                lowLevelKey,
+              ]);
+              const lowLevel = midLevel.selections[lowLevelKey];
+              if (lowLevel) {
+                omsRates.push({ key: lowLabel, ...lowLevel });
               }
             }
-          } else {
-            omsRates.push({ key: midLabel, ...midLevel });
           }
         }
+      }
+
+      //if user choose to [+Add Another Sub-Category]
+      if (midLevel.additionalSubCategories) {
+        omsRates.push(
+          ...midLevel.additionalSubCategories.map((sub) => ({
+            key: `${midLabel} - ${sub.description}`,
+            rateData: sub.rateData,
+          }))
+        );
       } else {
         if (midLevel.rateData?.rates) {
           omsRates.push({ key: midLabel, ...midLevel });
