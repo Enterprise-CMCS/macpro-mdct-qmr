@@ -3,7 +3,11 @@ import {
   OmsValidationCallback,
   locationDictionaryFunction,
 } from "../../types/TypeValidations";
-import { OmsNodes as OMS, OptionalMeasureStratification } from "shared/types";
+import {
+  OmsNodes as OMS,
+  OptionalMeasureStratification,
+  RateFields,
+} from "shared/types";
 import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { cleanString, isLegacyLabel, LabelData } from "utils";
@@ -191,8 +195,32 @@ const getAccordionClassificationRates = (
           }))
         );
       } else {
-        if (midLevel.rateData?.rates) {
+        //we want to check rateData.options as that indicates the user has checked a selection or yesAggregateData as they selected a radio
+        if (
+          (midLevel.rateData as OMS.OmsRateFields)?.options ||
+          midLevel.aggregate === "YesAggregateData"
+        ) {
           omsRates.push({ key: midLabel, ...midLevel });
+        } else {
+          /* for rates that don't have checkboxes, it gets a little more complicated,
+           * we have to look through the actual rate data to see if they entered any value to trigger a partial validation
+           */
+          if (midLevel.rateData?.rates) {
+            const values = Object.values(
+              midLevel.rateData?.rates as OMS.OmsRateFields
+            );
+
+            for (const rates of values) {
+              const filledRates = (
+                Object.values(rates).flat() as RateFields[]
+              ).filter(
+                (rate) =>
+                  rate.numerator != undefined || rate.denominator != undefined
+              );
+              if (filledRates.length > 0)
+                omsRates.push({ key: midLabel, ...midLevel });
+            }
+          }
         }
       }
     }
