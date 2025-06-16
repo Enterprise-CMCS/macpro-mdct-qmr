@@ -44,6 +44,7 @@ export const Qualifier = ({
         | "QualifierFormsData2022"
         | "QualifierFormsData2023"
         | "QualifierFormsData2024"
+        | "QualifierFormsData2025"
     ].Data[coreSet];
 
   return (
@@ -57,6 +58,9 @@ export const Qualifier = ({
           {type === "HH" && <QMR.HealthHomeInfo />}
         </CUI.Box>
         <CUI.OrderedList width="100%">
+          {type !== "HH" && data.ageQuestion && (
+            <Common.GeneralAge data={data}></Common.GeneralAge>
+          )}
           {type === "HH" && (
             <>
               <Common.AdministrativeQuestions />
