@@ -5,7 +5,13 @@ import * as Types from "../../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import { getLabelText, isLegacyLabel, LabelData } from "utils";
+import {
+  arrayIsReadOnly,
+  getLabelText,
+  isLegacyLabel,
+  LabelData,
+  stringIsReadOnly,
+} from "utils";
 import { ndrFormula } from "types";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
@@ -179,19 +185,6 @@ const PerformanceMeasureNdrs = (props: NdrSetProps) => {
   }
 
   return <CUI.Box key="PerformanceMeasureNdrSets">{ndrSets}</CUI.Box>;
-};
-
-const stringIsReadOnly = (dataSource: string) => {
-  return dataSource === "AdministrativeData";
-};
-
-const arrayIsReadOnly = (dataSource: string[]) => {
-  if (dataSource.length === 0) {
-    return false;
-  }
-  return (
-    dataSource?.every((source) => source === "AdministrativeData") ?? false
-  );
 };
 
 /** Data Driven Performance Measure Comp */

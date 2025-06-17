@@ -98,7 +98,7 @@ export const AMRAD = ({
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           {showOptionalMeasureStrat && (
-            <CMQ.OptionalMeasureStrat
+            <CMQ.MeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}

@@ -11,7 +11,7 @@ interface AdditonalCategoryProps {
   /** name of parent category for additional text */
   parentName: string;
   /** should the additional categories have a subCat option? */
-  flagSubCat: boolean;
+  flagSubCat?: boolean;
 }
 
 /**
@@ -63,5 +63,50 @@ export const AddAnotherSection = ({
         testid={`${name}.additionalCategoriesButton`}
       />
     </CUI.Box>
+  );
+};
+
+export const AddAnotherSectionAccordian = ({
+  name,
+  parentName,
+}: AdditonalCategoryProps) => {
+  const { control } = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    name: `${name}.additionalSelections`,
+    control,
+    shouldUnregister: true,
+  });
+
+  return (
+    <QMR.Accordion label={`Add another ${parentName}`} externalControlled>
+      <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
+        {fields.map((field: any, idx: number) => (
+          <QMR.DeleteWrapper
+            allowDeletion
+            onDelete={() => remove(idx)}
+            key={field.id}
+          >
+            <CUI.Stack spacing={"5"} my={4}>
+              <QMR.TextInput
+                name={`${name}.additionalSelections.${idx}.description`}
+                label={`Additional ${parentName}`}
+                rules={{ required: true }}
+              />
+              <QMR.QuestionChild show key={field.id}>
+                <NDRSets
+                  name={`${name}.additionalSelections.${idx}.rateData`}
+                />
+              </QMR.QuestionChild>
+            </CUI.Stack>
+          </QMR.DeleteWrapper>
+        ))}
+        <AddAnotherButton
+          onClick={() => append({})}
+          additionalText={parentName}
+          key={`${name}.additionalCategoriesButton`}
+          testid={`${name}.additionalCategoriesButton`}
+        />
+      </CUI.Box>
+    </QMR.Accordion>
   );
 };

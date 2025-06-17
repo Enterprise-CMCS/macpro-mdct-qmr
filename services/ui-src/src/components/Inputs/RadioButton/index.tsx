@@ -19,6 +19,7 @@ interface RadioButtonProps extends QMR.InputWrapperProps, ControllerRules {
   name: string;
   subTextElement?: JSX.Element;
   valueAsArray?: boolean;
+  clearable?: boolean;
 }
 
 export const RadioButton = ({
@@ -28,6 +29,7 @@ export const RadioButton = ({
   subTextElement,
   rules,
   valueAsArray,
+  clearable,
   ...rest
 }: RadioButtonProps) => {
   const {
@@ -39,70 +41,88 @@ export const RadioButton = ({
     name,
     control,
     rules,
+    defaultValue: null,
   });
 
   const path = objectPath.get(errors, name);
 
+  const clear = () => {
+    field.onChange(null);
+  };
+
   return (
-    <QMR.InputWrapper
-      isInvalid={!!path?.message || path?.type === "required"}
-      errorMessage={
-        path?.message ||
-        (path?.type === "required" && "This is a required field.")
-      }
-      {...rest}
+    <CUI.HStack
+      width="100%"
+      justifyContent="space-between"
+      alignItems="flex-start"
     >
-      <CUI.RadioGroup
-        name={field.name}
-        ref={field.ref}
-        id={field.name + "_radiogroup"}
-        size="lg"
-        value={!!valueAsArray ? field.value?.[0] : field.value}
-        onBlur={field.onBlur}
-        onChange={(newValue) => {
-          field.onChange(!!valueAsArray ? [newValue] : newValue);
-        }}
-        {...radioGroupProps}
+      <QMR.InputWrapper
+        isInvalid={!!path?.message || path?.type === "required"}
+        errorMessage={
+          path?.message ||
+          (path?.type === "required" && "This is a required field.")
+        }
+        {...rest}
       >
-        {subTextElement}
-        <CUI.Stack>
-          {options.map((option, idx) => {
-            const compVal = valueAsArray ? field.value?.[0] : field.value;
-            const showChildren = option.value === compVal;
-            return (
-              <QMR.DeleteWrapper
-                key={option.displayValue}
-                allowDeletion={option.removable}
-                onDelete={option.onDelete}
-              >
-                <CUI.Radio
-                  value={option.value.toString()}
-                  key={option.value}
-                  onClick={option.onClick}
-                  data-cy={name + idx}
+        <CUI.RadioGroup
+          name={field.name}
+          ref={field.ref}
+          id={field.name + "_radiogroup"}
+          size="lg"
+          value={!!valueAsArray ? field.value?.[0] : field.value}
+          onBlur={field.onBlur}
+          onChange={(newValue) => {
+            field.onChange(!!valueAsArray ? [newValue] : newValue);
+          }}
+          {...radioGroupProps}
+        >
+          {subTextElement}
+          <CUI.Stack>
+            {options.map((option, idx) => {
+              const compVal = valueAsArray ? field.value?.[0] : field.value;
+              const showChildren = option.value === compVal;
+              return (
+                <QMR.DeleteWrapper
+                  key={option.displayValue}
+                  allowDeletion={option.removable}
+                  onDelete={option.onDelete}
                 >
-                  <CUI.Text
+                  <CUI.Radio
+                    value={option.value.toString()}
+                    key={option.value}
                     onClick={option.onClick}
-                    fontWeight="normal"
-                    fontSize="normal"
-                    className="prince-option-label-text"
-                    id={field.name + "-" + (option.value + "").replace("/", "")}
+                    data-cy={name + idx}
                   >
-                    {option.displayValue}
-                  </CUI.Text>
-                </CUI.Radio>
-                <CUI.Collapse in={showChildren} animateOpacity>
-                  {showChildren && (
-                    <QMR.QuestionChild show={!!option.children?.length}>
-                      {option.children}
-                    </QMR.QuestionChild>
-                  )}
-                </CUI.Collapse>
-              </QMR.DeleteWrapper>
-            );
-          })}
-        </CUI.Stack>
-      </CUI.RadioGroup>
-    </QMR.InputWrapper>
+                    <CUI.Text
+                      onClick={option.onClick}
+                      fontWeight="normal"
+                      fontSize="normal"
+                      className="prince-option-label-text"
+                      id={
+                        field.name + "-" + (option.value + "").replace("/", "")
+                      }
+                    >
+                      {option.displayValue}
+                    </CUI.Text>
+                  </CUI.Radio>
+                  <CUI.Collapse in={showChildren} animateOpacity>
+                    {showChildren && (
+                      <QMR.QuestionChild show={!!option.children?.length}>
+                        {option.children}
+                      </QMR.QuestionChild>
+                    )}
+                  </CUI.Collapse>
+                </QMR.DeleteWrapper>
+              );
+            })}
+          </CUI.Stack>
+        </CUI.RadioGroup>
+      </QMR.InputWrapper>
+      {clearable && (
+        <CUI.Button onClick={clear} variant="outline-primary">
+          Clear
+        </CUI.Button>
+      )}
+    </CUI.HStack>
   );
 };

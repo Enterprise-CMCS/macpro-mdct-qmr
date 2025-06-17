@@ -102,7 +102,7 @@ export const measureTemplate = ({
             (custom?.notCollectingOMS ? (
               <CMQ.NotCollectingOMS year={year} />
             ) : (
-              <CMQ.OptionalMeasureStrat
+              <CMQ.MeasureStrat
                 coreset={coreset}
                 calcTotal={custom?.calcTotal}
                 performanceMeasureArray={performanceMeasureArray}
