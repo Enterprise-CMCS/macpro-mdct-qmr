@@ -148,6 +148,7 @@ const buildChildCheckboxOption = ({
           key={`${name}.aggregate`}
           options={options}
           label={label?.checkboxOpt}
+          formLabelProps={{ fontWeight: "bold" }}
           clearable
         />
       </CUI.Box>,

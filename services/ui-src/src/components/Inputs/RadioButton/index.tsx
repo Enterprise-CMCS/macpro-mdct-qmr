@@ -50,6 +50,11 @@ export const RadioButton = ({
     field.onChange(null);
   };
 
+  const getFieldValue = () => {
+    //when running a clear call, the radio button doesn't remove the selection even when the value is undefined. setting it to "" clears it
+    return (!!valueAsArray ? field.value?.[0] : field.value) ?? "";
+  };
+
   return (
     <CUI.HStack
       width="100%"
@@ -69,7 +74,7 @@ export const RadioButton = ({
           ref={field.ref}
           id={field.name + "_radiogroup"}
           size="lg"
-          value={!!valueAsArray ? field.value?.[0] : field.value}
+          value={getFieldValue()}
           onBlur={field.onBlur}
           onChange={(newValue) => {
             field.onChange(!!valueAsArray ? [newValue] : newValue);
