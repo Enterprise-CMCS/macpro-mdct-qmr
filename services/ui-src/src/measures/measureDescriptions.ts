@@ -430,7 +430,7 @@ export const measureDescriptions: MeasureList = {
     "FUM-HH": "Follow-Up After Emergency Department Visit for Mental Illness",
     "GSD-AD": "Glycemic Status Assessment for Patients with Diabetes",
     "HPCMI-AD":
-      "Diabetes Care for People with Serious Mental Illness: Glycemic Status (>9.0%)",
+      "Diabetes Care for People with Serious Mental Illness: Glycemic Status >9.0%",
     "HVL-AD": "HIV Viral Load Suppression",
     "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
     "LRCD-AD": "Low-Risk Cesarean Delivery: Age 20 and Older",

@@ -5,6 +5,7 @@ import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { arrayIsReadOnly, stringIsReadOnly } from "utils";
 
 interface Props {
   rateAlwaysEditable?: boolean;
@@ -15,19 +16,6 @@ interface Props {
   RateComponent?: RateComp;
   rateCalc?: RateFormula;
 }
-
-const stringIsReadOnly = (dataSource: string) => {
-  return dataSource === "AdministrativeData";
-};
-
-const arrayIsReadOnly = (dataSource: string[]) => {
-  if (dataSource.length === 0) {
-    return false;
-  }
-  return (
-    dataSource?.every((source) => source === "AdministrativeData") ?? false
-  );
-};
 
 export const OtherPerformanceMeasure = ({
   rateAlwaysEditable,
