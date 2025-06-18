@@ -78,7 +78,21 @@ export const AddAnotherSectionAccordian = ({
   });
 
   return (
-    <QMR.Accordion label={`Add another ${parentName}`} externalControlled>
+    <QMR.Accordion
+      label={`Add another ${parentName}`}
+      externalControlled
+      sx={{
+        "div .chakra-accordion__button": {
+          background: "#F2F2F2",
+          fontWeight: "normal",
+          border: "none",
+        },
+        ".chakra-accordion__panel": {
+          borderWidth: "0 4px 4px 4px",
+          borderColor: "#F2F2F2",
+        },
+      }}
+    >
       <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
         {fields.map((field: any, idx: number) => (
           <QMR.DeleteWrapper
