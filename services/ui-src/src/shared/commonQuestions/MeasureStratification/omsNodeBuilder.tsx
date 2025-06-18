@@ -181,7 +181,21 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <Accordion externalControlled label={options.displayValue}>
+        <Accordion
+          externalControlled
+          label={options.displayValue}
+          sx={{
+            "div .chakra-accordion__button": {
+              background: "#F2F2F2",
+              fontWeight: "normal",
+              border: "none",
+            },
+            ".chakra-accordion__panel": {
+              borderWidth: "0 4px 4px 4px",
+              borderColor: "#F2F2F2",
+            },
+          }}
+        >
           {options.children}
         </Accordion>
       ))}

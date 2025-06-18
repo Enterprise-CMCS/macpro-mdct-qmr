@@ -10,13 +10,12 @@ export const AccordionItem = ({
   onClick,
 }: AccordionItemProps) => {
   return (
-    <CUI.AccordionItem sx={sxOverride ?? sx.root}>
+    <CUI.AccordionItem sx={sxOverride ?? sx.root} mt={2} mb={4}>
       {({ isExpanded }) => (
         <>
           <CUI.AccordionButton
             aria-label={label}
             title="accordion-button"
-            mb={2}
             onClick={onClick}
           >
             <CUI.Text flex="1">{label}</CUI.Text>
@@ -34,6 +33,7 @@ export const AccordionItem = ({
 export const Accordion = ({
   label,
   children,
+  sx: sxOverride,
   externalControlled,
 }: AccordionProps) => {
   const [index, setIndex] = useState<number>(1);
@@ -56,7 +56,7 @@ export const Accordion = ({
   };
 
   return (
-    <CUI.Accordion allowMultiple index={[index]}>
+    <CUI.Accordion allowMultiple index={[index]} sx={sxOverride ?? sx}>
       <AccordionItem label={label} onClick={toggle}>
         {children}
       </AccordionItem>
@@ -68,14 +68,11 @@ interface AccordionItemProps {
   children?: ReactNode | ReactNode[];
   label?: string;
   sx?: CUI.SystemStyleObject;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-interface AccordionProps {
-  children?: ReactNode | ReactNode[];
+interface AccordionProps extends AccordionItemProps {
   externalControlled?: boolean;
-  label?: string;
-  sx?: CUI.SystemStyleObject;
 }
 
 const sx = {
@@ -85,9 +82,6 @@ const sx = {
       minHeight: "3.5rem",
       textAlign: "left",
       backgroundColor: "#F2F2F2",
-    },
-    "div .chakra-accordion__button, div .chakra-accordion__button:hover": {
-      backgroundColor: "#E6F9FD",
     },
   },
   accordionPanel: {
