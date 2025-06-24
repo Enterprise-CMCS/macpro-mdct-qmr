@@ -156,6 +156,7 @@ export function createUiComponents(props: CreateUiComponentsProps) {
   distribution.applyRemovalPolicy(
     isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN
   );
+  distribution.node.addDependency(uiBucket.policy!);
 
   if (!isLocalStack) {
     const waf = setupWaf(
