@@ -104,25 +104,15 @@ const ReportingYear = () => {
       </CUI.Select>
       {featuresByYear.hasCombinedRates && showCombinedRatesButton && (
         <CUI.Box mt="22px">
-          <Link
-            to={`/${state}/${year}/combined-rates`}
-            style={{
-              textDecoration: "none",
-              marginTop: "22px",
-            }}
+          <CUI.Link
+            as={CUI.Button}
+            onClick={() => navigate(`/${state}/${year}/combined-rates`)}
+            variant="outline"
+            width="220px"
+            height="37px"
           >
-            <QMR.ContainedButton
-              buttonText={"View Combined Rates"}
-              buttonProps={{
-                colorScheme: "blue",
-                variant: "outline",
-                color: "blue.500",
-                fontSize: "16px",
-                width: "220px",
-                height: "37px",
-              }}
-            />
-          </Link>
+            View Combined Rates
+          </CUI.Link>
         </CUI.Box>
       )}
     </CUI.Box>
