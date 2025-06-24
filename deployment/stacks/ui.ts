@@ -40,11 +40,11 @@ export function createUiComponents(props: CreateUiComponentsProps) {
   const uiBucket = new s3.Bucket(scope, "uiBucket", {
     encryption: s3.BucketEncryption.S3_MANAGED,
     removalPolicy: RemovalPolicy.DESTROY,
-    autoDeleteObjects: true,
-    enforceSSL: true,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     versioned: true,
   });
+  // autoDeleteObjects: true,
+  // enforceSSL: true,
 
   let loggingConfig:
     | { enableLogging: boolean; logBucket: s3.Bucket; logFilePrefix: string }
@@ -59,7 +59,7 @@ export function createUiComponents(props: CreateUiComponentsProps) {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
       removalPolicy: RemovalPolicy.RETAIN,
-      enforceSSL: true,
+      // enforceSSL: true,
       versioned: true,
     });
 

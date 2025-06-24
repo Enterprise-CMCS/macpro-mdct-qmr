@@ -87,9 +87,9 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
-    autoDeleteObjects: isDev,
+    // autoDeleteObjects: isDev,
     versioned: true,
-    enforceSSL: true,
+    // enforceSSL: true,
     cors: [
       {
         allowedOrigins: ["*"],
@@ -160,9 +160,9 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
-    autoDeleteObjects: isDev,
+    // autoDeleteObjects: isDev,
     versioned: true,
-    enforceSSL: true,
+    // enforceSSL: true,
   });
 
   dynamoBucket.addToResourcePolicy(
@@ -181,11 +181,11 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     bucketName: `${service}-${stage}-avscan-${Aws.ACCOUNT_ID}`,
     encryption: s3.BucketEncryption.S3_MANAGED,
     removalPolicy: RemovalPolicy.DESTROY,
-    autoDeleteObjects: true,
+    // autoDeleteObjects: true,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     accessControl: s3.BucketAccessControl.PRIVATE,
     versioned: true,
-    enforceSSL: true,
+    // enforceSSL: true,
   });
 
   const useKmsStatement = new iam.PolicyStatement({
