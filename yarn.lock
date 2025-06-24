@@ -815,6 +815,11 @@
   resolved "https://registry.yarnpkg.com/@balena/dockerignore/-/dockerignore-1.0.2.tgz#9ffe4726915251e8eb69f44ef3547e0da2c03e0d"
   integrity sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==
 
+"@cloudcomponents/cdk-deletable-bucket@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@cloudcomponents/cdk-deletable-bucket/-/cdk-deletable-bucket-2.4.0.tgz#5b5bdd2597c758e0594e9c2e4efa631b2c11357a"
+  integrity sha512-C+rKBK0H94TalEYjWFE2Gl3gaB86FnnAgxiYZlRgCDvk+jlwrN+KUo+2OxMKAAyi6zs03MvS1AdOQmpY9G1+wg==
+
 "@csstools/color-helpers@^5.0.2":
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/@csstools/color-helpers/-/color-helpers-5.0.2.tgz#82592c9a7c2b83c293d9161894e2a6471feb97b8"

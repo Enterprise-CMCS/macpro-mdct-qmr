@@ -11,6 +11,7 @@ import {
   RemovalPolicy,
   Aws,
 } from "aws-cdk-lib";
+import { DeletableBucket } from "@cloudcomponents/cdk-deletable-bucket";
 import { Lambda } from "../constructs/lambda";
 import { DynamoDBTableIdentifiers } from "../constructs/dynamodb-table";
 
@@ -80,16 +81,17 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     }),
   });
 
-  const attachmentsBucket = new s3.Bucket(scope, "AttachmentsBucket", {
+  const attachmentsBucket = new DeletableBucket(scope, "AttachmentsBucket", {
     bucketName: `${service}-${stage}-attachments-${Aws.ACCOUNT_ID}`,
     encryptionKey: bucketEncryptionKey,
     publicReadAccess: false,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
+    forceDelete: isDev,
     // autoDeleteObjects: isDev,
-    versioned: true,
     // enforceSSL: true,
+    versioned: true,
     cors: [
       {
         allowedOrigins: ["*"],
@@ -153,15 +155,16 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     })
   );
 
-  const dynamoBucket = new s3.Bucket(scope, "DynamoSnapshotBucket", {
+  const dynamoBucket = new DeletableBucket(scope, "DynamoSnapshotBucket", {
     bucketName: `${service}-${stage}-dynamosnapshots-${Aws.ACCOUNT_ID}`,
     encryptionKey: bucketEncryptionKey,
     publicReadAccess: false,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
-    // autoDeleteObjects: isDev,
+    forceDelete: isDev,
     versioned: true,
+    // autoDeleteObjects: isDev,
     // enforceSSL: true,
   });
 
@@ -177,14 +180,15 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     })
   );
 
-  const clamDefsBucket = new s3.Bucket(scope, "ClamDefsBucket", {
+  const clamDefsBucket = new DeletableBucket(scope, "ClamDefsBucket", {
     bucketName: `${service}-${stage}-avscan-${Aws.ACCOUNT_ID}`,
     encryption: s3.BucketEncryption.S3_MANAGED,
     removalPolicy: RemovalPolicy.DESTROY,
-    // autoDeleteObjects: true,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     accessControl: s3.BucketAccessControl.PRIVATE,
     versioned: true,
+    forceDelete: true,
+    // autoDeleteObjects: true,
     // enforceSSL: true,
   });
 

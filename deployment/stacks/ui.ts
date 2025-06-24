@@ -11,6 +11,7 @@ import {
   aws_certificatemanager as acm,
   Aws,
 } from "aws-cdk-lib";
+import { DeletableBucket } from "@cloudcomponents/cdk-deletable-bucket";
 import { WafConstruct } from "../constructs/waf";
 import { isLocalStack } from "../local/util";
 
@@ -37,14 +38,15 @@ export function createUiComponents(props: CreateUiComponentsProps) {
     vpnIpv6SetArn,
   } = props;
 
-  const uiBucket = new s3.Bucket(scope, "uiBucket", {
+  const uiBucket = new DeletableBucket(scope, "uiBucket", {
     encryption: s3.BucketEncryption.S3_MANAGED,
     removalPolicy: RemovalPolicy.DESTROY,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     versioned: true,
+    forceDelete: true,
+    // autoDeleteObjects: true,
+    // enforceSSL: true,
   });
-  // autoDeleteObjects: true,
-  // enforceSSL: true,
 
   let loggingConfig:
     | { enableLogging: boolean; logBucket: s3.Bucket; logFilePrefix: string }
