@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface AddSSMCardProps {
   buttonText: string;
@@ -18,6 +18,7 @@ export const AddSSMCard = ({
   to,
   userCreatedMeasureIds = [],
 }: AddSSMCardProps) => {
+  const navigate = useNavigate();
   // Create a unique testId for each card based on destination in link
   const testId = to.substring(to.lastIndexOf("/") + 1) + "-button";
 
@@ -34,25 +35,18 @@ export const AddSSMCard = ({
       >
         <CUI.Stack spacing="6">
           <CUI.Text fontWeight="bold">{title}</CUI.Text>
-          <Link
-            to={to}
-            state={{ userCreatedMeasureIds }}
-            style={{
-              textDecoration: "none",
+          <QMR.ContainedButton
+            buttonProps={{
+              colorScheme: "blue",
+              variant: "outline",
+              color: "blue.500",
             }}
-          >
-            <QMR.ContainedButton
-              buttonProps={{
-                colorScheme: "blue",
-                variant: "outline",
-                color: "blue.500",
-              }}
-              buttonText={buttonText}
-              disabledStatus={!enabled}
-              icon="plus"
-              testId={testId}
-            />
-          </Link>
+            buttonText={buttonText}
+            disabledStatus={!enabled}
+            icon="plus"
+            testId={testId}
+            onClick={() => navigate(to, { state: { userCreatedMeasureIds } })}
+          />
         </CUI.Stack>
       </CUI.Box>
       <CUI.Center w="44" textAlign="center">
