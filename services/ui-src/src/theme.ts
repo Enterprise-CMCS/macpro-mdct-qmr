@@ -79,17 +79,6 @@ export const theme = extendTheme({
         textDecoration: "underline",
         color: "blue.600",
       },
-      variants: {
-        outline: {
-          background: "none",
-          border: "1px solid #2b6cb0",
-          borderRadius: "0",
-          color: "blue.500",
-          fontSize: "16px",
-          textDecoration: "none",
-          fontWeight: "bold",
-        },
-      },
     },
     List: {
       variants: {

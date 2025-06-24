@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
@@ -19,6 +19,7 @@ export const AddCoreSetCard = ({
 }: AddCoreSetCardProps) => {
   const { isStateUser } = useUser();
   const { state, year } = useParams();
+  const navigate = useNavigate();
 
   return (
     <CUI.Box
@@ -33,24 +34,18 @@ export const AddCoreSetCard = ({
     >
       <CUI.Stack spacing="6">
         <CUI.Text fontWeight="bold">{title}</CUI.Text>
-        <Link
-          to={`/${state}/${year}/${to}`}
-          style={{
-            textDecoration: "none",
+        <QMR.ContainedButton
+          disabledStatus={!isStateUser || coreSetExists}
+          icon="plus"
+          testId={to + "button"}
+          buttonText={!coreSetExists ? buttonText : "Already Added"}
+          buttonProps={{
+            colorScheme: "blue",
+            variant: "outline",
+            color: "blue.500",
           }}
-        >
-          <QMR.ContainedButton
-            disabledStatus={!isStateUser || coreSetExists}
-            icon="plus"
-            testId={to + "button"}
-            buttonText={!coreSetExists ? buttonText : "Already Added"}
-            buttonProps={{
-              colorScheme: "blue",
-              variant: "outline",
-              color: "blue.500",
-            }}
-          />
-        </Link>
+          onClick={() => navigate(`/${state}/${year}/${to}`)}
+        />
       </CUI.Stack>
     </CUI.Box>
   );
