@@ -23,7 +23,7 @@ export const ContainedButton = ({
   onClick,
   zIndex,
   testId,
-  isLink,
+  isLink = false,
 }: ContainedButtonProps) => {
   const printIcon = icon === "print" ? <FaPrint /> : undefined;
   const plusIcon = icon === "plus" ? <FaPlusCircle /> : undefined;
