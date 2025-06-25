@@ -114,6 +114,7 @@ const ReportingYear = () => {
               width: "220px",
               height: "37px",
             }}
+            isLink
           />
         </CUI.Box>
       )}

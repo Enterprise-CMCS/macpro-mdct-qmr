@@ -46,6 +46,7 @@ export const AddSSMCard = ({
             icon="plus"
             testId={testId}
             onClick={() => navigate(to, { state: { userCreatedMeasureIds } })}
+            isLink
           />
         </CUI.Stack>
       </CUI.Box>

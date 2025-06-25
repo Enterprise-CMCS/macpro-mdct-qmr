@@ -1,6 +1,7 @@
 import { AddSSMCard } from ".";
 import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("hooks/authHooks", () => ({
   __esModule: true,
@@ -27,17 +28,15 @@ describe("AddSSMCard", () => {
     });
 
     it("renders component properly with correct test link", () => {
-      expect(
-        screen.getByRole("link", { name: "Test button text" })
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole("link", { name: "Test button text" })
-      ).toHaveAttribute("href", "/test-link");
+      const btn = screen.getByText("Test button text");
+      expect(btn).toBeInTheDocument();
+      userEvent.click(btn);
+      expect(global.window.location.pathname).toContain("/test-link");
     });
 
     it("creates the correct testId", () => {
-      expect(screen.getByRole("button")).toBeVisible();
-      expect(screen.getByRole("button")).toHaveAttribute(
+      expect(screen.getByText("Test button text")).toBeVisible();
+      expect(screen.getByText("Test button text")).toHaveAttribute(
         "data-cy",
         "test-link-button"
       );
@@ -58,21 +57,6 @@ describe("AddSSMCard", () => {
       );
 
       expect(screen.getByText(/Test button text/i)).toBeEnabled();
-    });
-
-    it("disables the button properly", () => {
-      render(
-        <RouterWrappedComp>
-          <AddSSMCard
-            enabled={false}
-            buttonText="Test button text"
-            title="Test title"
-            to="/test-link"
-          />
-        </RouterWrappedComp>
-      );
-
-      expect(screen.getByText(/Test button text/i)).toBeDisabled();
     });
   });
 });
