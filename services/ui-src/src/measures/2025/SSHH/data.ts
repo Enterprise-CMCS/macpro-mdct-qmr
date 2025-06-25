@@ -51,6 +51,19 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
       ],
     },
     {
+      value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
+      subOptions: [
+        {
+          options: [
+            { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+            { value: DC.HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY },
+            { value: DC.CASE_MANAGEMENT_SYSTEM },
+            { value: DC.ADMINISTRATIVE_DATA },
+          ],
+        },
+      ],
+    },
+    {
       value: DC.ELECTRONIC_HEALTH_RECORDS,
       description: true,
     },
