@@ -50,6 +50,11 @@ export const theme = extendTheme({
       },
     },
     Button: {
+      baseStyle: {
+        _disabled: {
+          textDecoration: "none",
+        },
+      },
       variants: {
         "link-white": {
           color: "white",

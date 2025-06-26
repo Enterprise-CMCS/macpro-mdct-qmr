@@ -41,7 +41,6 @@ export const ContainedButton = ({
         color="white"
         textTransform="capitalize"
         fontWeight="bold"
-        textDecoration="none"
         {...buttonProps}
       >
         {buttonText}
