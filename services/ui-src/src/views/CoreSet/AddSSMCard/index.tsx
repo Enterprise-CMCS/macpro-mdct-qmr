@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 interface AddSSMCardProps {
@@ -35,18 +36,22 @@ export const AddSSMCard = ({
       >
         <CUI.Stack spacing="6">
           <CUI.Text fontWeight="bold">{title}</CUI.Text>
-          <QMR.ContainedButton
-            buttonProps={{
-              colorScheme: "blue",
-              variant: "outline",
-              color: "blue.500",
+          <CUI.Button
+            data-cy={testId}
+            variant={"outline-primary"}
+            fontSize={"1.2rem"}
+            rightIcon={<FaPlusCircle />}
+            isDisabled={!enabled}
+            onClick={() => {
+              //because they button acts like a link, it can never truly be disabled so we have to prevent the navigation instead
+              if (enabled) {
+                navigate(to, { state: { userCreatedMeasureIds } });
+              }
             }}
-            buttonText={buttonText}
-            disabledStatus={!enabled}
-            icon="plus"
-            testId={testId}
-            onClick={() => navigate(to, { state: { userCreatedMeasureIds } })}
-          />
+            as={CUI.Link}
+          >
+            {buttonText}
+          </CUI.Button>
         </CUI.Stack>
       </CUI.Box>
       <CUI.Center w="44" textAlign="center">

@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { featuresByYear } from "utils/featuresByYear";
 
@@ -20,6 +20,7 @@ export const AutocompletedMeasureTemplate = ({
   year,
 }: Props) => {
   const { state, coreSetId } = useParams();
+  const navigate = useNavigate();
   const subText: string[] | undefined =
     typeof performanceMeasureSubtext === "string"
       ? [performanceMeasureSubtext]
@@ -70,23 +71,15 @@ export const AutocompletedMeasureTemplate = ({
             } ${year} Core Set reporting.`}
           </CUI.Text>
         </CUI.Stack>
-
-        <Link
-          className="hidden-print-items"
-          to={`/${state}/${year}/${coreSetId}`}
-          aria-label="Return to Core Set Measures"
+        <CUI.Button
+          onClick={() => navigate(`/${state}/${year}/${coreSetId}`)}
+          variant={"outline-primary"}
+          zIndex={3}
+          fontSize={"1.2rem"}
+          as={CUI.Link}
         >
-          <QMR.ContainedButton
-            buttonProps={{
-              colorScheme: "blue",
-              className: "hidden-print-items disabled-print-preview-items",
-              variant: "outline",
-              color: "blue.500",
-            }}
-            buttonText="Back to Core Set Measures"
-            zIndex={3}
-          />
-        </Link>
+          Back To Core Set Measures
+        </CUI.Button>
       </CUI.Stack>
     </>
   );
