@@ -45,7 +45,6 @@ export const AddCoreSetCard = ({
             color: "blue.500",
           }}
           onClick={() => navigate(`/${state}/${year}/${to}`)}
-          isLink
         />
       </CUI.Stack>
     </CUI.Box>
