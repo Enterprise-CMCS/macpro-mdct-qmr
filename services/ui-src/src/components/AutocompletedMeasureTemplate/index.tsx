@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { featuresByYear } from "utils/featuresByYear";
 

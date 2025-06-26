@@ -1,5 +1,4 @@
 import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
 import { FaPlusCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
