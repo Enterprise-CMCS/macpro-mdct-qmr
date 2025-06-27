@@ -41,11 +41,10 @@ export const AddCoreSetCard = ({
           fontSize={"1.2rem"}
           isDisabled={!isStateUser || coreSetExists}
           onClick={() => {
-            //because they button acts like a link, it can never truly be disabled so we have to prevent the navigation instead
-            if (!(!isStateUser || coreSetExists))
-              navigate(`/${state}/${year}/${to}`);
+            navigate(`/${state}/${year}/${to}`);
           }}
-          as={CUI.Link}
+          //because they button acts like a link, it can never truly be disabled so we have to prevent the navigation instead
+          as={!isStateUser || coreSetExists ? undefined : CUI.Link}
         >
           {!coreSetExists ? buttonText : "Already Added"}
         </CUI.Button>

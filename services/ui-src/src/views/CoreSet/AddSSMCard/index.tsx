@@ -42,12 +42,10 @@ export const AddSSMCard = ({
             rightIcon={<FaPlusCircle />}
             isDisabled={!enabled}
             onClick={() => {
-              //because they button acts like a link, it can never truly be disabled so we have to prevent the navigation instead
-              if (enabled) {
-                navigate(to, { state: { userCreatedMeasureIds } });
-              }
+              navigate(to, { state: { userCreatedMeasureIds } });
             }}
-            as={CUI.Link}
+            //because they button acts like a link, it can never truly be disabled so we have to swap it away from a link when it's disabled
+            as={!enabled ? undefined : CUI.Link}
           >
             {buttonText}
           </CUI.Button>
