@@ -50,6 +50,11 @@ export const theme = extendTheme({
       },
     },
     Button: {
+      baseStyle: {
+        _disabled: {
+          textDecoration: "none",
+        },
+      },
       variants: {
         "link-white": {
           color: "white",
@@ -71,6 +76,9 @@ export const theme = extendTheme({
           color: "blue.600",
           border: "1px solid #2b6cb0",
           borderRadius: "0",
+          textDecoration: "none",
+          fontWeight: "bold",
+          width: "fit-content",
         },
       },
     },
