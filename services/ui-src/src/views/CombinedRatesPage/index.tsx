@@ -150,6 +150,7 @@ export const CombinedRatesPage = () => {
         </CUI.Text>
         <CUI.Tabs
           width="100%"
+          variant="unstyled"
           onChange={(index) =>
             setSearchParams({ tab: index == 0 ? "child" : "adult" })
           }
