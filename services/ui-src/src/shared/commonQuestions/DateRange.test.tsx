@@ -124,7 +124,7 @@ describe("DateRange component, Health Home", () => {
       screen.getByRole("link", { name: "Measurement Period Table" })
     ).toHaveAttribute(
       "href",
-      "https://www.medicaid.gov/state-resource-center/medicaid-state-technical-assistance/health-home-information-resource-center/quality-reporting/index.html"
+      "https://www.medicaid.gov/resources-for-states/medicaid-state-technical-assistance/health-home-information-resource-center/health-home-quality-reporting"
     );
   });
 });
