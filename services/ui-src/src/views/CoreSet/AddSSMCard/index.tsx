@@ -41,6 +41,7 @@ export const AddSSMCard = ({
             fontSize={"1.2rem"}
             rightIcon={<FaPlusCircle />}
             isDisabled={!enabled}
+            href="#"
             onClick={() => {
               navigate(to, { state: { userCreatedMeasureIds } });
             }}

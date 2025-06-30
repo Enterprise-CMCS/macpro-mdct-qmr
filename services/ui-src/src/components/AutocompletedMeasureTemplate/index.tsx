@@ -71,6 +71,7 @@ export const AutocompletedMeasureTemplate = ({
           </CUI.Text>
         </CUI.Stack>
         <CUI.Button
+          href="#"
           onClick={() => navigate(`/${state}/${year}/${coreSetId}`)}
           variant={"outline-primary"}
           zIndex={3}

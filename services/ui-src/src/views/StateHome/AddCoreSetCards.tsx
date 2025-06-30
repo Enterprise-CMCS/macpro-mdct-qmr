@@ -40,6 +40,7 @@ export const AddCoreSetCard = ({
           variant={"outline-primary"}
           fontSize={"1.2rem"}
           isDisabled={!isStateUser || coreSetExists}
+          href="#"
           onClick={() => {
             navigate(`/${state}/${year}/${to}`);
           }}

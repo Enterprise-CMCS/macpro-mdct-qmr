@@ -105,6 +105,7 @@ const ReportingYear = () => {
         <CUI.Box mt="22px">
           <CUI.Button
             onClick={() => navigate(`/${state}/${year}/combined-rates`)}
+            href="#"
             variant={"outline-primary"}
             width="220px"
             height="37px"
