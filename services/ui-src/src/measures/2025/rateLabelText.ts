@@ -534,12 +534,12 @@ export const data = {
                 "label": "Combination 3",
                 "text": "Combination 3",
                 "id": "tOQKqr",
-                "excludeFromOMS": true
             },
             {
                 "label": "Combination 7",
                 "text": "Combination 7",
                 "id": "rgGHvL",
+                "excludeFromOMS": true
             },
             {
                 "label": "Combination 10",
