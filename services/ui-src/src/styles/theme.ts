@@ -1,100 +1,19 @@
+// Chakra UI theme info: https://chakra-ui.com/docs/styled-system/theming/theme
 import { extendTheme } from "@chakra-ui/react";
 
+// Global style overrides
+import { styles } from "./styles";
+
+// Foundational style overrides
+import { foundations } from "./foundations";
+
+// Component style overrides
+import { components } from "./components";
+
 export const theme = extendTheme({
-  styles: {
-    global: {
-      "body, p": {
-        fontFamily: "Open Sans",
-      },
-    },
-  },
-  fonts: {
-    heading: "Open Sans",
-    body: "Open Sans",
-  },
-  components: {
-    Form: {
-      baseStyle: {
-        helperText: {
-          fontSize: "md",
-          color: "black.700",
-          lineHeight: "base",
-        },
-      },
-    },
-    FormError: {
-      baseStyle: {
-        text: {
-          color: "red.700",
-          fontSize: "md",
-        },
-      },
-    },
-    Tabs: {
-      variants: {
-        unstyled: {
-          tab: {
-            fontWeight: "bold",
-            borderWidth: "1px 1px 0 1px",
-            borderColor: "gray.200",
-            fontSize: "sm",
-            _selected: {
-              color: "blue.500",
-              borderTopColor: "blue.500",
-              borderBottomColor: "white",
-              margin: "0 0 -1px 0",
-              borderWidth: "6px 1px 2px 1px",
-            },
-          },
-        },
-      },
-    },
-    Button: {
-      variants: {
-        "link-white": {
-          color: "white",
-          width: "auto",
-          height: "auto",
-          whiteSpacr: "nowrap",
-          padding: "0",
-          margin: "0",
-          _active: {
-            color: "#FFFFFF",
-            textDecoration: "underline",
-          },
-          _hover: {
-            color: "white",
-            textDecoration: "underline",
-          },
-        },
-        "outline-primary": {
-          color: "blue.600",
-          border: "1px solid #2b6cb0",
-          borderRadius: "0",
-        },
-      },
-    },
-    Link: {
-      baseStyle: {
-        textDecoration: "underline",
-        color: "blue.600",
-      },
-    },
-    List: {
-      variants: {
-        links: {
-          container: {
-            paddingLeft: "1rem",
-          },
-          item: {
-            listStyle: "none",
-          },
-        },
-      },
-    },
-  },
-  colors: {
-    gray: { 50: "#F1F1F1", 300: "#D6D7D9", 500: "#71767A" },
-    blue: { 100: "#EEFBFF", 500: "#0071BC", 800: "#00395E" },
-  },
+  ...foundations,
+  components,
+  styles,
 });
+
+// export default theme;
