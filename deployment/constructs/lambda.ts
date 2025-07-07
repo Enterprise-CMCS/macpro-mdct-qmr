@@ -77,6 +77,7 @@ export class Lambda extends Construct {
       memorySize,
       role,
       bundling: {
+        forceDockerBundling: true,
         minify: true,
         sourceMap: true,
         nodeModules: ["jsdom"],
