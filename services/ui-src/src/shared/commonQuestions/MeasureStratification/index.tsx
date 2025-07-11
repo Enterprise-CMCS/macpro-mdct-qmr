@@ -27,7 +27,7 @@ export const GetLinks = (type: string) => {
       aria: "2011 HHS standards",
     },
     ["initial-core"]: {
-      link: "https://www.hhs.gov/guidance/sites/default/files/hhs-guidance-documents/smd24002.pdf",
+      link: "https://www.medicaid.gov/federal-policy-guidance/downloads/smd24002.pdf",
       label:
         "Initial Core Set Mandatory Reporting Guidance for the Health Home Core Set",
       aria: "Initial Core Set Mandatory Reporting Guidance for the Health Home Core Set",
@@ -41,8 +41,13 @@ export const GetLinks = (type: string) => {
     ["2024-omb"]: {
       link: "https://www.federalregister.gov/d/2024-06469",
       label:
-        "Statistical Policy Directive #15: 2024 OMB race and ethnicity standards",
-      aria: "Statistical Policy Directive #15: 2024 OMB race and ethnicity standards",
+        "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
+      aria: "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
+    },
+    ["strat-ta-resource"]: {
+      link: "https://www.medicaid.gov/medicaid/quality-of-care/downloads/QMR-stratification-resource.pdf",
+      label: "stratification TA resource",
+      aria: "stratification TA resource",
     },
   };
 
@@ -76,26 +81,31 @@ export const StratificationOption = ({ register }: Props) => {
       label="Which race and ethnicity standards would your state like to use for 2025 Core Sets reporting?"
       subTextElement={[
         <CUI.Text mb={2}>
-          More information about the race and ethnicity categories included in
-          each option is available at [link].
+          A summary of the race and ethnicity subcategories included in each
+          option is available in Boxes 1 and 2 of the{" "}
+          {GetLinks("strat-ta-resource")}.
         </CUI.Text>,
         <CUI.UnorderedList padding="0 0 1rem 2rem">
           <CUI.ListItem>
-            {GetLinks("1997-omb")}, as specified in the{" "}
-            {GetLinks("hss-standard")}
+            1997 Office of Management and Budget (OMB) minimum race and
+            ethnicity categories, as specified in the 2011 HHS standards
           </CUI.ListItem>
-          <CUI.ListItem mb={2}>{GetLinks("2024-omb")}</CUI.ListItem>,
+          <CUI.ListItem mb={2}>
+            2024 OMB Statistical Policy Directive No. 15 race and ethnicity
+            standards
+          </CUI.ListItem>
+          ,
         </CUI.UnorderedList>,
       ]}
       options={[
         {
           displayValue:
-            "1997 Office of Management and Budget (OMB) minimum race and ethnicity categories.",
+            "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
           value: "1997-omb",
         },
         {
           displayValue:
-            "Statistical Policy Directive #15: 2024 OMB race and ethnicity standards",
+            "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
           value: "2024-omb",
         },
         {
@@ -124,7 +134,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
 
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
-      <QMR.Accordion label="Instructions">
+      <QMR.Accordion label="Instructions (Click to Expand)">
         <CUI.Text>
           Enter data below to stratify this measure by race, ethnicity, sex,
           and/or geography. Beginning with 2025 Core Sets reporting, states are
@@ -142,7 +152,6 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         </CUI.Text>
         <br />
         <CUI.Text>
-          CMS recognizes that stratifying data could result in small cell sizes.
           CMS encourages states to report data in the QMR system for measures
           and rates with small cell sizes. For the purpose of public reporting,
           data will be suppressed in accordance with the CMS cell-size
