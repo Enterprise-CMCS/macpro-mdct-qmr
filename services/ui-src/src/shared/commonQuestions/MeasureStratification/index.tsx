@@ -57,12 +57,9 @@ export const GetLinks = (type: string) => {
 
 export const StratificationAdditionalNotes = ({ register }: Props) => {
   return (
-    <QMR.CoreQuestionWrapper
-      testid="additional-notes"
-      label="Additional notes/comments (optional)"
-    >
+    <QMR.CoreQuestionWrapper testid="additional-notes" label="">
       <QMR.TextArea
-        label="If your state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below."
+        label="If your state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below (optional)."
         {...register(`OptionalMeasureStratification.${DC.ADDITIONAL_CONTEXT}`)}
       />
     </QMR.CoreQuestionWrapper>
