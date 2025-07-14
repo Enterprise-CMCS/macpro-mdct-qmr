@@ -155,17 +155,17 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       <StratificationOption register={register}></StratificationOption>
       {(version === "1997-omb" || version === "2024-omb") && (
         <>
+          <Stratification
+            {...props}
+            omsData={omsData}
+            year={year}
+          ></Stratification>
           <CUI.Heading size="md" as="h2" my="6">
             Measure Stratification Details
           </CUI.Heading>
           <StratificationAdditionalNotes
             register={register}
           ></StratificationAdditionalNotes>
-          <Stratification
-            {...props}
-            omsData={omsData}
-            year={year}
-          ></Stratification>
         </>
       )}
     </QMR.CoreQuestionWrapper>

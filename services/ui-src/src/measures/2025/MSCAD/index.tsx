@@ -51,13 +51,13 @@ export const MSCAD = ({
                 {isOtherMeasureSpecSelected && (
                   <CMQ.OtherPerformanceMeasure rateAlwaysEditable />
                 )}
+                <CMQ.AdditionalNotes />
                 {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
               </>
             )}
           </>
         </>
       )}
-      <CMQ.AdditionalNotes />
     </>
   );
 };

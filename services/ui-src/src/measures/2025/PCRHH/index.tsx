@@ -47,10 +47,10 @@ export const PCRHH = ({
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
           <CMQ.CombinedRates coreset="health" />
+          <CMQ.AdditionalNotes />
           {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
-      <CMQ.AdditionalNotes />
     </>
   );
 };

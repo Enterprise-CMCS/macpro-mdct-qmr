@@ -97,6 +97,7 @@ export const AMRAD = ({
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
+          <CMQ.AdditionalNotes />
           {showOptionalMeasureStrat && (
             <CMQ.MeasureStrat
               performanceMeasureArray={performanceMeasureArray}
@@ -108,7 +109,6 @@ export const AMRAD = ({
           )}
         </>
       )}
-      <CMQ.AdditionalNotes />
     </>
   );
 };
