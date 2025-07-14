@@ -35,13 +35,13 @@ export const PCRAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
+          {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
               <PCRADPerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

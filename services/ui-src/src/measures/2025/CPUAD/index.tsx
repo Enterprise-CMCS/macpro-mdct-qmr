@@ -34,13 +34,13 @@ export const CPUAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
+          {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           <CMQ.DataSource data={PMD.dataSourceData} type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation populationSampleSize />
           {isPrimaryMeasureSpecSelected && (
             <>
               <CPUADPerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

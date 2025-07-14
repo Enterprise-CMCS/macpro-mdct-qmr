@@ -36,13 +36,13 @@ export const PCRHH = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="health" />
+          {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           <CMQ.DataSource />
           <CMQ.DateRange type="health" />
           <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
               <PCRHHPerformanceMeasure data={PMD.data} />
-              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
