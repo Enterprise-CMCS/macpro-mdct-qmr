@@ -109,6 +109,7 @@ export const AMRAD = ({
           )}
         </>
       )}
+      {isNotReportingData && <CMQ.AdditionalNotes />}
     </>
   );
 };

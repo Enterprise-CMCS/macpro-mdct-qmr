@@ -49,6 +49,7 @@ export const PCRAD = ({
           {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
+      {isNotReportingData && <CMQ.AdditionalNotes />}
     </>
   );
 };

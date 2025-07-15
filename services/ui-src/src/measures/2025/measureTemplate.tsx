@@ -125,6 +125,7 @@ export const measureTemplate = ({
             ))}
         </>
       )}
+      {isNotReportingData && <CMQ.AdditionalNotes />}
     </>
   );
 };

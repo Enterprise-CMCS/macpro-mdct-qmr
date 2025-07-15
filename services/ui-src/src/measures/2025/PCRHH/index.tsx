@@ -51,6 +51,7 @@ export const PCRHH = ({
           {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
+      {isNotReportingData && <CMQ.AdditionalNotes />}
     </>
   );
 };

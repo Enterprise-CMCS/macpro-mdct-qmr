@@ -48,6 +48,7 @@ export const CPUAD = ({
           {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
         </>
       )}
+      {isNotReportingData && <CMQ.AdditionalNotes />}
     </>
   );
 };

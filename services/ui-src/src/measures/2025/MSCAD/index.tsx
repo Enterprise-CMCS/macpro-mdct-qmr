@@ -57,6 +57,7 @@ export const MSCAD = ({
                 {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
               </>
             )}
+            {data[DC.DID_REPORT] == DC.NO && <CMQ.AdditionalNotes />}
           </>
         </>
       )}
