@@ -7,7 +7,7 @@ import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
 import { Accordion } from "components/Accordion";
-import { NDRSets } from "../OptionalMeasureStrat/NDR/ndrSets";
+import { NDRSets } from "./NDR/ndrSets";
 import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
 import { AddAnotherSectionAccordian } from "../OptionalMeasureStrat/additionalCategory";
 
