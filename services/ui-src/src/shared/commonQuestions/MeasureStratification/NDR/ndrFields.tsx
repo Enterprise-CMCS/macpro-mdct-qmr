@@ -73,7 +73,7 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
     const rateComponent = RateComponent(context, key);
     const displayValue = description ?? `UNSET_OPM_FIELD_NAME_${idx}`;
 
-    return buildOPMComponent(displayValue, [rateComponent]);
+    return buildOPMComponent(displayValue, rateComponent);
   });
 
   return (
@@ -164,14 +164,14 @@ const buildNDRComponent = (
 
 const buildOPMComponent = (
   label: string,
-  rateComponent: React.ReactElement[]
+  rateComponent: React.ReactElement
 ) => {
   return (
     <CUI.Box>
       <CUI.Heading fontSize="16px" mt="1rem">
         {label}
       </CUI.Heading>
-      {...rateComponent}
+      {rateComponent}
     </CUI.Box>
   );
 };
