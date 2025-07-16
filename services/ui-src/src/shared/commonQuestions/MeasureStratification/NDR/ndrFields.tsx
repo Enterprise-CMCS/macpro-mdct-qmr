@@ -41,10 +41,91 @@ export const useAgeGroupsFields = (name: string) => {
     ? (categories as LabelData[])
     : (quals as LabelData[]);
 
-  return buildNDRSets(checkbox, name, rateArrays, shouldDisplay, customPrompt);
+  return buildNDRComponent(
+    checkbox,
+    name,
+    rateArrays,
+    shouldDisplay,
+    customPrompt
+  );
 };
 
-const buildNDRSets = (
+/**
+ * Builds OPM Checkboxes
+ */
+export const useRenderOPMCheckboxOptions = (name: string) => {
+  const context = usePerformanceMeasureContext();
+  const { OPM, customPrompt } = context;
+
+  const { watch } = useFormContext<Types.DataSource>();
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
+
+  const shouldDisplay =
+    dataSourceWatch?.[0] !== "AdministrativeData" ||
+    dataSourceWatch?.length !== 1;
+
+  const options = OPM?.filter(
+    ({ description }) => description != undefined && description != ""
+  ).map(({ description }, idx) => {
+    const cleanedFieldName = `${DC.OPM_KEY}${cleanString(description!)}`;
+    const key = `${name}.rates.OPM.${cleanedFieldName}`;
+
+    const rateComponent = RateComponent(context, key);
+    const displayValue = description ?? `UNSET_OPM_FIELD_NAME_${idx}`;
+
+    return buildOPMComponent(displayValue, [rateComponent]);
+  });
+
+  return (
+    <CUI.Box>
+      <CUI.Heading
+        key={`${name}.rates.Header`}
+        size={"sm"}
+        dangerouslySetInnerHTML={{
+          __html:
+            customPrompt ??
+            `Enter a number for the numerator and the denominator. Rate will
+        auto-calculate:`,
+        }}
+      />
+      <CUI.Heading
+        pt="1"
+        size={"sm"}
+        key={`${name}.rates.HeaderHelper`}
+        hidden={!shouldDisplay}
+      >
+        Please review the auto-calculated rate and revise if needed.
+      </CUI.Heading>
+      {options}
+    </CUI.Box>
+  );
+};
+
+const RateComponent = (context: ContextProps, name: string) => {
+  return (
+    <QMR.Rate
+      rates={[
+        {
+          id: 0,
+        },
+      ]}
+      name={name}
+      key={name}
+      readOnly={context.rateReadOnly}
+      rateMultiplicationValue={context.rateMultiplicationValue}
+      customMask={context.customMask}
+      allowNumeratorGreaterThanDenominator={
+        context.allowNumeratorGreaterThanDenominator
+      }
+      customNumeratorLabel={context.customNumeratorLabel}
+      customDenominatorLabel={context.customDenominatorLabel}
+      customRateLabel={context.customRateLabel}
+      rateCalc={context.rateCalculation}
+    />
+  );
+};
+
+const buildNDRComponent = (
   sets: LabelData[],
   name: string,
   rateArrays: React.ReactElement[][],
@@ -81,99 +162,16 @@ const buildNDRSets = (
   );
 };
 
-/**
- * Builds OPM Checkboxes
- */
-export const useRenderOPMCheckboxOptions = (name: string) => {
-  const checkBoxOptions: QMR.CheckboxOption[] = [];
-  const context = usePerformanceMeasureContext();
-  const { OPM, customPrompt } = context;
-
-  const { watch } = useFormContext<Types.DataSource>();
-  const dataSourceWatch = watch(DC.DATA_SOURCE);
-
-  const shouldDisplay =
-    dataSourceWatch?.[0] !== "AdministrativeData" ||
-    dataSourceWatch?.length !== 1;
-
-  OPM?.forEach(({ description }, idx) => {
-    if (description) {
-      const cleanedFieldName = `${DC.OPM_KEY}${cleanString(description)}`;
-      const key = `${name}.rates.OPM.${cleanedFieldName}`;
-
-      const rateComponent = RateComponent(context, key);
-      const displayValue = description ?? `UNSET_OPM_FIELD_NAME_${idx}`;
-
-      checkBoxOptions.push(
-        checkboxComponent(
-          name,
-          cleanedFieldName,
-          displayValue,
-          [rateComponent],
-          shouldDisplay,
-          customPrompt
-        )
-      );
-    }
-  });
-
-  return checkBoxOptions;
-};
-const RateComponent = (context: ContextProps, name: string) => {
-  return (
-    <QMR.Rate
-      rates={[
-        {
-          id: 0,
-        },
-      ]}
-      name={name}
-      key={name}
-      readOnly={context.rateReadOnly}
-      rateMultiplicationValue={context.rateMultiplicationValue}
-      customMask={context.customMask}
-      allowNumeratorGreaterThanDenominator={
-        context.allowNumeratorGreaterThanDenominator
-      }
-      customNumeratorLabel={context.customNumeratorLabel}
-      customDenominatorLabel={context.customDenominatorLabel}
-      customRateLabel={context.customRateLabel}
-      rateCalc={context.rateCalculation}
-    />
-  );
-};
-
-const checkboxComponent = (
-  name: string,
+const buildOPMComponent = (
   label: string,
-  value: string,
-  rateComponent: React.ReactElement[],
-  shouldDisplay: boolean,
-  customPrompt?: string
+  rateComponent: React.ReactElement[]
 ) => {
-  return {
-    value: label,
-    displayValue: value,
-    children: [
-      <CUI.Heading
-        key={`${name}.rates.${label}Header`}
-        size={"sm"}
-        dangerouslySetInnerHTML={{
-          __html:
-            customPrompt ??
-            `Enter a number for the numerator and the denominator. Rate will
-        auto-calculate:`,
-        }}
-      />,
-      <CUI.Heading
-        pt="1"
-        size={"sm"}
-        key={`${name}.rates.${label}HeaderHelper`}
-        hidden={!shouldDisplay}
-      >
-        Please review the auto-calculated rate and revise if needed.
-      </CUI.Heading>,
-      ...rateComponent,
-    ],
-  };
+  return (
+    <CUI.Box>
+      <CUI.Heading fontSize="16px" mt="1rem">
+        {label}
+      </CUI.Heading>
+      {...rateComponent}
+    </CUI.Box>
+  );
 };

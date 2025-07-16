@@ -97,14 +97,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
-  const options = useRenderOPMCheckboxOptions(name);
-  return (
-    <QMR.Checkbox
-      name={`${name}.options`}
-      key={`${name}.options`}
-      options={options}
-    />
-  );
+  return useRenderOPMCheckboxOptions(name);
 };
 /**
  * Builds Base level NDR Sets
