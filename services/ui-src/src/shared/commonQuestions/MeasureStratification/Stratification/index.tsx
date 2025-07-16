@@ -162,12 +162,12 @@ export const Stratification = ({
         }}
       >
         <CUI.Text>
-          Do not select categories and sub-categories for which you will not be
-          reporting any data.
+          Do not select categories and subcategories for which your state does
+          not collect data.
         </CUI.Text>
         <CUI.Text>
-          For each category and sub-category, enter a number for the numerator
-          and denominator. The rate will auto-calculated but can be revised if
+          For each category and subcategory, enter a number for the numerator
+          and denominator. The rate will auto-calculate but can be revised if
           needed.
         </CUI.Text>
         <CUI.UnorderedList
