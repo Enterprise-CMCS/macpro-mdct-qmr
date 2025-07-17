@@ -11,6 +11,7 @@ import * as DC from "dataConstants";
 
 interface Props {
   register: Function;
+  reset?: Function;
 }
 
 export const GetLinks = (type: string) => {
@@ -71,7 +72,7 @@ export const StratificationAdditionalNotes = ({ register }: Props) => {
   );
 };
 
-export const StratificationOption = ({ register }: Props) => {
+export const StratificationOption = ({ register, reset }: Props) => {
   return (
     <QMR.RadioButton
       formLabelProps={{ fontWeight: "700" }}
@@ -99,16 +100,19 @@ export const StratificationOption = ({ register }: Props) => {
           displayValue:
             "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
           value: "1997-omb",
+          onClick: reset,
         },
         {
           displayValue:
             "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
           value: "2024-omb",
+          onClick: reset,
         },
         {
           displayValue:
             "I am not reporting measure stratification for this measure",
           value: "not-reporting",
+          onClick: reset,
         },
       ]}
       {...register(`OptionalMeasureStratification.${DC.VERSION}`)}
@@ -122,12 +126,20 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const { coreset } = props;
 
   const register = useCustomRegister();
-  const { watch } = useFormContext<Types.OptionalMeasureStratification>();
+  const { watch, setValue, resetField } =
+    useFormContext<Types.OptionalMeasureStratification>();
   const data = watch();
 
   const version = data.OptionalMeasureStratification?.version;
   const omsData =
     version === "1997-omb" ? OMSData(2024) : OMSData(year, coreset === "adult");
+
+  const onReset = () => {
+    resetField("OptionalMeasureStratification.selections", {
+      defaultValue: {},
+    });
+    setValue("OptionalMeasureStratification.selections", {});
+  };
 
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
@@ -158,7 +170,10 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           with a denominator less than 30 due to reliability concerns.
         </CUI.Text>
       </QMR.Accordion>
-      <StratificationOption register={register}></StratificationOption>
+      <StratificationOption
+        register={register}
+        reset={onReset}
+      ></StratificationOption>
       {(version === "1997-omb" || version === "2024-omb") && (
         <>
           <CUI.Heading size="md" as="h2" my="6">
@@ -167,6 +182,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           <StratificationAdditionalNotes
             register={register}
           ></StratificationAdditionalNotes>
+          <input id="Testid"></input>
           <Stratification
             {...props}
             omsData={omsData}
