@@ -102,7 +102,7 @@ const OPMNDRSets = ({ name }: NdrProps) => {
 /**
  * Builds Base level NDR Sets
  */
-export const NDRSets = ({ name }: NdrProps) => {
+export const NDRSetsAccordion = ({ name }: NdrProps) => {
   const { OPM, componentFlag } = usePerformanceMeasureContext();
   const children: JSX.Element[] = [];
 

@@ -4,6 +4,8 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { AddAnotherButton, SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./NDR/ndrSets";
+import { NDRSetsAccordion } from "../MeasureStratification/NDR/ndrSets";
+import { useEffect, useState } from "react";
 
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
@@ -51,6 +53,7 @@ export const AddAnotherSection = ({
               <SubCatSection
                 name={`${name}.additionalSelections.${idx}`}
                 key={`${name}.additionalSelections.${idx}`}
+                checkboxes
               />
             )}
           </QMR.QuestionChild>
@@ -93,7 +96,7 @@ export const AddAnotherSectionAccordian = ({
                 rules={{ required: true }}
               />
               <QMR.QuestionChild show key={field.id}>
-                <NDRSets
+                <NDRSetsAccordion
                   name={`${name}.additionalSelections.${idx}.rateData`}
                 />
               </QMR.QuestionChild>
