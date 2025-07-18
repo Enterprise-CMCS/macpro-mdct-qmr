@@ -135,10 +135,73 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     version === "1997-omb" ? OMSData(2024) : OMSData(year, coreset === "adult");
 
   const onReset = () => {
+    //transverse through data object and set all values to "" if key is not an array
+    const empty = structuredClone(
+      data.OptionalMeasureStratification.selections
+    );
+
+    for (const [topKey, topValue] of Object.entries(empty)) {
+      if (topValue.additionalSelections) {
+        console.log(
+          "topValue.additionalSelections",
+          topValue.additionalSelections
+        );
+        topValue.additionalSelections = [];
+      }
+      if (topValue.additionalCategories) {
+        console.log(
+          "topValue.additionalCategories",
+          topValue.additionalCategories
+        );
+        topValue.additionalCategories = [];
+      }
+
+      for (const [midKey, midValue] of Object.entries(
+        topValue.selections as Types.OmsNodes.MidLevelOMSNode
+      )) {
+        midValue.aggregate = "";
+
+        if (midValue.additionalSubCategories) {
+          console.log(
+            "midValue.additionalSubCategories",
+            midValue.additionalSubCategories
+          );
+          midValue.additionalSubCategories = [];
+        }
+
+        if (midValue.additionalSelections) {
+          midValue.additionalSelections = [];
+
+          console.log(
+            "midValue.additionalSelections",
+            midValue.additionalSelections
+          );
+        }
+
+        if (midValue.rateData) {
+          for (const [catKey, catValue] of Object.entries(
+            midValue.rateData.rates
+          )) {
+            for (const [qualKey, qualValue] of Object.entries(
+              catValue as { [qualifier: string]: Types.RateFields[] }
+            )) {
+              for (var i = 0; i < qualValue.length; i++) {
+                qualValue[i].numerator = "";
+                qualValue[i].denominator = "";
+                qualValue[i].rate = "";
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // console.log("empty", JSON.stringify(empty, null, 2));
+
     resetField("OptionalMeasureStratification.selections", {
       defaultValue: {},
     });
-    setValue("OptionalMeasureStratification.selections", {});
+    setValue("OptionalMeasureStratification.selections", empty);
   };
 
   return (
