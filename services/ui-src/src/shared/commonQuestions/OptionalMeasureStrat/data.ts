@@ -122,7 +122,7 @@ const omb2024 = () => {
           label: "Missing or not reported",
         },
       ],
-      addMore: true,
+      addMore: false,
       addMoreSubCatFlag: false,
     },
     {
