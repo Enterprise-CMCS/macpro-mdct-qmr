@@ -11,7 +11,7 @@ import * as DC from "dataConstants";
 
 interface Props {
   register: Function;
-  reset?: Function;
+  reset?: () => void;
 }
 
 export const GetLinks = (type: string) => {
@@ -94,6 +94,14 @@ export const StratificationOption = ({ register, reset }: Props) => {
           </CUI.ListItem>
           ,
         </CUI.UnorderedList>,
+        <CUI.Box mb="1rem">
+          <QMR.Notification
+            alertStatus="warning"
+            alertTitle=" Warning! Entered data will not be saved if you switch race and
+          ethnicity reporting standards. Please confirm which standard you are
+          using before entering data."
+          />
+        </CUI.Box>,
       ]}
       options={[
         {
@@ -135,18 +143,21 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     version === "1997-omb" ? OMSData(2024) : OMSData(year, coreset === "adult");
 
   const onReset = () => {
-    //transverse through data object and set all values to "" if key is not an array
-    const empty = structuredClone(
+    //create a copy of the original data to be used as the clear template
+    const clearedData = structuredClone(
       data.OptionalMeasureStratification.selections
     );
 
-    for (const [topKey, topValue] of Object.entries(empty)) {
+    //transverse through data object and set all values to "" if key is not an array
+    for (const [topKey, topValue] of Object.entries(clearedData)) {
       if (topValue.additionalSelections) {
+        //this clears any fields added by the [+Add Another _____] button, i.e. [+Add Another Race]
         setValue(
           `OptionalMeasureStratification.selections.${topKey}.additionalSelections`,
           []
         );
       }
+      //i don't think this one is actually in use but i'm going to clear it anyway
       if (topValue.additionalCategories) {
         setValue(
           `OptionalMeasureStratification.selections.${topKey}.additionalCategories`,
@@ -157,8 +168,9 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       for (const [midKey, midValue] of Object.entries(
         topValue.selections as Types.OmsNodes.MidLevelOMSNode
       )) {
+        //this clears the checked boxes when that appear affter selecting "No, we are reporting disaggregated..."
         midValue.aggregate = "";
-
+        //this clears any fields added by the [+Add Another Sub-Category] button
         if (midValue.additionalSubCategories) {
           setValue(
             `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`,
@@ -184,10 +196,11 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       }
     }
 
+    //clearing the default values before doing a set value so that any data that is saved doesn't get repopulated
     resetField("OptionalMeasureStratification.selections", {
       defaultValue: {},
     });
-    setValue("OptionalMeasureStratification.selections", empty);
+    setValue("OptionalMeasureStratification.selections", clearedData);
   };
 
   return (
@@ -231,7 +244,6 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           <StratificationAdditionalNotes
             register={register}
           ></StratificationAdditionalNotes>
-          <input id="Testid"></input>
           <Stratification
             {...props}
             omsData={omsData}
