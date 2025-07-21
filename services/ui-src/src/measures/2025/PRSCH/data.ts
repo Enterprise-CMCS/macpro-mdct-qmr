@@ -35,4 +35,7 @@ export const data: MeasureTemplateData = {
       { value: DC.OTHER_DATA_SOURCE, description: true },
     ],
   },
+  opm: {
+    excludeOptions: ["O8BrOa"],
+  },
 };
