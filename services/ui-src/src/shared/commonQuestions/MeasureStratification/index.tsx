@@ -142,18 +142,16 @@ export const MeasureStrat = (props: Types.OMSProps) => {
 
     for (const [topKey, topValue] of Object.entries(empty)) {
       if (topValue.additionalSelections) {
-        console.log(
-          "topValue.additionalSelections",
-          topValue.additionalSelections
+        setValue(
+          `OptionalMeasureStratification.selections.${topKey}.additionalSelections`,
+          []
         );
-        topValue.additionalSelections = [];
       }
       if (topValue.additionalCategories) {
-        console.log(
-          "topValue.additionalCategories",
-          topValue.additionalCategories
+        setValue(
+          `OptionalMeasureStratification.selections.${topKey}.additionalCategories`,
+          []
         );
-        topValue.additionalCategories = [];
       }
 
       for (const [midKey, midValue] of Object.entries(
@@ -162,27 +160,17 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         midValue.aggregate = "";
 
         if (midValue.additionalSubCategories) {
-          console.log(
-            "midValue.additionalSubCategories",
-            midValue.additionalSubCategories
-          );
-          midValue.additionalSubCategories = [];
-        }
-
-        if (midValue.additionalSelections) {
-          midValue.additionalSelections = [];
-
-          console.log(
-            "midValue.additionalSelections",
-            midValue.additionalSelections
+          setValue(
+            `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`,
+            []
           );
         }
 
         if (midValue.rateData) {
-          for (const [catKey, catValue] of Object.entries(
+          for (const [_catKey, catValue] of Object.entries(
             midValue.rateData.rates
           )) {
-            for (const [qualKey, qualValue] of Object.entries(
+            for (const [_qualKey, qualValue] of Object.entries(
               catValue as { [qualifier: string]: Types.RateFields[] }
             )) {
               for (var i = 0; i < qualValue.length; i++) {
@@ -195,8 +183,6 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         }
       }
     }
-
-    // console.log("empty", JSON.stringify(empty, null, 2));
 
     resetField("OptionalMeasureStratification.selections", {
       defaultValue: {},

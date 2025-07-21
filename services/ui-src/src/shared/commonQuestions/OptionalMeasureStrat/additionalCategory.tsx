@@ -5,7 +5,6 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { AddAnotherButton, SubCatSection } from "./subCatClassification";
 import { NDRSets } from "./NDR/ndrSets";
 import { NDRSetsAccordion } from "../MeasureStratification/NDR/ndrSets";
-import { useEffect, useState } from "react";
 
 interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
