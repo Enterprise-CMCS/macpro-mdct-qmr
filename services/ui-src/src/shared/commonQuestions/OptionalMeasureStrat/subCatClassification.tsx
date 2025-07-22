@@ -2,6 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { NDRSets } from "./NDR/ndrSets";
+import { NDRSetsAccordion } from "../MeasureStratification/NDR/ndrSets";
 
 interface AddAnotherButtonProps {
   /** onClick state updating function for dynamic rendering */
@@ -43,6 +44,7 @@ interface AdditonalCategoryProps {
   /** name for react-hook-form registration */
   name: string;
   flagSubLabel?: string;
+  checkboxes?: boolean;
 }
 
 /**
@@ -51,6 +53,7 @@ interface AdditonalCategoryProps {
 export const SubCatSection = ({
   name,
   flagSubLabel,
+  checkboxes,
 }: AdditonalCategoryProps) => {
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
@@ -78,10 +81,17 @@ export const SubCatSection = ({
                 label={"Define the Additional Subcategory"}
                 rules={{ required: true }}
               />
-              <NDRSets
-                name={`${name}.additionalSubCategories.${idx}.rateData`}
-                key={`${name}.additionalSubCategories.${idx}.rateData`}
-              />
+              {checkboxes ? (
+                <NDRSets
+                  name={`${name}.additionalSubCategories.${idx}.rateData`}
+                  key={`${name}.additionalSubCategories.${idx}.rateData`}
+                />
+              ) : (
+                <NDRSetsAccordion
+                  name={`${name}.additionalSubCategories.${idx}.rateData`}
+                  key={`${name}.additionalSubCategories.${idx}.rateData`}
+                />
+              )}
             </CUI.Stack>
           </QMR.QuestionChild>
         </QMR.DeleteWrapper>
