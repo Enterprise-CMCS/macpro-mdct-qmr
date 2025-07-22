@@ -10,6 +10,7 @@ import { Accordion } from "components/Accordion";
 import { NDRSetsAccordion } from "./NDR/ndrSets";
 import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
 import { AddAnotherSectionAccordian } from "../OptionalMeasureStrat/additionalCategory";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -168,6 +169,11 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   if (!props.options) {
     return <NDRSetsAccordion name={`${props.name}.rateData`} />;
   }
+  //a flag added in 2025, if it's turned off, it'll hide [+Add Another Sex] button
+  const sogiFlag =
+    useFlags()?.["sogi-stratification-options"] &&
+    props.id === "O8BrOa" &&
+    props.year! >= 2025;
 
   const checkboxOptions = [
     ...props.options.map((lvlTwoOption) => {
@@ -186,7 +192,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           {options.children}
         </Accordion>
       ))}
-      {props.addMore && (
+      {props.addMore && (props.id !== "O8BrOa" || sogiFlag) && (
         <AddAnotherSectionAccordian
           name={props.name}
           parentName={props.parentDisplayName}
