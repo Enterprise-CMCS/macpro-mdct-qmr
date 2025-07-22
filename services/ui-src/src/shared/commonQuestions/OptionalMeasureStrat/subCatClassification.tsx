@@ -68,14 +68,14 @@ export const SubCatSection = ({
           onDelete={() => remove(idx)}
         >
           <CUI.Text size={"xl"} my="3">
-            {"Additional/Alternative Classification/Sub-category"}
+            {"Additional Sub-category"}
           </CUI.Text>
           <QMR.QuestionChild show key={field.id}>
             <CUI.Stack spacing={"5"}>
               <QMR.TextInput
                 name={`${name}.additionalSubCategories.${idx}.description`}
                 key={`${name}.additionalSubCategories.${idx}.description`}
-                label={"Define the Alternative Classification/Sub-category"}
+                label={"Define the Additional Sub-category"}
                 rules={{ required: true }}
               />
               <NDRSets
