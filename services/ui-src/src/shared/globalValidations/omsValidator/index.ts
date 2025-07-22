@@ -11,6 +11,7 @@ import {
 import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { cleanString, isLegacyLabel, LabelData } from "utils";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface OmsValidationProps {
   data: DefaultFormData | DefaultFormDataLegacy;
@@ -426,5 +427,13 @@ export const omsValidations = ({
       })
     );
   }
+
+  //check to see if we should display the word optional
+  if (!featuresByYear.displayOptionalLanguage) {
+    for (const error of errorArray) {
+      error.errorLocation = error.errorLocation.replace("Optional ", "");
+    }
+  }
+
   return errorArray;
 };
