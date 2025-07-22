@@ -94,13 +94,13 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
       [rateData?.["pcr-rate"] ?? []],
       rates ?? [],
       ndrForumlas,
-      `Optional Measure Stratification: ${locationDictionary(label)}`
+      `Measure Stratification: ${locationDictionary(label)}`
     ),
     ...GV.PCRatLeastOneRateComplete(
       [rateData?.["pcr-rate"] ?? []],
       rates ?? [],
       PMD.qualifiers,
-      `Optional Measure Stratification: ${locationDictionary(label)}`,
+      `Measure Stratification: ${locationDictionary(label)}`,
       true
     ),
   ];

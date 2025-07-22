@@ -3,6 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { NDRSets } from "./NDR/ndrSets";
 import { NDRSetsAccordion } from "../MeasureStratification/NDR/ndrSets";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface AddAnotherButtonProps {
   /** onClick state updating function for dynamic rendering */
@@ -62,6 +63,18 @@ export const SubCatSection = ({
     shouldUnregister: true,
   });
 
+  const labels = featuresByYear.displayOptionalLanguage
+    ? {
+        header: "Additional/Alternative Classification/Sub-category",
+        help: "Define the Alternative Classification/Sub-category",
+        button: "Sub-Category",
+      }
+    : {
+        header: "Additional Subcategory",
+        help: "Define the Additional Subcategory",
+        button: "Subcategory",
+      };
+
   return (
     <CUI.Box key={`${name}.additionalSubCategoriesWrapper`}>
       {fields.map((field: any, idx: number) => (
@@ -71,14 +84,14 @@ export const SubCatSection = ({
           onDelete={() => remove(idx)}
         >
           <CUI.Text size={"xl"} my="3">
-            {"Additional/Alternative Classification/Sub-category"}
+            {labels.header}
           </CUI.Text>
           <QMR.QuestionChild show key={field.id}>
             <CUI.Stack spacing={"5"}>
               <QMR.TextInput
                 name={`${name}.additionalSubCategories.${idx}.description`}
                 key={`${name}.additionalSubCategories.${idx}.description`}
-                label={"Define the Alternative Classification/Sub-category"}
+                label={labels.help}
                 rules={{ required: true }}
               />
               {checkboxes ? (
@@ -98,7 +111,7 @@ export const SubCatSection = ({
       ))}
       <AddAnotherButton
         onClick={() => append({})}
-        additionalText={"Sub-Category"}
+        additionalText={labels.button}
         key={`${name}.additionalSubCategoriesButton`}
         testid={`${name}.additionalSubCategoriesButton`}
       />

@@ -43,7 +43,7 @@ const omsLabels = (omsNode: OmsNode) => {
     } category.`,
     NoIndependentData: `No, we are reporting disaggregated data for ${
       omsNode?.aggregateTitle || omsNode?.label
-    } sub-categories.`,
+    } subcategories.`,
   };
 };
 
