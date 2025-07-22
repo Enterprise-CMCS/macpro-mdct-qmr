@@ -7,7 +7,7 @@ import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
 import { Accordion } from "components/Accordion";
-import { NDRSets } from "./NDR/ndrSets";
+import { NDRSetsAccordion } from "./NDR/ndrSets";
 import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
 import { AddAnotherSectionAccordian } from "../OptionalMeasureStrat/additionalCategory";
 
@@ -62,7 +62,7 @@ const omsLabels = (omsNode: OmsNode) => {
 const NdrNode = ({ name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
-      <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
+      <NDRSetsAccordion name={`${name}.rateData`} key={`${name}.rateData`} />
     </CUI.Box>
   );
 };
@@ -166,7 +166,7 @@ const buildChildCheckboxOption = ({
  */
 export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   if (!props.options) {
-    return <NDRSets name={`${props.name}.rateData`} />;
+    return <NDRSetsAccordion name={`${props.name}.rateData`} />;
   }
 
   const checkboxOptions = [
