@@ -35,6 +35,9 @@ export const MSCAD = ({
               <>
                 <CMQ.StatusOfData />
                 <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
+                {isPrimaryMeasureSpecSelected && (
+                  <CMQ.DeviationFromMeasureSpec />
+                )}
                 <Q.DataSource type="adult" />
                 <CMQ.DateRange type="adult" />
                 <CMQ.DefinitionOfPopulation />
@@ -44,20 +47,20 @@ export const MSCAD = ({
                       data={PMD.data}
                       rateReadOnly={false}
                     />
-                    <CMQ.DeviationFromMeasureSpec />
                   </>
                 )}
                 {/* Show Other Performance Measures when isHedis is not true  */}
                 {isOtherMeasureSpecSelected && (
                   <CMQ.OtherPerformanceMeasure rateAlwaysEditable />
                 )}
+                <CMQ.AdditionalNotes />
                 {showOptionalMeasureStrat && <NotCollectingOMS year={year} />}
               </>
             )}
+            {data[DC.DID_REPORT] == DC.NO && <CMQ.AdditionalNotes />}
           </>
         </>
       )}
-      <CMQ.AdditionalNotes />
     </>
   );
 };
