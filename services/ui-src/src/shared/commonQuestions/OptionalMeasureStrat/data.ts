@@ -26,6 +26,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, Navajo Nation, Blackfeet Tribe of the Blackfeet Indian Reservation of Montana, Native Village of Barrow Inupiat Traditional Government, Nome Eskimo Community, Aztec, Maya, etc.)",
+          aggregateTitle: "American Indian or Alaska Native",
         },
         {
           id: "RKWD6S",
@@ -40,6 +41,7 @@ const omb2024 = () => {
           ],
           flagSubCat: true,
           flagSubLabel: "(Enter, for example, Pakistani, Hmong, Afghan, etc.)",
+          aggregateTitle: "Asian",
         },
         {
           id: "6NrBa5",
@@ -55,6 +57,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, Trinidadian and Tobagonian, Ghanian, Congolese, etc.)",
+          aggregateTitle: "Black or African American",
         },
         {
           id: "v767bB",
@@ -70,6 +73,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, Colombian, Honduran, Spaniard, etc.)",
+          aggregateTitle: "Hispanic or Latino",
         },
         {
           id: "6dmrjv",
@@ -84,6 +88,7 @@ const omb2024 = () => {
           ],
           flagSubCat: true,
           flagSubLabel: "(Enter, for example, Moroccan, Yemeni, Kurdish, etc.)",
+          aggregateTitle: "Middle Eastern or North African",
         },
         {
           id: "Qu4kZK",
@@ -99,6 +104,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, Chuukese, Palauan, Tahitian, etc.)",
+          aggregateTitle: "Native Hawaiian or Pacific Islander",
         },
         {
           id: "szjphG",
@@ -114,6 +120,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, French, Swedish, Norwegian, etc.)",
+          aggregateTitle: "White",
         },
         {
           id: "nN7fNs",

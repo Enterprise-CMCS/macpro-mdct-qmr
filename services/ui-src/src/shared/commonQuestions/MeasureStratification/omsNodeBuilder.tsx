@@ -34,29 +34,16 @@ interface NdrNodeProps {
 }
 
 const omsLabels = (omsNode: OmsNode) => {
-  if (featuresByYear.hasStreamlinedOms) {
-    return {
-      checkboxOpt: `Are you reporting aggregate data for the ${
-        omsNode.aggregateTitle || omsNode.label
-      } category?`,
-      YesAggregateData: `Yes, we are reporting aggregate data for the ${
-        omsNode?.aggregateTitle || omsNode?.label
-      } categories.`,
-      NoIndependentData: `No, we are reporting disaggregated data for ${
-        omsNode?.aggregateTitle || omsNode?.label
-      } subcategories`,
-    };
-  }
   return {
-    checkboxOpt: `Are you only reporting aggregated data for all ${
-      omsNode.aggregateTitle || omsNode.id
-    } categories?`,
-    YesAggregateData: `Yes, we are only reporting aggregated data for all ${
-      omsNode?.aggregateTitle || omsNode?.id
-    } categories.`,
-    NoIndependentData: `No, we are reporting independent data for all ${
-      omsNode?.aggregateTitle || omsNode?.id
-    } categories`,
+    checkboxOpt: `Are you reporting aggregate data for the ${
+      omsNode.aggregateTitle || omsNode.label
+    } category?`,
+    YesAggregateData: `Yes, we are reporting aggregate data for the ${
+      omsNode?.aggregateTitle || omsNode?.label
+    } category.`,
+    NoIndependentData: `No, we are reporting disaggregated data for ${
+      omsNode?.aggregateTitle || omsNode?.label
+    } sub-categories.`,
   };
 };
 
