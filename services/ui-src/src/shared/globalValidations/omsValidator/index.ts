@@ -12,6 +12,8 @@ import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { cleanString, isLegacyLabel, LabelData } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
+import { omsLocationDictionary } from "../dataDrivenTools";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 interface OmsValidationProps {
   data: DefaultFormData | DefaultFormDataLegacy;
@@ -179,6 +181,7 @@ const getAccordionClassificationRates = (
                 lowLevelKey,
               ]);
               const lowLevel = midLevel.selections[lowLevelKey];
+
               if (lowLevel) {
                 omsRates.push({ key: lowLabel, ...lowLevel });
               }
@@ -346,7 +349,14 @@ export const omsValidations = ({
     !!data["OtherPerformanceMeasure-Rates"];
 
   let errorArray: FormError[] = [];
-  const omsRates = getOMSRates(data, locationDictionary);
+
+  //if there's a version and it is 1997, we want to use a very specific data set for looks up values, if not, we will use what is passed in
+  const dictionary =
+    data.OptionalMeasureStratification?.version === "1997-omb"
+      ? omsLocationDictionary(OMSData(2024), categories, qualifiers)
+      : locationDictionary;
+
+  const omsRates = getOMSRates(data, dictionary);
 
   //build a dictionary for opm to find the description labels in the error text
   const opmLocationDictionary = (ids: string[]) => {
@@ -368,19 +378,11 @@ export const omsValidations = ({
 
     if (rateData[OMS.CustomKeys.Aifhh]) {
       errorArray.push(
-        ...validateFields(
-          rateData[OMS.CustomKeys.Aifhh]!,
-          label,
-          locationDictionary
-        )
+        ...validateFields(rateData[OMS.CustomKeys.Aifhh]!, label, dictionary)
       );
     } else if (rateData[OMS.CustomKeys.Iuhh]) {
       errorArray.push(
-        ...validateFields(
-          rateData[OMS.CustomKeys.Iuhh]!,
-          label,
-          locationDictionary
-        )
+        ...validateFields(rateData[OMS.CustomKeys.Iuhh]!, label, dictionary)
       );
     } else if (rateData[OMS.CustomKeys.Pcr]) {
       errorArray.push(...validateValues(rateData[OMS.CustomKeys.Pcr]!, label));
@@ -389,7 +391,7 @@ export const omsValidations = ({
         ...validateNDR(
           rateData.rates,
           label,
-          isOPM ? opmLocationDictionary : locationDictionary
+          isOPM ? opmLocationDictionary : dictionary
         )
       );
     } else {
@@ -404,7 +406,7 @@ export const omsValidations = ({
           categories,
           qualifiers,
           label: [label],
-          locationDictionary,
+          locationDictionary: dictionary,
           isOPM,
           customTotalLabel,
           dataSource,
@@ -430,7 +432,7 @@ export const omsValidations = ({
         categories,
         qualifiers,
         label: [label],
-        locationDictionary,
+        locationDictionary: dictionary,
         isOPM,
         customTotalLabel,
         dataSource,
