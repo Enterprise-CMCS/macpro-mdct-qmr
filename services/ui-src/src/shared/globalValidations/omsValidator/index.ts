@@ -447,5 +447,15 @@ export const omsValidations = ({
     }
   }
 
-  return errorArray;
+  //temporary fix for why the same errors are being generated multiple times
+  const uniqueErrors = errorArray.filter(
+    (error, i, a) =>
+      a.findIndex(
+        (errorNext) =>
+          error.errorLocation === errorNext.errorLocation &&
+          error.errorMessage === errorNext.errorMessage
+      ) == i
+  );
+
+  return uniqueErrors;
 };
