@@ -265,15 +265,25 @@ const validateNDR = (
     const midKey = rates[topKey];
     errors.push(
       Object.keys(midKey)
-        .filter(
-          (qualId) =>
-            !midKey[qualId].every(
-              (ndr) => ndr.numerator && ndr.denominator && ndr.rate
-            )
-        )
-        .map((qualId) =>
-          errorToFillNDR(`${labels} - ${locationDictionary([topKey, qualId])}`)
-        )
+        .filter((qualId) => {
+          // Only consider NDRs that are not all empty strings
+          const relevantNDRs = midKey[qualId].filter(
+            (ndr) =>
+              !(
+                ndr.numerator === "" &&
+                ndr.denominator === "" &&
+                ndr.rate === ""
+              )
+          );
+          return !relevantNDRs.every(
+            (ndr) => ndr.numerator && ndr.denominator && ndr.rate
+          );
+        })
+        .map((qualId) => {
+          return errorToFillNDR(
+            `${labels} - ${locationDictionary([topKey, qualId])}`
+          );
+        })
     );
   }
   return errors.flat();
