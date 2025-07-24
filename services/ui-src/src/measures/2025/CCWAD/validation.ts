@@ -69,6 +69,7 @@ const CCWADValidation = (data: FormData) => {
         GV.validateOneCatRateHigherThanOtherCatOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
+        GV.validateOneQualRateHigherThanOtherQualOMS(),
       ],
     }),
   ];
