@@ -39,6 +39,7 @@ const GSDADValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateNotZeroOMS(),
         GV.validateRateZeroOMS(),
+        GV.validateEqualQualifierDenominatorsOMS(),
       ],
     }),
     ...GV.validateDualPopInformationPM(
