@@ -208,14 +208,16 @@ const getAccordionClassificationRates = (
           );
 
           for (const rates of values) {
-            const filledRates = (
-              Object.values(rates).flat() as RateFields[]
-            ).filter(
-              (rate) =>
-                rate.numerator != undefined || rate.denominator != undefined
-            );
-            if (filledRates.length > 0)
+            if (
+              (Object.values(rates).flat() as RateFields[]).filter(
+                (rate) =>
+                  (rate.numerator != undefined && rate.numerator != "") ||
+                  (rate.denominator != undefined && rate.denominator != "")
+              ).length > 0
+            ) {
               omsRates.push({ key: midLabel, ...midLevel });
+              break;
+            }
           }
         }
       }
@@ -447,15 +449,5 @@ export const omsValidations = ({
     }
   }
 
-  //temporary fix for why the same errors are being generated multiple times
-  const uniqueErrors = errorArray.filter(
-    (error, i, a) =>
-      a.findIndex(
-        (errorNext) =>
-          error.errorLocation === errorNext.errorLocation &&
-          error.errorMessage === errorNext.errorMessage
-      ) == i
-  );
-
-  return uniqueErrors;
+  return errorArray;
 };
