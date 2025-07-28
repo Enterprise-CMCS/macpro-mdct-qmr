@@ -35,6 +35,7 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
     ],
     helpText:
       "Please select all populations that are included in the survey sample. For example, if your survey sample includes both non-dual Medicaid (Title XIX) beneficiaries and Individuals Dually Eligible for Medicare and Medicaid, select both Medicaid population (Title XIX) and Individuals Dually Eligible for Medicare and Medicaid.",
+    hideList: true,
   },
   ACS: {
     options: [
@@ -59,6 +60,7 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
     ],
     helpText:
       "Please select all populations that are included in the survey sample. For example, if your survey sample includes both non-dual Medicaid (Title XIX) beneficiaries and Individuals Dually Eligible for Medicare and Medicaid, select both Medicaid population (Title XIX) and Individuals Dually Eligible for Medicare and Medicaid.",
+    hideList: true,
   },
   ACSC: {
     options: [
@@ -84,6 +86,7 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
     ],
     helpText:
       "Please select all populations that are included in the survey sample. For example, if your survey sample includes both Separate CHIP (Title XXI) beneficiaries and Individuals Dually Eligible for Medicare and Medicaid, select both Separate CHIP (Title XXI) and Individuals Dually Eligible for Medicare and Medicaid.",
+    hideList: true,
   },
 };
 

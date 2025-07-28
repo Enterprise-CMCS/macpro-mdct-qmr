@@ -31,6 +31,7 @@ export interface CoreSetSpecificOptions {
   [coreSetId: string]: {
     options: DefOfDenomOption[];
     helpText: string;
+    hideList?: boolean;
   };
 }
 
@@ -137,14 +138,15 @@ const CoreSetSpecificDefinitions = (
   const otherOptions = removeOtherOption ? [] : [otherOption];
   return (
     <CUI.Box>
-      <CUI.Text mt="3">{options[coreSetType].helpText}</CUI.Text>
-      {options[coreSetType].options.length > 1 && (
-        <CUI.UnorderedList m="5" ml="10">
-          {options[coreSetType].options.map((item) => (
-            <CUI.ListItem>{item.displayValue}</CUI.ListItem>
-          ))}
-        </CUI.UnorderedList>
-      )}
+      <CUI.Text my="3">{options[coreSetType].helpText}</CUI.Text>
+      {!options[coreSetType].hideList &&
+        options[coreSetType].options.length > 1 && (
+          <CUI.UnorderedList m="5" ml="10">
+            {options[coreSetType].options.map((item) => (
+              <CUI.ListItem>{item.displayValue}</CUI.ListItem>
+            ))}
+          </CUI.UnorderedList>
+        )}
       <QMR.Checkbox
         {...register(DC.DEFINITION_OF_DENOMINATOR)}
         options={[...options[coreSetType].options, ...otherOptions]}
