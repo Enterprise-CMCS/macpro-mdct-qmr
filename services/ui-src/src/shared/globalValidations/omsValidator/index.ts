@@ -203,21 +203,18 @@ const getAccordionClassificationRates = (
          * we have to look through the actual rate data to see if they entered any value to trigger a partial validation
          */
         if (midLevel.rateData?.rates) {
-          const values = Object.values(
-            midLevel.rateData?.rates as OMS.OmsRateFields
-          );
+          const values = Object.values(midLevel.rateData.rates);
 
-          for (const rates of values) {
-            if (
-              (Object.values(rates).flat() as RateFields[]).filter(
-                (rate) =>
-                  (rate.numerator != undefined && rate.numerator != "") ||
-                  (rate.denominator != undefined && rate.denominator != "")
-              ).length > 0
-            ) {
-              omsRates.push({ key: midLabel, ...midLevel });
-              break;
-            }
+          const isFilled = (str: string | undefined) =>
+            str !== undefined && str !== "";
+
+          const hasNumOrDenom = (rates: any) =>
+            (Object.values(rates).flat() as RateFields[]).some(
+              (rate) => isFilled(rate.numerator) || isFilled(rate.denominator)
+            );
+
+          if (values.some(hasNumOrDenom)) {
+            omsRates.push({ key: midLabel, ...midLevel });
           }
         }
       }

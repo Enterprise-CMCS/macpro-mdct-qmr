@@ -153,10 +153,10 @@ const buildNDRComponent = (
         Please review the auto-calculated rate and revise if needed.
       </CUI.Heading>
       {sets.map(
-        (_label, idx) =>
+        (set, idx) =>
           rateArrays[idx].length > 0 && (
             <CUI.Box mt="1rem">
-              <CUI.Heading fontSize="16px">{_label.label}</CUI.Heading>
+              <CUI.Heading fontSize="16px">{set.label}</CUI.Heading>
               {rateArrays[idx]}
             </CUI.Box>
           )
