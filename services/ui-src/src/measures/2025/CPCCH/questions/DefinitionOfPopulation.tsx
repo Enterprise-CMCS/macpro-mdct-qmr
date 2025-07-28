@@ -15,7 +15,7 @@ export const DefinitionOfPopulation = () => {
       value: "MedicaidTitleXIX",
     },
     {
-      displayValue: "Medicaid-Expansion CHIP (Title XXI)",
+      displayValue: "Title XXI-funded Medicaid Expansion CHIP",
       value: "MedicaidExpansionCHIP",
     },
   ];

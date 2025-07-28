@@ -47,7 +47,114 @@ export const commonQuestionsLabel = {
       "Specify the size of the excluded measure-eligible population:",
     deliverySysOther:
       "Describe the Other Delivery System represented in the denominator (<em>text in this field is included in publicly-reported state-specific comments</em>):",
-    useCoreSetSpecificOptions: true,
+    coreSetSpecificOptions: {
+      ACSM: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue: "Title XXI-funded Medicaid Expansion CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+          },
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Medicaid",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include Medicaid (Title XIX) beneficiaries, Title XXI-funded Medicaid Expansion CHIP beneficiaries, and individuals dually eligible for Medicare and Medicaid, select:",
+      },
+      CCSM: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue: "Title XXI-funded Medicaid Expansion CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include both Medicaid (Title XIX) and Title XXI-funded Medicaid Expansion CHIP beneficiaries, select both:",
+      },
+      ACSC: {
+        options: [
+          {
+            displayValue: "Separate CHIP (Title XXI)",
+            value: DC.DENOMINATOR_INC_CHIP,
+          },
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Separate CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include both Separate CHIP (Title XXI) beneficiaries and individuals dually eligible for Medicare and Separate CHIP, select:",
+      },
+      CCSC: {
+        options: [
+          {
+            displayValue: "Separate CHIP (Title XXI)",
+            value: DC.DENOMINATOR_INC_CHIP,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator.",
+      },
+      ACS: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue: "Title XXI-funded Medicaid Expansion CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+          },
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Medicaid",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include Medicaid (Title XIX) beneficiaries, Title XXI-funded Medicaid Expansion CHIP beneficiaries, and individuals dually eligible for Medicare and Medicaid, select:",
+      },
+      CCS: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue: "Title XXI-funded Medicaid Expansion CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include both Medicaid (Title XIX) and Title XXI-funded Medicaid Expansion CHIP beneficiaries, select both:",
+      },
+      HHCS: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Medicaid",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include both Medicaid (Title XIX) enrollees and individuals dually eligible for Medicare and Medicaid, select:",
+      },
+    },
   },
   DateRange: {
     header: "Date Range",
