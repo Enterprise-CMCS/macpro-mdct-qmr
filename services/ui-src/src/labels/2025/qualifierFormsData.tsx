@@ -7,8 +7,14 @@ const AdultData: DataDriven = {
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of adults in your state’s Medicaid program (inclusive of CHIP-funded Medicaid Expansion) (Title XIX & XXI) were enrolled in each delivery system?`,
   textTable: [
-    ["Medicaid (Title XIX & XXI)", "Adults Under Age 65"],
-    ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
+    [
+      "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)",
+      "Adults Under Age 65",
+    ],
+    [
+      "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)",
+      "Age 65 and older",
+    ],
   ],
   fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
@@ -82,8 +88,14 @@ const AdultMedicaidData: DataDriven = {
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of adults in your state’s Medicaid program (inclusive of CHIP-funded Medicaid Expansion) (Title XIX & XXI) were enrolled in each delivery system?`,
   textTable: [
-    ["Medicaid (Title XIX & XXI)", "Adults Under Age 65"],
-    ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
+    [
+      "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)",
+      "Adults Under Age 65",
+    ],
+    [
+      "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)",
+      "Age 65 and older",
+    ],
   ],
   fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
@@ -122,7 +134,9 @@ const ChildData: DataDriven = {
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of children in your state’s Medicaid program (inclusive of CHIP-funded Medicaid Expansion) (Title XIX & XXI) were enrolled in each delivery system?`,
-  textTable: [["Medicaid (TITLE XIX & XXI)"]],
+  textTable: [
+    ["Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"],
+  ],
   fieldValues: ["UnderTwentyOneMedicaid"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [
@@ -190,7 +204,9 @@ const ChildMedicaidData: DataDriven = {
   questionTitle: "Child Core Set Questions: Medicaid",
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of children in your state’s Medicaid program (inclusive of CHIP-funded Medicaid Expansion) (Title XIX & XXI) were enrolled in each delivery system?`,
-  textTable: [["Medicaid (Title XIX & XXI)"]],
+  textTable: [
+    ["Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"],
+  ],
   fieldValues: ["UnderTwentyOne"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [

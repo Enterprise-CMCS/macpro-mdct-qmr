@@ -36,14 +36,18 @@ export const coreSetType = (abbr: string) => {
   return;
 };
 
-export const coreSetSubTitles = (abbr: CoreSetAbbr) => {
+export const coreSetSubTitles = (abbr: CoreSetAbbr, year: number) => {
+  const CCSMAbbrByYear =
+    year >= 2025
+      ? "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+      : "Medicaid (Title XIX & XXI)";
   if (featuresByYear.hasCombinedRates) {
     switch (abbr) {
       case CoreSetAbbr.ACS:
       case CoreSetAbbr.ACSM:
       case CoreSetAbbr.CCS:
       case CoreSetAbbr.CCSM:
-        return "Medicaid (Title XIX & XXI)";
+        return CCSMAbbrByYear;
       case CoreSetAbbr.ACSC:
       case CoreSetAbbr.CCSC:
         return "Separate CHIP";
@@ -73,24 +77,35 @@ export const coreSetSubTitles = (abbr: CoreSetAbbr) => {
   }
 };
 
-export const coreSetTitles = (abbr: string, type?: string) => {
-  const subTitle = coreSetSubTitles(abbr as CoreSetAbbr);
+export const coreSetTitles = (abbr: string, year: number, type?: string) => {
+  const subTitle = coreSetSubTitles(abbr as CoreSetAbbr, year);
   const subType = type || "Measures";
   let name = `${coreSetType(abbr)} Core Set ${subType}`;
   return subTitle ? `${name}: ${subTitle}` : name;
 };
 
 //seperated coresets have unique titles for their breadcrumb menu. this is only for 2024 and onward
-export const coreSetBreadCrumbTitle = ():
-  | { [key: string]: string }
-  | undefined => {
+export const coreSetBreadCrumbTitle = (
+  year: number
+): { [key: string]: string } | undefined => {
   if (featuresByYear.hasCombinedRates)
-    return {
-      [CoreSetAbbr.ACSC]: "(Separate CHIP)",
-      [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
-      [CoreSetAbbr.CCSC]: "(Separate CHIP)",
-      [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI))",
-    };
+    if (year >= 2025) {
+      return {
+        [CoreSetAbbr.ACSC]: "(Separate CHIP)",
+        [CoreSetAbbr.ACSM]:
+          "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
+        [CoreSetAbbr.CCSC]: "(Separate CHIP)",
+        [CoreSetAbbr.CCSM]:
+          "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
+      };
+    } else {
+      return {
+        [CoreSetAbbr.ACSC]: "(Separate CHIP)",
+        [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
+        [CoreSetAbbr.CCSC]: "(Separate CHIP)",
+        [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI))",
+      };
+    }
 
   return undefined;
 };

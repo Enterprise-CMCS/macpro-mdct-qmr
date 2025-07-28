@@ -417,7 +417,7 @@ export const MeasureWrapper = ({
     return null;
   }
 
-  const separatedCoreSet = coreSetBreadCrumbTitle();
+  const separatedCoreSet = coreSetBreadCrumbTitle(Number(year));
 
   const formatTitle = (customDescription?: string) => {
     const foundMeasureDescription =
