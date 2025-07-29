@@ -209,7 +209,7 @@ export const MeasureWrapper = ({
     measure: measureId,
   });
   const measureData = apiData?.Item;
-  const detailedDescription = apiData?.Item?.detailedDescription;
+  const { detailedDescription, stratificationRequired } = measureData || {};
 
   const updateCoreSet = useEditCoreSet().mutate;
   const { state, coreSetId } = useParams();
@@ -474,6 +474,15 @@ export const MeasureWrapper = ({
                 <CUI.Container maxW="7xl" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
+                  {stratificationRequired && (
+                    <CUI.Box mb="1rem">
+                      <QMR.Notification
+                        alertStatus="info"
+                        alertTitle="Reminder: Measure Stratification Required"
+                        alertDescription={`For ${year}, Core Sets reporting, states are expected to report stratified data for this measure.`}
+                      />
+                    </CUI.Box>
+                  )}
                   {measureId !== "CSQ" && (
                     <>
                       {Object.keys(separatedCoreSet ?? []).includes(
