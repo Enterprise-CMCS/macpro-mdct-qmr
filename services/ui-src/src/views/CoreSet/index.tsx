@@ -330,7 +330,7 @@ export const CoreSet = () => {
         },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: (coreSet[0], year) + spaName,
+          name: coreSetTitles(coreSet[0], Number(year)) + spaName,
         },
       ]}
     >

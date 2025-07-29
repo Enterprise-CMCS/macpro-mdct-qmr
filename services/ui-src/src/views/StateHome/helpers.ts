@@ -84,7 +84,7 @@ export const formatTableItems = ({
           : "";
 
       const type = getCoreSetType(tempSet[0] as CoreSetAbbr);
-      const title = coreSetTitles(tempSet[0], year as string) + tempTitle;
+      const title = coreSetTitles(tempSet[0], year) + tempTitle;
 
       const coreSetCards = coreSets[
         year as keyof typeof coreSets
