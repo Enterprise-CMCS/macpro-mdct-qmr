@@ -29,6 +29,7 @@ import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
 import { featuresByYear } from "utils/featuresByYear";
+import { Alert } from "@cmsgov/design-system";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -476,11 +477,11 @@ export const MeasureWrapper = ({
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
                   {stratificationRequired && (
                     <CUI.Box mb="1rem">
-                      <QMR.Notification
-                        alertStatus="info"
-                        alertTitle="Reminder: Measure Stratification Required"
-                        alertDescription={`For ${year}, Core Sets reporting, states are expected to report stratified data for this measure.`}
-                      />
+                      <Alert heading="Reminder: Measure Stratification Required">
+                        <CUI.Text>
+                          {`For ${year}, Core Sets reporting, states are expected to report stratified data for this measure.`}
+                        </CUI.Text>
+                      </Alert>
                     </CUI.Box>
                   )}
                   {measureId !== "CSQ" && (
