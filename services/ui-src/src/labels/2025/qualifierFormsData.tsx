@@ -7,14 +7,8 @@ const AdultData: DataDriven = {
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of adults in your state’s Medicaid program (inclusive of CHIP-funded Medicaid Expansion) (Title XIX & XXI) were enrolled in each delivery system?`,
   textTable: [
-    [
-      "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)",
-      "Adults Under Age 65",
-    ],
-    [
-      "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)",
-      "Age 65 and older",
-    ],
+    ["Medicaid (Title XIX & XXI)", "Adults Under Age 65"],
+    ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
   ],
   fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
@@ -88,14 +82,8 @@ const AdultMedicaidData: DataDriven = {
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of adults in your state’s Medicaid program (inclusive of CHIP-funded Medicaid Expansion) (Title XIX & XXI) were enrolled in each delivery system?`,
   textTable: [
-    [
-      "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)",
-      "Adults Under Age 65",
-    ],
-    [
-      "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)",
-      "Age 65 and older",
-    ],
+    ["Medicaid (Title XIX & XXI)", "Adults Under Age 65"],
+    ["Medicaid (Title XIX & XXI)", "Age 65 and older"],
   ],
   fieldValues: ["TwentyOneToSixtyFour", "GreaterThanSixtyFour"],
   formData: {
