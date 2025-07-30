@@ -147,12 +147,15 @@ export const MeasureWrapper = ({
     []
   );
 
+  const [boardcast, setBroadcast] = useState<string>();
+
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
   const shared: AnyObject = {
     ...Labels[
       `CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024" | "CQ2025"
     ],
     year: year,
+    broadcast: boardcast,
   };
 
   // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
@@ -279,6 +282,7 @@ export const MeasureWrapper = ({
           onSettled: (data, error) => {
             if (data && !error) {
               refetch();
+              setBroadcast("saved");
             }
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
