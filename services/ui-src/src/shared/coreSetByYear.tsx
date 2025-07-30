@@ -36,11 +36,10 @@ export const coreSetType = (abbr: string) => {
   return;
 };
 
-export const coreSetSubTitles = (abbr: CoreSetAbbr, year: number) => {
-  const CCSMAbbrByYear =
-    year >= 2025
-      ? "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
-      : "Medicaid (Title XIX & XXI)";
+export const coreSetSubTitles = (abbr: CoreSetAbbr) => {
+  const CCSMAbbrByYear = featuresByYear.hasMedicaidInclusiveReportName
+    ? "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+    : "Medicaid (Title XIX & XXI)";
   if (featuresByYear.hasCombinedRates) {
     switch (abbr) {
       case CoreSetAbbr.ACS:
@@ -77,37 +76,34 @@ export const coreSetSubTitles = (abbr: CoreSetAbbr, year: number) => {
   }
 };
 
-export const coreSetTitles = (abbr: string, year: number, type?: string) => {
-  const subTitle = coreSetSubTitles(abbr as CoreSetAbbr, year);
+export const coreSetTitles = (abbr: string, type?: string) => {
+  const subTitle = coreSetSubTitles(abbr as CoreSetAbbr);
   const subType = type || "Measures";
   let name = `${coreSetType(abbr)} Core Set ${subType}`;
   return subTitle ? `${name}: ${subTitle}` : name;
 };
 
 //seperated coresets have unique titles for their breadcrumb menu. this is only for 2024 and onward
-export const coreSetBreadCrumbTitle = (
-  year: number
-): { [key: string]: string } | undefined => {
-  if (featuresByYear.hasCombinedRates)
-    if (year >= 2025) {
-      return {
-        [CoreSetAbbr.ACSC]: "(Separate CHIP)",
-        [CoreSetAbbr.ACSM]:
-          "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
-        [CoreSetAbbr.CCSC]: "(Separate CHIP)",
-        [CoreSetAbbr.CCSM]:
-          "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
-      };
-    } else {
-      return {
-        [CoreSetAbbr.ACSC]: "(Separate CHIP)",
-        [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
-        [CoreSetAbbr.CCSC]: "(Separate CHIP)",
-        [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI))",
-      };
-    }
-
-  return undefined;
+export const coreSetBreadCrumbTitle = ():
+  | { [key: string]: string }
+  | undefined => {
+  if (!featuresByYear.hasCombinedRates) return undefined;
+  if (featuresByYear.hasMedicaidInclusiveReportName) {
+    return {
+      [CoreSetAbbr.ACSC]: "(Separate CHIP)",
+      [CoreSetAbbr.ACSM]:
+        "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
+      [CoreSetAbbr.CCSC]: "(Separate CHIP)",
+      [CoreSetAbbr.CCSM]:
+        "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
+    };
+  }
+  return {
+    [CoreSetAbbr.ACSC]: "(Separate CHIP)",
+    [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
+    [CoreSetAbbr.CCSC]: "(Separate CHIP)",
+    [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI))",
+  };
 };
 
 export const coreSets: CoreSetFields = {

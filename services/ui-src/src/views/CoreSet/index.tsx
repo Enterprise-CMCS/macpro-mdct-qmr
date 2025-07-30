@@ -93,7 +93,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       <CUI.Text>Core Set Qualifiers</CUI.Text>
       <Link to={"CSQ"}>
         <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetTitles(coreSetInfo[0], Number(year), "Questions") + spaName}
+          {coreSetTitles(coreSetInfo[0], "Questions") + spaName}
         </CUI.Text>
       </Link>
 
@@ -330,7 +330,7 @@ export const CoreSet = () => {
         },
         {
           path: `/${state}/${year}/${coreSetId}`,
-          name: coreSetTitles(coreSet[0], Number(year)) + spaName,
+          name: coreSetTitles(coreSet[0]) + spaName,
         },
       ]}
     >
