@@ -97,7 +97,7 @@ export const StratificationOption = ({ register, reset }: Props) => {
         <CUI.Box mb="1rem">
           <QMR.Notification
             alertStatus="warning"
-            alertTitle=" Warning! Entered data will not be saved if you switch race and
+            alertTitle="Warning! Entered data will not be saved if you switch race and
           ethnicity reporting standards. Please confirm which standard you are
           using before entering data."
           />

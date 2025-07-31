@@ -54,6 +54,7 @@ export const Qualifier = ({
           <CUI.Text as="h1" fontSize="xl" mb="3" fontWeight="bold">
             {data?.title}
           </CUI.Text>
+          <CUI.Text mb="2">{data?.questionIntro}</CUI.Text>
           <QMR.SupportLinks />
           {type === "HH" && <QMR.HealthHomeInfo />}
         </CUI.Box>
