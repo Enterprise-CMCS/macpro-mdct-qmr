@@ -286,6 +286,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     new s3notifications.LambdaDestination(avScanLambda)
   );
 
+  // Note about this lambda: In isDev situations this lambda must be manually run if you want attachment scanning to work
   const avDownloadDefinitionsLambda = new Lambda(
     scope,
     "AvDownloadDefinitionsLambda",

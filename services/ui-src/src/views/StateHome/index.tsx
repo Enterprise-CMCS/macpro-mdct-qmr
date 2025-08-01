@@ -19,7 +19,6 @@ import { BannerCard } from "components/Banner/BannerCard";
 import { coreSets, CoreSetField } from "shared/coreSetByYear";
 
 import { useFlags } from "launchdarkly-react-client-sdk";
-import { Link } from "react-router-dom";
 import { statesWithoutCombinedRates } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
 
@@ -104,25 +103,16 @@ const ReportingYear = () => {
       </CUI.Select>
       {featuresByYear.hasCombinedRates && showCombinedRatesButton && (
         <CUI.Box mt="22px">
-          <Link
-            to={`/${state}/${year}/combined-rates`}
-            style={{
-              textDecoration: "none",
-              marginTop: "22px",
-            }}
+          <CUI.Button
+            onClick={() => navigate(`/${state}/${year}/combined-rates`)}
+            href="#"
+            variant={"outline-primary"}
+            width="220px"
+            height="37px"
+            as={CUI.Link}
           >
-            <QMR.ContainedButton
-              buttonText={"View Combined Rates"}
-              buttonProps={{
-                colorScheme: "blue",
-                variant: "outline",
-                color: "blue.500",
-                fontSize: "16px",
-                width: "220px",
-                height: "37px",
-              }}
-            />
-          </Link>
+            View Combined Rates
+          </CUI.Button>
         </CUI.Box>
       )}
     </CUI.Box>

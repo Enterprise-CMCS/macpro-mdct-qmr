@@ -1,8 +1,8 @@
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
 import { useUser } from "hooks/authHooks";
 import { CoreSetField } from "shared/coreSetByYear";
+import { FaPlusCircle } from "react-icons/fa";
 
 interface AddCoreSetCardProps {
   title: string;
@@ -19,6 +19,7 @@ export const AddCoreSetCard = ({
 }: AddCoreSetCardProps) => {
   const { isStateUser } = useUser();
   const { state, year } = useParams();
+  const navigate = useNavigate();
 
   return (
     <CUI.Box
@@ -33,24 +34,21 @@ export const AddCoreSetCard = ({
     >
       <CUI.Stack spacing="6">
         <CUI.Text fontWeight="bold">{title}</CUI.Text>
-        <Link
-          to={`/${state}/${year}/${to}`}
-          style={{
-            textDecoration: "none",
+        <CUI.Button
+          data-cy={to + "button"}
+          rightIcon={<FaPlusCircle />}
+          variant={"outline-primary"}
+          fontSize={"1.2rem"}
+          isDisabled={!isStateUser || coreSetExists}
+          href="#"
+          onClick={() => {
+            navigate(`/${state}/${year}/${to}`);
           }}
+          //because they button acts like a link, it can never truly be disabled so we have to prevent the navigation instead
+          as={!isStateUser || coreSetExists ? undefined : CUI.Link}
         >
-          <QMR.ContainedButton
-            disabledStatus={!isStateUser || coreSetExists}
-            icon="plus"
-            testId={to + "button"}
-            buttonText={!coreSetExists ? buttonText : "Already Added"}
-            buttonProps={{
-              colorScheme: "blue",
-              variant: "outline",
-              color: "blue.500",
-            }}
-          />
-        </Link>
+          {!coreSetExists ? buttonText : "Already Added"}
+        </CUI.Button>
       </CUI.Stack>
     </CUI.Box>
   );

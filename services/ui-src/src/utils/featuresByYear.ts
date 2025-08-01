@@ -119,4 +119,21 @@ export const featuresByYear = {
   get displayCovidLanguage() {
     return getMeasureYear() < 2025;
   },
+  /**
+   * Prior to 2025, the Measure Stratification section was called Optional Measure Stratification
+   *
+   * In 2025 and beyond, we want to hide an instance of it being referenced as such
+   */
+  get displayOptionalLanguage() {
+    return getMeasureYear() < 2025;
+  },
+
+  /**
+   * Prior to 2025, the report name was "Medicaid (Title XIX & XXI)"
+   *
+   * In 2025 and beyond, we want to change it to "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+   */
+  get hasMedicaidInclusiveReportName() {
+    return getMeasureYear() >= 2025;
+  },
 };

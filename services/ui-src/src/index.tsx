@@ -1,5 +1,4 @@
 import { createRoot } from "react-dom/client";
-import "index.scss";
 import App from "App";
 import * as serviceWorker from "serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -10,9 +9,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import config from "config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { createStandaloneToast } from "@chakra-ui/toast";
-import { theme } from "theme";
 import { UserProvider, ApiProvider } from "hooks/authHooks";
 import { asyncWithLDProvider } from "launchdarkly-react-client-sdk";
+import { theme } from "styles/theme";
+import "./styles/index.scss";
 
 Amplify.configure({
   Storage: {

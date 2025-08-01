@@ -10,7 +10,9 @@ export const NotCollectingOMS = ({ year }: Props) => {
   return (
     <QMR.CoreQuestionWrapper
       testid="OMS"
-      label="Optional Measure Stratification"
+      label={`${
+        featuresByYear.displayOptionalLanguage ? "Optional " : ""
+      }Measure Stratification`}
     >
       <CUI.Text>
         {`CMS is not collecting stratified data for this measure for ${

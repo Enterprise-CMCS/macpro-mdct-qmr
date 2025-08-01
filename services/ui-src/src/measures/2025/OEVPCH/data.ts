@@ -13,4 +13,7 @@ export const data: MeasureTemplateData = {
     categories,
     qualifiers,
   },
+  opm: {
+    excludeOptions: ["O8BrOa"],
+  },
 };

@@ -7,9 +7,10 @@ import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
 import { Accordion } from "components/Accordion";
-import { NDRSets } from "../OptionalMeasureStrat/NDR/ndrSets";
+import { NDRSetsAccordion } from "./NDR/ndrSets";
 import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
 import { AddAnotherSectionAccordian } from "../OptionalMeasureStrat/additionalCategory";
+import { useFlags } from "launchdarkly-react-client-sdk";
 
 interface CheckboxChildrenProps extends OmsNode {
   /** name for react-hook-form registration */
@@ -33,36 +34,23 @@ interface NdrNodeProps {
 }
 
 const omsLabels = (omsNode: OmsNode) => {
-  if (featuresByYear.hasStreamlinedOms) {
-    return {
-      checkboxOpt: `Are you reporting aggregate data for the ${
-        omsNode.aggregateTitle || omsNode.label
-      } category?`,
-      YesAggregateData: `Yes, we are reporting aggregate data for the ${
-        omsNode?.aggregateTitle || omsNode?.label
-      } categories.`,
-      NoIndependentData: `No, we are reporting disaggregated data for ${
-        omsNode?.aggregateTitle || omsNode?.label
-      } sub-categories`,
-    };
-  }
   return {
-    checkboxOpt: `Are you only reporting aggregated data for all ${
-      omsNode.aggregateTitle || omsNode.id
-    } categories?`,
-    YesAggregateData: `Yes, we are only reporting aggregated data for all ${
-      omsNode?.aggregateTitle || omsNode?.id
-    } categories.`,
-    NoIndependentData: `No, we are reporting independent data for all ${
-      omsNode?.aggregateTitle || omsNode?.id
-    } categories`,
+    checkboxOpt: `Are you reporting aggregate data for the ${
+      omsNode.aggregateTitle || omsNode.label
+    } category?`,
+    YesAggregateData: `Yes, we are reporting aggregate data for the ${
+      omsNode?.aggregateTitle || omsNode?.label
+    } category.`,
+    NoIndependentData: `No, we are reporting disaggregated data for ${
+      omsNode?.aggregateTitle || omsNode?.label
+    } subcategories.`,
   };
 };
 
 const NdrNode = ({ name }: NdrNodeProps) => {
   return (
     <CUI.Box key={`${name}.ndrWrapper`}>
-      <NDRSets name={`${name}.rateData`} key={`${name}.rateData`} />
+      <NDRSetsAccordion name={`${name}.rateData`} key={`${name}.rateData`} />
     </CUI.Box>
   );
 };
@@ -166,8 +154,13 @@ const buildChildCheckboxOption = ({
  */
 export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   if (!props.options) {
-    return <NDRSets name={`${props.name}.rateData`} />;
+    return <NDRSetsAccordion name={`${props.name}.rateData`} />;
   }
+  //a flag added in 2025, if it's turned off, it'll hide [+Add Another Sex] button
+  const sogiFlag =
+    useFlags()?.["sogi-stratification-options"] &&
+    props.id === "O8BrOa" &&
+    props.year! >= 2025;
 
   const checkboxOptions = [
     ...props.options.map((lvlTwoOption) => {
@@ -186,7 +179,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           {options.children}
         </Accordion>
       ))}
-      {props.addMore && (
+      {props.addMore && (props.id !== "O8BrOa" || sogiFlag) && (
         <AddAnotherSectionAccordian
           name={props.name}
           parentName={props.parentDisplayName}

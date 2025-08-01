@@ -48,6 +48,7 @@ export const listMeasures = handler(async (event, context) => {
 
     v.autoCompleted = !!measure?.autocompleteOnCreation;
     v.measureType = measure?.measureType;
+    v.stratificationRequired = !!measure?.stratificationRequired;
   }
 
   return {
@@ -87,6 +88,21 @@ export const getMeasure = handler(async (event, context) => {
     },
   };
   const queryValue = await dynamoDb.get<Measure>(params);
+
+  // Add metadata from measureList
+  if (queryValue) {
+    const measureMetadata = measures[year as number]?.filter(
+      (m) => m.measure === queryValue.measure
+    )[0];
+
+    if (measureMetadata) {
+      queryValue.autoCompleted = !!measureMetadata.autocompleteOnCreation;
+      queryValue.measureType = measureMetadata.measureType;
+      queryValue.stratificationRequired =
+        !!measureMetadata.stratificationRequired;
+    }
+  }
+
   return {
     status: StatusCodes.SUCCESS,
     body: {

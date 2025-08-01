@@ -11,6 +11,9 @@ import {
 import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { cleanString, isLegacyLabel, LabelData } from "utils";
+import { featuresByYear } from "utils/featuresByYear";
+import { omsLocationDictionary } from "../dataDrivenTools";
+import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 interface OmsValidationProps {
   data: DefaultFormData | DefaultFormDataLegacy;
@@ -178,6 +181,7 @@ const getAccordionClassificationRates = (
                 lowLevelKey,
               ]);
               const lowLevel = midLevel.selections[lowLevelKey];
+
               if (lowLevel) {
                 omsRates.push({ key: lowLabel, ...lowLevel });
               }
@@ -195,31 +199,22 @@ const getAccordionClassificationRates = (
           }))
         );
       } else {
-        //we want to check rateData.options as that indicates the user has checked a selection or yesAggregateData as they selected a radio
-        if (
-          (midLevel.rateData as OMS.OmsRateFields)?.options ||
-          midLevel.aggregate === "YesAggregateData"
-        ) {
-          omsRates.push({ key: midLabel, ...midLevel });
-        } else {
-          /* for rates that don't have checkboxes, it gets a little more complicated,
-           * we have to look through the actual rate data to see if they entered any value to trigger a partial validation
-           */
-          if (midLevel.rateData?.rates) {
-            const values = Object.values(
-              midLevel.rateData?.rates as OMS.OmsRateFields
+        /* for rates that don't have checkboxes, it gets a little more complicated,
+         * we have to look through the actual rate data to see if they entered any value to trigger a partial validation
+         */
+        if (midLevel.rateData?.rates) {
+          const values = Object.values(midLevel.rateData.rates);
+
+          const isFilled = (str: string | undefined) =>
+            str !== undefined && str !== "";
+
+          const hasNumOrDenom = (rates: any) =>
+            (Object.values(rates).flat() as RateFields[]).some(
+              (rate) => isFilled(rate.numerator) || isFilled(rate.denominator)
             );
 
-            for (const rates of values) {
-              const filledRates = (
-                Object.values(rates).flat() as RateFields[]
-              ).filter(
-                (rate) =>
-                  rate.numerator != undefined || rate.denominator != undefined
-              );
-              if (filledRates.length > 0)
-                omsRates.push({ key: midLabel, ...midLevel });
-            }
+          if (values.some(hasNumOrDenom)) {
+            omsRates.push({ key: midLabel, ...midLevel });
           }
         }
       }
@@ -272,15 +267,25 @@ const validateNDR = (
     const midKey = rates[topKey];
     errors.push(
       Object.keys(midKey)
-        .filter(
-          (qualId) =>
-            !midKey[qualId].every(
-              (ndr) => ndr.numerator && ndr.denominator && ndr.rate
-            )
-        )
-        .map((qualId) =>
-          errorToFillNDR(`${labels} - ${locationDictionary([topKey, qualId])}`)
-        )
+        .filter((qualId) => {
+          // Only consider NDRs that are not all empty strings
+          const relevantNDRs = midKey[qualId].filter(
+            (ndr) =>
+              !(
+                ndr.numerator === "" &&
+                ndr.denominator === "" &&
+                ndr.rate === ""
+              )
+          );
+          return !relevantNDRs.every(
+            (ndr) => ndr.numerator && ndr.denominator && ndr.rate
+          );
+        })
+        .map((qualId) => {
+          return errorToFillNDR(
+            `${labels} - ${locationDictionary([topKey, qualId])}`
+          );
+        })
     );
   }
   return errors.flat();
@@ -343,7 +348,14 @@ export const omsValidations = ({
     !!data["OtherPerformanceMeasure-Rates"];
 
   let errorArray: FormError[] = [];
-  const omsRates = getOMSRates(data, locationDictionary);
+
+  //if there's a version and it is 1997, we want to use a very specific data set for looks up values, if not, we will use what is passed in
+  const dictionary =
+    data.OptionalMeasureStratification?.version === "1997-omb"
+      ? omsLocationDictionary(OMSData(2024), categories, qualifiers)
+      : locationDictionary;
+
+  const omsRates = getOMSRates(data, dictionary);
 
   //build a dictionary for opm to find the description labels in the error text
   const opmLocationDictionary = (ids: string[]) => {
@@ -365,19 +377,11 @@ export const omsValidations = ({
 
     if (rateData[OMS.CustomKeys.Aifhh]) {
       errorArray.push(
-        ...validateFields(
-          rateData[OMS.CustomKeys.Aifhh]!,
-          label,
-          locationDictionary
-        )
+        ...validateFields(rateData[OMS.CustomKeys.Aifhh]!, label, dictionary)
       );
     } else if (rateData[OMS.CustomKeys.Iuhh]) {
       errorArray.push(
-        ...validateFields(
-          rateData[OMS.CustomKeys.Iuhh]!,
-          label,
-          locationDictionary
-        )
+        ...validateFields(rateData[OMS.CustomKeys.Iuhh]!, label, dictionary)
       );
     } else if (rateData[OMS.CustomKeys.Pcr]) {
       errorArray.push(...validateValues(rateData[OMS.CustomKeys.Pcr]!, label));
@@ -386,7 +390,7 @@ export const omsValidations = ({
         ...validateNDR(
           rateData.rates,
           label,
-          isOPM ? opmLocationDictionary : locationDictionary
+          isOPM ? opmLocationDictionary : dictionary
         )
       );
     } else {
@@ -401,7 +405,7 @@ export const omsValidations = ({
           categories,
           qualifiers,
           label: [label],
-          locationDictionary,
+          locationDictionary: dictionary,
           isOPM,
           customTotalLabel,
           dataSource,
@@ -427,12 +431,20 @@ export const omsValidations = ({
         categories,
         qualifiers,
         label: [label],
-        locationDictionary,
+        locationDictionary: dictionary,
         isOPM,
         customTotalLabel,
         dataSource,
       })
     );
   }
+
+  //check to see if we should display the word optional
+  if (!featuresByYear.displayOptionalLanguage) {
+    for (const error of errorArray) {
+      error.errorLocation = error.errorLocation.replace("Optional ", "");
+    }
+  }
+
   return errorArray;
 };
