@@ -37,13 +37,16 @@ export const coreSetType = (abbr: string) => {
 };
 
 export const coreSetSubTitles = (abbr: CoreSetAbbr) => {
+  const CCSMAbbrByYear = featuresByYear.hasMedicaidInclusiveReportName
+    ? "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+    : "Medicaid (Title XIX & XXI)";
   if (featuresByYear.hasCombinedRates) {
     switch (abbr) {
       case CoreSetAbbr.ACS:
       case CoreSetAbbr.ACSM:
       case CoreSetAbbr.CCS:
       case CoreSetAbbr.CCSM:
-        return "Medicaid (Title XIX & XXI)";
+        return CCSMAbbrByYear;
       case CoreSetAbbr.ACSC:
       case CoreSetAbbr.CCSC:
         return "Separate CHIP";
@@ -84,15 +87,23 @@ export const coreSetTitles = (abbr: string, type?: string) => {
 export const coreSetBreadCrumbTitle = ():
   | { [key: string]: string }
   | undefined => {
-  if (featuresByYear.hasCombinedRates)
+  if (!featuresByYear.hasCombinedRates) return undefined;
+  if (featuresByYear.hasMedicaidInclusiveReportName) {
     return {
       [CoreSetAbbr.ACSC]: "(Separate CHIP)",
-      [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
+      [CoreSetAbbr.ACSM]:
+        "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
       [CoreSetAbbr.CCSC]: "(Separate CHIP)",
-      [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI))",
+      [CoreSetAbbr.CCSM]:
+        "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
     };
-
-  return undefined;
+  }
+  return {
+    [CoreSetAbbr.ACSC]: "(Separate CHIP)",
+    [CoreSetAbbr.ACSM]: "(Medicaid (Title XIX & XXI))",
+    [CoreSetAbbr.CCSC]: "(Separate CHIP)",
+    [CoreSetAbbr.CCSM]: "(Medicaid (Title XIX & XXI))",
+  };
 };
 
 export const coreSets: CoreSetFields = {
