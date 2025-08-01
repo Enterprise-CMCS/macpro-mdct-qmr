@@ -1,5 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
+import * as Types from "../../types";
 
 import { OmsNode } from "shared/types";
 
@@ -18,6 +19,9 @@ interface CheckboxChildrenProps extends OmsNode {
   parentDisplayName: string;
   year?: number;
   accordion?: boolean;
+  data?: {
+    [option: string]: Types.OmsNodes.TopLevelOmsNode;
+  };
 }
 
 interface ChildCheckBoxOptionProps {
@@ -174,7 +178,12 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <QMR.Accordion externalControlled label={options.displayValue}>
+        <QMR.Accordion
+          externalControlled
+          label={options.displayValue}
+          data={props.data}
+          value={options.value}
+        >
           {options.children}
         </QMR.Accordion>
       ))}

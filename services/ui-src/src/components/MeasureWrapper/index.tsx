@@ -282,7 +282,6 @@ export const MeasureWrapper = ({
           onSettled: (data, error) => {
             if (data && !error) {
               refetch();
-              setBroadcast("saved");
             }
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
@@ -298,6 +297,8 @@ export const MeasureWrapper = ({
                 userState: userInfo.userState,
               },
             });
+
+            setBroadcast("saved");
             toastSaved();
           },
           onError: () => {
