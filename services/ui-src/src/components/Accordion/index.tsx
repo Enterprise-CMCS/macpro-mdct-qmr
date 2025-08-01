@@ -1,6 +1,14 @@
-import { MouseEventHandler, ReactNode, useState } from "react";
+import {
+  MouseEventHandler,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import * as CUI from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import SharedContext from "shared/SharedContext";
+import { getFilledKeys } from "utils";
 
 //accordion item and accordion need to be together to get the expand/collapse to work together
 export const AccordionItem = ({
@@ -35,8 +43,25 @@ export const Accordion = ({
   label,
   children,
   externalControlled,
+  data,
+  value,
 }: AccordionProps) => {
   const [index, setIndex] = useState<number>(1);
+
+  const shared: any = useContext(SharedContext);
+
+  useEffect(() => {
+    if (externalControlled && shared?.broadcast === "saved") {
+      if (data && value) {
+        const keys = getFilledKeys(data);
+        for (var i = 0; i < keys.length; i++) {
+          if (keys[i].includes(value)) {
+            setIndex(0);
+          }
+        }
+      }
+    }
+  }, [shared?.broadcast, data]);
 
   if (externalControlled) {
     //only way to really capture when the user has clicked expand all/ collapse all button for the measure stratification section
@@ -76,6 +101,8 @@ interface AccordionProps {
   externalControlled?: boolean;
   label?: string;
   sx?: CUI.SystemStyleObject;
+  data?: any;
+  value?: string;
 }
 
 const sx = {

@@ -82,3 +82,58 @@ export const arrayIsReadOnly = (dataSource: string[]) => {
     dataSource?.every((source) => source === "AdministrativeData") ?? false
   );
 };
+
+export const getFilledKeys = (data: {
+  [option: string]: Types.OmsNodes.TopLevelOmsNode;
+}) => {
+  const keys = [];
+
+  for (const [topKey, topValue] of Object.entries(data)) {
+    if (topValue.additionalSelections)
+      keys.push(
+        `OptionalMeasureStratification.selections.${topKey}.additionalSelections`
+      );
+
+    //i don't think this one is actually in use but i'm going to clear it anyway
+    if (topValue.additionalCategories)
+      keys.push(
+        `OptionalMeasureStratification.selections.${topKey}.additionalCategories`
+      );
+
+    for (const [midKey, midValue] of Object.entries(
+      topValue.selections as Types.OmsNodes.MidLevelOMSNode
+    )) {
+      //this clears the checked boxes when that appear affter selecting "No, we are reporting disaggregated..."
+      if (midValue.additionalSubCategories) {
+        keys.push(
+          `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`
+        );
+      }
+
+      if (midValue.rateData) {
+        for (const [_catKey, catValue] of Object.entries(
+          midValue.rateData.rates
+        )) {
+          for (const [_qualKey, qualValue] of Object.entries(
+            catValue as { [qualifier: string]: Types.RateFields[] }
+          )) {
+            for (var i = 0; i < qualValue.length; i++) {
+              if (
+                (qualValue[i].numerator != undefined &&
+                  qualValue[i].numerator != "") ||
+                qualValue[i].denominator != undefined ||
+                qualValue[i].denominator != ""
+              )
+                keys.push(
+                  `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates.${_catKey}.${_qualKey}`
+                );
+              break;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return keys;
+};

@@ -12,6 +12,9 @@ export interface OmsCheckboxProps {
   data: OmsNode[];
   year: number;
   excludeOptions: string[];
+  omsData?: {
+    [option: string]: OmsNodes.TopLevelOmsNode;
+  };
 }
 
 export interface BaseProps extends Qualifiers, Categories {
