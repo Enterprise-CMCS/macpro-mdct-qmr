@@ -55,7 +55,7 @@ export const SupportInfo = () => (
       search existing data resources, gather the data needed, and completeand
       review the information collection. If you have comments concerning the
       accuracy of the time estimate(s) or suggestions for imprving this form,
-      please write to: CMS, 7500 Security Boulevard, Attn: PRA Reports Clerance
+      please write to: CMS, 7500 Security Boulevard, Attn: PRA Reports Clearance
       Office, Mail Stop C4-26-05, Baltimore, Maryland 21244-1850.
     </CUI.Text>
   </>
