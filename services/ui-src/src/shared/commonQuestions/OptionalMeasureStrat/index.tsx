@@ -2,23 +2,13 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "./../../types";
 import { OMSData } from "./data";
-import { PerformanceMeasureProvider, ComponentFlagType } from "./context";
+import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { ndrFormula } from "types";
-import { LabelData, cleanString } from "utils";
+import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
 import SharedContext from "shared/SharedContext";
-
-interface OmsCheckboxProps {
-  /** name for react-hook-form registration */
-  name: string;
-  /** data object for dynamic rendering */
-  data: Types.OmsNode[];
-  year: number;
-  excludeOptions: string[];
-}
 
 /**
  * Builds out parent level checkboxes
@@ -29,7 +19,7 @@ export const buildOmsCheckboxes = ({
   data,
   excludeOptions,
   year,
-}: OmsCheckboxProps) => {
+}: Types.OmsCheckboxProps) => {
   return data
     .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
     .map((lvlOneOption) => {
@@ -54,68 +44,6 @@ export const buildOmsCheckboxes = ({
 
       return { value, displayValue, children };
     });
-};
-
-interface BaseProps extends Types.Qualifiers, Types.Categories {
-  measureName?: string;
-  inputFieldNames?: LabelData[];
-  ndrFormulas?: ndrFormula[];
-  /** string array for perfromance measure descriptions */
-  performanceMeasureArray?: Types.RateFields[][];
-  IUHHPerformanceMeasureArray?: Types.complexRateFields[][];
-  AIFHHPerformanceMeasureArray?: Types.complexRateFields[][];
-  /** should the total for each portion of OMS be calculated? */
-  calcTotal?: boolean;
-  rateMultiplicationValue?: number;
-  allowNumeratorGreaterThanDenominator?: boolean;
-  customMask?: RegExp;
-  excludeOptions?: string[];
-  rateAlwaysEditable?: boolean;
-  numberOfDecimals?: number;
-  componentFlag?: ComponentFlagType;
-  customNumeratorLabel?: string;
-  customDenominatorLabel?: string;
-  customRateLabel?: string;
-  customPrompt?: string;
-  rateCalc?: RateFormula;
-}
-
-/** data for dynamic rendering will be provided */
-interface DataDrivenProp {
-  /** data array for dynamic rendering */
-  data: Types.OmsNode[];
-  /** cannot set adultMeasure if using custom data*/
-  coreset?: never;
-}
-
-/** default data is being used for this component */
-interface DefaultDataProp {
-  /** is this an adult measure? Should this contain the ACA portion? */
-  coreset: string;
-  /** cannot set data if using default data */
-  data?: never;
-}
-
-type Props = BaseProps & (DataDrivenProp | DefaultDataProp);
-
-/** OMS react-hook-form typing */
-type OMSType = Types.OptionalMeasureStratification & {
-  DataSource: string[];
-} & { MeasurementSpecification: string } & {
-  "OtherPerformanceMeasure-Rates": Types.OtherRatesFields[];
-};
-
-const stringIsReadOnly = (dataSource: string) => {
-  return dataSource === "AdministrativeData";
-};
-
-const arrayIsReadOnly = (dataSource: string[]) => {
-  if (dataSource.length === 0) {
-    return false;
-  }
-  return (
-    dataSource?.every((source) => source === "AdministrativeData") ?? false
-  );
 };
 
 /**
@@ -143,7 +71,7 @@ export const OptionalMeasureStrat = ({
   customRateLabel = "Rate",
   customPrompt,
   rateCalc,
-}: Props) => {
+}: Types.OMSProps) => {
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
   const year = labels.year;
@@ -158,7 +86,7 @@ export const OptionalMeasureStrat = ({
 
   const omsData = data ?? OMSData(year, coreset === "adult");
   const { control, watch, getValues, setValue, unregister } =
-    useFormContext<OMSType>();
+    useFormContext<Types.OMSType>();
   const values = getValues();
 
   const dataSourceWatch = watch("DataSource");

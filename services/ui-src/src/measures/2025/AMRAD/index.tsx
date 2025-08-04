@@ -86,6 +86,7 @@ export const AMRAD = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
+          {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           <CMQ.DataSource type="adult" />
           <CMQ.DateRange type="adult" />
           <CMQ.DefinitionOfPopulation />
@@ -93,12 +94,12 @@ export const AMRAD = ({
           {isPrimaryMeasureSpecSelected && (
             <>
               <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
-              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
+          <CMQ.AdditionalNotes />
           {showOptionalMeasureStrat && (
-            <CMQ.OptionalMeasureStrat
+            <CMQ.MeasureStrat
               performanceMeasureArray={performanceMeasureArray}
               qualifiers={PMD.qualifiers}
               categories={PMD.categories}
@@ -108,7 +109,7 @@ export const AMRAD = ({
           )}
         </>
       )}
-      <CMQ.AdditionalNotes />
+      {isNotReportingData && <CMQ.AdditionalNotes />}
     </>
   );
 };

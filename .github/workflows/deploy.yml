@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "*"
+      - "dependabot/**"
       - "!skipci*"
       - "!code-json-*"
 
@@ -25,16 +26,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: set branch_name # Some integrations (Snyk) build very long branch names. This is a switch to make long branch names shorter.
+      - name: set branch_name # Some integrations (Dependabot & Snyk) build very long branch names. This is a switch to make long branch names shorter.
         run: |
           BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
       - name: Validate branch name
         run: ./.github/branchNameValidation.sh $branch_name
       - name: set branch specific variable names
-        run: ./.github/build_vars.sh set_names
+        run: ./.github/buildVars.sh set_names
       - name: set variable values
-        run: ./.github/build_vars.sh set_values
+        run: ./.github/buildVars.sh set_values
         env:
           AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
           AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
@@ -62,11 +63,10 @@ jobs:
       - name: Endpoint
         id: endpoint
         run: |
-          APPLICATION_ENDPOINT=$(./output.sh qmr-$branch_name CloudFrontUrl)
+          APPLICATION_ENDPOINT=$(./scripts/output.sh qmr-$branch_name CloudFrontUrl)
           echo "application_endpoint=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
           echo "## Application Endpoint" >> $GITHUB_STEP_SUMMARY
           echo "<$APPLICATION_ENDPOINT>" >> $GITHUB_STEP_SUMMARY
-        working-directory: services
     outputs:
       application_endpoint: ${{ steps.endpoint.outputs.application_endpoint }}
       BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION: ${{ steps.set_names.outputs.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION }}
@@ -90,11 +90,11 @@ jobs:
 
       - name: set branch specific variable names
         id: set_names
-        run: ./.github/build_vars.sh set_names
+        run: ./.github/buildVars.sh set_names
 
       - name: set variable values
         id: set_values
-        run: ./.github/build_vars.sh set_values
+        run: ./.github/buildVars.sh set_values
         env:
           AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
           AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
@@ -151,7 +151,7 @@ jobs:
 
       - name: Update IP Set
         id: update-ip-set
-        run: ./.github/waf-controller.sh set ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-gha-cidrs.outputs.GHA_CIDRS_IPV4 }}
+        run: ./.github/wafController.sh set ${{ steps.fetch-ip-set-info.outputs.IPSET_NAME }} ${{ steps.fetch-ip-set-info.outputs.IPSET_ID }} ${{ steps.get-gha-cidrs.outputs.GHA_CIDRS_IPV4 }}
         env:
           AWS_RETRY_MODE: adaptive
           AWS_MAX_ATTEMPTS: 10
@@ -180,10 +180,10 @@ jobs:
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
       - name: set branch specific variable names
         id: set_names
-        run: ./.github/build_vars.sh set_names
+        run: ./.github/buildVars.sh set_names
       - name: set variable values
         id: set_values
-        run: ./.github/build_vars.sh set_values
+        run: ./.github/buildVars.sh set_values
         env:
           AWS_DEFAULT_REGION: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
           AWS_OIDC_ROLE_TO_ASSUME: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_OIDC_ROLE_TO_ASSUME] || secrets.AWS_OIDC_ROLE_TO_ASSUME }}
@@ -252,7 +252,7 @@ jobs:
           aws-region: ${{ secrets[env.BRANCH_SPECIFIC_VARNAME_AWS_DEFAULT_REGION] || secrets.AWS_DEFAULT_REGION }}
       - name: clean-up-iplist
         id: reset-ip-set
-        run: ./.github/waf-controller.sh set ${{ needs.register-runner.outputs.ipset_name }} ${{ needs.register-runner.outputs.ipset_id }} '[]'
+        run: ./.github/wafController.sh set ${{ needs.register-runner.outputs.ipset_name }} ${{ needs.register-runner.outputs.ipset_id }} '[]'
         env:
           AWS_RETRY_MODE: adaptive
           AWS_MAX_ATTEMPTS: 10

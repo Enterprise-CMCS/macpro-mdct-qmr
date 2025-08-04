@@ -10,9 +10,9 @@ export const data: MeasureTemplateData = {
   hybridMeasure: true,
   performanceMeasure: {
     questionText: [
-      "Percentage of beneficiaries ages 18 to 75 with diabetes (type 1 and type 2) whose most recent glycemic status (hemoglobin A1c [HbA1c] glucose management indicator [GMI]) was at the following levels during the measurement year:",
+      "Percentage of beneficiaries ages 18 to 75 with diabetes (type 1 and type 2) whose most recent glycemic status (hemoglobin A1c [HbA1c] or glucose management indicator [GMI]) was at the following levels during the measurement year:",
     ],
-    questionListItems: ["Glycemic Status (<8.0%)", "Glycemic Status (>9.0%)"],
+    questionListItems: ["Glycemic Status <8.0%", "Glycemic Status >9.0%"],
     categories,
     qualifiers,
   },

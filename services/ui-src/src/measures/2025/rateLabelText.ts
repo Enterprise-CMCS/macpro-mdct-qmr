@@ -534,12 +534,12 @@ export const data = {
                 "label": "Combination 3",
                 "text": "Combination 3",
                 "id": "tOQKqr",
-                "excludeFromOMS": true
             },
             {
                 "label": "Combination 7",
                 "text": "Combination 7",
                 "id": "rgGHvL",
+                "excludeFromOMS": true
             },
             {
                 "label": "Combination 10",
@@ -949,14 +949,13 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Glycemic Status (<8.0%)",
-                "text": "Glycemic Status (<8.0%)",
+                "label": "Glycemic Status <8.0%",
+                "text": "Glycemic Status <8.0%",
                 "id":"F9V8xD",
-                "excludeFromOMS": true
             },
             {
-                "label": "Glycemic Status (>9.0%)",
-                "text": "Glycemic Status (>9.0%)",
+                "label": "Glycemic Status >9.0%",
+                "text": "Glycemic Status >9.0%",
                 "id":"MELFVb"
             }
         ]

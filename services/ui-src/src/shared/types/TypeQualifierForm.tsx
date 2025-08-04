@@ -2,12 +2,15 @@ export interface DataDriven {
   title: string;
   formData: any;
   questionTitle: string;
+  questionIntro?: string;
   qualifierHeader: (year: string) => string;
   textTable: string[][];
   fieldValues: string[];
+  ageQuestion?: { label: string };
 }
 
 interface BaseQualifierForm {
+  GeneralAge?: string;
   AdministrativeData: AdministrativeQuestions;
   CostSavingsData: CostSavingsData;
   PercentageEnrolledInEachDeliverySystem: DeliverySystem[];

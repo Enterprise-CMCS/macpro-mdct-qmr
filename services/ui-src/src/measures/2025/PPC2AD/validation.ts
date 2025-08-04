@@ -37,6 +37,7 @@ const PPC2ADValidation = (data: FormData) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateNotZeroOMS(),
         GV.validateRateZeroOMS(),
+        GV.validateEqualCategoryDenominatorsOMS(),
       ],
     }),
     ...GV.validateDeviationTextFieldFilled(

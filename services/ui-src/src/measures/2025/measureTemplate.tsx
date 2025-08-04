@@ -58,6 +58,7 @@ export const measureTemplate = ({
         <>
           <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type={type} coreset={coreset} />
+          {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           {custom?.dataSrcRadio ? (
             <CMQ.DataSourceRadio />
           ) : (
@@ -85,7 +86,6 @@ export const measureTemplate = ({
                 rateCalc={custom?.rateCalc}
                 RateComponent={custom?.RateComponent}
               />
-              <CMQ.DeviationFromMeasureSpec />
             </>
           )}
           {isOtherMeasureSpecSelected && (
@@ -98,11 +98,12 @@ export const measureTemplate = ({
               }
             />
           )}
+          <CMQ.AdditionalNotes />
           {showOptionalMeasureStrat &&
             (custom?.notCollectingOMS ? (
               <CMQ.NotCollectingOMS year={year} />
             ) : (
-              <CMQ.OptionalMeasureStrat
+              <CMQ.MeasureStrat
                 coreset={coreset}
                 calcTotal={custom?.calcTotal}
                 performanceMeasureArray={performanceMeasureArray}
@@ -124,7 +125,7 @@ export const measureTemplate = ({
             ))}
         </>
       )}
-      <CMQ.AdditionalNotes />
+      {isNotReportingData && <CMQ.AdditionalNotes />}
     </>
   );
 };

@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: set variable values
-        run: ./.github/build_vars.sh set_values
+        run: ./.github/buildVars.sh set_values
         env:
           CODE_CLIMATE_ID: ${{ secrets.CODE_CLIMATE_ID }}
       - uses: actions/setup-node@v4
