@@ -64,7 +64,6 @@ export const stateAbbreviations = [
 export const statesWithoutCombinedRates = [
   "AK",
   "AS",
-  "DC",
   "GU",
   "HI",
   "NH",
