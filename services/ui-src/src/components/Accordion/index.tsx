@@ -47,15 +47,11 @@ export const Accordion = ({
   const [index, setIndex] = useState<number>(1);
   const shared: any = useContext(SharedContext);
 
+  //this useEffect is activated when a measure is saved. it is used to expand the accordion to show stratification that is filled
   useEffect(() => {
-    if (externalControlled && shared?.stratification?.length > 0) {
-      if (id) {
-        const keys = shared?.stratification;
-        for (var i = 0; i < keys.length; i++) {
-          if (keys[i].includes(id)) {
-            setIndex(0);
-          }
-        }
+    if (id && shared?.stratification?.length > 0) {
+      if (shared?.stratification.some((key: string) => key.includes(id))) {
+        setIndex(0);
       }
     }
   }, [shared?.stratification]);

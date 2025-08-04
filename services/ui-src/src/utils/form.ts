@@ -83,53 +83,42 @@ export const arrayIsReadOnly = (dataSource: string[]) => {
   );
 };
 
-const isFilled = (str: string | undefined) => str !== undefined && str !== "";
+export const hasNumOrDenom = (rates: any) =>
+  (Object.values(rates).flat() as Types.RateFields[]).some(
+    (rate) => isFilled(rate.numerator) || isFilled(rate.denominator)
+  );
+
+export const isFilled = (str: string | undefined) =>
+  str !== undefined && str !== "";
 
 export const getFilledKeys = (data: {
   [option: string]: Types.OmsNodes.TopLevelOmsNode;
 }) => {
   const keys = [];
-
   for (const [topKey, topValue] of Object.entries(data)) {
-    if (topValue.additionalSelections)
-      keys.push(
-        `OptionalMeasureStratification.selections.${topKey}.additionalSelections`
-      );
-
-    //i don't think this one is actually in use but i'm going to clear it anyway
-    if (topValue.additionalCategories)
-      keys.push(
-        `OptionalMeasureStratification.selections.${topKey}.additionalCategories`
-      );
-
+    (["additionalSelections", "additionalCategories"] as const).forEach(
+      (key) => {
+        if (topValue[key] && topValue[key].length > 0)
+          keys.push(
+            `OptionalMeasureStratification.selections.${topKey}.${key}`
+          );
+      }
+    );
     for (const [midKey, midValue] of Object.entries(
       topValue.selections as Types.OmsNodes.MidLevelOMSNode
     )) {
-      //this clears the checked boxes when that appear affter selecting "No, we are reporting disaggregated..."
       if (midValue.additionalSubCategories) {
         keys.push(
           `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`
         );
       }
+      if (midValue.rateData?.rates) {
+        const values = Object.values(midValue.rateData.rates);
 
-      if (midValue.rateData) {
-        for (const [_catKey, catValue] of Object.entries(
-          midValue.rateData.rates
-        )) {
-          for (const [_qualKey, qualValue] of Object.entries(
-            catValue as { [qualifier: string]: Types.RateFields[] }
-          )) {
-            if (
-              qualValue.some(
-                (value) =>
-                  isFilled(value.numerator) || isFilled(value.denominator)
-              )
-            ) {
-              keys.push(
-                `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates.${_catKey}.${_qualKey}`
-              );
-            }
-          }
+        if (values.some(hasNumOrDenom)) {
+          keys.push(
+            `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates`
+          );
         }
       }
     }
