@@ -305,7 +305,6 @@ export const MeasureWrapper = ({
                 userState: userInfo.userState,
               },
             });
-
             toastSaved();
           },
           onError: () => {

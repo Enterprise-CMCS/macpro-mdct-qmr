@@ -91,9 +91,16 @@ export const hasNumOrDenom = (rates: any) =>
 export const isFilled = (str: string | undefined) =>
   str !== undefined && str !== "";
 
+/**
+ * Goes through the OMS data set and looks for any input stored in the N/D/R set
+ * used in reporting year 2025+
+ * @returns a string[] of OMS ids that's rates have some value.
+ */
 export const getFilledKeys = (data: {
   [option: string]: Types.OmsNodes.TopLevelOmsNode;
 }) => {
+  if (!data) return [];
+
   const keys = [];
   for (const [topKey, topValue] of Object.entries(data)) {
     (["additionalSelections", "additionalCategories"] as const).forEach(
