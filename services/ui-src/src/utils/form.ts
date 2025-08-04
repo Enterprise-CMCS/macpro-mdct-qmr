@@ -83,6 +83,8 @@ export const arrayIsReadOnly = (dataSource: string[]) => {
   );
 };
 
+const isFilled = (str: string | undefined) => str !== undefined && str !== "";
+
 export const getFilledKeys = (data: {
   [option: string]: Types.OmsNodes.TopLevelOmsNode;
 }) => {
@@ -117,17 +119,15 @@ export const getFilledKeys = (data: {
           for (const [_qualKey, qualValue] of Object.entries(
             catValue as { [qualifier: string]: Types.RateFields[] }
           )) {
-            for (var i = 0; i < qualValue.length; i++) {
-              if (
-                (qualValue[i].numerator != undefined &&
-                  qualValue[i].numerator != "") ||
-                qualValue[i].denominator != undefined ||
-                qualValue[i].denominator != ""
+            if (
+              qualValue.some(
+                (value) =>
+                  isFilled(value.numerator) || isFilled(value.denominator)
               )
-                keys.push(
-                  `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates.${_catKey}.${_qualKey}`
-                );
-              break;
+            ) {
+              keys.push(
+                `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates.${_catKey}.${_qualKey}`
+              );
             }
           }
         }

@@ -80,7 +80,11 @@ export const AddAnotherSectionAccordian = ({
   });
 
   return (
-    <QMR.Accordion label={`Add another ${parentName}`} externalControlled>
+    <QMR.Accordion
+      label={`Add another ${parentName}`}
+      externalControlled
+      value={`${name}.additionalSelections`}
+    >
       <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
         {fields.map((field: any, idx: number) => (
           <QMR.DeleteWrapper

@@ -22,7 +22,6 @@ export const buildOmsCheckboxes = ({
   data,
   excludeOptions,
   year,
-  omsData,
 }: Types.OmsCheckboxProps) => {
   return data
     .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
@@ -43,7 +42,6 @@ export const buildOmsCheckboxes = ({
           id={value}
           label={displayValue}
           year={year}
-          data={omsData}
         />,
       ];
 
@@ -89,16 +87,12 @@ export const Stratification = ({
       ? values["OtherPerformanceMeasure-Rates"]
       : undefined;
 
-  //TEST//
-  const { selections: testData } = watch("OptionalMeasureStratification");
-
   const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
     ...register("OptionalMeasureStratification"),
     data: omsData,
     excludeOptions,
     year,
-    omsData: testData,
   });
 
   let rateReadOnly = false;
@@ -196,7 +190,6 @@ export const Stratification = ({
             externalControlled
             label={option.displayValue}
             value={option.value}
-            data={testData}
           >
             {option.children}
           </QMR.Accordion>

@@ -19,7 +19,11 @@ import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AnyObject, CoreSetAbbr, MeasureStatus } from "types";
-import { areObjectsDifferent, areSomeRatesCompleted } from "utils/form";
+import {
+  areObjectsDifferent,
+  areSomeRatesCompleted,
+  getFilledKeys,
+} from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
@@ -147,7 +151,7 @@ export const MeasureWrapper = ({
     []
   );
 
-  const [boardcast, setBroadcast] = useState<string>();
+  const [boardcast, setBroadcast] = useState<string[]>();
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
   const shared: AnyObject = {
@@ -271,6 +275,10 @@ export const MeasureWrapper = ({
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
 
+    setBroadcast(
+      getFilledKeys(data?.OptionalMeasureStratification?.selections)
+    );
+
     if (!mutationRunning && !loadingData && hasDataChanged(data)) {
       updateMeasure(
         {
@@ -298,7 +306,6 @@ export const MeasureWrapper = ({
               },
             });
 
-            setBroadcast("saved");
             toastSaved();
           },
           onError: () => {
