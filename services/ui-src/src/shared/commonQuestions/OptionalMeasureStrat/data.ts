@@ -26,21 +26,22 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, Navajo Nation, Blackfeet Tribe of the Blackfeet Indian Reservation of Montana, Native Village of Barrow Inupiat Traditional Government, Nome Eskimo Community, Aztec, Maya, etc.)",
+          aggregateTitle: "American Indian or Alaska Native",
         },
         {
           id: "RKWD6S",
           label: "Asian alone or in combination",
           options: [
-            { id: "e68Cj8", flagSubCat: false, label: "Asian Indian" },
             { id: "gCxXhf", flagSubCat: false, label: "Chinese" },
+            { id: "e68Cj8", flagSubCat: false, label: "Asian Indian" },
             { id: "i2fIgY", flagSubCat: false, label: "Filipino" },
-            { id: "WxWvJ8", flagSubCat: false, label: "Japanese" },
-            { id: "78IBC7", flagSubCat: false, label: "Korean" },
             { id: "GPgIYd", flagSubCat: false, label: "Vietnamese" },
-            { id: "5v7GMy", flagSubCat: false, label: "Other Asian" },
+            { id: "78IBC7", flagSubCat: false, label: "Korean" },
+            { id: "WxWvJ8", flagSubCat: false, label: "Japanese" },
           ],
           flagSubCat: true,
           flagSubLabel: "(Enter, for example, Pakistani, Hmong, Afghan, etc.)",
+          aggregateTitle: "Asian",
         },
         {
           id: "6NrBa5",
@@ -56,6 +57,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, Trinidadian and Tobagonian, Ghanian, Congolese, etc.)",
+          aggregateTitle: "Black or African American",
         },
         {
           id: "v767bB",
@@ -71,6 +73,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, Colombian, Honduran, Spaniard, etc.)",
+          aggregateTitle: "Hispanic or Latino",
         },
         {
           id: "6dmrjv",
@@ -85,6 +88,7 @@ const omb2024 = () => {
           ],
           flagSubCat: true,
           flagSubLabel: "(Enter, for example, Moroccan, Yemeni, Kurdish, etc.)",
+          aggregateTitle: "Middle Eastern or North African",
         },
         {
           id: "Qu4kZK",
@@ -100,6 +104,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, Chuukese, Palauan, Tahitian, etc.)",
+          aggregateTitle: "Native Hawaiian or Pacific Islander",
         },
         {
           id: "szjphG",
@@ -115,6 +120,7 @@ const omb2024 = () => {
           flagSubCat: true,
           flagSubLabel:
             "(Enter, for example, French, Swedish, Norwegian, etc.)",
+          aggregateTitle: "White",
         },
         {
           id: "nN7fNs",
@@ -122,7 +128,7 @@ const omb2024 = () => {
           label: "Missing or not reported",
         },
       ],
-      addMore: true,
+      addMore: false,
       addMoreSubCatFlag: false,
     },
     {

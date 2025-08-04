@@ -1,0 +1,120 @@
+$image-path: "~@cmsgov/design-system/dist/images";
+@use "@cmsgov/design-system/dist/css/index";
+@use '@cmsgov/design-system/dist/css/core-theme';
+
+html,
+body,
+#root {
+  height: 100%;
+  font-size: 16px; // sets the value of 1rem
+}
+
+//removing the margin block pading added by the library
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+p {
+  margin-block: 0;
+}
+
+#app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+#main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+li::marker {
+  font-weight: bold;
+}
+
+.default-li-marker li::marker {
+  font-weight: normal;
+}
+
+a:focus {
+  box-shadow: none;
+}
+
+.logo-link:focus {
+  background-color: transparent;
+}
+
+//added due to styling changes from cms design systems, from v^5.0.2 to v^11.1.0
+.ds-c-usa-banner__header {
+  padding: 4px 16px;
+  min-width: 100%;
+
+  button,
+  p {
+    width: auto;
+    font-size: 12px;
+  }
+}
+
+.ds-c-alert__icon.ds-c-icon {
+  width: 24px;
+  height: 24px;
+}
+
+button:not(button, [type="checkbox"], [type="radio"]),
+input:not(button, [type="checkbox"], [type="radio"]),
+select:not(button, [type="checkbox"], [type="radio"]),
+textarea:not(button, [type="checkbox"], [type="radio"]) {
+  margin-block: 0;
+}
+
+//print styling
+@media print {
+  .logos {
+    width: 170px;
+  }
+
+  .medicaid-logo {
+    width: 190px;
+  }
+
+  a[href]::after {
+    display: none;
+  }
+
+  .state-layout-container {
+    position: relative !important;
+
+    .header-spacer {
+      display: none;
+    }
+    a {
+      font-size: 25px;
+    }
+  }
+
+  .hidden-print-items {
+    visibility: hidden;
+    display: none !important;
+  }
+
+  .logo-footer {
+    display: flex !important;
+  }
+
+  .help-section {
+    text-align: start;
+    padding-top: 50px;
+  }
+
+  .multi-rate-print-stack,
+  .iuhh-field-stack,
+  .aifhh-field-stack {
+    flex-wrap: wrap;
+  }
+}

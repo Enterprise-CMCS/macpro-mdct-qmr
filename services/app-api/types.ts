@@ -57,12 +57,13 @@ export interface Measure {
   year: number;
   placeholder?: boolean;
   /**
-   * The `autoCompleted` and `measureType` properties are not present on
+   * The `autoCompleted`, `measureType`, and `stratificationRequired` properties are not present on
    * measures in the database; they are set on fetch, according to the
    * metadata in measureList.ts.
    */
   autoCompleted?: boolean;
   measureType?: MeasureType;
+  stratificationRequired?: boolean;
   data?: {
     /**
      * An array of strings from the `DataSource` enum.

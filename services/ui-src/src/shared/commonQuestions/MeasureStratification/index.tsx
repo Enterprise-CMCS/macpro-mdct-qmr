@@ -11,6 +11,7 @@ import * as DC from "dataConstants";
 
 interface Props {
   register: Function;
+  reset?: () => void;
 }
 
 export const GetLinks = (type: string) => {
@@ -27,7 +28,7 @@ export const GetLinks = (type: string) => {
       aria: "2011 HHS standards",
     },
     ["initial-core"]: {
-      link: "https://www.hhs.gov/guidance/sites/default/files/hhs-guidance-documents/smd24002.pdf",
+      link: "https://www.medicaid.gov/federal-policy-guidance/downloads/smd24002.pdf",
       label:
         "Initial Core Set Mandatory Reporting Guidance for the Health Home Core Set",
       aria: "Initial Core Set Mandatory Reporting Guidance for the Health Home Core Set",
@@ -41,8 +42,13 @@ export const GetLinks = (type: string) => {
     ["2024-omb"]: {
       link: "https://www.federalregister.gov/d/2024-06469",
       label:
-        "Statistical Policy Directive #15: 2024 OMB race and ethnicity standards",
-      aria: "Statistical Policy Directive #15: 2024 OMB race and ethnicity standards",
+        "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
+      aria: "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
+    },
+    ["strat-ta-resource"]: {
+      link: "https://www.medicaid.gov/medicaid/quality-of-care/downloads/QMR-stratification-resource.pdf",
+      label: "stratification TA resource",
+      aria: "stratification TA resource",
     },
   };
 
@@ -57,51 +63,64 @@ export const GetLinks = (type: string) => {
 
 export const StratificationAdditionalNotes = ({ register }: Props) => {
   return (
-    <QMR.CoreQuestionWrapper
-      testid="additional-notes"
-      label="Additional notes/comments (optional)"
-    >
+    <QMR.CoreQuestionWrapper testid="additional-notes" label="">
       <QMR.TextArea
-        label="If your state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below."
+        label="If your state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below (optional)."
         {...register(`OptionalMeasureStratification.${DC.ADDITIONAL_CONTEXT}`)}
       />
     </QMR.CoreQuestionWrapper>
   );
 };
 
-export const StratificationOption = ({ register }: Props) => {
+export const StratificationOption = ({ register, reset }: Props) => {
   return (
     <QMR.RadioButton
       formLabelProps={{ fontWeight: "700" }}
       label="Which race and ethnicity standards would your state like to use for 2025 Core Sets reporting?"
       subTextElement={[
         <CUI.Text mb={2}>
-          More information about the race and ethnicity categories included in
-          each option is available at [link].
+          A summary of the race and ethnicity subcategories included in each
+          option is available in Boxes 1 and 2 of the{" "}
+          {GetLinks("strat-ta-resource")}.
         </CUI.Text>,
         <CUI.UnorderedList padding="0 0 1rem 2rem">
           <CUI.ListItem>
-            {GetLinks("1997-omb")}, as specified in the{" "}
-            {GetLinks("hss-standard")}
+            1997 Office of Management and Budget (OMB) minimum race and
+            ethnicity categories, as specified in the 2011 HHS standards
           </CUI.ListItem>
-          <CUI.ListItem mb={2}>{GetLinks("2024-omb")}</CUI.ListItem>,
+          <CUI.ListItem mb={2}>
+            2024 OMB Statistical Policy Directive No. 15 race and ethnicity
+            standards
+          </CUI.ListItem>
+          ,
         </CUI.UnorderedList>,
+        <CUI.Box mb="1rem">
+          <QMR.Notification
+            alertStatus="warning"
+            alertTitle="Warning! Entered data will not be saved if you switch race and
+          ethnicity reporting standards. Please confirm which standard you are
+          using before entering data."
+          />
+        </CUI.Box>,
       ]}
       options={[
         {
           displayValue:
-            "1997 Office of Management and Budget (OMB) minimum race and ethnicity categories.",
+            "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
           value: "1997-omb",
+          onClick: reset,
         },
         {
           displayValue:
-            "Statistical Policy Directive #15: 2024 OMB race and ethnicity standards",
+            "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
           value: "2024-omb",
+          onClick: reset,
         },
         {
           displayValue:
             "I am not reporting measure stratification for this measure",
           value: "not-reporting",
+          onClick: reset,
         },
       ]}
       {...register(`OptionalMeasureStratification.${DC.VERSION}`)}
@@ -115,16 +134,78 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const { coreset } = props;
 
   const register = useCustomRegister();
-  const { watch } = useFormContext<Types.OptionalMeasureStratification>();
+  const { watch, setValue, resetField } =
+    useFormContext<Types.OptionalMeasureStratification>();
   const data = watch();
 
   const version = data.OptionalMeasureStratification?.version;
   const omsData =
     version === "1997-omb" ? OMSData(2024) : OMSData(year, coreset === "adult");
 
+  const onReset = () => {
+    //create a copy of the original data to be used as the clear template
+    const clearedData = structuredClone(
+      data.OptionalMeasureStratification.selections
+    );
+
+    //transverse through data object and set all values to "" if key is not an array
+    for (const [topKey, topValue] of Object.entries(clearedData)) {
+      if (topValue.additionalSelections) {
+        //this clears any fields added by the [+Add Another _____] button, i.e. [+Add Another Race]
+        setValue(
+          `OptionalMeasureStratification.selections.${topKey}.additionalSelections`,
+          []
+        );
+      }
+      //i don't think this one is actually in use but i'm going to clear it anyway
+      if (topValue.additionalCategories) {
+        setValue(
+          `OptionalMeasureStratification.selections.${topKey}.additionalCategories`,
+          []
+        );
+      }
+
+      for (const [midKey, midValue] of Object.entries(
+        topValue.selections as Types.OmsNodes.MidLevelOMSNode
+      )) {
+        //this clears the checked boxes when that appear affter selecting "No, we are reporting disaggregated..."
+        midValue.aggregate = "";
+        //this clears any fields added by the [+Add Another Sub-Category] button
+        if (midValue.additionalSubCategories) {
+          setValue(
+            `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`,
+            []
+          );
+        }
+
+        if (midValue.rateData) {
+          for (const [_catKey, catValue] of Object.entries(
+            midValue.rateData.rates
+          )) {
+            for (const [_qualKey, qualValue] of Object.entries(
+              catValue as { [qualifier: string]: Types.RateFields[] }
+            )) {
+              for (var i = 0; i < qualValue.length; i++) {
+                qualValue[i].numerator = "";
+                qualValue[i].denominator = "";
+                qualValue[i].rate = "";
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //clearing the default values before doing a set value so that any data that is saved doesn't get repopulated
+    resetField("OptionalMeasureStratification.selections", {
+      defaultValue: {},
+    });
+    setValue("OptionalMeasureStratification.selections", clearedData);
+  };
+
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
-      <QMR.Accordion label="Instructions">
+      <QMR.Accordion label="Instructions (Click to Expand)">
         <CUI.Text>
           Enter data below to stratify this measure by race, ethnicity, sex,
           and/or geography. Beginning with 2025 Core Sets reporting, states are
@@ -142,7 +223,6 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         </CUI.Text>
         <br />
         <CUI.Text>
-          CMS recognizes that stratifying data could result in small cell sizes.
           CMS encourages states to report data in the QMR system for measures
           and rates with small cell sizes. For the purpose of public reporting,
           data will be suppressed in accordance with the CMS cell-size
@@ -152,20 +232,23 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           with a denominator less than 30 due to reliability concerns.
         </CUI.Text>
       </QMR.Accordion>
-      <StratificationOption register={register}></StratificationOption>
+      <StratificationOption
+        register={register}
+        reset={onReset}
+      ></StratificationOption>
       {(version === "1997-omb" || version === "2024-omb") && (
         <>
+          <Stratification
+            {...props}
+            omsData={omsData}
+            year={year}
+          ></Stratification>
           <CUI.Heading size="md" as="h2" my="6">
             Measure Stratification Details
           </CUI.Heading>
           <StratificationAdditionalNotes
             register={register}
           ></StratificationAdditionalNotes>
-          <Stratification
-            {...props}
-            omsData={omsData}
-            year={year}
-          ></Stratification>
         </>
       )}
     </QMR.CoreQuestionWrapper>

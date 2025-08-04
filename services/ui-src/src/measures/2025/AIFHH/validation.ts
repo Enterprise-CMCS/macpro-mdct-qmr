@@ -110,7 +110,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           rateData?.["aifhh-rate"]?.rates ?? {},
           false,
           ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`,
+          `Measure Stratification: ${locationDictionary(label)}`,
           qualifiers
         ),
       ]
@@ -119,7 +119,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
           rateData?.rates,
           true,
           ndrFormulas,
-          `Optional Measure Stratification: ${locationDictionary(label)}`,
+          `Measure Stratification: ${locationDictionary(label)}`,
           qualifiers
         ),
       ];

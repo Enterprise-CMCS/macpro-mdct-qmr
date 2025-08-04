@@ -74,7 +74,7 @@ export const Upload = ({
           const url = await res.url;
 
           let result = {
-            s3Key: stored.key,
+            s3Key: `public/${stored.key}`,
             filename: fileToUpload.name,
             contentType: fileToUpload.type,
             url: url, //We only need the permalink part of the URL since the S3 bucket policy allows for public read

@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
-import { Link } from "react-router-dom";
+import { FaPlusCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface AddSSMCardProps {
   buttonText: string;
@@ -18,6 +18,7 @@ export const AddSSMCard = ({
   to,
   userCreatedMeasureIds = [],
 }: AddSSMCardProps) => {
+  const navigate = useNavigate();
   // Create a unique testId for each card based on destination in link
   const testId = to.substring(to.lastIndexOf("/") + 1) + "-button";
 
@@ -34,25 +35,21 @@ export const AddSSMCard = ({
       >
         <CUI.Stack spacing="6">
           <CUI.Text fontWeight="bold">{title}</CUI.Text>
-          <Link
-            to={to}
-            state={{ userCreatedMeasureIds }}
-            style={{
-              textDecoration: "none",
+          <CUI.Button
+            data-cy={testId}
+            variant={"outline-primary"}
+            fontSize={"1.2rem"}
+            rightIcon={<FaPlusCircle />}
+            isDisabled={!enabled}
+            href="#"
+            onClick={() => {
+              navigate(to, { state: { userCreatedMeasureIds } });
             }}
+            //because they button acts like a link, it can never truly be disabled so we have to swap it away from a link when it's disabled
+            as={!enabled ? undefined : CUI.Link}
           >
-            <QMR.ContainedButton
-              buttonProps={{
-                colorScheme: "blue",
-                variant: "outline",
-                color: "blue.500",
-              }}
-              buttonText={buttonText}
-              disabledStatus={!enabled}
-              icon="plus"
-              testId={testId}
-            />
-          </Link>
+            {buttonText}
+          </CUI.Button>
         </CUI.Stack>
       </CUI.Box>
       <CUI.Center w="44" textAlign="center">
