@@ -42,23 +42,23 @@ export const Accordion = ({
   label,
   children,
   externalControlled,
-  value,
+  id,
 }: AccordionProps) => {
   const [index, setIndex] = useState<number>(1);
   const shared: any = useContext(SharedContext);
 
   useEffect(() => {
-    if (externalControlled && shared?.broadcast?.length > 0) {
-      if (value) {
-        const keys = shared?.broadcast;
+    if (externalControlled && shared?.stratification?.length > 0) {
+      if (id) {
+        const keys = shared?.stratification;
         for (var i = 0; i < keys.length; i++) {
-          if (keys[i].includes(value)) {
+          if (keys[i].includes(id)) {
             setIndex(0);
           }
         }
       }
     }
-  }, [shared?.broadcast]);
+  }, [shared?.stratification]);
 
   if (externalControlled) {
     //only way to really capture when the user has clicked expand all/ collapse all button for the measure stratification section
@@ -79,7 +79,7 @@ export const Accordion = ({
 
   return (
     <CUI.Accordion allowMultiple index={[index]}>
-      <AccordionItem label={label + ": " + value} onClick={toggle}>
+      <AccordionItem label={label} onClick={toggle}>
         {children}
       </AccordionItem>
     </CUI.Accordion>
@@ -98,7 +98,7 @@ interface AccordionProps {
   externalControlled?: boolean;
   label?: string;
   sx?: CUI.SystemStyleObject;
-  value?: string;
+  id?: string;
 }
 
 const sx = {

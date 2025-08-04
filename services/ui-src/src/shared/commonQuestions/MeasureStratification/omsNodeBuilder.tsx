@@ -177,7 +177,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
         <QMR.Accordion
           externalControlled
           label={options.displayValue}
-          value={options.value}
+          id={options.value}
         >
           {options.children}
         </QMR.Accordion>

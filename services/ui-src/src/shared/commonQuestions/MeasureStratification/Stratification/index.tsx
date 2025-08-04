@@ -189,7 +189,7 @@ export const Stratification = ({
           <QMR.Accordion
             externalControlled
             label={option.displayValue}
-            value={option.value}
+            id={option.value}
           >
             {option.children}
           </QMR.Accordion>

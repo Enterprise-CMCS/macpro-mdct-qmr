@@ -151,7 +151,7 @@ export const MeasureWrapper = ({
     []
   );
 
-  const [boardcast, setBroadcast] = useState<string[]>();
+  const [stratification, setStratification] = useState<string[]>();
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
   const shared: AnyObject = {
@@ -159,7 +159,7 @@ export const MeasureWrapper = ({
       `CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024" | "CQ2025"
     ],
     year: year,
-    broadcast: boardcast,
+    stratification: stratification,
   };
 
   // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
@@ -275,7 +275,7 @@ export const MeasureWrapper = ({
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
 
-    setBroadcast(
+    setStratification(
       getFilledKeys(data?.OptionalMeasureStratification?.selections)
     );
 
