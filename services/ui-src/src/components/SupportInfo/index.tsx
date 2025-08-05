@@ -52,9 +52,9 @@ export const SupportInfo = () => (
       information collection is 0938-1188. The time required to complete and
       review the information collection is estimated to range from 1 hour to 80
       hours per response (see below), including the time to review instructions,
-      search existing data resources, gather the data needed, and completeand
+      search existing data resources, gather the data needed, and complete and
       review the information collection. If you have comments concerning the
-      accuracy of the time estimate(s) or suggestions for imprving this form,
+      accuracy of the time estimate(s) or suggestions for improving this form,
       please write to: CMS, 7500 Security Boulevard, Attn: PRA Reports Clearance
       Office, Mail Stop C4-26-05, Baltimore, Maryland 21244-1850.
     </CUI.Text>
