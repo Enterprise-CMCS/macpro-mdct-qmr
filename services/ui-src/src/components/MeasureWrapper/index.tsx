@@ -19,11 +19,7 @@ import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AnyObject, CoreSetAbbr, MeasureStatus } from "types";
-import {
-  areObjectsDifferent,
-  areSomeRatesCompleted,
-  getFilledKeys,
-} from "utils/form";
+import { areObjectsDifferent, areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
@@ -151,15 +147,12 @@ export const MeasureWrapper = ({
     []
   );
 
-  const [stratification, setStratification] = useState<string[]>();
-
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
   const shared: AnyObject = {
     ...Labels[
       `CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024" | "CQ2025"
     ],
     year: year,
-    stratification: stratification,
   };
 
   // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
@@ -274,10 +267,6 @@ export const MeasureWrapper = ({
     /* only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
-
-    setStratification(
-      getFilledKeys(data?.OptionalMeasureStratification?.selections)
-    );
 
     if (!mutationRunning && !loadingData && hasDataChanged(data)) {
       updateMeasure(

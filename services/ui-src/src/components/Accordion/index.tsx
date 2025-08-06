@@ -1,13 +1,6 @@
-import {
-  MouseEventHandler,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { MouseEventHandler, ReactNode, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
-import SharedContext from "shared/SharedContext";
 
 //accordion item and accordion need to be together to get the expand/collapse to work together
 export const AccordionItem = ({
@@ -42,19 +35,8 @@ export const Accordion = ({
   label,
   children,
   externalControlled,
-  id,
 }: AccordionProps) => {
   const [index, setIndex] = useState<number>(1);
-  const shared: any = useContext(SharedContext);
-
-  //this useEffect is activated when a measure is saved. it is used to expand the accordion to show stratification that is filled
-  useEffect(() => {
-    if (id && shared?.stratification?.length > 0) {
-      if (shared?.stratification.some((key: string) => key.includes(id))) {
-        setIndex(0);
-      }
-    }
-  }, [shared?.stratification]);
 
   if (externalControlled) {
     //only way to really capture when the user has clicked expand all/ collapse all button for the measure stratification section

@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { OMSData } from "../OptionalMeasureStrat/data";
@@ -138,9 +138,23 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     useFormContext<Types.OptionalMeasureStratification>();
   const data = watch();
 
-  const version = data.OptionalMeasureStratification?.version;
-  const omsData =
-    version === "1997-omb" ? OMSData(2024) : OMSData(year, coreset === "adult");
+  const [version, setVersion] = useState<string>();
+  const [omsData, setOMSData] = useState<Types.OmsNode[]>();
+
+  useEffect(() => {
+    if (
+      data.OptionalMeasureStratification?.version != undefined &&
+      data.OptionalMeasureStratification.version != version
+    ) {
+      // console.log("set version", data.OptionalMeasureStratification.version, version);
+      setVersion(data.OptionalMeasureStratification?.version);
+      setOMSData(
+        data.OptionalMeasureStratification?.version === "1997-omb"
+          ? OMSData(2024)
+          : OMSData(year, coreset === "adult")
+      );
+    }
+  }, [data.OptionalMeasureStratification?.version]);
 
   const onReset = () => {
     //create a copy of the original data to be used as the clear template
@@ -235,7 +249,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         <>
           <Stratification
             {...props}
-            omsData={omsData}
+            omsData={omsData!}
             year={year}
           ></Stratification>
           <CUI.Heading size="md" as="h2" my="6">
