@@ -3,14 +3,10 @@ import {
   OmsValidationCallback,
   locationDictionaryFunction,
 } from "../../types/TypeValidations";
-import {
-  OmsNodes as OMS,
-  OptionalMeasureStratification,
-  RateFields,
-} from "shared/types";
+import { OmsNodes as OMS, OptionalMeasureStratification } from "shared/types";
 import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
-import { cleanString, isLegacyLabel, LabelData } from "utils";
+import { cleanString, hasNumOrDenom, isLegacyLabel, LabelData } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
 import { omsLocationDictionary } from "../dataDrivenTools";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
@@ -204,14 +200,6 @@ const getAccordionClassificationRates = (
          */
         if (midLevel.rateData?.rates) {
           const values = Object.values(midLevel.rateData.rates);
-
-          const isFilled = (str: string | undefined) =>
-            str !== undefined && str !== "";
-
-          const hasNumOrDenom = (rates: any) =>
-            (Object.values(rates).flat() as RateFields[]).some(
-              (rate) => isFilled(rate.numerator) || isFilled(rate.denominator)
-            );
 
           if (values.some(hasNumOrDenom)) {
             omsRates.push({ key: midLabel, ...midLevel });
