@@ -155,7 +155,7 @@ const buildNDRComponent = (
       {sets.map(
         (set, idx) =>
           rateArrays[idx].length > 0 && (
-            <CUI.Box mt="1rem" key={`${name}.set`}>
+            <CUI.Box mt="1rem" key={`${name}.set.${idx}`}>
               <CUI.Heading fontSize="16px">{set.label}</CUI.Heading>
               {rateArrays[idx]}
             </CUI.Box>
