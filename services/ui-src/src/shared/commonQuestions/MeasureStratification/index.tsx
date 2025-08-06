@@ -146,7 +146,6 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       data.OptionalMeasureStratification?.version != undefined &&
       data.OptionalMeasureStratification.version != version
     ) {
-      // console.log("set version", data.OptionalMeasureStratification.version, version);
       setVersion(data.OptionalMeasureStratification?.version);
       setOMSData(
         data.OptionalMeasureStratification?.version === "1997-omb"
