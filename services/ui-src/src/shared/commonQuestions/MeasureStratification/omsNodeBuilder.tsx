@@ -174,11 +174,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <QMR.Accordion
-          externalControlled
-          label={options.displayValue}
-          id={options.value}
-        >
+        <QMR.Accordion externalControlled label={options.displayValue}>
           {options.children}
         </QMR.Accordion>
       ))}

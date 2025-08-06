@@ -76,7 +76,6 @@ interface AccordionProps {
   externalControlled?: boolean;
   label?: string;
   sx?: CUI.SystemStyleObject;
-  id?: string;
 }
 
 const sx = {

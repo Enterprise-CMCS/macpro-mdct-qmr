@@ -186,11 +186,7 @@ export const Stratification = ({
           </CUI.ListItem>
         </CUI.UnorderedList>
         {checkBoxOptions.map((option) => (
-          <QMR.Accordion
-            externalControlled
-            label={option.displayValue}
-            id={option.value}
-          >
+          <QMR.Accordion externalControlled label={option.displayValue}>
             {option.children}
           </QMR.Accordion>
         ))}
