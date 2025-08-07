@@ -7,6 +7,7 @@ interface Props {
   handleSubmit: () => void;
   handleValidation: () => void;
   disabled?: boolean;
+  validating?: boolean;
 }
 
 export const CompleteMeasureFooter = ({
@@ -14,6 +15,7 @@ export const CompleteMeasureFooter = ({
   handleSubmit,
   handleValidation,
   disabled = false,
+  validating = false,
 }: Props) => {
   return (
     <>
@@ -44,6 +46,7 @@ export const CompleteMeasureFooter = ({
             }}
             buttonText="Validate Measure"
             disabledStatus={disabled}
+            loading={validating}
             onClick={handleValidation}
           />
           <QMR.ContainedButton
