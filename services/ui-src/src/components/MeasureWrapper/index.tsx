@@ -519,7 +519,7 @@ export const MeasureWrapper = ({
                       handleClear={methods.handleSubmit(handleClear)}
                       handleSubmit={methods.handleSubmit(handleSubmit)}
                       handleValidation={methods.handleSubmit(handleValidation)}
-                      disabled={!isStateUser}
+                      disabled={!isStateUser || mutationRunning}
                     />
                   )}
                   {!!(!autocompleteOnCreation && defaultData) && (
