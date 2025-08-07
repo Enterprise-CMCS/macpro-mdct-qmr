@@ -92,10 +92,10 @@ export const coreSetBreadCrumbTitle = ():
     return {
       [CoreSetAbbr.ACSC]: "(Separate CHIP)",
       [CoreSetAbbr.ACSM]:
-        "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)",
+        "(Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP))",
       [CoreSetAbbr.CCSC]: "(Separate CHIP)",
       [CoreSetAbbr.CCSM]:
-        "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)",
+        "(Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP))",
     };
   }
   return {
