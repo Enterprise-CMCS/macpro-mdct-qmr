@@ -2,8 +2,6 @@ import { Construct } from "constructs";
 import {
   aws_cognito as cognito,
   aws_iam as iam,
-  aws_lambda as lambda,
-  aws_lambda_nodejs as lambda_nodejs,
   aws_wafv2 as wafv2,
   Aws,
   Duration,
@@ -12,6 +10,7 @@ import {
 } from "aws-cdk-lib";
 import { WafConstruct } from "../constructs/waf";
 import { isLocalStack } from "../local/util";
+import { Lambda } from "../constructs/lambda";
 
 interface CreateUiAuthComponentsProps {
   scope: Construct;
