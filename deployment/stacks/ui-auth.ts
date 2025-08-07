@@ -70,6 +70,7 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
         maxLen: 256,
       }),
     },
+    // advancedSecurityMode: cognito.AdvancedSecurityMode.ENFORCED, DEPRECATED WE NEED FEATURE_PLAN.plus if we want to use StandardThreatProtectionMode.FULL_FUNCTION which I think is the new way to do this
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
   });
 
