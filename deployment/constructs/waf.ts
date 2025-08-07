@@ -1,12 +1,12 @@
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import { CfnWebACL, CfnLoggingConfiguration } from "aws-cdk-lib/aws-wafv2";
-import { LogGroup } from "aws-cdk-lib/aws-logs";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 
 interface WafProps {
   readonly name: string;
+  readonly blockByDefault?: boolean;
   readonly blockRequestBodyOver8KB?: boolean;
-  readonly additionalRules?: CfnWebACL.RuleProperty[];
 }
 
 export class WafConstruct extends Construct {
@@ -23,8 +23,8 @@ export class WafConstruct extends Construct {
 
     const {
       name,
+      blockByDefault = true,
       blockRequestBodyOver8KB = true,
-      additionalRules = [],
     } = props;
 
     const commonRuleOverrides: CfnWebACL.RuleActionOverrideProperty[] = [];
@@ -38,11 +38,12 @@ export class WafConstruct extends Construct {
     this.logGroup = new LogGroup(this, "LogGroup", {
       logGroupName: `aws-waf-logs-${name}`,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      retention: RetentionDays.THREE_YEARS, // exceeds the 30 month requirement
     });
 
     this.webAcl = new CfnWebACL(this, "WebACL", {
       scope: scopeType,
-      defaultAction: { block: {} },
+      defaultAction: blockByDefault ? { block: {} } : { allow: {} },
       visibilityConfig: {
         cloudWatchMetricsEnabled: true,
         sampledRequestsEnabled: true,
@@ -140,7 +141,6 @@ export class WafConstruct extends Construct {
             metricName: `${name}-allow-usa-plus-territories-metric`,
           },
         },
-        ...additionalRules,
       ],
       name: `${name}`,
     });
