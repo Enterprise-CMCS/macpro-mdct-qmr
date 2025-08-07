@@ -25,7 +25,6 @@ interface CreateUiAuthComponentsProps {
   bootstrapUsersPassword?: string;
   secureCloudfrontDomainName?: string;
   userPoolDomainPrefix?: string;
-  sesSourceEmailAddress?: string;
 }
 
 export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
