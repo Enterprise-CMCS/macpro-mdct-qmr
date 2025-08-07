@@ -38,7 +38,7 @@ export const coreSetType = (abbr: string) => {
 
 export const coreSetSubTitles = (abbr: CoreSetAbbr) => {
   const CCSMAbbrByYear = featuresByYear.hasMedicaidInclusiveReportName
-    ? "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+    ? "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)"
     : "Medicaid (Title XIX & XXI)";
   if (featuresByYear.hasCombinedRates) {
     switch (abbr) {
@@ -92,10 +92,10 @@ export const coreSetBreadCrumbTitle = ():
     return {
       [CoreSetAbbr.ACSC]: "(Separate CHIP)",
       [CoreSetAbbr.ACSM]:
-        "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
+        "(Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP))",
       [CoreSetAbbr.CCSC]: "(Separate CHIP)",
       [CoreSetAbbr.CCSM]:
-        "(Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI))",
+        "(Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP))",
     };
   }
   return {
