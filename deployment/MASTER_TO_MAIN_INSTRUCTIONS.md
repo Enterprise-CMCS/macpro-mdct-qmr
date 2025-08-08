@@ -16,6 +16,9 @@ IMPORT_VARIANT=imports_included ./run deploy --stage master
 
 cloudfront distribution id -
 user pool id -
+bucketEncryptionKey -
+AttachmentsBucket -
+DynamoSnapshotBucket -
 
 ### Use PITR to make correctly named tables which we import with other stuff
 
@@ -32,6 +35,7 @@ add 2 new secret values inside `qmr-main`
 
 - kafkaClientId: `qmr-master`
 - userPoolName: `master-user-pool`
+- bucketPrefix: `uploads-master`
 
 ### Remove if statement in setBranchName to changes main to master
 

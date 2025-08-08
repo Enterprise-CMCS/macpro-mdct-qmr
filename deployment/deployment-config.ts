@@ -6,8 +6,8 @@ export interface DeploymentConfigProperties {
   stage: string;
   isDev: boolean;
   vpcName: string;
-  kafkaAuthorizedSubnetIds: string;
   brokerString: string;
+  kafkaAuthorizedSubnetIds: string;
   mpriamrole: string;
   mprdeviam: string;
   oktaMetadataUrl: string;
@@ -23,6 +23,7 @@ export interface DeploymentConfigProperties {
   userPoolName?: string;
   userPoolDomainPrefix?: string;
   kafkaClientId?: string;
+  bucketPrefix?: string;
 }
 
 export const determineDeploymentConfig = async (stage: string) => {

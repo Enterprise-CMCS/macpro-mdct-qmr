@@ -44,7 +44,7 @@ class KafkaSourceLib {
     tables: SourceTopicMapping[]
   ) {
     if (!process.env.BOOTSTRAP_BROKER_STRING_TLS) {
-      throw new Error("Missing Broker Config. ");
+      throw new Error("Missing Broker Config.");
     }
     // Setup vars
     this.topicNamespace = process.env.topicNamespace!;
