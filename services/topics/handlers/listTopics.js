@@ -10,8 +10,9 @@ const topics = require("../libs/topics-lib.js");
  */
 exports.handler = async function (event, _context, _callback) {
   console.log("Received event:", JSON.stringify(event, null, 2));
-  let namespace = event.stage
-    ? `--${process.env.project}--${event.stage}--`
-    : `--${process.env.project}--`;
-  return await topics.listTopics(process.env.brokerString, namespace);
+
+  return await topics.listTopics(
+    process.env.BOOTSTRAP_BROKER_STRING_TLS,
+    process.env.topicNamespace
+  );
 };

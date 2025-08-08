@@ -6,7 +6,6 @@ const topics = require("../libs/topics-lib.js");
  * Only used for temp branches for easy identification and cleanup.
  */
 const namespace = process.env.topicNamespace;
-const brokers = process.env.brokerString?.split(",") ?? [];
 
 const condensedTopicList = [
   {
@@ -36,5 +35,8 @@ exports.handler = async function (event, _context, _callback) {
     }))
   );
 
-  await topics.createTopics(brokers, desiredTopicConfigs);
+  await topics.createTopics(
+    process.env.BOOTSTRAP_BROKER_STRING_TLS.split(","),
+    desiredTopicConfigs
+  );
 };

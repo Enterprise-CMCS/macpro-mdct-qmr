@@ -21,11 +21,13 @@ interface createUploadsComponentsProps {
   mpriamrole: string;
   mprdeviam: string;
   tables: DynamoDBTableIdentifiers[];
+  bucketPrefix?: string;
 }
 
 export function createUploadsComponents(props: createUploadsComponentsProps) {
-  const { scope, stage, isDev, mpriamrole, mprdeviam, tables } = props;
-  const service = "uploads";
+  const { scope, stage, isDev, mpriamrole, mprdeviam, tables, bucketPrefix } =
+    props;
+  const serviceStage = `uploads-${stage}`;
 
   const bucketEncryptionKey = new kms.Key(scope, "BucketEncryptionKMSKey", {
     description: "Key for encrypting dynamo snapshots and upload buckets",
@@ -81,7 +83,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
   });
 
   const attachmentsBucket = new s3.Bucket(scope, "AttachmentsBucket", {
-    bucketName: `${service}-${stage}-attachments-${Aws.ACCOUNT_ID}`,
+    bucketName: `${bucketPrefix ?? serviceStage}-attachments-${Aws.ACCOUNT_ID}`,
     encryptionKey: bucketEncryptionKey,
     publicReadAccess: false,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -154,7 +156,9 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
   );
 
   const dynamoBucket = new s3.Bucket(scope, "DynamoSnapshotBucket", {
-    bucketName: `${service}-${stage}-dynamosnapshots-${Aws.ACCOUNT_ID}`,
+    bucketName: `${bucketPrefix ?? serviceStage}-dynamosnapshots-${
+      Aws.ACCOUNT_ID
+    }`,
     encryptionKey: bucketEncryptionKey,
     publicReadAccess: false,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
@@ -178,7 +182,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
   );
 
   const clamDefsBucket = new s3.Bucket(scope, "ClamDefsBucket", {
-    bucketName: `${service}-${stage}-avscan-${Aws.ACCOUNT_ID}`,
+    bucketName: `${serviceStage}-avscan-${Aws.ACCOUNT_ID}`,
     encryption: s3.BucketEncryption.S3_MANAGED,
     removalPolicy: RemovalPolicy.DESTROY,
     autoDeleteObjects: true,
@@ -223,7 +227,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     handler: "syncDynamoToS3",
     timeout: Duration.minutes(2),
     memorySize: 4096,
-    stackName: `${service}-${stage}`,
+    stackName: serviceStage,
     environment: {
       DYNAMO_BUCKET_NAME: dynamoBucket.bucketName,
       ...Object.fromEntries(
@@ -259,7 +263,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
   });
 
   const clamAvLayer = new lambda.LayerVersion(scope, "ClamAvLayer", {
-    layerVersionName: `${service}-${stage}-clamDefs`,
+    layerVersionName: `${serviceStage}-clamDefs`,
     code: lambda.Code.fromAsset("services/uploads/lambda_layer.zip"),
     compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
   });
@@ -270,7 +274,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     memorySize: 3072,
     timeout: Duration.minutes(5),
     layers: [clamAvLayer],
-    stackName: `${service}-${stage}`,
+    stackName: serviceStage,
     environment: {
       CLAMAV_BUCKET_NAME: clamDefsBucket.bucketName,
     },
@@ -296,7 +300,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
       memorySize: 3072,
       timeout: Duration.minutes(5),
       layers: [clamAvLayer],
-      stackName: `${service}-${stage}`,
+      stackName: serviceStage,
       environment: {
         CLAMAV_BUCKET_NAME: clamDefsBucket.bucketName,
       },
