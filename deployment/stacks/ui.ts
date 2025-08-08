@@ -192,7 +192,7 @@ function setupWaf(
   });
 
   const wafRules: wafv2.CfnWebACL.RuleProperty[] = [];
-  const vpnOnly = (isDev || stage === "master") && vpnIpSetArn && vpnIpv6SetArn;
+  const vpnOnly = (isDev || stage === "main") && vpnIpSetArn && vpnIpv6SetArn;
   if (vpnOnly) {
     // Additional Rules for this WAF only because CMS asked to have the application made vpn only
     wafRules.push(
