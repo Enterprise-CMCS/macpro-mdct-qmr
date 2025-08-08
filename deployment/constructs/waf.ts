@@ -21,7 +21,11 @@ export class WafConstruct extends Construct {
   ) {
     super(scope, id);
 
-    const { name, blockRequestBodyOver8KB = true, additionalRules } = props;
+    const {
+      name,
+      blockRequestBodyOver8KB = true,
+      additionalRules = [],
+    } = props;
 
     const commonRuleOverrides: CfnWebACL.RuleActionOverrideProperty[] = [];
     if (!blockRequestBodyOver8KB) {
