@@ -20,7 +20,9 @@ export interface DeploymentConfigProperties {
   cloudfrontCertificateArn?: string;
   cloudfrontDomainName?: string;
   secureCloudfrontDomainName?: string;
+  userPoolName?: string;
   userPoolDomainPrefix?: string;
+  kafkaClientId?: string;
 }
 
 export const determineDeploymentConfig = async (stage: string) => {

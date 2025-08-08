@@ -38,7 +38,6 @@ class KafkaSourceLib {
   tables: SourceTopicMapping[];
   connected: boolean;
   topicNamespace: string;
-  stage: string;
   constructor(
     topicPrefix: string,
     version: string | null,
@@ -48,18 +47,14 @@ class KafkaSourceLib {
       throw new Error("Missing Broker Config. ");
     }
     // Setup vars
-    this.stage = process.env.stage;
-    this.topicNamespace = process.env.topicNamespace
-      ? process.env.topicNamespace
-      : "";
+    this.topicNamespace = process.env.topicNamespace!;
     this.topicPrefix = topicPrefix;
     this.version = version;
     this.tables = tables;
 
-    const brokerStrings = process.env.BOOTSTRAP_BROKER_STRING_TLS;
     kafka = new Kafka({
-      clientId: `qmr-${this.stage}`,
-      brokers: brokerStrings!.split(","),
+      clientId: process.env.KAFKA_CLIENT_ID,
+      brokers: process.env.BOOTSTRAP_BROKER_STRING_TLS.split(","),
       retry: {
         initialRetryTime: 300,
         retries: 8,

@@ -25,6 +25,7 @@ interface CreateUiAuthComponentsProps {
   attachmentsBucketArn: string;
   bootstrapUsersPassword?: string;
   secureCloudfrontDomainName?: string;
+  userPoolName?: string;
   userPoolDomainPrefix?: string;
   sesSourceEmailAddress?: string;
 }
@@ -42,11 +43,12 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
     attachmentsBucketArn,
     bootstrapUsersPassword,
     secureCloudfrontDomainName,
+    userPoolName,
     userPoolDomainPrefix,
   } = props;
 
   const userPool = new cognito.UserPool(scope, "UserPool", {
-    userPoolName: `${stage}-user-pool`,
+    userPoolName: userPoolName ?? `${stage}-user-pool`,
     signInAliases: {
       email: true,
     },
