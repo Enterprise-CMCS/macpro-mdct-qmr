@@ -1,5 +1,11 @@
 import { Construct } from "constructs";
-import { aws_ec2 as ec2, CfnOutput, Stack, StackProps } from "aws-cdk-lib";
+import {
+  aws_ec2 as ec2,
+  aws_iam as iam,
+  CfnOutput,
+  Stack,
+  StackProps,
+} from "aws-cdk-lib";
 import { DeploymentConfigProperties } from "../deployment-config";
 import { createDataComponents } from "./data";
 import { createUiAuthComponents } from "./ui-auth";
@@ -80,7 +86,6 @@ export class ParentStack extends Stack {
       userPoolId,
       userPoolClientId,
       userPoolClientDomain: `${userPoolDomainName}.auth.${this.region}.amazoncognito.com`,
-      customResourceRole,
       attachmentsBucketName: attachmentsBucket.bucketName,
     });
 
@@ -94,5 +99,42 @@ export class ParentStack extends Stack {
     new CfnOutput(this, "CloudFrontUrl", {
       value: applicationEndpointUrl,
     });
+    if (isDev) {
+      applyDenyCreateLogGroupPolicy(this);
+    }
   }
+}
+
+function applyDenyCreateLogGroupPolicy(stack: Stack) {
+  const denyCreateLogGroupPolicy = {
+    PolicyName: "DenyCreateLogGroup",
+    PolicyDocument: {
+      Version: "2012-10-17",
+      Statement: [
+        {
+          Effect: "Deny",
+          Action: "logs:CreateLogGroup",
+          Resource: "*",
+        },
+      ],
+    },
+  };
+
+  const provider = stack.node.tryFindChild(
+    "Custom::S3AutoDeleteObjectsCustomResourceProvider"
+  );
+  const role = provider?.node.tryFindChild("Role") as iam.CfnRole;
+  if (role) {
+    role.addPropertyOverride("Policies", [denyCreateLogGroupPolicy]);
+  }
+
+  stack.node.findAll().forEach((c) => {
+    if (!c.node.id.startsWith("BucketNotificationsHandler")) return;
+
+    const role = c.node.tryFindChild("Role");
+    const cfnRole = role?.node.tryFindChild("Resource") as iam.CfnRole;
+    if (cfnRole) {
+      cfnRole.addPropertyOverride("Policies", [denyCreateLogGroupPolicy]);
+    }
+  });
 }
