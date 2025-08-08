@@ -41,7 +41,6 @@ export const data: MeasureTemplateData = {
     ],
   },
   custom: {
-    calcTotal: true,
     RateComponent: IETRate,
   },
 };
