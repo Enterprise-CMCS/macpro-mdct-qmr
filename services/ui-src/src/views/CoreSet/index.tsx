@@ -317,8 +317,10 @@ export const CoreSet = () => {
     "2024": {
       ACSM: "Beginning with FFY 2024 reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as mandatory in the measure list below. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
       ACSC: "Beginning with FFY 2024 reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as mandatory in the measure list below. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
+      ACS: "Beginning with FFY 2024 reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as mandatory in the measure list below. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
       CCSM: "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
       CCSC: "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
+      CCS: "Beginning with FFY 2024 reporting, states are required to report all of the measures on the Child Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
       HHCS: "States with approved Health Home Programs in operation by June 30, 2023 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets</a>.",
     },
     "2025": {
@@ -331,7 +333,6 @@ export const CoreSet = () => {
   };
 
   const coreSetPrefix = coreSet[0].slice(0, 4);
-  console.log(coreSetInstructions[year][coreSetPrefix]);
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -346,6 +347,7 @@ export const CoreSet = () => {
       ]}
     >
       {featuresByYear.hasMandatoryReporting &&
+        coreSetInstructions[year] &&
         coreSetInstructions[year][coreSetPrefix] && (
           <CUI.Box mb="8">
             <Alert heading="Mandatory Reporting">
