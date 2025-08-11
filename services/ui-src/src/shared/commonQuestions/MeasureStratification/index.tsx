@@ -8,6 +8,7 @@ import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
+import { Alert } from "@cmsgov/design-system";
 
 interface Props {
   register: Function;
@@ -95,12 +96,14 @@ export const StratificationOption = ({ register, reset }: Props) => {
           ,
         </CUI.UnorderedList>,
         <CUI.Box mb="1rem">
-          <QMR.Notification
-            alertStatus="warning"
-            alertTitle="Warning! Entered data will not be saved if you switch race and
-          ethnicity reporting standards. Please confirm which standard you are
-          using before entering data."
-          />
+          <Alert
+            heading="Entered data will not be saved if you switch race and ethnicity reporting standards."
+            variation="warn"
+          >
+            <CUI.Text>
+              Please confirm which standard you are using before entering data.
+            </CUI.Text>
+          </Alert>
         </CUI.Box>,
       ]}
       options={[
