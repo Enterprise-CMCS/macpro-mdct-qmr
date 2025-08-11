@@ -247,6 +247,7 @@ export const MeasureWrapper = ({
   }, [apiData, methods, defaultData, coreSetId]);
 
   const handleValidation = (data: any) => {
+    setValidating(true);
     handleSave(data);
     validateAndSetErrors(data);
   };
@@ -271,7 +272,6 @@ export const MeasureWrapper = ({
      */
 
     if (!mutationRunning && !loadingData && hasDataChanged(data)) {
-      setValidating(true);
       updateMeasure(
         {
           data,
@@ -305,7 +305,7 @@ export const MeasureWrapper = ({
           },
         }
       );
-    }
+    } else setValidating(false);
   };
 
   const handleClear = () => {
