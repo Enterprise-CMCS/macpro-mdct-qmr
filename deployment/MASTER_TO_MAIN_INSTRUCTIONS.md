@@ -28,7 +28,7 @@ DynamoSnapshotBucket -
 `master-coreSet` -> `main-coreSet`
 `master-rate` -> `main-rate`
 
-Manually turn on new and old image streaming for each restored table.
+Manually turn on new and old image streaming for each restored table (EXCEPT main-banners!!!)
 
 ### Copy secret for `qmr-master` to `qmr-main`
 
