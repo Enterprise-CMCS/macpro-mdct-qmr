@@ -160,7 +160,7 @@ const ChildChipData: DataDriven = {
     "Please report data on Separate CHIP (Title XXI) for the Child Core Set on this page.",
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of children in your state’s separate CHIP (Title XXI) program were enrolled in each delivery system?`,
-  textTable: [["Separate CHIP"]],
+  textTable: [[]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [

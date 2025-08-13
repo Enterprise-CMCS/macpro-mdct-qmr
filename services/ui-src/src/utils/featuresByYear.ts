@@ -87,7 +87,7 @@ export const featuresByYear = {
    * In 2024, we rephrased this question to ask about "variations" instead.
    */
   get displayDeviationlanguage() {
-    return getMeasureYear() >= 2023;
+    return getMeasureYear() <= 2023;
   },
   /**
    * Prior to 2023, the OMS section included every rate from the PM section,
