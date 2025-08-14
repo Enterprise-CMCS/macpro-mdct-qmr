@@ -84,6 +84,7 @@ const PRSADValidation = (data: FormData) => {
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
         GV.validateEqualQualifierDenominatorsOMS(),
+        GV.validateEqualCategoryDenominatorsOMS(),
       ],
     }),
   ];

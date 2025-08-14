@@ -131,7 +131,7 @@ export const featuresByYear = {
   /**
    * Prior to 2025, the report name was "Medicaid (Title XIX & XXI)"
    *
-   * In 2025 and beyond, we want to change it to "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+   * In 2025 and beyond, we want to change it to "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)"
    */
   get hasMedicaidInclusiveReportName() {
     return getMeasureYear() >= 2025;

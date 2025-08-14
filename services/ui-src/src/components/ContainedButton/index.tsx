@@ -10,6 +10,7 @@ interface ContainedButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   zIndex?: number;
   testId?: string;
+  loading?: boolean;
 }
 
 export const ContainedButton = ({
@@ -22,6 +23,7 @@ export const ContainedButton = ({
   onClick,
   zIndex,
   testId,
+  loading = false,
 }: ContainedButtonProps) => {
   const printIcon = icon === "print" ? <FaPrint /> : undefined;
   const plusIcon = icon === "plus" ? <FaPlusCircle /> : undefined;
@@ -41,6 +43,8 @@ export const ContainedButton = ({
         color="white"
         textTransform="capitalize"
         fontWeight="bold"
+        isLoading={loading}
+        loadingText={buttonText}
         {...buttonProps}
       >
         {buttonText}

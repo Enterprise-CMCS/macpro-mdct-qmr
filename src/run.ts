@@ -373,11 +373,9 @@ async function delete_topics(options: { stage: string }) {
     "DeleteTopicsFunctionName"
   );
 
-  const payload = JSON.stringify({ project, stage: options.stage });
-
   const command = new InvokeCommand({
     FunctionName: functionName,
-    Payload: Buffer.from(payload),
+    Payload: "{}",
   });
 
   const response = await lambdaClient.send(command);
@@ -395,11 +393,9 @@ async function list_topics(options: { stage: string | undefined }) {
     "ListTopicsFunctionName"
   );
 
-  const payload = JSON.stringify({ stage: options.stage });
-
   const command = new InvokeCommand({
     FunctionName: functionName,
-    Payload: Buffer.from(payload),
+    Payload: "{}",
   });
 
   const response = await lambdaClient.send(command);

@@ -2,8 +2,6 @@ import { Construct } from "constructs";
 import {
   aws_cognito as cognito,
   aws_iam as iam,
-  aws_lambda as lambda,
-  aws_lambda_nodejs as lambda_nodejs,
   aws_wafv2 as wafv2,
   Aws,
   Duration,
@@ -12,6 +10,7 @@ import {
 } from "aws-cdk-lib";
 import { WafConstruct } from "../constructs/waf";
 import { isLocalStack } from "../local/util";
+import { Lambda } from "../constructs/lambda";
 
 interface CreateUiAuthComponentsProps {
   scope: Construct;
@@ -25,8 +24,8 @@ interface CreateUiAuthComponentsProps {
   attachmentsBucketArn: string;
   bootstrapUsersPassword?: string;
   secureCloudfrontDomainName?: string;
+  userPoolName?: string;
   userPoolDomainPrefix?: string;
-  sesSourceEmailAddress?: string;
 }
 
 export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
@@ -42,11 +41,12 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
     attachmentsBucketArn,
     bootstrapUsersPassword,
     secureCloudfrontDomainName,
+    userPoolName,
     userPoolDomainPrefix,
   } = props;
 
   const userPool = new cognito.UserPool(scope, "UserPool", {
-    userPoolName: `${stage}-user-pool`,
+    userPoolName: userPoolName ?? `${stage}-user-pool`,
     signInAliases: {
       email: true,
     },
@@ -72,19 +72,15 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
         maxLen: 256,
       }),
     },
+    // advancedSecurityMode: cognito.AdvancedSecurityMode.ENFORCED, DEPRECATED WE NEED FEATURE_PLAN.plus if we want to use StandardThreatProtectionMode.FULL_FUNCTION which I think is the new way to do this
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
   });
 
-  let supportedIdentityProviders:
-    | cognito.UserPoolClientIdentityProvider[]
-    | undefined = undefined;
-  let oktaIdp: cognito.CfnUserPoolIdentityProvider | undefined = undefined;
-
   const providerName = "Okta";
 
-  oktaIdp = new cognito.CfnUserPoolIdentityProvider(
+  const oktaIdp = new cognito.CfnUserPoolIdentityProvider(
     scope,
-    "OktaUserPoolIdentityProviderSAML",
+    "CognitoUserPoolIdentityProvider",
     {
       providerName,
       providerType: "SAML",
@@ -95,34 +91,43 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
       attributeMapping: {
         email:
           "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
-        given_name:
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname",
         family_name:
           "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname",
+        given_name:
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname",
         "custom:cms_roles": "cmsRoles",
         "custom:cms_state": "state",
       },
       idpIdentifiers: ["IdpIdentifier"],
     }
   );
-  supportedIdentityProviders = [
+
+  const supportedIdentityProviders = [
     cognito.UserPoolClientIdentityProvider.custom(providerName),
   ];
 
-  const appUrl = secureCloudfrontDomainName || applicationEndpointUrl;
+  const appUrl =
+    secureCloudfrontDomainName ??
+    applicationEndpointUrl ??
+    "http://localhost:3000/";
 
   const userPoolClient = new cognito.UserPoolClient(scope, "UserPoolClient", {
     userPoolClientName: `${stage}-user-pool-client`,
     userPool,
-    authFlows: { adminUserPassword: true },
+    authFlows: {
+      userPassword: true,
+    },
     oAuth: {
-      flows: { authorizationCodeGrant: true },
+      flows: {
+        authorizationCodeGrant: true,
+      },
       scopes: [
         cognito.OAuthScope.EMAIL,
         cognito.OAuthScope.OPENID,
         cognito.OAuthScope.PROFILE,
       ],
       callbackUrls: [appUrl],
+      defaultRedirectUri: appUrl,
       logoutUrls: [appUrl, `${appUrl}postLogout`],
     },
     supportedIdentityProviders,
@@ -219,53 +224,46 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
     roles: { authenticated: cognitoAuthRole.roleArn },
   });
 
-  if (bootstrapUsersPassword) {
-    const lambdaApiRole = new iam.Role(scope, "BootstrapUsersLambdaApiRole", {
-      assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
-      managedPolicies: [
-        iam.ManagedPolicy.fromAwsManagedPolicyName(
-          "service-role/AWSLambdaVPCAccessExecutionRole"
-        ),
-      ],
-      inlinePolicies: {
-        LambdaApiRolePolicy: new iam.PolicyDocument({
-          statements: [
-            new iam.PolicyStatement({
-              actions: [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-              ],
-              resources: ["arn:aws:logs:*:*:*"],
-              effect: iam.Effect.ALLOW,
-            }),
-            new iam.PolicyStatement({
-              actions: ["*"],
-              resources: [userPool.userPoolArn],
-              effect: iam.Effect.ALLOW,
-            }),
-          ],
-        }),
-      },
-    });
+  let bootstrapUsersFunction;
 
-    const bootstrapUsersFunction = new lambda_nodejs.NodejsFunction(
+  if (bootstrapUsersPassword) {
+    const service = "ui-auth";
+    bootstrapUsersFunction = new Lambda(scope, "bootstrapUsers", {
+      stackName: `${service}-${stage}`,
+      entry: "services/ui-auth/handlers/createUsers.js",
+      handler: "handler",
+      memorySize: 1024,
+      timeout: Duration.seconds(60),
+      additionalPolicies: [
+        new iam.PolicyStatement({
+          actions: ["*"],
+          resources: [userPool.userPoolArn],
+          effect: iam.Effect.ALLOW,
+        }),
+      ],
+      environment: {
+        userPoolId: userPool.userPoolId,
+        bootstrapUsersPassword,
+      },
+      isDev,
+    }).lambda;
+  }
+
+  if (!isLocalStack) {
+    const waf = new WafConstruct(
       scope,
-      "bootstrapUsers",
-      {
-        entry: "services/ui-auth/handlers/createUsers.js",
-        handler: "handler",
-        runtime: lambda.Runtime.NODEJS_20_X,
-        memorySize: 1024,
-        timeout: Duration.seconds(60),
-        role: lambdaApiRole,
-        environment: {
-          userPoolId: userPool.userPoolId,
-          bootstrapUsersPassword,
-        },
-      }
+      "CognitoWafConstruct",
+      { name: `${project}-${stage}-ui-auth` },
+      "REGIONAL"
     );
 
+    new wafv2.CfnWebACLAssociation(scope, "CognitoUserPoolWAFAssociation", {
+      resourceArn: userPool.userPoolArn,
+      webAclArn: waf.webAcl.attrArn,
+    });
+  }
+
+  if (bootstrapUsersFunction) {
     const bootstrapUsersInvoke = new cr.AwsCustomResource(
       scope,
       "InvokeBootstrapUsersFunction",
@@ -296,20 +294,6 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
     );
 
     bootstrapUsersInvoke.node.addDependency(bootstrapUsersFunction);
-  }
-
-  if (!isLocalStack) {
-    const waf = new WafConstruct(
-      scope,
-      "CognitoWafConstruct",
-      { name: `${project}-${stage}-ui-auth` },
-      "REGIONAL"
-    );
-
-    new wafv2.CfnWebACLAssociation(scope, "CognitoUserPoolWAFAssociation", {
-      resourceArn: userPool.userPoolArn,
-      webAclArn: waf.webAcl.attrArn,
-    });
   }
 
   return {

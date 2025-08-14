@@ -81,7 +81,7 @@ export function createUiComponents(props: CreateUiComponentsProps) {
 
   const securityHeadersPolicy = new cloudfront.ResponseHeadersPolicy(
     scope,
-    "CloudFormationHeadersPolicy",
+    "CloudFrontHeadersPolicy",
     {
       responseHeadersPolicyName: `Headers-Policy-${stage}`,
       comment: "Add Security Headers",
@@ -192,7 +192,7 @@ function setupWaf(
   });
 
   const wafRules: wafv2.CfnWebACL.RuleProperty[] = [];
-  const vpnOnly = (isDev || stage === "master") && vpnIpSetArn && vpnIpv6SetArn;
+  const vpnOnly = (isDev || stage === "main") && vpnIpSetArn && vpnIpv6SetArn;
   if (vpnOnly) {
     // Additional Rules for this WAF only because CMS asked to have the application made vpn only
     wafRules.push(
