@@ -66,7 +66,7 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
         survey sample includes both non-dual Medicaid (Title XIX) beneficiaries
         and Individuals Dually Eligible for Medicare and Medicaid, select both
         Medicaid (Title XIX) and Individuals Dually Eligible for Medicare and
-        Medicaid. 
+        Medicaid.
       </CUI.Text>
 
       <QMR.Checkbox

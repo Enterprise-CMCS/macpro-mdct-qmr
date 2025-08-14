@@ -1,6 +1,6 @@
 # MDCT QMR (Quality Measure Reporting)
 
-[![CodeQL](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml)
+[![CodeQL](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/codeql-analysis.yml)
 [![Maintainability](https://qlty.sh/badges/6725809c-a572-4a88-b347-bd7610d5f5c4/maintainability.svg)](https://qlty.sh/gh/Enterprise-CMCS/projects/macpro-mdct-qmr)
 [![Code Coverage](https://qlty.sh/badges/6725809c-a572-4a88-b347-bd7610d5f5c4/test_coverage.svg)](https://qlty.sh/gh/Enterprise-CMCS/projects/macpro-mdct-qmr)
 
@@ -8,7 +8,7 @@
 
 | Branch | Build Status                                                                                                     |
 | ------ | ---------------------------------------------------------------------------------------------------------------- |
-| master | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg)             |
+| main   | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg)             |
 | val    | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=val)  |
 | prod   | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=prod) |
 
@@ -533,7 +533,7 @@ This application was forked from the [Quickstart Repository](https://github.com/
 
 This repository uses 3 webhooks to publish to 3 different channels all in CMS Slack.
 
-- SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `master`, `val`, or `prod` branches.
+- SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `main`, `val`, or `prod` branches.
 
 - INTEGRATIONS_SLACK_WEBHOOK: This is used to publish new pull requests to the `mdct-integrations-channel`
 

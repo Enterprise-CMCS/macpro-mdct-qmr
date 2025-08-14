@@ -21,7 +21,6 @@ interface DeployFrontendProps {
   userPoolId: string;
   userPoolClientId: string;
   userPoolClientDomain: string;
-  customResourceRole: iam.Role;
   launchDarklyClient: string;
   redirectSignout: string;
   attachmentsBucketName: string;

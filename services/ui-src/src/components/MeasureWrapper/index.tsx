@@ -147,6 +147,7 @@ export const MeasureWrapper = ({
   const [validationFunctions, setValidationFunctions] = useState<Function[]>(
     []
   );
+  const [validating, setValidating] = useState(false);
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
   const shared: AnyObject = {
@@ -246,6 +247,7 @@ export const MeasureWrapper = ({
   }, [apiData, methods, defaultData, coreSetId]);
 
   const handleValidation = (data: any) => {
+    setValidating(true);
     handleSave(data);
     validateAndSetErrors(data);
   };
@@ -295,6 +297,7 @@ export const MeasureWrapper = ({
                 userState: userInfo.userState,
               },
             });
+            setValidating(false);
             toastSaved();
           },
           onError: () => {
@@ -302,7 +305,7 @@ export const MeasureWrapper = ({
           },
         }
       );
-    }
+    } else setValidating(false);
   };
 
   const handleClear = () => {
@@ -519,7 +522,8 @@ export const MeasureWrapper = ({
                       handleClear={methods.handleSubmit(handleClear)}
                       handleSubmit={methods.handleSubmit(handleSubmit)}
                       handleValidation={methods.handleSubmit(handleValidation)}
-                      disabled={!isStateUser}
+                      disabled={!isStateUser || mutationRunning}
+                      validating={validating}
                     />
                   )}
                   {!!(!autocompleteOnCreation && defaultData) && (

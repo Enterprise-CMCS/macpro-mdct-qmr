@@ -6,7 +6,6 @@ import { OmsNode } from "shared/types";
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
 import { featuresByYear } from "utils/featuresByYear";
-import { Accordion } from "components/Accordion";
 import { NDRSetsAccordion } from "./NDR/ndrSets";
 import { SubCatSection } from "../OptionalMeasureStrat/subCatClassification";
 import { AddAnotherSectionAccordian } from "../OptionalMeasureStrat/additionalCategory";
@@ -175,9 +174,9 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <Accordion externalControlled label={options.displayValue}>
+        <QMR.Accordion externalControlled label={options.displayValue}>
           {options.children}
-        </Accordion>
+        </QMR.Accordion>
       ))}
       {props.addMore && (props.id !== "O8BrOa" || sogiFlag) && (
         <AddAnotherSectionAccordian

@@ -1,13 +1,14 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
+import { Alert } from "@cmsgov/design-system";
 
 interface Props {
   register: Function;
@@ -95,12 +96,14 @@ export const StratificationOption = ({ register, reset }: Props) => {
           ,
         </CUI.UnorderedList>,
         <CUI.Box mb="1rem">
-          <QMR.Notification
-            alertStatus="warning"
-            alertTitle="Warning! Entered data will not be saved if you switch race and
-          ethnicity reporting standards. Please confirm which standard you are
-          using before entering data."
-          />
+          <Alert
+            heading="Entered data will not be saved if you switch race and ethnicity reporting standards."
+            variation="warn"
+          >
+            <CUI.Text>
+              Please confirm which standard you are using before entering data.
+            </CUI.Text>
+          </Alert>
         </CUI.Box>,
       ]}
       options={[
@@ -138,11 +141,26 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     useFormContext<Types.OptionalMeasureStratification>();
   const data = watch();
 
-  const version = data.OptionalMeasureStratification?.version;
-  const omsData =
-    version === "1997-omb" ? OMSData(2024) : OMSData(year, coreset === "adult");
+  const [version, setVersion] = useState<string>();
+  const [omsData, setOMSData] = useState<Types.OmsNode[]>();
+
+  useEffect(() => {
+    if (
+      data.OptionalMeasureStratification?.version != undefined &&
+      data.OptionalMeasureStratification.version != version
+    ) {
+      setVersion(data.OptionalMeasureStratification.version);
+      setOMSData(
+        data.OptionalMeasureStratification.version === "1997-omb"
+          ? OMSData(2024)
+          : OMSData(year, coreset === "adult")
+      );
+    }
+  }, [data.OptionalMeasureStratification?.version]);
 
   const onReset = () => {
+    if (!data.OptionalMeasureStratification?.selections) return;
+
     //create a copy of the original data to be used as the clear template
     const clearedData = structuredClone(
       data.OptionalMeasureStratification.selections
@@ -150,21 +168,16 @@ export const MeasureStrat = (props: Types.OMSProps) => {
 
     //transverse through data object and set all values to "" if key is not an array
     for (const [topKey, topValue] of Object.entries(clearedData)) {
-      if (topValue.additionalSelections) {
-        //this clears any fields added by the [+Add Another _____] button, i.e. [+Add Another Race]
-        setValue(
-          `OptionalMeasureStratification.selections.${topKey}.additionalSelections`,
-          []
-        );
-      }
-      //i don't think this one is actually in use but i'm going to clear it anyway
-      if (topValue.additionalCategories) {
-        setValue(
-          `OptionalMeasureStratification.selections.${topKey}.additionalCategories`,
-          []
-        );
-      }
-
+      //this clears any fields added by the [+Add Another _____] button, i.e. [+Add Another Race]
+      (["additionalSelections", "additionalCategories"] as const).forEach(
+        (key) => {
+          if (topValue[key])
+            setValue(
+              `OptionalMeasureStratification.selections.${topKey}.${key}`,
+              []
+            );
+        }
+      );
       for (const [midKey, midValue] of Object.entries(
         topValue.selections as Types.OmsNodes.MidLevelOMSNode
       )) {
@@ -240,7 +253,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         <>
           <Stratification
             {...props}
-            omsData={omsData}
+            omsData={omsData!}
             year={year}
           ></Stratification>
           <CUI.Heading size="md" as="h2" my="6">

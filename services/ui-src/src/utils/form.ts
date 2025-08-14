@@ -82,3 +82,54 @@ export const arrayIsReadOnly = (dataSource: string[]) => {
     dataSource?.every((source) => source === "AdministrativeData") ?? false
   );
 };
+
+export const hasNumOrDenom = (rates: any) =>
+  (Object.values(rates).flat() as Types.RateFields[]).some(
+    (rate) => isFilled(rate.numerator) || isFilled(rate.denominator)
+  );
+
+export const isFilled = (str: string | undefined) =>
+  str !== undefined && str !== "";
+
+/**
+ * Goes through the OMS data set and looks for any input stored in the N/D/R set
+ * currently not used, predicting that we may need this in the future
+ * @returns a string[] of OMS ids that's rates have some value.
+ */
+export const getFilledKeys = (data: {
+  [option: string]: Types.OmsNodes.TopLevelOmsNode;
+}) => {
+  if (!data) return [];
+
+  const keys = [];
+  for (const [topKey, topValue] of Object.entries(data)) {
+    (["additionalSelections", "additionalCategories"] as const).forEach(
+      (key) => {
+        if (topValue[key] && topValue[key].length > 0)
+          keys.push(
+            `OptionalMeasureStratification.selections.${topKey}.${key}`
+          );
+      }
+    );
+    for (const [midKey, midValue] of Object.entries(
+      topValue.selections as Types.OmsNodes.MidLevelOMSNode
+    )) {
+      if (midValue.additionalSubCategories) {
+        keys.push(
+          `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`
+        );
+      }
+      if (midValue.rateData?.rates) {
+        const values = Object.values(midValue.rateData.rates);
+
+        if (values.some(hasNumOrDenom)) {
+          keys.push(
+            `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates`
+          );
+        }
+      }
+    }
+  }
+
+  return keys;
+};

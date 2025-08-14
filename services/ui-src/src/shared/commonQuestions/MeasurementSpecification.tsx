@@ -76,7 +76,7 @@ export const MeasurementSpecificationOtherAlert = (
   otherMeasurementSpecWarning: string
 ) => {
   return (
-    <CUI.Box mt="8">
+    <CUI.Box mt="8" key={`measure.specification.other.alert`}>
       <Alert heading="Please Note" variation="warn">
         <CUI.Text>{otherMeasurementSpecWarning}</CUI.Text>
       </Alert>

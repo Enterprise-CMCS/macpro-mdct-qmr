@@ -26,6 +26,7 @@ interface CreateApiComponentsProps {
   tables: DynamoDBTableIdentifiers[];
   brokerString: string;
   docraptorApiKey: string;
+  kafkaClientId?: string;
 }
 
 export function createApiComponents(props: CreateApiComponentsProps) {
@@ -39,6 +40,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     tables,
     brokerString,
     docraptorApiKey,
+    kafkaClientId,
   } = props;
 
   const service = "app-api";
@@ -56,6 +58,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
 
   const logGroup = new logs.LogGroup(scope, "ApiAccessLogs", {
     removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
+    retention: logs.RetentionDays.THREE_YEARS, // exceeds the 30 month requirement
   });
 
   const api = new apigateway.RestApi(scope, "ApiGatewayRestApi", {
@@ -95,6 +98,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     stage,
     docraptorApiKey,
     BOOTSTRAP_BROKER_STRING_TLS: brokerString,
+    KAFKA_CLIENT_ID: kafkaClientId ?? `qmr-${stage}`,
     topicNamespace: isDev ? `--qmr--${stage}--` : "",
     ...Object.fromEntries(
       tables.map((table) => [`${table.id}Table`, table.name])
@@ -133,6 +137,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     api,
     environment,
     additionalPolicies,
+    isDev,
   };
 
   // Api endpoints
