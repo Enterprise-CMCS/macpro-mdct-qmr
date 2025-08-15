@@ -48,7 +48,7 @@ export const listMeasures = handler(async (event, context) => {
 
     v.autoCompleted = !!measure?.autocompleteOnCreation;
     v.measureType = measure?.measureType;
-    v.stratificationRequired = !!measure?.stratificationRequired;
+    v.stratificationRequired = measure?.stratificationRequired;
   }
 
   return {
@@ -99,7 +99,7 @@ export const getMeasure = handler(async (event, context) => {
       queryValue.autoCompleted = !!measureMetadata.autocompleteOnCreation;
       queryValue.measureType = measureMetadata.measureType;
       queryValue.stratificationRequired =
-        !!measureMetadata.stratificationRequired;
+        measureMetadata.stratificationRequired;
     }
   }
 

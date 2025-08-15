@@ -478,7 +478,7 @@ export const MeasureWrapper = ({
                 <CUI.Container maxW="7xl" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
-                  {stratificationRequired && (
+                  {stratificationRequired?.includes(coreSet) && (
                     <CUI.Box mb="1rem">
                       <Alert heading="Reminder: Measure Stratification Required">
                         <CUI.Text>

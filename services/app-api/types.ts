@@ -63,7 +63,7 @@ export interface Measure {
    */
   autoCompleted?: boolean;
   measureType?: MeasureType;
-  stratificationRequired?: boolean;
+  stratificationRequired?: CoreSetAbbr[];
   data?: {
     /**
      * An array of strings from the `DataSource` enum.
