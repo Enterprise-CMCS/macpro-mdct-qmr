@@ -122,6 +122,16 @@ export const dataSourceSelections = (
   dataSourceSelections: DataSourcePayload["DataSourceSelections"]
 ) => {
   let selected = [];
+
+  for (const [key, value] of Object.entries(dataSourceSelections)) {
+    if (
+      key === "ElectronicClinicalDataSystemsECDS" &&
+      !(value.description && value.description != "")
+    ) {
+      delete dataSourceSelections[key];
+    }
+  }
+
   //filter the dataSourceSelections object keys that matches the dataSource name
   const dataSourceKey = Object.keys(dataSourceSelections).filter((key) =>
     key.split("-")[0].includes(dataSource)
