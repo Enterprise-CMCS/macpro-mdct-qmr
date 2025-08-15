@@ -482,7 +482,7 @@ export const MeasureWrapper = ({
                     <CUI.Box mb="1rem">
                       <Alert heading="Reminder: Measure Stratification Required">
                         <CUI.Text>
-                          {`For ${year}, Core Sets reporting, states are expected to report stratified data for this measure.`}
+                          {`For ${year} Core Sets reporting, states are expected to report stratified data for this measure.`}
                         </CUI.Text>
                       </Alert>
                     </CUI.Box>
