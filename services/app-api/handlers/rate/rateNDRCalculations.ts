@@ -1,10 +1,10 @@
 import {
   CombinedRatesPayload,
-  isDefined,
   isRateNDRShape,
   Measure,
   WeightedRateShape,
 } from "../../types";
+import { isDefined } from "../../utils/filters";
 import {
   addSafely,
   divideSafely,

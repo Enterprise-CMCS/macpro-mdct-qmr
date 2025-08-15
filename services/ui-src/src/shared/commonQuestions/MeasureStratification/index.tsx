@@ -250,12 +250,14 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         reset={onReset}
       ></StratificationOption>
       {(version === "1997-omb" || version === "2024-omb") && (
+        <Stratification
+          {...props}
+          omsData={omsData!}
+          year={year}
+        ></Stratification>
+      )}
+      {version != undefined && (
         <>
-          <Stratification
-            {...props}
-            omsData={omsData!}
-            year={year}
-          ></Stratification>
           <CUI.Heading size="md" as="h2" my="6">
             Measure Stratification Details
           </CUI.Heading>
