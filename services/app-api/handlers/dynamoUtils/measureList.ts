@@ -1,9 +1,4 @@
-import { CoreSetAbbr } from "../../types";
-
-export enum MeasureType {
-  MANDATORY = "Mandatory",
-  PROVISIONAL = "Provisional",
-}
+import { CoreSetAbbr, MeasureType } from "../../types";
 
 interface Measure {
   [year: number]: MeasureMetaData[];
