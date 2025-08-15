@@ -353,19 +353,4 @@ export type WeightedRateShape = {
   weightedRate?: number;
 };
 
-/**
- * This utility is most useful when filtering undefined values from an array,
- * _while convincing Typescript you've done so_.
- *
- * @example
- * const a = words.map(word => getThirdChar(word));
- * // a's type is (string | undefined)[]
- *
- * const b = a.filter(char => char !== undefined);
- * // b's type is still (string | undefined)[], boo!
- *
- * const c = a.filter(isDefined);
- * // c's type is just string[], hurray!
- */
-
 export type State = typeof states[number];
