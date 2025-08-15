@@ -26,7 +26,7 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
   ) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Under Age 21 CHIP column must total 100",
+      errorMessage: "Entries for column must total 100",
     });
   }
   return errorArray.length ? errorArray : [];

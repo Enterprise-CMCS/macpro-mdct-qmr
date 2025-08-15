@@ -32,7 +32,7 @@ const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   ) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Ages 0 to 17 column must total 100",
+      errorMessage: "Entries for column must total 100",
     });
   }
   if (
@@ -41,7 +41,7 @@ const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   ) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Ages 18 to 64 column must total 100",
+      errorMessage: "Entries for column must total 100",
     });
   }
 
@@ -51,7 +51,7 @@ const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   ) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Age 65 and Older column must total 100",
+      errorMessage: "Entries for column must total 100",
     });
   }
 

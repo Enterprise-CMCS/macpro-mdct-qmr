@@ -27,7 +27,7 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSMQualifierForm) => {
   ) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Under Age 21 Medicaid column must total 100",
+      errorMessage: "Entries for column must total 100",
     });
   }
   return errorArray.length ? errorArray : [];
