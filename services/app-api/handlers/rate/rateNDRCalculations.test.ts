@@ -366,4 +366,273 @@ describe("NDR calculations for Combined Rates", () => {
       },
     ]);
   });
+
+  it("Should refuse to calculate if numerator > denominator (standard formula)", () => {
+    const dataSources = {
+      Medicaid: {},
+      CHIP: {},
+    } as CombinedRatesPayload["DataSources"];
+
+    const medicaidMeasure = {
+      data: {
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "12",
+                denominator: "10",
+                rate: "20",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const chipMeasure = {
+      data: {
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "23",
+                denominator: "5",
+                rate: "60",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const result = combineRates(
+      "ZZZ-AD",
+      dataSources,
+      medicaidMeasure,
+      chipMeasure
+    );
+
+    expect(result).toEqual([
+      {
+        uid: "cat0.qual0",
+        label: "mock rate",
+        CHIP: { denominator: 5, numerator: 23, rate: 60 },
+        Medicaid: { denominator: 10, numerator: 12, rate: 20 },
+        Combined: {},
+      },
+    ]);
+  });
+
+  it("Should refuse to calculate if numerator > denominator (weighted formula)", () => {
+    const dataSources = {
+      Medicaid: { requiresWeightedCalc: true },
+      CHIP: { requiresWeightedCalc: true },
+    } as CombinedRatesPayload["DataSources"];
+
+    const medicaidMeasure = {
+      data: {
+        HybridMeasurePopulationIncluded: "5",
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "12",
+                denominator: "10",
+                rate: "120",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const chipMeasure = {
+      data: {
+        HybridMeasurePopulationIncluded: "2",
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "23",
+                denominator: "5",
+                rate: "460",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const result = combineRates(
+      "ZZZ-AD",
+      dataSources,
+      medicaidMeasure,
+      chipMeasure
+    );
+
+    expect(result).toEqual([
+      {
+        uid: "cat0.qual0",
+        label: "mock rate",
+        CHIP: {
+          denominator: 5,
+          numerator: 23,
+          rate: 460,
+          population: 2,
+        },
+        Medicaid: {
+          denominator: 10,
+          numerator: 12,
+          rate: 120,
+          population: 5,
+        },
+        Combined: {},
+      },
+    ]);
+  });
+
+  it("Should calculate even if numerator > denominator, for certain measures (standard formula)", () => {
+    const dataSources = {
+      Medicaid: {},
+      CHIP: {},
+    } as CombinedRatesPayload["DataSources"];
+
+    const medicaidMeasure = {
+      data: {
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "12",
+                denominator: "10",
+                rate: "20",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const chipMeasure = {
+      data: {
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "23",
+                denominator: "5",
+                rate: "60",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const result = combineRates(
+      "PQI01-AD",
+      dataSources,
+      medicaidMeasure,
+      chipMeasure
+    );
+
+    expect(result).toEqual([
+      {
+        uid: "cat0.qual0",
+        label: "mock rate",
+        CHIP: { denominator: 5, numerator: 23, rate: 60 },
+        Medicaid: { denominator: 10, numerator: 12, rate: 20 },
+        Combined: { denominator: 15, numerator: 35, rate: 233333.3 },
+      },
+    ]);
+  });
+
+  it("Should calculate even if numerator > denominator, for certain measures (weighted formula)", () => {
+    const dataSources = {
+      Medicaid: { requiresWeightedCalc: true },
+      CHIP: { requiresWeightedCalc: true },
+    } as CombinedRatesPayload["DataSources"];
+
+    const medicaidMeasure = {
+      data: {
+        HybridMeasurePopulationIncluded: "5",
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "12",
+                denominator: "10",
+                rate: "120",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const chipMeasure = {
+      data: {
+        HybridMeasurePopulationIncluded: "2",
+        PerformanceMeasure: {
+          rates: {
+            cat0: [
+              {
+                uid: "cat0.qual0",
+                label: "mock rate",
+                numerator: "23",
+                denominator: "5",
+                rate: "460",
+              },
+            ],
+          },
+        },
+      } as Measure["data"],
+    } as Measure;
+
+    const result = combineRates(
+      "EDV-AD",
+      dataSources,
+      medicaidMeasure,
+      chipMeasure
+    );
+
+    expect(result).toEqual([
+      {
+        uid: "cat0.qual0",
+        label: "mock rate",
+        CHIP: {
+          denominator: 5,
+          numerator: 23,
+          rate: 460,
+          population: 2,
+          weightedRate: 131.4,
+        },
+        Medicaid: {
+          denominator: 10,
+          numerator: 12,
+          rate: 120,
+          population: 5,
+          weightedRate: 85.7,
+        },
+        Combined: {
+          population: 7,
+          weightedRate: 217.1,
+        },
+      },
+    ]);
+  });
 });
