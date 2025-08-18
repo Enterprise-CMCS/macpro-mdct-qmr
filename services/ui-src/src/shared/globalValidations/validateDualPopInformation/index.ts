@@ -1,17 +1,29 @@
 import * as DC from "dataConstants";
 import { FormRateField } from "shared/types/TypeValidations";
 import { featuresByYear } from "utils/featuresByYear";
+import { CoreSetAbbr } from "types";
 
 export const getLabels = (errorReplacementText: string) => {
+  if (
+    CoreSetAbbr.ACSC &&
+    featuresByYear.hasAdultSeparateCHIPInclusiveWarning &&
+    featuresByYear.shouldValidateDuallyEligibleCheckbox
+  ) {
+    return {
+      checkmarkWarning: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Separate CHIP Dually-Eligible population) is missing`,
+      missingDataWarning: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
+    };
+  }
   if (featuresByYear.shouldValidateDuallyEligibleCheckbox) {
     return {
       checkmarkWarning: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
       missingDataWarning: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
     };
+  } else {
+    return {
+      missingDataWarning: `"Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for ${errorReplacementText}`,
+    };
   }
-  return {
-    missingDataWarning: `"Individuals Dually Eligible for Medicare and Medicaid" is selected in the "Definition of Denominator" question but you are missing performance measure data for ${errorReplacementText}`,
-  };
 };
 
 export const validateDualPopInformationPM = (
