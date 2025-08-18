@@ -112,6 +112,15 @@ export const CombinedRatesPage = () => {
     );
   }
 
+  const GetExcludedMeasuresText = (year: string | undefined) => {
+    switch (year) {
+      case "2024":
+        return "The following measures are excluded from the combined rates page because states are not asked to report performance measure data for these measures for FFY 2024 Core Set reporting in the online reporting system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, NCIIDD-AD. MSC-AD is also excluded from the combined rates page because the measure uses survey data.";
+      default:
+        return "The following measures are excluded from the combined rates page because states are not asked to report performance measure data for these measures for 2025 Core Sets reporting in the online reporting system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, LRCD-AD, and NCIIDD-AD. MSC-AD is also excluded from the combined rates page because the measure uses survey data.";
+    }
+  };
+
   return (
     <QMR.StateLayout
       breadcrumbItems={[
@@ -140,14 +149,7 @@ export const CombinedRatesPage = () => {
           Medicaid and CHIP rate. Please complete the measure in both the
           Medicaid and CHIP reports to ensure the combined rate is complete.
         </CUI.Text>
-        <CUI.Text>
-          The following measures are excluded from the combined rates page
-          because states are not asked to report performance measure data for
-          these measures for FFY 2024 Core Set reporting in the online reporting
-          system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, NCIIDD-AD. MSC-AD is also
-          excluded from the combined rates page because the measure uses survey
-          data.
-        </CUI.Text>
+        <CUI.Text>{GetExcludedMeasuresText(year)}</CUI.Text>
         <CUI.Tabs
           width="100%"
           variant="unstyled"

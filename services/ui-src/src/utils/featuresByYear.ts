@@ -87,7 +87,7 @@ export const featuresByYear = {
    * In 2024, we rephrased this question to ask about "variations" instead.
    */
   get displayDeviationlanguage() {
-    return getMeasureYear() >= 2023;
+    return getMeasureYear() <= 2023;
   },
   /**
    * Prior to 2023, the OMS section included every rate from the PM section,
@@ -131,7 +131,7 @@ export const featuresByYear = {
   /**
    * Prior to 2025, the report name was "Medicaid (Title XIX & XXI)"
    *
-   * In 2025 and beyond, we want to change it to "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+   * In 2025 and beyond, we want to change it to "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)"
    */
   get hasMedicaidInclusiveReportName() {
     return getMeasureYear() >= 2025;

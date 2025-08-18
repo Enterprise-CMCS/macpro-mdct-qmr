@@ -3,7 +3,7 @@ import {
   NodejsFunction,
   NodejsFunctionProps,
 } from "aws-cdk-lib/aws-lambda-nodejs";
-import { Duration } from "aws-cdk-lib";
+import { Duration, RemovalPolicy } from "aws-cdk-lib";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import {
   Effect,
@@ -14,17 +14,17 @@ import {
   ServicePrincipal,
 } from "aws-cdk-lib/aws-iam";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 import { isLocalStack } from "../local/util";
+import { createHash } from "crypto";
 
 interface LambdaProps extends Partial<NodejsFunctionProps> {
-  handler: string;
-  stackName: string;
-  timeout?: Duration;
-  memorySize?: number;
-  api?: apigateway.RestApi;
   path?: string;
   method?: string;
+  stackName: string;
+  api?: apigateway.RestApi;
   additionalPolicies?: PolicyStatement[];
+  isDev: boolean;
 }
 
 export class Lambda extends Construct {
@@ -34,16 +34,17 @@ export class Lambda extends Construct {
     super(scope, id);
 
     const {
-      handler,
-      environment = {},
       timeout = Duration.seconds(6),
       memorySize = 1024,
       api,
       path,
       method,
       additionalPolicies = [],
+      stackName,
+      isDev,
       ...restProps
     } = props;
+
     const role = new Role(this, `${id}LambdaExecutionRole`, {
       assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
       managedPolicies: [
@@ -70,19 +71,26 @@ export class Lambda extends Construct {
     });
 
     this.lambda = new NodejsFunction(this, id, {
-      functionName: `${props.stackName}-${id}`,
-      handler,
+      functionName: `${stackName}-${id}`,
       runtime: Runtime.NODEJS_20_X,
       timeout,
       memorySize,
       role,
       bundling: {
+        assetHash: createHash("sha256")
+          .update(`${Date.now()}-${id}`)
+          .digest("hex"),
         minify: true,
         sourceMap: true,
         nodeModules: ["jsdom"],
       },
-      environment,
       ...restProps,
+    });
+
+    new LogGroup(this, `${id}LogGroup`, {
+      logGroupName: `/aws/lambda/${this.lambda.functionName}`,
+      removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
+      retention: RetentionDays.THREE_YEARS, // exceeds the 30 month requirement
     });
 
     if (api && path && method) {
