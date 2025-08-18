@@ -123,16 +123,20 @@ export const dataSourceSelections = (
 ) => {
   let selected = [];
 
-  const remapped = Object.entries(dataSourceSelections).map((selection) => {
-    return { key: selection[0], ...selection?.[1] };
-  });
+  //remapping the object to a more usable array
+  const dataSourceArray = Object.entries(dataSourceSelections).map(
+    (selection) => {
+      return { key: selection[0], ...selection?.[1] };
+    }
+  );
 
   //we want only they key for the top layer checkboxes and the current dataSource
-  const parentDataSource = remapped.filter(
+  const parentDataSource = dataSourceArray.filter(
     (selection) =>
       !selection.key.includes("-") && selection.key.includes(dataSource)
   );
-  const childDataSource = remapped.filter((selection) =>
+  //these will contain checkbox and textboxes of the parent data source checkbox
+  const childDataSource = dataSourceArray.filter((selection) =>
     selection.key.includes("-")
   );
 
@@ -143,22 +147,24 @@ export const dataSourceSelections = (
     .flatMap((selection) => selection.description)
     .filter(isDefined);
 
-  //if nothing has been selected or it doesn't have a textbox
+  //if nothing has been selected or if it doesn't have a textbox input, return not answered
   if (selections.length === 0 && descriptions.length === 0)
     return ["Not Answered"];
 
-  const filled = selections.map((key) => {
-    //see if there's a textfield associated with this data source selection
-    const textfield = childDataSource.find((source) =>
-      source.key.split("-")[1].includes(key)
-    );
-    const textfieldData = textfield?.description
-      ? `- ${textfield.description}`
-      : "";
-    return lookupDataSource(key) + " " + textfieldData;
-  });
-
-  selected.push(...filled);
+  //selected values are in their key names so we need to clean them
+  selected.push(
+    ...selections.map((key) => {
+      //see if there's a textfield associated with this data source selection
+      const textfield = childDataSource.find((source) =>
+        source.key.split("-")[1].includes(key)
+      );
+      const textfieldData = textfield?.description
+        ? ` - ${textfield.description}`
+        : "";
+      return `${lookupDataSource(key)}${textfieldData}`;
+    })
+  );
+  //descriptions do not need formatting so they can be added straight to the array
   if (descriptions.length > 0) selected.push(...descriptions);
 
   return selected;
