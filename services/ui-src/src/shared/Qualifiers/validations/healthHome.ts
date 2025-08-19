@@ -6,56 +6,42 @@ import {
 const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
   const errorArray: any[] = [];
-  const total0To17Percent = values?.reduce(
-    (acc: number, curr: DeliverySystem) => {
-      return acc + parseFloat(curr.ZeroToSeventeen || "0");
-    },
-    0
+
+  // Calculate totals for all three age groups
+  const totals = {
+    ZeroToSeventeen:
+      values?.reduce(
+        (acc: number, curr: DeliverySystem) =>
+          acc + parseFloat(curr.ZeroToSeventeen || "0"),
+        0
+      ) || 0,
+    EighteenToSixtyFour:
+      values?.reduce(
+        (acc: number, curr: DeliverySystem) =>
+          acc + parseFloat(curr.EighteenToSixtyFour || "0"),
+        0
+      ) || 0,
+    GreaterThanSixtyFive:
+      values?.reduce(
+        (acc: number, curr: DeliverySystem) =>
+          acc + parseFloat(curr.GreaterThanSixtyFive || "0"),
+        0
+      ) || 0,
+  };
+
+  // Percentage validation for both age groups
+  const hasInvalidPercentage = Object.values(totals).some(
+    (total) => (total < 99 || total > 101) && total !== 0
   );
 
-  const total18To64Percent = values?.reduce(
-    (acc: number, curr: DeliverySystem) => {
-      return acc + parseFloat(curr.EighteenToSixtyFour || "0");
-    },
-    0
-  );
-
-  const total65PlusPercent = values?.reduce(
-    (acc: number, curr: DeliverySystem) => {
-      return acc + parseFloat(curr.GreaterThanSixtyFive || "0");
-    },
-    0
-  );
-  if (
-    (total0To17Percent < 99 || total0To17Percent > 101) &&
-    total0To17Percent !== 0
-  ) {
-    errorArray.push({
-      errorLocation: "Delivery System",
-      errorMessage: "Entries for column must total 100",
-    });
-  }
-  if (
-    (total18To64Percent < 99 || total18To64Percent > 101) &&
-    total18To64Percent !== 0
-  ) {
-    errorArray.push({
-      errorLocation: "Delivery System",
-      errorMessage: "Entries for column must total 100",
-    });
-  }
-
-  if (
-    (total65PlusPercent < 99 || total65PlusPercent > 101) &&
-    total65PlusPercent !== 0
-  ) {
+  if (hasInvalidPercentage) {
     errorArray.push({
       errorLocation: "Delivery System",
       errorMessage: "Entries for column must total 100",
     });
   }
 
-  return errorArray.length ? errorArray : [];
+  return errorArray;
 };
 
 const validateTotalNumberOfIndividuals = (data: HHCSQualifierForm) => {
@@ -73,7 +59,7 @@ const validateTotalNumberOfIndividuals = (data: HHCSQualifierForm) => {
     });
   }
 
-  return errorArray.length ? errorArray : [];
+  return errorArray;
 };
 
 export const HHCS = [
