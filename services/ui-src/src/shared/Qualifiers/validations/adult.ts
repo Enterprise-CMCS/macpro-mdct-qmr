@@ -32,7 +32,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
   ) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for column must total 100",
+      errorMessage: "Entries for Ages 21 to 64 column must total 100",
     });
   }
   if (
@@ -41,7 +41,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
   ) {
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for column must total 100",
+      errorMessage: "Entries for Age 65 and Older column must total 100",
     });
   }
   return errorArray.length ? errorArray : [];
