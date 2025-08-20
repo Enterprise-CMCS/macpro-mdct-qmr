@@ -8,6 +8,7 @@ import {
   RemovalPolicy,
 } from "aws-cdk-lib";
 import { DynamoDBTableIdentifiers } from "../constructs/dynamodb-table";
+import { isDefined } from "../utils/misc";
 import { createHash } from "crypto";
 
 interface LambdaDynamoEventProps
@@ -54,6 +55,18 @@ export class LambdaDynamoEventSource extends Construct {
               ],
               resources: ["arn:aws:logs:*:*:*"],
             }),
+            new iam.PolicyStatement({
+              effect: iam.Effect.ALLOW,
+              actions: [
+                "dynamodb:DescribeStream",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:ListStreams",
+              ],
+              resources: tables
+                .map((table) => table.streamArn)
+                .filter(isDefined),
+            }),
             ...additionalPolicies,
           ],
         }),
@@ -72,6 +85,7 @@ export class LambdaDynamoEventSource extends Construct {
           .digest("hex"),
         minify: true,
         sourceMap: true,
+        nodeModules: ["kafkajs"],
       },
       environment,
       ...restProps,
