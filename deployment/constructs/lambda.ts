@@ -14,8 +14,8 @@ import {
   ServicePrincipal,
 } from "aws-cdk-lib/aws-iam";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
-import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 import { isLocalStack } from "../local/util";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 import { createHash } from "crypto";
 
 interface LambdaProps extends Partial<NodejsFunctionProps> {
