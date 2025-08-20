@@ -332,6 +332,13 @@ export const CoreSet = () => {
     },
   };
 
+  /*coreset data?.Item?.submitted is how we determine whether a coreset has been submitted but sometimes it doesn't
+   *revert to inprogress when a measure has been updated. This is a temporary fix to not block the user from resubmitting
+   */
+  const areMeasuresComplete = () => {
+    return measures.every((measure) => measure.rateComplete === 1);
+  };
+
   const coreSetPrefix = coreSet[0].slice(0, 4);
   return (
     <QMR.StateLayout
@@ -415,7 +422,7 @@ export const CoreSet = () => {
           <QMR.SubmitCoreSetButton
             coreSet={coreSetId! as CoreSetAbbr}
             coreSetStatus={coreSetStatus}
-            isSubmitted={data?.Item?.submitted}
+            isSubmitted={data?.Item?.submitted && areMeasuresComplete()}
             year={year!}
             styleProps={{
               helperText: {
