@@ -13,13 +13,6 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSCQualifierForm) => {
     0
   );
 
-  const total64PlusPercent = values?.reduce(
-    (acc: number, curr: DeliverySystem) => {
-      return acc + parseFloat(curr.GreaterThanSixtyFour || "0");
-    },
-    0
-  );
-
   if (total21To64Percent === 0) {
     errorArray.push({
       errorLocation: "Delivery System",
