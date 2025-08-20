@@ -35,15 +35,6 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSCQualifierForm) => {
       errorMessage: "Entries for column must total 100",
     });
   }
-  if (
-    (total64PlusPercent < 99 || total64PlusPercent > 101) &&
-    total64PlusPercent !== 0
-  ) {
-    errorArray.push({
-      errorLocation: "Delivery System",
-      errorMessage: "Entries for column must total 100",
-    });
-  }
   return errorArray.length ? errorArray : [];
 };
 
