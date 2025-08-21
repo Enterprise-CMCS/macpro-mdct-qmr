@@ -96,7 +96,7 @@ export const editMeasure = handler(async (event, context) => {
         ...convertToDynamoExpression(
           {
             submitted: false,
-            status,
+            status: "in progress",
             lastAltered,
             lastAlteredBy,
           },
