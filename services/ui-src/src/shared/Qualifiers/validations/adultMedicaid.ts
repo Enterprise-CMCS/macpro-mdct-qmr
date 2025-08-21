@@ -38,7 +38,7 @@ const validate21To64EqualsToOneHundredPercent = (
     total64PlusPercent !== 0;
 
   if (year === 2025) {
-    // For 2025, show only one error message
+    // For 2025, show one generic message if any validation fails
     if (has21To64ZeroError || has21To64TotalError || has64PlusTotalError) {
       errorArray.push({
         errorLocation: "Delivery System",
