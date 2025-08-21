@@ -7,7 +7,7 @@ const validate21To64EqualsToOneHundredPercent = (
   data: ACSCQualifierForm,
   year: number | undefined
 ) => {
-  // Extracting year from URL
+  // Extract year from URL
   if (!year && typeof window !== "undefined") {
     const pathYear = window.location.pathname.match(/\/(\d{4})\//)?.[1];
     year = pathYear ? parseInt(pathYear) : undefined;
