@@ -8,6 +8,7 @@ import {
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 import { calculateAndPutRate } from "../rate/rateCalculations";
+import { CoreSet } from "../../types";
 
 export const editMeasure = handler(async (event, context) => {
   const { allParamsValid, state, year, coreSet, measure } =
@@ -34,6 +35,7 @@ export const editMeasure = handler(async (event, context) => {
     detailedDescription,
   } = JSON.parse(event!.body!);
 
+  const lastAltered = Date.now();
   const lastAlteredBy = getUserNameFromJwt(event);
 
   const descriptionParams =
@@ -54,7 +56,7 @@ export const editMeasure = handler(async (event, context) => {
         ...descriptionParams,
         status,
         reporting,
-        lastAltered: Date.now(),
+        lastAltered,
         lastAlteredBy,
         data,
       },
@@ -72,6 +74,37 @@ export const editMeasure = handler(async (event, context) => {
       coreSet,
       measure,
     });
+  }
+
+  // If the measure is incomplete, ensure its containing core set is incomplete.
+  if (status === "incomplete") {
+    const TableName = process.env.QualityCoreSetsTable!;
+    const Key = { coreSet, compoundKey: `${state}${year}` };
+
+    const coreSetObject = await dynamoDb.get<CoreSet>({ TableName, Key });
+
+    if (!coreSetObject) {
+      throw new Error(
+        `Cannot check status of coreset ${state}${year}${coreSet}; it does not exist`
+      );
+    }
+
+    if (coreSetObject.status !== "in progress") {
+      const updateCoreSetParams = {
+        TableName,
+        Key,
+        ...convertToDynamoExpression(
+          {
+            submitted: false,
+            status,
+            lastAltered,
+            lastAlteredBy,
+          },
+          "post"
+        ),
+      };
+      await dynamoDb.update(updateCoreSetParams);
+    }
   }
 
   return { status: StatusCodes.SUCCESS, body: params };
