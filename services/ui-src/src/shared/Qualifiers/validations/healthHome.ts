@@ -37,7 +37,7 @@ const validateEqualsToOneHundredPercent = (
     0
   );
 
-  // validation for 2025
+  // Check for validation errors
   const has0To17Error =
     (total0To17Percent < 99 || total0To17Percent > 101) &&
     total0To17Percent !== 0;
@@ -49,7 +49,7 @@ const validateEqualsToOneHundredPercent = (
     total65PlusPercent !== 0;
 
   if (year === 2025) {
-    // For 2025, show one error message instead of 3
+    // For 2025, show only one error message
     if (has0To17Error || has18To64Error || has65PlusError) {
       errorArray.push({
         errorLocation: "Delivery System",

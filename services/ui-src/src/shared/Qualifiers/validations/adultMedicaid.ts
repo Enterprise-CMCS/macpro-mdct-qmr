@@ -3,47 +3,71 @@ import {
   DeliverySystem,
 } from "../../types/TypeQualifierForm";
 
-const validate21To64EqualsToOneHundredPercent = (data: ACSMQualifierForm) => {
+const validate21To64EqualsToOneHundredPercent = (
+  data: ACSMQualifierForm,
+  year: number | undefined
+) => {
+  // Extract year from URL
+  if (!year && typeof window !== "undefined") {
+    const pathYear = window.location.pathname.match(/\/(\d{4})\//)?.[1];
+    year = pathYear ? parseInt(pathYear) : undefined;
+  }
+
   const values = data["PercentageEnrolledInEachDeliverySystem"];
   const errorArray: any[] = [];
-
-  // Calculate totals for both age groups
-  const totals = {
-    TwentyOneToSixtyFour:
-      values?.reduce(
-        (acc: number, curr: DeliverySystem) =>
-          acc + parseFloat(curr.TwentyOneToSixtyFour || "0"),
-        0
-      ) || 0,
-    GreaterThanSixtyFour:
-      values?.reduce(
-        (acc: number, curr: DeliverySystem) =>
-          acc + parseFloat(curr.GreaterThanSixtyFour || "0"),
-        0
-      ) || 0,
-  };
-
-  // Special validation: Ages 21-64 must have values
-  if (totals.TwentyOneToSixtyFour === 0) {
-    errorArray.push({
-      errorLocation: "Delivery System",
-      errorMessage: "Entries for Ages 21 to 64 column must have values",
-    });
-  }
-
-  // Percentage validation for both age groups
-  const hasInvalidPercentage = Object.values(totals).some(
-    (total) => (total < 99 || total > 101) && total !== 0
+  const total21To64Percent = values?.reduce(
+    (acc: number, curr: DeliverySystem) => {
+      return acc + parseFloat(curr.TwentyOneToSixtyFour || "0");
+    },
+    0
+  );
+  const total64PlusPercent = values?.reduce(
+    (acc: number, curr: DeliverySystem) => {
+      return acc + parseFloat(curr.GreaterThanSixtyFour || "0");
+    },
+    0
   );
 
-  if (hasInvalidPercentage) {
-    errorArray.push({
-      errorLocation: "Delivery System",
-      errorMessage: "Entries for column must total 100",
-    });
+  // Check for validation errors
+  const has21To64ZeroError = total21To64Percent === 0;
+  const has21To64TotalError =
+    (total21To64Percent < 99 || total21To64Percent > 101) &&
+    total21To64Percent !== 0;
+  const has64PlusTotalError =
+    (total64PlusPercent < 99 || total64PlusPercent > 101) &&
+    total64PlusPercent !== 0;
+
+  if (year === 2025) {
+    // For 2025, show only one error message
+    if (has21To64ZeroError || has21To64TotalError || has64PlusTotalError) {
+      errorArray.push({
+        errorLocation: "Delivery System",
+        errorMessage: "Entries for column must total 100",
+      });
+    }
+  } else {
+    // For other years, show specific messages for each validation
+    if (has21To64ZeroError) {
+      errorArray.push({
+        errorLocation: "Delivery System",
+        errorMessage: "Entries for Ages 21 to 64 column must have values",
+      });
+    }
+    if (has21To64TotalError) {
+      errorArray.push({
+        errorLocation: "Delivery System",
+        errorMessage: "Entries for Ages 21 to 64 column must total 100",
+      });
+    }
+    if (has64PlusTotalError) {
+      errorArray.push({
+        errorLocation: "Delivery System",
+        errorMessage: "Entries for Age 65 and Older column must total 100",
+      });
+    }
   }
 
-  return errorArray;
+  return errorArray.length ? errorArray : [];
 };
 
 export const ACSM = [validate21To64EqualsToOneHundredPercent];
