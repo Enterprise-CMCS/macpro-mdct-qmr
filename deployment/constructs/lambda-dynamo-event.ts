@@ -89,11 +89,13 @@ export class LambdaDynamoEventSource extends Construct {
       ...restProps,
     });
 
-    new logs.LogGroup(this, `${id}LogGroup`, {
+    const logGroup = new logs.LogGroup(this, `${id}LogGroup`, {
       logGroupName: `/aws/lambda/${this.lambda.functionName}`,
       removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
       retention: logs.RetentionDays.THREE_YEARS, // exceeds the 30 month requirement
     });
+
+    logGroup.node.addDependency(this.lambda);
 
     for (let table of tables) {
       new lambda.CfnEventSourceMapping(
