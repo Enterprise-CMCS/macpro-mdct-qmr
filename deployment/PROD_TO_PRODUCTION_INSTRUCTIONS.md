@@ -42,6 +42,8 @@ add new secret values inside `qmr-production`
 
 ### Fix `const vpnOnly = (isDev || stage === "prod")` to look to production
 
+### Fix `configToExport.BRANCH_NAME !== "prod"` to look to production
+
 ### Fix the names of this in the github secrets, use `qmr_secrets` in 1password for find value:
 
 - PROD_AWS_OIDC_ROLE_TO_ASSUME: PRODUCTION_AWS_OIDC_ROLE_TO_ASSUME
