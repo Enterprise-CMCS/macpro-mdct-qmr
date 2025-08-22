@@ -5,7 +5,7 @@ const AdultData: DataDriven = {
   title: "Adult Core Set Qualifiers: Medicaid",
   questionTitle: "Adult Core Set Questions: Medicaid",
   questionIntro:
-    "Please report data on Title XIX-funded Medicaid (Medicaid) and Title XXI-funded Medicaid expansion CHIP (Medicaid expansion CHIP) (if applicable for your state) here. If your state has separate CHIP, please report only Title XIX- funded Medicaid and Medicaid expansion CHIP children in this section. Report Separate CHIP on the Child Core Set – Separate CHIP page.",
+    "Please report data on Title XIX-funded Medicaid (Medicaid) and Title XXI-funded Medicaid expansion CHIP (Medicaid expansion CHIP) (if applicable for your state) here. If your state wishes to separately report the Adult Core Set for separate CHIP (separate from Medicaid and Medicaid expansion CHIP), please use Adult Core Set Qualifiers: Separate CHIP page.",
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of adults in your state’s Medicaid program (inclusive of Medicaid expansion CHIP, if applicable for the state) were enrolled in each delivery system?`,
   textTable: [["Adults Under Age 65"], ["Adults Age 65+"]],
@@ -81,7 +81,7 @@ const AdultMedicaidData: DataDriven = {
   title: "Adult Core Set Qualifiers: Medicaid",
   questionTitle: "Adult Core Set Questions: Medicaid",
   questionIntro:
-    "Please report data on Title XIX-funded Medicaid (Medicaid) and Title XXI-funded Medicaid expansion CHIP (Medicaid expansion CHIP) (if applicable for your state) here. If your state has separate CHIP, please report only Title XIX- funded Medicaid and Medicaid expansion CHIP children in this section. Report Separate CHIP on the Child Core Set – Separate CHIP page.",
+    "Please report data on Title XIX-funded Medicaid (Medicaid) and Title XXI-funded Medicaid expansion CHIP (Medicaid expansion CHIP) (if applicable for your state) here. If your state wishes to separately report the Adult Core Set for separate CHIP (separate from Medicaid and Medicaid expansion CHIP), please use Adult Core Set Qualifiers: Separate CHIP page.",
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of adults in your state’s Medicaid program (inclusive of Medicaid expansion CHIP, if applicable for the state) were enrolled in each delivery system?`,
   textTable: [["Adults Under Age 65"], ["Adults Age 65+"]],
@@ -160,7 +160,7 @@ const ChildChipData: DataDriven = {
     "Please report data on Separate CHIP (Title XXI) for the Child Core Set on this page.",
   qualifierHeader: (year) =>
     `As of December 31, ${year}, approximately what percentage of children in your state’s separate CHIP (Title XXI) program were enrolled in each delivery system?`,
-  textTable: [["Separate CHIP"]],
+  textTable: [[]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [

@@ -213,4 +213,5 @@ export const ProgramTypeList = [
  * const c = a.filter(isDefined);
  * // c's type is just string[], hurray!
  */
-export const isDefined = <T>(x: T | undefined): x is T => x !== undefined;
+export const isDefined = <T>(x: T | undefined): x is T =>
+  x !== undefined && x !== "";

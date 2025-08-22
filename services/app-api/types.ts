@@ -1,5 +1,4 @@
-import { measures, MeasureType } from "./handlers/dynamoUtils/measureList";
-import { states, bannerIds } from "./utils/constants/constants";
+import { states } from "./utils/constants/constants";
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;
@@ -13,6 +12,11 @@ export interface CoreSet {
   state: string;
   submitted: boolean;
   year: number;
+}
+
+export enum MeasureType {
+  MANDATORY = "Mandatory",
+  PROVISIONAL = "Provisional",
 }
 
 export type StandardRateShape = RateNDRShape | RateValueShape;
@@ -63,7 +67,7 @@ export interface Measure {
    */
   autoCompleted?: boolean;
   measureType?: MeasureType;
-  stratificationRequired?: boolean;
+  stratificationRequired?: CoreSetAbbr[];
   data?: {
     /**
      * An array of strings from the `DataSource` enum.
@@ -349,39 +353,4 @@ export type WeightedRateShape = {
   weightedRate?: number;
 };
 
-/**
- * This utility is most useful when filtering undefined values from an array,
- * _while convincing Typescript you've done so_.
- *
- * @example
- * const a = words.map(word => getThirdChar(word));
- * // a's type is (string | undefined)[]
- *
- * const b = a.filter(char => char !== undefined);
- * // b's type is still (string | undefined)[], boo!
- *
- * const c = a.filter(isDefined);
- * // c's type is just string[], hurray!
- */
-export const isDefined = <T>(x: T | undefined): x is T => x !== undefined;
-
 export type State = typeof states[number];
-
-export const isState = (state: unknown): state is State => {
-  return states.includes(state as State);
-};
-
-export const isValidYear = (year: string) => {
-  const reportingYears = Object.keys(measures);
-  return reportingYears.includes(year);
-};
-
-export const isMeasure = (year: string, measure: string | undefined) => {
-  return measures[parseInt(year)]?.some(
-    (measureObject) => measureObject.measure === measure
-  );
-};
-
-export const isBannerId = (bannerId: string) => {
-  return bannerIds.includes(bannerId);
-};

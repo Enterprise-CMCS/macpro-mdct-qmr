@@ -1,12 +1,6 @@
 import { logger } from "../libs/debug-lib";
-import {
-  APIGatewayProxyEvent,
-  isBannerId,
-  isCoreSetAbbr,
-  isMeasure,
-  isState,
-  isValidYear,
-} from "../types";
+import { APIGatewayProxyEvent, isCoreSetAbbr } from "../types";
+import { isBannerId, isState, isValidYear, isMeasure } from "./filters";
 
 export const parseBannerParameters = (event: APIGatewayProxyEvent) => {
   const { bannerId } = event.pathParameters ?? {};
