@@ -1,18 +1,10 @@
+import { featuresByYear } from "utils/featuresByYear";
 import {
   ACSCQualifierForm,
   DeliverySystem,
 } from "../../types/TypeQualifierForm";
 
-const validate21To64EqualsToOneHundredPercent = (
-  data: ACSCQualifierForm,
-  year: number | undefined
-) => {
-  // Extract year from URL
-  if (!year && typeof window !== "undefined") {
-    const pathYear = window.location.pathname.match(/\/(\d{4})\//)?.[1];
-    year = pathYear ? parseInt(pathYear) : undefined;
-  }
-
+const validate21To64EqualsToOneHundredPercent = (data: ACSCQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
   const errorArray: any[] = [];
   const total21To64Percent = values?.reduce(
@@ -32,7 +24,7 @@ const validate21To64EqualsToOneHundredPercent = (
     (total21To64Percent < 99 || total21To64Percent > 101) &&
     total21To64Percent !== 0
   ) {
-    if (year === 2025) {
+    if (featuresByYear.lessSpecificQualifierValidationLanguage) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for column must total 100",
