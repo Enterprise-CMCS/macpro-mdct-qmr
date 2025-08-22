@@ -5,6 +5,7 @@ export interface CoreSet {
   createdAt: number;
   lastAltered: number;
   lastAlteredBy?: string;
+  status?: string;
   progress: {
     numAvailable: number;
     numComplete: number;

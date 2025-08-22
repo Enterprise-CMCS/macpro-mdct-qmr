@@ -8,6 +8,7 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
   __esModule: true,
   default: {
     update: jest.fn(),
+    get: jest.fn(),
   },
 }));
 
@@ -23,10 +24,12 @@ jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
 }));
 
 const event = { ...testEvent };
-process.env.MeasuresTable = "SAMPLE TABLE";
+process.env.MeasuresTable = "mock-measure-table";
+process.env.QualityCoreSetsTable = "mock-coreset-table";
 
 describe("Test Update Measure Handler", () => {
   beforeEach(() => {
+    jest.clearAllMocks();
     mockHasStatePermissions.mockImplementation(() => true);
     event.headers = { "cognito-identity-id": "test" };
     event.body = `{"data": {}, "status": "status"}`;
@@ -85,7 +88,7 @@ describe("Test Update Measure Handler", () => {
       "post"
     );
     expect(dbLib.update).toHaveBeenCalledWith({
-      TableName: "SAMPLE TABLE",
+      TableName: "mock-measure-table",
       Key: {
         compoundKey: "IN2022ACS",
         measure: "AAB-AD",
@@ -114,10 +117,54 @@ describe("Test Update Measure Handler", () => {
       "post"
     );
     expect(dbLib.update).toHaveBeenCalledWith({
-      TableName: "SAMPLE TABLE",
+      TableName: "mock-measure-table",
       Key: {
         compoundKey: "IN2022ACS",
         measure: "AAB-AD",
+      },
+      testValue: "test",
+    });
+  });
+
+  test("Test updating a measure should update core set status too", async () => {
+    const mockEvent = {
+      ...testEvent,
+      body: JSON.stringify({ data: {}, status: "incomplete" }),
+      pathParameters: {
+        state: "CO",
+        year: "2025",
+        coreSet: "ACS",
+        measure: "AAB-AD",
+      },
+    };
+    (dbLib.get as jest.Mock).mockResolvedValueOnce({ status: "submitted" });
+    Date.now = jest.fn(() => 20);
+
+    const res = await editMeasure(mockEvent, null);
+
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
+    expect(dbLib.update).toHaveBeenCalledWith({
+      TableName: "mock-measure-table",
+      Key: {
+        compoundKey: "CO2025ACS",
+        measure: "AAB-AD",
+      },
+      testValue: "test",
+    });
+    expect(convertToDynamoExpression).toHaveBeenCalledWith(
+      {
+        submitted: false,
+        status: "in progress",
+        lastAltered: 20,
+        lastAlteredBy: "branchUser",
+      },
+      "post"
+    );
+    expect(dbLib.update).toHaveBeenCalledWith({
+      TableName: "mock-coreset-table",
+      Key: {
+        compoundKey: "CO2025",
+        coreSet: "ACS",
       },
       testValue: "test",
     });
