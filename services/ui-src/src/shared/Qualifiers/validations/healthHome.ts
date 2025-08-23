@@ -1,18 +1,10 @@
+import { featuresByYear } from "utils/featuresByYear";
 import {
   HHCSQualifierForm,
   DeliverySystem,
 } from "../../types/TypeQualifierForm";
 
-const validateEqualsToOneHundredPercent = (
-  data: HHCSQualifierForm,
-  year: number | undefined
-) => {
-  // Extract year from URL
-  if (!year && typeof window !== "undefined") {
-    const pathYear = window.location.pathname.match(/\/(\d{4})\//)?.[1];
-    year = pathYear ? parseInt(pathYear) : undefined;
-  }
-
+const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
   const values = data["PercentageEnrolledInEachDeliverySystem"];
   const errorArray: any[] = [];
 
@@ -48,7 +40,7 @@ const validateEqualsToOneHundredPercent = (
     (total65PlusPercent < 99 || total65PlusPercent > 101) &&
     total65PlusPercent !== 0;
 
-  if (year === 2025) {
+  if (featuresByYear.lessSpecificQualifierValidationLanguage) {
     // For 2025, show one generic message if any validation fails
     if (has0To17Error || has18To64Error || has65PlusError) {
       errorArray.push({
