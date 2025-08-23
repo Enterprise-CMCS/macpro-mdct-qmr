@@ -15,16 +15,11 @@ export const Qualifier = ({
 }: QMR.MeasureWrapperProps) => {
   const { coreSetId } = useParams();
   const [type, setType] = useState<"CH" | "AD" | "HH">("AD");
-  const coreSet = (coreSetId?.split("_")?.[0] ??
-    coreSetId) as Types.CoreSetAbbr;
+  const coreSetAbbr = coreSetId!.split("_")[0] as Types.CoreSetAbbr;
 
   useEffect(() => {
     if (setValidationFunctions && coreSetId) {
-      setValidationFunctions(
-        validationFunctions?.[
-          (coreSetId?.split("_")?.[0] ?? coreSetId) as Types.CoreSetAbbr
-        ] ?? []
-      );
+      setValidationFunctions(validationFunctions[coreSetAbbr] ?? []);
     }
     if (
       coreSetId === Types.CoreSetAbbr.CCS ||
@@ -32,10 +27,10 @@ export const Qualifier = ({
       coreSetId === Types.CoreSetAbbr.CCSM
     ) {
       setType("CH");
-    } else if (coreSet === Types.CoreSetAbbr.HHCS) {
+    } else if (coreSetAbbr === Types.CoreSetAbbr.HHCS) {
       setType("HH");
     }
-  }, [setValidationFunctions, coreSetId, setType, coreSet]);
+  }, [setValidationFunctions, coreSetId, setType, coreSetAbbr]);
 
   const data =
     Form[
@@ -45,7 +40,7 @@ export const Qualifier = ({
         | "QualifierFormsData2023"
         | "QualifierFormsData2024"
         | "QualifierFormsData2025"
-    ].Data[coreSet];
+    ].Data[coreSetAbbr];
 
   return (
     <>

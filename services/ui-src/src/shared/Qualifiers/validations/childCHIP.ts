@@ -1,3 +1,4 @@
+import { featuresByYear } from "utils/featuresByYear";
 import {
   CCSCQualifierForm,
   DeliverySystem,
@@ -13,6 +14,12 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
     },
     0
   );
+
+  // Validation errors
+  const hasTotalError =
+    totalUnder21CHIPPercent > 0 &&
+    (totalUnder21CHIPPercent < 99 || totalUnder21CHIPPercent > 101);
+
   if (totalUnder21CHIPPercent === 0) {
     errorArray.push({
       errorLocation: "Delivery System",
@@ -20,15 +27,23 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
     });
   }
 
-  if (
-    totalUnder21CHIPPercent > 0 &&
-    (totalUnder21CHIPPercent < 99 || totalUnder21CHIPPercent > 101)
-  ) {
-    errorArray.push({
-      errorLocation: "Delivery System",
-      errorMessage: "Entries for Under Age 21 CHIP column must total 100",
-    });
+  if (featuresByYear.lessSpecificQualifierValidationLanguage) {
+    // For 2025, show one generic message if any validation fails
+    if (hasTotalError) {
+      errorArray.push({
+        errorLocation: "Delivery System",
+        errorMessage: "Entries for column must total 100",
+      });
+    }
+  } else {
+    if (hasTotalError) {
+      errorArray.push({
+        errorLocation: "Delivery System",
+        errorMessage: "Entries for Under Age 21 CHIP column must total 100",
+      });
+    }
   }
+
   return errorArray.length ? errorArray : [];
 };
 
