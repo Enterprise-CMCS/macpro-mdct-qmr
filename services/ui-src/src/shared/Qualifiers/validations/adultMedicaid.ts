@@ -39,7 +39,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSMQualifierForm) => {
 
   if (featuresByYear.lessSpecificQualifierValidationLanguage) {
     // For 2025, show one generic message if any validation fails
-    if (has21To64ZeroError || has21To64TotalError || has64PlusTotalError) {
+    if (has21To64TotalError || has64PlusTotalError) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for column must total 100",
