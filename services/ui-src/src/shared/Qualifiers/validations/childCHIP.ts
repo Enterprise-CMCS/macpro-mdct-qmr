@@ -16,11 +16,12 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
   );
 
   // Validation errors
-  const hasTotalError =
+  const isZeroError = totalUnder21CHIPPercent === 0;
+  const mustTotal100Error =
     totalUnder21CHIPPercent > 0 &&
     (totalUnder21CHIPPercent < 99 || totalUnder21CHIPPercent > 101);
 
-  if (totalUnder21CHIPPercent === 0) {
+  if (isZeroError) {
     errorArray.push({
       errorLocation: "Delivery System",
       errorMessage: "Entries for Under Age 21 CHIP are required.",
@@ -29,14 +30,14 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
 
   if (featuresByYear.lessSpecificQualifierValidationLanguage) {
     // For 2025, show one generic message if any validation fails
-    if (hasTotalError) {
+    if (mustTotal100Error) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for column must total 100",
       });
     }
   } else {
-    if (hasTotalError) {
+    if (mustTotal100Error) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for Under Age 21 CHIP column must total 100",

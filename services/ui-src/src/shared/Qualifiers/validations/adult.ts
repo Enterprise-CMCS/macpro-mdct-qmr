@@ -15,7 +15,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
     0
   );
 
-  const total64PlusPercent = values?.reduce(
+  const total65PlusPercent = values?.reduce(
     (acc: number, curr: DeliverySystem) => {
       return acc + parseFloat(curr.GreaterThanSixtyFour || "0");
     },
@@ -23,12 +23,12 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
   );
 
   // Check for validation errors
-  const has21To64Error =
+  const has21To64Total100Error =
     (total21To64Percent < 99 || total21To64Percent > 101) &&
     total21To64Percent !== 0;
-  const has64Plus4Error =
-    (total64PlusPercent < 99 || total64PlusPercent > 101) &&
-    total64PlusPercent !== 0;
+  const has65PlusTotal100Error =
+    (total65PlusPercent < 99 || total65PlusPercent > 101) &&
+    total65PlusPercent !== 0;
 
   if (total21To64Percent === 0) {
     errorArray.push({
@@ -39,7 +39,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
 
   // For 2025, show one generic message if any validation fails
   if (featuresByYear.lessSpecificQualifierValidationLanguage) {
-    if (has21To64Error || has64Plus4Error) {
+    if (has21To64Total100Error || has65PlusTotal100Error) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for column must total 100",
@@ -47,19 +47,13 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSQualifierForm) => {
     }
   } else {
     // For other years, show specific messages for each validation
-    if (
-      (total21To64Percent < 99 || total21To64Percent > 101) &&
-      total21To64Percent !== 0
-    ) {
+    if (has21To64Total100Error) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for Ages 21 to 64 column must total 100",
       });
     }
-    if (
-      (total64PlusPercent < 99 || total64PlusPercent > 101) &&
-      total64PlusPercent !== 0
-    ) {
+    if (has65PlusTotal100Error) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for Age 65 and Older column must total 100",

@@ -22,11 +22,11 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSMQualifierForm) => {
     });
   }
 
-  const hasUnder21MedicaidTotalError =
+  const hasUnder21MedicaidTotal100Error =
     (totalUnder21MedicaidPercent > 0 && totalUnder21MedicaidPercent < 99) ||
     totalUnder21MedicaidPercent > 101;
 
-  if (hasUnder21MedicaidTotalError)
+  if (hasUnder21MedicaidTotal100Error)
     if (featuresByYear.lessSpecificQualifierValidationLanguage) {
       errorArray.push({
         errorLocation: "Delivery System",
