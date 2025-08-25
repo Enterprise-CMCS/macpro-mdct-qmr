@@ -39,6 +39,7 @@ const COLADValidation = (data: FormData) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
+      "",
       errorReplacementText
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(

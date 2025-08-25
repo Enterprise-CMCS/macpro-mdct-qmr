@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-const COLADValidation = (data: FormData) => {
+const COLADValidation = (data: FormData, coreSetId?: string) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 2;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -39,6 +39,7 @@ const COLADValidation = (data: FormData) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
+      coreSetId,
       errorReplacementText
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(

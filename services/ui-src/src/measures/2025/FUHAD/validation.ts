@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-const FUHValidation = (data: FormData) => {
+const FUHValidation = (data: FormData, coreSetId?: string) => {
   const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
@@ -60,7 +60,8 @@ const FUHValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       1,
-      DefinitionOfDenominator
+      DefinitionOfDenominator,
+      coreSetId
     ),
     ...filteredSameDenominatorErrors,
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
