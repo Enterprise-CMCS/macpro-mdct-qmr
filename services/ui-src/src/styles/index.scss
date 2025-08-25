@@ -41,18 +41,18 @@ li::marker {
   font-weight: normal;
 }
 
+*:focus-visible,
 a:focus,
-a:focus:visited {
+a:focus:visited, .ds-c-usa-banner__button:focus {
   background-color: transparent;
+  outline: 3px solid pink;
+  box-shadow: none;
 }
 
-*:focus:not(:focus-visible) {
+*:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
   background-color: transparent;
   outline: none !important;
-}
-
-*:focus-visible {
-  outline: 3px solid pink;
 }
 
 //added due to styling changes from cms design systems, from v^5.0.2 to v^11.1.0

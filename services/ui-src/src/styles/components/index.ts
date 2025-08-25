@@ -5,6 +5,7 @@ import linkTheme from "./link";
 import listTheme from "./list";
 import tabsTheme from "./tabs";
 import selectTheme from "./select";
+import menuTheme from "./menu";
 
 export const components = {
   Button: buttonTheme,
@@ -12,6 +13,7 @@ export const components = {
   FormError: formErrorTheme,
   Link: linkTheme,
   List: listTheme,
+  Menu: menuTheme,
   Tabs: tabsTheme,
   Select: selectTheme,
 };
