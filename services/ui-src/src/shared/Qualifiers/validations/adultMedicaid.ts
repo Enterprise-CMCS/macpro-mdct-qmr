@@ -14,7 +14,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSMQualifierForm) => {
     },
     0
   );
-  const total64PlusPercent = values?.reduce(
+  const total65PlusPercent = values?.reduce(
     (acc: number, curr: DeliverySystem) => {
       return acc + parseFloat(curr.GreaterThanSixtyFour || "0");
     },
@@ -26,9 +26,9 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSMQualifierForm) => {
   const has21To64TotalError =
     (total21To64Percent < 99 || total21To64Percent > 101) &&
     total21To64Percent !== 0;
-  const has64PlusTotalError =
-    (total64PlusPercent < 99 || total64PlusPercent > 101) &&
-    total64PlusPercent !== 0;
+  const has65PlusTotalError =
+    (total65PlusPercent < 99 || total65PlusPercent > 101) &&
+    total65PlusPercent !== 0;
 
   if (has21To64ZeroError) {
     errorArray.push({
@@ -39,7 +39,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSMQualifierForm) => {
 
   if (featuresByYear.lessSpecificQualifierValidationLanguage) {
     // For 2025, show one generic message if any validation fails
-    if (has21To64TotalError || has64PlusTotalError) {
+    if (has21To64TotalError || has65PlusTotalError) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for column must total 100",
@@ -53,7 +53,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSMQualifierForm) => {
         errorMessage: "Entries for Ages 21 to 64 column must total 100",
       });
     }
-    if (has64PlusTotalError) {
+    if (has65PlusTotalError) {
       errorArray.push({
         errorLocation: "Delivery System",
         errorMessage: "Entries for Age 65 and Older column must total 100",
