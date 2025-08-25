@@ -22,7 +22,7 @@ export function Header({ handleLogout }: Props) {
             <CUI.Button onClick={handleLogout} variant="link-white">
               <CUI.Image
                 src="/header/logout.svg"
-                alt="logout"
+                alt=""
                 sx={{ maxWidth: "24px", marginRight: "0.25rem" }}
               />
               <CUI.Hide below="md">Logout</CUI.Hide>
