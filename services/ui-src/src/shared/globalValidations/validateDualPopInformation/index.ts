@@ -3,9 +3,10 @@ import { FormRateField } from "shared/types/TypeValidations";
 import { featuresByYear } from "utils/featuresByYear";
 import { CoreSetAbbr } from "types";
 
-export const getLabels = (errorReplacementText: string) => {
+export const getLabels = (errorReplacementText: string, coreSet?: string) => {
   if (
-    CoreSetAbbr.ACSC &&
+    coreSet &&
+    coreSet === CoreSetAbbr.ACSC &&
     featuresByYear.hasAdultSeparateCHIPInclusiveWarning &&
     featuresByYear.shouldValidateDuallyEligibleCheckbox
   ) {
@@ -30,13 +31,14 @@ export const validateDualPopInformationPM = (
   OPM: any,
   age65PlusIndex: number,
   DefinitionOfDenominator: string[] | undefined,
+  coreSet?: string,
   errorReplacementText: string = "Age 65 and Older"
 ) => {
   if (OPM) {
     return [];
   }
 
-  const labels = getLabels(errorReplacementText);
+  const labels = getLabels(errorReplacementText, coreSet);
 
   const dualEligible = DefinitionOfDenominator
     ? DefinitionOfDenominator.indexOf(

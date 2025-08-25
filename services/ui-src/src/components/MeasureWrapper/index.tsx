@@ -382,7 +382,7 @@ export const MeasureWrapper = ({
   const validateAndSetErrors = (data: any): boolean => {
     const validationErrors = validationFunctions.reduce(
       (acc: any, current: any) => {
-        const error = current(data);
+        const error = current(data, coreSetId);
         let errorArray = [];
 
         if (Array.isArray(error)) {
