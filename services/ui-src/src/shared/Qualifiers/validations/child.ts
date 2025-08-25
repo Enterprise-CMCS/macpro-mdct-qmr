@@ -23,6 +23,8 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSQualifierForm) => {
   );
 
   // Check for validation errors
+  const totalUnder21EqualsZeroError =
+    totalUnder21MedicaidPercent === 0 && totalUnder21CHIPPercent === 0;
   const hasUnder21MedicaidError =
     (totalUnder21MedicaidPercent > 0 && totalUnder21MedicaidPercent < 99) ||
     totalUnder21MedicaidPercent > 101;
@@ -31,7 +33,7 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSQualifierForm) => {
     (totalUnder21CHIPPercent < 99 || totalUnder21CHIPPercent > 101);
 
   // TODO: Fix error message - There one column here
-  if (totalUnder21MedicaidPercent === 0 && totalUnder21CHIPPercent === 0) {
+  if (totalUnder21EqualsZeroError) {
     errorArray.push({
       errorLocation: "Delivery System",
       errorMessage:
