@@ -44,6 +44,7 @@ const COLHHValidation = (data: FormData) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
+      "",
       errorReplacementText
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(

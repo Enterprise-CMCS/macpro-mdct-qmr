@@ -50,6 +50,7 @@ const HPCADValidation = (data: FormData) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
+      "",
       "Ages 65 to 75"
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
