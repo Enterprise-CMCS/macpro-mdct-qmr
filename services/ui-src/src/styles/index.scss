@@ -1,6 +1,6 @@
 $image-path: "~@cmsgov/design-system/dist/images";
 @use "@cmsgov/design-system/dist/css/index";
-@use '@cmsgov/design-system/dist/css/core-theme';
+@use "@cmsgov/design-system/dist/css/core-theme";
 
 html,
 body,
@@ -41,12 +41,18 @@ li::marker {
   font-weight: normal;
 }
 
-a:focus {
-  box-shadow: none;
+a:focus,
+a:focus:visited {
+  background-color: transparent;
 }
 
-.logo-link:focus {
+*:focus:not(:focus-visible) {
   background-color: transparent;
+  outline: none !important;
+}
+
+*:focus-visible {
+  outline: 3px solid pink;
 }
 
 //added due to styling changes from cms design systems, from v^5.0.2 to v^11.1.0

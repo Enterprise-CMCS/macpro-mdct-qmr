@@ -4,6 +4,7 @@ import formErrorTheme from "./formError";
 import linkTheme from "./link";
 import listTheme from "./list";
 import tabsTheme from "./tabs";
+import selectTheme from "./select";
 
 export const components = {
   Button: buttonTheme,
@@ -12,4 +13,5 @@ export const components = {
   Link: linkTheme,
   List: listTheme,
   Tabs: tabsTheme,
+  Select: selectTheme,
 };

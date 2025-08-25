@@ -1,6 +1,10 @@
 import { ComponentStyleConfig } from "@chakra-ui/react";
 
-const baseStyles = {};
+const baseStyles = {
+  ":focus-visible": {
+    outline: "3px solid pink",
+  },
+};
 
 const linkWhiteVariant = {
   color: "white",
@@ -33,6 +37,9 @@ const variants = {
 const buttonTheme: ComponentStyleConfig = {
   baseStyle: baseStyles,
   variants: variants,
+  defaultProps: {
+    variant: "baseStyles",
+  },
 };
 
 export default buttonTheme;
