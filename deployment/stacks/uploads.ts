@@ -234,6 +234,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
         tables.map((table) => [`${table.id}Table`, table.name])
       ),
     },
+    isDev,
     additionalPolicies: [
       useKmsStatement,
       new iam.PolicyStatement({
@@ -278,6 +279,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     environment: {
       CLAMAV_BUCKET_NAME: clamDefsBucket.bucketName,
     },
+    isDev,
     additionalPolicies: [
       useKmsStatement,
       getS3AttachmentClamStatement,
@@ -304,6 +306,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
       environment: {
         CLAMAV_BUCKET_NAME: clamDefsBucket.bucketName,
       },
+      isDev,
       additionalPolicies: [
         useKmsStatement,
         getS3AttachmentClamStatement,
