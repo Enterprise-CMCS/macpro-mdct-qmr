@@ -9,7 +9,11 @@ interface Props {
 
 export function Header({ handleLogout }: Props) {
   return (
-    <CUI.Box data-testid="header" className="hidden-print-items" zIndex={3}>
+    <header
+      data-testid="header"
+      className="hidden-print-items"
+      style={{ zIndex: 3 }}
+    >
       <UsaBanner />
       {/* using hex color here for branded color */}
       <CUI.Box bg="blue.800">
@@ -30,6 +34,6 @@ export function Header({ handleLogout }: Props) {
           </CUI.Flex>
         </CUI.Container>
       </CUI.Box>
-    </CUI.Box>
+    </header>
   );
 }
