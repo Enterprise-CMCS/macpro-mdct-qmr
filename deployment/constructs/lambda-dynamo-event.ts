@@ -8,6 +8,7 @@ import {
   RemovalPolicy,
 } from "aws-cdk-lib";
 import { DynamoDBTableIdentifiers } from "../constructs/dynamodb-table";
+import { createHash } from "crypto";
 
 interface LambdaDynamoEventProps
   extends Partial<lambda_nodejs.NodejsFunctionProps> {
@@ -66,6 +67,9 @@ export class LambdaDynamoEventSource extends Construct {
       memorySize,
       role,
       bundling: {
+        assetHash: createHash("sha256")
+          .update(`${Date.now()}-${id}`)
+          .digest("hex"),
         minify: true,
         sourceMap: true,
       },
