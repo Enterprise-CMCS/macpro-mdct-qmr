@@ -15,9 +15,12 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSCQualifierForm) => {
   );
 
   if (total21To64Percent === 0) {
+    const label = featuresByYear.lessSpecificQualifierValidationLanguage
+      ? "Entries for column must have values"
+      : "Entries for Ages 21 to 64 column must have values";
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Ages 21 to 64 column must have values",
+      errorMessage: label,
     });
   }
   if (
