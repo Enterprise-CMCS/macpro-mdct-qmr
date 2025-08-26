@@ -20,6 +20,7 @@ const App = () => {
     <>
       {user && (
         <>
+          <QMR.SkipNav />
           <QMR.ScrollToTop />
           <QMR.Header handleLogout={logout} />
           <Suspense fallback={MeasuresLoading()}>
