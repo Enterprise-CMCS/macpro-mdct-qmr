@@ -22,9 +22,12 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
     (totalUnder21CHIPPercent < 99 || totalUnder21CHIPPercent > 101);
 
   if (isZeroError) {
+    const label = featuresByYear.lessSpecificQualifierValidationLanguage
+      ? "Entries for column must have values"
+      : "Entries for Under Age 21 CHIP are required.";
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Under Age 21 CHIP are required.",
+      errorMessage: label,
     });
   }
 

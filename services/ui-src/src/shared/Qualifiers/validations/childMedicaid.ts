@@ -16,9 +16,12 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSMQualifierForm) => {
   );
 
   if (totalUnder21MedicaidPercent === 0) {
+    const label = featuresByYear.lessSpecificQualifierValidationLanguage
+      ? "Entries for column must have values"
+      : "Entries for Under Age 21 CHIP are required.";
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage: "Entries for Under Age 21 Medicaid are required.",
+      errorMessage: label,
     });
   }
 

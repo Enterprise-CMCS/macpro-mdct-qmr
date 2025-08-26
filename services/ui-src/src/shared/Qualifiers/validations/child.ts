@@ -32,12 +32,13 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSQualifierForm) => {
     totalUnder21CHIPPercent > 0 &&
     (totalUnder21CHIPPercent < 99 || totalUnder21CHIPPercent > 101);
 
-  // TODO: Fix error message - There one column here
   if (totalUnder21EqualsZeroError) {
+    const label = featuresByYear.lessSpecificQualifierValidationLanguage
+      ? "Entries for column must have values"
+      : "Entries are required in at least one column.  Entries are permitted in the second column but are not required";
     errorArray.push({
       errorLocation: "Delivery System",
-      errorMessage:
-        "Entries are required in at least one column.  Entries are permitted in the second column but are not required",
+      errorMessage: label,
     });
   }
 
