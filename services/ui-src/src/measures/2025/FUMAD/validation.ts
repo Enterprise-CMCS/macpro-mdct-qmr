@@ -47,6 +47,7 @@ const FUMADValidation = (data: FormData, coreSetId?: string) => {
       OPM,
       sixtyDaysIndex,
       DefinitionOfDenominator,
+      undefined,
       coreSetId
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(

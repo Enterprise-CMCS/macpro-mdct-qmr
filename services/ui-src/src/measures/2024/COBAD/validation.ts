@@ -38,7 +38,6 @@ const COBADValidation = (data: FormData) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
-      "",
       "Ages 65 to 85"
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(

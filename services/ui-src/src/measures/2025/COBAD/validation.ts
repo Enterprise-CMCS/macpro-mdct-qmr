@@ -38,8 +38,8 @@ const COBADValidation = (data: FormData, coreSetId?: string) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
-      coreSetId,
-      "Ages 65 to 85"
+      "Ages 65 to 85",
+      coreSetId
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,

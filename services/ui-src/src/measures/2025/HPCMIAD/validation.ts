@@ -38,8 +38,8 @@ const HPCMIADValidation = (data: FormData, coreSetId?: string) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
-      coreSetId,
-      PMD.qualifiers[1].label
+      PMD.qualifiers[1].label,
+      coreSetId
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,

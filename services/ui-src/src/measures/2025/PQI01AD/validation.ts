@@ -55,6 +55,7 @@ const PQI01Validation = (data: FormData, coreSetId?: string) => {
       OPM,
       age65PlusIndex,
       definitionOfDenominator,
+      undefined,
       coreSetId
     ),
     ...GV.validateDeviationTextFieldFilled(

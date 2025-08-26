@@ -47,8 +47,8 @@ const GSDADValidation = (data: FormData, coreSetId?: string) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
-      coreSetId,
-      "Ages 65 to 75"
+      "Ages 65 to 75",
+      coreSetId
     ),
     ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,

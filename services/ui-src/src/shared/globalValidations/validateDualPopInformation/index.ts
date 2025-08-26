@@ -30,8 +30,8 @@ export const validateDualPopInformationPM = (
   OPM: any,
   age65PlusIndex: number,
   DefinitionOfDenominator: string[] | undefined,
-  coreSet?: string,
-  errorReplacementText: string = "Age 65 and Older"
+  errorReplacementText: string = "Age 65 and Older",
+  coreSet?: string
 ) => {
   if (OPM) {
     return [];

@@ -53,7 +53,6 @@ describe("Testing Dual Population Selection Validation", () => {
       undefined,
       0,
       [DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE],
-      "",
       "TestLabel"
     );
 

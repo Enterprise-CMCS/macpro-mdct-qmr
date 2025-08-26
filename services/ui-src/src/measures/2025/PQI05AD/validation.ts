@@ -59,6 +59,7 @@ const PQI05Validation = (data: FormData, coreSetId?: string) => {
       OPM,
       age65PlusIndex,
       definitionOfDenominator,
+      undefined,
       coreSetId
     ),
     ...GV.validateAtLeastOneRateComplete(

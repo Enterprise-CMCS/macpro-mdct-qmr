@@ -61,6 +61,7 @@ const FUHValidation = (data: FormData, coreSetId?: string) => {
       OPM,
       1,
       DefinitionOfDenominator,
+      undefined,
       coreSetId
     ),
     ...filteredSameDenominatorErrors,
