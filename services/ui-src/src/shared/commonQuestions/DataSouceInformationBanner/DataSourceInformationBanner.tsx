@@ -122,58 +122,51 @@ export const dataSourceSelections = (
   dataSourceSelections: DataSourcePayload["DataSourceSelections"]
 ) => {
   let selected = [];
-  //filter the dataSourceSelections object keys that matches the dataSource name
-  const dataSourceKey = Object.keys(dataSourceSelections).filter((key) =>
-    key.split("-")[0].includes(dataSource)
+
+  //remapping the object to a more usable array
+  const dataSourceArray = Object.entries(dataSourceSelections).map(
+    (selection) => {
+      return { key: selection[0], ...selection?.[1] };
+    }
   );
 
-  //we want only they key for the top layer checkboxes
-  const parentKeys = dataSourceKey.filter((key) => !key.includes("-"));
+  //we want only they key for the top layer checkboxes and the current dataSource
+  const parentDataSource = dataSourceArray.filter(
+    (selection) =>
+      !selection.key.includes("-") && selection.key.includes(dataSource)
+  );
+  //these will contain checkbox and textboxes of the parent data source checkbox
+  const childDataSource = dataSourceArray.filter((selection) =>
+    selection.key.includes("-")
+  );
 
-  //use the key ids to obtain the values
-  const dataSourceValue = parentKeys.map((key) => dataSourceSelections[key]);
+  const selections = parentDataSource
+    .flatMap((selection) => selection.selected)
+    .filter(isDefined);
+  const descriptions = parentDataSource
+    .flatMap((selection) => selection.description)
+    .filter(isDefined);
 
-  if (dataSourceKey && dataSourceKey.length > 0) {
-    //if more than one key exist, it is possibly a nested data source
-    if (dataSourceKey.length > 1) {
-      const dataSources = dataSourceValue
-        .map((item) => item.selected ?? item.description)
-        .filter(isDefined)
-        .flat();
+  //if nothing has been selected or if it doesn't have a textbox input, return not answered
+  if (selections.length === 0 && descriptions.length === 0)
+    return ["Not Answered"];
 
-      //addition to handle an option that has both a textbox and checkbox options
-      if (dataSources.every((item) => item === undefined))
-        selected.push("Not Answered");
-
-      selected.push(
-        ...dataSources.map((source) => {
-          const sourceKey = dataSourceKey.find((key) => key.includes(source));
-          const formattedSource = lookupDataSource(source);
-          const dash =
-            !formattedSource || !dataSourceSelections[sourceKey!]?.description
-              ? ""
-              : " - ";
-
-          return sourceKey
-            ? `${formattedSource}${dash}${
-                dataSourceSelections[sourceKey]?.description ?? "Not Answered"
-              }`
-            : formattedSource;
-        })
+  //selected values are in their key names so we need to clean them
+  selected.push(
+    ...selections.map((key) => {
+      //see if there's a textfield associated with this data source selection
+      const textfield = childDataSource.find((source) =>
+        source.key.split("-")[1].includes(key)
       );
-    } else {
-      const { description, selected: selectedValue } =
-        dataSourceSelections[dataSourceKey[0]];
+      const textfieldData = textfield?.description
+        ? ` - ${textfield.description}`
+        : "";
+      return `${lookupDataSource(key)}${textfieldData}`;
+    })
+  );
+  //descriptions do not need formatting so they can be added straight to the array
+  if (descriptions.length > 0) selected.push(...descriptions);
 
-      //either description is null or selected is null, only one will exist on the object
-      const value =
-        selectedValue && selectedValue.length > 0
-          ? (selectedValue as any[]).map((item) => lookupDataSource(item))
-          : [!!description ? description : "Not Answered"];
-
-      selected.push(...value);
-    }
-  }
   return selected;
 };
 
