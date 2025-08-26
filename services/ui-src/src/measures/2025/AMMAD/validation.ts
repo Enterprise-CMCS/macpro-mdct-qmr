@@ -59,6 +59,7 @@ const AMMADValidation = (data: FormData, coreSetId?: string) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
+      undefined,
       coreSetId
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(

@@ -48,6 +48,7 @@ const PQI05Validation = (data: FormData, coreSetId?: string) => {
       OPM,
       1,
       ageGroups.map((item) => item.label),
+      undefined,
       coreSetId
     ),
     ...GV.validateDeviationTextFieldFilled(
