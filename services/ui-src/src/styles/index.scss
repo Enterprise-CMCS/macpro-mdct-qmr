@@ -42,8 +42,12 @@ li::marker {
 }
 
 *:focus-visible,
+*:focus,
 a:focus,
-a:focus:visited, .ds-c-usa-banner__button:focus {
+a:focus:visited,
+.ds-c-usa-banner__button:focus,
+.ds-u-focus,
+.ds-u-focus-visible {
   background-color: transparent;
   outline: 3px solid pink;
   box-shadow: none;
