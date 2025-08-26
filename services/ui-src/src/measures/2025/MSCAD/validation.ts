@@ -4,7 +4,7 @@ import * as PMD from "./data";
 import { DefaultFormData } from "shared/types/FormData";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
-const MSCADValidation = (data: DefaultFormData) => {
+const MSCADValidation = (data: DefaultFormData, coreSetId?: string) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const OPM = data[DC.OPM_RATES];
@@ -45,7 +45,9 @@ const MSCADValidation = (data: DefaultFormData) => {
       performanceMeasureArray,
       OPM,
       age65PlusIndex,
-      DefinitionOfDenominator
+      DefinitionOfDenominator,
+      undefined,
+      coreSetId
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,

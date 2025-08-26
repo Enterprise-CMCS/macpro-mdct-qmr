@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-const COBADValidation = (data: FormData) => {
+const COBADValidation = (data: FormData, coreSetId?: string) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -38,7 +38,8 @@ const COBADValidation = (data: FormData) => {
       OPM,
       age65PlusIndex,
       DefinitionOfDenominator,
-      "Ages 65 to 85"
+      "Ages 65 to 85",
+      coreSetId
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
