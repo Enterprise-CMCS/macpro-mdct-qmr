@@ -91,11 +91,14 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   return (
     <CUI.Box fontWeight="semibold" fontSize="sm">
       <CUI.Text>Core Set Qualifiers</CUI.Text>
-      <Link to={"CSQ"}>
-        <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetTitles(coreSetInfo[0], "Questions") + spaName}
-        </CUI.Text>
-      </Link>
+      <CUI.Link
+        as={Link}
+        to={"CSQ"}
+        color="blue"
+        data-cy="core-set-qualifiers-link"
+      >
+        {coreSetTitles(coreSetInfo[0], "Questions") + spaName}
+      </CUI.Link>
 
       {isLoading ? (
         <CUI.SkeletonText maxW={48} noOfLines={1} mt="1" />
