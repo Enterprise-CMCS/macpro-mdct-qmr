@@ -7,8 +7,7 @@ export const getLabels = (errorReplacementText: string, coreSet?: string) => {
   if (
     coreSet &&
     coreSet === CoreSetAbbr.ACSC &&
-    featuresByYear.hasAdultSeparateCHIPInclusiveWarning &&
-    featuresByYear.shouldValidateDuallyEligibleCheckbox
+    featuresByYear.hasAdultSeparateCHIPInclusiveWarning
   ) {
     return {
       checkmarkWarning: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Separate CHIP Dually-Eligible population) is missing`,
