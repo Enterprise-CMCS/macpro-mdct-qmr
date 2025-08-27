@@ -99,7 +99,6 @@ export function Footer(): JSX.Element {
   return (
     <CUI.Box
       as="footer"
-      role="contentinfo"
       zIndex={2}
       fontSize={{ base: "sm", md: "md" }}
       textAlign={{ md: "left" }}
