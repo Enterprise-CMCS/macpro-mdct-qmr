@@ -98,46 +98,58 @@ export const emailLink = () => {
 export function Footer(): JSX.Element {
   return (
     <CUI.Box
+      as="footer"
       zIndex={2}
       fontSize={{ base: "sm", md: "md" }}
       textAlign={{ md: "left" }}
       data-testid="footer"
       className="prince-measure-wrapper-box"
     >
-      <CUI.Container
-        data-testid="help-section"
-        className="help-section"
-        maxW="7xl"
-      >
-        <CUI.Box maxW="4xl">
-          <CUI.Text as="h3" fontSize="2xl" mb="3" className="prince-supp-text">
-            Do you have questions or need support?
-          </CUI.Text>
-          <CUI.Box fontSize="sm" mb="4" className="prince-supp-text">
-            <QMR.SupportInfo />
-          </CUI.Box>
-        </CUI.Box>
-      </CUI.Container>
-      <CUI.Box bg="gray.50" py="2" minHeight="7rem" padding="2rem">
-        <CUI.Hide below="md">{HorizontalLogoFooter()}</CUI.Hide>
-        <CUI.Show below="md">{VerticalLogoFooter()}</CUI.Show>
-      </CUI.Box>
-      <CUI.Box bg="blue.800" color="white" py="2">
-        <CUI.Container textAlign={{ md: "left" }} minWidth="100%">
-          <CUI.Box
-            display={{ base: "block", md: "flex" }}
-            className="prince-flex-overwrite"
-            fontSize="sm"
-            padding="0.5rem 0"
-          >
-            <CUI.Text>Email {emailLink()} for help or feedback.</CUI.Text>
-            <CUI.Spacer />
-            <CUI.Text fontWeight="bold">
-              7500 Security Boulevard Baltimore, MD 21244
-            </CUI.Text>
+      <section>
+        <CUI.Container
+          data-testid="help-section"
+          className="help-section"
+          maxW="7xl"
+        >
+          <CUI.Box maxW="4xl">
+            <CUI.Heading
+              as="h3"
+              fontSize="2xl"
+              mb="3"
+              className="prince-supp-text"
+            >
+              Do you have questions or need support?
+            </CUI.Heading>
+            <CUI.Box fontSize="sm" mb="4" className="prince-supp-text">
+              <QMR.SupportInfo />
+            </CUI.Box>
           </CUI.Box>
         </CUI.Container>
-      </CUI.Box>
+      </section>
+      <section aria-label="Partner organizations">
+        <CUI.Box bg="gray.50" py="2" minHeight="7rem" padding="2rem">
+          <CUI.Hide below="md">{HorizontalLogoFooter()}</CUI.Hide>
+          <CUI.Show below="md">{VerticalLogoFooter()}</CUI.Show>
+        </CUI.Box>
+      </section>
+      <section aria-label="Contact information">
+        <CUI.Box bg="blue.800" color="white" py="2">
+          <CUI.Container textAlign={{ md: "left" }} minWidth="100%">
+            <CUI.Box
+              display={{ base: "block", md: "flex" }}
+              className="prince-flex-overwrite"
+              fontSize="sm"
+              padding="0.5rem 0"
+            >
+              <CUI.Text>Email {emailLink()} for help or feedback.</CUI.Text>
+              <CUI.Spacer />
+              <address style={{ fontStyle: "normal", fontWeight: "bold" }}>
+                7500 Security Boulevard Baltimore, MD 21244
+              </address>
+            </CUI.Box>
+          </CUI.Container>
+        </CUI.Box>
+      </section>
     </CUI.Box>
   );
 }
