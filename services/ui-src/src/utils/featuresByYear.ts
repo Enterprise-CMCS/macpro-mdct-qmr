@@ -136,4 +136,23 @@ export const featuresByYear = {
   get hasMedicaidInclusiveReportName() {
     return getMeasureYear() >= 2025;
   },
+
+  /**
+   * Prior to 2025, when a Qualifier's enrollment did not add up to 100%,
+   * we displayed a very specific error message about it.
+   *
+   * In 2025 and beyond, we simply say "Entries for column must total 100".
+   */
+  get lessSpecificQualifierValidationLanguage() {
+    return getMeasureYear() >= 2025;
+  },
+
+  /**
+   * Prior to 2025, the PM validation "
+   *
+   * In 2025 and beyond, we want to change it to "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+   */
+  get hasAdultSeparateCHIPInclusiveWarning() {
+    return getMeasureYear() >= 2025;
+  },
 };

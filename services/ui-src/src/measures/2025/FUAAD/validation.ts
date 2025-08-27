@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-const FUAADValidation = (data: FormData) => {
+const FUAADValidation = (data: FormData, coreSetId?: string) => {
   const ageGroups = PMD.qualifiers;
   const sixtyDaysIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -43,7 +43,9 @@ const FUAADValidation = (data: FormData) => {
       performanceMeasureArray,
       OPM,
       sixtyDaysIndex,
-      DefinitionOfDenominator
+      DefinitionOfDenominator,
+      undefined,
+      coreSetId
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,

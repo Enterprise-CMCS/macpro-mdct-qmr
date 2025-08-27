@@ -8,8 +8,18 @@ const baseStyles = {
   },
 };
 
+const unlinedVariant = {
+  textDecoration: "none",
+  fontWeight: "bold",
+};
+
+const variants = {
+  unlined: unlinedVariant,
+};
+
 const linkTheme: ComponentStyleConfig = {
   baseStyle: baseStyles,
+  variants: variants,
 };
 
 export default linkTheme;
