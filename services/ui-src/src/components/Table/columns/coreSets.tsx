@@ -43,15 +43,11 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
     id: "info_column_header",
     cell: (data: CoreSetTableItem.Data) => {
       return (
-        <CUI.Link
-          as={Link}
-          to={data.coreSet}
-          color="blue.600"
-          fontWeight="bold"
-          data-cy={data.coreSet}
-        >
-          {data.title}
-        </CUI.Link>
+        <Link to={data.coreSet}>
+          <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.coreSet}>
+            {data.title}
+          </CUI.Text>
+        </Link>
       );
     },
   },

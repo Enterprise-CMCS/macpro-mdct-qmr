@@ -63,15 +63,11 @@ export const measuresColumns = (
       styleProps: { textAlign: "center" },
       cell: (data: MeasureTableItem.Data) => {
         return (
-          <CUI.Link
-            as={Link}
-            to={data.path}
-            fontWeight="bold"
-            color="blue.600"
-            data-cy={data.abbr}
-          >
-            {data.abbr}
-          </CUI.Link>
+          <Link to={data.path}>
+            <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.abbr}>
+              {data.abbr}
+            </CUI.Text>
+          </Link>
         );
       },
     },
@@ -80,15 +76,11 @@ export const measuresColumns = (
       id: "title_column_header",
       cell: (data: MeasureTableItem.Data) => {
         return (
-          <CUI.Link
-            as={Link}
-            to={data.path}
-            fontWeight="bold"
-            color="blue.600"
-            data-cy={data.path}
-          >
-            {data.title}
-          </CUI.Link>
+          <Link to={data.path}>
+            <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.path}>
+              {data.title}
+            </CUI.Text>
+          </Link>
         );
       },
     },
