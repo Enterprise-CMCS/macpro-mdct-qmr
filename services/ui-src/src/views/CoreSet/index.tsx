@@ -94,7 +94,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       <CUI.Link
         as={Link}
         to={"CSQ"}
-        color="blue"
+        variant="unlined"
         data-cy="core-set-qualifiers-link"
       >
         {coreSetTitles(coreSetInfo[0], "Questions") + spaName}

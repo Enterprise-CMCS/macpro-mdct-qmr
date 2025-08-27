@@ -66,8 +66,7 @@ export const measuresColumns = (
           <CUI.Link
             as={Link}
             to={data.path}
-            fontWeight="bold"
-            color="blue.600"
+            variant="unlined"
             data-cy={data.abbr}
           >
             {data.abbr}
@@ -83,8 +82,7 @@ export const measuresColumns = (
           <CUI.Link
             as={Link}
             to={data.path}
-            fontWeight="bold"
-            color="blue.600"
+            variant="unlined"
             data-cy={data.path}
           >
             {data.title}

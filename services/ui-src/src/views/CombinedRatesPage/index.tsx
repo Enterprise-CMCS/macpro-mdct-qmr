@@ -42,8 +42,7 @@ const GetColumns = () => {
             as={Link}
             to={data.path}
             aria-label={data.title}
-            fontWeight="bold"
-            color="blue.600"
+            variant="unlined"
             data-cy={data.path}
           >
             {data.title}

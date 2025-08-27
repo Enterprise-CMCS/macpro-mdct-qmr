@@ -46,8 +46,7 @@ export const coreSetColumns: TableColumn<CoreSetTableItem.Data>[] = [
         <CUI.Link
           as={Link}
           to={data.coreSet}
-          color="blue.600"
-          fontWeight="bold"
+          variant="unlined"
           data-cy={data.coreSet}
         >
           {data.title}
