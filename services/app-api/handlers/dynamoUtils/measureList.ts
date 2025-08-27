@@ -1458,13 +1458,13 @@ export const measures: Measure = {
       type: "A",
       measure: "FUA-AD",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: [CoreSetAbbr.ACSC],
+      stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
       measure: "FUH-AD",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: [CoreSetAbbr.ACSC],
+      stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
@@ -1488,7 +1488,7 @@ export const measures: Measure = {
       type: "A",
       measure: "IET-AD",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: [CoreSetAbbr.ACSC],
+      stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
