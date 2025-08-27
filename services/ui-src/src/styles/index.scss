@@ -41,16 +41,20 @@ li::marker {
   font-weight: normal;
 }
 
-*:focus-visible,
+*:focus,
 a:focus,
-a:focus:visited, .ds-c-usa-banner__button:focus {
+.ds-c-usa-banner__button:focus,
+*:focus-visible,
+a:focus:visited,
+.ds-u-focus-visible {
   background-color: transparent;
   outline: 3px solid pink;
   box-shadow: none;
 }
 
 *:focus:not(:focus-visible),
-a:focus:not(:focus-visible) {
+a:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
   background-color: transparent;
   outline: none !important;
 }
