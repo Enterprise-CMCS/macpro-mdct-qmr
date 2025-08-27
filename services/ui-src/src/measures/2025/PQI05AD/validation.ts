@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-const PQI05Validation = (data: FormData) => {
+const PQI05Validation = (data: FormData, coreSetId?: string) => {
   const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
@@ -47,7 +47,9 @@ const PQI05Validation = (data: FormData) => {
       validateDualPopInformationArray,
       OPM,
       1,
-      ageGroups.map((item) => item.label)
+      ageGroups.map((item) => item.label),
+      undefined,
+      coreSetId
     ),
     ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
@@ -57,7 +59,9 @@ const PQI05Validation = (data: FormData) => {
       validateDualPopInformationArray,
       OPM,
       age65PlusIndex,
-      definitionOfDenominator
+      definitionOfDenominator,
+      undefined,
+      coreSetId
     ),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,

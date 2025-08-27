@@ -25,7 +25,7 @@ export const DefinitionOfPopulation = () => {
     options = [
       {
         displayValue: "Separate CHIP (Title XXI)",
-        value: "SeparateCHIPTitleXIX",
+        value: "SeparateCHIPTitleXXI",
       },
     ];
   }

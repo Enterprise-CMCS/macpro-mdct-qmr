@@ -14,8 +14,9 @@ import {
   ServicePrincipal,
 } from "aws-cdk-lib/aws-iam";
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
-import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
 import { isLocalStack } from "../local/util";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
+import { createHash } from "crypto";
 
 interface LambdaProps extends Partial<NodejsFunctionProps> {
   path?: string;
@@ -69,6 +70,12 @@ export class Lambda extends Construct {
       },
     });
 
+    const logGroup = new LogGroup(this, `${id}LogGroup`, {
+      logGroupName: `/aws/lambda/${stackName}-${id}`,
+      removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
+      retention: RetentionDays.THREE_YEARS, // exceeds the 30 month requirement
+    });
+
     this.lambda = new NodejsFunction(this, id, {
       functionName: `${stackName}-${id}`,
       runtime: Runtime.NODEJS_20_X,
@@ -76,17 +83,15 @@ export class Lambda extends Construct {
       memorySize,
       role,
       bundling: {
+        assetHash: createHash("sha256")
+          .update(`${Date.now()}-${id}`)
+          .digest("hex"),
         minify: true,
         sourceMap: true,
         nodeModules: ["jsdom"],
       },
+      logGroup,
       ...restProps,
-    });
-
-    new LogGroup(this, `${id}LogGroup`, {
-      logGroupName: `/aws/lambda/${this.lambda.functionName}`,
-      removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
-      retention: RetentionDays.THREE_YEARS, // exceeds the 30 month requirement
     });
 
     if (api && path && method) {

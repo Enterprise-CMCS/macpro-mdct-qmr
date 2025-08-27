@@ -1,7 +1,4 @@
-export enum MeasureType {
-  MANDATORY = "Mandatory",
-  PROVISIONAL = "Provisional",
-}
+import { CoreSetAbbr, MeasureType } from "../../types";
 
 interface Measure {
   [year: number]: MeasureMetaData[];
@@ -13,7 +10,7 @@ export interface MeasureMetaData {
   autocompleteOnCreation?: boolean;
   placeholder?: boolean;
   measureType?: MeasureType;
-  stratificationRequired?: boolean;
+  stratificationRequired?: CoreSetAbbr[];
 }
 
 export const measures: Measure = {
@@ -1461,13 +1458,13 @@ export const measures: Measure = {
       type: "A",
       measure: "FUA-AD",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
       measure: "FUH-AD",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
@@ -1491,7 +1488,7 @@ export const measures: Measure = {
       type: "A",
       measure: "IET-AD",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
@@ -1633,7 +1630,11 @@ export const measures: Measure = {
       type: "C",
       measure: "FUH-CH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
@@ -1666,7 +1667,11 @@ export const measures: Measure = {
       type: "C",
       measure: "OEV-CH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
@@ -1682,7 +1687,11 @@ export const measures: Measure = {
       type: "C",
       measure: "PPC2-CH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
@@ -1703,7 +1712,11 @@ export const measures: Measure = {
       type: "C",
       measure: "W30-CH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
@@ -1714,7 +1727,11 @@ export const measures: Measure = {
       type: "C",
       measure: "WCV-CH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "H",
@@ -1725,7 +1742,7 @@ export const measures: Measure = {
       type: "H",
       measure: "CBP-HH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [CoreSetAbbr.HHCS],
     },
     {
       type: "H",
@@ -1736,7 +1753,7 @@ export const measures: Measure = {
       type: "H",
       measure: "COL-HH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [CoreSetAbbr.HHCS],
     },
     {
       type: "H",
@@ -1747,7 +1764,7 @@ export const measures: Measure = {
       type: "H",
       measure: "FUH-HH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: true,
+      stratificationRequired: [CoreSetAbbr.HHCS],
     },
     {
       type: "H",

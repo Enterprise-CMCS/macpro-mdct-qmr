@@ -1,10 +1,10 @@
 import {
   CombinedRatesPayload,
-  isDefined,
   isRateNDRShape,
   Measure,
   WeightedRateShape,
 } from "../../types";
+import { isDefined } from "../../utils/filters";
 import {
   addSafely,
   divideSafely,
@@ -92,26 +92,25 @@ export const combineRates = (
         population: chipPopulation,
       };
 
-      let Combined;
-      if (
-        (DataSources.Medicaid.isUnusableForCalc ||
-          mNumerator! > mDenominator!) &&
-        (DataSources.CHIP.isUnusableForCalc || cNumerator! > cDenominator!)
-      ) {
-        Combined = {};
-      } else if (
+      const medicaidUnusable =
         DataSources.Medicaid.isUnusableForCalc ||
-        mNumerator! > mDenominator!
-      ) {
+        (mNumerator! > mDenominator! &&
+          !PER_MONTH_MEASURES.includes(measureAbbr));
+      const chipUnusable =
+        DataSources.CHIP.isUnusableForCalc ||
+        (cNumerator! > cDenominator! &&
+          !PER_MONTH_MEASURES.includes(measureAbbr));
+
+      let Combined;
+      if (medicaidUnusable && chipUnusable) {
+        Combined = {};
+      } else if (medicaidUnusable) {
         CHIP.weightedRate = cRate;
         Combined = {
           population: chipPopulation,
           weightedRate: cRate,
         };
-      } else if (
-        DataSources.CHIP.isUnusableForCalc ||
-        cNumerator! > cDenominator!
-      ) {
+      } else if (chipUnusable) {
         Medicaid.weightedRate = mRate;
         Combined = {
           population: medicaidPopulation,
@@ -166,22 +165,21 @@ export const combineRates = (
         rate: cRate,
       };
 
-      let Combined;
-      if (
-        (DataSources.Medicaid.isUnusableForCalc ||
-          mNumerator! > mDenominator!) &&
-        (DataSources.CHIP.isUnusableForCalc || cNumerator! > cDenominator!)
-      ) {
-        Combined = {};
-      } else if (
+      const medicaidUnusable =
         DataSources.Medicaid.isUnusableForCalc ||
-        mNumerator! > mDenominator!
-      ) {
-        Combined = { rate: cRate };
-      } else if (
+        (mNumerator! > mDenominator! &&
+          !PER_MONTH_MEASURES.includes(measureAbbr));
+      const chipUnusable =
         DataSources.CHIP.isUnusableForCalc ||
-        cNumerator! > cDenominator!
-      ) {
+        (cNumerator! > cDenominator! &&
+          !PER_MONTH_MEASURES.includes(measureAbbr));
+
+      let Combined;
+      if (medicaidUnusable && chipUnusable) {
+        Combined = {};
+      } else if (medicaidUnusable) {
+        Combined = { rate: cRate };
+      } else if (chipUnusable) {
         Combined = { rate: mRate };
       } else {
         const combinedNumerator = addSafely(mNumerator, cNumerator);
@@ -243,7 +241,6 @@ const transformQuotient = (
   if (quotient === undefined) return undefined;
   switch (measureAbbr) {
     case "AAB-AD":
-      return (1 - quotient) * 100;
     case "AAB-CH":
       return (1 - quotient) * 100;
     case "AMB-CH":
@@ -258,3 +255,18 @@ const transformQuotient = (
       return quotient * 100;
   }
 };
+
+/**
+ * For most measures, the numerator cannot exceed the denominator.
+ * If it does, we will not compute a combined rate.
+ * These measures are special; their numerators *can* exceed their denominators.
+ *
+ * Specifically, these measures track data "per 100,000 beneficiary months".
+ */
+const PER_MONTH_MEASURES = [
+  "PQI01-AD",
+  "PQI05-AD",
+  "PQI08-AD",
+  "PQI15-AD",
+  "EDV-AD",
+];

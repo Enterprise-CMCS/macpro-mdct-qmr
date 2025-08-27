@@ -17,11 +17,10 @@ import {
 } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
-import { useEditCoreSet, useGetMeasure, useUpdateMeasure } from "hooks/api";
+import { useGetMeasure, useUpdateMeasure } from "hooks/api";
 import { AnyObject, CoreSetAbbr, MeasureStatus } from "types";
 import { areObjectsDifferent, areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
-import { CoreSetTableItem } from "components/Table/types";
 import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { CompleteCoreSets } from "./complete";
@@ -213,9 +212,7 @@ export const MeasureWrapper = ({
   const measureData = apiData?.Item;
   const { detailedDescription, stratificationRequired } = measureData || {};
 
-  const updateCoreSet = useEditCoreSet().mutate;
-  const { state, coreSetId } = useParams();
-  const userInfo = useUser();
+  const { coreSetId } = useParams();
 
   const methods = useForm({
     shouldUnregister: true,
@@ -286,17 +283,6 @@ export const MeasureWrapper = ({
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
 
-            updateCoreSet({
-              coreSet: coreSetId as CoreSetAbbr,
-              state: state ?? "",
-              year,
-              body: {
-                submitted: false,
-                status: CoreSetTableItem.Status.IN_PROGRESS,
-                userRole: userInfo.userRole,
-                userState: userInfo.userState,
-              },
-            });
             setValidating(false);
             toastSaved();
           },
@@ -382,7 +368,7 @@ export const MeasureWrapper = ({
   const validateAndSetErrors = (data: any): boolean => {
     const validationErrors = validationFunctions.reduce(
       (acc: any, current: any) => {
-        const error = current(data);
+        const error = current(data, coreSetId);
         let errorArray = [];
 
         if (Array.isArray(error)) {
@@ -478,11 +464,11 @@ export const MeasureWrapper = ({
                 <CUI.Container maxW="7xl" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
-                  {stratificationRequired && (
+                  {stratificationRequired?.includes(coreSet) && (
                     <CUI.Box mb="1rem">
                       <Alert heading="Reminder: Measure Stratification Required">
                         <CUI.Text>
-                          {`For ${year}, Core Sets reporting, states are expected to report stratified data for this measure.`}
+                          {`For ${year} Core Sets reporting, states are expected to report stratified data for this measure.`}
                         </CUI.Text>
                       </Alert>
                     </CUI.Box>

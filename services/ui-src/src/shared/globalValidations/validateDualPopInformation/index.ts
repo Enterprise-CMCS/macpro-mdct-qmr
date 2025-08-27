@@ -1,8 +1,19 @@
 import * as DC from "dataConstants";
 import { FormRateField } from "shared/types/TypeValidations";
 import { featuresByYear } from "utils/featuresByYear";
+import { CoreSetAbbr } from "types";
 
-export const getLabels = (errorReplacementText: string) => {
+export const getLabels = (errorReplacementText: string, coreSet?: string) => {
+  if (
+    coreSet &&
+    coreSet === CoreSetAbbr.ACSC &&
+    featuresByYear.hasAdultSeparateCHIPInclusiveWarning
+  ) {
+    return {
+      checkmarkWarning: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Separate CHIP Dually-Eligible population) is missing`,
+      missingDataWarning: `The checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is checked but you are missing performance measure data for ${errorReplacementText}`,
+    };
+  }
   if (featuresByYear.shouldValidateDuallyEligibleCheckbox) {
     return {
       checkmarkWarning: `Information has been included in the ${errorReplacementText} Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing`,
@@ -19,13 +30,14 @@ export const validateDualPopInformationPM = (
   OPM: any,
   age65PlusIndex: number,
   DefinitionOfDenominator: string[] | undefined,
-  errorReplacementText: string = "Age 65 and Older"
+  errorReplacementText: string = "Age 65 and Older",
+  coreSet?: string
 ) => {
   if (OPM) {
     return [];
   }
 
-  const labels = getLabels(errorReplacementText);
+  const labels = getLabels(errorReplacementText, coreSet);
 
   const dualEligible = DefinitionOfDenominator
     ? DefinitionOfDenominator.indexOf(
