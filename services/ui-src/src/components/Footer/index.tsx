@@ -113,7 +113,7 @@ export function Footer(): JSX.Element {
         >
           <CUI.Box maxW="4xl">
             <CUI.Heading
-              as="h3"
+              as="h2"
               fontSize="2xl"
               mb="3"
               className="prince-supp-text"
