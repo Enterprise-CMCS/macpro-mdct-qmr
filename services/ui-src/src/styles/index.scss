@@ -46,6 +46,8 @@ a:focus,
 .ds-c-usa-banner__button:focus,
 *:focus-visible,
 a:focus:visited,
+textarea:focus-visible,
+input:focus-visible,
 .ds-u-focus-visible {
   background-color: transparent;
   outline: 3px solid pink;
