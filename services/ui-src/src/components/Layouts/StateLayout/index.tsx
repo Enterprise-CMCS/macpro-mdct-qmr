@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { BreadCrumbItems } from "components";
@@ -13,21 +13,6 @@ export const StateLayout: React.FC<React.PropsWithChildren<Props>> = ({
   breadcrumbItems,
   buttons,
 }) => {
-  /*
-  const [sticky, setSticky] = useState(false);
-
-  const stickNavbar = () => {
-    if (window !== undefined) {
-      const windowHeight = window.scrollY;
-      windowHeight > 89 ? setSticky(true) : setSticky(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", stickNavbar);
-    return () => window.removeEventListener("scroll", stickNavbar);
-  }, []); */
-
   return (
     <>
       <CUI.Box
@@ -36,7 +21,7 @@ export const StateLayout: React.FC<React.PropsWithChildren<Props>> = ({
         className="state-layout-container"
         data-cy="state-layout-container"
       >
-        <CUI.Box sx={sx.root} bg={"blue.100"}>
+        <CUI.Box bg={"blue.100"}>
           <CUI.Flex
             maxW="7xl"
             p="3"

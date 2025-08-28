@@ -17,7 +17,7 @@ export const Breadcrumbs = ({ items, color }: Props) => {
   const filteredItems = items.filter((item) => item.name !== "");
   const { pathname } = useLocation();
   return (
-    <CUI.Flex sx={sx.root} flexGrow={[1]}>
+    <CUI.Flex flexGrow={[1]}>
       {isMultipleItems && (
         <CUI.Center fontSize="2xl" mr="4">
           <Link
@@ -51,18 +51,4 @@ export const Breadcrumbs = ({ items, color }: Props) => {
       </CUI.Stack>
     </CUI.Flex>
   );
-};
-
-const sx = {
-  root: {
-    position: "sticky",
-    zIndex: 3,
-    padding: "none",
-    width: "full",
-    top: 0,
-    left: 0,
-    ".tablet &, .mobile &": {
-      position: "static",
-    },
-  },
 };
