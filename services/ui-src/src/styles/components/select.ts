@@ -5,7 +5,7 @@ const baseStyles = {
     border: "1px solid",
     borderColor: "inherit",
     ":focus-visible": {
-      outline: "3px solid pink",
+      outline: "3px solid #bd13b8",
     },
   },
 };

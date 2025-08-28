@@ -3,7 +3,7 @@ import { ComponentStyleConfig } from "@chakra-ui/react";
 const baseStyles = {
   button: {
     ":focus-visible": {
-      outline: "3px solid pink",
+      outline: "3px solid #bd13b8",
     },
   },
 };

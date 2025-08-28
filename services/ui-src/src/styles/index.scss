@@ -45,12 +45,12 @@ li::marker {
 a:focus,
 .ds-c-usa-banner__button:focus,
 *:focus-visible,
-a:focus:visited,
+a:focus-visible,
 textarea:focus-visible,
 input:focus-visible,
 .ds-u-focus-visible {
   background-color: transparent;
-  outline: 3px solid pink;
+  outline: 3px solid #bd13b8;
   box-shadow: none;
 }
 
