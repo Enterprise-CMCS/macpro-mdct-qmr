@@ -5,8 +5,7 @@ import { useUser } from "hooks/authHooks";
 import { Suspense, useEffect } from "react";
 import { MeasuresLoading } from "views";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { fireTealiumPageView } from "utils/tracking/tealium";
-import { makeMediaQueryClasses } from "utils/other/useBreakpoint";
+import { fireTealiumPageView, makeMediaQueryClasses } from "utils";
 
 const App = () => {
   const mqClasses = makeMediaQueryClasses();
