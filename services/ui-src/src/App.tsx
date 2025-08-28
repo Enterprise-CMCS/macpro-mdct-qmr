@@ -5,9 +5,11 @@ import { useUser } from "hooks/authHooks";
 import { Suspense, useEffect } from "react";
 import { MeasuresLoading } from "views";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { fireTealiumPageView } from "utils/tracking/tealium";
+import { fireTealiumPageView, makeMediaQueryClasses } from "utils";
 
 const App = () => {
+  const mqClasses = makeMediaQueryClasses();
+
   const { logout, user, showLocalLogins, loginWithIDM } = useUser();
   const { pathname, key } = useLocation();
 
@@ -34,7 +36,7 @@ const App = () => {
   );
 
   return (
-    <div id="app-wrapper">
+    <div id="app-wrapper" className={mqClasses}>
       <Routes>
         <Route path="*" element={authenticatedRoutes} />
         <Route path="postLogout" element={<PostLogoutRedirect />} />
