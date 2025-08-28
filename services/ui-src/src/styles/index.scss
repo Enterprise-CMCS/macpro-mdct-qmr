@@ -56,6 +56,7 @@ input:focus-visible,
 
 *:focus:not(:focus-visible),
 a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
 textarea:focus:not(:focus-visible) {
   background-color: transparent;
   outline: none !important;

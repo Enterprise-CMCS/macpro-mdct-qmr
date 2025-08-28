@@ -1,10 +1,6 @@
 import { ComponentStyleConfig } from "@chakra-ui/react";
 
-const baseStyles = {
-  ":focus-visible": {
-    outline: "3px solid pink",
-  },
-};
+const baseStyles = {};
 
 const linkWhiteVariant = {
   color: "white",
