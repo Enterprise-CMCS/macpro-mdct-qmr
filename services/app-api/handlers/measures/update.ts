@@ -1,6 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { createDynamoUpdateParams } from "../dynamoUtils/convertToDynamoExpressionVars";
+import { createDynamoUpdateParams } from "../dynamoUtils/dynamoParams";
 import {
   getUserNameFromJwt,
   hasStatePermissions,

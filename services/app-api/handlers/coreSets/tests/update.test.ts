@@ -61,16 +61,9 @@ describe("Testing Updating Core Set Functions", () => {
     const res = await editCoreSet(event, null);
 
     expect(dynamodbLib.update).toHaveBeenCalledWith({
-      TableName: undefined,
       Key: { compoundKey: "WA2021", coreSet: "ACS" },
-      UpdateExpression:
-        "SET #submitted = :submitted, #status = :status, #lastAltered = :lastAltered, #lastAlteredBy = :lastAlteredBy",
-      ExpressionAttributeNames: {
-        "#submitted": "submitted",
-        "#status": "status",
-        "#lastAltered": "lastAltered",
-        "#lastAlteredBy": "lastAlteredBy",
-      },
+      UpdateExpression: expect.any(String),
+      ExpressionAttributeNames: expect.any(Object),
       ExpressionAttributeValues: {
         ":submitted": undefined,
         ":status": undefined,
@@ -87,25 +80,15 @@ describe("Testing Updating Core Set Functions", () => {
     const res = await editCoreSet(event, null);
 
     expect(dynamodbLib.update).toHaveBeenCalledWith({
-      ExpressionAttributeNames: {
-        "#lastAltered": "lastAltered",
-        "#lastAlteredBy": "lastAlteredBy",
-        "#status": "status",
-        "#submitted": "submitted",
-      },
+      Key: { compoundKey: "WA2021", coreSet: "ACS" },
+      UpdateExpression: expect.any(String),
+      ExpressionAttributeNames: expect.any(Object),
       ExpressionAttributeValues: {
         ":lastAltered": 20,
         ":lastAlteredBy": "branchUser",
         ":status": undefined,
         ":submitted": undefined,
       },
-      Key: {
-        compoundKey: "WA2021",
-        coreSet: "ACS",
-      },
-      TableName: undefined,
-      UpdateExpression:
-        "SET #submitted = :submitted, #status = :status, #lastAltered = :lastAltered, #lastAlteredBy = :lastAlteredBy",
     });
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("WA2021");

@@ -1,4 +1,4 @@
-import { createDynamoUpdateParams } from "../convertToDynamoExpressionVars";
+import { createDynamoUpdateParams } from "../dynamoParams";
 
 describe("Test Convert To Dynamo Expression", () => {
   it("should create an object with properties suitable for Dynamo Update", () => {
