@@ -1,6 +1,5 @@
 import dynamodbLib from "../../../libs/dynamodb-lib";
 import { testEvent } from "../../../test-util/testEvents";
-import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
 import { editCoreSet } from "../update";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 import { CoreSetAbbr } from "../../../types";
@@ -13,11 +12,6 @@ const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
-  __esModule: true,
-  convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
 const event = { ...testEvent };
@@ -66,15 +60,24 @@ describe("Testing Updating Core Set Functions", () => {
     Date.now = jest.fn(() => 20);
     const res = await editCoreSet(event, null);
 
-    expect(dynamodbLib.update).toHaveBeenCalled();
-    expect(convertToDynamoExpression).toHaveBeenCalledWith(
-      {
-        lastAltered: 20,
-        lastAlteredBy: "branchUser",
-        status: undefined,
+    expect(dynamodbLib.update).toHaveBeenCalledWith({
+      TableName: undefined,
+      Key: { compoundKey: "WA2021", coreSet: "ACS" },
+      UpdateExpression:
+        "SET #submitted = :submitted, #status = :status, #lastAltered = :lastAltered, #lastAlteredBy = :lastAlteredBy",
+      ExpressionAttributeNames: {
+        "#submitted": "submitted",
+        "#status": "status",
+        "#lastAltered": "lastAltered",
+        "#lastAlteredBy": "lastAlteredBy",
       },
-      "post"
-    );
+      ExpressionAttributeValues: {
+        ":submitted": undefined,
+        ":status": undefined,
+        ":lastAltered": 20,
+        ":lastAlteredBy": "branchUser",
+      },
+    });
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("WA2021");
   });
@@ -83,15 +86,27 @@ describe("Testing Updating Core Set Functions", () => {
     Date.now = jest.fn(() => 20);
     const res = await editCoreSet(event, null);
 
-    expect(dynamodbLib.update).toHaveBeenCalled();
-    expect(convertToDynamoExpression).toHaveBeenCalledWith(
-      {
-        lastAltered: 20,
-        lastAlteredBy: "branchUser",
-        status: undefined,
+    expect(dynamodbLib.update).toHaveBeenCalledWith({
+      ExpressionAttributeNames: {
+        "#lastAltered": "lastAltered",
+        "#lastAlteredBy": "lastAlteredBy",
+        "#status": "status",
+        "#submitted": "submitted",
       },
-      "post"
-    );
+      ExpressionAttributeValues: {
+        ":lastAltered": 20,
+        ":lastAlteredBy": "branchUser",
+        ":status": undefined,
+        ":submitted": undefined,
+      },
+      Key: {
+        compoundKey: "WA2021",
+        coreSet: "ACS",
+      },
+      TableName: undefined,
+      UpdateExpression:
+        "SET #submitted = :submitted, #status = :status, #lastAltered = :lastAltered, #lastAlteredBy = :lastAlteredBy",
+    });
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("WA2021");
   });

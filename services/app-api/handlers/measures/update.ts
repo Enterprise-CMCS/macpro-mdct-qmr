@@ -1,6 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
+import { createDynamoUpdateParams } from "../dynamoUtils/convertToDynamoExpressionVars";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
@@ -51,17 +51,14 @@ export const editMeasure = handler(async (event, context) => {
       compoundKey: `${state}${year}${coreSet}`,
       measure: measure,
     },
-    ...convertToDynamoExpression(
-      {
-        ...descriptionParams,
-        status,
-        reporting,
-        lastAltered,
-        lastAlteredBy,
-        data,
-      },
-      "post"
-    ),
+    ...createDynamoUpdateParams({
+      ...descriptionParams,
+      status,
+      reporting,
+      lastAltered,
+      lastAlteredBy,
+      data,
+    }),
   };
   await dynamoDb.update(params);
 
@@ -93,15 +90,12 @@ export const editMeasure = handler(async (event, context) => {
       const updateCoreSetParams = {
         TableName,
         Key,
-        ...convertToDynamoExpression(
-          {
-            submitted: false,
-            status: "in progress",
-            lastAltered,
-            lastAlteredBy,
-          },
-          "post"
-        ),
+        ...createDynamoUpdateParams({
+          submitted: false,
+          status: "in progress",
+          lastAltered,
+          lastAlteredBy,
+        }),
       };
       await dynamoDb.update(updateCoreSetParams);
     }

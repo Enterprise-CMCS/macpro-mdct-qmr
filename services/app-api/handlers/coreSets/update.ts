@@ -1,6 +1,6 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
-import { convertToDynamoExpression } from "../dynamoUtils/convertToDynamoExpressionVars";
+import { createDynamoUpdateParams } from "../dynamoUtils/convertToDynamoExpressionVars";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
@@ -33,16 +33,14 @@ export const editCoreSet = handler(async (event, context) => {
       compoundKey: `${state}${year}`,
       coreSet: coreSet,
     },
-    ...convertToDynamoExpression(
-      {
-        submitted,
-        status,
-        lastAltered: Date.now(),
-        lastAlteredBy,
-      },
-      "post"
-    ),
+    ...createDynamoUpdateParams({
+      submitted,
+      status,
+      lastAltered: Date.now(),
+      lastAlteredBy,
+    }),
   };
+
   await dynamoDb.update(params);
   return { status: StatusCodes.SUCCESS, body: params };
 });
