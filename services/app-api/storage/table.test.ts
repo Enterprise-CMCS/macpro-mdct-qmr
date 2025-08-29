@@ -85,10 +85,7 @@ describe("Test database helper functions", () => {
 
     expect(dynamodbLib.update).toHaveBeenCalledWith({
       TableName: "local-rate",
-      Key: {
-        compoundKey: "CO2024ACS",
-        measure: "ZZZ-AD",
-      },
+      Key: { compoundKey: "CO2024ACS", measure: "ZZZ-AD" },
       UpdateExpression: expect.any(String),
       ExpressionAttributeNames: expect.any(Object),
       ExpressionAttributeValues: {

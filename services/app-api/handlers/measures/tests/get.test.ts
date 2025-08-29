@@ -24,11 +24,6 @@ jest.mock("../../../libs/authorization", () => ({
   hasStatePermissions: () => mockHasStatePermissions(),
 }));
 
-jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
-  __esModule: true,
-  convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
-}));
-
 const event = { ...testEvent };
 process.env.MeasuresTable = "SAMPLE TABLE";
 

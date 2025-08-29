@@ -1,7 +1,6 @@
 import { editMeasure } from "../update";
 import dbLib from "../../../libs/dynamodb-lib";
 import { testEvent } from "../../../test-util/testEvents";
-import { convertToDynamoExpression } from "../../dynamoUtils/convertToDynamoExpressionVars";
 import { StatusCodes, Errors } from "../../../utils/constants/constants";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
@@ -16,11 +15,6 @@ const mockHasStatePermissions = jest.fn();
 jest.mock("../../../libs/authorization", () => ({
   getUserNameFromJwt: jest.fn().mockReturnValue("branchUser"),
   hasStatePermissions: () => mockHasStatePermissions(),
-}));
-
-jest.mock("../../dynamoUtils/convertToDynamoExpressionVars", () => ({
-  __esModule: true,
-  convertToDynamoExpression: jest.fn().mockReturnValue({ testValue: "test" }),
 }));
 
 const event = { ...testEvent };
@@ -77,23 +71,18 @@ describe("Test Update Measure Handler", () => {
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("IN2022ACS");
     expect(res.body).toContain('"measure":"AAB-AD"');
-    expect(convertToDynamoExpression).toHaveBeenCalledWith(
-      {
-        status: "status",
-        lastAltered: 20,
-        lastAlteredBy: "branchUser",
-        reporting: null,
-        data: {},
-      },
-      "post"
-    );
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",
-      Key: {
-        compoundKey: "IN2022ACS",
-        measure: "AAB-AD",
+      Key: { compoundKey: "IN2022ACS", measure: "AAB-AD" },
+      UpdateExpression: expect.any(String),
+      ExpressionAttributeNames: expect.any(Object),
+      ExpressionAttributeValues: {
+        ":status": "status",
+        ":reporting": null,
+        ":lastAltered": 20,
+        ":lastAlteredBy": "branchUser",
+        ":data": {},
       },
-      testValue: "test",
     });
   });
 
@@ -106,23 +95,18 @@ describe("Test Update Measure Handler", () => {
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(res.body).toContain("IN2022ACS");
     expect(res.body).toContain('"measure":"AAB-AD"');
-    expect(convertToDynamoExpression).toHaveBeenCalledWith(
-      {
-        status: "status",
-        lastAltered: 20,
-        lastAlteredBy: "branchUser",
-        reporting: null,
-        data: {},
-      },
-      "post"
-    );
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",
-      Key: {
-        compoundKey: "IN2022ACS",
-        measure: "AAB-AD",
+      Key: { compoundKey: "IN2022ACS", measure: "AAB-AD" },
+      UpdateExpression: expect.any(String),
+      ExpressionAttributeNames: expect.any(Object),
+      ExpressionAttributeValues: {
+        ":status": "status",
+        ":reporting": null,
+        ":lastAltered": 20,
+        ":lastAlteredBy": "branchUser",
+        ":data": {},
       },
-      testValue: "test",
     });
   });
 
@@ -145,28 +129,28 @@ describe("Test Update Measure Handler", () => {
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",
-      Key: {
-        compoundKey: "CO2025ACS",
-        measure: "AAB-AD",
+      Key: { compoundKey: "CO2025ACS", measure: "AAB-AD" },
+      UpdateExpression: expect.any(String),
+      ExpressionAttributeNames: expect.any(Object),
+      ExpressionAttributeValues: {
+        ":status": "incomplete",
+        ":reporting": null,
+        ":lastAltered": 20,
+        ":lastAlteredBy": "branchUser",
+        ":data": {},
       },
-      testValue: "test",
     });
-    expect(convertToDynamoExpression).toHaveBeenCalledWith(
-      {
-        submitted: false,
-        status: "in progress",
-        lastAltered: 20,
-        lastAlteredBy: "branchUser",
-      },
-      "post"
-    );
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-coreset-table",
-      Key: {
-        compoundKey: "CO2025",
-        coreSet: "ACS",
+      Key: { coreSet: "ACS", compoundKey: "CO2025" },
+      UpdateExpression: expect.any(String),
+      ExpressionAttributeNames: expect.any(Object),
+      ExpressionAttributeValues: {
+        ":submitted": false,
+        ":status": "in progress",
+        ":lastAltered": 20,
+        ":lastAlteredBy": "branchUser",
       },
-      testValue: "test",
     });
   });
 
@@ -177,17 +161,20 @@ describe("Test Update Measure Handler", () => {
 
     const res = await editMeasure(event, null);
 
-    expect(convertToDynamoExpression).toHaveBeenCalledWith(
-      {
-        status: "status",
-        lastAltered: 20,
-        lastAlteredBy: "branchUser",
-        reporting: "yes",
-        description: "sample desc",
-        detailedDescription: "sample detailed desc",
-        data: {},
+    expect(dbLib.update).toHaveBeenCalledWith({
+      TableName: "mock-measure-table",
+      Key: { compoundKey: "IN2022ACS", measure: "AAB-AD" },
+      UpdateExpression: expect.any(String),
+      ExpressionAttributeNames: expect.any(Object),
+      ExpressionAttributeValues: {
+        ":description": "sample desc",
+        ":detailedDescription": "sample detailed desc",
+        ":status": "status",
+        ":reporting": "yes",
+        ":lastAltered": 20,
+        ":lastAlteredBy": "branchUser",
+        ":data": {},
       },
-      "post"
-    );
+    });
   });
 });
