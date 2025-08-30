@@ -6,11 +6,6 @@ GITHUB_REFNAME="${1}"
 
 [ -z "${GITHUB_REFNAME}" ] && echo "Error setting branch name.  No input given." && exit 1
 
-# Change "prod" to "production"
-if [ "${GITHUB_REFNAME}" = "production" ]; then
-  GITHUB_REFNAME="prod"
-fi
-
 case ${GITHUB_REFNAME} in
   $([[ "$GITHUB_REFNAME" =~ ^dependabot/.* ]] && echo ${GITHUB_REFNAME}))
     echo ${GITHUB_REFNAME} | md5sum | head -c 10 | sed 's/^/x/'

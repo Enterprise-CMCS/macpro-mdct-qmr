@@ -37,7 +37,7 @@ export const getPDF = handler(async (event, _context) => {
       type: "pdf" as const,
       // This tag differentiates QMR and CARTS requests in DocRaptor's logs.
       tag: "QMR",
-      test: stage !== "prod",
+      test: stage !== "production",
       prince_options: {
         profile: "PDF/UA-1" as const,
       },

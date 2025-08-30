@@ -160,7 +160,7 @@ jobs:
 
   e2e-tests-init:
     name: Initialize End To End Tests
-    if: ${{ always() && !cancelled() && needs.deploy.result == 'success' && github.ref_name != 'main' && github.ref_name != 'val' && github.ref_name != 'prod' }}
+    if: ${{ always() && !cancelled() && needs.deploy.result == 'success' && github.ref_name != 'main' && github.ref_name != 'val' && github.ref_name != 'production' }}
     needs:
       - deploy
       - register-runner
