@@ -11,19 +11,19 @@ const ndrForumlas = [
   {
     numerator: 1,
     denominator: 0,
-    rateIndex: 2,
+    rate: 2,
   },
   // Days per 1,000 Enrollee Months
   {
     numerator: 3,
     denominator: 0,
-    rateIndex: 4,
+    rate: 4,
   },
   // Average Length of Stay
   {
     numerator: 3,
     denominator: 1,
-    rateIndex: 5,
+    rate: 5,
   },
 ];
 

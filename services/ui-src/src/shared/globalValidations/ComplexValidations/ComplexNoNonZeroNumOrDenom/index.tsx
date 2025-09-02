@@ -1,15 +1,10 @@
+import { ndrFormula } from "types";
 import { LabelData } from "utils";
-
-interface NDRforumla {
-  numerator: number;
-  denominator: number;
-  rateIndex: number;
-}
 
 export const ComplexNoNonZeroNumOrDenomOMS = (
   rateData: any,
   isOPM: boolean,
-  ndrFormulas: NDRforumla[],
+  ndrFormulas: ndrFormula[],
   errorLocation: string,
   rateLabel: LabelData[]
 ) => {
@@ -43,7 +38,7 @@ export const ComplexNoNonZeroNumOrDenomOMS = (
 export const ComplexNoNonZeroNumOrDenom = (
   performanceMeasureArray: any,
   OPM: any,
-  ndrFormulas: NDRforumla[],
+  ndrFormulas: ndrFormula[],
   errorLocation: string = "Performance Measure/Other Performance Measure"
 ) => {
   let nonZeroRateError = false;
@@ -57,7 +52,7 @@ export const ComplexNoNonZeroNumOrDenom = (
           for (const formula of ndrFormulas) {
             const numerator = qualifier.fields[formula.numerator]?.value;
             const denominator = qualifier.fields[formula.denominator]?.value;
-            const rate = qualifier.fields[formula.rateIndex]?.value;
+            const rate = qualifier.fields[formula.rate]?.value;
 
             if (numerator && denominator && rate) {
               if (parseFloat(numerator) === 0 && parseFloat(rate) !== 0)

@@ -9,22 +9,22 @@ const ndrForumlas = [
   {
     numerator: 1,
     denominator: 0,
-    rateIndex: 2,
+    rate: 2,
   },
   {
     numerator: 3,
     denominator: 0,
-    rateIndex: 4,
+    rate: 4,
   },
   {
     numerator: 1,
     denominator: 3,
-    rateIndex: 5,
+    rate: 5,
   },
   {
     numerator: 7,
     denominator: 6,
-    rateIndex: 8,
+    rate: 8,
   },
 ];
 
@@ -44,7 +44,7 @@ const PCRHHValidation = (data: FormData) => {
   }
 
   // Quick reference list of all rate indices
-  // const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
+  // const rateLocations = ndrForumlas.map((ndr) => ndr.rate);
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),

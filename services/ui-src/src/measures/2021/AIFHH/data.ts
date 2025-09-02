@@ -46,22 +46,22 @@ const inputFieldNames = [
 const ndrFormulas = [
   // Short-Term Admissions per 1,000 Enrollee Months
   {
-    num: 1,
-    denom: 0,
+    numerator: 1,
+    denominator: 0,
     rate: 2,
     mult: 1000,
   },
   // Medium-Term Admissions per 1,000 Enrollee Months
   {
-    num: 3,
-    denom: 0,
+    numerator: 3,
+    denominator: 0,
     rate: 4,
     mult: 1000,
   },
   // Long-Term Admissions per 1,000 Enrollee Months
   {
-    num: 5,
-    denom: 0,
+    numerator: 5,
+    denominator: 0,
     rate: 6,
     mult: 1000,
   },

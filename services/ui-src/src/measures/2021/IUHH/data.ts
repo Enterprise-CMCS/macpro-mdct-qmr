@@ -33,22 +33,22 @@ const inputFieldNames = [
 const ndrFormulas = [
   // Discharges per 1,000 Enrollee Months
   {
-    num: 1,
-    denom: 0,
+    numerator: 1,
+    denominator: 0,
     rate: 2,
     mult: 1000,
   },
   // Days per 1,000 Enrollee Months
   {
-    num: 3,
-    denom: 0,
+    numerator: 3,
+    denominator: 0,
     rate: 4,
     mult: 1000,
   },
   // Average Length of Stay
   {
-    num: 3,
-    denom: 1,
+    numerator: 3,
+    denominator: 1,
     rate: 5,
     mult: 1,
   },

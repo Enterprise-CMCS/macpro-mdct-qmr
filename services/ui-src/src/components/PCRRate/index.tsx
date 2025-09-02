@@ -42,35 +42,35 @@ export const PCRRate = ({
     {
       numerator: 1,
       denominator: 0,
-      rateIndex: 2,
+      rate: 2,
       multiplier: 100,
       rateDecimals: 4,
     },
     {
       numerator: 3,
       denominator: 0,
-      rateIndex: 4,
+      rate: 4,
       multiplier: 100,
       rateDecimals: 4,
     },
     {
       numerator: 1,
       denominator: 3,
-      rateIndex: 5,
+      rate: 5,
       multiplier: 1,
       rateDecimals: 4,
     },
     {
       numerator: 7,
       denominator: 6,
-      rateIndex: 8,
+      rate: 8,
       multiplier: 1000,
       rateDecimals: 1,
     },
   ];
 
   // Quick reference list of all rate indices
-  const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
+  const rateLocations = ndrForumlas.map((ndr) => ndr.rate);
 
   // Conditionally perform rate calculation
   const calculateRates = (prevRate: any) => {
@@ -84,15 +84,15 @@ export const PCRRate = ({
         isNaN(parsedDenom) ||
         (parsedNum !== 0 && parsedDenom === 0)
       ) {
-        prevRate[ndr.rateIndex]["value"] = "";
+        prevRate[ndr.rate]["value"] = "";
 
         // All 0
       } else if (parsedNum === 0 && parsedDenom === 0) {
-        prevRate[ndr.rateIndex]["value"] = `0.${"0".repeat(ndr.rateDecimals)}`;
+        prevRate[ndr.rate]["value"] = `0.${"0".repeat(ndr.rateDecimals)}`;
 
         // Normal division
       } else {
-        prevRate[ndr.rateIndex]["value"] = defaultRateCalculation(
+        prevRate[ndr.rate]["value"] = defaultRateCalculation(
           prevRate[ndr.numerator].value,
           prevRate[ndr.denominator].value,
           ndr.multiplier,

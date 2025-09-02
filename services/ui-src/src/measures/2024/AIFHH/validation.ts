@@ -11,21 +11,21 @@ const ndrFormulas = [
   {
     numerator: 1,
     denominator: 0,
-    rateIndex: 2,
+    rate: 2,
     mult: 1000,
   },
   // Medium-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 3,
     denominator: 0,
-    rateIndex: 4,
+    rate: 4,
     mult: 1000,
   },
   // Long-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 5,
     denominator: 0,
-    rateIndex: 6,
+    rate: 6,
     mult: 1000,
   },
 ];

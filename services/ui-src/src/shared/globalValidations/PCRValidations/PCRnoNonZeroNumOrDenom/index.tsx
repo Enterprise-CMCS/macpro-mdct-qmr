@@ -1,14 +1,10 @@
-interface NDRforumla {
-  numerator: number;
-  denominator: number;
-  rateIndex: number;
-}
+import { ndrFormula } from "types";
 
 /* Validation for manually entered rates */
 export const PCRnoNonZeroNumOrDenom = (
   performanceMeasureArray: any,
   OPM: any,
-  ndrFormulas: NDRforumla[],
+  ndrFormulas: ndrFormula[],
   errorLocation: string = "Performance Measure/Other Performance Measure"
 ) => {
   let nonZeroRateError = false;
@@ -16,20 +12,20 @@ export const PCRnoNonZeroNumOrDenom = (
   let errorArray: any[] = [];
   performanceMeasureArray?.forEach((performanceMeasure: any) => {
     if (performanceMeasure && performanceMeasure.length > 0) {
-      ndrFormulas.forEach((ndr: NDRforumla) => {
+      ndrFormulas.forEach((ndr: ndrFormula) => {
         if (
           performanceMeasure[ndr.numerator].value &&
           performanceMeasure[ndr.denominator].value &&
-          performanceMeasure[ndr.rateIndex].value
+          performanceMeasure[ndr.rate].value
         ) {
           if (
-            parseFloat(performanceMeasure[ndr.rateIndex].value!) !== 0 &&
+            parseFloat(performanceMeasure[ndr.rate].value!) !== 0 &&
             parseFloat(performanceMeasure[ndr.numerator].value!) === 0
           ) {
             nonZeroRateError = true;
           }
           if (
-            parseFloat(performanceMeasure[ndr.rateIndex].value!) === 0 &&
+            parseFloat(performanceMeasure[ndr.rate].value!) === 0 &&
             parseFloat(performanceMeasure[ndr.numerator].value!) !== 0 &&
             parseFloat(performanceMeasure[ndr.denominator].value!) !== 0
           ) {
