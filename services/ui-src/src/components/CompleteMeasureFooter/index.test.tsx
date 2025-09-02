@@ -25,7 +25,7 @@ describe("Test CompleteMeasureFooter", () => {
     ).toBeInTheDocument();
   });
 
-  test("That the Clear Data button does not appear in prod environment", () => {
+  test("That the Clear Data button does not appear in production environment", () => {
     config.BRANCH_NAME = "production";
 
     render(

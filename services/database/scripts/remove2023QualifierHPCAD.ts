@@ -36,7 +36,7 @@ async function remove2023QualifierHPCAD() {
   );
   if (!isLocal) {
     STAGE_NAME = await promptString(
-      "What environment are we running on (e.g. master, val, prod)? "
+      "What environment are we running on (e.g. master, val, production)? "
     );
   }
 

@@ -6,11 +6,11 @@
 
 ### Integration Environment Deploy Status:
 
-| Branch | Build Status                                                                                                     |
-| ------ | ---------------------------------------------------------------------------------------------------------------- |
-| main   | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg)             |
-| val    | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=val)  |
-| prod   | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=prod) |
+| Branch     | Build Status                                                                                                           |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------- |
+| main       | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg)                   |
+| val        | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=val)        |
+| production | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=production) |
 
 QMR is the CMCS MDCT application for collecting state data for related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
@@ -533,7 +533,7 @@ This application was forked from the [Quickstart Repository](https://github.com/
 
 This repository uses 3 webhooks to publish to 3 different channels all in CMS Slack.
 
-- SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `main`, `val`, or `prod` branches.
+- SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `main`, `val`, or `production` branches.
 
 - INTEGRATIONS_SLACK_WEBHOOK: This is used to publish new pull requests to the `mdct-integrations-channel`
 
