@@ -43,7 +43,7 @@ const inputFieldNames = [
   },
 ];
 
-const ndrFormulas = [
+export const ndrFormulas = [
   // Short-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 1,

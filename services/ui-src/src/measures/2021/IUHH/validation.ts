@@ -5,28 +5,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
-// Rate structure by index in row
-const ndrForumlas = [
-  // Discharges per 1,000 Enrollee Months
-  {
-    numerator: 1,
-    denominator: 0,
-    rate: 2,
-  },
-  // Days per 1,000 Enrollee Months
-  {
-    numerator: 3,
-    denominator: 0,
-    rate: 4,
-  },
-  // Average Length of Stay
-  {
-    numerator: 3,
-    denominator: 1,
-    rate: 5,
-  },
-];
-
 let OPM: any;
 
 const IUHHValidation = (data: FormData) => {
@@ -65,17 +43,21 @@ const IUHHValidation = (data: FormData) => {
 
     // Performance Measure Validations
     ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
-    ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
+    ...GV.ComplexNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.ndrFormulas
+    ),
     ...GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      ndrForumlas,
+      PMD.ndrFormulas,
       deviationArray,
       didCalculationsDeviate
     ),
     ...GV.ComplexValidateNDRTotals(
       performanceMeasureArray,
       PMD.categories,
-      ndrForumlas
+      PMD.ndrFormulas
     ),
     ...GV.ComplexValueSameCrossCategory({
       rateData: performanceMeasureArray,
@@ -110,14 +92,14 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},
           false,
-          ndrForumlas,
+          PMD.ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
           categories
         ),
         ...GV.ComplexValidateNDRTotalsOMS(
           rateData?.["iuhh-rate"]?.rates ?? {},
           PMD.categories,
-          ndrForumlas,
+          PMD.ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)} Total`
         ),
         ...GV.ComplexValueSameCrossCategoryOMS(
@@ -131,7 +113,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
           true,
-          ndrForumlas,
+          PMD.ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
           qualifiers
         ),

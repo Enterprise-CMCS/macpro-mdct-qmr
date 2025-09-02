@@ -30,7 +30,7 @@ const inputFieldNames = [
   },
 ];
 
-const ndrFormulas = [
+export const ndrFormulas = [
   // Discharges per 1,000 Enrollee Months
   {
     numerator: 1,

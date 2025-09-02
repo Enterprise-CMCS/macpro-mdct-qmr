@@ -5,29 +5,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
-const ndrForumlas = [
-  {
-    numerator: 1,
-    denominator: 0,
-    rate: 2,
-  },
-  {
-    numerator: 3,
-    denominator: 0,
-    rate: 4,
-  },
-  {
-    numerator: 1,
-    denominator: 3,
-    rate: 5,
-  },
-  {
-    numerator: 7,
-    denominator: 6,
-    rate: 8,
-  },
-];
-
 const PCRADValidation = (data: FormData) => {
   let errorArray: any[] = [];
   const ageGroups = PMD.qualifiers;
@@ -48,7 +25,7 @@ const PCRADValidation = (data: FormData) => {
   }
 
   // Quick reference list of all rate indices
-  // const rateLocations = ndrForumlas.map((ndr) => ndr.rate);
+  // const rateLocations = PMD.ndrFormulas.map((ndr) => ndr.rate);
   errorArray = [
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
@@ -57,10 +34,10 @@ const PCRADValidation = (data: FormData) => {
 
     // Performance Measure Validations
     ...GV.PCRatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
-    ...GV.PCRnoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrForumlas),
+    ...GV.PCRnoNonZeroNumOrDenom(performanceMeasureArray, OPM, PMD.ndrFormulas),
     ...GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,
-      ndrForumlas,
+      PMD.ndrFormulas,
       deviationArray,
       didCalculationsDeviate
     ),
@@ -93,7 +70,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
     ...GV.PCRnoNonZeroNumOrDenom(
       [rateData?.["pcr-rate"] ?? []],
       rates ?? [],
-      ndrForumlas,
+      PMD.ndrFormulas,
       `Optional Measure Stratification: ${locationDictionary(label)}`
     ),
     ...GV.PCRatLeastOneRateComplete(
