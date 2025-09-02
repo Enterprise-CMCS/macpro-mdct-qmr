@@ -6,7 +6,7 @@ import listTheme from "./list";
 import tabsTheme from "./tabs";
 import selectTheme from "./select";
 import menuTheme from "./menu";
-import textAreaTheme from "./textarea";
+import textAreaTheme from "./textArea";
 import inputTheme from "./input";
 
 export const components = {
