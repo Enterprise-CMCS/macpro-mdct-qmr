@@ -17,11 +17,11 @@ export const Banner = ({ bannerData, ...props }: Props) => {
     <>
       {bannerData && (
         <Alert heading={bannerData.title} {...props}>
-          <span className="ds-c-alert__text">
+          <div className="ds-c-alert__text">
             {parseLabelToHTML(
               DOMPurify.sanitize(bannerData.description, domPurifyBannerConfig)
             )}
-          </span>
+          </div>
           {bannerData.link && (
             <p>
               <a href={encodeURI(bannerData.link)}>{bannerData.link}</a>
