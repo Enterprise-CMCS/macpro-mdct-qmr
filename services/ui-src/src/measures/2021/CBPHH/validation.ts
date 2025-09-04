@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
-const CBPValidation = (data: FormData) => {
+const CBPHHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
   const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -82,4 +82,4 @@ const CBPValidation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [CBPValidation];
+export const validationFunctions = [CBPHHValidation];

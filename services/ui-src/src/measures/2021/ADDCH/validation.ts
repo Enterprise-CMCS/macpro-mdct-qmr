@@ -1,14 +1,13 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
 import * as PMD from "./data";
-import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const ADDCHValidation = (data: FormData) => {
   const ageGroups = PMD.qualifiers;
-  const performanceMeasureArray = getPerfMeasureRateArray(
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
     data,
     PMD.data.performanceMeasure
   );
@@ -17,17 +16,17 @@ const ADDCHValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
   const dateRange = data[DC.DATE_RANGE];
 
-  if (data[DC.DID_REPORT] === DC.NO) {
-    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
-    return errorArray;
-  }
-
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
     data.Deviations,
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
+
+  if (data[DC.DID_REPORT] === DC.NO) {
+    errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
+    return errorArray;
+  }
 
   errorArray = [
     ...errorArray,

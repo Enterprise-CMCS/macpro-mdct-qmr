@@ -5,31 +5,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormData as FormData } from "shared/types/FormData";
 
-// Rate structure by index in row
-const ndrFormulas = [
-  // Short-Term Admissions per 1,000 Enrollee Months
-  {
-    numerator: 1,
-    denominator: 0,
-    rateIndex: 2,
-    mult: 1000,
-  },
-  // Medium-Term Admissions per 1,000 Enrollee Months
-  {
-    numerator: 3,
-    denominator: 0,
-    rateIndex: 4,
-    mult: 1000,
-  },
-  // Long-Term Admissions per 1,000 Enrollee Months
-  {
-    numerator: 5,
-    denominator: 0,
-    rateIndex: 6,
-    mult: 1000,
-  },
-];
-
 let OPM: any;
 
 const AIFHHValidation = (data: FormData) => {
@@ -71,7 +46,11 @@ const AIFHHValidation = (data: FormData) => {
 
     // Performance Measure Validations
     ...GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM),
-    ...GV.ComplexNoNonZeroNumOrDenom(performanceMeasureArray, OPM, ndrFormulas),
+    ...GV.ComplexNoNonZeroNumOrDenom(
+      performanceMeasureArray,
+      OPM,
+      PMD.ndrFormulas
+    ),
     ...GV.validateDeviationTextFieldFilled(
       didCalculationsDeviate,
       deviationReason
@@ -79,7 +58,7 @@ const AIFHHValidation = (data: FormData) => {
     ...GV.ComplexValidateNDRTotals(
       performanceMeasureArray,
       PMD.categories,
-      ndrFormulas
+      PMD.ndrFormulas
     ),
 
     // OMS Validations
@@ -109,7 +88,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.["aifhh-rate"]?.rates ?? {},
           false,
-          ndrFormulas,
+          PMD.ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
           qualifiers
         ),
@@ -118,7 +97,7 @@ const OMSValidations: GV.Types.OmsValidationCallback = ({
         ...GV.ComplexNoNonZeroNumOrDenomOMS(
           rateData?.rates,
           true,
-          ndrFormulas,
+          PMD.ndrFormulas,
           `Optional Measure Stratification: ${locationDictionary(label)}`,
           qualifiers
         ),

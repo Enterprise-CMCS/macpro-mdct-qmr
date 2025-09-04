@@ -1,11 +1,6 @@
 import { LabelData } from "utils";
 import * as DC from "dataConstants";
-
-interface NDRforumla {
-  numerator: number;
-  denominator: number;
-  rateIndex: number;
-}
+import { ndrFormula } from "types";
 
 interface Qualifier {
   fields: Field[];
@@ -21,7 +16,7 @@ interface Field {
 export const ComplexValidateNDRTotalsOMS = (
   rateData: any,
   categories: LabelData[],
-  ndrFormulas: NDRforumla[],
+  ndrFormulas: ndrFormula[],
   errorLocation: string
 ) => {
   // Using a subset of rateData as iterator to be sure that Total
@@ -78,11 +73,11 @@ export const ComplexValidateNDRTotalsOMS = (
 export const ComplexValidateNDRTotals = (
   performanceMeasureArray: any,
   categories: LabelData[],
-  ndrFormulas: NDRforumla[],
+  ndrFormulas: ndrFormula[],
   errorLocation: string = "Performance Measure Total"
 ) => {
   let errorArray: any[] = [];
-  const rateLocations = ndrFormulas.map((ndr: NDRforumla) => ndr.rateIndex);
+  const rateLocations = ndrFormulas.map((ndr: ndrFormula) => ndr.rate);
 
   performanceMeasureArray.forEach((category: Qualifier[], i: number) => {
     // Sum all fields for each qualifier

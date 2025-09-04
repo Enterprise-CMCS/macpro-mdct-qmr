@@ -5,7 +5,7 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
-const PQI92Validation = (data: FormData) => {
+const PQI92HHValidation = (data: FormData) => {
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const OPM = data[DC.OPM_RATES];
   const ageGroups = PMD.qualifiers;
@@ -83,4 +83,4 @@ const PQI92Validation = (data: FormData) => {
   return errorArray;
 };
 
-export const validationFunctions = [PQI92Validation];
+export const validationFunctions = [PQI92HHValidation];
