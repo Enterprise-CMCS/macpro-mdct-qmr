@@ -49,7 +49,7 @@ a:focus-visible,
 textarea:focus-visible,
 input:focus-visible,
 .ds-u-focus-visible {
-  background-color: transparent;
+  background-color: inherit;
   outline: 3px solid #bd13b8;
   box-shadow: none;
 }
@@ -58,7 +58,6 @@ input:focus-visible,
 a:focus:not(:focus-visible),
 input:focus:not(:focus-visible),
 textarea:focus:not(:focus-visible) {
-  background-color: transparent;
   outline: none !important;
 }
 
