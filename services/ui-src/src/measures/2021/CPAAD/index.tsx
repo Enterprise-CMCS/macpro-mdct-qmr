@@ -17,7 +17,7 @@ export const CPAAD = ({
   const data = watch();
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({ function: validationFunctions });
     }
   }, [setValidationFunctions]);
 

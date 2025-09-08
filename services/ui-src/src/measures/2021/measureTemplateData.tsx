@@ -1,9 +1,11 @@
+import { validationFunctions } from "./validationTemplate";
+
 //child
 import { data as ADDCH_Data } from "./ADDCH/data";
-import { validationFunctions as ADDCH_Validations } from "./validationTemplate";
+// import { validationFunctions as ADDCH_Validations } from "./validationTemplate";
 
 import { data as AMBCH_Data } from "./AMBCH/data";
-import { validationFunctions as AMBCH_Validations } from "./AMBCH/validation";
+// import { validationFunctions as AMBCH_Validations } from "./AMBCH/validation";
 
 import { data as AMRCH_Data } from "./AMRCH/data";
 import { validationFunctions as AMRCH_Validations } from "./AMRCH/validation";
@@ -182,8 +184,8 @@ import { data as PQI92HH_Data } from "./PQI92HH/data";
 import { validationFunctions as PQI92HH_Validations } from "./PQI92HH/validation";
 
 export const measureTemplateData: { [measure: string]: any } = {
-  "ADD-CH": { data: ADDCH_Data, validationFunctions: ADDCH_Validations },
-  "AMB-CH": { data: AMBCH_Data, validationFunctions: AMBCH_Validations },
+  "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
+  "AMB-CH": { data: AMBCH_Data, validationFunctions: validationFunctions },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: AMRCH_Validations },
   "APM-CH": { data: APMCH_Data, validationFunctions: APMCH_Validations },
   "APP-CH": { data: APPCH_Data, validationFunctions: APPCH_Validations },

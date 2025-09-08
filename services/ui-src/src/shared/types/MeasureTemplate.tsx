@@ -56,5 +56,5 @@ export interface MeasureTemplateData {
     excludeOptions?: string[];
     componentFlag?: ComponentFlagType;
   };
-  validations: ValidationFunction[];
+  validations?: ValidationFunction[]; //TO DO: remove question mark (?) once refactoring is finished
 }

@@ -20,4 +20,5 @@ export const data: MeasureTemplateData = {
     allowNumeratorGreaterThanDenominator: true,
     calcTotal: true,
   },
+  validations: [],
 };

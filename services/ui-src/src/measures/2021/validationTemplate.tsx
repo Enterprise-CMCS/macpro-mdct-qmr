@@ -111,15 +111,15 @@ export const validationTemplate = (
 
   let errorArray: any[] = [];
 
-  //run validation sans oms validation functions
-  for (const validation of validations.filter(
+  //run validation without oms validation functions as the returns are different
+  for (const validation of validations!.filter(
     (validation) => !validation.name.includes("OMS")
   )) {
     errorArray.push(...validationList(validation));
   }
 
-  //oms validation functions are called a little differently
-  const omsCallbacks = validations
+  //oms validation functions are called a little differently so we need to filter them out
+  const omsCallbacks = validations!
     .filter((validation) => validation.toString().includes("OMS"))
     .map((validation) => omsValidations(validation));
 

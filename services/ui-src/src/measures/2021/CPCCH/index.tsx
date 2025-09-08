@@ -18,7 +18,7 @@ export const CPCCH = ({
 
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({ function: validationFunctions });
     }
   }, [setValidationFunctions]);
 

@@ -47,8 +47,8 @@ export interface MeasureWrapperProps {
   measureId: string;
   setValidationFunctions?: Dispatch<
     SetStateAction<{
-      data?: MeasureTemplateData;
       function: Function[];
+      data?: MeasureTemplateData;
     }>
   >;
   isOtherMeasureSpecSelected?: boolean;
@@ -65,8 +65,8 @@ interface MeasureProps {
   measureId: string;
   setValidationFunctions: Dispatch<
     SetStateAction<{
-      data?: MeasureTemplateData;
       function: Function[];
+      data?: MeasureTemplateData;
     }>
   >;
   handleSave: (data: any) => void;
