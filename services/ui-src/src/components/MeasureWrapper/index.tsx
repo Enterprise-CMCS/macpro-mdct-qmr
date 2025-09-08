@@ -160,9 +160,6 @@ export const MeasureWrapper = ({
     function: Function[];
   }>({ data: undefined, function: [] });
 
-  // const [validationFunctions, setValidationFunctions] = useState<Function[]>(
-  //   []
-  // );
   const [validating, setValidating] = useState(false);
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
@@ -385,7 +382,11 @@ export const MeasureWrapper = ({
   const validateAndSetErrors = (data: any): boolean => {
     const validationErrors = validationFunctions?.function.reduce(
       (acc: any, current: any) => {
-        const error = current(data, validationFunctions.data, coreSetId);
+        //temporary code to be used during migration of validation file
+        const error =
+          parseInt(year) > 2021
+            ? current(data, coreSetId)
+            : current(data, validationFunctions.data, coreSetId);
         let errorArray = [];
 
         if (Array.isArray(error)) {
