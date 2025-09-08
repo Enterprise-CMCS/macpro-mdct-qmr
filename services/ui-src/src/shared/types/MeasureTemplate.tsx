@@ -33,4 +33,5 @@ export interface MeasureTemplateData {
     excludeOptions?: string[];
     componentFlag?: ComponentFlagType;
   };
+  validations: { common: string[]; pm: string[]; oms: string[] };
 }

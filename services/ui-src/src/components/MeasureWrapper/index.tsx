@@ -29,6 +29,7 @@ import * as Labels from "labels/Labels";
 import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
 import { featuresByYear } from "utils/featuresByYear";
 import { Alert } from "@cmsgov/design-system";
+import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -44,7 +45,12 @@ export interface MeasureWrapperProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
-  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+  setValidationFunctions?: Dispatch<
+    SetStateAction<{
+      data?: MeasureTemplateData;
+      function: Function[];
+    }>
+  >;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
   showOptionalMeasureStrat?: boolean;
@@ -57,7 +63,12 @@ interface MeasureProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
-  setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
+  setValidationFunctions: Dispatch<
+    SetStateAction<{
+      data?: MeasureTemplateData;
+      function: Function[];
+    }>
+  >;
   handleSave: (data: any) => void;
 }
 
@@ -143,9 +154,15 @@ export const MeasureWrapper = ({
   const navigate = useNavigate();
   const params = useParams();
   const [errors, setErrors] = useState<FormError[] | undefined>(undefined);
-  const [validationFunctions, setValidationFunctions] = useState<Function[]>(
-    []
-  );
+
+  const [validationFunctions, setValidationFunctions] = useState<{
+    data?: MeasureTemplateData;
+    function: Function[];
+  }>({ data: undefined, function: [] });
+
+  // const [validationFunctions, setValidationFunctions] = useState<Function[]>(
+  //   []
+  // );
   const [validating, setValidating] = useState(false);
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
@@ -366,9 +383,9 @@ export const MeasureWrapper = ({
   };
 
   const validateAndSetErrors = (data: any): boolean => {
-    const validationErrors = validationFunctions.reduce(
+    const validationErrors = validationFunctions?.function.reduce(
       (acc: any, current: any) => {
-        const error = current(data, coreSetId);
+        const error = current(data, validationFunctions.data, coreSetId);
         let errorArray = [];
 
         if (Array.isArray(error)) {

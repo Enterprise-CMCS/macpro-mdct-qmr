@@ -54,28 +54,27 @@ export const data: MeasureTemplateData = {
       },
     ],
   },
-};
-
-export const validations = {
-  common: [
-    "validateRequiredRadioButtonForCombinedRates",
-    "validateAtLeastOneDeviationFieldFilled",
-    "validateReasonForNotReporting",
-    "validateAtLeastOneDataSource",
-    "validateBothDatesCompleted",
-    "validateYearFormat",
-  ],
-  pm: [
-    "validateAtLeastOneRateComplete",
-    "validateRateZeroPM",
-    "validateRateNotZeroPM",
-    "validateNumeratorsLessThanDenominatorsPM",
-    "validateOneQualDenomHigherThanOtherDenomPM",
-  ],
-  oms: [
-    "validateRateZeroOMS",
-    "validateRateNotZeroOMS",
-    "validateNumeratorLessThanDenominatorOMS",
-    "validateOneQualDenomHigherThanOtherDenomOMS",
-  ],
+  validations: {
+    common: [
+      "validateRequiredRadioButtonForCombinedRates",
+      "validateAtLeastOneDeviationFieldFilled",
+      "validateReasonForNotReporting",
+      "validateAtLeastOneDataSource",
+      "validateBothDatesCompleted",
+      "validateYearFormat",
+    ],
+    pm: [
+      "validateAtLeastOneRateComplete",
+      "validateRateZeroPM",
+      "validateRateNotZeroPM",
+      "validateNumeratorsLessThanDenominatorsPM",
+      "validateOneQualDenomHigherThanOtherDenomPM",
+    ],
+    oms: [
+      "validateRateZeroOMS",
+      "validateRateNotZeroOMS",
+      "validateNumeratorLessThanDenominatorOMS",
+      "validateOneQualDenomHigherThanOtherDenomOMS",
+    ],
+  },
 };
