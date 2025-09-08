@@ -1,19 +1,48 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
-
-//form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
-import { LabelData } from "utils";
-import { FormRateField } from "shared/types/TypeValidations";
-import { MeasureTemplateData } from "shared/types/MeasureTemplate";
+import {
+  MeasureTemplateData,
+  ValidationFunction,
+} from "shared/types/MeasureTemplate";
 
-const commonValidations = (
+const omsValidations = (func: ValidationFunction) => {
+  switch (func) {
+    case GV.validateNumeratorLessThanDenominatorOMS:
+      return GV.validateNumeratorLessThanDenominatorOMS();
+    case GV.validateRateZeroOMS:
+      return GV.validateRateZeroOMS();
+    case GV.validateRateNotZeroOMS:
+      return GV.validateRateNotZeroOMS();
+    case GV.validateOneQualDenomHigherThanOtherDenomOMS:
+      return GV.validateOneQualDenomHigherThanOtherDenomOMS();
+    default:
+      throw new Error(
+        `Validation function ${func.name} not recognized! See validationTemplate.tsx`
+      );
+  }
+};
+
+export const validationTemplate = (
   data: FormData,
-  validations: string[],
-  performanceMeasureArray: FormRateField[][],
-  qualifiers: LabelData[]
+  PMD: MeasureTemplateData
 ) => {
+  const categories = PMD.performanceMeasure.categories!;
+  const qualifiers = PMD.performanceMeasure.qualifiers!;
+
+  const performanceMeasureArray = GV.getPerfMeasureRateArray(
+    data,
+    PMD.performanceMeasure
+  );
+  const validations = PMD.validations;
+
+  //if user selects no on "are you reporting on this measure?"
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    return [...GV.validateReasonForNotReporting(whyNotReporting)];
+  }
+
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -21,105 +50,80 @@ const commonValidations = (
     true
   );
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
-
-  const validationList = {
-    validateRequiredRadioButtonForCombinedRates:
-      GV.validateRequiredRadioButtonForCombinedRates(data),
-    validateBothDatesCompleted: GV.validateBothDatesCompleted(dateRange),
-    validateYearFormat: GV.validateYearFormat(dateRange),
-    validateAtLeastOneDeviationFieldFilled:
-      GV.validateAtLeastOneDeviationFieldFilled(
-        performanceMeasureArray,
-        qualifiers,
-        deviationArray,
-        didCalculationsDeviate
-      ),
-    validateAtLeastOneDataSource: GV.validateAtLeastOneDataSource(data),
-  };
-
-  type validationKeys = keyof typeof validationList;
-
-  const errors = [];
-  for (const validation of validations) {
-    if (validationList[validation as validationKeys]) {
-      errors.push(...validationList[validation as validationKeys]);
-    }
-  }
-  return errors;
-};
-
-const pmValidations = (
-  data: FormData,
-  validations: string[],
-  performanceMeasureArray: FormRateField[][],
-  categories: LabelData[],
-  qualifiers: LabelData[]
-) => {
   const OPM = data[DC.OPM_RATES];
 
-  const validationList = {
-    validateAtLeastOneRateComplete: GV.validateAtLeastOneRateComplete(
-      performanceMeasureArray,
-      OPM,
-      qualifiers,
-      categories
-    ),
-    validateRateZeroPM: GV.validateRateZeroPM(
-      performanceMeasureArray,
-      OPM,
-      qualifiers,
-      data
-    ),
-    validateRateNotZeroPM: GV.validateRateNotZeroPM(
-      performanceMeasureArray,
-      OPM,
-      qualifiers
-    ),
-    validateNumeratorsLessThanDenominatorsPM:
-      GV.validateNumeratorsLessThanDenominatorsPM(
-        performanceMeasureArray,
-        OPM,
-        qualifiers
-      ),
-    validateOneQualDenomHigherThanOtherDenomPM:
-      GV.validateOneQualDenomHigherThanOtherDenomPM(data, {
-        categories,
-        qualifiers,
-      }),
-  };
-
-  type validationKeys = keyof typeof validationList;
-
-  const errors = [];
-  for (const validation of validations) {
-    if (validationList[validation as validationKeys]) {
-      errors.push(...validationList[validation as validationKeys]);
+  const validationList = (func: ValidationFunction) => {
+    switch (func) {
+      case GV.validateReasonForNotReporting:
+        return GV.validateReasonForNotReporting(whyNotReporting);
+      case GV.validateRequiredRadioButtonForCombinedRates:
+        return GV.validateRequiredRadioButtonForCombinedRates(data);
+      case GV.validateBothDatesCompleted:
+        return GV.validateBothDatesCompleted(dateRange);
+      case GV.validateYearFormat:
+        return GV.validateYearFormat(dateRange);
+      case GV.validateAtLeastOneDeviationFieldFilled:
+        return GV.validateAtLeastOneDeviationFieldFilled(
+          performanceMeasureArray,
+          qualifiers,
+          deviationArray,
+          didCalculationsDeviate
+        );
+      case GV.validateAtLeastOneDataSource:
+        return GV.validateAtLeastOneDataSource(data);
+      case GV.validateAtLeastOneRateComplete:
+        return GV.validateAtLeastOneRateComplete(
+          performanceMeasureArray,
+          OPM,
+          qualifiers,
+          categories
+        );
+      case GV.validateRateZeroPM:
+        return GV.validateRateZeroPM(
+          performanceMeasureArray,
+          OPM,
+          qualifiers,
+          data
+        );
+      case GV.validateRateNotZeroPM:
+        return GV.validateRateNotZeroPM(
+          performanceMeasureArray,
+          OPM,
+          qualifiers
+        );
+      case GV.validateNumeratorsLessThanDenominatorsPM:
+        return GV.validateNumeratorsLessThanDenominatorsPM(
+          performanceMeasureArray,
+          OPM,
+          qualifiers
+        );
+      case GV.validateOneQualDenomHigherThanOtherDenomPM:
+        return GV.validateOneQualDenomHigherThanOtherDenomPM(data, {
+          categories,
+          qualifiers,
+        });
+      default:
+        throw new Error(
+          `Validation function ${func.name} not recognized! See validationTemplate.tsx`
+        );
     }
-  }
-  return errors;
-};
-
-const omsValidations = (
-  data: FormData,
-  validations: string[],
-  categories: LabelData[],
-  qualifiers: LabelData[]
-) => {
-  const validationCallbacks = {
-    validateNumeratorLessThanDenominatorOMS:
-      GV.validateNumeratorLessThanDenominatorOMS(),
-    validateRateZeroOMS: GV.validateRateZeroOMS(),
-    validateRateNotZeroOMS: GV.validateRateNotZeroOMS(),
-    validateOneQualDenomHigherThanOtherDenomOMS:
-      GV.validateOneQualDenomHigherThanOtherDenomOMS(),
   };
 
-  type validationKeys = keyof typeof validationCallbacks;
-  const callbacks = validations
-    .filter((validation) => validationCallbacks[validation as validationKeys])
-    .map((validation) => validationCallbacks[validation as validationKeys]);
+  let errorArray: any[] = [];
 
-  return [
+  //run validation sans oms validation functions
+  for (const validation of validations.filter(
+    (validation) => !validation.name.includes("OMS")
+  )) {
+    errorArray.push(...validationList(validation));
+  }
+
+  //oms validation functions are called a little differently
+  const omsCallbacks = validations
+    .filter((validation) => validation.toString().includes("OMS"))
+    .map((validation) => omsValidations(validation));
+
+  errorArray.push(
     ...GV.omsValidations({
       data,
       qualifiers: qualifiers,
@@ -129,46 +133,9 @@ const omsValidations = (
         qualifiers,
         categories
       ),
-      validationCallbacks: [...callbacks],
-    }),
-  ];
-};
-
-export const validationTemplate = (
-  data: FormData,
-  PMD: MeasureTemplateData
-) => {
-  console.log("data", data);
-  console.log("PMD", PMD);
-
-  const { categories, qualifiers } = PMD.performanceMeasure;
-
-  const performanceMeasureArray = GV.getPerfMeasureRateArray(
-    data,
-    PMD.performanceMeasure
+      validationCallbacks: [...omsCallbacks],
+    })
   );
-  const { common, pm, oms } = PMD.validations;
-
-  //if user selects no on "are you reporting on this measure?"
-  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
-  if (data[DC.DID_REPORT] === DC.NO) {
-    return [...GV.validateReasonForNotReporting(whyNotReporting)];
-  }
-
-  let errorArray: any[] = [];
-  errorArray.push(
-    ...commonValidations(data, common, performanceMeasureArray, qualifiers!)
-  );
-  errorArray.push(
-    ...pmValidations(
-      data,
-      pm,
-      performanceMeasureArray,
-      categories!,
-      qualifiers!
-    )
-  );
-  errorArray.push(...omsValidations(data, oms, categories!, qualifiers!));
 
   return errorArray;
 };

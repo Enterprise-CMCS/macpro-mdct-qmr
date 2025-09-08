@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
+import * as GV from "shared/globalValidations";
 
 export const { categories, qualifiers } = getCatQualLabels("ADD-CH");
 
@@ -54,27 +55,23 @@ export const data: MeasureTemplateData = {
       },
     ],
   },
-  validations: {
-    common: [
-      "validateRequiredRadioButtonForCombinedRates",
-      "validateAtLeastOneDeviationFieldFilled",
-      "validateReasonForNotReporting",
-      "validateAtLeastOneDataSource",
-      "validateBothDatesCompleted",
-      "validateYearFormat",
-    ],
-    pm: [
-      "validateAtLeastOneRateComplete",
-      "validateRateZeroPM",
-      "validateRateNotZeroPM",
-      "validateNumeratorsLessThanDenominatorsPM",
-      "validateOneQualDenomHigherThanOtherDenomPM",
-    ],
-    oms: [
-      "validateRateZeroOMS",
-      "validateRateNotZeroOMS",
-      "validateNumeratorLessThanDenominatorOMS",
-      "validateOneQualDenomHigherThanOtherDenomOMS",
-    ],
-  },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateBothDatesCompleted,
+    GV.validateYearFormat,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroPM,
+    GV.validateNumeratorsLessThanDenominatorsPM,
+    GV.validateOneQualDenomHigherThanOtherDenomPM,
+    GV.validateRateZeroOMS,
+    GV.validateRateNotZeroOMS,
+    GV.validateNumeratorLessThanDenominatorOMS,
+    GV.validateOneQualDenomHigherThanOtherDenomOMS,
+  ],
 };
