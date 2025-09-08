@@ -13,23 +13,23 @@
     "@csstools/css-tokenizer" "^3.0.3"
     lru-cache "^10.4.3"
 
-"@aws-cdk/asset-awscli-v1@^2.2.229":
-  version "2.2.232"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.232.tgz#afae709ee662c2ab99f5e5ef848d513fde065652"
-  integrity sha512-x9aFQG9gA+RgGj9bGB+WC6y1Nq2/Y8R2yXFoKWoQZOet8PRFJ8M5/FeXoh9XmdWI4weJVctLU4WTIve6rOvPtA==
+"@aws-cdk/asset-awscli-v1@2.2.242":
+  version "2.2.242"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/asset-awscli-v1/-/asset-awscli-v1-2.2.242.tgz#235cb25b6d1ad26975b0095c0d6ee84309adae5c"
+  integrity sha512-4c1bAy2ISzcdKXYS1k4HYZsNrgiwbiDzj36ybwFVxEWZXVAP0dimQTCaB9fxu7sWzEjw3d+eaw6Fon+QTfTIpQ==
 
 "@aws-cdk/asset-node-proxy-agent-v6@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/asset-node-proxy-agent-v6/-/asset-node-proxy-agent-v6-2.1.0.tgz#6d3c7860354d4856a7e75375f2f0ecab313b4989"
   integrity sha512-7bY3J8GCVxLupn/kNmpPc5VJz8grx+4RKfnnJiO1LG+uxkZfANZG3RMHhE+qQxxwkyQ9/MfPtTpf748UhR425A==
 
-"@aws-cdk/cloud-assembly-schema@^41.0.0":
-  version "41.2.0"
-  resolved "https://registry.yarnpkg.com/@aws-cdk/cloud-assembly-schema/-/cloud-assembly-schema-41.2.0.tgz#c1ef513e1cc0528dbc05948ae39d5631306af423"
-  integrity sha512-JaulVS6z9y5+u4jNmoWbHZRs9uGOnmn/ktXygNWKNu1k6lF3ad4so3s18eRu15XCbUIomxN9WPYT6Ehh7hzONw==
+"@aws-cdk/cloud-assembly-schema@^48.6.0":
+  version "48.8.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/cloud-assembly-schema/-/cloud-assembly-schema-48.8.0.tgz#b28ac26b672649fcb492cb94fd6be9ecc9213f5e"
+  integrity sha512-PYA6oUpb/7IzCvhOQn3CBJoeDa7iZZkvrN+2hZEK5L1Wc40oInNIt4sz8LlYS/WvqdTDdZC5j53yfle6uutjEw==
   dependencies:
     jsonschema "~1.4.1"
-    semver "^7.7.1"
+    semver "^7.7.2"
 
 "@aws-crypto/crc32@5.2.0":
   version "5.2.0"
@@ -1741,23 +1741,23 @@ available-typed-arrays@^1.0.7:
   dependencies:
     possible-typed-array-names "^1.0.0"
 
-aws-cdk-lib@^2.189.0:
-  version "2.189.1"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.189.1.tgz#57681865d0ff138a26299066695c06c46329bcb7"
-  integrity sha512-9JU0yUr2iRTJ1oCPrHyx7hOtBDWyUfyOcdb6arlumJnMcQr2cyAMASY8HuAXHc8Y10ipVp8dRTW+J4/132IIYA==
+aws-cdk-lib@^2.214.0:
+  version "2.214.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.214.0.tgz#26bc0091585a195302775a2d446a1c46be180feb"
+  integrity sha512-Mj9GSJkkXj8wjiy2pKARquOsiiHsu7tK1WDfdA8Db39hIznWWP+/KscI2iqnntDMeEmcj1QX25PbYT+6rq8zkw==
   dependencies:
-    "@aws-cdk/asset-awscli-v1" "^2.2.229"
+    "@aws-cdk/asset-awscli-v1" "2.2.242"
     "@aws-cdk/asset-node-proxy-agent-v6" "^2.1.0"
-    "@aws-cdk/cloud-assembly-schema" "^41.0.0"
+    "@aws-cdk/cloud-assembly-schema" "^48.6.0"
     "@balena/dockerignore" "^1.0.2"
     case "1.6.3"
-    fs-extra "^11.3.0"
+    fs-extra "^11.3.1"
     ignore "^5.3.2"
     jsonschema "^1.5.0"
     mime-types "^2.1.35"
     minimatch "^3.1.2"
     punycode "^2.3.1"
-    semver "^7.7.1"
+    semver "^7.7.2"
     table "^6.9.0"
     yaml "1.10.2"
 
@@ -1768,10 +1768,10 @@ aws-cdk-local@^2.19.2:
   dependencies:
     diff "^5.0.0"
 
-aws-cdk@^2.1007.0:
-  version "2.1007.0"
-  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.1007.0.tgz#cdeca2bd3a4a628c73c9dab3ac37f29d3f63b223"
-  integrity sha512-/UOYOTGWUm+pP9qxg03tID5tL6euC+pb+xo0RBue+xhnUWwj/Bbsw6DbqbpOPMrNzTUxmM723/uMEQmM6S26dw==
+aws-cdk@^2.1028.0:
+  version "2.1029.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk/-/aws-cdk-2.1029.0.tgz#8338bf992c2f7a819fe6e6b3421d3578ab074ec5"
+  integrity sha512-TYJGMs1QVYgOTqt0MnbykZvKXMThevjg/m16MuERlWK3fQErhKcUkMmJ8uUY0SBf70FvT7tQdBq9dnsa34TM2A==
   optionalDependencies:
     fsevents "2.3.2"
 
@@ -2743,10 +2743,10 @@ form-data@^4.0.4:
     hasown "^2.0.2"
     mime-types "^2.1.12"
 
-fs-extra@^11.3.0:
-  version "11.3.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.3.0.tgz#0daced136bbaf65a555a326719af931adc7a314d"
-  integrity sha512-Z4XaCL6dUDHfP/jT25jJKMmtxvuwbkrD1vNSMFlo9lNLY2c5FHYSQgHPRZUjAB26TpDEoW9HCOgplrdbaPV/ew==
+fs-extra@^11.3.1:
+  version "11.3.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-11.3.1.tgz#ba7a1f97a85f94c6db2e52ff69570db3671d5a74"
+  integrity sha512-eXvGGwZ5CL17ZSwHWd3bbgk7UUpF6IFHtP57NYYakPvHOs8GDgDe5KJI36jIJzDkJ6eJjuzRA8eBQb6SkKue0g==
   dependencies:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
@@ -3897,10 +3897,10 @@ semver@^7.2.1, semver@^7.3.5:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.3.tgz#980f7b5550bc175fb4dc09403085627f9eb33143"
   integrity sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==
 
-semver@^7.7.1:
-  version "7.7.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.1.tgz#abd5098d82b18c6c81f6074ff2647fd3e7220c9f"
-  integrity sha512-hlq8tAfn0m/61p4BVRcPzIGr6LKiMwo4VM6dGi6pt4qcRkmNzTcWq6eCEjEh+qXjkMDvPlOFFSGwQjoEa6gyMA==
+semver@^7.7.2:
+  version "7.7.2"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.2.tgz#67d99fdcd35cec21e6f8b87a7fd515a33f982b58"
+  integrity sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==
 
 set-function-length@^1.2.1, set-function-length@^1.2.2:
   version "1.2.2"

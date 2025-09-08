@@ -47,7 +47,7 @@ async function handler() {
   );
   if (!isLocal) {
     stageName = await promptString(
-      "What environment are we running on (e.g. master, val, prod)? "
+      "What environment are we running on (e.g. master, val, production)? "
     );
   }
   const client = buildClient(isLocal);
