@@ -45,12 +45,7 @@ export interface MeasureWrapperProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
-  setValidationFunctions?: Dispatch<
-    SetStateAction<{
-      function: Function[];
-      data?: MeasureTemplateData;
-    }>
-  >;
+  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
   showOptionalMeasureStrat?: boolean;
