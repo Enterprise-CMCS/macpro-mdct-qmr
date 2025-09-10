@@ -22,7 +22,7 @@ export const ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec = (
         for (const formula of ndrFormulas) {
           const numerator = qualifier.fields[formula.numerator]?.value;
           const denominator = qualifier.fields[formula.denominator]?.value;
-          const rate = qualifier.fields[formula.rate]?.value;
+          const rate = qualifier.fields[formula.rateIndex]?.value;
 
           if (![numerator, denominator, rate].includes("")) {
             oneRateComplete = true;
