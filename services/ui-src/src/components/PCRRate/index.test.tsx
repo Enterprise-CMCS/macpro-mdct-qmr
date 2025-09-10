@@ -26,22 +26,22 @@ const ndrForumlas = [
   {
     numerator: 1,
     denominator: 0,
-    rate: 2,
+    rateIndex: 2,
   },
   {
     numerator: 3,
     denominator: 0,
-    rate: 4,
+    rateIndex: 4,
   },
   {
     numerator: 1,
     denominator: 3,
-    rate: 5,
+    rateIndex: 5,
   },
   {
     numerator: 7,
     denominator: 6,
-    rate: 8,
+    rateIndex: 8,
   },
 ];
 

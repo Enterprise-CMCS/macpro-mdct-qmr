@@ -39,7 +39,7 @@ const calculateRates = (
       : null;
 
     if (num !== null && denom !== null) {
-      fieldRow[formula.rate].value =
+      fieldRow[formula.rateIndex].value =
         num !== 0 && denom !== 0
           ? defaultRateCalculation(
               num.toString(),
@@ -49,7 +49,7 @@ const calculateRates = (
             )
           : "0";
     } else {
-      fieldRow[formula.rate].value = "";
+      fieldRow[formula.rateIndex].value = "";
     }
   }
   return fieldRow;

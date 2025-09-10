@@ -56,21 +56,21 @@ const aifhhNdrFormulas = [
   {
     numerator: 1,
     denominator: 0,
-    rate: 2,
+    rateIndex: 2,
     mult: 1000,
   },
   // Medium-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 3,
     denominator: 0,
-    rate: 4,
+    rateIndex: 4,
     mult: 1000,
   },
   // Long-Term Admissions per 1,000 Enrollee Months
   {
     numerator: 5,
     denominator: 0,
-    rate: 6,
+    rateIndex: 6,
     mult: 1000,
   },
 ];
@@ -167,21 +167,21 @@ const iuhhNdrFormulas = [
   {
     numerator: 1,
     denominator: 0,
-    rate: 2,
+    rateIndex: 2,
     mult: 1000,
   },
   // Days per 1,000 Enrollee Months
   {
     numerator: 3,
     denominator: 0,
-    rate: 4,
+    rateIndex: 4,
     mult: 1000,
   },
   // Average Length of Stay
   {
     numerator: 3,
     denominator: 1,
-    rate: 5,
+    rateIndex: 5,
     mult: 1,
   },
 ];
@@ -230,6 +230,8 @@ describe("Test the IUHHRate component when readOnly is false", () => {
       const rate = screen.getAllByLabelText(
         iuhhQualifiers[ndr.rateIndex].label
       )[0];
+
+      screen.debug(numerator);
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");
