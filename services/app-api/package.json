@@ -34,7 +34,7 @@
     "aws4": "^1.13.1",
     "dompurify": "^3.2.3",
     "cross-fetch": "^4.1.0",
-    "jsdom": "^24.1.1",
+    "jsdom": "^26.1.0",
     "jwt-decode": "^3.1.2",
     "kafkajs": "^2.2.4",
     "prompt-sync": "^4.2.0",
