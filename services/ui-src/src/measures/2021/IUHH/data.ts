@@ -35,21 +35,21 @@ export const ndrFormulas = [
   {
     numerator: 1,
     denominator: 0,
-    rate: 2,
+    rateIndex: 2,
     mult: 1000,
   },
   // Days per 1,000 Enrollee Months
   {
     numerator: 3,
     denominator: 0,
-    rate: 4,
+    rateIndex: 4,
     mult: 1000,
   },
   // Average Length of Stay
   {
     numerator: 3,
     denominator: 1,
-    rate: 5,
+    rateIndex: 5,
     mult: 1,
   },
 ];
