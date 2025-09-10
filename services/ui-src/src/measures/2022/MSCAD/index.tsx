@@ -22,7 +22,7 @@ export const MSCAD = ({
   const data = watch();
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions({ function: validationFunctions });
+      setValidationFunctions({ functions: validationFunctions });
     }
   }, [setValidationFunctions]);
 

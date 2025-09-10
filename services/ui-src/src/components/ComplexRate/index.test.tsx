@@ -122,7 +122,9 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
       const denominator = screen.getAllByLabelText(
         aifhhQualifiers[ndr.denominator].label
       )[0];
-      const rate = screen.getAllByLabelText(aifhhQualifiers[ndr.rate].label)[0];
+      const rate = screen.getAllByLabelText(
+        aifhhQualifiers[ndr.rateIndex].label
+      )[0];
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");
@@ -225,7 +227,9 @@ describe("Test the IUHHRate component when readOnly is false", () => {
       const denominator = screen.getAllByLabelText(
         iuhhQualifiers[ndr.denominator].label
       )[0];
-      const rate = screen.getAllByLabelText(iuhhQualifiers[ndr.rate].label)[0];
+      const rate = screen.getAllByLabelText(
+        iuhhQualifiers[ndr.rateIndex].label
+      )[0];
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");

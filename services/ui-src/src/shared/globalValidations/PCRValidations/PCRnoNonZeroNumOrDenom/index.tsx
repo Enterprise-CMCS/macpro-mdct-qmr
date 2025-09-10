@@ -16,16 +16,16 @@ export const PCRnoNonZeroNumOrDenom = (
         if (
           performanceMeasure[ndr.numerator].value &&
           performanceMeasure[ndr.denominator].value &&
-          performanceMeasure[ndr.rate].value
+          performanceMeasure[ndr.rateIndex].value
         ) {
           if (
-            parseFloat(performanceMeasure[ndr.rate].value!) !== 0 &&
+            parseFloat(performanceMeasure[ndr.rateIndex].value!) !== 0 &&
             parseFloat(performanceMeasure[ndr.numerator].value!) === 0
           ) {
             nonZeroRateError = true;
           }
           if (
-            parseFloat(performanceMeasure[ndr.rate].value!) === 0 &&
+            parseFloat(performanceMeasure[ndr.rateIndex].value!) === 0 &&
             parseFloat(performanceMeasure[ndr.numerator].value!) !== 0 &&
             parseFloat(performanceMeasure[ndr.denominator].value!) !== 0
           ) {

@@ -119,7 +119,7 @@ export const ComplexRate = ({
   } = useFormContext();
 
   // Quick reference list of all rate indices
-  const rateLocations = ndrFormulas.map((ndr) => ndr.rate);
+  const rateLocations = ndrFormulas.map((ndr) => ndr.rateIndex);
   let inputFields: LabelData[] = inputFieldNames;
 
   const { field } = useController({

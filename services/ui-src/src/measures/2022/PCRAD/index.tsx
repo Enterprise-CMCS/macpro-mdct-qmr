@@ -24,7 +24,7 @@ export const PCRAD = ({
 
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions({ function: validationFunctions });
+      setValidationFunctions({ functions: validationFunctions });
     }
   }, [setValidationFunctions]);
 

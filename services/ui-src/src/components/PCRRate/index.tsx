@@ -70,7 +70,7 @@ export const PCRRate = ({
   ];
 
   // Quick reference list of all rate indices
-  const rateLocations = ndrForumlas.map((ndr) => ndr.rate);
+  const rateLocations = ndrForumlas.map((ndr) => ndr.rateIndex);
 
   // Conditionally perform rate calculation
   const calculateRates = (prevRate: any) => {
@@ -84,19 +84,21 @@ export const PCRRate = ({
         isNaN(parsedDenom) ||
         (parsedNum !== 0 && parsedDenom === 0)
       ) {
-        prevRate[ndr.rate]["value"] = "";
+        prevRate[ndr.rateIndex]["value"] = "";
 
         // All 0
       } else if (parsedNum === 0 && parsedDenom === 0) {
-        prevRate[ndr.rate]["value"] = `0.${"0".repeat(ndr.rateDecimals)}`;
+        prevRate[ndr.rateIndex]["value"] = `0.${"0".repeat(
+          ndr.rateIndexDecimals
+        )}`;
 
         // Normal division
       } else {
-        prevRate[ndr.rate]["value"] = defaultRateCalculation(
+        prevRate[ndr.rateIndex]["value"] = defaultRateCalculation(
           prevRate[ndr.numerator].value,
           prevRate[ndr.denominator].value,
           ndr.multiplier,
-          ndr.rateDecimals
+          ndr.rateIndexDecimals
         );
       }
     });

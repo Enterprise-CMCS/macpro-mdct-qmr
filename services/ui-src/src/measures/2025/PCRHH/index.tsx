@@ -18,7 +18,7 @@ export const PCRHH = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions({ function: validationFunctions });
+      setValidationFunctions({ functions: validationFunctions });
     }
   }, [setValidationFunctions]);
 

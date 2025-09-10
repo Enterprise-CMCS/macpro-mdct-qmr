@@ -21,7 +21,7 @@ export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
           if (
             performanceMeasure[ndr.numerator].value &&
             performanceMeasure[ndr.denominator].value &&
-            performanceMeasure[ndr.rate].value
+            performanceMeasure[ndr.rateIndex].value
           ) {
             ndrCount++;
           }

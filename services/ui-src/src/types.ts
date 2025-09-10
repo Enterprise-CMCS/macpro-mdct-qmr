@@ -64,7 +64,7 @@ export interface MeasureData<DataType = any> {
 export interface ndrFormula {
   numerator: number;
   denominator: number;
-  rate: number;
+  rateIndex: number;
   mult?: number;
 }
 

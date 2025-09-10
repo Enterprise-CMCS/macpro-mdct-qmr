@@ -24,7 +24,7 @@ export const PCRHH = ({
 
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions({ function: validationFunctions });
+      setValidationFunctions({ functions: validationFunctions });
     }
   }, [setValidationFunctions]);
 

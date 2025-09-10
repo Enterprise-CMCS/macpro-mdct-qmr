@@ -120,7 +120,7 @@ export const validationTemplate = (
 
   //oms validation functions are called a little differently so we need to filter them out
   const omsCallbacks = validations!
-    .filter((validation) => validation.toString().includes("OMS"))
+    .filter((validation) => validation.name.includes("OMS"))
     .map((validation) => omsValidations(validation));
 
   errorArray.push(

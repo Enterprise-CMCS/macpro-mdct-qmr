@@ -25,7 +25,7 @@ const PCRADValidation = (data: FormData) => {
   }
 
   // Quick reference list of all rate indices
-  // const rateLocations = PMD.ndrFormulas.map((ndr) => ndr.rate);
+  // const rateLocations = PMD.ndrFormulas.map((ndr) => ndr.rateIndex);
   errorArray = [
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),

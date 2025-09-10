@@ -39,7 +39,7 @@ export const measureTemplate = ({
     if (setValidationFunctions) {
       setValidationFunctions({
         data: measure.data,
-        function: measure.validationFunctions,
+        functions: measure.validationFunctions,
       });
     }
   }, [setValidationFunctions]);

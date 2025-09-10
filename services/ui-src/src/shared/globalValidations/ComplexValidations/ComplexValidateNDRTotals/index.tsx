@@ -77,7 +77,7 @@ export const ComplexValidateNDRTotals = (
   errorLocation: string = "Performance Measure Total"
 ) => {
   let errorArray: any[] = [];
-  const rateLocations = ndrFormulas.map((ndr: ndrFormula) => ndr.rate);
+  const rateLocations = ndrFormulas.map((ndr: ndrFormula) => ndr.rateIndex);
 
   performanceMeasureArray.forEach((category: Qualifier[], i: number) => {
     // Sum all fields for each qualifier

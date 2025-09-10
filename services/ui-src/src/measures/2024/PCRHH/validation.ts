@@ -21,7 +21,7 @@ const PCRHHValidation = (data: FormData) => {
   }
 
   // Quick reference list of all rate indices
-  // const rateLocations = PMD.ndrFormulas.map((ndr) => ndr.rate);
+  // const rateLocations = PMD.ndrFormulas.map((ndr) => ndr.rateIndex);
   errorArray = [
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateAtLeastOneDataSource(data),

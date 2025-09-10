@@ -60,7 +60,7 @@ interface MeasureProps {
   measureId: string;
   setValidationFunctions: Dispatch<
     SetStateAction<{
-      function: Function[];
+      functions: Function[];
       data?: MeasureTemplateData;
     }>
   >;
@@ -152,8 +152,8 @@ export const MeasureWrapper = ({
 
   const [validationFunctions, setValidationFunctions] = useState<{
     data?: MeasureTemplateData;
-    function: Function[];
-  }>({ data: undefined, function: [] });
+    functions: Function[];
+  }>({ data: undefined, functions: [] });
 
   const [validating, setValidating] = useState(false);
 
@@ -375,7 +375,7 @@ export const MeasureWrapper = ({
   };
 
   const validateAndSetErrors = (data: any): boolean => {
-    const validationErrors = validationFunctions?.function.reduce(
+    const validationErrors = validationFunctions?.functions.reduce(
       (acc: any, current: any) => {
         //temporary code to be used during migration of validation file
         const error =
