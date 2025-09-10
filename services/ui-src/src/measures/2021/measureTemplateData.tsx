@@ -2,7 +2,7 @@
 
 //child
 import { data as ADDCH_Data } from "./ADDCH/data";
-import { validationFunctions as ADDCH_Validations } from "./validationTemplate";
+import { validationFunctions as ADDCH_Validations } from "./ADDCH/validation";
 
 import { data as AMBCH_Data } from "./AMBCH/data";
 import { validationFunctions as AMBCH_Validations } from "./AMBCH/validation";
