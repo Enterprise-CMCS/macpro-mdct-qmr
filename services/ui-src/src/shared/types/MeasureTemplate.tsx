@@ -57,4 +57,5 @@ export interface MeasureTemplateData {
     componentFlag?: ComponentFlagType;
   };
   validations?: ValidationFunction[]; //TO DO: remove question mark (?) once refactoring is finished
+  override?: { deviationFieldFilled: Function };
 }

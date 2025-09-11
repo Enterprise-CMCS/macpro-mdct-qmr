@@ -17,6 +17,8 @@ const omsValidations = (func: ValidationFunction) => {
       return GV.validateRateNotZeroOMS();
     case GV.validateOneQualDenomHigherThanOtherDenomOMS:
       return GV.validateOneQualDenomHigherThanOtherDenomOMS();
+    case GV.validateOMSTotalNDR():
+      return GV.validateOMSTotalNDR();
     default:
       throw new Error(
         `Validation function ${func.name} not recognized! See validationTemplate.tsx`
@@ -54,50 +56,50 @@ export const validationTemplate = (
 
   const validationList = (func: ValidationFunction) => {
     switch (func) {
-      case GV.validateReasonForNotReporting:
+      case GV.validateReasonForNotReporting: //good
         return GV.validateReasonForNotReporting(whyNotReporting);
-      case GV.validateRequiredRadioButtonForCombinedRates:
+      case GV.validateRequiredRadioButtonForCombinedRates: //good
         return GV.validateRequiredRadioButtonForCombinedRates(data);
-      case GV.validateBothDatesCompleted:
+      case GV.validateBothDatesCompleted: //good
         return GV.validateBothDatesCompleted(dateRange);
-      case GV.validateYearFormat:
+      case GV.validateYearFormat: //good
         return GV.validateYearFormat(dateRange);
-      case GV.validateAtLeastOneDeviationFieldFilled:
+      case GV.validateAtLeastOneDeviationFieldFilled: //good
         return GV.validateAtLeastOneDeviationFieldFilled(
-          performanceMeasureArray,
+          PMD.override?.deviationFieldFilled(data) ?? performanceMeasureArray,
           qualifiers,
           deviationArray,
           didCalculationsDeviate
         );
-      case GV.validateAtLeastOneDataSource:
+      case GV.validateAtLeastOneDataSource: //good
         return GV.validateAtLeastOneDataSource(data);
-      case GV.validateAtLeastOneRateComplete:
+      case GV.validateAtLeastOneRateComplete: //good
         return GV.validateAtLeastOneRateComplete(
           performanceMeasureArray,
           OPM,
           qualifiers,
           categories
         );
-      case GV.validateRateZeroPM:
+      case GV.validateRateZeroPM: //good
         return GV.validateRateZeroPM(
           performanceMeasureArray,
           OPM,
           qualifiers,
           data
         );
-      case GV.validateRateNotZeroPM:
+      case GV.validateRateNotZeroPM: //good
         return GV.validateRateNotZeroPM(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.validateNumeratorsLessThanDenominatorsPM:
+      case GV.validateNumeratorsLessThanDenominatorsPM: //good
         return GV.validateNumeratorsLessThanDenominatorsPM(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.validateOneQualDenomHigherThanOtherDenomPM:
+      case GV.validateOneQualDenomHigherThanOtherDenomPM: //good
         return GV.validateOneQualDenomHigherThanOtherDenomPM(data, {
           categories,
           qualifiers,
