@@ -54,23 +54,23 @@ export const aifhhQualifiers = [
 const aifhhNdrFormulas = [
   // Short-Term Admissions per 1,000 Enrollee Months
   {
-    num: 1,
-    denom: 0,
-    rate: 2,
+    numerator: 1,
+    denominator: 0,
+    rateIndex: 2,
     mult: 1000,
   },
   // Medium-Term Admissions per 1,000 Enrollee Months
   {
-    num: 3,
-    denom: 0,
-    rate: 4,
+    numerator: 3,
+    denominator: 0,
+    rateIndex: 4,
     mult: 1000,
   },
   // Long-Term Admissions per 1,000 Enrollee Months
   {
-    num: 5,
-    denom: 0,
-    rate: 6,
+    numerator: 5,
+    denominator: 0,
+    rateIndex: 6,
     mult: 1000,
   },
 ];
@@ -109,26 +109,28 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
 
   test("Check that given some input, the AIFHHRATE component calculates rates correctly (rate editable)", () => {
     const expectedValues = [
-      { num: "42", denom: "84", rate: "500.0" },
-      { num: "42", denom: "84", rate: "500.0" },
-      { num: "42", denom: "84", rate: "500.0" },
-      { num: "42", denom: "84", rate: "500.0" },
+      { numerator: "42", denominator: "84", rate: "500.0" },
+      { numerator: "42", denominator: "84", rate: "500.0" },
+      { numerator: "42", denominator: "84", rate: "500.0" },
+      { numerator: "42", denominator: "84", rate: "500.0" },
     ];
 
     aifhhNdrFormulas.forEach((ndr, i) => {
       const numerator = screen.getAllByLabelText(
-        aifhhQualifiers[ndr.num].label
+        aifhhQualifiers[ndr.numerator].label
       )[0];
       const denominator = screen.getAllByLabelText(
-        aifhhQualifiers[ndr.denom].label
+        aifhhQualifiers[ndr.denominator].label
       )[0];
-      const rate = screen.getAllByLabelText(aifhhQualifiers[ndr.rate].label)[0];
+      const rate = screen.getAllByLabelText(
+        aifhhQualifiers[ndr.rateIndex].label
+      )[0];
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");
 
-      expect(numerator).toHaveDisplayValue([expectedValues[i].num]);
-      expect(denominator).toHaveDisplayValue([expectedValues[i].denom]);
+      expect(numerator).toHaveDisplayValue([expectedValues[i].numerator]);
+      expect(denominator).toHaveDisplayValue([expectedValues[i].denominator]);
       expect(rate).toHaveDisplayValue([expectedValues[i].rate]);
     });
   });
@@ -163,23 +165,23 @@ const iuhhQualifiers = [
 const iuhhNdrFormulas = [
   // Discharges per 1,000 Enrollee Months
   {
-    num: 1,
-    denom: 0,
-    rate: 2,
+    numerator: 1,
+    denominator: 0,
+    rateIndex: 2,
     mult: 1000,
   },
   // Days per 1,000 Enrollee Months
   {
-    num: 3,
-    denom: 0,
-    rate: 4,
+    numerator: 3,
+    denominator: 0,
+    rateIndex: 4,
     mult: 1000,
   },
   // Average Length of Stay
   {
-    num: 3,
-    denom: 1,
-    rate: 5,
+    numerator: 3,
+    denominator: 1,
+    rateIndex: 5,
     mult: 1,
   },
 ];
@@ -213,25 +215,29 @@ describe("Test the IUHHRate component when readOnly is false", () => {
 
   test("Check that given some input, the IUHHRate component calculates rates correctly (rate editable)", () => {
     const expectedValues = [
-      { num: "42", denom: "84", rate: "500.0" },
-      { num: "42", denom: "84", rate: "500.0" },
-      { num: "42", denom: "84", rate: "0.5" },
+      { numerator: "42", denominator: "84", rate: "500.0" },
+      { numerator: "42", denominator: "84", rate: "500.0" },
+      { numerator: "42", denominator: "84", rate: "0.5" },
     ];
 
     iuhhNdrFormulas.forEach((ndr, i) => {
       const numerator = screen.getAllByLabelText(
-        iuhhQualifiers[ndr.num].label
+        iuhhQualifiers[ndr.numerator].label
       )[0];
       const denominator = screen.getAllByLabelText(
-        iuhhQualifiers[ndr.denom].label
+        iuhhQualifiers[ndr.denominator].label
       )[0];
-      const rate = screen.getAllByLabelText(iuhhQualifiers[ndr.rate].label)[0];
+      const rate = screen.getAllByLabelText(
+        iuhhQualifiers[ndr.rateIndex].label
+      )[0];
+
+      screen.debug(numerator);
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");
 
-      expect(numerator).toHaveDisplayValue([expectedValues[i].num]);
-      expect(denominator).toHaveDisplayValue([expectedValues[i].denom]);
+      expect(numerator).toHaveDisplayValue([expectedValues[i].numerator]);
+      expect(denominator).toHaveDisplayValue([expectedValues[i].denominator]);
       expect(rate).toHaveDisplayValue([expectedValues[i].rate]);
     });
   });

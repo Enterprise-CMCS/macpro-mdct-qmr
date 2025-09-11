@@ -1,6 +1,7 @@
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { DataDrivenTypes } from "./TypeDataDriven";
 import { CoreSetKey } from "./GlobalTypes";
+import * as GV from "shared/globalValidations";
 
 export interface customData {
   rateReadOnly?: boolean;
@@ -22,6 +23,28 @@ export interface customData {
   notCollectingOMS?: boolean;
 }
 
+export const validationFunctions = [
+  GV.validateRequiredRadioButtonForCombinedRates,
+  GV.validateAtLeastOneDeviationFieldFilled,
+  GV.validateRequiredRadioButtonForCombinedRates,
+  GV.validateAtLeastOneDeviationFieldFilled,
+  GV.validateReasonForNotReporting,
+  GV.validateAtLeastOneDataSource,
+  GV.validateBothDatesCompleted,
+  GV.validateYearFormat,
+  GV.validateAtLeastOneRateComplete,
+  GV.validateRateZeroPM,
+  GV.validateRateNotZeroPM,
+  GV.validateNumeratorsLessThanDenominatorsPM,
+  GV.validateOneQualDenomHigherThanOtherDenomPM,
+  GV.validateRateZeroOMS,
+  GV.validateRateNotZeroOMS,
+  GV.validateNumeratorLessThanDenominatorOMS,
+  GV.validateOneQualDenomHigherThanOtherDenomOMS,
+] as const;
+
+export type ValidationFunction = typeof validationFunctions[number];
+
 export interface MeasureTemplateData {
   type: string;
   coreset: CoreSetKey;
@@ -33,4 +56,5 @@ export interface MeasureTemplateData {
     excludeOptions?: string[];
     componentFlag?: ComponentFlagType;
   };
+  validations?: ValidationFunction[]; //TO DO: remove question mark (?) once refactoring is finished
 }

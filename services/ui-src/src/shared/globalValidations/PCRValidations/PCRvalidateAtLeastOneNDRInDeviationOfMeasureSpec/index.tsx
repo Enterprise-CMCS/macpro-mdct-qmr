@@ -1,10 +1,5 @@
 import * as Types from "shared/types";
-
-interface NDRforumla {
-  numerator: number;
-  denominator: number;
-  rateIndex: number;
-}
+import { ndrFormula } from "types";
 
 /*
  * If the user indicates that there is a deviation from the measure spec, they must
@@ -12,7 +7,7 @@ interface NDRforumla {
  */
 export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
   performanceMeasureArray: any,
-  ndrFormulas: NDRforumla[],
+  ndrFormulas: ndrFormula[],
   deviationArray: Types.DeviationFields[] | any,
   didCalculationsDeviate: boolean
 ) => {
@@ -22,7 +17,7 @@ export const PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec = (
   if (didCalculationsDeviate) {
     performanceMeasureArray?.forEach((performanceMeasure: any) => {
       if (performanceMeasure && performanceMeasure.length > 0) {
-        ndrFormulas.forEach((ndr: NDRforumla) => {
+        ndrFormulas.forEach((ndr: ndrFormula) => {
           if (
             performanceMeasure[ndr.numerator].value &&
             performanceMeasure[ndr.denominator].value &&

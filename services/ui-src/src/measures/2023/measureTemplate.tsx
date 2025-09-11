@@ -37,7 +37,10 @@ export const measureTemplate = ({
 
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(measure.validationFunctions);
+      setValidationFunctions({
+        data: measure.data,
+        functions: measure.validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 

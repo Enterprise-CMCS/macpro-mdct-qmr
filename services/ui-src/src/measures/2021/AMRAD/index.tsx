@@ -24,7 +24,7 @@ export const AMRAD = ({
 
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({ functions: validationFunctions });
     }
   }, [setValidationFunctions]);
 

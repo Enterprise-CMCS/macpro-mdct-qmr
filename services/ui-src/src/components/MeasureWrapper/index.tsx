@@ -29,6 +29,7 @@ import * as Labels from "labels/Labels";
 import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
 import { featuresByYear } from "utils/featuresByYear";
 import { Alert } from "@cmsgov/design-system";
+import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -57,7 +58,12 @@ interface MeasureProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
-  setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
+  setValidationFunctions: Dispatch<
+    SetStateAction<{
+      functions: Function[];
+      data?: MeasureTemplateData;
+    }>
+  >;
   handleSave: (data: any) => void;
 }
 
@@ -143,9 +149,12 @@ export const MeasureWrapper = ({
   const navigate = useNavigate();
   const params = useParams();
   const [errors, setErrors] = useState<FormError[] | undefined>(undefined);
-  const [validationFunctions, setValidationFunctions] = useState<Function[]>(
-    []
-  );
+
+  const [validationFunctions, setValidationFunctions] = useState<{
+    data?: MeasureTemplateData;
+    functions: Function[];
+  }>({ data: undefined, functions: [] });
+
   const [validating, setValidating] = useState(false);
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
@@ -366,9 +375,13 @@ export const MeasureWrapper = ({
   };
 
   const validateAndSetErrors = (data: any): boolean => {
-    const validationErrors = validationFunctions.reduce(
+    const validationErrors = validationFunctions?.functions.reduce(
       (acc: any, current: any) => {
-        const error = current(data, coreSetId);
+        //temporary code to be used during migration of validation file
+        const error =
+          parseInt(year) > 2021
+            ? current(data, coreSetId)
+            : current(data, validationFunctions.data, coreSetId);
         let errorArray = [];
 
         if (Array.isArray(error)) {

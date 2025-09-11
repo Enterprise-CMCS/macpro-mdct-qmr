@@ -18,7 +18,7 @@ export const MSCAD = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({ functions: validationFunctions });
     }
   }, [setValidationFunctions]);
   const { watch } = useFormContext<DefaultFormData>();
