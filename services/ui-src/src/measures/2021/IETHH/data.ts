@@ -1,5 +1,6 @@
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("IET-HH");
@@ -52,4 +53,25 @@ export const data: MeasureTemplateData = {
   custom: {
     calcTotal: true,
   },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateOneCatRateHigherThanOtherCatOMS,
+    GV.validateOneCatRateHigherThanOtherCatPM,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateNumeratorLessThanDenominatorOMS,
+    GV.validateNumeratorsLessThanDenominatorsPM,
+    GV.validateBothDatesCompleted,
+    GV.validateOMSTotalNDR,
+    GV.validateTotalNDR,
+    GV.validateEqualQualifierDenominatorsPM,
+    GV.validateYearFormat,
+    GV.validateDualPopInformationPM,
+  ],
 };

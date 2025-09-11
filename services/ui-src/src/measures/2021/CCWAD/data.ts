@@ -1,4 +1,5 @@
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
@@ -31,4 +32,23 @@ export const data: MeasureTemplateData = {
       return [memeRates, larcRates];
     },
   },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateOneCatRateHigherThanOtherCatOMS,
+    GV.validateOneCatRateHigherThanOtherCatPM,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateNumeratorLessThanDenominatorOMS,
+    GV.validateNumeratorsLessThanDenominatorsPM,
+    GV.validateBothDatesCompleted,
+    GV.validateEqualCategoryDenominatorsOMS,
+    GV.validateEqualCategoryDenominatorsPM,
+    GV.validateYearFormat,
+  ],
 };

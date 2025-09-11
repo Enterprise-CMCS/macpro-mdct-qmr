@@ -1,7 +1,7 @@
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
-import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import * as GV from "shared/globalValidations";
+import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("ADD-CH");
 

@@ -1,5 +1,6 @@
 import { DataDrivenTypes } from "shared/types";
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 
 export const { categories, qualifiers } = getCatQualLabels("PCR-AD");
 
@@ -37,4 +38,11 @@ export const data: DataDrivenTypes.PerformanceMeasure = {
   ],
   categories,
   qualifiers,
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateBothDatesCompleted,
+    GV.validateYearFormat,
+  ],
 };

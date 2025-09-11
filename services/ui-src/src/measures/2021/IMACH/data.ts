@@ -1,5 +1,6 @@
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("IMA-CH");
@@ -77,4 +78,23 @@ export const data: MeasureTemplateData = {
       },
     ],
   },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateOneCatRateHigherThanOtherCatOMS,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateNumeratorLessThanDenominatorOMS,
+    GV.validateNumeratorsLessThanDenominatorsPM,
+    GV.validateBothDatesCompleted,
+    GV.validateEqualQualifierDenominatorsOMS,
+    GV.validateEqualCategoryDenominatorsOMS,
+    GV.validateEqualCategoryDenominatorsPM,
+    GV.validateYearFormat,
+  ],
 };
