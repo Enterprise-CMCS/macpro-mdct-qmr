@@ -180,6 +180,15 @@ export const validationTemplate = (
             ? validateEqualQualifierDenominatorsErrorMessage
             : undefined
         );
+      case GV.validateOneCatRateHigherThanOtherCatPM:
+        return GV.validateOneCatRateHigherThanOtherCatPM(
+          data,
+          PMD.performanceMeasure,
+          0,
+          1,
+          PMD.override?.validateOneCatRateHigherThanOtherCatPM?.increment ??
+            undefined
+        );
       default:
         throw new Error(
           `Validation function ${func.name} not recognized! See validationTemplate.tsx`

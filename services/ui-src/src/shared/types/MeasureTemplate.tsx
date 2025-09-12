@@ -45,6 +45,7 @@ export const validationFunctions = [
   GV.validateOneCatRateHigherThanOtherCatOMS,
   GV.validateTotalNDR,
   GV.validateEqualQualifierDenominatorsPM,
+  GV.validateOneCatRateHigherThanOtherCatPM,
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
@@ -67,6 +68,9 @@ export interface MeasureTemplateData {
     validateEqualQualifierDenominatorsPM?: {
       category: boolean;
       errorMessage: boolean;
+    };
+    validateOneCatRateHigherThanOtherCatPM?: {
+      increment: number;
     };
   };
 }
