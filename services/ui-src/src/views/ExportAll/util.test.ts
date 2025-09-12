@@ -1,4 +1,9 @@
-import { applyPrinceSpecificCss, getSpaName, htmlStringCleanup } from "./util";
+import {
+  applyPrinceSpecificCss,
+  openPdf,
+  getSpaName,
+  htmlStringCleanup,
+} from "./util";
 
 describe("ExportAll utils", () => {
   describe("getSpaName", () => {
@@ -87,6 +92,18 @@ describe("ExportAll utils", () => {
       const countAfter = document.body.querySelectorAll("style").length;
 
       expect(countAfter).toBe(countBefore + 1);
+    });
+  });
+
+  describe("openPdf", () => {
+    beforeEach(() => {
+      global.open = jest.fn();
+      global.URL.createObjectURL = jest.fn();
+    });
+    it("should call window.open with proper url", () => {
+      openPdf("test");
+      expect(global.URL.createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+      expect(global.open).toHaveBeenCalled();
     });
   });
 });
