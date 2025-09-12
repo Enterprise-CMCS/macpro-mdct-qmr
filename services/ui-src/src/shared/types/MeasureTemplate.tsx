@@ -41,6 +41,10 @@ export const validationFunctions = [
   GV.validateRateNotZeroOMS,
   GV.validateNumeratorLessThanDenominatorOMS,
   GV.validateOneQualDenomHigherThanOtherDenomOMS,
+  GV.validateOMSTotalNDR,
+  GV.validateOneCatRateHigherThanOtherCatOMS,
+  GV.validateTotalNDR,
+  GV.validateEqualQualifierDenominatorsPM,
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
@@ -57,5 +61,12 @@ export interface MeasureTemplateData {
     componentFlag?: ComponentFlagType;
   };
   validations?: ValidationFunction[]; //TO DO: remove question mark (?) once refactoring is finished
-  override?: { deviationFieldFilled: Function };
+  override?: {
+    deviationFieldFilled?: Function;
+    validateTotalNDR?: { category: boolean; errorMessage: boolean };
+    validateEqualQualifierDenominatorsPM?: {
+      category: boolean;
+      errorMessage: boolean;
+    };
+  };
 }

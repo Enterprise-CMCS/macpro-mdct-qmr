@@ -59,11 +59,4 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
       description: true,
     },
   ],
-  validations: [
-    GV.validateAtLeastOneDataSource,
-    GV.validateAtLeastOneRateComplete,
-    GV.validateNumeratorsLessThanDenominatorsPM,
-    GV.validateBothDatesCompleted,
-    GV.validateYearFormat,
-  ],
 };

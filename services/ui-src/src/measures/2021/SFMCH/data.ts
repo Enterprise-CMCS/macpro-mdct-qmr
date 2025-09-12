@@ -36,4 +36,10 @@ export const data: MeasureTemplateData = {
     GV.validateEqualQualifierDenominatorsPM,
     GV.validateYearFormat,
   ],
+  override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: false,
+    },
+  },
 };

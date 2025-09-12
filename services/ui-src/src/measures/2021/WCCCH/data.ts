@@ -98,4 +98,11 @@ export const data: MeasureTemplateData = {
     GV.validateEqualQualifierDenominatorsPM,
     GV.validateYearFormat,
   ],
+  override: {
+    validateTotalNDR: { category: true, errorMessage: true },
+    validateEqualQualifierDenominatorsPM: {
+      category: false,
+      errorMessage: true,
+    },
+  },
 };
