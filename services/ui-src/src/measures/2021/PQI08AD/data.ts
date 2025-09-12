@@ -1,4 +1,5 @@
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 
@@ -19,4 +20,18 @@ export const data: MeasureTemplateData = {
     allowNumeratorGreaterThanDenominator: true,
     customMask: positiveNumbersWithMaxDecimalPlaces(1),
   },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateBothDatesCompleted,
+    GV.validateYearFormat,
+    GV.validateDualPopInformationPM,
+  ],
 };

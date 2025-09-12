@@ -17,11 +17,19 @@ const omsValidations = (func: ValidationFunction) => {
       return GV.validateRateNotZeroOMS();
     case GV.validateOneQualDenomHigherThanOtherDenomOMS:
       return GV.validateOneQualDenomHigherThanOtherDenomOMS();
+    case GV.validateOMSTotalNDR():
+      return GV.validateOMSTotalNDR();
+    case GV.validateEqualQualifierDenominatorsOMS:
+      return GV.validateEqualQualifierDenominatorsOMS();
     default:
       throw new Error(
         `Validation function ${func.name} not recognized! See validationTemplate.tsx`
       );
   }
+};
+
+const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
+  return `${fieldType} for the ${qualifier} Total rate is not equal to the sum of the ${qualifier} age-specific ${fieldType.toLowerCase()}s.`;
 };
 
 export const validationTemplate = (
@@ -52,56 +60,126 @@ export const validationTemplate = (
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const OPM = data[DC.OPM_RATES];
 
+  const locationDictionary = GV.omsLocationDictionary(
+    OMSData(2021, true),
+    qualifiers,
+    categories
+  );
+
   const validationList = (func: ValidationFunction) => {
     switch (func) {
-      case GV.validateReasonForNotReporting:
+      case GV.validateReasonForNotReporting: //good
         return GV.validateReasonForNotReporting(whyNotReporting);
-      case GV.validateRequiredRadioButtonForCombinedRates:
+      case GV.validateRequiredRadioButtonForCombinedRates: //good
         return GV.validateRequiredRadioButtonForCombinedRates(data);
-      case GV.validateBothDatesCompleted:
+      case GV.validateBothDatesCompleted: //good
         return GV.validateBothDatesCompleted(dateRange);
-      case GV.validateYearFormat:
+      case GV.validateYearFormat: //good
         return GV.validateYearFormat(dateRange);
-      case GV.validateAtLeastOneDeviationFieldFilled:
+      case GV.validateAtLeastOneDeviationFieldFilled: //good
         return GV.validateAtLeastOneDeviationFieldFilled(
-          performanceMeasureArray,
+          PMD.override?.deviationFieldFilled?.(data) ?? performanceMeasureArray,
           qualifiers,
           deviationArray,
           didCalculationsDeviate
         );
-      case GV.validateAtLeastOneDataSource:
+      case GV.validateAtLeastOneDataSource: //good
         return GV.validateAtLeastOneDataSource(data);
-      case GV.validateAtLeastOneRateComplete:
+      case GV.validateAtLeastOneRateComplete: //good
         return GV.validateAtLeastOneRateComplete(
           performanceMeasureArray,
           OPM,
           qualifiers,
           categories
         );
-      case GV.validateRateZeroPM:
+      case GV.validateRateZeroPM: //good
         return GV.validateRateZeroPM(
           performanceMeasureArray,
           OPM,
           qualifiers,
           data
         );
-      case GV.validateRateNotZeroPM:
+      case GV.validateRateNotZeroPM: //good
         return GV.validateRateNotZeroPM(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.validateNumeratorsLessThanDenominatorsPM:
+      case GV.validateNumeratorsLessThanDenominatorsPM: //good
         return GV.validateNumeratorsLessThanDenominatorsPM(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.validateOneQualDenomHigherThanOtherDenomPM:
+      case GV.validateOneQualDenomHigherThanOtherDenomPM: //good
         return GV.validateOneQualDenomHigherThanOtherDenomPM(data, {
           categories,
           qualifiers,
         });
+      case GV.validateTotalNDR:
+        return GV.validateTotalNDR(
+          performanceMeasureArray,
+          undefined,
+          PMD.override?.validateTotalNDR?.category ? categories : undefined,
+          PMD.override?.validateTotalNDR?.errorMessage
+            ? validateTotalNDRErrorMessage
+            : undefined
+        );
+      case GV.validateEqualQualifierDenominatorsPM:
+        //AMM-AD, FUH-AD, FUH-CH, IET-AD, IET-HH, SFM-CH, W30-CH
+        if (PMD.override?.validateEqualQualifierDenominatorsPM?.category) {
+          let unfilteredSameDenominatorErrors: any[] = [];
+          let filteredSameDenominatorErrors: any = [];
+          let errorList: string[] = [];
+
+          for (let i = 0; i < performanceMeasureArray.length; i += 2) {
+            //errorMsg used for IET-AD & IET-HH
+            const errorMsg = (qual: string) =>
+              `Denominators must be the same for ${locationDictionary([
+                qual,
+              ])} for ${categories[i].label} and ${categories[i + 1].label}.`;
+
+            unfilteredSameDenominatorErrors = [
+              ...unfilteredSameDenominatorErrors,
+              ...GV.validateEqualQualifierDenominatorsPM(
+                [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
+                qualifiers,
+                undefined,
+                PMD.override?.validateEqualQualifierDenominatorsPM?.errorMessage
+                  ? errorMsg
+                  : undefined
+              ),
+            ];
+          }
+          unfilteredSameDenominatorErrors.forEach((error) => {
+            if (!(errorList.indexOf(error.errorMessage) > -1)) {
+              errorList.push(error.errorMessage);
+              filteredSameDenominatorErrors.push(error);
+            }
+          });
+
+          return filteredSameDenominatorErrors;
+        }
+
+        //APM-CH & WCC-CH
+        const validateEqualQualifierDenominatorsErrorMessage = (
+          qualifier: string
+        ) => {
+          const isTotal = qualifier.split(" ")[0] === "Total";
+          return `${
+            isTotal ? "" : "The "
+          }${qualifier} denominator must be the same for each indicator.`;
+        };
+
+        //APM-CH, FUA-AD, FUA-HH, FUH-HH, FUM-AD & WCC-CH
+        return GV.validateEqualQualifierDenominatorsPM(
+          performanceMeasureArray,
+          qualifiers,
+          undefined,
+          PMD.override?.validateEqualQualifierDenominatorsPM?.errorMessage
+            ? validateEqualQualifierDenominatorsErrorMessage
+            : undefined
+        );
       default:
         throw new Error(
           `Validation function ${func.name} not recognized! See validationTemplate.tsx`
