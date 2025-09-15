@@ -4,6 +4,7 @@ import {
   getSpaName,
   htmlStringCleanup,
   cloneChakraVariables,
+  cloneEmotionStyles,
 } from "./util";
 
 describe("ExportAll utils", () => {
@@ -94,6 +95,64 @@ describe("ExportAll utils", () => {
     });
   });
 
+  describe("cloneEmotionStyles", () => {
+    let appendChildSpy: jest.SpyInstance;
+    let createElementSpy: jest.SpyInstance;
+    let createTextNodeSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      appendChildSpy = jest.spyOn(document.body, "appendChild");
+      createElementSpy = jest.spyOn(document, "createElement");
+      createTextNodeSpy = jest.spyOn(document, "createTextNode");
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it.only("should clone style rules and create style tags", () => {
+      const fakeCssText = ".foo { text-align: right; display: flex; }";
+      const fakeStyleSheet = {
+        href: null,
+        cssRules: [{ cssText: fakeCssText }],
+      };
+      Object.defineProperty(document, "styleSheets", {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: [fakeStyleSheet],
+      });
+
+      const tags = cloneEmotionStyles();
+      expect(tags.length).toBe(2);
+      expect(appendChildSpy).toHaveBeenCalled();
+      expect(createElementSpy).toHaveBeenCalledWith("style");
+      expect(createTextNodeSpy).toHaveBeenCalledWith(
+        expect.stringContaining("text-align: center")
+      );
+      expect(createTextNodeSpy).toHaveBeenCalledWith(
+        expect.stringContaining("display: block;")
+      );
+    });
+
+    it("should not clone :root rules", () => {
+      const fakeCssText = ":root { --chakra-colors-blue-100: #ebf8ff; }";
+      const fakeStyleSheet = {
+        href: null,
+        cssRules: [{ cssText: fakeCssText }],
+      };
+      Object.defineProperty(document, "styleSheets", {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: [fakeStyleSheet],
+      });
+
+      const tags = cloneEmotionStyles();
+      expect(tags.length).toBe(0);
+    });
+  });
+
   describe("openPdf", () => {
     beforeEach(() => {
       global.open = jest.fn();
@@ -107,20 +166,11 @@ describe("ExportAll utils", () => {
   });
 
   describe("cloneChakraVariables", () => {
-    let originalStyleSheets: any;
     let setAttributeSpy: jest.SpyInstance;
 
     beforeEach(() => {
-      originalStyleSheets = Object.getOwnPropertyDescriptor(
-        document,
-        "styleSheets"
-      );
-      setAttributeSpy = jest.spyOn(document.body, "setAttribute");
-    });
-
-    afterEach(() => {
-      Object.defineProperty(document, "styleSheets", originalStyleSheets);
       jest.clearAllMocks();
+      setAttributeSpy = jest.spyOn(document.body, "setAttribute");
     });
 
     it("should set chakra variables on body when matching stylesheet is found", () => {
