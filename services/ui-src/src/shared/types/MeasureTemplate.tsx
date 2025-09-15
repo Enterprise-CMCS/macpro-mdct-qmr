@@ -49,6 +49,11 @@ export const validationFunctions = [
   GV.validateOneCatRateHigherThanOtherCatPM,
   GV.validateDualPopInformationPM,
   GV.validateEqualCategoryDenominatorsPM,
+  GV.ComplexValidateDualPopInformation,
+  GV.ComplexAtLeastOneRateComplete,
+  GV.ComplexNoNonZeroNumOrDenom,
+  GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
+  GV.ComplexValidateNDRTotals,
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
@@ -82,6 +87,9 @@ export interface MeasureTemplateData {
     };
     validateEqualCategoryDenominatorsPM?: {
       qualifiers?: LabelData[];
+    };
+    validateOneCatRateHigherThanOtherCatOMS?: {
+      increment?: number;
     };
   };
 }

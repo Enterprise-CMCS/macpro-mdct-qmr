@@ -86,5 +86,10 @@ export const data: MeasureTemplateData = {
     GV.validateAtLeastOneDataSource,
     GV.validateBothDatesCompleted,
     GV.validateYearFormat,
+    GV.ComplexValidateDualPopInformation,
+    GV.ComplexAtLeastOneRateComplete,
+    GV.ComplexNoNonZeroNumOrDenom,
+    GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
+    GV.ComplexValidateNDRTotals,
   ],
 };

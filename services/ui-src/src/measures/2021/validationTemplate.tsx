@@ -6,8 +6,110 @@ import {
   MeasureTemplateData,
   ValidationFunction,
 } from "shared/types/MeasureTemplate";
+import { LabelData } from "utils";
+import { OtherRatesFields } from "shared/types";
 
-const omsValidations = (func: ValidationFunction) => {
+const sortOMSValidations = (
+  categories: LabelData[],
+  OPM: OtherRatesFields[],
+  PMD: MeasureTemplateData
+) => {
+  const omsAIFHHValidations: GV.Types.OmsValidationCallback = ({
+    rateData,
+    locationDictionary,
+    label,
+    qualifiers,
+  }) => {
+    return OPM === undefined
+      ? [
+          ...GV.ComplexNoNonZeroNumOrDenomOMS(
+            rateData?.["aifhh-rate"]?.rates ?? {},
+            false,
+            PMD.performanceMeasure.ndrFormulas ?? [],
+            `Optional Measure Stratification: ${locationDictionary(label)}`,
+            qualifiers
+          ),
+          ...GV.ComplexValidateNDRTotalsOMS(
+            rateData?.["aifhh-rate"]?.rates ?? {},
+            categories,
+            PMD.performanceMeasure.ndrFormulas ?? [],
+            `Optional Measure Stratification: ${locationDictionary(
+              label
+            )} Total`
+          ),
+        ]
+      : [
+          ...GV.ComplexNoNonZeroNumOrDenomOMS(
+            rateData?.rates,
+            true,
+            PMD.performanceMeasure.ndrFormulas ?? [],
+            `Optional Measure Stratification: ${locationDictionary(label)}`,
+            qualifiers
+          ),
+        ];
+  };
+
+  const omsIUHHValidation: GV.Types.OmsValidationCallback = ({
+    rateData,
+    locationDictionary,
+    label,
+    categories,
+    qualifiers,
+  }) => {
+    return OPM === undefined
+      ? [
+          ...GV.ComplexNoNonZeroNumOrDenomOMS(
+            rateData?.["iuhh-rate"]?.rates ?? {},
+            false,
+            PMD.performanceMeasure.ndrFormulas ?? [],
+            `Optional Measure Stratification: ${locationDictionary(label)}`,
+            categories
+          ),
+          ...GV.ComplexValidateNDRTotalsOMS(
+            rateData?.["iuhh-rate"]?.rates ?? {},
+            categories,
+            PMD.performanceMeasure.ndrFormulas ?? [],
+            `Optional Measure Stratification: ${locationDictionary(
+              label
+            )} Total`
+          ),
+          ...GV.ComplexValueSameCrossCategoryOMS(
+            rateData?.["iuhh-rate"]?.rates ?? {},
+            categories,
+            qualifiers,
+            `Optional Measure Stratification: ${locationDictionary(label)}`
+          ),
+        ]
+      : [
+          ...GV.ComplexNoNonZeroNumOrDenomOMS(
+            rateData?.rates,
+            true,
+            PMD.performanceMeasure.ndrFormulas ?? [],
+            `Optional Measure Stratification: ${locationDictionary(label)}`,
+            qualifiers
+          ),
+        ];
+  };
+
+  if (PMD.performanceMeasure.measureName === "AIFHH")
+    return [omsAIFHHValidations];
+  else if (PMD.performanceMeasure.measureName === "IUHH")
+    return [omsIUHHValidation];
+
+  //oms validation functions are called a little differently so we need to filter them out
+  const omsCallbacks = PMD.validations!.filter((validation) =>
+    validation.name.includes("OMS")
+  ).map((validation) => omsValidations(validation, PMD));
+
+  return [...omsCallbacks];
+};
+
+const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
+  //Complex measures like AIF-HH & IU-HH requires unique OMS calls
+  if (PMD.performanceMeasure.measureName === "AIFHH") {
+  } else if (PMD.performanceMeasure.measureName === "IUHH") {
+  }
+
   switch (func) {
     case GV.validateNumeratorLessThanDenominatorOMS:
       return GV.validateNumeratorLessThanDenominatorOMS();
@@ -21,6 +123,12 @@ const omsValidations = (func: ValidationFunction) => {
       return GV.validateOMSTotalNDR();
     case GV.validateEqualQualifierDenominatorsOMS:
       return GV.validateEqualQualifierDenominatorsOMS();
+    case GV.validateOneCatRateHigherThanOtherCatOMS:
+      return GV.validateOneCatRateHigherThanOtherCatOMS(
+        0,
+        1,
+        PMD.override?.validateOneCatRateHigherThanOtherCatOMS?.increment
+      );
     default:
       throw new Error(
         `Validation function ${func.name} not recognized! See validationTemplate.tsx`
@@ -44,12 +152,6 @@ export const validationTemplate = (
     PMD.performanceMeasure
   );
   const validations = PMD.validations;
-
-  //if user selects no on "are you reporting on this measure?"
-  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
-  if (data[DC.DID_REPORT] === DC.NO) {
-    return [...GV.validateReasonForNotReporting(whyNotReporting)];
-  }
 
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
@@ -76,50 +178,50 @@ export const validationTemplate = (
 
   const validationList = (func: ValidationFunction) => {
     switch (func) {
-      case GV.validateReasonForNotReporting: //good
-        return GV.validateReasonForNotReporting(whyNotReporting);
-      case GV.validateRequiredRadioButtonForCombinedRates: //good
+      case GV.validateReasonForNotReporting:
+        return [];
+      case GV.validateRequiredRadioButtonForCombinedRates:
         return GV.validateRequiredRadioButtonForCombinedRates(data);
-      case GV.validateBothDatesCompleted: //good
+      case GV.validateBothDatesCompleted:
         return GV.validateBothDatesCompleted(dateRange);
-      case GV.validateYearFormat: //good
+      case GV.validateYearFormat:
         return GV.validateYearFormat(dateRange);
-      case GV.validateAtLeastOneDeviationFieldFilled: //good
+      case GV.validateAtLeastOneDeviationFieldFilled:
         return GV.validateAtLeastOneDeviationFieldFilled(
           PMD.override?.deviationFieldFilled?.(data) ?? performanceMeasureArray,
           qualifiers,
           deviationArray,
           didCalculationsDeviate
         );
-      case GV.validateAtLeastOneDataSource: //good
+      case GV.validateAtLeastOneDataSource:
         return GV.validateAtLeastOneDataSource(data);
-      case GV.validateAtLeastOneRateComplete: //good
+      case GV.validateAtLeastOneRateComplete:
         return GV.validateAtLeastOneRateComplete(
           performanceMeasureArray,
           OPM,
           qualifiers,
           categories
         );
-      case GV.validateRateZeroPM: //good
+      case GV.validateRateZeroPM:
         return GV.validateRateZeroPM(
           performanceMeasureArray,
           OPM,
           qualifiers,
           data
         );
-      case GV.validateRateNotZeroPM: //good
+      case GV.validateRateNotZeroPM:
         return GV.validateRateNotZeroPM(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.validateNumeratorsLessThanDenominatorsPM: //good
+      case GV.validateNumeratorsLessThanDenominatorsPM:
         return GV.validateNumeratorsLessThanDenominatorsPM(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.validateOneQualDenomHigherThanOtherDenomPM: //good
+      case GV.validateOneQualDenomHigherThanOtherDenomPM:
         return GV.validateOneQualDenomHigherThanOtherDenomPM(data, {
           categories,
           qualifiers,
@@ -213,6 +315,33 @@ export const validationTemplate = (
           categories,
           PMD.override?.validateEqualCategoryDenominatorsPM?.qualifiers
         );
+      case GV.ComplexValidateDualPopInformation:
+        return GV.ComplexValidateDualPopInformation(
+          performanceMeasureArray,
+          OPM,
+          DefinitionOfDenominator
+        );
+      case GV.ComplexAtLeastOneRateComplete:
+        return GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM);
+      case GV.ComplexNoNonZeroNumOrDenom:
+        return GV.ComplexNoNonZeroNumOrDenom(
+          performanceMeasureArray,
+          OPM,
+          PMD.performanceMeasure.ndrFormulas ?? []
+        );
+      case GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec:
+        return GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
+          performanceMeasureArray,
+          PMD.performanceMeasure.ndrFormulas!,
+          deviationArray,
+          didCalculationsDeviate
+        );
+      case GV.ComplexValidateNDRTotals:
+        return GV.ComplexValidateNDRTotals(
+          performanceMeasureArray,
+          categories,
+          PMD.performanceMeasure.ndrFormulas ?? []
+        );
       default:
         throw new Error(
           `Validation function ${func.name} not recognized! See validationTemplate.tsx`
@@ -220,19 +349,19 @@ export const validationTemplate = (
     }
   };
 
-  let errorArray: any[] = [];
+  //if user selects no on "are you reporting on this measure?"
+  const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
+  if (data[DC.DID_REPORT] === DC.NO) {
+    return [...GV.validateReasonForNotReporting(whyNotReporting)];
+  }
 
+  let errorArray: any[] = [];
   //run validation without oms validation functions as the returns are different
   for (const validation of validations!.filter(
     (validation) => !validation.name.includes("OMS")
   )) {
     errorArray.push(...validationList(validation));
   }
-
-  //oms validation functions are called a little differently so we need to filter them out
-  const omsCallbacks = validations!
-    .filter((validation) => validation.name.includes("OMS"))
-    .map((validation) => omsValidations(validation));
 
   errorArray.push(
     ...GV.omsValidations({
@@ -244,7 +373,7 @@ export const validationTemplate = (
         qualifiers,
         categories
       ),
-      validationCallbacks: [...omsCallbacks],
+      validationCallbacks: sortOMSValidations(categories, OPM, PMD)!,
     })
   );
 
