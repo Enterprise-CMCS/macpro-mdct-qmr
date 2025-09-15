@@ -7,7 +7,6 @@ import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const PQI08Validation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
-  const age65PlusIndex = 0;
   const dateRange = data[DC.DATE_RANGE];
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
@@ -46,7 +45,7 @@ const PQI08Validation = (data: FormData) => {
     ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
-      age65PlusIndex,
+      0,
       definitionOfDenominator
     ),
     ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),

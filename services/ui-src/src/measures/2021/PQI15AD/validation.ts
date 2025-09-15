@@ -7,7 +7,6 @@ import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const PQI15Validation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
-  const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const deviationArray = GV.getDeviationNDRArray(
@@ -31,13 +30,18 @@ const PQI15Validation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
+      PMD.qualifiers,
       PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,

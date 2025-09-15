@@ -6,7 +6,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const DEVCHValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
@@ -50,7 +49,7 @@ const DEVCHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
+      PMD.qualifiers,
       PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
@@ -58,16 +57,21 @@ const DEVCHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      ageGroups,
+      PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateEqualCategoryDenominatorsPM(

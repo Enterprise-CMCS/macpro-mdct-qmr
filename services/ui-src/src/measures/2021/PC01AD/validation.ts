@@ -6,7 +6,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const PC01ADValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
@@ -34,7 +33,7 @@ const PC01ADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      ageGroups,
+      PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
@@ -43,16 +42,21 @@ const PC01ADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
+      PMD.qualifiers,
       PMD.categories
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
 
     // OMS Validations
     ...GV.omsValidations({

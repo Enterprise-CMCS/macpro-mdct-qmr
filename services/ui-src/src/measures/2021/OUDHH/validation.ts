@@ -7,7 +7,6 @@ import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const OUDHHValidation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
-  const ageGroups = PMD.qualifiers;
   const performanceMeasureArray =
     GV.getPerfMeasureRateArray(data, PMD.data.performanceMeasure) ?? [];
   const dateRange = data[DC.DATE_RANGE];
@@ -68,8 +67,13 @@ const OUDHHValidation = (data: FormData) => {
         GV.validateEqualCategoryDenominatorsOMS(),
       ],
     }),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
   ];
 
   return errorArray;

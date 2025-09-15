@@ -7,7 +7,6 @@ import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const PCRADValidation = (data: FormData) => {
   let errorArray: any[] = [];
-  const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
   const deviationArray = GV.getDeviationNDRArray(
     data.DeviationOptions,
@@ -33,7 +32,11 @@ const PCRADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneDataSource(data),
 
     // Performance Measure Validations
-    ...GV.PCRatLeastOneRateComplete(performanceMeasureArray, OPM, ageGroups),
+    ...GV.PCRatLeastOneRateComplete(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers
+    ),
     ...GV.PCRnoNonZeroNumOrDenom(performanceMeasureArray, OPM, PMD.ndrFormulas),
     ...GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
       performanceMeasureArray,

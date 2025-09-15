@@ -6,8 +6,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const FUMADValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
-  const sixtyDaysIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
@@ -33,7 +31,7 @@ const FUMADValidation = (data: FormData) => {
   let sameDenominatorError = [
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
-      ageGroups
+      PMD.qualifiers
     ),
   ];
   sameDenominatorError =
@@ -44,23 +42,28 @@ const FUMADValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
+      PMD.qualifiers,
       PMD.categories
     ),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
-      sixtyDaysIndex,
+      1,
       DefinitionOfDenominator
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
     ...sameDenominatorError,
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),

@@ -66,6 +66,14 @@ export const validationTemplate = (
     categories
   );
 
+  const validateDualPopInformationArray = [
+    performanceMeasureArray?.[0].filter((pm) => {
+      return pm?.label === "Age 65 and older";
+    }),
+  ];
+
+  const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
+
   const validationList = (func: ValidationFunction) => {
     switch (func) {
       case GV.validateReasonForNotReporting: //good
@@ -188,6 +196,16 @@ export const validationTemplate = (
           1,
           PMD.override?.validateOneCatRateHigherThanOtherCatPM?.increment ??
             undefined
+        );
+      case GV.validateDualPopInformationPM:
+        return GV.validateDualPopInformationPM(
+          PMD.override?.validateDualPopInformationPM?.dualPopInfoArray
+            ? validateDualPopInformationArray
+            : performanceMeasureArray,
+          OPM,
+          PMD.override?.validateDualPopInformationPM?.ageIndex ?? 0,
+          DefinitionOfDenominator,
+          PMD.override?.validateDualPopInformationPM?.errorLabel
         );
       default:
         throw new Error(

@@ -46,6 +46,7 @@ export const validationFunctions = [
   GV.validateTotalNDR,
   GV.validateEqualQualifierDenominatorsPM,
   GV.validateOneCatRateHigherThanOtherCatPM,
+  GV.validateDualPopInformationPM,
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
@@ -71,6 +72,11 @@ export interface MeasureTemplateData {
     };
     validateOneCatRateHigherThanOtherCatPM?: {
       increment: number;
+    };
+    validateDualPopInformationPM?: {
+      dualPopInfoArray?: boolean;
+      ageIndex: number;
+      errorLabel?: string;
     };
   };
 }

@@ -6,7 +6,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const AMRCHValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
     data,
@@ -31,24 +30,29 @@ const AMRCHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
+      PMD.qualifiers,
       PMD.categories
     ),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      ageGroups,
+      PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateTotalNDR(performanceMeasureArray),

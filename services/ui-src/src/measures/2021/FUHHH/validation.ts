@@ -6,7 +6,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const FUHHHValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
   const deviationArray = GV.getDeviationNDRArray(
@@ -20,7 +19,6 @@ const FUHHHValidation = (data: FormData) => {
     data,
     PMD.data.performanceMeasure
   );
-  const sixtyDaysIndex = 2;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
   let errorArray: any[] = [];
@@ -32,7 +30,7 @@ const FUHHHValidation = (data: FormData) => {
   let sameDenominatorError = [
     ...GV.validateEqualQualifierDenominatorsPM(
       performanceMeasureArray,
-      ageGroups
+      PMD.qualifiers
     ),
   ];
   sameDenominatorError =
@@ -43,7 +41,7 @@ const FUHHHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
     ...GV.validateAtLeastOneDataSource(data),
 
@@ -51,7 +49,7 @@ const FUHHHValidation = (data: FormData) => {
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
-      sixtyDaysIndex,
+      2,
       DefinitionOfDenominator
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
@@ -64,11 +62,16 @@ const FUHHHValidation = (data: FormData) => {
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
     ...sameDenominatorError,
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
     ...GV.validateTotalNDR(performanceMeasureArray),
     ...GV.validateOneCatRateHigherThanOtherCatPM(
       data,

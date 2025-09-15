@@ -7,7 +7,6 @@ import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const PQI05Validation = (data: FormData) => {
   const OPM = data[DC.OPM_RATES];
-  const ageGroups = PMD.qualifiers;
   const dateRange = data[DC.DATE_RANGE];
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
@@ -21,7 +20,6 @@ const PQI05Validation = (data: FormData) => {
     data.Deviations
   );
 
-  const age65PlusIndex = 0;
   const validateDualPopInformationArray = [
     performanceMeasureArray?.[0].filter((pm) => {
       return pm?.label === "Age 65 and older";
@@ -45,12 +43,6 @@ const PQI05Validation = (data: FormData) => {
       PMD.qualifiers,
       data
     ),
-    ...GV.validateDualPopInformationPM(
-      validateDualPopInformationArray,
-      OPM,
-      1,
-      ageGroups.map((item) => item.label)
-    ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
       PMD.qualifiers,
@@ -60,13 +52,13 @@ const PQI05Validation = (data: FormData) => {
     ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
-      age65PlusIndex,
+      0,
       definitionOfDenominator
     ),
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
+      PMD.qualifiers,
       PMD.categories
     ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),

@@ -19,7 +19,6 @@ const PQI01Validation = (data: FormData) => {
     data.DeviationOptions,
     data.Deviations
   );
-  const age65PlusIndex = 0;
   const definitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   let errorArray: any[] = [];
@@ -54,7 +53,7 @@ const PQI01Validation = (data: FormData) => {
     ...GV.validateDualPopInformationPM(
       validateDualPopInformationArray,
       OPM,
-      age65PlusIndex,
+      0,
       definitionOfDenominator
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(

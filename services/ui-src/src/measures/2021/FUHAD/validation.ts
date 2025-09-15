@@ -6,7 +6,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const FUHValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
@@ -33,7 +32,7 @@ const FUHValidation = (data: FormData) => {
       ...unfilteredSameDenominatorErrors,
       ...GV.validateEqualQualifierDenominatorsPM(
         [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
-        ageGroups
+        PMD.qualifiers
       ),
     ];
   }
@@ -52,13 +51,13 @@ const FUHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
+      PMD.qualifiers,
       PMD.categories
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
@@ -67,8 +66,13 @@ const FUHValidation = (data: FormData) => {
       DefinitionOfDenominator
     ),
     ...filteredSameDenominatorErrors,
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
@@ -76,7 +80,7 @@ const FUHValidation = (data: FormData) => {
     ...GV.validateOneCatRateHigherThanOtherCatPM(data, PMD),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      ageGroups,
+      PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),

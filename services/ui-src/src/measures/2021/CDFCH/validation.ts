@@ -6,8 +6,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 const CDFCHValidation = (data: FormData) => {
-  const ageGroups = PMD.qualifiers;
-  const age65PlusIndex = 1;
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
@@ -34,23 +32,28 @@ const CDFCHValidation = (data: FormData) => {
     ...GV.validateAtLeastOneRateComplete(
       performanceMeasureArray,
       OPM,
-      ageGroups,
+      PMD.qualifiers,
       PMD.categories
     ),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateDualPopInformationPM(
       performanceMeasureArray,
       OPM,
-      age65PlusIndex,
+      1,
       DefinitionOfDenominator
     ),
     ...GV.validateNumeratorsLessThanDenominatorsPM(
       performanceMeasureArray,
       OPM,
-      ageGroups
+      PMD.qualifiers
     ),
-    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, ageGroups),
-    ...GV.validateRateZeroPM(performanceMeasureArray, OPM, ageGroups, data),
+    ...GV.validateRateNotZeroPM(performanceMeasureArray, OPM, PMD.qualifiers),
+    ...GV.validateRateZeroPM(
+      performanceMeasureArray,
+      OPM,
+      PMD.qualifiers,
+      data
+    ),
     ...GV.validateRequiredRadioButtonForCombinedRates(data),
     ...GV.validateBothDatesCompleted(dateRange),
     ...GV.validateYearFormat(dateRange),
@@ -71,7 +74,7 @@ const CDFCHValidation = (data: FormData) => {
     }),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      ageGroups,
+      PMD.qualifiers,
       deviationArray,
       didCalculationsDeviate
     ),
