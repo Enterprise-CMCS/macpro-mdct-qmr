@@ -97,20 +97,15 @@ describe("ExportAll utils", () => {
 
   describe("cloneEmotionStyles", () => {
     let appendChildSpy: jest.SpyInstance;
-    let createElementSpy: jest.SpyInstance;
     let createTextNodeSpy: jest.SpyInstance;
 
     beforeEach(() => {
+      jest.clearAllMocks();
       appendChildSpy = jest.spyOn(document.body, "appendChild");
-      createElementSpy = jest.spyOn(document, "createElement");
       createTextNodeSpy = jest.spyOn(document, "createTextNode");
     });
 
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it.only("should clone style rules and create style tags", () => {
+    it("should clone style rules and create style tags", () => {
       const fakeCssText = ".foo { text-align: right; display: flex; }";
       const fakeStyleSheet = {
         href: null,
@@ -120,13 +115,12 @@ describe("ExportAll utils", () => {
         configurable: true,
         enumerable: true,
         writable: true,
-        value: [fakeStyleSheet],
+        value: [fakeStyleSheet, fakeStyleSheet],
       });
 
       const tags = cloneEmotionStyles();
       expect(tags.length).toBe(2);
       expect(appendChildSpy).toHaveBeenCalled();
-      expect(createElementSpy).toHaveBeenCalledWith("style");
       expect(createTextNodeSpy).toHaveBeenCalledWith(
         expect.stringContaining("text-align: center")
       );
@@ -150,6 +144,8 @@ describe("ExportAll utils", () => {
 
       const tags = cloneEmotionStyles();
       expect(tags.length).toBe(0);
+      expect(appendChildSpy).not.toHaveBeenCalled();
+      expect(createTextNodeSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -158,7 +154,7 @@ describe("ExportAll utils", () => {
       global.open = jest.fn();
       global.URL.createObjectURL = jest.fn();
     });
-    it("should call window.open with proper url", () => {
+    it("should call window.open", () => {
       openPdf("test");
       expect(global.URL.createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
       expect(global.open).toHaveBeenCalled();

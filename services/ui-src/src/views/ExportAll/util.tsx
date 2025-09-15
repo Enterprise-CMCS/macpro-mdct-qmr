@@ -26,7 +26,7 @@ export const openPdf = (basePdf: string) => {
  * Gather chakra css variables and make available for the body (prince issue seeing applied normally)
  * */
 export const cloneChakraVariables = () => {
-  for (let i = 0; i < document.styleSheets.length - 1; i++) {
+  for (let i = 0; i < document.styleSheets.length; i++) {
     if (
       !document.styleSheets[i].href &&
       document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
@@ -49,7 +49,7 @@ export const cloneEmotionStyles = (): HTMLStyleElement[] => {
 
   // gather all styles
   const cssRules = [];
-  for (let i = 0; i < document.styleSheets.length - 1; i++) {
+  for (let i = 0; i < document.styleSheets.length; i++) {
     if (!document.styleSheets[i].href) {
       let ruleString = "";
       const rules = document.styleSheets[i]?.cssRules ?? [];
