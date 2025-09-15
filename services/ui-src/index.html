@@ -19,11 +19,11 @@
     <!-- Tealium Analytics Tag Manager -->
     <script>
       window.utag_cfg_ovrd = { noview: true };
-      var tealiumEnvMap = {
+      const tealiumEnvMap = {
         "mdctqmr.cms.gov": "prod",
         "mdctqmrval.cms.gov": "qa",
       };
-      var tealiumEnv = tealiumEnvMap[window.location.hostname] || "dev";
+      const tealiumEnv = tealiumEnvMap[window.location.hostname] || "dev";
       // Load utag.sync.js
       (function () {
         const script = document.createElement("script");
