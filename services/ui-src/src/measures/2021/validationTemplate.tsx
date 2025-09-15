@@ -211,7 +211,7 @@ export const validationTemplate = (
         return GV.validateEqualCategoryDenominatorsPM(
           data,
           categories,
-          PMD.override?.validateEqualCategoryDenominatorsPM.qualifiers
+          PMD.override?.validateEqualCategoryDenominatorsPM?.qualifiers
         );
       default:
         throw new Error(
