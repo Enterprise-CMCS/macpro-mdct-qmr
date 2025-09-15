@@ -3,6 +3,7 @@ import {
   openPdf,
   getSpaName,
   htmlStringCleanup,
+  cloneChakraVariables,
 } from "./util";
 
 describe("ExportAll utils", () => {
@@ -86,11 +87,9 @@ describe("ExportAll utils", () => {
   describe("applyPrinceSpecificCss", () => {
     it("should create a new style tag", () => {
       const countBefore = document.body.querySelectorAll("style").length;
-
       applyPrinceSpecificCss();
 
       const countAfter = document.body.querySelectorAll("style").length;
-
       expect(countAfter).toBe(countBefore + 1);
     });
   });
@@ -104,6 +103,60 @@ describe("ExportAll utils", () => {
       openPdf("test");
       expect(global.URL.createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
       expect(global.open).toHaveBeenCalled();
+    });
+  });
+
+  describe("cloneChakraVariables", () => {
+    let originalStyleSheets: any;
+    let setAttributeSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      originalStyleSheets = Object.getOwnPropertyDescriptor(
+        document,
+        "styleSheets"
+      );
+      setAttributeSpy = jest.spyOn(document.body, "setAttribute");
+    });
+
+    afterEach(() => {
+      Object.defineProperty(document, "styleSheets", originalStyleSheets);
+      jest.clearAllMocks();
+    });
+
+    it("should set chakra variables on body when matching stylesheet is found", () => {
+      const fakeCssText = ":root { --chakra-colors-blue-100: #ebf8ff; }";
+      const fakeStyleSheet = {
+        href: null,
+        cssRules: [{ cssText: fakeCssText }],
+      };
+      Object.defineProperty(document, "styleSheets", {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: [fakeStyleSheet, fakeStyleSheet],
+      });
+
+      cloneChakraVariables();
+      expect(setAttributeSpy).toHaveBeenCalledWith(
+        "style",
+        expect.stringContaining("--chakra-colors-blue-100: #ebf8ff;")
+      );
+    });
+
+    it("should not set attribute if no matching stylesheet is found", () => {
+      const fakeStyleSheet = {
+        href: null,
+        cssRules: [{ cssText: ".not-chakra { color: #ebf8ff; }" }],
+      };
+      Object.defineProperty(document, "styleSheets", {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        value: [fakeStyleSheet],
+      });
+
+      cloneChakraVariables();
+      expect(setAttributeSpy).not.toHaveBeenCalled();
     });
   });
 });

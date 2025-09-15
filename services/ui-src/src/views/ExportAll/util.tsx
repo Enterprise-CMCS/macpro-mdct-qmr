@@ -12,7 +12,6 @@ interface HookProps {
 type PrinceHook = () => (props: HookProps) => Promise<void>;
 
 export const openPdf = (basePdf: string) => {
-  console.log("opening pdf", basePdf);
   let byteCharacters = atob(basePdf);
   let byteNumbers = new Array(byteCharacters.length);
   for (let i = 0; i < byteCharacters.length; i++) {
