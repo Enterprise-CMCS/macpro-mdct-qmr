@@ -80,7 +80,7 @@ export interface MeasureTemplateData {
       ageIndex: number;
       errorLabel?: string;
     };
-    validateEqualCategoryDenominatorsPM: {
+    validateEqualCategoryDenominatorsPM?: {
       qualifiers?: LabelData[];
     };
   };
