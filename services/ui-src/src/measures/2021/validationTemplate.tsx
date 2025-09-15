@@ -207,6 +207,12 @@ export const validationTemplate = (
           DefinitionOfDenominator,
           PMD.override?.validateDualPopInformationPM?.errorLabel
         );
+      case GV.validateEqualCategoryDenominatorsPM:
+        return GV.validateEqualCategoryDenominatorsPM(
+          data,
+          categories,
+          PMD.override?.validateEqualCategoryDenominatorsPM.qualifiers
+        );
       default:
         throw new Error(
           `Validation function ${func.name} not recognized! See validationTemplate.tsx`

@@ -2,6 +2,7 @@ import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/c
 import { DataDrivenTypes } from "./TypeDataDriven";
 import { CoreSetKey } from "./GlobalTypes";
 import * as GV from "shared/globalValidations";
+import { LabelData } from "utils";
 
 export interface customData {
   rateReadOnly?: boolean;
@@ -47,6 +48,7 @@ export const validationFunctions = [
   GV.validateEqualQualifierDenominatorsPM,
   GV.validateOneCatRateHigherThanOtherCatPM,
   GV.validateDualPopInformationPM,
+  GV.validateEqualCategoryDenominatorsPM,
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
@@ -77,6 +79,9 @@ export interface MeasureTemplateData {
       dualPopInfoArray?: boolean;
       ageIndex: number;
       errorLabel?: string;
+    };
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers?: LabelData[];
     };
   };
 }
