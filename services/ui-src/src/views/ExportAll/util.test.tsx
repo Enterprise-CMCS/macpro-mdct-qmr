@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   applyPrinceSpecificCss,
   openPdf,
@@ -5,8 +6,14 @@ import {
   htmlStringCleanup,
   cloneChakraVariables,
   cloneEmotionStyles,
+  usePrinceRequest,
 } from "./util";
+import { render } from "@testing-library/react";
 
+const mockGetPDF = jest.fn().mockResolvedValue("PDFDATA");
+jest.mock("libs/api", () => ({
+  getPDF: () => mockGetPDF(),
+}));
 describe("ExportAll utils", () => {
   describe("getSpaName", () => {
     const props = {
@@ -203,6 +210,20 @@ describe("ExportAll utils", () => {
 
       cloneChakraVariables();
       expect(setAttributeSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("usePrinceRequest", () => {
+    const TestComponent = (props: any) => {
+      const request = usePrinceRequest();
+      useEffect(() => {
+        request(props);
+      }, []);
+      return null;
+    };
+    it("should render and call the hook without error", async () => {
+      render(<TestComponent />);
+      expect(mockGetPDF).toHaveBeenCalled();
     });
   });
 });
