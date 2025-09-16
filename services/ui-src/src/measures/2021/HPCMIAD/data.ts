@@ -94,5 +94,8 @@ export const data: MeasureTemplateData = {
       ageIndex: 1,
       errorLabel: qualifiers[1].label,
     },
+    omsValidations: {
+      dataSource: true,
+    },
   },
 };

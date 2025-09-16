@@ -101,5 +101,8 @@ export const data: MeasureTemplateData = {
     validateEqualCategoryDenominatorsPM: {
       qualifiers,
     },
+    omsValidations: {
+      dataSource: true,
+    },
   },
 };

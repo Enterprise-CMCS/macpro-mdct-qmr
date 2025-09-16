@@ -370,6 +370,9 @@ export const validationTemplate = (
       data,
       qualifiers: qualifiers,
       categories: categories,
+      dataSource: PMD.override?.omsValidations?.dataSource //used in validateRateZeroOMS
+        ? data[DC.DATA_SOURCE]
+        : undefined,
       locationDictionary: GV.omsLocationDictionary(
         OMSData(2021, true),
         qualifiers,

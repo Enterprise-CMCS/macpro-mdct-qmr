@@ -37,5 +37,8 @@ export const data: MeasureTemplateData = {
       ageIndex: 1,
       errorLabel: "Ages 65 to 85",
     },
+    omsValidations: {
+      dataSource: true,
+    },
   },
 };

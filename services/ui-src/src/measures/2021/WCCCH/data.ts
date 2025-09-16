@@ -104,5 +104,8 @@ export const data: MeasureTemplateData = {
       category: false,
       errorMessage: true,
     },
+    omsValidations: {
+      dataSource: true,
+    },
   },
 };

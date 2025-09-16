@@ -92,5 +92,8 @@ export interface MeasureTemplateData {
     validateOneCatRateHigherThanOtherCatOMS?: {
       increment?: number;
     };
+    omsValidations?: {
+      dataSource: boolean;
+    };
   };
 }

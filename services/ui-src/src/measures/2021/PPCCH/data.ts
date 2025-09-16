@@ -96,4 +96,9 @@ export const data: MeasureTemplateData = {
     GV.validateBothDatesCompleted,
     GV.validateYearFormat,
   ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };
