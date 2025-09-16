@@ -5,47 +5,6 @@ import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
-/** For each qualifier the denominators neeed to be the same for both Initiaion and Engagement of the same category. */
-const sameDenominatorSets: GV.Types.OmsValidationCallback = ({
-  rateData,
-  locationDictionary,
-  categories,
-  qualifiers,
-  isOPM,
-  label,
-}) => {
-  if (isOPM) return [];
-  const errorArray: FormError[] = [];
-
-  for (const qual of qualifiers.map((s) => s.id)) {
-    for (let initiation = 0; initiation < categories.length; initiation += 2) {
-      const engagement = initiation + 1;
-      const initRate = rateData.rates?.[qual]?.[categories[initiation].id]?.[0];
-      const engageRate =
-        rateData.rates?.[qual]?.[categories[engagement].id]?.[0];
-
-      if (
-        initRate &&
-        initRate.denominator &&
-        engageRate &&
-        engageRate.denominator &&
-        initRate.denominator !== engageRate.denominator
-      ) {
-        errorArray.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qual]
-          )}`,
-          errorMessage: `Denominators must be the same for ${locationDictionary(
-            [categories[initiation].label]
-          )} and ${locationDictionary([categories[engagement].label])}.`,
-        });
-      }
-    }
-  }
-
-  return errorArray;
-};
-
 const IETHHValidation = (data: FormData) => {
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
   const OPM = data[DC.OPM_RATES];
@@ -148,7 +107,7 @@ const IETHHValidation = (data: FormData) => {
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
         GV.validateOMSTotalNDR(),
-        sameDenominatorSets,
+        GV.validateSameDenominatorSetsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],
     }),

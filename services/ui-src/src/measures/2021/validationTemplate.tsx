@@ -129,6 +129,8 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
         1,
         PMD.override?.validateOneCatRateHigherThanOtherCatOMS?.increment
       );
+    case GV.validateSameDenominatorSetsOMS:
+      return GV.validateSameDenominatorSetsOMS();
     default:
       throw new Error(
         `Validation function ${func.name} not recognized! See validationTemplate.tsx`
