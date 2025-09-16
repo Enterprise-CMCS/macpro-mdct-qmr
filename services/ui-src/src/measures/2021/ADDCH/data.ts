@@ -58,8 +58,6 @@ export const data: MeasureTemplateData = {
   validations: [
     GV.validateRequiredRadioButtonForCombinedRates,
     GV.validateAtLeastOneDeviationFieldFilled,
-    GV.validateRequiredRadioButtonForCombinedRates,
-    GV.validateAtLeastOneDeviationFieldFilled,
     GV.validateReasonForNotReporting,
     GV.validateAtLeastOneDataSource,
     GV.validateBothDatesCompleted,

@@ -105,11 +105,6 @@ const sortOMSValidations = (
 };
 
 const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
-  //Complex measures like AIF-HH & IU-HH requires unique OMS calls
-  if (PMD.performanceMeasure.measureName === "AIFHH") {
-  } else if (PMD.performanceMeasure.measureName === "IUHH") {
-  }
-
   switch (func) {
     case GV.validateNumeratorLessThanDenominatorOMS:
       return GV.validateNumeratorLessThanDenominatorOMS();
@@ -119,7 +114,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
       return GV.validateRateNotZeroOMS();
     case GV.validateOneQualDenomHigherThanOtherDenomOMS:
       return GV.validateOneQualDenomHigherThanOtherDenomOMS();
-    case GV.validateOMSTotalNDR():
+    case GV.validateOMSTotalNDR:
       return GV.validateOMSTotalNDR();
     case GV.validateEqualQualifierDenominatorsOMS:
       return GV.validateEqualQualifierDenominatorsOMS();
@@ -129,8 +124,15 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
         1,
         PMD.override?.validateOneCatRateHigherThanOtherCatOMS?.increment
       );
+    case GV.validateOneQualRateHigherThanOtherQualOMS:
+      return GV.validateOneQualRateHigherThanOtherQualOMS(
+        PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
+        PMD.override?.validateOneQualRateHigherThanOtherQual?.lowerIndex
+      );
     case GV.validateSameDenominatorSetsOMS:
       return GV.validateSameDenominatorSetsOMS();
+    case GV.validateEqualCategoryDenominatorsOMS:
+      return GV.validateEqualCategoryDenominatorsOMS();
     default:
       throw new Error(
         `Validation function ${func.name} not recognized! See validationTemplate.tsx`
@@ -146,8 +148,8 @@ export const validationTemplate = (
   data: FormData,
   PMD: MeasureTemplateData
 ) => {
-  const categories = PMD.performanceMeasure.categories!;
-  const qualifiers = PMD.performanceMeasure.qualifiers!;
+  const categories = PMD.performanceMeasure.categories ?? [];
+  const qualifiers = PMD.performanceMeasure.qualifiers ?? [];
 
   const performanceMeasureArray = GV.getPerfMeasureRateArray(
     data,
@@ -343,6 +345,13 @@ export const validationTemplate = (
           performanceMeasureArray,
           categories,
           PMD.performanceMeasure.ndrFormulas ?? []
+        );
+      case GV.validateOneQualRateHigherThanOtherQualPM:
+        return GV.validateOneQualRateHigherThanOtherQualPM(
+          data,
+          PMD,
+          PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
+          PMD.override?.validateOneQualRateHigherThanOtherQual?.lowerIndex
         );
       default:
         throw new Error(
