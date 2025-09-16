@@ -53,7 +53,6 @@
 // import { validationFunctions as FUHAD_Validations } from "./FUHAD/validation";
 
 import { validationFunctions } from "./validationTemplate";
-import { validationFunctions as AMRAD_Validations } from "./AMRAD/validation";
 import { validationFunctions as AIFHH_Validations } from "./AIFHH/validation";
 import { validationFunctions as IUHH_Validations } from "./IUHH/validation";
 import { validationFunctions as PCRAD_Validations } from "./PCRAD/validation";
@@ -147,7 +146,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "WCC-CH": { data: WCCCH_Data, validationFunctions: validationFunctions },
   "WCV-CH": { data: WCVCH_Data, validationFunctions: validationFunctions },
   "AMM-AD": { data: AMMAD_Data, validationFunctions: validationFunctions },
-  "AMR-AD": { data: AMRAD_Data, validationFunctions: AMRAD_Validations },
+  "AMR-AD": { data: AMRAD_Data, validationFunctions: validationFunctions },
   "BCS-AD": { data: BCSAD_Data, validationFunctions: validationFunctions },
   "CBP-AD": { data: CBPAD_Data, validationFunctions: validationFunctions },
   "CCP-AD": { data: CCPAD_Data, validationFunctions: validationFunctions },

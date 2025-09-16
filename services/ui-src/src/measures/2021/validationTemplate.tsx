@@ -140,6 +140,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
   }
 };
 
+//APM-CH & WCC-CH
 const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
   return `${fieldType} for the ${qualifier} Total rate is not equal to the sum of the ${qualifier} age-specific ${fieldType.toLowerCase()}s.`;
 };

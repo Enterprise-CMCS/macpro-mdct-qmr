@@ -5,7 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { Measure } from "./types";
 import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
