@@ -43,11 +43,5 @@ export const data: MeasureTemplateData = {
     GV.validateNumeratorsLessThanDenominatorsPM,
     GV.validateBothDatesCompleted,
     GV.validateYearFormat,
-    GV.validateDualPopInformationPM,
   ],
-  override: {
-    validateDualPopInformationPM: {
-      ageIndex: 1,
-    },
-  },
 };

@@ -350,7 +350,7 @@ export const validationTemplate = (
       case GV.validateOneQualRateHigherThanOtherQualPM:
         return GV.validateOneQualRateHigherThanOtherQualPM(
           data,
-          PMD,
+          PMD.performanceMeasure,
           PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
           PMD.override?.validateOneQualRateHigherThanOtherQual?.lowerIndex
         );
