@@ -1,63 +1,11 @@
-// import { validationFunctions as PQI92HH_Validations } from "./PQI92HH/validation";
-// import { validationFunctions as OUDHH_Validations } from "./OUDHH/validation";
-// import { validationFunctions as IETHH_Validations } from "./IETHH/validation";
-// import { validationFunctions as FUHHH_Validations } from "./FUHHH/validation";
-// import { validationFunctions as FUAHH_Validations } from "./FUAHH/validation";
-// import { validationFunctions as CDFHH_Validations } from "./CDFHH/validation";
-// import { validationFunctions as CBPHH_Validations } from "./CBPHH/validation";
-// import { validationFunctions as AMBHH_Validations } from "./AMBHH/validation";
-// import { validationFunctions as SSDAD_Validations } from "./SSDAD/validation";
-// import { validationFunctions as SAAAD_Validations } from "./SAAAD/validation";
-// import { validationFunctions as PQI15AD_Validations } from "./PQI15AD/validation";
-// import { validationFunctions as PQI08AD_Validations } from "./PQI08AD/validation";
-// import { validationFunctions as PQI05AD_Validations } from "./PQI05AD/validation";
-// import { validationFunctions as PQI01AD_Validations } from "./PQI01AD/validation";
-// import { validationFunctions as PPCAD_Validations } from "./PPCAD/validation";
-// import { validationFunctions as PC01AD_Validations } from "./PC01AD/validation";
-// import { validationFunctions as OUDAD_Validations } from "./OUDAD/validation";
-// import { validationFunctions as OHDAD_Validations } from "./OHDAD/validation";
 // import { validationFunctions as IETAD_Validations } from "./IETAD/validation";
-// import { validationFunctions as HVLAD_Validations } from "./HVLAD/validation";
-// import { validationFunctions as HPCMIAD_Validations } from "./HPCMIAD/validation";
-// import { validationFunctions as HPCAD_Validations } from "./HPCAD/validation";
-// import { validationFunctions as FVAAD_Validations } from "./FVAAD/validation";
-// import { validationFunctions as FUMAD_Validations } from "./FUMAD/validation";
-// import { validationFunctions as AMRCH_Validations } from "./AMRCH/validation";
-// import { validationFunctions as APMCH_Validations } from "./APMCH/validation";
-// import { validationFunctions as AUDCH_Validations } from "./AUDCH/validation";
-// import { validationFunctions as APPCH_Validations } from "./APPCH/validation";
-// import { validationFunctions as CCPCH_Validations } from "./CCPCH/validation";
-// import { validationFunctions as CCWCH_Validations } from "./CCWCH/validation";
-// import { validationFunctions as CDFCH_Validations } from "./CDFCH/validation";
-// import { validationFunctions as CHLCH_Validations } from "./CHLCH/validation";
-// import { validationFunctions as CISCH_Validations } from "./CISCH/validation";
-// import { validationFunctions as DEVCH_Validations } from "./DEVCH/validation";
-// import { validationFunctions as FUHCH_Validations } from "./FUHCH/validation";
-// import { validationFunctions as IMACH_Validations } from "./IMACH/validation";
-// import { validationFunctions as PPCCH_Validations } from "./PPCCH/validation";
-// import { validationFunctions as SFMCH_Validations } from "./SFMCH/validation";
-// import { validationFunctions as W30CH_Validations } from "./W30CH/validation";
-// import { validationFunctions as WCCCH_Validations } from "./WCCCH/validation";
-
-// import { validationFunctions as WCVCH_Validations } from "./WCVCH/validation";
-// import { validationFunctions as AMMAD_Validations } from "./AMMAD/validation";
-// import { validationFunctions as BCSAD_Validations } from "./BCSAD/validation";
-// import { validationFunctions as CBPAD_Validations } from "./CBPAD/validation";
-// import { validationFunctions as CCPAD_Validations } from "./CCPAD/validation";
-// import { validationFunctions as CCSAD_Validations } from "./CCSAD/validation";
-// import { validationFunctions as CCWAD_Validations } from "./CCWAD/validation";
-// import { validationFunctions as CDFAD_Validations } from "./CDFAD/validation";
-// import { validationFunctions as CHLAD_Validations } from "./CHLAD/validation";
-// import { validationFunctions as COBAD_Validations } from "./COBAD/validation";
-// import { validationFunctions as FUAAD_Validations } from "./FUAAD/validation";
-// import { validationFunctions as FUHAD_Validations } from "./FUHAD/validation";
+// import { validationFunctions as IETHH_Validations } from "./IETHH/validation";
 
 import { validationFunctions } from "./validationTemplate";
 import { validationFunctions as AIFHH_Validations } from "./AIFHH/validation";
 import { validationFunctions as IUHH_Validations } from "./IUHH/validation";
 import { validationFunctions as PCRAD_Validations } from "./PCRAD/validation";
 import { validationFunctions as PCRHH_Validations } from "./PCRHH/validation";
-import { validationFunctions as MSCAD_Validations } from "./MSCAD/validation";
 
 //child
 import { data as ADDCH_Data } from "./ADDCH/data";
@@ -163,7 +111,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "HPCMI-AD": { data: HPCMIAD_Data, validationFunctions: validationFunctions },
   "HVL-AD": { data: HVLAD_Data, validationFunctions: validationFunctions },
   "IET-AD": { data: IETAD_Data, validationFunctions: validationFunctions },
-  "MSC-AD": { data: MSCAD_Data, validationFunctions: MSCAD_Validations },
+  "MSC-AD": { data: MSCAD_Data, validationFunctions: validationFunctions },
   "OHD-AD": { data: OHDAD_Data, validationFunctions: validationFunctions },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: validationFunctions },
   "PC01-AD": { data: PC01AD_Data, validationFunctions: validationFunctions },
