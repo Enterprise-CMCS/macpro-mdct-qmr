@@ -73,7 +73,6 @@ export const data: MeasureTemplateData = {
     validateDualPopInformationPM: {
       dualPopInfoArray: true,
       ageIndex: 0,
-      errorLabel: qualifiers[1].label,
     },
   },
 };
