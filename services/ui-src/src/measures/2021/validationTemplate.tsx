@@ -138,37 +138,37 @@ const sortOMSValidations = (
 };
 
 const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
-  switch (func) {
-    case GV.validateNumeratorLessThanDenominatorOMS:
+  switch (func.name) {
+    case "validateNumeratorLessThanDenominatorOMS":
       return GV.validateNumeratorLessThanDenominatorOMS();
-    case GV.validateRateZeroOMS:
+    case "validateRateZeroOMS":
       return GV.validateRateZeroOMS();
-    case GV.validateRateNotZeroOMS:
+    case "validateRateNotZeroOMS":
       return GV.validateRateNotZeroOMS();
-    case GV.validateOneQualDenomHigherThanOtherDenomOMS:
+    case "validateOneQualDenomHigherThanOtherDenomOMS":
       return GV.validateOneQualDenomHigherThanOtherDenomOMS();
-    case GV.validateOMSTotalNDR:
+    case "validateOMSTotalNDR":
       return GV.validateOMSTotalNDR();
-    case GV.validateEqualQualifierDenominatorsOMS:
+    case "validateEqualQualifierDenominatorsOMS":
       return GV.validateEqualQualifierDenominatorsOMS();
-    case GV.validateOneCatRateHigherThanOtherCatOMS:
+    case "validateOneCatRateHigherThanOtherCatOMS":
       return GV.validateOneCatRateHigherThanOtherCatOMS(
         0,
         1,
         PMD.override?.validateOneCatRateHigherThanOtherCatOMS?.increment
       );
-    case GV.validateOneQualRateHigherThanOtherQualOMS:
+    case "validateOneQualRateHigherThanOtherQualOMS":
       return GV.validateOneQualRateHigherThanOtherQualOMS(
         PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
         PMD.override?.validateOneQualRateHigherThanOtherQual?.lowerIndex
       );
-    case GV.validateSameDenominatorSetsOMS:
+    case "validateSameDenominatorSetsOMS":
       return GV.validateSameDenominatorSetsOMS();
-    case GV.validateEqualCategoryDenominatorsOMS:
+    case "validateEqualCategoryDenominatorsOMS":
       return GV.validateEqualCategoryDenominatorsOMS();
     default:
       throw new Error(
-        `Validation function ${func.name} not recognized! See validationTemplate.tsx`
+        `OMS validation function ${func.name} not recognized! See validationTemplate.tsx`
       );
   }
 };
@@ -215,16 +215,16 @@ export const validationTemplate = (
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   const validationList = (func: ValidationFunction) => {
-    switch (func) {
-      case GV.validateReasonForNotReporting:
+    switch (func.name) {
+      case "validateReasonForNotReporting":
         return [];
-      case GV.validateRequiredRadioButtonForCombinedRates:
+      case "validateRequiredRadioButtonForCombinedRates":
         return GV.validateRequiredRadioButtonForCombinedRates(data);
-      case GV.validateBothDatesCompleted:
+      case "validateBothDatesCompleted":
         return GV.validateBothDatesCompleted(dateRange);
-      case GV.validateYearFormat:
+      case "validateYearFormat":
         return GV.validateYearFormat(dateRange);
-      case GV.validateAtLeastOneDeviationFieldFilled:
+      case "validateAtLeastOneDeviationFieldFilled":
         return GV.validateAtLeastOneDeviationFieldFilled(
           PMD.override?.validateAtLeastOneDeviationFieldFilled?.(data) ??
             performanceMeasureArray,
@@ -232,40 +232,40 @@ export const validationTemplate = (
           deviationArray,
           didCalculationsDeviate
         );
-      case GV.validateAtLeastOneDataSource:
+      case "validateAtLeastOneDataSource":
         return GV.validateAtLeastOneDataSource(data);
-      case GV.validateAtLeastOneRateComplete:
+      case "validateAtLeastOneRateComplete":
         return GV.validateAtLeastOneRateComplete(
           performanceMeasureArray,
           OPM,
           qualifiers,
           categories
         );
-      case GV.validateRateZeroPM:
+      case "validateRateZeroPM":
         return GV.validateRateZeroPM(
           performanceMeasureArray,
           OPM,
           qualifiers,
           data
         );
-      case GV.validateRateNotZeroPM:
+      case "validateRateNotZeroPM":
         return GV.validateRateNotZeroPM(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.validateNumeratorsLessThanDenominatorsPM:
+      case "validateNumeratorsLessThanDenominatorsPM":
         return GV.validateNumeratorsLessThanDenominatorsPM(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.validateOneQualDenomHigherThanOtherDenomPM:
+      case "validateOneQualDenomHigherThanOtherDenomPM":
         return GV.validateOneQualDenomHigherThanOtherDenomPM(data, {
           categories,
           qualifiers,
         });
-      case GV.validateTotalNDR:
+      case "validateTotalNDR":
         return GV.validateTotalNDR(
           performanceMeasureArray,
           undefined,
@@ -274,7 +274,7 @@ export const validationTemplate = (
             ? validateTotalNDRErrorMessage
             : undefined
         );
-      case GV.validateEqualQualifierDenominatorsPM:
+      case "validateEqualQualifierDenominatorsPM":
         //AMM-AD, FUH-AD, FUH-CH, IET-AD, IET-HH, SFM-CH, W30-CH
         if (PMD.override?.validateEqualQualifierDenominatorsPM?.category) {
           let unfilteredSameDenominatorErrors: any[] = [];
@@ -329,7 +329,7 @@ export const validationTemplate = (
             ? validateEqualQualifierDenominatorsErrorMessage
             : undefined
         );
-      case GV.validateOneCatRateHigherThanOtherCatPM:
+      case "validateOneCatRateHigherThanOtherCatPM":
         return GV.validateOneCatRateHigherThanOtherCatPM(
           data,
           PMD.performanceMeasure,
@@ -338,7 +338,7 @@ export const validationTemplate = (
           PMD.override?.validateOneCatRateHigherThanOtherCatPM?.increment ??
             undefined
         );
-      case GV.validateDualPopInformationPM:
+      case "validateDualPopInformationPM":
         return GV.validateDualPopInformationPM(
           PMD.override?.validateDualPopInformationPM?.dualPopInfoArray
             ? validateDualPopInformationArray
@@ -348,64 +348,64 @@ export const validationTemplate = (
           DefinitionOfDenominator,
           PMD.override?.validateDualPopInformationPM?.errorLabel
         );
-      case GV.validateEqualCategoryDenominatorsPM:
+      case "validateEqualCategoryDenominatorsPM":
         return GV.validateEqualCategoryDenominatorsPM(
           data,
           categories,
           PMD.override?.validateEqualCategoryDenominatorsPM?.qualifiers
         );
-      case GV.ComplexValidateDualPopInformation:
+      case "ComplexValidateDualPopInformation":
         return GV.ComplexValidateDualPopInformation(
           performanceMeasureArray,
           OPM,
           DefinitionOfDenominator
         );
-      case GV.ComplexAtLeastOneRateComplete:
+      case "ComplexAtLeastOneRateComplete":
         return GV.ComplexAtLeastOneRateComplete(performanceMeasureArray, OPM);
-      case GV.ComplexNoNonZeroNumOrDenom:
+      case "ComplexNoNonZeroNumOrDenom":
         return GV.ComplexNoNonZeroNumOrDenom(
           performanceMeasureArray,
           OPM,
           PMD.performanceMeasure.ndrFormulas ?? []
         );
-      case GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec:
+      case "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec":
         return GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
           performanceMeasureArray,
           PMD.performanceMeasure.ndrFormulas!,
           deviationArray,
           didCalculationsDeviate
         );
-      case GV.ComplexValidateNDRTotals:
+      case "ComplexValidateNDRTotals":
         return GV.ComplexValidateNDRTotals(
           performanceMeasureArray,
           categories,
           PMD.performanceMeasure.ndrFormulas ?? []
         );
-      case GV.validateOneQualRateHigherThanOtherQualPM:
+      case "validateOneQualRateHigherThanOtherQualPM":
         return GV.validateOneQualRateHigherThanOtherQualPM(
           data,
           PMD.performanceMeasure,
           PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
           PMD.override?.validateOneQualRateHigherThanOtherQual?.lowerIndex
         );
-      case GV.ComplexValueSameCrossCategory:
+      case "ComplexValueSameCrossCategory":
         return GV.ComplexValueSameCrossCategory({
           rateData: performanceMeasureArray,
           OPM,
         });
-      case GV.PCRatLeastOneRateComplete:
+      case "PCRatLeastOneRateComplete":
         return GV.PCRatLeastOneRateComplete(
           performanceMeasureArray,
           OPM,
           qualifiers
         );
-      case GV.PCRnoNonZeroNumOrDenom:
+      case "PCRnoNonZeroNumOrDenom":
         return GV.PCRnoNonZeroNumOrDenom(
           performanceMeasureArray,
           OPM,
           PMD.performanceMeasure.ndrFormulas ?? []
         );
-      case GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec:
+      case "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec":
         return GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
           performanceMeasureArray,
           PMD.performanceMeasure.ndrFormulas ?? [],
@@ -430,7 +430,7 @@ export const validationTemplate = (
   for (const validation of validations!.filter(
     (validation) => !validation.name.includes("OMS")
   )) {
-    errorArray.push(...validationList(validation));
+    errorArray.push(...(validationList(validation) ?? []));
   }
 
   errorArray.push(
