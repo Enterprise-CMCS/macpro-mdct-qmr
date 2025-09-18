@@ -75,8 +75,8 @@ export interface MeasureTemplateData {
   };
   validations?: ValidationFunction[]; //TO DO: remove question mark (?) once refactoring is finished
   override?: {
-    deviationFieldFilled?: Function;
-    validateTotalNDR?: { category: boolean; errorMessage: boolean };
+    validateAtLeastOneDeviationFieldFilled?: Function;
+    validateTotalNDR?: { categories: LabelData[]; errorMessage: boolean };
     validateEqualQualifierDenominatorsPM?: {
       category: boolean;
       errorMessage: boolean;

@@ -226,7 +226,8 @@ export const validationTemplate = (
         return GV.validateYearFormat(dateRange);
       case GV.validateAtLeastOneDeviationFieldFilled:
         return GV.validateAtLeastOneDeviationFieldFilled(
-          PMD.override?.deviationFieldFilled?.(data) ?? performanceMeasureArray,
+          PMD.override?.validateAtLeastOneDeviationFieldFilled?.(data) ??
+            performanceMeasureArray,
           qualifiers,
           deviationArray,
           didCalculationsDeviate
@@ -268,7 +269,7 @@ export const validationTemplate = (
         return GV.validateTotalNDR(
           performanceMeasureArray,
           undefined,
-          PMD.override?.validateTotalNDR?.category ? categories : undefined,
+          PMD.override?.validateTotalNDR?.categories,
           PMD.override?.validateTotalNDR?.errorMessage
             ? validateTotalNDRErrorMessage
             : undefined

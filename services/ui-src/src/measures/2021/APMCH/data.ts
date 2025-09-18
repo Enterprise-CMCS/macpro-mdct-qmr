@@ -42,7 +42,7 @@ export const data: MeasureTemplateData = {
     GV.validateYearFormat,
   ],
   override: {
-    validateTotalNDR: { category: true, errorMessage: true },
+    validateTotalNDR: { categories, errorMessage: true },
     validateEqualQualifierDenominatorsPM: {
       category: false,
       errorMessage: true,

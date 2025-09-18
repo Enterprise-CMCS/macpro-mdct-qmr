@@ -1,4 +1,3 @@
-import { DataDrivenTypes } from "shared/types";
 import { getCatQualLabels } from "../rateLabelText";
 import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";

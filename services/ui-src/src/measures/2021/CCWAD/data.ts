@@ -23,7 +23,7 @@ export const data: MeasureTemplateData = {
     excludeOptions: ["Sex"],
   },
   override: {
-    deviationFieldFilled: (data: FormData) => {
+    validateAtLeastOneDeviationFieldFilled: (data: FormData) => {
       const memeRates =
         data.PerformanceMeasure?.rates?.[categories[0].id] ?? [];
       const larcRates =
