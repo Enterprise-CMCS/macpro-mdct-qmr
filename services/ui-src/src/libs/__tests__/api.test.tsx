@@ -25,7 +25,7 @@ const mockAmplifyAuth = require("aws-amplify/auth");
 const mockApiResponse = {
   response: {
     body: {
-      text: () => Promise.resolve('{"key":"value"}'), // or Promise.resolve("")
+      text: () => Promise.resolve('{"key":"value"}'),
     },
   },
 };
