@@ -19,34 +19,16 @@ import {
   getMeasureListInfo,
 } from "../api";
 
-const mockResponse = {
+const mockAmplifyApi = require("aws-amplify/api");
+const mockAmplifyAuth = require("aws-amplify/auth");
+
+const mockApiResponse = {
   response: {
     body: {
       text: () => Promise.resolve('{"key":"value"}'), // or Promise.resolve("")
     },
   },
 };
-const mockGet = jest.fn().mockReturnValue(mockResponse);
-const mockPost = jest.fn().mockReturnValue(mockResponse);
-const mockPut = jest.fn().mockReturnValue(mockResponse);
-const mockDel = jest.fn().mockReturnValue(mockResponse);
-
-jest.mock("aws-amplify/api", () => ({
-  get: () => mockGet(),
-  post: () => mockPost(),
-  put: () => mockPut(),
-  del: () => mockDel(),
-}));
-
-const mockfetchAuthSession = jest
-  .fn()
-  .mockReturnValue({ tokens: { idToken: "mockToken" } });
-const mockSignOut = jest.fn();
-
-jest.mock("aws-amplify/auth", () => ({
-  fetchAuthSession: () => mockfetchAuthSession(),
-  signOut: () => mockSignOut(),
-}));
 
 const mockInputObj = {
   state: "DC",
@@ -61,8 +43,34 @@ const mockBannerData = {
 } as AdminBannerData;
 
 describe("API library", () => {
+  const mockGet = jest
+    .spyOn(mockAmplifyApi, "get")
+    .mockReturnValue(mockApiResponse);
+  const mockPost = jest
+    .spyOn(mockAmplifyApi, "post")
+    .mockReturnValue(mockApiResponse);
+  const mockPut = jest
+    .spyOn(mockAmplifyApi, "put")
+    .mockReturnValue(mockApiResponse);
+  const mockDel = jest
+    .spyOn(mockAmplifyApi, "del")
+    .mockReturnValue(mockApiResponse);
+  const mockFetchAuthSession = jest
+    .spyOn(mockAmplifyAuth, "fetchAuthSession")
+    .mockReturnValue({ tokens: { idToken: "mockToken" } });
+  const mockSignOut = jest
+    .spyOn(mockAmplifyAuth, "signOut")
+    .mockReturnValue(undefined);
+
   beforeEach(() => {
     jest.clearAllMocks();
+    Object.defineProperty(window, "location", {
+      writable: true,
+      value: {
+        href: "href",
+        origin: "http://localhost",
+      },
+    });
   });
 
   test("listMeasures", async () => {
@@ -148,5 +156,21 @@ describe("API library", () => {
   test("getMeasureListInfo", async () => {
     await getMeasureListInfo(mockInputObj);
     expect(mockGet).toHaveBeenCalledTimes(1);
+  });
+
+  test("should handle fetchAuthSession error", async () => {
+    mockFetchAuthSession.mockImplementationOnce(() => {
+      throw new Error("test error");
+    });
+    await expect(listMeasures(mockInputObj)).rejects.toThrow();
+    expect(mockSignOut).toHaveBeenCalledTimes(1);
+    expect(window.location.href).toEqual(window.location.origin);
+  });
+
+  test("should handle apiRequest error", async () => {
+    mockGet.mockImplementationOnce(() => {
+      throw new Error("test error");
+    });
+    await expect(listMeasures(mockInputObj)).rejects.toThrow();
   });
 });
