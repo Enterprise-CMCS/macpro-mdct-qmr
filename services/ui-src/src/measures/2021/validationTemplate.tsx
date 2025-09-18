@@ -14,7 +14,7 @@ const sortOMSValidations = (
   OPM: OtherRatesFields[],
   PMD: MeasureTemplateData
 ) => {
-  const omsAIFHHValidations: GV.Types.OmsValidationCallback = ({
+  const AIFHHValidationsOMS: GV.Types.OmsValidationCallback = ({
     rateData,
     locationDictionary,
     label,
@@ -49,7 +49,7 @@ const sortOMSValidations = (
         ];
   };
 
-  const omsIUHHValidation: GV.Types.OmsValidationCallback = ({
+  const IUHHValidationOMS: GV.Types.OmsValidationCallback = ({
     rateData,
     locationDictionary,
     label,
@@ -91,10 +91,43 @@ const sortOMSValidations = (
         ];
   };
 
+  const PCRValidationOMS: GV.Types.OmsValidationCallback = ({
+    rateData,
+    locationDictionary,
+    label,
+    qualifiers,
+  }) => {
+    const rates = Object.keys(rateData?.rates ?? {}).map((x) => {
+      return { rate: [rateData?.rates?.[x].OPM[0]] };
+    });
+    return [
+      ...GV.PCRnoNonZeroNumOrDenom(
+        [rateData?.["pcr-rate"] ?? []],
+        rates ?? [],
+        PMD.performanceMeasure.ndrFormulas ?? [],
+        `Optional Measure Stratification: ${locationDictionary(label)}`
+      ),
+      ...GV.PCRatLeastOneRateComplete(
+        [rateData?.["pcr-rate"] ?? []],
+        rates ?? [],
+        qualifiers,
+        `Optional Measure Stratification: ${locationDictionary(label)}`,
+        true
+      ),
+    ];
+  };
+
+  //these are complex measures so they have their own unique oms validation calls
   if (PMD.performanceMeasure.measureName === "AIFHH")
-    return [omsAIFHHValidations];
+    return [AIFHHValidationsOMS];
   else if (PMD.performanceMeasure.measureName === "IUHH")
-    return [omsIUHHValidation];
+    return [IUHHValidationOMS];
+  else if (
+    PMD.performanceMeasure.measureName === "PCRAD" ||
+    PMD.performanceMeasure.measureName === "PCRHH"
+  ) {
+    return [PCRValidationOMS];
+  }
 
   //oms validation functions are called a little differently so we need to filter them out
   const omsCallbacks = PMD.validations!.filter((validation) =>
@@ -353,6 +386,30 @@ export const validationTemplate = (
           PMD.performanceMeasure,
           PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
           PMD.override?.validateOneQualRateHigherThanOtherQual?.lowerIndex
+        );
+      case GV.ComplexValueSameCrossCategory:
+        return GV.ComplexValueSameCrossCategory({
+          rateData: performanceMeasureArray,
+          OPM,
+        });
+      case GV.PCRatLeastOneRateComplete:
+        return GV.PCRatLeastOneRateComplete(
+          performanceMeasureArray,
+          OPM,
+          qualifiers
+        );
+      case GV.PCRnoNonZeroNumOrDenom:
+        return GV.PCRnoNonZeroNumOrDenom(
+          performanceMeasureArray,
+          OPM,
+          PMD.performanceMeasure.ndrFormulas ?? []
+        );
+      case GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec:
+        return GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
+          performanceMeasureArray,
+          PMD.performanceMeasure.ndrFormulas ?? [],
+          deviationArray,
+          didCalculationsDeviate
         );
       default:
         throw new Error(

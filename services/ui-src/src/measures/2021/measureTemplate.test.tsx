@@ -23,7 +23,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "CCW-AD";
 const coreSet = "ACS";
 const state = "AL";
-const year = 2022;
+const year = 2021;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 

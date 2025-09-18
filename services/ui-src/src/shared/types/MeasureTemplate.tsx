@@ -55,6 +55,9 @@ export const validationFunctions = [
   GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
   GV.ComplexValidateNDRTotals,
   GV.validateSameDenominatorSetsOMS,
+  GV.PCRatLeastOneRateComplete,
+  GV.PCRnoNonZeroNumOrDenom,
+  GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec,
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];

@@ -91,5 +91,6 @@ export const data: MeasureTemplateData = {
     GV.ComplexNoNonZeroNumOrDenom,
     GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
     GV.ComplexValidateNDRTotals,
+    GV.ComplexValueSameCrossCategory,
   ],
 };

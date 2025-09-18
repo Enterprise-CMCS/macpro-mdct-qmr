@@ -1,11 +1,4 @@
-// import { validationFunctions as IETAD_Validations } from "./IETAD/validation";
-// import { validationFunctions as IETHH_Validations } from "./IETHH/validation";
-
 import { validationFunctions } from "./validationTemplate";
-import { validationFunctions as AIFHH_Validations } from "./AIFHH/validation";
-import { validationFunctions as IUHH_Validations } from "./IUHH/validation";
-import { validationFunctions as PCRAD_Validations } from "./PCRAD/validation";
-import { validationFunctions as PCRHH_Validations } from "./PCRHH/validation";
 
 //child
 import { data as ADDCH_Data } from "./ADDCH/data";
@@ -115,7 +108,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "OHD-AD": { data: OHDAD_Data, validationFunctions: validationFunctions },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: validationFunctions },
   "PC01-AD": { data: PC01AD_Data, validationFunctions: validationFunctions },
-  "PCR-AD": { data: PCRAD_Data, validationFunctions: PCRAD_Validations },
+  "PCR-AD": { data: PCRAD_Data, validationFunctions: validationFunctions },
   "PPC-AD": { data: PPCAD_Data, validationFunctions: validationFunctions },
   "PQI01-AD": { data: PQI01AD_Data, validationFunctions: validationFunctions },
   "PQI05-AD": { data: PQI05AD_Data, validationFunctions: validationFunctions },
@@ -123,15 +116,15 @@ export const measureTemplateData: { [measure: string]: any } = {
   "PQI15-AD": { data: PQI15AD_Data, validationFunctions: validationFunctions },
   "SAA-AD": { data: SAAAD_Data, validationFunctions: validationFunctions },
   "SSD-AD": { data: SSDAD_Data, validationFunctions: validationFunctions },
-  "AIF-HH": { data: AIFHH_Data, validationFunctions: AIFHH_Validations },
+  "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },
   "AMB-HH": { data: AMBHH_Data, validationFunctions: validationFunctions },
   "CBP-HH": { data: CBPHH_Data, validationFunctions: validationFunctions },
   "CDF-HH": { data: CDFHH_Data, validationFunctions: validationFunctions },
   "FUA-HH": { data: FUAHH_Data, validationFunctions: validationFunctions },
   "FUH-HH": { data: FUHHH_Data, validationFunctions: validationFunctions },
   "IET-HH": { data: IETHH_Data, validationFunctions: validationFunctions },
-  "IU-HH": { data: IUHH_Data, validationFunctions: IUHH_Validations },
+  "IU-HH": { data: IUHH_Data, validationFunctions: validationFunctions },
   "OUD-HH": { data: OUDHH_Data, validationFunctions: validationFunctions },
-  "PCR-HH": { data: PCRHH_Data, validationFunctions: PCRHH_Validations },
+  "PCR-HH": { data: PCRHH_Data, validationFunctions: validationFunctions },
   "PQI92-HH": { data: PQI92HH_Data, validationFunctions: validationFunctions },
 };
