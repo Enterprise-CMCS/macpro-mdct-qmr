@@ -1,3 +1,4 @@
+import { isLegacyLabel } from "utils";
 import { OmsValidationCallback } from "../../types/TypeValidations";
 
 export const validateSameDenominatorSets =
@@ -51,17 +52,21 @@ export const validateSameDenominatorSetsOMS =
     if (isOPM) return [];
     const errorArray: FormError[] = [];
 
-    for (const qual of qualifiers.map((s) => s.id)) {
+    //order gets swapped when >= 2023
+    const trueQualifiers = isLegacyLabel() ? qualifiers : categories;
+    const trueCategory = isLegacyLabel() ? categories : qualifiers;
+
+    for (const qual of trueQualifiers.map((s) => s.id)) {
       for (
         let initiation = 0;
-        initiation < categories.length;
+        initiation < trueCategory.length;
         initiation += 2
       ) {
         const engagement = initiation + 1;
         const initRate =
-          rateData.rates?.[qual]?.[categories[initiation].id]?.[0];
+          rateData.rates?.[qual]?.[trueCategory[initiation].id]?.[0];
         const engageRate =
-          rateData.rates?.[qual]?.[categories[engagement].id]?.[0];
+          rateData.rates?.[qual]?.[trueCategory[engagement].id]?.[0];
 
         if (
           initRate &&
