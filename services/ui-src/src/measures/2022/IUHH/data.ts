@@ -1,5 +1,6 @@
 import { ComplexRate } from "components";
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import { xNumbersYDecimals } from "utils";
 
@@ -79,4 +80,11 @@ export const data: MeasureTemplateData = {
   opm: {
     componentFlag: "IU",
   },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateBothDatesCompleted,
+    GV.validateYearFormat,
+  ],
 };

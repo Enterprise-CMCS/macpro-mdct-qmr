@@ -1,4 +1,5 @@
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("SFM-CH");
@@ -17,4 +18,22 @@ export const data: MeasureTemplateData = {
   custom: {
     showtextbox: true,
   },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateReasonForNotReporting,
+    GV.validateOneQualRateHigherThanOtherQualOMS,
+    GV.validateOneQualRateHigherThanOtherQualPM,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateNumeratorLessThanDenominatorOMS,
+    GV.validateNumeratorsLessThanDenominatorsPM,
+    GV.validateBothDatesCompleted,
+    GV.validateEqualQualifierDenominatorsPM,
+    GV.validateYearFormat,
+  ],
 };

@@ -1,4 +1,5 @@
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import * as DC from "dataConstants";
 
@@ -38,4 +39,19 @@ export const data: MeasureTemplateData = {
   opm: {
     excludeOptions: ["Sex"],
   },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateNumeratorLessThanDenominatorOMS,
+    GV.validateNumeratorsLessThanDenominatorsPM,
+    GV.validateBothDatesCompleted,
+    GV.validateYearFormat,
+  ],
 };

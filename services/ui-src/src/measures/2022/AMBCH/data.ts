@@ -1,4 +1,5 @@
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 export const { categories, qualifiers } = getCatQualLabels("AMB-CH");
@@ -19,4 +20,21 @@ export const data: MeasureTemplateData = {
     customMask: positiveNumbersWithMaxDecimalPlaces(1),
     allowNumeratorGreaterThanDenominator: true,
   },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateOneCatRateHigherThanOtherCatOMS,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateBothDatesCompleted,
+    GV.validateOMSTotalNDR,
+    GV.validateTotalNDR,
+    GV.validateEqualQualifierDenominatorsOMS,
+    GV.validateYearFormat,
+  ],
 };
