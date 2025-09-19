@@ -52,4 +52,9 @@ export const data: MeasureTemplateData = {
     GV.validateYearFormat,
     GV.validateDualPopInformationPM,
   ],
+  override: {
+    validateDualPopInformationPM: {
+      ageIndex: 1,
+    },
+  },
 };

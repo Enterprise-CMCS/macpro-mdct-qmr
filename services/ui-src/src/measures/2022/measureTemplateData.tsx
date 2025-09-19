@@ -1,6 +1,5 @@
 import { validationFunctions } from "./validationTemplate";
 
-import { validationFunctions as AABAD_Validations } from "./AABAD/validation";
 import { validationFunctions as AMBHH_Validations } from "./AMBHH/validation";
 import { validationFunctions as CBPHH_Validations } from "./CBPHH/validation";
 import { validationFunctions as CCPCH_Validations } from "./CCPCH/validation";
@@ -82,7 +81,7 @@ import { data as WCCCH_Data } from "./WCCCH/data";
 import { data as WCVCH_Data } from "./WCVCH/data";
 
 export const measureTemplateData: { [measure: string]: any } = {
-  "AAB-AD": { data: AABAD_Data, validationFunctions: AABAD_Validations },
+  "AAB-AD": { data: AABAD_Data, validationFunctions: validationFunctions },
   "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },
   "AMB-CH": { data: AMBCH_Data, validationFunctions: validationFunctions },

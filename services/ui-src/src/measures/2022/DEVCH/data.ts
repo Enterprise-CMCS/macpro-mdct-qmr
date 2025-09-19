@@ -73,4 +73,9 @@ export const data: MeasureTemplateData = {
     GV.validateTotalNDR,
     GV.validateYearFormat,
   ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };

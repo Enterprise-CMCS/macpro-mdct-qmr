@@ -58,4 +58,19 @@ export const data: MeasureTemplateData = {
     GV.validateYearFormat,
     GV.validateDualPopInformationPM,
   ],
+  override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: true,
+    },
+    validateOneCatRateHigherThanOtherCatPM: {
+      increment: 2,
+    },
+    validateOneCatRateHigherThanOtherCatOMS: {
+      increment: 2,
+    },
+    validateDualPopInformationPM: {
+      ageIndex: 1,
+    },
+  },
 };
