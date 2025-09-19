@@ -1,20 +1,12 @@
 import { validationFunctions } from "./validationTemplate";
 
-import { validationFunctions as AMBHH_Validations } from "./AMBHH/validation";
-import { validationFunctions as CBPHH_Validations } from "./CBPHH/validation";
-import { validationFunctions as CCPCH_Validations } from "./CCPCH/validation";
 import { validationFunctions as CCWAD_Validations } from "./CCWAD/validation";
 import { validationFunctions as COLAD_Validations } from "./COLAD/validation";
 import { validationFunctions as COLHH_Validations } from "./COLHH/validation";
 import { validationFunctions as FUACH_Validations } from "./FUACH/validation";
-import { validationFunctions as FUAHH_Validations } from "./FUAHH/validation";
-import { validationFunctions as FUHHH_Validations } from "./FUHHH/validation";
 import { validationFunctions as FUMCH_Validations } from "./FUMCH/validation";
 import { validationFunctions as FUMHH_Validations } from "./FUMHH/validation";
-import { validationFunctions as FVAAD_Validations } from "./FVAAD/validation";
-import { validationFunctions as IETHH_Validations } from "./IETHH/validation";
 import { validationFunctions as OEVCH_Validations } from "./OEVCH/validation";
-import { validationFunctions as PQI92HH_Validations } from "./PQI92HH/validation";
 import { validationFunctions as TFLCH_Validations } from "./TFLCH/validation";
 
 import { data as AABAD_Data } from "./AABAD/data";
@@ -85,16 +77,16 @@ export const measureTemplateData: { [measure: string]: any } = {
   "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },
   "AMB-CH": { data: AMBCH_Data, validationFunctions: validationFunctions },
-  "AMB-HH": { data: AMBHH_Data, validationFunctions: AMBHH_Validations },
+  "AMB-HH": { data: AMBHH_Data, validationFunctions: validationFunctions },
   "AMM-AD": { data: AMMAD_Data, validationFunctions: validationFunctions },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: validationFunctions },
   "APM-CH": { data: APMCH_Data, validationFunctions: validationFunctions },
   "APP-CH": { data: APPCH_Data, validationFunctions: validationFunctions },
   "BCS-AD": { data: BCSAD_Data, validationFunctions: validationFunctions },
   "CBP-AD": { data: CBPAD_Data, validationFunctions: validationFunctions },
-  "CBP-HH": { data: CBPHH_Data, validationFunctions: CBPHH_Validations },
+  "CBP-HH": { data: CBPHH_Data, validationFunctions: validationFunctions },
   "CCP-AD": { data: CCPAD_Data, validationFunctions: validationFunctions },
-  "CCP-CH": { data: CCPCH_Data, validationFunctions: CCPCH_Validations },
+  "CCP-CH": { data: CCPCH_Data, validationFunctions: validationFunctions },
   "CCS-AD": { data: CCSAD_Data, validationFunctions: validationFunctions },
   "CCW-AD": { data: CCWAD_Data, validationFunctions: CCWAD_Validations },
   "CCW-CH": { data: CCWCH_Data, validationFunctions: validationFunctions },
@@ -110,14 +102,14 @@ export const measureTemplateData: { [measure: string]: any } = {
   "DEV-CH": { data: DEVCH_Data, validationFunctions: validationFunctions },
   "FUA-AD": { data: FUAAD_Data, validationFunctions: validationFunctions },
   "FUA-CH": { data: FUACH_Data, validationFunctions: FUACH_Validations },
-  "FUA-HH": { data: FUAHH_Data, validationFunctions: FUAHH_Validations },
+  "FUA-HH": { data: FUAHH_Data, validationFunctions: validationFunctions },
   "FUH-AD": { data: FUHAD_Data, validationFunctions: validationFunctions },
   "FUH-CH": { data: FUHCH_Data, validationFunctions: validationFunctions },
-  "FUH-HH": { data: FUHHH_Data, validationFunctions: FUHHH_Validations },
+  "FUH-HH": { data: FUHHH_Data, validationFunctions: validationFunctions },
   "FUM-AD": { data: FUMAD_Data, validationFunctions: validationFunctions },
   "FUM-CH": { data: FUMCH_Data, validationFunctions: FUMCH_Validations },
   "FUM-HH": { data: FUMHH_Data, validationFunctions: FUMHH_Validations },
-  "FVA-AD": { data: FVAAD_Data, validationFunctions: FVAAD_Validations },
+  "FVA-AD": { data: FVAAD_Data, validationFunctions: validationFunctions },
   "HPC-AD": { data: HPCAD_Data, validationFunctions: validationFunctions },
   "HPCMI-AD": { data: HPCMIAD_Data, validationFunctions: validationFunctions },
   "HVL-AD": { data: HVLAD_Data, validationFunctions: validationFunctions },
@@ -135,7 +127,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "PQI05-AD": { data: PQI05AD_Data, validationFunctions: validationFunctions },
   "PQI08-AD": { data: PQI08AD_Data, validationFunctions: validationFunctions },
   "PQI15-AD": { data: PQI15AD_Data, validationFunctions: validationFunctions },
-  "PQI92-HH": { data: PQI92HH_Data, validationFunctions: PQI92HH_Validations },
+  "PQI92-HH": { data: PQI92HH_Data, validationFunctions: validationFunctions },
   "SAA-AD": { data: SAAAD_Data, validationFunctions: validationFunctions },
   "SFM-CH": { data: SFMCH_Data, validationFunctions: validationFunctions },
   "SSD-AD": { data: SSDAD_Data, validationFunctions: validationFunctions },

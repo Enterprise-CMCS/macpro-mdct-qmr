@@ -42,4 +42,10 @@ export const data: MeasureTemplateData = {
     GV.validateEqualCategoryDenominatorsPM,
     GV.validateYearFormat,
   ],
+  override: {
+    validateOneQualRateHigherThanOtherQual: {
+      higherIndex: 1,
+      lowerIndex: 0,
+    },
+  },
 };
