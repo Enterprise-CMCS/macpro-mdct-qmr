@@ -2,6 +2,7 @@ import { LabelData } from "utils";
 import { ndrFormula } from "types";
 import * as DC from "dataConstants";
 import { RateFields } from "./TypeRateFields";
+import { ValidationFunction } from "./MeasureTemplate";
 
 export interface Props {
   data: PerformanceMeasureData;
@@ -50,6 +51,7 @@ export interface PerformanceMeasureData {
   questionListTitles?: string[];
   questionSubtext?: string[];
   questionSubtextTitles?: string[];
+  validations?: ValidationFunction[];
 }
 
 export type PerformanceMeasureRate = {

@@ -1,5 +1,6 @@
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("CIS-CH");
@@ -80,5 +81,26 @@ export const data: MeasureTemplateData = {
         description: true,
       },
     ],
+  },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateNumeratorLessThanDenominatorOMS,
+    GV.validateNumeratorsLessThanDenominatorsPM,
+    GV.validateBothDatesCompleted,
+    GV.validateEqualCategoryDenominatorsPM,
+    GV.validateYearFormat,
+  ],
+  override: {
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
   },
 };
