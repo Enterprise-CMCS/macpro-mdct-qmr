@@ -103,10 +103,10 @@ export const ComplexValidateNDRTotals = (
     ) {
       errorArray.push({
         errorLocation: `${errorLocation} - ${
-          categories[i].label ? categories[i].label : ""
+          categories[i]?.label ? categories[i].label : ""
         }`,
         errorMessage: `Total ${
-          categories[i].label ? categories[i].label : ""
+          categories[i]?.label ? categories[i].label : ""
         } must contain values if other fields are filled.`,
       });
     } else {
@@ -118,12 +118,12 @@ export const ComplexValidateNDRTotals = (
         ) {
           errorArray.push({
             errorLocation: `${errorLocation} - ${
-              categories[i].label ? categories[i].label : ""
+              categories[i]?.label ? categories[i].label : ""
             }`,
             errorMessage: `Total ${
               field.label
             } is not equal to the sum of other "${field.label}" fields in ${
-              categories[i].label ? categories[i].label : ""
+              categories[i]?.label ? categories[i].label : ""
             } section.`,
           });
         }

@@ -1,4 +1,5 @@
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import * as DC from "dataConstants";
 
@@ -53,5 +54,28 @@ export const data: MeasureTemplateData = {
   custom: {
     calcTotal: true,
     customTotalLabel: "Children Total",
+  },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateOneCatRateHigherThanOtherCatOMS,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateNumeratorLessThanDenominatorOMS,
+    GV.validateNumeratorsLessThanDenominatorsPM,
+    GV.validateBothDatesCompleted,
+    GV.validateOMSTotalNDR,
+    GV.validateTotalNDR,
+    GV.validateYearFormat,
+  ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
   },
 };

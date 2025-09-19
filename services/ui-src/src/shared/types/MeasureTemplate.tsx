@@ -2,6 +2,7 @@ import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/c
 import { DataDrivenTypes } from "./TypeDataDriven";
 import { CoreSetKey } from "./GlobalTypes";
 import * as GV from "shared/globalValidations";
+import { LabelData } from "utils";
 
 export interface customData {
   rateReadOnly?: boolean;
@@ -41,6 +42,22 @@ export const validationFunctions = [
   GV.validateRateNotZeroOMS,
   GV.validateNumeratorLessThanDenominatorOMS,
   GV.validateOneQualDenomHigherThanOtherDenomOMS,
+  GV.validateOMSTotalNDR,
+  GV.validateOneCatRateHigherThanOtherCatOMS,
+  GV.validateTotalNDR,
+  GV.validateEqualQualifierDenominatorsPM,
+  GV.validateOneCatRateHigherThanOtherCatPM,
+  GV.validateDualPopInformationPM,
+  GV.validateEqualCategoryDenominatorsPM,
+  GV.ComplexValidateDualPopInformation,
+  GV.ComplexAtLeastOneRateComplete,
+  GV.ComplexNoNonZeroNumOrDenom,
+  GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
+  GV.ComplexValidateNDRTotals,
+  GV.validateSameDenominatorSetsOMS,
+  GV.PCRatLeastOneRateComplete,
+  GV.PCRnoNonZeroNumOrDenom,
+  GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec,
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
@@ -57,4 +74,33 @@ export interface MeasureTemplateData {
     componentFlag?: ComponentFlagType;
   };
   validations?: ValidationFunction[]; //TO DO: remove question mark (?) once refactoring is finished
+  override?: {
+    validateAtLeastOneDeviationFieldFilled?: Function;
+    validateTotalNDR?: { categories: LabelData[]; errorMessage: boolean };
+    validateEqualQualifierDenominatorsPM?: {
+      category: boolean;
+      errorMessage: boolean;
+    };
+    validateOneCatRateHigherThanOtherCatPM?: {
+      increment: number;
+    };
+    validateDualPopInformationPM?: {
+      dualPopInfoArray?: boolean;
+      ageIndex: number;
+      errorLabel?: string;
+    };
+    validateEqualCategoryDenominatorsPM?: {
+      qualifiers?: LabelData[];
+    };
+    validateOneCatRateHigherThanOtherCatOMS?: {
+      increment?: number;
+    };
+    validateOneQualRateHigherThanOtherQual?: {
+      higherIndex?: number;
+      lowerIndex?: number;
+    };
+    omsValidations?: {
+      dataSource: boolean;
+    };
+  };
 }

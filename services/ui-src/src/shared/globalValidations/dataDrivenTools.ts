@@ -55,7 +55,12 @@ export const convertOmsDataToRateArray = (
 ) => {
   const rateArray: PM[][] = [];
 
-  for (const cat of categories.map((c) => c.id)) {
+  const cats =
+    isLegacyLabel() && categories.length === 0
+      ? [{ id: "singleCategory" }]
+      : categories;
+
+  for (const cat of cats.map((c) => c.id)) {
     const tempArr: PM[] = [];
     for (const qual of qualifiers.map((q) => q.id)) {
       if (isLegacyLabel()) {

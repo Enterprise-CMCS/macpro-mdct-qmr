@@ -1,5 +1,6 @@
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { getCatQualLabels } from "../rateLabelText";
+import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("PQI92-HH");
@@ -20,5 +21,27 @@ export const data: MeasureTemplateData = {
     customTotalLabel: qualifiers[2].label,
     allowNumeratorGreaterThanDenominator: true,
     calcTotal: true,
+  },
+  validations: [
+    GV.validateRequiredRadioButtonForCombinedRates,
+    GV.validateAtLeastOneDeviationFieldFilled,
+    GV.validateReasonForNotReporting,
+    GV.validateAtLeastOneDataSource,
+    GV.validateAtLeastOneRateComplete,
+    GV.validateRateZeroOMS,
+    GV.validateRateZeroPM,
+    GV.validateRateNotZeroOMS,
+    GV.validateRateNotZeroPM,
+    GV.validateBothDatesCompleted,
+    GV.validateOMSTotalNDR,
+    GV.validateTotalNDR,
+    GV.validateYearFormat,
+    GV.validateDualPopInformationPM,
+  ],
+  override: {
+    validateDualPopInformationPM: {
+      dualPopInfoArray: true,
+      ageIndex: 0,
+    },
   },
 };
