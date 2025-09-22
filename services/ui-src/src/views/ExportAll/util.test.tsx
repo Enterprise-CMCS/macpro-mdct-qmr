@@ -10,12 +10,12 @@ import {
 } from "./util";
 import { render } from "@testing-library/react";
 
-const mockLibApi = require("libs/api");
+const mockGetPDF = jest.fn().mockReturnValue("PDFDATA");
+jest.mock("libs/api", () => ({
+  getPDF: () => mockGetPDF(),
+}));
 
 describe("ExportAll utils", () => {
-  const mockGetPDF = jest
-    .spyOn(mockLibApi, "getPDF")
-    .mockReturnValue("PDFDATA");
   beforeEach(() => {
     jest.clearAllMocks();
   });
