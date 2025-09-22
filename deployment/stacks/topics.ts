@@ -17,7 +17,6 @@ interface CreateTopicsComponentsProps {
   brokerString: string;
   vpc: ec2.IVpc;
   kafkaAuthorizedSubnets: ec2.ISubnet[];
-  customResourceRole: iam.Role;
 }
 
 export function createTopicsComponents(props: CreateTopicsComponentsProps) {
@@ -29,7 +28,6 @@ export function createTopicsComponents(props: CreateTopicsComponentsProps) {
     brokerString,
     vpc,
     kafkaAuthorizedSubnets,
-    customResourceRole,
   } = props;
 
   const service = "topics";
@@ -89,7 +87,6 @@ export function createTopicsComponents(props: CreateTopicsComponentsProps) {
           resources: [createTopicsLambda.lambda.functionArn],
         }),
       ]),
-      role: customResourceRole,
       resourceType: "Custom::InvokeCreateTopicsLambda",
     }
   );
