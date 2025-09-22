@@ -22,7 +22,10 @@ export const AMRAD = ({
 
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions({ functions: validationFunctions });
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 
@@ -92,7 +95,10 @@ export const AMRAD = ({
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data.performanceMeasure}
+                calcTotal={true}
+              />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={[]}
               />
