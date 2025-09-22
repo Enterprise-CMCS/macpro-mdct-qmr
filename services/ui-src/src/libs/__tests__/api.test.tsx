@@ -19,9 +19,6 @@ import {
   getMeasureListInfo,
 } from "../api";
 
-const mockAmplifyApi = require("aws-amplify/api");
-const mockAmplifyAuth = require("aws-amplify/auth");
-
 const mockApiResponse = {
   response: {
     body: {
@@ -42,26 +39,27 @@ const mockBannerData = {
   key: "test-banner",
 } as AdminBannerData;
 
-describe("API library", () => {
-  const mockGet = jest
-    .spyOn(mockAmplifyApi, "get")
-    .mockReturnValue(mockApiResponse);
-  const mockPost = jest
-    .spyOn(mockAmplifyApi, "post")
-    .mockReturnValue(mockApiResponse);
-  const mockPut = jest
-    .spyOn(mockAmplifyApi, "put")
-    .mockReturnValue(mockApiResponse);
-  const mockDel = jest
-    .spyOn(mockAmplifyApi, "del")
-    .mockReturnValue(mockApiResponse);
-  const mockFetchAuthSession = jest
-    .spyOn(mockAmplifyAuth, "fetchAuthSession")
-    .mockReturnValue({ tokens: { idToken: "mockToken" } });
-  const mockSignOut = jest
-    .spyOn(mockAmplifyAuth, "signOut")
-    .mockReturnValue(undefined);
+const mockGet = jest.fn().mockReturnValue(mockApiResponse);
+const mockPut = jest.fn().mockReturnValue(mockApiResponse);
+const mockPost = jest.fn().mockReturnValue(mockApiResponse);
+const mockDel = jest.fn().mockReturnValue(mockApiResponse);
+jest.mock("aws-amplify/api", () => ({
+  get: () => mockGet(),
+  put: () => mockPut(),
+  post: () => mockPost(),
+  del: () => mockDel(),
+}));
 
+const mockFetchAuthSession = jest
+  .fn()
+  .mockReturnValue({ tokens: { idToken: "mockToken" } });
+const mockSignOut = jest.fn().mockReturnValue(undefined);
+jest.mock("aws-amplify/auth", () => ({
+  fetchAuthSession: () => mockFetchAuthSession(),
+  signOut: () => mockSignOut(),
+}));
+
+describe("API library", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     Object.defineProperty(window, "location", {
