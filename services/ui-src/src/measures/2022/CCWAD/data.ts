@@ -1,5 +1,4 @@
 import { getCatQualLabels } from "../rateLabelText";
-import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("CCW-AD");
@@ -22,22 +21,22 @@ export const data: MeasureTemplateData = {
     excludeOptions: ["Sex"],
   },
   validations: [
-    GV.validateRequiredRadioButtonForCombinedRates,
-    GV.validateAtLeastOneDeviationFieldFilled,
-    GV.validateOneCatRateHigherThanOtherCatOMS,
-    GV.validateOneCatRateHigherThanOtherCatPM,
-    GV.validateReasonForNotReporting,
-    GV.validateAtLeastOneDataSource,
-    GV.validateAtLeastOneRateComplete,
-    GV.validateRateZeroOMS,
-    GV.validateRateZeroPM,
-    GV.validateRateNotZeroOMS,
-    GV.validateRateNotZeroPM,
-    GV.validateNumeratorLessThanDenominatorOMS,
-    GV.validateNumeratorsLessThanDenominatorsPM,
-    GV.validateBothDatesCompleted,
-    GV.validateEqualCategoryDenominatorsOMS,
-    GV.validateEqualCategoryDenominatorsPM,
-    GV.validateYearFormat,
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateOneCatRateHigherThanOtherCatPM",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateEqualCategoryDenominatorsOMS",
+    "validateEqualCategoryDenominatorsPM",
+    "validateYearFormat",
   ],
 };
