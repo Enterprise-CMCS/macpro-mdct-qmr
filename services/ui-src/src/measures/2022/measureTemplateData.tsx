@@ -1,6 +1,5 @@
 import { validationFunctions } from "./validationTemplate";
 
-import { validationFunctions as CCWAD_Validations } from "./CCWAD/validation";
 import { validationFunctions as TFLCH_Validations } from "./TFLCH/validation";
 
 import { data as AABAD_Data } from "./AABAD/data";
@@ -82,7 +81,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "CCP-AD": { data: CCPAD_Data, validationFunctions: validationFunctions },
   "CCP-CH": { data: CCPCH_Data, validationFunctions: validationFunctions },
   "CCS-AD": { data: CCSAD_Data, validationFunctions: validationFunctions },
-  "CCW-AD": { data: CCWAD_Data, validationFunctions: CCWAD_Validations },
+  "CCW-AD": { data: CCWAD_Data, validationFunctions: validationFunctions },
   "CCW-CH": { data: CCWCH_Data, validationFunctions: validationFunctions },
   "CDF-AD": { data: CDFAD_Data, validationFunctions: validationFunctions },
   "CDF-CH": { data: CDFCH_Data, validationFunctions: validationFunctions },
