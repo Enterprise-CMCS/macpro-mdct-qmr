@@ -131,14 +131,14 @@ const sortOMSValidations = (
 
   //oms validation functions are called a little differently so we need to filter them out
   const omsCallbacks = PMD.validations!.filter((validation) =>
-    validation.name.includes("OMS")
+    validation.includes("OMS")
   ).map((validation) => omsValidations(validation, PMD));
 
   return [...omsCallbacks];
 };
 
 const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
-  switch (func.name) {
+  switch (func) {
     case "validateNumeratorLessThanDenominatorOMS":
       return GV.validateNumeratorLessThanDenominatorOMS();
     case "validateRateZeroOMS":
@@ -168,7 +168,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
       return GV.validateEqualCategoryDenominatorsOMS();
     default:
       throw new Error(
-        `OMS validation function ${func.name} not recognized! See validationTemplate.tsx`
+        `OMS validation function ${func} not recognized! See validationTemplate.tsx`
       );
   }
 };
@@ -215,7 +215,7 @@ export const validationTemplate = (
   const DefinitionOfDenominator = data[DC.DEFINITION_OF_DENOMINATOR];
 
   const validationList = (func: ValidationFunction) => {
-    switch (func.name) {
+    switch (func) {
       case "validateReasonForNotReporting":
         return [];
       case "validateRequiredRadioButtonForCombinedRates":
@@ -414,7 +414,7 @@ export const validationTemplate = (
         );
       default:
         throw new Error(
-          `Validation function ${func.name} not recognized! See validationTemplate.tsx`
+          `Validation function ${func} not recognized! See validationTemplate.tsx`
         );
     }
   };
@@ -428,7 +428,7 @@ export const validationTemplate = (
   let errorArray: any[] = [];
   //run validation without oms validation functions as the returns are different
   for (const validation of validations!.filter(
-    (validation) => !validation.name.includes("OMS")
+    (validation) => !validation.includes("OMS")
   )) {
     errorArray.push(...(validationList(validation) ?? []));
   }

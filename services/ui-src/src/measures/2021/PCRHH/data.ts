@@ -1,5 +1,4 @@
 import { getCatQualLabels } from "../rateLabelText";
-import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("PCR-HH");
@@ -29,7 +28,7 @@ export const ndrFormulas = [
 
 export const data: MeasureTemplateData = {
   type: "HEDIS",
-  coreset: "adult",
+  coreset: "health",
   performanceMeasure: {
     questionText: [
       "For Health Home enrollees ages 18 to 64, the number of acute inpatient and observation stays during the measurement year that were followed by an unplanned acute readmission for any diagnosis within 30 days and the predicted probability of an acute readmission.  Data are reported in the following categories:",
@@ -45,13 +44,13 @@ export const data: MeasureTemplateData = {
     measureName: "PCRHH",
   },
   validations: [
-    GV.validateRequiredRadioButtonForCombinedRates,
-    GV.validateReasonForNotReporting,
-    GV.validateAtLeastOneDataSource,
-    GV.validateBothDatesCompleted,
-    GV.validateYearFormat,
-    GV.PCRatLeastOneRateComplete,
-    GV.PCRnoNonZeroNumOrDenom,
-    GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec,
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
+    "PCRatLeastOneRateComplete",
+    "PCRnoNonZeroNumOrDenom",
+    "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec",
   ],
 };

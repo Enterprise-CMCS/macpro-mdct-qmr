@@ -1,6 +1,5 @@
 import { positiveNumbersWithMaxDecimalPlaces } from "utils";
 import { getCatQualLabels } from "../rateLabelText";
-import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("AMB-CH");
@@ -22,20 +21,20 @@ export const data: MeasureTemplateData = {
     calcTotal: true,
   },
   validations: [
-    GV.validateRequiredRadioButtonForCombinedRates,
-    GV.validateAtLeastOneDeviationFieldFilled,
-    GV.validateOneCatRateHigherThanOtherCatOMS,
-    GV.validateReasonForNotReporting,
-    GV.validateAtLeastOneDataSource,
-    GV.validateAtLeastOneRateComplete,
-    GV.validateRateZeroOMS,
-    GV.validateRateZeroPM,
-    GV.validateRateNotZeroOMS,
-    GV.validateRateNotZeroPM,
-    GV.validateBothDatesCompleted,
-    GV.validateOMSTotalNDR,
-    GV.validateTotalNDR,
-    GV.validateEqualQualifierDenominatorsOMS,
-    GV.validateYearFormat,
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateBothDatesCompleted",
+    "validateOMSTotalNDR",
+    "validateTotalNDR",
+    "validateEqualQualifierDenominatorsOMS",
+    "validateYearFormat",
   ],
 };
