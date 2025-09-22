@@ -114,7 +114,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "HPCMI-AD": { data: HPCMIAD_Data, validationFunctions: validationFunctions },
   "HVL-AD": { data: HVLAD_Data, validationFunctions: validationFunctions },
   "IET-AD": { data: IETAD_Data, validationFunctions: validationFunctions },
-  "IET-HH": { data: IETHH_Data, validationFunctions: IETHH_Validations },
+  "IET-HH": { data: IETHH_Data, validationFunctions: validationFunctions },
   "IMA-CH": { data: IMACH_Data, validationFunctions: validationFunctions },
   "IU-HH": { data: IUHH_Data, validationFunctions: validationFunctions },
   "OEV-CH": { data: OEVCH_Data, validationFunctions: OEVCH_Validations },
