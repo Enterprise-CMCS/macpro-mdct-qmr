@@ -20,7 +20,10 @@ interface Props {
 }
 
 export const DeliverySystems = ({ data, year }: Props) => {
+  console.log("data in DeliverySystems:", data);
+  console.log("year in DeliverySystems:", year);
   const { userRole } = useUser();
+  console.log("USER ROLE:", userRole);
   const { fields, append, remove } = useFieldArray({
     name: "PercentageEnrolledInEachDeliverySystem",
   });
