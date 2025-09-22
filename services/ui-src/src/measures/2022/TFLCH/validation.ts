@@ -59,7 +59,6 @@ const TFLCHValidation = (data: FormData) => {
     ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),
