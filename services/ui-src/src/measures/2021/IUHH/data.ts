@@ -1,6 +1,5 @@
 import { xNumbersYDecimals } from "utils";
 import { getCatQualLabels } from "../rateLabelText";
-import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import { ComplexRate } from "components";
 
@@ -81,16 +80,16 @@ export const data: MeasureTemplateData = {
     componentFlag: "IU",
   },
   validations: [
-    GV.validateRequiredRadioButtonForCombinedRates,
-    GV.validateReasonForNotReporting,
-    GV.validateAtLeastOneDataSource,
-    GV.validateBothDatesCompleted,
-    GV.validateYearFormat,
-    GV.ComplexValidateDualPopInformation,
-    GV.ComplexAtLeastOneRateComplete,
-    GV.ComplexNoNonZeroNumOrDenom,
-    GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec,
-    GV.ComplexValidateNDRTotals,
-    GV.ComplexValueSameCrossCategory,
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
+    "ComplexValidateDualPopInformation",
+    "ComplexAtLeastOneRateComplete",
+    "ComplexNoNonZeroNumOrDenom",
+    "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec",
+    "ComplexValidateNDRTotals",
+    "ComplexValueSameCrossCategory",
   ],
 };

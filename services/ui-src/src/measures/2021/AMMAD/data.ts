@@ -1,5 +1,4 @@
 import { getCatQualLabels } from "../rateLabelText";
-import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("AMM-AD");
@@ -51,24 +50,24 @@ export const data: MeasureTemplateData = {
   },
   custom: {},
   validations: [
-    GV.validateRequiredRadioButtonForCombinedRates,
-    GV.validateAtLeastOneDeviationFieldFilled,
-    GV.validateOneCatRateHigherThanOtherCatOMS,
-    GV.validateOneCatRateHigherThanOtherCatPM,
-    GV.validateReasonForNotReporting,
-    GV.validateAtLeastOneDataSource,
-    GV.validateAtLeastOneRateComplete,
-    GV.validateRateZeroOMS,
-    GV.validateRateZeroPM,
-    GV.validateRateNotZeroOMS,
-    GV.validateRateNotZeroPM,
-    GV.validateNumeratorLessThanDenominatorOMS,
-    GV.validateNumeratorsLessThanDenominatorsPM,
-    GV.validateBothDatesCompleted,
-    GV.validateEqualQualifierDenominatorsPM,
-    GV.validateYearFormat,
-    GV.validateDualPopInformationPM,
-    GV.validateSameDenominatorSetsOMS,
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateOneCatRateHigherThanOtherCatPM",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateEqualQualifierDenominatorsPM",
+    "validateYearFormat",
+    "validateDualPopInformationPM",
+    "validateSameDenominatorSetsOMS",
   ],
   override: {
     validateEqualQualifierDenominatorsPM: {

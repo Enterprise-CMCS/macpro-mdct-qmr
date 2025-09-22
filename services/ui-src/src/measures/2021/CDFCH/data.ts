@@ -1,6 +1,5 @@
 import * as DC from "dataConstants";
 import { getCatQualLabels } from "../rateLabelText";
-import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("CDF-CH");
@@ -48,18 +47,18 @@ export const data: MeasureTemplateData = {
     ],
   },
   validations: [
-    GV.validateRequiredRadioButtonForCombinedRates,
-    GV.validateAtLeastOneDeviationFieldFilled,
-    GV.validateReasonForNotReporting,
-    GV.validateAtLeastOneDataSource,
-    GV.validateAtLeastOneRateComplete,
-    GV.validateRateZeroOMS,
-    GV.validateRateZeroPM,
-    GV.validateRateNotZeroOMS,
-    GV.validateRateNotZeroPM,
-    GV.validateNumeratorLessThanDenominatorOMS,
-    GV.validateNumeratorsLessThanDenominatorsPM,
-    GV.validateBothDatesCompleted,
-    GV.validateYearFormat,
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
   ],
 };

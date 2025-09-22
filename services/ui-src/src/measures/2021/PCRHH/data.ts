@@ -1,5 +1,4 @@
 import { getCatQualLabels } from "../rateLabelText";
-import * as GV from "shared/globalValidations";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("PCR-HH");
@@ -45,13 +44,13 @@ export const data: MeasureTemplateData = {
     measureName: "PCRHH",
   },
   validations: [
-    GV.validateRequiredRadioButtonForCombinedRates,
-    GV.validateReasonForNotReporting,
-    GV.validateAtLeastOneDataSource,
-    GV.validateBothDatesCompleted,
-    GV.validateYearFormat,
-    GV.PCRatLeastOneRateComplete,
-    GV.PCRnoNonZeroNumOrDenom,
-    GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec,
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
+    "PCRatLeastOneRateComplete",
+    "PCRnoNonZeroNumOrDenom",
+    "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec",
   ],
 };
