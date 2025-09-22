@@ -31,39 +31,41 @@ const buildUiEnvObject = (
 ): Record<string, string> => {
   if (stage === "localstack") {
     return {
+      PROD_URL: "mdctqmr.cms.gov",
+      BRANCH_NAME: "local-branch",
+      S3_ATTACHMENTS_BUCKET_REGION: "us-east-1",
+      S3_ATTACHMENTS_BUCKET_NAME: process.env.S3_ATTACHMENTS_BUCKET_NAME!,
       API_REGION: region,
       API_URL: cfnOutputs.ApiUrl.replace("https", "http"),
-      COGNITO_REGION: region,
       COGNITO_IDENTITY_POOL_ID: process.env.COGNITO_IDENTITY_POOL_ID!,
-      COGNITO_USER_POOL_ID: process.env.COGNITO_USER_POOL_ID!,
+      COGNITO_REDIRECT_SIGNIN: "http://localhost:3000/",
+      COGNITO_REDIRECT_SIGNOUT: "http://localhost:3000/",
+      COGNITO_REGION: region,
       COGNITO_USER_POOL_CLIENT_ID: process.env.COGNITO_USER_POOL_CLIENT_ID!,
       COGNITO_USER_POOL_CLIENT_DOMAIN:
         process.env.COGNITO_USER_POOL_CLIENT_DOMAIN!,
-      COGNITO_REDIRECT_SIGNIN: "http://localhost:3000/",
-      COGNITO_REDIRECT_SIGNOUT: "http://localhost:3000/postLogout",
+      COGNITO_USER_POOL_ID: process.env.COGNITO_USER_POOL_ID!,
       POST_SIGNOUT_REDIRECT: "http://localhost:3000/",
-      S3_ATTACHMENTS_BUCKET_REGION: "us-east-1",
-      S3_ATTACHMENTS_BUCKET_NAME: `uploads-${stage}-attachments-000000000000`,
-      REACT_APP_LD_SDK_CLIENT: process.env.REACT_APP_LD_SDK_CLIENT!,
-      STAGE: "local",
+      REACT_APP_LD_SDK_CLIENT: process.env.REACT_APP_LD_SDK_CLIENT,
     };
   }
 
   return {
-    API_REGION: region,
-    API_URL: cfnOutputs.ApiUrl,
-    COGNITO_REGION: region,
-    COGNITO_IDENTITY_POOL_ID: cfnOutputs.CognitoIdentityPoolId,
-    COGNITO_USER_POOL_ID: cfnOutputs.CognitoUserPoolId,
-    COGNITO_USER_POOL_CLIENT_ID: cfnOutputs.CognitoUserPoolClientId,
-    COGNITO_USER_POOL_CLIENT_DOMAIN: `${cfnOutputs.CognitoUserPoolClientDomain}.auth.${region}.amazoncognito.com`,
-    COGNITO_REDIRECT_SIGNIN: cfnOutputs.CloudFrontUrl,
-    COGNITO_REDIRECT_SIGNOUT: `${cfnOutputs.CloudFrontUrl}postLogout`,
-    POST_SIGNOUT_REDIRECT: "https://test.home.idm.cms.gov/",
+    PROD_URL: "mdctqmr.cms.gov",
+    BRANCH_NAME: "local-branch",
     S3_ATTACHMENTS_BUCKET_REGION: region,
     S3_ATTACHMENTS_BUCKET_NAME: cfnOutputs.AttachmentsBucketName,
+    API_REGION: region,
+    API_URL: cfnOutputs.ApiUrl,
+    COGNITO_IDENTITY_POOL_ID: cfnOutputs.CognitoIdentityPoolId,
+    COGNITO_REDIRECT_SIGNIN: cfnOutputs.CloudFrontUrl,
+    COGNITO_REDIRECT_SIGNOUT: `${cfnOutputs.CloudFrontUrl}postLogout`,
+    COGNITO_REGION: region,
+    COGNITO_USER_POOL_CLIENT_ID: cfnOutputs.CognitoUserPoolClientId,
+    COGNITO_USER_POOL_CLIENT_DOMAIN: `${cfnOutputs.CognitoUserPoolClientDomain}.auth.${region}.amazoncognito.com`,
+    COGNITO_USER_POOL_ID: cfnOutputs.CognitoUserPoolId,
+    POST_SIGNOUT_REDIRECT: "https://test.home.idm.cms.gov/",
     REACT_APP_LD_SDK_CLIENT: process.env.REACT_APP_LD_SDK_CLIENT!,
-    STAGE: stage,
   };
 };
 

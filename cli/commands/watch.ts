@@ -17,18 +17,6 @@ export const watch = {
   handler: async (options: { stage: string }) => {
     checkIfAuthenticated();
 
-    const seedDataFunctionName = (
-      await getCloudFormationStackOutputValues(`qmr-${options.stage}`)
-    ).SeedDataFunctionName;
-
-    const lambdaClient = new LambdaClient({ region: "us-east-1" });
-    const lambdaCommand = new InvokeCommand({
-      FunctionName: seedDataFunctionName,
-      InvocationType: "Event",
-      Payload: Buffer.from(JSON.stringify({})),
-    });
-    await lambdaClient.send(lambdaCommand);
-
     await downloadClamAvLayer();
     await Promise.all([
       await runCommand(

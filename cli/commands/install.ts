@@ -6,7 +6,8 @@ const directories = [
   "./services/ui",
   "./services/ui-auth",
   "./services/ui-src",
-  "./services/qmr-bigmac-streams",
+  "./services/uploads",
+  "./services/topics",
 ];
 
 export const installDeps = async () => {

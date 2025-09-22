@@ -54,21 +54,13 @@ export class ParentStack extends Stack {
       `cms-cloud-${Aws.ACCOUNT_ID}-${Aws.REGION}`
     );
 
-    const { tables } = createDataComponents({
+    const tables = createDataComponents({
       ...commonProps,
-      loggingBucket,
-    });
-
-    const { attachmentsBucket } = createUploadsComponents({
-      ...commonProps,
-      loggingBucket,
-      attachmentsBucketName: attachmentsBucketName!,
     });
 
     const { apiGatewayRestApiUrl, restApiId } = createApiComponents({
       ...commonProps,
       tables,
-      attachmentsBucket,
       vpc,
       kafkaAuthorizedSubnets,
     });
@@ -83,10 +75,16 @@ export class ParentStack extends Stack {
       return;
     }
 
+    const attachmentsBucket = createUploadsComponents({
+      ...commonProps,
+      loggingBucket,
+      attachmentsBucketName: attachmentsBucketName!,
+      tables,
+    });
+
     const { applicationEndpointUrl, distribution, uiBucket } =
       createUiComponents({
         ...commonProps,
-        loggingBucket,
       });
 
     const { userPoolDomainName, identityPoolId, userPoolId, userPoolClientId } =
@@ -94,6 +92,7 @@ export class ParentStack extends Stack {
         ...commonProps,
         applicationEndpointUrl,
         restApiId,
+        attachmentsBucketArn: attachmentsBucket.bucketArn,
       });
 
     deployFrontend({
@@ -109,16 +108,6 @@ export class ParentStack extends Stack {
       userPoolClientDomain: `${userPoolDomainName}.auth.${Aws.REGION}.amazoncognito.com`,
       attachmentsBucketName: attachmentsBucketName!,
     });
-
-    if (!isDev) {
-      createBigmacStreamsComponents({
-        ...commonProps,
-        stageEnrollmentCountsTableName: "main-stg-enrollment-counts",
-        tables: tables.filter((table) =>
-          ["StateStatus", "Section"].includes(table.id)
-        ),
-      });
-    }
 
     new CfnOutput(this, "CloudFrontUrl", {
       value: applicationEndpointUrl,

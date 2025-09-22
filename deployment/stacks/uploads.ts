@@ -12,21 +12,32 @@ import {
   Aws,
 } from "aws-cdk-lib";
 import { Lambda } from "../constructs/lambda";
-import { DynamoDBTableIdentifiers } from "../constructs/dynamodb-table";
+import { DynamoDBTable } from "../constructs/dynamodb-table";
 
 interface createUploadsComponentsProps {
   scope: Construct;
   stage: string;
+  loggingBucket: s3.IBucket;
   isDev: boolean;
   mpriamrole: string;
   mprdeviam: string;
-  tables: DynamoDBTableIdentifiers[];
+  tables: DynamoDBTable[];
   bucketPrefix?: string;
+  attachmentsBucketName: string;
 }
 
 export function createUploadsComponents(props: createUploadsComponentsProps) {
-  const { scope, stage, isDev, mpriamrole, mprdeviam, tables, bucketPrefix } =
-    props;
+  const {
+    scope,
+    stage,
+    loggingBucket,
+    isDev,
+    mpriamrole,
+    mprdeviam,
+    tables,
+    bucketPrefix,
+    attachmentsBucketName,
+  } = props;
   const serviceStage = `uploads-${stage}`;
 
   const bucketEncryptionKey = new kms.Key(scope, "BucketEncryptionKMSKey", {
@@ -83,15 +94,14 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
   });
 
   const attachmentsBucket = new s3.Bucket(scope, "AttachmentsBucket", {
-    bucketName: `${bucketPrefix ?? serviceStage}-attachments-${Aws.ACCOUNT_ID}`,
+    bucketName: attachmentsBucketName,
     encryptionKey: bucketEncryptionKey,
+    autoDeleteObjects: isDev,
+    versioned: true,
+    removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
     publicReadAccess: false,
     blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
-    removalPolicy: isDev ? RemovalPolicy.DESTROY : RemovalPolicy.RETAIN,
-    autoDeleteObjects: isDev,
-    versioned: true,
-    enforceSSL: true,
     cors: [
       {
         allowedOrigins: ["*"],
@@ -107,6 +117,9 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
         maxAge: 3000, // 50 minutes
       },
     ],
+    enforceSSL: true,
+    serverAccessLogsBucket: loggingBucket,
+    serverAccessLogsPrefix: `AWSLogs/${Aws.ACCOUNT_ID}/s3/`,
   });
 
   attachmentsBucket.addToResourcePolicy(
@@ -231,7 +244,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     environment: {
       DYNAMO_BUCKET_NAME: dynamoBucket.bucketName,
       ...Object.fromEntries(
-        tables.map((table) => [`${table.id}Table`, table.name])
+        tables.map((table) => [`${table.id}Table`, table.table.tableName])
       ),
     },
     isDev,
@@ -253,7 +266,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
           "dynamodb:UpdateItem",
           "dynamodb:DeleteItem",
         ],
-        resources: tables.map((table) => table.arn),
+        resources: tables.map((table) => table.table.tableArn),
       }),
     ],
   }).lambda;
