@@ -83,9 +83,7 @@ export class ParentStack extends Stack {
     });
 
     const { applicationEndpointUrl, distribution, uiBucket } =
-      createUiComponents({
-        ...commonProps,
-      });
+      createUiComponents(commonProps);
 
     const { userPoolDomainName, identityPoolId, userPoolId, userPoolClientId } =
       createUiAuthComponents({
