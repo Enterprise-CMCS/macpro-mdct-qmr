@@ -3,11 +3,13 @@ import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { DataDriven } from "shared/types/TypeQualifierForm";
 import { DeliverySystems } from "./deliverySystems";
-import { UserRoles } from "types";
+import * as CUI from "@chakra-ui/react";
 
 const mockDataDriven = {
+  title: "Test Title",
+  questionTitle: "Test Question Title",
   qualifierHeader: (year: string) => `Mock header for year ${year}`,
-  textTable: [["Table 1"], ["Table 2"]],
+  textTable: [["Medicaid", "Under Age 21"]],
   fieldValues: ["UnderTwentyOne"],
   formData: {
     PercentageEnrolledInEachDeliverySystem: [
@@ -39,9 +41,67 @@ jest.mock("hooks/authHooks", () => ({
   }),
 }));
 
-describe("Test CombinedRatesMeasure", () => {
+// jest.mock("react-hook-form", () => ({
+//   ...jest.requireActual("react-hook-form"),
+//   useFieldArray: () => ({
+//     fields: [
+//       { id: "1", label: "Fee-for-Service", UnderTwentyOne: "" },
+//       { id: "2", label: "PCCM", UnderTwentyOne: "" },
+//       { id: "3", label: "Managed Care", UnderTwentyOne: "" },
+//       { id: "4", label: "Integrated Care Model (ICM)", UnderTwentyOne: "" },
+//     ],
+//     append: jest.fn(),
+//     remove: jest.fn(),
+//   }),
+//   useWatch: () => [
+//     { label: "Fee-for-Service", UnderTwentyOne: "" },
+//     { label: "PCCM", UnderTwentyOne: "" },
+//     { label: "Managed Care", UnderTwentyOne: "" },
+//     { label: "Integrated Care Model (ICM)", UnderTwentyOne: "" },
+//   ],
+//     useFormContext: () => ({
+//     handleSubmit: () => jest.fn(),
+//     control: {
+//       register: jest.fn(),
+//       unregister: jest.fn(),
+//       getFieldState: jest.fn(),
+//       _names: {
+//         array: new Set('test'),
+//         mount: new Set('test'),
+//         unMount: new Set('test'),
+//         watch: new Set('test'),
+//         focus: 'test',
+//         watchAll: false,
+//       },
+//       _subjects: {
+//         watch: jest.fn(),
+//         array: jest.fn(),
+//         state: jest.fn(),
+//       },
+//       _getWatch: jest.fn(),
+//       _formValues: ['test'],
+//       _defaultValues: ['test'],
+//     },
+//     getValues: () => {
+//       return [];
+//     },
+//     setValue: () => jest.fn(),
+//     formState: () => jest.fn(),
+//     watch: () => jest.fn(),
+//   }),
+//   Controller: () => [],
+//   useSubscribe: () => ({
+//     r: { current: { subject: { subscribe: () => jest.fn() } } },
+//   }),
+// }))
+
+describe("Test DeliverySystems", () => {
   it("renders", async () => {
-    render(<DeliverySystems data={mockDataDriven} year={mockYear} />);
+    render(
+      <CUI.OrderedList>
+        <DeliverySystems data={mockDataDriven} year={mockYear} />
+      </CUI.OrderedList>
+    );
     expect(screen.getByText("Mock header for year 2024")).toBeVisible();
   });
 });
