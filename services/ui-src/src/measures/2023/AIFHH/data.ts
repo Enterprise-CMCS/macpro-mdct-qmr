@@ -115,5 +115,9 @@ export const data: MeasureTemplateData = {
     "validateBothDatesCompleted",
     "validateAtLeastOneDefinitionOfPopulation",
     "validateYearFormat",
+    "ComplexAtLeastOneRateComplete",
+    "ComplexNoNonZeroNumOrDenom",
+    "ComplexValidateNDRTotals",
+    "ComplexValidateDualPopInformation",
   ],
 };

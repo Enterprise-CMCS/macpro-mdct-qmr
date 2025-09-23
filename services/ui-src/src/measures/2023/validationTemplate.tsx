@@ -1,16 +1,14 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
-import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
+import { DefaultFormData as FormData } from "shared/types/FormData";
 import {
   MeasureTemplateData,
   ValidationFunction,
 } from "shared/types/MeasureTemplate";
-import { LabelData } from "utils";
 import { OtherRatesFields } from "shared/types";
 
 const sortOMSValidations = (
-  categories: LabelData[],
   OPM: OtherRatesFields[],
   PMD: MeasureTemplateData
 ) => {
@@ -28,14 +26,6 @@ const sortOMSValidations = (
             PMD.performanceMeasure.ndrFormulas ?? [],
             `Optional Measure Stratification: ${locationDictionary(label)}`,
             qualifiers
-          ),
-          ...GV.ComplexValidateNDRTotalsOMS(
-            rateData?.["aifhh-rate"]?.rates ?? {},
-            categories,
-            PMD.performanceMeasure.ndrFormulas ?? [],
-            `Optional Measure Stratification: ${locationDictionary(
-              label
-            )} Total`
           ),
         ]
       : [
@@ -192,16 +182,12 @@ export const validationTemplate = (
   const validations = PMD.validations;
 
   const dateRange = data[DC.DATE_RANGE];
-  const deviationArray = GV.getDeviationNDRArray(
-    data.DeviationOptions,
-    data.Deviations,
-    true
-  );
+  const deviationReason = data[DC.DEVIATION_REASON];
   const didCalculationsDeviate = data[DC.DID_CALCS_DEVIATE] === DC.YES;
   const OPM = data[DC.OPM_RATES];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(2021, true),
+    OMSData(2023, true),
     qualifiers,
     categories
   );
@@ -224,14 +210,6 @@ export const validationTemplate = (
         return GV.validateBothDatesCompleted(dateRange);
       case "validateYearFormat":
         return GV.validateYearFormat(dateRange);
-      case "validateAtLeastOneDeviationFieldFilled":
-        return GV.validateAtLeastOneDeviationFieldFilled(
-          PMD.override?.validateAtLeastOneDeviationFieldFilled?.(data) ??
-            performanceMeasureArray,
-          qualifiers,
-          deviationArray,
-          didCalculationsDeviate
-        );
       case "validateAtLeastOneDataSource":
         return GV.validateAtLeastOneDataSource(data);
       case "validateAtLeastOneRateComplete":
@@ -368,13 +346,6 @@ export const validationTemplate = (
           OPM,
           PMD.performanceMeasure.ndrFormulas ?? []
         );
-      case "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec":
-        return GV.ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec(
-          performanceMeasureArray,
-          PMD.performanceMeasure.ndrFormulas!,
-          deviationArray,
-          didCalculationsDeviate
-        );
       case "ComplexValidateNDRTotals":
         return GV.ComplexValidateNDRTotals(
           performanceMeasureArray,
@@ -405,13 +376,27 @@ export const validationTemplate = (
           OPM,
           PMD.performanceMeasure.ndrFormulas ?? []
         );
-      case "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec":
-        return GV.PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec(
-          performanceMeasureArray,
-          PMD.performanceMeasure.ndrFormulas ?? [],
-          deviationArray,
-          didCalculationsDeviate
+      case "validateFfsRadioButtonCompletion":
+        return GV.validateFfsRadioButtonCompletion(data);
+      case "validateAtLeastOneDataSourceType":
+        return GV.validateAtLeastOneDataSourceType(data);
+      case "validateDateRangeRadioButtonCompletion":
+        return GV.validateDateRangeRadioButtonCompletion(data);
+      case "validateDeviationTextFieldFilled":
+        return GV.validateDeviationTextFieldFilled(
+          didCalculationsDeviate,
+          deviationReason
         );
+      case "validateOPMRates":
+        return GV.validateOPMRates(OPM);
+      case "validateHedisYear":
+        return GV.validateHedisYear(data);
+      case "validateAtLeastOneDeliverySystem":
+        return GV.validateAtLeastOneDeliverySystem(data);
+      case "validateAtLeastOneDefinitionOfPopulation":
+        return GV.validateAtLeastOneDefinitionOfPopulation(data);
+      case "validateSameDenominatorSets":
+        return GV.validateSameDenominatorSets();
       default:
         throw new Error(
           `Validation function ${func} not recognized! See validationTemplate.tsx`
@@ -442,7 +427,7 @@ export const validationTemplate = (
         ? data[DC.DATA_SOURCE]
         : undefined,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(2021, true),
+        OMSData(2023, true),
         qualifiers,
         categories
       ),

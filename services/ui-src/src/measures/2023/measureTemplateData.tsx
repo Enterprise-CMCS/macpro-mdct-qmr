@@ -1,15 +1,5 @@
 import { validationFunctions } from "./validationTemplate";
 
-import { validationFunctions as AABAD_Validations } from "./AABAD/validation";
-import { validationFunctions as AABCH_Validations } from "./AABCH/validation";
-import { validationFunctions as ADDCH_Validations } from "./ADDCH/validation";
-import { validationFunctions as AIFHH_Validations } from "./AIFHH/validation";
-import { validationFunctions as AMBCH_Validations } from "./AMBCH/validation";
-import { validationFunctions as AMBHH_Validations } from "./AMBHH/validation";
-import { validationFunctions as AMMAD_Validations } from "./AMMAD/validation";
-import { validationFunctions as AMRCH_Validations } from "./AMRCH/validation";
-import { validationFunctions as APMCH_Validations } from "./APMCH/validation";
-import { validationFunctions as APPCH_Validations } from "./APPCH/validation";
 import { validationFunctions as BCSAD_Validations } from "./BCSAD/validation";
 import { validationFunctions as CBPAD_Validations } from "./CBPAD/validation";
 import { validationFunctions as CBPHH_Validations } from "./CBPHH/validation";
@@ -133,16 +123,16 @@ import { data as WCCCH_Data } from "./WCCCH/data";
 import { data as WCVCH_Data } from "./WCVCH/data";
 
 export const measureTemplateData: { [measure: string]: any } = {
-  "AAB-AD": { data: AABAD_Data, validationFunctions: AABAD_Validations },
-  "AAB-CH": { data: AABCH_Data, validationFunctions: AABCH_Validations },
-  "ADD-CH": { data: ADDCH_Data, validationFunctions: ADDCH_Validations },
-  "AIF-HH": { data: AIFHH_Data, validationFunctions: AIFHH_Validations },
-  "AMB-CH": { data: AMBCH_Data, validationFunctions: AMBCH_Validations },
-  "AMB-HH": { data: AMBHH_Data, validationFunctions: AMBHH_Validations },
-  "AMM-AD": { data: AMMAD_Data, validationFunctions: AMMAD_Validations },
-  "AMR-CH": { data: AMRCH_Data, validationFunctions: AMRCH_Validations },
-  "APM-CH": { data: APMCH_Data, validationFunctions: APMCH_Validations },
-  "APP-CH": { data: APPCH_Data, validationFunctions: APPCH_Validations },
+  "AAB-AD": { data: AABAD_Data, validationFunctions: validationFunctions },
+  "AAB-CH": { data: AABCH_Data, validationFunctions: validationFunctions },
+  "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
+  "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },
+  "AMB-CH": { data: AMBCH_Data, validationFunctions: validationFunctions },
+  "AMB-HH": { data: AMBHH_Data, validationFunctions: validationFunctions },
+  "AMM-AD": { data: AMMAD_Data, validationFunctions: validationFunctions },
+  "AMR-CH": { data: AMRCH_Data, validationFunctions: validationFunctions },
+  "APM-CH": { data: APMCH_Data, validationFunctions: validationFunctions },
+  "APP-CH": { data: APPCH_Data, validationFunctions: validationFunctions },
   "BCS-AD": { data: BCSAD_Data, validationFunctions: BCSAD_Validations },
   "CBP-AD": { data: CBPAD_Data, validationFunctions: CBPAD_Validations },
   "CBP-HH": { data: CBPHH_Data, validationFunctions: CBPHH_Validations },
