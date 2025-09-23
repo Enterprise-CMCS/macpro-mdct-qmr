@@ -29,3 +29,8 @@ repos:
         entry: .github/branchNameValidation.sh
         language: script
         pass_filenames: false
+      - id: validate-commit-msg
+        name: validate-commit-msg
+        entry: .github/validateCommitMessage.sh
+        language: script
+        stages: [commit-msg]
