@@ -81,4 +81,9 @@ export const data: MeasureTemplateData = {
     "validateEqualQualifierDenominatorsPM",
     "validateYearFormat",
   ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };

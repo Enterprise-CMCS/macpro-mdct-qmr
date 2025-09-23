@@ -51,6 +51,7 @@ export const data: MeasureTemplateData = {
   ],
   override: {
     validateDualPopInformationPM: {
+      dualPopInfoArray: true,
       ageIndex: 0,
     },
   },

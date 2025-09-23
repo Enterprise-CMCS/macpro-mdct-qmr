@@ -1,37 +1,6 @@
 import { validationFunctions } from "./validationTemplate";
 
-import { validationFunctions as BCSAD_Validations } from "./BCSAD/validation";
-import { validationFunctions as CBPAD_Validations } from "./CBPAD/validation";
-import { validationFunctions as CBPHH_Validations } from "./CBPHH/validation";
-import { validationFunctions as CCPAD_Validations } from "./CCPAD/validation";
-import { validationFunctions as CCPCH_Validations } from "./CCPCH/validation";
-import { validationFunctions as CCSAD_Validations } from "./CCSAD/validation";
-import { validationFunctions as CCWAD_Validations } from "./CCWAD/validation";
-import { validationFunctions as CCWCH_Validations } from "./CCWCH/validation";
-import { validationFunctions as CDFAD_Validations } from "./CDFAD/validation";
-import { validationFunctions as CDFCH_Validations } from "./CDFCH/validation";
-import { validationFunctions as CDFHH_Validations } from "./CDFHH/validation";
-import { validationFunctions as CHLAD_Validations } from "./CHLAD/validation";
-import { validationFunctions as CHLCH_Validations } from "./CHLCH/validation";
-import { validationFunctions as CISCH_Validations } from "./CISCH/validation";
-import { validationFunctions as COBAD_Validations } from "./COBAD/validation";
-import { validationFunctions as COLAD_Validations } from "./COLAD/validation";
-import { validationFunctions as COLHH_Validations } from "./COLHH/validation";
-import { validationFunctions as CPUAD_Validations } from "./CPUAD/validation";
 import { validationFunctions as DEVCH_Validations } from "./DEVCH/validation";
-import { validationFunctions as FUAAD_Validations } from "./FUAAD/validation";
-import { validationFunctions as FUACH_Validations } from "./FUACH/validation";
-import { validationFunctions as FUAHH_Validations } from "./FUAHH/validation";
-import { validationFunctions as FUHAD_Validations } from "./FUHAD/validation";
-import { validationFunctions as FUHCH_Validations } from "./FUHCH/validation";
-import { validationFunctions as FUHHH_Validations } from "./FUHHH/validation";
-import { validationFunctions as FUMAD_Validations } from "./FUMAD/validation";
-import { validationFunctions as FUMCH_Validations } from "./FUMCH/validation";
-import { validationFunctions as FUMHH_Validations } from "./FUMHH/validation";
-import { validationFunctions as FVAAD_Validations } from "./FVAAD/validation";
-import { validationFunctions as HBDAD_Validations } from "./HBDAD/validation";
-import { validationFunctions as HPCMIAD_Validations } from "./HPCMIAD/validation";
-import { validationFunctions as HVLAD_Validations } from "./HVLAD/validation";
 import { validationFunctions as IETAD_Validations } from "./IETAD/validation";
 import { validationFunctions as IETHH_Validations } from "./IETHH/validation";
 import { validationFunctions as IMACH_Validations } from "./IMACH/validation";
@@ -133,38 +102,38 @@ export const measureTemplateData: { [measure: string]: any } = {
   "AMR-CH": { data: AMRCH_Data, validationFunctions: validationFunctions },
   "APM-CH": { data: APMCH_Data, validationFunctions: validationFunctions },
   "APP-CH": { data: APPCH_Data, validationFunctions: validationFunctions },
-  "BCS-AD": { data: BCSAD_Data, validationFunctions: BCSAD_Validations },
-  "CBP-AD": { data: CBPAD_Data, validationFunctions: CBPAD_Validations },
-  "CBP-HH": { data: CBPHH_Data, validationFunctions: CBPHH_Validations },
-  "CCP-AD": { data: CCPAD_Data, validationFunctions: CCPAD_Validations },
-  "CCP-CH": { data: CCPCH_Data, validationFunctions: CCPCH_Validations },
-  "CCS-AD": { data: CCSAD_Data, validationFunctions: CCSAD_Validations },
-  "CCW-AD": { data: CCWAD_Data, validationFunctions: CCWAD_Validations },
-  "CCW-CH": { data: CCWCH_Data, validationFunctions: CCWCH_Validations },
-  "CDF-AD": { data: CDFAD_Data, validationFunctions: CDFAD_Validations },
-  "CDF-CH": { data: CDFCH_Data, validationFunctions: CDFCH_Validations },
-  "CDF-HH": { data: CDFHH_Data, validationFunctions: CDFHH_Validations },
-  "CHL-AD": { data: CHLAD_Data, validationFunctions: CHLAD_Validations },
-  "CHL-CH": { data: CHLCH_Data, validationFunctions: CHLCH_Validations },
-  "CIS-CH": { data: CISCH_Data, validationFunctions: CISCH_Validations },
-  "COB-AD": { data: COBAD_Data, validationFunctions: COBAD_Validations },
-  "COL-AD": { data: COLAD_Data, validationFunctions: COLAD_Validations },
-  "COL-HH": { data: COLHH_Data, validationFunctions: COLHH_Validations },
-  "CPU-AD": { data: CPUAD_Data, validationFunctions: CPUAD_Validations },
+  "BCS-AD": { data: BCSAD_Data, validationFunctions: validationFunctions },
+  "CBP-AD": { data: CBPAD_Data, validationFunctions: validationFunctions },
+  "CBP-HH": { data: CBPHH_Data, validationFunctions: validationFunctions },
+  "CCP-AD": { data: CCPAD_Data, validationFunctions: validationFunctions },
+  "CCP-CH": { data: CCPCH_Data, validationFunctions: validationFunctions },
+  "CCS-AD": { data: CCSAD_Data, validationFunctions: validationFunctions },
+  "CCW-AD": { data: CCWAD_Data, validationFunctions: validationFunctions },
+  "CCW-CH": { data: CCWCH_Data, validationFunctions: validationFunctions },
+  "CDF-AD": { data: CDFAD_Data, validationFunctions: validationFunctions },
+  "CDF-CH": { data: CDFCH_Data, validationFunctions: validationFunctions },
+  "CDF-HH": { data: CDFHH_Data, validationFunctions: validationFunctions },
+  "CHL-AD": { data: CHLAD_Data, validationFunctions: validationFunctions },
+  "CHL-CH": { data: CHLCH_Data, validationFunctions: validationFunctions },
+  "CIS-CH": { data: CISCH_Data, validationFunctions: validationFunctions },
+  "COB-AD": { data: COBAD_Data, validationFunctions: validationFunctions },
+  "COL-AD": { data: COLAD_Data, validationFunctions: validationFunctions },
+  "COL-HH": { data: COLHH_Data, validationFunctions: validationFunctions },
+  "CPU-AD": { data: CPUAD_Data, validationFunctions: validationFunctions },
   "DEV-CH": { data: DEVCH_Data, validationFunctions: DEVCH_Validations },
-  "FUA-AD": { data: FUAAD_Data, validationFunctions: FUAAD_Validations },
-  "FUA-CH": { data: FUACH_Data, validationFunctions: FUACH_Validations },
-  "FUA-HH": { data: FUAHH_Data, validationFunctions: FUAHH_Validations },
-  "FUH-AD": { data: FUHAD_Data, validationFunctions: FUHAD_Validations },
-  "FUH-CH": { data: FUHCH_Data, validationFunctions: FUHCH_Validations },
-  "FUH-HH": { data: FUHHH_Data, validationFunctions: FUHHH_Validations },
-  "FUM-AD": { data: FUMAD_Data, validationFunctions: FUMAD_Validations },
-  "FUM-CH": { data: FUMCH_Data, validationFunctions: FUMCH_Validations },
-  "FUM-HH": { data: FUMHH_Data, validationFunctions: FUMHH_Validations },
-  "FVA-AD": { data: FVAAD_Data, validationFunctions: FVAAD_Validations },
-  "HBD-AD": { data: HBDAD_Data, validationFunctions: HBDAD_Validations },
-  "HPCMI-AD": { data: HPCMIAD_Data, validationFunctions: HPCMIAD_Validations },
-  "HVL-AD": { data: HVLAD_Data, validationFunctions: HVLAD_Validations },
+  "FUA-AD": { data: FUAAD_Data, validationFunctions: validationFunctions },
+  "FUA-CH": { data: FUACH_Data, validationFunctions: validationFunctions },
+  "FUA-HH": { data: FUAHH_Data, validationFunctions: validationFunctions },
+  "FUH-AD": { data: FUHAD_Data, validationFunctions: validationFunctions },
+  "FUH-CH": { data: FUHCH_Data, validationFunctions: validationFunctions },
+  "FUH-HH": { data: FUHHH_Data, validationFunctions: validationFunctions },
+  "FUM-AD": { data: FUMAD_Data, validationFunctions: validationFunctions },
+  "FUM-CH": { data: FUMCH_Data, validationFunctions: validationFunctions },
+  "FUM-HH": { data: FUMHH_Data, validationFunctions: validationFunctions },
+  "FVA-AD": { data: FVAAD_Data, validationFunctions: validationFunctions },
+  "HBD-AD": { data: HBDAD_Data, validationFunctions: validationFunctions },
+  "HPCMI-AD": { data: HPCMIAD_Data, validationFunctions: validationFunctions },
+  "HVL-AD": { data: HVLAD_Data, validationFunctions: validationFunctions },
   "IET-AD": { data: IETAD_Data, validationFunctions: IETAD_Validations },
   "IET-HH": { data: IETHH_Data, validationFunctions: IETHH_Validations },
   "IMA-CH": { data: IMACH_Data, validationFunctions: IMACH_Validations },

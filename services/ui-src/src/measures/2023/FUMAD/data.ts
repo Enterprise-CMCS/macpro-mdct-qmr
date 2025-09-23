@@ -45,6 +45,10 @@ export const data: MeasureTemplateData = {
     "validateDualPopInformationPM",
   ],
   override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: false,
+    },
     validateDualPopInformationPM: {
       ageIndex: 1,
     },
