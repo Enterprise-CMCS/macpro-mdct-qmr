@@ -1,12 +1,7 @@
 import { Argv } from "yargs";
 import { checkIfAuthenticated } from "../lib/sts.js";
 import { runCommand } from "../lib/runner.js";
-import {
-  runFrontendLocally,
-  getCloudFormationStackOutputValues,
-} from "../lib/utils.js";
-import downloadClamAvLayer from "../lib/clam.js";
-import { InvokeCommand, LambdaClient } from "@aws-sdk/client-lambda";
+import { runFrontendLocally } from "../lib/utils.js";
 
 export const watch = {
   command: "watch",
@@ -17,9 +12,8 @@ export const watch = {
   handler: async (options: { stage: string }) => {
     checkIfAuthenticated();
 
-    await downloadClamAvLayer();
     await Promise.all([
-      await runCommand(
+      runCommand(
         "CDK watch",
         [
           "yarn",
@@ -31,7 +25,7 @@ export const watch = {
         ],
         "."
       ),
-      await runFrontendLocally(options.stage),
+      runFrontendLocally(options.stage),
     ]);
   },
 };
