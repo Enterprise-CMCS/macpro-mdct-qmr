@@ -40,6 +40,7 @@ export const data: MeasureTemplateData = {
     ],
     categories,
     qualifiers,
+    measureName: "PCRAD",
   },
   validations: [
     "validateRequiredRadioButtonForCombinedRates",
@@ -55,5 +56,7 @@ export const data: MeasureTemplateData = {
     "validateBothDatesCompleted",
     "validateAtLeastOneDefinitionOfPopulation",
     "validateYearFormat",
+    "PCRatLeastOneRateComplete",
+    "PCRnoNonZeroNumOrDenom",
   ],
 };
