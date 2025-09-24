@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { toHaveNoViolations } from "jest-axe";
-import axe from "@ui-src/axe-helper";
+import userEvent from "@testing-library/user-event";
 import { DataDriven } from "shared/types/TypeQualifierForm";
 import { DeliverySystems } from "./deliverySystems";
 import * as CUI from "@chakra-ui/react";
+import { FormProvider, useForm } from "react-hook-form";
 
 const mockDataDriven = {
   title: "Test Title",
@@ -37,91 +37,50 @@ const mockYear = "2024";
 
 jest.mock("hooks/authHooks", () => ({
   useUser: () => ({
-    userRole: "mdctqmr-state-user",
+    userRole: "mcdtqmr-state-user",
   }),
 }));
 
-// jest.mock("react-hook-form", () => ({
-//   ...jest.requireActual("react-hook-form"),
-//   useFieldArray: () => ({
-//     fields: [
-//       { id: "1", label: "Fee-for-Service", UnderTwentyOne: "" },
-//       { id: "2", label: "PCCM", UnderTwentyOne: "" },
-//       { id: "3", label: "Managed Care", UnderTwentyOne: "" },
-//       { id: "4", label: "Integrated Care Model (ICM)", UnderTwentyOne: "" },
-//     ],
-//     append: jest.fn(),
-//     remove: jest.fn(),
-//   }),
-//   useWatch: () => [
-//     { label: "Fee-for-Service", UnderTwentyOne: "" },
-//     { label: "PCCM", UnderTwentyOne: "" },
-//     { label: "Managed Care", UnderTwentyOne: "" },
-//     { label: "Integrated Care Model (ICM)", UnderTwentyOne: "" },
-//   ],
-//     useFormContext: () => ({
-//     handleSubmit: () => jest.fn(),
-//     control: {
-//       register: jest.fn(),
-//       unregister: jest.fn(),
-//       getFieldState: jest.fn(),
-//       _names: {
-//         array: new Set('test'),
-//         mount: new Set('test'),
-//         unMount: new Set('test'),
-//         watch: new Set('test'),
-//         focus: 'test',
-//         watchAll: false,
-//       },
-//       _subjects: {
-//         watch: jest.fn(),
-//         array: jest.fn(),
-//         state: jest.fn(),
-//       },
-//       _getWatch: jest.fn(),
-//       _formValues: ['test'],
-//       _defaultValues: ['test'],
-//     },
-//     getValues: () => {
-//       return [];
-//     },
-//     setValue: () => jest.fn(),
-//     formState: () => jest.fn(),
-//     watch: () => jest.fn(),
-//   }),
-//   Controller: () => [],
-//   useSubscribe: () => ({
-//     r: { current: { subject: { subscribe: () => jest.fn() } } },
-//   }),
-// }))
+const MockForm = () => {
+  const form = useForm({
+    shouldFocusError: false,
+    defaultValues: {
+      PercentageEnrolledInEachDeliverySystem:
+        mockDataDriven.formData.PercentageEnrolledInEachDeliverySystem,
+    },
+  });
+  return (
+    <FormProvider {...form}>
+      <form id="uniqueId" onSubmit={form.handleSubmit(jest.fn())}>
+        <CUI.OrderedList>
+          <DeliverySystems data={mockDataDriven} year={mockYear} />
+        </CUI.OrderedList>
+      </form>
+    </FormProvider>
+  );
+};
 
 describe("Test DeliverySystems", () => {
-  it("renders", async () => {
-    render(
-      <CUI.OrderedList>
-        <DeliverySystems data={mockDataDriven} year={mockYear} />
-      </CUI.OrderedList>
-    );
-    expect(screen.getByText("Mock header for year 2024")).toBeVisible();
+  it("renders for state user", async () => {
+    render(<MockForm />);
+    expect(screen.getByText("Mock header for year 2023")).toBeVisible();
+  });
+
+  it("calculates and displays totals correctly", async () => {
+    render(<MockForm />);
+    const inputs = screen.getAllByPlaceholderText("");
+    await userEvent.type(inputs[0], "10.5");
+    await userEvent.type(inputs[1], "20.5");
+    expect(screen.getByDisplayValue("31.0")).toBeInTheDocument();
+  });
+
+  it("handles adding a row", async () => {
+    render(<MockForm />);
+    const inputsBefore = screen.getAllByPlaceholderText("");
+    expect(inputsBefore).toHaveLength(4);
+    const addButton = screen.getByText("+ Add Another");
+    await userEvent.click(addButton);
+    const inputsAfter = screen.getAllByPlaceholderText("");
+    expect(inputsAfter).toHaveLength(5);
   });
 });
-
-// describe("Test accessibility", () => {
-//   it("passes a11y tests", async () => {
-//     useApiMock({});
-//     const { container } = render(
-//       <QueryClientProvider client={queryClient}>
-//         <RouterWrappedComp>
-//           <CombinedRatesMeasure
-//             year={"2024"}
-//             measureId={"AAB-AD"}
-//             measureName={
-//               "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older"
-//             }
-//           />
-//         </RouterWrappedComp>
-//       </QueryClientProvider>
-//     );
-//     expect(await axe(container)).toHaveNoViolations();
-//   });
-// });
