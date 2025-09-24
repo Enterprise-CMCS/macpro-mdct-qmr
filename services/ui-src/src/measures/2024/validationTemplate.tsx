@@ -389,6 +389,8 @@ export const validationTemplate = (
         return GV.validateAtLeastOneDefinitionOfPopulation(data);
       case "validateSameDenominatorSets":
         return GV.validateSameDenominatorSets();
+      case "validateHybridMeasurePopulation":
+        return GV.validateHybridMeasurePopulation(data);
       default:
         throw new Error(
           `Validation function ${func} not recognized! See validationTemplate.tsx`

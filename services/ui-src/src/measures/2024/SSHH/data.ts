@@ -59,15 +59,4 @@ export const dataSourceData: DataDrivenTypes.DataSource = {
       description: true,
     },
   ],
-  validations: [
-    "validateAtLeastOneDataSourceType",
-    "validateDateRangeRadioButtonCompletion",
-    "validateAtLeastOneDataSource",
-    "validateAtLeastOneRateComplete",
-    "validateOPMRates",
-    "validateNumeratorsLessThanDenominatorsPM",
-    "validateBothDatesCompleted",
-    "validateAtLeastOneDefinitionOfPopulation",
-    "validateYearFormat",
-  ],
 };
