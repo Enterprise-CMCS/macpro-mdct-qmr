@@ -1,7 +1,8 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import * as QMR from "components";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { act } from "@testing-library/react";
 
 const queryClient = new QueryClient();
 import { useUser } from "hooks/authHooks";
@@ -32,6 +33,22 @@ describe("Test Upload Component", () => {
   });
   test("Check that the Upload Component renders", () => {
     expect(screen.getByText(/drag & drop/i)).toBeInTheDocument();
+  });
+
+  test("Check that you can drag and drop a file", async () => {
+    const dropZone = screen.getByTestId("upload-stack");
+    const fileToUpload = new File(["hello"], "hello.png", {
+      type: "image/png",
+    });
+    fireEvent.drop(dropZone, {
+      target: {
+        files: [fileToUpload],
+      },
+    });
+    await act(async () => {
+      screen.debug();
+      expect(screen.findByText("hello.png")).toBeInTheDocument();
+    });
   });
 
   test("Check that the Upload Component renders", () => {
