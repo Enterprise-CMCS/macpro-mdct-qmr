@@ -18,7 +18,10 @@ export const MSCAD = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions({ functions: validationFunctions });
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
   const { watch } = useFormContext<DefaultFormData>();
@@ -44,7 +47,7 @@ export const MSCAD = ({
                 {isPrimaryMeasureSpecSelected && (
                   <>
                     <CMQ.PerformanceMeasure
-                      data={PMD.data}
+                      data={PMD.data.performanceMeasure}
                       rateReadOnly={false}
                     />
                   </>

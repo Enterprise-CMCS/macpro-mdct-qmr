@@ -18,7 +18,10 @@ export const PCRHH = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions({ functions: validationFunctions });
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 
@@ -42,7 +45,7 @@ export const PCRHH = ({
           <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRHHPerformanceMeasure data={PMD.data} />
+              <PCRHHPerformanceMeasure data={PMD.data.performanceMeasure} />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}
