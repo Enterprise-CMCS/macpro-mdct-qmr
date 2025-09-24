@@ -1,3 +1,4 @@
+// This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
 import { Argv } from "yargs";
 import { checkIfAuthenticated } from "../lib/sts.js";
 import { runCommand } from "../lib/runner.js";
@@ -10,7 +11,7 @@ export const watch = {
     return yargs.option("stage", { type: "string", demandOption: true });
   },
   handler: async (options: { stage: string }) => {
-    checkIfAuthenticated();
+    await checkIfAuthenticated();
 
     await Promise.all([
       runCommand(
