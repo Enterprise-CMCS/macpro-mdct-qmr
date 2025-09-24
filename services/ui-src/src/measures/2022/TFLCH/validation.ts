@@ -26,15 +26,6 @@ const TFLCHValidation = (data: FormData) => {
     return errorArray;
   }
 
-  let sameDenominatorError = [
-    ...GV.validateEqualQualifierDenominatorsPM(
-      performanceMeasureArray,
-      ageGroups
-    ),
-  ];
-  sameDenominatorError =
-    sameDenominatorError.length > 0 ? [...sameDenominatorError] : [];
-
   errorArray = [
     ...errorArray,
     // Dental Services rate cannot be larger than the Dental or Oral Health Services rate
@@ -62,10 +53,12 @@ const TFLCHValidation = (data: FormData) => {
     ...GV.validateYearFormat(dateRange),
     ...GV.validateAtLeastOneDataSource(data),
     ...GV.validateTotalNDR(performanceMeasureArray),
-    ...sameDenominatorError,
+    ...GV.validateEqualQualifierDenominatorsPM(
+      performanceMeasureArray,
+      ageGroups
+    ),
     ...GV.validateAtLeastOneDeviationFieldFilled(
       performanceMeasureArray,
-      ageGroups,
       deviationArray,
       didCalculationsDeviate
     ),

@@ -53,4 +53,31 @@ export const data: MeasureTemplateData = {
       { value: DC.OTHER_DATA_SOURCE, description: true },
     ],
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateEqualQualifierDenominatorsOMS",
+    "validateEqualCategoryDenominatorsOMS",
+    "validateEqualCategoryDenominatorsPM",
+    "validateYearFormat",
+  ],
+  override: {
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };

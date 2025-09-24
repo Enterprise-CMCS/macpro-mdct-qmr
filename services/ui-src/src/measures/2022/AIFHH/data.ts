@@ -102,4 +102,16 @@ export const data: MeasureTemplateData = {
   opm: {
     componentFlag: "AIF",
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
+    "ComplexValidateDualPopInformation",
+    "ComplexAtLeastOneRateComplete",
+    "ComplexNoNonZeroNumOrDenom",
+    "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec",
+    "ComplexValidateNDRTotals",
+  ],
 };

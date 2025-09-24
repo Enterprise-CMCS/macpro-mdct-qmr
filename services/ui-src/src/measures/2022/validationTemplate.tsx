@@ -201,7 +201,7 @@ export const validationTemplate = (
   const OPM = data[DC.OPM_RATES];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(2021, true),
+    OMSData(2022, true),
     qualifiers,
     categories
   );
@@ -441,7 +441,7 @@ export const validationTemplate = (
         ? data[DC.DATA_SOURCE]
         : undefined,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(2021, true),
+        OMSData(2022, true),
         qualifiers,
         categories
       ),

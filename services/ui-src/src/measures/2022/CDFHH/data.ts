@@ -39,4 +39,28 @@ export const data: MeasureTemplateData = {
     customTotalLabel: "Total (Age 12 and older)",
     rateScale: 100,
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateOMSTotalNDR",
+    "validateTotalNDR",
+    "validateYearFormat",
+    "validateDualPopInformationPM",
+  ],
+  override: {
+    validateDualPopInformationPM: {
+      dualPopInfoArray: true,
+      ageIndex: 0,
+    },
+  },
 };
