@@ -8,6 +8,17 @@ const queryClient = new QueryClient();
 import { useUser } from "hooks/authHooks";
 
 jest.mock("hooks/authHooks");
+jest.mock("aws-amplify/storage", () => ({
+  getUrl: jest.fn().mockReturnValue({
+    url: "aws.mock.file.url",
+  }),
+  uploadData: jest.fn().mockReturnValue({
+    result: {
+      key: "testfile",
+    },
+  }),
+}));
+
 const mockUseUser = useUser as jest.Mock;
 
 describe("Test Upload Component", () => {
@@ -37,7 +48,7 @@ describe("Test Upload Component", () => {
 
   test("Check that you can drag and drop a file", async () => {
     const dropZone = screen.getByTestId("upload-stack");
-    const fileToUpload = new File(["hello"], "hello.png", {
+    const fileToUpload = new File(["test"], "test.png", {
       type: "image/png",
     });
     fireEvent.drop(dropZone, {
@@ -47,7 +58,7 @@ describe("Test Upload Component", () => {
     });
     await act(async () => {
       screen.debug();
-      expect(screen.findByText("hello.png")).toBeInTheDocument();
+      expect(screen.findByText("test.png")).toBeInTheDocument();
     });
   });
 
