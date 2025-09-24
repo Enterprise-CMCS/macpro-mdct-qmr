@@ -5,7 +5,6 @@ window._env_ = {
   S3_ATTACHMENTS_BUCKET_NAME: "{{attachmentsBucketName}}",
   API_REGION: "us-east-1",
   API_URL: "{{apiGatewayRestApiUrl}}",
-  COGNITO_IDP_NAME: "Okta",
   COGNITO_IDENTITY_POOL_ID: "{{identityPoolId}}",
   COGNITO_REDIRECT_SIGNIN: "{{applicationEndpointUrl}}",
   COGNITO_REDIRECT_SIGNOUT: "{{applicationEndpointUrl}}postLogout",

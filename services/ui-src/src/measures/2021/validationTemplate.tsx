@@ -228,7 +228,6 @@ export const validationTemplate = (
         return GV.validateAtLeastOneDeviationFieldFilled(
           PMD.override?.validateAtLeastOneDeviationFieldFilled?.(data) ??
             performanceMeasureArray,
-          qualifiers,
           deviationArray,
           didCalculationsDeviate
         );

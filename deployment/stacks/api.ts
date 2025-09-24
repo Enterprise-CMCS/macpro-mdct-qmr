@@ -12,7 +12,7 @@ import {
 import { Lambda } from "../constructs/lambda";
 import { WafConstruct } from "../constructs/waf";
 import { LambdaDynamoEventSource } from "../constructs/lambda-dynamo-event";
-import { DynamoDBTableIdentifiers } from "../constructs/dynamodb-table";
+import { DynamoDBTable } from "../constructs/dynamodb-table";
 import { isDefined } from "../utils/misc";
 import { isLocalStack } from "../local/util";
 
@@ -23,7 +23,7 @@ interface CreateApiComponentsProps {
   isDev: boolean;
   vpc: ec2.IVpc;
   kafkaAuthorizedSubnets: ec2.ISubnet[];
-  tables: DynamoDBTableIdentifiers[];
+  tables: DynamoDBTable[];
   brokerString: string;
   docraptorApiKey: string;
   kafkaClientId?: string;
@@ -101,7 +101,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     KAFKA_CLIENT_ID: kafkaClientId ?? `qmr-${stage}`,
     topicNamespace: isDev ? `--qmr--${stage}--` : "",
     ...Object.fromEntries(
-      tables.map((table) => [`${table.id}Table`, table.name])
+      tables.map((table) => [`${table.node.id}Table`, table.table.tableName])
     ),
   };
 
@@ -117,7 +117,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
         "dynamodb:UpdateItem",
         "dynamodb:DeleteItem",
       ],
-      resources: tables.map((table) => table.arn),
+      resources: tables.map((table) => table.table.tableArn),
     }),
     new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
@@ -128,7 +128,9 @@ export function createApiComponents(props: CreateApiComponentsProps) {
         "dynamodb:ListShards",
         "dynamodb:ListStreams",
       ],
-      resources: tables.map((table) => table.streamArn).filter(isDefined),
+      resources: tables
+        .map((table) => table.table.tableStreamArn)
+        .filter(isDefined),
     }),
   ];
 

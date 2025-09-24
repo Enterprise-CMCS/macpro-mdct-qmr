@@ -35,4 +35,30 @@ export const data: MeasureTemplateData = {
       { value: DC.OTHER_DATA_SOURCE, description: true },
     ],
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateEqualQualifierDenominatorsOMS",
+    "validateYearFormat",
+    "validateDualPopInformationPM",
+  ],
+  override: {
+    validateDualPopInformationPM: {
+      ageIndex: 1,
+      errorLabel: "Ages 65 to 75",
+    },
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };

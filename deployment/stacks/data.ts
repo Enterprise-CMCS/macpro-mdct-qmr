@@ -18,7 +18,7 @@ export function createDataComponents(props: CreateDataComponentsProps) {
       name: "banners",
       streamable: false,
       partitionKey: { name: "key", type: dynamodb.AttributeType.STRING },
-    }).identifiers,
+    }),
     new DynamoDBTable(scope, "Measures", {
       stage,
       isDev,
@@ -28,7 +28,7 @@ export function createDataComponents(props: CreateDataComponentsProps) {
         type: dynamodb.AttributeType.STRING,
       },
       sortKey: { name: "measure", type: dynamodb.AttributeType.STRING },
-    }).identifiers,
+    }),
     new DynamoDBTable(scope, "QualityCoreSets", {
       stage,
       isDev,
@@ -38,7 +38,7 @@ export function createDataComponents(props: CreateDataComponentsProps) {
         type: dynamodb.AttributeType.STRING,
       },
       sortKey: { name: "coreSet", type: dynamodb.AttributeType.STRING },
-    }).identifiers,
+    }),
     new DynamoDBTable(scope, "CombinedRates", {
       stage,
       isDev,
@@ -48,6 +48,6 @@ export function createDataComponents(props: CreateDataComponentsProps) {
         type: dynamodb.AttributeType.STRING,
       },
       sortKey: { name: "measure", type: dynamodb.AttributeType.STRING },
-    }).identifiers,
+    }),
   ];
 }
