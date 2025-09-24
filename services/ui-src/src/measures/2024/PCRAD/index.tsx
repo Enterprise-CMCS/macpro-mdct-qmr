@@ -18,7 +18,10 @@ export const PCRAD = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions({ functions: validationFunctions });
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 
@@ -40,7 +43,7 @@ export const PCRAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRADPerformanceMeasure data={PMD.data} />
+              <PCRADPerformanceMeasure data={PMD.data.performanceMeasure} />
               <CMQ.DeviationFromMeasureSpec />
             </>
           )}
