@@ -1,5 +1,5 @@
-import { DataDrivenTypes } from "shared/types";
 import { getCatQualLabels } from "../rateLabelText";
+import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 export const { categories, qualifiers } = getCatQualLabels("PCR-AD");
 
@@ -26,15 +26,31 @@ export const ndrFormulas = [
   },
 ];
 
-export const data: DataDrivenTypes.PerformanceMeasure = {
-  questionText: [
-    "For beneficiaries ages 18 to 64, the number of acute inpatient and observation stays during the measurement year that were followed by an unplanned acute readmission for any diagnosis within 30 days and the predicted probability of an acute readmission. Data are reported in the following categories:",
+export const data: MeasureTemplateData = {
+  type: "HEDIS",
+  coreset: "adult",
+  performanceMeasure: {
+    questionText: [
+      "For beneficiaries ages 18 to 64, the number of acute inpatient and observation stays during the measurement year that were followed by an unplanned acute readmission for any diagnosis within 30 days and the predicted probability of an acute readmission. Data are reported in the following categories:",
+    ],
+    questionListItems: [
+      "Count of Index Hospital Stays (IHS)",
+      "Count of Observed 30-Day Readmissions",
+      "Count of Expected 30-Day Readmissions",
+    ],
+    categories,
+    qualifiers,
+    ndrFormulas,
+    measureName: "PCRAD",
+  },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
+    "PCRatLeastOneRateComplete",
+    "PCRnoNonZeroNumOrDenom",
+    "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec",
   ],
-  questionListItems: [
-    "Count of Index Hospital Stays (IHS)",
-    "Count of Observed 30-Day Readmissions",
-    "Count of Expected 30-Day Readmissions",
-  ],
-  categories,
-  qualifiers,
 };

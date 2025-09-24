@@ -1,12 +1,10 @@
 import * as Types from "shared/types";
 import { FormRateField } from "shared/types/TypeValidations";
-import { LabelData } from "utils";
 
 // When a user inputs data in multiple NDR sets in a performance measure
 // Then the user must complete at least one NDR set in the Deviation of measure specification.
 export const validateAtLeastOneDeviationFieldFilled = (
   performanceMeasureArray: FormRateField[][],
-  ageGroups: LabelData[],
   deviationArray: Types.DeviationFields[] | any,
   didCalculationsDeviate: boolean,
   errorMessage?: string
@@ -17,25 +15,14 @@ export const validateAtLeastOneDeviationFieldFilled = (
   let isCCWAD: boolean = false;
 
   if (didCalculationsDeviate) {
-    ageGroups.forEach((_ageGroup, i) => {
-      performanceMeasureArray?.forEach((_performanceObj, index) => {
-        if (
-          performanceMeasureArray[index] &&
-          performanceMeasureArray[index][i] &&
-          performanceMeasureArray[index][i].denominator &&
-          performanceMeasureArray[index][i].numerator &&
-          performanceMeasureArray[index][i].rate
-        ) {
-          // CCW-AD
-          if (
-            performanceMeasureArray[index][i].label ===
-            "All Women Ages 21 to 44"
-          ) {
-            isCCWAD = true;
-          }
-          ndrCount++;
-        }
-      });
+    performanceMeasureArray.flatMap((rates) => {
+      const filled = rates.filter(
+        (set) => set && set.denominator && set.numerator && set.rate
+      );
+      ndrCount += filled.length;
+
+      if (rates.find((rate) => rate.label === "All Women Ages 21 to 44"))
+        isCCWAD = true;
     });
 
     if (ndrCount > 0) {
@@ -43,7 +30,7 @@ export const validateAtLeastOneDeviationFieldFilled = (
         // CCW-AD validation
         let selectedOptions;
         if (isCCWAD) {
-          selectedOptions = deviationNDR.SelectedOptions[0];
+          selectedOptions = deviationNDR?.SelectedOptions[0];
           if (
             deviationNDR[selectedOptions].denominator ||
             deviationNDR[selectedOptions].numerator ||

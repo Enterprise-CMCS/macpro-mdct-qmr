@@ -5,7 +5,7 @@ import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
@@ -48,7 +48,7 @@ export const PCRAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRADPerformanceMeasure data={PMD.data} />
+              <PCRADPerformanceMeasure data={PMD.data.performanceMeasure} />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.qualifiers}
                 measureName={measureId}

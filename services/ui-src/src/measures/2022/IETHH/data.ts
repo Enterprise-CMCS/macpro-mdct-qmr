@@ -41,4 +41,40 @@ export const data: MeasureTemplateData = {
   custom: {
     calcTotal: true,
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateOneCatRateHigherThanOtherCatPM",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateOMSTotalNDR",
+    "validateTotalNDR",
+    "validateEqualQualifierDenominatorsPM",
+    "validateYearFormat",
+    "validateDualPopInformationPM",
+  ],
+  override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: true,
+    },
+    validateOneCatRateHigherThanOtherCatPM: {
+      increment: 2,
+    },
+    validateOneCatRateHigherThanOtherCatOMS: {
+      increment: 2,
+    },
+    validateDualPopInformationPM: {
+      ageIndex: 2,
+    },
+  },
 };
