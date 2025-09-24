@@ -29,15 +29,20 @@ import * as ComplexValidateDualPopInformation from "shared/globalValidations/Com
 import * as PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/PCRValidations/PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/globalValidations/ComplexValidations/ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec"; //pragma: allowlist secret
 import { DefaultFormData } from "shared/types/FormData";
+import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
 /**
  * Replicate the behavior of the validateAndSetErrors() function in the MeasureWrapper
  */
 export const mockValidateAndSetErrors = (
   validationFunctions: any,
-  data: DefaultFormData | {} = {}
+  data: DefaultFormData | {} = {},
+  measureData?: MeasureTemplateData
 ) => {
-  validationFunctions.reduce((_a: any, current: any) => current(data), []);
+  validationFunctions.reduce(
+    (_a: any, current: any) => current(data, measureData),
+    []
+  );
 };
 
 export const clearMocks = () => {
