@@ -51,15 +51,14 @@ describe("Test Upload Component", () => {
     const fileToUpload = new File(["test"], "test.png", {
       type: "image/png",
     });
-    fireEvent.drop(dropZone, {
-      target: {
-        files: [fileToUpload],
-      },
-    });
     await act(async () => {
-      screen.debug();
-      expect(screen.findByText("test.png")).toBeInTheDocument();
+      fireEvent.drop(dropZone, {
+        target: {
+          files: [fileToUpload],
+        },
+      });
     });
+    expect(screen.getByText("test.png")).toBeInTheDocument();
   });
 
   test("Check that the Upload Component renders", () => {
