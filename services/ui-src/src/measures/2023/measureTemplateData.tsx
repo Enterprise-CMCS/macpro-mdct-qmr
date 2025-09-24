@@ -1,29 +1,5 @@
 import { validationFunctions } from "./validationTemplate";
-
-import { validationFunctions as DEVCH_Validations } from "./DEVCH/validation";
-import { validationFunctions as IETAD_Validations } from "./IETAD/validation";
-import { validationFunctions as IETHH_Validations } from "./IETHH/validation";
-import { validationFunctions as IMACH_Validations } from "./IMACH/validation";
-import { validationFunctions as IUHH_Validations } from "./IUHH/validation";
-import { validationFunctions as LSCCH_Validations } from "./LSCCH/validation";
-import { validationFunctions as OEVCH_Validations } from "./OEVCH/validation";
-import { validationFunctions as OHDAD_Validations } from "./OHDAD/validation";
-import { validationFunctions as OUDAD_Validations } from "./OUDAD/validation";
-import { validationFunctions as OUDHH_Validations } from "./OUDHH/validation";
-import { validationFunctions as PPCAD_Validations } from "./PPCAD/validation";
-import { validationFunctions as PPCCH_Validations } from "./PPCCH/validation";
-import { validationFunctions as PQI01AD_Validations } from "./PQI01AD/validation";
-import { validationFunctions as PQI05AD_Validations } from "./PQI05AD/validation";
-import { validationFunctions as PQI08AD_Validations } from "./PQI08AD/validation";
-import { validationFunctions as PQI15AD_Validations } from "./PQI15AD/validation";
-import { validationFunctions as PQI92HH_Validations } from "./PQI92HH/validation";
-import { validationFunctions as SAAAD_Validations } from "./SAAAD/validation";
-import { validationFunctions as SFMCH_Validations } from "./SFMCH/validation";
-import { validationFunctions as SSDAD_Validations } from "./SSDAD/validation";
 import { validationFunctions as TFLCH_Validations } from "./TFLCH/validation";
-import { validationFunctions as W30CH_Validations } from "./W30CH/validation";
-import { validationFunctions as WCCCH_Validations } from "./WCCCH/validation";
-import { validationFunctions as WCVCH_Validations } from "./WCVCH/validation";
 
 import { data as AABAD_Data } from "./AABAD/data";
 import { data as AABCH_Data } from "./AABCH/data";
@@ -120,7 +96,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "COL-AD": { data: COLAD_Data, validationFunctions: validationFunctions },
   "COL-HH": { data: COLHH_Data, validationFunctions: validationFunctions },
   "CPU-AD": { data: CPUAD_Data, validationFunctions: validationFunctions },
-  "DEV-CH": { data: DEVCH_Data, validationFunctions: DEVCH_Validations },
+  "DEV-CH": { data: DEVCH_Data, validationFunctions: validationFunctions },
   "FUA-AD": { data: FUAAD_Data, validationFunctions: validationFunctions },
   "FUA-CH": { data: FUACH_Data, validationFunctions: validationFunctions },
   "FUA-HH": { data: FUAHH_Data, validationFunctions: validationFunctions },
@@ -134,27 +110,27 @@ export const measureTemplateData: { [measure: string]: any } = {
   "HBD-AD": { data: HBDAD_Data, validationFunctions: validationFunctions },
   "HPCMI-AD": { data: HPCMIAD_Data, validationFunctions: validationFunctions },
   "HVL-AD": { data: HVLAD_Data, validationFunctions: validationFunctions },
-  "IET-AD": { data: IETAD_Data, validationFunctions: IETAD_Validations },
-  "IET-HH": { data: IETHH_Data, validationFunctions: IETHH_Validations },
-  "IMA-CH": { data: IMACH_Data, validationFunctions: IMACH_Validations },
-  "IU-HH": { data: IUHH_Data, validationFunctions: IUHH_Validations },
-  "LSC-CH": { data: LSCCH_Data, validationFunctions: LSCCH_Validations },
-  "OEV-CH": { data: OEVCH_Data, validationFunctions: OEVCH_Validations },
-  "OHD-AD": { data: OHDAD_Data, validationFunctions: OHDAD_Validations },
-  "OUD-AD": { data: OUDAD_Data, validationFunctions: OUDAD_Validations },
-  "OUD-HH": { data: OUDHH_Data, validationFunctions: OUDHH_Validations },
-  "PPC-AD": { data: PPCAD_Data, validationFunctions: PPCAD_Validations },
-  "PPC-CH": { data: PPCCH_Data, validationFunctions: PPCCH_Validations },
-  "PQI01-AD": { data: PQI01AD_Data, validationFunctions: PQI01AD_Validations },
-  "PQI05-AD": { data: PQI05AD_Data, validationFunctions: PQI05AD_Validations },
-  "PQI08-AD": { data: PQI08AD_Data, validationFunctions: PQI08AD_Validations },
-  "PQI15-AD": { data: PQI15AD_Data, validationFunctions: PQI15AD_Validations },
-  "PQI92-HH": { data: PQI92HH_Data, validationFunctions: PQI92HH_Validations },
-  "SAA-AD": { data: SAAAD_Data, validationFunctions: SAAAD_Validations },
-  "SFM-CH": { data: SFMCH_Data, validationFunctions: SFMCH_Validations },
-  "SSD-AD": { data: SSDAD_Data, validationFunctions: SSDAD_Validations },
+  "IET-AD": { data: IETAD_Data, validationFunctions: validationFunctions },
+  "IET-HH": { data: IETHH_Data, validationFunctions: validationFunctions },
+  "IMA-CH": { data: IMACH_Data, validationFunctions: validationFunctions },
+  "IU-HH": { data: IUHH_Data, validationFunctions: validationFunctions },
+  "LSC-CH": { data: LSCCH_Data, validationFunctions: validationFunctions },
+  "OEV-CH": { data: OEVCH_Data, validationFunctions: validationFunctions },
+  "OHD-AD": { data: OHDAD_Data, validationFunctions: validationFunctions },
+  "OUD-AD": { data: OUDAD_Data, validationFunctions: validationFunctions },
+  "OUD-HH": { data: OUDHH_Data, validationFunctions: validationFunctions },
+  "PPC-AD": { data: PPCAD_Data, validationFunctions: validationFunctions },
+  "PPC-CH": { data: PPCCH_Data, validationFunctions: validationFunctions },
+  "PQI01-AD": { data: PQI01AD_Data, validationFunctions: validationFunctions },
+  "PQI05-AD": { data: PQI05AD_Data, validationFunctions: validationFunctions },
+  "PQI08-AD": { data: PQI08AD_Data, validationFunctions: validationFunctions },
+  "PQI15-AD": { data: PQI15AD_Data, validationFunctions: validationFunctions },
+  "PQI92-HH": { data: PQI92HH_Data, validationFunctions: validationFunctions },
+  "SAA-AD": { data: SAAAD_Data, validationFunctions: validationFunctions },
+  "SFM-CH": { data: SFMCH_Data, validationFunctions: validationFunctions },
+  "SSD-AD": { data: SSDAD_Data, validationFunctions: validationFunctions },
   "TFL-CH": { data: TFLCH_Data, validationFunctions: TFLCH_Validations },
-  "W30-CH": { data: W30CH_Data, validationFunctions: W30CH_Validations },
-  "WCC-CH": { data: WCCCH_Data, validationFunctions: WCCCH_Validations },
-  "WCV-CH": { data: WCVCH_Data, validationFunctions: WCVCH_Validations },
+  "W30-CH": { data: W30CH_Data, validationFunctions: validationFunctions },
+  "WCC-CH": { data: WCCCH_Data, validationFunctions: validationFunctions },
+  "WCV-CH": { data: WCVCH_Data, validationFunctions: validationFunctions },
 };
