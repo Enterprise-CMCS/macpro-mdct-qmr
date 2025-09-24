@@ -10,11 +10,15 @@ import {
 } from "./util";
 import { render } from "@testing-library/react";
 
-const mockGetPDF = jest.fn().mockResolvedValue("PDFDATA");
+const mockGetPDF = jest.fn().mockReturnValue("PDFDATA");
 jest.mock("libs/api", () => ({
   getPDF: () => mockGetPDF(),
 }));
+
 describe("ExportAll utils", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
   describe("getSpaName", () => {
     const props = {
       coreSetId: "HHCS_24-0020",
@@ -107,7 +111,6 @@ describe("ExportAll utils", () => {
     let createTextNodeSpy: jest.SpyInstance;
 
     beforeEach(() => {
-      jest.clearAllMocks();
       appendChildSpy = jest.spyOn(document.body, "appendChild");
       createTextNodeSpy = jest.spyOn(document, "createTextNode");
     });
@@ -172,7 +175,6 @@ describe("ExportAll utils", () => {
     let setAttributeSpy: jest.SpyInstance;
 
     beforeEach(() => {
-      jest.clearAllMocks();
       setAttributeSpy = jest.spyOn(document.body, "setAttribute");
     });
 
@@ -223,7 +225,15 @@ describe("ExportAll utils", () => {
     };
     it("should render and call the hook without error", async () => {
       render(<TestComponent />);
-      expect(mockGetPDF).toHaveBeenCalled();
+      expect(mockGetPDF).toHaveBeenCalledTimes(1);
+    });
+
+    it("should retry properly if getPDF fails", async () => {
+      mockGetPDF.mockImplementation(() => {
+        throw new Error("test error");
+      });
+      render(<TestComponent />);
+      expect(mockGetPDF).toHaveBeenCalledTimes(5);
     });
   });
 });

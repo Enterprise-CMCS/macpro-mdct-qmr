@@ -19,4 +19,17 @@ export const data: MeasureTemplateData = {
     rateScale: 100000,
     customMask: positiveNumbersWithMaxDecimalPlaces(1),
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
+  ],
 };
