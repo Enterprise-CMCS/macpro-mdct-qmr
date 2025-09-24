@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 

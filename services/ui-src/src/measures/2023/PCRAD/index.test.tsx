@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 import {
   mockValidateAndSetErrors,
   clearMocks,

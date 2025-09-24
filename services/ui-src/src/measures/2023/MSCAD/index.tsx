@@ -3,7 +3,7 @@ import * as Q from "./questions";
 import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const MSCAD = ({
