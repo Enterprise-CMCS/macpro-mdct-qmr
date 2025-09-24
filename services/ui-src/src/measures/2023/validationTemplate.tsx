@@ -55,14 +55,6 @@ const sortOMSValidations = (
             `Optional Measure Stratification: ${locationDictionary(label)}`,
             categories
           ),
-          ...GV.ComplexValidateNDRTotalsOMS(
-            rateData?.["iuhh-rate"]?.rates ?? {},
-            categories,
-            PMD.performanceMeasure.ndrFormulas ?? [],
-            `Optional Measure Stratification: ${locationDictionary(
-              label
-            )} Total`
-          ),
           ...GV.ComplexValueSameCrossCategoryOMS(
             rateData?.["iuhh-rate"]?.rates ?? {},
             categories,
