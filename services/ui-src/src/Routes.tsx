@@ -1,5 +1,5 @@
 import { createElement, ReactElement, Fragment, lazy } from "react";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useUser } from "hooks/authHooks";

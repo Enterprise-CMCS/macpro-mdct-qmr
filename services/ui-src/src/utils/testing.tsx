@@ -1,14 +1,9 @@
 import { PropsWithChildren } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router";
 
-jest.mock("react-router-dom", () => {
-  // Require the original module to not be mocked...
-  const originalModule = jest.requireActual("react-router-dom");
-
+jest.mock("react-router", () => {
   return {
-    __esModule: true,
-    ...originalModule,
-    // add your noops here
+    ...jest.requireActual("react-router"),
     useParams: jest.fn().mockReturnValue({
       year: "2021",
       state: "OH",

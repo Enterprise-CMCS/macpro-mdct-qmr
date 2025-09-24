@@ -1,7 +1,7 @@
 import * as Q from "./questions";
 import * as QMR from "components";
 import * as CMQ from "shared/commonQuestions";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useFormContext } from "react-hook-form";
 import { validationFunctions } from "./validation";
 import { useEffect } from "react";

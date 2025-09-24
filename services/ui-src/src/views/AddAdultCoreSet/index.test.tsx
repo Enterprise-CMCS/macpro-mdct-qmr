@@ -10,8 +10,8 @@ import { CoreSetAbbr, UserRoles } from "types";
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: () => ({
     year: "2024",
     state: "OH",

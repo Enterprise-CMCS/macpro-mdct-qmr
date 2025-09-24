@@ -1,6 +1,9 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { mockFlags, resetLDMocks } from "jest-launchdarkly-mock";
+import { TextEncoder } from "util";
+
+Object.assign(global, { TextEncoder });
 
 global.React = React;
 Object.defineProperty(window, "matchMedia", {

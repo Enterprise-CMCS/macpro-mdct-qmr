@@ -2,13 +2,13 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { useApiMock } from "utils/testUtils/useApiMock";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router";
 import { CombinedRatesPage } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 expect.extend(toHaveNoViolations);
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: jest.fn().mockReturnValue({
     year: "2024",
     state: "AL",

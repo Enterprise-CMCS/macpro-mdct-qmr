@@ -3,7 +3,7 @@ import * as QMR from "components";
 import { AddSSMCard } from "./AddSSMCard";
 import { CoreSetAbbr, MeasureStatus, MeasureData, coreSetType } from "types";
 import { CoreSetTableItem } from "components/Table/types";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { HiCheckCircle } from "react-icons/hi";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { SPA } from "libs/spaLib";

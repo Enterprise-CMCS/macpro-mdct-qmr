@@ -7,8 +7,8 @@ const queryClient = new QueryClient();
 
 const mockedNavigate = jest.fn();
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: jest.fn().mockReturnValue({
     year: "2021",
     state: "OH",

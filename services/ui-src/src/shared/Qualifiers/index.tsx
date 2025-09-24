@@ -6,7 +6,7 @@ import * as Form from "labels/QualifierFormsDatas";
 import { useEffect, useState } from "react";
 import { validationFunctions } from "shared/Qualifiers/validationFunctions";
 import { DeliverySystems } from "shared/Qualifiers/deliverySystems";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import * as Types from "types";
 
 export const Qualifier = ({

@@ -4,7 +4,7 @@ import { ContainedButton } from "components/ContainedButton";
 import { CoreSetAbbr } from "types";
 import { CoreSetTableItem } from "components/Table/types";
 import { useEditCoreSet } from "hooks/api";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useUser } from "hooks/authHooks";
 import { useQueryClient } from "@tanstack/react-query";
 import { featuresByYear } from "utils/featuresByYear";

@@ -6,8 +6,8 @@ import { useApiMock } from "utils/testUtils/useApiMock";
 
 const queryClient = new QueryClient();
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: () => ({
     year: "2021",
     state: "DC",

@@ -11,7 +11,7 @@ import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 interface Props {
   hybridMeasure?: boolean;

@@ -4,7 +4,7 @@ import { LocalLogins, PostLogoutRedirect } from "components";
 import { useUser } from "hooks/authHooks";
 import { Suspense, useEffect } from "react";
 import { MeasuresLoading } from "views";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router";
 import { fireTealiumPageView, makeMediaQueryClasses } from "utils";
 
 const App = () => {

@@ -1,6 +1,6 @@
 import * as Q from "./questions";
 import * as CMQ from "shared/commonQuestions";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import * as QMR from "components";
 import { useFormContext } from "react-hook-form";
 import { FormData } from "./types";

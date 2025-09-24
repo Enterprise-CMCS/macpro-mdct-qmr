@@ -9,8 +9,8 @@ expect.extend(toHaveNoViolations);
 
 global.structuredClone = (val: any) => JSON.parse(JSON.stringify(val));
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: () => ({
     year: "2024",
     state: "OH",

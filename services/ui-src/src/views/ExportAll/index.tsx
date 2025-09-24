@@ -5,7 +5,7 @@ import Measures, { QualifierData } from "measures";
 import { useGetMeasures } from "hooks/api";
 import { createElement } from "react";
 import "./../../styles/index.scss";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { usePrinceRequest, getSpaName } from "./util";
 
 export const ExportAll = () => {

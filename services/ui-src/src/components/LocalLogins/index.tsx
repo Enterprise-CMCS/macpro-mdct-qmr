@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import * as CUI from "@chakra-ui/react";
 import { signIn } from "aws-amplify/auth";
 import { useFormFields } from "../../libs/hooksLib";

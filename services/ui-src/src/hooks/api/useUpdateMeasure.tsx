@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { editMeasure } from "libs/api";
 import { CoreSetAbbr, Params, MeasureStatus } from "types";
 import { usePathParams } from "./usePathParams";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 interface UpdateMeasure<DataType = any> {
   coreSet?: string;
