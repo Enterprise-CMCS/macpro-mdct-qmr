@@ -306,7 +306,6 @@ const ListItem = ({ file, index, clearFile }: ListItemProps) => {
       >
         {file.filename}
       </CUI.Button>
-      {console.log("file name: ", file)}
       <CUI.Button
         data-testid={`test-delete-btn-${index}`}
         data-cy={`upload-delete-btn-${index}`}
