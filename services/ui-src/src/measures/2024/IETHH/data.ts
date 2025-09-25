@@ -78,5 +78,11 @@ export const data: MeasureTemplateData = {
       category: true,
       errorMessage: true,
     },
+    validateOneCatRateHigherThanOtherCatPM: {
+      increment: 2,
+    },
+    validateOneCatRateHigherThanOtherCatOMS: {
+      increment: 2,
+    },
   },
 };
