@@ -85,5 +85,6 @@ export const data: MeasureTemplateData = {
     omsValidations: {
       dataSource: true,
     },
+    validateTotalNDR: { categories, errorMessage: true },
   },
 };

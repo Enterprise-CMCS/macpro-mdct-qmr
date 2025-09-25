@@ -67,4 +67,7 @@ export const data: MeasureTemplateData = {
     "validateEqualQualifierDenominatorsPM",
     "validateYearFormat",
   ],
+  override: {
+    validateTotalNDR: { categories, errorMessage: true },
+  },
 };
