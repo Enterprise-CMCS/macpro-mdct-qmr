@@ -48,14 +48,13 @@ describe("Test Upload Component", () => {
       }
     );
   });
-  test("Check that the Upload Component renders", () => {
-    expect(screen.getByText(/test label/i)).toBeInTheDocument();
-  });
 
   test("Check that the Upload Component renders", () => {
     expect(screen.getByText(/drag & drop/i)).toBeInTheDocument();
   });
-
+  test("Check that the Upload Component renders", () => {
+    expect(screen.getByText(/test label/i)).toBeInTheDocument();
+  });
   test("ComponentMask does not render for state user", () => {
     const mask = screen.queryByTestId("component-mask");
     expect(mask).toBeNull();

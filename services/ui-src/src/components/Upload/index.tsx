@@ -121,7 +121,6 @@ export const Upload = ({
 
       uploadFiles(acceptedFiles)
         .then((result: any) => {
-          //console.log("uploading");
           field.onChange([...field.value, ...result]);
         })
         .catch((error) => {
