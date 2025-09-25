@@ -42,7 +42,7 @@ export const CPUAD = ({
           <CMQ.DefinitionOfPopulation populationSampleSize />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CPUADPerformanceMeasure data={PMD.data} />
+              <CPUADPerformanceMeasure data={PMD.data.performanceMeasure} />
               <CMQ.DeviationFromMeasureSpec />
             </>
           )}
