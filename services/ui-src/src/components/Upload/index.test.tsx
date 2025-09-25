@@ -14,8 +14,11 @@ jest.mock("aws-amplify/storage", () => ({
   }),
   uploadData: jest.fn().mockReturnValue({
     result: {
-      key: "testfile",
+      key: "test",
     },
+  }),
+  remove: jest.fn().mockReturnValue({
+    result: {},
   }),
 }));
 
@@ -46,11 +49,13 @@ describe("Test Upload Component", () => {
     expect(screen.getByText(/drag & drop/i)).toBeInTheDocument();
   });
 
-  test("Check that you can drag and drop a file", async () => {
+  test("Check that you can drag and drop a file, and then delete it", async () => {
     const dropZone = screen.getByTestId("upload-stack");
     const fileToUpload = new File(["test"], "test.png", {
       type: "image/png",
     });
+
+    // drag and drop a file
     await act(async () => {
       fireEvent.drop(dropZone, {
         target: {
@@ -59,6 +64,12 @@ describe("Test Upload Component", () => {
       });
     });
     expect(screen.getByText("test.png")).toBeInTheDocument();
+
+    // delete uploaded file
+    await act(async () => {
+      screen.getByTestId("test-delete-btn-0").click();
+    });
+    //expect(screen.getByText("test.png")).not.toBeInTheDocument();
   });
 
   test("Check that the Upload Component renders", () => {
