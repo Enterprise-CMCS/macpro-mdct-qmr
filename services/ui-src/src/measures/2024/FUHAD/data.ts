@@ -43,4 +43,10 @@ export const data: MeasureTemplateData = {
     "validateYearFormat",
     "validateDualPopInformationPM",
   ],
+  override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: false,
+    },
+  },
 };

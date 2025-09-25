@@ -86,5 +86,9 @@ export const data: MeasureTemplateData = {
       dataSource: true,
     },
     validateTotalNDR: { categories, errorMessage: true },
+    validateEqualQualifierDenominatorsPM: {
+      category: false,
+      errorMessage: true,
+    },
   },
 };
