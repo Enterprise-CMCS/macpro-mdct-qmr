@@ -81,4 +81,9 @@ export const data: MeasureTemplateData = {
     "validateAtLeastOneDefinitionOfPopulation",
     "validateYearFormat",
   ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };

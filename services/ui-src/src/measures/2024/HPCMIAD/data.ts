@@ -73,4 +73,9 @@ export const data: MeasureTemplateData = {
     "validateYearFormat",
     "validateDualPopInformationPM",
   ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };
