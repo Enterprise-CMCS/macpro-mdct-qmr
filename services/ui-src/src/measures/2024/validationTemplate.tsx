@@ -387,8 +387,6 @@ export const validationTemplate = (
         return GV.validateAtLeastOneDeliverySystem(data);
       case "validateAtLeastOneDefinitionOfPopulation":
         return GV.validateAtLeastOneDefinitionOfPopulation(data);
-      case "validateSameDenominatorSets":
-        return GV.validateSameDenominatorSets();
       case "validateHybridMeasurePopulation":
         return GV.validateHybridMeasurePopulation(data);
       default:

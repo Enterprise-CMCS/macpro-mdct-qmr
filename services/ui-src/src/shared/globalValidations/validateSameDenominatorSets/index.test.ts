@@ -1,4 +1,4 @@
-import { validateSameDenominatorSets, validateSameDenominatorSetsOMS } from ".";
+import { validateSameDenominatorSetsOMS } from ".";
 import {
   generateOmsCategoryRateData,
   locationDictionary,
@@ -25,36 +25,6 @@ describe("Testing Same Denominator Set Validation", () => {
     isOPM: false,
     label: ["TestLabel"],
   };
-
-  describe("PM Validation", () => {
-    it("Denominator should return no errors", () => {
-      const data = generateOmsCategoryRateData(categories, qualifiers, [
-        lowerRate,
-        higherRate,
-      ]);
-
-      const errors = validateSameDenominatorSets()({
-        ...baseOMSInfo,
-        rateData: data,
-      });
-
-      expect(errors).toHaveLength(0);
-    });
-
-    it("Denominator should return errors", () => {
-      const data = generateOmsCategoryRateData(categories, qualifiers, [
-        simpleRate,
-        doubleRate,
-      ]);
-
-      const errors = validateSameDenominatorSets()({
-        ...baseOMSInfo,
-        rateData: data,
-      });
-
-      expect(errors).toHaveLength(2);
-    });
-  });
 
   describe("OMS Validation", () => {
     it("should return NO errors", () => {

@@ -98,7 +98,7 @@ const AMMADValidation = (data: FormData, coreSetId?: string) => {
         GV.validateNumeratorLessThanDenominatorOMS(),
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
-        GV.validateSameDenominatorSets(),
+        GV.validateSameDenominatorSetsOMS(),
       ],
     }),
   ];

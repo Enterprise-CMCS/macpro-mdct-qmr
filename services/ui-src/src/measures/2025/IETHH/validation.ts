@@ -100,7 +100,7 @@ const IETValidation = (data: FormData) => {
         GV.validateRateZeroOMS(),
         GV.validateRateNotZeroOMS(),
         GV.validateOMSTotalNDR(),
-        GV.validateSameDenominatorSets(),
+        GV.validateSameDenominatorSetsOMS(),
         GV.validateOneCatRateHigherThanOtherCatOMS(0, 1, 2),
       ],
     }),
