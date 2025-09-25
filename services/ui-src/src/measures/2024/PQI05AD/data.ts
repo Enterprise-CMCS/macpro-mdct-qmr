@@ -38,4 +38,10 @@ export const data: MeasureTemplateData = {
     "validateYearFormat",
     "validateDualPopInformationPM",
   ],
+  override: {
+    validateDualPopInformationPM: {
+      ageIndex: 0,
+      dualPopInfoArray: true,
+    },
+  },
 };

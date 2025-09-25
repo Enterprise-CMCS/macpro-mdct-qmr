@@ -80,5 +80,8 @@ export const data: MeasureTemplateData = {
     validateOneCatRateHigherThanOtherCatOMS: {
       increment: 2,
     },
+    validateDualPopInformationPM: {
+      ageIndex: 1,
+    },
   },
 };
