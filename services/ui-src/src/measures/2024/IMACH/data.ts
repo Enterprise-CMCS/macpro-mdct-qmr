@@ -84,5 +84,8 @@ export const data: MeasureTemplateData = {
     omsValidations: {
       dataSource: true,
     },
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
   },
 };

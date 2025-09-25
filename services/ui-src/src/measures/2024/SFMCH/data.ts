@@ -47,5 +47,8 @@ export const data: MeasureTemplateData = {
       category: true,
       errorMessage: false,
     },
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
   },
 };
