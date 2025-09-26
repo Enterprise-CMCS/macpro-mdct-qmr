@@ -26,8 +26,6 @@ export interface customData {
 export const validationFunctions = [
   "validateRequiredRadioButtonForCombinedRates",
   "validateAtLeastOneDeviationFieldFilled",
-  "validateRequiredRadioButtonForCombinedRates",
-  "validateAtLeastOneDeviationFieldFilled",
   "validateReasonForNotReporting",
   "validateAtLeastOneDataSource",
   "validateBothDatesCompleted",
