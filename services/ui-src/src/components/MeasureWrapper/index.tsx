@@ -378,10 +378,7 @@ export const MeasureWrapper = ({
     const validationErrors = validationFunctions?.functions.reduce(
       (acc: any, current: any) => {
         //temporary code to be used during migration of validation file
-        const error =
-          parseInt(year) > 2024
-            ? current(data, coreSetId)
-            : current(data, validationFunctions.data, coreSetId);
+        const error = current(data, validationFunctions.data, coreSetId);
         let errorArray = [];
 
         if (Array.isArray(error)) {

@@ -20,4 +20,33 @@ export const data: MeasureTemplateData = {
   opm: {
     excludeOptions: ["O8BrOa"],
   },
+  validations: [
+    "validateFfsRadioButtonCompletion",
+    "validateAtLeastOneDataSourceType",
+    "validateReasonForNotReporting",
+    "validateOneQualRateHigherThanOtherQualOMS",
+    "validateOneQualRateHigherThanOtherQualPM",
+    "validateDateRangeRadioButtonCompletion",
+    "validateAtLeastOneDataSource",
+    "validateDeviationTextFieldFilled",
+    "validateAtLeastOneRateComplete",
+    "validateOPMRates",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateAtLeastOneDeliverySystem",
+    "validateBothDatesCompleted",
+    "validateAtLeastOneDefinitionOfPopulation",
+    "validateEqualCategoryDenominatorsOMS",
+    "validateEqualCategoryDenominatorsPM",
+    "validateYearFormat",
+  ],
+  override: {
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
+  },
 };

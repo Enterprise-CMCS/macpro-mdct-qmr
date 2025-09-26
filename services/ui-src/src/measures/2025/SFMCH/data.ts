@@ -17,4 +17,38 @@ export const data: MeasureTemplateData = {
   custom: {
     showtextbox: true,
   },
+  validations: [
+    "validateFfsRadioButtonCompletion",
+    "validateAtLeastOneDataSourceType",
+    "validateReasonForNotReporting",
+    "validateOneQualRateHigherThanOtherQualOMS",
+    "validateOneQualRateHigherThanOtherQualPM",
+    "validateDateRangeRadioButtonCompletion",
+    "validateAtLeastOneDataSource",
+    "validateDeviationTextFieldFilled",
+    "validateAtLeastOneRateComplete",
+    "validateOPMRates",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateAtLeastOneDeliverySystem",
+    "validateBothDatesCompleted",
+    "validateAtLeastOneDefinitionOfPopulation",
+    "validateEqualQualifierDenominatorsPM",
+    "validateEqualCategoryDenominatorsOMS",
+    "validateEqualCategoryDenominatorsPM",
+    "validateYearFormat",
+  ],
+  override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: false,
+    },
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
+  },
 };
