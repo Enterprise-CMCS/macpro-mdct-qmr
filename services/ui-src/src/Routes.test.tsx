@@ -150,7 +150,7 @@ describe("Routes", () => {
       const { result } = renderHook(() => useMeasureRoutes());
 
       const qualifierRoute = result.current.find(
-        (r) => r.path === ":state/2021/:coreSetId/CSQ"
+        (route) => route.path === ":state/2021/:coreSetId/CSQ"
       );
       expect(qualifierRoute).toBeDefined();
     });
@@ -179,11 +179,11 @@ describe("Routes", () => {
 
       const { result } = renderHook(() => useMeasureRoutes());
 
-      const missingRoute = result.current.find((r) =>
-        r.path.includes("MISSING-MEASURE")
+      const missingRoute = result.current.find((route) =>
+        route.path.includes("MISSING-MEASURE")
       );
-      const existingRoute = result.current.find((r) =>
-        r.path.includes("AMM-AD")
+      const existingRoute = result.current.find((route) =>
+        route.path.includes("AMM-AD")
       );
 
       expect(missingRoute).toBeUndefined();
