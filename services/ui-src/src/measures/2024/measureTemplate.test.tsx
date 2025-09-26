@@ -9,7 +9,8 @@ import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { validationFunctions } from "./WCVCH/validation";
+import { validationFunctions } from "./validationTemplate";
+import { data as MeasureData } from "./WCVCH/data";
 import {
   mockValidateAndSetErrors,
   clearMocks,
@@ -172,7 +173,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
    * for each validation function. See globalValidations directory.
    */
   it("(Not Reporting) validationFunctions should call all expected validation functions", async () => {
-    mockValidateAndSetErrors(validationFunctions, notReportingData); // trigger validations
+    mockValidateAndSetErrors(
+      validationFunctions,
+      notReportingData,
+      MeasureData
+    ); // trigger validations
     expect(V.validateReasonForNotReporting).toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).not.toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).not.toHaveBeenCalled();
@@ -195,7 +200,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   });
 
   it("(Completed) validationFunctions should call all expected validation functions", async () => {
-    mockValidateAndSetErrors(validationFunctions, completedMeasureData); // trigger validations
+    mockValidateAndSetErrors(
+      validationFunctions,
+      completedMeasureData,
+      MeasureData
+    ); // trigger validations
     expect(V.validateReasonForNotReporting).not.toHaveBeenCalled();
     expect(V.validateAtLeastOneRateComplete).toHaveBeenCalled();
     expect(V.validateNumeratorsLessThanDenominatorsPM).toHaveBeenCalled();

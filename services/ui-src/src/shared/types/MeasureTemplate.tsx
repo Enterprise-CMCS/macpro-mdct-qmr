@@ -26,8 +26,6 @@ export interface customData {
 export const validationFunctions = [
   "validateRequiredRadioButtonForCombinedRates",
   "validateAtLeastOneDeviationFieldFilled",
-  "validateRequiredRadioButtonForCombinedRates",
-  "validateAtLeastOneDeviationFieldFilled",
   "validateReasonForNotReporting",
   "validateAtLeastOneDataSource",
   "validateBothDatesCompleted",
@@ -70,7 +68,7 @@ export const validationFunctions = [
   "validateHedisYear",
   "validateAtLeastOneDeliverySystem",
   "validateAtLeastOneDefinitionOfPopulation",
-  "validateSameDenominatorSets",
+  "validateHybridMeasurePopulation",
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];

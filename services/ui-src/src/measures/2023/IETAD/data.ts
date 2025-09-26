@@ -53,7 +53,7 @@ export const data: MeasureTemplateData = {
     "validateDateRangeRadioButtonCompletion",
     "validateAtLeastOneDataSource",
     "validateDeviationTextFieldFilled",
-    "validateSameDenominatorSets",
+    "validateSameDenominatorSetsOMS",
     "validateAtLeastOneRateComplete",
     "validateOPMRates",
     "validateRateZeroOMS",
