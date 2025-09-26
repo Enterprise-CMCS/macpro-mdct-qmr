@@ -21,4 +21,21 @@ export const data: MeasureTemplateData = {
     customPrompt:
       "Enter a number for the numerator and the denominator. The measure is reported as an inverted rate. The formula for the Rate = (1 - (Numerator/Denominator)) x 100",
   },
+  validations: [
+    "validateFfsRadioButtonCompletion",
+    "validateAtLeastOneDataSourceType",
+    "validateReasonForNotReporting",
+    "validateDateRangeRadioButtonCompletion",
+    "validateAtLeastOneDataSource",
+    "validateDeviationTextFieldFilled",
+    "validateAtLeastOneRateComplete",
+    "validateOPMRates",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateAtLeastOneDeliverySystem",
+    "validateBothDatesCompleted",
+    "validateAtLeastOneDefinitionOfPopulation",
+    "validateYearFormat",
+    "validateDualPopInformationPM",
+  ],
 };
