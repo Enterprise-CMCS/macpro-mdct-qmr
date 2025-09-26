@@ -3,7 +3,7 @@ import * as QMR from "components";
 import * as CMQ from "shared/commonQuestions";
 import { CPUADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const CPUAD = ({
