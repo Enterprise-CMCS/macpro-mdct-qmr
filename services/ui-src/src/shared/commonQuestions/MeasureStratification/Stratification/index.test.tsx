@@ -64,11 +64,8 @@ const TestComponent = () => {
 };
 
 describe("Test Stratification Component", () => {
-  beforeEach(() => {
-    render(<TestComponent />);
-  });
-
   test("Renders withouth issue", () => {
+    render(<TestComponent />);
     expect(
       screen.getByText("Enter Measure Stratification")
     ).toBeInTheDocument();
