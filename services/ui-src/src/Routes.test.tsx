@@ -23,20 +23,16 @@ jest.mock("measures", () => ({
 jest.mock("views/Home", () => ({
   Home: () => <div data-testid="home">Home</div>,
 }));
-
 jest.mock("views/StateHome", () => ({
   __esModule: true,
   default: () => <div data-testid="state-home">StateHome</div>,
 }));
-
 jest.mock("views/AdminHome", () => ({
   AdminHome: () => <div data-testid="admin-home">AdminHome</div>,
 }));
-
 jest.mock("views/AdminHome/AdminBannerView", () => ({
   AdminBannerView: () => <div data-testid="admin-banner">AdminBanner</div>,
 }));
-
 jest.mock("views/NotFound", () => ({
   NotFound: () => <div data-testid="not-found">NotFound</div>,
 }));
@@ -210,32 +206,26 @@ describe("Routes", () => {
       await renderWithRouter("/");
       expect(screen.getByTestId("home")).toBeInTheDocument();
     });
-
     it("renders state home for state/year route", async () => {
       await renderWithRouter("/CA/2021");
       expect(screen.getByTestId("state-home")).toBeInTheDocument();
     });
-
     it("allows admin users to access admin route", async () => {
       await renderWithRouter("/admin", UserRoles.ADMIN);
       expect(screen.getByTestId("admin-home")).toBeInTheDocument();
     });
-
     it("redirects non-admin users from admin route", async () => {
       await renderWithRouter("/admin", UserRoles.STATE_USER);
       expect(screen.getByTestId("home")).toBeInTheDocument();
     });
-
     it("allows super admin to access banner route", async () => {
       await renderWithRouter("/admin/banner", UserRoles.ADMIN);
       expect(screen.getByTestId("admin-banner")).toBeInTheDocument();
     });
-
     it("redirects non-super-admin from banner route", async () => {
       await renderWithRouter("/admin/banner", UserRoles.APPROVER);
       expect(screen.getByTestId("admin-home")).toBeInTheDocument();
     });
-
     it("redirects non-admin from banner route", async () => {
       await renderWithRouter("/admin/banner", UserRoles.STATE_USER);
       expect(screen.getByTestId("home")).toBeInTheDocument();
@@ -244,12 +234,10 @@ describe("Routes", () => {
       await renderWithRouter("/CA/2021/add-hh");
       expect(screen.getByTestId("add-hh-core-set")).toBeInTheDocument();
     });
-
     it("renders core set page", async () => {
       await renderWithRouter("/CA/2021/ACS");
       expect(screen.getByTestId("core-set")).toBeInTheDocument();
     });
-
     it("renders add child core set page", async () => {
       await renderWithRouter("/CA/2021/add-child");
       expect(screen.getByTestId("add-child-core-set")).toBeInTheDocument();
@@ -258,19 +246,16 @@ describe("Routes", () => {
       await renderWithRouter("/CA/2021/add-adult");
       expect(screen.getByTestId("add-adult-core-set")).toBeInTheDocument();
     });
-
     it("renders state specific measure page", async () => {
       await renderWithRouter("/CA/2021/ACM/add-ssm");
       expect(
         screen.getByTestId("add-state-specific-measure")
       ).toBeInTheDocument();
     });
-
     it("renders pdf export page", async () => {
       await renderWithRouter("/CA/2021/ACM/pdf");
       expect(screen.getByTestId("export-all")).toBeInTheDocument();
     });
-
     it("renders not found for unknown routes", async () => {
       await renderWithRouter("/unknown-route");
       expect(screen.getByTestId("not-found")).toBeInTheDocument();
