@@ -54,5 +54,7 @@ export const data: MeasureTemplateData = {
     "validateBothDatesCompleted",
     "validateAtLeastOneDefinitionOfPopulation",
     "validateYearFormat",
+    "PCRatLeastOneRateComplete",
+    "PCRnoNonZeroNumOrDenom",
   ],
 };

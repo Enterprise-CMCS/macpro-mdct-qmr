@@ -72,6 +72,9 @@ export const validationFunctions = [
   "validateAtLeastOneDefinitionOfPopulation",
   "validateSameDenominatorSets",
   "validateHybridMeasurePopulation",
+  "validateEqualQualifierOfCategoryDenominatorsOMS",
+  "validateEqualQualifierOfCategoryDenominatorsPM",
+  "validateCollecting",
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
