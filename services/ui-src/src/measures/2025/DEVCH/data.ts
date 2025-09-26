@@ -77,4 +77,9 @@ export const data: MeasureTemplateData = {
     "validateTotalNDR",
     "validateYearFormat",
   ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };

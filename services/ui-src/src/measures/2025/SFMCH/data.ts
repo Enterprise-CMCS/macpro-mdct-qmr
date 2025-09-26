@@ -42,4 +42,13 @@ export const data: MeasureTemplateData = {
     "validateEqualCategoryDenominatorsPM",
     "validateYearFormat",
   ],
+  override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: false,
+    },
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
+  },
 };

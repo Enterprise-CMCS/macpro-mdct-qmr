@@ -40,6 +40,11 @@ export const data: MeasureTemplateData = {
     "validateEqualCategoryDenominatorsPM",
     "validateYearFormat",
   ],
+  override: {
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
+  },
 };
 
 export const dataSourceData: DataDrivenTypes.DataSource = {

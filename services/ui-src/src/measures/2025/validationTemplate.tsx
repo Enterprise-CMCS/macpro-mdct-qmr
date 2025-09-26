@@ -196,6 +196,7 @@ export const validationTemplate = (
   const validationList = (func: ValidationFunction) => {
     switch (func) {
       case "validateReasonForNotReporting":
+      case "validateCollecting":
         return [];
       case "validateRequiredRadioButtonForCombinedRates":
         return GV.validateRequiredRadioButtonForCombinedRates(data);
@@ -391,6 +392,10 @@ export const validationTemplate = (
         return GV.validateAtLeastOneDefinitionOfPopulation(data);
       case "validateHybridMeasurePopulation":
         return GV.validateHybridMeasurePopulation(data);
+      case "validateEqualQualifierOfCategoryDenominatorsOMS":
+        return [];
+      case "validateEqualQualifierOfCategoryDenominatorsPM":
+        return [];
       default:
         throw new Error(
           `Validation function ${func} not recognized! See validationTemplate.tsx`
