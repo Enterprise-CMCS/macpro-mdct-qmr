@@ -71,6 +71,7 @@ export const validationFunctions = [
   "validateAtLeastOneDeliverySystem",
   "validateAtLeastOneDefinitionOfPopulation",
   "validateSameDenominatorSets",
+  "validateHybridMeasurePopulation",
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];

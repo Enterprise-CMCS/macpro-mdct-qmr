@@ -3,8 +3,8 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
+import { validationFunctions } from "./../validationTemplate";
 
 export const PCRAD = ({
   name,
