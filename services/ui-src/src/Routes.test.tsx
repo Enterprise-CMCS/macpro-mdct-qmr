@@ -20,7 +20,6 @@ jest.mock("measures", () => ({
   QualifierData: [{ year: "2021", data: {} }],
 }));
 
-// Mock lazy components to avoid Suspense issues
 jest.mock("views/Home", () => ({
   Home: () => <div data-testid="home">Home</div>,
 }));
@@ -40,6 +39,30 @@ jest.mock("views/AdminHome/AdminBannerView", () => ({
 
 jest.mock("views/NotFound", () => ({
   NotFound: () => <div data-testid="not-found">NotFound</div>,
+}));
+jest.mock("views/AddHHCoreSet", () => ({
+  AddHHCoreSet: () => <div data-testid="add-hh-core-set">AddHHCoreSet</div>,
+}));
+jest.mock("views/CoreSet", () => ({
+  CoreSet: () => <div data-testid="core-set">CoreSet</div>,
+}));
+jest.mock("views/AddChildCoreSet", () => ({
+  AddChildCoreSet: () => (
+    <div data-testid="add-child-core-set">AddChildCoreSet</div>
+  ),
+}));
+jest.mock("views/AddAdultCoreSet", () => ({
+  AddAdultCoreSet: () => (
+    <div data-testid="add-adult-core-set">AddAdultCoreSet</div>
+  ),
+}));
+jest.mock("views/AddStateSpecificMeasure", () => ({
+  AddStateSpecificMeasure: () => (
+    <div data-testid="add-state-specific-measure">AddStateSpecificMeasure</div>
+  ),
+}));
+jest.mock("views/ExportAll", () => ({
+  ExportAll: () => <div data-testid="export-all">ExportAll</div>,
 }));
 
 const renderWithRouter = async (
@@ -110,10 +133,10 @@ describe("Routes", () => {
 
       // Check that we have routes for the measure
       const measureRoute = result.current.find(
-        (r) => r.path === ":state/2021/:coreSetId/AMM-AD"
+        (route) => route.path === ":state/2021/:coreSetId/AMM-AD"
       );
       const combinedRateRoute = result.current.find(
-        (r) => r.path === ":state/2021/combined-rates/AMM-AD"
+        (route) => route.path === ":state/2021/combined-rates/AMM-AD"
       );
 
       expect(measureRoute).toBeDefined();
@@ -213,14 +236,44 @@ describe("Routes", () => {
       expect(screen.getByTestId("admin-home")).toBeInTheDocument();
     });
 
+    it("redirects non-admin from banner route", async () => {
+      await renderWithRouter("/admin/banner", UserRoles.STATE_USER);
+      expect(screen.getByTestId("home")).toBeInTheDocument();
+    });
+    it("renders add health home core set page", async () => {
+      await renderWithRouter("/CA/2021/add-hh");
+      expect(screen.getByTestId("add-hh-core-set")).toBeInTheDocument();
+    });
+
+    it("renders core set page", async () => {
+      await renderWithRouter("/CA/2021/ACS");
+      expect(screen.getByTestId("core-set")).toBeInTheDocument();
+    });
+
+    it("renders add child core set page", async () => {
+      await renderWithRouter("/CA/2021/add-child");
+      expect(screen.getByTestId("add-child-core-set")).toBeInTheDocument();
+    });
+    it("renders add adult core set page", async () => {
+      await renderWithRouter("/CA/2021/add-adult");
+      expect(screen.getByTestId("add-adult-core-set")).toBeInTheDocument();
+    });
+
+    it("renders state specific measure page", async () => {
+      await renderWithRouter("/CA/2021/ACM/add-ssm");
+      expect(
+        screen.getByTestId("add-state-specific-measure")
+      ).toBeInTheDocument();
+    });
+
+    it("renders pdf export page", async () => {
+      await renderWithRouter("/CA/2021/ACM/pdf");
+      expect(screen.getByTestId("export-all")).toBeInTheDocument();
+    });
+
     it("renders not found for unknown routes", async () => {
       await renderWithRouter("/unknown-route");
       expect(screen.getByTestId("not-found")).toBeInTheDocument();
-    });
-
-    it("determines admin type user correctly", async () => {
-      await renderWithRouter("/admin", UserRoles.APPROVER);
-      expect(screen.getByTestId("admin-home")).toBeInTheDocument();
     });
   });
 });
