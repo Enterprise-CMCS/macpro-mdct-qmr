@@ -62,6 +62,15 @@ export const validationFunctions = [
   "validateEqualCategoryDenominatorsOMS",
   "validateOneQualRateHigherThanOtherQualPM",
   "ComplexValueSameCrossCategory",
+  "validateFfsRadioButtonCompletion",
+  "validateAtLeastOneDataSourceType",
+  "validateDateRangeRadioButtonCompletion",
+  "validateDeviationTextFieldFilled",
+  "validateOPMRates",
+  "validateHedisYear",
+  "validateAtLeastOneDeliverySystem",
+  "validateAtLeastOneDefinitionOfPopulation",
+  "validateSameDenominatorSets",
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];

@@ -4,7 +4,7 @@ import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
 import { getPerfMeasureRateArray } from "shared/globalValidations";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
@@ -49,7 +49,7 @@ export const PCRHH = ({
           <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRHHPerformanceMeasure data={PMD.data} />
+              <PCRHHPerformanceMeasure data={PMD.data.performanceMeasure} />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.qualifiers}
                 measureName={measureId}

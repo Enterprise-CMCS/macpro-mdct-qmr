@@ -37,4 +37,32 @@ export const data: MeasureTemplateData = {
       { value: "Other Data Source", description: true },
     ],
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateOneCatRateHigherThanOtherCatPM",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateEqualQualifierDenominatorsPM",
+    "validateYearFormat",
+    "validateDualPopInformationPM",
+  ],
+  override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: false,
+    },
+    validateDualPopInformationPM: {
+      ageIndex: 1,
+    },
+  },
 };
