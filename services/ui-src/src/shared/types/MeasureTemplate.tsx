@@ -96,9 +96,12 @@ export interface MeasureTemplateData {
       category: boolean;
       errorMessage: boolean;
     };
-    validateOneCatRateHigherThanOtherCatPM?: {
-      increment: number;
-    };
+    validateOneCatRateHigherThanOtherCat?: {
+      highIndex?: number;
+      lowIndex?: number;
+      increment?: number;
+    }[];
+    validateOneCatRateHigherThanOtherCatPM?: { increment: number };
     validateDualPopInformationPM?: {
       dualPopInfoArray?: boolean;
       ageIndex: number;

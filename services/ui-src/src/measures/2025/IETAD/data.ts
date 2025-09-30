@@ -73,12 +73,11 @@ export const data: MeasureTemplateData = {
       category: true,
       errorMessage: true,
     },
-    validateOneCatRateHigherThanOtherCatPM: {
-      increment: 2,
-    },
-    validateOneCatRateHigherThanOtherCatOMS: {
-      increment: 2,
-    },
+    validateOneCatRateHigherThanOtherCat: [
+      {
+        increment: 2,
+      },
+    ],
     validateDualPopInformationPM: {
       ageIndex: 1,
     },
