@@ -22,6 +22,7 @@ export const data: MeasureTemplateData = {
     ],
     categories,
     qualifiers,
+    measureName: "MSCAD",
   },
   validations: [
     "validateFfsRadioButtonCompletion",

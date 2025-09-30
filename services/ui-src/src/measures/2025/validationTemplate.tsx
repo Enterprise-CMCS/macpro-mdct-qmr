@@ -180,7 +180,7 @@ export const validationTemplate = (
   const OPM = data[DC.OPM_RATES];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(2024, true),
+    OMSData(2025, true),
     qualifiers,
     categories
   );
@@ -403,13 +403,39 @@ export const validationTemplate = (
     }
   };
 
+  let errorArray: any[] = [];
   //if user selects no on "are you reporting on this measure?"
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
-  if (data[DC.DID_REPORT] === DC.NO) {
-    return [...GV.validateReasonForNotReporting(whyNotReporting)];
+
+  //MSCAD is the only one using validateCollecting
+  if (PMD.performanceMeasure.measureName === "MSCAD") {
+    console.log("DID_COLLECT", data[DC.DID_COLLECT]);
+    console.log("DID_REPORT", data[DC.DID_REPORT]);
+
+    if (data[DC.DID_COLLECT] === "no") {
+      errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
+      return errorArray;
+    }
+
+    //if user didn't fill out collect this measure
+    if (
+      (data[DC.DID_COLLECT] === undefined || data[DC.DID_COLLECT] === null) &&
+      data[DC.DID_REPORT] === "no"
+    ) {
+      errorArray = [...GV.validateCollecting(data)];
+      return errorArray;
+    }
+
+    // this prevents all the errors for filling out form to show up
+    if (data[DC.DID_REPORT] === DC.NO) {
+      return [];
+    }
+  } else {
+    if (data[DC.DID_REPORT] === DC.NO) {
+      return [...GV.validateReasonForNotReporting(whyNotReporting)];
+    }
   }
 
-  let errorArray: any[] = [];
   //run validation without oms validation functions as the returns are different
   for (const validation of validations!.filter(
     (validation) => !validation.includes("OMS")
@@ -426,7 +452,7 @@ export const validationTemplate = (
         ? data[DC.DATA_SOURCE]
         : undefined,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(2024, true),
+        OMSData(2025, true),
         qualifiers,
         categories
       ),
