@@ -68,7 +68,7 @@ export const validationFunctions = [
   "validateHedisYear",
   "validateAtLeastOneDeliverySystem",
   "validateAtLeastOneDefinitionOfPopulation",
-  "validateSameDenominatorSets",
+  "validateSameDenominatorSetsOMS",
   "validateHybridMeasurePopulation",
   "validateEqualQualifierOfCategoryDenominatorsOMS",
   "validateEqualQualifierOfCategoryDenominatorsPM",

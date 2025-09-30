@@ -134,8 +134,10 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
     case "validateEqualQualifierDenominatorsOMS":
       return GV.validateEqualQualifierDenominatorsOMS();
     case "validateOneCatRateHigherThanOtherCatOMS":
-      const validateOneCatRateHigherThanOtherCat =
-        PMD.override?.validateOneCatRateHigherThanOtherCat ?? [];
+      const validateOneCatRateHigherThanOtherCat = PMD.override
+        ?.validateOneCatRateHigherThanOtherCat ?? [
+        { highIndex: 0, lowIndex: 1 },
+      ];
       return validateOneCatRateHigherThanOtherCat.map((set) =>
         GV.validateOneCatRateHigherThanOtherCatOMS(
           set?.highIndex,
@@ -304,8 +306,10 @@ export const validationTemplate = (
             : undefined
         );
       case "validateOneCatRateHigherThanOtherCatPM":
-        const validateOneCatRateHigherThanOtherCat =
-          PMD.override?.validateOneCatRateHigherThanOtherCat ?? [];
+        const validateOneCatRateHigherThanOtherCat = PMD.override
+          ?.validateOneCatRateHigherThanOtherCat ?? [
+          { highIndex: 0, lowIndex: 1 },
+        ];
 
         return validateOneCatRateHigherThanOtherCat.flatMap((set) =>
           GV.validateOneCatRateHigherThanOtherCatPM(
