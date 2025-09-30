@@ -1,5 +1,6 @@
 import { validationFunctions } from "./validationTemplate";
 import { validationFunctions as TFLCH_Validations } from "./TFLCH/validation";
+import { validationFunctions as AISAD_Validations } from "./AISAD/validation";
 
 import { data as AABAD_Data } from "./AABAD/data";
 import { data as AABCH_Data } from "./AABCH/data";

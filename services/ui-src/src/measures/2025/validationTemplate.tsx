@@ -120,6 +120,9 @@ const sortOMSValidations = (
 };
 
 const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
+  const categories = PMD.performanceMeasure.categories ?? [];
+  const qualifiers = PMD.performanceMeasure.qualifiers ?? [];
+
   switch (func) {
     case "validateNumeratorLessThanDenominatorOMS":
       return GV.validateNumeratorLessThanDenominatorOMS();
@@ -148,6 +151,15 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
       return GV.validateSameDenominatorSetsOMS();
     case "validateEqualCategoryDenominatorsOMS":
       return GV.validateEqualCategoryDenominatorsOMS();
+    case "validateEqualQualifierOfCategoryDenominatorsOMS":
+      const sets =
+        PMD.override?.validateEqualQualifierOfCategoryDenominators ?? [];
+      return sets.map((set) =>
+        GV.validateEqualQualifierOfCategoryDenominatorsOMS(
+          categories.filter((cat) => set.categories.includes(cat.id)),
+          qualifiers.filter((age) => set.ageGroups.includes(age.id))
+        )
+      );
     default:
       throw new Error(
         `OMS validation function ${func} not recognized! See validationTemplate.tsx`
@@ -392,10 +404,15 @@ export const validationTemplate = (
         return GV.validateAtLeastOneDefinitionOfPopulation(data);
       case "validateHybridMeasurePopulation":
         return GV.validateHybridMeasurePopulation(data);
-      case "validateEqualQualifierOfCategoryDenominatorsOMS":
-        return [];
       case "validateEqualQualifierOfCategoryDenominatorsPM":
-        return [];
+        const sets = PMD.override?.validateEqualQualifierOfCategoryDenominators;
+        return sets?.flatMap((set) =>
+          GV.validateEqualQualifierOfCategoryDenominatorsPM(
+            data,
+            categories.filter((cat) => set.categories.includes(cat.id)),
+            qualifiers.filter((age) => set.ageGroups.includes(age.id))
+          )
+        );
       default:
         throw new Error(
           `Validation function ${func} not recognized! See validationTemplate.tsx`
@@ -456,7 +473,7 @@ export const validationTemplate = (
         qualifiers,
         categories
       ),
-      validationCallbacks: sortOMSValidations(OPM, PMD)!,
+      validationCallbacks: sortOMSValidations(OPM, PMD)!.flat(),
     })
   );
 

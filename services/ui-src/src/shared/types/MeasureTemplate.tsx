@@ -117,5 +117,9 @@ export interface MeasureTemplateData {
     omsValidations?: {
       dataSource: boolean;
     };
+    validateEqualQualifierOfCategoryDenominators?: {
+      categories: string[];
+      ageGroups: string[];
+    }[];
   };
 }

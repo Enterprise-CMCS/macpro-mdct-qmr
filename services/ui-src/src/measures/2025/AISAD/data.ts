@@ -60,4 +60,10 @@ export const data: MeasureTemplateData = {
     "validateAtLeastOneDefinitionOfPopulation",
     "validateYearFormat",
   ],
+  override: {
+    validateEqualQualifierOfCategoryDenominators: [
+      { categories: ["VZ0nYO", "2Bh7J8"], ageGroups: ["xz7TUf", "VooeEU"] },
+      { categories: ["HCnSrs", "B4SxBy"], ageGroups: ["VooeEU"] },
+    ],
+  },
 };
