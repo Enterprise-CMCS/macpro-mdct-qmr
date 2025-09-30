@@ -431,7 +431,7 @@ export const validationTemplate = (
         qualifiers,
         categories
       ),
-      validationCallbacks: sortOMSValidations(OPM, PMD)!,
+      validationCallbacks: sortOMSValidations(OPM, PMD)!.flat(),
     })
   );
 
