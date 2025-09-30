@@ -1,5 +1,4 @@
-import { render, screen, act } from "@testing-library/react";
-import { renderHook } from "@testing-library/react";
+import { act, render, renderHook, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { Suspense } from "react";
 import { useMeasureRoutes, AppRoutes } from "./Routes";
