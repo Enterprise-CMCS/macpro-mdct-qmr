@@ -14,6 +14,7 @@ import {
 import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
+import { usePathParams } from "hooks/api/usePathParams";
 
 /**
  * Builds out parent level checkboxes
@@ -89,6 +90,7 @@ export const Stratification = ({
   >();
   const values = getValues();
   const { userRole } = useUser();
+  const { measureId } = usePathParams();
 
   const dataSourceWatch = watch("DataSource");
   const watchDataSourceSwitch = watch("MeasurementSpecification");
@@ -101,7 +103,7 @@ export const Stratification = ({
 
   //utilize for internalusers as they have a read only mode. we want to expand the accordion only if it has data filled in
   const overrideAccordion = (option: string) => {
-    if (userRole === UserRoles.INTERNAL) {
+    if (userRole === UserRoles.INTERNAL || measureId === "pdf") {
       const keys = getFilledKeys(watchStratification);
       return keys.some((key) => key.includes(option));
     }
