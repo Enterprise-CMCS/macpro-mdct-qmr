@@ -5,8 +5,15 @@ import { TopLevelOmsChildren } from "../omsNodeBuilder";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
+import {
+  arrayIsReadOnly,
+  cleanString,
+  getFilledKeys,
+  stringIsReadOnly,
+} from "utils";
 import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/context";
+import { useUser } from "hooks/authHooks";
+import { UserRoles } from "types";
 
 /**
  * Builds out parent level checkboxes
@@ -22,6 +29,7 @@ export const buildOmsCheckboxes = ({
   data,
   excludeOptions,
   year,
+  overrideAccordion,
 }: Types.OmsCheckboxProps) => {
   return data
     .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
@@ -42,6 +50,7 @@ export const buildOmsCheckboxes = ({
           id={value}
           label={displayValue}
           year={year}
+          overrideAccordion={overrideAccordion}
         />,
       ];
 
@@ -75,17 +84,29 @@ export const Stratification = ({
   year,
   omsData,
 }: Types.OMSProps & StratificationProps) => {
-  const { control, watch, getValues, setValue, unregister } =
-    useFormContext<Types.OMSType>();
+  const { control, watch, getValues, setValue, unregister } = useFormContext<
+    Types.OMSType & Types.OptionalMeasureStratification
+  >();
   const values = getValues();
+  const { userRole } = useUser();
 
   const dataSourceWatch = watch("DataSource");
   const watchDataSourceSwitch = watch("MeasurementSpecification");
+  const watchStratification = watch("OptionalMeasureStratification.selections");
   //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
   const OPM =
     watchDataSourceSwitch === "Other"
       ? values["OtherPerformanceMeasure-Rates"]
       : undefined;
+
+  //utilize for internalusers as they have a read only mode. we want to expand the accordion only if it has data filled in
+  const overrideAccordion = (option: string) => {
+    if (userRole === UserRoles.INTERNAL) {
+      const keys = getFilledKeys(watchStratification);
+      return keys.some((key) => key.includes(option));
+    }
+    return false;
+  };
 
   const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
@@ -93,6 +114,7 @@ export const Stratification = ({
     data: omsData,
     excludeOptions,
     year,
+    overrideAccordion,
   });
 
   let rateReadOnly = false;
@@ -186,7 +208,11 @@ export const Stratification = ({
           </CUI.ListItem>
         </CUI.UnorderedList>
         {checkBoxOptions.map((option) => (
-          <QMR.Accordion externalControlled label={option.displayValue}>
+          <QMR.Accordion
+            externalControlled
+            label={option.displayValue}
+            overrideExpand={overrideAccordion(option.value)}
+          >
             {option.children}
           </QMR.Accordion>
         ))}

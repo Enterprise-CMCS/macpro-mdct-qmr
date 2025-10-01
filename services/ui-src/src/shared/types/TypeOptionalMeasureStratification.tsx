@@ -12,6 +12,7 @@ export interface OmsCheckboxProps {
   data: OmsNode[];
   year: number;
   excludeOptions: string[];
+  overrideAccordion?: (option: string) => boolean;
 }
 
 export interface BaseProps extends Qualifiers, Categories {
