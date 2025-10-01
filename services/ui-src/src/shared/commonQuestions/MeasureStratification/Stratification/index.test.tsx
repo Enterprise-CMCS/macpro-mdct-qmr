@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Stratification } from ".";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
@@ -64,11 +64,24 @@ const TestComponent = () => {
 };
 
 describe("Test Stratification Component", () => {
-  test("Renders withouth issue", () => {
+  test("Renders without issue", () => {
     render(<TestComponent />);
     expect(
       screen.getByText("Enter Measure Stratification")
     ).toBeInTheDocument();
+  });
+
+  test("Oms checkbox functionality", () => {
+    render(<TestComponent />);
+    expect(screen.queryByText("Korean")).not.toBeInTheDocument();
+    fireEvent.click(
+      screen.getByText(
+        "No, we are reporting disaggregated data for Asian subcategories."
+      )
+    );
+    expect(screen.queryByText("Korean")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Clear"));
+    expect(screen.queryByText("Korean")).not.toBeInTheDocument();
   });
 
   test("Should not have basic accessibility issues", async () => {
