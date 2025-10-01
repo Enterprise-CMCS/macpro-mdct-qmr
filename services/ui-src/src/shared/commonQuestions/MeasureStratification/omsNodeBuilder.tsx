@@ -187,6 +187,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           name={props.name}
           parentName={props.parentDisplayName}
           key={`${props.name}.AdditionalCategorySection`}
+          overrideExpand={props.overrideAccordion}
         />
       )}
     </CUI.Box>

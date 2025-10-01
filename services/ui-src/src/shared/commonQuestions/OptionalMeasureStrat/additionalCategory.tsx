@@ -13,6 +13,7 @@ interface AdditonalCategoryProps {
   parentName: string;
   /** should the additional categories have a subCat option? */
   flagSubCat?: boolean;
+  overrideExpand?: (option: string) => boolean;
 }
 
 /**
@@ -71,6 +72,7 @@ export const AddAnotherSection = ({
 export const AddAnotherSectionAccordian = ({
   name,
   parentName,
+  overrideExpand,
 }: AdditonalCategoryProps) => {
   const { control } = useFormContext();
   const { fields, append, remove } = useFieldArray({
@@ -80,7 +82,11 @@ export const AddAnotherSectionAccordian = ({
   });
 
   return (
-    <QMR.Accordion label={`Add another ${parentName}`} externalControlled>
+    <QMR.Accordion
+      label={`Add another ${parentName}`}
+      externalControlled
+      overrideExpand={overrideExpand?.(`${name}.additionalSelections`)}
+    >
       <CUI.Box key={`${name}.additionalCategoriesWrapper`}>
         {fields.map((field: any, idx: number) => (
           <QMR.DeleteWrapper
