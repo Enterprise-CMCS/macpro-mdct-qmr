@@ -93,7 +93,7 @@ export const isFilled = (str: string | undefined) =>
 
 /**
  * Goes through the OMS data set and looks for any input stored in the N/D/R set
- * currently not used, predicting that we may need this in the future
+ * used to display filled fields for internalusers
  * @returns a string[] of OMS ids that's rates have some value.
  */
 export const getFilledKeys = (data: {
