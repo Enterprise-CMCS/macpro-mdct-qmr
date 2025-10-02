@@ -49,5 +49,9 @@ export const data: MeasureTemplateData = {
       category: true,
       errorMessage: false,
     },
+    validateOneCatRateHigherThanOtherCat: [
+      { highIndex: 0, lowIndex: 1 },
+      { highIndex: 0, lowIndex: 2 },
+    ],
   },
 };

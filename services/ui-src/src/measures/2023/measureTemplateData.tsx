@@ -1,5 +1,4 @@
 import { validationFunctions } from "./validationTemplate";
-import { validationFunctions as TFLCH_Validations } from "./TFLCH/validation";
 
 import { data as AABAD_Data } from "./AABAD/data";
 import { data as AABCH_Data } from "./AABCH/data";
@@ -129,7 +128,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "SAA-AD": { data: SAAAD_Data, validationFunctions: validationFunctions },
   "SFM-CH": { data: SFMCH_Data, validationFunctions: validationFunctions },
   "SSD-AD": { data: SSDAD_Data, validationFunctions: validationFunctions },
-  "TFL-CH": { data: TFLCH_Data, validationFunctions: TFLCH_Validations },
+  "TFL-CH": { data: TFLCH_Data, validationFunctions: validationFunctions },
   "W30-CH": { data: W30CH_Data, validationFunctions: validationFunctions },
   "WCC-CH": { data: WCCCH_Data, validationFunctions: validationFunctions },
   "WCV-CH": { data: WCVCH_Data, validationFunctions: validationFunctions },

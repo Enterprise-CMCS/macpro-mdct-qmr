@@ -152,10 +152,16 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
     case "validateEqualQualifierDenominatorsOMS":
       return GV.validateEqualQualifierDenominatorsOMS();
     case "validateOneCatRateHigherThanOtherCatOMS":
-      return GV.validateOneCatRateHigherThanOtherCatOMS(
-        0,
-        1,
-        PMD.override?.validateOneCatRateHigherThanOtherCatOMS?.increment
+      const validateOneCatRateHigherThanOtherCat = PMD.override
+        ?.validateOneCatRateHigherThanOtherCat ?? [
+        { highIndex: 0, lowIndex: 1 },
+      ];
+      return validateOneCatRateHigherThanOtherCat.map((set) =>
+        GV.validateOneCatRateHigherThanOtherCatOMS(
+          set?.highIndex,
+          set?.lowIndex,
+          set?.increment
+        )
       );
     case "validateOneQualRateHigherThanOtherQualOMS":
       return GV.validateOneQualRateHigherThanOtherQualOMS(
@@ -329,13 +335,19 @@ export const validationTemplate = (
             : undefined
         );
       case "validateOneCatRateHigherThanOtherCatPM":
-        return GV.validateOneCatRateHigherThanOtherCatPM(
-          data,
-          PMD.performanceMeasure,
-          0,
-          1,
-          PMD.override?.validateOneCatRateHigherThanOtherCatPM?.increment ??
-            undefined
+        const validateOneCatRateHigherThanOtherCat = PMD.override
+          ?.validateOneCatRateHigherThanOtherCat ?? [
+          { highIndex: 0, lowIndex: 1 },
+        ];
+
+        return validateOneCatRateHigherThanOtherCat.flatMap((set) =>
+          GV.validateOneCatRateHigherThanOtherCatPM(
+            data,
+            PMD.performanceMeasure,
+            set?.highIndex,
+            set?.lowIndex,
+            set?.increment ?? undefined
+          )
         );
       case "validateDualPopInformationPM":
         return GV.validateDualPopInformationPM(
@@ -445,7 +457,7 @@ export const validationTemplate = (
         qualifiers,
         categories
       ),
-      validationCallbacks: sortOMSValidations(categories, OPM, PMD)!,
+      validationCallbacks: sortOMSValidations(categories, OPM, PMD)!.flat(),
     })
   );
 

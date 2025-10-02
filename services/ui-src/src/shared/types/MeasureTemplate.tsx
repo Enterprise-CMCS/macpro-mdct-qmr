@@ -68,7 +68,11 @@ export const validationFunctions = [
   "validateHedisYear",
   "validateAtLeastOneDeliverySystem",
   "validateAtLeastOneDefinitionOfPopulation",
+  "validateSameDenominatorSetsOMS",
   "validateHybridMeasurePopulation",
+  "validateEqualQualifierOfCategoryDenominatorsOMS",
+  "validateEqualQualifierOfCategoryDenominatorsPM",
+  "validateCollecting",
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
@@ -92,9 +96,12 @@ export interface MeasureTemplateData {
       category: boolean;
       errorMessage: boolean;
     };
-    validateOneCatRateHigherThanOtherCatPM?: {
-      increment: number;
-    };
+    validateOneCatRateHigherThanOtherCat?: {
+      highIndex?: number;
+      lowIndex?: number;
+      increment?: number;
+    }[];
+    validateOneCatRateHigherThanOtherCatPM?: { increment: number };
     validateDualPopInformationPM?: {
       dualPopInfoArray?: boolean;
       ageIndex: number;
@@ -113,5 +120,9 @@ export interface MeasureTemplateData {
     omsValidations?: {
       dataSource: boolean;
     };
+    validateEqualQualifierOfCategoryDenominators?: {
+      categories: string[];
+      ageGroups: string[];
+    }[];
   };
 }

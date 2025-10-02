@@ -125,31 +125,42 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
 
   test("(PCR-XX) Ensure component renders", () => {
     // modifying data to be easier to check
-    PCRData.qualifiers = PCRData.qualifiers!.map((qual: LabelData) => ({
-      id: qual.id,
-      text: `qual ${qual.label}`,
-      label: `qual ${qual.label}`,
-    })); //CHANGED
+    PCRData.performanceMeasure.qualifiers =
+      PCRData.performanceMeasure.qualifiers!.map((qual: LabelData) => ({
+        id: qual.id,
+        text: `qual ${qual.label}`,
+        label: `qual ${qual.label}`,
+      })); //CHANGED
 
     props.component = PCRRate;
-    props.data = PCRData;
+    props.data = PCRData.performanceMeasure;
     renderComponent(props);
 
     // should render match PCRRate layout using PCR-XX data
     expect(screen.getByText(/Performance Measure/i)).toBeVisible();
-    expect(screen.getByText(PCRData.questionText![0])).toBeVisible();
-    expect(screen.getByText(PCRData.questionListItems![0])).toBeVisible();
-    expect(screen.getByText(PCRData.questionListItems![1])).toBeVisible();
-    for (const label of PCRData.qualifiers!) {
+    expect(
+      screen.getByText(PCRData.performanceMeasure.questionText![0])
+    ).toBeVisible();
+    expect(
+      screen.getByText(PCRData.performanceMeasure.questionListItems![0])
+    ).toBeVisible();
+    expect(
+      screen.getByText(PCRData.performanceMeasure.questionListItems![1])
+    ).toBeVisible();
+    for (const label of PCRData.performanceMeasure.qualifiers!) {
       expect(screen.getByText(label.label)).toBeVisible();
     }
 
     // rates should be editable by default
-    const numeratorTextBox = screen.getByLabelText(PCRData.qualifiers[1].label);
-    const denominatorTextBox = screen.getByLabelText(
-      PCRData.qualifiers[0].label
+    const numeratorTextBox = screen.getByLabelText(
+      PCRData.performanceMeasure.qualifiers[1].label
     );
-    const rateTextBox = screen.getByLabelText(PCRData.qualifiers[2].label);
+    const denominatorTextBox = screen.getByLabelText(
+      PCRData.performanceMeasure.qualifiers[0].label
+    );
+    const rateTextBox = screen.getByLabelText(
+      PCRData.performanceMeasure.qualifiers[2].label
+    );
     fireEvent.type(numeratorTextBox, "123");
     fireEvent.type(denominatorTextBox, "123");
     expect(numeratorTextBox).toHaveDisplayValue("123");
