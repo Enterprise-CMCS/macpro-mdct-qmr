@@ -72,6 +72,65 @@ export const emptyRate: RateFields = {
   label: "Empty Test Label",
 };
 
+export const complexQualifiers = [
+  {
+    label: "Number of Enrollee Months",
+    id: "Number of Enrollee Months",
+    text: "Number of Enrollee Months",
+  },
+  {
+    label: "Number of Short-Term Admissions",
+    id: "Number of Short-Term Admissions",
+    text: "Number of Short-Term Admissions",
+  },
+  {
+    label: "Short-Term Admissions per 1,000 Enrollee Months",
+    id: "Short-Term Admissions per 1,000 Enrollee Months",
+    text: "Short-Term Admissions per 1,000 Enrollee Months",
+  },
+  {
+    label: "Number of Medium-Term Admissions",
+    id: "Number of Medium-Term Admissions",
+    text: "Number of Medium-Term Admissions",
+  },
+  {
+    label: "Medium-Term Admissions per 1,000 Enrollee Months",
+    id: "Medium-Term Admissions per 1,000 Enrollee Months",
+    text: "Medium-Term Admissions per 1,000 Enrollee Months",
+  },
+  {
+    label: "Number of Long-Term Admissions",
+    id: "Number of Long-Term Admissions",
+    text: "Number of Long-Term Admissions",
+  },
+  {
+    label: "Long-Term Admissions per 1,000 Enrollee Months",
+    id: "Long-Term Admissions per 1,000 Enrollee Months",
+    text: "Long-Term Admissions per 1,000 Enrollee Months",
+  },
+];
+
+export const complexNDRFormula = [
+  {
+    numerator: 1,
+    denominator: 0,
+    rateIndex: 2,
+    mult: 1000,
+  },
+  {
+    numerator: 3,
+    denominator: 0,
+    rateIndex: 4,
+    mult: 1000,
+  },
+  {
+    numerator: 5,
+    denominator: 0,
+    rateIndex: 6,
+    mult: 1000,
+  },
+];
+
 /**
  * Helper function to prep oms validation test data  by slotting test data in qualifier order
  *
