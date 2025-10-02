@@ -4,155 +4,61 @@ import {
   complexNDRFormula,
 } from "utils/testUtils/validationHelpers";
 
-describe("Testing Complex NDR Totals Validation", () => {
-  const rates = [
-    {
-      fields: [
-        {
-          value: "2",
-          label: "Number of Enrollee Months",
-        },
-        {
-          value: "3",
-          label: "Number of Short-Term Admissions",
-        },
-        {
-          value: "1500.0",
-          label: "Short-Term Admissions per 1,000 Enrollee Months",
-        },
-        {
-          value: "4",
-          label: "Number of Medium-Term Admissions",
-        },
-        {
-          value: "2000.0",
-          label: "Medium-Term Admissions per 1,000 Enrollee Months",
-        },
-        {
-          value: "2",
-          label: "Number of Long-Term Admissions",
-        },
-        {
-          value: "1000.0",
-          label: "Long-Term Admissions per 1,000 Enrollee Months",
-        },
-      ],
-      label: "Ages 18 to 64",
-    },
-    {
-      label: "Total (Age 18 and older)",
-      fields: [
-        {
-          value: "2",
-          label: "Number of Enrollee Months",
-        },
-        {
-          value: 3,
-          label: "Number of Short-Term Admissions",
-        },
-        {
-          value: "1500.0",
-          label: "Short-Term Admissions per 1,000 Enrollee Months",
-        },
-        {
-          value: 4,
-          label: "Number of Medium-Term Admissions",
-        },
-        {
-          value: "2000.0",
-          label: "Medium-Term Admissions per 1,000 Enrollee Months",
-        },
-        {
-          value: 2,
-          label: "Number of Long-Term Admissions",
-        },
-        {
-          value: "1000.0",
-          label: "Long-Term Admissions per 1,000 Enrollee Months",
-        },
-      ],
-      isTotal: true,
-    },
-  ];
+const qualifierData = [
+  {
+    id: "Ages18to64",
+    label: "Ages 18 to 64",
+    value: ["2", "3", "1500.0", "4", "2000.0", "2", "100.0"],
+  },
+  {
+    id: "Total",
+    label: "Total (Age 18 and older)",
+    value: ["2", "3", "1500.0", "4", "2000.0", "2", "100.0"],
+    isTotal: true,
+  },
+];
 
-  const omsRates = {
-    Total: {
-      singleCategory: [
-        {
-          label: "singleCategory",
-          fields: [
-            {
-              label: "Number of Enrollee Months",
-              value: "3",
-            },
-            {
-              label: "Number of Short-Term Admissions",
-              value: "3",
-            },
-            {
-              label: "Short-Term Admissions per 1,000 Enrollee Months",
-              value: "1000",
-            },
-            {
-              label: "Number of Medium-Term Admissions",
-              value: "3",
-            },
-            {
-              label: "Medium-Term Admissions per 1,000 Enrollee Months",
-              value: "1000",
-            },
-            {
-              label: "Number of Long-Term Admissions",
-              value: "3",
-            },
-            {
-              label: "Long-Term Admissions per 1,000 Enrollee Months",
-              value: "1000",
-            },
-          ],
-          isTotal: true,
-        },
-      ],
-    },
+const generateRates = () => {
+  return qualifierData.map((data) => {
+    return {
+      fields: complexQualifiers.map((qual, index) => {
+        return { label: qual.label, value: data.value[index] };
+      }),
+      label: data.label,
+      isTotal: data.isTotal,
+    };
+  });
+};
+
+const generateOMSRates = () => {
+  return {
     Ages18to64: {
       singleCategory: [
         {
-          fields: [
-            {
-              value: "3",
-              label: "Number of Enrollee Months",
-            },
-            {
-              value: "3",
-              label: "Number of Short-Term Admissions",
-            },
-            {
-              value: "1000.0",
-              label: "Short-Term Admissions per 1,000 Enrollee Months",
-            },
-            {
-              value: "3",
-              label: "Number of Medium-Term Admissions",
-            },
-            {
-              value: "1000.0",
-              label: "Medium-Term Admissions per 1,000 Enrollee Months",
-            },
-            {
-              value: "3",
-              label: "Number of Long-Term Admissions",
-            },
-            {
-              value: "1000.0",
-              label: "Long-Term Admissions per 1,000 Enrollee Months",
-            },
-          ],
+          label: qualifierData[0].label,
+          fields: complexQualifiers.map((qual, index) => {
+            return { label: qual.label, value: qualifierData[0].value[index] };
+          }),
+        },
+      ],
+    },
+    Total: {
+      singleCategory: [
+        {
+          label: qualifierData[1].label,
+          fields: complexQualifiers.map((qual, index) => {
+            return { label: qual.label, value: qualifierData[1].value[index] };
+          }),
           isTotal: true,
-          label: "Ages 18 to 64",
         },
       ],
     },
   };
+};
+
+describe("Testing Complex NDR Totals Validation", () => {
+  const rates = generateRates();
+  const omsRates = generateOMSRates();
 
   describe("PM/OPM Validation", () => {
     it("should return NO errors", () => {
@@ -165,7 +71,7 @@ describe("Testing Complex NDR Totals Validation", () => {
     });
     it("should have errors", () => {
       const errorRates = [...rates];
-      errorRates[1].fields[0].value = 5;
+      errorRates[1].fields[0].value = "5";
       const errors = ComplexValidateNDRTotals(
         [errorRates],
         complexQualifiers,
@@ -244,7 +150,7 @@ describe("Testing Complex NDR Totals Validation", () => {
         "Optional Measure Stratification: Total - singleCategory"
       );
       expect(errors[0].errorMessage).toBe(
-        `Total Number of Enrollee Months is not equal to the sum of other \"Number of Enrollee Months\" fields in singleCategory section..`
+        `Total Number of Enrollee Months is not equal to the sum of other \"Number of Enrollee Months\" fields in singleCategory section.`
       );
     });
   });
