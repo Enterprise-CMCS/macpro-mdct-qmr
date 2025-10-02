@@ -103,11 +103,8 @@ export const Stratification = ({
 
   //utilize for internalusers as they have a read only mode. we want to expand the accordion only if it has data filled in
   const overrideAccordion = (option: string) => {
-    const isReadOnly =
-      userRole === UserRoles.ADMIN ||
-      userRole === UserRoles.APPROVER ||
-      userRole === UserRoles.HELP_DESK ||
-      userRole === UserRoles.INTERNAL;
+    //only state users enter data, all other users are read only
+    const isReadOnly = userRole !== UserRoles.STATE_USER;
 
     if (isReadOnly || measureId === "pdf") {
       const keys = getFilledKeys(watchStratification);
