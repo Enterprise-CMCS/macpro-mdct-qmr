@@ -24,7 +24,6 @@ export const DeliverySystems = ({ data, year }: Props) => {
   const { fields, append, remove } = useFieldArray({
     name: "PercentageEnrolledInEachDeliverySystem",
   });
-
   const values = useWatch({ name: "PercentageEnrolledInEachDeliverySystem" });
 
   return (

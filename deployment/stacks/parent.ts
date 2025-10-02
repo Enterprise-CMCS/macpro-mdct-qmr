@@ -1,6 +1,8 @@
 import { Construct } from "constructs";
 import {
+  Aws,
   aws_ec2 as ec2,
+  aws_s3 as s3,
   aws_iam as iam,
   CfnOutput,
   Stack,
@@ -12,10 +14,9 @@ import { createUiAuthComponents } from "./ui-auth";
 import { createUiComponents } from "./ui";
 import { createApiComponents } from "./api";
 import { deployFrontend } from "./deployFrontend";
-import { createCustomResourceRole } from "./customResourceRole";
 import { isLocalStack } from "../local/util";
-import { createTopicsComponents } from "./topics";
 import { createUploadsComponents } from "./uploads";
+import { createTopicsComponents } from "./topics";
 import { getSubnets } from "../utils/vpc";
 
 export class ParentStack extends Stack {
@@ -29,6 +30,7 @@ export class ParentStack extends Stack {
       secureCloudfrontDomainName,
       vpcName,
       kafkaAuthorizedSubnetIds,
+      stage,
     } = props;
 
     super(scope, id, {
@@ -44,10 +46,17 @@ export class ParentStack extends Stack {
 
     const vpc = ec2.Vpc.fromLookup(this, "Vpc", { vpcName });
     const kafkaAuthorizedSubnets = getSubnets(this, kafkaAuthorizedSubnetIds);
+    const attachmentsBucketName = `uploads-${stage}-attachments-${Aws.ACCOUNT_ID}`;
 
-    const customResourceRole = createCustomResourceRole(commonProps);
+    const loggingBucket = s3.Bucket.fromBucketName(
+      this,
+      "LoggingBucket",
+      `cms-cloud-${Aws.ACCOUNT_ID}-${Aws.REGION}`
+    );
 
-    const tables = createDataComponents(commonProps);
+    const tables = createDataComponents({
+      ...commonProps,
+    });
 
     const { apiGatewayRestApiUrl, restApiId } = createApiComponents({
       ...commonProps,
@@ -56,10 +65,20 @@ export class ParentStack extends Stack {
       kafkaAuthorizedSubnets,
     });
 
-    if (isLocalStack) return;
+    if (isLocalStack) {
+      /*
+       * For local dev, the LocalStack container will host the database and API.
+       * The UI will self-host, so we don't need to tell CDK anything about it.
+       * Also, we skip authorization locally. So we don't set up Cognito,
+       * or configure the API to interact with it. Therefore, we're done.
+       */
+      return;
+    }
 
     const attachmentsBucket = createUploadsComponents({
       ...commonProps,
+      loggingBucket,
+      attachmentsBucketName: attachmentsBucketName!,
       tables,
     });
 
@@ -71,7 +90,6 @@ export class ParentStack extends Stack {
         ...commonProps,
         applicationEndpointUrl,
         restApiId,
-        customResourceRole,
         attachmentsBucketArn: attachmentsBucket.bucketArn,
       });
 
@@ -81,24 +99,24 @@ export class ParentStack extends Stack {
       distribution,
       apiGatewayRestApiUrl,
       applicationEndpointUrl:
-        secureCloudfrontDomainName || applicationEndpointUrl,
+        secureCloudfrontDomainName ?? applicationEndpointUrl,
       identityPoolId,
       userPoolId,
       userPoolClientId,
-      userPoolClientDomain: `${userPoolDomainName}.auth.${this.region}.amazoncognito.com`,
-      attachmentsBucketName: attachmentsBucket.bucketName,
+      userPoolClientDomain: `${userPoolDomainName}.auth.${Aws.REGION}.amazoncognito.com`,
+      attachmentsBucketName: attachmentsBucketName!,
+    });
+
+    new CfnOutput(this, "CloudFrontUrl", {
+      value: applicationEndpointUrl,
     });
 
     createTopicsComponents({
       ...commonProps,
       vpc,
       kafkaAuthorizedSubnets,
-      customResourceRole,
     });
 
-    new CfnOutput(this, "CloudFrontUrl", {
-      value: applicationEndpointUrl,
-    });
     if (isDev) {
       applyDenyCreateLogGroupPolicy(this);
     }

@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import { render } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
 import { createStandaloneToast } from "@chakra-ui/toast";
@@ -5,7 +6,7 @@ import { createStandaloneToast } from "@chakra-ui/toast";
 const { ToastContainer } = createStandaloneToast();
 
 interface WrapperProps {
-  children: JSX.Element;
+  children: ReactNode;
 }
 
 interface AdditionalOptions {

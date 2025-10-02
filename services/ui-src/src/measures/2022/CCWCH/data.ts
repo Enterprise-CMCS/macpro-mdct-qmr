@@ -20,4 +20,28 @@ export const data: MeasureTemplateData = {
   opm: {
     excludeOptions: ["Sex"],
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateReasonForNotReporting",
+    "validateOneQualRateHigherThanOtherQualOMS",
+    "validateOneQualRateHigherThanOtherQualPM",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateEqualCategoryDenominatorsOMS",
+    "validateEqualCategoryDenominatorsPM",
+    "validateYearFormat",
+  ],
+  override: {
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
+  },
 };

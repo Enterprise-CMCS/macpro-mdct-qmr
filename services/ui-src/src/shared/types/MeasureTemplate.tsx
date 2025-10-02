@@ -1,7 +1,7 @@
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { DataDrivenTypes } from "./TypeDataDriven";
 import { CoreSetKey } from "./GlobalTypes";
-import * as GV from "shared/globalValidations";
+import { LabelData } from "utils";
 
 export interface customData {
   rateReadOnly?: boolean;
@@ -24,23 +24,51 @@ export interface customData {
 }
 
 export const validationFunctions = [
-  GV.validateRequiredRadioButtonForCombinedRates,
-  GV.validateAtLeastOneDeviationFieldFilled,
-  GV.validateRequiredRadioButtonForCombinedRates,
-  GV.validateAtLeastOneDeviationFieldFilled,
-  GV.validateReasonForNotReporting,
-  GV.validateAtLeastOneDataSource,
-  GV.validateBothDatesCompleted,
-  GV.validateYearFormat,
-  GV.validateAtLeastOneRateComplete,
-  GV.validateRateZeroPM,
-  GV.validateRateNotZeroPM,
-  GV.validateNumeratorsLessThanDenominatorsPM,
-  GV.validateOneQualDenomHigherThanOtherDenomPM,
-  GV.validateRateZeroOMS,
-  GV.validateRateNotZeroOMS,
-  GV.validateNumeratorLessThanDenominatorOMS,
-  GV.validateOneQualDenomHigherThanOtherDenomOMS,
+  "validateRequiredRadioButtonForCombinedRates",
+  "validateAtLeastOneDeviationFieldFilled",
+  "validateReasonForNotReporting",
+  "validateAtLeastOneDataSource",
+  "validateBothDatesCompleted",
+  "validateYearFormat",
+  "validateAtLeastOneRateComplete",
+  "validateRateZeroPM",
+  "validateRateNotZeroPM",
+  "validateNumeratorsLessThanDenominatorsPM",
+  "validateOneQualDenomHigherThanOtherDenomPM",
+  "validateRateZeroOMS",
+  "validateRateNotZeroOMS",
+  "validateNumeratorLessThanDenominatorOMS",
+  "validateOneQualDenomHigherThanOtherDenomOMS",
+  "validateOMSTotalNDR",
+  "validateOneCatRateHigherThanOtherCatOMS",
+  "validateTotalNDR",
+  "validateEqualQualifierDenominatorsPM",
+  "validateOneCatRateHigherThanOtherCatPM",
+  "validateDualPopInformationPM",
+  "validateEqualCategoryDenominatorsPM",
+  "ComplexValidateDualPopInformation",
+  "ComplexAtLeastOneRateComplete",
+  "ComplexNoNonZeroNumOrDenom",
+  "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec",
+  "ComplexValidateNDRTotals",
+  "validateSameDenominatorSetsOMS",
+  "PCRatLeastOneRateComplete",
+  "PCRnoNonZeroNumOrDenom",
+  "PCRvalidateAtLeastOneNDRInDeviationOfMeasureSpec",
+  "validateEqualQualifierDenominatorsOMS",
+  "validateOneQualRateHigherThanOtherQualOMS",
+  "validateEqualCategoryDenominatorsOMS",
+  "validateOneQualRateHigherThanOtherQualPM",
+  "ComplexValueSameCrossCategory",
+  "validateFfsRadioButtonCompletion",
+  "validateAtLeastOneDataSourceType",
+  "validateDateRangeRadioButtonCompletion",
+  "validateDeviationTextFieldFilled",
+  "validateOPMRates",
+  "validateHedisYear",
+  "validateAtLeastOneDeliverySystem",
+  "validateAtLeastOneDefinitionOfPopulation",
+  "validateHybridMeasurePopulation",
 ] as const;
 
 export type ValidationFunction = typeof validationFunctions[number];
@@ -57,4 +85,33 @@ export interface MeasureTemplateData {
     componentFlag?: ComponentFlagType;
   };
   validations?: ValidationFunction[]; //TO DO: remove question mark (?) once refactoring is finished
+  override?: {
+    validateAtLeastOneDeviationFieldFilled?: Function;
+    validateTotalNDR?: { categories: LabelData[]; errorMessage: boolean };
+    validateEqualQualifierDenominatorsPM?: {
+      category: boolean;
+      errorMessage: boolean;
+    };
+    validateOneCatRateHigherThanOtherCatPM?: {
+      increment: number;
+    };
+    validateDualPopInformationPM?: {
+      dualPopInfoArray?: boolean;
+      ageIndex: number;
+      errorLabel?: string;
+    };
+    validateEqualCategoryDenominatorsPM?: {
+      qualifiers?: LabelData[];
+    };
+    validateOneCatRateHigherThanOtherCatOMS?: {
+      increment?: number;
+    };
+    validateOneQualRateHigherThanOtherQual?: {
+      higherIndex?: number;
+      lowerIndex?: number;
+    };
+    omsValidations?: {
+      dataSource: boolean;
+    };
+  };
 }

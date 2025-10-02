@@ -20,4 +20,31 @@ export const data: MeasureTemplateData = {
   custom: {
     calcTotal: true,
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateOneCatRateHigherThanOtherCatPM",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateOMSTotalNDR",
+    "validateTotalNDR",
+    "validateEqualQualifierDenominatorsOMS",
+    "validateEqualQualifierDenominatorsPM",
+    "validateYearFormat",
+    "validateDualPopInformationPM",
+  ],
+  override: {
+    validateDualPopInformationPM: {
+      ageIndex: 2,
+    },
+  },
 };

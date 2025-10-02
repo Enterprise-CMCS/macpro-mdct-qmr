@@ -53,4 +53,33 @@ export const data: MeasureTemplateData = {
   custom: {
     calcTotal: true,
   },
+  validations: [
+    "validateFfsRadioButtonCompletion",
+    "validateAtLeastOneDataSourceType",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateReasonForNotReporting",
+    "validateDateRangeRadioButtonCompletion",
+    "validateAtLeastOneDataSource",
+    "validateDeviationTextFieldFilled",
+    "validateAtLeastOneRateComplete",
+    "validateOPMRates",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateAtLeastOneDeliverySystem",
+    "validateHybridMeasurePopulation",
+    "validateBothDatesCompleted",
+    "validateAtLeastOneDefinitionOfPopulation",
+    "validateOMSTotalNDR",
+    "validateTotalNDR",
+    "validateYearFormat",
+  ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
+  },
 };

@@ -79,4 +79,17 @@ export const data: MeasureTemplateData = {
   opm: {
     componentFlag: "IU",
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
+    "ComplexValidateDualPopInformation",
+    "ComplexAtLeastOneRateComplete",
+    "ComplexNoNonZeroNumOrDenom",
+    "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec",
+    "ComplexValidateNDRTotals",
+    "ComplexValueSameCrossCategory",
+  ],
 };

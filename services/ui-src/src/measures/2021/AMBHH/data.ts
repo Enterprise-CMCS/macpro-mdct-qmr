@@ -21,4 +21,26 @@ export const data: MeasureTemplateData = {
     allowNumeratorGreaterThanDenominator: true,
     calcTotal: true,
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateBothDatesCompleted",
+    "validateOMSTotalNDR",
+    "validateTotalNDR",
+    "validateYearFormat",
+    "validateDualPopInformationPM",
+  ],
+  override: {
+    validateDualPopInformationPM: {
+      dualPopInfoArray: true,
+      ageIndex: 0,
+    },
+  },
 };
