@@ -5,7 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { FormData, Measure } from "./types";
 import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 
 export const AMRAD = ({
   name,
@@ -22,7 +22,10 @@ export const AMRAD = ({
 
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 
@@ -93,7 +96,10 @@ export const AMRAD = ({
           {/* Show Performance Measure when HEDIS is selected from DataSource */}
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} calcTotal={true} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data.performanceMeasure}
+                calcTotal={true}
+              />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

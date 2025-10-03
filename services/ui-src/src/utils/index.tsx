@@ -8,3 +8,7 @@ export * from "./testUtils/reactHookFormRenderer";
 export * from "./testUtils/validationHelpers";
 export * from "./time";
 export * from "./parser";
+// tracking
+export * from "./tracking/tealium";
+// other
+export * from "./other/useBreakpoint";

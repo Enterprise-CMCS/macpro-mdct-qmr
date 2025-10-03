@@ -30,26 +30,26 @@ const inputFieldNames = [
   },
 ];
 
-const ndrFormulas = [
+export const ndrFormulas = [
   // Discharges per 1,000 Enrollee Months
   {
-    num: 1,
-    denom: 0,
-    rate: 2,
+    numerator: 1,
+    denominator: 0,
+    rateIndex: 2,
     mult: 1000,
   },
   // Days per 1,000 Enrollee Months
   {
-    num: 3,
-    denom: 0,
-    rate: 4,
+    numerator: 3,
+    denominator: 0,
+    rateIndex: 4,
     mult: 1000,
   },
   // Average Length of Stay
   {
-    num: 3,
-    denom: 1,
-    rate: 5,
+    numerator: 3,
+    denominator: 1,
+    rateIndex: 5,
     mult: 1,
   },
 ];
@@ -79,4 +79,17 @@ export const data: MeasureTemplateData = {
   opm: {
     componentFlag: "IU",
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateBothDatesCompleted",
+    "validateYearFormat",
+    "ComplexValidateDualPopInformation",
+    "ComplexAtLeastOneRateComplete",
+    "ComplexNoNonZeroNumOrDenom",
+    "ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec",
+    "ComplexValidateNDRTotals",
+    "ComplexValueSameCrossCategory",
+  ],
 };

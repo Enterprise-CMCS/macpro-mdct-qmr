@@ -36,7 +36,7 @@ exports.handler = async function (event, _context, _callback) {
   );
 
   await topics.createTopics(
-    process.env.BOOTSTRAP_BROKER_STRING_TLS.split(","),
+    process.env.brokerString.split(","),
     desiredTopicConfigs
   );
 };

@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode, useState } from "react";
+import { MouseEventHandler, ReactNode, useEffect, useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 
@@ -35,6 +35,7 @@ export const Accordion = ({
   label,
   children,
   externalControlled,
+  overrideExpand,
 }: AccordionProps) => {
   const [index, setIndex] = useState<number>(1);
 
@@ -49,6 +50,12 @@ export const Accordion = ({
       }
     });
   }
+
+  useEffect(() => {
+    if (overrideExpand) {
+      setIndex(0);
+    }
+  }, [overrideExpand]);
 
   const toggle = () => {
     if (index === 1) setIndex(0);
@@ -76,6 +83,7 @@ interface AccordionProps {
   externalControlled?: boolean;
   label?: string;
   sx?: CUI.SystemStyleObject;
+  overrideExpand?: boolean;
 }
 
 const sx = {

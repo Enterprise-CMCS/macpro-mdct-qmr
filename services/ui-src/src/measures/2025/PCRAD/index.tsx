@@ -3,8 +3,8 @@ import * as PMD from "./data";
 import * as QMR from "components";
 import { PCRADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
+import { validationFunctions } from "./../validationTemplate";
 
 export const PCRAD = ({
   name,
@@ -18,7 +18,10 @@ export const PCRAD = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 
@@ -41,7 +44,7 @@ export const PCRAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRADPerformanceMeasure data={PMD.data} />
+              <PCRADPerformanceMeasure data={PMD.data.performanceMeasure} />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

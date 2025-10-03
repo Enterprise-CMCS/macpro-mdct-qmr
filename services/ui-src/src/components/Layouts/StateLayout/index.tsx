@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { BreadCrumbItems } from "components";
@@ -13,29 +13,10 @@ export const StateLayout: React.FC<React.PropsWithChildren<Props>> = ({
   breadcrumbItems,
   buttons,
 }) => {
-  const [sticky, setSticky] = useState(false);
-
-  const stickNavbar = () => {
-    if (window !== undefined) {
-      const windowHeight = window.scrollY;
-      windowHeight > 89 ? setSticky(true) : setSticky(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", stickNavbar);
-    return () => window.removeEventListener("scroll", stickNavbar);
-  }, []);
-
   return (
     <>
       <CUI.Box
-        position={sticky ? "fixed" : "relative"}
-        zIndex={3}
-        padding="none"
-        w="full"
-        top="0"
-        left="0"
+        sx={sx.root}
         data-testid="state-layout-container"
         className="state-layout-container"
         data-cy="state-layout-container"
@@ -54,9 +35,23 @@ export const StateLayout: React.FC<React.PropsWithChildren<Props>> = ({
           </CUI.Flex>
         </CUI.Box>
       </CUI.Box>
-      <CUI.Container maxW="7xl" mt={sticky ? "65px" : "0"} py="6">
+      <CUI.Container maxW="7xl" py="6">
         {children}
       </CUI.Container>
     </>
   );
+};
+
+const sx = {
+  root: {
+    position: "sticky",
+    zIndex: 3,
+    padding: "none",
+    width: "full",
+    top: 0,
+    left: 0,
+    ".tablet &, .mobile &": {
+      position: "static",
+    },
+  },
 };

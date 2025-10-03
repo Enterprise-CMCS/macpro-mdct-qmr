@@ -5,8 +5,18 @@ const baseStyles = {
   color: "blue.600",
 };
 
+const unlinedVariant = {
+  textDecoration: "none",
+  fontWeight: "bold",
+};
+
+const variants = {
+  unlined: unlinedVariant,
+};
+
 const linkTheme: ComponentStyleConfig = {
   baseStyle: baseStyles,
+  variants: variants,
 };
 
 export default linkTheme;

@@ -1,11 +1,6 @@
 import { LabelData } from "utils";
 import * as DC from "dataConstants";
-
-interface NDRforumla {
-  numerator: number;
-  denominator: number;
-  rateIndex: number;
-}
+import { ndrFormula } from "types";
 
 interface Qualifier {
   fields: Field[];
@@ -21,7 +16,7 @@ interface Field {
 export const ComplexValidateNDRTotalsOMS = (
   rateData: any,
   categories: LabelData[],
-  ndrFormulas: NDRforumla[],
+  ndrFormulas: ndrFormula[],
   errorLocation: string
 ) => {
   // Using a subset of rateData as iterator to be sure that Total
@@ -78,11 +73,11 @@ export const ComplexValidateNDRTotalsOMS = (
 export const ComplexValidateNDRTotals = (
   performanceMeasureArray: any,
   categories: LabelData[],
-  ndrFormulas: NDRforumla[],
+  ndrFormulas: ndrFormula[],
   errorLocation: string = "Performance Measure Total"
 ) => {
   let errorArray: any[] = [];
-  const rateLocations = ndrFormulas.map((ndr: NDRforumla) => ndr.rateIndex);
+  const rateLocations = ndrFormulas.map((ndr: ndrFormula) => ndr.rateIndex);
 
   performanceMeasureArray.forEach((category: Qualifier[], i: number) => {
     // Sum all fields for each qualifier
@@ -108,10 +103,10 @@ export const ComplexValidateNDRTotals = (
     ) {
       errorArray.push({
         errorLocation: `${errorLocation} - ${
-          categories[i].label ? categories[i].label : ""
+          categories[i]?.label ? categories[i].label : ""
         }`,
         errorMessage: `Total ${
-          categories[i].label ? categories[i].label : ""
+          categories[i]?.label ? categories[i].label : ""
         } must contain values if other fields are filled.`,
       });
     } else {
@@ -123,12 +118,12 @@ export const ComplexValidateNDRTotals = (
         ) {
           errorArray.push({
             errorLocation: `${errorLocation} - ${
-              categories[i].label ? categories[i].label : ""
+              categories[i]?.label ? categories[i].label : ""
             }`,
             errorMessage: `Total ${
               field.label
             } is not equal to the sum of other "${field.label}" fields in ${
-              categories[i].label ? categories[i].label : ""
+              categories[i]?.label ? categories[i].label : ""
             } section.`,
           });
         }

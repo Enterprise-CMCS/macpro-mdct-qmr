@@ -62,10 +62,10 @@ export interface MeasureData<DataType = any> {
 }
 
 export interface ndrFormula {
-  num: number;
-  denom: number;
-  rate: number;
-  mult: number;
+  numerator: number;
+  denominator: number;
+  rateIndex: number;
+  mult?: number;
 }
 
 // BANNER

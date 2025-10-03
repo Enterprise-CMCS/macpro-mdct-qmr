@@ -3,7 +3,7 @@
 export const isDevEnv = () => {
   return (
     configToExport.BRANCH_NAME !== undefined &&
-    configToExport.BRANCH_NAME !== "prod"
+    configToExport.BRANCH_NAME !== "production"
   );
 };
 
