@@ -1,4 +1,5 @@
 const topics = require("../libs/topics-lib.js");
+const condensedTopicList = require("../config.js");
 
 /**
  * String in the format of `--${event.project}--${event.stage}--`
@@ -6,17 +7,6 @@ const topics = require("../libs/topics-lib.js");
  * Only used for temp branches for easy identification and cleanup.
  */
 const namespace = process.env.topicNamespace;
-
-const condensedTopicList = [
-  {
-    // topics for the qmr service's connector
-    topicPrefix: "aws.mdct.qmr.cdc",
-    version: ".v0",
-    numPartitions: 1,
-    replicationFactor: 3,
-    topics: [".coreSet", ".measure", ".rate"],
-  },
-];
 
 /**
  * Handler triggered on deploy to create known topics in bigmac
