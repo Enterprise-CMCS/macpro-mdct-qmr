@@ -157,6 +157,3 @@ export async function deleteTopics(brokers, topicNamespace) {
   await admin.disconnect();
   return topicsToDelete;
 }
-
-// Maintain backwards compatibility with existing default import style used in handlers
-export default { listTopics, createTopics, deleteTopics };
