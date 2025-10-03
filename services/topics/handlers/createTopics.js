@@ -1,3 +1,4 @@
+// This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
 import { createTopics } from "../libs/topics-lib.js";
 import condensedTopicList from "../config.js";
 
