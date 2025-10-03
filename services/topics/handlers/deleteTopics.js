@@ -12,7 +12,7 @@ exports.handler = async function (event, _context, _callback) {
   console.log("Received event:", JSON.stringify(event, null, 2));
 
   return await topics.deleteTopics(
-    process.env.BOOTSTRAP_BROKER_STRING_TLS.split(","),
+    process.env.brokerString.split(","),
     process.env.topicNamespace
   );
 };
