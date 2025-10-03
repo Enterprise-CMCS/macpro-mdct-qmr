@@ -14,7 +14,7 @@ const namespace = process.env.topicNamespace;
  * @param {*} _context
  * @param {*} _callback
  */
-export const handler = async function (event, _context, _callback) {
+export const handler = async (event, _context, _callback) => {
   console.log("Received event:", JSON.stringify(event, null, 2)); // eslint-disable-line no-console
 
   const desiredTopicConfigs = condensedTopicList.flatMap((element) =>

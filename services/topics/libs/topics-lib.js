@@ -7,7 +7,7 @@ import { ConfigResourceTypes, Kafka } from "kafkajs";
  * @param {string} namespace - String in the format of `--${event.project}--`, only used for temp branches for easy identification and cleanup
  * @returns {Promise<string[]>}
  */
-export async function listTopics(brokerString, namespace) {
+export const listTopics = async (brokerString, namespace) => {
   const brokers = brokerString.split(",");
 
   const kafka = new Kafka({
@@ -28,14 +28,16 @@ export async function listTopics(brokerString, namespace) {
 
   await admin.disconnect();
   return lingeringTopics;
-}
+};
 
 /**
  * Generates topics in BigMac given the following
  * @param { string[] } brokers - List of brokers
- * @param {{ topic: string, numPartitions: number, replicationFactor: number }[]} desiredTopicConfigs - array of topics to create or update. The `topic` property should include any namespace.
+ * @param {{ topic: string, numPartitions: number, replicationFactor: number }[]}
+ *   desiredTopicConfigs - array of topics to create or update.
+ *   The `topic` property should include any namespace.
  */
-export async function createTopics(brokers, desiredTopicConfigs) {
+export const createTopics = async (brokers, desiredTopicConfigs) => {
   const kafka = new Kafka({
     clientId: "admin",
     brokers,
@@ -117,14 +119,14 @@ export async function createTopics(brokers, desiredTopicConfigs) {
   }
 
   await admin.disconnect();
-}
+};
 
 /**
  * Deletes all topics for an ephemeral (`--` prefixed) namespace
  * @param { string[] } brokers - List of brokers
  * @param {string} topicNamespace
  */
-export async function deleteTopics(brokers, topicNamespace) {
+export const deleteTopics = async (brokers, topicNamespace) => {
   if (!topicNamespace.startsWith("--")) {
     throw new Error(
       "ERROR:  The deleteTopics function only operates against topics that begin with --."
@@ -156,4 +158,4 @@ export async function deleteTopics(brokers, topicNamespace) {
 
   await admin.disconnect();
   return topicsToDelete;
-}
+};

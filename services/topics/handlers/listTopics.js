@@ -8,7 +8,7 @@ import { listTopics } from "../libs/topics-lib.js";
  * @param {*} _context
  * @param {*} _callback
  */
-export const handler = async function (event, _context, _callback) {
+export const handler = async (event, _context, _callback) => {
   console.log("Received event:", JSON.stringify(event, null, 2));
 
   return await listTopics(process.env.brokerString, process.env.topicNamespace);

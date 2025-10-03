@@ -8,8 +8,11 @@ import { deleteTopics } from "../libs/topics-lib.js";
  * @param {*} _context
  * @param {*} _callback
  */
-export const handler = async function (event, _context, _callback) {
+export const handler = async (event, _context, _callback) => {
   console.log("Received event:", JSON.stringify(event, null, 2));
+  if (!event.project || !event.stage) {
+    throw "ERROR:  project and stage keys must be sent in the event.";
+  }
 
   return await deleteTopics(
     process.env.brokerString.split(","),
