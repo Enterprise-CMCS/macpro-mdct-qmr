@@ -40,7 +40,7 @@ const NDR = (watchOMS: any, cleanedCategory: any, qual: LabelData) => {
 
 /** Process all OMS rate values pertaining to set category and calculate new rate object */
 /** Note: this currently isn't in use with 2023 because we updated the OMS to show only the total qualifier if there is one in the list of qualifiers. */
-const calculateOMSTotal = ({
+export const calculateOMSTotal = ({
   cleanedCategory,
   numberOfDecimals,
   qualifiers,
@@ -154,7 +154,7 @@ const AIFHHndrFormulas = [
 ];
 
 /** (IU-HH Specific) Process all OMS rate values pertaining to set category and calculate new rate object */
-const calculateComplexOMSTotal = ({
+export const calculateComplexOMSTotal = ({
   cleanedCategory,
   qualifiers,
   watchOMS,
@@ -176,6 +176,9 @@ const calculateComplexOMSTotal = ({
     }),
     isTotal: true,
   };
+
+  console.log("fieldNames:", fieldNames);
+  console.log("tempRate before calculations:", tempRate);
 
   // Store sums in temp
   for (const qual of cleanedQualifiers) {
