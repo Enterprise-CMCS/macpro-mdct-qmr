@@ -1,5 +1,5 @@
-const topics = require("../libs/topics-lib.js");
-const condensedTopicList = require("../config.js");
+import { createTopics } from "../libs/topics-lib.js";
+import condensedTopicList from "../config.js";
 
 /**
  * String in the format of `--${event.project}--${event.stage}--`
@@ -14,7 +14,7 @@ const namespace = process.env.topicNamespace;
  * @param {*} _context
  * @param {*} _callback
  */
-exports.handler = async function (event, _context, _callback) {
+export const handler = async function (event, _context, _callback) {
   console.log("Received event:", JSON.stringify(event, null, 2)); // eslint-disable-line no-console
 
   const desiredTopicConfigs = condensedTopicList.flatMap((element) =>
@@ -25,8 +25,5 @@ exports.handler = async function (event, _context, _callback) {
     }))
   );
 
-  await topics.createTopics(
-    process.env.brokerString.split(","),
-    desiredTopicConfigs
-  );
+  await createTopics(process.env.brokerString.split(","), desiredTopicConfigs);
 };

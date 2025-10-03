@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const topics = require("../libs/topics-lib.js");
+import { deleteTopics } from "../libs/topics-lib.js";
 
 /**
  * Handler to be triggered in temporary branches by the destroy workflow, cleans up topics with the known namespace format
@@ -8,10 +8,10 @@ const topics = require("../libs/topics-lib.js");
  * @param {*} _context
  * @param {*} _callback
  */
-exports.handler = async function (event, _context, _callback) {
+export const handler = async function (event, _context, _callback) {
   console.log("Received event:", JSON.stringify(event, null, 2));
 
-  return await topics.deleteTopics(
+  return await deleteTopics(
     process.env.brokerString.split(","),
     process.env.topicNamespace
   );
