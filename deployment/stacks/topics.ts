@@ -43,6 +43,7 @@ export function createTopicsComponents(props: CreateTopicsComponentsProps) {
   );
 
   const commonProps = {
+    brokerString,
     stackName: `${service}-${stage}`,
     environment: {
       brokerString,
