@@ -2,6 +2,7 @@
   "name": "topics",
   "version": "1.0.0",
   "description": "Creates mmdl topics in CMS Bigmac.",
+  "type": "module",
   "author": "",
   "devDependencies": {},
   "dependencies": {

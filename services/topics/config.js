@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     topicPrefix: "aws.mdct.qmr.cdc",
     version: ".v0",
