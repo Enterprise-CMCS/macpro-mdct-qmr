@@ -9,10 +9,7 @@ import { useTotalAutoCalculation } from "./omsUtil";
 jest.mock("utils", () => ({
   ...jest.requireActual("utils"),
   isLegacyLabel: jest.fn(),
-  calculateComplexOMSTotal: jest.fn(),
 }));
-
-const mockedCalculateComplexOMSTotal = calculateComplexOMSTotal as jest.Mock;
 
 jest.mock("react-hook-form", () => ({
   useFormContext: jest.fn(),
