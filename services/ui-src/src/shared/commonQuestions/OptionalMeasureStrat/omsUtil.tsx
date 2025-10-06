@@ -289,18 +289,7 @@ export const useTotalAutoCalculation = ({
 
     const subscription = watch((values, { name: fieldName, type }) => {
       if (fieldName && values) {
-        let omsFields;
-        switch (componentFlag) {
-          case "IU":
-            omsFields = [] as complexRateFields[];
-            break;
-          case "AIF":
-            omsFields = [] as complexRateFields[];
-            break;
-          default:
-            omsFields = [] as RateFields[];
-            break;
-        }
+        let omsFields = [] as complexRateFields[] | RateFields[];
         const watchOMS = objectPath.get(values, `${name}.rates`);
         for (const q of nonTotalQualifiers) {
           omsFields.push(watchOMS?.[q.id]?.[cleanedCategory]?.[0] ?? {});
