@@ -177,9 +177,6 @@ export const calculateComplexOMSTotal = ({
     isTotal: true,
   };
 
-  console.log("fieldNames:", fieldNames);
-  console.log("tempRate before calculations:", tempRate);
-
   // Store sums in temp
   for (const qual of cleanedQualifiers) {
     const fields = NDR(watchOMS, cleanedCategory, qual)?.[0]?.fields;

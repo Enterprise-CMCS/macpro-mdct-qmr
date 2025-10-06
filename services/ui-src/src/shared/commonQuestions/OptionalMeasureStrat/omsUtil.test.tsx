@@ -9,7 +9,10 @@ import { useTotalAutoCalculation } from "./omsUtil";
 jest.mock("utils", () => ({
   ...jest.requireActual("utils"),
   isLegacyLabel: jest.fn(),
+  calculateComplexOMSTotal: jest.fn(),
 }));
+
+const mockedCalculateComplexOMSTotal = calculateComplexOMSTotal as jest.Mock;
 
 jest.mock("react-hook-form", () => ({
   useFormContext: jest.fn(),
@@ -108,7 +111,7 @@ describe("calculateComplexOMSTotal", () => {
     { id: "total", label: "Total", text: "Total" },
   ];
 
-  const watchOMS = {
+  const watchOMSIU = {
     qual1: {
       category1: [
         {
@@ -191,70 +194,173 @@ describe("calculateComplexOMSTotal", () => {
     },
   };
 
-  it.only("should calculate totals for IU componentFlag", () => {
+  it("should calculate totals for IU componentFlag", () => {
     (isLegacyLabel as jest.Mock).mockReturnValue(true);
     const result = calculateComplexOMSTotal({
       cleanedCategory: "category1",
       qualifiers,
-      watchOMS,
+      watchOMS: watchOMSIU,
       componentFlag: "IU",
       numberOfDecimals: 2,
     });
-
-    console.log("result:, ", result);
 
     expect(result).toEqual({
       label: "category1",
       fields: [
-        { label: "Number of Enrollee Months", value: "50" }, // 20 + 30
-        { label: "Discharges", value: "15" }, // 5 + 10
-        { label: "Discharges per 1,000 Enrollee Months", value: "583" }, // Calculated rate (1000 * (250+333) / 10)
-        { label: "Days", value: "13" }, // Calculated rate (1000 * 60 / 10)
+        { label: "Number of Enrollee Months", value: "50" },
+        { label: "Discharges", value: "15" },
+        { label: "Discharges per 1,000 Enrollee Months", value: "583" },
+        { label: "Days", value: "13" },
         { label: "Days per 1,000 Enrollee Months", value: "516" },
-        { label: "Average Length of Stay", value: "3.6" }, // Calculated rate (60 / 40)
+        { label: "Average Length of Stay", value: "3.6" },
       ],
       isTotal: true,
     });
   });
 
+  const watchOMSAIF = {
+    qual1: {
+      category1: [
+        {
+          label: "Category 1",
+          fields: [
+            {
+              label: "Number of Enrollee Months",
+              value: "20",
+            },
+            {
+              label: "Number of Short-Term Admissions",
+              value: "5",
+            },
+            {
+              label: "Number of Medium-Term Admissions",
+              value: "250",
+            },
+            {
+              label: "Number of Long-Term Admissions",
+              value: "5",
+            },
+          ],
+        },
+      ],
+    },
+    qual2: {
+      category1: [
+        {
+          label: "Category 1",
+          fields: [
+            {
+              label: "Number of Enrollee Months",
+              value: "20",
+            },
+            {
+              label: "Number of Short-Term Admissions",
+              value: "5",
+            },
+            {
+              label: "Number of Medium-Term Admissions",
+              value: "250",
+            },
+            {
+              label: "Number of Long-Term Admissions",
+              value: "5",
+            },
+          ],
+        },
+      ],
+    },
+    Total: {
+      category1: [
+        {
+          fields: [
+            { label: "Number of Enrollee Months" },
+            { label: "Number of Short-Term Admissions" },
+            { label: "Number of Medium-Term Admissions" },
+            { label: "Number of Long-Term Admissions" },
+          ],
+        },
+      ],
+    },
+  };
+
   it("should calculate totals for AIF componentFlag", () => {
-    //(isLegacyLabel as jest.Mock).mockReturnValue(true);
+    (isLegacyLabel as jest.Mock).mockReturnValue(true);
     const result = calculateComplexOMSTotal({
-      cleanedCategory: "singleCategory",
+      cleanedCategory: "category1",
       qualifiers,
-      watchOMS,
+      watchOMS: watchOMSAIF,
       componentFlag: "AIF",
       numberOfDecimals: 2,
     });
 
-    console.log("result:, ", result);
-
     expect(result).toEqual({
-      label: "singleCategory",
+      label: "category1",
       fields: [
-        { label: "Field 1", value: "40" }, // 10 + 30
-        { label: "Field 2", value: "60" }, // 20 + 40
-        { label: undefined, value: "4000.0" }, // Calculated rate (1000 * 40 / 10)
-        { label: undefined, value: "6000.0" }, // Calculated rate (1000 * 60 / 10)
-        { label: undefined, value: undefined }, // No value for long term
-        { label: undefined, value: "10000.0" }, // Calculated rate (1000 * 100 / 10)
+        { label: "Number of Enrollee Months", value: "40" },
+        { label: "Number of Short-Term Admissions", value: "10" },
+        { label: "Number of Medium-Term Admissions", value: "500" },
+        { label: "Number of Long-Term Admissions", value: "10" },
       ],
       isTotal: true,
     });
   });
 
+  const watchOMSEmpty = {
+    qual1: {
+      category1: [
+        {
+          label: "Category 1",
+          fields: [
+            {
+              label: "Field 1",
+              value: undefined,
+            },
+            {
+              label: "Field 2",
+              value: undefined,
+            },
+          ],
+        },
+      ],
+    },
+    qual2: {
+      category1: [
+        {
+          label: "Category 1",
+          fields: [
+            {
+              label: "Field 1",
+              value: undefined,
+            },
+            {
+              label: "Field 2",
+              value: undefined,
+            },
+          ],
+        },
+      ],
+    },
+    Total: {
+      category1: [
+        {
+          fields: [{ label: "Field 1" }, { label: "Field 2" }],
+        },
+      ],
+    },
+  };
+
   it("should return empty fields if no values are provided", () => {
     (isLegacyLabel as jest.Mock).mockReturnValue(true);
     const result = calculateComplexOMSTotal({
-      cleanedCategory: "singleCategory",
+      cleanedCategory: "category1",
       qualifiers,
-      watchOMS: {},
+      watchOMS: watchOMSEmpty,
       componentFlag: "IU",
       numberOfDecimals: 2,
     });
 
     expect(result).toEqual({
-      label: "singleCategory",
+      label: "category1",
       fields: [
         { label: "Field 1", value: undefined },
         { label: "Field 2", value: undefined },
@@ -267,7 +373,6 @@ describe("calculateComplexOMSTotal", () => {
 describe("useTotalAutoCalculation", () => {
   it("should send updated totals to RHF when relevant form values change", async () => {
     (isLegacyLabel as jest.Mock).mockReturnValue(true);
-
     // RHF mocking
     const mockUnsubscribe = jest.fn();
     let watchCallback: Function | undefined;
@@ -279,17 +384,6 @@ describe("useTotalAutoCalculation", () => {
     mockedUseFormContext.mockReturnValue({
       watch: mockWatch,
       setValue: mockSetValue,
-    });
-
-    // Performance Measure mocking
-    mockedUsePFContext.mockReturnValue({
-      qualifiers: [
-        { id: "qualifier1", label: "Qualifier One" },
-        { id: "qualifier2", label: "Qualifier Two" },
-        { id: "Total", label: "Total" },
-      ],
-      numberOfDecimals: 2,
-      rateMultiplicationValue: 1,
     });
 
     const formValues = {
@@ -318,6 +412,17 @@ describe("useTotalAutoCalculation", () => {
       type: "change",
     };
 
+    // Performance Measure mocking
+    mockedUsePFContext.mockReturnValue({
+      qualifiers: [
+        { id: "qualifier1", label: "Qualifier One" },
+        { id: "qualifier2", label: "Qualifier Two" },
+        { id: "Total", label: "Total" },
+      ],
+      numberOfDecimals: 2,
+      rateMultiplicationValue: 1,
+    });
+
     const renderResult = renderHook(() =>
       useTotalAutoCalculation({
         name: "mockName",
@@ -335,6 +440,296 @@ describe("useTotalAutoCalculation", () => {
     expect(mockSetValue).toHaveBeenCalledWith(
       "mockName.rates.Total.singleCategory",
       [{ numerator: "3", denominator: "15", rate: "0.2" }]
+    );
+
+    renderResult.unmount();
+    expect(mockUnsubscribe).toHaveBeenCalled();
+  });
+
+  it("IU - should send updated totals to RHF when relevant form values change", async () => {
+    (isLegacyLabel as jest.Mock).mockReturnValue(true);
+    // RHF mocking
+    const mockUnsubscribe = jest.fn();
+    let watchCallback: Function | undefined;
+    const mockWatch = jest.fn().mockImplementation((callback) => {
+      watchCallback = callback;
+      return { unsubscribe: mockUnsubscribe };
+    });
+    const mockSetValue = jest.fn();
+    mockedUseFormContext.mockReturnValue({
+      watch: mockWatch,
+      setValue: mockSetValue,
+    });
+
+    const formValues = {
+      mockName: {
+        rates: {
+          qualifier1: {
+            singleCategory: [
+              {
+                label: "single category",
+                fields: [
+                  {
+                    label: "Number of Enrollee Months",
+                    value: "20",
+                  },
+                  {
+                    label: "Discharges",
+                    value: "5",
+                  },
+                  {
+                    label: "Discharges per 1,000 Enrollee Months",
+                    value: "250",
+                  },
+                  {
+                    label: "Days",
+                    value: "5",
+                  },
+                  {
+                    label: "Days per 1,000 Enrollee Months",
+                    value: "250",
+                  },
+                  {
+                    label: "Average Length of Stay",
+                    value: "1.0",
+                  },
+                ],
+              },
+            ],
+          },
+          qualifier2: {
+            singleCategory: [
+              {
+                label: "single category",
+                fields: [
+                  {
+                    label: "Number of Enrollee Months",
+                    value: "30",
+                  },
+                  {
+                    label: "Discharges",
+                    value: "10",
+                  },
+                  {
+                    label: "Discharges per 1,000 Enrollee Months",
+                    value: "333",
+                  },
+                  {
+                    label: "Days",
+                    value: "8",
+                  },
+                  {
+                    label: "Days per 1,000 Enrollee Months",
+                    value: "266",
+                  },
+                  {
+                    label: "Average Length of Stay",
+                    value: "2.6",
+                  },
+                ],
+              },
+            ],
+          },
+          Total: {
+            singleCategory: [
+              {
+                fields: [
+                  { label: "Number of Enrollee Months" },
+                  { label: "Discharges" },
+                  { label: "Discharges per 1,000 Enrollee Months" },
+                  { label: "Days" },
+                  { label: "Days per 1,000 Enrollee Months" },
+                  { label: "Average Length of Stay" },
+                ],
+              },
+            ],
+          },
+        },
+      },
+    };
+    const watchEventInfo = {
+      name: "mockName.rates.qualifier1.singleCategory",
+      type: "change",
+    };
+
+    // Performance Measure mocking
+    mockedUsePFContext.mockReturnValue({
+      qualifiers: [
+        { id: "qualifier1", label: "Qualifier One" },
+        { id: "qualifier2", label: "Qualifier Two" },
+        { id: "Total", label: "Total" },
+      ],
+      numberOfDecimals: 2,
+      rateMultiplicationValue: 1,
+    });
+
+    const renderResult = renderHook(() =>
+      useTotalAutoCalculation({
+        name: "mockName",
+        componentFlag: "IU",
+      })
+    );
+
+    expect(mockWatch).toHaveBeenCalledTimes(1);
+
+    await act(() => watchCallback!(formValues, watchEventInfo));
+    expect(mockSetValue).not.toHaveBeenCalled();
+
+    formValues.mockName.rates.qualifier1.singleCategory[0].fields[0].value =
+      "10";
+    await act(() => watchCallback!(formValues, watchEventInfo));
+
+    expect(mockSetValue).toHaveBeenCalledWith(
+      "mockName.rates.Total.singleCategory",
+      [
+        {
+          fields: [
+            { label: "Number of Enrollee Months", value: "40" },
+            { label: "Discharges", value: "15" },
+            { label: "Discharges per 1,000 Enrollee Months", value: "583" },
+            { label: "Days", value: "13" },
+            { label: "Days per 1,000 Enrollee Months", value: "516" },
+            { label: "Average Length of Stay", value: "3.6" },
+          ],
+          isTotal: true,
+          label: "singleCategory",
+        },
+      ]
+    );
+
+    renderResult.unmount();
+    expect(mockUnsubscribe).toHaveBeenCalled();
+  });
+
+  it("AIF - should send updated totals to RHF when relevant form values change", async () => {
+    (isLegacyLabel as jest.Mock).mockReturnValue(true);
+    // RHF mocking
+    const mockUnsubscribe = jest.fn();
+    let watchCallback: Function | undefined;
+    const mockWatch = jest.fn().mockImplementation((callback) => {
+      watchCallback = callback;
+      return { unsubscribe: mockUnsubscribe };
+    });
+    const mockSetValue = jest.fn();
+    mockedUseFormContext.mockReturnValue({
+      watch: mockWatch,
+      setValue: mockSetValue,
+    });
+
+    const formValues = {
+      mockName: {
+        rates: {
+          qualifier1: {
+            singleCategory: [
+              {
+                label: "single category",
+                fields: [
+                  {
+                    label: "Number of Enrollee Months",
+                    value: "20",
+                  },
+                  {
+                    label: "Number of Short-Term Admissions",
+                    value: "5",
+                  },
+                  {
+                    label: "Number of Medium-Term Admissions",
+                    value: "250",
+                  },
+                  {
+                    label: "Number of Long-Term Admissions",
+                    value: "5",
+                  },
+                ],
+              },
+            ],
+          },
+          qualifier2: {
+            singleCategory: [
+              {
+                label: "single category",
+                fields: [
+                  {
+                    label: "Number of Enrollee Months",
+                    value: "20",
+                  },
+                  {
+                    label: "Number of Short-Term Admissions",
+                    value: "5",
+                  },
+                  {
+                    label: "Number of Medium-Term Admissions",
+                    value: "250",
+                  },
+                  {
+                    label: "Number of Long-Term Admissions",
+                    value: "5",
+                  },
+                ],
+              },
+            ],
+          },
+          Total: {
+            singleCategory: [
+              {
+                fields: [
+                  { label: "Number of Enrollee Months" },
+                  { label: "Number of Short-Term Admissions" },
+                  { label: "Number of Medium-Term Admissions" },
+                  { label: "Number of Long-Term Admissions" },
+                ],
+              },
+            ],
+          },
+        },
+      },
+    };
+    const watchEventInfo = {
+      name: "mockName.rates.qualifier1.singleCategory",
+      type: "change",
+    };
+
+    // Performance Measure mocking
+    mockedUsePFContext.mockReturnValue({
+      qualifiers: [
+        { id: "qualifier1", label: "Qualifier One" },
+        { id: "qualifier2", label: "Qualifier Two" },
+        { id: "Total", label: "Total" },
+      ],
+      numberOfDecimals: 2,
+      rateMultiplicationValue: 1,
+    });
+
+    const renderResult = renderHook(() =>
+      useTotalAutoCalculation({
+        name: "mockName",
+        componentFlag: "AIF",
+      })
+    );
+
+    expect(mockWatch).toHaveBeenCalledTimes(1);
+
+    await act(() => watchCallback!(formValues, watchEventInfo));
+    expect(mockSetValue).not.toHaveBeenCalled();
+
+    formValues.mockName.rates.qualifier1.singleCategory[0].fields[0].value =
+      "10";
+    await act(() => watchCallback!(formValues, watchEventInfo));
+
+    expect(mockSetValue).toHaveBeenCalledWith(
+      "mockName.rates.Total.singleCategory",
+      [
+        {
+          fields: [
+            { label: "Number of Enrollee Months", value: "30" },
+            { label: "Number of Short-Term Admissions", value: "10" },
+            { label: "Number of Medium-Term Admissions", value: "500" },
+            { label: "Number of Long-Term Admissions", value: "10" },
+          ],
+          isTotal: true,
+          label: "singleCategory",
+        },
+      ]
     );
 
     renderResult.unmount();
