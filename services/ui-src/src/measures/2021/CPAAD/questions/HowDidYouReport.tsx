@@ -5,8 +5,8 @@ export const HowDidYouReport = () => {
   return (
     <QMR.CoreQuestionWrapper label="How did you report this measure?">
       <QMR.RadioButton
-        key={DC.HOW_DO_YOU_REPORT}
-        name={DC.HOW_DO_YOU_REPORT}
+        key={DC.HOW_DID_YOU_REPORT}
+        name={DC.HOW_DID_YOU_REPORT}
         options={[
           {
             displayValue: "Submitted raw data to AHRQ (CAHPS Database)",
@@ -17,8 +17,8 @@ export const HowDidYouReport = () => {
             value: "Other",
             children: [
               <QMR.TextArea
-                key={DC.HOW_DO_YOU_REPORT_EXPLANATION}
-                name={DC.HOW_DO_YOU_REPORT_EXPLANATION}
+                key={DC.HOW_DID_YOU_REPORT_EXPLANATION}
+                name={DC.HOW_DID_YOU_REPORT_EXPLANATION}
                 label="Explain"
                 formLabelProps={{
                   fontWeight: "normal",

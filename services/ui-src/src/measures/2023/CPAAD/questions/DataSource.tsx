@@ -2,6 +2,7 @@ import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useCustomRegister } from "hooks/useCustomRegister";
 import { FormData } from "../types";
+import * as DC from "dataConstants";
 
 export const DataSource = () => {
   const register = useCustomRegister<FormData>();
@@ -12,7 +13,8 @@ export const DataSource = () => {
         formControlProps={{ paddingBottom: 4 }}
         label="Which version of the CAHPS survey was used for reporting?"
         formLabelProps={{ fontWeight: 700 }}
-        {...register("DataSource-CAHPS-Version")}
+        key={DC.DATA_SOURCE_CAHPS_VERSION}
+        name={DC.DATA_SOURCE_CAHPS_VERSION}
         options={[
           { displayValue: "CAHPS 5.1H", value: "CAHPS 5.1H" },
           {
@@ -30,7 +32,8 @@ export const DataSource = () => {
                     ):
                   </>
                 }
-                {...register("DataSource-CAHPS-Version-Other")}
+                key={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
+                name={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
               />,
             ],
           },

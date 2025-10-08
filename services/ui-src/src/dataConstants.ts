@@ -135,8 +135,8 @@ export const HEDIS_MY_2020 = "HEDIS MY 2020";
 export const HEDIS_MY_2021 = "HEDIS MY 2021";
 export const HEDIS_MY_2022 = "HEDIS MY 2022";
 export const HEDIS_MY_2023 = "HEDIS MY 2023";
-export const HOW_DO_YOU_REPORT = "HowDidYouReport";
-export const HOW_DO_YOU_REPORT_EXPLANATION = "HowDidYouReport-Explanation";
+export const HOW_DID_YOU_REPORT = "HowDidYouReport";
+export const HOW_DID_YOU_REPORT_EXPLANATION = "HowDidYouReport-Explanation";
 export const HRSA = "HRSA";
 export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
   "HybridAdministrativeandMedicalRecordsData";

@@ -1,26 +1,25 @@
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
 import { Alert } from "@cmsgov/design-system";
 import * as CUI from "@chakra-ui/react";
 import SharedContext from "shared/SharedContext";
 import { useContext } from "react";
+import * as DC from "dataConstants";
 
 interface DataSourceProps {
   type?: string;
 }
 
 export const DataSource = ({ type }: DataSourceProps) => {
-  const register = useCustomRegister<FormData>();
   const labels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
       <QMR.RadioButton
+        key={DC.DATA_SOURCE_CAHPS_VERSION}
+        name={DC.DATA_SOURCE_CAHPS_VERSION}
         formControlProps={{ paddingBottom: 4 }}
         label="Which version of the CAHPS survey was used for reporting?"
         formLabelProps={{ fontWeight: 700 }}
-        {...register("DataSource-CAHPS-Version")}
         options={[
           { displayValue: "CAHPS 5.1H", value: "CAHPS 5.1H" },
           {
@@ -28,6 +27,8 @@ export const DataSource = ({ type }: DataSourceProps) => {
             value: "Other",
             children: [
               <QMR.TextArea
+                key={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
+                name={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
                 label={
                   <>
                     Describe the data source (
@@ -38,7 +39,6 @@ export const DataSource = ({ type }: DataSourceProps) => {
                     ):
                   </>
                 }
-                {...register("DataSource-CAHPS-Version-Other")}
               />,
               (type === "adult" || type === "child") &&
                 labels.DataSource.otherDataSourceWarning && (

@@ -17,8 +17,8 @@ export const HowDidYouReport = ({ reportingYear }: Props) => {
         have the opportunity to preview the results in the spring.
       </CUI.Text>
       <QMR.RadioButton
-        key={DC.HOW_DO_YOU_REPORT}
-        name={DC.HOW_DO_YOU_REPORT}
+        key={DC.HOW_DID_YOU_REPORT}
+        name={DC.HOW_DID_YOU_REPORT}
         options={[
           {
             displayValue: `Yes, we submitted our CAHPS survey data to the AHRQ CAHPS Database during the June ${reportingYear} submission period.`,
