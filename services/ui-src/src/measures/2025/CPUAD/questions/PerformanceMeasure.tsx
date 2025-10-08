@@ -55,6 +55,8 @@ const QualifierNdrSets = ({
   return (
     <>
       <RateComponent
+        key={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
+        name={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
         rates={[rates[0], rates[1]]}
         readOnly={rateReadOnly}
         measureName={measureName}
@@ -70,7 +72,6 @@ const QualifierNdrSets = ({
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
         }
-        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
       />
       <CUI.Heading size={"sm"}>Count of Exclusions</CUI.Heading>
       {fieldRates.map((rate: QMR.IRate) => {

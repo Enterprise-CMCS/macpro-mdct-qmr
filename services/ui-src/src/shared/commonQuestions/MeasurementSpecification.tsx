@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
@@ -14,7 +13,6 @@ interface Props {
 }
 
 const HEDISChildren = () => {
-  const register = useCustomRegister<Types.MeasurementSpecification>();
   const hedisLabels: any = useContext(SharedContext);
   const options = hedisLabels.MeasureSpecifications.options;
 
@@ -26,7 +24,8 @@ const HEDISChildren = () => {
         </CUI.Text>
       )}
       <QMR.Select
-        {...register(DC.MEASUREMENT_SPECIFICATION_HEDIS)}
+        key={DC.MEASUREMENT_SPECIFICATION_HEDIS}
+        name={DC.MEASUREMENT_SPECIFICATION_HEDIS}
         label="Specify the version of HEDIS measurement year used:"
         placeholder="Select option"
         options={options}
@@ -84,28 +83,28 @@ export const MeasurementSpecificationOtherAlert = (
   );
 };
 
-export const MeasurementSpecificationOtherTextbox = (register: Function) => {
+export const MeasurementSpecificationOtherTextbox = () => {
   return (
     <QMR.TextArea
       textAreaProps={{ marginBottom: "10" }}
-      {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION)}
-      label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
       key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
+      name={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION}
+      label="Describe the specifications that were used to calculate the measure and explain how they deviated from Core Set specifications:"
     />
   );
 };
 
-export const MeasurementSpecificationUpload = (register: Function) => {
+export const MeasurementSpecificationUpload = () => {
   return (
     <QMR.Upload
+      key={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD}
+      name={DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD}
       label="If you need additional space to describe your state's methodology, please attach further documentation below."
-      {...register(DC.MEASUREMENT_SPEC_OMS_DESCRIPTION_UPLOAD)}
     />
   );
 };
 
 export const MeasurementSpecification = ({ type, coreset }: Props) => {
-  const register = useCustomRegister<Types.MeasurementSpecification>();
   const context: any = useContext(SharedContext);
   const { MeasureSpecifications, year } = context;
 
@@ -137,7 +136,8 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
 
       <div data-cy="measurement-specification-options">
         <QMR.RadioButton
-          {...register(DC.MEASUREMENT_SPECIFICATION)}
+          key={DC.MEASUREMENT_SPECIFICATION}
+          name={DC.MEASUREMENT_SPECIFICATION}
           options={[
             measureSpecs,
             {
@@ -146,14 +146,14 @@ export const MeasurementSpecification = ({ type, coreset }: Props) => {
                 : "Other",
               value: DC.OTHER,
               children: [
-                MeasurementSpecificationOtherTextbox(register),
+                MeasurementSpecificationOtherTextbox(),
                 (coreset === "adult" || coreset === "child") &&
                   MeasureSpecifications.otherMeasurementSpecWarning &&
                   MeasurementSpecificationOtherAlert(
                     MeasureSpecifications.otherMeasurementSpecWarning
                   ),
                 MeasureSpecifications.upload &&
-                  MeasurementSpecificationUpload(register),
+                  MeasurementSpecificationUpload(),
               ],
             },
           ]}

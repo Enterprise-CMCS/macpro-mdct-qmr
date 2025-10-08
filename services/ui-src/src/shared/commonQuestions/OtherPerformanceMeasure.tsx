@@ -58,9 +58,10 @@ export const OtherPerformanceMeasure = ({
   return (
     <QMR.CoreQuestionWrapper testid="OPM" label="Other Performance Measure">
       <QMR.TextArea
+        key={DC.OPM_EXPLAINATION}
+        name={DC.OPM_EXPLAINATION}
         label="Describe the other methodology used:"
         formLabelProps={{ fontWeight: 700 }}
-        {...register(DC.OPM_EXPLAINATION)}
       />
       <CUI.Box marginTop={10}>
         {fields.map((_item, index) => {

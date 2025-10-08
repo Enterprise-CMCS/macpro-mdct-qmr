@@ -200,11 +200,9 @@ export const DeviationFromMeasureSpecificationCheckboxes = ({
             displayValue: labelText[option.displayValue] || option.displayValue,
             children: [
               <QMR.Checkbox
-                {...register(
-                  `${DC.DEVIATIONS}.${option.key}.${DC.SELECTED_OPTIONS}`
-                )}
+                key={`${DC.DEVIATIONS}.${option.key}.${DC.SELECTED_OPTIONS}`}
+                name={`${DC.DEVIATIONS}.${option.key}.${DC.SELECTED_OPTIONS}`}
                 formLabelProps={{ fontWeight: 600 }}
-                key={`${DC.DEVIATIONS}.${option.key}`}
                 options={getLowLvlDeviationOptions({
                   qualifiers: option.rates,
                   name: `${DC.DEVIATIONS}.${option.key}`,
@@ -225,8 +223,9 @@ export const DeviationFromMeasureSpecificationCheckboxes = ({
       testid="deviation-from-measure-specification"
     >
       <QMR.RadioButton
+        key={DC.DID_CALCS_DEVIATE}
+        name={DC.DID_CALCS_DEVIATE}
         renderHelperTextAbove
-        {...register(DC.DID_CALCS_DEVIATE)}
         formLabelProps={{ fontWeight: 600 }}
         label={labels.DeviationFromMeasureSpecification.section}
         helperText={labels.DeviationFromMeasureSpecification.helper}
@@ -237,7 +236,8 @@ export const DeviationFromMeasureSpecificationCheckboxes = ({
             value: labels.DeviationFromMeasureSpecification.options[0].value,
             children: [
               <QMR.Checkbox
-                {...register(DC.DEVIATION_OPTIONS)}
+                key={DC.DEVIATION_OPTIONS}
+                name={DC.DEVIATION_OPTIONS}
                 label={labels.DeviationFromMeasureSpecification.optionsText}
                 options={getTopLvlDeviationOptions({
                   categories: categories.map((cat) => cat.label),

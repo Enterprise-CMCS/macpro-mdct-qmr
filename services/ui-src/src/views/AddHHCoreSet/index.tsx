@@ -4,14 +4,14 @@ import * as QMR from "components";
 import { SPA } from "libs/spaLib";
 import { useParams, useNavigate } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/authHooks";
 import { CoreSetAbbr, UserRoles } from "types";
 import { featuresByYear } from "utils/featuresByYear";
+import * as DC from "dataConstants";
 
 interface HealthHome {
-  "HealthHomeCoreSet-SPA": string;
+  [DC.HEALTH_HOME_CORESET_SPA]: string;
   "HealthHomeCoreSet-ShareSSM": string;
   "HealthHomeCoreSet-ShareSSM-Name": string;
   "HealthHomeCoreSet-ShareSSM-Description": string;
@@ -36,8 +36,7 @@ export const AddHHCoreSet = () => {
     mode: "all",
   });
 
-  const register = useCustomRegister<HealthHome>();
-  const watchSPAchoice = methods.watch("HealthHomeCoreSet-SPA");
+  const watchSPAchoice = methods.watch(DC.HEALTH_HOME_CORESET_SPA);
 
   // block display from state users without permissions for the corresponding state
   if (userState && userState !== state && userRole === UserRoles.STATE_USER) {
@@ -68,8 +67,10 @@ export const AddHHCoreSet = () => {
     .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
 
   const handleSubmit = (data: HealthHome) => {
-    if (data["HealthHomeCoreSet-SPA"]) {
-      const coreset: unknown = `${CoreSetAbbr.HHCS}_${data["HealthHomeCoreSet-SPA"]}`;
+    if (data[DC.HEALTH_HOME_CORESET_SPA]) {
+      const coreset: unknown = `${CoreSetAbbr.HHCS}_${
+        data[DC.HEALTH_HOME_CORESET_SPA]
+      }`;
       mutation.mutate(coreset as CoreSetAbbr, {
         onSuccess: () => {
           queryClient.refetchQueries({
@@ -107,6 +108,8 @@ export const AddHHCoreSet = () => {
                 <CUI.OrderedList spacing="10">
                   <CUI.ListItem>
                     <QMR.Select
+                      key={DC.HEALTH_HOME_CORESET_SPA}
+                      name={DC.HEALTH_HOME_CORESET_SPA}
                       placeholder="Select option"
                       selectProps={{
                         whiteSpace: "normal",
@@ -115,7 +118,6 @@ export const AddHHCoreSet = () => {
                         height: "-moz-fit-content",
                       }}
                       formLabelProps={{ fontWeight: 600 }}
-                      {...register("HealthHomeCoreSet-SPA")}
                       options={sortedSPAs}
                       label="Select the Health Home program you are reporting on"
                     />

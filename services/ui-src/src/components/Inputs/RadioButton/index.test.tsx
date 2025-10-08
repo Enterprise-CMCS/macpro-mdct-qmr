@@ -20,6 +20,8 @@ const TestComponent = () => {
           value: "Other",
           children: [
             <Inputs.TextInput
+              key={"test-component-2"}
+              name={"test-component-2"}
               label={
                 <>
                   Describe the data source (
@@ -34,7 +36,6 @@ const TestComponent = () => {
                 fontWeight: "normal",
                 fontSize: "normal",
               }}
-              {...register("test-component-2")}
             />,
           ],
         },
@@ -60,6 +61,8 @@ const TestComponent2 = () => {
           value: "Other",
           children: [
             <Inputs.TextInput
+              key={"test-component-2"}
+              name={"test-component-2"}
               label={
                 <>
                   Describe the data source (
@@ -74,7 +77,6 @@ const TestComponent2 = () => {
                 fontWeight: "normal",
                 fontSize: "normal",
               }}
-              {...register("test-component-2")}
             />,
           ],
         },

@@ -52,11 +52,12 @@ const CategoryNdrSets = ({
               {cat.label}
             </CUI.Text>
             <QMR.Rate
+              key={`PerformanceMeasure.rates.${cat.id}`}
+              name={`PerformanceMeasure.rates.${cat.id}`}
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
-              {...register(`PerformanceMeasure.rates.${cat.id}`)}
             />
           </>
         );
@@ -85,10 +86,11 @@ const QualifierNdrSets = ({
 
   return (
     <PCRRate
+      key={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
+      name={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
       rates={rates}
       readOnly={rateReadOnly}
       customMask={customMask}
-      {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
     />
   );
 };

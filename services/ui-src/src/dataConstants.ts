@@ -35,9 +35,15 @@ export const DATA_NOT_AVAILABLE = "DataNotAvailable";
 export const DATA_NOT_SUBMITTED_BY_PROVIDERS_TO_STATE =
   "DataNotSubmittedByProvidersToState";
 export const DATA_SOURCE = "DataSource";
+export const DATA_SOURCE_ADMIN_PROTOCAL = "DataSource-Admin-Protocol";
+export const DATA_SOURCE_ADMIN_PROTOCAL_OTHER =
+  "DataSource-Admin-Protocol-Other";
 export const DATA_SOURCE_CAHPS_VERSION = "DataSource-CAHPS-Version";
 export const DATA_SOURCE_CAHPS_VERSION_OTHER = "DataSource-CAHPS-Version-Other";
 export const DATA_SOURCE_DESCRIPTION = "DataSourceDescription";
+export const DATA_SOUCRE_INCLUDE_ITEMSETS = "DataSource-Included-ItemSets";
+export const DATA_SOUCRE_INCLUDE_ITEMSETS_OTHER =
+  "DataSource-Included-ItemSets-Other";
 export const DATA_SOURCE_NOT_EASILY_ACCESSIBLE =
   "DataSourceNotEasilyAccessible";
 export const DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER =
@@ -51,6 +57,11 @@ export const DEFINITION_DENOMINATOR_OTHER = "DefinitionOfDenominator-Other";
 export const DEFINITION_OF_DENOMINATOR = "DefinitionOfDenominator";
 export const DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN =
   "DefinitionOfDenominator-Subset-Explain";
+export const DEFINITION_OF_SURVERY_SAMPLE = "DefinitionOfSurveySample";
+export const DEFINITION_OF_SURVERY_SAMPLE_OTHERS =
+  "DefinitionOfSurveySample-Other";
+export const DEFINITION_OF_SURVERY_SAMPLE_CHANGES =
+  "DefinitionOfSurveySample-Changes";
 export const DELIVERY_SYS_FFS = "DeliverySys-FeeForService";
 export const DELIVERY_SYS_FFS_NO_PERCENT =
   "DeliverySys-FeeForService-No-Percent";
@@ -115,6 +126,7 @@ export const EXCLUDE_FROM_OMS = "excludeFromOMS";
 export const EXPLAINATION = "explanation";
 export const FFS = "FFS";
 export const HEALTH_HOME_QUALIFIER_FILE_UPLOAD = "costSavingsFile";
+export const HEALTH_HOME_CORESET_SPA = "HealthHomeCoreSet-SPA";
 export const HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY =
   "Health information exchange (HIE) / clinical registry";
 export const HEDIS_2019 = "HEDIS 2019";
@@ -123,6 +135,8 @@ export const HEDIS_MY_2020 = "HEDIS MY 2020";
 export const HEDIS_MY_2021 = "HEDIS MY 2021";
 export const HEDIS_MY_2022 = "HEDIS MY 2022";
 export const HEDIS_MY_2023 = "HEDIS MY 2023";
+export const HOW_DO_YOU_REPORT = "HowDidYouReport";
+export const HOW_DO_YOU_REPORT_EXPLANATION = "HowDidYouReport-Explanation";
 export const HRSA = "HRSA";
 export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
   "HybridAdministrativeandMedicalRecordsData";
@@ -211,6 +225,8 @@ export const VERSION = "version";
 export const VITAL_DATA_SOURCE = "Vital Records";
 export const WHY_ARE_YOU_NOT_REPORTING = "WhyAreYouNotReporting";
 export const WHY_ARE_YOU_NOT_REPORTING_OTHER = "WhyAreYouNotReporting-Other";
+export const WHY_DID_YOU_NOT_COLLECT = "WhyDidYouNotCollect";
+export const WHY_DID_YOU_NOT_COLLECT_OTHER = "WhyDidYouNotCollect-Other";
 export const WHY_IS_DATA_NOT_AVAILABLE = "WhyIsDataNotAvailable";
 export const WHY_IS_DATA_NOT_AVAILABLE_OTHER = "WhyIsDataNotAvailable-Other";
 export const YES = "yes";
