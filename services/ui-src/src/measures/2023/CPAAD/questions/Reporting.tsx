@@ -1,8 +1,8 @@
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
 import { WhyDidYouNotCollect } from ".";
 import { FormData } from "../types";
+import * as DC from "dataConstants";
 
 interface Props {
   measureName: string;
@@ -11,7 +11,6 @@ interface Props {
 }
 
 export const Reporting = ({ reportingYear }: Props) => {
-  const register = useCustomRegister<FormData>();
   const { watch } = useFormContext<FormData>();
   const watchRadioStatus = watch("DidCollect");
 
@@ -22,7 +21,8 @@ export const Reporting = ({ reportingYear }: Props) => {
         label="Did you collect this measure?"
       >
         <QMR.RadioButton
-          {...register("DidCollect")}
+          key={DC.DID_COLLECT}
+          name={DC.DID_COLLECT}
           options={[
             {
               displayValue: `Yes, we did collect data for the Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid) (CPA-AD) for FFY ${reportingYear} quality measure reporting.`,
