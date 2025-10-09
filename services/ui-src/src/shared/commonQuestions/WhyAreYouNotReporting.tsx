@@ -197,11 +197,11 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
             displayValue: `Small sample size ${
               removeLessThan30 ? "" : "(less than 30)"
             }`,
-            value: DC.SMALL_SAMPLE_SIZE,
+            value: DC.SMALL_SAMPLE_SIZE_LESS,
             children: [
               <QMR.NumberInput
-                key={DC.SMALL_SAMPLE_SIZE}
-                name={DC.SMALL_SAMPLE_SIZE}
+                key={DC.SMALL_SAMPLE_SIZE_LESS}
+                name={DC.SMALL_SAMPLE_SIZE_LESS}
                 label="Enter specific sample size:"
                 mask={removeLessThan30 ? /^[0-9]*$/i : /^([1-2]?\d)?$/i}
               />,

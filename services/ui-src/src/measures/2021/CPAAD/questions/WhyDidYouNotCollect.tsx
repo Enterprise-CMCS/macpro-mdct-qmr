@@ -167,8 +167,8 @@ export const WhyDidYouNotCollect = () => {
             value: "SmallSampleSizeLessThan30",
             children: [
               <QMR.NumberInput
-                key={DC.SMALL_SAMPLE_SIZE}
-                name={DC.SMALL_SAMPLE_SIZE}
+                key={DC.SMALL_SAMPLE_SIZE_LESS}
+                name={DC.SMALL_SAMPLE_SIZE_LESS}
                 label="Enter specific sample size:"
                 mask={/^([1-2]?\d)?$/i}
               />,
