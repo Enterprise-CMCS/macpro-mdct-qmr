@@ -1,12 +1,9 @@
 import { screen } from "@testing-library/react";
 import * as QMR from "components";
 import * as Inputs from "components/Inputs";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
 const TestComponent = () => {
-  const register = useCustomRegister();
-
   return (
     <QMR.RadioButton
       name="test-component"
@@ -45,8 +42,6 @@ const TestComponent = () => {
 };
 
 const TestComponent2 = () => {
-  const register = useCustomRegister();
-
   return (
     <QMR.RadioButton
       name="test-component"

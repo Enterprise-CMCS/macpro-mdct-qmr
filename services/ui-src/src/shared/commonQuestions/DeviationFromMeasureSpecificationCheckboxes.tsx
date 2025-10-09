@@ -2,7 +2,6 @@ import * as QMR from "components";
 import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useWatch } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { cleanString } from "utils/cleanString";
 import { LabelData, getLabelText } from "utils";
 import { useContext } from "react";
@@ -125,8 +124,6 @@ export const DeviationFromMeasureSpecificationCheckboxes = ({
   measureName = "",
   customTotalLabel,
 }: Props) => {
-  const register =
-    useCustomRegister<Types.DeviationFromMeasureSpecificationCheckboxes>();
   const watchPerformanceMeasure = useWatch({
     name: DC.PERFORMANCE_MEASURE,
   });

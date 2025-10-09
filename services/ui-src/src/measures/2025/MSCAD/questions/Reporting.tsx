@@ -1,5 +1,4 @@
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
 import * as DC from "dataConstants";
 import { FormData } from "../types";
@@ -10,7 +9,6 @@ interface Props {
 }
 
 export const Reporting = ({ reportingYear }: Props) => {
-  const register = useCustomRegister<FormData>();
   const { watch } = useFormContext<FormData>();
   const watchRadioStatus = watch(DC.DID_COLLECT);
 

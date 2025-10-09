@@ -3,7 +3,6 @@ import * as Types from "shared/types";
 import * as QMR from "components";
 import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { PCRRate } from "components/PCRRate";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { useWatch } from "react-hook-form";
 import { LabelData } from "utils";
 import * as DC from "dataConstants";
@@ -33,8 +32,6 @@ const CategoryNdrSets = ({
   rateScale,
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
-
   return (
     <>
       {categories.map((cat) => {
@@ -75,7 +72,6 @@ const QualifierNdrSets = ({
   qualifiers = [],
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({

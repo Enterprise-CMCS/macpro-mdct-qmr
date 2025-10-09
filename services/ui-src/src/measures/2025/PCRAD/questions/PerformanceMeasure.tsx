@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "shared/types";
 import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
@@ -33,8 +32,6 @@ const CategoryNdrSets = ({
   rateScale,
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
-
   return (
     <>
       {categories.map((cat) => {
@@ -75,7 +72,6 @@ const QualifierNdrSets = ({
   qualifiers = [],
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({

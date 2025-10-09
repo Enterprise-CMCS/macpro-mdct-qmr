@@ -1,7 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
 import { Alert } from "@cmsgov/design-system";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
@@ -12,7 +10,6 @@ interface DataSourceProps {
 }
 
 export const DataSource = ({ type }: DataSourceProps) => {
-  const register = useCustomRegister<FormData>();
   const labels: any = useContext(SharedContext);
 
   return (
@@ -53,7 +50,8 @@ export const DataSource = ({ type }: DataSourceProps) => {
         label=" Did you include the CAHPS Item Set for Children with Chronic Conditions
         in the survey?"
         formLabelProps={{ fontWeight: 700 }}
-        {...register("DataSource-Included-ItemSets")}
+        key={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
+        name={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
         options={[
           {
             displayValue:

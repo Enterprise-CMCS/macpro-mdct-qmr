@@ -25,7 +25,6 @@ const QualifierNdrSets = ({
   customRateLabel,
   rateCalc,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
