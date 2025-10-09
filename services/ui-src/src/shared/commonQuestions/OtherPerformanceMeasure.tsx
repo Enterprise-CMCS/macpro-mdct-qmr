@@ -1,9 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
-import { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, stringIsReadOnly } from "utils";
 
@@ -26,7 +24,6 @@ export const OtherPerformanceMeasure = ({
   RateComponent = QMR.Rate,
   rateCalc,
 }: Props) => {
-  const register = useCustomRegister<Types.OtherPerformanceMeasure>();
   const { control } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
@@ -34,10 +31,6 @@ export const OtherPerformanceMeasure = ({
     control,
     shouldUnregister: true,
   });
-
-  useEffect(() => {
-    register(DC.OPM_RATES);
-  }, [register]);
 
   // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();

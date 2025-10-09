@@ -1,7 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Common from ".";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "./../../types/TypeQualifierForm";
 import {
   allPositiveIntegersWith10Digits,
@@ -11,7 +10,6 @@ import {
 import { useFormContext } from "react-hook-form";
 
 export const AdministrativeQuestions = () => {
-  const register = useCustomRegister<Types.HHCSQualifierForm>();
   const padding = "10px";
 
   const { setValue, watch } = useFormContext<Types.HHCSQualifierForm>();
@@ -47,7 +45,8 @@ export const AdministrativeQuestions = () => {
         description=""
       />
       <QMR.NumberInput
-        {...register("AdministrativeData.numberOfAdults")}
+        key={"AdministrativeData.numberOfAdults"}
+        name={"AdministrativeData.numberOfAdults"}
         mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         onChange={sumOnChange}
@@ -62,7 +61,8 @@ export const AdministrativeQuestions = () => {
         }
       />
       <QMR.NumberInput
-        {...register("AdministrativeData.minAgeOfAdults")}
+        key={"AdministrativeData.minAgeOfAdults"}
+        name={"AdministrativeData.minAgeOfAdults"}
         mask={allPositiveIntegersWith3Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
@@ -76,7 +76,8 @@ export const AdministrativeQuestions = () => {
         }
       />
       <QMR.NumberInput
-        {...register("AdministrativeData.numberOfChildren")}
+        key={"AdministrativeData.numberOfChildren"}
+        name={"AdministrativeData.numberOfChildren"}
         onChange={sumOnChange}
         mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
@@ -91,7 +92,8 @@ export const AdministrativeQuestions = () => {
         }
       />
       <QMR.NumberInput
-        {...register("AdministrativeData.maxAgeChildren")}
+        key={"AdministrativeData.maxAgeChildren"}
+        name={"AdministrativeData.maxAgeChildren"}
         mask={allPositiveIntegersWith3Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
@@ -105,7 +107,8 @@ export const AdministrativeQuestions = () => {
         }
       />
       <QMR.NumberInput
-        {...register("AdministrativeData.numberOfIndividuals")}
+        key={"AdministrativeData.numberOfIndividuals"}
+        name={"AdministrativeData.numberOfIndividuals"}
         mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={
@@ -119,7 +122,8 @@ export const AdministrativeQuestions = () => {
         }
       />
       <QMR.NumberInput
-        {...register("AdministrativeData.numberOfProviders")}
+        key={"AdministrativeData.numberOfProviders"}
+        name={"AdministrativeData.numberOfProviders"}
         mask={allPositiveIntegersWith10Digits}
         formLabelProps={{ fontWeight: "400", padding: padding }}
         label={

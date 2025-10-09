@@ -29,6 +29,7 @@ export const COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION =
   "CombinedRates-CombinedRates-Other-Explanation";
 export const CONTINUOUS_ENROLLMENT_REQUIREMENT_NOT_MET_DUE_TO_START_DATE_OF_SPA =
   "ContinuousEnrollmentRequirementNotMetDueToStartDateOfSPA";
+export const COST_SAVINGS_METHODOLOGY = "costSavingsMethodology";
 export const DATA_INCONSISTENCIES_ACCURACY_ISSUES =
   "DataInconsistenciesAccuracyIssues";
 export const DATA_NOT_AVAILABLE = "DataNotAvailable";
@@ -230,4 +231,5 @@ export const WHY_DID_YOU_NOT_COLLECT = "WhyDidYouNotCollect";
 export const WHY_DID_YOU_NOT_COLLECT_OTHER = "WhyDidYouNotCollect-Other";
 export const WHY_IS_DATA_NOT_AVAILABLE = "WhyIsDataNotAvailable";
 export const WHY_IS_DATA_NOT_AVAILABLE_OTHER = "WhyIsDataNotAvailable-Other";
+export const YEARLY_COST_SAVINGS = "yearlyCostSavings";
 export const YES = "yes";
