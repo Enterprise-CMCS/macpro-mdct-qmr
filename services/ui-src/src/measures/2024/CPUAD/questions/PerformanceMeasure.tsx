@@ -1,7 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useController, useFormContext } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "shared/types";
 import { useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
@@ -135,7 +134,6 @@ export const CPUADPerformanceMeasure = ({
   rateCalc,
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
-  const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
     | string[]
     | undefined;
@@ -173,7 +171,8 @@ export const CPUADPerformanceMeasure = ({
       <CUI.Text mb={5}>{data.questionText![1]}</CUI.Text>
       <QMR.TextArea
         label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
-        {...register("PerformanceMeasure.explanation")}
+        key={"PerformanceMeasure.explanation"}
+        name={"PerformanceMeasure.explanation"}
       />
       <CUI.Text
         fontWeight="bold"
