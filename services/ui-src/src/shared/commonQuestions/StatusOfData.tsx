@@ -3,7 +3,10 @@ import * as DC from "dataConstants";
 
 export const StatusOfData = () => {
   return (
-    <QMR.CoreQuestionWrapper label="Status of Data Reported">
+    <QMR.CoreQuestionWrapper
+      label="Status of Data Reported"
+      testid="status-of-data"
+    >
       <QMR.RadioButton
         name={DC.DATA_STATUS}
         key={DC.DATA_STATUS}
