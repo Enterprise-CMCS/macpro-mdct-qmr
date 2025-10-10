@@ -1,12 +1,14 @@
+// This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
 /* eslint-disable no-console */
-const { ConfigResourceTypes, Kafka } = require("kafkajs");
+import { ConfigResourceTypes, Kafka } from "kafkajs";
 
 /**
  * Removes topics in BigMac given the following
- * @param {*} brokerString - Comma delimited list of brokers
- * @param {*} namespace - String in the format of `--${event.project}--`, only used for temp branches for easy identification and cleanup
+ * @param {string} brokerString - Comma delimited list of brokers
+ * @param {string} namespace - String in the format of `--${event.project}--`, only used for temp branches for easy identification and cleanup
+ * @returns {Promise<string[]>}
  */
-exports.listTopics = async function (brokerString, namespace) {
+export const listTopics = async (brokerString, namespace) => {
   const brokers = brokerString.split(",");
 
   const kafka = new Kafka({
@@ -14,12 +16,12 @@ exports.listTopics = async function (brokerString, namespace) {
     brokers: brokers,
     ssl: true,
   });
-  var admin = kafka.admin();
+  const admin = kafka.admin();
 
   await admin.connect();
 
   const currentTopics = await admin.listTopics();
-  var lingeringTopics = currentTopics.filter(
+  const lingeringTopics = currentTopics.filter(
     (topic) =>
       topic.startsWith(namespace) ||
       topic.startsWith(`_confluent-ksql-${namespace}`)
@@ -36,13 +38,13 @@ exports.listTopics = async function (brokerString, namespace) {
  *   desiredTopicConfigs - array of topics to create or update.
  *   The `topic` property should include any namespace.
  */
-exports.createTopics = async function (brokers, desiredTopicConfigs) {
+export const createTopics = async (brokers, desiredTopicConfigs) => {
   const kafka = new Kafka({
     clientId: "admin",
     brokers,
     ssl: true,
   });
-  var admin = kafka.admin();
+  const admin = kafka.admin();
   await admin.connect();
 
   // Fetch topic names from MSK, filtering out __ internal management topic
@@ -125,9 +127,11 @@ exports.createTopics = async function (brokers, desiredTopicConfigs) {
  * @param { string[] } brokers - List of brokers
  * @param {string} topicNamespace
  */
-exports.deleteTopics = async function (brokers, topicNamespace) {
+export const deleteTopics = async (brokers, topicNamespace) => {
   if (!topicNamespace.startsWith("--")) {
-    throw "ERROR:  The deleteTopics function only operates against topics that begin with --.";
+    throw new Error(
+      "ERROR:  The deleteTopics function only operates against topics that begin with --."
+    );
   }
 
   const kafka = new Kafka({
@@ -136,13 +140,13 @@ exports.deleteTopics = async function (brokers, topicNamespace) {
     ssl: true,
     requestTimeout: 295000, // 5s short of the lambda function's timeout
   });
-  var admin = kafka.admin();
+  const admin = kafka.admin();
 
   await admin.connect();
 
   const existingTopicNames = await admin.listTopics();
   console.log(`All existing topics: ${existingTopicNames}`);
-  var topicsToDelete = existingTopicNames.filter(
+  const topicsToDelete = existingTopicNames.filter(
     (name) =>
       name.startsWith(topicNamespace) ||
       name.startsWith(`_confluent-ksql-${topicNamespace}`)

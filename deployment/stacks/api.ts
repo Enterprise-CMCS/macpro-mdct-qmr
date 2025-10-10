@@ -293,9 +293,9 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     ...commonProps,
     tables: tables.filter(
       (table) =>
-        table.id === "Measures" ||
-        table.id === "QualityCoreSets" ||
-        table.id === "CombinedRates"
+        table.node.id === "Measures" ||
+        table.node.id === "QualityCoreSets" ||
+        table.node.id === "CombinedRates"
     ),
   });
 
