@@ -1,12 +1,9 @@
 import { screen } from "@testing-library/react";
 import * as QMR from "components";
 import * as Inputs from "components/Inputs";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
 const TestComponent = () => {
-  const register = useCustomRegister();
-
   return (
     <QMR.RadioButton
       name="test-component"
@@ -20,6 +17,8 @@ const TestComponent = () => {
           value: "Other",
           children: [
             <Inputs.TextInput
+              key={"test-component-2"}
+              name={"test-component-2"}
               label={
                 <>
                   Describe the data source (
@@ -34,7 +33,6 @@ const TestComponent = () => {
                 fontWeight: "normal",
                 fontSize: "normal",
               }}
-              {...register("test-component-2")}
             />,
           ],
         },
@@ -44,8 +42,6 @@ const TestComponent = () => {
 };
 
 const TestComponent2 = () => {
-  const register = useCustomRegister();
-
   return (
     <QMR.RadioButton
       name="test-component"
@@ -60,6 +56,8 @@ const TestComponent2 = () => {
           value: "Other",
           children: [
             <Inputs.TextInput
+              key={"test-component-2"}
+              name={"test-component-2"}
               label={
                 <>
                   Describe the data source (
@@ -74,7 +72,6 @@ const TestComponent2 = () => {
                 fontWeight: "normal",
                 fontSize: "normal",
               }}
-              {...register("test-component-2")}
             />,
           ],
         },

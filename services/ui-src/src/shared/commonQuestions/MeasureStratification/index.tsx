@@ -3,7 +3,6 @@ import * as QMR from "components";
 import * as Types from "../../types";
 import { useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
@@ -11,7 +10,6 @@ import * as DC from "dataConstants";
 import { Alert } from "@cmsgov/design-system";
 
 interface Props {
-  register: Function;
   reset?: () => void;
 }
 
@@ -62,20 +60,23 @@ export const GetLinks = (type: string) => {
   );
 };
 
-export const StratificationAdditionalNotes = ({ register }: Props) => {
+export const StratificationAdditionalNotes = () => {
   return (
     <QMR.CoreQuestionWrapper testid="additional-notes" label="">
       <QMR.TextArea
+        key={`OptionalMeasureStratification.${DC.ADDITIONAL_CONTEXT}`}
+        name={`OptionalMeasureStratification.${DC.ADDITIONAL_CONTEXT}`}
         label="If your state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below (optional)."
-        {...register(`OptionalMeasureStratification.${DC.ADDITIONAL_CONTEXT}`)}
       />
     </QMR.CoreQuestionWrapper>
   );
 };
 
-export const StratificationOption = ({ register, reset }: Props) => {
+export const StratificationOption = ({ reset }: Props) => {
   return (
     <QMR.RadioButton
+      key={`OptionalMeasureStratification.${DC.VERSION}`}
+      name={`OptionalMeasureStratification.${DC.VERSION}`}
       formLabelProps={{ fontWeight: "700" }}
       label="Which race and ethnicity standards would your state like to use for 2025 Core Sets reporting?"
       subTextElement={[
@@ -126,7 +127,6 @@ export const StratificationOption = ({ register, reset }: Props) => {
           onClick: reset,
         },
       ]}
-      {...register(`OptionalMeasureStratification.${DC.VERSION}`)}
     ></QMR.RadioButton>
   );
 };
@@ -136,7 +136,6 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const year = labels.year;
   const { coreset } = props;
 
-  const register = useCustomRegister();
   const { watch, setValue, resetField } =
     useFormContext<Types.OptionalMeasureStratification>();
   const data = watch();
@@ -245,10 +244,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           with a denominator less than 30 due to reliability concerns.
         </CUI.Text>
       </QMR.Accordion>
-      <StratificationOption
-        register={register}
-        reset={onReset}
-      ></StratificationOption>
+      <StratificationOption reset={onReset}></StratificationOption>
       {(version === "1997-omb" || version === "2024-omb") && (
         <Stratification
           {...props}
@@ -261,9 +257,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           <CUI.Heading size="md" as="h2" my="6">
             Measure Stratification Details
           </CUI.Heading>
-          <StratificationAdditionalNotes
-            register={register}
-          ></StratificationAdditionalNotes>
+          <StratificationAdditionalNotes />
         </>
       )}
     </QMR.CoreQuestionWrapper>

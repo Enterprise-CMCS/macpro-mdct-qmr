@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
@@ -37,32 +36,25 @@ const subTextElement = (label: AnyObject, link: string) => {
   );
 };
 
-const StandardDateRangeElement = (
-  label: AnyObject,
-  link: string,
-  register: any
-) => {
+const StandardDateRangeElement = (label: AnyObject, link: string) => {
   return (
     <>
       <CUI.Stack spacing={4} mb="4">
         {descriptionElement(label)}
         {subTextElement(label, link)}
       </CUI.Stack>
-      <QMR.DateRange {...register(DC.DATE_RANGE)} />
+      <QMR.DateRange key={DC.DATE_RANGE} name={DC.DATE_RANGE} />
     </>
   );
 };
 
-const RadioDateRangeElement = (
-  label: AnyObject,
-  link: string,
-  register: any
-) => {
+const RadioDateRangeElement = (label: AnyObject, link: string) => {
   return (
     <QMR.RadioButton
+      key={DC.MEASUREMENT_PERIOD_CORE_SET}
+      name={DC.MEASUREMENT_PERIOD_CORE_SET}
       formLabelProps={{ fontWeight: "bold" }}
       label="Did your state adhere to Core Set specifications in defining the measurement period for calculating this measure?"
-      {...register(DC.MEASUREMENT_PERIOD_CORE_SET)}
       subTextElement={subTextElement(label, link)}
       options={[
         {
@@ -77,7 +69,7 @@ const RadioDateRangeElement = (
             <CUI.Stack spacing={4} mb="4" key="desc">
               {descriptionElement(label)}
             </CUI.Stack>,
-            <QMR.DateRange {...register(DC.DATE_RANGE)} key="date-range" />,
+            <QMR.DateRange key={DC.DATE_RANGE} name={DC.DATE_RANGE} />,
           ],
         },
       ]}
@@ -86,7 +78,6 @@ const RadioDateRangeElement = (
 };
 
 export const DateRange = ({ type }: Props) => {
-  const register = useCustomRegister<Types.DateRange>();
   const link = measurementPeriodTableLinks[type];
 
   //WIP: using form context to get the labels for this component temporarily.
@@ -95,8 +86,8 @@ export const DateRange = ({ type }: Props) => {
   return (
     <QMR.CoreQuestionWrapper testid="date-range" label="Date Range">
       {featuresByYear.allowImplicitMeasureDates
-        ? RadioDateRangeElement(labels.DateRange, link, register)
-        : StandardDateRangeElement(labels.DateRange, link, register)}
+        ? RadioDateRangeElement(labels.DateRange, link)
+        : StandardDateRangeElement(labels.DateRange, link)}
     </QMR.CoreQuestionWrapper>
   );
 };

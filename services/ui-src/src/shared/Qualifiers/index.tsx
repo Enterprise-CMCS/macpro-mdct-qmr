@@ -19,7 +19,9 @@ export const Qualifier = ({
 
   useEffect(() => {
     if (setValidationFunctions && coreSetId) {
-      setValidationFunctions(validationFunctions[coreSetAbbr] ?? []);
+      setValidationFunctions({
+        functions: validationFunctions[coreSetAbbr] ?? [],
+      });
     }
     if (
       coreSetId === Types.CoreSetAbbr.CCS ||

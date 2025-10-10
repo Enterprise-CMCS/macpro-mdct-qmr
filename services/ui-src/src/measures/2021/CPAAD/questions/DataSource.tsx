@@ -1,18 +1,16 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
+import * as DC from "dataConstants";
 
 export const DataSource = () => {
-  const register = useCustomRegister<FormData>();
-
   return (
     <QMR.CoreQuestionWrapper label="Data Source">
       <QMR.RadioButton
+        key={DC.DATA_SOURCE_CAHPS_VERSION}
+        name={DC.DATA_SOURCE_CAHPS_VERSION}
         formControlProps={{ paddingBottom: 4 }}
         label="Which version of the CAHPS survey was used for reporting?"
         formLabelProps={{ fontWeight: 700 }}
-        {...register("DataSource-CAHPS-Version")}
         options={[
           { displayValue: "CAHPS 5.1H", value: "CAHPS 5.1H" },
           {
@@ -20,8 +18,9 @@ export const DataSource = () => {
             value: "Other",
             children: [
               <QMR.TextArea
+                key={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
+                name={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
                 label="Describe the Data Source:"
-                {...register("DataSource-CAHPS-Version-Other")}
               />,
             ],
           },
@@ -31,8 +30,9 @@ export const DataSource = () => {
         Which Supplemental Item Sets were included in the Survey
       </CUI.Heading>
       <QMR.Checkbox
+        key={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
+        name={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
         formControlProps={{ paddingBottom: 4 }}
-        {...register("DataSource-Included-ItemSets")}
         options={[
           {
             displayValue: "No Supplemental Item Sets were included",
@@ -47,8 +47,9 @@ export const DataSource = () => {
             value: "Other CAHPS Item Set",
             children: [
               <QMR.TextArea
+                key={DC.DATA_SOUCRE_INCLUDE_ITEMSETS_OTHER}
+                name={DC.DATA_SOUCRE_INCLUDE_ITEMSETS_OTHER}
                 label="Explain:"
-                {...register("DataSource-Included-ItemSets-Other")}
               />,
             ],
           },
@@ -56,9 +57,10 @@ export const DataSource = () => {
         label="Select all that apply:"
       />
       <QMR.RadioButton
+        key={DC.DATA_SOURCE_ADMIN_PROTOCAL}
+        name={DC.DATA_SOURCE_ADMIN_PROTOCAL}
         label="Which administrative protocol was used to administer the survey?"
         formLabelProps={{ fontWeight: 700 }}
-        {...register("DataSource-Admin-Protocol")}
         options={[
           {
             displayValue: "NCQA/HEDIS CAHPS 5.1H administrative protocol",
@@ -74,8 +76,9 @@ export const DataSource = () => {
             value: "Other administrative protocol",
             children: [
               <QMR.TextArea
+                key={DC.DATA_SOURCE_ADMIN_PROTOCAL_OTHER}
+                name={DC.DATA_SOURCE_ADMIN_PROTOCAL_OTHER}
                 label="Explain:"
-                {...register("DataSource-Admin-Protocol-Other")}
               />,
             ],
           },

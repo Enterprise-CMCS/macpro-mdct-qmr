@@ -1,7 +1,6 @@
 import * as QMR from "components";
 import * as Common from ".";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { DataDriven } from "shared/types/TypeQualifierForm";
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
 }
 
 export const GeneralAge = ({ data }: Props) => {
-  const register = useCustomRegister();
+  const key = "GeneralAge";
 
   return (
     <CUI.ListItem m="4">
@@ -18,7 +17,8 @@ export const GeneralAge = ({ data }: Props) => {
         description={""}
       />
       <QMR.TextArea
-        {...register("GeneralAge")}
+        name={key}
+        key={key}
         formLabelProps={{ fontWeight: "400" }}
       />
     </CUI.ListItem>

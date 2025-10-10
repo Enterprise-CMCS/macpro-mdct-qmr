@@ -1,11 +1,8 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
+import * as DC from "dataConstants";
 
 export const DefinitionOfPopulation = () => {
-  const register = useCustomRegister<FormData>();
-
   return (
     <QMR.CoreQuestionWrapper
       testid="definition-of-population"
@@ -27,7 +24,8 @@ export const DefinitionOfPopulation = () => {
         </CUI.ListItem>
       </CUI.UnorderedList>
       <QMR.Checkbox
-        {...register("DefinitionOfSurveySample")}
+        key={DC.DEFINITION_OF_SURVERY_SAMPLE}
+        name={DC.DEFINITION_OF_SURVERY_SAMPLE}
         options={[
           {
             displayValue: "Survey sample includes Medicaid population",
@@ -50,7 +48,8 @@ export const DefinitionOfPopulation = () => {
               <QMR.TextInput
                 formLabelProps={{ fontWeight: "400" }}
                 label="Specify:"
-                {...register("DefinitionOfSurveySample-Other")}
+                key={DC.DEFINITION_OF_SURVERY_SAMPLE_OTHERS}
+                name={DC.DEFINITION_OF_SURVERY_SAMPLE_OTHERS}
               />,
             ],
           },
@@ -59,7 +58,8 @@ export const DefinitionOfPopulation = () => {
       <QMR.TextArea
         label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
         formControlProps={{ paddingTop: "15px" }}
-        {...register("DefinitionOfSurveySample-Changes")}
+        key={DC.DEFINITION_OF_SURVERY_SAMPLE_CHANGES}
+        name={DC.DEFINITION_OF_SURVERY_SAMPLE_CHANGES}
       />
     </QMR.CoreQuestionWrapper>
   );

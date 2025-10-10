@@ -1,10 +1,8 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
+import * as DC from "dataConstants";
 
 export const HowDidYouReport = () => {
-  const register = useCustomRegister<FormData>();
   return (
     <QMR.CoreQuestionWrapper
       testid="how-did-you-report"
@@ -15,7 +13,8 @@ export const HowDidYouReport = () => {
         have the opportunity to preview the results in the spring.
       </CUI.Text>
       <QMR.RadioButton
-        {...register("HowDidYouReport")}
+        key={DC.HOW_DID_YOU_REPORT}
+        name={DC.HOW_DID_YOU_REPORT}
         options={[
           {
             displayValue:

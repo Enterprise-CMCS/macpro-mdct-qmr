@@ -1,7 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
 import * as DC from "dataConstants";
 
 interface Props {
@@ -9,8 +7,6 @@ interface Props {
 }
 
 export const HowDidYouReport = ({ reportingYear }: Props) => {
-  const register = useCustomRegister<FormData>();
-
   return (
     <QMR.CoreQuestionWrapper
       testid="how-did-you-report"
@@ -21,7 +17,8 @@ export const HowDidYouReport = ({ reportingYear }: Props) => {
         have the opportunity to preview the results in the spring.
       </CUI.Text>
       <QMR.RadioButton
-        {...register("HowDidYouReport")}
+        key={DC.HOW_DID_YOU_REPORT}
+        name={DC.HOW_DID_YOU_REPORT}
         options={[
           {
             displayValue: `Yes, we submitted our CAHPS survey data to the AHRQ CAHPS Database during the June ${reportingYear} submission period.`,
@@ -29,7 +26,8 @@ export const HowDidYouReport = ({ reportingYear }: Props) => {
             children: [
               <QMR.CoreQuestionWrapper testid="did-report" label="">
                 <QMR.RadioButton
-                  {...register(DC.DID_REPORT)}
+                  key={DC.DID_REPORT}
+                  name={DC.DID_REPORT}
                   label={`Would you like to enter data for this measure in the QMR system for ${reportingYear} reporting?`}
                   options={[
                     {

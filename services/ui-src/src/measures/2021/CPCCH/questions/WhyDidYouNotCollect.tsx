@@ -1,13 +1,12 @@
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
+import * as DC from "dataConstants";
 
 export const WhyDidYouNotCollect = () => {
-  const register = useCustomRegister<FormData>();
   return (
     <QMR.CoreQuestionWrapper label="Why did you not collect this measure">
       <QMR.Checkbox
-        {...register("WhyDidYouNotCollect")}
+        key={DC.WHY_DID_YOU_NOT_COLLECT}
+        name={DC.WHY_DID_YOU_NOT_COLLECT}
         helperText="Select all that apply:"
         renderHelperTextAbove
         options={[
@@ -20,7 +19,8 @@ export const WhyDidYouNotCollect = () => {
             value: "PopulationNotCovered",
             children: [
               <QMR.RadioButton
-                {...register("AmountOfPopulationNotCovered")}
+                key={DC.AMOUNT_OF_POP_NOT_COVERED}
+                name={DC.AMOUNT_OF_POP_NOT_COVERED}
                 options={[
                   {
                     displayValue: "Entire population not covered",
@@ -32,7 +32,8 @@ export const WhyDidYouNotCollect = () => {
                     children: [
                       <QMR.TextArea
                         label="Explain the partial population not covered:"
-                        {...register("PartialPopulationNotCoveredExplanation")}
+                        key={DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION}
+                        name={DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION}
                       />,
                     ],
                   },
@@ -45,7 +46,8 @@ export const WhyDidYouNotCollect = () => {
             value: "DataNotAvailable",
             children: [
               <QMR.Checkbox
-                {...register("WhyIsDataNotAvailable")}
+                key={DC.WHY_IS_DATA_NOT_AVAILABLE}
+                name={DC.WHY_IS_DATA_NOT_AVAILABLE}
                 label="Why is data not available?"
                 renderHelperTextAbove
                 helperText="Select all that apply:"
@@ -64,7 +66,8 @@ export const WhyDidYouNotCollect = () => {
                     children: [
                       <QMR.TextArea
                         label="Explain the Data inconsistencies/Accuracy issues:"
-                        {...register("DataInconsistenciesAccuracyIssues")}
+                        key={DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES}
+                        name={DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES}
                       />,
                     ],
                   },
@@ -74,7 +77,8 @@ export const WhyDidYouNotCollect = () => {
                     children: [
                       <QMR.Checkbox
                         label="Select all that apply:"
-                        {...register("DataSourceNotEasilyAccessible")}
+                        key={DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE}
+                        name={DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE}
                         options={[
                           {
                             displayValue: "Requires medical record review",
@@ -91,9 +95,10 @@ export const WhyDidYouNotCollect = () => {
                             children: [
                               <QMR.TextArea
                                 label="Explain:"
-                                {...register(
-                                  "DataSourceNotEasilyAccessible-Other"
-                                )}
+                                key={DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER}
+                                name={
+                                  DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER
+                                }
                               />,
                             ],
                           },
@@ -107,7 +112,8 @@ export const WhyDidYouNotCollect = () => {
                     children: [
                       <QMR.Checkbox
                         label="Select all that apply:"
-                        {...register("InformationNotCollected")}
+                        key={DC.INFO_NOT_COLLECTED}
+                        name={DC.INFO_NOT_COLLECTED}
                         options={[
                           {
                             displayValue:
@@ -120,7 +126,8 @@ export const WhyDidYouNotCollect = () => {
                             children: [
                               <QMR.TextArea
                                 label="Explain:"
-                                {...register("InformationNotCollected-Other")}
+                                key={DC.INFO_NOT_COLLECTED_OTHER}
+                                name={DC.INFO_NOT_COLLECTED_OTHER}
                               />,
                             ],
                           },
@@ -134,7 +141,8 @@ export const WhyDidYouNotCollect = () => {
                     children: [
                       <QMR.TextArea
                         label="Explain:"
-                        {...register("WhyIsDataNotAvailable-Other")}
+                        key={DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER}
+                        name={DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER}
                       />,
                     ],
                   },
@@ -149,7 +157,8 @@ export const WhyDidYouNotCollect = () => {
             children: [
               <QMR.TextArea
                 label="Describe your state's limitations with regard to collection, reporting, or accuracy of data for this measure:"
-                {...register("LimitationWithDatCollecitonReportAccuracyCovid")}
+                key={DC.LIMITATION_WITH_DATA_COLLECTION}
+                name={DC.LIMITATION_WITH_DATA_COLLECTION}
               />,
             ],
           },
@@ -158,7 +167,8 @@ export const WhyDidYouNotCollect = () => {
             value: "SmallSampleSizeLessThan30",
             children: [
               <QMR.NumberInput
-                {...register("SmallSampleSizeLessThan30")}
+                key={DC.SMALL_SAMPLE_SIZE_LESS}
+                name={DC.SMALL_SAMPLE_SIZE_LESS}
                 label="Enter specific sample size:"
                 mask={/^([1-2]?\d)?$/i}
               />,
@@ -170,7 +180,8 @@ export const WhyDidYouNotCollect = () => {
             children: [
               <QMR.TextArea
                 label="Explain:"
-                {...register("WhyDidYouNotCollect-Other")}
+                key={DC.WHY_DID_YOU_NOT_COLLECT_OTHER}
+                name={DC.WHY_DID_YOU_NOT_COLLECT_OTHER}
               />,
             ],
           },

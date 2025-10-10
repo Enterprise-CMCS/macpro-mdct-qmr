@@ -1,10 +1,10 @@
+import * as DC from "dataConstants";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "./../../types";
 import { OMSData } from "./data";
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
@@ -97,9 +97,8 @@ export const OptionalMeasureStrat = ({
       ? values["OtherPerformanceMeasure-Rates"]
       : undefined;
 
-  const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
-    ...register("OptionalMeasureStratification"),
+    name: DC.OMS,
     data: omsData,
     excludeOptions,
     year,
@@ -178,8 +177,9 @@ export const OptionalMeasureStrat = ({
         </CUI.Text>
         {labels.OptionalMeasureStratification.additionalContext && (
           <QMR.TextArea
+            key={"OptionalMeasureStratification.additionalContext"}
+            name={"OptionalMeasureStratification.additionalContext"}
             label={labels.OptionalMeasureStratification.additionalContext}
-            {...register("OptionalMeasureStratification.additionalContext")}
           />
         )}
         <CUI.Text py="3">
@@ -187,7 +187,8 @@ export const OptionalMeasureStrat = ({
           not be reporting any data.
         </CUI.Text>
         <QMR.Checkbox
-          {...register("OptionalMeasureStratification.options")}
+          key={"OptionalMeasureStratification.options"}
+          name={"OptionalMeasureStratification.options"}
           options={checkBoxOptions}
         />
       </PerformanceMeasureProvider>

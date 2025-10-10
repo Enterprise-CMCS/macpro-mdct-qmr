@@ -356,9 +356,9 @@ export const CoreSet = () => {
         coreSetInstructions[year][coreSetPrefix] && (
           <CUI.Box mb="8">
             <Alert heading="Mandatory Reporting">
-              <CUI.Text sx={{ "& a": { textDecoration: "underline" } }}>
+              <CUI.Box sx={{ "& a": { textDecoration: "underline" } }}>
                 {parseLabelToHTML(coreSetInstructions[year][coreSetPrefix])}
-              </CUI.Text>
+              </CUI.Box>
             </Alert>
           </CUI.Box>
         )}

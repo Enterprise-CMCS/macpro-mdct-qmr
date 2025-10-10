@@ -1,6 +1,4 @@
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
 import { useContext } from "react";
 import { DataSourceData, defaultData } from "../types/TypeDataSourceCahps";
 import { parseLabelToHTML } from "utils/parser";
@@ -21,14 +19,13 @@ export const DataSourceRadio = ({
   data = defaultData,
   type,
 }: DataSourceProps) => {
-  const register = useCustomRegister<Types.DataSource>();
-
   const labels: any = useContext(SharedContext);
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
       <QMR.RadioButton
-        {...register(DC.DATA_SOURCE)}
+        key={DC.DATA_SOURCE}
+        name={DC.DATA_SOURCE}
         label={data.optionsLabel}
         options={[
           {

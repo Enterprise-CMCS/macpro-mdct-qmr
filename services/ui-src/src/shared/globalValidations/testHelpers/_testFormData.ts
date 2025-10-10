@@ -23,7 +23,7 @@ export const testFormData: DefaultFormDataLegacy | DefaultFormData = {
   [DC.INFO_NOT_COLLECTED]: [],
   [DC.INFO_NOT_COLLECTED_OTHER]: "",
   [DC.LIMITATION_WITH_DATA_COLLECTION]: "",
-  [DC.SMALL_SAMPLE_SIZE]: "",
+  [DC.SMALL_SAMPLE_SIZE_LESS]: "",
   [DC.WHY_ARE_YOU_NOT_REPORTING_OTHER]: "",
   [DC.DID_REPORT]: "yes",
   [DC.COMBINED_RATES]: "yes",

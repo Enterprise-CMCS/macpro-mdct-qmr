@@ -2,7 +2,6 @@ import { useFormContext, useFieldArray } from "react-hook-form";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as DC from "dataConstants";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "shared/types";
 import { useEffect } from "react";
 
@@ -49,8 +48,6 @@ export const PerformanceMeasure = ({
     }
   }, [fields, reset]);
 
-  const register = useCustomRegister<Types.OtherPerformanceMeasure>();
-
   const { watch } = useFormContext<Types.DataSource>();
 
   // Watch for dataSource data
@@ -69,9 +66,10 @@ export const PerformanceMeasure = ({
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <QMR.TextArea
+        key={DC.OPM_EXPLAINATION}
+        name={DC.OPM_EXPLAINATION}
         label="Describe the methodology used:"
         formLabelProps={{ fontWeight: 700 }}
-        {...register(DC.OPM_EXPLAINATION)}
       />
       {hybridMeasure && (
         <CUI.Box my="5">
@@ -84,8 +82,9 @@ export const PerformanceMeasure = ({
             to continue reporting the measures they have reported in the past.
           </CUI.Text>
           <QMR.TextArea
+            key={DC.OPM_HYBRID_EXPLANATION}
+            name={DC.OPM_HYBRID_EXPLANATION}
             formLabelProps={{ mt: 5 }}
-            {...register(DC.OPM_HYBRID_EXPLANATION)}
             label="Describe any COVID-related difficulties encountered while collecting this data:"
           />
         </CUI.Box>

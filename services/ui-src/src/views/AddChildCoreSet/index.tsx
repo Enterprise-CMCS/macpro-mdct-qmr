@@ -2,7 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useParams, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Api from "hooks/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { AnyObject, CoreSetAbbr, UserRoles } from "types";
@@ -12,10 +11,6 @@ import { featuresByYear } from "utils/featuresByYear";
 enum ReportType {
   SEPARATE = "separate",
   COMBINED = "combined",
-}
-
-interface ChildCoreSetReportType {
-  "ChildCoreSet-ReportType": ReportType;
 }
 
 export const AddChildCoreSet = () => {
@@ -32,7 +27,6 @@ export const AddChildCoreSet = () => {
   const watchReportType = methods.watch("ChildCoreSet-ReportType");
 
   const { state, year } = useParams();
-  const register = useCustomRegister<ChildCoreSetReportType>();
 
   // block display from state users without permissions for the corresponding state
   if (userState && userState !== state && userRole === UserRoles.STATE_USER) {
@@ -97,7 +91,8 @@ export const AddChildCoreSet = () => {
                 <QMR.RadioButton
                   formLabelProps={{ fontWeight: 600 }}
                   label="1. How are you reporting Child Core Set measures?"
-                  {...register("ChildCoreSet-ReportType")}
+                  key={"ChildCoreSet-ReportType"}
+                  name={"ChildCoreSet-ReportType"}
                   options={[
                     {
                       displayValue:

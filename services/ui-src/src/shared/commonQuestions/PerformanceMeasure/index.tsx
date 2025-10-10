@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
@@ -69,7 +68,6 @@ const CategoryNdrSets = ({
   customRateLabel,
   rateCalc,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
   const labelText = getLabelText();
 
   return (
@@ -97,6 +95,8 @@ const CategoryNdrSets = ({
               {labelText[cat.label] ?? cat.label}
             </CUI.Text>
             <RateComponent
+              key={registerId}
+              name={registerId}
               readOnly={rateReadOnly}
               rates={rates}
               measureName={measureName}
@@ -113,7 +113,6 @@ const CategoryNdrSets = ({
               customDenominatorLabel={customDenominatorLabel}
               customRateLabel={customRateLabel}
               rateCalc={rateCalc}
-              {...register(registerId)}
               allowNumeratorGreaterThanDenominator={
                 allowNumeratorGreaterThanDenominator
               }
@@ -142,7 +141,6 @@ const QualifierNdrSets = ({
   customRateLabel,
   rateCalc,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((qual, idx) => ({
@@ -153,6 +151,8 @@ const QualifierNdrSets = ({
   return (
     <>
       <RateComponent
+        key={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
+        name={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
         rates={rates}
         readOnly={rateReadOnly}
         measureName={measureName}
@@ -168,7 +168,6 @@ const QualifierNdrSets = ({
         allowNumeratorGreaterThanDenominator={
           allowNumeratorGreaterThanDenominator
         }
-        {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
       />
     </>
   );
@@ -203,8 +202,6 @@ export const PerformanceMeasure = ({
   rateCalc,
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
-  const register = useCustomRegister<Types.PerformanceMeasure>();
-
   const dataSourceWatch = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
   }) as string[] | string | undefined;
@@ -287,16 +284,18 @@ export const PerformanceMeasure = ({
       )}
       {showtextbox && (
         <QMR.TextArea
+          key={`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`}
+          name={`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`}
           label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
-          {...register(`${DC.PERFORMANCE_MEASURE}.${DC.EXPLAINATION}`)}
         />
       )}
       {hybridMeasure && featuresByYear.displayCovidLanguage && (
         <CUI.Box my="5">
           <CUI.Text>{labels?.PerformanceMeasure?.phe}</CUI.Text>
           <QMR.TextArea
+            key={`${DC.PERFORMANCE_MEASURE}.${DC.PMHYBRIDEXPLANATION}`}
+            name={`${DC.PERFORMANCE_MEASURE}.${DC.PMHYBRIDEXPLANATION}`}
             formLabelProps={{ mt: 5 }}
-            {...register("PerformanceMeasure.hybridExplanation")}
             label="Describe any COVID-related difficulties encountered while collecting this data:"
           />
         </CUI.Box>

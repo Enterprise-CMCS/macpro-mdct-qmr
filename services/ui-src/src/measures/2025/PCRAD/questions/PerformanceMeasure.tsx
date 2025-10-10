@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "shared/types";
 import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
@@ -33,8 +32,6 @@ const CategoryNdrSets = ({
   rateScale,
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
-
   return (
     <>
       {categories.map((cat) => {
@@ -52,11 +49,12 @@ const CategoryNdrSets = ({
               {cat.label}
             </CUI.Text>
             <QMR.Rate
+              key={`PerformanceMeasure.rates.${cat.id}`}
+              name={`PerformanceMeasure.rates.${cat.id}`}
               readOnly={rateReadOnly}
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
-              {...register(`PerformanceMeasure.rates.${cat.id}`)}
             />
           </>
         );
@@ -74,7 +72,6 @@ const QualifierNdrSets = ({
   qualifiers = [],
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
@@ -85,10 +82,11 @@ const QualifierNdrSets = ({
 
   return (
     <PCRRate
+      key={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
+      name={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
       rates={rates}
       readOnly={rateReadOnly}
       customMask={customMask}
-      {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
     />
   );
 };

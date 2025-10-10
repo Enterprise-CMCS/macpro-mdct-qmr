@@ -1,6 +1,4 @@
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
@@ -14,8 +12,6 @@ interface Props {
 export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
-
-  const register = useCustomRegister<Types.WhyAreYouNotReporting>();
   const healthHomeMeasure = coreset === "health";
 
   return (
@@ -24,7 +20,8 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
       label="Why are you not reporting on this measure?"
     >
       <QMR.Checkbox
-        {...register(DC.WHY_ARE_YOU_NOT_REPORTING)}
+        key={DC.WHY_ARE_YOU_NOT_REPORTING}
+        name={DC.WHY_ARE_YOU_NOT_REPORTING}
         helperText="Select all that apply:"
         renderHelperTextAbove
         options={[
@@ -37,7 +34,8 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
             value: DC.POP_NOT_COVERED,
             children: [
               <QMR.RadioButton
-                {...register(DC.AMOUNT_OF_POP_NOT_COVERED)}
+                key={DC.AMOUNT_OF_POP_NOT_COVERED}
+                name={DC.AMOUNT_OF_POP_NOT_COVERED}
                 options={[
                   {
                     displayValue: "Entire population not covered",
@@ -48,8 +46,9 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
                     value: DC.PARTIAL_POP_NOT_COVERED,
                     children: [
                       <QMR.TextArea
+                        key={DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION}
+                        name={DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION}
                         label="Explain the partial population not covered:"
-                        {...register(DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION)}
                       />,
                     ],
                   },
@@ -62,7 +61,8 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
             value: DC.DATA_NOT_AVAILABLE,
             children: [
               <QMR.Checkbox
-                {...register(DC.WHY_IS_DATA_NOT_AVAILABLE)}
+                key={DC.WHY_IS_DATA_NOT_AVAILABLE}
+                name={DC.WHY_IS_DATA_NOT_AVAILABLE}
                 label="Why is data not available?"
                 renderHelperTextAbove
                 helperText="Select all that apply:"
@@ -80,8 +80,9 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
                     value: DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES,
                     children: [
                       <QMR.TextArea
+                        key={DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES}
+                        name={DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES}
                         label="Explain the Data inconsistencies/Accuracy issues:"
-                        {...register(DC.DATA_INCONSISTENCIES_ACCURACY_ISSUES)}
                       />,
                     ],
                   },
@@ -99,8 +100,9 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
                     value: DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE,
                     children: [
                       <QMR.Checkbox
+                        key={DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE}
+                        name={DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE}
                         label="Select all that apply:"
-                        {...register(DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE)}
                         options={[
                           {
                             displayValue: "Requires medical record review",
@@ -116,10 +118,11 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
                             value: DC.OTHER,
                             children: [
                               <QMR.TextArea
-                                label="Explain:"
-                                {...register(
+                                key={DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER}
+                                name={
                                   DC.DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER
-                                )}
+                                }
+                                label="Explain:"
                               />,
                             ],
                           },
@@ -132,8 +135,9 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
                     value: DC.INFO_NOT_COLLECTED,
                     children: [
                       <QMR.Checkbox
+                        key={DC.INFO_NOT_COLLECTED}
+                        name={DC.INFO_NOT_COLLECTED}
                         label="Select all that apply:"
-                        {...register(DC.INFO_NOT_COLLECTED)}
                         options={[
                           {
                             displayValue:
@@ -145,8 +149,9 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
                             value: DC.OTHER,
                             children: [
                               <QMR.TextArea
+                                key={DC.INFO_NOT_COLLECTED_OTHER}
+                                name={DC.INFO_NOT_COLLECTED_OTHER}
                                 label="Explain:"
-                                {...register(DC.INFO_NOT_COLLECTED_OTHER)}
                               />,
                             ],
                           },
@@ -159,8 +164,9 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
                     value: DC.OTHER,
                     children: [
                       <QMR.TextArea
+                        key={DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER}
+                        name={DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER}
                         label="Explain:"
-                        {...register(DC.WHY_IS_DATA_NOT_AVAILABLE_OTHER)}
                       />,
                     ],
                   },
@@ -176,11 +182,12 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
                   value: DC.LIMITATION_WITH_DATA_COLLECTION,
                   children: [
                     <QMR.TextArea
+                      key={DC.LIMITATION_WITH_DATA_COLLECTION}
+                      name={DC.LIMITATION_WITH_DATA_COLLECTION}
                       label={
                         labels.WhyAreYouNotReporting
                           ?.limitWithDataCollectionDesc
                       }
-                      {...register(DC.LIMITATION_WITH_DATA_COLLECTION)}
                     />,
                   ],
                 },
@@ -190,10 +197,11 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
             displayValue: `Small sample size ${
               removeLessThan30 ? "" : "(less than 30)"
             }`,
-            value: DC.SMALL_SAMPLE_SIZE,
+            value: DC.SMALL_SAMPLE_SIZE_LESS,
             children: [
               <QMR.NumberInput
-                {...register(DC.SMALL_SAMPLE_SIZE)}
+                key={DC.SMALL_SAMPLE_SIZE_LESS}
+                name={DC.SMALL_SAMPLE_SIZE_LESS}
                 label="Enter specific sample size:"
                 mask={removeLessThan30 ? /^[0-9]*$/i : /^([1-2]?\d)?$/i}
               />,
@@ -214,8 +222,9 @@ export const WhyAreYouNotReporting = ({ coreset, removeLessThan30 }: Props) => {
             value: DC.OTHER,
             children: [
               <QMR.TextArea
+                key={DC.WHY_ARE_YOU_NOT_REPORTING_OTHER}
+                name={DC.WHY_ARE_YOU_NOT_REPORTING_OTHER}
                 label="Explain:"
-                {...register(DC.WHY_ARE_YOU_NOT_REPORTING_OTHER)}
               />,
             ],
           },
