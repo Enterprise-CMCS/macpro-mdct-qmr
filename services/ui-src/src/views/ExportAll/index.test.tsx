@@ -69,7 +69,7 @@ describe("ExportAll", () => {
         defaultData: QualifierData,
         spaName: undefined,
       },
-      expect.any(Object)
+      undefined
     );
 
     expect(mockMeasureWrapper).toHaveBeenCalledWith(
@@ -82,7 +82,7 @@ describe("ExportAll", () => {
         defaultData: undefined,
         spaName: undefined,
       },
-      expect.any(Object)
+      undefined
     );
 
     expect(mockMeasureWrapper).toHaveBeenCalledWith(
@@ -95,7 +95,7 @@ describe("ExportAll", () => {
         defaultData: undefined,
         spaName: undefined,
       },
-      expect.any(Object)
+      undefined
     );
   });
 
