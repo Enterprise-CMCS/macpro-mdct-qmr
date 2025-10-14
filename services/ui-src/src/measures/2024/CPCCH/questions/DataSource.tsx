@@ -50,8 +50,8 @@ export const DataSource = ({ type }: DataSourceProps) => {
         label=" Did you include the CAHPS Item Set for Children with Chronic Conditions
         in the survey?"
         formLabelProps={{ fontWeight: 700 }}
-        key={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
-        name={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
+        key={DC.DATA_SOURCE_INCLUDE_ITEMSETS}
+        name={DC.DATA_SOURCE_INCLUDE_ITEMSETS}
         options={[
           {
             displayValue:

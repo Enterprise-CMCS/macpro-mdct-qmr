@@ -30,8 +30,8 @@ export const DataSource = () => {
         Which Supplemental Item Sets were included in the Survey
       </CUI.Heading>
       <QMR.Checkbox
-        key={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
-        name={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
+        key={DC.DATA_SOURCE_INCLUDE_ITEMSETS}
+        name={DC.DATA_SOURCE_INCLUDE_ITEMSETS}
         formControlProps={{ paddingBottom: 4 }}
         options={[
           {
@@ -47,8 +47,8 @@ export const DataSource = () => {
             value: "Other CAHPS Item Set",
             children: [
               <QMR.TextArea
-                key={DC.DATA_SOUCRE_INCLUDE_ITEMSETS_OTHER}
-                name={DC.DATA_SOUCRE_INCLUDE_ITEMSETS_OTHER}
+                key={DC.DATA_SOURCE_INCLUDE_ITEMSETS_OTHER}
+                name={DC.DATA_SOURCE_INCLUDE_ITEMSETS_OTHER}
                 label="Explain:"
               />,
             ],
@@ -57,8 +57,8 @@ export const DataSource = () => {
         label="Select all that apply:"
       />
       <QMR.RadioButton
-        key={DC.DATA_SOURCE_ADMIN_PROTOCAL}
-        name={DC.DATA_SOURCE_ADMIN_PROTOCAL}
+        key={DC.DATA_SOURCE_ADMIN_PROTOCOL}
+        name={DC.DATA_SOURCE_ADMIN_PROTOCOL}
         label="Which administrative protocol was used to administer the survey?"
         formLabelProps={{ fontWeight: 700 }}
         options={[
@@ -76,8 +76,8 @@ export const DataSource = () => {
             value: "Other administrative protocol",
             children: [
               <QMR.TextArea
-                key={DC.DATA_SOURCE_ADMIN_PROTOCAL_OTHER}
-                name={DC.DATA_SOURCE_ADMIN_PROTOCAL_OTHER}
+                key={DC.DATA_SOURCE_ADMIN_PROTOCOL_OTHER}
+                name={DC.DATA_SOURCE_ADMIN_PROTOCOL_OTHER}
                 label="Explain:"
               />,
             ],

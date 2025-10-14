@@ -31,8 +31,8 @@ export const DataSource = () => {
       </CUI.Heading>
       <QMR.Checkbox
         formControlProps={{ paddingBottom: 4 }}
-        key={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
-        name={DC.DATA_SOUCRE_INCLUDE_ITEMSETS}
+        key={DC.DATA_SOURCE_INCLUDE_ITEMSETS}
+        name={DC.DATA_SOURCE_INCLUDE_ITEMSETS}
         options={[
           {
             displayValue: "No Supplemental Item Sets were included",
@@ -48,8 +48,8 @@ export const DataSource = () => {
             children: [
               <QMR.TextArea
                 label="Explain:"
-                key={DC.DATA_SOUCRE_INCLUDE_ITEMSETS_OTHER}
-                name={DC.DATA_SOUCRE_INCLUDE_ITEMSETS_OTHER}
+                key={DC.DATA_SOURCE_INCLUDE_ITEMSETS_OTHER}
+                name={DC.DATA_SOURCE_INCLUDE_ITEMSETS_OTHER}
               />,
             ],
           },
@@ -59,8 +59,8 @@ export const DataSource = () => {
       <QMR.RadioButton
         label="Which administrative protocol was used to administer the survey?"
         formLabelProps={{ fontWeight: 700 }}
-        key={DC.DATA_SOURCE_ADMIN_PROTOCAL}
-        name={DC.DATA_SOURCE_ADMIN_PROTOCAL}
+        key={DC.DATA_SOURCE_ADMIN_PROTOCOL}
+        name={DC.DATA_SOURCE_ADMIN_PROTOCOL}
         options={[
           {
             displayValue: "NCQA/HEDIS CAHPS 5.1H administrative protocol",
@@ -77,8 +77,8 @@ export const DataSource = () => {
             children: [
               <QMR.TextArea
                 label="Explain:"
-                key={DC.DATA_SOURCE_ADMIN_PROTOCAL_OTHER}
-                name={DC.DATA_SOURCE_ADMIN_PROTOCAL_OTHER}
+                key={DC.DATA_SOURCE_ADMIN_PROTOCOL_OTHER}
+                name={DC.DATA_SOURCE_ADMIN_PROTOCOL_OTHER}
               />,
             ],
           },

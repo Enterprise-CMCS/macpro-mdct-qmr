@@ -37,8 +37,8 @@ export const DefinitionOfPopulation = () => {
         Please select all populations that are included in the survey sample.
       </CUI.Heading>
       <QMR.Checkbox
-        key={DC.DEFINITION_OF_SURVERY_SAMPLE}
-        name={DC.DEFINITION_OF_SURVERY_SAMPLE}
+        key={DC.DEFINITION_OF_SURVEY_SAMPLE}
+        name={DC.DEFINITION_OF_SURVEY_SAMPLE}
         options={[
           ...options,
           {
@@ -48,8 +48,8 @@ export const DefinitionOfPopulation = () => {
               <QMR.TextArea
                 formLabelProps={{ fontWeight: "400" }}
                 label={"Define the Other survey population"}
-                key={DC.DEFINITION_OF_SURVERY_SAMPLE_OTHERS}
-                name={DC.DEFINITION_OF_SURVERY_SAMPLE_OTHERS}
+                key={DC.DEFINITION_OF_SURVEY_SAMPLE_OTHER}
+                name={DC.DEFINITION_OF_SURVEY_SAMPLE_OTHER}
               />,
             ],
           },

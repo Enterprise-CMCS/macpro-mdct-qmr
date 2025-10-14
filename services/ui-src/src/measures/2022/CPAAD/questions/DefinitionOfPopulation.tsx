@@ -24,8 +24,8 @@ export const DefinitionOfPopulation = () => {
         </CUI.ListItem>
       </CUI.UnorderedList>
       <QMR.Checkbox
-        key={DC.DEFINITION_OF_SURVERY_SAMPLE}
-        name={DC.DEFINITION_OF_SURVERY_SAMPLE}
+        key={DC.DEFINITION_OF_SURVEY_SAMPLE}
+        name={DC.DEFINITION_OF_SURVEY_SAMPLE}
         options={[
           {
             displayValue: "Survey sample includes Medicaid population",
@@ -48,8 +48,8 @@ export const DefinitionOfPopulation = () => {
               <QMR.TextInput
                 formLabelProps={{ fontWeight: "400" }}
                 label="Specify:"
-                key={DC.DEFINITION_OF_SURVERY_SAMPLE_OTHERS}
-                name={DC.DEFINITION_OF_SURVERY_SAMPLE_OTHERS}
+                key={DC.DEFINITION_OF_SURVEY_SAMPLE_OTHER}
+                name={DC.DEFINITION_OF_SURVEY_SAMPLE_OTHER}
               />,
             ],
           },
@@ -58,8 +58,8 @@ export const DefinitionOfPopulation = () => {
       <QMR.TextArea
         label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
         formControlProps={{ paddingTop: "15px" }}
-        key={DC.DEFINITION_OF_SURVERY_SAMPLE_CHANGES}
-        name={DC.DEFINITION_OF_SURVERY_SAMPLE_CHANGES}
+        key={DC.DEFINITION_OF_SURVEY_SAMPLE_CHANGES}
+        name={DC.DEFINITION_OF_SURVEY_SAMPLE_CHANGES}
       />
     </QMR.CoreQuestionWrapper>
   );

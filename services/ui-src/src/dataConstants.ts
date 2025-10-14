@@ -36,14 +36,14 @@ export const DATA_NOT_AVAILABLE = "DataNotAvailable";
 export const DATA_NOT_SUBMITTED_BY_PROVIDERS_TO_STATE =
   "DataNotSubmittedByProvidersToState";
 export const DATA_SOURCE = "DataSource";
-export const DATA_SOURCE_ADMIN_PROTOCAL = "DataSource-Admin-Protocol";
-export const DATA_SOURCE_ADMIN_PROTOCAL_OTHER =
+export const DATA_SOURCE_ADMIN_PROTOCOL = "DataSource-Admin-Protocol";
+export const DATA_SOURCE_ADMIN_PROTOCOL_OTHER =
   "DataSource-Admin-Protocol-Other";
 export const DATA_SOURCE_CAHPS_VERSION = "DataSource-CAHPS-Version";
 export const DATA_SOURCE_CAHPS_VERSION_OTHER = "DataSource-CAHPS-Version-Other";
 export const DATA_SOURCE_DESCRIPTION = "DataSourceDescription";
-export const DATA_SOUCRE_INCLUDE_ITEMSETS = "DataSource-Included-ItemSets";
-export const DATA_SOUCRE_INCLUDE_ITEMSETS_OTHER =
+export const DATA_SOURCE_INCLUDE_ITEMSETS = "DataSource-Included-ItemSets";
+export const DATA_SOURCE_INCLUDE_ITEMSETS_OTHER =
   "DataSource-Included-ItemSets-Other";
 export const DATA_SOURCE_NOT_EASILY_ACCESSIBLE =
   "DataSourceNotEasilyAccessible";
@@ -58,10 +58,10 @@ export const DEFINITION_DENOMINATOR_OTHER = "DefinitionOfDenominator-Other";
 export const DEFINITION_OF_DENOMINATOR = "DefinitionOfDenominator";
 export const DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN =
   "DefinitionOfDenominator-Subset-Explain";
-export const DEFINITION_OF_SURVERY_SAMPLE = "DefinitionOfSurveySample";
-export const DEFINITION_OF_SURVERY_SAMPLE_OTHERS =
+export const DEFINITION_OF_SURVEY_SAMPLE = "DefinitionOfSurveySample";
+export const DEFINITION_OF_SURVEY_SAMPLE_OTHER =
   "DefinitionOfSurveySample-Other";
-export const DEFINITION_OF_SURVERY_SAMPLE_CHANGES =
+export const DEFINITION_OF_SURVEY_SAMPLE_CHANGES =
   "DefinitionOfSurveySample-Changes";
 export const DELIVERY_SYS_FFS = "DeliverySys-FeeForService";
 export const DELIVERY_SYS_FFS_NO_PERCENT =

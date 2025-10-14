@@ -67,8 +67,8 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
       </CUI.Text>
 
       <QMR.Checkbox
-        key={DC.DEFINITION_OF_SURVERY_SAMPLE}
-        name={DC.DEFINITION_OF_SURVERY_SAMPLE}
+        key={DC.DEFINITION_OF_SURVEY_SAMPLE}
+        name={DC.DEFINITION_OF_SURVEY_SAMPLE}
         options={
           coresetId === "ACSC" || coresetId === "CCSC"
             ? ACSCOptions
@@ -79,8 +79,8 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
         <QMR.TextArea
           label="If this measure has been reported by the state previously and there has been a change in the included population, please provide any available context below:"
           formControlProps={{ paddingTop: "15px" }}
-          key={DC.DEFINITION_OF_SURVERY_SAMPLE_CHANGES}
-          name={DC.DEFINITION_OF_SURVERY_SAMPLE_CHANGES}
+          key={DC.DEFINITION_OF_SURVEY_SAMPLE_CHANGES}
+          name={DC.DEFINITION_OF_SURVEY_SAMPLE_CHANGES}
         />
       )}
     </QMR.CoreQuestionWrapper>
