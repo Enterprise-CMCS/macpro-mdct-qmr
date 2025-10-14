@@ -2,6 +2,7 @@ import { ExportAll } from "./index";
 import { render, screen } from "@testing-library/react";
 import { PrintableMeasureWrapper } from "components";
 import { useGetMeasures } from "hooks/api";
+import { QualifierData } from "../../measures/2025";
 
 jest.mock("hooks/api", () => ({
   useGetMeasures: jest.fn(),
@@ -57,6 +58,45 @@ describe("ExportAll", () => {
     mockedGetMeasures.mockReturnValue(mockMeasureData);
 
     render(<ExportAll />);
+
+    expect(mockMeasureWrapper).toHaveBeenCalledWith(
+      {
+        measure: expect.anything(),
+        measureData: mockCsqData,
+        measureId: "CSQ",
+        name: "mockCsqDescription",
+        year: "2025",
+        defaultData: QualifierData,
+        spaName: undefined,
+      },
+      undefined
+    );
+
+    expect(mockMeasureWrapper).toHaveBeenCalledWith(
+      {
+        measure: expect.anything(),
+        measureData: mockAabData,
+        measureId: "AAB-AD",
+        name: "mockAabDescription",
+        year: "2025",
+        defaultData: undefined,
+        spaName: undefined,
+      },
+      undefined
+    );
+
+    expect(mockMeasureWrapper).toHaveBeenCalledWith(
+      {
+        measure: expect.anything(),
+        measureData: mockBcsData,
+        measureId: "BCS-AD",
+        name: "mockBcsDescription",
+        year: "2025",
+        defaultData: undefined,
+        spaName: undefined,
+      },
+      undefined
+    );
   });
 
   it("should sort measures: CSQ first, then alphabetically", () => {
