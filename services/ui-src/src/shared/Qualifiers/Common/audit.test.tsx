@@ -1,10 +1,9 @@
 import * as CUI from "@chakra-ui/react";
-import { screen, act } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { Audit } from "./";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { measureDescriptions } from "measures/measureDescriptions";
-import userEvent from "@testing-library/user-event";
 
 const useGetMeasuresValues = {
   isLoading: false,
@@ -97,28 +96,27 @@ describe("Test Audit Component", () => {
         name: "No, none of the Core Set measures have been audited or validated",
       });
 
+      //click the yes button
       expect(yesBtn).not.toBeChecked();
-      act(() => {
-        userEvent.click(yesBtn);
-      });
+      fireEvent.click(
+        screen.getByText(
+          "Yes, some of the Core Set measures have been audited or validated"
+        )
+      );
+      //test add another
       expect(yesBtn).toBeChecked();
+      fireEvent.click(screen.getByText("+ Add Another"));
 
-      const addBtn = screen.getByRole("button", {
-        name: "+ Add Another",
-      });
-      act(() => {
-        userEvent.click(addBtn);
-        userEvent.click(addBtn);
-      });
-      const removeBtn = screen.getByLabelText("Remove Audit Item");
-      act(() => {
-        userEvent.click(removeBtn);
-      });
+      //test remove another
+      fireEvent.click(screen.getByLabelText("Remove Audit Item"));
 
+      //click the no button
       expect(noBtn).not.toBeChecked();
-      act(() => {
-        userEvent.click(noBtn);
-      });
+      fireEvent.click(
+        screen.getByText(
+          "No, none of the Core Set measures have been audited or validated"
+        )
+      );
       expect(noBtn).toBeChecked();
     });
   });
