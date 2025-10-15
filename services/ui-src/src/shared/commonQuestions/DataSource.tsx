@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "shared/types";
 import { DataSourceData, defaultData, OptionNode } from "shared/types";
 import { useFormContext, useWatch } from "react-hook-form";
@@ -167,13 +166,11 @@ const addLabelByType = (
  * Fully built DataSource component
  */
 export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
-  const register = useCustomRegister<Types.DataSource>();
   const { getValues } = useFormContext<Types.DataSource>();
   const watchDataSource = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
     defaultValue: getValues().DataSource,
   }) as string[] | undefined;
-
   const showExplanation = watchDataSource && watchDataSource.length >= 2;
 
   //WIP: using form context to get the labels for this component temporarily.
@@ -187,7 +184,8 @@ export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
     <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
       <div data-cy="data-source-options">
         <QMR.Checkbox
-          {...register(DC.DATA_SOURCE)}
+          key={DC.DATA_SOURCE}
+          name={DC.DATA_SOURCE}
           label={data.optionsLabel}
           options={buildDataSourceOptions({
             data: data.options,
@@ -208,7 +206,8 @@ export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
           </CUI.Text>
           <QMR.TextArea
             label={labels.DataSource.srcDescription!}
-            {...register(DC.DATA_SOURCE_DESCRIPTION)}
+            key={DC.DATA_SOURCE_DESCRIPTION}
+            name={DC.DATA_SOURCE_DESCRIPTION}
           />
         </CUI.VStack>
       )}

@@ -3,7 +3,6 @@ import * as Types from "shared/types";
 import * as QMR from "components";
 import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { PCRRate } from "components/PCRRate";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { useWatch } from "react-hook-form";
 import { LabelData } from "utils";
 import * as DC from "dataConstants";
@@ -33,8 +32,6 @@ const CategoryNdrSets = ({
   rateScale,
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
-
   return (
     <>
       {categories.map((cat) => {
@@ -56,7 +53,8 @@ const CategoryNdrSets = ({
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
-              {...register(`PerformanceMeasure.rates.${cat.id}`)}
+              key={`PerformanceMeasure.rates.${cat.id}`}
+              name={`PerformanceMeasure.rates.${cat.id}`}
             />
           </>
         );
@@ -74,7 +72,6 @@ const QualifierNdrSets = ({
   qualifiers = [],
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
   const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
@@ -88,7 +85,8 @@ const QualifierNdrSets = ({
       rates={rates}
       readOnly={rateReadOnly}
       customMask={customMask}
-      {...register(`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`)}
+      key={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
+      name={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
     />
   );
 };
@@ -118,7 +116,6 @@ export const PCRHHPerformanceMeasure = ({
   rateScale,
   customMask,
 }: Props) => {
-  const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
     | string[]
     | undefined;
@@ -174,7 +171,8 @@ export const PCRHHPerformanceMeasure = ({
       </CUI.UnorderedList>
       <QMR.TextArea
         label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
-        {...register("PerformanceMeasure.explanation")}
+        key={"PerformanceMeasure.explanation"}
+        name={"PerformanceMeasure.explanation"}
       />
       <CUI.Text
         fontWeight="bold"

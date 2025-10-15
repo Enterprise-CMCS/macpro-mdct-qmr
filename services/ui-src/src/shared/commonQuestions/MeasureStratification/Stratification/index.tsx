@@ -1,8 +1,8 @@
+import * as DC from "dataConstants";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../../types";
 import { TopLevelOmsChildren } from "../omsNodeBuilder";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import {
@@ -113,9 +113,8 @@ export const Stratification = ({
     return false;
   };
 
-  const register = useCustomRegister<Types.OptionalMeasureStratification>();
   const checkBoxOptions = buildOmsCheckboxes({
-    ...register("OptionalMeasureStratification"),
+    name: DC.OMS,
     data: omsData,
     excludeOptions,
     year,

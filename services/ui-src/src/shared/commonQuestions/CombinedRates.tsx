@@ -1,7 +1,5 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import * as Types from "shared/types";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
@@ -11,8 +9,6 @@ interface Props {
 }
 
 export const CombinedRates = ({ coreset }: Props) => {
-  const register = useCustomRegister<Types.CombinedRates>();
-
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
@@ -42,13 +38,16 @@ export const CombinedRates = ({ coreset }: Props) => {
             .
           </CUI.Text>
           <QMR.RadioButton
+            key={DC.COMBINED_RATES}
+            name={DC.COMBINED_RATES}
             options={[
               {
                 displayValue: combinedLabel.optionYes,
                 value: DC.YES,
                 children: [
                   <QMR.RadioButton
-                    {...register(DC.COMBINED_RATES_COMBINED_RATES)}
+                    key={DC.COMBINED_RATES_COMBINED_RATES}
+                    name={DC.COMBINED_RATES_COMBINED_RATES}
                     options={[
                       {
                         displayValue: combinedLabel.notWeightedRate,
@@ -63,9 +62,8 @@ export const CombinedRates = ({ coreset }: Props) => {
                         value: DC.COMBINED_WEIGHTED_RATES_OTHER,
                         children: [
                           <QMR.TextArea
-                            {...register(
-                              DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION
-                            )}
+                            key={DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION}
+                            name={DC.COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION}
                             label={combinedLabel.weightedRateOtherExplain}
                             formLabelProps={{ fontWeight: 400 }}
                           />,
@@ -81,7 +79,6 @@ export const CombinedRates = ({ coreset }: Props) => {
               },
             ]}
             renderHelperTextAbove
-            {...register(DC.COMBINED_RATES)}
           />
         </QMR.CoreQuestionWrapper>
       )}
