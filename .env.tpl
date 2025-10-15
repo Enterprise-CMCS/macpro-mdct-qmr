@@ -1,3 +1,5 @@
+PROJECT=qmr
+
 # Cognito
 COGNITO_IDENTITY_POOL_ID=op://mdct_devs/qmr_secrets/COGNITO_IDENTITY_POOL_ID
 COGNITO_USER_POOL_ID=op://mdct_devs/qmr_secrets/COGNITO_USER_POOL_ID
