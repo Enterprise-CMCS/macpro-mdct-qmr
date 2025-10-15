@@ -2,7 +2,6 @@ import { useFormContext, useFieldArray } from "react-hook-form";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as DC from "dataConstants";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "shared/types";
 import { useEffect } from "react";
 import { arrayIsReadOnly, stringIsReadOnly } from "utils";
@@ -34,8 +33,6 @@ export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
     }
   }, [fields, reset]);
 
-  const register = useCustomRegister<Types.OtherPerformanceMeasure>();
-
   const { watch } = useFormContext<Types.DataSource>();
 
   // Watch for dataSource data
@@ -54,9 +51,10 @@ export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
   return (
     <QMR.CoreQuestionWrapper label="Performance Measure">
       <QMR.TextArea
+        key={DC.OPM_EXPLAINATION}
+        name={DC.OPM_EXPLAINATION}
         label="Describe the methodology used:"
         formLabelProps={{ fontWeight: 700 }}
-        {...register(DC.OPM_EXPLAINATION)}
       />
       <CUI.Box marginTop={10}>
         {fields.map((_item, index) => {

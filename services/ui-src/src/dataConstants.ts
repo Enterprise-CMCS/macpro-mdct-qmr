@@ -29,15 +29,22 @@ export const COMBINED_WEIGHTED_RATES_OTHER_EXPLAINATION =
   "CombinedRates-CombinedRates-Other-Explanation";
 export const CONTINUOUS_ENROLLMENT_REQUIREMENT_NOT_MET_DUE_TO_START_DATE_OF_SPA =
   "ContinuousEnrollmentRequirementNotMetDueToStartDateOfSPA";
+export const COST_SAVINGS_METHODOLOGY = "costSavingsMethodology";
 export const DATA_INCONSISTENCIES_ACCURACY_ISSUES =
   "DataInconsistenciesAccuracyIssues";
 export const DATA_NOT_AVAILABLE = "DataNotAvailable";
 export const DATA_NOT_SUBMITTED_BY_PROVIDERS_TO_STATE =
   "DataNotSubmittedByProvidersToState";
 export const DATA_SOURCE = "DataSource";
+export const DATA_SOURCE_ADMIN_PROTOCOL = "DataSource-Admin-Protocol";
+export const DATA_SOURCE_ADMIN_PROTOCOL_OTHER =
+  "DataSource-Admin-Protocol-Other";
 export const DATA_SOURCE_CAHPS_VERSION = "DataSource-CAHPS-Version";
 export const DATA_SOURCE_CAHPS_VERSION_OTHER = "DataSource-CAHPS-Version-Other";
 export const DATA_SOURCE_DESCRIPTION = "DataSourceDescription";
+export const DATA_SOURCE_INCLUDE_ITEMSETS = "DataSource-Included-ItemSets";
+export const DATA_SOURCE_INCLUDE_ITEMSETS_OTHER =
+  "DataSource-Included-ItemSets-Other";
 export const DATA_SOURCE_NOT_EASILY_ACCESSIBLE =
   "DataSourceNotEasilyAccessible";
 export const DATA_SOURCE_NOT_EASILY_ACCESSIBLE_OTHER =
@@ -51,6 +58,11 @@ export const DEFINITION_DENOMINATOR_OTHER = "DefinitionOfDenominator-Other";
 export const DEFINITION_OF_DENOMINATOR = "DefinitionOfDenominator";
 export const DEFINITION_OF_DENOMINATOR_SUBSET_EXPLAIN =
   "DefinitionOfDenominator-Subset-Explain";
+export const DEFINITION_OF_SURVEY_SAMPLE = "DefinitionOfSurveySample";
+export const DEFINITION_OF_SURVEY_SAMPLE_OTHER =
+  "DefinitionOfSurveySample-Other";
+export const DEFINITION_OF_SURVEY_SAMPLE_CHANGES =
+  "DefinitionOfSurveySample-Changes";
 export const DELIVERY_SYS_FFS = "DeliverySys-FeeForService";
 export const DELIVERY_SYS_FFS_NO_PERCENT =
   "DeliverySys-FeeForService-No-Percent";
@@ -115,6 +127,7 @@ export const EXCLUDE_FROM_OMS = "excludeFromOMS";
 export const EXPLAINATION = "explanation";
 export const FFS = "FFS";
 export const HEALTH_HOME_QUALIFIER_FILE_UPLOAD = "costSavingsFile";
+export const HEALTH_HOME_CORESET_SPA = "HealthHomeCoreSet-SPA";
 export const HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY =
   "Health information exchange (HIE) / clinical registry";
 export const HEDIS_2019 = "HEDIS 2019";
@@ -123,6 +136,8 @@ export const HEDIS_MY_2020 = "HEDIS MY 2020";
 export const HEDIS_MY_2021 = "HEDIS MY 2021";
 export const HEDIS_MY_2022 = "HEDIS MY 2022";
 export const HEDIS_MY_2023 = "HEDIS MY 2023";
+export const HOW_DID_YOU_REPORT = "HowDidYouReport";
+export const HOW_DID_YOU_REPORT_EXPLANATION = "HowDidYouReport-Explanation";
 export const HRSA = "HRSA";
 export const HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA =
   "HybridAdministrativeandMedicalRecordsData";
@@ -200,7 +215,8 @@ export const SELECTED_YEAR = "selectedYear";
 export const SELECTIONS = "selections";
 export const SERVICE_NOT_COVERED = "ServiceNotCovered";
 export const SINGLE_CATEGORY = "singleCategory";
-export const SMALL_SAMPLE_SIZE = "SmallSampleSizeLessThan30";
+export const SMALL_SAMPLE_SIZE = "SmallSampleSize";
+export const SMALL_SAMPLE_SIZE_LESS = "SmallSampleSizeLessThan30";
 export const STAFF_CONSTRAINTS = "StaffConstraints";
 export const START_DATE = "startDate";
 export const SUB_CATS = "additionalSubCategories";
@@ -211,6 +227,9 @@ export const VERSION = "version";
 export const VITAL_DATA_SOURCE = "Vital Records";
 export const WHY_ARE_YOU_NOT_REPORTING = "WhyAreYouNotReporting";
 export const WHY_ARE_YOU_NOT_REPORTING_OTHER = "WhyAreYouNotReporting-Other";
+export const WHY_DID_YOU_NOT_COLLECT = "WhyDidYouNotCollect";
+export const WHY_DID_YOU_NOT_COLLECT_OTHER = "WhyDidYouNotCollect-Other";
 export const WHY_IS_DATA_NOT_AVAILABLE = "WhyIsDataNotAvailable";
 export const WHY_IS_DATA_NOT_AVAILABLE_OTHER = "WhyIsDataNotAvailable-Other";
+export const YEARLY_COST_SAVINGS = "yearlyCostSavings";
 export const YES = "yes";
