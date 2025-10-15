@@ -1,17 +1,15 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
 import SharedContext from "shared/SharedContext";
 import { useContext } from "react";
 import { Alert } from "@cmsgov/design-system";
+import * as DC from "dataConstants";
 
 interface DataSourceProps {
   type?: string;
 }
 
 export const DataSource = ({ type }: DataSourceProps) => {
-  const register = useCustomRegister<FormData>();
   const labels: any = useContext(SharedContext);
 
   return (
@@ -20,7 +18,8 @@ export const DataSource = ({ type }: DataSourceProps) => {
         formControlProps={{ paddingBottom: 4 }}
         label="Which version of the CAHPS survey was used for reporting?"
         formLabelProps={{ fontWeight: 700 }}
-        {...register("DataSource-CAHPS-Version")}
+        key={DC.DATA_SOURCE_CAHPS_VERSION}
+        name={DC.DATA_SOURCE_CAHPS_VERSION}
         options={[
           { displayValue: "CAHPS 5.1H", value: "CAHPS 5.1H" },
           {
@@ -38,7 +37,8 @@ export const DataSource = ({ type }: DataSourceProps) => {
                     ):
                   </>
                 }
-                {...register("DataSource-CAHPS-Version-Other")}
+                key={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
+                name={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
               />,
               (type === "adult" || type === "child") &&
                 labels?.DataSourceCahps.otherDataSourceWarning && (

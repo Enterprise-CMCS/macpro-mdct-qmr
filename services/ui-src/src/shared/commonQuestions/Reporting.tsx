@@ -1,5 +1,4 @@
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import * as DC from "dataConstants";
 import { useFormContext } from "react-hook-form";
@@ -21,7 +20,6 @@ export const Reporting = ({
   coreset,
   removeLessThan30,
 }: Props) => {
-  const register = useCustomRegister<Types.DidReport>();
   const { watch } = useFormContext<Types.DidReport>();
   const watchRadioStatus = watch(DC.DID_REPORT);
 
@@ -32,7 +30,8 @@ export const Reporting = ({
         label="Are you reporting on this measure?"
       >
         <QMR.RadioButton
-          {...register(DC.DID_REPORT)}
+          name={DC.DID_REPORT}
+          key={DC.DID_REPORT}
           options={[
             {
               displayValue: `Yes, I am reporting ${measureName} (${measureAbbreviation}) for ${

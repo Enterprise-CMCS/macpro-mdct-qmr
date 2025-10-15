@@ -7,7 +7,7 @@ export interface WhyAreYouNotReporting {
     | typeof DC.POP_NOT_COVERED
     | typeof DC.DATA_NOT_AVAILABLE
     | typeof DC.LIMITATION_WITH_DATA_COLLECTION
-    | typeof DC.SMALL_SAMPLE_SIZE
+    | typeof DC.SMALL_SAMPLE_SIZE_LESS
     | typeof DC.OTHER
   >;
 
@@ -38,6 +38,6 @@ export interface WhyAreYouNotReporting {
   >;
   [DC.INFO_NOT_COLLECTED_OTHER]: string; // if OTHER selected in INFO_NOT_COLLECTED -> an explaination
   [DC.LIMITATION_WITH_DATA_COLLECTION]: string; // if LIMITATION_WITH_DATA_COLLECTION selected in WHY_ARE_YOU_NOT_REPORTING -> an explaination
-  [DC.SMALL_SAMPLE_SIZE]: string; // if SMALL_SAMPLE_SIZE in WHY_ARE_YOU_NOT_REPORTING -> an explaination of sample size
+  [DC.SMALL_SAMPLE_SIZE_LESS]: string; // if SMALL_SAMPLE_SIZE_LESS in WHY_ARE_YOU_NOT_REPORTING -> an explaination of sample size
   [DC.WHY_ARE_YOU_NOT_REPORTING_OTHER]: string; // if OTHER selected in WHY_ARE_YOU_NOT_REPORTING -> an explaination
 }
