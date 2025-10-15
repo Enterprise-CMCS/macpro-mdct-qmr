@@ -1,8 +1,8 @@
 #!/usr/bin/env node
+// This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
 import "source-map-support/register";
 import {
   App,
-  Aws,
   aws_apigateway as apigateway,
   aws_iam as iam,
   DefaultStackSynthesizer,
@@ -67,7 +67,7 @@ export class PrerequisiteStack extends Stack {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
           },
           StringLike: {
-            "token.actions.githubusercontent.com:sub": `repo:Enterprise-CMCS/macpro-mdct-qmr:${branchFilter}`,
+            "token.actions.githubusercontent.com:sub": `repo:Enterprise-CMCS/macpro-mdct-${project}:${branchFilter}`,
           },
         },
         "sts:AssumeRoleWithWebIdentity"
@@ -106,15 +106,20 @@ async function main() {
     }),
   });
 
-  Tags.of(app).add("PROJECT", "QMR");
+  if (!process.env.PROJECT) {
+    throw new Error("PROJECT enironment variable is required but not set");
+  }
 
   const project = process.env.PROJECT!;
-  new PrerequisiteStack(app, "qmr-prerequisites", {
+
+  Tags.of(app).add("PROJECT", project.toUpperCase());
+
+  new PrerequisiteStack(app, `${project}-prerequisites`, {
     project,
     ...(await loadDefaultSecret(project)),
     env: {
       account: process.env.CDK_DEFAULT_ACCOUNT,
-      region: process.env.CDK_DEFAULT_REGION,
+      region: "us-east-1",
     },
   });
 }
