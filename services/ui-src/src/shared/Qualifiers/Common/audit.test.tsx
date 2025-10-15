@@ -1,5 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { screen, act } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { Audit } from "./";
 import { useApiMock } from "utils/testUtils/useApiMock";
@@ -29,59 +29,97 @@ const useGetMeasuresValues = {
 };
 
 describe("Test Audit Component", () => {
-  beforeEach(() => {
-    const apiData = { useGetMeasuresValues: useGetMeasuresValues };
-    useApiMock(apiData);
-
-    renderWithHookForm(
-      <CUI.OrderedList>
-        <Audit type={"AD"} year={"2025"} />
-      </CUI.OrderedList>
-    );
+  describe("Test no data", () => {
+    it("Check that Audit does not render", () => {
+      useGetMeasuresValues.isLoading = true;
+      const emptyData = { useGetMeasuresValues: useGetMeasuresValues };
+      useApiMock(emptyData);
+      renderWithHookForm(
+        <CUI.OrderedList>
+          <Audit type={"AD"} year={"2025"} />
+        </CUI.OrderedList>
+      );
+      expect(screen.queryByText("Audit or Validation of Measures")).toBeNull();
+      expect(
+        screen.queryByText(
+          "Were any of the Core Set measures audited or validated?"
+        )
+      ).toBeNull();
+      expect(
+        screen.queryByRole("radio", {
+          name: "Yes, some of the Core Set measures have been audited or validated",
+        })
+      ).toBeNull();
+      expect(
+        screen.queryByRole("radio", {
+          name: "No, none of the Core Set measures have been audited or validated",
+        })
+      ).toBeNull();
+    });
   });
-  it("Check that Audit renders", () => {
-    expect(
-      screen.getByText("Audit or Validation of Measures")
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Were any of the Core Set measures audited or validated?"
-      )
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("radio", {
+  describe("Test with data", () => {
+    beforeEach(() => {
+      useGetMeasuresValues.isLoading = false;
+      const apiData = { useGetMeasuresValues: useGetMeasuresValues };
+      useApiMock(apiData);
+      renderWithHookForm(
+        <CUI.OrderedList>
+          <Audit type={"AD"} year={"2025"} />
+        </CUI.OrderedList>
+      );
+    });
+    it("Check that Audit renders", () => {
+      expect(
+        screen.getByText("Audit or Validation of Measures")
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          "Were any of the Core Set measures audited or validated?"
+        )
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("radio", {
+          name: "Yes, some of the Core Set measures have been audited or validated",
+        })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("radio", {
+          name: "No, none of the Core Set measures have been audited or validated",
+        })
+      ).toBeInTheDocument();
+    });
+
+    it("Check radio buttons are clickable", () => {
+      const yesBtn = screen.getByRole("radio", {
         name: "Yes, some of the Core Set measures have been audited or validated",
-      })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("radio", {
+      });
+      const noBtn = screen.getByRole("radio", {
         name: "No, none of the Core Set measures have been audited or validated",
-      })
-    ).toBeInTheDocument();
-  });
+      });
 
-  it("Check radio buttons are clickable", () => {
-    const yesBtn = screen.getByRole("radio", {
-      name: "Yes, some of the Core Set measures have been audited or validated",
+      expect(yesBtn).not.toBeChecked();
+      act(() => {
+        userEvent.click(yesBtn);
+      });
+      expect(yesBtn).toBeChecked();
+
+      const addBtn = screen.getByRole("button", {
+        name: "+ Add Another",
+      });
+      act(() => {
+        userEvent.click(addBtn);
+        userEvent.click(addBtn);
+      });
+      const removeBtn = screen.getByLabelText("Remove Audit Item");
+      act(() => {
+        userEvent.click(removeBtn);
+      });
+
+      expect(noBtn).not.toBeChecked();
+      act(() => {
+        userEvent.click(noBtn);
+      });
+      expect(noBtn).toBeChecked();
     });
-    const noBtn = screen.getByRole("radio", {
-      name: "No, none of the Core Set measures have been audited or validated",
-    });
-
-    expect(yesBtn).not.toBeChecked();
-    userEvent.click(yesBtn);
-    expect(yesBtn).toBeChecked();
-
-    const addBtn = screen.getByRole("button", {
-      name: "+ Add Another",
-    });
-    userEvent.click(addBtn);
-    userEvent.click(addBtn);
-    const removeBtn = screen.getByLabelText("Remove Audit Item");
-    userEvent.click(removeBtn);
-
-    expect(noBtn).not.toBeChecked();
-    userEvent.click(noBtn);
-    expect(noBtn).toBeChecked();
   });
 });
