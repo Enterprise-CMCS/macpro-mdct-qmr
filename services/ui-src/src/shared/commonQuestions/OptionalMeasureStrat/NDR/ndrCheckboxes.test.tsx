@@ -60,31 +60,6 @@ describe("useAgeGroupsCheckboxes", () => {
         "Age 18-64": "Ages 18 to 64",
       });
     });
-    //   const mockQualifiers = [
-    //     { id: "qual1", label: "Age 0-17" },
-    //     { id: "qual2", label: "Age 18-64" },
-    //   ];
-    //   const mockRates = [[<div key="1">Rate1</div>], [<div key="2">Rate2</div>]];
-
-    //   mockUsePerformanceMeasureContext.mockReturnValue({
-    //     categories: [],
-    //     qualifiers: mockQualifiers,
-    //     calcTotal: false,
-    //     customPrompt: undefined,
-    //   } as any);
-
-    //   mockWatch.mockReturnValue(["HybridData"]);
-    //   mockUseQualRateArray.mockReturnValue(mockRates);
-    //   mockUseStandardRateArray.mockReturnValue([]);
-
-    //   const { result } = renderHook(() => useAgeGroupsCheckboxes(testName));
-
-    //   expect(result.current).toHaveLength(2);
-    //   expect(result.current[0].value).toBe("qual1");
-    //   expect(result.current[0].displayValue).toBe("Ages 0 to 17");
-    //   expect(result.current[1].value).toBe("qual2");
-    //   expect(result.current[1].displayValue).toBe("Ages 18 to 64");
-    // });
 
     it("should build checkboxes for categories when they exist", () => {
       const mockCategories = [
