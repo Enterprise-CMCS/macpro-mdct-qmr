@@ -15,7 +15,9 @@ const transformMeasureTable = async () => {
   const runLocally = p("Do you want to run this script locally? Y/N: ");
   const isLocal = runLocally === "Y" ? true : false;
   if (!isLocal) {
-    stage = p("What environment are we running on (e.g. master, val, prod)? ");
+    stage = p(
+      "What environment are we running on (e.g. master, val, production)? "
+    );
   }
 
   const dbClient = buildClient(isLocal);

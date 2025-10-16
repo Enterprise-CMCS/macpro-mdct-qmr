@@ -73,17 +73,17 @@ describe("Test Kafka Lib", () => {
   beforeAll(() => {
     tempStage = process.env.stage;
     tempNamespace = process.env.topicNamespace;
-    tempBrokers = process.env.BOOTSTRAP_BROKER_STRING_TLS;
+    tempBrokers = process.env.brokerString;
 
     process.env.stage = stage;
     process.env.topicNamespace = namespace;
-    process.env.BOOTSTRAP_BROKER_STRING_TLS = brokerString;
+    process.env.brokerString = brokerString;
   });
 
   afterAll(() => {
     process.env.stage = tempStage;
     process.env.topicNamespace = tempNamespace;
-    process.env.BOOTSTRAP_BROKER_STRING_TLS = tempBrokers;
+    process.env.brokerString = tempBrokers;
   });
 
   beforeEach(() => {

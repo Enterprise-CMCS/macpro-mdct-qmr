@@ -93,7 +93,7 @@ export const isFilled = (str: string | undefined) =>
 
 /**
  * Goes through the OMS data set and looks for any input stored in the N/D/R set
- * currently not used, predicting that we may need this in the future
+ * used to display filled fields for internalusers
  * @returns a string[] of OMS ids that's rates have some value.
  */
 export const getFilledKeys = (data: {
@@ -111,21 +111,24 @@ export const getFilledKeys = (data: {
           );
       }
     );
-    for (const [midKey, midValue] of Object.entries(
-      topValue.selections as Types.OmsNodes.MidLevelOMSNode
-    )) {
-      if (midValue.additionalSubCategories) {
-        keys.push(
-          `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`
-        );
-      }
-      if (midValue.rateData?.rates) {
-        const values = Object.values(midValue.rateData.rates);
 
-        if (values.some(hasNumOrDenom)) {
+    if (topValue.selections) {
+      for (const [midKey, midValue] of Object.entries(
+        topValue.selections as Types.OmsNodes.MidLevelOMSNode
+      )) {
+        if (midValue.additionalSubCategories) {
           keys.push(
-            `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates`
+            `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`
           );
+        }
+        if (midValue.rateData?.rates) {
+          const values = Object.values(midValue.rateData.rates);
+
+          if (values.some(hasNumOrDenom)) {
+            keys.push(
+              `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates`
+            );
+          }
         }
       }
     }

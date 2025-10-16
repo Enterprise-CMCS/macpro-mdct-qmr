@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { validationFunctions } from "./validation";
 import { PCRHHPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
+import { validationFunctions } from "./../validationTemplate";
 
 export const PCRHH = ({
   name,
@@ -18,7 +18,10 @@ export const PCRHH = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 
@@ -42,7 +45,7 @@ export const PCRHH = ({
           <CMQ.DefinitionOfPopulation coreset="health" />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <PCRHHPerformanceMeasure data={PMD.data} />
+              <PCRHHPerformanceMeasure data={PMD.data.performanceMeasure} />
             </>
           )}
           {isOtherMeasureSpecSelected && <CMQ.OtherPerformanceMeasure />}

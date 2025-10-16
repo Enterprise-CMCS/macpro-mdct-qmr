@@ -4,6 +4,7 @@ import {
   aws_iam as iam,
   aws_wafv2 as wafv2,
   Aws,
+  CfnOutput,
   Duration,
   custom_resources as cr,
   RemovalPolicy,
@@ -19,7 +20,6 @@ interface CreateUiAuthComponentsProps {
   isDev: boolean;
   applicationEndpointUrl: string;
   restApiId: string;
-  customResourceRole: iam.Role;
   oktaMetadataUrl: string;
   attachmentsBucketArn: string;
   bootstrapUsersPassword?: string;
@@ -36,7 +36,6 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
     isDev,
     applicationEndpointUrl,
     restApiId,
-    customResourceRole,
     oktaMetadataUrl,
     attachmentsBucketArn,
     bootstrapUsersPassword,
@@ -280,21 +279,33 @@ export function createUiAuthComponents(props: CreateUiAuthComponentsProps) {
             `InvokeBootstrapUsersFunction-${stage}`
           ),
         },
-        onUpdate: undefined,
-        onDelete: undefined,
-        policy: cr.AwsCustomResourcePolicy.fromStatements([
-          new iam.PolicyStatement({
-            actions: ["lambda:InvokeFunction"],
-            resources: [bootstrapUsersFunction.functionArn],
-          }),
-        ]),
-        role: customResourceRole,
+        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
+          resources: [bootstrapUsersFunction.functionArn],
+        }),
         resourceType: "Custom::InvokeBootstrapUsersFunction",
       }
     );
 
+    bootstrapUsersFunction.grantInvoke(bootstrapUsersInvoke.grantPrincipal);
+
     bootstrapUsersInvoke.node.addDependency(bootstrapUsersFunction);
   }
+
+  new CfnOutput(scope, "CognitoIdentityPoolId", {
+    value: identityPool.ref,
+  });
+
+  new CfnOutput(scope, "CognitoUserPoolId", {
+    value: userPool.userPoolId,
+  });
+
+  new CfnOutput(scope, "CognitoUserPoolClientId", {
+    value: userPoolClient.userPoolClientId,
+  });
+
+  new CfnOutput(scope, "CognitoUserPoolClientDomain", {
+    value: userPoolDomain.domainName,
+  });
 
   return {
     userPoolDomainName: userPoolDomain.domainName,

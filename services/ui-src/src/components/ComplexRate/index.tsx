@@ -27,29 +27,29 @@ interface Props extends QMR.InputWrapperProps {
 // Calculate Rates for a row of data using the ndrFormulas as a guide
 const calculateRates = (
   fieldRow: { name: string; value: string }[],
-  ndrFormulasSubset: any
+  ndrFormulasSubset: ndrFormula[]
 ) => {
   for (const formula of ndrFormulasSubset) {
     let x;
-    const num = !isNaN((x = parseFloat(fieldRow[formula.num].value)))
+    const num = !isNaN((x = parseFloat(fieldRow[formula.numerator].value)))
       ? x
       : null;
-    const denom = !isNaN((x = parseFloat(fieldRow[formula.denom].value)))
+    const denom = !isNaN((x = parseFloat(fieldRow[formula.denominator].value)))
       ? x
       : null;
 
     if (num !== null && denom !== null) {
-      fieldRow[formula.rate].value =
+      fieldRow[formula.rateIndex].value =
         num !== 0 && denom !== 0
           ? defaultRateCalculation(
               num.toString(),
               denom.toString(),
-              formula.mult,
+              formula.mult!,
               1
             )
           : "0";
     } else {
-      fieldRow[formula.rate].value = "";
+      fieldRow[formula.rateIndex].value = "";
     }
   }
   return fieldRow;
@@ -62,7 +62,7 @@ const calculateTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
 
   let numeratorPositions: number[] = [];
   ndrFormulas.forEach((formula) => {
-    numeratorPositions.push(formula.num);
+    numeratorPositions.push(formula.numerator);
   });
   let numberOfNumerators = numeratorPositions.length;
   valueArray = new Array(numberOfNumerators).fill(0);
@@ -119,7 +119,7 @@ export const ComplexRate = ({
   } = useFormContext();
 
   // Quick reference list of all rate indices
-  const rateLocations = ndrFormulas.map((ndr) => ndr.rate);
+  const rateLocations = ndrFormulas.map((ndr) => ndr.rateIndex);
   let inputFields: LabelData[] = inputFieldNames;
 
   const { field } = useController({
@@ -186,7 +186,10 @@ export const ComplexRate = ({
     if (!isRate) {
       // create a list of the ndrFormulas where fieldIndex is present
       const ndrFormulasSubset = ndrFormulas.filter((formula) => {
-        if (formula.num === fieldIndex || formula.denom === fieldIndex)
+        if (
+          formula.numerator === fieldIndex ||
+          formula.denominator === fieldIndex
+        )
           return true;
         return false;
       });

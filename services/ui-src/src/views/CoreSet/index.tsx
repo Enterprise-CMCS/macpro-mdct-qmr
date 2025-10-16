@@ -91,11 +91,14 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   return (
     <CUI.Box fontWeight="semibold" fontSize="sm">
       <CUI.Text>Core Set Qualifiers</CUI.Text>
-      <Link to={"CSQ"}>
-        <CUI.Text color="blue" data-cy="core-set-qualifiers-link">
-          {coreSetTitles(coreSetInfo[0], "Questions") + spaName}
-        </CUI.Text>
-      </Link>
+      <CUI.Link
+        as={Link}
+        to={"CSQ"}
+        variant="unlined"
+        data-cy="core-set-qualifiers-link"
+      >
+        {coreSetTitles(coreSetInfo[0], "Questions") + spaName}
+      </CUI.Link>
 
       {isLoading ? (
         <CUI.SkeletonText maxW={48} noOfLines={1} mt="1" />
@@ -353,9 +356,9 @@ export const CoreSet = () => {
         coreSetInstructions[year][coreSetPrefix] && (
           <CUI.Box mb="8">
             <Alert heading="Mandatory Reporting">
-              <CUI.Text sx={{ "& a": { textDecoration: "underline" } }}>
+              <CUI.Box sx={{ "& a": { textDecoration: "underline" } }}>
                 {parseLabelToHTML(coreSetInstructions[year][coreSetPrefix])}
-              </CUI.Text>
+              </CUI.Box>
             </Alert>
           </CUI.Box>
         )}

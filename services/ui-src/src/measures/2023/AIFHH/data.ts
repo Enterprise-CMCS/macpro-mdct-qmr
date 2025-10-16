@@ -43,26 +43,26 @@ const inputFieldNames = [
   },
 ];
 
-const ndrFormulas = [
+export const ndrFormulas = [
   // Short-Term Admissions per 1,000 Enrollee Months
   {
-    num: 1,
-    denom: 0,
-    rate: 2,
+    numerator: 1,
+    denominator: 0,
+    rateIndex: 2,
     mult: 1000,
   },
   // Medium-Term Admissions per 1,000 Enrollee Months
   {
-    num: 3,
-    denom: 0,
-    rate: 4,
+    numerator: 3,
+    denominator: 0,
+    rateIndex: 4,
     mult: 1000,
   },
   // Long-Term Admissions per 1,000 Enrollee Months
   {
-    num: 5,
-    denom: 0,
-    rate: 6,
+    numerator: 5,
+    denominator: 0,
+    rateIndex: 6,
     mult: 1000,
   },
 ];
@@ -102,4 +102,22 @@ export const data: MeasureTemplateData = {
   opm: {
     componentFlag: "AIF",
   },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateFfsRadioButtonCompletion",
+    "validateAtLeastOneDataSourceType",
+    "validateReasonForNotReporting",
+    "validateDateRangeRadioButtonCompletion",
+    "validateAtLeastOneDataSource",
+    "validateDeviationTextFieldFilled",
+    "validateOPMRates",
+    "validateAtLeastOneDeliverySystem",
+    "validateBothDatesCompleted",
+    "validateAtLeastOneDefinitionOfPopulation",
+    "validateYearFormat",
+    "ComplexAtLeastOneRateComplete",
+    "ComplexNoNonZeroNumOrDenom",
+    "ComplexValidateNDRTotals",
+    "ComplexValidateDualPopInformation",
+  ],
 };

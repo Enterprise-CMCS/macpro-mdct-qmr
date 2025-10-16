@@ -13,7 +13,7 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     noPM?: boolean,
     errorMessage?: string
   ): FormError[] => {
-    const { ageGroups, performanceMeasureArray } = test_setup(data);
+    const { performanceMeasureArray } = test_setup(data);
     const deviationArray = getDeviationNDRArray(
       data.DeviationOptions,
       data.Deviations,
@@ -23,7 +23,6 @@ describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
     return [
       ...validateAtLeastOneDeviationFieldFilled(
         noPM ? [[]] : performanceMeasureArray,
-        ageGroups,
         deviationArray,
         didCalculationsDeviate,
         errorMessage

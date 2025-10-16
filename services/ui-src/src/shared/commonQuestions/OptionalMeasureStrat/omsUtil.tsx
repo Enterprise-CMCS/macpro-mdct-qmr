@@ -40,7 +40,7 @@ const NDR = (watchOMS: any, cleanedCategory: any, qual: LabelData) => {
 
 /** Process all OMS rate values pertaining to set category and calculate new rate object */
 /** Note: this currently isn't in use with 2023 because we updated the OMS to show only the total qualifier if there is one in the list of qualifiers. */
-const calculateOMSTotal = ({
+export const calculateOMSTotal = ({
   cleanedCategory,
   numberOfDecimals,
   qualifiers,
@@ -108,22 +108,22 @@ interface complexTempRate {
 const IUHHndrForumlas = [
   // Discharges per 1,000 Enrollee Months
   {
-    num: 1,
-    denom: 0,
+    numerator: 1,
+    denominator: 0,
     rate: 2,
     mult: 1000,
   },
   // Days per 1,000 Enrollee Months
   {
-    num: 3,
-    denom: 0,
+    numerator: 3,
+    denominator: 0,
     rate: 4,
     mult: 1000,
   },
   // Average Length of Stay
   {
-    num: 3,
-    denom: 1,
+    numerator: 3,
+    denominator: 1,
     rate: 5,
     mult: 1,
   },
@@ -132,29 +132,29 @@ const IUHHndrForumlas = [
 const AIFHHndrFormulas = [
   // short term
   {
-    num: 1,
-    denom: 0,
+    numerator: 1,
+    denominator: 0,
     rate: 2,
     mult: 1000,
   },
   // medium term
   {
-    num: 3,
-    denom: 0,
+    numerator: 3,
+    denominator: 0,
     rate: 4,
     mult: 1000,
   },
   // long term
   {
-    num: 5,
-    denom: 0,
+    numerator: 5,
+    denominator: 0,
     rate: 6,
     mult: 1000,
   },
 ];
 
 /** (IU-HH Specific) Process all OMS rate values pertaining to set category and calculate new rate object */
-const calculateComplexOMSTotal = ({
+export const calculateComplexOMSTotal = ({
   cleanedCategory,
   qualifiers,
   watchOMS,
@@ -286,18 +286,7 @@ export const useTotalAutoCalculation = ({
 
     const subscription = watch((values, { name: fieldName, type }) => {
       if (fieldName && values) {
-        let omsFields;
-        switch (componentFlag) {
-          case "IU":
-            omsFields = [] as complexRateFields[];
-            break;
-          case "AIF":
-            omsFields = [] as complexRateFields[];
-            break;
-          default:
-            omsFields = [] as RateFields[];
-            break;
-        }
+        let omsFields = [] as complexRateFields[] | RateFields[];
         const watchOMS = objectPath.get(values, `${name}.rates`);
         for (const q of nonTotalQualifiers) {
           omsFields.push(watchOMS?.[q.id]?.[cleanedCategory]?.[0] ?? {});

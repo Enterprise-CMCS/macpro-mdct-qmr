@@ -11,7 +11,7 @@ export const validateCollecting = (
 ) => {
   const errorArray: FormError[] = [];
 
-  if (data[DC.DID_COLLECT] === undefined) {
+  if (data[DC.DID_COLLECT] === undefined || data[DC.DID_COLLECT] === null) {
     errorArray.push({
       errorLocation: `Did you collect this measure?`,
       errorMessage: errorMessageFunc(),

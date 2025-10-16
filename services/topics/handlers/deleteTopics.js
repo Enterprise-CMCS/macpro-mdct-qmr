@@ -1,5 +1,6 @@
+// This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
 /* eslint-disable no-console */
-const topics = require("../libs/topics-lib.js");
+import { deleteTopics } from "../libs/topics-lib.js";
 
 /**
  * Handler to be triggered in temporary branches by the destroy workflow, cleans up topics with the known namespace format
@@ -8,11 +9,14 @@ const topics = require("../libs/topics-lib.js");
  * @param {*} _context
  * @param {*} _callback
  */
-exports.handler = async function (event, _context, _callback) {
+export const handler = async (event, _context, _callback) => {
   console.log("Received event:", JSON.stringify(event, null, 2));
+  if (!event.project || !event.stage) {
+    throw "ERROR:  project and stage keys must be sent in the event.";
+  }
 
-  return await topics.deleteTopics(
-    process.env.BOOTSTRAP_BROKER_STRING_TLS.split(","),
+  return await deleteTopics(
+    process.env.brokerString.split(","),
     process.env.topicNamespace
   );
 };

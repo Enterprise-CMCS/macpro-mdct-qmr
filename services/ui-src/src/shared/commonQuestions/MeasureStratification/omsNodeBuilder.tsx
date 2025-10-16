@@ -17,7 +17,7 @@ interface CheckboxChildrenProps extends OmsNode {
   /** name of parent category for additionalCategory rendering */
   parentDisplayName: string;
   year?: number;
-  accordion?: boolean;
+  overrideAccordion?: (option: string) => boolean;
 }
 
 interface ChildCheckBoxOptionProps {
@@ -174,7 +174,11 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {checkboxOptions.map((options) => (
-        <QMR.Accordion externalControlled label={options.displayValue}>
+        <QMR.Accordion
+          externalControlled
+          label={options.displayValue}
+          overrideExpand={props.overrideAccordion?.(options.value)}
+        >
           {options.children}
         </QMR.Accordion>
       ))}
@@ -183,6 +187,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           name={props.name}
           parentName={props.parentDisplayName}
           key={`${props.name}.AdditionalCategorySection`}
+          overrideExpand={props.overrideAccordion}
         />
       )}
     </CUI.Box>

@@ -4,7 +4,7 @@ import * as Q from "./questions";
 import * as CMQ from "shared/commonQuestions";
 import * as PMD from "./data";
 import * as QMR from "components";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 import { getPerfMeasureRateArray } from "shared/globalValidations";
 import { FormData } from "./types";
 
@@ -22,7 +22,10 @@ export const MSCAD = ({
   const data = watch();
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 
@@ -46,7 +49,10 @@ export const MSCAD = ({
           <CMQ.DefinitionOfPopulation />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CMQ.PerformanceMeasure data={PMD.data} rateReadOnly={false} />
+              <CMQ.PerformanceMeasure
+                data={PMD.data.performanceMeasure}
+                rateReadOnly={false}
+              />
               <CMQ.DeviationFromMeasureSpecificationCheckboxes
                 categories={PMD.categories}
               />

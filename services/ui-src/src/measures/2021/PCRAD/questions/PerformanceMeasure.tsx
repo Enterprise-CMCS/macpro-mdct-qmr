@@ -1,7 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Types from "shared/types";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { PerformanceMeasureData } from "shared/commonQuestions/PerformanceMeasure/data";
 import { useWatch } from "react-hook-form";
 import { PCRRate } from "components/PCRRate";
@@ -32,8 +31,6 @@ const CategoryNdrSets = ({
   rateScale,
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
-
   return (
     <>
       {categories.map((item) => {
@@ -56,7 +53,8 @@ const CategoryNdrSets = ({
               rates={rates}
               rateMultiplicationValue={rateScale}
               customMask={customMask}
-              {...register(`PerformanceMeasure.rates.${cleanedName}`)}
+              key={`PerformanceMeasure.rates.${cleanedName}`}
+              name={`PerformanceMeasure.rates.${cleanedName}`}
             />
           </>
         );
@@ -71,8 +69,6 @@ const QualifierNdrSets = ({
   qualifiers = [],
   customMask,
 }: NdrSetProps) => {
-  const register = useCustomRegister();
-
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
     label: item.label,
     id: idx,
@@ -83,7 +79,8 @@ const QualifierNdrSets = ({
       rates={rates}
       readOnly={rateReadOnly}
       customMask={customMask}
-      {...register("PerformanceMeasure.rates.singleCategory")}
+      key={"PerformanceMeasure.rates.singleCategory"}
+      name={"PerformanceMeasure.rates.singleCategory"}
     />
   );
 };
@@ -109,7 +106,6 @@ export const PCRADPerformanceMeasure = ({
   rateScale,
   customMask,
 }: Props) => {
-  const register = useCustomRegister<Types.PerformanceMeasure>();
   const dataSourceWatch = useWatch<Types.DataSource>({ name: "DataSource" }) as
     | string[]
     | undefined;
@@ -162,7 +158,8 @@ export const PCRADPerformanceMeasure = ({
       </CUI.UnorderedList>
       <QMR.TextArea
         label="If this measure has been reported by the state previously and there has been a substantial change in the rate or measure-eligible population, please provide any available context below:"
-        {...register("PerformanceMeasure.explanation")}
+        key={"PerformanceMeasure.explanation"}
+        name={"PerformanceMeasure.explanation"}
       />
       <CUI.Text
         fontWeight="bold"

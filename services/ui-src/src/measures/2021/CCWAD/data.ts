@@ -1,5 +1,6 @@
 import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
+import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
 
 export const { categories, qualifiers } = getCatQualLabels("CCW-AD");
 
@@ -20,4 +21,33 @@ export const data: MeasureTemplateData = {
   opm: {
     excludeOptions: ["Sex"],
   },
+  override: {
+    validateAtLeastOneDeviationFieldFilled: (data: FormData) => {
+      const memeRates =
+        data.PerformanceMeasure?.rates?.[categories[0].id] ?? [];
+      const larcRates =
+        data.PerformanceMeasure?.rates?.[categories[1].id] ?? [];
+
+      return [memeRates, larcRates];
+    },
+  },
+  validations: [
+    "validateRequiredRadioButtonForCombinedRates",
+    "validateAtLeastOneDeviationFieldFilled",
+    "validateOneCatRateHigherThanOtherCatOMS",
+    "validateOneCatRateHigherThanOtherCatPM",
+    "validateReasonForNotReporting",
+    "validateAtLeastOneDataSource",
+    "validateAtLeastOneRateComplete",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateBothDatesCompleted",
+    "validateEqualCategoryDenominatorsOMS",
+    "validateEqualCategoryDenominatorsPM",
+    "validateYearFormat",
+  ],
 };

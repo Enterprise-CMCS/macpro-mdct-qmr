@@ -3,7 +3,7 @@ import * as QMR from "components";
 import * as CMQ from "shared/commonQuestions";
 import { CPUADPerformanceMeasure } from "./questions/PerformanceMeasure";
 import { useEffect } from "react";
-import { validationFunctions } from "./validation";
+import { validationFunctions } from "./../validationTemplate";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
 
 export const CPUAD = ({
@@ -18,7 +18,10 @@ export const CPUAD = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
 
@@ -39,7 +42,7 @@ export const CPUAD = ({
           <CMQ.DefinitionOfPopulation populationSampleSize />
           {isPrimaryMeasureSpecSelected && (
             <>
-              <CPUADPerformanceMeasure data={PMD.data} />
+              <CPUADPerformanceMeasure data={PMD.data.performanceMeasure} />
               <CMQ.DeviationFromMeasureSpec />
             </>
           )}

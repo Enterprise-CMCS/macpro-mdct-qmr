@@ -1,0 +1,37 @@
+# This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
+name: Create Deployment PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_branch:
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          # using more advanced version for this action to be able to have node natively run typescript
+          node-version: 22.19.0
+      - uses: actions/cache@v4
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock', 'plugins/**') }}
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Create a PR
+        run: |
+          node .github/create-pr.ts
+        env:
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_BRANCH: ${{ github.event.inputs.target_branch }}
+          APP_NAME_UPPER: ${{ vars.APP_NAME_UPPER }}

@@ -20,11 +20,16 @@ const GetColumns = () => {
       styleProps: { textAlign: "center", width: "10%" },
       cell: (data: MeasureTableItem.Data) => {
         return (
-          <Link to={data.path} aria-label={data.abbr}>
-            <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.abbr}>
-              {data.abbr}
-            </CUI.Text>
-          </Link>
+          <CUI.Link
+            as={Link}
+            to={data.path}
+            aria-label={data.abbr}
+            fontWeight="bold"
+            color="blue.600"
+            data-cy={data.abbr}
+          >
+            {data.abbr}
+          </CUI.Link>
         );
       },
     },
@@ -33,11 +38,15 @@ const GetColumns = () => {
       id: "title_column_header",
       cell: (data: MeasureTableItem.Data) => {
         return (
-          <Link to={data.path} aria-label={data.title}>
-            <CUI.Text fontWeight="bold" color="blue.600" data-cy={data.path}>
-              {data.title}
-            </CUI.Text>
-          </Link>
+          <CUI.Link
+            as={Link}
+            to={data.path}
+            aria-label={data.title}
+            variant="unlined"
+            data-cy={data.path}
+          >
+            {data.title}
+          </CUI.Link>
         );
       },
     },

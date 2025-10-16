@@ -3,11 +3,11 @@ import * as QMR from "components";
 import * as CMQ from "shared/commonQuestions";
 import { DefaultFormData } from "shared/types/FormData";
 import { useFormContext } from "react-hook-form";
-import { validationFunctions } from "./validation";
 import { useEffect } from "react";
 import * as PMD from "./data";
 import * as DC from "dataConstants";
 import { NotCollectingOMS } from "shared/commonQuestions/NotCollectingOMS";
+import { validationFunctions } from "./../validationTemplate";
 
 export const MSCAD = ({
   year,
@@ -18,7 +18,10 @@ export const MSCAD = ({
 }: QMR.MeasureWrapperProps) => {
   useEffect(() => {
     if (setValidationFunctions) {
-      setValidationFunctions(validationFunctions);
+      setValidationFunctions({
+        data: PMD.data,
+        functions: validationFunctions,
+      });
     }
   }, [setValidationFunctions]);
   const { watch } = useFormContext<DefaultFormData>();
@@ -44,7 +47,7 @@ export const MSCAD = ({
                 {isPrimaryMeasureSpecSelected && (
                   <>
                     <CMQ.PerformanceMeasure
-                      data={PMD.data}
+                      data={PMD.data.performanceMeasure}
                       rateReadOnly={false}
                     />
                   </>

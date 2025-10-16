@@ -1,4 +1,4 @@
-import { validateSameDenominatorSets } from ".";
+import { validateSameDenominatorSetsOMS } from ".";
 import {
   generateOmsCategoryRateData,
   locationDictionary,
@@ -26,31 +26,58 @@ describe("Testing Same Denominator Set Validation", () => {
     label: ["TestLabel"],
   };
 
-  it("Denominator should return no errors", () => {
-    const data = generateOmsCategoryRateData(categories, qualifiers, [
-      lowerRate,
-      higherRate,
-    ]);
+  describe("OMS Validation", () => {
+    it("should return NO errors", () => {
+      const data = generateOmsCategoryRateData(categories, qualifiers, [
+        lowerRate,
+        higherRate,
+      ]);
 
-    const errors = validateSameDenominatorSets()({
-      ...baseOMSInfo,
-      rateData: data,
+      const errors = validateSameDenominatorSetsOMS()({
+        ...baseOMSInfo,
+        rateData: data,
+      });
+      expect(errors).toHaveLength(0);
     });
-
-    expect(errors).toHaveLength(0);
-  });
-
-  it("Denominator should return errors", () => {
-    const data = generateOmsCategoryRateData(categories, qualifiers, [
-      simpleRate,
-      doubleRate,
-    ]);
-
-    const errors = validateSameDenominatorSets()({
-      ...baseOMSInfo,
-      rateData: data,
+    it("should return no errors if OPM", () => {
+      const data = generateOmsCategoryRateData(categories, qualifiers, [
+        lowerRate,
+        higherRate,
+      ]);
+      const errors = validateSameDenominatorSetsOMS()({
+        ...baseOMSInfo,
+        rateData: data,
+        isOPM: true,
+      });
+      expect(errors).toHaveLength(0);
     });
+    it("should have errors", () => {
+      const data = generateOmsCategoryRateData(categories, qualifiers, [
+        simpleRate,
+        doubleRate,
+      ]);
 
-    expect(errors).toHaveLength(2);
+      if (data.rates) {
+        data.rates["TestCat1"]["TestQual2"][0] = {
+          numerator: "3",
+          denominator: "4",
+          rate: "0",
+        };
+        data.rates["TestCat2"]["TestQual2"][0] = {
+          numerator: "5",
+          denominator: "6",
+          rate: "0",
+        };
+      }
+
+      const errors = validateSameDenominatorSetsOMS()({
+        ...baseOMSInfo,
+        rateData: data,
+      });
+      expect(errors).toHaveLength(2);
+      expect(errors[0].errorMessage).toBe(
+        `Denominators must be the same for ${categories[0].label} and ${categories[1].label}.`
+      );
+    });
   });
 });

@@ -26,22 +26,22 @@ const ndrForumlas = [
   {
     numerator: 1,
     denominator: 0,
-    rate: 2,
+    rateIndex: 2,
   },
   {
     numerator: 3,
     denominator: 0,
-    rate: 4,
+    rateIndex: 4,
   },
   {
     numerator: 1,
     denominator: 3,
-    rate: 5,
+    rateIndex: 5,
   },
   {
     numerator: 7,
     denominator: 6,
-    rate: 8,
+    rateIndex: 8,
   },
 ];
 
@@ -80,7 +80,7 @@ describe("Test the Rate component when readOnly is false", () => {
     ndrForumlas.forEach((ndr, i) => {
       const numerator = screen.getByLabelText(qualifiers[ndr.numerator]);
       const denominator = screen.getByLabelText(qualifiers[ndr.denominator]);
-      const rate = screen.getByLabelText(qualifiers[ndr.rate]);
+      const rate = screen.getByLabelText(qualifiers[ndr.rateIndex]);
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");
@@ -94,7 +94,7 @@ describe("Test the Rate component when readOnly is false", () => {
   test("Check that when readOnly is true the user can modify the rate", () => {
     // Rate should be editable
     ndrForumlas.forEach((ndr) => {
-      const rate = screen.getByLabelText(qualifiers[ndr.rate]);
+      const rate = screen.getByLabelText(qualifiers[ndr.rateIndex]);
       fireEvent.type(rate, "42");
       expect(rate).toHaveDisplayValue("42");
     });
@@ -131,7 +131,7 @@ describe("Test the Rate component when readOnly is true", () => {
     ndrForumlas.forEach((ndr, i) => {
       const numerator = screen.getByLabelText(qualifiers[ndr.numerator]);
       const denominator = screen.getByLabelText(qualifiers[ndr.denominator]);
-      const rate = screen.getByText(qualifiers[ndr.rate]).nextSibling;
+      const rate = screen.getByText(qualifiers[ndr.rateIndex]).nextSibling;
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");
@@ -145,7 +145,7 @@ describe("Test the Rate component when readOnly is true", () => {
   test("Check that when readOnly is true the user cannot modify the rate", () => {
     // Rate should not have an input field
     ndrForumlas.forEach((ndr) => {
-      const rate = screen.getByText(qualifiers[ndr.rate]).nextSibling;
+      const rate = screen.getByText(qualifiers[ndr.rateIndex]).nextSibling;
       expect(rate?.nodeName).toBe("P");
     });
   });
@@ -175,7 +175,7 @@ describe("Test the component for PCR-HH specific conditions", () => {
     ndrForumlas.forEach((ndr, i) => {
       const numerator = screen.getByLabelText(qualifiers[ndr.numerator]);
       const denominator = screen.getByLabelText(qualifiers[ndr.denominator]);
-      const rate = screen.getByLabelText(qualifiers[ndr.rate]);
+      const rate = screen.getByLabelText(qualifiers[ndr.rateIndex]);
 
       fireEvent.type(numerator, "42");
       fireEvent.type(denominator, "84");

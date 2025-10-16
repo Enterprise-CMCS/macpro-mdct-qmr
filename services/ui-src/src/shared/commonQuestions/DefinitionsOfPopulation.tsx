@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import * as Types from "../types";
 import {
   allPositiveIntegers,
@@ -25,7 +24,7 @@ interface Props {
 interface DefOfDenomOption {
   displayValue: string;
   value: string;
-  children?: React.ReactNode[];
+  children?: JSX.Element[];
 }
 export interface CoreSetSpecificOptions {
   [coreSetId: string]: {
@@ -69,7 +68,6 @@ const defOfDenomOptions: { [coreSetType: string]: DefOfDenomOption[] } = {
 };
 
 const StandardDefinitions = (
-  register: any,
   labels: AnyObject,
   healthHomeMeasure?: boolean
 ) => {
@@ -97,7 +95,8 @@ const StandardDefinitions = (
         })}
       </CUI.UnorderedList>
       <QMR.Checkbox
-        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+        key={DC.DEFINITION_OF_DENOMINATOR}
+        name={DC.DEFINITION_OF_DENOMINATOR}
         options={[
           ...options,
           {
@@ -105,9 +104,10 @@ const StandardDefinitions = (
             value: DC.DENOMINATOR_INC_OTHER,
             children: [
               <QMR.TextArea
+                key={DC.DEFINITION_DENOMINATOR_OTHER}
+                name={DC.DEFINITION_DENOMINATOR_OTHER}
                 formLabelProps={{ fontWeight: "400" }}
                 label={parseLabelToHTML(labels.defineDenomOther)}
-                {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
               />,
             ],
           },
@@ -118,7 +118,6 @@ const StandardDefinitions = (
 };
 
 const CoreSetSpecificDefinitions = (
-  register: any,
   labels: AnyObject,
   coreSetType: string,
   options: CoreSetSpecificOptions,
@@ -129,9 +128,10 @@ const CoreSetSpecificDefinitions = (
     value: DC.DENOMINATOR_INC_OTHER,
     children: [
       <QMR.TextArea
+        key={DC.DEFINITION_DENOMINATOR_OTHER}
+        name={DC.DEFINITION_DENOMINATOR_OTHER}
         formLabelProps={{ fontWeight: "400" }}
         label={parseLabelToHTML(labels.defineDenomOther)}
-        {...register(DC.DEFINITION_DENOMINATOR_OTHER)}
       />,
     ],
   };
@@ -148,34 +148,37 @@ const CoreSetSpecificDefinitions = (
           </CUI.UnorderedList>
         )}
       <QMR.Checkbox
-        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+        key={DC.DEFINITION_OF_DENOMINATOR}
+        name={DC.DEFINITION_OF_DENOMINATOR}
         options={[...options[coreSetType].options, ...otherOptions]}
       />
     </CUI.Box>
   );
 };
 
-const ChildDefinitions = (register: any) => {
+const ChildDefinitions = () => {
   return (
     <CUI.Box>
       <CUI.Text mb="2">
         Please select all populations that are included.
       </CUI.Text>
       <QMR.RadioButton
-        {...register(DC.DEFINITION_OF_DENOMINATOR)}
+        key={DC.DEFINITION_OF_DENOMINATOR}
+        name={DC.DEFINITION_OF_DENOMINATOR}
         valueAsArray
         options={defOfDenomOptions["child"]}
       />
     </CUI.Box>
   );
 };
-const HealthHomeDefinitions = (register: any) => {
+const HealthHomeDefinitions = () => {
   return (
     <CUI.Box my="5">
       <QMR.RadioButton
         formLabelProps={{ fontWeight: "600" }}
         label="Are all Health Home Providers represented in the denominator?"
-        {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME)}
+        key={DC.DENOMINATOR_DEFINE_HEALTH_HOME}
+        name={DC.DENOMINATOR_DEFINE_HEALTH_HOME}
         options={[
           {
             displayValue:
@@ -188,7 +191,8 @@ const HealthHomeDefinitions = (register: any) => {
             value: DC.NO,
             children: [
               <QMR.TextArea
-                {...register(DC.DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN)}
+                key={DC.DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN}
+                name={DC.DENOMINATOR_DEFINE_HEALTH_HOME_NO_EXPLAIN}
                 label="Explain why all Health Home Providers are not represented in the denominator:"
               />,
             ],
@@ -199,7 +203,7 @@ const HealthHomeDefinitions = (register: any) => {
   );
 };
 
-const HybridDefinitions = (register: any, header: boolean = true) => {
+const HybridDefinitions = (header: boolean = true) => {
   return (
     <CUI.Box mt="5">
       {header && (
@@ -209,13 +213,15 @@ const HybridDefinitions = (register: any, header: boolean = true) => {
         </CUI.Heading>
       )}
       <QMR.NumberInput
-        {...register(DC.HYBRID_MEASURE_POPULATION_INCLUDED)}
+        key={DC.HYBRID_MEASURE_POPULATION_INCLUDED}
+        name={DC.HYBRID_MEASURE_POPULATION_INCLUDED}
         formControlProps={{ my: "4" }}
         mask={allPositiveIntegers}
         label="What is the size of the measure-eligible population?"
       />
       <QMR.NumberInput
-        {...register(DC.HYBRID_MEASURE_SAMPLE_SIZE)}
+        key={DC.HYBRID_MEASURE_SAMPLE_SIZE}
+        name={DC.HYBRID_MEASURE_SAMPLE_SIZE}
         mask={allPositiveIntegers}
         label="Specify the sample size:"
       />
@@ -232,8 +238,6 @@ export const DefinitionOfPopulation = ({
   deliverySystems = true,
   removeOtherOption = false,
 }: Props) => {
-  const register = useCustomRegister<Types.DefinitionOfPopulation>();
-
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
 
@@ -252,7 +256,6 @@ export const DefinitionOfPopulation = ({
       </CUI.Heading>
       {labels.DefinitionsOfPopulation.coreSetSpecificOptions && coreSetType
         ? CoreSetSpecificDefinitions(
-            register,
             labels.DefinitionsOfPopulation,
             coreSetType,
             coreSetOptions ??
@@ -260,24 +263,26 @@ export const DefinitionOfPopulation = ({
             removeOtherOption
           )
         : childMeasure
-        ? ChildDefinitions(register)
+        ? ChildDefinitions()
         : StandardDefinitions(
-            register,
             labels.DefinitionsOfPopulation,
             healthHomeMeasure
           )}
       {labels.DefinitionsOfPopulation.changeInPopExplanation && (
         <CUI.Box my="5">
           <QMR.TextArea
+            key={DC.CHANGE_IN_POP_EXPLANATION}
+            name={DC.CHANGE_IN_POP_EXPLANATION}
             formLabelProps={{ fontWeight: "400" }}
             label={labels.DefinitionsOfPopulation.changeInPopExplanation}
-            {...register(DC.CHANGE_IN_POP_EXPLANATION)}
           />
         </CUI.Box>
       )}
       <CUI.Box my="5">
         {populationTotalTechSpec && (
           <QMR.RadioButton
+            key={DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC}
+            name={DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC}
             formLabelProps={{ fontWeight: "600" }}
             label={
               labels.DefinitionsOfPopulation.measureEligiblePopDenom.question[
@@ -286,7 +291,6 @@ export const DefinitionOfPopulation = ({
               labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
                 .default
             }
-            {...register(DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC)}
             options={[
               {
                 displayValue:
@@ -301,19 +305,17 @@ export const DefinitionOfPopulation = ({
                 value: DC.NO,
                 children: [
                   <QMR.TextArea
-                    {...register(
-                      DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN
-                    )}
+                    key={DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN}
+                    name={DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN}
                     label={parseLabelToHTML(
                       labels.DefinitionsOfPopulation.explainExcludedPop
                     )}
                   />,
                   <CUI.Box mt="10" key="DenominatorDefineTotalTechSpec-No-Size">
                     <QMR.NumberInput
+                      key={DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE}
+                      name={DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE}
                       mask={allPositiveIntegers}
-                      {...register(
-                        DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE
-                      )}
                       label={labels.DefinitionsOfPopulation.specSizeOfPop}
                     />
                   </CUI.Box>,
@@ -324,7 +326,7 @@ export const DefinitionOfPopulation = ({
         )}
       </CUI.Box>
       {(hybridMeasure || populationSampleSize) &&
-        HybridDefinitions(register, !populationSampleSize)}
+        HybridDefinitions(!populationSampleSize)}
       {deliverySystems && (
         <CUI.Box mt="5">
           <CUI.Heading size="sm" as="h2" my="2">
@@ -338,15 +340,17 @@ export const DefinitionOfPopulation = ({
           </CUI.Text>
 
           <QMR.Checkbox
+            key={DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR}
+            name={DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR}
             formLabelProps={{ fontWeight: "400" }}
-            {...register(DC.DELIVERY_SYS_REPRESENTATION_DENOMINATOR)}
             options={[
               {
                 displayValue: "Fee-for-Service (FFS)",
                 value: DC.FFS,
                 children: [
                   <QMR.RadioButton
-                    {...register(DC.DELIVERY_SYS_FFS)}
+                    key={DC.DELIVERY_SYS_FFS}
+                    name={DC.DELIVERY_SYS_FFS}
                     formLabelProps={{ fontWeight: "400" }}
                     label="Is all of your measure-eligible Fee-for-Service (FFS) population included in this measure?"
                     options={[
@@ -361,7 +365,8 @@ export const DefinitionOfPopulation = ({
                         value: DC.NO,
                         children: [
                           <QMR.NumberInput
-                            {...register(DC.DELIVERY_SYS_FFS_NO_PERCENT)}
+                            key={DC.DELIVERY_SYS_FFS_NO_PERCENT}
+                            name={DC.DELIVERY_SYS_FFS_NO_PERCENT}
                             formLabelProps={{ fontWeight: "400" }}
                             label="What percent of your measure-eligible Fee-for-Service (FFS) population are included in the measure?"
                             renderHelperTextAbove
@@ -388,7 +393,8 @@ export const DefinitionOfPopulation = ({
                 value: DC.PCCM,
                 children: [
                   <QMR.RadioButton
-                    {...register(DC.DELIVERY_SYS_PCCM)}
+                    key={DC.DELIVERY_SYS_PCCM}
+                    name={DC.DELIVERY_SYS_PCCM}
                     formLabelProps={{ fontWeight: "400" }}
                     label="Is all of your measure-eligible Primary Care Case Management (PCCM) population included in this measure?"
                     options={[
@@ -403,7 +409,8 @@ export const DefinitionOfPopulation = ({
                         value: DC.NO,
                         children: [
                           <QMR.NumberInput
-                            {...register(DC.DELIVERY_SYS_PCCM_NO_PERCENT)}
+                            key={DC.DELIVERY_SYS_PCCM_NO_PERCENT}
+                            name={DC.DELIVERY_SYS_PCCM_NO_PERCENT}
                             displayPercent
                             renderHelperTextAbove
                             helperText="The percentage provided here should represent the
@@ -432,15 +439,17 @@ export const DefinitionOfPopulation = ({
                 children: [
                   <CUI.Box py="5" key="DeliverySys-MCO_PIHP-NumberOfPlans">
                     <QMR.NumberInput
+                      key={DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS}
+                      name={DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS}
                       formLabelProps={{ fontWeight: "400" }}
                       mask={allPositiveIntegers}
                       label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data?"
-                      {...register(DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS)}
                     />
                   </CUI.Box>,
                   <CUI.Box pt="5" key="DeliverySys-MCO_PIHP">
                     <QMR.RadioButton
-                      {...register(DC.DELIVERY_SYS_MCO_PIHP)}
+                      key={DC.DELIVERY_SYS_MCO_PIHP}
+                      name={DC.DELIVERY_SYS_MCO_PIHP}
                       formLabelProps={{ fontWeight: "400" }}
                       label="Is all of your measure-eligible Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) population included in this measure?"
                       options={[
@@ -464,11 +473,12 @@ export const DefinitionOfPopulation = ({
                               {"in the measure?"}
                             </CUI.Text>,
                             <QMR.NumberInput
+                              key={DC.DELIVERY_SYS_MCO_PIHP_NO_INC}
+                              name={DC.DELIVERY_SYS_MCO_PIHP_NO_INC}
                               displayPercent
                               mask={percentageAllowOneDecimalMax}
                               renderHelperTextAbove
                               helperText="The percentage provided here should represent the percentage of the denominator population(s) included in the measure (i.e., Medicaid, CHIP, etc.) that receives items/services through the selected delivery system. For example, if the population included in the reported data represents all managed care enrollees and half of your state’s fee-for-service enrollees, select managed care, and select fee-for-service and enter 50."
-                              {...register(DC.DELIVERY_SYS_MCO_PIHP_NO_INC)}
                             />,
                             <CUI.Text my="5" key="AdditionalMCOExcludedText">
                               {" "}
@@ -483,8 +493,9 @@ export const DefinitionOfPopulation = ({
                               }
                             </CUI.Text>,
                             <QMR.NumberInput
+                              key={DC.DELIVERY_SYS_MCO_PIHP_NO_EXCL}
+                              name={DC.DELIVERY_SYS_MCO_PIHP_NO_EXCL}
                               mask={allPositiveIntegers}
-                              {...register(DC.DELIVERY_SYS_MCO_PIHP_NO_EXCL)}
                             />,
                           ],
                         },
@@ -498,9 +509,10 @@ export const DefinitionOfPopulation = ({
                 value: DC.ICM,
                 children: [
                   <QMR.RadioButton
+                    key={DC.DELIVERY_SYS_ICM}
+                    name={DC.DELIVERY_SYS_ICM}
                     formLabelProps={{ fontWeight: "400" }}
                     label="Is all of your measure-eligible Integrated Care Models (ICM) population included in this measure?"
-                    {...register(DC.DELIVERY_SYS_ICM)}
                     options={[
                       {
                         displayValue:
@@ -522,6 +534,8 @@ export const DefinitionOfPopulation = ({
                             {"in the measure?"}
                           </CUI.Text>,
                           <QMR.NumberInput
+                            key={DC.DELIVERY_SYS_ICM_NO_PERCENT}
+                            name={DC.DELIVERY_SYS_ICM_NO_PERCENT}
                             displayPercent
                             renderHelperTextAbove
                             helperText="The percentage provided here should represent the
@@ -535,7 +549,6 @@ export const DefinitionOfPopulation = ({
                           select fee-for-service and enter 50."
                             mask={percentageAllowOneDecimalMax}
                             formLabelProps={{ fontWeight: "400" }}
-                            {...register(DC.DELIVERY_SYS_ICM_NO_PERCENT)}
                           />,
                           <CUI.Box py="5" key="AdditionalICMText">
                             <CUI.Text my="5" key="AdditionalMCOExcludedText">
@@ -551,9 +564,10 @@ export const DefinitionOfPopulation = ({
                               }
                             </CUI.Text>
                             <QMR.NumberInput
+                              key={DC.DELIVERY_SYS_ICM_NO_POP}
+                              name={DC.DELIVERY_SYS_ICM_NO_POP}
                               mask={allPositiveIntegers}
                               formLabelProps={{ fontWeight: "400" }}
-                              {...register(DC.DELIVERY_SYS_ICM_NO_POP)}
                             />
                           </CUI.Box>,
                         ],
@@ -568,15 +582,18 @@ export const DefinitionOfPopulation = ({
                 children: [
                   <CUI.Box pb="5" key="DeliverySys-Other">
                     <QMR.TextArea
+                      key={DC.DELIVERY_SYS_OTHER}
+                      name={DC.DELIVERY_SYS_OTHER}
                       formLabelProps={{ fontWeight: "400" }}
                       label={parseLabelToHTML(
                         labels.DefinitionsOfPopulation.deliverySysOther
                       )}
-                      {...register(DC.DELIVERY_SYS_OTHER)}
                     />
                   </CUI.Box>,
                   <CUI.Box py="5" key="DeliverySys-Other-Percent">
                     <QMR.NumberInput
+                      key={DC.DELIVERY_SYS_OTHER_PERCENT}
+                      name={DC.DELIVERY_SYS_OTHER_PERCENT}
                       displayPercent
                       renderHelperTextAbove
                       helperText="The percentage provided here should represent the percentage
@@ -590,15 +607,15 @@ export const DefinitionOfPopulation = ({
                       mask={percentageAllowOneDecimalMax}
                       formLabelProps={{ fontWeight: "400" }}
                       label="Percentage of total other population represented in data reported:"
-                      {...register(DC.DELIVERY_SYS_OTHER_PERCENT)}
                     />
                   </CUI.Box>,
                   <CUI.Box py="5" key="DeliverySys-Other-NumberOfHealthPlans">
                     <QMR.NumberInput
+                      key={DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS}
+                      name={DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS}
                       mask={allPositiveIntegers}
                       formLabelProps={{ fontWeight: "400" }}
                       label="If applicable, list the number of Health Plans represented:"
-                      {...register(DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS)}
                     />
                   </CUI.Box>,
                 ],
@@ -607,7 +624,7 @@ export const DefinitionOfPopulation = ({
           />
         </CUI.Box>
       )}
-      {healthHomeMeasure && HealthHomeDefinitions(register)}
+      {healthHomeMeasure && HealthHomeDefinitions()}
     </QMR.CoreQuestionWrapper>
   );
 };
