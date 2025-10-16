@@ -11,7 +11,7 @@ describe(`Test banner`, () => {
     cy.get('[data-cy="New banner description"]').type(
       "test banner description"
     );
-    cy.get('[data-cy="New banner start date"]').type("01/01/2025");
+    cy.get('[data-cy="New banner start date"]').type("01/01/2026");
     cy.get('[data-cy="New banner end date"]').type("01/01/2100");
     cy.get('[data-cy="replace current banner button"]').click();
     cy.get('[data-cy="banner status"]').should("contain.text", "Active");
