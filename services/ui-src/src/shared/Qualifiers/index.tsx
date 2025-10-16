@@ -35,14 +35,7 @@ export const Qualifier = ({
   }, [setValidationFunctions, coreSetId, setType, coreSetAbbr]);
 
   const data =
-    Form[
-      `QualifierFormsData${year}` as
-        | "QualifierFormsData2021"
-        | "QualifierFormsData2022"
-        | "QualifierFormsData2023"
-        | "QualifierFormsData2024"
-        | "QualifierFormsData2025"
-    ].Data[coreSetAbbr];
+    Form[`QualifierFormsData${year}` as keyof typeof Form].Data[coreSetAbbr];
 
   return (
     <>

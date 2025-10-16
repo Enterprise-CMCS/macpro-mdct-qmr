@@ -517,7 +517,7 @@ to make in order to get that year working.
 
 ### LaunchDarkly Flag
 
-1. In `services/ui-src/src/views/StateHome/index.tsx` look for the a line of code similar to this `const releasedTwentyTwentyFour = useFlags()?.["release2024"];` change the year to the latest year and do a quick search and replace with the new variable name.
+1. In `services/ui-src/src/views/StateHome/index.tsx` look for the a line of code similar to this `const releaseYearByFlag = useFlags()?.["release2026"];` change the year to the latest year and do a quick search and replace with the new variable name.
 
 2. Search for `periodOfHealthEmergency2025` and change it to the next year.
 
