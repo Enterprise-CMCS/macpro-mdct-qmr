@@ -18,7 +18,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "SS-1-HH";
 const coreSet = "HHCS";
 const state = "CT";
-const year = 2025;
+const year = 2026;
 const description = "test";
 const apiData: any = {};
 

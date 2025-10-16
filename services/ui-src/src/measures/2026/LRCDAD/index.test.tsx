@@ -18,7 +18,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "LRCD-AD";
 const coreSet = "ACSC";
 const state = "AL";
-const year = 2025;
+const year = 2026;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 

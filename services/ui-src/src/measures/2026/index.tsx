@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { measureTemplate } from "./measureTemplate";
 import { Qualifier } from "shared/Qualifiers";
-import { Data } from "labels/2025/qualifierFormsData";
+import { Data } from "labels/2026/qualifierFormsData";
 
 const AMRAD = lazy(() =>
   import("./AMRAD").then((module) => ({ default: module.AMRAD }))
