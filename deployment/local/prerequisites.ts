@@ -41,10 +41,17 @@ export class LocalPrerequisiteStack extends Stack {
       secretObjectValue: {
         brokerString: SecretValue.unsafePlainText("localstack"),
         kafkaAuthorizedSubnetIds: SecretValue.unsafePlainText(subnet1.subnetId),
-        launchDarklyClient: SecretValue.unsafePlainText("localstack"),
+        vpnIpSetArn: SecretValue.unsafePlainText("localstack"),
+        vpnIpv6SetArn: SecretValue.unsafePlainText("localstack"),
+        mpriamrole: SecretValue.unsafePlainText("localstack"),
+        mprdeviam: SecretValue.unsafePlainText("localstack"),
         oktaMetadataUrl: SecretValue.unsafePlainText("localstack"),
+        launchDarklyClient: SecretValue.unsafePlainText("localstack"),
         redirectSignout: SecretValue.unsafePlainText("localstack"),
         vpcName: SecretValue.unsafePlainText("localstack"),
+        docraptorApiKey: SecretValue.unsafePlainText(
+          process.env.docraptorApiKey!
+        ),
       },
     });
 
