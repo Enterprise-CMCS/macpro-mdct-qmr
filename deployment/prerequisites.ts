@@ -16,7 +16,7 @@ import { Construct } from "constructs";
 
 interface PrerequisiteConfigProps {
   project: string;
-  branchFilter: string;
+  vpcName: string;
 }
 
 export class PrerequisiteStack extends Stack {
@@ -27,7 +27,20 @@ export class PrerequisiteStack extends Stack {
   ) {
     super(scope, id, props);
 
-    const { project, branchFilter } = props;
+    const { project, vpcName } = props;
+
+    let githubEnvironmentName: string;
+    if (vpcName.endsWith("dev")) {
+      githubEnvironmentName = "dev";
+    } else if (vpcName.endsWith("impl")) {
+      githubEnvironmentName = "val";
+    } else if (vpcName.endsWith("prod")) {
+      githubEnvironmentName = "production";
+    } else {
+      throw new Error(
+        `Could not determine GitHub environment name from VPC name: ${vpcName}`
+      );
+    }
 
     new CloudWatchLogsResourcePolicy(this, "logPolicy", { project });
 
@@ -67,7 +80,7 @@ export class PrerequisiteStack extends Stack {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
           },
           StringLike: {
-            "token.actions.githubusercontent.com:sub": `repo:Enterprise-CMCS/macpro-mdct-qmr:${branchFilter}`,
+            "token.actions.githubusercontent.com:sub": `repo:Enterprise-CMCS/macpro-mdct-hcbs:environment:${githubEnvironmentName}`,
           },
         },
         "sts:AssumeRoleWithWebIdentity"
