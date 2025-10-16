@@ -1,5 +1,4 @@
-import { renderHook } from "@testing-library/react";
-import { useFormContext } from "react-hook-form";
+import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import {
   useAgeGroupsCheckboxes,
   useRenderOPMCheckboxOptions,
@@ -12,14 +11,13 @@ import {
 } from "./rates";
 import { isLegacyLabel, getLabelText } from "utils";
 
-jest.mock("react-hook-form");
 jest.mock("../context");
 jest.mock("./rates");
 jest.mock("utils");
+jest.mock("dataConstants", () => ({
+  DATA_SOURCE: "dataSource",
+}));
 
-const mockUseFormContext = useFormContext as jest.MockedFunction<
-  typeof useFormContext
->;
 const mockUsePerformanceMeasureContext =
   usePerformanceMeasureContext as jest.MockedFunction<
     typeof usePerformanceMeasureContext
@@ -41,15 +39,26 @@ const mockGetLabelText = getLabelText as jest.MockedFunction<
   typeof getLabelText
 >;
 
+let ageGroupsResult: any;
+let opmResult: any;
+
+const AgeGroupsCheckboxesTest = ({ name }: { name: string }) => {
+  ageGroupsResult = useAgeGroupsCheckboxes(name);
+  return <div data-testid="age-groups-rendered">Ready</div>;
+};
+
+const OPMCheckboxesTest = ({ name }: { name: string }) => {
+  opmResult = useRenderOPMCheckboxOptions(name);
+  return <div data-testid="opm-rendered">Ready</div>;
+};
+
 describe("useAgeGroupsCheckboxes", () => {
-  const mockWatch = jest.fn();
   const testName = "testField";
 
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseFormContext.mockReturnValue({
-      watch: mockWatch,
-    } as any);
+    ageGroupsResult = undefined;
+    opmResult = undefined;
   });
 
   describe("Legacy Label Format", () => {
@@ -82,21 +91,15 @@ describe("useAgeGroupsCheckboxes", () => {
         customPrompt: undefined,
       } as any);
 
-      mockGetLabelText.mockReturnValue({
-        "Age 0-17": "Ages 0 to 17",
-        "Age 18-64": "Ages 18 to 64",
-      });
-
-      mockWatch.mockReturnValue(["HybridData"]);
       mockUseStandardRateArray.mockReturnValue(mockRates);
       mockUseQualRateArray.mockReturnValue([]);
 
-      const { result } = renderHook(() => useAgeGroupsCheckboxes(testName));
+      renderWithHookForm(<AgeGroupsCheckboxesTest name={testName} />);
 
-      expect(result.current).toHaveLength(2);
+      expect(ageGroupsResult).toHaveLength(2);
       expect(mockUseStandardRateArray).toHaveBeenCalledWith(testName);
-      expect(result.current[0].displayValue).toBe("Ages 0 to 17");
-      expect(result.current[1].displayValue).toBe("Ages 18 to 64");
+      expect(ageGroupsResult[0].displayValue).toBe("Ages 0 to 17");
+      expect(ageGroupsResult[1].displayValue).toBe("Ages 18 to 64");
     });
 
     it("should exclude last qualifier when calcTotal is true", () => {
@@ -118,14 +121,13 @@ describe("useAgeGroupsCheckboxes", () => {
         customPrompt: undefined,
       } as any);
 
-      mockWatch.mockReturnValue(["HybridData"]);
       mockUseQualRateArray.mockReturnValue(mockRates);
 
-      const { result } = renderHook(() => useAgeGroupsCheckboxes(testName));
+      renderWithHookForm(<AgeGroupsCheckboxesTest name={testName} />);
 
-      expect(result.current).toHaveLength(2);
-      expect(result.current[0].value).toBe("qual1");
-      expect(result.current[1].value).toBe("qual2");
+      expect(ageGroupsResult).toHaveLength(2);
+      expect(ageGroupsResult[0].value).toBe("qual1");
+      expect(ageGroupsResult[1].value).toBe("qual2");
     });
 
     it("should only include checkboxes with non-empty rate arrays", () => {
@@ -147,14 +149,12 @@ describe("useAgeGroupsCheckboxes", () => {
         customPrompt: undefined,
       } as any);
 
-      mockWatch.mockReturnValue(["HybridData"]);
       mockUseQualRateArray.mockReturnValue(mockRates);
+      renderWithHookForm(<AgeGroupsCheckboxesTest name={testName} />);
 
-      const { result } = renderHook(() => useAgeGroupsCheckboxes(testName));
-
-      expect(result.current).toHaveLength(2);
-      expect(result.current[0].value).toBe("qual1");
-      expect(result.current[1].value).toBe("qual3");
+      expect(ageGroupsResult).toHaveLength(2);
+      expect(ageGroupsResult[0].value).toBe("qual1");
+      expect(ageGroupsResult[1].value).toBe("qual3");
     });
   });
 
@@ -180,14 +180,13 @@ describe("useAgeGroupsCheckboxes", () => {
         customPrompt: undefined,
       } as any);
 
-      mockWatch.mockReturnValue(["HybridData"]);
       mockUseStandardRateArray.mockReturnValue(mockRates);
 
-      const { result } = renderHook(() => useAgeGroupsCheckboxes(testName));
+      renderWithHookForm(<AgeGroupsCheckboxesTest name={testName} />);
 
-      expect(result.current).toHaveLength(2);
+      expect(ageGroupsResult).toHaveLength(2);
       expect(mockUseStandardRateArray).toHaveBeenCalledWith(testName);
-      expect(result.current[0].displayValue).toBe("Category 1 Text");
+      expect(ageGroupsResult[0].displayValue).toBe("Category 1 Text");
     });
   });
 
@@ -207,25 +206,25 @@ describe("useAgeGroupsCheckboxes", () => {
         customPrompt: undefined,
       } as any);
 
-      mockWatch.mockReturnValue(["AdministrativeData"]);
       mockUseRatesForCompletedPmQualifiers.mockReturnValue(mockRates);
 
-      const { result } = renderHook(() => useAgeGroupsCheckboxes(testName));
+      renderWithHookForm(<AgeGroupsCheckboxesTest name={testName} />, {
+        defaultValues: {
+          dataSource: ["AdministrativeData"],
+        },
+      });
 
-      expect(result.current[0].children![1].props.hidden).toBe(true);
+      expect(ageGroupsResult[0].children).toHaveLength(3);
+      expect(ageGroupsResult[0].children![1].props.hidden).toBe(true);
     });
   });
 });
 
 describe("useRenderOPMCheckboxOptions", () => {
-  const mockWatch = jest.fn();
   const testName = "testOPMField";
 
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseFormContext.mockReturnValue({
-      watch: mockWatch,
-    } as any);
   });
 
   describe("Legacy Label Format", () => {
@@ -246,79 +245,51 @@ describe("useRenderOPMCheckboxOptions", () => {
         rateMultiplicationValue: 100,
       } as any);
 
-      mockWatch.mockReturnValue(["HybridData"]);
+      renderWithHookForm(<OPMCheckboxesTest name={testName} />);
 
-      const { result } = renderHook(() =>
-        useRenderOPMCheckboxOptions(testName)
-      );
-
-      expect(result.current).toHaveLength(2);
-      expect(result.current[0].displayValue).toBe("OPM Measure 1");
-      expect(result.current[1].displayValue).toBe("OPM Measure 2");
+      expect(opmResult).toHaveLength(2);
+      expect(opmResult[0].displayValue).toBe("OPM Measure 1");
+      expect(opmResult[1].displayValue).toBe("OPM Measure 2");
     });
   });
-  //   beforeEach(() => {
-  //     mockIsLegacyLabel.mockReturnValue(false);
-  //   });
+  describe("Edge Cases", () => {
+    beforeEach(() => {
+      mockIsLegacyLabel.mockReturnValue(false);
+    });
+    it("should handle OPM entries without description", () => {
+      const mockOPM = [
+        { description: "OPM Measure 1" },
+        { description: undefined },
+        { description: "OPM Measure 3" },
+      ];
 
-  //   it("should build OPM checkboxes with new structure", () => {
-  //     const mockOPM = [
-  //       { description: "OPM Measure 1" },
-  //       { description: "OPM Measure 2" },
-  //     ];
+      mockUsePerformanceMeasureContext.mockReturnValue({
+        OPM: mockOPM,
+        customPrompt: undefined,
+      } as any);
 
-  //     mockUsePerformanceMeasureContext.mockReturnValue({
-  //       OPM: mockOPM,
-  //       customPrompt: undefined,
-  //       rateReadOnly: false,
-  //       rateMultiplicationValue: 100,
-  //     } as any);
+      renderWithHookForm(<OPMCheckboxesTest name={testName} />);
 
-  //     mockWatch.mockReturnValue(["HybridData"]);
+      expect(opmResult).toHaveLength(2);
+      expect(opmResult[0].displayValue).toBe("OPM Measure 1");
+      expect(opmResult[1].displayValue).toBe("OPM Measure 3");
+    });
 
-  //     const { result } = renderHook(() =>
-  //       useRenderOPMCheckboxOptions(testName)
-  //     );
+    it("should respect data source for display helper text", () => {
+      const mockOPM = [{ description: "OPM Measure 1" }];
 
-  //     expect(result.current).toHaveLength(2);
-  //   });
-  // });
+      mockUsePerformanceMeasureContext.mockReturnValue({
+        OPM: mockOPM,
+        customPrompt: undefined,
+      } as any);
 
-  it("should handle OPM entries without description", () => {
-    const mockOPM = [
-      { description: "OPM Measure 1" },
-      { description: undefined },
-      { description: "OPM Measure 3" },
-    ];
+      renderWithHookForm(<OPMCheckboxesTest name={testName} />, {
+        defaultValues: {
+          dataSource: ["AdministrativeData"],
+        },
+      });
 
-    mockIsLegacyLabel.mockReturnValue(false);
-    mockUsePerformanceMeasureContext.mockReturnValue({
-      OPM: mockOPM,
-      customPrompt: undefined,
-    } as any);
-
-    mockWatch.mockReturnValue(["HybridData"]);
-
-    const { result } = renderHook(() => useRenderOPMCheckboxOptions(testName));
-
-    expect(result.current).toHaveLength(2);
-    expect(result.current[0].displayValue).toBe("OPM Measure 1");
-    expect(result.current[1].displayValue).toBe("OPM Measure 3");
-  });
-
-  it("should respect data source for display helper text", () => {
-    const mockOPM = [{ description: "OPM Measure 1" }];
-
-    mockIsLegacyLabel.mockReturnValue(false);
-    mockUsePerformanceMeasureContext.mockReturnValue({
-      OPM: mockOPM,
-      customPrompt: undefined,
-    } as any);
-
-    mockWatch.mockReturnValue(["AdministrativeData"]);
-
-    const { result } = renderHook(() => useRenderOPMCheckboxOptions(testName));
-
-    expect(result.current[0].children![1].props.hidden).toBe(true);
+      expect(opmResult[0].children![1].props.hidden).toBe(true);
+    });
   });
 });
