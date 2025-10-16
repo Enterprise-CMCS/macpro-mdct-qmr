@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
 import "source-map-support/register";
 import {
   App,
@@ -10,6 +11,12 @@ import {
   aws_secretsmanager as secretsmanager,
 } from "aws-cdk-lib";
 import { Construct } from "constructs";
+
+if (!process.env.PROJECT) {
+  throw new Error("PROJECT enironment variable is required but not set");
+}
+
+const project = process.env.PROJECT!;
 
 export class LocalPrerequisiteStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -30,21 +37,14 @@ export class LocalPrerequisiteStack extends Stack {
     });
 
     new secretsmanager.Secret(this, "DefaultSecret", {
-      secretName: "qmr-default", // pragma: allowlist-secret
+      secretName: `${project}-default`, // pragma: allowlist secret
       secretObjectValue: {
-        vpcName: SecretValue.unsafePlainText("localstack"),
         brokerString: SecretValue.unsafePlainText("localstack"),
         kafkaAuthorizedSubnetIds: SecretValue.unsafePlainText(subnet1.subnetId),
-        vpnIpSetArn: SecretValue.unsafePlainText("localstack"),
-        vpnIpv6SetArn: SecretValue.unsafePlainText("localstack"),
-        mpriamrole: SecretValue.unsafePlainText("localstack"),
-        mprdeviam: SecretValue.unsafePlainText("localstack"),
-        oktaMetadataUrl: SecretValue.unsafePlainText("localstack"),
         launchDarklyClient: SecretValue.unsafePlainText("localstack"),
+        oktaMetadataUrl: SecretValue.unsafePlainText("localstack"),
         redirectSignout: SecretValue.unsafePlainText("localstack"),
-        docraptorApiKey: SecretValue.unsafePlainText(
-          process.env.docraptorApiKey!
-        ),
+        vpcName: SecretValue.unsafePlainText("localstack"),
       },
     });
 
@@ -74,7 +74,8 @@ export class LocalPrerequisiteStack extends Stack {
 
 async function main() {
   const app = new App();
-  new LocalPrerequisiteStack(app, "qmr-local-prerequisites");
+
+  new LocalPrerequisiteStack(app, `${project}-local-prerequisites`);
 }
 
 main();
