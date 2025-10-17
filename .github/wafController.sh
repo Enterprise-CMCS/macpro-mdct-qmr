@@ -1,8 +1,11 @@
 # !/usr/bin/env bash
 
 CIRCUIT_BREAKER=10
+AWS_RETRY_MODE=adaptive
 AWS_RETRY_ERROR=254
+AWS_MAX_ATTEMPTS=10
 AWS_THROTTLING_EXCEPTION=252
+
 #0, 1, 2 are the levels of debug, with 0 being off
 DEBUG=1
 
