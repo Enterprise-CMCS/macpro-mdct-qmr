@@ -1,3 +1,31 @@
+
+          #!/bin/bash
+          GHA_RESP=$(curl --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/meta)
+          echo "Response for GHA runner CIDR blocks:  $GHA_RESP"
+          IPV4_CIDR_ARR=($(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':'))
+          GHA_CIDRS_IPV4=$(echo $(IFS=" "; echo ${IPV4_CIDR_ARR[*]}))
+          echo "GHA_CIDRS_IPV4=$GHA_CIDRS_IPV4" >> $GITHUB_OUTPUT
+          STAGE_GH_IPSET_NAME=$branch_name-gh-ipset
+          echo "Github IP Set name:  $STAGE_GH_IPSET_NAME"
+          echo "STAGE_GH_IPSET_NAME=$STAGE_GH_IPSET_NAME" >> $GITHUB_OUTPUT
+          AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
+          echo "Outputting AWS IP Set Info:  ${AWS_IP_SET_INFO}"
+          IPSET_NAME=$STAGE_GH_IPSET_NAME
+          IPSET=$(jq '.IPSets | map(select(.Name == "'${IPSET_NAME}'")) | .[]' <<< ${AWS_IP_SET_INFO})
+          [ -z "$IPSET" ] && echo "IP Set with name ${IPSET_NAME} was not located.  Exiting..." && exit 1
+          IPSET_ID=$(jq -r '.Id' <<< ${IPSET})
+          echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
+          echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
+          echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
+
+      - name: Update IP Set
+        id: update-ip-set
+        run: ./.github/wafController.sh set ${{ steps.shell-steps.outputs.IPSET_NAME }} ${{ steps.shell-steps.outputs.IPSET_ID }} ${{ steps.shell-steps.outputs.GHA_CIDRS_IPV4 }}
+    outputs:
+      ipset_name: ${{ steps.shell-steps.outputs.IPSET_NAME }}
+      ipset_id: ${{ steps.shell-steps.outputs.IPSET_ID }}
+
+
 # !/usr/bin/env bash
 
 CIRCUIT_BREAKER=10
