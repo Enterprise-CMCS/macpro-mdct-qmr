@@ -111,21 +111,24 @@ export const getFilledKeys = (data: {
           );
       }
     );
-    for (const [midKey, midValue] of Object.entries(
-      topValue.selections as Types.OmsNodes.MidLevelOMSNode
-    )) {
-      if (midValue.additionalSubCategories) {
-        keys.push(
-          `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`
-        );
-      }
-      if (midValue.rateData?.rates) {
-        const values = Object.values(midValue.rateData.rates);
 
-        if (values.some(hasNumOrDenom)) {
+    if (topValue.selections) {
+      for (const [midKey, midValue] of Object.entries(
+        topValue.selections as Types.OmsNodes.MidLevelOMSNode
+      )) {
+        if (midValue.additionalSubCategories) {
           keys.push(
-            `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates`
+            `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`
           );
+        }
+        if (midValue.rateData?.rates) {
+          const values = Object.values(midValue.rateData.rates);
+
+          if (values.some(hasNumOrDenom)) {
+            keys.push(
+              `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.rateData.rates`
+            );
+          }
         }
       }
     }

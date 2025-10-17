@@ -185,7 +185,7 @@ export function AppRoutes() {
           element={<AddStateSpecificMeasure />}
         />
         {measureRoutes.map((m: MeasureRoute) => (
-          <Route {...m} />
+          <Route path={m.path} key={m.key} element={m.element} />
         ))}
         <Route path="*" element={<NotFound />} />
       </Routes>

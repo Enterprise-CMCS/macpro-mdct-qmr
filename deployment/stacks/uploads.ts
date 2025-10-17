@@ -244,7 +244,7 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     environment: {
       DYNAMO_BUCKET_NAME: dynamoBucket.bucketName,
       ...Object.fromEntries(
-        tables.map((table) => [`${table.id}Table`, table.table.tableName])
+        tables.map((table) => [`${table.node.id}Table`, table.table.tableName])
       ),
     },
     isDev,

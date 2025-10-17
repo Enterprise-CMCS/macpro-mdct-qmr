@@ -1,11 +1,9 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useCustomRegister } from "hooks/useCustomRegister";
-import { FormData } from "../types";
 import { useParams } from "react-router-dom";
+import * as DC from "dataConstants";
 
 export const DefinitionOfPopulation = () => {
-  const register = useCustomRegister<FormData>();
   const { coreSetId } = useParams();
 
   // default options are set to medicaid
@@ -39,7 +37,8 @@ export const DefinitionOfPopulation = () => {
         Please select all populations that are included in the survey sample.
       </CUI.Heading>
       <QMR.Checkbox
-        {...register("DefinitionOfSurveySample")}
+        key={DC.DEFINITION_OF_SURVEY_SAMPLE}
+        name={DC.DEFINITION_OF_SURVEY_SAMPLE}
         options={[
           ...options,
           {
@@ -49,7 +48,8 @@ export const DefinitionOfPopulation = () => {
               <QMR.TextArea
                 formLabelProps={{ fontWeight: "400" }}
                 label={"Define the Other survey population"}
-                {...register("DefinitionOfSurveySample-Other")}
+                key={DC.DEFINITION_OF_SURVEY_SAMPLE_OTHER}
+                name={DC.DEFINITION_OF_SURVEY_SAMPLE_OTHER}
               />,
             ],
           },

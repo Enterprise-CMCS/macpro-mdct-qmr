@@ -1,5 +1,4 @@
 import * as QMR from "components";
-import { useCustomRegister } from "hooks/useCustomRegister";
 import { useFormContext } from "react-hook-form";
 import * as DC from "dataConstants";
 import { FormData } from "../types";
@@ -10,7 +9,6 @@ interface Props {
 }
 
 export const Reporting = ({ reportingYear }: Props) => {
-  const register = useCustomRegister<FormData>();
   const { watch } = useFormContext<FormData>();
   const watchRadioStatus = watch(DC.DID_COLLECT);
 
@@ -21,7 +19,8 @@ export const Reporting = ({ reportingYear }: Props) => {
         label="Did you collect this measure?"
       >
         <QMR.RadioButton
-          {...register(DC.DID_COLLECT)}
+          key={DC.DID_COLLECT}
+          name={DC.DID_COLLECT}
           options={[
             {
               displayValue: `Yes, we did collect data for Medical Assistance with Smoking and Tobacco Use Cessation (MSC-AD) for ${reportingYear} quality measure reporting.`,
