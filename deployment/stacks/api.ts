@@ -95,7 +95,6 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   });
 
   const environment = {
-    stage,
     docraptorApiKey,
     brokerString,
     KAFKA_CLIENT_ID: kafkaClientId ?? `qmr-${stage}`,
