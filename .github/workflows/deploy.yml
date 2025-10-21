@@ -52,179 +52,27 @@ jobs:
           echo "application_endpoint=$APPLICATION_ENDPOINT" >> $GITHUB_OUTPUT
           echo "## Application Endpoint" >> $GITHUB_STEP_SUMMARY
           echo "<$APPLICATION_ENDPOINT>" >> $GITHUB_STEP_SUMMARY
-    outputs:
-      application_endpoint: ${{ steps.endpoint.outputs.application_endpoint }}
-
-  register-runner:
-    name: Register GitHub Runner
-    environment: ${{ (github.ref_name == 'production' && 'production') || (github.ref_name == 'val' && 'val') || 'dev' }}
-    if: ${{ github.ref_name != 'main' && github.ref_name != 'val' && github.ref_name != 'production' }}
-    runs-on: ubuntu-latest
-    needs: deploy
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: set branch_name
-        run: |
-          BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
-          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
-
-      - name: Configure AWS credentials for GitHub Actions
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_TO_ASSUME }}
-          aws-region: us-east-1
-
-      - id: shell-steps
-        shell: bash
-        run: |
-          #!/bin/bash
-          GHA_RESP=$(curl --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/meta)
-          echo "Response for GHA runner CIDR blocks:  $GHA_RESP"
-          IPV4_CIDR_ARR=($(echo $GHA_RESP | jq -r '.actions | .[]' | grep -v ':'))
-          GHA_CIDRS_IPV4=$(echo $(IFS=" "; echo ${IPV4_CIDR_ARR[*]}))
-          echo "GHA_CIDRS_IPV4=$GHA_CIDRS_IPV4" >> $GITHUB_OUTPUT
-          STAGE_GH_IPSET_NAME=$branch_name-gh-ipset
-          echo "Github IP Set name:  $STAGE_GH_IPSET_NAME"
-          echo "STAGE_GH_IPSET_NAME=$STAGE_GH_IPSET_NAME" >> $GITHUB_OUTPUT
-          AWS_IP_SET_INFO=$(aws wafv2 list-ip-sets --scope=CLOUDFRONT)
-          echo "Outputting AWS IP Set Info:  ${AWS_IP_SET_INFO}"
-          IPSET_NAME=$STAGE_GH_IPSET_NAME
-          IPSET=$(jq '.IPSets | map(select(.Name == "'${IPSET_NAME}'")) | .[]' <<< ${AWS_IP_SET_INFO})
-          [ -z "$IPSET" ] && echo "IP Set with name ${IPSET_NAME} was not located.  Exiting..." && exit 1
-          IPSET_ID=$(jq -r '.Id' <<< ${IPSET})
-          echo "IPSET_ARN=$IPSET_ARN" >> $GITHUB_OUTPUT
-          echo "IPSET_NAME=$IPSET_NAME" >> $GITHUB_OUTPUT
-          echo "IPSET_ID=$IPSET_ID" >> $GITHUB_OUTPUT
-
-      - name: Update IP Set
-        id: update-ip-set
-        run: ./.github/wafController.sh set ${{ steps.shell-steps.outputs.IPSET_NAME }} ${{ steps.shell-steps.outputs.IPSET_ID }} ${{ steps.shell-steps.outputs.GHA_CIDRS_IPV4 }}
-    outputs:
-      ipset_name: ${{ steps.shell-steps.outputs.IPSET_NAME }}
-      ipset_id: ${{ steps.shell-steps.outputs.IPSET_ID }}
-
-  e2e-tests-init:
-    name: Initialize End To End Tests
-    if: ${{ github.ref_name != 'main' && github.ref_name != 'val' && github.ref_name != 'production' }}
-    environment: ${{ (github.ref_name == 'production' && 'production') || (github.ref_name == 'val' && 'val') || 'dev' }}
-    needs:
-      - deploy
-      - register-runner
-    runs-on: ubuntu-latest
-    steps:
-      - name: Verify Endpoint
-        if: ${{ needs.deploy.outputs.application_endpoint == ''}}
-        run: |
-          echo "No endpoint set, Check if the deploy workflow was successful."
-          exit 1
-      - uses: actions/checkout@v4
-      - name: set branch_name
-        run: |
-          BRANCH_NAME=$(./.github/setBranchName.sh ${{ github.ref_name }})
-          echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: ".nvmrc"
-      - name: Combine yarn.lock files to single file
-        run: find services -maxdepth 3 -name yarn.lock | xargs cat yarn.lock > combined-yarn.txt
-      - name: cache service dependencies
-        uses: actions/cache@v4
-        with:
-          path: |
-            services/app-api/node_modules
-            services/uploads/node_modules
-            services/ui/node_modules
-            services/ui-auth/node_modules
-            services/ui-src/node_modules
-            node_modules
-          key: ${{ runner.os }}-${{ hashFiles('combined-yarn.txt') }}
-      - name: Configure AWS credentials for GitHub Actions
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.AWS_OIDC_ROLE_TO_ASSUME }}
-          aws-region: us-east-1
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: set path
-        run: |
-          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
-
-  e2e-tests-setup:
-    name: "Set up Matrix End To End Tests"
-    if: ${{ github.ref_name != 'main' && github.ref_name != 'val' && github.ref_name != 'production' }}
-    runs-on: ubuntu-latest
-    needs:
-      - deploy
-      - e2e-tests-init
-    steps:
-      - uses: actions/checkout@v4
-      - id: set-test-matrix
-        run: |
-          TEST_MATRIX=$(ls -1 tests/cypress/cypress/e2e/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')
-          echo "Test definitions: ${TEST_MATRIX}"
-          [ $(jq length <<< "${TEST_MATRIX}") -lt 1 ] && echo "No test definition found...exiting" && exit 1
-          echo "test-matrix=${TEST_MATRIX}" >> $GITHUB_OUTPUT
-    outputs:
-      test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}
-
-  e2e-tests:
-    name: Execute Cypress Tests
-    if: ${{ github.ref_name != 'main' && github.ref_name != 'val' && github.ref_name != 'production' }}
-    runs-on: ubuntu-latest
-    needs:
-      - deploy
-      - e2e-tests-setup
-    strategy:
-      fail-fast: false
-      matrix:
-        containers: ${{ fromJson(needs.e2e-tests-setup.outputs.test-matrix) }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: set path
-        run: |
-          echo "PATH=$(pwd)/node_modules/.bin/:$PATH" >> $GITHUB_ENV
+      - name: Runner WAF Access
+        if: ${{ github.ref_name != 'val' && github.ref_name != 'production' }}
+        run: node .github/runner-waf-access.ts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ env.branch_name }}
       - name: Run Cypress Tests
+        if: ${{ github.ref_name != 'val' && github.ref_name != 'production' }}
         uses: cypress-io/github-action@v6
         with:
           working-directory: tests/cypress
-          spec: cypress/e2e/${{ matrix.containers }}
-          browser: chrome
-          headed: true
-          config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
-          env: true
+          config: baseUrl=${{ steps.endpoint.outputs.application_endpoint }}
         env:
           CYPRESS_STATE_USER_2: ${{ secrets.CYPRESS_STATE_USER_2 }}
           CYPRESS_STATE_USER_4: ${{ secrets.CYPRESS_STATE_USER_4 }}
           CYPRESS_ADMIN_USER: ${{ secrets.CYPRESS_ADMIN_USER }}
           CYPRESS_QMR_PASSWORD: ${{ secrets.CYPRESS_QMR_PASSWORD }}
       - name: Upload screenshots
+        if: ${{ github.ref_name != 'val' && github.ref_name != 'production' && failure() }}
         uses: actions/upload-artifact@v4
-        if: failure()
         with:
-          name: ${{ matrix.containers }}-test-results
+          name: cypress-test-results-${{ github.run_number }}
           path: tests/cypress/screenshots/
-          retention-days: 14
-
-  # cleanup:
-  #   name: Delist GHA Runner CIDR Blocks
-  #   if: ${{ github.ref_name != 'main' && github.ref_name != 'val' && github.ref_name != 'production' }}
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - deploy
-  #     - e2e-tests-init
-  #     - e2e-tests
-  #     - register-runner
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - name: Configure AWS credentials for GitHub Actions
-  #       uses: aws-actions/configure-aws-credentials@v4
-  #       with:
-  #         role-to-assume: ${{ secrets.AWS_OIDC_ROLE_TO_ASSUME }}
-  #         aws-region: us-east-1
-  #     - name: clean-up-iplist
-  #       id: reset-ip-set
-  #       run: ./.github/wafController.sh set ${{ needs.register-runner.outputs.ipset_name }} ${{ needs.register-runner.outputs.ipset_id }} '[]'
+          retention-days: 30
