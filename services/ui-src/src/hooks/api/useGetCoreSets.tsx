@@ -15,13 +15,9 @@ const getCoreSets = async ({ state, year }: GetCoreSets) => {
   });
 };
 
-export const useGetCoreSets = (releasedTwentyTwentyFive: boolean) => {
+export const useGetCoreSets = (releasedYear: boolean) => {
   const { state, year } = useParams();
-  if (
-    state &&
-    year &&
-    (releasedTwentyTwentyFive || featuresByYear.reportingYearReleased)
-  ) {
+  if (state && year && (releasedYear || featuresByYear.reportingYearReleased)) {
     return useQuery({
       queryKey: ["coreSets", state, year],
       queryFn: () => getCoreSets({ state, year }),

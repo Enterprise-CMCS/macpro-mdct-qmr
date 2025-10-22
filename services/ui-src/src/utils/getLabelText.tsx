@@ -1,8 +1,4 @@
-import { data as data2021 } from "../measures/2021/rateLabelText";
-import { data as data2022 } from "../measures/2022/rateLabelText";
-import { data as data2023 } from "../measures/2023/rateLabelText";
-import { data as data2024 } from "../measures/2024/rateLabelText";
-import { data as data2025 } from "../measures/2025/rateLabelText";
+import * as Labels from "./../labels/RateLabelTexts";
 import { featuresByYear } from "./featuresByYear";
 
 type LabelText = { [key: string]: string };
@@ -20,14 +16,6 @@ export interface LabelData {
   excludeFromIds?: string[];
 }
 
-const yearMap: { [id: string]: any } = {
-  "2021": data2021,
-  "2022": data2022,
-  "2023": data2023,
-  "2024": data2024,
-  "2025": data2025,
-};
-
 const addLabelTextData = (acc: LabelText, data: LabelData) => {
   acc[data.label] = data.text;
   return acc;
@@ -39,7 +27,7 @@ export const getLabelText = (): { [key: string]: string } => {
   const year = params[2];
   const measure = params[4];
   if (year && measure) {
-    const data = yearMap[year];
+    const data: any = Labels[`RateLabel${year}` as keyof typeof Labels];
     return {
       ...data[measure]?.qualifiers.reduce(addLabelTextData, {}),
       ...data[measure]?.categories.reduce(addLabelTextData, {}),

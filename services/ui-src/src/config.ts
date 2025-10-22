@@ -29,7 +29,7 @@ const configToExport = {
     REDIRECT_SIGNOUT: window._env_.COGNITO_REDIRECT_SIGNOUT,
   },
   POST_SIGNOUT_REDIRECT: window._env_.POST_SIGNOUT_REDIRECT,
-  currentReportingYear: "2025",
+  currentReportingYear: "2026",
   REACT_APP_LD_SDK_CLIENT: window._env_.REACT_APP_LD_SDK_CLIENT,
 };
 
