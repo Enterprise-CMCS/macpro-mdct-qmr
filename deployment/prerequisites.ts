@@ -89,7 +89,7 @@ export class PrerequisiteStack extends Stack {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
           },
           StringLike: {
-            "token.actions.githubusercontent.com:sub": `repo:Enterprise-CMCS/macpro-mdct-hcbs:environment:${githubEnvironmentName}`,
+            "token.actions.githubusercontent.com:sub": `repo:Enterprise-CMCS/macpro-mdct-qmr:environment:${githubEnvironmentName}`,
           },
         },
         "sts:AssumeRoleWithWebIdentity"
