@@ -23,7 +23,7 @@ export const getPDF = handler(async (event, _context) => {
   if (rawBody.startsWith("{")) {
     throw new Error("Body must be base64-encoded HTML, not a JSON object");
   }
-  const { docraptorApiKey, stage } = process.env;
+  const { docraptorApiKey, STAGE } = process.env;
   if (!docraptorApiKey) {
     throw new Error("No config found to make request to PDF API");
   }
@@ -37,7 +37,7 @@ export const getPDF = handler(async (event, _context) => {
       type: "pdf" as const,
       // This tag differentiates QMR and CARTS requests in DocRaptor's logs.
       tag: "QMR",
-      test: stage !== "production",
+      test: STAGE !== "production",
       prince_options: {
         profile: "PDF/UA-1" as const,
       },
