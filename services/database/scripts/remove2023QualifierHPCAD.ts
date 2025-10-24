@@ -7,7 +7,7 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 
 /** Possibly overwritten by user input */
-let STAGE_NAME = "local";
+let stage = "local";
 
 // As recommended by https://stackoverflow.com/a/68504470
 const rl = readline.createInterface({
@@ -35,7 +35,7 @@ async function remove2023QualifierHPCAD() {
     "Do you want to run this script locally? Y/N: "
   );
   if (!isLocal) {
-    STAGE_NAME = await promptString(
+    stage = await promptString(
       "What environment are we running on (e.g. master, val, production)? "
     );
   }
@@ -83,7 +83,7 @@ async function correctHPC(
   }
 
   const command = new UpdateCommand({
-    TableName: `${STAGE_NAME}-measure`,
+    TableName: `${stage}-measure`,
     Key: {
       compoundKey: measure.compoundKey,
       coreSet: measure.coreSet,
@@ -102,7 +102,7 @@ async function correctHPC(
 
 async function* all2023CsqMeasures(client: DynamoDBDocumentClient) {
   const query = {
-    TableName: `${STAGE_NAME}-measure`,
+    TableName: `${stage}-measure`,
     FilterExpression: "#year = :year AND #measure = :measure",
     ExpressionAttributeNames: {
       "#year": "year",
