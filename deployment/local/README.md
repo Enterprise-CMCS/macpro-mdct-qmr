@@ -1,3 +1,5 @@
+<!-- This file is managed by macpro-mdct-core so if you'd like to change it let's do it there -->
+
 # Running Locally with LocalStack
 
 The `./run local` command allows you to run our application locally on your laptop using [LocalStack](https://localstack.cloud/), simulating the AWS cloud environment (except using cognito authentication from the real AWS).
@@ -15,7 +17,6 @@ _The install is handled by the run script._
 Links for the curious:
 
 - Docker - https://www.docker.com/get-started
-
 - Colima - https://github.com/abiosoft/colima
 
 2. **LocalStack** - Provides a local AWS emulating environment.
@@ -63,7 +64,7 @@ awslocal --version
 
 ### Using the tool
 
-```sh
+```
 # example of something you'd pop in as YOUR_FUNCTION_NAME => app-api-localstack-getUserById
 awslocal lambda get-function-configuration --function-name YOUR_FUNCTION_NAME --query "Environment.Variables"
 ```
