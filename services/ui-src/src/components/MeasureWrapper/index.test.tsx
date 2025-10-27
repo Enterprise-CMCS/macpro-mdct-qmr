@@ -5,6 +5,7 @@ import { MeasureWrapper } from "./";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
 import { CPUAD } from "measures/2024/CPUAD/index";
+import { FormProvider, useForm } from "react-hook-form";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
@@ -12,24 +13,43 @@ const mockUseUser = useUser as jest.Mock;
 const mockMutate = jest.fn((_variables: any, options?: any) => {
   if (typeof options?.onSuccess === "function") return options.onSuccess();
 });
+const div = createElement("div");
+const TestComponent = (props: any) => {
+  const form = useForm({
+    shouldFocusError: false,
+    defaultValues: {
+      MeasurementSpecification: "Other",
+    },
+  });
+  return (
+    <FormProvider {...form}>
+      <form id="uniqueId" onSubmit={form.handleSubmit(jest.fn())}>
+        <RouterWrappedComp>
+          <MeasureWrapper
+            name="testing"
+            year="2021"
+            measureId="AMMAD"
+            {...props}
+          />
+        </RouterWrappedComp>
+      </form>
+    </FormProvider>
+  );
+};
 
 describe("Test Measure Wrapper Component", () => {
   beforeEach(() => {
     mockUseUser.mockImplementation(() => {
       return { isStateUser: false };
     });
-
-    const div = createElement("div");
     useApiMock({});
     render(
-      <RouterWrappedComp>
-        <MeasureWrapper
-          measure={div}
-          name="testing"
-          year="2021"
-          measureId="AMMAD"
-        />
-      </RouterWrappedComp>
+      <TestComponent
+        measure={div}
+        name="testing"
+        year="2021"
+        measureId="AMMAD"
+      />
     );
   });
 
@@ -43,18 +63,14 @@ describe("state user", () => {
     mockUseUser.mockImplementation(() => {
       return { isStateUser: true };
     });
-
-    const div = createElement("div");
     useApiMock({});
     render(
-      <RouterWrappedComp>
-        <MeasureWrapper
-          measure={div}
-          name="testing-active"
-          year="2021"
-          measureId="AMMAD"
-        />
-      </RouterWrappedComp>
+      <TestComponent
+        measure={div}
+        name="testing-active"
+        year="2021"
+        measureId="AMMAD"
+      />
     );
   });
 
@@ -80,17 +96,14 @@ describe("non-state user", () => {
       return { isStateUser: false };
     });
 
-    const div = createElement("div");
     useApiMock({});
     render(
-      <RouterWrappedComp>
-        <MeasureWrapper
-          measure={div}
-          name="testing-inactive"
-          year="2021"
-          measureId="AMMAD"
-        />
-      </RouterWrappedComp>
+      <TestComponent
+        measure={div}
+        name="testing-inactive"
+        year="2021"
+        measureId="AMMAD"
+      />
     );
   });
 
@@ -105,19 +118,15 @@ describe("test auto-completed measures", () => {
     mockUseUser.mockImplementation(() => {
       return { isStateUser: true };
     });
-
-    const div = createElement("div");
     useApiMock({});
     render(
-      <RouterWrappedComp>
-        <MeasureWrapper
-          measure={div}
-          name="testing-inactive"
-          year="2021"
-          measureId="NCIDDSAD"
-          autocompleteOnCreation={true}
-        />
-      </RouterWrappedComp>
+      <TestComponent
+        measure={div}
+        name="testing-inactive"
+        year="2021"
+        measureId="NCIDDSAD"
+        autocompleteOnCreation={true}
+      />
     );
   });
 

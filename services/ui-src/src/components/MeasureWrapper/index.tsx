@@ -93,6 +93,11 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
   );
 
   useEffect(() => {
+    console.log(
+      "isOtherMeasureSpecSelected",
+      isOtherMeasureSpecSelected,
+      watchMeasureSpecification
+    );
     if (isOtherMeasureSpecSelected && !opmRates) {
       setValue(DC.OPM_RATES, [
         {
