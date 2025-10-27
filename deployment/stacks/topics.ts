@@ -2,9 +2,9 @@
 import { Construct } from "constructs";
 import {
   aws_ec2 as ec2,
-  triggers,
   CfnOutput,
   Duration,
+  triggers,
 } from "aws-cdk-lib";
 import { Lambda } from "../constructs/lambda";
 
