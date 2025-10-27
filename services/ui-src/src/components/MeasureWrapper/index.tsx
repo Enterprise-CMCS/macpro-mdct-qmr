@@ -173,7 +173,6 @@ export const MeasureWrapper = ({
         (params.coreSetId?.split("_")?.[0] ?? params.coreSetId) as CoreSetAbbr
       ]
     : undefined;
-
   // check what type of core set we deal with for data driven rendering
   let type: "CH" | "AD" | "HH" = "AD";
   if (

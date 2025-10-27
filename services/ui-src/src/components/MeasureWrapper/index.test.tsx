@@ -13,38 +13,87 @@ const useWatchReturnValues = {
   MeasurementSpecification: "Other",
   DidReport: "yes",
 };
+const div = createElement("div");
 
 jest.mock("react-hook-form", () => ({
+  __esModule: true,
   ...jest.requireActual("react-hook-form"),
   useWatch: (obj: { name: keyof typeof useWatchReturnValues }) =>
     obj ? useWatchReturnValues[obj.name] : {},
 }));
 
+// jest.mock("react-router-dom", () => ({
+//   __esModule: true,
+//   ...jest.requireActual("react-router-dom"),
+//     useParams: jest.fn().mockReturnValue({
+//       year: "2021",
+//       state: "OH",
+//       coreSetId: "CSS",
+//       measureId: "FUH-AD",
+//     }),
+// }));
+
 const mockMutate = jest.fn((_variables: any, options?: any) => {
   if (typeof options?.onSuccess === "function") return options.onSuccess();
 });
+
+const renderMeasureWrapper = (props: any) => {
+  useApiMock({});
+  return render(
+    <RouterWrappedComp>
+      <MeasureWrapper measure={div} name="testing" year="2021" {...props} />
+    </RouterWrappedComp>
+  );
+};
 
 describe("Test Measure Wrapper Component", () => {
   beforeEach(() => {
     mockUseUser.mockImplementation(() => {
       return { isStateUser: false };
     });
-
-    const div = createElement("div");
-    useApiMock({});
-    render(
-      <RouterWrappedComp>
-        <MeasureWrapper
-          measure={div}
-          name="testing"
-          year="2021"
-          measureId="AMMAD"
-        />
-      </RouterWrappedComp>
-    );
   });
 
   it("renders the form component", () => {
+    renderMeasureWrapper({
+      measure: div,
+      name: "testing",
+      year: "2021",
+      measureId: "AMMAD",
+    });
+    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
+  });
+
+  it("renders the form component with different coreSetId CCS", () => {
+    const useParams = require("react-router-dom").useParams;
+    useParams.mockReturnValueOnce({
+      year: "2021",
+      state: "OH",
+      coreSetId: "CCS",
+      measureId: "FUH-AD",
+    });
+    renderMeasureWrapper({
+      measure: div,
+      name: "testing",
+      year: "2021",
+      measureId: "AMMAD",
+    });
+    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
+  });
+
+  it("renders the form component with different coreSetId HHCS", () => {
+    const useParams = require("react-router-dom").useParams;
+    useParams.mockReturnValueOnce({
+      year: "2021",
+      state: "OH",
+      coreSetId: "HHCS",
+      measureId: "FUH-AD",
+    });
+    renderMeasureWrapper({
+      measure: div,
+      name: "testing",
+      year: "2021",
+      measureId: "AMMAD",
+    });
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
   });
 });
@@ -55,18 +104,12 @@ describe("state user", () => {
       return { isStateUser: true };
     });
 
-    const div = createElement("div");
-    useApiMock({});
-    render(
-      <RouterWrappedComp>
-        <MeasureWrapper
-          measure={div}
-          name="testing-active"
-          year="2021"
-          measureId="AMMAD"
-        />
-      </RouterWrappedComp>
-    );
+    renderMeasureWrapper({
+      measure: div,
+      name: "testing-active",
+      year: "2021",
+      measureId: "AMMAD",
+    });
   });
 
   test("enabled fieldset for state user", () => {
@@ -91,18 +134,12 @@ describe("non-state user", () => {
       return { isStateUser: false };
     });
 
-    const div = createElement("div");
-    useApiMock({});
-    render(
-      <RouterWrappedComp>
-        <MeasureWrapper
-          measure={div}
-          name="testing-inactive"
-          year="2021"
-          measureId="AMMAD"
-        />
-      </RouterWrappedComp>
-    );
+    renderMeasureWrapper({
+      measure: div,
+      name: "testing-inactive",
+      year: "2021",
+      measureId: "AMMAD",
+    });
   });
 
   test("disabed fieldset for non-state user", () => {
@@ -117,19 +154,13 @@ describe("test auto-completed measures", () => {
       return { isStateUser: true };
     });
 
-    const div = createElement("div");
-    useApiMock({});
-    render(
-      <RouterWrappedComp>
-        <MeasureWrapper
-          measure={div}
-          name="testing-inactive"
-          year="2021"
-          measureId="NCIDDSAD"
-          autocompleteOnCreation={true}
-        />
-      </RouterWrappedComp>
-    );
+    renderMeasureWrapper({
+      measure: div,
+      name: "testing-inactive",
+      year: "2021",
+      measureId: "NCIDDSAD",
+      autocompleteOnCreation: true,
+    });
   });
 
   test("auto-completed measures should not have validate and complete buttons", () => {
@@ -146,7 +177,7 @@ describe("test measure floating bar menu", () => {
       return { isStateUser: true };
     });
 
-    // const div = createElement("div");
+    //
     const apiData: any = {
       useUpdateMeasureValues: {
         mutate: mockMutate,
