@@ -15,25 +15,10 @@ const mockMutate = jest.fn((_variables: any, options?: any) => {
 });
 const div = createElement("div");
 const TestComponent = (props: any) => {
-  const form = useForm({
-    shouldFocusError: false,
-    defaultValues: {
-      MeasurementSpecification: "Other",
-    },
-  });
   return (
-    <FormProvider {...form}>
-      <form id="uniqueId" onSubmit={form.handleSubmit(jest.fn())}>
-        <RouterWrappedComp>
-          <MeasureWrapper
-            name="testing"
-            year="2021"
-            measureId="AMMAD"
-            {...props}
-          />
-        </RouterWrappedComp>
-      </form>
-    </FormProvider>
+    <RouterWrappedComp>
+      <MeasureWrapper name="testing" year="2021" measureId="AMMAD" {...props} />
+    </RouterWrappedComp>
   );
 };
 
