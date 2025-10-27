@@ -62,7 +62,6 @@ export function deployFrontend(props: DeployFrontendProps) {
       cacheControl: [
         s3_deployment.CacheControl.setPublic(),
         s3_deployment.CacheControl.maxAge(Duration.days(365)),
-        s3_deployment.CacheControl.noCache(),
       ],
     }
   );
