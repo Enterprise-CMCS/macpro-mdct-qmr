@@ -274,7 +274,6 @@ export const MeasureWrapper = ({
     /* only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
-
     if (!mutationRunning && !loadingData && hasDataChanged(data)) {
       updateMeasure(
         {

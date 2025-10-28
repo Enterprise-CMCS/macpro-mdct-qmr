@@ -8,12 +8,12 @@ import { CPUAD } from "measures/2024/CPUAD/index";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
+const div = createElement("div");
 
 const useWatchReturnValues = {
   MeasurementSpecification: "Other",
   DidReport: "yes",
 };
-const div = createElement("div");
 
 jest.mock("react-hook-form", () => ({
   __esModule: true,
@@ -22,23 +22,21 @@ jest.mock("react-hook-form", () => ({
     obj ? useWatchReturnValues[obj.name] : {},
 }));
 
-// jest.mock("react-router-dom", () => ({
-//   __esModule: true,
-//   ...jest.requireActual("react-router-dom"),
-//     useParams: jest.fn().mockReturnValue({
-//       year: "2021",
-//       state: "OH",
-//       coreSetId: "CSS",
-//       measureId: "FUH-AD",
-//     }),
-// }));
+const mockToast = jest.fn();
+jest.mock("@chakra-ui/toast", () => ({
+  __esModule: true,
+  ...jest.requireActual("@chakra-ui/toast"),
+  createStandaloneToast: jest.fn(() => ({
+    toast: mockToast,
+  })),
+}));
 
 const mockMutate = jest.fn((_variables: any, options?: any) => {
-  if (typeof options?.onSuccess === "function") return options.onSuccess();
+  if (typeof options?.onSettled === "function") return options.onSettled();
 });
 
-const renderMeasureWrapper = (props: any) => {
-  useApiMock({});
+const renderMeasureWrapper = (props: any, apiData = {}) => {
+  useApiMock(apiData);
   return render(
     <RouterWrappedComp>
       <MeasureWrapper measure={div} name="testing" year="2021" {...props} />
@@ -64,8 +62,8 @@ describe("Test Measure Wrapper Component", () => {
   });
 
   it("renders the form component with different coreSetId CCS", () => {
-    const useParams = require("react-router-dom").useParams;
-    useParams.mockReturnValueOnce({
+    const mockUseParams = jest.spyOn(require("react-router-dom"), "useParams");
+    mockUseParams.mockReturnValueOnce({
       year: "2021",
       state: "OH",
       coreSetId: "CCS",
@@ -81,8 +79,8 @@ describe("Test Measure Wrapper Component", () => {
   });
 
   it("renders the form component with different coreSetId HHCS", () => {
-    const useParams = require("react-router-dom").useParams;
-    useParams.mockReturnValueOnce({
+    const mockUseParams = jest.spyOn(require("react-router-dom"), "useParams");
+    mockUseParams.mockReturnValueOnce({
       year: "2021",
       state: "OH",
       coreSetId: "HHCS",
@@ -204,7 +202,7 @@ describe("test measure floating bar menu", () => {
     );
   });
 
-  test("should run save when clicking the save button", async () => {
+  test("should run save when clicking the save button and show success toast", async () => {
     const textArea = await screen.findByLabelText(
       "I am reporting provisional data."
     );
@@ -213,6 +211,31 @@ describe("test measure floating bar menu", () => {
     fireEvent.click(saveBtn);
     await waitFor(() => {
       expect(mockMutate).toHaveBeenCalled();
+    });
+    expect(mockToast).toHaveBeenCalledWith({
+      status: "success",
+      description: "Successfully saved measure data.",
+      duration: 4000,
+    });
+  });
+
+  test("should run save when clicking the save button and show error toast on error", async () => {
+    mockMutate.mockImplementationOnce((_variables: any, options?: any) => {
+      return options.onError();
+    });
+    const textArea = await screen.findByLabelText(
+      "I am reporting provisional data."
+    );
+    fireEvent.click(textArea);
+    const saveBtn = screen.getByText("Save");
+    fireEvent.click(saveBtn);
+    await waitFor(() => {
+      expect(mockMutate).toHaveBeenCalled();
+    });
+    expect(mockToast).toHaveBeenCalledWith({
+      status: "error",
+      description: "Failed to save or submit measure data.",
+      duration: 4000,
     });
   });
 });
