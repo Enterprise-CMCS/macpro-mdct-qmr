@@ -39,7 +39,7 @@ const PCRHH = lazy(() =>
 const SSHH = lazy(() =>
   import("./SSHH").then((module) => ({ default: module.SSHH }))
 );
-const twentyTwentyFiveMeasures = {
+const twentyTwentySixMeasures = {
   "AAB-AD": measureTemplate,
   "AAB-CH": measureTemplate,
   "ADD-CH": measureTemplate,
@@ -128,4 +128,4 @@ const twentyTwentyFiveMeasures = {
 };
 
 export const QualifierData = Data;
-export default twentyTwentyFiveMeasures;
+export default twentyTwentySixMeasures;

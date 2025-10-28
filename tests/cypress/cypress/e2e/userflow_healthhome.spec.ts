@@ -66,7 +66,7 @@ describe.skip("submit coreset", () => {
     cy.get('[aria-label="Reset All Measures for HHCS_15-014"]').click();
     cy.wait(1000);
     // confirm reset
-    cy.get('[data-cy="Status-CT2026HHCS_15-014"]').should(
+    cy.get(`[data-cy="Status-CT${testingYear}HHCS_15-014"]`).should(
       "contain.text",
       "not started0 of 11 complete"
     );
@@ -76,7 +76,7 @@ describe.skip("submit coreset", () => {
     cy.get('[data-cy="health home-kebab-menu"]').click();
     cy.get('[aria-label="Complete All Measures for HHCS_15-014"]').click();
     cy.wait(4000);
-    cy.get('[data-cy="Status-CT2026HHCS_15-014"]').should(
+    cy.get(`[data-cy="Status-CT${testingYear}HHCS_15-014"]`).should(
       "contain.text",
       "complete11 of 11 complete"
     );
@@ -91,7 +91,7 @@ describe.skip("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get('[data-cy="Status-CT2026HHCS_15-014"]').should(
+    cy.get(`[data-cy="Status-CT${testingYear}HHCS_15-014"]`).should(
       "contain.text",
       "submitted11 of 11 complete"
     );
