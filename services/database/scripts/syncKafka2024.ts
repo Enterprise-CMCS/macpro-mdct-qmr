@@ -24,7 +24,7 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-let stageName = "local";
+let stage = "local";
 const promptString = (query: string) =>
   new Promise<string>((resolve) => rl.question(query, resolve));
 const promptYesNo = async (query: string) => {
@@ -46,7 +46,7 @@ async function handler() {
     "Do you want to run this script locally? Y/N: "
   );
   if (!isLocal) {
-    stageName = await promptString(
+    stage = await promptString(
       "What environment are we running on (e.g. master, val, production)? "
     );
   }
@@ -55,7 +55,7 @@ async function handler() {
     console.log("Searching for 2024 modifications");
 
     for (const table of tables) {
-      const tableName = stageName + table;
+      const tableName = stage + table;
       console.log(`Processing table ${tableName}`);
       for await (let entry of scan(client, tableName)) {
         if (new Date(entry[lastModifiedField]).getFullYear() === 2024) {
