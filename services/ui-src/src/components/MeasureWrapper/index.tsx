@@ -409,7 +409,6 @@ export const MeasureWrapper = ({
     };
     methods.handleSubmit(manualSubmit)();
   };
-
   if (!params.coreSetId || !params.state) {
     return null;
   }
@@ -426,7 +425,6 @@ export const MeasureWrapper = ({
   const breadCrumbName =
     separatedCoreSet?.[params.coreSetId] ??
     `- ${formatTitle(apiData?.Item?.description)}`;
-
   return (
     <FormProvider {...methods}>
       <QMR.YesNoModalDialog

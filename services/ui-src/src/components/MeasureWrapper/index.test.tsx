@@ -1,4 +1,10 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  prettyDOM,
+} from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "./";
@@ -16,7 +22,6 @@ const useWatchReturnValues = {
 };
 
 jest.mock("react-hook-form", () => ({
-  __esModule: true,
   ...jest.requireActual("react-hook-form"),
   useWatch: (obj: { name: keyof typeof useWatchReturnValues }) =>
     obj ? useWatchReturnValues[obj.name] : {},
@@ -24,15 +29,21 @@ jest.mock("react-hook-form", () => ({
 
 const mockToast = jest.fn();
 jest.mock("@chakra-ui/toast", () => ({
-  __esModule: true,
   ...jest.requireActual("@chakra-ui/toast"),
   createStandaloneToast: jest.fn(() => ({
     toast: mockToast,
   })),
 }));
 
+jest.mock("config", () => ({
+  isDevEnv: jest.fn(() => true),
+}));
+
+const useParamsSpy = jest.spyOn(require("react-router-dom"), "useParams");
+
 const mockMutate = jest.fn((_variables: any, options?: any) => {
-  if (typeof options?.onSettled === "function") return options.onSettled();
+  if (typeof options?.onSettled === "function")
+    return options.onSettled("data");
 });
 
 const renderMeasureWrapper = (props: any, apiData = {}) => {
@@ -62,8 +73,7 @@ describe("Test Measure Wrapper Component", () => {
   });
 
   it("renders the form component with different coreSetId CCS", () => {
-    const mockUseParams = jest.spyOn(require("react-router-dom"), "useParams");
-    mockUseParams.mockReturnValueOnce({
+    useParamsSpy.mockReturnValueOnce({
       year: "2021",
       state: "OH",
       coreSetId: "CCS",
@@ -73,14 +83,13 @@ describe("Test Measure Wrapper Component", () => {
       measure: div,
       name: "testing",
       year: "2021",
-      measureId: "AMMAD",
+      measureId: "FUH-AD",
     });
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
   });
 
   it("renders the form component with different coreSetId HHCS", () => {
-    const mockUseParams = jest.spyOn(require("react-router-dom"), "useParams");
-    mockUseParams.mockReturnValueOnce({
+    useParamsSpy.mockReturnValueOnce({
       year: "2021",
       state: "OH",
       coreSetId: "HHCS",
@@ -90,9 +99,19 @@ describe("Test Measure Wrapper Component", () => {
       measure: div,
       name: "testing",
       year: "2021",
-      measureId: "AMMAD",
+      measureId: "FUH-AD",
     });
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
+  });
+
+  it("does not break with missing params", () => {
+    useParamsSpy.mockReturnValueOnce({
+      coreSetId: "HHCS",
+      measureId: "FUH-AD",
+    });
+    renderMeasureWrapper({
+      measure: div,
+    });
   });
 });
 
@@ -237,5 +256,40 @@ describe("test measure floating bar menu", () => {
       description: "Failed to save or submit measure data.",
       duration: 4000,
     });
+  });
+
+  test("Validation button is visible and clickable", () => {
+    const button = screen.getByText("Validate Measure");
+    expect(button).toBeInTheDocument();
+    expect(button).toBeEnabled();
+    fireEvent.click(button);
+  });
+
+  test("Clear data button is visible and clickable", () => {
+    const button = screen.getByText("Clear Data");
+    expect(button).toBeInTheDocument();
+    expect(button).toBeEnabled();
+    fireEvent.click(button);
+  });
+
+  test("Complete measure button is visible and clickable", () => {
+    const button = screen.getByText("Complete Measure");
+    expect(button).toBeInTheDocument();
+    expect(button).toBeEnabled();
+    fireEvent.click(button);
+  });
+
+  test("Validation modal comes up and is clickable", async () => {
+    const completeButton = screen.getByText("Complete Measure");
+    expect(completeButton).toBeInTheDocument();
+    expect(completeButton).toBeEnabled();
+    await waitFor(() => {
+      fireEvent.click(completeButton);
+    });
+
+    const yesButton = screen.getByText("Yes");
+    expect(yesButton).toBeInTheDocument();
+    expect(yesButton).toBeEnabled();
+    fireEvent.click(yesButton);
   });
 });
