@@ -1,10 +1,4 @@
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  prettyDOM,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "./";
@@ -188,7 +182,7 @@ describe("test auto-completed measures", () => {
   });
 });
 
-describe("test measure floating bar menu", () => {
+describe("test measure functions", () => {
   beforeEach(() => {
     mockUseUser.mockImplementation(() => {
       return { isStateUser: true };
@@ -258,25 +252,38 @@ describe("test measure floating bar menu", () => {
     });
   });
 
-  test("Validation button is visible and clickable", () => {
+  test("Validation button is visible and clickable", async () => {
     const button = screen.getByText("Validate Measure");
     expect(button).toBeInTheDocument();
     expect(button).toBeEnabled();
-    fireEvent.click(button);
+    await waitFor(() => {
+      fireEvent.click(button);
+    });
+    expect(screen.getByText("Data Source Error")).toBeInTheDocument();
+    const closeBtn = screen.getAllByTestId("close");
+    expect(closeBtn).toHaveLength(8);
+    await waitFor(() => {
+      fireEvent.click(closeBtn[0]);
+    });
   });
 
-  test("Clear data button is visible and clickable", () => {
+  test("Clear data button is visible and clickable", async () => {
     const button = screen.getByText("Clear Data");
     expect(button).toBeInTheDocument();
     expect(button).toBeEnabled();
-    fireEvent.click(button);
+    await waitFor(() => {
+      fireEvent.click(button);
+    });
   });
 
-  test("Complete measure button is visible and clickable", () => {
+  test("Complete measure button is visible and clickable", async () => {
     const button = screen.getByText("Complete Measure");
     expect(button).toBeInTheDocument();
     expect(button).toBeEnabled();
-    fireEvent.click(button);
+    await waitFor(() => {
+      fireEvent.click(button);
+    });
+    expect(screen.getByText("Validation Error")).toBeInTheDocument();
   });
 
   test("Validation modal comes up and is clickable", async () => {
@@ -290,6 +297,8 @@ describe("test measure floating bar menu", () => {
     const yesButton = screen.getByText("Yes");
     expect(yesButton).toBeInTheDocument();
     expect(yesButton).toBeEnabled();
-    fireEvent.click(yesButton);
+    await waitFor(() => {
+      fireEvent.click(yesButton);
+    });
   });
 });

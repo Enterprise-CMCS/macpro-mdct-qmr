@@ -313,7 +313,6 @@ export const MeasureWrapper = ({
 
   const handleSubmit = (data: any) => {
     const validatedErrors = validateAndSetErrors(data);
-
     if (validatedErrors) {
       setShowModal(true);
     } else {
