@@ -8,7 +8,7 @@ import {
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 
-export const editCoreSet = handler(async (event, context) => {
+export const editCoreSet = handler(async (event, _context) => {
   const { allParamsValid, year, state, coreSet } =
     parseCoreSetParameters(event);
   if (!allParamsValid) {

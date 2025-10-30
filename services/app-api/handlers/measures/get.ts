@@ -12,7 +12,7 @@ import {
   parseMeasureParameters,
 } from "../../utils/parseParameters";
 
-export const listMeasures = handler(async (event, context) => {
+export const listMeasures = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet } =
     parseCoreSetParameters(event);
   if (!allParamsValid) {
@@ -59,7 +59,7 @@ export const listMeasures = handler(async (event, context) => {
   };
 });
 
-export const getMeasure = handler(async (event, context) => {
+export const getMeasure = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet, measure } =
     parseMeasureParameters(event);
   if (!allParamsValid) {
