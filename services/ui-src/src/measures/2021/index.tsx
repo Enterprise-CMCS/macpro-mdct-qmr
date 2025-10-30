@@ -3,9 +3,9 @@ import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2021/qualifierFormsData";
 import { measureTemplate } from "./measureTemplate";
 /*
-When importing a measure it should be a named import and added to the measures object below so that it routes correctly
-the key should be the measure id as a string (with '-XX' included) 
-*/
+ * When importing a measure it should be a named import and added to the measures object below so that it routes correctly
+ * the key should be the measure id as a string (with '-XX' included)
+ */
 
 const AMRAD = lazy(() =>
   import("./AMRAD").then((module) => ({ default: module.AMRAD }))

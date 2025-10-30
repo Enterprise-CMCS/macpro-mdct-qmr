@@ -18,7 +18,7 @@ interface RadioButtonProps extends QMR.InputWrapperProps, ControllerRules {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
-  subTextElement?: JSX.Element | JSX.Element[];
+  subTextElement?: React.JSX.Element | React.JSX.Element[];
   valueAsArray?: boolean;
   clearable?: boolean;
 }

@@ -70,9 +70,9 @@ export const Rate = ({
   }
 
   /*
-  On component render, verify that all NDRs have a label, id and isTotal value.
-  This is required for accurate data representation in DB and to calculateTotals().
-  */
+   * On component render, verify that all NDRs have a label, id and isTotal value.
+   * This is required for accurate data representation in DB and to calculateTotals().
+   */
   useEffect(() => {
     const prevRate = [...field.value];
     rates.forEach((rate, index) => {
@@ -91,7 +91,7 @@ export const Rate = ({
     }
 
     field.onChange([...prevRate]);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeRate = (
     index: number,
@@ -166,16 +166,18 @@ export const Rate = ({
   };
 
   /*
-  Iterate over all numerators and denominators of NDRs where isTotal is false.
-  Sum these values and set the NDR where isTotal is true to be these sumed values.
-  */
+   * Iterate over all numerators and denominators of NDRs where isTotal is false.
+   * Sum these values and set the NDR where isTotal is true to be these summed values.
+   */
   const calculateTotals = (prevRate: any[]) => {
     let numeratorSum: any = null;
     let denominatorSum: any = null;
     let x;
 
-    // sum all Ns and Ds
-    // we assume last NDR is total if calcTotal is true
+    /*
+     * sum all Ns and Ds
+     * we assume last NDR is total if calcTotal is true
+     */
     prevRate.slice(0, -1).forEach((item) => {
       if (item !== undefined && item !== null && !item["isTotal"]) {
         if (item["rate"]) {
