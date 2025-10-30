@@ -78,7 +78,6 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
   const watchMeasureSpecification = useWatch({
     name: "MeasurementSpecification",
   });
-
   const opmRates = useWatch({
     name: DC.OPM_RATES,
   });
@@ -172,7 +171,6 @@ export const MeasureWrapper = ({
         (params.coreSetId?.split("_")?.[0] ?? params.coreSetId) as CoreSetAbbr
       ]
     : undefined;
-
   // check what type of core set we deal with for data driven rendering
   let type: "CH" | "AD" | "HH" = "AD";
   if (
@@ -274,7 +272,6 @@ export const MeasureWrapper = ({
     /* only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
-
     if (!mutationRunning && !loadingData && hasDataChanged(data)) {
       updateMeasure(
         {
@@ -314,7 +311,6 @@ export const MeasureWrapper = ({
 
   const handleSubmit = (data: any) => {
     const validatedErrors = validateAndSetErrors(data);
-
     if (validatedErrors) {
       setShowModal(true);
     } else {
@@ -410,7 +406,6 @@ export const MeasureWrapper = ({
     };
     methods.handleSubmit(manualSubmit)();
   };
-
   if (!params.coreSetId || !params.state) {
     return null;
   }
@@ -427,7 +422,6 @@ export const MeasureWrapper = ({
   const breadCrumbName =
     separatedCoreSet?.[params.coreSetId] ??
     `- ${formatTitle(apiData?.Item?.description)}`;
-
   return (
     <FormProvider {...methods}>
       <QMR.YesNoModalDialog
