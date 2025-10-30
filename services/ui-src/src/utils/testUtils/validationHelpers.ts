@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-extra-boolean-cast */
 import * as DC from "dataConstants";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { OmsNode } from "shared/types";

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const constants = require("./constants");
 const execSync = require("child_process").execSync;
 

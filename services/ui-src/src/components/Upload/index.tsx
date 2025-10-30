@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { createStandaloneToast } from "@chakra-ui/toast";

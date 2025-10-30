@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,

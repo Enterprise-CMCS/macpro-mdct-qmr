@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";

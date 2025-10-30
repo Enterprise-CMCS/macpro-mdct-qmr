@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { render, screen, fireEvent } from "@testing-library/react";
 import { IKebabMenuItem, KebabMenu } from ".";
 import { useUser } from "hooks/authHooks";
