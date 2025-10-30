@@ -62,12 +62,7 @@
       "text-summary"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!src/measures/2021/**/*.{ts,tsx}",
-      "!src/measures/2022/**/*.{ts,tsx}",
-      "!src/measures/2023/**/*.{ts,tsx}",
-      "!src/measures/2024/**/*.{ts,tsx}",
-      "!src/measures/2025/**/*.{ts,tsx}"
+      "src/**/*.{ts,tsx}"
     ],
     "moduleDirectories": [
       "node_modules",
