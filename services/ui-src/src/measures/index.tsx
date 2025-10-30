@@ -1,3 +1,4 @@
+import React from "react";
 import { ResolverResult } from "react-hook-form";
 import twentyTwentyOneMeasures, { QualifierData as data2021 } from "./2021";
 import twentyTwentyTwoMeasures, { QualifierData as data2022 } from "./2022";

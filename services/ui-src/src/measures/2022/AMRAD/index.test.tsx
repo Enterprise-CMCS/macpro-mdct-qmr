@@ -1,11 +1,10 @@
 import { screen, waitFor, act } from "@testing-library/react";
-import { createElement } from "react";
+import React, { createElement, Suspense } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
 import Measures from "measures";
-import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
@@ -33,7 +32,7 @@ jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
-  let component: JSX.Element;
+  let component: React.JSX.Element;
   beforeEach(() => {
     clearMocks();
     apiData.useGetMeasureValues = {

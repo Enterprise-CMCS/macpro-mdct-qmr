@@ -190,9 +190,11 @@ export const Upload = ({
     }
   }
 
-  // Here, we determing if this is a state user. If it's a non-state user,
-  // display the ComponentMask overlay to signal to the user that the upload box
-  // is disabled.
+  /*
+   * Here, we determing if this is a state user. If it's a non-state user,
+   * display the ComponentMask overlay to signal to the user that the upload box
+   * is disabled.
+   */
   const { isStateUser } = useUser();
 
   return (

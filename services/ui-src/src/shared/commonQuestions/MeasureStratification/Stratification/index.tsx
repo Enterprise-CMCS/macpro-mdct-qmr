@@ -136,8 +136,10 @@ export const Stratification = ({
   useEffect(() => {
     if (watchDataSourceSwitch === "Other") {
       return () => {
-        //unregister does not clean the data properly
-        //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+        /*
+         * unregister does not clean the data properly
+         * setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+         */
         setValue("OptionalMeasureStratification", {
           options: [],
           selections: {},

@@ -20,8 +20,10 @@ const qualifiers = [
   "Outlier Rate (Number of Outliers/Count of Beneficiaries in Medicaid Population) x 1,000",
 ];
 
-// This is the basic structure of the NDR sets in PCRRate.
-// There are 4 rates, each is calculated by a combination of the other fields.
+/*
+ * This is the basic structure of the NDR sets in PCRRate.
+ * There are 4 rates, each is calculated by a combination of the other fields.
+ */
 const ndrForumlas = [
   {
     numerator: 1,

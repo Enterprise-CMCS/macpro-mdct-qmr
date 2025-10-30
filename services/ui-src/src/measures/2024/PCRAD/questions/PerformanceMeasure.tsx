@@ -63,7 +63,8 @@ const CategoryNdrSets = ({
   );
 };
 
-/** If no categories, we still need a rate for the PM
+/**
+ * If no categories, we still need a rate for the PM
  * 2023 and onward, categories are expected to have at least object filled for creating uid in database
  */
 const QualifierNdrSets = ({

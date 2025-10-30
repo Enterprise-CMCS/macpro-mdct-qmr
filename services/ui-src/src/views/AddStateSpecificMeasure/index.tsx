@@ -69,10 +69,12 @@ export const AddStateSpecificMeasure = () => {
       // Start by assuming this is a new SSM with ID 1.
       let measureIdNumber = index + 1;
 
-      // If there's already an existing SSM, then use the next available ID number.
-      // (For example, if a user creates SS-1-HH, SS-2-HH, and SS-3-HH and then
-      // deletes SS-2-HH, we fill in the gap by assigning the next new SSM an ID
-      // of SS-2-HH.)
+      /*
+       * If there's already an existing SSM, then use the next available ID number.
+       * (For example, if a user creates SS-1-HH, SS-2-HH, and SS-3-HH and then
+       * deletes SS-2-HH, we fill in the gap by assigning the next new SSM an ID
+       * of SS-2-HH.)
+       */
       if (existingIds.includes(measureIdNumber)) {
         while (existingIds.includes(measureIdNumber) && measureIdNumber < 5) {
           measureIdNumber++;
@@ -81,8 +83,10 @@ export const AddStateSpecificMeasure = () => {
 
       // Save the SSM with its corresponding ID (as the `measure` attribute).
       if (state && year) {
-        // Add this measure ID to the existingIDs array so we don't overwrite
-        // this SSM with the next one.
+        /*
+         * Add this measure ID to the existingIDs array so we don't overwrite
+         * this SSM with the next one.
+         */
         existingIds.push(measureIdNumber);
 
         const requestData = {

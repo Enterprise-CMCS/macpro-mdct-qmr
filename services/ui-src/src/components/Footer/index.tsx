@@ -1,3 +1,4 @@
+import React from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Libs from "libs";
@@ -95,7 +96,7 @@ export const emailLink = () => {
   );
 };
 
-export function Footer(): JSX.Element {
+export function Footer(): React.JSX.Element {
   return (
     <CUI.Box
       as="footer"

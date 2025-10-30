@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Types from "../types";
@@ -7,7 +8,6 @@ import {
   parseLabelToHTML,
 } from "utils";
 import * as DC from "dataConstants";
-import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
 import { useParams } from "react-router-dom";
@@ -24,7 +24,7 @@ interface Props {
 interface DefOfDenomOption {
   displayValue: string;
   value: string;
-  children?: JSX.Element[];
+  children?: React.JSX.Element[];
 }
 export interface CoreSetSpecificOptions {
   [coreSetId: string]: {
@@ -81,9 +81,8 @@ const StandardDefinitions = (
   return (
     <CUI.Box>
       <CUI.Text mt="3">
-        {`Please select all populations that are included. For example, if your data include both non-dual Medicaid ${
-          healthHomeMeasure ? "enrollees" : "beneficiaries"
-        } and Medicare and Medicaid Dual Eligibles, select both:`}
+        {`Please select all populations that are included. For example, if your data include both non-dual Medicaid ${healthHomeMeasure ? "enrollees" : "beneficiaries"
+          } and Medicare and Medicaid Dual Eligibles, select both:`}
       </CUI.Text>
       <CUI.UnorderedList m="5" ml="10">
         {optionsWithoutChip.map((option, index) => {
@@ -256,15 +255,15 @@ export const DefinitionOfPopulation = ({
       </CUI.Heading>
       {labels.DefinitionsOfPopulation.coreSetSpecificOptions && coreSetType
         ? CoreSetSpecificDefinitions(
-            labels.DefinitionsOfPopulation,
-            coreSetType,
-            coreSetOptions ??
-              labels.DefinitionsOfPopulation.coreSetSpecificOptions,
-            removeOtherOption
-          )
+          labels.DefinitionsOfPopulation,
+          coreSetType,
+          coreSetOptions ??
+          labels.DefinitionsOfPopulation.coreSetSpecificOptions,
+          removeOtherOption
+        )
         : childMeasure
-        ? ChildDefinitions()
-        : StandardDefinitions(
+          ? ChildDefinitions()
+          : StandardDefinitions(
             labels.DefinitionsOfPopulation,
             healthHomeMeasure
           )}
@@ -286,7 +285,7 @@ export const DefinitionOfPopulation = ({
             formLabelProps={{ fontWeight: "600" }}
             label={
               labels.DefinitionsOfPopulation.measureEligiblePopDenom.question[
-                coreSetType!
+              coreSetType!
               ] ??
               labels.DefinitionsOfPopulation.measureEligiblePopDenom.question
                 .default

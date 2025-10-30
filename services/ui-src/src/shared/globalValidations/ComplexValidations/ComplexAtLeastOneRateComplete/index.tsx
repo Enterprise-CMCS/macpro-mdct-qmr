@@ -19,11 +19,13 @@ export const ComplexAtLeastOneRateComplete = (
       }
     });
 
-  // Check regular Performance Measures if cannot validate OPM
-  // For each Performance Measure
-  //    Check that the performance measure has a field representation for each age groups
-  //    Check that each field has a "value" and it is not an empty string
-  //    For a complete measure the sum of the booleans will equal the length of the age groups
+  /*
+   * Check regular Performance Measures if cannot validate OPM
+   * For each Performance Measure
+   *    Check that the performance measure has a field representation for each age groups
+   *    Check that each field has a "value" and it is not an empty string
+   *    For a complete measure the sum of the booleans will equal the length of the age groups
+   */
   for (const category of performanceMeasureArray) {
     for (const qualifier of category) {
       const qualComplete = qualifier.fields.every(

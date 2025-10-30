@@ -1,3 +1,4 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
@@ -104,7 +105,7 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  */
 export const NDRSetsAccordion = ({ name }: NdrProps) => {
   const { OPM, componentFlag } = usePerformanceMeasureContext();
-  const children: JSX.Element[] = [];
+  const children: React.JSX.Element[] = [];
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
   switch (componentFlag) {

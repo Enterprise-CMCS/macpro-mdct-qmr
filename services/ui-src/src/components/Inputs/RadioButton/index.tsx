@@ -1,3 +1,4 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
@@ -7,7 +8,7 @@ import { ControllerRules } from "global";
 export interface RadioButtonOption {
   displayValue: string;
   value: string | number;
-  children?: JSX.Element[];
+  children?: React.JSX.Element[];
   removable?: boolean;
   onDelete?: () => void;
   onClick?: () => void;

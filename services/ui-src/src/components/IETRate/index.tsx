@@ -69,8 +69,10 @@ export const IETRate = ({
   });
   const catID = category?.id ?? "singleCategory";
 
-  /* Every time a user enters data into the field, it rerenderers the whole performance measure component, meaning the fields values are removed
-  We have to rebuild the data structures each time if the data hasn't been saved. */
+  /*
+   * Every time a user enters data into the field, it rerenderers the whole performance measure component, meaning the fields values are removed
+   * We have to rebuild the data structures each time if the data hasn't been saved.
+   */
   const rebuildFields = () => {
     //field.value is how we access saved data and if its empty, we need to rebuild the fields from scratch
     if (Object.keys(field.value).length < categories!.length) {

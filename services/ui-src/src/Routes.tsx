@@ -68,16 +68,20 @@ interface MeasureRoute {
   key: string;
 }
 
-// For each year we want a route for each measure.
-// The measures available for each year are defined in the measuresList
-// eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
+/*
+ * For each year we want a route for each measure.
+ * The measures available for each year are defined in the measuresList
+ * eg. http://localhost:3000/:state/2021/:coreSetId/AMM-AD
+ */
 export function useMeasureRoutes(): MeasureRoute[] {
   const { data } = useGetMeasureListInfo();
 
   const measureRoutes: MeasureRoute[] = [];
 
-  // Add qualifier routes separately from regular measures
-  // Qualifiers all share one component with an additional data object passed in for core-set variance
+  /*
+   * Add qualifier routes separately from regular measures
+   * Qualifiers all share one component with an additional data object passed in for core-set variance
+   */
   for (const qualYear of QualifierData) {
     measureRoutes.push({
       key: `:state/${qualYear.year}/:coreSetId/CSQ`,

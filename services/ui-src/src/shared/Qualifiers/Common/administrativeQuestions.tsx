@@ -15,9 +15,11 @@ export const AdministrativeQuestions = () => {
   const { setValue, watch } = useFormContext<Types.HHCSQualifierForm>();
   const data = watch();
 
-  //function to only invoke when the value has changed for number of adult or number of children
-  //only want the function to run when the value of numberOfAdults or numberOfChildren change
-  //the numberOfIndividuals needs to allow overwrite from states; is NOT always the sum of children + adult
+  /*
+   * function to only invoke when the value has changed for number of adult or number of children
+   * only want the function to run when the value of numberOfAdults or numberOfChildren change
+   * the numberOfIndividuals needs to allow overwrite from states; is NOT always the sum of children + adult
+   */
   const sumOnChange = (v: any) => {
     //auto sum was introduced in 2023
     if (isLegacyLabel()) return v;

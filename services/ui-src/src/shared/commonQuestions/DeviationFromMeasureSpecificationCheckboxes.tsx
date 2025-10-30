@@ -157,8 +157,10 @@ export const DeviationFromMeasureSpecificationCheckboxes = ({
             customTotalLabel ? `${customTotalLabel}` : "Total"
           }`;
         }
-        /* This is checking if the rates object has a singleCategory key.
-        If it does, then it will return the low level deviation options. */
+        /*
+         * This is checking if the rates object has a singleCategory key.
+         * If it does, then it will return the low level deviation options.
+         */
         return getLowLvlDeviationOptions({
           qualifiers:
             measureName === "AIF-HH"
