@@ -116,7 +116,7 @@ describe("Test Update Measure Handler", () => {
       body: JSON.stringify({ data: {}, status: "incomplete" }),
       pathParameters: {
         state: "CO",
-        year: "2025",
+        year: "2026",
         coreSet: "ACS",
         measure: "AAB-AD",
       },
@@ -129,7 +129,7 @@ describe("Test Update Measure Handler", () => {
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",
-      Key: { compoundKey: "CO2025ACS", measure: "AAB-AD" },
+      Key: { compoundKey: "CO2026ACS", measure: "AAB-AD" },
       UpdateExpression: expect.any(String),
       ExpressionAttributeNames: expect.any(Object),
       ExpressionAttributeValues: {
@@ -142,7 +142,7 @@ describe("Test Update Measure Handler", () => {
     });
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-coreset-table",
-      Key: { coreSet: "ACS", compoundKey: "CO2025" },
+      Key: { coreSet: "ACS", compoundKey: "CO2026" },
       UpdateExpression: expect.any(String),
       ExpressionAttributeNames: expect.any(Object),
       ExpressionAttributeValues: {

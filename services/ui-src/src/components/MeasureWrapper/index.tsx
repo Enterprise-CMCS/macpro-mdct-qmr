@@ -18,7 +18,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
-import { AnyObject, CoreSetAbbr, MeasureStatus } from "types";
+import { CoreSetAbbr, MeasureStatus } from "types";
 import { areObjectsDifferent, areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { useUser } from "hooks/authHooks";
@@ -158,10 +158,8 @@ export const MeasureWrapper = ({
   const [validating, setValidating] = useState(false);
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
-  const shared: AnyObject = {
-    ...Labels[
-      `CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024" | "CQ2025"
-    ],
+  const shared = {
+    ...Labels[`CQ${year}` as keyof typeof Labels],
     year: year,
   };
 
