@@ -10,6 +10,7 @@ import { cleanString, hasNumOrDenom, isLegacyLabel, LabelData } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
 import { omsLocationDictionary } from "../dataDrivenTools";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+import { FormError } from "error";
 
 interface OmsValidationProps {
   data: DefaultFormData | DefaultFormDataLegacy;

@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import { testFormData } from "./../testHelpers/_testFormData";
 import { validateDeviationTextFieldFilled } from ".";
+import { FormError } from "error";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   let formData: any = {};

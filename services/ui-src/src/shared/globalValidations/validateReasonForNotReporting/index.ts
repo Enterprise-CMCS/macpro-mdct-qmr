@@ -1,3 +1,5 @@
+import { FormError } from "error";
+
 const validateReasonForNotReportingErrorMessage = (collecting?: boolean) => {
   return `You must select at least one reason for not ${
     collecting ? "collecting" : "reporting"

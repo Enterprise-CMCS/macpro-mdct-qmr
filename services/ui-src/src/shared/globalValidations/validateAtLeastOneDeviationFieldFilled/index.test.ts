@@ -3,6 +3,7 @@ import { test_setup } from "./../testHelpers/_helper";
 import { testFormData } from "./../testHelpers/_testFormData";
 import { getDeviationNDRArray } from "./../dataDrivenTools";
 import { validateAtLeastOneDeviationFieldFilled } from ".";
+import { FormError } from "error";
 
 describe("validateAtLeastOneNDRInDeviationOfMeasureSpec", () => {
   let formData: any = {};

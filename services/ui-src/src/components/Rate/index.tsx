@@ -5,7 +5,6 @@ import objectPath from "object-path";
 import { useEffect } from "react";
 import { getLabelText } from "utils";
 import { defaultRateCalculation } from "utils/rateFormulas";
-
 import {
   allNumbers,
   eightNumbersOneDecimal,
@@ -14,6 +13,8 @@ import {
   allPositiveIntegersWith8Digits,
 } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
+import { RateFormula } from "utils/rateFormulas/rateFormulas";
+
 export interface IRate {
   label?: string;
   id: number;

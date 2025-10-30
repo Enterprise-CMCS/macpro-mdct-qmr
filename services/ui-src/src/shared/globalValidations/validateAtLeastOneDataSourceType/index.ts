@@ -1,5 +1,6 @@
 import * as Types from "shared/types";
 import { DataSource } from "../../../types";
+import { FormError } from "error";
 
 const OPTIONAL_DATA_SOURCES = new Set([DataSource.EHR, DataSource.ECDS]);
 

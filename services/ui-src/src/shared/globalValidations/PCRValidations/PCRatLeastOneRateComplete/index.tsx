@@ -1,5 +1,6 @@
 import { LabelData } from "utils";
 import { validatePartialRateCompletionPM } from "../../validatePartialRateCompletion";
+import { FormError } from "error";
 
 /* At least one NDR set must be complete (OPM or PM) */
 export const PCRatLeastOneRateComplete = (

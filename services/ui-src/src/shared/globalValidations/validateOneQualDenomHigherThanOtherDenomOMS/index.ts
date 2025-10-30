@@ -8,6 +8,7 @@ import {
   convertOmsDataToRateArray,
   getPerfMeasureRateArray,
 } from "../dataDrivenTools";
+import { FormError } from "error";
 
 type ErrorMessageFunc = (lowerQual: string, higherQual: string) => string;
 

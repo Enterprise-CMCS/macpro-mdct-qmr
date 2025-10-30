@@ -16,6 +16,7 @@ import {
   allPositiveIntegersWith8Digits,
 } from "utils";
 import { AnyObject } from "types";
+import { RateFormula } from "utils/rateFormulas/rateFormulas";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];

@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import { testFormData } from "../testHelpers/_testFormData";
 import { validateCollecting } from ".";
+import { FormError } from "error";
 
 describe("validateCollecting", () => {
   let formData: any;

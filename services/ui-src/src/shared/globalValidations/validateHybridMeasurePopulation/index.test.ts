@@ -1,6 +1,7 @@
 import { testFormData } from "./../testHelpers/_testFormData";
 import * as DC from "dataConstants";
 import { validateHybridMeasurePopulation } from ".";
+import { FormError } from "error";
 
 describe("validateHybridMeasurePopulation", () => {
   let formData: any;

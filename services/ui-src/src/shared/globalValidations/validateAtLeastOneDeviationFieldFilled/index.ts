@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import * as Types from "shared/types";
 import { FormRateField } from "shared/types/TypeValidations";
 

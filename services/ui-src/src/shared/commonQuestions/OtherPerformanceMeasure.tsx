@@ -4,6 +4,8 @@ import * as DC from "dataConstants";
 import * as Types from "../types";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, stringIsReadOnly } from "utils";
+import { RateComp } from "error";
+import { RateFormula } from "utils/rateFormulas/rateFormulas";
 
 interface Props {
   rateAlwaysEditable?: boolean;

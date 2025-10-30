@@ -1,6 +1,7 @@
 import { testFormData } from "./../testHelpers/_testFormData";
 import * as DC from "dataConstants";
 import { validateDateRangeRadioButtonCompletion } from ".";
+import { FormError } from "error";
 
 describe("validateDateRangeRadioButtonCompletion", () => {
   let formData: any;
