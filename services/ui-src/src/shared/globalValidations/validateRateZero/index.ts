@@ -103,6 +103,6 @@ export const validateRateZeroPM = (
     }),
   ];
 
-  if (!!errors.length) errorArray.push(errors[0]);
+  if (errors.length) errorArray.push(errors[0]);
   return errorArray;
 };

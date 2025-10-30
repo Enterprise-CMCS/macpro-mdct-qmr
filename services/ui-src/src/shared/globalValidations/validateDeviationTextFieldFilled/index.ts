@@ -26,7 +26,7 @@ export const validateDeviationTextFieldFilled = (
   const labels = getLabels();
 
   if (didCalculationsDeviate) {
-    if (!!deviationReason) {
+    if (deviationReason) {
       reasonGiven = true;
     }
 
