@@ -6,9 +6,8 @@ import {
   paginateScan,
   UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
-import prompt from "prompt-sync";
 
-/***
+/*
  * Run with `npx tsx syncKafka2024.ts`
  *
  * THE LOCAL OPTION IS NOW MORE COMPLICATED IT YOU NEED TO RUN THIS SCRIPT IN A LOCAL CONTEXT HERE'S A SPOT TO LOOK FOR SUGGESTIONS:
@@ -38,6 +37,7 @@ const promptYesNo = async (query: string) => {
       default:
         rl.write("Y or N only, please.\n");
     }
+    /* eslint-disable no-constant-condition */
   } while (true);
 };
 
