@@ -49,7 +49,6 @@ export const IETRate = ({
   categories,
   qualifiers,
   customMask,
-  calcTotal,
   allowNumeratorGreaterThanDenominator,
   customDenominatorLabel,
   customNumeratorLabel,
