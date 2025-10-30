@@ -61,7 +61,7 @@ export interface Measure {
   userCreated?: boolean;
   year: number;
   placeholder?: boolean;
-  /**
+  /*
    * The `autoCompleted`, `measureType`, and `stratificationRequired` properties are not present on
    * measures in the database; they are set on fetch, according to the
    * metadata in measureList.ts.
@@ -70,7 +70,7 @@ export interface Measure {
   measureType?: MeasureType;
   stratificationRequired?: CoreSetAbbr[];
   data?: {
-    /**
+    /*
      * An array of strings from the `DataSource` enum.
      * Lists the top-level checkboxes selected for the Data Source question.
      *
@@ -81,7 +81,7 @@ export interface Measure {
      *   string `"Other"`, as opposed to the standard `"OtherDataSource"`.
      */
     DataSource?: DataSource[];
-    /**
+    /*
      * A map of data source keys to sub-objects, which may contain selected
      * arrays, or string descriptions.
      *
