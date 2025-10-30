@@ -84,9 +84,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     });
   });
 
-  /**
+  /*
    * Render the measure and confirm that all expected components exist.
-   * */
+   */
   it("Always shows Are you reporting question", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
@@ -158,7 +158,8 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     expect(screen.queryByTestId("OMS")).not.toBeInTheDocument();
   });
 
-  /** Validations Test
+  /*
+   * Validations Test
    *
    * Confirm that correct functions are called. Comprehensive testing of the validations is done in specific test files
    * for each validation function. See globalValidations directory.

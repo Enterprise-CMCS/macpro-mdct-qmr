@@ -6,10 +6,6 @@ import { checkDateCompleteness } from "utils";
 export const DateField = ({
   name,
   label,
-  hint,
-  placeholder,
-  sxOverride,
-  nested,
   errorMessageOverride,
   ...props
 }: Props) => {

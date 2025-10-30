@@ -206,9 +206,9 @@ export const MeasureWrapper = ({
     });
   };
   /*
-  this is where we put all the high level stuff for measures
-  all of the methods defined here can be passed as props to every measure below
-  */
+   * this is where we put all the high level stuff for measures
+   * all of the methods defined here can be passed as props to every measure below
+   */
 
   const { mutate: updateMeasure, isPending: mutationRunning } =
     useUpdateMeasure();
@@ -261,8 +261,10 @@ export const MeasureWrapper = ({
   };
 
   const hasDataChanged = (data: any) => {
-    //there are some instances where there is not change to the data but the way we load the data triggers react hook form to think there is.
-    //this function is to do a comparison between the defaultValues (prev saved data) and data (data waiting to be saved)
+    /*
+     * there are some instances where there is not change to the data but the way we load the data triggers react hook form to think there is.
+     * this function is to do a comparison between the defaultValues (prev saved data) and data (data waiting to be saved)
+     */
     if (Object.keys(methods.formState.dirtyFields).length === 0) return false;
 
     //instead of looping through all the data, we will loop through only the keys that react hook form indicated has a change
@@ -275,7 +277,8 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
-    /* only auto-save measure on timeout if this form has been touched / modified
+    /*
+     * only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
 

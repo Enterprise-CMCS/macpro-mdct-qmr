@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { TextField as CmsdsTextField } from "@cmsgov/design-system";
 
-export const TextField = ({
-  name,
-  label,
-  hint,
-  placeholder,
-  sxOverride,
-  nested,
-  ...props
-}: Props) => {
+export const TextField = ({ name, label, placeholder, ...props }: Props) => {
   const [displayValue, setDisplayValue] = useState<string>("");
   // get form context and register field
   const form = useFormContext();

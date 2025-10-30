@@ -18,14 +18,7 @@ interface Props extends QMR.InputWrapperProps {
   customMask?: RegExp;
 }
 
-export const PCRRate = ({
-  rates,
-  name,
-  allowMultiple = false,
-  readOnly = true,
-  customMask,
-  ...rest
-}: Props) => {
+export const PCRRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
   const {
     control,
     formState: { errors },
