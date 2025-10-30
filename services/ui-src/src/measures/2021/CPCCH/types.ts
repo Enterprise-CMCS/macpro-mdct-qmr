@@ -1,10 +1,9 @@
 import * as Types from "shared/types";
-import * as Type from "shared/types";
 
 export interface FormData
-  extends Type.AdditionalNotes,
-    Types.MeasurementSpecification,
-    Types.DidCollect {
+  extends Types.AdditionalNotes,
+  Types.MeasurementSpecification,
+  Types.DidCollect {
   //HowDidYouReport
   HowDidYouReport: string[];
   "HowDidYouReport-Explanation": string;
