@@ -32,9 +32,11 @@ const validateAtLeastOneRateComplete = (data: any) => {
   return errorArray;
 };
 
-// If a user manually over-rides a rate it must not violate two rules:
-// It must be zero if the numerator is zero or
-// It Must be greater than zero if the Num and Denom are greater than zero
+/*
+ * If a user manually over-rides a rate it must not violate two rules:
+ * It must be zero if the numerator is zero or
+ * It Must be greater than zero if the Num and Denom are greater than zero
+ */
 const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
   const errorArray: FormError[] = [];
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(

@@ -34,8 +34,10 @@ export const collectDataSourcesForMeasure = (measure: Measure | undefined) => {
     (hasECDSDataSource && !canUseECDS) ||
     hasOtherSpecification;
 
-  // There is no need to flag a measure as requiring weights
-  // if it is not usable for combined calculations in the first place.
+  /*
+   * There is no need to flag a measure as requiring weights
+   * if it is not usable for combined calculations in the first place.
+   */
   const requiresWeightedCalc =
     !isUnusableForCalc &&
     (DataSource.includes(DataSourceTypes.Hybrid) ||

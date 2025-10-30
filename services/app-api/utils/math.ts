@@ -17,12 +17,14 @@ export const parseQmrNumber = (str: string | undefined) => {
   return Number(str);
 };
 
-// The following `*safely()` functions can work with missing data:
-// If you perform a series of calculations safely,
-// if numbers are missing along the way,
-// the result will become undefined.
-// This is preferable to defaulting to zero (which is a real number),
-// and to letting the result become NaN, Infinity, or whatever else.
+/*
+ * The following `*safely()` functions can work with missing data:
+ * If you perform a series of calculations safely,
+ * if numbers are missing along the way,
+ * the result will become undefined.
+ * This is preferable to defaulting to zero (which is a real number),
+ * and to letting the result become NaN, Infinity, or whatever else.
+ */
 
 /**
  * Add the two numbers.

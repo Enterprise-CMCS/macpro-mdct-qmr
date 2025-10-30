@@ -103,12 +103,12 @@ const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
 };
 
 /*
-Validate that the values represented in the Total NDR fields are the sum of the respective non-total fields.
-e.g. numerator === sumOfAllOtherNumerators
-
-This validation can be applied for both Performance Measure and OMS sections.
-Default assumption is that this is run for Performance Measure unless specified.
-*/
+ * Validate that the values represented in the Total NDR fields are the sum of the respective non-total fields.
+ * e.g. numerator === sumOfAllOtherNumerators
+ *
+ * This validation can be applied for both Performance Measure and OMS sections.
+ * Default assumption is that this is run for Performance Measure unless specified.
+ */
 export const validateTotalNDR = (
   performanceMeasureArray: FormRateField[][],
   errorLocation = "Performance Measure",

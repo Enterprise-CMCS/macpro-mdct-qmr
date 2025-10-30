@@ -94,7 +94,8 @@ function sanitizeHtml(htmlString: string) {
   }
   const commentlessHtml = doc.querySelector("html")!.outerHTML;
 
-  /* Sanitization parameters:
+  /*
+   * Sanitization parameters:
    *  - WHOLE_DOCUMENT - Tells DOMPurify to return the entire <html> doc;
    *    its default behavior is to return only the contents of the <body>.
    *  - ADD_TAGS: "head" - Add <head> to the tag allowlist. It's important.

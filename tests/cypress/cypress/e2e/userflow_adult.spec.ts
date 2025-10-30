@@ -1,9 +1,11 @@
 import { measureAbbrList2025, testingYear } from "../../support/constants";
 const filePath = "fixtures/files/";
 
-// workflow to test: user goes through basic expected functionality for adult core set
-
-// fill out a measure for 2024
+/*
+ * workflow to test: user goes through basic expected functionality for adult core set
+ *
+ * fill out a measure for 2024
+ */
 const abbr = "ACSC";
 
 describe(`Adult Core Sets should be able to be created for ${testingYear}`, () => {

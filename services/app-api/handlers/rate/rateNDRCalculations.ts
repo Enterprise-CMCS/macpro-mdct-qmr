@@ -37,8 +37,10 @@ export const combineRates = (
     DataSources.Medicaid.requiresWeightedCalc ||
     DataSources.CHIP.requiresWeightedCalc
   ) {
-    // If either measure has a Hybrid data source, we calculate the combined
-    // rate, weighted by the individual measures' eligible populations.
+    /*
+     * If either measure has a Hybrid data source, we calculate the combined
+     * rate, weighted by the individual measures' eligible populations.
+     */
     return uniqueRateIds.map((uid) => {
       const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
       const chipRate = chipRates.find((rate) => rate.uid === uid);

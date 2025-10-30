@@ -21,8 +21,10 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
   const performanceMeasureRates = data.PerformanceMeasure?.rates;
   if (performanceMeasureRates) {
     for (const option in performanceMeasureRates) {
-      // Ugly, but PCR-XX are the only measures that break this check.
-      // If you are thinking about adding another hard-coded value here, consider refactoring this function.
+      /*
+       * Ugly, but PCR-XX are the only measures that break this check.
+       * If you are thinking about adding another hard-coded value here, consider refactoring this function.
+       */
       if (
         (measureId === "PCR-AD" || measureId === "PCR-HH") &&
         performanceMeasureRates?.[option]?.some(PCRrateExists)

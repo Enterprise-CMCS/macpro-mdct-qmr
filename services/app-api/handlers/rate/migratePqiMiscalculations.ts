@@ -41,9 +41,11 @@ export const main = async () => {
       const parameters = { state, year, coreSet, measure };
       console.info(`Processing rate ${JSON.stringify(parameters)}`);
 
-      // The combined core set is either ACS or CCS.
-      // We can build a separated core set abbr by adding "M" or "C",
-      // and it doesn't matter which. An update for either will combine both.
+      /*
+       * The combined core set is either ACS or CCS.
+       * We can build a separated core set abbr by adding "M" or "C",
+       * and it doesn't matter which. An update for either will combine both.
+       */
       await calculateAndPutRate({ ...parameters, coreSet: coreSet + "M" });
       console.info("Calculation complete.");
     }

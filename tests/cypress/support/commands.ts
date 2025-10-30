@@ -22,8 +22,10 @@ const loginUser = (user: string) => {
   });
   cy.visit("/");
 };
-// the default stateuser2 is used to login but can also be changed
-// by passing in a user (not including the @test.com) ex. cy.login('bouser')
+/*
+ * the default stateuser2 is used to login but can also be changed
+ * by passing in a user (not including the @test.com) ex. cy.login('bouser')
+ */
 Cypress.Commands.add(
   "login",
   (
@@ -297,10 +299,11 @@ const _description = `New Measure ${Date.now()}`;
 const _detailedDescription =
   "Don't hurry. Take your time and enjoy. Fluff it up a little and hypnotize it. The more we do this - the more it will do good things to our heart. There are no mistakes. You can fix anything that happens.";
 
-/** Add a new State Specific measure.
+/*
+ * Add a new State Specific measure.
  *
  * Optionally define description and detailedDescription.
- * */
+ */
 Cypress.Commands.add(
   "addStateSpecificMeasure",
   (description = _description, detailedDescription = _detailedDescription) => {
@@ -326,7 +329,8 @@ Cypress.Commands.add(
   }
 );
 
-/** Delete a State Specific measure.
+/*
+ * Delete a State Specific measure.
  *
  * Optionally define description. If no description provided, delete the most recently created SSHH.
  */
