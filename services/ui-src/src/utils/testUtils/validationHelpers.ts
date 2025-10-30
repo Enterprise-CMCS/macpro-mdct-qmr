@@ -1,16 +1,16 @@
 /* eslint-disable no-console, no-extra-boolean-cast */
 import * as DC from "dataConstants";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
-import { OmsNode } from "shared/types";
-import { LabelData, isLegacyLabel } from "utils";
 import {
+  OmsNode,
   RateFields,
   OmsNodes as OMS,
   PerformanceMeasure,
   OtherRatesFields,
   OptionalMeasureStratification,
+  DataDrivenTypes as DDT,
 } from "shared/types";
-import { DataDrivenTypes as DDT } from "shared/types";
+import { LabelData, isLegacyLabel } from "utils";
 
 // Test Rate Objects
 export const partialRate: RateFields = {

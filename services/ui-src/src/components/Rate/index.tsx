@@ -3,15 +3,15 @@ import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { useEffect } from "react";
-import { getLabelText } from "utils";
-import { defaultRateCalculation } from "utils/rateFormulas";
 import {
+  getLabelText,
   allNumbers,
   eightNumbersOneDecimal,
   rateThatAllowsFourDecimals,
   rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
 } from "utils";
+import { defaultRateCalculation } from "utils/rateFormulas";
 import { featuresByYear } from "utils/featuresByYear";
 import { RateFormula } from "utils/rateFormulas/rateFormulas";
 
