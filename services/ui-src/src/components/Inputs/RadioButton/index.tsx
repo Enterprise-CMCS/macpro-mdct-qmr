@@ -7,7 +7,7 @@ import { ControllerRules } from "global";
 export interface RadioButtonOption {
   displayValue: string;
   value: string | number;
-  children?: JSX.Element[];
+  children?: React.JSX.Element[];
   removable?: boolean;
   onDelete?: () => void;
   onClick?: () => void;
@@ -17,7 +17,7 @@ interface RadioButtonProps extends QMR.InputWrapperProps, ControllerRules {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
-  subTextElement?: JSX.Element | JSX.Element[];
+  subTextElement?: React.JSX.Element | React.JSX.Element[];
   valueAsArray?: boolean;
   clearable?: boolean;
 }

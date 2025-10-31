@@ -128,7 +128,7 @@ const OPMNDRSets = ({ name }: NdrProps) => {
  */
 export const NDRSets = ({ name }: NdrProps) => {
   const { OPM, componentFlag } = usePerformanceMeasureContext();
-  const children: JSX.Element[] = [];
+  const children: React.JSX.Element[] = [];
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
   switch (componentFlag) {

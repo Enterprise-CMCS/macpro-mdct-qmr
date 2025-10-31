@@ -1,6 +1,5 @@
 import { act, render, renderHook, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { Suspense } from "react";
 import { useMeasureRoutes, AppRoutes } from "./Routes";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useUser } from "hooks/authHooks";

@@ -95,7 +95,7 @@ export const emailLink = () => {
   );
 };
 
-export function Footer(): JSX.Element {
+export function Footer(): React.JSX.Element {
   return (
     <CUI.Box
       as="footer"

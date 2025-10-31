@@ -6,7 +6,7 @@ import objectPath from "object-path";
 export interface CheckboxOption {
   displayValue?: string;
   value: string | number;
-  children?: JSX.Element[];
+  children?: React.JSX.Element[];
   removable?: boolean;
   onDelete?: () => void;
   childKey?: string;
