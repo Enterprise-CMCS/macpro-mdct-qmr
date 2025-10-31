@@ -14,6 +14,7 @@ import {
 import { defaultRateCalculation } from "utils/rateFormulas";
 import { featuresByYear } from "utils/featuresByYear";
 import { RateFormula } from "utils/rateFormulas/rateFormulas";
+
 export interface IRate {
   label?: string;
   id: number;

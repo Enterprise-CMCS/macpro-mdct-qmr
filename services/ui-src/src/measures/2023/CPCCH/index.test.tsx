@@ -11,6 +11,7 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { clearMocks } from "shared/util/validationsMock";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
+
 expect.extend(toHaveNoViolations);
 
 // Test Setup
@@ -80,7 +81,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   /*
    * Render the measure and confirm that all expected components exist.
-   *
    */
   it("Always shows Did you collect question", async () => {
     useApiMock(apiData);

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import * as cognitolib from "../libs/cognito-lib.js";
 import users from "../libs/users.json" assert { type: "json" };
+
 const userPoolId = process.env.userPoolId;
 
 export const handler = async (_event, _context, _callback) => {

@@ -2,7 +2,6 @@ import * as CUI from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import objectPath from "object-path";
-
 import { useController, useFormContext } from "react-hook-form";
 
 export interface ICheckbox {

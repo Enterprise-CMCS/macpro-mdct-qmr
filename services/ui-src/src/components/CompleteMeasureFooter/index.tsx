@@ -1,6 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { isDevEnv } from "config";
+
 interface Props {
   // these functions do not return a value
   handleClear: () => void;

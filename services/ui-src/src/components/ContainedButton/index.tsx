@@ -1,6 +1,7 @@
 import React from "react";
 import * as CUI from "@chakra-ui/react";
 import { FaPlusCircle, FaPrint } from "react-icons/fa";
+
 interface ContainedButtonProps {
   buttonText: any;
   buttonProps?: CUI.ButtonProps;

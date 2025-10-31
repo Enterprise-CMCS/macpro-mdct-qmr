@@ -16,6 +16,7 @@ import {
   validationsMockObj as V,
 } from "shared/util/validationsMock";
 import { toHaveNoViolations, axe } from "jest-axe";
+
 expect.extend(toHaveNoViolations);
 
 // Test Setup
@@ -85,7 +86,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   /*
    * Render the measure and confirm that all expected components exist.
-   *
    */
   it("Always shows Are you reporting question", async () => {
     useApiMock(apiData);

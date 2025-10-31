@@ -2,7 +2,6 @@ import {
   validateNumeratorLessThanDenominatorOMS,
   validateNumeratorsLessThanDenominatorsPM,
 } from ".";
-
 import {
   generateOmsCategoryRateData,
   locationDictionary,

@@ -2,7 +2,6 @@ import {
   validateEqualQualifierOfCategoryDenominatorsOMS,
   validateEqualQualifierOfCategoryDenominatorsPM,
 } from ".";
-
 import {
   generateOmsCategoryRateData,
   locationDictionary,

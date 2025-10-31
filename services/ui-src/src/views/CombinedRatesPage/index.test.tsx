@@ -5,6 +5,7 @@ import { useApiMock } from "utils/testUtils/useApiMock";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CombinedRatesPage } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
+
 expect.extend(toHaveNoViolations);
 
 jest.mock("react-router-dom", () => ({

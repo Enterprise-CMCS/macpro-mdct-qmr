@@ -8,7 +8,6 @@ import {
 import prompt from "prompt-sync";
 
 /*
- *
  * Run with `npx tsx transformCoreSetTable.ts`
  */
 const transformMeasureTable = async () => {

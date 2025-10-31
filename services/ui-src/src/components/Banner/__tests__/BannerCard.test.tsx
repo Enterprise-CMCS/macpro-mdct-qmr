@@ -3,6 +3,7 @@ import { BannerCard } from "../BannerCard";
 import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
+
 expect.extend(toHaveNoViolations);
 
 const testComponent = <BannerCard />;

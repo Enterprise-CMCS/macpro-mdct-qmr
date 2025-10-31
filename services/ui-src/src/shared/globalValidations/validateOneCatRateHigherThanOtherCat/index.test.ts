@@ -2,7 +2,6 @@ import {
   validateOneCatRateHigherThanOtherCatOMS,
   validateOneCatRateHigherThanOtherCatPM,
 } from ".";
-
 import {
   generatePmCategoryRateData,
   generateOmsCategoryRateData,

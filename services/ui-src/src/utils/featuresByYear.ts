@@ -114,7 +114,6 @@ export const featuresByYear = {
    * the COVID-19 pandemic.
    *
    * In 2025 and beyond, we do not want to display this language.
-   *
    */
   get displayCovidLanguage() {
     return getMeasureYear() < 2025;

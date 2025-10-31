@@ -88,7 +88,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   /*
    * Render the measure and confirm that all expected components exist.
-   *
    */
   it("Always shows Are you reporting question", async () => {
     useApiMock(apiData);

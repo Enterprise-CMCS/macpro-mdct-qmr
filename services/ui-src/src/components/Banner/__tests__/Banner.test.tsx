@@ -3,6 +3,7 @@ import { BannerData } from "types";
 import { Banner } from "../Banner";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
+
 expect.extend(toHaveNoViolations);
 
 const bannerData: BannerData = {

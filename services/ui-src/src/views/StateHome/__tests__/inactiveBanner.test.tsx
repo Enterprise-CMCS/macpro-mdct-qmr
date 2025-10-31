@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
+
 const queryClient = new QueryClient();
 
 const mockedNavigate = jest.fn();

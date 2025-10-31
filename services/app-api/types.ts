@@ -1,4 +1,5 @@
 import { states } from "./utils/constants/constants";
+
 export interface CoreSet {
   compoundKey: string;
   coreSet: CoreSetAbbr;

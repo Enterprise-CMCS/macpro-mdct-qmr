@@ -17,6 +17,7 @@ import SharedContext from "shared/SharedContext";
 import { featuresByYear } from "utils/featuresByYear";
 import { RateComp } from "error";
 import { RateFormula } from "utils/rateFormulas/rateFormulas";
+
 interface Props {
   data: PerformanceMeasureData;
   rateReadOnly?: boolean;

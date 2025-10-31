@@ -7,7 +7,6 @@ import {
   signOut,
 } from "aws-amplify/auth";
 import config from "config";
-
 import { UserContext, UserContextInterface } from "./userContext";
 import { UserRoles } from "types";
 

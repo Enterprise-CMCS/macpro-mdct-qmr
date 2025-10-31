@@ -8,7 +8,6 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 
 /*
- *
  * Run with `npx tsx syncKafka2024.ts`
  *
  * THE LOCAL OPTION IS NOW MORE COMPLICATED IT YOU NEED TO RUN THIS SCRIPT IN A LOCAL CONTEXT HERE'S A SPOT TO LOOK FOR SUGGESTIONS:

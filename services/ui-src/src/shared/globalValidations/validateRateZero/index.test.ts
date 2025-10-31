@@ -1,7 +1,6 @@
 import * as DC from "dataConstants";
 import { validateRateZeroOMS, validateRateZeroPM } from ".";
 import { testFormData } from "./../testHelpers/_testFormData";
-
 import {
   generateOmsQualifierRateData,
   locationDictionary,

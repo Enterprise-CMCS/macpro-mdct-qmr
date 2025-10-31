@@ -45,7 +45,6 @@ const downloadDir = constants.DOWNLOAD_DIR;
  * Returns the /tmp local path from an s3ObjectKey
  * @param {string} s3ObjectKey Key of the s3 object
  * @return {string} Path of the s3 object on the local fs
- *
  */
 function pathFromObjectKey(s3ObjectKey) {
   // remove problematic characters from filename

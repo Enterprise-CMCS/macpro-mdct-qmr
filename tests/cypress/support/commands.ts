@@ -282,7 +282,6 @@ const _detailedDescription =
  * Add a new State Specific measure.
  *
  * Optionally define description and detailedDescription.
- *
  */
 Cypress.Commands.add(
   "addStateSpecificMeasure",

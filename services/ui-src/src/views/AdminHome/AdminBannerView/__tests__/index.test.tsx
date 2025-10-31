@@ -3,6 +3,7 @@ import { useApiMock } from "utils/testUtils/useApiMock";
 import { AdminBannerView } from "../index";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
+
 expect.extend(toHaveNoViolations);
 
 const testComponent = <AdminBannerView />;

@@ -10,7 +10,6 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { validationFunctions } from "./../validationTemplate";
 import { data as MeasureData } from "./data";
-
 import {
   mockValidateAndSetErrors,
   clearMocks,
@@ -18,6 +17,7 @@ import {
 } from "shared/util/validationsMock";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
+
 expect.extend(toHaveNoViolations);
 
 // Test Setup
@@ -87,7 +87,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   /*
    * Render the measure and confirm that all expected components exist.
-   *
    */
   it("Always shows Are you reporting question", async () => {
     useApiMock(apiData);
