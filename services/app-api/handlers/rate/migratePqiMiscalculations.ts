@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import dynamodbLib from "../../libs/dynamodb-lib";
 import { CombinedRatesTableEntry } from "../../types";
 import { calculateAndPutRate } from "./rateCalculations";

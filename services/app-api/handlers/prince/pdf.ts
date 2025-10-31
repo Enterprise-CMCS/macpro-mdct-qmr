@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { fetch } from "cross-fetch"; // TODO delete this line and uninstall this package, once QMR is running on Nodejs 18+
 import createDOMPurify from "dompurify";
 import { JSDOM } from "jsdom";

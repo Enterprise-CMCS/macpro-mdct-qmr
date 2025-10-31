@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*
  * This function gets invoked once per uploaded file.
  * If two files are uploaded at the same time, this function is called twice.
