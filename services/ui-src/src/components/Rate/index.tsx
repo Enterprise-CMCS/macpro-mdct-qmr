@@ -90,7 +90,7 @@ export const Rate = ({
     }
 
     field.onChange([...prevRate]);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeRate = (
     index: number,
@@ -202,11 +202,11 @@ export const Rate = ({
       prevRate[totalIndex]["rate"] =
         numeratorSum !== 0
           ? rateCalc(
-              numeratorSum.toString(),
-              denominatorSum.toString(),
-              rateMultiplicationValue,
-              1
-            )
+            numeratorSum.toString(),
+            denominatorSum.toString(),
+            rateMultiplicationValue,
+            1
+          )
           : "0";
     } else {
       prevRate[totalIndex]["rate"] = "";
@@ -299,7 +299,7 @@ export const Rate = ({
             </CUI.Stack>
             {!allowNumeratorGreaterThanDenominator &&
               parseFloat(field.value[index]?.numerator) >
-                parseFloat(field.value[index]?.denominator) && (
+              parseFloat(field.value[index]?.denominator) && (
                 <QMR.Notification
                   alertTitle="Rate Error"
                   alertDescription={`Numerator: ${field.value[index]?.numerator} cannot be greater than Denominator: ${field.value[index]?.denominator}`}

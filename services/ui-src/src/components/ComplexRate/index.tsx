@@ -42,11 +42,11 @@ const calculateRates = (
       fieldRow[formula.rateIndex].value =
         num !== 0 && denom !== 0
           ? defaultRateCalculation(
-              num.toString(),
-              denom.toString(),
-              formula.mult!,
-              1
-            )
+            num.toString(),
+            denom.toString(),
+            formula.mult!,
+            1
+          )
           : "0";
     } else {
       fieldRow[formula.rateIndex].value = "";
@@ -169,7 +169,7 @@ export const ComplexRate = ({
     prevRate[prevRate.length - 1]["isTotal"] = true;
 
     field.onChange([...prevRate]);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeRate = (
     qualIndex: number,
@@ -223,7 +223,6 @@ export const ComplexRate = ({
       field.onChange([]);
     };
     // purposefully ignoring field to stop infinite rerender
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
   const lowerCaseMeasureName = measureName.toLowerCase();
@@ -242,8 +241,8 @@ export const ComplexRate = ({
               {lowerCaseMeasureName === "aifhh"
                 ? qual.label
                 : qual.label === "Total" || categoryName === ""
-                ? `${qual.label} ${categoryName}`
-                : `${categoryName} ${qual.label?.toLowerCase()}`}
+                  ? `${qual.label} ${categoryName}`
+                  : `${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
             <CUI.Stack
               direction={{ base: "column", md: "row" }}

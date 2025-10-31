@@ -250,11 +250,11 @@ export const IETRate = ({
       total.rate =
         numeratorSum !== 0
           ? rateCalc(
-              numeratorSum.toString(),
-              denominatorSum.toString(),
-              rateMultiplicationValue,
-              1
-            )
+            numeratorSum.toString(),
+            denominatorSum.toString(),
+            rateMultiplicationValue,
+            1
+          )
           : "0";
     }
     return total;
@@ -288,7 +288,6 @@ export const IETRate = ({
       field.onChange([]);
     };
     // purposefully ignoring field to stop infinite rerender
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
   return (
@@ -362,7 +361,7 @@ export const IETRate = ({
             </CUI.Stack>
             {!allowNumeratorGreaterThanDenominator &&
               parseFloat(fieldKey?.numerator) >
-                parseFloat(fieldKey?.denominator) && (
+              parseFloat(fieldKey?.denominator) && (
                 <QMR.Notification
                   alertTitle="Rate Error"
                   alertDescription={`Numerator: ${fieldKey?.numerator} cannot be greater than Denominator: ${fieldKey?.denominator}`}
