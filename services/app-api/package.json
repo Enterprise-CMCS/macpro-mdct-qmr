@@ -38,8 +38,7 @@
     "jwt-decode": "^3.1.2",
     "kafkajs": "^2.2.4",
     "prompt-sync": "^4.2.0",
-    "uuid": "^7.0.3",
-    "xml2js": "0.6.0"
+    "uuid": "^7.0.3"
   },
   "resolutions": {
     "ws": "^8.18.0"
