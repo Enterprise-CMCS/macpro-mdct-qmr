@@ -7,6 +7,5 @@
   "type": "module",
   "dependencies": {
     "kafkajs": "^2.2.4"
-  },
-  "resolutions": {}
+  }
 }
