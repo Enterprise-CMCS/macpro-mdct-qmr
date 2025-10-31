@@ -4,6 +4,7 @@ import { useMeasureRoutes, AppRoutes } from "./Routes";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
+import { Suspense } from "react";
 
 jest.mock("hooks/api/useGetMeasureListInfo");
 jest.mock("hooks/authHooks");
