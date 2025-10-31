@@ -11,7 +11,7 @@ import { isLegacyLabel } from "utils";
 interface NdrProps {
   name: string;
 }
-/**
+/*
  * Builds NDRs for Performance Measure AgeGroups
  */
 const AgeGroupNDRSets = ({ name }: NdrProps) => {
@@ -93,13 +93,13 @@ const PCRNDRSets = ({ name }: NdrProps) => {
     </>
   );
 };
-/**
+/*
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
   return useRenderOPMCheckboxOptions(name);
 };
-/**
+/*
  * Builds Base level NDR Sets
  */
 export const NDRSetsAccordion = ({ name }: NdrProps) => {

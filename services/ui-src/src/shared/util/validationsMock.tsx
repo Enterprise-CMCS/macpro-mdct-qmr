@@ -31,7 +31,7 @@ import * as ComplexValidateAtLeastOneNDRInDeviationOfMeasureSpec from "shared/gl
 import { DefaultFormData } from "shared/types/FormData";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 
-/**
+/*
  * Replicate the behavior of the validateAndSetErrors() function in the MeasureWrapper
  */
 export const mockValidateAndSetErrors = (
@@ -51,7 +51,7 @@ export const clearMocks = () => {
   }
 };
 
-/**
+/*
  * Spies for all the validation functions in the globalValidations folder
  */
 export const validationsMockObj: any = {

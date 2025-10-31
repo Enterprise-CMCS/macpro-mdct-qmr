@@ -16,7 +16,7 @@ interface AdditonalCategoryProps {
   overrideExpand?: (option: string) => boolean;
 }
 
-/**
+/*
  * Additional [Race/Sex/Language/Etc] Category Section
  */
 export const AddAnotherSection = ({

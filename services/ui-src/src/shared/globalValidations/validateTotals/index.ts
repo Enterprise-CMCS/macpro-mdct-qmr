@@ -9,91 +9,89 @@ const validateOMSTotalNDRErrorMessage = (
   totalLabel?: string
 ) => {
   if (fieldType === "Total") {
-    return `${
-      totalLabel ? `${totalLabel} ` : ""
-    }Total must contain values if other fields are filled.`;
+    return `${totalLabel ? `${totalLabel} ` : ""
+      }Total must contain values if other fields are filled.`;
   }
-  return `${
-    totalLabel ? `${totalLabel} ` : ""
-  }Total ${fieldType} field is not equal to the sum of other ${fieldType}s.`;
+  return `${totalLabel ? `${totalLabel} ` : ""
+    }Total ${fieldType} field is not equal to the sum of other ${fieldType}s.`;
 };
 
 export const validateOMSTotalNDR =
   (errorMessageFunc = validateOMSTotalNDRErrorMessage): OmsValidationCallback =>
-  ({
-    categories,
-    qualifiers,
-    rateData,
-    label,
-    locationDictionary,
-    isOPM,
-    customTotalLabel,
-  }) => {
-    if (isOPM) return [];
+    ({
+      categories,
+      qualifiers,
+      rateData,
+      label,
+      locationDictionary,
+      isOPM,
+      customTotalLabel,
+    }) => {
+      if (isOPM) return [];
 
-    const error: FormError[] = [];
+      const error: FormError[] = [];
 
-    for (const cat of categories.map((s) => s.id)) {
-      const ndrSets = [];
-      let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
-      let denominatorSum: any = null;
-      for (const qual of qualifiers.map((s) => s.id)) {
-        if (isLegacyLabel()) {
-          ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
-        } else {
-          ndrSets.push(rateData.rates?.[cat]?.[qual]?.[0]);
+      for (const cat of categories.map((s) => s.id)) {
+        const ndrSets = [];
+        let numeratorSum: any = null; // initialized as a non-zero value to accurately compare
+        let denominatorSum: any = null;
+        for (const qual of qualifiers.map((s) => s.id)) {
+          if (isLegacyLabel()) {
+            ndrSets.push(rateData.rates?.[qual]?.[cat]?.[0]);
+          } else {
+            ndrSets.push(rateData.rates?.[cat]?.[qual]?.[0]);
+          }
         }
-      }
 
-      // The last NDR set is the total
-      const totalNDR = ndrSets.pop();
+        // The last NDR set is the total
+        const totalNDR = ndrSets.pop();
 
-      // Calculate numerator and denominator totals
-      ndrSets.forEach((set) => {
-        if (set && set.denominator && set.numerator && set.rate) {
-          numeratorSum += parseFloat(set.numerator);
-          denominatorSum += parseFloat(set.denominator);
-        }
-      });
-
-      if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
-        let x;
-        if (
-          (x = parseFloat(totalNDR.numerator)) !== numeratorSum &&
-          numeratorSum !== null &&
-          !isNaN(x)
-        ) {
-          error.push({
-            errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              [...label, qualifiers.slice(-1)[0].label]
-            )}`,
-            errorMessage: errorMessageFunc("numerator", customTotalLabel),
-          });
-        }
-        if (
-          (x = parseFloat(totalNDR.denominator)) !== denominatorSum &&
-          denominatorSum !== null &&
-          !isNaN(x)
-        ) {
-          error.push({
-            errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              [...label, qualifiers.slice(-1)[0].label]
-            )}`,
-            errorMessage: errorMessageFunc("denominator", customTotalLabel),
-          });
-        }
-      } else if (numeratorSum && denominatorSum) {
-        error.push({
-          errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qualifiers.slice(-1)[0].label]
-          )}`,
-          errorMessage: errorMessageFunc("Total", customTotalLabel),
+        // Calculate numerator and denominator totals
+        ndrSets.forEach((set) => {
+          if (set && set.denominator && set.numerator && set.rate) {
+            numeratorSum += parseFloat(set.numerator);
+            denominatorSum += parseFloat(set.denominator);
+          }
         });
-      }
-    }
 
-    return error;
-  };
+        if (totalNDR && totalNDR.numerator && totalNDR.denominator) {
+          let x;
+          if (
+            (x = parseFloat(totalNDR.numerator)) !== numeratorSum &&
+            numeratorSum !== null &&
+            !isNaN(x)
+          ) {
+            error.push({
+              errorLocation: `Optional Measure Stratification: ${locationDictionary(
+                [...label, qualifiers.slice(-1)[0].label]
+              )}`,
+              errorMessage: errorMessageFunc("numerator", customTotalLabel),
+            });
+          }
+          if (
+            (x = parseFloat(totalNDR.denominator)) !== denominatorSum &&
+            denominatorSum !== null &&
+            !isNaN(x)
+          ) {
+            error.push({
+              errorLocation: `Optional Measure Stratification: ${locationDictionary(
+                [...label, qualifiers.slice(-1)[0].label]
+              )}`,
+              errorMessage: errorMessageFunc("denominator", customTotalLabel),
+            });
+          }
+        } else if (numeratorSum && denominatorSum) {
+          error.push({
+            errorLocation: `Optional Measure Stratification: ${locationDictionary(
+              [...label, qualifiers.slice(-1)[0].label]
+            )}`,
+            errorMessage: errorMessageFunc("Total", customTotalLabel),
+          });
+        }
+      }
+
+      return error;
+    };
 
 const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
   if (fieldType === "Total") {
@@ -103,12 +101,12 @@ const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
 };
 
 /*
-Validate that the values represented in the Total NDR fields are the sum of the respective non-total fields.
-e.g. numerator === sumOfAllOtherNumerators
-
-This validation can be applied for both Performance Measure and OMS sections.
-Default assumption is that this is run for Performance Measure unless specified.
-*/
+ * Validate that the values represented in the Total NDR fields are the sum of the respective non-total fields.
+ * e.g. numerator === sumOfAllOtherNumerators
+ *
+ * This validation can be applied for both Performance Measure and OMS sections.
+ * Default assumption is that this is run for Performance Measure unless specified.
+ */
 export const validateTotalNDR = (
   performanceMeasureArray: FormRateField[][],
   errorLocation = "Performance Measure",

@@ -43,8 +43,10 @@ interface MeasureTableItem {
   actions: { itemText: string; handleSelect: () => void }[];
 }
 
-// Interface for handling location.state for a success flag, used when creating
-// a new State Specific Measure.
+/*
+ * Interface for handling location.state for a success flag, used when creating
+ * a new State Specific Measure.
+ */
 interface LocationState {
   state: { success: boolean };
 }
@@ -79,8 +81,8 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   const tempSpa =
     coreSetInfo.length > 1
       ? SPA[year!].filter(
-          (s) => s.id === coreSetInfo[1] && s.state === state
-        )[0]
+        (s) => s.id === coreSetInfo[1] && s.state === state
+      )[0]
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
@@ -109,7 +111,7 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   );
 };
 
-/**
+/*
  * Create an array of the measure data to be usable by the table component from db pull
  */
 const useMeasureTableDataBuilder = () => {
@@ -274,9 +276,11 @@ export const CoreSet = () => {
       ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
-  // It appears that spaName only has a value for HH Core Sets. Is this true?
-  // Or should we determine whether or not this is a HH Core Set another way,
-  // like checking the coreSetId for "HH"?
+  /*
+   * It appears that spaName only has a value for HH Core Sets. Is this true?
+   * Or should we determine whether or not this is a HH Core Set another way,
+   * like checking the coreSetId for "HH"?
+   */
   const isHHCoreSet = spaName.length > 0;
 
   const { data } = useGetCoreSet({ coreSetId, state, year });

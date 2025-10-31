@@ -1,8 +1,10 @@
 import * as Types from "shared/types";
 import { FormRateField } from "shared/types/TypeValidations";
 
-// When a user inputs data in multiple NDR sets in a performance measure
-// Then the user must complete at least one NDR set in the Deviation of measure specification.
+/*
+ * When a user inputs data in multiple NDR sets in a performance measure
+ * Then the user must complete at least one NDR set in the Deviation of measure specification.
+ */
 export const validateAtLeastOneDeviationFieldFilled = (
   performanceMeasureArray: FormRateField[][],
   deviationArray: Types.DeviationFields[] | any,

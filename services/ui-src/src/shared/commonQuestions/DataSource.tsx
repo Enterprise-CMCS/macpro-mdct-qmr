@@ -32,7 +32,7 @@ type DSCBChildFunc = ({
   data,
 }: DataSourceCheckboxBuilderProps) => React.ReactElement[];
 
-/**
+/*
  * Build child checkboxes for data source options
  */
 const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
@@ -54,7 +54,7 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
   return elements;
 };
 
-/**
+/*
  * Build Data Source checkbox options, and possible child checkbox children
  */
 const buildDataSourceOptions: DSCBFunc = ({
@@ -162,7 +162,7 @@ const addLabelByType = (
   });
 };
 
-/**
+/*
  * Fully built DataSource component
  */
 export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {

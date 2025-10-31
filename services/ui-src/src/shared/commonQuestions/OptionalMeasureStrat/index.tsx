@@ -10,7 +10,7 @@ import { useFormContext } from "react-hook-form";
 import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
 import SharedContext from "shared/SharedContext";
 
-/**
+/*
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
@@ -46,7 +46,7 @@ export const buildOmsCheckboxes = ({
     });
 };
 
-/**
+/*
  * Final OMS built
  */
 export const OptionalMeasureStrat = ({
@@ -113,13 +113,15 @@ export const OptionalMeasureStrat = ({
     rateReadOnly = stringIsReadOnly(dataSourceWatch);
   }
 
-  /**
+  /*
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
    */
   useEffect(() => {
     return () => {
-      //unregister does not clean the data properly
-      //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+      /*
+       * unregister does not clean the data properly
+       * setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+       */
       setValue("OptionalMeasureStratification", {
         options: [],
         selections: {},

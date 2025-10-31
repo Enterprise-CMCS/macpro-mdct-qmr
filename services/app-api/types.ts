@@ -61,7 +61,7 @@ export interface Measure {
   userCreated?: boolean;
   year: number;
   placeholder?: boolean;
-  /**
+  /*
    * The `autoCompleted`, `measureType`, and `stratificationRequired` properties are not present on
    * measures in the database; they are set on fetch, according to the
    * metadata in measureList.ts.
@@ -70,7 +70,7 @@ export interface Measure {
   measureType?: MeasureType;
   stratificationRequired?: CoreSetAbbr[];
   data?: {
-    /**
+    /*
      * An array of strings from the `DataSource` enum.
      * Lists the top-level checkboxes selected for the Data Source question.
      *
@@ -81,7 +81,7 @@ export interface Measure {
      *   string `"Other"`, as opposed to the standard `"OtherDataSource"`.
      */
     DataSource?: DataSource[];
-    /**
+    /*
      * A map of data source keys to sub-objects, which may contain selected
      * arrays, or string descriptions.
      *
@@ -240,7 +240,7 @@ export const enum RequestMethods {
   DELETE = "DELETE",
 }
 
-/**
+/*
  * Abridged copy of the type used by `aws-lambda@1.0.7` (from `@types/aws-lambda@8.10.88`)
  * We only use this one type from the package, and we use only a subset of the
  * properties. Since `aws-lambda` depends on `aws-sdk` (that is, SDK v2),
@@ -264,7 +264,7 @@ export interface APIGatewayProxyEvent {
 
 export type EventParameters = Record<string, string | undefined>;
 
-/**
+/*
  * This is the shape of data saved to the Rates table.
  */
 export type CombinedRatesTableEntry = RateParameters & {
@@ -275,7 +275,7 @@ export type CombinedRatesTableEntry = RateParameters & {
 };
 
 export type CombinedRatesPayload = {
-  /**
+  /*
    * Lists the data sources the user entered when completing the rate.
    * Also includes flags indicating how those sources affect the calculation.
    */
@@ -283,7 +283,7 @@ export type CombinedRatesPayload = {
     Medicaid: DataSourcePayload;
     CHIP: DataSourcePayload;
   };
-  /**
+  /*
    * Lists all of the rates completed in at least one core set.
    * If a rate was left empty for both Medicaid and CHIP, it will be omitted.
    *
@@ -297,7 +297,7 @@ export type CombinedRatesPayload = {
     CHIP: WeightedRateShape;
     Combined: WeightedRateShape;
   }[];
-  /**
+  /*
    * Certain measures collect numbers outside of the usual
    * numerator/denominator/rate triplets. Those values are listed here.
    */
@@ -311,30 +311,30 @@ export type CombinedRatesPayload = {
 };
 
 export type DataSourcePayload = {
-  /**
+  /*
    * If a measure was reported with "Other" as a data source,
    * or if it uses an alternative measure specification,
    * we cannot perform combined rate calculations on it.
    */
   isUnusableForCalc: boolean;
   hasOtherDataSource: boolean;
-  /**
+  /*
    * Prior to 2025, data sourced from ECDS was also unusable for combined rates.
    * So in 2024, when this flag is true, `isUnusableForCalc` will also be true.
    * In 2025 and on, `isUnusableForCalc` may be false even when this is true.
    */
   hasECDSDataSource: boolean;
   hasOtherSpecification: boolean;
-  /**
+  /*
    * If a measure was reported with a hybrid data source,
    * we must weight the combined rate according to measure populations.
    */
   requiresWeightedCalc: boolean;
-  /**
+  /*
    * Top-level data source selections.
    */
   DataSource: DataSource[];
-  /**
+  /*
    * Data source sub-selections and descriptions.
    */
   DataSourceSelections: DataSourceSelectionsType;
@@ -344,7 +344,7 @@ export type WeightedRateShape = {
   numerator?: number;
   denominator?: number;
   rate?: number;
-  /**
+  /*
    * For measures with a hybrid data source, this is the
    * Measure-Eligible Population. For measures with an admin data source,
    * this is the denominator for the rate - unless it is overridden by a

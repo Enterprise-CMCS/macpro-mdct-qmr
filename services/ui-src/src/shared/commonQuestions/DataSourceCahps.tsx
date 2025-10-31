@@ -12,7 +12,7 @@ interface DataSourceProps {
   type?: string;
 }
 
-/**
+/*
  * Fully built DataSource component
  */
 export const DataSourceRadio = ({
@@ -48,15 +48,15 @@ export const DataSourceRadio = ({
                 }}
               />,
               (type === "adult" || type === "child") &&
-                labels?.DataSourceCahps.otherDataSourceWarning && (
-                  <CUI.Box mt="8">
-                    <Alert heading="Please Note" variation="warn">
-                      <CUI.Text>
-                        {labels.DataSourceCahps.otherDataSourceWarning}
-                      </CUI.Text>
-                    </Alert>
-                  </CUI.Box>
-                ),
+              labels?.DataSourceCahps.otherDataSourceWarning && (
+                <CUI.Box mt="8">
+                  <Alert heading="Please Note" variation="warn">
+                    <CUI.Text>
+                      {labels.DataSourceCahps.otherDataSourceWarning}
+                    </CUI.Text>
+                  </Alert>
+                </CUI.Box>
+              ),
             ],
           },
         ]}

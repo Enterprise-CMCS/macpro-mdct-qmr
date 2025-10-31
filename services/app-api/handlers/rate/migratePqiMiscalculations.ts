@@ -2,7 +2,7 @@ import dynamodbLib from "../../libs/dynamodb-lib";
 import { CombinedRatesTableEntry } from "../../types";
 import { calculateAndPutRate } from "./rateCalculations";
 
-/**
+/*
  * This is a data migration function for the combined rates table.
  * During development of the feature, we broke the calculation for PQI measures.
  * The broken calculation was deployed all the way to production,
@@ -41,9 +41,11 @@ export const main = async () => {
       const parameters = { state, year, coreSet, measure };
       console.info(`Processing rate ${JSON.stringify(parameters)}`);
 
-      // The combined core set is either ACS or CCS.
-      // We can build a separated core set abbr by adding "M" or "C",
-      // and it doesn't matter which. An update for either will combine both.
+      /*
+       * The combined core set is either ACS or CCS.
+       * We can build a separated core set abbr by adding "M" or "C",
+       * and it doesn't matter which. An update for either will combine both.
+       */
       await calculateAndPutRate({ ...parameters, coreSet: coreSet + "M" });
       console.info("Calculation complete.");
     }

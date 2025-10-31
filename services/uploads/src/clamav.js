@@ -14,7 +14,7 @@ const { pipeline } = require("stream/promises");
 
 const S3 = new S3Client();
 
-/**
+/*
  * Lists all the files from a bucket
  *
  * returns a list of keys
@@ -34,7 +34,7 @@ async function listBucketFiles(bucketName) {
   }
 }
 
-/**
+/*
  * Updates the definitions using freshclam.
  *
  * It will download the definitions to the current work dir.
@@ -62,7 +62,7 @@ function updateAVDefinitonsWithFreshclam() {
   }
 }
 
-/**
+/*
  * Download the Antivirus definition from S3.
  * The definitions are stored on the local disk, ensure there's enough space.
  */
@@ -113,7 +113,7 @@ async function downloadAVDefinitions() {
   }
 }
 
-/**
+/*
  * Uploads the AV definitions to the S3 bucket.
  */
 async function uploadAVDefinitions() {
@@ -190,7 +190,7 @@ async function uploadAVDefinitions() {
   await Promise.all(uploadPromises);
 }
 
-/**
+/*
  * Function to scan the given file. This function requires ClamAV and the definitions to be available.
  * This function does not download the file so the file should also be accessible.
  *

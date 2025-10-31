@@ -173,8 +173,10 @@ export const Rate = ({
     let denominatorSum: any = null;
     let x;
 
-    // sum all Ns and Ds
-    // we assume last NDR is total if calcTotal is true
+    /*
+     * sum all Ns and Ds
+     * we assume last NDR is total if calcTotal is true
+     */
     prevRate.slice(0, -1).forEach((item) => {
       if (item !== undefined && item !== null && !item["isTotal"]) {
         if (item["rate"]) {

@@ -32,9 +32,11 @@ const validateAtLeastOneRateComplete = (data: any) => {
   return errorArray;
 };
 
-// If a user manually over-rides a rate it must not violate two rules:
-// It must be zero if the numerator is zero or
-// It Must be greater than zero if the Num and Denom are greater than zero
+/*
+ * If a user manually over-rides a rate it must not violate two rules:
+ * It must be zero if the numerator is zero or
+ * It Must be greater than zero if the Num and Denom are greater than zero
+ */
 const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
   const errorArray: FormError[] = [];
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(
@@ -55,7 +57,7 @@ const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
   return errorArray;
 };
 
-/**
+/*
  * Checks user-created performance measures for numerator greater than denominator errors
  */
 const validateNumeratorsLessThanDenominatorsPM = (OPM: any) => {
@@ -83,7 +85,7 @@ const validateNumeratorsLessThanDenominatorsPM = (OPM: any) => {
   return !!errorArray.length ? [errorArray[0]] : [];
 };
 
-/**
+/*
  * Checks for NDR field sets that have been partially filled out and reports them.
  *
  * @param OPM opm data

@@ -13,7 +13,7 @@ import {
   roundSafely,
 } from "../../utils/math";
 
-/**
+/*
  * This is the core of the combined rate calculations.
  * Crunches numbers for numerators, denominators, weights, and rates.
  */
@@ -37,8 +37,10 @@ export const combineRates = (
     DataSources.Medicaid.requiresWeightedCalc ||
     DataSources.CHIP.requiresWeightedCalc
   ) {
-    // If either measure has a Hybrid data source, we calculate the combined
-    // rate, weighted by the individual measures' eligible populations.
+    /*
+     * If either measure has a Hybrid data source, we calculate the combined
+     * rate, weighted by the individual measures' eligible populations.
+     */
     return uniqueRateIds.map((uid) => {
       const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
       const chipRate = chipRates.find((rate) => rate.uid === uid);
@@ -209,7 +211,7 @@ export const combineRates = (
   }
 };
 
-/**
+/*
  * For certain measures, CMS uses a different formula for certain qualifiers.
  * However, for those measures, the "Total" qualifier still ends up correct.
  *
@@ -230,7 +232,7 @@ const ratesToNeverShow = [
   "1POxYx.BFwD7g", // Activity, 12-17
 ];
 
-/**
+/*
  * Most measures display as a percentage, but certain measures are expressed
  * instead as per-thousand, per-hundred-thousand, or an inverted percent.
  */
@@ -256,7 +258,7 @@ const transformQuotient = (
   }
 };
 
-/**
+/*
  * For most measures, the numerator cannot exceed the denominator.
  * If it does, we will not compute a combined rate.
  * These measures are special; their numerators *can* exceed their denominators.

@@ -28,9 +28,8 @@ const validatePartialRateCompletionErrorMessage: ErrorMessageFunc = (
   multipleCats,
   category
 ) => {
-  return `Should not have partially filled NDR sets${
-    multipleQuals ? ` for ${qualifier}` : ""
-  }${multipleCats ? `, ${category}` : ""}.`;
+  return `Should not have partially filled NDR sets${multipleQuals ? ` for ${qualifier}` : ""
+    }${multipleCats ? `, ${category}` : ""}.`;
 };
 
 const _validation = ({
@@ -122,10 +121,10 @@ export const validatePartialRateCompletionOMS =
     singleValueFieldFlag?: OMS.CustomKeys.Aifhh | OMS.CustomKeys.Iuhh,
     errorMessageFunc?: ErrorMessageFunc
   ): OmsValidationCallback =>
-  ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
-    return [
-      ...(!!singleValueFieldFlag
-        ? _singleValueValidation({
+    ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
+      return [
+        ...(!!singleValueFieldFlag
+          ? _singleValueValidation({
             location: `Optional Measure Stratification: ${locationDictionary([
               ...label,
             ])}`,
@@ -141,7 +140,7 @@ export const validatePartialRateCompletionOMS =
             locationDictionary,
             errorMessageFunc,
           })
-        : _validation({
+          : _validation({
             location: `Optional Measure Stratification: ${locationDictionary([
               ...label,
             ])}`,
@@ -160,10 +159,10 @@ export const validatePartialRateCompletionOMS =
             qualifiers: !!isOPM ? undefined : qualifiers,
             errorMessageFunc,
           })),
-    ];
-  };
+      ];
+    };
 
-/**
+/*
  * Checks for fields that have been partially filled out and reports them.
  *
  * @param performanceMeasureArray pm data

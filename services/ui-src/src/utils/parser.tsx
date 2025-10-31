@@ -1,7 +1,7 @@
 import React, { JSXElementConstructor, ReactElement } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-/**
+/*
  * Convert labels with HTML tags to JSX elements to be rendered.
  *
  * Doesn't work with `<br>` tags.

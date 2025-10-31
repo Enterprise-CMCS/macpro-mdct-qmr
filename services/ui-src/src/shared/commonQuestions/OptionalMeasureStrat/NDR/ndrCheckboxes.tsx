@@ -13,7 +13,7 @@ import {
 
 type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
 
-/**
+/*
  * Builds Performance Measure AgeGroup Checkboxes
  */
 export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
@@ -56,7 +56,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   } else {
     const rateArrays =
       !categories.length ||
-      !(categories as LabelData[]).some((item) => item.label)
+        !(categories as LabelData[]).some((item) => item.label)
         ? completedPMQualRates
         : standardRates;
 
@@ -81,7 +81,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   return options;
 };
 
-/**
+/*
  * Builds OPM Checkboxes
  */
 export const useRenderOPMCheckboxOptions = (name: string) => {

@@ -16,7 +16,7 @@ import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
 import { usePathParams } from "hooks/api/usePathParams";
 
-/**
+/*
  * Builds out parent level checkboxes
  * ex: Race, Ethnicity, Sex, Etc.
  */
@@ -59,7 +59,7 @@ export const buildOmsCheckboxes = ({
     });
 };
 
-/**
+/*
  * Final OMS built
  */
 export const Stratification = ({
@@ -130,14 +130,16 @@ export const Stratification = ({
     rateReadOnly = stringIsReadOnly(dataSourceWatch);
   }
 
-  /**
+  /*
    * Clear all data from OMS if the user switches from Performance Measure to Other Performance measure or vice-versa
    */
   useEffect(() => {
     if (watchDataSourceSwitch === "Other") {
       return () => {
-        //unregister does not clean the data properly
-        //setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+        /*
+         * unregister does not clean the data properly
+         * setValue only handles it on the surface but when you select a checkbox again, it repopulates with deleted data
+         */
         setValue("OptionalMeasureStratification", {
           options: [],
           selections: {},

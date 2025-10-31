@@ -82,7 +82,7 @@ export interface OmsNode {
 }
 
 export namespace OmsNodes {
-  /**
+  /*
    * OMS rate data is shaped differently for certain measures,
    * with an extra layer of nesting before the rate data, under these keys.
    */
@@ -114,7 +114,7 @@ export namespace OmsNodes {
     [DC.OPTIONS]?: string[];
     [DC.RATES]?: {
       [
-        category: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
+      category: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
       ]: {
         [qualifier: string]: RateFields[];
       };

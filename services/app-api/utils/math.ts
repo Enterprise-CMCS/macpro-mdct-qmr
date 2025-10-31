@@ -6,7 +6,7 @@ export const fixRounding = (value: number, numbersAfterDecimal: number) => {
   );
 };
 
-/**
+/*
  * Parse the given string as a number.
  *
  * Returns `undefined` for empty or undefined strings.
@@ -17,14 +17,16 @@ export const parseQmrNumber = (str: string | undefined) => {
   return Number(str);
 };
 
-// The following `*safely()` functions can work with missing data:
-// If you perform a series of calculations safely,
-// if numbers are missing along the way,
-// the result will become undefined.
-// This is preferable to defaulting to zero (which is a real number),
-// and to letting the result become NaN, Infinity, or whatever else.
+/*
+ * The following `*safely()` functions can work with missing data:
+ * If you perform a series of calculations safely,
+ * if numbers are missing along the way,
+ * the result will become undefined.
+ * This is preferable to defaulting to zero (which is a real number),
+ * and to letting the result become NaN, Infinity, or whatever else.
+ */
 
-/**
+/*
  * Add the two numbers.
  *
  * If one is undefined, it is treated as zero.
@@ -38,7 +40,7 @@ export const addSafely = (x: number | undefined, y: number | undefined) => {
   return x + y;
 };
 
-/**
+/*
  * Divide the first number by the second.
  *
  * If either number is undefined, the result is undefined.
@@ -51,7 +53,7 @@ export const divideSafely = (x: number | undefined, y: number | undefined) => {
   return x / y;
 };
 
-/**
+/*
  * Multiply the two numbers.
  *
  * If either number is undefined, the product is undefined.
@@ -64,7 +66,7 @@ export const multiplySafely = (
   return x * y;
 };
 
-/**
+/*
  * Round the number to the given number of decimal places.
  *
  * If the number is undefined, the result is undefined.

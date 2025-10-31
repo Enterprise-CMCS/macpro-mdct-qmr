@@ -91,7 +91,7 @@ export const AdditionalCombinedValues = ({
   );
 };
 
-/**
+/*
  * The label in the payload is set during calculation,
  * based on the values present on the measure.
  * Therefore, if a certain value was left unfilled in both measures,

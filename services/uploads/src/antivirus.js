@@ -1,4 +1,4 @@
-/**
+/*
  * Lambda function that will be perform the scan and tag the file accordingly.
  */
 
@@ -16,7 +16,7 @@ const utils = require("./utils");
 const constants = require("./constants");
 const { pipeline } = require("stream/promises");
 
-/**
+/*
  * Retrieve the file size of S3 object without downloading.
  * @param {string} key    Key of S3 object
  * @param {string} bucket Bucket of S3 Object
@@ -28,7 +28,7 @@ async function sizeOf(key, bucket) {
   return res.ContentLength;
 }
 
-/**
+/*
  * Check if S3 object is larger then the MAX_FILE_SIZE set.
  * @param {string} s3ObjectKey       Key of S3 Object
  * @param {string} s3ObjectBucket   Bucket of S3 object
@@ -41,7 +41,7 @@ async function isS3FileTooBig(s3ObjectKey, s3ObjectBucket) {
 
 const downloadDir = constants.DOWNLOAD_DIR;
 
-/**
+/*
  * Returns the /tmp local path from an s3ObjectKey
  * @param {string} s3ObjectKey Key of the s3 object
  * @return {string} Path of the s3 object on the local fs

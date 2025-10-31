@@ -195,7 +195,8 @@ const getAccordionClassificationRates = (
           }))
         );
       } else {
-        /* for rates that don't have checkboxes, it gets a little more complicated,
+        /*
+         * for rates that don't have checkboxes, it gets a little more complicated,
          * we have to look through the actual rate data to see if they entered any value to trigger a partial validation
          */
         if (midLevel.rateData?.rates) {

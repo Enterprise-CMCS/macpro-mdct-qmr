@@ -1,4 +1,4 @@
-/**
+/*
  * It removes all non-word characters from a string.
  * @param {string} [s] - The string to be cleaned.
  */

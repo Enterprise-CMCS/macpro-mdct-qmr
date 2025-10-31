@@ -14,12 +14,12 @@ export const CombinedRateNDR = ({
     DataSources.CHIP.requiresWeightedCalc;
   const rateComponents = includeWeights
     ? ([
-        "numerator",
-        "denominator",
-        "rate",
-        "population",
-        "weightedRate",
-      ] as const)
+      "numerator",
+      "denominator",
+      "rate",
+      "population",
+      "weightedRate",
+    ] as const)
     : (["numerator", "denominator", "rate"] as const);
 
   const displayValue = (
@@ -124,7 +124,7 @@ export const CombinedRateNDR = ({
   );
 };
 
-/**
+/*
  * Sort the rates in-place, to match how they are displayed on individual measure pages.
  */
 const sortRates = (

@@ -1,7 +1,7 @@
 const constants = require("./constants");
 const execSync = require("child_process").execSync;
 
-/**
+/*
  * Generates the set of tags that will be used to tag the files of S3.
  * @param virusScanStatus String representing the status.
  * @return {{TagSet: *[]}} TagSet ready to be attached to an S3 file.
@@ -21,7 +21,7 @@ function generateTagSet(virusScanStatus) {
   };
 }
 
-/**
+/*
  * Cleanup the specific S3 folder by removing all of its content.
  * We need that to cleanup the /tmp/ folder after the download of the definitions.
  */
@@ -39,7 +39,7 @@ function cleanupFolder(folderToClean) {
   console.log(result.toString());
 }
 
-/**
+/*
  * Extract the key from an S3 event.
  * @param s3Event Inbound S3 event.
  * @return {string} decoded key.
@@ -54,7 +54,7 @@ function extractKeyFromS3Event(s3Event) {
   return decodeURIComponent(key).replace(/\+/g, " ");
 }
 
-/**
+/*
  * Extract the bucket from an S3 event.
  * @param s3Event Inbound S3 event.
  * @return {string} Bucket
@@ -69,7 +69,7 @@ function extractBucketFromS3Event(s3Event) {
   return bucketName;
 }
 
-/**
+/*
  * Extract the key from an Api Gateway event.
  * @param  Invoked from 3rd party, Inbound Api event.
  * @return {string} decoded key.
@@ -84,7 +84,7 @@ function extractKeyFromApiEvent(s3Event) {
   return key.replace(/\+/g, " ");
 }
 
-/**
+/*
  * Extract the bucket from an Api Gateway event.
  * @param  Invoked from 3rd party, Inbound Api event.
  * @return {string} Bucket
@@ -99,7 +99,7 @@ function extractBucketFromApiEvent(s3Event) {
   return bucketName;
 }
 
-/**
+/*
  * Generates & logs a system message (simple --- the message here ---)
  * @param systemMessage Inbound message to log and generate.
  * @return {string} Formatted message.

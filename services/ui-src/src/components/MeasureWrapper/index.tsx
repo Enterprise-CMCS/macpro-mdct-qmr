@@ -255,8 +255,10 @@ export const MeasureWrapper = ({
   };
 
   const hasDataChanged = (data: any) => {
-    //there are some instances where there is not change to the data but the way we load the data triggers react hook form to think there is.
-    //this function is to do a comparison between the defaultValues (prev saved data) and data (data waiting to be saved)
+    /*
+     * there are some instances where there is not change to the data but the way we load the data triggers react hook form to think there is.
+     * this function is to do a comparison between the defaultValues (prev saved data) and data (data waiting to be saved)
+     */
     if (Object.keys(methods.formState.dirtyFields).length === 0) return false;
 
     //instead of looping through all the data, we will loop through only the keys that react hook form indicated has a change

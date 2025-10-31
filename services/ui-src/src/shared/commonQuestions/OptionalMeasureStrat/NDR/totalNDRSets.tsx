@@ -12,7 +12,7 @@ interface TotalProps {
   category?: LabelData;
 }
 
-/**
+/*
  * Total Rate NDR that calculates from filled OMS NDR sets
  */
 const TotalNDR = ({

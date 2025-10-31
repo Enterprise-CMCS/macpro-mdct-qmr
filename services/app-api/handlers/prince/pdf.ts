@@ -94,7 +94,8 @@ function sanitizeHtml(htmlString: string) {
   }
   const commentlessHtml = doc.querySelector("html")!.outerHTML;
 
-  /* Sanitization parameters:
+  /*
+   * Sanitization parameters:
    *  - WHOLE_DOCUMENT - Tells DOMPurify to return the entire <html> doc;
    *    its default behavior is to return only the contents of the <body>.
    *  - ADD_TAGS: "head" - Add <head> to the tag allowlist. It's important.
@@ -113,7 +114,7 @@ function sanitizeHtml(htmlString: string) {
   return sanitizedHtml;
 }
 
-/**
+/*
  * If PDF generation was not successful, log the reason and throw an error.
  *
  * For more details see https://docraptor.com/documentation/api/status_codes
@@ -148,7 +149,7 @@ type DocRaptorRequestBody = {
   doc: DocRaptorParameters;
 };
 
-/**
+/*
  * Here is some in-band documentation for the more common DocRaptor options.
  * There also options for JS handling, asset handling, PDF metadata, and more.
  * Note that we do not use DocRaptor's hosting; we return the PDF directly.
@@ -172,7 +173,7 @@ type DocRaptorParameters = {
   /** Should DocRaptor run JS embedded in your HTML? Default is `false`. */
   javascript?: boolean;
   prince_options: {
-    /**
+    /*
      * In theory we can choose a different PDF version, but UA-1 is the only accessible one.
      * https://docraptor.com/documentation/article/6637003-accessible-tagged-pdfs
      */

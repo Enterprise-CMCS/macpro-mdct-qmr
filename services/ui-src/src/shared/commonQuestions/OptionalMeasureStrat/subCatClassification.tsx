@@ -15,7 +15,7 @@ interface AddAnotherButtonProps {
   testid: string;
 }
 
-/**
+/*
  * Button for handling additional values in dynamic rendering
  */
 export const AddAnotherButton = ({
@@ -48,7 +48,7 @@ interface AdditonalCategoryProps {
   checkboxes?: boolean;
 }
 
-/**
+/*
  * Additional [Race/Sex/Language/Etc] Category Section
  */
 export const SubCatSection = ({
@@ -65,15 +65,15 @@ export const SubCatSection = ({
 
   const labels = featuresByYear.displayOptionalLanguage
     ? {
-        header: "Additional/Alternative Classification/Sub-category",
-        help: "Define the Alternative Classification/Sub-category",
-        button: "Sub-Category",
-      }
+      header: "Additional/Alternative Classification/Sub-category",
+      help: "Define the Alternative Classification/Sub-category",
+      button: "Sub-Category",
+    }
     : {
-        header: "Additional Subcategory",
-        help: "Define the Additional Subcategory",
-        button: "Subcategory",
-      };
+      header: "Additional Subcategory",
+      help: "Define the Additional Subcategory",
+      button: "Subcategory",
+    };
 
   return (
     <CUI.Box key={`${name}.additionalSubCategoriesWrapper`}>

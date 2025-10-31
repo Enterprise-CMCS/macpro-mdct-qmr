@@ -50,8 +50,10 @@ export const validateRateNotZeroOMS =
     }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
   };
 
-// If a user manually over-rides a rate it must not violate two rules:
-// It must be zero if the numerator is zero
+/*
+ * If a user manually over-rides a rate it must not violate two rules:
+ * It must be zero if the numerator is zero
+ */
 export const validateRateNotZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,

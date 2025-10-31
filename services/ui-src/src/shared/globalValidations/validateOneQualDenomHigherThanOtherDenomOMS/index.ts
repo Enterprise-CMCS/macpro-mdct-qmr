@@ -61,7 +61,7 @@ const _validation = ({
   return errorArray;
 };
 
-/**
+/*
  * Validates that one qualifier's denominator is higher than the other specified qualifier's denominator
  * @note this function returns the oms validation function
  *
@@ -95,7 +95,7 @@ export const validateOneQualDenomHigherThanOtherDenomOMS = (
   };
 };
 
-/**
+/*
  * Validates that one qualifier's denominator is higher than the other specified qualifier's denominator
  *
  * @param data form data

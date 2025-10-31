@@ -13,7 +13,7 @@ import {
   useStandardRateArray,
 } from "../../OptionalMeasureStrat/NDR/rates";
 
-/**
+/*
  * Builds Performance Measure AgeGroup Checkboxes
  */
 export const useAgeGroupsFields = (name: string) => {
@@ -33,7 +33,7 @@ export const useAgeGroupsFields = (name: string) => {
 
   const rateArrays =
     !categories.length ||
-    !(categories as LabelData[]).some((item) => item.label)
+      !(categories as LabelData[]).some((item) => item.label)
       ? completedPMQualRates
       : standardRates;
 
@@ -50,7 +50,7 @@ export const useAgeGroupsFields = (name: string) => {
   );
 };
 
-/**
+/*
  * Builds OPM Checkboxes
  */
 export const useRenderOPMCheckboxOptions = (name: string) => {

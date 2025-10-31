@@ -12,7 +12,7 @@ import { collectDataSources } from "./dataSourceAnalysis";
 import { combineRates } from "./rateNDRCalculations";
 import { calculateAdditionalValues } from "./rateValueCalculations";
 
-/**
+/*
  * Given the identifiers of a measure:
  * 1. Determine if a combined rate calculation is needed. If so,
  * 2. Fetch all the necessary data from the Measures table
@@ -43,7 +43,7 @@ export const calculateAndPutRate = async (pathParameters: RateParameters) => {
   );
 };
 
-/**
+/*
  * Given the name of the core set whose measure just updated:
  * 1. Does it need to be combined? (that is, is it ACSM/ACSC/CCSM/CCSC?)
  * 2. Which core sets will be combined? (ACSM+ACSC? or CCSM+CCSC?)
@@ -71,7 +71,7 @@ const coreSetsToCombine = (coreSet: CoreSetAbbr) => {
   }
 };
 
-/**
+/*
  * This is the entry point for all of the actual number crunching
  */
 const calculateCombinedRates = (

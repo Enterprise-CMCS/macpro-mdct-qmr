@@ -4,7 +4,7 @@ import { DataDrivenTypes as DDT } from "shared/types";
 import { LabelData, cleanString, isLegacyLabel } from "utils";
 import { FormRateField as PM } from "../types/TypeValidations";
 
-/**
+/*
  * Extracts Performance Measure Rates into double array for validation.
  * Should be in order of category string array.
  * If no categories, grabs singleCat backup from data.
@@ -30,7 +30,7 @@ export const getPerfMeasureRateArray = (
   return performanceMeasureData;
 };
 
-/**
+/*
  * Extracts OPM into double array for validation.
  */
 export const getOtherPerformanceMeasureRateArray = (
@@ -94,7 +94,7 @@ export const performanceMeasureErrorLocationDicitonary = (
   return errorDict;
 };
 
-/**
+/*
  * Takes render data for OMS and creates a cleaned dictionary of node locations for error generation.
  */
 export const omsLocationDictionary = (

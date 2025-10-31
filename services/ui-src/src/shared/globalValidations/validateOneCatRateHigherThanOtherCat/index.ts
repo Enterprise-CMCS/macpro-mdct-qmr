@@ -64,7 +64,7 @@ const validateOneCatRateHigherThanOtherCatOMSErrorMessage = (
   return `${lowCat} Rate should not be higher than ${highCat} Rates.`;
 };
 
-/**
+/*
  * Validates that one category's rate is higher than the other specified category's rate
  * @note this function returns the oms validation function
  *
@@ -142,7 +142,7 @@ const validateOneCatRateHigherThanOtherCatPMErrorMessage = (
   return `${lowCat} Rate should not be higher than ${highCat} Rate for ${qualifier} Rates.`;
 };
 
-/**
+/*
  * Validates that one categoyr's rate is higher than the other specified categoyr's rate
  *
  * @param data form data

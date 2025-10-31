@@ -92,8 +92,10 @@ describe(`Options`, () => {
         screen.getByLabelText("Information not collected")
       ).toBeInTheDocument();
 
-      // There should now be 2 "Other" selections (one parent, one child)
-      // in the component
+      /*
+       * There should now be 2 "Other" selections (one parent, one child)
+       * in the component
+       */
       expect(screen.queryAllByLabelText("Other")).toHaveLength(2);
     });
 

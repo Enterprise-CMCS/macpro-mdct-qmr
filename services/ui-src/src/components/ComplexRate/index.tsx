@@ -146,8 +146,10 @@ export const ComplexRate = ({
           uid: rate.uid,
           fields: inputFields.map((field) => {
             const label = field.label;
-            // Pre-2023 fields do not have an id, so uid is undefined.
-            // Undefined values are not saved to the database
+            /*
+             * Pre-2023 fields do not have an id, so uid is undefined.
+             * Undefined values are not saved to the database
+             */
             const uid = field.id ?? undefined;
             return {
               label,

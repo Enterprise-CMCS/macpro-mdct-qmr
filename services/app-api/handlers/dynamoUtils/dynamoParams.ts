@@ -1,4 +1,4 @@
-/**
+/*
  * Given an object with properties matching those of a table in Dynamo,
  * generate the UpdateCommandInput properties needed to update that table.
  * @example

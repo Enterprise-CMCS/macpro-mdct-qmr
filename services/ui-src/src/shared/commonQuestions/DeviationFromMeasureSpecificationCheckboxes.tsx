@@ -30,14 +30,14 @@ interface OptionProps {
   labelText?: { [key: string]: string };
 }
 
-/**
+/*
  * Check if the rate has both a numerator and a denominator.
  * @param el - The rate field that we're checking.
  */
 const numDenExistInRate = (el: Types.RateFields) =>
   el?.numerator && el?.denominator;
 
-/**
+/*
  * Check if the rates within a qualifier have both a numerator and a denominator.
  * @param qualifier - The qualifier that we're checking.
  */
@@ -47,7 +47,7 @@ const complexNumDenExistInRate = (qualifier: any) => {
   );
 };
 
-/**
+/*
  * It returns an array of objects that contain a display value, value, and single TextArea child
  * @param {string} name - The name of the field.
  */
@@ -76,7 +76,7 @@ const DeviationsSelectedCheckbox = ({ name }: { name: string }) => (
   />
 );
 
-/**
+/*
  * It takes in a list of qualifiers and returns options based on if the rates contain a label
  * @param {OptionProps}  - qualifier: the qualifier object - name: a name to register the input with
  * @returns A list of options
@@ -153,9 +153,8 @@ export const DeviationFromMeasureSpecificationCheckboxes = ({
           (cat: any) => cat?.isTotal === true
         );
         if (totalIndex >= 0) {
-          rates.singleCategory[totalIndex].label = `${
-            customTotalLabel ? `${customTotalLabel}` : "Total"
-          }`;
+          rates.singleCategory[totalIndex].label = `${customTotalLabel ? `${customTotalLabel}` : "Total"
+            }`;
         }
         /*
          * This is checking if the rates object has a singleCategory key.

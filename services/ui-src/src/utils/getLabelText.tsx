@@ -7,7 +7,7 @@ export interface LabelData {
   label: string;
   text: string;
   id: string;
-  /**
+  /*
    * We use this to hide certain qualifiers from certain categories.
    *
    * For example, in AIS-AD, we don't ask about the Zoster vaccine

@@ -3,12 +3,16 @@
 type MeasureList = "OHD-AD";
 declare namespace Cypress {
   interface Chainable {
-    // the default stateuser3 is used to login but can also be changed
-    // by passing in a user (not including the @test.com) ex. cy.login('bouser')
+    /*
+     * the default stateuser3 is used to login but can also be changed
+     * by passing in a user (not including the @test.com) ex. cy.login('bouser')
+     */
     login(user?: string, password?: string): Chainable<Element>;
 
-    // the default stateuser4 is used to login but can also be changed
-    // by passing in a user (not including the @test.com) ex. cy.login('bouser')
+    /*
+     * the default stateuser4 is used to login but can also be changed
+     * by passing in a user (not including the @test.com) ex. cy.login('bouser')
+     */
     loginHealthHome(user?: string, password?: string): Chainable<Element>;
 
     //Select Reporting Year
