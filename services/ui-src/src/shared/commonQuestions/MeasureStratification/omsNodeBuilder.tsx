@@ -34,12 +34,15 @@ interface NdrNodeProps {
 
 const omsLabels = (omsNode: OmsNode) => {
   return {
-    checkboxOpt: `Are you reporting aggregate data for the ${omsNode.aggregateTitle || omsNode.label
-      } category?`,
-    YesAggregateData: `Yes, we are reporting aggregate data for the ${omsNode?.aggregateTitle || omsNode?.label
-      } category.`,
-    NoIndependentData: `No, we are reporting disaggregated data for ${omsNode?.aggregateTitle || omsNode?.label
-      } subcategories.`,
+    checkboxOpt: `Are you reporting aggregate data for the ${
+      omsNode.aggregateTitle || omsNode.label
+    } category?`,
+    YesAggregateData: `Yes, we are reporting aggregate data for the ${
+      omsNode?.aggregateTitle || omsNode?.label
+    } category.`,
+    NoIndependentData: `No, we are reporting disaggregated data for ${
+      omsNode?.aggregateTitle || omsNode?.label
+    } subcategories.`,
   };
 };
 
@@ -61,8 +64,9 @@ const NdrSubNode = (omsNode: OmsNode, flagSubCat: boolean, name: string) => {
           omsNode?.options!.map((node) => {
             return buildChildCheckboxOption({
               omsNode: node,
-              name: `${name}.selections.${cleanString(node.id) ?? "ID_NOT_SET"
-                }`,
+              name: `${name}.selections.${
+                cleanString(node.id) ?? "ID_NOT_SET"
+              }`,
             });
           }) || []
         }

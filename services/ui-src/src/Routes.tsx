@@ -143,13 +143,13 @@ export function useMeasureRoutes(): MeasureRoute[] {
   return data
     ? measureRoutes
     : [
-      {
-        key: ":state/:year/:coreSetId/:measure",
-        path: ":state/:year/:coreSetId/:measure",
-        element: <MeasuresLoading />,
-      },
-      ...measureRoutes,
-    ];
+        {
+          key: ":state/:year/:coreSetId/:measure",
+          path: ":state/:year/:coreSetId/:measure",
+          element: <MeasuresLoading />,
+        },
+        ...measureRoutes,
+      ];
 }
 
 export function AppRoutes() {

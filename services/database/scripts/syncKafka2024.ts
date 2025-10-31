@@ -6,7 +6,6 @@ import {
   paginateScan,
   UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
-import prompt from "prompt-sync";
 
 /*
  *

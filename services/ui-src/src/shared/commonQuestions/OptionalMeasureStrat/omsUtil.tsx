@@ -68,8 +68,8 @@ export const calculateOMSTotal = ({
     tempRate.rate = (
       Math.round(
         (tempRate.numerator / tempRate.denominator) *
-        rateMultiplicationValue *
-        Math.pow(10, numberOfDecimals)
+          rateMultiplicationValue *
+          Math.pow(10, numberOfDecimals)
       ) / Math.pow(10, numberOfDecimals)
     ).toFixed(1);
   }
@@ -276,8 +276,9 @@ export const useTotalAutoCalculation = ({
   >();
 
   useEffect(() => {
-    const totalFieldName = `${name}.rates.${qualifiers.slice(-1)[0].id
-      }.${cleanedCategory}`;
+    const totalFieldName = `${name}.rates.${
+      qualifiers.slice(-1)[0].id
+    }.${cleanedCategory}`;
     const nonTotalQualifiers = qualifiers.slice(0, -1);
     const includedNames = nonTotalQualifiers.map(
       (s) => `${name}.rates.${s.id}.${cleanedCategory}`

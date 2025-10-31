@@ -42,11 +42,11 @@ const calculateRates = (
       fieldRow[formula.rateIndex].value =
         num !== 0 && denom !== 0
           ? defaultRateCalculation(
-            num.toString(),
-            denom.toString(),
-            formula.mult!,
-            1
-          )
+              num.toString(),
+              denom.toString(),
+              formula.mult!,
+              1
+            )
           : "0";
     } else {
       fieldRow[formula.rateIndex].value = "";
@@ -241,8 +241,8 @@ export const ComplexRate = ({
               {lowerCaseMeasureName === "aifhh"
                 ? qual.label
                 : qual.label === "Total" || categoryName === ""
-                  ? `${qual.label} ${categoryName}`
-                  : `${categoryName} ${qual.label?.toLowerCase()}`}
+                ? `${qual.label} ${categoryName}`
+                : `${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
             <CUI.Stack
               direction={{ base: "column", md: "row" }}

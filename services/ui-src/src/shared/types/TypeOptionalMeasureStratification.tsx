@@ -114,7 +114,7 @@ export namespace OmsNodes {
     [DC.OPTIONS]?: string[];
     [DC.RATES]?: {
       [
-      category: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
+        category: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
       ]: {
         [qualifier: string]: RateFields[];
       };

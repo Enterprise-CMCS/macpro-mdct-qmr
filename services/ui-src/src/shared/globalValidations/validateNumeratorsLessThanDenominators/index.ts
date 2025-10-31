@@ -47,19 +47,19 @@ const _validation = ({
  */
 export const validateNumeratorLessThanDenominatorOMS =
   (errorMessage?: string): OmsValidationCallback =>
-    ({ categories, qualifiers, rateData, label, locationDictionary }) => {
-      return _validation({
-        location: "Optional Measure Stratification",
-        categories,
-        qualifiers,
-        rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
-        locationFunc: (q) =>
-          `Optional Measure Stratification: ${locationDictionary([...label, q])}`,
-        errorMessage:
-          errorMessage ??
-          "Numerator cannot be greater than the Denominator for NDR sets.",
-      });
-    };
+  ({ categories, qualifiers, rateData, label, locationDictionary }) => {
+    return _validation({
+      location: "Optional Measure Stratification",
+      categories,
+      qualifiers,
+      rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
+      locationFunc: (q) =>
+        `Optional Measure Stratification: ${locationDictionary([...label, q])}`,
+      errorMessage:
+        errorMessage ??
+        "Numerator cannot be greater than the Denominator for NDR sets.",
+    });
+  };
 
 /*
  * Checks both performance measure and other performance measure for numerator greater than denominator errors

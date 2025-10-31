@@ -153,8 +153,9 @@ export const DeviationFromMeasureSpecificationCheckboxes = ({
           (cat: any) => cat?.isTotal === true
         );
         if (totalIndex >= 0) {
-          rates.singleCategory[totalIndex].label = `${customTotalLabel ? `${customTotalLabel}` : "Total"
-            }`;
+          rates.singleCategory[totalIndex].label = `${
+            customTotalLabel ? `${customTotalLabel}` : "Total"
+          }`;
         }
         /*
          * This is checking if the rates object has a singleCategory key.

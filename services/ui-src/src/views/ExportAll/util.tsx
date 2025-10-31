@@ -24,7 +24,7 @@ export const openPdf = (basePdf: string) => {
 
 /*
  * Gather chakra css variables and make available for the body (prince issue seeing applied normally)
- * 
+ *
  */
 export const cloneChakraVariables = () => {
   for (let i = 0; i < document.styleSheets.length; i++) {
@@ -135,7 +135,7 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
        * *********
        */
       ""
-      }
+    }
 
     .chakra-button { background: var(--chakra-colors-gray-100) !important; margin: 16px 8px }
     .chakra-link { color: var(--chakra-colors-blue-600) !important; }
@@ -146,15 +146,15 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
        * These styles below manually add the background colors back to the checked radio buttons and checkboxes
        */
       ""
-      }
+    }
         ${
-      /*
-       * .css-edb818[data-checked] is checkbox css class and .css-ym696e[data-checked] is radio css class.
-       * IMPORTANT NOTE: If checkboxes and radio buttons ever stop displaying correctly, it's probably because these classes changed due to chakra updates or other unknowns.
-       * You can find the new classes if you go to the export pdf page and inspect the checkbox and radio elements
-       */
-      ""
-      }
+          /*
+           * .css-edb818[data-checked] is checkbox css class and .css-ym696e[data-checked] is radio css class.
+           * IMPORTANT NOTE: If checkboxes and radio buttons ever stop displaying correctly, it's probably because these classes changed due to chakra updates or other unknowns.
+           * You can find the new classes if you go to the export pdf page and inspect the checkbox and radio elements
+           */
+          ""
+        }
     .css-edb818[data-checked], .css-ym696e[data-checked] { background: var(--chakra-colors-blue-500) !important; border-color: var(--chakra-colors-blue-500) !important; }
     .css-ym696e[data-checked]::before { content: ""; width: 50%; height: 50%; border-radius: 50%; background: var(--chakra-colors-white) !important; }
     .chakra-checkbox__control * { color: var(--chakra-colors-white) !important; display: flex !important }
@@ -167,21 +167,21 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
        * css-10xl6g is the number inside the input, and css-wgu2i7 is the total percentage number
        */
       ""
-      }
+    }
     .css-xumdn4 { padding-right: 16px !important }
     .css-10xl6g, .css-wgu2i7 { text-align: right !important; padding-right: 35px !important; }
     ${
       /* The below css classes are targeting icons in inputs need to have display: flex (that display is getting removed on line 61) */ ""
-      }
+    }
     .css-11pdqhs, .css-1nqqbdv { display: flex !important }
     ${
       /* These css classes are targeting the numerator, denominator, rate inputs. These need to have display: flex and other css styles to look correct */ ""
-      }
+    }
     .css-1qqj5ri { display: flex !important; flex-direction: row !important; width: 100% !important }
     .css-1kxonj9 { margin-left: 0px !important; margin-top: 0px !important; padding: 8px !important; }
     ${
       /* These ds-c css classes are targeting the warning box for other data source */ ""
-      }
+    }
     .ds-c-alert--warn { display: inline-flex !important; background-color: #fef9e9 !important }
     .ds-c-alert__icon { font-size: 16px !important; height: 24px !important; width: 24px !important }
   `

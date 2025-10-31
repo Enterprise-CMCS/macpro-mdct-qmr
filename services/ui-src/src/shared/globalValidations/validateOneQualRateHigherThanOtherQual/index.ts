@@ -28,8 +28,9 @@ const validateOneQualRateHigherThanOtherQualErrorMessage: ErrorMessageFunc = (
   notSingleCategory: boolean,
   category: string
 ) => {
-  return `${lowQual} rate must be less than or equal to ${highQual} rate${notSingleCategory ? ` within ${category}` : ""
-    }.`;
+  return `${lowQual} rate must be less than or equal to ${highQual} rate${
+    notSingleCategory ? ` within ${category}` : ""
+  }.`;
 };
 
 const _validation = ({
@@ -47,12 +48,12 @@ const _validation = ({
     if (
       ratefields?.length >= 2 &&
       parseFloat(ratefields[lowerIndex]?.rate ?? "") >
-      parseFloat(ratefields[higherIndex]?.rate ?? "")
+        parseFloat(ratefields[higherIndex]?.rate ?? "")
     ) {
       const notSingleCategory: boolean =
         categories?.length &&
-          categories[0].label !== DC.SINGLE_CATEGORY &&
-          categories[0].label
+        categories[0].label !== DC.SINGLE_CATEGORY &&
+        categories[0].label
           ? true
           : false;
       errorArray.push({

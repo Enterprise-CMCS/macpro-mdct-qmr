@@ -56,7 +56,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   } else {
     const rateArrays =
       !categories.length ||
-        !(categories as LabelData[]).some((item) => item.label)
+      !(categories as LabelData[]).some((item) => item.label)
         ? completedPMQualRates
         : standardRates;
 

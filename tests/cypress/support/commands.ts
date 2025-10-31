@@ -223,10 +223,11 @@ Cypress.Commands.add("deleteHealthHomeSets", () => {
 });
 
 // Define at the top of the spec file or just import it
-function terminalLog(violations) {
+function _terminalLog(violations) {
   cy.task(
     "log",
-    `${violations.length} accessibility violation${violations.length === 1 ? "" : "s"
+    `${violations.length} accessibility violation${
+      violations.length === 1 ? "" : "s"
     } ${violations.length === 1 ? "was" : "were"} detected`
   );
   // pluck specific keys to keep the table readable
@@ -302,7 +303,7 @@ const _detailedDescription =
  * Add a new State Specific measure.
  *
  * Optionally define description and detailedDescription.
- * 
+ *
  */
 Cypress.Commands.add(
   "addStateSpecificMeasure",

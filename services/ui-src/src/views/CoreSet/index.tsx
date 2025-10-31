@@ -81,8 +81,8 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
   const tempSpa =
     coreSetInfo.length > 1
       ? SPA[year!].filter(
-        (s) => s.id === coreSetInfo[1] && s.state === state
-      )[0]
+          (s) => s.id === coreSetInfo[1] && s.state === state
+        )[0]
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state

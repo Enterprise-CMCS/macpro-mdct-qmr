@@ -33,7 +33,7 @@ export const useAgeGroupsFields = (name: string) => {
 
   const rateArrays =
     !categories.length ||
-      !(categories as LabelData[]).some((item) => item.label)
+    !(categories as LabelData[]).some((item) => item.label)
       ? completedPMQualRates
       : standardRates;
 
