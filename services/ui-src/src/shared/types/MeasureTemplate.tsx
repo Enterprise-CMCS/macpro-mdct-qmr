@@ -2,6 +2,8 @@ import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/c
 import { DataDrivenTypes } from "./TypeDataDriven";
 import { CoreSetKey } from "./GlobalTypes";
 import { LabelData } from "utils";
+import { RateComp } from "error";
+import { RateFormula } from "utils/rateFormulas/rateFormulas";
 
 export interface customData {
   rateReadOnly?: boolean;

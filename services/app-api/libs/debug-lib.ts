@@ -54,7 +54,7 @@ export function flush() {
  */
 export const init = flush;
 
-/**
+/*
  * A logger suitable for passing to any AWS client constructor.
  * Note that the `trace` log level is excluded.
  *

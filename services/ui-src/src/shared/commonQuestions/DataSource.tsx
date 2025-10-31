@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Types from "shared/types";
@@ -6,7 +7,6 @@ import { useFormContext, useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
 import { parseLabelToHTML } from "utils/parser";
-import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
 import { Alert } from "@cmsgov/design-system";
@@ -32,7 +32,7 @@ type DSCBChildFunc = ({
   data,
 }: DataSourceCheckboxBuilderProps) => React.ReactElement[];
 
-/**
+/*
  * Build child checkboxes for data source options
  */
 const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
@@ -54,7 +54,7 @@ const buildDataSourceCheckboxOptionChildren: DSCBChildFunc = ({
   return elements;
 };
 
-/**
+/*
  * Build Data Source checkbox options, and possible child checkbox children
  */
 const buildDataSourceOptions: DSCBFunc = ({
@@ -162,7 +162,7 @@ const addLabelByType = (
   });
 };
 
-/**
+/*
  * Fully built DataSource component
  */
 export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {

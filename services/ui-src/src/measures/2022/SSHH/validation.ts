@@ -1,4 +1,5 @@
 import * as DC from "dataConstants";
+import { FormError } from "error";
 import * as GV from "shared/globalValidations";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
@@ -32,9 +33,11 @@ const validateAtLeastOneRateComplete = (data: any) => {
   return errorArray;
 };
 
-// If a user manually over-rides a rate it must not violate two rules:
-// It must be zero if the numerator is zero or
-// It Must be greater than zero if the Num and Denom are greater than zero
+/*
+ * If a user manually over-rides a rate it must not violate two rules:
+ * It must be zero if the numerator is zero or
+ * It Must be greater than zero if the Num and Denom are greater than zero
+ */
 const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
   const errorArray: FormError[] = [];
   const hybridData = data?.[DC.DATA_SOURCE]?.includes(
@@ -50,12 +53,12 @@ const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
     ...GV.validationRateZero({ location, rateData: rateDataOPM, hybridData }),
   ];
 
-  if (!!nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);
-  if (!!zeroErrors.length) errorArray.push(zeroErrors[0]);
+  if (nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);
+  if (zeroErrors.length) errorArray.push(zeroErrors[0]);
   return errorArray;
 };
 
-/**
+/*
  * Checks user-created performance measures for numerator greater than denominator errors
  */
 const validateNumeratorsLessThanDenominatorsPM = (OPM: any) => {
@@ -80,10 +83,10 @@ const validateNumeratorsLessThanDenominatorsPM = (OPM: any) => {
     }
   }
 
-  return !!errorArray.length ? [errorArray[0]] : [];
+  return errorArray.length ? [errorArray[0]] : [];
 };
 
-/**
+/*
  * Checks for NDR field sets that have been partially filled out and reports them.
  *
  * @param OPM opm data

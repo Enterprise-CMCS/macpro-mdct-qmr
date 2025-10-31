@@ -1,3 +1,4 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
@@ -13,7 +14,7 @@ import {
 
 type CheckBoxBuilder = (name: string) => QMR.CheckboxOption[];
 
-/**
+/*
  * Builds Performance Measure AgeGroup Checkboxes
  */
 export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
@@ -81,7 +82,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   return options;
 };
 
-/**
+/*
  * Builds OPM Checkboxes
  */
 export const useRenderOPMCheckboxOptions = (name: string) => {

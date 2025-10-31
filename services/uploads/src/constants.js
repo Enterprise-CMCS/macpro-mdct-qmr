@@ -1,4 +1,4 @@
-/**
+/*
  * Exposes the constants used throughout the program.
  *
  * The following variables have to be set:

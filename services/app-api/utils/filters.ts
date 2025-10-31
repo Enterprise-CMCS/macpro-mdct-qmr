@@ -2,7 +2,7 @@ import { measures } from "../handlers/dynamoUtils/measureList";
 import { State } from "../types";
 import { states, bannerIds } from "./constants/constants";
 
-/**
+/*
  * This utility is most useful when filtering undefined values from an array,
  * _while convincing Typescript you've done so_.
  *

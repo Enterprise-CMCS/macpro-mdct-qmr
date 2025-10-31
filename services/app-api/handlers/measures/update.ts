@@ -10,7 +10,7 @@ import { parseMeasureParameters } from "../../utils/parseParameters";
 import { calculateAndPutRate } from "../rate/rateCalculations";
 import { CoreSet } from "../../types";
 
-export const editMeasure = handler(async (event, context) => {
+export const editMeasure = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet, measure } =
     parseMeasureParameters(event);
   if (!allParamsValid) {

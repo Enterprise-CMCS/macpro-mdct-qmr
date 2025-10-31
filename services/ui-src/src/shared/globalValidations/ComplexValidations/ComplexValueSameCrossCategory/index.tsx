@@ -6,8 +6,10 @@ export const ComplexValueSameCrossCategoryOMS = (
   qualifiers: LabelData[],
   errorLocation: string
 ) => {
-  // Using a subset of rateData as iterator to be sure that Total
-  // is always at the end of the category array.
+  /*
+   * Using a subset of rateData as iterator to be sure that Total
+   * is always at the end of the category array.
+   */
   const qualifierObj = { ...rateData };
   delete qualifierObj["Total"];
   const totalData = rateData["Total"]; // quick reference variable

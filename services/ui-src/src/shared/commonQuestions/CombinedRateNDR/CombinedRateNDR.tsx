@@ -124,7 +124,7 @@ export const CombinedRateNDR = ({
   );
 };
 
-/**
+/*
  * Sort the rates in-place, to match how they are displayed on individual measure pages.
  */
 const sortRates = (

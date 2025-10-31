@@ -98,7 +98,7 @@ export const getAllCoreSets = handler(async (event, context) => {
   };
 });
 
-export const getCoreSet = handler(async (event, context) => {
+export const getCoreSet = handler(async (event, _context) => {
   const { allParamsValid, year, state, coreSet } =
     parseCoreSetParameters(event);
   if (!allParamsValid) {

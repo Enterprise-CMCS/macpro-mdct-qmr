@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { MeasureTableItem } from "./types";
 
 // Example Measures list data for testing and demo page.

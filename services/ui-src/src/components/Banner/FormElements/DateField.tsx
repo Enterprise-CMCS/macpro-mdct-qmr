@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { SingleInputDateField as CmsdsDateField } from "@cmsgov/design-system";
 import { checkDateCompleteness } from "utils";
@@ -6,10 +6,6 @@ import { checkDateCompleteness } from "utils";
 export const DateField = ({
   name,
   label,
-  hint,
-  placeholder,
-  sxOverride,
-  nested,
   errorMessageOverride,
   ...props
 }: Props) => {

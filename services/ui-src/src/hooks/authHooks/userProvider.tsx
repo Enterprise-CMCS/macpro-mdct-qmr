@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
@@ -6,7 +7,6 @@ import {
   signOut,
 } from "aws-amplify/auth";
 import config from "config";
-
 import { UserContext, UserContextInterface } from "./userContext";
 import { UserRoles } from "types";
 

@@ -1,4 +1,4 @@
-/**
+/*
  * Attention
  * Changing the labels will change how the measure data is shaped and should not be done unless that is the desired result.
  * Changing the text property of these objects will change the text that is displayed to the user.
@@ -20,7 +20,7 @@ export const data = {
                 "id": "EreZBY"
             }
         ],
-        "categories": [{"id":"SU6HXz", "label": "", "text":""}]
+        "categories": [{ "id": "SU6HXz", "label": "", "text": "" }]
     },
     "AAB-CH": {
         "qualifiers": [
@@ -30,7 +30,7 @@ export const data = {
                 "id": "xS5HMm"
             },
         ],
-        "categories": [{"id":"ZCy3XP", "label": "", "text":""}]
+        "categories": [{ "id": "ZCy3XP", "label": "", "text": "" }]
     },
     "ADD-CH": {
         "qualifiers": [
@@ -45,7 +45,7 @@ export const data = {
                 "id": "jfj0f8"
             }
         ],
-        "categories": [{"id":"ugoYfe", "label": "", "text":""}]
+        "categories": [{ "id": "ugoYfe", "label": "", "text": "" }]
     },
     "AIF-HH": {
         "qualifiers": [
@@ -79,7 +79,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"ZyxRR5", "label": "", "text":""}]
+        "categories": [{ "id": "ZyxRR5", "label": "", "text": "" }]
     },
     "AMB-CH": {
         "qualifiers": [
@@ -113,7 +113,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"8KgPDM", "label": "", "text":""}]
+        "categories": [{ "id": "8KgPDM", "label": "", "text": "" }]
     },
     "AMB-HH": {
         "qualifiers": [
@@ -147,7 +147,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"9pQZSL", "label": "", "text":""}]
+        "categories": [{ "id": "9pQZSL", "label": "", "text": "" }]
     },
     "AMM-AD": {
         "qualifiers": [
@@ -195,7 +195,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"HRsQ7F", "label": "", "text":""}]
+        "categories": [{ "id": "HRsQ7F", "label": "", "text": "" }]
     },
     "AMR-CH": {
         "qualifiers": [
@@ -217,7 +217,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"tMt8gW", "label": "", "text":""}]
+        "categories": [{ "id": "tMt8gW", "label": "", "text": "" }]
     },
     "APM-CH": {
         "qualifiers": [
@@ -277,7 +277,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"JTlCwr", "label": "", "text":""}]
+        "categories": [{ "id": "JTlCwr", "label": "", "text": "" }]
     },
     "BCS-AD": {
         "qualifiers": [
@@ -292,7 +292,7 @@ export const data = {
                 "id": "vRqegW"
             }
         ],
-        "categories": [{"id":"xacc8a", "label": "", "text":""}]
+        "categories": [{ "id": "xacc8a", "label": "", "text": "" }]
     },
     "CBP-AD": {
         "qualifiers": [
@@ -307,7 +307,7 @@ export const data = {
                 "id": "SynTm5"
             }
         ],
-        "categories": [{"id":"qyic1D", "label": "", "text":""}]
+        "categories": [{ "id": "qyic1D", "label": "", "text": "" }]
     },
     "CBP-HH": {
         "qualifiers": [
@@ -329,7 +329,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"f2iZFk", "label": "", "text":""}]
+        "categories": [{ "id": "f2iZFk", "label": "", "text": "" }]
     },
     "CCP-AD": {
         "qualifiers": [
@@ -391,7 +391,7 @@ export const data = {
                 "id": "VZUrlc"
             }
         ],
-        "categories": [{"id":"Ma0WNl", "label": "", "text":""}]
+        "categories": [{ "id": "Ma0WNl", "label": "", "text": "" }]
     },
     "CCW-AD": {
         "qualifiers": [
@@ -406,7 +406,7 @@ export const data = {
                 "id": "qken13"
             }
         ],
-        "categories": [{"id":"ntJIVl", "label": "", "text":""}]
+        "categories": [{ "id": "ntJIVl", "label": "", "text": "" }]
     },
     "CCW-CH": {
         "qualifiers": [
@@ -421,7 +421,7 @@ export const data = {
                 "id": "tnsawX"
             }
         ],
-        "categories": [{"id":"p2e6nu", "label": "", "text":""}]
+        "categories": [{ "id": "p2e6nu", "label": "", "text": "" }]
     },
     "CDF-AD": {
         "qualifiers": [
@@ -436,7 +436,7 @@ export const data = {
                 "id": "tJ0j8E"
             }
         ],
-        "categories": [{"id":"fUqwlh", "label": "", "text":""}]
+        "categories": [{ "id": "fUqwlh", "label": "", "text": "" }]
     },
     "CDF-CH": {
         "qualifiers": [
@@ -446,7 +446,7 @@ export const data = {
                 "id": "HgCHDt"
             }
         ],
-        "categories": [{"id":"hsjQhs", "label": "", "text":""}]
+        "categories": [{ "id": "hsjQhs", "label": "", "text": "" }]
     },
     "CDF-HH": {
         "qualifiers": [
@@ -474,7 +474,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"yhQjRm", "label": "", "text":""}]
+        "categories": [{ "id": "yhQjRm", "label": "", "text": "" }]
     },
     "CHL-AD": {
         "qualifiers": [
@@ -484,7 +484,7 @@ export const data = {
                 "id": "eV26mN"
             }
         ],
-        "categories": [{"id":"cvc5jQ", "label": "", "text":""}]
+        "categories": [{ "id": "cvc5jQ", "label": "", "text": "" }]
     },
     "CHL-CH": {
         "qualifiers": [
@@ -494,7 +494,7 @@ export const data = {
                 "id": "PbJazd"
             }
         ],
-        "categories": [{"id":"xMHGQi", "label": "", "text":""}]
+        "categories": [{ "id": "xMHGQi", "label": "", "text": "" }]
     },
     "CIS-CH": {
         "qualifiers": [
@@ -574,7 +574,7 @@ export const data = {
                 "id": "UwzvFc"
             }
         ],
-        "categories": [{"id":"u7wDB2", "label": "", "text":""}]
+        "categories": [{ "id": "u7wDB2", "label": "", "text": "" }]
     },
     "COB-AD": {
         "qualifiers": [
@@ -589,7 +589,7 @@ export const data = {
                 "id": "e37PqQ"
             }
         ],
-        "categories": [{"id":"3jFQwQ", "label": "", "text":""}]
+        "categories": [{ "id": "3jFQwQ", "label": "", "text": "" }]
     },
     "COL-AD": {
         "qualifiers": [
@@ -609,7 +609,7 @@ export const data = {
                 "id": "YHLMTu"
             }
         ],
-        "categories": [{"id":"jVTfQB", "label": "", "text":""}]
+        "categories": [{ "id": "jVTfQB", "label": "", "text": "" }]
     },
     "COL-HH": {
         "qualifiers": [
@@ -629,7 +629,7 @@ export const data = {
                 "id": "2ATODe"
             }
         ],
-        "categories": [{"id":"sYNAsL", "label": "", "text":""}]
+        "categories": [{ "id": "sYNAsL", "label": "", "text": "" }]
     },
     "CPU-AD": {
         "qualifiers": [
@@ -644,7 +644,7 @@ export const data = {
                 "id": "NBz553",
             },
         ],
-        "categories": [{"id":"HLXNLW", "label": "", "text":""}]
+        "categories": [{ "id": "HLXNLW", "label": "", "text": "" }]
     },
     "DEV-CH": {
         "qualifiers": [
@@ -672,7 +672,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"rnFOY6", "label": "", "text":""}]
+        "categories": [{ "id": "rnFOY6", "label": "", "text": "" }]
     },
     "FUA-AD": {
         "qualifiers": [
@@ -940,7 +940,7 @@ export const data = {
                 "id": "BKbFhQ"
             }
         ],
-        "categories": [{"id":"5bDNK0", "label": "", "text":""}]
+        "categories": [{ "id": "5bDNK0", "label": "", "text": "" }]
     },
     "HBD-AD": {
         "qualifiers": [
@@ -959,13 +959,13 @@ export const data = {
             {
                 "label": "HbA1c control (<8.0%)",
                 "text": "HbA1c control (<8.0%)",
-                "id":"F9V8xD",
+                "id": "F9V8xD",
                 "excludeFromOMS": true
             },
             {
                 "label": "HbA1c poor control (>9.0%)",
                 "text": "HbA1c poor control (>9.0%)",
-                "id":"MELFVb"
+                "id": "MELFVb"
             }
         ]
     },
@@ -982,7 +982,7 @@ export const data = {
                 "id": "LmBzTX"
             }
         ],
-        "categories": [{"id":"rCN1NM", "label": "", "text":""}]
+        "categories": [{ "id": "rCN1NM", "label": "", "text": "" }]
     },
     "HVL-AD": {
         "qualifiers": [
@@ -997,7 +997,7 @@ export const data = {
                 "id": "0SLTQO"
             }
         ],
-        "categories": [{"id":"iAT7Xc", "label": "", "text":""}]
+        "categories": [{ "id": "iAT7Xc", "label": "", "text": "" }]
     },
     "IET-AD": {
         "qualifiers": [
@@ -1164,7 +1164,7 @@ export const data = {
                 "id": "agvITR"
             }
         ],
-        "categories": [{"id":"6Wts84", "label": "", "text":""}]
+        "categories": [{ "id": "6Wts84", "label": "", "text": "" }]
     },
     "IU-HH": {
         "qualifiers": [
@@ -1228,12 +1228,12 @@ export const data = {
     "LSC-CH": {
         "qualifiers": [
             {
-                "label": "At least one lead capillary or venous blood test on or before the child's second birthday", 
-                "text": "At least one lead capillary or venous blood test on or before the child's second birthday", 
+                "label": "At least one lead capillary or venous blood test on or before the child's second birthday",
+                "text": "At least one lead capillary or venous blood test on or before the child's second birthday",
                 "id": "AtXKXx"
             }
         ],
-        "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
+        "categories": [{ "id": "HOiTVZ", "label": "", "text": "" }]
     },
     "MSC-AD": {
         "qualifiers": [
@@ -1257,7 +1257,7 @@ export const data = {
             {
                 "label": "Advising Smokers and Tobacco Users to Quit",
                 "text": "Advising Smokers and Tobacco Users to Quit",
-               "id": "S2ngC7"
+                "id": "S2ngC7"
             },
             {
                 "label": "Discussing Cessation Medications",
@@ -1333,7 +1333,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"oe5lKf", "label": "", "text":""}]
+        "categories": [{ "id": "oe5lKf", "label": "", "text": "" }]
     },
     "OHD-AD": {
         "qualifiers": [
@@ -1348,7 +1348,7 @@ export const data = {
                 "id": "23IWY1"
             }
         ],
-        "categories": [{"id":"aeOiMF", "label": "", "text":""}]
+        "categories": [{ "id": "aeOiMF", "label": "", "text": "" }]
     },
     "OUD-AD": {
         "qualifiers": [
@@ -1382,7 +1382,7 @@ export const data = {
                 "excludeFromOMS": true
             }
         ],
-        "categories": [{"id":"t75kZB", "label": "", "text":""}]
+        "categories": [{ "id": "t75kZB", "label": "", "text": "" }]
     },
     "OUD-HH": {
         "qualifiers": [
@@ -1416,7 +1416,7 @@ export const data = {
                 "excludeFromOMS": true
             }
         ],
-        "categories": [{"id":"lS0z8M", "label": "", "text":""}]
+        "categories": [{ "id": "lS0z8M", "label": "", "text": "" }]
     },
     "PCR-AD": {
         "qualifiers": [
@@ -1466,7 +1466,7 @@ export const data = {
                 "id": "Nfe4Cn"
             }
         ],
-        "categories": [{"id":"zcwVcA", "label": "", "text":""}]
+        "categories": [{ "id": "zcwVcA", "label": "", "text": "" }]
     },
     "PCR-HH": {
         "qualifiers": [
@@ -1516,7 +1516,7 @@ export const data = {
                 "id": "08LeiP"
             }
         ],
-        "categories": [{"id":"YGJwmu", "label": "", "text":""}]
+        "categories": [{ "id": "YGJwmu", "label": "", "text": "" }]
     },
     "PPC-AD": {
         "qualifiers": [
@@ -1526,7 +1526,7 @@ export const data = {
                 "id": "LrWMAT"
             }
         ],
-        "categories": [{"id":"SyrrI1", "label": "", "text":""}]
+        "categories": [{ "id": "SyrrI1", "label": "", "text": "" }]
     },
     "PPC-CH": {
         "qualifiers": [
@@ -1536,7 +1536,7 @@ export const data = {
                 "id": "kCBB0a"
             }
         ],
-        "categories": [{"id":"fcjCsg", "label": "", "text":""}]
+        "categories": [{ "id": "fcjCsg", "label": "", "text": "" }]
     },
     "PQI01-AD": {
         "qualifiers": [
@@ -1551,7 +1551,7 @@ export const data = {
                 "id": "g01NRO"
             }
         ],
-        "categories": [{"id":"Gp9GRU", "label": "", "text":""}]
+        "categories": [{ "id": "Gp9GRU", "label": "", "text": "" }]
     },
     "PQI05-AD": {
         "qualifiers": [
@@ -1566,7 +1566,7 @@ export const data = {
                 "id": "usIZvV"
             }
         ],
-        "categories": [{"id":"CzBbvv", "label": "", "text":""}]
+        "categories": [{ "id": "CzBbvv", "label": "", "text": "" }]
     },
     "PQI08-AD": {
         "qualifiers": [
@@ -1581,7 +1581,7 @@ export const data = {
                 "id": "rRyKdf"
             }
         ],
-        "categories": [{"id":"eYsLWE", "label": "", "text":""}]
+        "categories": [{ "id": "eYsLWE", "label": "", "text": "" }]
     },
     "PQI15-AD": {
         "qualifiers": [
@@ -1591,7 +1591,7 @@ export const data = {
                 "id": "i57RxI"
             }
         ],
-        "categories": [{"id":"Z4aIZZ", "label": "", "text":""}]
+        "categories": [{ "id": "Z4aIZZ", "label": "", "text": "" }]
     },
     "PQI92-HH": {
         "qualifiers": [
@@ -1613,7 +1613,7 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"mIBZOk", "label": "", "text":""}]
+        "categories": [{ "id": "mIBZOk", "label": "", "text": "" }]
     },
     "SAA-AD": {
         "qualifiers": [
@@ -1623,7 +1623,7 @@ export const data = {
                 "id": "5Zy1WJ"
             }
         ],
-        "categories": [{"id":"bdI1f1", "label": "", "text":""}]
+        "categories": [{ "id": "bdI1f1", "label": "", "text": "" }]
     },
     "SFM-CH": {
         "qualifiers": [
@@ -1638,7 +1638,7 @@ export const data = {
                 "id": "VC1O0n"
             }
         ],
-        "categories": [{"id":"zooXXr", "label": "", "text":""}]
+        "categories": [{ "id": "zooXXr", "label": "", "text": "" }]
     },
     "SSD-AD": {
         "qualifiers": [
@@ -1648,7 +1648,7 @@ export const data = {
                 "id": "QAiTJA"
             }
         ],
-        "categories": [{"id":"IJmKJZ", "label": "", "text":""}]
+        "categories": [{ "id": "IJmKJZ", "label": "", "text": "" }]
     },
     "TFL-CH": {
         "qualifiers": [
@@ -1739,7 +1739,7 @@ export const data = {
                 "id": "pNdn6w"
             }
         ],
-        "categories": [{"id":"HOiTVR", "label": "", "text":""}]
+        "categories": [{ "id": "HOiTVR", "label": "", "text": "" }]
     },
     "WCC-CH": {
         "qualifiers": [
@@ -1805,16 +1805,16 @@ export const data = {
                 "id": "Total"
             }
         ],
-        "categories": [{"id":"YOFx9h", "label": "", "text":""}]
+        "categories": [{ "id": "YOFx9h", "label": "", "text": "" }]
     }
 }
 
 export const getCatQualLabels = (measure: keyof typeof data) => {
     const qualifiers = data[measure].qualifiers;
     const categories = data[measure].categories;
-  
+
     return {
-      qualifiers,
-      categories,
+        qualifiers,
+        categories,
     };
-  };
+};

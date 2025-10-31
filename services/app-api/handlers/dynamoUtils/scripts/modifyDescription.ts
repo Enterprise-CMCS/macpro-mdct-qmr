@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import prompt from "prompt-sync";
 import dynamoDb from "../../../libs/dynamodb-lib";
 import { states } from "../../../utils/constants/constants";

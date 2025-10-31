@@ -1,15 +1,16 @@
+/* eslint-disable no-console, no-extra-boolean-cast */
 import * as DC from "dataConstants";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
-import { OmsNode } from "shared/types";
-import { LabelData, isLegacyLabel } from "utils";
 import {
+  OmsNode,
   RateFields,
   OmsNodes as OMS,
   PerformanceMeasure,
   OtherRatesFields,
   OptionalMeasureStratification,
+  DataDrivenTypes as DDT,
 } from "shared/types";
-import { DataDrivenTypes as DDT } from "shared/types";
+import { LabelData, isLegacyLabel } from "utils";
 
 // Test Rate Objects
 export const partialRate: RateFields = {
@@ -131,7 +132,7 @@ export const complexNDRFormula = [
   },
 ];
 
-/**
+/*
  * Helper function to prep oms validation test data  by slotting test data in qualifier order
  *
  * @param categories should always at least contain "singleCategory"
@@ -172,7 +173,7 @@ export const generateOmsQualifierRateData = (
   return rateData;
 };
 
-/**
+/*
  * Helper function to prep oms validation test data  by slotting test data in category order
  *
  * @param categories should be longer than just singleCategory
@@ -211,7 +212,7 @@ export const generateOmsCategoryRateData = (
   return rateData;
 };
 
-/**
+/*
  * Helper function to prep pm validation test data by slotting test data in qualifier order
  *
  * @param pmd needs to contain the qualifiers and categories
@@ -240,7 +241,7 @@ export const generatePmQualifierRateData = (
   return rateData;
 };
 
-/**
+/*
  * Helper function to prep pm validation test data by slotting test data in category order
  *
  * @param pmd needs to contain the categories and qualifiers
@@ -267,7 +268,7 @@ export const generatePmCategoryRateData = (
   return rateData;
 };
 
-/**
+/*
  * Helper function to prep opm validation test data by slotting test data into x number of fields
  * @param testData object to be pushed onto OPM rates
  * @param numberOfFields how many field sets to make
@@ -285,14 +286,14 @@ export const generateOtherPerformanceMeasureData = (
   return data;
 };
 
-/**
+/*
  * Dummy location dictionary function for testing utility
  */
 export const locationDictionary = (s: string[]) => {
   return s[0];
 };
 
-/**
+/*
  * Generates a filled OMS form data object
  *
  * @param rateData test data that is applied to all nodes

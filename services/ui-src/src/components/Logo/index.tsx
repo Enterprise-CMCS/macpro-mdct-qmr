@@ -1,4 +1,6 @@
-export function Logo(): JSX.Element {
+import React from "react";
+
+export function Logo(): React.JSX.Element {
   return (
     <div data-testid="qmr-logo">
       <img

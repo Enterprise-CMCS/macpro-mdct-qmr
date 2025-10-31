@@ -10,6 +10,7 @@ import {
 } from "../dataDrivenTools";
 import { LabelData } from "utils";
 import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
+import { FormError } from "error";
 
 interface ValProps extends UVFP {
   hybridData?: boolean;
@@ -69,8 +70,10 @@ export const validateRateZeroOMS =
     }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
   };
 
-// If a user manually over-rides a rate it must not violate two rules:
-// It must be zero if the numerator is zero
+/*
+ * If a user manually over-rides a rate it must not violate two rules:
+ * It must be zero if the numerator is zero
+ */
 export const validateRateZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
@@ -100,6 +103,6 @@ export const validateRateZeroPM = (
     }),
   ];
 
-  if (!!errors.length) errorArray.push(errors[0]);
+  if (errors.length) errorArray.push(errors[0]);
   return errorArray;
 };

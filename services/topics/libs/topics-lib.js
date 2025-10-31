@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import { ConfigResourceTypes, Kafka } from "kafkajs";
 
-/**
+/*
  * Removes topics in BigMac given the following
  * @param {string} brokerString - Comma delimited list of brokers
  * @param {string} namespace - String in the format of `--${event.project}--`, only used for temp branches for easy identification and cleanup
@@ -31,7 +31,7 @@ export const listTopics = async (brokerString, namespace) => {
   return lingeringTopics;
 };
 
-/**
+/*
  * Generates topics in BigMac given the following
  * @param { string[] } brokers - List of brokers
  * @param {{ topic: string, numPartitions: number, replicationFactor: number }[]}
@@ -122,7 +122,7 @@ export const createTopics = async (brokers, desiredTopicConfigs) => {
   await admin.disconnect();
 };
 
-/**
+/*
  * Deletes all topics for an ephemeral (`--` prefixed) namespace
  * @param { string[] } brokers - List of brokers
  * @param {string} topicNamespace

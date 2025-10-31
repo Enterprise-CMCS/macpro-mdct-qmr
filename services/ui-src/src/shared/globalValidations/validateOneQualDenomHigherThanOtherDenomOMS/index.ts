@@ -1,5 +1,4 @@
 import * as Types from "shared/types";
-
 import {
   OmsValidationCallback,
   UnifiedValFuncProps as UVFP,
@@ -8,6 +7,7 @@ import {
   convertOmsDataToRateArray,
   getPerfMeasureRateArray,
 } from "../dataDrivenTools";
+import { FormError } from "error";
 
 type ErrorMessageFunc = (lowerQual: string, higherQual: string) => string;
 
@@ -61,7 +61,7 @@ const _validation = ({
   return errorArray;
 };
 
-/**
+/*
  * Validates that one qualifier's denominator is higher than the other specified qualifier's denominator
  * @note this function returns the oms validation function
  *
@@ -95,7 +95,7 @@ export const validateOneQualDenomHigherThanOtherDenomOMS = (
   };
 };
 
-/**
+/*
  * Validates that one qualifier's denominator is higher than the other specified qualifier's denominator
  *
  * @param data form data

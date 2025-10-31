@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { success, failure } = require("./response-lib");
 
 function handler(lambda) {

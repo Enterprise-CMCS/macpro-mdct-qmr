@@ -1,5 +1,6 @@
 import { LabelData } from "utils";
 import { validatePartialRateCompletionPM } from "../../validatePartialRateCompletion";
+import { FormError } from "error";
 
 /* At least one NDR set must be complete (OPM or PM) */
 export const PCRatLeastOneRateComplete = (
@@ -19,11 +20,13 @@ export const PCRatLeastOneRateComplete = (
     );
   }
 
-  // Check regular Performance Measures if cannot validate OPM
-  // For each Performance Measure
-  //    Check that the performance measure has a field representation for each age groups
-  //    Check that each field has a "value" and it is not an empty string
-  //    For a complete measure the sum of the booleans will equal the length of the age groups
+  /*
+   * Check regular Performance Measures if cannot validate OPM
+   * For each Performance Measure
+   *    Check that the performance measure has a field representation for each age groups
+   *    Check that each field has a "value" and it is not an empty string
+   *    For a complete measure the sum of the booleans will equal the length of the age groups
+   */
   if (error) {
     performanceMeasureArray?.forEach((_performanceObj: any) => {
       if (_performanceObj.length === ageGroups.length) {

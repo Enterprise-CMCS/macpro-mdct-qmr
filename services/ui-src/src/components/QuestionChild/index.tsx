@@ -1,3 +1,4 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 
 interface Props {

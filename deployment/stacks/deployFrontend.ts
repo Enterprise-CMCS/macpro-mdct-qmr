@@ -27,7 +27,6 @@ interface DeployFrontendProps {
 export function deployFrontend(props: DeployFrontendProps) {
   const {
     scope,
-    stage,
     distribution,
     apiGatewayRestApiUrl,
     applicationEndpointUrl,

@@ -55,8 +55,10 @@ const ReportingYear = () => {
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
   const releaseYearByFlag = useFlags()?.["release2026"];
-  // Certain states do not have separate chip and medicaid so we will not
-  // display the Combined Rates button for those states
+  /*
+   * Certain states do not have separate chip and medicaid so we will not
+   * display the Combined Rates button for those states
+   */
   const showCombinedRatesButton =
     state && !statesWithoutCombinedRates.includes(state);
 

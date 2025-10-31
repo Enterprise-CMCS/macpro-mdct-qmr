@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import * as CUI from "@chakra-ui/react";

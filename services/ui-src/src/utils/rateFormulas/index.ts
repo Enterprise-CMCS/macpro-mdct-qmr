@@ -1,3 +1,5 @@
+import { RateFormula } from "utils/rateFormulas/rateFormulas";
+
 const fixRounding = (value: number, numbersAfterDecimal: number) => {
   return (
     Math.round((value + Number.EPSILON) * Math.pow(10, numbersAfterDecimal)) /

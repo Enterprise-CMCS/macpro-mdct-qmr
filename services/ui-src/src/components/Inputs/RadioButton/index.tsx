@@ -1,3 +1,4 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
@@ -7,7 +8,7 @@ import { ControllerRules } from "global";
 export interface RadioButtonOption {
   displayValue: string;
   value: string | number;
-  children?: JSX.Element[];
+  children?: React.JSX.Element[];
   removable?: boolean;
   onDelete?: () => void;
   onClick?: () => void;
@@ -17,7 +18,7 @@ interface RadioButtonProps extends QMR.InputWrapperProps, ControllerRules {
   options: RadioButtonOption[];
   radioGroupProps?: CUI.RadioGroupProps;
   name: string;
-  subTextElement?: JSX.Element | JSX.Element[];
+  subTextElement?: React.JSX.Element | React.JSX.Element[];
   valueAsArray?: boolean;
   clearable?: boolean;
 }
@@ -52,7 +53,7 @@ export const RadioButton = ({
 
   const getFieldValue = () => {
     //when running a clear call, the radio button doesn't remove the selection even when the value is undefined. setting it to "" clears it
-    return (!!valueAsArray ? field.value?.[0] : field.value) ?? "";
+    return (valueAsArray ? field.value?.[0] : field.value) ?? "";
   };
 
   return (
@@ -77,7 +78,7 @@ export const RadioButton = ({
           value={getFieldValue()}
           onBlur={field.onBlur}
           onChange={(newValue) => {
-            field.onChange(!!valueAsArray ? [newValue] : newValue);
+            field.onChange(valueAsArray ? [newValue] : newValue);
           }}
           {...radioGroupProps}
         >

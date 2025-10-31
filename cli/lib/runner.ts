@@ -2,7 +2,7 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
 
-/**
+/*
  * Maps all known prefixes to an ANSI color code from 1-14, inclusive.
  * If there are many unique prefixes, colors will repeat.
  * See https://en.wikipedia.org/wiki/ANSI_escape_code#8-bit for color values.

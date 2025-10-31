@@ -2,14 +2,14 @@
 import { createTopics } from "../libs/topics-lib.js";
 import condensedTopicList from "../config.js";
 
-/**
+/*
  * String in the format of `--${event.project}--${event.stage}--`
  *
  * Only used for temp branches for easy identification and cleanup.
  */
 const namespace = process.env.topicNamespace;
 
-/**
+/*
  * Handler triggered on deploy to create known topics in bigmac
  * @param {*} event
  * @param {*} _context

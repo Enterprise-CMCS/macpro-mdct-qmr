@@ -7,7 +7,7 @@ import {
   roundSafely,
 } from "../../utils/math";
 
-/**
+/*
  * Certain measures (CPU-AD, PCR-AD) contain information that doesn't fit into
  * the usual Numerator-Denominator-Rate format. But we still want to combine
  * the Medicaid data with the CHIP data. That is done here.

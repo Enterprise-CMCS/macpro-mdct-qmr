@@ -46,7 +46,7 @@ const buildUiEnvObject = (
         process.env.COGNITO_USER_POOL_CLIENT_DOMAIN!,
       COGNITO_USER_POOL_ID: process.env.COGNITO_USER_POOL_ID!,
       POST_SIGNOUT_REDIRECT: "http://localhost:3000/",
-      REACT_APP_LD_SDK_CLIENT: process.env.REACT_APP_LD_SDK_CLIENT,
+      REACT_APP_LD_SDK_CLIENT: process.env.REACT_APP_LD_SDK_CLIENT!,
     };
   }
 

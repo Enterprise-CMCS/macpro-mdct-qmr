@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as readline from "readline";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
@@ -27,7 +28,7 @@ const promptYesNo = async (query: string) => {
       default:
         rl.write("Y or N only, please.\n");
     }
-  } while (true);
+  } while (true); // eslint-disable-line no-constant-condition
 };
 
 async function remove2023QualifierHPCAD() {

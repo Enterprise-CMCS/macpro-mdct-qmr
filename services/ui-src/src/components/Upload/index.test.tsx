@@ -3,9 +3,9 @@ import * as QMR from "components";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act } from "react";
+import { useUser } from "hooks/authHooks";
 
 const queryClient = new QueryClient();
-import { useUser } from "hooks/authHooks";
 
 jest.mock("hooks/authHooks");
 jest.mock("aws-amplify/storage", () => ({

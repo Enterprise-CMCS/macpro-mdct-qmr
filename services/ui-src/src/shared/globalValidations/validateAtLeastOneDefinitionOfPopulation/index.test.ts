@@ -1,6 +1,7 @@
 import { testFormData } from "./../testHelpers/_testFormData";
 import * as DC from "dataConstants";
 import { validateAtLeastOneDefinitionOfPopulation } from ".";
+import { FormError } from "error";
 
 describe("validateAtLeastOneDefinitionOfPopulation", () => {
   let formData: any;

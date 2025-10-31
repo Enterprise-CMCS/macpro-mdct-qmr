@@ -12,8 +12,10 @@ import {
 describe("Testing new regex defaults", () => {
   test("Testing custom generated RegEx: xNumbersYDecimals", () => {
     const testCases = [
-      // [firstParam, secondParam, testString, expectedResult]
-      // Base case: 10^2, 1 decimal place
+      /*
+       * [firstParam, secondParam, testString, expectedResult]
+       * Base case: 10^2, 1 decimal place
+       */
       [undefined, undefined, "", true],
       [undefined, undefined, "100", true], // max number
       [undefined, undefined, "99.9", true], // max decimal

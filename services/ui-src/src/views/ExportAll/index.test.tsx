@@ -125,8 +125,10 @@ describe("ExportAll", () => {
 
     const jumpLinks = screen
       .getAllByRole("link")
-      // There are lots of links on this page, but only the jump links
-      // at the top of the page are styled as buttons.
+      /*
+       * There are lots of links on this page, but only the jump links
+       * at the top of the page are styled as buttons.
+       */
       .filter((link) => link.classList.contains("chakra-button"))
       .map((link) => link.textContent);
     expect(jumpLinks).toEqual(["CSQ", "AAB-AD", "BCS-AD"]);

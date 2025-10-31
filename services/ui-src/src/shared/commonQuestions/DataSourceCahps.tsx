@@ -12,7 +12,7 @@ interface DataSourceProps {
   type?: string;
 }
 
-/**
+/*
  * Fully built DataSource component
  */
 export const DataSourceRadio = ({

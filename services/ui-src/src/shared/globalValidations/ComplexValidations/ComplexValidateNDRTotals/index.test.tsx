@@ -82,7 +82,7 @@ describe("Testing Complex NDR Totals Validation", () => {
         "Performance Measure Total - Number of Enrollee Months"
       );
       expect(errors[0].errorMessage).toBe(
-        `Total Number of Enrollee Months is not equal to the sum of other \"Number of Enrollee Months\" fields in Number of Enrollee Months section.`
+        `Total Number of Enrollee Months is not equal to the sum of other "Number of Enrollee Months" fields in Number of Enrollee Months section.`
       );
     });
     it("should have errors when total is not filled when qualifiers are filled", () => {
@@ -128,7 +128,7 @@ describe("Testing Complex NDR Totals Validation", () => {
         "Optional Measure Stratification: Total - "
       );
       expect(errors[0].errorMessage).toBe(
-        `Total Number of Enrollee Months is not equal to the sum of other \"Number of Enrollee Months\" fields in  section.`
+        `Total Number of Enrollee Months is not equal to the sum of other "Number of Enrollee Months" fields in  section.`
       );
     });
     it("should have errors, with categories", () => {
@@ -150,7 +150,7 @@ describe("Testing Complex NDR Totals Validation", () => {
         "Optional Measure Stratification: Total - singleCategory"
       );
       expect(errors[0].errorMessage).toBe(
-        `Total Number of Enrollee Months is not equal to the sum of other \"Number of Enrollee Months\" fields in singleCategory section.`
+        `Total Number of Enrollee Months is not equal to the sum of other "Number of Enrollee Months" fields in singleCategory section.`
       );
     });
   });

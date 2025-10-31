@@ -136,7 +136,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
       return GV.validateOMSTotalNDR();
     case "validateEqualQualifierDenominatorsOMS":
       return GV.validateEqualQualifierDenominatorsOMS();
-    case "validateOneCatRateHigherThanOtherCatOMS":
+    case "validateOneCatRateHigherThanOtherCatOMS": {
       const validateOneCatRateHigherThanOtherCat = PMD.override
         ?.validateOneCatRateHigherThanOtherCat ?? [
         { highIndex: 0, lowIndex: 1 },
@@ -148,6 +148,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
           set?.increment
         )
       );
+    }
     case "validateOneQualRateHigherThanOtherQualOMS":
       return GV.validateOneQualRateHigherThanOtherQualOMS(
         PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
@@ -157,7 +158,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
       return GV.validateSameDenominatorSetsOMS();
     case "validateEqualCategoryDenominatorsOMS":
       return GV.validateEqualCategoryDenominatorsOMS();
-    case "validateEqualQualifierOfCategoryDenominatorsOMS":
+    case "validateEqualQualifierOfCategoryDenominatorsOMS": {
       const sets =
         PMD.override?.validateEqualQualifierOfCategoryDenominators ?? [];
       return sets.map((set) =>
@@ -166,6 +167,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
           qualifiers.filter((age) => set.ageGroups.includes(age.id))
         )
       );
+    }
     default:
       throw new Error(
         `OMS validation function ${func} not recognized! See validationTemplate.tsx`
@@ -264,7 +266,7 @@ export const validationTemplate = (
             ? validateTotalNDRErrorMessage
             : undefined
         );
-      case "validateEqualQualifierDenominatorsPM":
+      case "validateEqualQualifierDenominatorsPM": {
         //AMM-AD, FUH-AD, FUH-CH, IET-AD, IET-HH, SFM-CH, W30-CH
         if (PMD.override?.validateEqualQualifierDenominatorsPM?.category) {
           let unfilteredSameDenominatorErrors: any[] = [];
@@ -319,7 +321,8 @@ export const validationTemplate = (
             ? validateEqualQualifierDenominatorsErrorMessage
             : undefined
         );
-      case "validateOneCatRateHigherThanOtherCatPM":
+      }
+      case "validateOneCatRateHigherThanOtherCatPM": {
         const validateOneCatRateHigherThanOtherCat = PMD.override
           ?.validateOneCatRateHigherThanOtherCat ?? [
           { highIndex: 0, lowIndex: 1 },
@@ -334,6 +337,7 @@ export const validationTemplate = (
             set?.increment ?? undefined
           )
         );
+      }
       case "validateDualPopInformationPM":
         return GV.validateDualPopInformationPM(
           PMD.override?.validateDualPopInformationPM?.dualPopInfoArray
@@ -416,7 +420,7 @@ export const validationTemplate = (
         return GV.validateAtLeastOneDefinitionOfPopulation(data);
       case "validateHybridMeasurePopulation":
         return GV.validateHybridMeasurePopulation(data);
-      case "validateEqualQualifierOfCategoryDenominatorsPM":
+      case "validateEqualQualifierOfCategoryDenominatorsPM": {
         const sets = PMD.override?.validateEqualQualifierOfCategoryDenominators;
         return sets?.flatMap((set) =>
           GV.validateEqualQualifierOfCategoryDenominatorsPM(
@@ -425,6 +429,7 @@ export const validationTemplate = (
             qualifiers.filter((age) => set.ageGroups.includes(age.id))
           )
         );
+      }
       default:
         throw new Error(
           `Validation function ${func} not recognized! See validationTemplate.tsx`

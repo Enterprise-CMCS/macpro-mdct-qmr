@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { createStandaloneToast } from "@chakra-ui/toast";
@@ -189,9 +190,11 @@ export const Upload = ({
     }
   }
 
-  // Here, we determing if this is a state user. If it's a non-state user,
-  // display the ComponentMask overlay to signal to the user that the upload box
-  // is disabled.
+  /*
+   * Here, we determing if this is a state user. If it's a non-state user,
+   * display the ComponentMask overlay to signal to the user that the upload box
+   * is disabled.
+   */
   const { isStateUser } = useUser();
 
   return (

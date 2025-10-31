@@ -50,8 +50,10 @@ export function createUiComponents(props: CreateUiComponentsProps) {
     | { enableLogging: boolean; logBucket: s3.Bucket; logFilePrefix: string }
     | undefined;
   if (!isDev) {
-    // this bucket is not created for ephemeral environments because the delete of the bucket often fails because it doesn't decouple from the distribution gracefully
-    // should you need to test these parts of the infrastructure out the easiest method is to add your branch's name to the isDev definition in deployment-config.ts
+    /*
+     * this bucket is not created for ephemeral environments because the delete of the bucket often fails because it doesn't decouple from the distribution gracefully
+     * should you need to test these parts of the infrastructure out the easiest method is to add your branch's name to the isDev definition in deployment-config.ts
+     */
     const logBucket = new s3.Bucket(scope, "CloudfrontLogBucket", {
       bucketName: `${Aws.ACCOUNT_ID}-ui-${stage}-cloudfront-logs`,
       encryption: s3.BucketEncryption.S3_MANAGED,

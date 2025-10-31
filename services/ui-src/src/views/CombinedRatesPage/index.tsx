@@ -58,9 +58,11 @@ const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
   const measures = data?.Items as MeasureData[];
   const formatted = measures
     ?.filter(
-      // filter out all the measures that do not have combined rates:
-      // the coreset qualifiers (CSQ), measures that are autocompleted,
-      // and the measures that are not asked to report performance measure data
+      /*
+       * filter out all the measures that do not have combined rates:
+       * the coreset qualifiers (CSQ), measures that are autocompleted,
+       * and the measures that are not asked to report performance measure data
+       */
       (item) =>
         !item.autoCompleted &&
         !measuresWithoutPerformanceData.includes(item.measure)

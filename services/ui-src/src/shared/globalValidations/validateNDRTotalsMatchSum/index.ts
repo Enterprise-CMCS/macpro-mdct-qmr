@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import { RateFields } from "shared/types";
 import { FormRateField } from "shared/types/TypeValidations";
 
@@ -23,7 +24,7 @@ export function validateNDRTotalsMatchSum(
     rate.category!.includes(":");
 
   const groupKeyOf = (rate: CompletedRate) => {
-    const [categoryType, _subCategory] = rate.category.split(":");
+    const [categoryType] = rate.category.split(":");
     return `${categoryType} - ${rate.label}`;
   };
 

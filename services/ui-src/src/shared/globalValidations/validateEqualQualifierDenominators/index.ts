@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import {
   OmsValidationCallback,
   FormRateField,
@@ -45,7 +46,7 @@ const _validation = ({
   return errorArray;
 };
 
-/**
+/*
  * All qualifiers need to have the same denominator
  */
 export const validateEqualQualifierDenominatorsOMS =
@@ -66,7 +67,7 @@ export const validateEqualQualifierDenominatorsOMS =
     });
   };
 
-/**
+/*
  * All qualifiers need to have the same denominator
  */
 export const validateEqualQualifierDenominatorsPM = (

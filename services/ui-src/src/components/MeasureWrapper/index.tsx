@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   ReactElement,
   cloneElement,
@@ -30,6 +31,7 @@ import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
 import { featuresByYear } from "utils/featuresByYear";
 import { Alert } from "@cmsgov/design-system";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
+import { FormError } from "error";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -45,7 +47,7 @@ export interface MeasureWrapperProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
-  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+  setValidationFunctions?: Dispatch<SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
   showOptionalMeasureStrat?: boolean;
@@ -200,9 +202,9 @@ export const MeasureWrapper = ({
     });
   };
   /*
-  this is where we put all the high level stuff for measures
-  all of the methods defined here can be passed as props to every measure below
-  */
+   * this is where we put all the high level stuff for measures
+   * all of the methods defined here can be passed as props to every measure below
+   */
 
   const { mutate: updateMeasure, isPending: mutationRunning } =
     useUpdateMeasure();
@@ -255,8 +257,10 @@ export const MeasureWrapper = ({
   };
 
   const hasDataChanged = (data: any) => {
-    //there are some instances where there is not change to the data but the way we load the data triggers react hook form to think there is.
-    //this function is to do a comparison between the defaultValues (prev saved data) and data (data waiting to be saved)
+    /*
+     * there are some instances where there is not change to the data but the way we load the data triggers react hook form to think there is.
+     * this function is to do a comparison between the defaultValues (prev saved data) and data (data waiting to be saved)
+     */
     if (Object.keys(methods.formState.dirtyFields).length === 0) return false;
 
     //instead of looping through all the data, we will loop through only the keys that react hook form indicated has a change
@@ -269,7 +273,8 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
-    /* only auto-save measure on timeout if this form has been touched / modified
+    /*
+     * only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
     if (!mutationRunning && !loadingData && hasDataChanged(data)) {

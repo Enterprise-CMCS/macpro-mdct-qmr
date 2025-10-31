@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const {
   S3Client,
   PutObjectCommand,
@@ -23,12 +24,8 @@ const uploadFileToS3 = async (filePath, scanResult) => {
     Key: filePath,
     Body: scanResult,
   };
-  try {
-    await client.send(new PutObjectCommand(uploadParams));
-    console.log(`File uploaded to: ${filePath}`);
-  } catch (err) {
-    throw err;
-  }
+  await client.send(new PutObjectCommand(uploadParams));
+  console.log(`File uploaded to: ${filePath}`);
 };
 
 const cleanupFolders = async () => {
@@ -69,9 +66,11 @@ const syncDynamoToS3 = handler(async (_event, _context) => {
   let coreSetResults = await scanAll(process.env.QualityCoreSetsTable);
   let rateResults = await scanAll(process.env.CombinedRatesTable);
 
-  // TODO: We currently have to account for legacy compound keys for the measure, coreSet and
-  // rate tables until changes are made on the consumer end. We will be able to remove these
-  // result reassigments (lines 38-61) once the proper updates are made on the consumer end.
+  /*
+   * TODO: We currently have to account for legacy compound keys for the measure, coreSet and
+   * rate tables until changes are made on the consumer end. We will be able to remove these
+   * result reassigments (lines 38-61) once the proper updates are made on the consumer end.
+   */
   measureResults = measureResults.map((measureResult) => {
     const { state, year, coreSet, measure } = measureResult;
     const legacyCompoundKey = `${state}${year}${coreSet}${measure}`;

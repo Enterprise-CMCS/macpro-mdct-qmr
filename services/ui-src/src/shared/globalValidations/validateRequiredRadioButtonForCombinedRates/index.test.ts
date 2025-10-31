@@ -2,6 +2,7 @@ import * as DC from "dataConstants";
 import { test_setup } from "./../testHelpers/_helper";
 import { testFormData } from "./../testHelpers/_testFormData";
 import { validateRequiredRadioButtonForCombinedRates } from ".";
+import { FormError } from "error";
 
 describe("validateRequiredRadioButtonForCombinedRates", () => {
   let formData: any;

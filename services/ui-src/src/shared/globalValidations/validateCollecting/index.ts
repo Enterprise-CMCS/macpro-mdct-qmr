@@ -1,5 +1,6 @@
 import * as Types from "shared/types";
 import * as DC from "dataConstants";
+import { FormError } from "error";
 
 const validateCollectingErrorMessage = () => {
   return `You must provide an answer for this question`;

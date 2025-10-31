@@ -81,7 +81,7 @@ class KafkaSourceLib {
     return JSON.stringify(e);
   }
 
-  /**
+  /*
    * Checks if a streamArn is a valid topic. Returns undefined otherwise
    * @param streamARN - DynamoDB streamARN
    * @returns

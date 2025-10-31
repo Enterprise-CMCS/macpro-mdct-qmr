@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import { testFormData } from "./../testHelpers/_testFormData";
 import { validateYearFormat } from ".";
+import { FormError } from "error";
 
 /* This validation checks that start and end date years match YYYY format. */
 describe("ensureBothYearsMatchYYYYFormat", () => {

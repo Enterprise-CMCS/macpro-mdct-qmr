@@ -8,6 +8,7 @@ import {
   getPerfMeasureRateArray,
   convertOmsDataToRateArray,
 } from "../dataDrivenTools";
+import { FormError } from "error";
 
 type ErrorMessageFunc = (
   lowQual: string,
@@ -70,7 +71,7 @@ const _validation = ({
   return errorArray;
 };
 
-/**
+/*
  * Validates that one qualifier's rate is higher than the other specified qualifier's rate
  * @note this function returns the oms validation function
  *
@@ -104,7 +105,7 @@ export const validateOneQualRateHigherThanOtherQualOMS = (
   };
 };
 
-/**
+/*
  * Validates that one qualifier's rate is higher than the other specified qualifier's rate
  *
  * @param data form data

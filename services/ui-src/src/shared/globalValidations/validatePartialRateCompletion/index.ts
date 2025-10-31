@@ -10,6 +10,7 @@ import {
 } from "../../types/TypeValidations";
 import { LabelData } from "utils";
 import { OmsNodes as OMS } from "shared/types";
+import { FormError } from "error";
 
 type ErrorMessageFunc = (
   multipleQuals: boolean,
@@ -49,7 +50,7 @@ const _validation = ({
         (rate.numerator || rate.denominator || rate.rate) &&
         (!rate.denominator || !rate.numerator || !rate.rate)
       ) {
-        const multipleQuals: boolean = !!qualifiers?.length;
+        const multipleQuals: boolean = (qualifiers?.length ?? 0) > 0;
         const multipleCats: boolean = !!categories?.some((item) => item.label);
         errors.push({
           errorLocation: location,
@@ -99,8 +100,8 @@ const _singleValueValidation = ({
           (field: any) => !field.value
         )
       ) {
-        const multipleQuals: boolean = !!qualifiers?.length;
-        const multipleCats: boolean = !!categories?.length;
+        const multipleQuals: boolean = (qualifiers?.length ?? 0) > 0;
+        const multipleCats: boolean = (categories?.length ?? 0) > 0;
         errors.push({
           errorLocation: location,
           errorMessage: errorMessageFunc(
@@ -124,20 +125,19 @@ export const validatePartialRateCompletionOMS =
   ): OmsValidationCallback =>
   ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
     return [
-      ...(!!singleValueFieldFlag
+      ...(singleValueFieldFlag
         ? _singleValueValidation({
             location: `Optional Measure Stratification: ${locationDictionary([
               ...label,
             ])}`,
             rateData: rateData?.[singleValueFieldFlag],
-            categories: !!(
+            categories:
               isOPM ||
               categories[0]?.label === SINGLE_CATEGORY ||
               !categories[0]?.label
-            )
-              ? undefined
-              : categories,
-            qualifiers: !!isOPM ? undefined : qualifiers,
+                ? undefined
+                : categories,
+            qualifiers: isOPM ? undefined : qualifiers,
             locationDictionary,
             errorMessageFunc,
           })
@@ -150,20 +150,19 @@ export const validatePartialRateCompletionOMS =
               qualifiers,
               rateData
             ),
-            categories: !!(
+            categories:
               isOPM ||
               categories[0]?.label === SINGLE_CATEGORY ||
               !categories[0]?.label
-            )
-              ? undefined
-              : categories,
-            qualifiers: !!isOPM ? undefined : qualifiers,
+                ? undefined
+                : categories,
+            qualifiers: isOPM ? undefined : qualifiers,
             errorMessageFunc,
           })),
     ];
   };
 
-/**
+/*
  * Checks for fields that have been partially filled out and reports them.
  *
  * @param performanceMeasureArray pm data

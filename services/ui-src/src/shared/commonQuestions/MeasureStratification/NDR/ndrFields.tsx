@@ -1,3 +1,4 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
@@ -13,7 +14,7 @@ import {
   useStandardRateArray,
 } from "../../OptionalMeasureStrat/NDR/rates";
 
-/**
+/*
  * Builds Performance Measure AgeGroup Checkboxes
  */
 export const useAgeGroupsFields = (name: string) => {
@@ -50,7 +51,7 @@ export const useAgeGroupsFields = (name: string) => {
   );
 };
 
-/**
+/*
  * Builds OPM Checkboxes
  */
 export const useRenderOPMCheckboxOptions = (name: string) => {

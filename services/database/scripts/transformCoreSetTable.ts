@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
@@ -6,7 +7,7 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 import prompt from "prompt-sync";
 
-/***
+/*
  * Run with `npx tsx transformCoreSetTable.ts`
  */
 const transformMeasureTable = async () => {

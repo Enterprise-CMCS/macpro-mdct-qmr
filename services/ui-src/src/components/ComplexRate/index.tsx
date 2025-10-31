@@ -134,9 +134,9 @@ export const ComplexRate = ({
   rates[rates.length - 1]["isTotal"] = true;
 
   /*
-  On component render, verify that all NDRs have a label and isTotal value.
-  This is required for accurate data representation in DB and to calculateTotals().
-  */
+   * On component render, verify that all NDRs have a label and isTotal value.
+   * This is required for accurate data representation in DB and to calculateTotals().
+   */
   useEffect(() => {
     const prevRate = [...field.value];
     rates.forEach((rate, index) => {
@@ -146,8 +146,10 @@ export const ComplexRate = ({
           uid: rate.uid,
           fields: inputFields.map((field) => {
             const label = field.label;
-            // Pre-2023 fields do not have an id, so uid is undefined.
-            // Undefined values are not saved to the database
+            /*
+             * Pre-2023 fields do not have an id, so uid is undefined.
+             * Undefined values are not saved to the database
+             */
             const uid = field.id ?? undefined;
             return {
               label,
@@ -167,7 +169,7 @@ export const ComplexRate = ({
     prevRate[prevRate.length - 1]["isTotal"] = true;
 
     field.onChange([...prevRate]);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeRate = (
     qualIndex: number,
@@ -221,7 +223,6 @@ export const ComplexRate = ({
       field.onChange([]);
     };
     // purposefully ignoring field to stop infinite rerender
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
   const lowerCaseMeasureName = measureName.toLowerCase();

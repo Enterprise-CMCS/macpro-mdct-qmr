@@ -1,6 +1,5 @@
 import KafkaSourceLib from "./kafka-source-lib";
 
-let tempStage: string | undefined;
 let tempNamespace: string | undefined;
 let tempBrokers: string | undefined;
 

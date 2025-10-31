@@ -3,7 +3,6 @@ import {
   validateEqualCategoryDenominatorsOMS,
   validateEqualCategoryDenominatorsPM,
 } from ".";
-
 import {
   generateOmsCategoryRateData,
   locationDictionary,

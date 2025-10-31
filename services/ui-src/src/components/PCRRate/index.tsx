@@ -18,14 +18,7 @@ interface Props extends QMR.InputWrapperProps {
   customMask?: RegExp;
 }
 
-export const PCRRate = ({
-  rates,
-  name,
-  allowMultiple = false,
-  readOnly = true,
-  customMask,
-  ...rest
-}: Props) => {
+export const PCRRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
   const {
     control,
     formState: { errors },
@@ -36,8 +29,10 @@ export const PCRRate = ({
     control,
     defaultValue: rates,
   });
-  // This is the basic structure of the NDR sets.
-  // There are 4 rates, each is calculated by a combination of the other fields.
+  /*
+   * This is the basic structure of the NDR sets.
+   * There are 4 rates, each is calculated by a combination of the other fields.
+   */
   const ndrForumlas = [
     {
       numerator: 1,

@@ -133,7 +133,7 @@ export enum DataSource {
   Other = "OtherDataSource",
 }
 
-/**
+/*
  * This is the shape of data saved to the Rates table
  */
 export type CombinedRatesPayload = {
@@ -151,7 +151,7 @@ export type CombinedRatesPayload = {
   }[];
   AdditionalValues: {
     uid: string;
-    /**
+    /*
      * This label is included in the payload for debugging purposes only.
      * It is not guaranteed to be present! When displaying AdditionalValues,
      * we must look up the labels from measures/[year]/rateLabelText.ts
@@ -199,7 +199,7 @@ export const ProgramTypeList = [
   ProgramTypes.Combined,
 ] as const;
 
-/**
+/*
  * This utility is most useful when filtering undefined values from an array,
  * _while convincing Typescript you've done so_.
  *

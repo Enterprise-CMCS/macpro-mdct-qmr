@@ -254,7 +254,7 @@ const checkNewAIFHHOmsValuesChanged = (
   });
 };
 
-/**
+/*
  * Hook to handle OMS total calculation only on field changes
  *
  * - type === undefined: is a field reset or form load

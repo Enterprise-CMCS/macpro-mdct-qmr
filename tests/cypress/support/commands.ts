@@ -22,8 +22,10 @@ const loginUser = (user: string) => {
   });
   cy.visit("/");
 };
-// the default stateuser2 is used to login but can also be changed
-// by passing in a user (not including the @test.com) ex. cy.login('bouser')
+/*
+ * the default stateuser2 is used to login but can also be changed
+ * by passing in a user (not including the @test.com) ex. cy.login('bouser')
+ */
 Cypress.Commands.add(
   "login",
   (
@@ -220,27 +222,6 @@ Cypress.Commands.add("deleteHealthHomeSets", () => {
   });
 });
 
-// Define at the top of the spec file or just import it
-function terminalLog(violations) {
-  cy.task(
-    "log",
-    `${violations.length} accessibility violation${
-      violations.length === 1 ? "" : "s"
-    } ${violations.length === 1 ? "was" : "were"} detected`
-  );
-  // pluck specific keys to keep the table readable
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      nodes: nodes.length,
-    })
-  );
-
-  cy.task("table", violationData);
-}
-
 // if user doesn't fill description box, show error
 Cypress.Commands.add("showErrorIfNotReportingAndNotWhy", () => {
   cy.get('[data-cy="DidReport1"]').click();
@@ -297,10 +278,11 @@ const _description = `New Measure ${Date.now()}`;
 const _detailedDescription =
   "Don't hurry. Take your time and enjoy. Fluff it up a little and hypnotize it. The more we do this - the more it will do good things to our heart. There are no mistakes. You can fix anything that happens.";
 
-/** Add a new State Specific measure.
+/*
+ * Add a new State Specific measure.
  *
  * Optionally define description and detailedDescription.
- * */
+ */
 Cypress.Commands.add(
   "addStateSpecificMeasure",
   (description = _description, detailedDescription = _detailedDescription) => {
@@ -326,7 +308,8 @@ Cypress.Commands.add(
   }
 );
 
-/** Delete a State Specific measure.
+/*
+ * Delete a State Specific measure.
  *
  * Optionally define description. If no description provided, delete the most recently created SSHH.
  */

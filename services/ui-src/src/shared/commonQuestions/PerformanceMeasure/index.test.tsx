@@ -13,6 +13,7 @@ import { LabelData } from "utils";
 import SharedContext from "shared/SharedContext";
 import commonQuestionsLabel2025 from "labels/2025/commonQuestionsLabel";
 import { getMeasureYear } from "utils/getMeasureYear";
+import { RateComp } from "error";
 
 jest.mock("utils/getMeasureYear");
 const mockGetMeasureYear = getMeasureYear as jest.Mock;

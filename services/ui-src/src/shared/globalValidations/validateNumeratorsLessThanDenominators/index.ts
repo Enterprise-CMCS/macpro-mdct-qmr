@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import {
   OmsValidationCallback,
   FormRateField,
@@ -42,7 +43,7 @@ const _validation = ({
   return errorArray;
 };
 
-/**
+/*
  * Validated OMS sections for numerator being less than denominator
  */
 export const validateNumeratorLessThanDenominatorOMS =
@@ -61,7 +62,7 @@ export const validateNumeratorLessThanDenominatorOMS =
     });
   };
 
-/**
+/*
  * Checks both performance measure and other performance measure for numerator greater than denominator errors
  */
 export const validateNumeratorsLessThanDenominatorsPM = (
@@ -90,5 +91,5 @@ export const validateNumeratorsLessThanDenominatorsPM = (
     }),
   ];
 
-  return !!errorArray.length ? [errorArray[0]] : [];
+  return errorArray.length ? [errorArray[0]] : [];
 };

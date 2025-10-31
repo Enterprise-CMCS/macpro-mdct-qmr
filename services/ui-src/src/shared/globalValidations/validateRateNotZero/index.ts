@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import {
   OmsValidationCallback,
   FormRateField,
@@ -50,8 +51,10 @@ export const validateRateNotZeroOMS =
     }).filter((v, i, a) => i === 0 || a[0].errorLocation !== v.errorLocation);
   };
 
-// If a user manually over-rides a rate it must not violate two rules:
-// It must be zero if the numerator is zero
+/*
+ * If a user manually over-rides a rate it must not violate two rules:
+ * It must be zero if the numerator is zero
+ */
 export const validateRateNotZeroPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
@@ -74,6 +77,6 @@ export const validateRateNotZeroPM = (
       errorMessage,
     }),
   ];
-  if (!!errors.length) errorArray.push(errors[0]);
+  if (errors.length) errorArray.push(errors[0]);
   return errorArray;
 };

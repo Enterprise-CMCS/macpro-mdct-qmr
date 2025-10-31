@@ -19,8 +19,10 @@ export const ComplexValidateNDRTotalsOMS = (
   ndrFormulas: ndrFormula[],
   errorLocation: string
 ) => {
-  // Using a subset of rateData as iterator to be sure that Total
-  // is always at the end of the category array.
+  /*
+   * Using a subset of rateData as iterator to be sure that Total
+   * is always at the end of the category array.
+   */
   const qualifierObj = { ...rateData };
   delete qualifierObj["Total"];
   const totalData = rateData["Total"];
@@ -67,7 +69,8 @@ export const ComplexValidateNDRTotalsOMS = (
   return errorArray;
 };
 
-/* Validate Totals have data if qualifiers in section have data
+/*
+ * Validate Totals have data if qualifiers in section have data
  * and validate Total is equal to the sum of other qualifiers in section
  */
 export const ComplexValidateNDRTotals = (

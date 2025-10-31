@@ -1,6 +1,7 @@
 import { testFormData } from "./../testHelpers/_testFormData";
 import * as DC from "dataConstants";
 import { validateFfsRadioButtonCompletion } from ".";
+import { FormError } from "error";
 
 describe("validateFfsRadioButtonCompletion", () => {
   let formData: any;

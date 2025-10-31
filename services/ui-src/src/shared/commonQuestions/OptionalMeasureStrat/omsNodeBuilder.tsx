@@ -90,7 +90,7 @@ const NdrSubNode = (omsNode: OmsNode, flagSubCat: boolean, name: string) => {
   );
 };
 
-/**
+/*
  * Build Sub-Category checkbox options
  * ex: Asian -> Korean, Chinese, Japanese, etc.
  */
@@ -119,7 +119,7 @@ const renderRadioButtonOptions = ({
   ];
 };
 
-/**
+/*
  * Builds child level checkbox options
  * ex: Race -> White, African American, Asian, etc.
  */
@@ -153,7 +153,7 @@ const buildChildCheckboxOption = ({
     children,
   };
 };
-/**
+/*
  * Renders Parent Level Children
  * ex: checkbox options, additional category, or NDR for ACA
  */

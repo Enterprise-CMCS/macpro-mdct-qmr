@@ -1,4 +1,5 @@
 import * as CUI from "@chakra-ui/react";
+
 export const LoadingWave = () => (
   <CUI.Flex alignItems="center" justifyContent="center" flex={1}>
     <svg

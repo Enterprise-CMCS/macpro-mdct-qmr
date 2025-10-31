@@ -1,3 +1,4 @@
+import React from "react";
 import * as DC from "dataConstants";
 
 export type SpecificationType =
@@ -19,7 +20,7 @@ export type SpecifictionProps = {
   [type in SpecificationType]: {
     displayValue: string;
     value: string;
-    children?: JSX.Element[];
+    children?: React.JSX.Element[];
   };
 };
 

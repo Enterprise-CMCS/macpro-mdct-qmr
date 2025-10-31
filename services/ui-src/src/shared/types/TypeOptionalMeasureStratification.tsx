@@ -4,6 +4,7 @@ import { Categories, Qualifiers } from ".";
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
+import { RateFormula } from "utils/rateFormulas/rateFormulas";
 
 export interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -82,7 +83,7 @@ export interface OmsNode {
 }
 
 export namespace OmsNodes {
-  /**
+  /*
    * OMS rate data is shaped differently for certain measures,
    * with an extra layer of nesting before the rate data, under these keys.
    */

@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import { testFormData } from "./../testHelpers/_testFormData";
 import { validateReasonForNotReporting } from ".";
+import { FormError } from "error";
 
 describe("validateReasonForNotReporting", () => {
   let formData: string[];

@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import { testFormData } from "./../testHelpers/_testFormData";
 import { validateBothDatesCompleted } from ".";
+import { FormError } from "error";
 
 /* This validation checks that both date fields have been completed. */
 describe("ensureBothDatesCompletedInRange", () => {

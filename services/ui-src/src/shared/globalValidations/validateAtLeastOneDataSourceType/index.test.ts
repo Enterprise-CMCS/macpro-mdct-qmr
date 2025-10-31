@@ -1,6 +1,7 @@
 import { testFormData } from "./../testHelpers/_testFormData";
 import * as DC from "dataConstants";
 import { validateAtLeastOneDataSourceType } from ".";
+import { FormError } from "error";
 
 describe("validateOneDataSourceType", () => {
   let formData: any;

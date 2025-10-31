@@ -2,6 +2,7 @@ import * as DC from "dataConstants";
 import { FormRateField } from "shared/types/TypeValidations";
 import { featuresByYear } from "utils/featuresByYear";
 import { CoreSetAbbr } from "types";
+import { FormError } from "error";
 
 export const getLabels = (errorReplacementText: string, coreSet?: string) => {
   if (

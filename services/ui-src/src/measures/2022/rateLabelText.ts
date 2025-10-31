@@ -1,4 +1,4 @@
-/**
+/*
  * Attention
  * Changing the labels or id's will change how the measure data is shaped and should not be done unless that is the desired result.
  * Changing the text property of these objects will change the text that is displayed to the user.

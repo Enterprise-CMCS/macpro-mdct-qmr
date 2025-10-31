@@ -1,3 +1,4 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
@@ -14,7 +15,7 @@ import { isLegacyLabel } from "utils";
 interface NdrProps {
   name: string;
 }
-/**
+/*
  * Builds NDRs for Performance Measure AgeGroups
  */
 const AgeGroupNDRSets = ({ name }: NdrProps) => {
@@ -110,7 +111,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
     </>
   );
 };
-/**
+/*
  * Builds NDRs for Other Performance Measure sets
  */
 const OPMNDRSets = ({ name }: NdrProps) => {
@@ -123,12 +124,12 @@ const OPMNDRSets = ({ name }: NdrProps) => {
     />
   );
 };
-/**
+/*
  * Builds Base level NDR Sets
  */
 export const NDRSets = ({ name }: NdrProps) => {
   const { OPM, componentFlag } = usePerformanceMeasureContext();
-  const children: JSX.Element[] = [];
+  const children: React.JSX.Element[] = [];
 
   if (OPM) children.push(<OPMNDRSets name={name} key={name} />);
   switch (componentFlag) {

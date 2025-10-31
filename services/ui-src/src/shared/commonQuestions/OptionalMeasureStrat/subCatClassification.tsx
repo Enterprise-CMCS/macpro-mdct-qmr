@@ -1,3 +1,4 @@
+import React from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useFieldArray, useFormContext } from "react-hook-form";
@@ -15,7 +16,7 @@ interface AddAnotherButtonProps {
   testid: string;
 }
 
-/**
+/*
  * Button for handling additional values in dynamic rendering
  */
 export const AddAnotherButton = ({
@@ -48,7 +49,7 @@ interface AdditonalCategoryProps {
   checkboxes?: boolean;
 }
 
-/**
+/*
  * Additional [Race/Sex/Language/Etc] Category Section
  */
 export const SubCatSection = ({

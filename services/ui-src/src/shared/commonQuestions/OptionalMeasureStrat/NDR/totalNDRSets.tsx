@@ -1,3 +1,4 @@
+import React from "react";
 import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as QMR from "components";
@@ -12,7 +13,7 @@ interface TotalProps {
   category?: LabelData;
 }
 
-/**
+/*
  * Total Rate NDR that calculates from filled OMS NDR sets
  */
 const TotalNDR = ({
