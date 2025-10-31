@@ -1,5 +1,6 @@
 import * as Types from "shared/types";
 import { DefaultFormData } from "shared/types/FormData";
+import type { Dispatch, SetStateAction } from "react";
 
 export namespace Measure {
   export interface Props {
@@ -8,7 +9,7 @@ export namespace Measure {
     measureId: string;
     handleSubmit?: any;
     handleValidation?: any;
-    setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+    setValidationFunctions?: Dispatch<SetStateAction<any>>;
   }
 
   interface RateFields {

@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, createElement } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasures } from "hooks/api";
-import { createElement } from "react";
 import "./../../styles/index.scss";
 import { useParams } from "react-router-dom";
 import { usePrinceRequest, getSpaName } from "./util";

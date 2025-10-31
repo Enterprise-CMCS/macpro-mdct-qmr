@@ -33,7 +33,7 @@ export interface PrintableMeasureWrapperProps {
   name: string;
   year: string;
   measureId: string;
-  setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
+  setValidationFunctions?: Dispatch<SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
   showOptionalMeasureStrat?: boolean;
