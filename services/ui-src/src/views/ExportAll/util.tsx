@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useCallback, useState } from "react";
 import { SPA } from "libs/spaLib";
 import { getPDF } from "libs/api";

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState, createElement } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
