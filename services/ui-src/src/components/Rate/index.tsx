@@ -69,9 +69,9 @@ export const Rate = ({
   }
 
   /*
-  On component render, verify that all NDRs have a label, id and isTotal value.
-  This is required for accurate data representation in DB and to calculateTotals().
-  */
+   * On component render, verify that all NDRs have a label, id and isTotal value.
+   * This is required for accurate data representation in DB and to calculateTotals().
+   */
   useEffect(() => {
     const prevRate = [...field.value];
     rates.forEach((rate, index) => {
@@ -165,9 +165,9 @@ export const Rate = ({
   };
 
   /*
-  Iterate over all numerators and denominators of NDRs where isTotal is false.
-  Sum these values and set the NDR where isTotal is true to be these sumed values.
-  */
+   * Iterate over all numerators and denominators of NDRs where isTotal is false.
+   * Sum these values and set the NDR where isTotal is true to be these sumed values.
+   */
   const calculateTotals = (prevRate: any[]) => {
     let numeratorSum: any = null;
     let denominatorSum: any = null;

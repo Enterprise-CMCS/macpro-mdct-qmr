@@ -67,7 +67,8 @@ export const ComplexValidateNDRTotalsOMS = (
   return errorArray;
 };
 
-/* Validate Totals have data if qualifiers in section have data
+/*
+ * Validate Totals have data if qualifiers in section have data
  * and validate Total is equal to the sum of other qualifiers in section
  */
 export const ComplexValidateNDRTotals = (

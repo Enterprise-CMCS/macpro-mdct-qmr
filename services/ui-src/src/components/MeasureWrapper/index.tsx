@@ -200,9 +200,9 @@ export const MeasureWrapper = ({
     });
   };
   /*
-  this is where we put all the high level stuff for measures
-  all of the methods defined here can be passed as props to every measure below
-  */
+   * this is where we put all the high level stuff for measures
+   * all of the methods defined here can be passed as props to every measure below
+   */
 
   const { mutate: updateMeasure, isPending: mutationRunning } =
     useUpdateMeasure();
@@ -269,7 +269,8 @@ export const MeasureWrapper = ({
   };
 
   const handleSave = (data: any) => {
-    /* only auto-save measure on timeout if this form has been touched / modified
+    /*
+     * only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
     if (!mutationRunning && !loadingData && hasDataChanged(data)) {
