@@ -125,7 +125,7 @@ export const measuresColumns = (
       cell: (data: MeasureTableItem.Data) => {
         let reportingText = "--";
         if (data.reporting) reportingText = data.reporting;
-        if (!!data?.autoCompleted) reportingText = "N/A";
+        if (data?.autoCompleted) reportingText = "N/A";
         return (
           <CUI.Text fontSize="xs" textTransform="capitalize">
             {reportingText}

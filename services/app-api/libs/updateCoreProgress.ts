@@ -1,6 +1,10 @@
-import { APIGatewayProxyEvent } from "../types";
+import {
+  APIGatewayProxyEvent,
+  CoreSet,
+  Measure,
+  MeasureStatus,
+} from "../types";
 import { listMeasures } from "../handlers/measures/get";
-import { CoreSet, Measure, MeasureStatus } from "../types";
 
 export const updateCoreSetProgress = async (
   coreSets: CoreSet[],

@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import { testFormData } from "./../testHelpers/_testFormData";
 import { validateOPMRates } from ".";
+import { FormError } from "error";
 
 describe("OPM Validation", () => {
   let formData: any;

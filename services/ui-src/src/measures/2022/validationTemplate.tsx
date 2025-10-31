@@ -151,7 +151,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
       return GV.validateOMSTotalNDR();
     case "validateEqualQualifierDenominatorsOMS":
       return GV.validateEqualQualifierDenominatorsOMS();
-    case "validateOneCatRateHigherThanOtherCatOMS":
+    case "validateOneCatRateHigherThanOtherCatOMS": {
       const validateOneCatRateHigherThanOtherCat = PMD.override
         ?.validateOneCatRateHigherThanOtherCat ?? [
         { highIndex: 0, lowIndex: 1 },
@@ -163,6 +163,7 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
           set?.increment
         )
       );
+    }
     case "validateOneQualRateHigherThanOtherQualOMS":
       return GV.validateOneQualRateHigherThanOtherQualOMS(
         PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
@@ -315,26 +316,28 @@ export const validationTemplate = (
           return filteredSameDenominatorErrors;
         }
 
-        //APM-CH & WCC-CH
-        const validateEqualQualifierDenominatorsErrorMessage = (
-          qualifier: string
-        ) => {
-          const isTotal = qualifier.split(" ")[0] === "Total";
-          return `${
-            isTotal ? "" : "The "
-          }${qualifier} denominator must be the same for each indicator.`;
-        };
+        {
+          //APM-CH & WCC-CH
+          const validateEqualQualifierDenominatorsErrorMessage = (
+            qualifier: string
+          ) => {
+            const isTotal = qualifier.split(" ")[0] === "Total";
+            return `${
+              isTotal ? "" : "The "
+            }${qualifier} denominator must be the same for each indicator.`;
+          };
 
-        //APM-CH, FUA-AD, FUA-HH, FUH-HH, FUM-AD & WCC-CH
-        return GV.validateEqualQualifierDenominatorsPM(
-          performanceMeasureArray,
-          qualifiers,
-          undefined,
-          PMD.override?.validateEqualQualifierDenominatorsPM?.errorMessage
-            ? validateEqualQualifierDenominatorsErrorMessage
-            : undefined
-        );
-      case "validateOneCatRateHigherThanOtherCatPM":
+          //APM-CH, FUA-AD, FUA-HH, FUH-HH, FUM-AD & WCC-CH
+          return GV.validateEqualQualifierDenominatorsPM(
+            performanceMeasureArray,
+            qualifiers,
+            undefined,
+            PMD.override?.validateEqualQualifierDenominatorsPM?.errorMessage
+              ? validateEqualQualifierDenominatorsErrorMessage
+              : undefined
+          );
+        }
+      case "validateOneCatRateHigherThanOtherCatPM": {
         const validateOneCatRateHigherThanOtherCat = PMD.override
           ?.validateOneCatRateHigherThanOtherCat ?? [
           { highIndex: 0, lowIndex: 1 },
@@ -349,6 +352,7 @@ export const validationTemplate = (
             set?.increment ?? undefined
           )
         );
+      }
       case "validateDualPopInformationPM":
         return GV.validateDualPopInformationPM(
           PMD.override?.validateDualPopInformationPM?.dualPopInfoArray

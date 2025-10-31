@@ -4,6 +4,7 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
 import { DataDrivenTypes } from "../types";
 import * as DC from "dataConstants";
+import { RateComp } from "error";
 
 interface Props {
   rateAlwaysEditable?: boolean;

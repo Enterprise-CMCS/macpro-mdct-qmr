@@ -195,7 +195,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
             for (const qualValue of Object.values(
               catValue as { [qualifier: string]: Types.RateFields[] }
             )) {
-              for (var i = 0; i < qualValue.length; i++) {
+              for (let i = 0; i < qualValue.length; i++) {
                 qualValue[i].numerator = "";
                 qualValue[i].denominator = "";
                 qualValue[i].rate = "";

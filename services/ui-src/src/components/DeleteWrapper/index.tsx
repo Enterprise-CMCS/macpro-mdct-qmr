@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import * as CUI from "@chakra-ui/react";
 import { BsTrash } from "react-icons/bs";
 

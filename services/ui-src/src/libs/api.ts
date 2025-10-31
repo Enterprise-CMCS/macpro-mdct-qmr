@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { get, put, post, del } from "aws-amplify/api";
 import { fetchAuthSession, signOut } from "aws-amplify/auth";
 import { AdminBannerData, AnyObject } from "types";

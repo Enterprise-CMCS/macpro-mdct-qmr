@@ -1,3 +1,4 @@
+import React from "react";
 import * as DC from "dataConstants";
 
 export type SpecificationType =

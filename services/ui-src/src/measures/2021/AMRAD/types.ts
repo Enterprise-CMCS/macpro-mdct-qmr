@@ -1,3 +1,4 @@
+import React from "react";
 import * as Types from "shared/types";
 
 export namespace Measure {

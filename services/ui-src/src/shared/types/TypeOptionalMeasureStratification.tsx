@@ -4,6 +4,7 @@ import { Categories, Qualifiers } from ".";
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
+import { RateFormula } from "utils/rateFormulas/rateFormulas";
 
 export interface OmsCheckboxProps {
   /** name for react-hook-form registration */

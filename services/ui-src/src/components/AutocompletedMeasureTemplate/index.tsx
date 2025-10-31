@@ -1,6 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {

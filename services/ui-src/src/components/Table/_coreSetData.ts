@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CoreSetAbbr } from "types";
 import { CoreSetTableItem } from "./types";
 

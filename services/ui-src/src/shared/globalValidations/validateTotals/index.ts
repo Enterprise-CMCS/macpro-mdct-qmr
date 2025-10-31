@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import {
   OmsValidationCallback,
   FormRateField,

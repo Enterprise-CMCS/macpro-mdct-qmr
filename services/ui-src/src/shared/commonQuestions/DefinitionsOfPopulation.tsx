@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Types from "../types";
@@ -7,7 +8,6 @@ import {
   parseLabelToHTML,
 } from "utils";
 import * as DC from "dataConstants";
-import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
 import { useParams } from "react-router-dom";

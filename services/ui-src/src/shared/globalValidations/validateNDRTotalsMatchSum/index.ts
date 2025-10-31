@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import { RateFields } from "shared/types";
 import { FormRateField } from "shared/types/TypeValidations";
 

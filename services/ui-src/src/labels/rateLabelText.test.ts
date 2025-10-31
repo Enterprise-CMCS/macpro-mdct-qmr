@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { cleanString } from "utils";
 import * as Labels from "./RateLabelTexts";
 

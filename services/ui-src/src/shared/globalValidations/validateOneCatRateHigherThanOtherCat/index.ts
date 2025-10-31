@@ -1,5 +1,4 @@
 import * as Types from "shared/types";
-
 import {
   OmsValidationCallback,
   UnifiedValFuncProps as UVFP,
@@ -8,6 +7,7 @@ import {
   getPerfMeasureRateArray,
   convertOmsDataToRateArray,
 } from "../dataDrivenTools";
+import { FormError } from "error";
 
 type ErrorMessageFunc = (
   highCat: string,

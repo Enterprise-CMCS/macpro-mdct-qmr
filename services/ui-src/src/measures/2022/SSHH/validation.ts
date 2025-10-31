@@ -1,4 +1,5 @@
 import * as DC from "dataConstants";
+import { FormError } from "error";
 import * as GV from "shared/globalValidations";
 //form type
 import { DefaultFormDataLegacy as FormData } from "shared/types/FormData";
@@ -52,8 +53,8 @@ const validateNoNonZeroNumOrDenomPM = (OPM: any, data: any) => {
     ...GV.validationRateZero({ location, rateData: rateDataOPM, hybridData }),
   ];
 
-  if (!!nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);
-  if (!!zeroErrors.length) errorArray.push(zeroErrors[0]);
+  if (nonZeroErrors.length) errorArray.push(nonZeroErrors[0]);
+  if (zeroErrors.length) errorArray.push(zeroErrors[0]);
   return errorArray;
 };
 
@@ -82,7 +83,7 @@ const validateNumeratorsLessThanDenominatorsPM = (OPM: any) => {
     }
   }
 
-  return !!errorArray.length ? [errorArray[0]] : [];
+  return errorArray.length ? [errorArray[0]] : [];
 };
 
 /*

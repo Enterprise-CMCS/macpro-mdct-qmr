@@ -89,9 +89,6 @@
     ],
     "testEnvironment": "jest-environment-jsdom"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",

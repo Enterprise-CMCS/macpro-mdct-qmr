@@ -10,6 +10,7 @@ import {
 } from "../dataDrivenTools";
 import { LabelData } from "utils";
 import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
+import { FormError } from "error";
 
 interface ValProps extends UVFP {
   hybridData?: boolean;
@@ -102,6 +103,6 @@ export const validateRateZeroPM = (
     }),
   ];
 
-  if (!!errors.length) errorArray.push(errors[0]);
+  if (errors.length) errorArray.push(errors[0]);
   return errorArray;
 };

@@ -5,17 +5,19 @@ import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
-import { LabelData, getLabelText } from "utils";
-import { IRate } from "components";
-import { defaultRateCalculation } from "utils/rateFormulas";
 import {
+  LabelData,
+  getLabelText,
   allNumbers,
   eightNumbersOneDecimal,
   rateThatAllowsFourDecimals,
   rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
 } from "utils";
+import { IRate } from "components";
+import { defaultRateCalculation } from "utils/rateFormulas";
 import { AnyObject } from "types";
+import { RateFormula } from "utils/rateFormulas/rateFormulas";
 
 interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
@@ -47,7 +49,6 @@ export const IETRate = ({
   categories,
   qualifiers,
   customMask,
-  calcTotal,
   allowNumeratorGreaterThanDenominator,
   customDenominatorLabel,
   customNumeratorLabel,

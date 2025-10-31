@@ -1,8 +1,10 @@
-interface FormError {
+import React from "react";
+
+export interface FormError {
   errorLocation: string;
   errorMessage: string;
   errorType?: string;
   errorList?: string[];
 }
 
-type RateComp = React.FC<any>;
+export type RateComp = React.FC<any>;

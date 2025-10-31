@@ -24,12 +24,8 @@ const uploadFileToS3 = async (filePath, scanResult) => {
     Key: filePath,
     Body: scanResult,
   };
-  try {
-    await client.send(new PutObjectCommand(uploadParams));
-    console.log(`File uploaded to: ${filePath}`);
-  } catch (err) {
-    throw err;
-  }
+  await client.send(new PutObjectCommand(uploadParams));
+  console.log(`File uploaded to: ${filePath}`);
 };
 
 const cleanupFolders = async () => {

@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import {
   OmsValidationCallback,
   FormRateField,
@@ -76,6 +77,6 @@ export const validateRateNotZeroPM = (
       errorMessage,
     }),
   ];
-  if (!!errors.length) errorArray.push(errors[0]);
+  if (errors.length) errorArray.push(errors[0]);
   return errorArray;
 };

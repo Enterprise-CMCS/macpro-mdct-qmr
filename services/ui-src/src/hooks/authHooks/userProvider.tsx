@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {

@@ -1,3 +1,4 @@
+import { FormError } from "error";
 import { validatePartialRateCompletionPM } from "../../validatePartialRateCompletion";
 
 /* At least one NDR set must be complete (OPM or PM) */
