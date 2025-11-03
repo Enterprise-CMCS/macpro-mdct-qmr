@@ -1,3 +1,4 @@
+import { HelmetProvider } from "react-helmet-async";
 import { AppRoutes } from "./Routes";
 import * as QMR from "components";
 import { LocalLogins, PostLogoutRedirect } from "components";
@@ -36,12 +37,14 @@ const App = () => {
   );
 
   return (
-    <div id="app-wrapper" className={mqClasses}>
-      <Routes>
-        <Route path="*" element={authenticatedRoutes} />
-        <Route path="postLogout" element={<PostLogoutRedirect />} />
-      </Routes>
-    </div>
+    <HelmetProvider>
+      <div id="app-wrapper" className={mqClasses}>
+        <Routes>
+          <Route path="*" element={authenticatedRoutes} />
+          <Route path="postLogout" element={<PostLogoutRedirect />} />
+        </Routes>
+      </div>
+    </HelmetProvider>
   );
 };
 
