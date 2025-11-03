@@ -29,10 +29,8 @@
     "@aws-sdk/client-wafv2": "^3.913.0",
     "@octokit/auth-action": "^6.0.1",
     "@octokit/rest": "^22.0.0",
-    "@types/dotenv": "^8.2.0",
     "@types/flat": "^5.0.2",
     "@types/node": "^20.12.7",
-    "@types/react-helmet-async": "^1.0.3",
     "@types/yargs": "^15.0.10",
     "@typescript-eslint/eslint-plugin": "5.18.0",
     "@typescript-eslint/parser": "5.18.0",
@@ -48,6 +46,8 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^2.x",
     "prettier": "^2.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tsx": "^4.20.5",
     "typescript": "^4.0.5",
     "util": "^0.12.5",
@@ -67,6 +67,8 @@
     "xml2js": "0.6.2"
   },
   "resolutions": {
-    "json5": "^2.2.3"
+    "json5": "^2.2.3",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17"
   }
 }
