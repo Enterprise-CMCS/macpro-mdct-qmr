@@ -15,7 +15,7 @@ import {
 } from "react-hook-form";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
-import { AnyObject, CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "types";
 import { measureDescriptions } from "measures/measureDescriptions";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
@@ -122,10 +122,8 @@ export const PrintableMeasureWrapper = ({
   });
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
-  const shared: AnyObject = {
-    ...Labels[
-      `CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024" | "CQ2025"
-    ],
+  const shared = {
+    ...Labels[`CQ${year}` as keyof typeof Labels],
     year: year,
   };
 

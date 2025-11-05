@@ -18,7 +18,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
-import { AnyObject, CoreSetAbbr, MeasureStatus } from "types";
+import { CoreSetAbbr, MeasureStatus } from "types";
 import { areObjectsDifferent, areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { useUser } from "hooks/authHooks";
@@ -78,7 +78,6 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
   const watchMeasureSpecification = useWatch({
     name: "MeasurementSpecification",
   });
-
   const opmRates = useWatch({
     name: DC.OPM_RATES,
   });
@@ -158,10 +157,8 @@ export const MeasureWrapper = ({
   const [validating, setValidating] = useState(false);
 
   //WIP: this code will be replaced with a dynamic import onces we refactored enough files
-  const shared: AnyObject = {
-    ...Labels[
-      `CQ${year}` as "CQ2021" | "CQ2022" | "CQ2023" | "CQ2024" | "CQ2025"
-    ],
+  const shared = {
+    ...Labels[`CQ${year}` as keyof typeof Labels],
     year: year,
   };
 
@@ -174,7 +171,6 @@ export const MeasureWrapper = ({
         (params.coreSetId?.split("_")?.[0] ?? params.coreSetId) as CoreSetAbbr
       ]
     : undefined;
-
   // check what type of core set we deal with for data driven rendering
   let type: "CH" | "AD" | "HH" = "AD";
   if (
@@ -276,7 +272,6 @@ export const MeasureWrapper = ({
     /* only auto-save measure on timeout if this form has been touched / modified
      * false postitives seems to happen with the form isDirty check so we're going to check if there's any values in dirtyFields instead
      */
-
     if (!mutationRunning && !loadingData && hasDataChanged(data)) {
       updateMeasure(
         {
@@ -316,7 +311,6 @@ export const MeasureWrapper = ({
 
   const handleSubmit = (data: any) => {
     const validatedErrors = validateAndSetErrors(data);
-
     if (validatedErrors) {
       setShowModal(true);
     } else {
@@ -412,7 +406,6 @@ export const MeasureWrapper = ({
     };
     methods.handleSubmit(manualSubmit)();
   };
-
   if (!params.coreSetId || !params.state) {
     return null;
   }
@@ -429,7 +422,6 @@ export const MeasureWrapper = ({
   const breadCrumbName =
     separatedCoreSet?.[params.coreSetId] ??
     `- ${formatTitle(apiData?.Item?.description)}`;
-
   return (
     <FormProvider {...methods}>
       <QMR.YesNoModalDialog
