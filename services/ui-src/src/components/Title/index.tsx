@@ -13,3 +13,5 @@ export const Title = ({ pageTitle }: TitleProps) => {
     </Helmet>
   );
 };
+
+export default Title;
