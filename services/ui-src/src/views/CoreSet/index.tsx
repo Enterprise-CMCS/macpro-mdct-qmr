@@ -347,127 +347,134 @@ export const CoreSet = () => {
   };
 
   const coreSetPrefix = coreSet[0].slice(0, 4);
+
+  const pageTitle = `${coreSetTitles(
+    coreSet[0]
+  )} ${spaName} - Core Set Measures - ${year} QMR`;
   return (
-    <QMR.StateLayout
-      breadcrumbItems={[
-        {
-          path: `/${state}/${year}`,
-          name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
-        },
-        {
-          path: `/${state}/${year}/${coreSetId}`,
-          name: coreSetTitles(coreSet[0]) + spaName,
-        },
-      ]}
-    >
-      {featuresByYear.hasMandatoryReporting &&
-        coreSetInstructions[year] &&
-        coreSetInstructions[year][coreSetPrefix] && (
-          <CUI.Box mb="8">
-            <Alert heading="Mandatory Reporting">
-              <CUI.Box sx={{ "& a": { textDecoration: "underline" } }}>
-                {parseLabelToHTML(coreSetInstructions[year][coreSetPrefix])}
-              </CUI.Box>
-            </Alert>
+    <>
+      <QMR.Title pageTitle={pageTitle} />
+      <QMR.StateLayout
+        breadcrumbItems={[
+          {
+            path: `/${state}/${year}`,
+            name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
+          },
+          {
+            path: `/${state}/${year}/${coreSetId}`,
+            name: coreSetTitles(coreSet[0]) + spaName,
+          },
+        ]}
+      >
+        {featuresByYear.hasMandatoryReporting &&
+          coreSetInstructions[year] &&
+          coreSetInstructions[year][coreSetPrefix] && (
+            <CUI.Box mb="8">
+              <Alert heading="Mandatory Reporting">
+                <CUI.Box sx={{ "& a": { textDecoration: "underline" } }}>
+                  {parseLabelToHTML(coreSetInstructions[year][coreSetPrefix])}
+                </CUI.Box>
+              </Alert>
+            </CUI.Box>
+          )}
+        <QMR.UpdateInfoModal
+          closeModal={closeModal}
+          handleModalResponse={handleModalResponse}
+          modalProps={modalProps}
+        />
+        {/* Show success banner after redirect from creating new SSMs */}
+        {locationState && locationState.success === true && (
+          <CUI.Box mb="6">
+            <QMR.Notification
+              alertDescription="The new State Specific Measures were successfully created and are ready for reporting."
+              alertStatus="success"
+              alertTitle="New State Specific Measures created"
+            ></QMR.Notification>
           </CUI.Box>
         )}
-      <QMR.UpdateInfoModal
-        closeModal={closeModal}
-        handleModalResponse={handleModalResponse}
-        modalProps={modalProps}
-      />
-      {/* Show success banner after redirect from creating new SSMs */}
-      {locationState && locationState.success === true && (
-        <CUI.Box mb="6">
-          <QMR.Notification
-            alertDescription="The new State Specific Measures were successfully created and are ready for reporting."
-            alertStatus="success"
-            alertTitle="New State Specific Measures created"
-          ></QMR.Notification>
-        </CUI.Box>
-      )}
-      {/* Show success banner after redirect from creating new SSMs */}
-      {locationState && locationState.success === false && (
-        <CUI.Box mb="6">
-          <QMR.Notification
-            alertDescription="An error occurred. Unable to create State Specific Measures."
-            alertStatus="error"
-            alertTitle="Error creating State Specific Measures"
-          ></QMR.Notification>
-        </CUI.Box>
-      )}
-      <CUI.Stack direction={{ base: "column", md: "row" }}>
-        <CUI.HStack
-          justifyContent="space-between"
-          flex="9"
-          borderRadius="8"
-          backgroundColor="gray.100"
-          px="4"
-          py="2"
-        >
-          <QualifiersStatusAndLink coreSetId={coreSetId as CoreSetAbbr} />
-
-          <CUI.HStack>
-            <CUI.Box
-              textAlign="center"
-              mr="2"
-              fontWeight="semibold"
-              fontSize="sm"
-            >
-              <CUI.Text>Total Measures Completed</CUI.Text>
-            </CUI.Box>
-            <QMR.ProgressCircle
-              circularProgressProps={{ color: "green", size: "4.5rem" }}
-              circularProgressLabelProps={{ fontSize: ".8rem" }}
-              currentProgress={completedAmount}
-              maxValue={measures.length}
-            />
-          </CUI.HStack>
-        </CUI.HStack>
-        <CUI.Spacer />
-        <CUI.Box flex="1" textAlign="center" alignSelf="center">
-          <QMR.SubmitCoreSetButton
-            coreSet={coreSetId! as CoreSetAbbr}
-            coreSetStatus={coreSetStatus}
-            isSubmitted={data?.Item?.submitted}
-            year={year!}
-            styleProps={{
-              helperText: {
-                fontSize: ".5rem",
-                paddingTop: "1",
-              },
-              button: { colorScheme: "blue" },
-            }}
-          />
-        </CUI.Box>
-      </CUI.Stack>
-      <CUI.Box mt="4">
-        <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
-          {!isError && (
-            <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
-          )}
-          {isError && (
+        {/* Show success banner after redirect from creating new SSMs */}
+        {locationState && locationState.success === false && (
+          <CUI.Box mb="6">
             <QMR.Notification
+              alertDescription="An error occurred. Unable to create State Specific Measures."
               alertStatus="error"
-              alertTitle="Error In Measure Retrieval"
-              alertDescription={(error as Error)?.message}
-            />
-          )}
-          {isHHCoreSet && (
-            <CUI.HStack spacing="6">
-              <AddSSMCard
-                buttonText="Add State Specific Measure"
-                enabled={
-                  (isStateUser && userCreatedMeasureIds.length < 5) || false
-                }
-                title="Need to report on State Specific data?"
-                to={`/${state}/${year}/${coreSetId}/add-ssm`}
-                userCreatedMeasureIds={userCreatedMeasureIds}
-              ></AddSSMCard>
+              alertTitle="Error creating State Specific Measures"
+            ></QMR.Notification>
+          </CUI.Box>
+        )}
+        <CUI.Stack direction={{ base: "column", md: "row" }}>
+          <CUI.HStack
+            justifyContent="space-between"
+            flex="9"
+            borderRadius="8"
+            backgroundColor="gray.100"
+            px="4"
+            py="2"
+          >
+            <QualifiersStatusAndLink coreSetId={coreSetId as CoreSetAbbr} />
+
+            <CUI.HStack>
+              <CUI.Box
+                textAlign="center"
+                mr="2"
+                fontWeight="semibold"
+                fontSize="sm"
+              >
+                <CUI.Text>Total Measures Completed</CUI.Text>
+              </CUI.Box>
+              <QMR.ProgressCircle
+                circularProgressProps={{ color: "green", size: "4.5rem" }}
+                circularProgressLabelProps={{ fontSize: ".8rem" }}
+                currentProgress={completedAmount}
+                maxValue={measures.length}
+              />
             </CUI.HStack>
-          )}
-        </QMR.LoadingWrapper>
-      </CUI.Box>
-    </QMR.StateLayout>
+          </CUI.HStack>
+          <CUI.Spacer />
+          <CUI.Box flex="1" textAlign="center" alignSelf="center">
+            <QMR.SubmitCoreSetButton
+              coreSet={coreSetId! as CoreSetAbbr}
+              coreSetStatus={coreSetStatus}
+              isSubmitted={data?.Item?.submitted}
+              year={year!}
+              styleProps={{
+                helperText: {
+                  fontSize: ".5rem",
+                  paddingTop: "1",
+                },
+                button: { colorScheme: "blue" },
+              }}
+            />
+          </CUI.Box>
+        </CUI.Stack>
+        <CUI.Box mt="4">
+          <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
+            {!isError && (
+              <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
+            )}
+            {isError && (
+              <QMR.Notification
+                alertStatus="error"
+                alertTitle="Error In Measure Retrieval"
+                alertDescription={(error as Error)?.message}
+              />
+            )}
+            {isHHCoreSet && (
+              <CUI.HStack spacing="6">
+                <AddSSMCard
+                  buttonText="Add State Specific Measure"
+                  enabled={
+                    (isStateUser && userCreatedMeasureIds.length < 5) || false
+                  }
+                  title="Need to report on State Specific data?"
+                  to={`/${state}/${year}/${coreSetId}/add-ssm`}
+                  userCreatedMeasureIds={userCreatedMeasureIds}
+                ></AddSSMCard>
+              </CUI.HStack>
+            )}
+          </QMR.LoadingWrapper>
+        </CUI.Box>
+      </QMR.StateLayout>
+    </>
   );
 };
