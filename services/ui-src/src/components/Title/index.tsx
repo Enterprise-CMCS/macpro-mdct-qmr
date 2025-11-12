@@ -4,8 +4,8 @@ interface TitleProps {
   pageTitle: string;
 }
 
-const Title = ({ pageTitle }: TitleProps) => {
-  const fullTitle = `${pageTitle} | MDCT QMR`;
+export const Title = ({ pageTitle }: TitleProps) => {
+  const fullTitle = `${pageTitle}`;
 
   return (
     <Helmet>
@@ -13,5 +13,3 @@ const Title = ({ pageTitle }: TitleProps) => {
     </Helmet>
   );
 };
-
-export default Title;
