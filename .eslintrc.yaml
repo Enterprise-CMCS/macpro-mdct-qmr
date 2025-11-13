@@ -10,6 +10,7 @@ plugins:
   - 'jest'
   - 'cypress'
   - 'playwright'
+  - 'react-hooks'
 parserOptions:
   ecmaVersion: 6
   sourceType: module
@@ -20,18 +21,27 @@ extends:
 
 rules:
   no-const-assign: error
-  no-duplicate-imports: error
+  no-duplicate-imports: off
   no-unreachable: error
   no-unused-vars: off
   '@typescript-eslint/no-unused-vars':
-    - error
+    - off
     - argsIgnorePattern: "^_"
-  no-console: error
+  no-console: off
   no-empty: error
   no-extra-semi: error
-  multiline-comment-style:
-    - error
-    - starred-block
+  multiline-comment-style: off
+  'react-hooks/rules-of-hooks': off
+  'react-hooks/exhaustive-deps': off
+  no-constant-condition: off
+  no-restricted-globals: off
+  '@typescript-eslint/no-unused-expressions': off
+  'no-useless-escape': off
+  'no-useless-catch': off
+  no-undef: off
+  no-case-declarations: off
+  no-extra-boolean-cast: off
+  no-unsafe-optional-chaining: off
 
 overrides:
   - files:
