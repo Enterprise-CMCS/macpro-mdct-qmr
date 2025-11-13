@@ -14,7 +14,7 @@ interface CreateMeasure {
   year: string;
 }
 
-export const addMeasure = ({
+const addMeasure = ({
   body,
   coreSet,
   measure,

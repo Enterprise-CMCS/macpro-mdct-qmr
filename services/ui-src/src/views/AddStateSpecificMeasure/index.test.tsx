@@ -1,8 +1,10 @@
+import { render, screen, waitFor } from "@testing-library/react";
+import fireEvent from "@testing-library/user-event";
 import { AddStateSpecificMeasure } from ".";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen, waitFor } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { useApiMock } from "utils/testUtils/useApiMock";
+import { CoreSetAbbr } from "types";
 
 const queryClient = new QueryClient();
 
@@ -15,18 +17,29 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
-beforeEach(() => {
-  useApiMock({});
-  render(
-    <QueryClientProvider client={queryClient}>
-      <RouterWrappedComp>
-        <AddStateSpecificMeasure />
-      </RouterWrappedComp>
-    </QueryClientProvider>
-  );
+const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
+  if (typeof options?.onSuccess === "function") return options.onSuccess();
 });
 
 describe("AddStateSpecificMeasure", () => {
+  beforeEach(() => {
+    const apiData: any = {
+      useAddMeasureValues: {
+        mutate: mockMutate,
+      },
+      useEditCoreSetValues: {
+        mutate: mockMutate,
+      },
+    };
+    useApiMock(apiData);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <RouterWrappedComp>
+          <AddStateSpecificMeasure />
+        </RouterWrappedComp>
+      </QueryClientProvider>
+    );
+  });
   it("renders the nav", () => {
     expect(screen.getByTestId("state-layout-container")).toBeVisible();
   });
@@ -92,8 +105,22 @@ describe("AddStateSpecificMeasure", () => {
       expect(global.window.location.pathname).toContain("/DC/2021/HH");
     });
 
-    it("handles submit with no data entered", () => {
-      screen.getByText(/Create/i).click();
+    it("handles submit with no data entered", async () => {
+      const nameTextbox = screen.getByRole("textbox", {
+        name: "add-ssm.0.description",
+      });
+      fireEvent.type(nameTextbox, "name");
+
+      const descTextbox = screen.getByRole("textbox", {
+        name: "Please provide a description of the measure",
+      });
+      fireEvent.type(descTextbox, "desc");
+
+      const createBtn = screen.getByText(/Create/i);
+      fireEvent.click(createBtn);
+      await waitFor(() => {
+        expect(mockMutate).toHaveBeenCalled();
+      });
       expect(global.window.location.pathname).toContain("/DC/2021/HH");
     });
   });
