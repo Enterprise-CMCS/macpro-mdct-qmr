@@ -15,6 +15,7 @@ import { CloudWatchLogsResourcePolicy } from "./constructs/cloudwatch-logs-resou
 import { loadDefaultSecret } from "./deployment-config";
 import { Construct } from "constructs";
 import { isLocalStack } from "./local/util";
+import { tryImport } from "./utils/misc";
 
 interface PrerequisiteConfigProps {
   project: string;
@@ -31,24 +32,28 @@ export class PrerequisiteStack extends Stack {
 
     const { project, vpcName } = props;
 
-    if (!isLocalStack) {
-      const vpc = ec2.Vpc.fromLookup(this, "Vpc", { vpcName });
-      vpc.addGatewayEndpoint("S3Endpoint", {
-        service: ec2.GatewayVpcEndpointAwsService.S3,
-      });
-    }
-
     let githubEnvironmentName: string;
     if (vpcName.endsWith("dev")) {
       githubEnvironmentName = "dev";
     } else if (vpcName.endsWith("impl")) {
       githubEnvironmentName = "val";
     } else if (vpcName.endsWith("prod")) {
-      githubEnvironmentName = "production";
+      githubEnvironmentName = "prod";
     } else {
       throw new Error(
-        `Could not determine GitHub environment name from VPC name: ${vpcName}`
+        `Could not determine GitHub environment from VPC ${vpcName}`
       );
+    }
+
+    if (!isLocalStack) {
+      const vpc = ec2.Vpc.fromLookup(this, "Vpc", { vpcName });
+
+      vpc.addGatewayEndpoint("S3Endpoint", {
+        service: ec2.GatewayVpcEndpointAwsService.S3,
+      });
+
+      // add optional app-specific prerequisites
+      this.addAdditionalPrerequisitesAsync(vpc);
     }
 
     new CloudWatchLogsResourcePolicy(this, "logPolicy", { project });
@@ -89,7 +94,7 @@ export class PrerequisiteStack extends Stack {
             "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
           },
           StringLike: {
-            "token.actions.githubusercontent.com:sub": `repo:Enterprise-CMCS/macpro-mdct-qmr:environment:${githubEnvironmentName}`,
+            "token.actions.githubusercontent.com:sub": `repo:Enterprise-CMCS/macpro-mdct-${project}:environment:${githubEnvironmentName}`,
           },
         },
         "sts:AssumeRoleWithWebIdentity"
@@ -108,6 +113,15 @@ export class PrerequisiteStack extends Stack {
         iam.ManagedPolicy.fromAwsManagedPolicyName("AdministratorAccess"),
       ],
     });
+  }
+
+  async addAdditionalPrerequisitesAsync(vpc: ec2.IVpc) {
+    const module = await tryImport<{
+      addAdditionalPrerequisites: (stack: Stack, vpc: ec2.IVpc) => void;
+    }>("./prerequisites-additional");
+    if (module?.addAdditionalPrerequisites) {
+      module.addAdditionalPrerequisites(this, vpc);
+    }
   }
 }
 
@@ -129,7 +143,7 @@ async function main() {
   });
 
   if (!process.env.PROJECT) {
-    throw new Error("PROJECT enironment variable is required but not set");
+    throw new Error("PROJECT environment variable is required but not set");
   }
 
   const project = process.env.PROJECT!;
