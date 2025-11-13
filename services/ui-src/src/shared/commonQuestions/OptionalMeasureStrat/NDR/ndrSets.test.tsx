@@ -1,8 +1,6 @@
-import { render } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { NDRSets } from "./ndrSets";
 import { usePerformanceMeasureContext } from "../context";
-import { useAgeGroupsCheckboxes } from "./ndrCheckboxes";
 
 jest.mock("../context", () => ({
   ...jest.requireActual("../context"),
