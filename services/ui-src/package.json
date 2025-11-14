@@ -36,8 +36,7 @@
     "sass": "^1.80.4",
     "uuid": "^8.3.2",
     "vite": "^7.1.7",
-    "vite-tsconfig-paths": "^4.3.2",
-    "xml2js": "0.6.0"
+    "vite-tsconfig-paths": "^4.3.2"
   },
   "scripts": {
     "start": "vite",
@@ -88,9 +87,6 @@
       "node_modules/(?!axios)"
     ],
     "testEnvironment": "jest-environment-jsdom"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
