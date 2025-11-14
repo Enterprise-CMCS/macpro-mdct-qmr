@@ -35,5 +35,6 @@ describe("Test ndrFields Components", () => {
   it("Test useAgeGroupsFields render", () => {
     (usePerformanceMeasureContext as jest.Mock).mockReturnValue(mockValues);
     renderWithHookForm(<AgeGroupsCheckboxesTest name={"test"} />);
+    expect(ageGroupsResult[0]).toBe(undefined);
   });
 });

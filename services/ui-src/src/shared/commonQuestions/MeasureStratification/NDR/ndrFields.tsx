@@ -16,7 +16,7 @@ import {
 /**
  * Builds Performance Measure AgeGroup Checkboxes
  */
-export const TopLevelOmsChildrenuseAgeGroupsFields = (name: string) => {
+export const useAgeGroupsFields = (name: string) => {
   const { categories, qualifiers, calcTotal, customPrompt } =
     usePerformanceMeasureContext();
 
