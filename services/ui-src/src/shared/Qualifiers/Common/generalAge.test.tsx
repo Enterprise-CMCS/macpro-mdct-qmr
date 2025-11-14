@@ -1,24 +1,31 @@
 import * as CUI from "@chakra-ui/react";
+import { screen } from "@testing-library/react";
 import { renderWithHookForm } from "utils";
 import { GeneralAge } from "./generalAge";
 
 const data = {
-  title: "",
+  title: "mock title",
   formData: [],
-  questionTitle: "",
+  questionTitle: "mock question title",
   qualifierHeader: (year: string) => {
     return year;
   },
   textTable: [],
   fieldValues: [],
-  ageQuestion: { label: "" },
+  ageQuestion: { label: "mock label" },
 };
-describe("Test CostSavingsData Component", () => {
-  it("Test CostSavingsData Render", () => {
-    renderWithHookForm(
-      <CUI.List>
-        <GeneralAge data={data} />
-      </CUI.List>
-    );
+
+const component = (
+  <CUI.List>
+    <GeneralAge data={data} />
+  </CUI.List>
+);
+describe("Test GeneralAge Component", () => {
+  it("Test GeneralAge Render", () => {
+    const { container } = renderWithHookForm(component);
+
+    const textarea = container.querySelector("textarea");
+    expect(screen.getByText("mock label")).toBeVisible();
+    expect(textarea).toBeVisible();
   });
 });
