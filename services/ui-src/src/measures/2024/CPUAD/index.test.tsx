@@ -28,6 +28,12 @@ const year = 2024;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 
+jest.mock("components/Title", () => ({
+  Title: ({ pageTitle }: { pageTitle: string }) => (
+    <div data-testid="mock-title">{pageTitle}</div>
+  ),
+}));
+
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 

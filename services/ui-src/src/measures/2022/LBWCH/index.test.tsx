@@ -14,6 +14,12 @@ import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 expect.extend(toHaveNoViolations);
 
+jest.mock("components/Title", () => ({
+  Title: ({ pageTitle }: { pageTitle: string }) => (
+    <div data-testid="mock-title">{pageTitle}</div>
+  ),
+}));
+
 // Test Setup
 const measureAbbr = "LBW-CH";
 const coreSet = "CCSC";
@@ -72,7 +78,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   it("measure should render", async () => {
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getAllByText(measureAbbr + " - " + description));

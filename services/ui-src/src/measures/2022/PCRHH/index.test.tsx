@@ -29,6 +29,12 @@ const year = 2022;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 
+jest.mock("components/Title", () => ({
+  Title: ({ pageTitle }: { pageTitle: string }) => (
+    <div data-testid="mock-title">{pageTitle}</div>
+  ),
+}));
+
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
@@ -79,7 +85,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   it("measure should render", async () => {
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByText(measureAbbr + " - " + description));

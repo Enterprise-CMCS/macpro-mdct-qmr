@@ -22,6 +22,12 @@ const year = 2026;
 const description = "test";
 const apiData: any = {};
 
+jest.mock("components/Title", () => ({
+  Title: ({ pageTitle }: { pageTitle: string }) => (
+    <div data-testid="mock-title">{pageTitle}</div>
+  ),
+}));
+
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 

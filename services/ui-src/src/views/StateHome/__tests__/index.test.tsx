@@ -12,6 +12,12 @@ import { CoreSetAbbr } from "types";
 import { getMeasureYear } from "utils/getMeasureYear";
 expect.extend(toHaveNoViolations);
 
+jest.mock("components/Title", () => ({
+  Title: ({ pageTitle }: { pageTitle: string }) => (
+    <div data-testid="mock-title">{pageTitle}</div>
+  ),
+}));
+
 const queryClient = new QueryClient();
 
 const mockedNavigate = jest.fn();

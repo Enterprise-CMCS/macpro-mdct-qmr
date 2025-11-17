@@ -26,7 +26,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { CompleteCoreSets } from "./complete";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
-import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
+import { coreSetBreadCrumbTitle, coreSetTitles } from "shared/coreSetByYear";
 import { featuresByYear } from "utils/featuresByYear";
 import { Alert } from "@cmsgov/design-system";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
@@ -422,8 +422,22 @@ export const MeasureWrapper = ({
   const breadCrumbName =
     separatedCoreSet?.[params.coreSetId] ??
     `- ${formatTitle(apiData?.Item?.description)}`;
+
+  const pageTitle = (() => {
+    const coreSetTitle = coreSetTitles(coreSet);
+
+    // Check if the title contains a colon and flip the parts
+    if (coreSetTitle.includes(": ")) {
+      const [mainPart, subtitle] = coreSetTitle.split(": ");
+      return `${measureId} - ${subtitle}: ${mainPart} - ${year} QMR`;
+    }
+
+    // If no colon, use the original format
+    return `${measureId} - ${coreSetTitle} - ${year} QMR`;
+  })();
   return (
     <FormProvider {...methods}>
+      <QMR.Title pageTitle={pageTitle} />
       <QMR.YesNoModalDialog
         isOpen={showModal}
         headerText="Validation Error"
