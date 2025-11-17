@@ -1,4 +1,4 @@
-import { useAgeGroupsFields } from "./ndrFields";
+import { useAgeGroupsFields, useRenderOPMCheckboxOptions } from "./ndrFields";
 import { renderWithHookForm } from "utils";
 import { usePerformanceMeasureContext } from "shared/commonQuestions/OptionalMeasureStrat/context";
 
@@ -8,7 +8,7 @@ jest.mock("shared/commonQuestions/OptionalMeasureStrat/context", () => ({
 }));
 
 const mockValues = {
-  OPM: false,
+  OPM: [],
   componentFlag: "DEFAULT",
   categories: [{ id: "cat-1", label: "cat 1", text: "cat 1" }],
   qualifiers: [{ id: "qual-1", label: "qual 1", text: "qual 1" }],
@@ -25,10 +25,16 @@ const mockValues = {
 };
 
 let ageGroupsResult: any;
+let opmCheckboxOptions: any;
 
 const AgeGroupsCheckboxesTest = ({ name }: { name: string }) => {
   ageGroupsResult = useAgeGroupsFields(name);
   return <div data-testid="age-groups-rendered">Ready</div>;
+};
+
+const RenderOPMCheckboxOptions = ({ name }: { name: string }) => {
+  opmCheckboxOptions = useRenderOPMCheckboxOptions(name);
+  return <div data-testid="opm-checkbox-options-rendered">Ready</div>;
 };
 
 describe("Test ndrFields Components", () => {
@@ -36,5 +42,11 @@ describe("Test ndrFields Components", () => {
     (usePerformanceMeasureContext as jest.Mock).mockReturnValue(mockValues);
     renderWithHookForm(<AgeGroupsCheckboxesTest name={"test"} />);
     expect(ageGroupsResult[0]).toBe(undefined);
+  });
+
+  it("Test useRenderOPMCheckboxOptions render", () => {
+    (usePerformanceMeasureContext as jest.Mock).mockReturnValue(mockValues);
+    renderWithHookForm(<RenderOPMCheckboxOptions name={"mock-checkbox"} />);
+    expect(opmCheckboxOptions[0]).toBe(undefined);
   });
 });
