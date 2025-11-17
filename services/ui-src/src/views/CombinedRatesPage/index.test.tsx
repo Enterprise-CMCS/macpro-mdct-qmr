@@ -7,6 +7,12 @@ import { CombinedRatesPage } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 expect.extend(toHaveNoViolations);
 
+jest.mock("components/Title", () => ({
+  Title: ({ pageTitle }: { pageTitle: string }) => (
+    <div data-testid="mock-title">{pageTitle}</div>
+  ),
+}));
+
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: jest.fn().mockReturnValue({

@@ -351,6 +351,7 @@ export const CoreSet = () => {
   const pageTitle = `${coreSetTitles(
     coreSet[0]
   )} ${spaName} - Core Set Measures - ${year} QMR`;
+
   return (
     <>
       <QMR.Title pageTitle={pageTitle} />

@@ -130,69 +130,74 @@ export const CombinedRatesPage = () => {
     }
   };
 
+  const pageTitle = `Combined Rates - Core Set Measures - ${year} QMR`;
+
   return (
-    <QMR.StateLayout
-      breadcrumbItems={[
-        {
-          path: `/${state}/${year}`,
-          name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
-        },
-        {
-          path: `/${state}/${year}`,
-          name: "Combined Rates",
-        },
-      ]}
-    >
-      <CUI.VStack
-        maxW="7xl"
-        pb="6"
-        alignItems="flex-start"
-        spacing="6"
-        padding="2rem"
+    <>
+      <QMR.Title pageTitle={pageTitle} />
+      <QMR.StateLayout
+        breadcrumbItems={[
+          {
+            path: `/${state}/${year}`,
+            name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
+          },
+          {
+            path: `/${state}/${year}`,
+            name: "Combined Rates",
+          },
+        ]}
       >
-        <CUI.Heading size="lg" data-cy="combined-rates-heading">
-          Core Set Measures Combined Rates
-        </CUI.Heading>
-        <CUI.Text>
-          Click into a measure below to preview the preliminary combined
-          Medicaid and CHIP rate. Please complete the measure in both the
-          Medicaid and CHIP reports to ensure the combined rate is complete.
-        </CUI.Text>
-        <CUI.Text>{GetExcludedMeasuresText(year)}</CUI.Text>
-        <CUI.Tabs
-          width="100%"
-          variant="unstyled"
-          onChange={(index) =>
-            setSearchParams({ tab: index == 0 ? "child" : "adult" })
-          }
-          defaultIndex={searchParams.get("tab") === "adult" ? 1 : 0}
+        <CUI.VStack
+          maxW="7xl"
+          pb="6"
+          alignItems="flex-start"
+          spacing="6"
+          padding="2rem"
         >
-          <CUI.TabList>
-            {coreSetTabs.map((coreSet) => (
-              <CUI.Tab
-                key={coreSet.title + "tab"}
-                padding={{ base: "2% 10%", md: "10px 40px" }}
-                width={{ base: "100%", md: "fit-content" }}
-              >
-                {coreSet.title}
-              </CUI.Tab>
-            ))}
-          </CUI.TabList>
-          <CUI.TabPanels border="1px" borderColor="gray.200">
-            {coreSetData?.map((measures, idx) => (
-              <CUI.TabPanel key={"panel" + idx}>
-                {measures?.length > 0 ? (
-                  <QMR.Table data={measures} columns={GetColumns()} />
-                ) : (
-                  <CUI.Text textAlign="center" padding="16">
-                    No core sets have been added.
-                  </CUI.Text>
-                )}
-              </CUI.TabPanel>
-            ))}
-          </CUI.TabPanels>
-        </CUI.Tabs>
-      </CUI.VStack>
-    </QMR.StateLayout>
+          <CUI.Heading size="lg" data-cy="combined-rates-heading">
+            Core Set Measures Combined Rates
+          </CUI.Heading>
+          <CUI.Text>
+            Click into a measure below to preview the preliminary combined
+            Medicaid and CHIP rate. Please complete the measure in both the
+            Medicaid and CHIP reports to ensure the combined rate is complete.
+          </CUI.Text>
+          <CUI.Text>{GetExcludedMeasuresText(year)}</CUI.Text>
+          <CUI.Tabs
+            width="100%"
+            variant="unstyled"
+            onChange={(index) =>
+              setSearchParams({ tab: index == 0 ? "child" : "adult" })
+            }
+            defaultIndex={searchParams.get("tab") === "adult" ? 1 : 0}
+          >
+            <CUI.TabList>
+              {coreSetTabs.map((coreSet) => (
+                <CUI.Tab
+                  key={coreSet.title + "tab"}
+                  padding={{ base: "2% 10%", md: "10px 40px" }}
+                  width={{ base: "100%", md: "fit-content" }}
+                >
+                  {coreSet.title}
+                </CUI.Tab>
+              ))}
+            </CUI.TabList>
+            <CUI.TabPanels border="1px" borderColor="gray.200">
+              {coreSetData?.map((measures, idx) => (
+                <CUI.TabPanel key={"panel" + idx}>
+                  {measures?.length > 0 ? (
+                    <QMR.Table data={measures} columns={GetColumns()} />
+                  ) : (
+                    <CUI.Text textAlign="center" padding="16">
+                      No core sets have been added.
+                    </CUI.Text>
+                  )}
+                </CUI.TabPanel>
+              ))}
+            </CUI.TabPanels>
+          </CUI.Tabs>
+        </CUI.VStack>
+      </QMR.StateLayout>
+    </>
   );
 };

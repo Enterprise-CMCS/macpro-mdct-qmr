@@ -9,6 +9,12 @@ expect.extend(toHaveNoViolations);
 
 global.structuredClone = (val: any) => JSON.parse(JSON.stringify(val));
 
+jest.mock("components/Title", () => ({
+  Title: ({ pageTitle }: { pageTitle: string }) => (
+    <div data-testid="mock-title">{pageTitle}</div>
+  ),
+}));
+
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useParams: () => ({
