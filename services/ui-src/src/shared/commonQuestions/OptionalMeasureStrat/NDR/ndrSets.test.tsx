@@ -3,14 +3,13 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { NDRSets } from "./ndrSets";
 import { usePerformanceMeasureContext } from "../context";
 import { getCatQualLabels } from "measures/2022/rateLabelText";
+import { data as IU_Data } from "measures/2022/IUHH/data";
+import { data as AIF_Data } from "measures/2022/AIFHH/data";
 
 jest.mock("utils", () => ({
   ...jest.requireActual("utils"),
   isLegacyLabel: () => {
     return true;
-  },
-  getLabelText: () => {
-    return { "qual 1": "qual 1" };
   },
 }));
 
@@ -81,30 +80,36 @@ const IUHHPerformanceMeasureArray = [
       fields: [
         {
           uid: "Number of Enrollee Months",
+          value: "3",
           label: "Number of Enrollee Months",
         },
         {
           uid: "Discharges",
+          value: "4",
           label: "Discharges",
         },
         {
           uid: "Discharges per 1,000 Enrollee Months",
+          value: "1333.3",
           label: "Discharges per 1,000 Enrollee Months",
         },
         {
           uid: "Days",
+          value: "3",
           label: "Days",
         },
         {
           uid: "Days per 1,000 Enrollee Months",
+          value: "1000.0",
           label: "Days per 1,000 Enrollee Months",
         },
         {
           uid: "Average Length of Stay",
+          value: "0.8",
           label: "Average Length of Stay",
         },
       ],
-      label: "Ages 18 to 64",
+      label: "Ages 0 to 17",
     },
   ],
 ];
@@ -113,13 +118,6 @@ const mockValues = {
   componentFlag: "DEFAULT",
   categories: [{ id: "cat-1", label: "cat 1", text: "cat 1" }],
   qualifiers: [{ id: "Ages18to64", label: "qual 1", text: "qual 1" }],
-  inputFieldNames: [
-    {
-      id: "Number of Enrollee Months",
-      label: "Number of Enrollee Months",
-      text: "Number of Enrollee Months",
-    },
-  ],
 };
 
 const OPM = [
@@ -165,45 +163,60 @@ describe("Test NDRSets component", () => {
     });
   });
   it("Test AIF NDRSet render", async () => {
+    const { qualifiers, inputFieldNames } = AIF_Data.performanceMeasure;
+
     (usePerformanceMeasureContext as jest.Mock).mockReturnValue({
-      ...mockValues,
-      categories: [],
       componentFlag: "AIF",
+      qualifiers,
+      categories: [],
       AIFHHPerformanceMeasureArray,
+      inputFieldNames,
     });
     renderWithHookForm(<NDRSets name={"aif"} />);
 
-    fireEvent.click(screen.getByRole("checkbox", { name: "qual 1" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Ages 18 to 64" }));
 
     await waitFor(() => {
-      expect(
-        screen.getByRole("textbox", {
-          name: "Number of Enrollee Months",
-        })
-      ).toBeVisible();
+      inputFieldNames?.forEach((names) => {
+        expect(
+          screen.getByRole("textbox", {
+            name: names.label,
+          })
+        ).toBeVisible();
+      });
     });
   });
-  it("Test IU NDRSet render", () => {
+  it("Test IU NDRSet render", async () => {
     const { categories, qualifiers } = getCatQualLabels("IU-HH");
+    const { inputFieldNames } = IU_Data.performanceMeasure;
 
-    mockValues.componentFlag = "IU";
     (usePerformanceMeasureContext as jest.Mock).mockReturnValue({
-      ...mockValues,
+      componentFlag: "IU",
       categories,
       qualifiers,
-      componentFlag: "IU",
+      inputFieldNames,
       IUHHPerformanceMeasureArray,
     });
     renderWithHookForm(<NDRSets name={"iu"} />);
 
-    screen.debug();
+    fireEvent.click(screen.getByRole("checkbox", { name: "Ages 0 to 17" }));
+
+    await waitFor(() => {
+      inputFieldNames?.forEach((names) => {
+        expect(
+          screen.getByRole("textbox", {
+            name: names.label,
+          })
+        ).toBeVisible();
+      });
+    });
   });
   it("Test PCR NDRSet render", () => {
-    const { qualifiers } = getCatQualLabels("PCR-AD");
+    const { categories, qualifiers } = getCatQualLabels("PCR-AD");
 
     (usePerformanceMeasureContext as jest.Mock).mockReturnValue({
-      ...mockValues,
       componentFlag: "PCR",
+      categories,
       qualifiers,
     });
     renderWithHookForm(<NDRSets name={"pcr"} />);
