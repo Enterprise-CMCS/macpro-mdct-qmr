@@ -15,20 +15,137 @@ jest.mock("react-router-dom", () => ({
     state: "DC",
     coreSetId: "HH",
   }),
+  useLocation: () => ({
+    pathname: "/WA/2026/HHCS_23-0027/add-ssm",
+    search: "",
+    hash: "",
+    state: {
+      userCreatedMeasureIds: ["SS-1-HH"],
+    },
+    key: "4ssfbe28",
+  }),
 }));
 
 const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
   if (typeof options?.onSuccess === "function") return options.onSuccess();
 });
 
+const mockErrorMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
+  if (typeof options?.onSuccess === "function") return options.onError();
+});
+
 describe("AddStateSpecificMeasure", () => {
-  beforeEach(() => {
+  describe("AddStateSpecificMeasure success", () => {
+    beforeEach(() => {
+      const apiData: any = {
+        useAddMeasureValues: {
+          mutate: mockMutate,
+        },
+        useEditCoreSetValues: {
+          mutate: mockMutate,
+        },
+      };
+      useApiMock(apiData);
+      render(
+        <QueryClientProvider client={queryClient}>
+          <RouterWrappedComp>
+            <AddStateSpecificMeasure />
+          </RouterWrappedComp>
+        </QueryClientProvider>
+      );
+    });
+    it("renders the nav", () => {
+      expect(screen.getByTestId("state-layout-container")).toBeVisible();
+    });
+    it("renders correctly", () => {
+      expect(screen.getByText(/Add State Specific Measures/i)).toBeVisible();
+      expect(
+        screen.getByText(/Health Home State Specific Measure Details/i)
+      ).toBeVisible();
+    });
+
+    it("renders the SSM form", () => {
+      expect(screen.getByLabelText(/Name the measure/i)).toBeVisible();
+      expect(screen.getByLabelText(/Name the measure/i)).toBeEnabled();
+
+      expect(
+        screen.getByLabelText("Please provide a description of the measure")
+      ).toBeVisible();
+      expect(
+        screen.getByLabelText("Please provide a description of the measure")
+      ).toBeEnabled();
+    });
+
+    describe("Add and Remove buttons", () => {
+      it("renders the Add button", () => {
+        expect(screen.getByText(/\+ Add Another/i)).toBeVisible();
+        expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+      });
+
+      it("allows a maximum of 5 new SSMs", () => {
+        // Add 3 additional SSMs (for a total of 4)
+        for (let i = 0; i < 3; i++) {
+          screen.getByText(/\+ Add Another/i).click();
+        }
+
+        waitFor(() => {
+          // Expect that we can add a 5th SSM
+          expect(screen.getAllByText(/Name the measure/i)).toHaveLength(4);
+          expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+        });
+
+        screen.getByText(/\+ Add Another/i).click();
+
+        waitFor(() => {
+          expect(screen.getAllByText(/Name the measure/i)).toHaveLength(5);
+          expect(screen.getByText(/\+ Add Another/i)).toBeDisabled();
+        });
+      });
+    });
+
+    describe("Create and Cancel buttons", () => {
+      it("renders the submit button", () => {
+        expect(screen.getByText(/Create/i)).toBeVisible();
+        expect(screen.getByText(/Create/i)).toBeEnabled();
+      });
+
+      it("renders the cancel button", () => {
+        expect(screen.getByText(/Cancel/i)).toBeVisible();
+        expect(screen.getByText(/Cancel/i)).toBeEnabled();
+      });
+
+      it("navigates to the correct place on cancel", () => {
+        screen.getByText(/Cancel/i).click();
+        expect(global.window.location.pathname).toContain("/DC/2021/HH");
+      });
+
+      it("handles submit with no data entered", async () => {
+        const nameTextbox = screen.getByRole("textbox", {
+          name: "add-ssm.0.description",
+        });
+        fireEvent.type(nameTextbox, "name");
+
+        const descTextbox = screen.getByRole("textbox", {
+          name: "Please provide a description of the measure",
+        });
+        fireEvent.type(descTextbox, "desc");
+
+        const createBtn = screen.getByText(/Create/i);
+        fireEvent.click(createBtn);
+        await waitFor(() => {
+          expect(mockMutate).toHaveBeenCalled();
+        });
+        expect(global.window.location.pathname).toContain("/DC/2021/HH");
+      });
+    });
+  });
+  it("AddStateSpecificMeasure submission error", async () => {
     const apiData: any = {
       useAddMeasureValues: {
-        mutate: mockMutate,
+        mutate: mockErrorMutate,
       },
       useEditCoreSetValues: {
-        mutate: mockMutate,
+        mutate: mockErrorMutate,
       },
     };
     useApiMock(apiData);
@@ -39,89 +156,21 @@ describe("AddStateSpecificMeasure", () => {
         </RouterWrappedComp>
       </QueryClientProvider>
     );
-  });
-  it("renders the nav", () => {
-    expect(screen.getByTestId("state-layout-container")).toBeVisible();
-  });
-  it("renders correctly", () => {
-    expect(screen.getByText(/Add State Specific Measures/i)).toBeVisible();
-    expect(
-      screen.getByText(/Health Home State Specific Measure Details/i)
-    ).toBeVisible();
-  });
 
-  it("renders the SSM form", () => {
-    expect(screen.getByLabelText(/Name the measure/i)).toBeVisible();
-    expect(screen.getByLabelText(/Name the measure/i)).toBeEnabled();
-
-    expect(
-      screen.getByLabelText("Please provide a description of the measure")
-    ).toBeVisible();
-    expect(
-      screen.getByLabelText("Please provide a description of the measure")
-    ).toBeEnabled();
-  });
-
-  describe("Add and Remove buttons", () => {
-    it("renders the Add button", () => {
-      expect(screen.getByText(/\+ Add Another/i)).toBeVisible();
-      expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
+    const nameTextbox = screen.getByRole("textbox", {
+      name: "add-ssm.0.description",
     });
+    fireEvent.type(nameTextbox, "name");
 
-    it("allows a maximum of 5 new SSMs", () => {
-      // Add 3 additional SSMs (for a total of 4)
-      for (let i = 0; i < 3; i++) {
-        screen.getByText(/\+ Add Another/i).click();
-      }
-
-      waitFor(() => {
-        // Expect that we can add a 5th SSM
-        expect(screen.getAllByText(/Name the measure/i)).toHaveLength(4);
-        expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
-      });
-
-      screen.getByText(/\+ Add Another/i).click();
-
-      waitFor(() => {
-        expect(screen.getAllByText(/Name the measure/i)).toHaveLength(5);
-        expect(screen.getByText(/\+ Add Another/i)).toBeDisabled();
-      });
+    const descTextbox = screen.getByRole("textbox", {
+      name: "Please provide a description of the measure",
     });
-  });
+    fireEvent.type(descTextbox, "desc");
 
-  describe("Create and Cancel buttons", () => {
-    it("renders the submit button", () => {
-      expect(screen.getByText(/Create/i)).toBeVisible();
-      expect(screen.getByText(/Create/i)).toBeEnabled();
-    });
-
-    it("renders the cancel button", () => {
-      expect(screen.getByText(/Cancel/i)).toBeVisible();
-      expect(screen.getByText(/Cancel/i)).toBeEnabled();
-    });
-
-    it("navigates to the correct place on cancel", () => {
-      screen.getByText(/Cancel/i).click();
-      expect(global.window.location.pathname).toContain("/DC/2021/HH");
-    });
-
-    it("handles submit with no data entered", async () => {
-      const nameTextbox = screen.getByRole("textbox", {
-        name: "add-ssm.0.description",
-      });
-      fireEvent.type(nameTextbox, "name");
-
-      const descTextbox = screen.getByRole("textbox", {
-        name: "Please provide a description of the measure",
-      });
-      fireEvent.type(descTextbox, "desc");
-
-      const createBtn = screen.getByText(/Create/i);
-      fireEvent.click(createBtn);
-      await waitFor(() => {
-        expect(mockMutate).toHaveBeenCalled();
-      });
-      expect(global.window.location.pathname).toContain("/DC/2021/HH");
+    const createBtn = screen.getByText(/Create/i);
+    fireEvent.click(createBtn);
+    await waitFor(() => {
+      expect(mockErrorMutate).toHaveBeenCalled();
     });
   });
 });

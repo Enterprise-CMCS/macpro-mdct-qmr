@@ -13,6 +13,10 @@ const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
   if (typeof options?.onSuccess === "function") return options.onSuccess();
 });
 
+const mockErrorMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
+  if (typeof options?.onSuccess === "function") return options.onError();
+});
+
 describe("Test AdminBannerView", () => {
   beforeEach(() => {
     const apiData: any = {
@@ -30,10 +34,9 @@ describe("Test AdminBannerView", () => {
     expect(screen.getByText("Banner Admin")).toBeInTheDocument();
   });
 
-  test("Test create banner", async () => {
+  test("Test create banner", () => {
     const titleTextbox = screen.getByRole("textbox", { name: "Title Text" });
     fireEvent.type(titleTextbox, "banner title");
-    // screen.debug(titleTextbox);
     const descTextbox = screen.getByRole("textbox", {
       name: "Description text",
     });
@@ -49,9 +52,7 @@ describe("Test AdminBannerView", () => {
 
     const createBtn = screen.getByText("Replace Current Banner");
     fireEvent.click(createBtn);
-    await waitFor(() => {
-      expect(mockMutate).toHaveBeenCalled();
-    });
+    expect(mockMutate).toHaveBeenCalled();
   });
 
   test("Test delete banner", async () => {
@@ -62,6 +63,48 @@ describe("Test AdminBannerView", () => {
     await waitFor(() => {
       expect(mockMutate).toHaveBeenCalled();
     });
+  });
+});
+
+describe("Test AdminBannerView errors", () => {
+  beforeEach(() => {
+    const apiData: any = {
+      useDeleteBannerValues: {
+        mutate: mockErrorMutate,
+      },
+      useWriteBannerValues: {
+        mutate: mockErrorMutate,
+      },
+    };
+    useApiMock(apiData);
+    render(testComponent);
+  });
+  test("Test submit error", () => {
+    const titleTextbox = screen.getByRole("textbox", { name: "Title Text" });
+    fireEvent.type(titleTextbox, "banner title");
+    const descTextbox = screen.getByRole("textbox", {
+      name: "Description text",
+    });
+    fireEvent.type(descTextbox, "banner desc");
+
+    const startDateTextbox = screen.getByRole("textbox", {
+      name: "Start Date",
+    });
+    fireEvent.type(startDateTextbox, "01/01/2025");
+
+    const endDateTextbox = screen.getByRole("textbox", { name: "End Date" });
+    fireEvent.type(endDateTextbox, "12/01/2026");
+
+    const createBtn = screen.getByText("Replace Current Banner");
+    fireEvent.click(createBtn);
+    expect(mockErrorMutate).toHaveBeenCalled();
+  });
+  test("test delete error", () => {
+    const deleteBtn = screen.getByRole("button", {
+      name: "Delete Current Banner",
+    });
+    fireEvent.click(deleteBtn);
+    expect(mockErrorMutate).toHaveBeenCalled();
   });
 });
 
