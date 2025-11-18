@@ -17,6 +17,12 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
+jest.mock("components/Title", () => ({
+  Title: ({ pageTitle }: { pageTitle: string }) => (
+    <div data-testid="mock-title">{pageTitle}</div>
+  ),
+}));
+
 const queryClient = new QueryClient();
 
 describe("Test HealthHome coreset component", () => {

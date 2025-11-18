@@ -12,11 +12,6 @@ jest.mock("components/Title", () => ({
   ),
 }));
 
-jest.mock("shared/coreSetByYear", () => ({
-  coreSetTitles: jest.fn(() => "Adult Core Set Measures: Separate CHIP"),
-  coreSetBreadCrumbTitle: jest.fn(() => ({})),
-}));
-
 jest.mock("hooks/authHooks");
 
 const mockUseUser = useUser as jest.Mock;
