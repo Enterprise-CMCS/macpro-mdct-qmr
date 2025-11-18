@@ -348,9 +348,17 @@ export const CoreSet = () => {
 
   const coreSetPrefix = coreSet[0].slice(0, 4);
 
-  const pageTitle = `${coreSetTitles(
-    coreSet[0]
-  )} ${spaName} - Core Set Measures - ${year} QMR`;
+  // i.e, "Child Core Set Measures: Medicaid - Core Set Measures - 2025 QMR"
+  const simplifiedTitle = coreSetTitles(coreSet[0]).replace(/ \(.*?\)/g, ""); // Remove anything in parentheses
+
+  // For Health Home Core Sets, format the SPA name to exclude the full name
+  let formattedSpaName = spaName;
+  if (isHHCoreSet && tempSpa) {
+    // ": DC 24-0020 - Chronic Conditions" to ": DC 24-0020"
+    formattedSpaName = `: ${tempSpa.state} ${tempSpa.id}`;
+  }
+
+  const pageTitle = `${simplifiedTitle}${formattedSpaName} - Core Set Measures - ${year} QMR`;
 
   return (
     <>
