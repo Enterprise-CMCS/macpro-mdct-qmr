@@ -294,11 +294,9 @@ const StateHome = () => {
       : formattedTableItems.filter((item) => item.coreSet === abbr)
   );
 
-  const pageTitle = `Core Set Measures - ${year} QMR`;
-
   return (
     <>
-      <QMR.Title pageTitle={pageTitle} />
+      <QMR.Title pageTitle={`Core Set Measures - ${year} QMR`} />
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${state}/${year}`, name: "Core Set Measures" },

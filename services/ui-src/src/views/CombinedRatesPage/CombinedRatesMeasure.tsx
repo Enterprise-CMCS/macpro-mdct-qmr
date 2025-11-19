@@ -56,11 +56,9 @@ export const CombinedRatesMeasure = ({
     delete combinedRateData?.DataSources.Medicaid.hasECDSDataSource;
   }
 
-  const pageTitle = `${measure} - Combined Rates - ${year} QMR`;
-
   return (
     <>
-      <QMR.Title pageTitle={pageTitle} />
+      <QMR.Title pageTitle={`${measure} - Combined Rates - ${year} QMR`} />
       <QMR.StateLayout
         breadcrumbItems={[
           {

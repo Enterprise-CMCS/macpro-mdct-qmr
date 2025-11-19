@@ -7,7 +7,6 @@ import { useUser } from "hooks/authHooks";
 import { CPUAD } from "measures/2024/CPUAD/index";
 
 jest.mock("hooks/authHooks");
-
 const mockUseUser = useUser as jest.Mock;
 const div = createElement("div");
 
