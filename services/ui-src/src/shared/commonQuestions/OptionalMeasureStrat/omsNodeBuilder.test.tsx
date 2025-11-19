@@ -121,21 +121,13 @@ describe("Test TopLevelOmsChildren", () => {
     const checkbox = screen.getByRole("checkbox", { name: "cat 1" });
     fireEvent.click(checkbox);
     await waitFor(() => {
-      expect(
-        screen.getByRole("textbox", {
-          name: "mock.rateData.rates.cat-1.qual-1.0.numerator",
-        })
-      ).toBeVisible();
-      expect(
-        screen.getByRole("textbox", {
-          name: "mock.rateData.rates.cat-1.qual-1.0.denominator",
-        })
-      ).toBeVisible();
-      expect(
-        screen.getByRole("textbox", {
-          name: "mock.rateData.rates.cat-1.qual-1.0.rate",
-        })
-      ).toBeVisible();
+      ["numerator", "denominator", "rate"].forEach((id) => {
+        expect(
+          screen.getByRole("textbox", {
+            name: `mock.rateData.rates.cat-1.qual-1.0.${id}`,
+          })
+        ).toBeVisible();
+      });
     });
   });
 });

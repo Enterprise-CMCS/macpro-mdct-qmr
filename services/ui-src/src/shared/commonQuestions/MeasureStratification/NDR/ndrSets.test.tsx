@@ -97,21 +97,13 @@ describe("Test NDRSets component", () => {
     });
     renderWithHookForm(<NDRSetsAccordion name={"default"} />);
 
-    expect(
-      screen.getByRole("textbox", {
-        name: "default.rates.cat-1.qual 1.0.numerator",
-      })
-    ).toBeVisible();
-    expect(
-      screen.getByRole("textbox", {
-        name: "default.rates.cat-1.qual 1.0.denominator",
-      })
-    ).toBeVisible();
-    expect(
-      screen.getByRole("textbox", {
-        name: "default.rates.cat-1.qual 1.0.rate",
-      })
-    ).toBeVisible();
+    ["numerator", "denominator", "rate"].forEach((id) => {
+      expect(
+        screen.getByRole("textbox", {
+          name: `default.rates.cat-1.qual 1.0.${id}`,
+        })
+      ).toBeVisible();
+    });
   });
   it("Test AIF NDRSet", () => {
     const { qualifiers, inputFieldNames } = AIF_Data.performanceMeasure;
@@ -182,20 +174,12 @@ describe("Test NDRSets component", () => {
     });
     renderWithHookForm(<NDRSetsAccordion name={"opm"} />);
 
-    expect(
-      screen.getByRole("textbox", {
-        name: "opm.rates.OPM.OPM_mockrate.0.numerator",
-      })
-    ).toBeVisible();
-    expect(
-      screen.getByRole("textbox", {
-        name: "opm.rates.OPM.OPM_mockrate.0.denominator",
-      })
-    ).toBeVisible();
-    expect(
-      screen.getByRole("textbox", {
-        name: "opm.rates.OPM.OPM_mockrate.0.rate",
-      })
-    ).toBeVisible();
+    ["numerator", "denominator", "rate"].forEach((id) => {
+      expect(
+        screen.getByRole("textbox", {
+          name: `opm.rates.OPM.OPM_mockrate.0.${id}`,
+        })
+      ).toBeVisible();
+    });
   });
 });

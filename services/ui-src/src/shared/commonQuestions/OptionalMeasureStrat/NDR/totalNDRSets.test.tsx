@@ -20,20 +20,12 @@ describe("Test TotalNDRSets component", () => {
   it("Test TotalNDRSets Render", () => {
     renderWithHookForm(<TotalNDRSets componentFlag="DEFAULT" name="total" />);
 
-    expect(
-      screen.getByRole("textbox", {
-        name: "total.rates.singleCategory.mock-total.0.numerator",
-      })
-    ).toBeVisible();
-    expect(
-      screen.getByRole("textbox", {
-        name: "total.rates.singleCategory.mock-total.0.denominator",
-      })
-    ).toBeVisible();
-    expect(
-      screen.getByRole("textbox", {
-        name: "total.rates.singleCategory.mock-total.0.rate",
-      })
-    ).toBeVisible();
+    ["numerator", "denominator", "rate"].forEach((id) => {
+      expect(
+        screen.getByRole("textbox", {
+          name: `total.rates.singleCategory.mock-total.0.${id}`,
+        })
+      ).toBeVisible();
+    });
   });
 });

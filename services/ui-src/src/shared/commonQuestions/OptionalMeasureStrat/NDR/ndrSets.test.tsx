@@ -145,21 +145,13 @@ describe("Test NDRSets component", () => {
     fireEvent.click(screen.getByRole("checkbox", { name: "qual 1" }));
 
     await waitFor(() => {
-      expect(
-        screen.getByRole("textbox", {
-          name: "default.rates.qual-1.cat-1.0.numerator",
-        })
-      ).toBeVisible();
-      expect(
-        screen.getByRole("textbox", {
-          name: "default.rates.qual-1.cat-1.0.denominator",
-        })
-      ).toBeVisible();
-      expect(
-        screen.getByRole("textbox", {
-          name: "default.rates.qual-1.cat-1.0.rate",
-        })
-      ).toBeVisible();
+      ["numerator", "denominator", "rate"].forEach((id) => {
+        expect(
+          screen.getByRole("textbox", {
+            name: `default.rates.qual-1.cat-1.0.${id}`,
+          })
+        ).toBeVisible();
+      });
     });
   });
   it("Test AIF NDRSet render", async () => {
@@ -240,21 +232,13 @@ describe("Test NDRSets component", () => {
     fireEvent.click(screen.getByRole("checkbox", { name: "mock-rate" }));
 
     await waitFor(() => {
-      expect(
-        screen.getByRole("textbox", {
-          name: "opm.rates.mockrate.OPM.0.numerator",
-        })
-      ).toBeVisible();
-      expect(
-        screen.getByRole("textbox", {
-          name: "opm.rates.mockrate.OPM.0.denominator",
-        })
-      ).toBeVisible();
-      expect(
-        screen.getByRole("textbox", {
-          name: "opm.rates.mockrate.OPM.0.rate",
-        })
-      ).toBeVisible();
+      ["numerator", "denominator", "rate"].forEach((id) => {
+        expect(
+          screen.getByRole("textbox", {
+            name: `opm.rates.mockrate.OPM.0.${id}`,
+          })
+        ).toBeVisible();
+      });
     });
   });
 });
