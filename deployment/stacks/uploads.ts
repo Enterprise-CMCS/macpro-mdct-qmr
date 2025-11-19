@@ -13,7 +13,7 @@ import {
 import { DynamoDBTable } from "../constructs/dynamodb-table";
 import { Lambda } from "../constructs/lambda";
 
-interface createUploadsComponentsProps {
+interface CreateUploadsComponentsProps {
   attachmentsBucketName: string;
   bucketPrefix?: string;
   isDev: boolean;
@@ -25,7 +25,7 @@ interface createUploadsComponentsProps {
   tables: DynamoDBTable[];
 }
 
-export function createUploadsComponents(props: createUploadsComponentsProps) {
+export function createUploadsComponents(props: CreateUploadsComponentsProps) {
   const {
     attachmentsBucketName,
     bucketPrefix,
