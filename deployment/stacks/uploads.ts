@@ -208,11 +208,20 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
         new iam.ArnPrincipal(mprdeviam),
       ],
       effect: iam.Effect.ALLOW,
-      actions: ["s3:GetBucketLocation", "s3:ListBucket", "s3:GetObject"],
-      resources: [
-        attachmentsBucket.bucketArn,
-        `${attachmentsBucket.bucketArn}/*`,
+      actions: ["s3:GetBucketLocation", "s3:ListBucket"],
+      resources: [attachmentsBucket.bucketArn],
+    })
+  );
+
+  attachmentsBucket.addToResourcePolicy(
+    new iam.PolicyStatement({
+      principals: [
+        new iam.ArnPrincipal(mpriamrole),
+        new iam.ArnPrincipal(mprdeviam),
       ],
+      effect: iam.Effect.ALLOW,
+      actions: ["s3:GetObject"],
+      resources: [`${attachmentsBucket.bucketArn}/*`],
       conditions: {
         StringEquals: {
           "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
@@ -287,8 +296,20 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
         new iam.ArnPrincipal(mprdeviam),
       ],
       effect: iam.Effect.ALLOW,
-      actions: ["s3:GetBucketLocation", "s3:ListBucket", "s3:GetObject"],
-      resources: [dynamoBucket.bucketArn, `${dynamoBucket.bucketArn}/*`],
+      actions: ["s3:GetBucketLocation", "s3:ListBucket"],
+      resources: [dynamoBucket.bucketArn],
+    })
+  );
+
+  dynamoBucket.addToResourcePolicy(
+    new iam.PolicyStatement({
+      principals: [
+        new iam.ArnPrincipal(mpriamrole),
+        new iam.ArnPrincipal(mprdeviam),
+      ],
+      effect: iam.Effect.ALLOW,
+      actions: ["s3:GetObject"],
+      resources: [`${dynamoBucket.bucketArn}/*`],
       conditions: {
         StringEquals: {
           "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
