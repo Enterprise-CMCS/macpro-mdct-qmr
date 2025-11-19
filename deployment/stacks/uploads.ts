@@ -1,42 +1,41 @@
 import { Construct } from "constructs";
 import {
-  aws_kms as kms,
-  aws_s3 as s3,
-  aws_lambda as lambda,
-  aws_s3_notifications as s3notifications,
-  aws_iam as iam,
   aws_events as events,
   aws_events_targets as targets,
+  aws_guardduty as guardduty,
+  aws_iam as iam,
+  aws_kms as kms,
+  aws_s3 as s3,
+  Aws,
   Duration,
   RemovalPolicy,
-  Aws,
 } from "aws-cdk-lib";
-import { Lambda } from "../constructs/lambda";
 import { DynamoDBTable } from "../constructs/dynamodb-table";
+import { Lambda } from "../constructs/lambda";
 
 interface createUploadsComponentsProps {
+  attachmentsBucketName: string;
+  bucketPrefix?: string;
+  isDev: boolean;
+  loggingBucket: s3.IBucket;
+  mprdeviam: string;
+  mpriamrole: string;
   scope: Construct;
   stage: string;
-  loggingBucket: s3.IBucket;
-  isDev: boolean;
-  mpriamrole: string;
-  mprdeviam: string;
   tables: DynamoDBTable[];
-  bucketPrefix?: string;
-  attachmentsBucketName: string;
 }
 
 export function createUploadsComponents(props: createUploadsComponentsProps) {
   const {
+    attachmentsBucketName,
+    bucketPrefix,
+    isDev,
+    loggingBucket,
+    mprdeviam,
+    mpriamrole,
     scope,
     stage,
-    loggingBucket,
-    isDev,
-    mpriamrole,
-    mprdeviam,
     tables,
-    bucketPrefix,
-    attachmentsBucketName,
   } = props;
   const serviceStage = `uploads-${stage}`;
 
@@ -122,6 +121,86 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     serverAccessLogsPrefix: `AWSLogs/${Aws.ACCOUNT_ID}/s3/`,
   });
 
+  const s3MalwareProtectionRole = new iam.Role(
+    scope,
+    "S3MalwareProtectionRole",
+    {
+      assumedBy: new iam.ServicePrincipal(
+        "malware-protection-plan.guardduty.amazonaws.com"
+      ),
+      inlinePolicies: {
+        S3MalwareProtectionPolicy: new iam.PolicyDocument({
+          statements: [
+            new iam.PolicyStatement({
+              sid: "AllowManagedRuleToSendS3EventsToGuardDuty",
+              effect: iam.Effect.ALLOW,
+              actions: [
+                "events:PutRule",
+                "events:DeleteRule",
+                "events:PutTargets",
+                "events:RemoveTargets",
+              ],
+              resources: [
+                `arn:aws:events:us-east-1:${Aws.ACCOUNT_ID}:rule/DO-NOT-DELETE-AmazonGuardDutyMalwareProtectionS3*`,
+              ],
+              conditions: {
+                StringLike: {
+                  "events:ManagedBy":
+                    "malware-protection-plan.guardduty.amazonaws.com",
+                },
+              },
+            }),
+            new iam.PolicyStatement({
+              sid: "AllowGuardDutyToMonitorEventBridgeManagedRule",
+              effect: iam.Effect.ALLOW,
+              actions: ["events:DescribeRule", "events:ListTargetsByRule"],
+              resources: [
+                `arn:aws:events:us-east-1:${Aws.ACCOUNT_ID}:rule/DO-NOT-DELETE-AmazonGuardDutyMalwareProtectionS3*`,
+              ],
+            }),
+            new iam.PolicyStatement({
+              sid: "AllowPostScanTag",
+              effect: iam.Effect.ALLOW,
+              actions: [
+                "s3:PutObjectTagging",
+                "s3:GetObjectTagging",
+                "s3:PutObjectVersionTagging",
+                "s3:GetObjectVersionTagging",
+              ],
+              resources: [`${attachmentsBucket.bucketArn}/*`],
+            }),
+            new iam.PolicyStatement({
+              sid: "AllowEnableS3EventBridgeEvents",
+              effect: iam.Effect.ALLOW,
+              actions: ["s3:PutBucketNotification", "s3:GetBucketNotification"],
+              resources: [attachmentsBucket.bucketArn],
+            }),
+            new iam.PolicyStatement({
+              sid: "AllowPutValidationObject",
+              effect: iam.Effect.ALLOW,
+              actions: ["s3:PutObject"],
+              resources: [
+                `${attachmentsBucket.bucketArn}/malware-protection-resource-validation-object`,
+              ],
+            }),
+            new iam.PolicyStatement({
+              sid: "AllowCheckBucketOwnership",
+              effect: iam.Effect.ALLOW,
+              actions: ["s3:ListBucket"],
+              resources: [attachmentsBucket.bucketArn],
+            }),
+            new iam.PolicyStatement({
+              sid: "AllowMalwareScan",
+              effect: iam.Effect.ALLOW,
+              actions: ["s3:GetObject", "s3:GetObjectVersion"],
+              resources: [`${attachmentsBucket.bucketArn}/*`],
+            }),
+          ],
+        }),
+      },
+    }
+  );
+
   attachmentsBucket.addToResourcePolicy(
     new iam.PolicyStatement({
       principals: [
@@ -134,6 +213,11 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
         attachmentsBucket.bucketArn,
         `${attachmentsBucket.bucketArn}/*`,
       ],
+      conditions: {
+        StringEquals: {
+          "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
+        },
+      },
     })
   );
 
@@ -168,6 +252,20 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
     })
   );
 
+  new guardduty.CfnMalwareProtectionPlan(scope, "MalwareProtectionPlan", {
+    actions: {
+      tagging: {
+        status: "ENABLED",
+      },
+    },
+    protectedResource: {
+      s3Bucket: {
+        bucketName: attachmentsBucketName,
+      },
+    },
+    role: s3MalwareProtectionRole.roleArn,
+  });
+
   const dynamoBucket = new s3.Bucket(scope, "DynamoSnapshotBucket", {
     bucketName: `${bucketPrefix ?? serviceStage}-dynamosnapshots-${
       Aws.ACCOUNT_ID
@@ -191,19 +289,13 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
       effect: iam.Effect.ALLOW,
       actions: ["s3:GetBucketLocation", "s3:ListBucket", "s3:GetObject"],
       resources: [dynamoBucket.bucketArn, `${dynamoBucket.bucketArn}/*`],
+      conditions: {
+        StringEquals: {
+          "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
+        },
+      },
     })
   );
-
-  const clamDefsBucket = new s3.Bucket(scope, "ClamDefsBucket", {
-    bucketName: `${serviceStage}-avscan-${Aws.ACCOUNT_ID}`,
-    encryption: s3.BucketEncryption.S3_MANAGED,
-    removalPolicy: RemovalPolicy.DESTROY,
-    autoDeleteObjects: true,
-    blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-    accessControl: s3.BucketAccessControl.PRIVATE,
-    versioned: true,
-    enforceSSL: true,
-  });
 
   const useKmsStatement = new iam.PolicyStatement({
     effect: iam.Effect.ALLOW,
@@ -215,24 +307,6 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
       "kms:DescribeKey",
     ],
     resources: [bucketEncryptionKey.keyArn],
-  });
-
-  const getS3AttachmentClamStatement = new iam.PolicyStatement({
-    actions: [
-      "s3:GetObject",
-      "s3:PutObjectTagging",
-      "s3:PutObjectVersionTagging",
-      "S3:ListBucket",
-    ],
-    resources: [
-      `${attachmentsBucket.bucketArn}/*`,
-      `${clamDefsBucket.bucketArn}/*`,
-    ],
-  });
-
-  const s3ClamStatement = new iam.PolicyStatement({
-    actions: ["s3:PutObject", "s3:ListBucket"],
-    resources: [clamDefsBucket.bucketArn, `${clamDefsBucket.bucketArn}/*`],
   });
 
   const dynamoSyncLambda = new Lambda(scope, "DynamoSync", {
@@ -274,63 +348,6 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
   new events.Rule(scope, "DynamoSyncScheduleRule", {
     schedule: events.Schedule.cron({ minute: "30", hour: "1" }),
     targets: [new targets.LambdaFunction(dynamoSyncLambda)],
-  });
-
-  const clamAvLayer = new lambda.LayerVersion(scope, "ClamAvLayer", {
-    layerVersionName: `${serviceStage}-clamDefs`,
-    code: lambda.Code.fromAsset("services/uploads/lambda_layer.zip"),
-    compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
-  });
-
-  const avScanLambda = new Lambda(scope, "AvScanLambda", {
-    entry: "services/uploads/src/antivirus.js",
-    handler: "lambdaHandleEvent",
-    memorySize: 3072,
-    timeout: Duration.minutes(5),
-    layers: [clamAvLayer],
-    stackName: serviceStage,
-    environment: {
-      CLAMAV_BUCKET_NAME: clamDefsBucket.bucketName,
-    },
-    isDev,
-    additionalPolicies: [
-      useKmsStatement,
-      getS3AttachmentClamStatement,
-      s3ClamStatement,
-    ],
-  }).lambda;
-
-  attachmentsBucket.addEventNotification(
-    s3.EventType.OBJECT_CREATED_PUT,
-    new s3notifications.LambdaDestination(avScanLambda)
-  );
-
-  // Note about this lambda: In isDev situations this lambda must be manually run if you want attachment scanning to work
-  const avDownloadDefinitionsLambda = new Lambda(
-    scope,
-    "AvDownloadDefinitionsLambda",
-    {
-      entry: "services/uploads/src/download-definitions.js",
-      handler: "lambdaHandleEvent",
-      memorySize: 3072,
-      timeout: Duration.minutes(5),
-      layers: [clamAvLayer],
-      stackName: serviceStage,
-      environment: {
-        CLAMAV_BUCKET_NAME: clamDefsBucket.bucketName,
-      },
-      isDev,
-      additionalPolicies: [
-        useKmsStatement,
-        getS3AttachmentClamStatement,
-        s3ClamStatement,
-      ],
-    }
-  ).lambda;
-
-  new events.Rule(scope, "avDownloadDefinitionsRule", {
-    schedule: events.Schedule.cron({ minute: "15", hour: "1" }),
-    targets: [new targets.LambdaFunction(avDownloadDefinitionsLambda)],
   });
 
   return attachmentsBucket;
