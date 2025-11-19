@@ -222,11 +222,6 @@ export function createUploadsComponents(props: CreateUploadsComponentsProps) {
       effect: iam.Effect.ALLOW,
       actions: ["s3:GetObject"],
       resources: [`${attachmentsBucket.bucketArn}/*`],
-      conditions: {
-        StringEquals: {
-          "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
-        },
-      },
     })
   );
 
