@@ -117,7 +117,7 @@ const IUHHPerformanceMeasureArray = [
 const mockValues = {
   componentFlag: "DEFAULT",
   categories: [{ id: "cat-1", label: "cat 1", text: "cat 1" }],
-  qualifiers: [{ id: "Ages18to64", label: "qual 1", text: "qual 1" }],
+  qualifiers: [{ id: "qual-1", label: "qual 1", text: "qual 1" }],
 };
 
 const OPM = [
@@ -147,17 +147,17 @@ describe("Test NDRSets component", () => {
     await waitFor(() => {
       expect(
         screen.getByRole("textbox", {
-          name: "default.rates.Ages18to64.cat-1.0.numerator",
+          name: "default.rates.qual-1.cat-1.0.numerator",
         })
       ).toBeVisible();
       expect(
         screen.getByRole("textbox", {
-          name: "default.rates.Ages18to64.cat-1.0.denominator",
+          name: "default.rates.qual-1.cat-1.0.denominator",
         })
       ).toBeVisible();
       expect(
         screen.getByRole("textbox", {
-          name: "default.rates.Ages18to64.cat-1.0.rate",
+          name: "default.rates.qual-1.cat-1.0.rate",
         })
       ).toBeVisible();
     });
