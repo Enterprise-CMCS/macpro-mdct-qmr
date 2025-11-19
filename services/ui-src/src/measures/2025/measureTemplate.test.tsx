@@ -28,12 +28,6 @@ const year = 2025;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 
-jest.mock("components/Title", () => ({
-  Title: ({ pageTitle }: { pageTitle: string }) => (
-    <div data-testid="mock-title">{pageTitle}</div>
-  ),
-}));
-
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
@@ -92,7 +86,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   it("measure should render", async () => {
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
       expect(screen.getByText(measureAbbr + " - " + description));
@@ -104,14 +100,18 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
    * */
   it("Always shows Are you reporting question", async () => {
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("reporting"));
   });
 
   it("shows corresponding questions if yes to reporting then ", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
     expect(
       screen.queryByTestId("measurement-specification")
@@ -126,7 +126,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("does not show corresponding questions if no to reporting then ", async () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(
       screen.queryByTestId("measurement-specification")
@@ -141,7 +143,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("shows corresponding components and hides others when primary measure is selected", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("performance-measure")).toBeInTheDocument();
     expect(
       screen.queryByTestId("deviation-from-measure-specification")
@@ -152,7 +156,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("shows corresponding components and hides others when primary measure is NOT selected", async () => {
     apiData.useGetMeasureValues.data.Item.data = OPMData;
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("OPM"));
     expect(screen.queryByTestId("performance-measure")).not.toBeInTheDocument();
     expect(
@@ -163,13 +169,17 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("shows OMS when performance measure data has been entered", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("OMS"));
   });
   it("does not show OMS when performance measure data has been entered", async () => {
     apiData.useGetMeasureValues.data.Item.data = notReportingData;
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("OMS")).not.toBeInTheDocument();
   });
 
@@ -234,8 +244,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   it("should not allow non state users to edit forms by disabling buttons", async () => {
     useApiMock(apiData);
-    renderWithHookForm(component);
-
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
     const completeButton = screen.getByText("Complete Measure");
     fireEvent.click(completeButton);

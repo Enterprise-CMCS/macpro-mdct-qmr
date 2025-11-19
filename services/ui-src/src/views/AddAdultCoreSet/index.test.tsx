@@ -24,12 +24,6 @@ jest.mock("react-router-dom", () => ({
   }),
 }));
 
-jest.mock("components/Title", () => ({
-  Title: ({ pageTitle }: { pageTitle: string }) => (
-    <div data-testid="mock-title">{pageTitle}</div>
-  ),
-}));
-
 const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
   if (typeof options?.onSuccess === "function") return options.onSuccess();
 });

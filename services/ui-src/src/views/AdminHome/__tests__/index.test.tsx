@@ -18,12 +18,6 @@ jest.mock("react-router-dom", () => ({
 jest.mock("hooks/authHooks/useUser");
 const mockedUseUser = useUser as jest.MockedFunction<typeof useUser>;
 
-jest.mock("components/Title", () => ({
-  Title: ({ pageTitle }: { pageTitle: string }) => (
-    <div data-testid="mock-title">{pageTitle}</div>
-  ),
-}));
-
 const testComponent = (
   <RouterWrappedComp>
     <AdminHome />

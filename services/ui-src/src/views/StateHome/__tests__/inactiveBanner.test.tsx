@@ -5,12 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
 const queryClient = new QueryClient();
 
-jest.mock("components/Title", () => ({
-  Title: ({ pageTitle }: { pageTitle: string }) => (
-    <div data-testid="mock-title">{pageTitle}</div>
-  ),
-}));
-
 const mockedNavigate = jest.fn();
 
 jest.mock("react-router-dom", () => ({

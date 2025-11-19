@@ -6,12 +6,6 @@ import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
 import { CPUAD } from "measures/2024/CPUAD/index";
 
-jest.mock("components/Title", () => ({
-  Title: ({ pageTitle }: { pageTitle: string }) => (
-    <div data-testid="mock-title">{pageTitle}</div>
-  ),
-}));
-
 jest.mock("hooks/authHooks");
 
 const mockUseUser = useUser as jest.Mock;

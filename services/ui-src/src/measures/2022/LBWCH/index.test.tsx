@@ -14,12 +14,6 @@ import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 expect.extend(toHaveNoViolations);
 
-jest.mock("components/Title", () => ({
-  Title: ({ pageTitle }: { pageTitle: string }) => (
-    <div data-testid="mock-title">{pageTitle}</div>
-  ),
-}));
-
 // Test Setup
 const measureAbbr = "LBW-CH";
 const coreSet = "CCSC";
