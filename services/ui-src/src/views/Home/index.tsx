@@ -9,7 +9,7 @@ import { useFlags } from "launchdarkly-react-client-sdk";
 
 export function Home() {
   const { userRole, userState } = useUser();
-  const releaseYearByFlag = useFlags()?.["release2025"]
+  const releaseYearByFlag = useFlags()?.["release2026"]
     ? config.currentReportingYear
     : parseInt(config.currentReportingYear) - 1;
 

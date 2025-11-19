@@ -17,7 +17,7 @@ permissions:
 jobs:
   audit:
     name: Audit
-    environment: ${{ (github.ref_name == 'production' && 'production') || (github.ref_name == 'val' && 'val') || 'dev' }}
+    environment: dev
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

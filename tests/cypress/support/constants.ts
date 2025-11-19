@@ -1,6 +1,7 @@
-export const testingYear = "2025";
+export const testingYear = "2026";
 
-export const measureAbbrList2025 = {
+//should match the measures active in the testingYear
+export const measureAbbrList = {
   ADULT: [
     "AAB-AD",
     "AIS-AD",
@@ -31,7 +32,7 @@ export const measureAbbrList2025 = {
     "OHD-AD",
     "OUD-AD",
     "PCR-AD",
-    // "PDS-AD", //TO-DO: turn on when measure has been added
+    "PDS-AD",
     "PPC2-AD",
     "PQI01-AD",
     "PQI05-AD",
@@ -64,7 +65,7 @@ export const measureAbbrList2025 = {
     "OEV-CH",
     "OEVP-CH",
     "PDS-CH",
-    // "PRS-CH", //TO-DO: turn on when measure has been added
+    "PRS-CH",
     "PPC2-CH",
     "SFM-CH",
     "TFL-CH",

@@ -1,12 +1,6 @@
 name: Deploy
 
-on:
-  push:
-    branches:
-      - "*"
-      - "dependabot/**"
-      - "!skipci*"
-      - "!code-json-*"
+on: [push]
 
 concurrency:
   group: ${{ github.ref_name }}
@@ -21,6 +15,7 @@ env:
 
 jobs:
   deploy:
+    if: ${{ !startsWith(github.ref_name, 'skipci') }}
     runs-on: ubuntu-latest
     environment: ${{ (github.ref_name == 'production' && 'production') || (github.ref_name == 'val' && 'val') || 'dev' }}
     steps:
@@ -58,19 +53,27 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH_NAME: ${{ env.branch_name }}
+    outputs:
+      application_endpoint: ${{ steps.endpoint.outputs.application_endpoint }}
+
+  e2e-tests:
+    if: ${{ github.ref_name != 'val' && github.ref_name != 'production' }}
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - uses: actions/checkout@v4
       - name: Run Cypress Tests
-        if: ${{ github.ref_name != 'val' && github.ref_name != 'production' }}
         uses: cypress-io/github-action@v6
         with:
           working-directory: tests/cypress
-          config: baseUrl=${{ steps.endpoint.outputs.application_endpoint }}
+          config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
         env:
           CYPRESS_STATE_USER_2: ${{ secrets.CYPRESS_STATE_USER_2 }}
           CYPRESS_STATE_USER_4: ${{ secrets.CYPRESS_STATE_USER_4 }}
           CYPRESS_ADMIN_USER: ${{ secrets.CYPRESS_ADMIN_USER }}
           CYPRESS_QMR_PASSWORD: ${{ secrets.CYPRESS_QMR_PASSWORD }}
       - name: Upload screenshots
-        if: ${{ github.ref_name != 'val' && github.ref_name != 'production' && failure() }}
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v4
         with:
           name: cypress-test-results-${{ github.run_number }}

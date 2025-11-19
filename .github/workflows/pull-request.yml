@@ -1,7 +1,9 @@
+# This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
 name: Pull Request
 
 on:
   pull_request:
+    types: [opened, reopened, ready_for_review, synchronize]
 
 permissions:
   contents: read
