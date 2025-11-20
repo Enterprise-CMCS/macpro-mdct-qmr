@@ -5,6 +5,7 @@ import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,
   hasStatePermissions,
+  getUserEmailFromJwt,
 } from "../../libs/authorization";
 import * as Types from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
@@ -75,6 +76,7 @@ export const createCoreSet = handler(async (event, context) => {
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
+      lastAlteredByEmail: getUserEmailFromJwt(event),
       progress: {
         numAvailable: measuresLengthWithoutQualifiers,
         numComplete: autoCompletedMeasures,

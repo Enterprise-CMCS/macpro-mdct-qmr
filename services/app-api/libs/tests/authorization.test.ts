@@ -3,6 +3,7 @@ import {
   hasStatePermissions,
   hasRolePermissions,
   getUserNameFromJwt,
+  getUserEmailFromJwt,
 } from "../authorization";
 import { APIGatewayProxyEvent, UserRoles } from "../../types";
 import jwtDecode from "jwt-decode";
@@ -155,5 +156,52 @@ describe("getUserNameFromJwt", () => {
       identities: [{ userId: "mockUserId" }],
     });
     expect(getUserNameFromJwt(mockEventWithToken)).toBe("mockUserId");
+  });
+});
+
+describe("getUserEmailFromJwt", () => {
+  const mockEventWithToken = {
+    ...testEvent,
+    headers: { "x-api-key": "mock JWT" },
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should return undefined if there is no event", () => {
+    const mockEvent = undefined as unknown as APIGatewayProxyEvent;
+    expect(getUserEmailFromJwt(mockEvent)).toBeUndefined();
+  });
+
+  it("should return undefined if the event has no headers", () => {
+    const mockEvent = {} as APIGatewayProxyEvent;
+    expect(getUserEmailFromJwt(mockEvent)).toBeUndefined();
+  });
+
+  it("should return undefined if the event has no token", () => {
+    const mockEvent = { headers: {} } as APIGatewayProxyEvent;
+    expect(getUserEmailFromJwt(mockEvent)).toBeUndefined();
+  });
+
+  it("should return undefined if the event token has no email", () => {
+    mockedDecode.mockReturnValueOnce({});
+    expect(getUserEmailFromJwt(mockEventWithToken)).toBeUndefined();
+  });
+
+  it("should return email if present in the token", () => {
+    mockedDecode.mockReturnValueOnce({
+      email: "user@example.com",
+    });
+    expect(getUserEmailFromJwt(mockEventWithToken)).toBe("user@example.com");
+  });
+
+  it("should return email even when other fields are present", () => {
+    mockedDecode.mockReturnValueOnce({
+      given_name: "Rosa",
+      family_name: "Parks",
+      email: "rosa.parks@example.com",
+    });
+    expect(getUserEmailFromJwt(mockEventWithToken)).toBe("rosa.parks@example.com");
   });
 });

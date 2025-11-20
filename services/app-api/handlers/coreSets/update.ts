@@ -3,6 +3,7 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { createDynamoUpdateParams } from "../dynamoUtils/dynamoParams";
 import {
   getUserNameFromJwt,
+  getUserEmailFromJwt,
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
@@ -27,6 +28,7 @@ export const editCoreSet = handler(async (event, context) => {
 
   const { submitted, status } = JSON.parse(event!.body!);
   const lastAlteredBy = getUserNameFromJwt(event);
+  const lastAlteredByEmail = getUserEmailFromJwt(event);
   const params = {
     TableName: process.env.QualityCoreSetsTable!,
     Key: {
@@ -38,6 +40,7 @@ export const editCoreSet = handler(async (event, context) => {
       status,
       lastAltered: Date.now(),
       lastAlteredBy,
+      lastAlteredByEmail,
     }),
   };
 

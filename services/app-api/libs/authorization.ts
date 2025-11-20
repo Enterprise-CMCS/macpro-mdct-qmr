@@ -6,6 +6,7 @@ interface DecodedToken {
   "custom:cms_state"?: string;
   given_name?: string;
   family_name?: string;
+  email?: string;
   identities?: [{ userId?: string }];
 }
 
@@ -74,4 +75,12 @@ export const getUserNameFromJwt = (event: APIGatewayProxyEvent) => {
   }
 
   return userName;
+};
+
+export const getUserEmailFromJwt = (event: APIGatewayProxyEvent) => {
+  if (!event?.headers || !event.headers["x-api-key"]) return undefined;
+
+  const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+
+  return decoded.email;
 };
