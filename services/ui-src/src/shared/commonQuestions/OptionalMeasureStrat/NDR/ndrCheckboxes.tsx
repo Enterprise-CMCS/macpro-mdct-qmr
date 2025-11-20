@@ -41,7 +41,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
     quals?.forEach((value, idx) => {
       if (rateArrays?.[idx]?.length) {
         const cleanedLabel = value.id;
-        const displayValue = labelText[value.label] ?? value;
+        const displayValue = labelText[value.label] ?? value.label;
         const ageGroupCheckBox = checkboxComponent(
           name,
           cleanedLabel,
