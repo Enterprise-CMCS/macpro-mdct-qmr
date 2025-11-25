@@ -178,10 +178,47 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
 
 /**
  * Last minute css and non-standard character cleanup to prep html for prince request
+ * Also removes hidden/offscreen elements and minifies the HTML string.
  */
 export const htmlStringCleanup = (html: string): string => {
-  // fixing non standard characters
-  const htmlString = html
+  // Remove hidden/offscreen elements and scripts from the DOM before serialization
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+
+    doc
+      .querySelectorAll(
+        '.hidden-print-items, [style*="display: none"], [style*="visibility: hidden"]'
+      )
+      .forEach((el) => el.remove());
+
+    doc.querySelectorAll("script, noscript").forEach((el) => el.remove());
+
+    doc
+      .querySelectorAll('[role="dialog"], [aria-hidden="true"]')
+      .forEach((el) => el.remove());
+
+    // Remove comments
+    const removeComments = (node: Node) => {
+      for (let i = node.childNodes.length - 1; i >= 0; i--) {
+        const child = node.childNodes[i];
+        if (child.nodeType === Node.COMMENT_NODE) {
+          node.removeChild(child);
+        } else if (child.childNodes.length > 0) {
+          removeComments(child);
+        }
+      }
+    };
+    removeComments(doc);
+
+    // Serialize the cleaned DOM
+    html = doc.documentElement.outerHTML;
+  } catch (e) {
+    // fallback to original html if DOMParser fails
+  }
+
+  // fixing non standard characters and minifying
+  let htmlString = html
     // fix broken assets and links
     .replace(/src="\/assets/g, `src="https://${window.location.host}/assets`)
     .replace(/src="\/footer/g, `src="https://${window.location.host}/footer`)
@@ -202,6 +239,9 @@ export const htmlStringCleanup = (html: string): string => {
     )
     .replace(/<textarea[^>]*>/g, '<p class="chakra-text replaced-text-area">')
     .replace(/<\/textarea>/g, "</p>");
+
+  // Minify: remove extra whitespace between tags
+  htmlString = htmlString.replace(/>\s+</g, "><").replace(/\s{2,}/g, " ");
 
   return htmlString;
 };
@@ -244,10 +284,7 @@ export const usePrinceRequest: PrinceHook = () => {
       const tagsToDelete = [];
       tagsToDelete.push(...cloneEmotionStyles());
       tagsToDelete.push(applyPrinceSpecificCss());
-
-      // get html element and remove noscript tag
       const html = document.querySelector("html")!;
-      html.querySelector("noscript")?.remove();
 
       // add <base> to treat relative URLs as absolute
       const base = document.createElement("base");
@@ -259,12 +296,10 @@ export const usePrinceRequest: PrinceHook = () => {
 
       // encoding html for prince request
       const base64String = btoa(unescape(encodeURIComponent(htmlString)));
-
       // clean up of styles to not break page layout
       for (const tag of tagsToDelete) {
         document.body.removeChild(tag);
       }
-
       let requestAttempt = 0;
       let breakCondition = false;
 
