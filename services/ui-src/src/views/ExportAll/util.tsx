@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { SPA } from "libs/spaLib";
 import { getPDF } from "libs/api";
 
@@ -130,22 +130,18 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
       It can easily be fixed by inspecting the elements on the pdf page in the browser and grabbing the css class names from there. 
       ********* */ ""
     }
-
     .chakra-button { background: var(--chakra-colors-gray-100) !important; margin: 16px 8px }
     .chakra-link { color: var(--chakra-colors-blue-600) !important; }
     .chakra-link * { color: blue !important; }
+    
     ${
       /* Chakra radio buttons and checkboxes that are checked don't display colors correctly due to Prince pdf limitation with background colors. 
       These styles below manually add the background colors back to the checked radio buttons and checkboxes */ ""
     }
-        ${
-          /* .css-edb818[data-checked] is checkbox css class and .css-ym696e[data-checked] is radio css class. 
-      IMPORTANT NOTE: If checkboxes and radio buttons ever stop displaying correctly, it's probably because these classes changed due to chakra updates or other unknowns.
-      You can find the new classes if you go to the export pdf page and inspect the checkbox and radio elements */ ""
-        }
-    .css-edb818[data-checked], .css-ym696e[data-checked] { background: var(--chakra-colors-blue-500) !important; border-color: var(--chakra-colors-blue-500) !important; }
-    .css-ym696e[data-checked]::before { content: ""; width: 50%; height: 50%; border-radius: 50%; background: var(--chakra-colors-white) !important; }
+    .chakra-checkbox__control[data-checked], .chakra-radio__control[data-checked] { background: var(--chakra-colors-blue-500) !important; border-color: var(--chakra-colors-blue-500) !important; }
+    .chakra-radio__control[data-checked]::before { content: ""; width: 50%; height: 50%; border-radius: 50%; background: var(--chakra-colors-white) !important; }
     .chakra-checkbox__control * { color: var(--chakra-colors-white) !important; display: flex !important }
+    
     ${
       /* On line 61 of this file, we are replacing text-align: right with text-align: center. 
       There are few places where we don't want to do this so we are overriding those styles below for some inputs.
@@ -156,15 +152,18 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     }
     .css-xumdn4 { padding-right: 16px !important }
     .css-10xl6g, .css-wgu2i7 { text-align: right !important; padding-right: 35px !important; }
+    
     ${
       /* The below css classes are targeting icons in inputs need to have display: flex (that display is getting removed on line 61) */ ""
     }
     .css-11pdqhs, .css-1nqqbdv { display: flex !important }
+    
     ${
       /* These css classes are targeting the numerator, denominator, rate inputs. These need to have display: flex and other css styles to look correct */ ""
     }
     .css-1qqj5ri { display: flex !important; flex-direction: row !important; width: 100% !important }
     .css-1kxonj9 { margin-left: 0px !important; margin-top: 0px !important; padding: 8px !important; }
+    
     ${
       /* These ds-c css classes are targeting the warning box for other data source */ ""
     }
@@ -193,10 +192,6 @@ export const htmlStringCleanup = (html: string): string => {
       .forEach((el) => el.remove());
 
     doc.querySelectorAll("script, noscript").forEach((el) => el.remove());
-
-    doc
-      .querySelectorAll('[role="dialog"], [aria-hidden="true"]')
-      .forEach((el) => el.remove());
 
     // Remove comments
     const removeComments = (node: Node) => {
@@ -270,16 +265,15 @@ export const getSpaName = ({ coreSetId, state, year }: HookProps) => {
  * Transform current document to PrinceXML style and create/open the resulting pdf
  */
 export const usePrinceRequest: PrinceHook = () => {
-  const [stylesApplied, setStylesApplied] = useState(false);
+  // const [stylesApplied, setStylesApplied] = useState(false);
 
   return useCallback(
     async ({ state, year, coreSetId }) => {
       // only apply the style variables once, in case page is persisted and button re-clicked
-      if (!stylesApplied) {
-        setStylesApplied(true);
-        cloneChakraVariables();
-      }
-
+      // if (!stylesApplied) {
+      //   setStylesApplied(true);
+      //   cloneChakraVariables();
+      // }
       // css adjustment
       const tagsToDelete = [];
       tagsToDelete.push(...cloneEmotionStyles());
@@ -306,12 +300,15 @@ export const usePrinceRequest: PrinceHook = () => {
       // set to retry up to 5 times
       while (!breakCondition && requestAttempt < 5) {
         try {
+          console.log("getPDF called");
+          console.time("getPDF request");
           const pdf = await getPDF({
             body: base64String,
             state,
             coreSet: coreSetId,
             year,
           });
+          console.timeEnd("getPDF request");
 
           openPdf(pdf);
           breakCondition = true;
@@ -321,6 +318,7 @@ export const usePrinceRequest: PrinceHook = () => {
         }
       }
     },
-    [stylesApplied]
+    []
+    // [ stylesApplied ]
   );
 };
