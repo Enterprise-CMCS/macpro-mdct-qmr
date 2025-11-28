@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { SPA } from "libs/spaLib";
-import { getPDF } from "libs/api";
+import { getPDF, generatePDF } from "libs/api";
 
 interface HookProps {
   coreSetId?: string;
@@ -266,6 +266,7 @@ export const getSpaName = ({ coreSetId, state, year }: HookProps) => {
  */
 export const usePrinceRequest: PrinceHook = () => {
   // const [stylesApplied, setStylesApplied] = useState(false);
+  // const [pdfStatusId, setPdfStatusId] = useState<string | null>(null);
 
   return useCallback(
     async ({ state, year, coreSetId }) => {
@@ -317,6 +318,15 @@ export const usePrinceRequest: PrinceHook = () => {
           requestAttempt++;
         }
       }
+      console.log("call generatePDF");
+      const generatePDFresponse = await generatePDF({
+        body: base64String,
+        state,
+        coreSet: coreSetId,
+        year,
+      });
+
+      console.log("generatePDFresponse", generatePDFresponse);
     },
     []
     // [ stylesApplied ]

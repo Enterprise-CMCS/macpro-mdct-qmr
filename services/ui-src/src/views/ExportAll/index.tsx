@@ -6,12 +6,13 @@ import { useGetMeasures } from "hooks/api";
 import { createElement } from "react";
 import "./../../styles/index.scss";
 import { useParams } from "react-router-dom";
-import { usePrinceRequest, getSpaName } from "./util";
+import { getSpaName } from "./util";
+import { generatePDF, getPDFStatus } from "../../libs/api";
 
 export const ExportAll = () => {
   const { state, coreSetId, year } = useParams();
   const [isLoadingPDF, setIsLoadingPDF] = useState(false);
-  const makePrinceRequest = usePrinceRequest();
+  // Removed unused pdfStatusId and pdfUrl state
   const spaName = getSpaName({ state, year, coreSetId });
 
   const { data, isLoading } = useGetMeasures();
@@ -46,6 +47,77 @@ export const ExportAll = () => {
       return measure.comp;
     });
 
+  // Polling function for PDF status
+  const pollPdfStatus = async (statusId: string) => {
+    let attempts = 0;
+    const maxAttempts = 60; // 5 minutes
+    const poll = async () => {
+      try {
+        console.log("polling for pdf status", statusId);
+        const res = await getPDFStatus({
+          status_id: statusId,
+          state,
+          year,
+          coreSet: coreSetId,
+        });
+        console.log("POLLING RESPONSE", res);
+        if (res?.ready && res?.url) {
+          setIsLoadingPDF(false);
+          window.open(res.url, "_blank");
+          return;
+        }
+      } catch (e) {
+        // Optionally handle error
+        console.log("error polling pdf status", e);
+        return;
+      }
+      attempts++;
+      if (attempts < maxAttempts) {
+        setTimeout(poll, 5000);
+      } else {
+        setIsLoadingPDF(false);
+        // Optionally show error to user
+      }
+    };
+    poll();
+  };
+
+  const handlePrintPdf = async () => {
+    setIsLoadingPDF(true);
+    // You may want to move the HTML preparation logic here from usePrinceRequest
+    const html = document.querySelector("html");
+    if (!html) {
+      setIsLoadingPDF(false);
+      return;
+    }
+    const base = document.createElement("base");
+    base.href = `https://${window.location.host}`;
+    document.querySelector("head")?.prepend(base);
+    const htmlString = html.outerHTML;
+    const base64String = btoa(unescape(encodeURIComponent(htmlString)));
+    try {
+      console.time("generate pdf");
+      const res = await generatePDF({
+        state,
+        year,
+        coreSet: coreSetId,
+        body: base64String,
+      });
+      console.timeEnd("generate pdf");
+      console.log("generate res", res, res.status_id);
+      if (res && res.status_id) {
+        pollPdfStatus(res.status_id);
+      } else {
+        setIsLoadingPDF(false);
+        // Optionally show error
+      }
+    } catch (e) {
+      console.log("catch error", e);
+      setIsLoadingPDF(false);
+      // Optionally show error
+    }
+  };
+
   return (
     <>
       <style key="printerPreviewStyles">
@@ -66,11 +138,7 @@ export const ExportAll = () => {
           variant="solid"
           fontWeight="700"
           fontSize="large"
-          onClick={async () => {
-            setIsLoadingPDF(true);
-            await makePrinceRequest({ state, year, coreSetId });
-            setIsLoadingPDF(false);
-          }}
+          onClick={handlePrintPdf}
         >
           PRINT PDF
         </CUI.Button>

@@ -163,6 +163,27 @@ async function getRate(inputObj: any) {
   );
 }
 
+async function generatePDF(inputObj: any) {
+  const opts = await requestOptions();
+  opts.body = inputObj.body;
+  const response = await apiLib.post(
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/generatePDF`,
+    opts
+  );
+  return JSON.parse(response);
+}
+
+async function getPDFStatus(inputObj: any) {
+  const opts = await requestOptions();
+  const response = await apiLib.get(
+    `/coreset/${inputObj.state}/${inputObj.year}/${
+      inputObj.coreSet
+    }/pdfStatus?status_id=${encodeURIComponent(inputObj.status_id)}`,
+    opts
+  );
+  return JSON.parse(response);
+}
+
 async function getPDF(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
@@ -207,4 +228,6 @@ export {
   writeBanner,
   getBanner,
   deleteBanner,
+  generatePDF,
+  getPDFStatus,
 };
