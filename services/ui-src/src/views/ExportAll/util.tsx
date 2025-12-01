@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { SPA } from "libs/spaLib";
-import { getPDF, generatePDF } from "libs/api";
+import { generatePDF, getPDFStatus } from "libs/api";
 
 interface HookProps {
   coreSetId?: string;
@@ -270,7 +270,39 @@ export const usePrinceRequest: PrinceHook = () => {
 
   return useCallback(
     async ({ state, year, coreSetId }) => {
+      const pollPdfStatus = async (statusId: string) => {
+        let attempts = 0;
+        const maxAttempts = 60; // 5 minutes
+        const poll = async () => {
+          try {
+            console.log("polling for pdf status", statusId);
+            const res = await getPDFStatus({
+              status_id: statusId,
+              state,
+              year,
+              coreSet: coreSetId,
+            });
+            console.log("POLLING RESPONSE", res);
+            if (res?.ready && res?.url) {
+              window.open(res.url, "_blank");
+              return;
+            }
+          } catch (e) {
+            // Optionally handle error
+            console.log("error polling pdf status", e);
+            return;
+          }
+          attempts++;
+          if (attempts < maxAttempts) {
+            setTimeout(poll, 5000);
+          } else {
+            // Optionally show error to user
+          }
+        };
+        poll();
+      };
       // only apply the style variables once, in case page is persisted and button re-clicked
+      // comment out as its breaking the styling
       // if (!stylesApplied) {
       //   setStylesApplied(true);
       //   cloneChakraVariables();
@@ -287,46 +319,34 @@ export const usePrinceRequest: PrinceHook = () => {
       document.querySelector("head")!.prepend(base);
 
       // get cleaned html
-      const htmlString = htmlStringCleanup(html.outerHTML);
+      // const htmlString = htmlStringCleanup(html.outerHTML);
 
+      // not cleaned
+      const htmlString = html.outerHTML;
       // encoding html for prince request
       const base64String = btoa(unescape(encodeURIComponent(htmlString)));
       // clean up of styles to not break page layout
       for (const tag of tagsToDelete) {
         document.body.removeChild(tag);
       }
-      let requestAttempt = 0;
-      let breakCondition = false;
-
-      // set to retry up to 5 times
-      while (!breakCondition && requestAttempt < 5) {
-        try {
-          console.log("getPDF called");
-          console.time("getPDF request");
-          const pdf = await getPDF({
-            body: base64String,
-            state,
-            coreSet: coreSetId,
-            year,
-          });
-          console.timeEnd("getPDF request");
-
-          openPdf(pdf);
-          breakCondition = true;
-        } catch (error) {
-          console.error(`attempt ${requestAttempt}`, error);
-          requestAttempt++;
+      try {
+        const res = await generatePDF({
+          state,
+          year,
+          coreSet: coreSetId,
+          body: base64String,
+        });
+        console.timeEnd("generate pdf");
+        console.log("generate res", res, res.status_id);
+        if (res && res.status_id) {
+          pollPdfStatus(res.status_id);
+        } else {
+          // Optionally show error
         }
+      } catch (e) {
+        console.log("catch error", e);
+        // Optionally show error
       }
-      console.log("call generatePDF");
-      const generatePDFresponse = await generatePDF({
-        body: base64String,
-        state,
-        coreSet: coreSetId,
-        year,
-      });
-
-      console.log("generatePDFresponse", generatePDFresponse);
     },
     []
     // [ stylesApplied ]
