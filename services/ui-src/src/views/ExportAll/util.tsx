@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { SPA } from "libs/spaLib";
-import { generatePDF, getPDFStatus } from "libs/api";
+import { getPDF } from "libs/api";
 import { gzip } from "pako";
 
 interface HookProps {
@@ -274,89 +274,34 @@ function uint8ToString(uint8: Uint8Array) {
  * Transform current document to PrinceXML style and create/open the resulting pdf
  */
 export const usePrinceRequest: PrinceHook = () => {
-  // const [stylesApplied, setStylesApplied] = useState(false);
-  // const [pdfStatusId, setPdfStatusId] = useState<string | null>(null);
+  return useCallback(async ({ state, year, coreSetId }) => {
+    // css adjustment
+    const tagsToDelete = [];
+    tagsToDelete.push(...cloneEmotionStyles());
+    tagsToDelete.push(applyPrinceSpecificCss());
+    const html = document.querySelector("html")!;
 
-  return useCallback(
-    async ({ state, year, coreSetId }) => {
-      const pollPdfStatus = async (statusId: string) => {
-        console.time("pollPdfStatus");
-        let attempts = 0;
-        const maxAttempts = 60 * 5; // 5 minutes
-        const poll = async () => {
-          try {
-            console.log("polling for pdf status", statusId);
-            const res = await getPDFStatus({
-              status_id: statusId,
-              state,
-              year,
-              coreSet: coreSetId,
-            });
-            console.log("POLLING RESPONSE", res);
-            if (res?.ready && res?.url) {
-              console.timeEnd("pollPdfStatus");
-              window.open(res.url, "_blank");
-              return;
-            }
-          } catch (e) {
-            // Optionally handle error
-            console.log("error polling pdf status", e);
-            return;
-          }
-          attempts++;
-          if (attempts < maxAttempts) {
-            setTimeout(poll, 1000);
-          } else {
-            // Optionally show error to user
-          }
-        };
-        poll();
-      };
-      // only apply the style variables once, in case page is persisted and button re-clicked
-      // comment out as its breaking the styling
-      // if (!stylesApplied) {
-      //   setStylesApplied(true);
-      //   cloneChakraVariables();
-      // }
-      // css adjustment
-      const tagsToDelete = [];
-      tagsToDelete.push(...cloneEmotionStyles());
-      tagsToDelete.push(applyPrinceSpecificCss());
-      const html = document.querySelector("html")!;
+    // add <base> to treat relative URLs as absolute
+    const base = document.createElement("base");
+    base.href = `https://${window.location.host}`;
+    document.querySelector("head")!.prepend(base);
 
-      // add <base> to treat relative URLs as absolute
-      const base = document.createElement("base");
-      base.href = `https://${window.location.host}`;
-      document.querySelector("head")!.prepend(base);
+    // get cleaned html
+    const htmlString = htmlStringCleanup(html.outerHTML);
+    const gzipped = gzip(htmlString);
+    const base64String = btoa(uint8ToString(gzipped));
 
-      // get cleaned html
-      const htmlString = htmlStringCleanup(html.outerHTML);
+    // clean up of styles to not break page layout
+    for (const tag of tagsToDelete) {
+      document.body.removeChild(tag);
+    }
 
-      const gzipped = gzip(htmlString);
-      const base64String = btoa(uint8ToString(gzipped));
-      console.log("base64 length (gzipped)", base64String.length);
-      // clean up of styles to not break page layout
-      for (const tag of tagsToDelete) {
-        document.body.removeChild(tag);
-      }
-      try {
-        const res = await generatePDF({
-          state,
-          year,
-          coreSet: coreSetId,
-          body: base64String,
-        });
-        if (res && res.status_id) {
-          pollPdfStatus(res.status_id);
-        } else {
-          // Optionally show error
-        }
-      } catch (e) {
-        console.log("catch error", e);
-        // Optionally show error
-      }
-    },
-    []
-    // [ stylesApplied ]
-  );
+    const res = await getPDF({
+      state,
+      year,
+      coreSet: coreSetId,
+      body: base64String,
+    });
+    openPdf(res.pdfData);
+  }, []);
 };

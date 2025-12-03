@@ -57,17 +57,20 @@ export const generatePDF = handler(async (event, _context) => {
   }
 
   // Decode base64 and decompress gzip
+  const timer1 = performance.now();
   const compressedBuffer = Buffer.from(rawBody, "base64");
+  const timeEnd1 = performance.now();
+  const duration1 = timeEnd1 - timer1;
   let decodedHtml;
   try {
     decodedHtml = gunzipSync(compressedBuffer).toString();
   } catch (e) {
     throw new Error("Failed to decompress gzipped HTML: " + e);
   }
-  const timer1 = performance.now();
+  const timer2 = performance.now();
   const sanitizedHtml = fastSanitizeHtml(decodedHtml);
-  const endTime1 = performance.now();
-  const duration1 = endTime1 - timer1;
+  const endTime2 = performance.now();
+  const duration2 = endTime2 - timer2;
   const requestBody = {
     user_credentials: docraptorApiKey,
     doc: {
@@ -83,7 +86,7 @@ export const generatePDF = handler(async (event, _context) => {
   };
 
   // Send async request to DocRaptor
-  const timer2 = performance.now();
+  const timer3 = performance.now();
   const response = await fetch("https://docraptor.com/docs", {
     method: "POST",
     headers: {
@@ -91,8 +94,8 @@ export const generatePDF = handler(async (event, _context) => {
     },
     body: JSON.stringify(requestBody),
   });
-  const endTime2 = performance.now();
-  const duration2 = endTime2 - timer2;
+  const endTime3 = performance.now();
+  const duration3 = endTime3 - timer3;
   if (!response.ok) {
     return {
       status: StatusCodes.SERVER_ERROR,
@@ -105,8 +108,9 @@ export const generatePDF = handler(async (event, _context) => {
       status: StatusCodes.SUCCESS,
       body: JSON.stringify({
         status_id: data.status_id,
-        sanitizeDurationMs: duration1,
-        docraptorRequestDurationMs: duration2,
+        bufferDuration: duration1,
+        sanitizeDuration: duration2,
+        docraptorResponseDuration: duration3,
       }),
     };
   }
@@ -115,12 +119,6 @@ export const generatePDF = handler(async (event, _context) => {
     body: "No status_id returned from DocRaptor",
   };
 });
-// Fast sanitizer: strips <script> and <noscript> tags (not a full DOM sanitizer)
-function fastSanitizeHtml(html: string) {
-  return html
-    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
-    .replace(/<noscript[\s\S]*?>[\s\S]*?<\/noscript>/gi, "");
-}
 
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
@@ -142,8 +140,25 @@ export const getPDF = handler(async (event, _context) => {
     throw new Error("No config found to make request to PDF API");
   }
 
-  const decodedHtml = Buffer.from(rawBody, "base64").toString();
-  const sanitizedHtml = sanitizeHtml(decodedHtml);
+  const timer1 = performance.now();
+  const compressedBuffer = Buffer.from(rawBody, "base64");
+  const timeEnd1 = performance.now();
+  const duration1 = timeEnd1 - timer1;
+
+  const timer2 = performance.now();
+  let decodedHtml;
+  try {
+    decodedHtml = gunzipSync(compressedBuffer).toString();
+  } catch (e) {
+    throw new Error("Failed to decompress gzipped HTML: " + e);
+  }
+  const timeEnd2 = performance.now();
+  const duration2 = timeEnd2 - timer2;
+
+  const timer3 = performance.now();
+  const sanitizedHtml = fastSanitizeHtml(decodedHtml);
+  const timeEnd3 = performance.now();
+  const duration3 = timeEnd3 - timer3;
   const requestBody = {
     user_credentials: docraptorApiKey,
     doc: {
@@ -162,7 +177,12 @@ export const getPDF = handler(async (event, _context) => {
   const base64PdfData = Buffer.from(arrayBuffer).toString("base64");
   return {
     status: StatusCodes.SUCCESS,
-    body: base64PdfData,
+    body: {
+      pdfData: base64PdfData,
+      bufferDuration: duration1,
+      decompressDuration: duration2,
+      sanitizeDuration: duration3,
+    },
   };
 });
 
@@ -181,6 +201,13 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
   console.debug(`Successfully generated a ${pdfPageCount}-page PDF.`);
 
   return response.arrayBuffer();
+}
+
+// Strips <script> and <noscript> tags
+function fastSanitizeHtml(html: string) {
+  return html
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
+    .replace(/<noscript[\s\S]*?>[\s\S]*?<\/noscript>/gi, "");
 }
 
 function sanitizeHtml(htmlString: string) {
