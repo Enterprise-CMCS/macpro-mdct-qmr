@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { SPA } from "libs/spaLib";
 import { getPDF } from "libs/api";
 import { gzip } from "pako";
@@ -8,8 +7,6 @@ interface HookProps {
   state?: string;
   year?: string;
 }
-
-type PrinceHook = () => (props: HookProps) => Promise<void>;
 
 export const openPdf = (basePdf: string) => {
   let byteCharacters = atob(basePdf);
@@ -270,38 +267,73 @@ function uint8ToString(uint8: Uint8Array) {
   return result;
 }
 
+export async function generatePDF(
+  state: string,
+  year: string,
+  coreSetId: string
+) {
+  // css adjustment
+  const tagsToDelete = [];
+  tagsToDelete.push(...cloneEmotionStyles());
+  tagsToDelete.push(applyPrinceSpecificCss());
+  const html = document.querySelector("html")!;
+
+  // add <base> to treat relative URLs as absolute
+  const base = document.createElement("base");
+  base.href = `https://${window.location.host}`;
+  document.querySelector("head")!.prepend(base);
+
+  // get cleaned html
+  const htmlString = htmlStringCleanup(html.outerHTML);
+  const gzipped = gzip(htmlString);
+  const base64String = btoa(uint8ToString(gzipped));
+
+  // clean up of styles to not break page layout
+  for (const tag of tagsToDelete) {
+    document.body.removeChild(tag);
+  }
+
+  const pdf = await getPDF({
+    state,
+    year,
+    coreSet: coreSetId,
+    body: base64String,
+  });
+  openPdf(pdf);
+}
+
 /**
  * Transform current document to PrinceXML style and create/open the resulting pdf
  */
-export const usePrinceRequest: PrinceHook = () => {
-  return useCallback(async ({ state, year, coreSetId }) => {
-    // css adjustment
-    const tagsToDelete = [];
-    tagsToDelete.push(...cloneEmotionStyles());
-    tagsToDelete.push(applyPrinceSpecificCss());
-    const html = document.querySelector("html")!;
+// export const usePrinceRequest: PrinceHook = () => {
+//   return useCallback(async ({ state, year, coreSetId }) => {
+//     // css adjustment
+//     const tagsToDelete = [];
+//     tagsToDelete.push(...cloneEmotionStyles());
+//     tagsToDelete.push(applyPrinceSpecificCss());
+//     const html = document.querySelector("html")!;
 
-    // add <base> to treat relative URLs as absolute
-    const base = document.createElement("base");
-    base.href = `https://${window.location.host}`;
-    document.querySelector("head")!.prepend(base);
+//     // add <base> to treat relative URLs as absolute
+//     const base = document.createElement("base");
+//     base.href = `https://${window.location.host}`;
+//     document.querySelector("head")!.prepend(base);
 
-    // get cleaned html
-    const htmlString = htmlStringCleanup(html.outerHTML);
-    const gzipped = gzip(htmlString);
-    const base64String = btoa(uint8ToString(gzipped));
+//     // get cleaned html
+//     const htmlString = htmlStringCleanup(html.outerHTML);
+//     const gzipped = gzip(htmlString);
+//     const base64String = btoa(uint8ToString(gzipped));
 
-    // clean up of styles to not break page layout
-    for (const tag of tagsToDelete) {
-      document.body.removeChild(tag);
-    }
+//     // clean up of styles to not break page layout
+//     for (const tag of tagsToDelete) {
+//       document.body.removeChild(tag);
+//     }
 
-    const pdf = await getPDF({
-      state,
-      year,
-      coreSet: coreSetId,
-      body: base64String,
-    });
-    openPdf(pdf);
-  }, []);
-};
+//     const pdf = await getPDF({
+//       state,
+//       year,
+//       coreSet: coreSetId,
+//       body: base64String,
+//     });
+//     openPdf(pdf);
+//   }, []);
+// };
