@@ -271,8 +271,9 @@ export const usePrinceRequest: PrinceHook = () => {
   return useCallback(
     async ({ state, year, coreSetId }) => {
       const pollPdfStatus = async (statusId: string) => {
+        console.time("pollPdfStatus");
         let attempts = 0;
-        const maxAttempts = 60; // 5 minutes
+        const maxAttempts = 60 * 5; // 5 minutes
         const poll = async () => {
           try {
             console.log("polling for pdf status", statusId);
@@ -284,6 +285,7 @@ export const usePrinceRequest: PrinceHook = () => {
             });
             console.log("POLLING RESPONSE", res);
             if (res?.ready && res?.url) {
+              console.timeEnd("pollPdfStatus");
               window.open(res.url, "_blank");
               return;
             }
@@ -294,7 +296,7 @@ export const usePrinceRequest: PrinceHook = () => {
           }
           attempts++;
           if (attempts < maxAttempts) {
-            setTimeout(poll, 5000);
+            setTimeout(poll, 1000);
           } else {
             // Optionally show error to user
           }
@@ -319,10 +321,10 @@ export const usePrinceRequest: PrinceHook = () => {
       document.querySelector("head")!.prepend(base);
 
       // get cleaned html
-      // const htmlString = htmlStringCleanup(html.outerHTML);
+      const htmlString = htmlStringCleanup(html.outerHTML);
 
       // not cleaned
-      const htmlString = html.outerHTML;
+      // const htmlString = html.outerHTML;
       // encoding html for prince request
       const base64String = btoa(unescape(encodeURIComponent(htmlString)));
       // clean up of styles to not break page layout
@@ -336,8 +338,6 @@ export const usePrinceRequest: PrinceHook = () => {
           coreSet: coreSetId,
           body: base64String,
         });
-        console.timeEnd("generate pdf");
-        console.log("generate res", res, res.status_id);
         if (res && res.status_id) {
           pollPdfStatus(res.status_id);
         } else {

@@ -43,7 +43,7 @@ export const generatePDF = handler(async (event, _context) => {
       body: Errors.NO_KEY,
     };
   }
-  const rawBody = event.body; // will be base64-encoded HTML, like "PGh0bWw..."
+  const rawBody = event.body;
   if (!rawBody) {
     throw new Error("Missing request body");
   }
@@ -56,7 +56,10 @@ export const generatePDF = handler(async (event, _context) => {
   }
 
   const decodedHtml = Buffer.from(rawBody, "base64").toString();
-  const sanitizedHtml = sanitizeHtml(decodedHtml);
+  const timer1 = performance.now();
+  const sanitizedHtml = fastSanitizeHtml(decodedHtml);
+  const endTime1 = performance.now();
+  const duration1 = endTime1 - timer1;
   const requestBody = {
     user_credentials: docraptorApiKey,
     doc: {
@@ -72,6 +75,7 @@ export const generatePDF = handler(async (event, _context) => {
   };
 
   // Send async request to DocRaptor
+  const timer2 = performance.now();
   const response = await fetch("https://docraptor.com/docs", {
     method: "POST",
     headers: {
@@ -79,7 +83,8 @@ export const generatePDF = handler(async (event, _context) => {
     },
     body: JSON.stringify(requestBody),
   });
-
+  const endTime2 = performance.now();
+  const duration2 = endTime2 - timer2;
   if (!response.ok) {
     return {
       status: StatusCodes.SERVER_ERROR,
@@ -90,7 +95,11 @@ export const generatePDF = handler(async (event, _context) => {
   if (data && data.status_id) {
     return {
       status: StatusCodes.SUCCESS,
-      body: JSON.stringify({ status_id: data.status_id }),
+      body: JSON.stringify({
+        status_id: data.status_id,
+        sanitizeDurationMs: duration1,
+        docraptorRequestDurationMs: duration2,
+      }),
     };
   }
   return {
@@ -98,6 +107,12 @@ export const generatePDF = handler(async (event, _context) => {
     body: "No status_id returned from DocRaptor",
   };
 });
+// Fast sanitizer: strips <script> and <noscript> tags (not a full DOM sanitizer)
+function fastSanitizeHtml(html: string) {
+  return html
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
+    .replace(/<noscript[\s\S]*?>[\s\S]*?<\/noscript>/gi, "");
+}
 
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
