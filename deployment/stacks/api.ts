@@ -271,24 +271,6 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     ...commonProps,
   });
 
-  new Lambda(scope, "generatePDF", {
-    entry: "services/app-api/handlers/prince/pdf.ts",
-    handler: "generatePDF",
-    path: "coreset/{state}/{year}/{coreSet}/generatePDF",
-    method: "POST",
-    ...commonProps,
-    timeout: Duration.seconds(30),
-  });
-
-  new Lambda(scope, "getPDFStatus", {
-    entry: "services/app-api/handlers/prince/pdf.ts",
-    handler: "getPDFStatus",
-    path: "coreset/{state}/{year}/{coreSet}/pdfStatus",
-    method: "GET",
-    ...commonProps,
-    timeout: Duration.seconds(30),
-  });
-
   new Lambda(scope, "getPDF", {
     entry: "services/app-api/handlers/prince/pdf.ts",
     handler: "getPDF",

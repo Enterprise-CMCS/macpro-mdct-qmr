@@ -1,124 +1,8 @@
 import { gunzipSync } from "zlib";
 import { fetch } from "cross-fetch"; // TODO delete this line and uninstall this package, once QMR is running on Nodejs 18+
-import createDOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
 import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
-
-const windowEmulator: any = new JSDOM("").window;
-const DOMPurify = createDOMPurify(windowEmulator);
-
-export const getPDFStatus = handler(async (event, _context) => {
-  const status_id =
-    event.queryStringParameters && event.queryStringParameters.status_id;
-  if (!status_id) {
-    return { status: StatusCodes.BAD_REQUEST, body: "Missing status_id" };
-  }
-  const docRaptorStatusUrl = `https://docraptor.com/status/${status_id}?user_credentials=${process.env.docraptorApiKey}`;
-  const response = await fetch(docRaptorStatusUrl);
-  if (!response.ok) {
-    return {
-      status: StatusCodes.SERVER_ERROR,
-      body: `DocRaptor error: ${JSON.stringify(response)}`,
-    };
-  }
-  const data = await response.json();
-  if (data.status === "completed" && data.download_url) {
-    return {
-      status: StatusCodes.SUCCESS,
-      body: JSON.stringify({ ready: true, url: data.download_url }),
-    };
-  }
-  return {
-    status: StatusCodes.SUCCESS,
-    body: JSON.stringify({ ready: false }),
-  };
-});
-
-export const generatePDF = handler(async (event, _context) => {
-  const { allParamsValid } = parseCoreSetParameters(event);
-  if (!allParamsValid) {
-    return {
-      status: StatusCodes.BAD_REQUEST,
-      body: Errors.NO_KEY,
-    };
-  }
-  const rawBody = event.body;
-  if (!rawBody) {
-    throw new Error("Missing request body");
-  }
-  if (rawBody.startsWith("{")) {
-    throw new Error("Body must be base64-encoded HTML, not a JSON object");
-  }
-  const { docraptorApiKey, STAGE } = process.env;
-  if (!docraptorApiKey) {
-    throw new Error("No config found to make request to PDF API");
-  }
-
-  // Decode base64 and decompress gzip
-  const timer1 = performance.now();
-  const compressedBuffer = Buffer.from(rawBody, "base64");
-  const timeEnd1 = performance.now();
-  const duration1 = timeEnd1 - timer1;
-  let decodedHtml;
-  try {
-    decodedHtml = gunzipSync(compressedBuffer).toString();
-  } catch (e) {
-    throw new Error("Failed to decompress gzipped HTML: " + e);
-  }
-  const timer2 = performance.now();
-  const sanitizedHtml = fastSanitizeHtml(decodedHtml);
-  const endTime2 = performance.now();
-  const duration2 = endTime2 - timer2;
-  const requestBody = {
-    user_credentials: docraptorApiKey,
-    doc: {
-      document_content: sanitizedHtml,
-      type: "pdf" as const,
-      tag: "QMR",
-      test: STAGE !== "production",
-      async: true,
-      prince_options: {
-        profile: "PDF/UA-1" as const,
-      },
-    },
-  };
-
-  // Send async request to DocRaptor
-  const timer3 = performance.now();
-  const response = await fetch("https://docraptor.com/docs", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(requestBody),
-  });
-  const endTime3 = performance.now();
-  const duration3 = endTime3 - timer3;
-  if (!response.ok) {
-    return {
-      status: StatusCodes.SERVER_ERROR,
-      body: "DocRaptor error",
-    };
-  }
-  const data = await response.json();
-  if (data && data.status_id) {
-    return {
-      status: StatusCodes.SUCCESS,
-      body: JSON.stringify({
-        status_id: data.status_id,
-        bufferDuration: duration1,
-        sanitizeDuration: duration2,
-        docraptorResponseDuration: duration3,
-      }),
-    };
-  }
-  return {
-    status: StatusCodes.SERVER_ERROR,
-    body: "No status_id returned from DocRaptor",
-  };
-});
 
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
@@ -140,25 +24,17 @@ export const getPDF = handler(async (event, _context) => {
     throw new Error("No config found to make request to PDF API");
   }
 
-  const timer1 = performance.now();
   const compressedBuffer = Buffer.from(rawBody, "base64");
-  const timeEnd1 = performance.now();
-  const duration1 = timeEnd1 - timer1;
 
-  const timer2 = performance.now();
   let decodedHtml;
   try {
     decodedHtml = gunzipSync(compressedBuffer).toString();
   } catch (e) {
     throw new Error("Failed to decompress gzipped HTML: " + e);
   }
-  const timeEnd2 = performance.now();
-  const duration2 = timeEnd2 - timer2;
 
-  const timer3 = performance.now();
-  const sanitizedHtml = fastSanitizeHtml(decodedHtml);
-  const timeEnd3 = performance.now();
-  const duration3 = timeEnd3 - timer3;
+  const sanitizedHtml = sanitizeHtml(decodedHtml);
+
   const requestBody = {
     user_credentials: docraptorApiKey,
     doc: {
@@ -177,12 +53,7 @@ export const getPDF = handler(async (event, _context) => {
   const base64PdfData = Buffer.from(arrayBuffer).toString("base64");
   return {
     status: StatusCodes.SUCCESS,
-    body: {
-      pdfData: base64PdfData,
-      bufferDuration: duration1,
-      decompressDuration: duration2,
-      sanitizeDuration: duration3,
-    },
+    body: base64PdfData,
   };
 });
 
@@ -204,54 +75,10 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
 }
 
 // Strips <script> and <noscript> tags
-function fastSanitizeHtml(html: string) {
-  return html
+function sanitizeHtml(htmlString: string) {
+  return htmlString
     .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, "")
     .replace(/<noscript[\s\S]*?>[\s\S]*?<\/noscript>/gi, "");
-}
-
-function sanitizeHtml(htmlString: string) {
-  if (!DOMPurify.isSupported) {
-    throw new Error("Could not process request");
-  }
-
-  /*
-   * DOMPurify will zap an entire <style> tag if contains a `<` character,
-   * and some of our CSS comments do. So we strip all CSS comments before
-   * running it through DOMPurify.
-   */
-  const doc = new JSDOM(htmlString).window.document;
-  const styleTags = doc.querySelectorAll("style");
-  for (let i = 0; i < styleTags.length; i += 1) {
-    const style = styleTags[i];
-    /*
-     * Currently, our tsconfig targets es5, which doesn't support the `s` flag
-     * on regular expressions. But this lambda runs on Node 20, which does.
-     * TS includes the `s` in its compiled output, but complains.
-     * TODO: Once we bump our TS target to ES2018 or later, delete this comment.
-     */
-    // @ts-ignore
-    style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
-  }
-  const commentlessHtml = doc.querySelector("html")!.outerHTML;
-
-  /* Sanitization parameters:
-   *  - WHOLE_DOCUMENT - Tells DOMPurify to return the entire <html> doc;
-   *    its default behavior is to return only the contents of the <body>.
-   *  - ADD_TAGS: "head" - Add <head> to the tag allowlist. It's important.
-   *  - ADD_TAGS: "link" - We use <link> tags to include some styles.
-   *  - ADD_TAGS: "base" - The <base> tag tells the renderer to treat relative
-   *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
-   *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
-   *    reject our documents; when they render it on their servers, relative
-   *    URLs would appear as filesystem access attempts, which they disallow.
-   */
-  const sanitizedHtml = DOMPurify.sanitize(commentlessHtml, {
-    WHOLE_DOCUMENT: true,
-    ADD_TAGS: ["head", "link", "base"],
-  });
-
-  return sanitizedHtml;
 }
 
 /**

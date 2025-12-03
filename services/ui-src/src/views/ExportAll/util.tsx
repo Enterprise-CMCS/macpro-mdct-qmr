@@ -296,12 +296,12 @@ export const usePrinceRequest: PrinceHook = () => {
       document.body.removeChild(tag);
     }
 
-    const res = await getPDF({
+    const pdf = await getPDF({
       state,
       year,
       coreSet: coreSetId,
       body: base64String,
     });
-    openPdf(res.pdfData);
+    openPdf(pdf);
   }, []);
 };
