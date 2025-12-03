@@ -1,3 +1,4 @@
+import { gunzipSync } from "zlib";
 import { fetch } from "cross-fetch"; // TODO delete this line and uninstall this package, once QMR is running on Nodejs 18+
 import createDOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
@@ -55,7 +56,14 @@ export const generatePDF = handler(async (event, _context) => {
     throw new Error("No config found to make request to PDF API");
   }
 
-  const decodedHtml = Buffer.from(rawBody, "base64").toString();
+  // Decode base64 and decompress gzip
+  const compressedBuffer = Buffer.from(rawBody, "base64");
+  let decodedHtml;
+  try {
+    decodedHtml = gunzipSync(compressedBuffer).toString();
+  } catch (e) {
+    throw new Error("Failed to decompress gzipped HTML: " + e);
+  }
   const timer1 = performance.now();
   const sanitizedHtml = fastSanitizeHtml(decodedHtml);
   const endTime1 = performance.now();

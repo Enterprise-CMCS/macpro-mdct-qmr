@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { SPA } from "libs/spaLib";
 import { generatePDF, getPDFStatus } from "libs/api";
+import { gzip } from "pako";
 
 interface HookProps {
   coreSetId?: string;
@@ -261,6 +262,14 @@ export const getSpaName = ({ coreSetId, state, year }: HookProps) => {
   return `${spa.state} ${spa.id} - ${spa.name}`;
 };
 
+function uint8ToString(uint8: Uint8Array) {
+  let result = "";
+  for (let i = 0; i < uint8.length; i++) {
+    result += String.fromCharCode(uint8[i]);
+  }
+  return result;
+}
+
 /**
  * Transform current document to PrinceXML style and create/open the resulting pdf
  */
@@ -323,10 +332,9 @@ export const usePrinceRequest: PrinceHook = () => {
       // get cleaned html
       const htmlString = htmlStringCleanup(html.outerHTML);
 
-      // not cleaned
-      // const htmlString = html.outerHTML;
-      // encoding html for prince request
-      const base64String = btoa(unescape(encodeURIComponent(htmlString)));
+      const gzipped = gzip(htmlString);
+      const base64String = btoa(uint8ToString(gzipped));
+      console.log("base64 length (gzipped)", base64String.length);
       // clean up of styles to not break page layout
       for (const tag of tagsToDelete) {
         document.body.removeChild(tag);
