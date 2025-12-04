@@ -3,8 +3,8 @@ import {
   openPdf,
   getSpaName,
   htmlStringCleanup,
-  cloneChakraVariables,
   cloneEmotionStyles,
+  generatePDF,
 } from "./util";
 
 const mockGetPDF = jest.fn().mockReturnValue("PDFDATA");
@@ -168,69 +168,10 @@ describe("ExportAll utils", () => {
     });
   });
 
-  describe("cloneChakraVariables", () => {
-    let setAttributeSpy: jest.SpyInstance;
-
-    beforeEach(() => {
-      setAttributeSpy = jest.spyOn(document.body, "setAttribute");
-    });
-
-    it("should set chakra variables on body when matching stylesheet is found", () => {
-      const fakeCssText = ":root { --chakra-colors-blue-100: #ebf8ff; }";
-      const fakeStyleSheet = {
-        href: null,
-        cssRules: [{ cssText: fakeCssText }],
-      };
-      Object.defineProperty(document, "styleSheets", {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        value: [fakeStyleSheet, fakeStyleSheet],
-      });
-
-      cloneChakraVariables();
-      expect(setAttributeSpy).toHaveBeenCalledWith(
-        "style",
-        expect.stringContaining("--chakra-colors-blue-100: #ebf8ff;")
-      );
-    });
-
-    it("should not set attribute if no matching stylesheet is found", () => {
-      const fakeStyleSheet = {
-        href: null,
-        cssRules: [{ cssText: ".not-chakra { color: #ebf8ff; }" }],
-      };
-      Object.defineProperty(document, "styleSheets", {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        value: [fakeStyleSheet],
-      });
-
-      cloneChakraVariables();
-      expect(setAttributeSpy).not.toHaveBeenCalled();
+  describe("usePrinceRequest", () => {
+    it("Should call getPDF when called", async () => {
+      await generatePDF("DC", "2025", "HHCS_24-0020");
+      expect(mockGetPDF).toHaveBeenCalledTimes(1);
     });
   });
-
-  // describe("usePrinceRequest", () => {
-  //   const TestComponent = (props: any) => {
-  //     const request = usePrinceRequest();
-  //     useEffect(() => {
-  //       request(props);
-  //     }, []);
-  //     return null;
-  //   };
-  //   it("should render and call the hook without error", async () => {
-  //     render(<TestComponent />);
-  //     expect(mockGetPDF).toHaveBeenCalledTimes(1);
-  //   });
-
-  //   it("should retry properly if getPDF fails", async () => {
-  //     mockGetPDF.mockImplementation(() => {
-  //       throw new Error("test error");
-  //     });
-  //     render(<TestComponent />);
-  //     expect(mockGetPDF).toHaveBeenCalledTimes(5);
-  //   });
-  // });
 });

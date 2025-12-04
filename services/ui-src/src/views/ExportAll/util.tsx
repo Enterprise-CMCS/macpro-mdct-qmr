@@ -21,25 +21,6 @@ export const openPdf = (basePdf: string) => {
 };
 
 /**
- * Gather chakra css variables and make available for the body (prince issue seeing applied normally)
- * */
-export const cloneChakraVariables = () => {
-  for (let i = 0; i < document.styleSheets.length; i++) {
-    if (
-      !document.styleSheets[i].href &&
-      document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
-      document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
-    ) {
-      const chakraVars = document.styleSheets[i];
-      document.body.setAttribute(
-        "style",
-        chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
-      );
-    }
-  }
-};
-
-/**
  * Gather all emotion css available and clone the css styles to ensure availability for princexml
  */
 export const cloneEmotionStyles = (): HTMLStyleElement[] => {
@@ -178,37 +159,31 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
  * Also removes hidden/offscreen elements and minifies the HTML string.
  */
 export const htmlStringCleanup = (html: string): string => {
-  // Remove hidden/offscreen elements and scripts from the DOM before serialization
-  try {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
 
-    doc
-      .querySelectorAll(
-        '.hidden-print-items, [style*="display: none"], [style*="visibility: hidden"]'
-      )
-      .forEach((el) => el.remove());
+  doc
+    .querySelectorAll(
+      '.hidden-print-items, [style*="display: none"], [style*="visibility: hidden"]'
+    )
+    .forEach((el) => el.remove());
 
-    doc.querySelectorAll("script, noscript").forEach((el) => el.remove());
+  doc.querySelectorAll("script, noscript").forEach((el) => el.remove());
 
-    // Remove comments
-    const removeComments = (node: Node) => {
-      for (let i = node.childNodes.length - 1; i >= 0; i--) {
-        const child = node.childNodes[i];
-        if (child.nodeType === Node.COMMENT_NODE) {
-          node.removeChild(child);
-        } else if (child.childNodes.length > 0) {
-          removeComments(child);
-        }
+  // Remove comments
+  const removeComments = (node: Node) => {
+    for (let i = node.childNodes.length - 1; i >= 0; i--) {
+      const child = node.childNodes[i];
+      if (child.nodeType === Node.COMMENT_NODE) {
+        node.removeChild(child);
+      } else if (child.childNodes.length > 0) {
+        removeComments(child);
       }
-    };
-    removeComments(doc);
+    }
+  };
+  removeComments(doc);
 
-    // Serialize the cleaned DOM
-    html = doc.documentElement.outerHTML;
-  } catch (e) {
-    // fallback to original html if DOMParser fails
-  }
+  html = doc.body.innerHTML;
 
   // fixing non standard characters and minifying
   let htmlString = html
@@ -276,6 +251,7 @@ export async function generatePDF(
   const tagsToDelete = [];
   tagsToDelete.push(...cloneEmotionStyles());
   tagsToDelete.push(applyPrinceSpecificCss());
+
   const html = document.querySelector("html")!;
 
   // add <base> to treat relative URLs as absolute
@@ -283,7 +259,6 @@ export async function generatePDF(
   base.href = `https://${window.location.host}`;
   document.querySelector("head")!.prepend(base);
 
-  // get cleaned html
   const htmlString = htmlStringCleanup(html.outerHTML);
   const gzipped = gzip(htmlString);
   const base64String = btoa(uint8ToString(gzipped));
@@ -301,39 +276,3 @@ export async function generatePDF(
   });
   openPdf(pdf);
 }
-
-/**
- * Transform current document to PrinceXML style and create/open the resulting pdf
- */
-// export const usePrinceRequest: PrinceHook = () => {
-//   return useCallback(async ({ state, year, coreSetId }) => {
-//     // css adjustment
-//     const tagsToDelete = [];
-//     tagsToDelete.push(...cloneEmotionStyles());
-//     tagsToDelete.push(applyPrinceSpecificCss());
-//     const html = document.querySelector("html")!;
-
-//     // add <base> to treat relative URLs as absolute
-//     const base = document.createElement("base");
-//     base.href = `https://${window.location.host}`;
-//     document.querySelector("head")!.prepend(base);
-
-//     // get cleaned html
-//     const htmlString = htmlStringCleanup(html.outerHTML);
-//     const gzipped = gzip(htmlString);
-//     const base64String = btoa(uint8ToString(gzipped));
-
-//     // clean up of styles to not break page layout
-//     for (const tag of tagsToDelete) {
-//       document.body.removeChild(tag);
-//     }
-
-//     const pdf = await getPDF({
-//       state,
-//       year,
-//       coreSet: coreSetId,
-//       body: base64String,
-//     });
-//     openPdf(pdf);
-//   }, []);
-// };
