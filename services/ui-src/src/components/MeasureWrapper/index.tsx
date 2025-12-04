@@ -26,10 +26,11 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import { CompleteCoreSets } from "./complete";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
-import { coreSetBreadCrumbTitle } from "shared/coreSetByYear";
+import { coreSetBreadCrumbTitle, coreSetTitles } from "shared/coreSetByYear";
 import { featuresByYear } from "utils/featuresByYear";
 import { Alert } from "@cmsgov/design-system";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
+import { SPA } from "libs/spaLib";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -422,8 +423,48 @@ export const MeasureWrapper = ({
   const breadCrumbName =
     separatedCoreSet?.[params.coreSetId] ??
     `- ${formatTitle(apiData?.Item?.description)}`;
+
+  // Individual Measures -> "AAB-CH - Medicaid: Child Core Set Measures - 2025 QMR"
+  const pageTitle = (() => {
+    const coreSetTitle = coreSetTitles(coreSet);
+
+    // Qualifiers -> "Qualifiers - Child Core Set Measures: Medicaid - 2025 QMR"
+    if (measureId === "CSQ") {
+      const cleanTitle = coreSetTitle.replace(/ \(.*?\)/g, "");
+      return `Qualifiers - ${cleanTitle} - ${year} QMR`;
+    }
+
+    // For Health Home Core Sets, use SPA
+    if (coreSet === CoreSetAbbr.HHCS && params.coreSetId?.includes("_")) {
+      const spaId = params.coreSetId.split("_")[1];
+      const spa = SPA[year]?.find(
+        (s: any) => s.id === spaId && s.state === params.state
+      );
+      if (spa) {
+        const spaName = `${spa.state} ${spa.id}`;
+        const cleanTitle = coreSetTitle.replace(/ \(.*?\)/g, "");
+        // Health Home Core Set Measures -> "AIF-HH - Health Home Core Set Measures: IA 22-0004 - 2025 QMR"
+        return `${measureId} - ${cleanTitle}: ${spaName} - ${year} QMR`;
+      }
+    }
+
+    // Regular measures with colon
+    if (coreSetTitle.includes(": ")) {
+      const [mainPart, subtitle] = coreSetTitle.split(": ");
+      // Clean up stuff in parentheses from subtitle
+      let cleanSubtitle = subtitle.replace(/ \(.*?\)/g, "");
+      // Individual Measures -> "AAB-CH - Medicaid: Child Core Set Measures - 2025 QMR"
+      return `${measureId} - ${cleanSubtitle}: ${mainPart} - ${year} QMR`;
+    }
+
+    // If no colon, use the original format
+    const cleanTitle = coreSetTitle.replace(/ \(.*?\)/g, "");
+    return `${measureId} - ${cleanTitle} - ${year} QMR`;
+  })();
+
   return (
     <FormProvider {...methods}>
+      <QMR.Title pageTitle={pageTitle} />
       <QMR.YesNoModalDialog
         isOpen={showModal}
         headerText="Validation Error"

@@ -295,20 +295,23 @@ const StateHome = () => {
   );
 
   return (
-    <QMR.StateLayout
-      breadcrumbItems={[
-        { path: `/${state}/${year}`, name: "Core Set Measures" },
-      ]}
-    >
-      <CUI.Box py="4">
-        <BannerCard />
-      </CUI.Box>
-      <Heading />
-      <QMR.Table data={sortedTableItems} columns={QMR.coreSetColumns} />
-      <CUI.Stack direction={{ base: "column", md: "row" }} spacing="6">
-        <AddCoreSetCards coreSetCards={coreSetCards} />
-      </CUI.Stack>
-    </QMR.StateLayout>
+    <>
+      <QMR.Title pageTitle={`Core Set Measures - ${year} QMR`} />
+      <QMR.StateLayout
+        breadcrumbItems={[
+          { path: `/${state}/${year}`, name: "Core Set Measures" },
+        ]}
+      >
+        <CUI.Box py="4">
+          <BannerCard />
+        </CUI.Box>
+        <Heading />
+        <QMR.Table data={sortedTableItems} columns={QMR.coreSetColumns} />
+        <CUI.Stack direction={{ base: "column", md: "row" }} spacing="6">
+          <AddCoreSetCards coreSetCards={coreSetCards} />
+        </CUI.Stack>
+      </QMR.StateLayout>
+    </>
   );
 };
 
