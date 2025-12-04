@@ -142,8 +142,11 @@ const CoreSetSpecificDefinitions = (
       {!options[coreSetType].hideList &&
         options[coreSetType].options.length > 1 && (
           <CUI.UnorderedList m="5" ml="10">
-            {options[coreSetType].options.map((item) => (
-              <CUI.ListItem>{item.displayValue}</CUI.ListItem>
+            {/* each child in a list should have a unique "key" prop */}
+            {options[coreSetType].options.map((item, index) => (
+              <CUI.ListItem key={item.value || index}>
+                {item.displayValue}
+              </CUI.ListItem>
             ))}
           </CUI.UnorderedList>
         )}

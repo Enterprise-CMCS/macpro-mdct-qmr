@@ -90,7 +90,9 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
    * */
   it("Always shows Are you reporting question", async () => {
     useApiMock(apiData);
-    renderWithHookForm(component);
+    await act(async () => {
+      renderWithHookForm(component);
+    });
     expect(screen.queryByTestId("reporting"));
   });
 
