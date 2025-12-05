@@ -80,23 +80,23 @@ export const StratificationOption = ({ reset }: Props) => {
       formLabelProps={{ fontWeight: "700" }}
       label="Which race and ethnicity standards would your state like to use for 2025 Core Sets reporting?"
       subTextElement={[
-        <CUI.Text mb={2}>
+        <CUI.Text key="description" mb={2}>
           A summary of the race and ethnicity subcategories included in each
           option is available in Boxes 1 and 2 of the{" "}
           {GetLinks("strat-ta-resource")}.
         </CUI.Text>,
-        <CUI.UnorderedList padding="0 0 1rem 2rem">
-          <CUI.ListItem>
+        <CUI.UnorderedList key="list" padding="0 0 1rem 2rem">
+          <CUI.ListItem key="1997-omb-item">
             1997 Office of Management and Budget (OMB) minimum race and
             ethnicity categories, as specified in the 2011 HHS standards
           </CUI.ListItem>
-          <CUI.ListItem mb={2}>
+          <CUI.ListItem key="2024-omb-item" mb={2}>
             2024 OMB Statistical Policy Directive No. 15 race and ethnicity
             standards
           </CUI.ListItem>
           ,
         </CUI.UnorderedList>,
-        <CUI.Box mb="1rem">
+        <CUI.Box key="alert" mb="1rem">
           <Alert
             heading="Entered data will not be saved if you switch race and ethnicity reporting standards."
             variation="warn"
