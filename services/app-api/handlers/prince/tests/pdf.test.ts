@@ -2,6 +2,7 @@ import { getPDF } from "../pdf";
 import { fetch } from "cross-fetch";
 import { testEvent } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
+import { gzipSync } from "zlib";
 
 jest.spyOn(console, "warn").mockImplementation();
 
@@ -19,9 +20,10 @@ jest.mock("cross-fetch", () => ({
 }));
 
 const dangerousHtml = "<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>";
-const sanitizedHtml = "<p>abc</p>";
+const compressedHtml = gzipSync(dangerousHtml);
+const sanitizedHtml = "<p>abcdef</p><p></p>";
 const base64EncodedDangerousHtml =
-  Buffer.from(dangerousHtml).toString("base64");
+  Buffer.from(compressedHtml).toString("base64");
 
 const event = { ...testEvent };
 
@@ -29,6 +31,7 @@ describe("Test GetPDF handler", () => {
   beforeEach(() => {
     process.env = {
       docraptorApiKey: "mock api key", // pragma: allowlist secret
+      STAGE: "dev",
     };
     event.pathParameters = {
       state: "AZ",
@@ -92,7 +95,6 @@ describe("Test GetPDF handler", () => {
   it("should call PDF API with sanitized html", async () => {
     event.body = base64EncodedDangerousHtml;
     const res = await getPDF(event, null);
-
     expect(res.statusCode).toBe(200);
 
     expect(fetch).toHaveBeenCalled();
@@ -109,6 +111,8 @@ describe("Test GetPDF handler", () => {
       doc: expect.objectContaining({
         document_content: `<html><head></head><body>${sanitizedHtml}</body></html>`,
         type: "pdf",
+        tag: "QMR",
+        test: true,
         prince_options: expect.objectContaining({
           profile: "PDF/UA-1",
         }),
@@ -119,7 +123,7 @@ describe("Test GetPDF handler", () => {
   it("should remove CSS comments before calling PDF API", async () => {
     const htmlWithCssComment = `<html><head><style>/* emphasize <p> tags */ p {color:red;}</style></head><body><p>Hi</p></body></html>`;
     const htmlWithoutComment = `<html><head><style> p {color:red;}</style></head><body><p>Hi</p></body></html>`;
-    event.body = Buffer.from(htmlWithCssComment).toString("base64");
+    event.body = Buffer.from(gzipSync(htmlWithCssComment)).toString("base64");
     const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(200);

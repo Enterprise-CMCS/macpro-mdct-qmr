@@ -4,12 +4,60 @@ import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 import sanitizeHtml from "sanitize-html";
-
-import createDOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 
-const windowEmulator: any = new JSDOM("").window;
-const DOMPurify = createDOMPurify(windowEmulator);
+const sanitizeHtmlConfig: sanitizeHtml.IOptions = {
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    "*": ["class", "style", "id", "data-*"],
+    a: ["href", "name", "target", "rel"],
+    img: ["src", "alt", "width", "height", "style", "class"],
+    link: ["rel", "href", "type", "media"],
+    base: ["href", "target"],
+    input: [
+      "type",
+      "value",
+      "checked",
+      "disabled",
+      "placeholder",
+      "name",
+      "id",
+      "class",
+      "style",
+    ],
+    button: ["type", "name", "id", "class", "style"],
+    svg: [
+      "width",
+      "height",
+      "viewBox",
+      "xmlns",
+      "fill",
+      "stroke",
+      "class",
+      "style",
+    ],
+    path: ["d", "fill", "stroke", "class", "style"],
+    polyline: ["points"],
+  },
+  disallowedTagsMode: "discard",
+  allowVulnerableTags: true,
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+    "html",
+    "body",
+    "head",
+    "link",
+    "base",
+    "style",
+    "button",
+    "input",
+    "label",
+    "form",
+    "img",
+    "svg",
+    "path",
+    "polyline",
+  ]),
+};
 
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
@@ -40,15 +88,7 @@ export const getPDF = handler(async (event, _context) => {
     throw new Error("Failed to decompress gzipped HTML: " + e);
   }
 
-  const timer1 = performance.now();
-  // const oldSaniztizedHtml = oldsanitizeHtmlDocument(decodedHtml);
-  const timeEnd1 = performance.now();
-  const duration1 = timeEnd1 - timer1;
-
-  const timer2 = performance.now();
-  const sanitizedHtml = newsanitizeHtmlDocument(decodedHtml);
-  const timeEnd2 = performance.now();
-  const duration2 = timeEnd2 - timer2;
+  const sanitizedHtml = sanitizeHtmlDocument(decodedHtml);
 
   const requestBody = {
     user_credentials: docraptorApiKey,
@@ -68,13 +108,7 @@ export const getPDF = handler(async (event, _context) => {
   const base64PdfData = Buffer.from(arrayBuffer).toString("base64");
   return {
     status: StatusCodes.SUCCESS,
-    body: {
-      pdf: base64PdfData,
-      sanitizationTimes: {
-        oldSanitizationMs: duration1,
-        newSanitizationMs: duration2,
-      },
-    },
+    body: base64PdfData,
   };
 });
 
@@ -95,51 +129,7 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
   return response.arrayBuffer();
 }
 
-function oldsanitizeHtmlDocument(htmlString: string) {
-  if (!DOMPurify.isSupported) {
-    throw new Error("Could not process request");
-  }
-
-  /*
-   * DOMPurify will zap an entire <style> tag if contains a `<` character,
-   * and some of our CSS comments do. So we strip all CSS comments before
-   * running it through DOMPurify.
-   */
-  const doc = new JSDOM(htmlString).window.document;
-  const styleTags = doc.querySelectorAll("style");
-  for (let i = 0; i < styleTags.length; i += 1) {
-    const style = styleTags[i];
-    /*
-     * Currently, our tsconfig targets es5, which doesn't support the `s` flag
-     * on regular expressions. But this lambda runs on Node 20, which does.
-     * TS includes the `s` in its compiled output, but complains.
-     * TODO: Once we bump our TS target to ES2018 or later, delete this comment.
-     */
-    // @ts-ignore
-    style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
-  }
-  const commentlessHtml = doc.querySelector("html")!.outerHTML;
-
-  /* Sanitization parameters:
-   *  - WHOLE_DOCUMENT - Tells DOMPurify to return the entire <html> doc;
-   *    its default behavior is to return only the contents of the <body>.
-   *  - ADD_TAGS: "head" - Add <head> to the tag allowlist. It's important.
-   *  - ADD_TAGS: "link" - We use <link> tags to include some styles.
-   *  - ADD_TAGS: "base" - The <base> tag tells the renderer to treat relative
-   *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
-   *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
-   *    reject our documents; when they render it on their servers, relative
-   *    URLs would appear as filesystem access attempts, which they disallow.
-   */
-  const sanitizedHtml = DOMPurify.sanitize(commentlessHtml, {
-    WHOLE_DOCUMENT: true,
-    ADD_TAGS: ["head", "link", "base"],
-  });
-
-  return sanitizedHtml;
-}
-
-function newsanitizeHtmlDocument(htmlString: string) {
+function sanitizeHtmlDocument(htmlString: string) {
   const doc = new JSDOM(htmlString).window.document;
   const styleTags = doc.querySelectorAll("style");
   for (let i = 0; i < styleTags.length; i += 1) {
@@ -149,59 +139,9 @@ function newsanitizeHtmlDocument(htmlString: string) {
   }
   const commentlessHtml = doc.querySelector("html")!.outerHTML;
 
+  // DOMPurify was making us timeout on large documents, so switched to sanitize-html
   // Use sanitize-html to match previous DOMPurify config, and allow Chakra necessary tags/attributes
-  return sanitizeHtml(commentlessHtml, {
-    allowedAttributes: {
-      ...sanitizeHtml.defaults.allowedAttributes,
-      "*": ["class", "style", "id", "data-*"],
-      a: ["href", "name", "target", "rel"],
-      img: ["src", "alt", "width", "height", "style", "class"],
-      link: ["rel", "href", "type", "media"],
-      base: ["href", "target"],
-      input: [
-        "type",
-        "value",
-        "checked",
-        "disabled",
-        "placeholder",
-        "name",
-        "id",
-        "class",
-        "style",
-      ],
-      button: ["type", "name", "id", "class", "style"],
-      svg: [
-        "width",
-        "height",
-        "viewBox",
-        "xmlns",
-        "fill",
-        "stroke",
-        "class",
-        "style",
-      ],
-      path: ["d", "fill", "stroke", "class", "style"],
-      polyline: ["points"],
-    },
-    disallowedTagsMode: "discard",
-    allowVulnerableTags: true,
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-      "html",
-      "body",
-      "head",
-      "link",
-      "base",
-      "style",
-      "button",
-      "input",
-      "label",
-      "form",
-      "img",
-      "svg",
-      "path",
-      "polyline",
-    ]),
-  });
+  return sanitizeHtml(commentlessHtml, sanitizeHtmlConfig);
 }
 
 /**

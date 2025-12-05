@@ -266,6 +266,5 @@ export async function generatePDF(
     coreSet: coreSetId,
     body: base64String,
   });
-  console.log("PDF sanitization times:", pdf.sanitizationTimes);
-  openPdf(pdf.pdf);
+  openPdf(pdf);
 }
