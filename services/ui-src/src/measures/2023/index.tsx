@@ -41,7 +41,7 @@ const twentyTwentyThreeMeasures = {
   "AMB-CH": measureTemplate,
   "AMB-HH": measureTemplate,
   "AMM-AD": measureTemplate,
-  "AMR-AD": AMRAD,
+  "AMR-AD": measureTemplate,
   "AMR-CH": measureTemplate,
   "APM-CH": measureTemplate,
   "APP-CH": measureTemplate,
