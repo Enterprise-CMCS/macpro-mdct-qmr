@@ -1,5 +1,6 @@
 import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
+import * as QMR from "components";
 import { stateAbbreviations } from "utils/constants";
 import { useNavigate } from "react-router";
 import config from "config";
@@ -17,53 +18,56 @@ export const AdminHome = () => {
   const { userRole } = useUser();
 
   return (
-    <CUI.Container maxW="7xl" py="4">
-      <CUI.Box py="4">
-        <BannerCard />
-      </CUI.Box>
-      <CUI.Stack spacing="4" maxW="lg">
-        <CUI.Heading size="md">Admin Home</CUI.Heading>
-        <CUI.Select
-          value={locality}
-          onChange={(e) => setLocality(e.target.value)}
-          aria-label="State to view"
-        >
-          {stateAbbreviations.map((v: string) => {
-            return (
-              <option value={v} key={v}>
-                {v}
-              </option>
-            );
-          })}
-        </CUI.Select>
-        <CUI.Button
-          colorScheme="blue"
-          onClick={() => navigate(`/${locality}/${releaseYearByFlag}`)}
-          width="full"
-          data-cy="Go To State Home"
-        >
-          Go To State Home
-        </CUI.Button>
-      </CUI.Stack>
-      {/* hide admin banner button if not super admin */}
-      {userRole === UserRoles.ADMIN && (
-        <CUI.Stack spacing="4" maxW="xl" py="4">
-          <CUI.Divider />
-          <CUI.Heading size="sm">Banner Admin</CUI.Heading>
-          <CUI.Text fontSize="sm">
-            Click here to manage the announcement banner.
-          </CUI.Text>
+    <>
+      <QMR.Title pageTitle={`Admin Home - ${releaseYearByFlag} QMR`} />
+      <CUI.Container maxW="7xl" py="4">
+        <CUI.Box py="4">
+          <BannerCard />
+        </CUI.Box>
+        <CUI.Stack spacing="4" maxW="lg">
+          <CUI.Heading size="md">Admin Home</CUI.Heading>
+          <CUI.Select
+            value={locality}
+            onChange={(e) => setLocality(e.target.value)}
+            aria-label="State to view"
+          >
+            {stateAbbreviations.map((v: string) => {
+              return (
+                <option value={v} key={v}>
+                  {v}
+                </option>
+              );
+            })}
+          </CUI.Select>
           <CUI.Button
             colorScheme="blue"
-            onClick={() => navigate(`/admin/banner`)}
+            onClick={() => navigate(`/${locality}/${releaseYearByFlag}`)}
             width="full"
-            data-cy="Banner Editor"
-            maxW="xs"
+            data-cy="Go To State Home"
           >
-            Banner Editor
+            Go To State Home
           </CUI.Button>
         </CUI.Stack>
-      )}
-    </CUI.Container>
+        {/* hide admin banner button if not super admin */}
+        {userRole === UserRoles.ADMIN && (
+          <CUI.Stack spacing="4" maxW="xl" py="4">
+            <CUI.Divider />
+            <CUI.Heading size="sm">Banner Admin</CUI.Heading>
+            <CUI.Text fontSize="sm">
+              Click here to manage the announcement banner.
+            </CUI.Text>
+            <CUI.Button
+              colorScheme="blue"
+              onClick={() => navigate(`/admin/banner`)}
+              width="full"
+              data-cy="Banner Editor"
+              maxW="xs"
+            >
+              Banner Editor
+            </CUI.Button>
+          </CUI.Stack>
+        )}
+      </CUI.Container>
+    </>
   );
 };

@@ -1,4 +1,10 @@
-import { render, fireEvent, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  screen,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { RouterWrappedComp } from "utils/testing";
 import { AddAdultCoreSet } from ".";
@@ -84,12 +90,14 @@ describe("Test Add Adult Core Set Component", () => {
     });
   });
 
-  it("Form properly interactable", () => {
-    userEvent.click(
-      screen.getByText(
-        /Reporting Medicaid and CHIP measures in separate Core Sets/i
-      )
-    );
+  it("Form properly interactable", async () => {
+    await act(async () => {
+      await userEvent.click(
+        screen.getByText(
+          /Reporting Medicaid and CHIP measures in separate Core Sets/i
+        )
+      );
+    });
 
     expect(
       screen.getByLabelText(
@@ -98,12 +106,14 @@ describe("Test Add Adult Core Set Component", () => {
     ).toBeChecked();
   });
 
-  it("Form properly interactable, combined selection", () => {
-    userEvent.click(
-      screen.getByText(
-        /Reporting Medicaid and CHIP measures in combined Core Sets/i
-      )
-    );
+  it("Form properly interactable, combined selection", async () => {
+    await act(async () => {
+      await userEvent.click(
+        screen.getByText(
+          /Reporting Medicaid and CHIP measures in combined Core Sets/i
+        )
+      );
+    });
 
     expect(
       screen.getByLabelText(
