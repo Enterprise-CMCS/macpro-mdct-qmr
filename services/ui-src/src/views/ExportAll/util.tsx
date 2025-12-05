@@ -114,14 +114,6 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     .chakra-link * { color: blue !important; }
     
     ${
-      /* Chakra radio buttons and checkboxes that are checked don't display colors correctly due to Prince pdf limitation with background colors. 
-      These styles below manually add the background colors back to the checked radio buttons and checkboxes */ ""
-    }
-    .chakra-checkbox__control[data-checked], .chakra-radio__control[data-checked] { background: var(--chakra-colors-blue-500) !important; border-color: var(--chakra-colors-blue-500) !important; }
-    .chakra-radio__control[data-checked]::before { content: ""; width: 50%; height: 50%; border-radius: 50%; background: var(--chakra-colors-white) !important; }
-    .chakra-checkbox__control * { color: var(--chakra-colors-white) !important; display: flex !important }
-    
-    ${
       /* On line 61 of this file, we are replacing text-align: right with text-align: center. 
       There are few places where we don't want to do this so we are overriding those styles below for some inputs.
       The classes below are targeting the core set qualifiers Delivery System percentage inputs and elements inside the inputs
@@ -274,5 +266,6 @@ export async function generatePDF(
     coreSet: coreSetId,
     body: base64String,
   });
-  openPdf(pdf);
+  console.log("PDF sanitization times:", pdf.sanitizationTimes);
+  openPdf(pdf.pdf);
 }
