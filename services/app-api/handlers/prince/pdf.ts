@@ -1,12 +1,63 @@
+import { gunzipSync } from "zlib";
 import { fetch } from "cross-fetch"; // TODO delete this line and uninstall this package, once QMR is running on Nodejs 18+
-import createDOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
 import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
+import sanitizeHtml from "sanitize-html";
+import { JSDOM } from "jsdom";
 
-const windowEmulator: any = new JSDOM("").window;
-const DOMPurify = createDOMPurify(windowEmulator);
+const sanitizeHtmlConfig: sanitizeHtml.IOptions = {
+  allowedAttributes: {
+    ...sanitizeHtml.defaults.allowedAttributes,
+    "*": ["class", "style", "id", "data-*"],
+    a: ["href", "name", "target", "rel"],
+    img: ["src", "alt", "width", "height", "style", "class"],
+    link: ["rel", "href", "type", "media"],
+    base: ["href", "target"],
+    input: [
+      "type",
+      "value",
+      "checked",
+      "disabled",
+      "placeholder",
+      "name",
+      "id",
+      "class",
+      "style",
+    ],
+    button: ["type", "name", "id", "class", "style"],
+    svg: [
+      "width",
+      "height",
+      "viewBox",
+      "xmlns",
+      "fill",
+      "stroke",
+      "class",
+      "style",
+    ],
+    path: ["d", "fill", "stroke", "class", "style"],
+    polyline: ["points"],
+  },
+  disallowedTagsMode: "discard",
+  allowVulnerableTags: true,
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+    "html",
+    "body",
+    "head",
+    "link",
+    "base",
+    "style",
+    "button",
+    "input",
+    "label",
+    "form",
+    "img",
+    "svg",
+    "path",
+    "polyline",
+  ]),
+};
 
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
@@ -28,8 +79,17 @@ export const getPDF = handler(async (event, _context) => {
     throw new Error("No config found to make request to PDF API");
   }
 
-  const decodedHtml = Buffer.from(rawBody, "base64").toString();
-  const sanitizedHtml = sanitizeHtml(decodedHtml);
+  const compressedBuffer = Buffer.from(rawBody, "base64");
+
+  let decodedHtml;
+  try {
+    decodedHtml = gunzipSync(compressedBuffer).toString();
+  } catch (e) {
+    throw new Error("Failed to decompress gzipped HTML: " + e);
+  }
+
+  const sanitizedHtml = sanitizeHtmlDocument(decodedHtml);
+
   const requestBody = {
     user_credentials: docraptorApiKey,
     doc: {
@@ -69,48 +129,19 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
   return response.arrayBuffer();
 }
 
-function sanitizeHtml(htmlString: string) {
-  if (!DOMPurify.isSupported) {
-    throw new Error("Could not process request");
-  }
-
-  /*
-   * DOMPurify will zap an entire <style> tag if contains a `<` character,
-   * and some of our CSS comments do. So we strip all CSS comments before
-   * running it through DOMPurify.
-   */
+function sanitizeHtmlDocument(htmlString: string) {
   const doc = new JSDOM(htmlString).window.document;
   const styleTags = doc.querySelectorAll("style");
   for (let i = 0; i < styleTags.length; i += 1) {
     const style = styleTags[i];
-    /*
-     * Currently, our tsconfig targets es5, which doesn't support the `s` flag
-     * on regular expressions. But this lambda runs on Node 20, which does.
-     * TS includes the `s` in its compiled output, but complains.
-     * TODO: Once we bump our TS target to ES2018 or later, delete this comment.
-     */
     // @ts-ignore
     style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
   }
   const commentlessHtml = doc.querySelector("html")!.outerHTML;
 
-  /* Sanitization parameters:
-   *  - WHOLE_DOCUMENT - Tells DOMPurify to return the entire <html> doc;
-   *    its default behavior is to return only the contents of the <body>.
-   *  - ADD_TAGS: "head" - Add <head> to the tag allowlist. It's important.
-   *  - ADD_TAGS: "link" - We use <link> tags to include some styles.
-   *  - ADD_TAGS: "base" - The <base> tag tells the renderer to treat relative
-   *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
-   *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
-   *    reject our documents; when they render it on their servers, relative
-   *    URLs would appear as filesystem access attempts, which they disallow.
-   */
-  const sanitizedHtml = DOMPurify.sanitize(commentlessHtml, {
-    WHOLE_DOCUMENT: true,
-    ADD_TAGS: ["head", "link", "base"],
-  });
-
-  return sanitizedHtml;
+  // DOMPurify was making us timeout on large documents, so switched to sanitize-html
+  // Use sanitize-html to match previous DOMPurify config, and allow Chakra necessary tags/attributes
+  return sanitizeHtml(commentlessHtml, sanitizeHtmlConfig);
 }
 
 /**
@@ -164,7 +195,7 @@ type DocRaptorParameters = {
   /** The URL to fetch and render. Either this or `document_content` is required. */
   document_url?: string;
   /** Synchronous calls have a 60s limit. Callbacks are required for longer-running docs. */
-  async?: false;
+  async?: boolean;
   /** This name will show up in the logs: https://docraptor.com/doc_logs */
   name?: string;
   /** This tag will also show up in DocRaptor's logs. */
