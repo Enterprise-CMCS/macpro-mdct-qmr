@@ -2,6 +2,7 @@
   "name": "ui-src",
   "description": "",
   "version": "1.0.0",
+  "license": "CC0-1.0",
   "dependencies": {
     "@chakra-ui/react": "2.5.5",
     "@chakra-ui/styled-system": "^2",
