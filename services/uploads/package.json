@@ -14,7 +14,7 @@
     "@types/flat": "^5.0.2",
     "@types/json2csv": "^5.0.3",
     "aws-lambda": "^1.0.7",
-    "typescript": "^4.5.4"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.716.0",
