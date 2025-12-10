@@ -6,59 +6,6 @@ import { parseCoreSetParameters } from "../../utils/parseParameters";
 import sanitizeHtml from "sanitize-html";
 import { JSDOM } from "jsdom";
 
-const sanitizeHtmlConfig: sanitizeHtml.IOptions = {
-  allowedAttributes: {
-    ...sanitizeHtml.defaults.allowedAttributes,
-    "*": ["class", "style", "id", "data-*"],
-    a: ["href", "name", "target", "rel"],
-    img: ["src", "alt", "width", "height", "style", "class"],
-    link: ["rel", "href", "type", "media"],
-    base: ["href", "target"],
-    input: [
-      "type",
-      "value",
-      "checked",
-      "disabled",
-      "placeholder",
-      "name",
-      "id",
-      "class",
-      "style",
-    ],
-    button: ["type", "name", "id", "class", "style"],
-    svg: [
-      "width",
-      "height",
-      "viewBox",
-      "xmlns",
-      "fill",
-      "stroke",
-      "class",
-      "style",
-    ],
-    path: ["d", "fill", "stroke", "class", "style"],
-    polyline: ["points"],
-  },
-  disallowedTagsMode: "discard",
-  allowVulnerableTags: true,
-  allowedTags: sanitizeHtml.defaults.allowedTags.concat([
-    "html",
-    "body",
-    "head",
-    "link",
-    "base",
-    "style",
-    "button",
-    "input",
-    "label",
-    "form",
-    "img",
-    "svg",
-    "path",
-    "polyline",
-  ]),
-};
-
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
   if (!allParamsValid) {
@@ -141,8 +88,55 @@ function sanitizeHtmlDocument(htmlString: string) {
 
   // DOMPurify was making us timeout on large documents, so switched to sanitize-html
   // Use sanitize-html to match previous DOMPurify config, and allow Chakra necessary tags/attributes
-  return sanitizeHtml(commentlessHtml, sanitizeHtmlConfig);
+  return sanitizeHtml(commentlessHtml, buildSanitizationConfig());
 }
+
+const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
+  const defaults = sanitizeHtml.defaults;
+  const extraAttributes = {
+    a: defaults.allowedAttributes.a.concat(["rel"]),
+    img: defaults.allowedAttributes.img.concat(["class", "style"]),
+    link: ["rel", "href", "type", "media"],
+    base: ["href", "target"],
+    input: [
+      "type",
+      "value",
+      "checked",
+      "disabled",
+      "placeholder",
+      "name",
+      "id",
+      "class",
+      "style",
+    ],
+    button: ["type", "name", "id", "class", "style"],
+    svg: [
+      "width",
+      "height",
+      "viewBox",
+      "xmlns",
+      "fill",
+      "stroke",
+      "class",
+      "style",
+    ],
+    path: ["d", "fill", "stroke", "class", "style"],
+    polyline: ["points"],
+  };
+  const extraTags = ["html", "body", "head", "style", "label", "form"];
+  return {
+    // We must allowVulnerableTags in order to preserve `<style>` tags
+    allowVulnerableTags: true,
+    allowedAttributes: {
+      ...defaults.allowedAttributes,
+      ...extraAttributes,
+      "*": ["class", "style", "id", "data-*"],
+    },
+    allowedTags: defaults.allowedTags
+      .concat(Object.keys(extraAttributes))
+      .concat(extraTags),
+  };
+};
 
 /**
  * If PDF generation was not successful, log the reason and throw an error.
