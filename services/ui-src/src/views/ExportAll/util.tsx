@@ -154,15 +154,14 @@ export const htmlStringCleanup = (html: string): string => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
 
-  doc
-    .querySelectorAll(
-      '.hidden-print-items, [style*="display: none"], [style*="visibility: hidden"]'
-    )
-    .forEach((el) => el.remove());
+  const nodesToRemove = doc.querySelectorAll(
+    `.hidden-print-items, [style*="display: none"], [style*="visibility: hidden"], script, noscript`
+  );
+  for (let node of nodesToRemove) {
+    node.remove();
+  }
 
-  doc.querySelectorAll("script, noscript").forEach((el) => el.remove());
-
-  // Remove comments
+  // Remove HTML comments
   const removeComments = (node: Node) => {
     for (let i = node.childNodes.length - 1; i >= 0; i--) {
       const child = node.childNodes[i];
@@ -174,6 +173,20 @@ export const htmlStringCleanup = (html: string): string => {
     }
   };
   removeComments(doc);
+
+  // Remove CSS comments
+  const styleTags = doc.querySelectorAll("style");
+  for (let i = 0; i < styleTags.length; i += 1) {
+    const style = styleTags[i];
+    /*
+     * Currently, our tsconfig targets es5, which doesn't support the `s` flag
+     * on regular expressions. But this lambda runs on Node 20, which does.
+     * TS includes the `s` in its compiled output, but complains.
+     * TODO: Once we bump our TS target to ES2018 or later, delete this comment.
+     */
+    // @ts-ignore
+    style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
+  }
 
   html = doc.body.innerHTML;
 
@@ -198,10 +211,10 @@ export const htmlStringCleanup = (html: string): string => {
       '<p class="hidden-print-items">'
     )
     .replace(/<textarea[^>]*>/g, '<p class="chakra-text replaced-text-area">')
-    .replace(/<\/textarea>/g, "</p>");
-
-  // Minify: remove extra whitespace between tags
-  htmlString = htmlString.replace(/>\s+</g, "><").replace(/\s{2,}/g, " ");
+    .replace(/<\/textarea>/g, "</p>")
+    // minify: remove extra whitespace between tags
+    .replace(/>\s+</g, "><")
+    .replace(/\s{2,}/g, " ");
 
   return htmlString;
 };

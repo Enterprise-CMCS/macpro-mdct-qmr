@@ -4,7 +4,6 @@ import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 import sanitizeHtml from "sanitize-html";
-import { JSDOM } from "jsdom";
 
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
@@ -35,7 +34,9 @@ export const getPDF = handler(async (event, _context) => {
     throw new Error("Failed to decompress gzipped HTML: " + e);
   }
 
-  const sanitizedHtml = sanitizeHtmlDocument(decodedHtml);
+  // DOMPurify was making us timeout on large documents, so switched to sanitize-html
+  // Use sanitize-html to match previous DOMPurify config, and allow Chakra necessary tags/attributes
+  const sanitizedHtml = sanitizeHtml(decodedHtml, buildSanitizationConfig());
 
   const requestBody = {
     user_credentials: docraptorApiKey,
@@ -76,21 +77,23 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
   return response.arrayBuffer();
 }
 
-function sanitizeHtmlDocument(htmlString: string) {
-  const doc = new JSDOM(htmlString).window.document;
-  const styleTags = doc.querySelectorAll("style");
-  for (let i = 0; i < styleTags.length; i += 1) {
-    const style = styleTags[i];
-    // @ts-ignore
-    style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
-  }
-  const commentlessHtml = doc.querySelector("html")!.outerHTML;
-
-  // DOMPurify was making us timeout on large documents, so switched to sanitize-html
-  // Use sanitize-html to match previous DOMPurify config, and allow Chakra necessary tags/attributes
-  return sanitizeHtml(commentlessHtml, buildSanitizationConfig());
-}
-
+/*
+ * These settings are a best-effort to prevent attacks on DocRaptor's servers.
+ * Since no one but the user making the request will see the resulting PDF,
+ * these settings are more relaxed than how we sanitize other API requests.
+ * Notably, we allow `style` (tags and attrs), which is normally forbidden.
+ * Some sanitization parameters explained:
+ *  - "head" - Add <head> to the tag allowlist. It's important.
+ *  - "html" - We want the entire <html> document returned.
+ *  - "link" - We use <link> tags to include some styles.
+ *  - "base" - The <base> tag tells the renderer to treat relative
+ *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
+ *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
+ *    reject our documents; when they render it on their servers, relative
+ *    URLs would appear as filesystem access attempts, which they disallow.
+ *  - "polyline" - This makes checkbox checkmarks visible
+ *  - "style" - Chakra UI uses style tags for critical CSS.
+ */
 const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
   const defaults = sanitizeHtml.defaults;
   const extraAttributes = {

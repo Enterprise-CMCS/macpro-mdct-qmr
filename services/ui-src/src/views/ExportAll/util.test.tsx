@@ -91,6 +91,13 @@ describe("ExportAll utils", () => {
       const result = htmlStringCleanup(html);
       expect(result).toBe(`<p class="hidden-print-items">oof</p>`);
     });
+
+    it("should remove comments", () => {
+      const htmlWithCssComment = `<html><head><style>/* emphasize <p> tags */ p {color:red;}</style></head><body><p>Hi</p></body></html>`;
+      const htmlWithoutComment = `<p>Hi</p>`;
+      const result = htmlStringCleanup(htmlWithCssComment);
+      expect(result).toBe(htmlWithoutComment);
+    });
   });
 
   describe("applyPrinceSpecificCss", () => {

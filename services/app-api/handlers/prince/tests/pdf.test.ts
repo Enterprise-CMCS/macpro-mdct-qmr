@@ -19,9 +19,10 @@ jest.mock("cross-fetch", () => ({
   }),
 }));
 
-const dangerousHtml = "<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>";
+const dangerousHtml =
+  "<html><head></head><body><p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p></body></html>";
 const compressedHtml = gzipSync(dangerousHtml);
-const sanitizedHtml = "<p>abcdef</p><p></p>";
+const sanitizedHtml = "<html><head></head><body><p>abcdef</p></body></html>";
 const base64EncodedDangerousHtml =
   Buffer.from(compressedHtml).toString("base64");
 
@@ -109,7 +110,7 @@ describe("Test GetPDF handler", () => {
     expect(body).toEqual({
       user_credentials: "mock api key", // pragma: allowlist secret
       doc: expect.objectContaining({
-        document_content: `<html><head></head><body>${sanitizedHtml}</body></html>`,
+        document_content: sanitizedHtml,
         type: "pdf",
         tag: "QMR",
         test: true,
