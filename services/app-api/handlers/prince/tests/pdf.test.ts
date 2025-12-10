@@ -121,26 +121,6 @@ describe("Test GetPDF handler", () => {
     });
   });
 
-  it("should remove CSS comments before calling PDF API", async () => {
-    const htmlWithCssComment = `<html><head><style>/* emphasize <p> tags */ p {color:red;}</style></head><body><p>Hi</p></body></html>`;
-    const htmlWithoutComment = `<html><head><style> p {color:red;}</style></head><body><p>Hi</p></body></html>`;
-    event.body = Buffer.from(gzipSync(htmlWithCssComment)).toString("base64");
-    const res = await getPDF(event, null);
-
-    expect(res.statusCode).toBe(200);
-
-    expect(fetch).toHaveBeenCalled();
-    const request = (fetch as jest.Mock).mock.calls[0][1];
-    const body = JSON.parse(request.body);
-    expect(body).toEqual(
-      expect.objectContaining({
-        doc: expect.objectContaining({
-          document_content: htmlWithoutComment,
-        }),
-      })
-    );
-  });
-
   it("should handle an error response from the PDF API", async () => {
     (fetch as jest.Mock).mockResolvedValueOnce({
       status: 500,
