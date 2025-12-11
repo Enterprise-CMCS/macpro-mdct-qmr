@@ -195,6 +195,17 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
               actions: ["s3:GetObject", "s3:GetObjectVersion"],
               resources: [`${attachmentsBucket.bucketArn}/*`],
             }),
+            new iam.PolicyStatement({
+              sid: "AllowDecryptForMalwareScan",
+              effect: iam.Effect.ALLOW,
+              actions: ["kms:Decrypt", "kms:GenerateDataKey"],
+              resources: [bucketEncryptionKey.keyArn],
+              conditions: {
+                StringLike: {
+                  "kms:ViaService": `s3.${Aws.REGION}.amazonaws.com`,
+                },
+              },
+            }),
           ],
         }),
       },
@@ -208,23 +219,25 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
         new iam.ArnPrincipal(mprdeviam),
       ],
       effect: iam.Effect.ALLOW,
-      actions: ["s3:GetBucketLocation", "s3:ListBucket"],
-      resources: [attachmentsBucket.bucketArn],
+      actions: ["s3:GetBucketLocation", "s3:ListBucket", "s3:GetObject"],
+      resources: [
+        attachmentsBucket.bucketArn,
+        `${attachmentsBucket.bucketArn}/*`,
+      ],
     })
   );
 
   attachmentsBucket.addToResourcePolicy(
     new iam.PolicyStatement({
-      principals: [
-        new iam.ArnPrincipal(mpriamrole),
-        new iam.ArnPrincipal(mprdeviam),
-      ],
-      effect: iam.Effect.ALLOW,
+      sid: "DenyGetObjectIfNotScannedClean",
+      effect: iam.Effect.DENY,
+      principals: [new iam.AnyPrincipal()],
       actions: ["s3:GetObject"],
       resources: [`${attachmentsBucket.bucketArn}/*`],
       conditions: {
-        StringEquals: {
+        StringNotEquals: {
           "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
+          "s3:ExistingObjectTag/virusScan": "CLEAN",
         },
       },
     })
