@@ -1,41 +1,41 @@
 import { Construct } from "constructs";
 import {
+  aws_kms as kms,
+  aws_s3 as s3,
+  aws_iam as iam,
   aws_events as events,
   aws_events_targets as targets,
   aws_guardduty as guardduty,
-  aws_iam as iam,
-  aws_kms as kms,
-  aws_s3 as s3,
-  Aws,
   Duration,
   RemovalPolicy,
+  Aws,
 } from "aws-cdk-lib";
-import { DynamoDBTable } from "../constructs/dynamodb-table";
 import { Lambda } from "../constructs/lambda";
+import { DynamoDBTable } from "../constructs/dynamodb-table";
 
-interface CreateUploadsComponentsProps {
-  attachmentsBucketName: string;
-  bucketPrefix?: string;
-  isDev: boolean;
-  loggingBucket: s3.IBucket;
-  mprdeviam: string;
-  mpriamrole: string;
+interface createUploadsComponentsProps {
   scope: Construct;
   stage: string;
+  loggingBucket: s3.IBucket;
+  isDev: boolean;
+  mpriamrole: string;
+  mprdeviam: string;
   tables: DynamoDBTable[];
+  bucketPrefix?: string;
+  attachmentsBucketName: string;
 }
 
-export function createUploadsComponents(props: CreateUploadsComponentsProps) {
+export function createUploadsComponents(props: createUploadsComponentsProps) {
   const {
-    attachmentsBucketName,
-    bucketPrefix,
-    isDev,
-    loggingBucket,
-    mprdeviam,
-    mpriamrole,
     scope,
     stage,
+    loggingBucket,
+    isDev,
+    mpriamrole,
+    mprdeviam,
     tables,
+    bucketPrefix,
+    attachmentsBucketName,
   } = props;
   const serviceStage = `uploads-${stage}`;
 
@@ -222,6 +222,11 @@ export function createUploadsComponents(props: CreateUploadsComponentsProps) {
       effect: iam.Effect.ALLOW,
       actions: ["s3:GetObject"],
       resources: [`${attachmentsBucket.bucketArn}/*`],
+      conditions: {
+        StringEquals: {
+          "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
+        },
+      },
     })
   );
 
@@ -291,25 +296,8 @@ export function createUploadsComponents(props: CreateUploadsComponentsProps) {
         new iam.ArnPrincipal(mprdeviam),
       ],
       effect: iam.Effect.ALLOW,
-      actions: ["s3:GetBucketLocation", "s3:ListBucket"],
-      resources: [dynamoBucket.bucketArn],
-    })
-  );
-
-  dynamoBucket.addToResourcePolicy(
-    new iam.PolicyStatement({
-      principals: [
-        new iam.ArnPrincipal(mpriamrole),
-        new iam.ArnPrincipal(mprdeviam),
-      ],
-      effect: iam.Effect.ALLOW,
-      actions: ["s3:GetObject"],
-      resources: [`${dynamoBucket.bucketArn}/*`],
-      conditions: {
-        StringEquals: {
-          "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
-        },
-      },
+      actions: ["s3:GetBucketLocation", "s3:ListBucket", "s3:GetObject"],
+      resources: [dynamoBucket.bucketArn, `${dynamoBucket.bucketArn}/*`],
     })
   );
 
