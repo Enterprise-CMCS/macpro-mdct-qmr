@@ -15,18 +15,19 @@ import {
   useWriteBanner,
   useDeleteBanner,
 } from "hooks/api";
+import { CoreSetAbbr } from "types";
 
 // TODO: Create interfaces for each of the hooks
 
 export const defaultMockValues = {
   useAddCoreSetValues: {
-    useMutation: () => {
-      mutate: () => {}; // eslint-disable-line
+    mutate: (variables: CoreSetAbbr) => {
+      return "mock add coreset for " + variables;
     },
   },
   useAddMeasureValues: {
-    useMutation: () => {
-      mutate: () => {}; // eslint-disable-line
+    mutate: (variables: { measure: string }) => {
+      return "mock add measure for " + variables.measure;
     },
   },
   useDeleteCoreSetValues: { mutate: jest.fn() },
@@ -117,18 +118,18 @@ export const defaultMockValues = {
     },
   },
   useDeleteBannerValues: {
-    useMutation: () => {
-      mutate: () => {}; // eslint-disable-line
+    mutate: (bannerKey: string) => {
+      return "mock delete banner " + bannerKey;
     },
   },
   useWriteBannerValues: {
-    useMutation: () => {
-      mutate: () => {}; // eslint-disable-line
+    mutate: (variables: { key: string }) => {
+      return "mock write banner " + variables.key;
     },
   },
   useUpdateMeasureValues: {
-    useMutation: () => {
-      mutate: () => {}; // eslint-disable-line
+    mutate: (variables: { data: { measure: string } }) => {
+      return "mock update measure for " + variables.data.measure;
     },
   },
   useGetRateValues: {

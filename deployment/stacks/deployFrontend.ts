@@ -10,7 +10,6 @@ import { execSync } from "node:child_process";
 
 interface DeployFrontendProps {
   scope: Construct;
-  stage: string;
   uiBucket: s3.Bucket;
   distribution: cloudfront.Distribution;
   apiGatewayRestApiUrl: string;
@@ -27,7 +26,6 @@ interface DeployFrontendProps {
 export function deployFrontend(props: DeployFrontendProps) {
   const {
     scope,
-    stage,
     distribution,
     apiGatewayRestApiUrl,
     applicationEndpointUrl,
