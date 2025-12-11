@@ -180,7 +180,7 @@ export const htmlStringCleanup = (html: string): string => {
     const style = styleTags[i];
     /*
      * Currently, our tsconfig targets es5, which doesn't support the `s` flag
-     * on regular expressions. But this lambda runs on Node 20, which does.
+     * on regular expressions. But this code runs on modern browsers, which do.
      * TS includes the `s` in its compiled output, but complains.
      * TODO: Once we bump our TS target to ES2018 or later, delete this comment.
      */
