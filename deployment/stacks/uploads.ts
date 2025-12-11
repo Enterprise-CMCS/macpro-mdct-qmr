@@ -229,15 +229,14 @@ export function createUploadsComponents(props: createUploadsComponentsProps) {
 
   attachmentsBucket.addToResourcePolicy(
     new iam.PolicyStatement({
-      sid: "DenyGetObjectIfNotScannedClean",
       effect: iam.Effect.DENY,
-      principals: [new iam.AnyPrincipal()],
       actions: ["s3:GetObject"],
       resources: [`${attachmentsBucket.bucketArn}/*`],
+      principals: [new iam.ArnPrincipal("*")],
       conditions: {
         StringNotEquals: {
           "s3:ExistingObjectTag/GuardDutyMalwareScanStatus": "NO_THREATS_FOUND",
-          "s3:ExistingObjectTag/virusScan": "CLEAN",
+          "s3:ExistingObjectTag/virusScanStatus": "CLEAN",
         },
       },
     })
