@@ -3,9 +3,6 @@ import { measureTemplate } from "./measureTemplate";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2023/qualifierFormsData";
 
-const AMRAD = lazy(() =>
-  import("./AMRAD").then((module) => ({ default: module.AMRAD }))
-);
 const CPAAD = lazy(() =>
   import("./CPAAD").then((module) => ({ default: module.CPAAD }))
 );
