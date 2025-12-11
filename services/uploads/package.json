@@ -6,13 +6,13 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "@types/flat": "^5.0.2",
-    "@types/json2csv": "^5.0.3"
+    "@types/json2csv": "^5.0.7"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.716.0",
     "@aws-sdk/client-s3": "^3.716.0",
     "@aws-sdk/lib-dynamodb": "^3.716.0",
     "flat": "^5.0.2",
-    "json2csv": "^5.0.6"
+    "json2csv": "^5.0.7"
   }
 }
