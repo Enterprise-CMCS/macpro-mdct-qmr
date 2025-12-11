@@ -1,5 +1,6 @@
 {
   "name": "macpro-mdct-qmr",
+  "version": "",
   "description": "QMR is the CMCS MDCT application for collecting state data for related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.",
   "longDescription": "Quality Measure Reporting",
   "status": "Production",
@@ -15,11 +16,14 @@
   },
   "organization": "Centers for Medicare & Medicaid Services",
   "repositoryURL": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr",
-  "projectURL": "https://mdctqmr.cms.gov",
   "repositoryHost": "github.com/Enterprise-CMCS",
   "repositoryVisibility": "public",
+  "homepageURL": "",
+  "downloadURL": "",
+  "disclaimerURL": "",
+  "disclaimerText": "",
   "vcs": "git",
-  "laborHours": 17323,
+  "laborHours": 17366,
   "reuseFrequency": {
     "forks": 0,
     "clones": 0
@@ -40,11 +44,17 @@
     "Smarty"
   ],
   "maintenance": "contract",
-  "contractNumber": "75FCMC24F0027",
+  "contractNumber": [
+    "75FCMC24F0027"
+  ],
+  "SBOM": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr/network/dependencies",
+  "relatedCode": [],
+  "reusedCode": [],
+  "partners": [],
   "date": {
     "created": "2021-02-25T16:57:16Z",
-    "lastModified": "2025-08-30T16:01:34Z",
-    "metaDataLastUpdated": "2025-09-01T00:03:47.683Z"
+    "lastModified": "2025-11-24T15:53:33Z",
+    "metadataLastUpdated": "2025-12-01T00:03:55.602Z"
   },
   "tags": [
     "mdct"
@@ -53,9 +63,8 @@
     "email": "brendan.myers@coforma.com",
     "name": "Brendan Myers"
   },
-  "feedbackMechanisms": [
-    "https://github.com/Enterprise-CMCS/macpro-mdct-qmr/issues"
-  ],
+  "feedbackMechanism": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr/issues",
+  "AIUseCaseID": "0",
   "localisation": false,
   "repositoryType": "application",
   "userInput": true,
@@ -65,7 +74,6 @@
     "MDCT"
   ],
   "systems": [],
-  "upstream": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr/network/dependencies",
   "subsetInHealthcare": [
     "Medicaid"
   ],

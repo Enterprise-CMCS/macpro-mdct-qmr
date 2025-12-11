@@ -54,6 +54,5 @@ export const data: MeasureTemplateData = {
     "validateBothDatesCompleted",
     "validateAtLeastOneDefinitionOfPopulation",
     "validateYearFormat",
-    "validateDualPopInformationPM",
   ],
 };

@@ -18,6 +18,10 @@ Object.defineProperty(window, "matchMedia", {
 });
 jest.retryTimes(3);
 
+jest.mock("components/Title", () => ({
+  Title: () => null,
+}));
+
 jest.mock("hooks/api", () => ({
   useAddCoreSet: jest.fn(),
   useAddMeasure: jest.fn(),
