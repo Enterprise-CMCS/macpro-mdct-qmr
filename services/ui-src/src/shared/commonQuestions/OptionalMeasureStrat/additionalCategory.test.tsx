@@ -55,7 +55,7 @@ describe("Test AddAnotherSectionAccordian Component", () => {
       name: "Add another mock section",
     });
     fireEvent.click(accordion);
-    const addBtn = screen.getByRole("button", {
+    const addBtn = await screen.findByRole("button", {
       name: "+ Add Another mock section",
     });
     expect(
@@ -77,7 +77,7 @@ describe("Test AddAnotherSectionAccordian Component", () => {
       })
     );
     fireEvent.click(
-      screen.getByRole("button", {
+      await screen.findByRole("button", {
         name: "+ Add Another mock section",
       })
     );

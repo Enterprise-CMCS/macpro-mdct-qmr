@@ -45,7 +45,7 @@ describe("Test DeviationFromMeasureSpec Component", () => {
     });
   });
 
-  it("textbox is shown when user selected yes", () => {
+  it("textbox is shown when user selected yes", async () => {
     //by default, there should not be a textbox active on the page
     expect(
       screen.queryByRole("textbox", {
@@ -58,7 +58,7 @@ describe("Test DeviationFromMeasureSpec Component", () => {
     });
     fireEvent.click(radioButtonYes);
     //look for the textfield and check that it's in the doc
-    const textarea = screen.getByRole("textbox", {
+    const textarea = await screen.findByRole("textbox", {
       name: "Explain the variation(s) ( text in this field is included in publicly-reported state-specific comments ):",
     });
     expect(textarea).toBeInTheDocument();
