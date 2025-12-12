@@ -1,14 +1,12 @@
-import { useCallback, useState } from "react";
 import { SPA } from "libs/spaLib";
 import { getPDF } from "libs/api";
+import { gzip } from "pako";
 
 interface HookProps {
   coreSetId?: string;
   state?: string;
   year?: string;
 }
-
-type PrinceHook = () => (props: HookProps) => Promise<void>;
 
 export const openPdf = (basePdf: string) => {
   let byteCharacters = atob(basePdf);
@@ -20,25 +18,6 @@ export const openPdf = (basePdf: string) => {
   let file = new Blob([byteArray], { type: "application/pdf;base64" });
   let fileURL = URL.createObjectURL(file);
   window.open(fileURL);
-};
-
-/**
- * Gather chakra css variables and make available for the body (prince issue seeing applied normally)
- * */
-export const cloneChakraVariables = () => {
-  for (let i = 0; i < document.styleSheets.length; i++) {
-    if (
-      !document.styleSheets[i].href &&
-      document.styleSheets[i]?.cssRules[0]?.cssText.includes("--chakra") &&
-      document.styleSheets[i]?.cssRules[0]?.cssText.includes(":root")
-    ) {
-      const chakraVars = document.styleSheets[i];
-      document.body.setAttribute(
-        "style",
-        chakraVars.cssRules[0].cssText.split(/(\{|\})/g)[2]
-      );
-    }
-  }
 };
 
 /**
@@ -130,22 +109,10 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
       It can easily be fixed by inspecting the elements on the pdf page in the browser and grabbing the css class names from there. 
       ********* */ ""
     }
-
     .chakra-button { background: var(--chakra-colors-gray-100) !important; margin: 16px 8px }
     .chakra-link { color: var(--chakra-colors-blue-600) !important; }
     .chakra-link * { color: blue !important; }
-    ${
-      /* Chakra radio buttons and checkboxes that are checked don't display colors correctly due to Prince pdf limitation with background colors. 
-      These styles below manually add the background colors back to the checked radio buttons and checkboxes */ ""
-    }
-        ${
-          /* .css-edb818[data-checked] is checkbox css class and .css-ym696e[data-checked] is radio css class. 
-      IMPORTANT NOTE: If checkboxes and radio buttons ever stop displaying correctly, it's probably because these classes changed due to chakra updates or other unknowns.
-      You can find the new classes if you go to the export pdf page and inspect the checkbox and radio elements */ ""
-        }
-    .css-edb818[data-checked], .css-ym696e[data-checked] { background: var(--chakra-colors-blue-500) !important; border-color: var(--chakra-colors-blue-500) !important; }
-    .css-ym696e[data-checked]::before { content: ""; width: 50%; height: 50%; border-radius: 50%; background: var(--chakra-colors-white) !important; }
-    .chakra-checkbox__control * { color: var(--chakra-colors-white) !important; display: flex !important }
+    
     ${
       /* On line 61 of this file, we are replacing text-align: right with text-align: center. 
       There are few places where we don't want to do this so we are overriding those styles below for some inputs.
@@ -156,15 +123,18 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     }
     .css-xumdn4 { padding-right: 16px !important }
     .css-10xl6g, .css-wgu2i7 { text-align: right !important; padding-right: 35px !important; }
+    
     ${
       /* The below css classes are targeting icons in inputs need to have display: flex (that display is getting removed on line 61) */ ""
     }
     .css-11pdqhs, .css-1nqqbdv { display: flex !important }
+    
     ${
       /* These css classes are targeting the numerator, denominator, rate inputs. These need to have display: flex and other css styles to look correct */ ""
     }
     .css-1qqj5ri { display: flex !important; flex-direction: row !important; width: 100% !important }
     .css-1kxonj9 { margin-left: 0px !important; margin-top: 0px !important; padding: 8px !important; }
+    
     ${
       /* These ds-c css classes are targeting the warning box for other data source */ ""
     }
@@ -178,10 +148,50 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
 
 /**
  * Last minute css and non-standard character cleanup to prep html for prince request
+ * Also removes hidden/offscreen elements and minifies the HTML string.
  */
 export const htmlStringCleanup = (html: string): string => {
-  // fixing non standard characters
-  const htmlString = html
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+
+  const nodesToRemove = doc.querySelectorAll(
+    `.hidden-print-items, [style*="display: none"], [style*="visibility: hidden"], script, noscript`
+  );
+  for (let node of nodesToRemove) {
+    node.remove();
+  }
+
+  // Remove HTML comments
+  const removeComments = (node: Node) => {
+    for (let i = node.childNodes.length - 1; i >= 0; i--) {
+      const child = node.childNodes[i];
+      if (child.nodeType === Node.COMMENT_NODE) {
+        node.removeChild(child);
+      } else if (child.childNodes.length > 0) {
+        removeComments(child);
+      }
+    }
+  };
+  removeComments(doc);
+
+  // Remove CSS comments
+  const styleTags = doc.querySelectorAll("style");
+  for (let i = 0; i < styleTags.length; i += 1) {
+    const style = styleTags[i];
+    /*
+     * Currently, our tsconfig targets es5, which doesn't support the `s` flag
+     * on regular expressions. But this code runs on modern browsers, which do.
+     * TS includes the `s` in its compiled output, but complains.
+     * TODO: Once we bump our TS target to ES2018 or later, delete this comment.
+     */
+    // @ts-ignore
+    style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
+  }
+
+  html = doc.body.innerHTML;
+
+  // fixing non standard characters and minifying
+  let htmlString = html
     // fix broken assets and links
     .replace(/src="\/assets/g, `src="https://${window.location.host}/assets`)
     .replace(/src="\/footer/g, `src="https://${window.location.host}/footer`)
@@ -201,7 +211,10 @@ export const htmlStringCleanup = (html: string): string => {
       '<p class="hidden-print-items">'
     )
     .replace(/<textarea[^>]*>/g, '<p class="chakra-text replaced-text-area">')
-    .replace(/<\/textarea>/g, "</p>");
+    .replace(/<\/textarea>/g, "</p>")
+    // minify: remove extra whitespace between tags
+    .replace(/>\s+</g, "><")
+    .replace(/\s{2,}/g, " ");
 
   return htmlString;
 };
@@ -226,66 +239,45 @@ export const getSpaName = ({ coreSetId, state, year }: HookProps) => {
   return `${spa.state} ${spa.id} - ${spa.name}`;
 };
 
-/**
- * Transform current document to PrinceXML style and create/open the resulting pdf
- */
-export const usePrinceRequest: PrinceHook = () => {
-  const [stylesApplied, setStylesApplied] = useState(false);
+function uint8ToString(uint8: Uint8Array) {
+  let result = "";
+  for (let i = 0; i < uint8.length; i++) {
+    result += String.fromCharCode(uint8[i]);
+  }
+  return result;
+}
 
-  return useCallback(
-    async ({ state, year, coreSetId }) => {
-      // only apply the style variables once, in case page is persisted and button re-clicked
-      if (!stylesApplied) {
-        setStylesApplied(true);
-        cloneChakraVariables();
-      }
+export async function generatePDF(
+  state: string,
+  year: string,
+  coreSetId: string
+) {
+  // css adjustment
+  const tagsToDelete = [];
+  tagsToDelete.push(...cloneEmotionStyles());
+  tagsToDelete.push(applyPrinceSpecificCss());
 
-      // css adjustment
-      const tagsToDelete = [];
-      tagsToDelete.push(...cloneEmotionStyles());
-      tagsToDelete.push(applyPrinceSpecificCss());
+  const html = document.querySelector("html")!;
 
-      // get html element and remove noscript tag
-      const html = document.querySelector("html")!;
-      html.querySelector("noscript")?.remove();
+  // add <base> to treat relative URLs as absolute
+  const base = document.createElement("base");
+  base.href = `https://${window.location.host}`;
+  document.querySelector("head")!.prepend(base);
 
-      // add <base> to treat relative URLs as absolute
-      const base = document.createElement("base");
-      base.href = `https://${window.location.host}`;
-      document.querySelector("head")!.prepend(base);
+  const htmlString = htmlStringCleanup(html.outerHTML);
+  const gzipped = gzip(htmlString);
+  const base64String = btoa(uint8ToString(gzipped));
 
-      // get cleaned html
-      const htmlString = htmlStringCleanup(html.outerHTML);
+  // clean up of styles to not break page layout
+  for (const tag of tagsToDelete) {
+    document.body.removeChild(tag);
+  }
 
-      // encoding html for prince request
-      const base64String = btoa(unescape(encodeURIComponent(htmlString)));
-
-      // clean up of styles to not break page layout
-      for (const tag of tagsToDelete) {
-        document.body.removeChild(tag);
-      }
-
-      let requestAttempt = 0;
-      let breakCondition = false;
-
-      // set to retry up to 5 times
-      while (!breakCondition && requestAttempt < 5) {
-        try {
-          const pdf = await getPDF({
-            body: base64String,
-            state,
-            coreSet: coreSetId,
-            year,
-          });
-
-          openPdf(pdf);
-          breakCondition = true;
-        } catch (error) {
-          console.error(`attempt ${requestAttempt}`, error);
-          requestAttempt++;
-        }
-      }
-    },
-    [stylesApplied]
-  );
-};
+  const pdf = await getPDF({
+    state,
+    year,
+    coreSet: coreSetId,
+    body: base64String,
+  });
+  openPdf(pdf);
+}

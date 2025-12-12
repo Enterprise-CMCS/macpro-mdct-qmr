@@ -6,12 +6,11 @@ import { useGetMeasures } from "hooks/api";
 import { createElement } from "react";
 import "./../../styles/index.scss";
 import { useParams } from "react-router-dom";
-import { usePrinceRequest, getSpaName } from "./util";
+import { getSpaName, generatePDF } from "./util";
 
 export const ExportAll = () => {
   const { state, coreSetId, year } = useParams();
   const [isLoadingPDF, setIsLoadingPDF] = useState(false);
-  const makePrinceRequest = usePrinceRequest();
   const spaName = getSpaName({ state, year, coreSetId });
 
   const { data, isLoading } = useGetMeasures();
@@ -68,7 +67,7 @@ export const ExportAll = () => {
           fontSize="large"
           onClick={async () => {
             setIsLoadingPDF(true);
-            await makePrinceRequest({ state, year, coreSetId });
+            await generatePDF(state!, year!, coreSetId!);
             setIsLoadingPDF(false);
           }}
         >
