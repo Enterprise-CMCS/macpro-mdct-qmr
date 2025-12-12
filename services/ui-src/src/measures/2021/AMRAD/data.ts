@@ -14,6 +14,9 @@ export const data: MeasureTemplateData = {
     categories,
     qualifiers,
   },
+  custom: {
+    calcTotal: true,
+  },
   validations: [
     "validateRequiredRadioButtonForCombinedRates",
     "validateAtLeastOneDeviationFieldFilled",
