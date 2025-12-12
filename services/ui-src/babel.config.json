@@ -22,8 +22,5 @@
       }
     ]
   ],
-  "plugins": [
-    "@babel/plugin-transform-react-jsx",
-    "@babel/plugin-syntax-import-meta"
-  ]
+  "plugins": ["@babel/plugin-transform-react-jsx"]
 }
