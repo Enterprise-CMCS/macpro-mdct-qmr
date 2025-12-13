@@ -46,8 +46,6 @@ interface Props extends React.PropsWithChildren {
   label?: string;
   placeholder?: string;
   nested?: boolean;
-  hint?: string;
-  sxOverride?: any;
   [key: string]: any;
 }
 interface InputChangeEvent extends React.ChangeEvent<HTMLInputElement> {}
