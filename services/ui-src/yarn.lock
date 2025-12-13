@@ -5928,10 +5928,15 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.15.tgz#e6e5a86d602beaca71ce5163fadf5f95d70931c7"
   integrity sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==
 
-"@types/react-dom@^18", "@types/react-dom@^18.0.0", "@types/react-dom@^18.3.0":
+"@types/react-dom@^18.0.0", "@types/react-dom@^18.3.0":
   version "18.3.7"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.3.7.tgz#b89ddf2cd83b4feafcc4e2ea41afdfb95a0d194f"
   integrity sha512-MEe3UeoENYVFXzoXEWsvcpg6ZvlrFNlOQ7EOsvhI3CfAXwzPfO8Qwuxd40nepsYKqyyVQnTdEfv68q91yLcKrQ==
+
+"@types/react-dom@^19":
+  version "19.2.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-19.2.3.tgz#c1e305d15a52a3e508d54dca770d202cb63abf2c"
+  integrity sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==
 
 "@types/react-router-dom@^5.3.2":
   version "5.3.3"
@@ -5962,13 +5967,20 @@
   dependencies:
     csstype "^3.0.2"
 
-"@types/react@^18", "@types/react@^18.3.1":
+"@types/react@^18.3.1":
   version "18.3.24"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.3.24.tgz#f6a5a4c613242dfe3af0dcee2b4ec47b92d9b6bd"
   integrity sha512-0dLEBsA1kI3OezMBF8nSsb7Nk19ZnsyE1LLhB8r27KbgU5H4pvuqZLdtE+aUkJVoXgTVuA+iLIwmZ0TuK4tx6A==
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
+
+"@types/react@^19":
+  version "19.2.7"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.2.7.tgz#84e62c0f23e8e4e5ac2cadcea1ffeacccae7f62f"
+  integrity sha512-MWtvHrGZLFttgeEj28VXHxpmwYbor/ATPYbBfSFZEIRK0ecCFLl2Qo55z52Hss+UV9CRN7trSeq1zbgx7YDWWg==
+  dependencies:
+    csstype "^3.2.2"
 
 "@types/stack-utils@^2.0.0", "@types/stack-utils@^2.0.3":
   version "2.0.3"
@@ -6671,6 +6683,11 @@ core-js-compat@^3.43.0:
   dependencies:
     browserslist "^4.25.3"
 
+core-js@^3.41.0:
+  version "3.47.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.47.0.tgz#436ef07650e191afeb84c24481b298bd60eb4a17"
+  integrity sha512-c3Q2VVkGAUyupsjRnaNX6u8Dq2vAdzm9iuPj5FW0fRxzlxgq9Q39MDq10IvmQSpLgHQNyQzQmOo6bgGHmH3NNg==
+
 cosmiconfig@^7.0.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-7.1.0.tgz#1443b9afa596b670082ea46cbd8f6a62b84635f6"
@@ -6736,10 +6753,15 @@ cssstyle@^2.3.0:
   dependencies:
     cssom "~0.3.6"
 
-csstype@^3.0.11, csstype@^3.0.2, csstype@^3.1.2:
+csstype@^3.0.11, csstype@^3.1.2:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.3.tgz#d80ff294d114fb0e6ac500fbf85b60137d7eff81"
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
+
+csstype@^3.0.2, csstype@^3.2.2:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.2.3.tgz#ec48c0f3e993e50648c86da559e2610995cf989a"
+  integrity sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==
 
 data-uri-to-buffer@^4.0.0:
   version "4.0.1"
@@ -8925,10 +8947,10 @@ react-day-picker@8.10.1:
   resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-8.10.1.tgz#4762ec298865919b93ec09ba69621580835b8e80"
   integrity sha512-TMx7fNbhLk15eqcMt+7Z7S2KF7mfTId/XJDjKE8f+IUcFn0l08/kI4FiYTL/0yuOLmEcbR4Fwe3GJf/NiiMnPA==
 
-react-dom@^19.2.1:
-  version "19.2.1"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.2.1.tgz#ce3527560bda4f997e47d10dab754825b3061f59"
-  integrity sha512-ibrK8llX2a4eOskq1mXKu/TGZj9qzomO+sNfO98M6d9zIPOEhlBkMkBUBLd1vgS0gQsLDBzA+8jJBVXDnfHmJg==
+react-dom@^19.2.3:
+  version "19.2.3"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-19.2.3.tgz#f0b61d7e5c4a86773889fcc1853af3ed5f215b17"
+  integrity sha512-yELu4WmLPw5Mr/lmeEpox5rw3RETacE++JgHqQzd2dg+YbJuat3jH4ingc+WPZhxaoFzdv9y33G+F7Nl5O0GBg==
   dependencies:
     scheduler "^0.27.0"
 
@@ -9091,10 +9113,10 @@ react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^19.2.1:
-  version "19.2.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-19.2.1.tgz#8600fa205e58e2e807f6ef431c9f6492591a2700"
-  integrity sha512-DGrYcCWK7tvYMnWh79yrPHt+vdx9tY+1gPZa7nJQtO/p8bLTDaHp4dzwEhQB7pZ4Xe3ok4XKuEPrVuc+wlpkmw==
+react@^19.2.3:
+  version "19.2.3"
+  resolved "https://registry.yarnpkg.com/react/-/react-19.2.3.tgz#d83e5e8e7a258cf6b4fe28640515f99b87cd19b8"
+  integrity sha512-Ku/hhYbVjOQnXDZFv2+RibmLFGwFdeeKHFcOTlrt7xplBnya5OGn/hIRDsqDiSUcfORsDC7MPxwork8jBwsIWA==
 
 readable-stream@^3.4.0:
   version "3.6.2"

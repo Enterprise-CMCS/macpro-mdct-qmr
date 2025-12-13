@@ -88,7 +88,7 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
     isPrimaryMeasureSpecSelected,
     showOptionalMeasureStrat,
     isOtherMeasureSpecSelected,
-  });
+  } as PrintableMeasureWrapperProps);
 };
 
 interface Props {

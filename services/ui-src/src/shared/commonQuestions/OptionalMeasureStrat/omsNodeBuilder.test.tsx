@@ -44,7 +44,7 @@ const options = [
 ];
 
 describe("Test TopLevelOmsChildren", () => {
-  it("Test TopLevelOmsChildren render", () => {
+  it("Test TopLevelOmsChildren render", async () => {
     (getMeasureYear as jest.Mock).mockReturnValue(2025);
     (useFlags as jest.Mock).mockReturnValue({
       "sogi-stratification-options": true,
@@ -60,7 +60,7 @@ describe("Test TopLevelOmsChildren", () => {
     );
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Option 1" }));
-    const yesRadio = screen.getByRole("radio", {
+    const yesRadio = await screen.findByRole("radio", {
       name: "Yes, we are reporting aggregate data for the Option 1 categories.",
     });
     fireEvent.click(yesRadio);
@@ -81,7 +81,7 @@ describe("Test TopLevelOmsChildren", () => {
     ).toBeInTheDocument();
   });
 
-  it("Test TopLevelOmsChildren render for legacy data", () => {
+  it("Test TopLevelOmsChildren render for legacy data", async () => {
     (getMeasureYear as jest.Mock).mockReturnValue(2022);
 
     renderWithHookForm(
@@ -96,7 +96,7 @@ describe("Test TopLevelOmsChildren", () => {
     const checkbox = screen.getByRole("checkbox", { name: "Option 1" });
     fireEvent.click(checkbox);
     expect(
-      screen.getByRole("radio", {
+      await screen.findByRole("radio", {
         name: "Yes, we are only reporting aggregated data for all mock option 1 categories.",
       })
     ).toBeInTheDocument();
