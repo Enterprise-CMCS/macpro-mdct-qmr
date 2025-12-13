@@ -9,7 +9,6 @@ export const TextField = ({
   placeholder,
   sxOverride,
   nested,
-  children: _children,
   ...props
 }: Props) => {
   const [displayValue, setDisplayValue] = useState<string>("");
