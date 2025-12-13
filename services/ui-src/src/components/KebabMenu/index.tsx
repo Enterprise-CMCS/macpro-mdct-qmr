@@ -93,7 +93,7 @@ export const KebabMenu = ({
   const handleCloseDeleteDialog = () => {
     setDeleteDialogIsOpen(false);
   };
-  const cancelRef = useRef(null);
+  const cancelRef = useRef();
   const { isStateUser } = useUser();
 
   const deleteOption = menuItems.find(
