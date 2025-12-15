@@ -1,12 +1,9 @@
+import { gunzipSync } from "zlib";
 import { fetch } from "cross-fetch"; // TODO delete this line and uninstall this package, once QMR is running on Nodejs 18+
-import createDOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
 import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
-
-const windowEmulator: any = new JSDOM("").window;
-const DOMPurify = createDOMPurify(windowEmulator);
+import sanitizeHtml from "sanitize-html";
 
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
@@ -28,8 +25,19 @@ export const getPDF = handler(async (event, _context) => {
     throw new Error("No config found to make request to PDF API");
   }
 
-  const decodedHtml = Buffer.from(rawBody, "base64").toString();
-  const sanitizedHtml = sanitizeHtml(decodedHtml);
+  const compressedBuffer = Buffer.from(rawBody, "base64");
+
+  let decodedHtml;
+  try {
+    decodedHtml = gunzipSync(compressedBuffer).toString();
+  } catch (e) {
+    throw new Error("Failed to decompress gzipped HTML: " + e);
+  }
+
+  // DOMPurify was making us timeout on large documents, so switched to sanitize-html
+  // Use sanitize-html to match previous DOMPurify config, and allow Chakra necessary tags/attributes
+  const sanitizedHtml = sanitizeHtml(decodedHtml, buildSanitizationConfig());
+
   const requestBody = {
     user_credentials: docraptorApiKey,
     doc: {
@@ -69,49 +77,69 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
   return response.arrayBuffer();
 }
 
-function sanitizeHtml(htmlString: string) {
-  if (!DOMPurify.isSupported) {
-    throw new Error("Could not process request");
-  }
-
-  /*
-   * DOMPurify will zap an entire <style> tag if contains a `<` character,
-   * and some of our CSS comments do. So we strip all CSS comments before
-   * running it through DOMPurify.
-   */
-  const doc = new JSDOM(htmlString).window.document;
-  const styleTags = doc.querySelectorAll("style");
-  for (let i = 0; i < styleTags.length; i += 1) {
-    const style = styleTags[i];
-    /*
-     * Currently, our tsconfig targets es5, which doesn't support the `s` flag
-     * on regular expressions. But this lambda runs on Node 20, which does.
-     * TS includes the `s` in its compiled output, but complains.
-     * TODO: Once we bump our TS target to ES2018 or later, delete this comment.
-     */
-    // @ts-ignore
-    style.innerHTML = style.innerHTML.replace(/\/\*.*?\*\//gs, "");
-  }
-  const commentlessHtml = doc.querySelector("html")!.outerHTML;
-
-  /* Sanitization parameters:
-   *  - WHOLE_DOCUMENT - Tells DOMPurify to return the entire <html> doc;
-   *    its default behavior is to return only the contents of the <body>.
-   *  - ADD_TAGS: "head" - Add <head> to the tag allowlist. It's important.
-   *  - ADD_TAGS: "link" - We use <link> tags to include some styles.
-   *  - ADD_TAGS: "base" - The <base> tag tells the renderer to treat relative
-   *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
-   *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
-   *    reject our documents; when they render it on their servers, relative
-   *    URLs would appear as filesystem access attempts, which they disallow.
-   */
-  const sanitizedHtml = DOMPurify.sanitize(commentlessHtml, {
-    WHOLE_DOCUMENT: true,
-    ADD_TAGS: ["head", "link", "base"],
-  });
-
-  return sanitizedHtml;
-}
+/*
+ * These settings are a best-effort to prevent attacks on DocRaptor's servers.
+ * Since no one but the user making the request will see the resulting PDF,
+ * these settings are more relaxed than how we sanitize other API requests.
+ * Notably, we allow `style` (tags and attrs), which is normally forbidden.
+ * Some sanitization parameters explained:
+ *  - "head" - Add <head> to the tag allowlist. It's important.
+ *  - "html" - We want the entire <html> document returned.
+ *  - "link" - We use <link> tags to include some styles.
+ *  - "base" - The <base> tag tells the renderer to treat relative
+ *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
+ *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
+ *    reject our documents; when they render it on their servers, relative
+ *    URLs would appear as filesystem access attempts, which they disallow.
+ *  - "polyline" - This makes checkbox checkmarks visible
+ *  - "style" - Chakra UI uses style tags for critical CSS.
+ */
+const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
+  const defaults = sanitizeHtml.defaults;
+  const extraAttributes = {
+    a: defaults.allowedAttributes.a.concat(["rel"]),
+    img: defaults.allowedAttributes.img.concat(["class", "style"]),
+    link: ["rel", "href", "type", "media"],
+    base: ["href", "target"],
+    input: [
+      "type",
+      "value",
+      "checked",
+      "disabled",
+      "placeholder",
+      "name",
+      "id",
+      "class",
+      "style",
+    ],
+    button: ["type", "name", "id", "class", "style"],
+    svg: [
+      "width",
+      "height",
+      "viewBox",
+      "xmlns",
+      "fill",
+      "stroke",
+      "class",
+      "style",
+    ],
+    path: ["d", "fill", "stroke", "class", "style"],
+    polyline: ["points"],
+  };
+  const extraTags = ["html", "body", "head", "style", "label", "form"];
+  return {
+    // We must allowVulnerableTags in order to preserve `<style>` tags
+    allowVulnerableTags: true,
+    allowedAttributes: {
+      ...defaults.allowedAttributes,
+      ...extraAttributes,
+      "*": ["class", "style", "id", "data-*"],
+    },
+    allowedTags: defaults.allowedTags
+      .concat(Object.keys(extraAttributes))
+      .concat(extraTags),
+  };
+};
 
 /**
  * If PDF generation was not successful, log the reason and throw an error.
@@ -164,7 +192,7 @@ type DocRaptorParameters = {
   /** The URL to fetch and render. Either this or `document_content` is required. */
   document_url?: string;
   /** Synchronous calls have a 60s limit. Callbacks are required for longer-running docs. */
-  async?: false;
+  async?: boolean;
   /** This name will show up in the logs: https://docraptor.com/doc_logs */
   name?: string;
   /** This tag will also show up in DocRaptor's logs. */
