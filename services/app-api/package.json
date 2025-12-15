@@ -33,7 +33,6 @@
     "@aws-sdk/lib-dynamodb": "^3.716.0",
     "@aws-sdk/util-dynamodb": "^3.716.0",
     "aws4": "^1.13.1",
-    "cross-fetch": "^4.1.0",
     "dompurify": "^3.2.3",
     "jsdom": "^26.1.0",
     "jwt-decode": "^3.1.2",

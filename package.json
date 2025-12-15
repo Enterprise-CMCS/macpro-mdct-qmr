@@ -38,7 +38,6 @@
     "@typescript-eslint/parser": "5.18.0",
     "aws-cdk": "^2.1029.0",
     "aws-cdk-local": "^2.19.2",
-    "chromedriver": ">=135.0.1",
     "core-js": "^3.41.0",
     "dotenv": "^16.6.1",
     "eslint": "^8.57.1",
@@ -69,8 +68,7 @@
     "constructs": "^10.4.2",
     "jsdom": "^26.1.0",
     "source-map-support": "^0.5.21",
-    "react-helmet-async": "^2.0.5",
-    "xml2js": "0.6.2"
+    "react-helmet-async": "^2.0.5"
   },
   "resolutions": {
     "json5": "^2.2.3",
