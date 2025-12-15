@@ -1,7 +1,6 @@
 export * from "./Accordion";
 export * from "./AddSSM";
 export * from "./AdminMask";
-export * from "./AutocompletedMeasureTemplate";
 export * from "./Breadcrumbs";
 export * from "./CompleteMeasureFooter";
 export * from "./ComponentMask";
@@ -43,5 +42,4 @@ export * from "./Upload";
 export * from "./YesNoModalDialog";
 export * from "./PrintableMeasureWrapper";
 export * from "./SkipNavigation";
-
-export * from "./AutocompletedMeasureTemplate2";
+export * from "./AutocompletedMeasureTemplate";

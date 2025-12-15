@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2021/qualifierFormsData";
 import { measureTemplate } from "./measureTemplate";
-import { AutocompletedMeasureTemplate2 } from "components";
+import { AutocompletedMeasureTemplate } from "components";
 /*
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
 the key should be the measure id as a string (with '-XX' included) 
@@ -69,17 +69,17 @@ const twentyTwentyOneMeasures = {
   "IET-HH": measureTemplate,
   "IMA-CH": measureTemplate,
   "IU-HH": measureTemplate,
-  "LBW-CH": AutocompletedMeasureTemplate2,
-  "LRCD-CH": AutocompletedMeasureTemplate2,
+  "LBW-CH": AutocompletedMeasureTemplate,
+  "LRCD-CH": AutocompletedMeasureTemplate,
   "MSC-AD": MSCAD,
-  "NCIDDS-AD": AutocompletedMeasureTemplate2,
+  "NCIDDS-AD": AutocompletedMeasureTemplate,
   "OHD-AD": measureTemplate,
   "OUD-AD": measureTemplate,
   "OUD-HH": measureTemplate,
   "PC01-AD": measureTemplate,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
-  "PDENT-CH": AutocompletedMeasureTemplate2,
+  "PDENT-CH": AutocompletedMeasureTemplate,
   "PPC-AD": measureTemplate,
   "PPC-CH": measureTemplate,
   "PQI01-AD": measureTemplate,

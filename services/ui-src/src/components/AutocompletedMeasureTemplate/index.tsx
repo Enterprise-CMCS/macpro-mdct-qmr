@@ -1,25 +1,30 @@
+import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { featuresByYear } from "utils/featuresByYear";
-
-interface Props {
-  measureTitle: string;
-  performanceMeasureText: string;
-  performanceMeasureList?: string[];
-  performanceMeasureSubtext?: string | string[];
-  year: string;
-}
+import * as MeasureData from "labels/MeasureDatas";
 
 export const AutocompletedMeasureTemplate = ({
-  measureTitle,
-  performanceMeasureText,
-  performanceMeasureList,
-  performanceMeasureSubtext,
+  name,
   year,
-}: Props) => {
+  measureId,
+}: QMR.MeasureWrapperProps) => {
   const { state, coreSetId } = useParams();
   const navigate = useNavigate();
+
+  const measure = {
+    ...MeasureData[`MeasureData${year}` as keyof typeof MeasureData],
+  }.measureTemplateData[measureId];
+
+  const measureTitle = `${measureId} - ${name}`;
+
+  const {
+    performanceMeasureSubtext,
+    performanceMeasureText,
+    performanceMeasureList,
+  } = measure.data;
+
   const subText: string[] | undefined =
     typeof performanceMeasureSubtext === "string"
       ? [performanceMeasureSubtext]
@@ -50,7 +55,7 @@ export const AutocompletedMeasureTemplate = ({
           {performanceMeasureList && (
             <CUI.Box>
               <CUI.UnorderedList ml="10">
-                {performanceMeasureList.map((item, idx) => {
+                {performanceMeasureList.map((item: string, idx: number) => {
                   return (
                     <CUI.ListItem key={`performanceMeasureListItem.${idx}`}>
                       <CUI.Text>{item}</CUI.Text>

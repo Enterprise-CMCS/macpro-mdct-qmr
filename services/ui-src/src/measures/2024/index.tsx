@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { measureTemplate } from "./measureTemplate";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2024/qualifierFormsData";
-import { AutocompletedMeasureTemplate2 } from "components";
+import { AutocompletedMeasureTemplate } from "components";
 
 const CPAAD = lazy(() =>
   import("./CPAAD").then((module) => ({ default: module.CPAAD }))
@@ -74,11 +74,11 @@ const twentyTwentyFourMeasures = {
   "IET-HH": measureTemplate,
   "IMA-CH": measureTemplate,
   "IU-HH": measureTemplate,
-  "LBW-CH": AutocompletedMeasureTemplate2,
-  "LRCD-CH": AutocompletedMeasureTemplate2,
+  "LBW-CH": AutocompletedMeasureTemplate,
+  "LRCD-CH": AutocompletedMeasureTemplate,
   "LSC-CH": measureTemplate,
   "MSC-AD": MSCAD,
-  "NCIIDD-AD": AutocompletedMeasureTemplate2,
+  "NCIIDD-AD": AutocompletedMeasureTemplate,
   "OEV-CH": measureTemplate,
   "OHD-AD": measureTemplate,
   "OUD-AD": measureTemplate,
