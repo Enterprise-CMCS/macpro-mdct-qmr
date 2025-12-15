@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2021/qualifierFormsData";
 import { measureTemplate } from "./measureTemplate";
+import { AutocompletedMeasureTemplate2 } from "components";
 /*
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
 the key should be the measure id as a string (with '-XX' included) 
@@ -13,26 +14,14 @@ const CPAAD = lazy(() =>
 const CPCCH = lazy(() =>
   import("./CPCCH").then((module) => ({ default: module.CPCCH }))
 );
-const LBWCH = lazy(() =>
-  import("./LBWCH").then((module) => ({ default: module.LBWCH }))
-);
-const LRCDCH = lazy(() =>
-  import("./LRCDCH").then((module) => ({ default: module.LRCDCH }))
-);
 const MSCAD = lazy(() =>
   import("./MSCAD").then((module) => ({ default: module.MSCAD }))
-);
-const NCIDDSAD = lazy(() =>
-  import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
 );
 const PCRAD = lazy(() =>
   import("./PCRAD").then((module) => ({ default: module.PCRAD }))
 );
 const PCRHH = lazy(() =>
   import("./PCRHH").then((module) => ({ default: module.PCRHH }))
-);
-const PDENTCH = lazy(() =>
-  import("./PDENTCH").then((module) => ({ default: module.PDENTCH }))
 );
 const SSHH = lazy(() =>
   import("./SSHH").then((module) => ({ default: module.SSHH }))
@@ -80,17 +69,17 @@ const twentyTwentyOneMeasures = {
   "IET-HH": measureTemplate,
   "IMA-CH": measureTemplate,
   "IU-HH": measureTemplate,
-  "LBW-CH": LBWCH,
-  "LRCD-CH": LRCDCH,
+  "LBW-CH": AutocompletedMeasureTemplate2,
+  "LRCD-CH": AutocompletedMeasureTemplate2,
   "MSC-AD": MSCAD,
-  "NCIDDS-AD": NCIDDSAD,
+  "NCIDDS-AD": AutocompletedMeasureTemplate2,
   "OHD-AD": measureTemplate,
   "OUD-AD": measureTemplate,
   "OUD-HH": measureTemplate,
   "PC01-AD": measureTemplate,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
-  "PDENT-CH": PDENTCH,
+  "PDENT-CH": AutocompletedMeasureTemplate2,
   "PPC-AD": measureTemplate,
   "PPC-CH": measureTemplate,
   "PQI01-AD": measureTemplate,

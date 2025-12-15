@@ -45,6 +45,9 @@ import { data as IETAD_Data } from "./IETAD/data";
 import { data as IETHH_Data } from "./IETHH/data";
 import { data as IMACH_Data } from "./IMACH/data";
 import { data as IUHH_Data } from "./IUHH/data";
+import { data as LBWCH_Data } from "./LBWCH/data";
+import { data as LRCDCH_Data } from "./LRCDCH/data";
+import { data as NCIIDDAD_Data } from "./NCIIDDAD/data";
 import { data as LSCCH_Data } from "./LSCCH/data";
 import { data as OEVCH_Data } from "./OEVCH/data";
 import { data as OHDAD_Data } from "./OHDAD/data";
@@ -111,7 +114,13 @@ export const measureTemplateData: { [measure: string]: any } = {
   "IET-HH": { data: IETHH_Data, validationFunctions: validationFunctions },
   "IMA-CH": { data: IMACH_Data, validationFunctions: validationFunctions },
   "IU-HH": { data: IUHH_Data, validationFunctions: validationFunctions },
+  "LBW-CH": { data: LBWCH_Data, validationFunctions: validationFunctions },
+  "LRCD-CH": { data: LRCDCH_Data, validationFunctions: validationFunctions },
   "LSC-CH": { data: LSCCH_Data, validationFunctions: validationFunctions },
+  "NCIDDS-AD": {
+    data: NCIIDDAD_Data,
+    validationFunctions: validationFunctions,
+  },
   "OEV-CH": { data: OEVCH_Data, validationFunctions: validationFunctions },
   "OHD-AD": { data: OHDAD_Data, validationFunctions: validationFunctions },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: validationFunctions },

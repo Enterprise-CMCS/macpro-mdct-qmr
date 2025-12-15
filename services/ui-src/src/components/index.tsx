@@ -43,3 +43,5 @@ export * from "./Upload";
 export * from "./YesNoModalDialog";
 export * from "./PrintableMeasureWrapper";
 export * from "./SkipNavigation";
+
+export * from "./AutocompletedMeasureTemplate2";

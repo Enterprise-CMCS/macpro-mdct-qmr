@@ -126,3 +126,9 @@ export interface MeasureTemplateData {
     }[];
   };
 }
+
+export interface AutocompletedMeasureTemplateData {
+  performanceMeasureText: string;
+  performanceMeasureSubtext?: string | [];
+  performanceMeasureList?: string[];
+}
