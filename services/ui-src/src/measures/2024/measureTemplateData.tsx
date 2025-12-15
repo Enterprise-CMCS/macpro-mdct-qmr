@@ -117,7 +117,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "LBW-CH": { data: LBWCH_Data, validationFunctions: validationFunctions },
   "LRCD-CH": { data: LRCDCH_Data, validationFunctions: validationFunctions },
   "LSC-CH": { data: LSCCH_Data, validationFunctions: validationFunctions },
-  "NCIDDS-AD": {
+  "NCIIDD-AD": {
     data: NCIIDDAD_Data,
     validationFunctions: validationFunctions,
   },
