@@ -34,7 +34,7 @@ get_branches () {
  local BRANCHES=()
  for B in $RAW_BRANCHES; do
    [ "${B}" == "HEAD" ] && continue
-   IBRANCH=$(./setBranchName.sh ${B})
+   IBRANCH=$(node ./setBranchName.ts ${B})
    BRANCHES+=($(echo '{"BRANCH":"'${B}'","IBRANCH":"'${IBRANCH}'"}'))
  done
 
