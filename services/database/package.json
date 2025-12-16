@@ -10,12 +10,12 @@
   "author": "",
   "license": "CC0-1.0",
   "devDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.716.0",
-    "@aws-sdk/lib-dynamodb": "^3.716.0",
     "@types/prompt-sync": "^4.2.3",
     "prompt-sync": "^4.2.0"
   },
   "dependencies": {
-    "@aws-sdk/util-dynamodb": "^3.716.0"
+    "@aws-sdk/client-dynamodb": "^3.946.0",
+    "@aws-sdk/lib-dynamodb": "^3.946.0",
+    "@aws-sdk/util-dynamodb": "^3.946.0"
   }
 }

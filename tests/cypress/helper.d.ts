@@ -1,5 +1,3 @@
-/// <reference types="cypress-axe" />
-
 type MeasureList = "OHD-AD";
 declare namespace Cypress {
   interface Chainable {
