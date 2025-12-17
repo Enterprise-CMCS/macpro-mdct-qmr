@@ -2,40 +2,26 @@ import { lazy } from "react";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2021/qualifierFormsData";
 import { measureTemplate } from "./measureTemplate";
+import { AutocompletedMeasureTemplate } from "components";
 /*
 When importing a measure it should be a named import and added to the measures object below so that it routes correctly
 the key should be the measure id as a string (with '-XX' included) 
 */
 
-const AMRAD = lazy(() =>
-  import("./AMRAD").then((module) => ({ default: module.AMRAD }))
-);
 const CPAAD = lazy(() =>
   import("./CPAAD").then((module) => ({ default: module.CPAAD }))
 );
 const CPCCH = lazy(() =>
   import("./CPCCH").then((module) => ({ default: module.CPCCH }))
 );
-const LBWCH = lazy(() =>
-  import("./LBWCH").then((module) => ({ default: module.LBWCH }))
-);
-const LRCDCH = lazy(() =>
-  import("./LRCDCH").then((module) => ({ default: module.LRCDCH }))
-);
 const MSCAD = lazy(() =>
   import("./MSCAD").then((module) => ({ default: module.MSCAD }))
-);
-const NCIDDSAD = lazy(() =>
-  import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
 );
 const PCRAD = lazy(() =>
   import("./PCRAD").then((module) => ({ default: module.PCRAD }))
 );
 const PCRHH = lazy(() =>
   import("./PCRHH").then((module) => ({ default: module.PCRHH }))
-);
-const PDENTCH = lazy(() =>
-  import("./PDENTCH").then((module) => ({ default: module.PDENTCH }))
 );
 const SSHH = lazy(() =>
   import("./SSHH").then((module) => ({ default: module.SSHH }))
@@ -46,7 +32,7 @@ const twentyTwentyOneMeasures = {
   "AMB-CH": measureTemplate,
   "AMB-HH": measureTemplate,
   "AMM-AD": measureTemplate,
-  "AMR-AD": AMRAD,
+  "AMR-AD": measureTemplate,
   "AMR-CH": measureTemplate,
   "APM-CH": measureTemplate,
   "APP-CH": measureTemplate,
@@ -83,17 +69,17 @@ const twentyTwentyOneMeasures = {
   "IET-HH": measureTemplate,
   "IMA-CH": measureTemplate,
   "IU-HH": measureTemplate,
-  "LBW-CH": LBWCH,
-  "LRCD-CH": LRCDCH,
+  "LBW-CH": AutocompletedMeasureTemplate,
+  "LRCD-CH": AutocompletedMeasureTemplate,
   "MSC-AD": MSCAD,
-  "NCIDDS-AD": NCIDDSAD,
+  "NCIDDS-AD": AutocompletedMeasureTemplate,
   "OHD-AD": measureTemplate,
   "OUD-AD": measureTemplate,
   "OUD-HH": measureTemplate,
   "PC01-AD": measureTemplate,
   "PCR-AD": PCRAD,
   "PCR-HH": PCRHH,
-  "PDENT-CH": PDENTCH,
+  "PDENT-CH": AutocompletedMeasureTemplate,
   "PPC-AD": measureTemplate,
   "PPC-CH": measureTemplate,
   "PQI01-AD": measureTemplate,
