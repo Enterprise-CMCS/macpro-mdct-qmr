@@ -21,3 +21,4 @@ tests/cypress/cypress.env.json
 .vscode
 /.cdk
 cdk.context.json
+**/.yarn/*
