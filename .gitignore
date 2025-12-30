@@ -21,12 +21,4 @@ tests/cypress/cypress.env.json
 .vscode
 /.cdk
 cdk.context.json
-
-# Yarn 4
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-**/.yarn/install-state.gz
+**/.yarn/*
