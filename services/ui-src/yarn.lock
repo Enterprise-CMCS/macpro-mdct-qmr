@@ -3259,16 +3259,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@chakra-ui/styled-system@npm:^2":
-  version: 2.12.4
-  resolution: "@chakra-ui/styled-system@npm:2.12.4"
-  dependencies:
-    "@chakra-ui/utils": "npm:2.2.5"
-    csstype: "npm:^3.1.2"
-  checksum: 10c0/c6f126d2cb100d993d5a61d0f5eab7283ebec5af2454d7ae6804bce36dbf31e1a5f57530f6274a3e510479db5abcd7421519d0bf968d401eb1ddc323fb188b92
-  languageName: node
-  linkType: hard
-
 "@chakra-ui/switch@npm:2.0.26":
   version: 2.0.26
   resolution: "@chakra-ui/switch@npm:2.0.26"
@@ -9298,7 +9288,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.0.11, csstype@npm:^3.0.2, csstype@npm:^3.1.2, csstype@npm:^3.2.2":
+"csstype@npm:^3.0.11, csstype@npm:^3.0.2, csstype@npm:^3.2.2":
   version: 3.2.3
   resolution: "csstype@npm:3.2.3"
   checksum: 10c0/cd29c51e70fa822f1cecd8641a1445bed7063697469d35633b516e60fe8c1bde04b08f6c5b6022136bb669b64c63d4173af54864510fbb4ee23281801841a3ce
@@ -13635,7 +13625,6 @@ __metadata:
     "@babel/preset-env": "npm:^7.13.15"
     "@babel/preset-typescript": "npm:^7.16.0"
     "@chakra-ui/react": "npm:2.5.5"
-    "@chakra-ui/styled-system": "npm:^2"
     "@chakra-ui/toast": "npm:2.1.0"
     "@cmsgov/design-system": "npm:^13.0.0"
     "@emotion/react": "npm:^11.13.3"
