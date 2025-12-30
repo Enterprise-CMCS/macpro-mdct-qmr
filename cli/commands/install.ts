@@ -18,7 +18,7 @@ async function* findPackageJsonDirectories(
 
 export const installDeps = async () => {
   for await (const dir of findPackageJsonDirectories(".")) {
-    const commandPieces = ["yarn", "--silent", "install"];
+    const commandPieces = ["yarn", "install"];
     if (process.env.CI === "true") {
       commandPieces.push("--immutable");
     }
