@@ -1,11 +1,10 @@
 import { screen, waitFor, act } from "@testing-library/react";
-import { createElement } from "react";
+import { createElement, Suspense } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
 import Measures from "measures";
-import { Suspense } from "react";
 import { MeasuresLoading } from "views";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";

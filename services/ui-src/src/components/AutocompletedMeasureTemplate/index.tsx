@@ -1,7 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { featuresByYear } from "utils/featuresByYear";
 import * as MeasureData from "labels/MeasureDatas";
 

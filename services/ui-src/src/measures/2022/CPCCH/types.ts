@@ -1,8 +1,7 @@
 import * as Types from "shared/types";
-import * as Type from "shared/types";
 
 export interface FormData
-  extends Type.AdditionalNotes,
+  extends Types.AdditionalNotes,
     Types.MeasurementSpecification,
     Types.DidCollect {
   //HowDidYouReport

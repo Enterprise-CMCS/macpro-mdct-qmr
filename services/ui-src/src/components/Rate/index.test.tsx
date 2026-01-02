@@ -1,8 +1,7 @@
 import { screen } from "@testing-library/react";
-import fireEvent from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 import { Rate } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import userEvent from "@testing-library/user-event";
 import { getMeasureYear } from "../../utils/getMeasureYear";
 
 const TestComponent = () => {
@@ -74,8 +73,8 @@ describe("Test the Rate component", () => {
     const denominatorTextBox = await screen.findByLabelText("Denominator");
     const rateTextBox = await screen.findByLabelText("Rate");
 
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
+    userEvent.type(numeratorTextBox, "123");
+    userEvent.type(denominatorTextBox, "123");
 
     expect(rateTextBox).toHaveDisplayValue("100.0");
   });
@@ -83,7 +82,7 @@ describe("Test the Rate component", () => {
   test("Check that the rate text box is readonly", async () => {
     const rateTextBox = await screen.findByLabelText("Rate");
 
-    fireEvent.type(rateTextBox, "4321");
+    userEvent.type(rateTextBox, "4321");
 
     expect(rateTextBox).toHaveDisplayValue("1");
   });
@@ -94,14 +93,14 @@ describe("Test the Rate component", () => {
     const rateTextBox = await screen.findByLabelText("Rate");
 
     // 3/9*100 = 3.333... -> 33.3
-    fireEvent.type(numeratorTextBox, "3");
-    fireEvent.type(denominatorTextBox, "9");
+    userEvent.type(numeratorTextBox, "3");
+    userEvent.type(denominatorTextBox, "9");
 
     expect(rateTextBox).toHaveDisplayValue("33.3");
 
     // 6/9*100 = 66.666... -> 66.7
-    fireEvent.type(numeratorTextBox, "6");
-    fireEvent.type(denominatorTextBox, "9");
+    userEvent.type(numeratorTextBox, "6");
+    userEvent.type(denominatorTextBox, "9");
 
     expect(rateTextBox).toHaveDisplayValue("66.7");
   });
@@ -123,7 +122,7 @@ describe("Test non-readonly rate component", () => {
 
     const rateTextBox = screen.getByLabelText("Rate");
 
-    fireEvent.type(rateTextBox, "43");
+    userEvent.type(rateTextBox, "43");
 
     expect(rateTextBox).toHaveDisplayValue("43");
   });
@@ -145,7 +144,7 @@ describe("Test non-readonly rate component", () => {
 
     const numeratorTextBox = screen.getByLabelText("Numerator");
 
-    fireEvent.type(numeratorTextBox, "0");
+    userEvent.type(numeratorTextBox, "0");
 
     expect(numeratorTextBox).toHaveDisplayValue("0");
     const rateTextBox = screen.getByLabelText("Rate");
