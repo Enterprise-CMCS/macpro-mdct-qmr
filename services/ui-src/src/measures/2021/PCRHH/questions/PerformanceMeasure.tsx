@@ -115,7 +115,10 @@ export const PCRHHPerformanceMeasure = ({
     true;
 
   return (
-    <QMR.CoreQuestionWrapper label="Performance Measure">
+    <QMR.CoreQuestionWrapper
+      label="Performance Measure"
+      testid="performance-measure"
+    >
       <CUI.Text mb={5}>{data.questionText}</CUI.Text>
       {data.questionListItems && (
         <CUI.UnorderedList m="5" ml="10" spacing={5}>
