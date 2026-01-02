@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
 import { aws_dynamodb as dynamodb } from "aws-cdk-lib";
-import { DynamoDBTable } from "../constructs/dynamodb-table.js";
+import { DynamoDBTable } from "../constructs/dynamodb-table.ts";
 
 interface CreateDataComponentsProps {
   scope: Construct;
