@@ -1,8 +1,8 @@
 import { screen } from "@testing-library/react";
 import fireEvent from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event"; // eslint-disable-line @typescript-eslint/no-duplicate-imports
 import { Rate } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import userEvent from "@testing-library/user-event";
 import { getMeasureYear } from "../../utils/getMeasureYear";
 
 const TestComponent = () => {
