@@ -1,10 +1,12 @@
-import { calculateOMSTotal } from "./omsUtil";
+import {
+  calculateOMSTotal,
+  calculateComplexOMSTotal,
+  useTotalAutoCalculation,
+} from "./omsUtil";
 import { isLegacyLabel } from "utils";
-import { calculateComplexOMSTotal } from "./omsUtil";
 import { act, renderHook } from "@testing-library/react";
 import { useFormContext } from "react-hook-form";
 import { usePerformanceMeasureContext } from "./context";
-import { useTotalAutoCalculation } from "./omsUtil";
 
 jest.mock("utils", () => ({
   ...jest.requireActual("utils"),

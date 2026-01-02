@@ -1,12 +1,10 @@
 //NOTE: This component is only being called from reporting year 2023 and above
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-
+import { IRate } from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
-import { LabelData, getLabelText } from "utils";
-import { IRate } from "components";
 import { defaultRateCalculation } from "utils/rateFormulas";
 import {
   allNumbers,
@@ -14,6 +12,8 @@ import {
   rateThatAllowsFourDecimals,
   rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
+  getLabelText,
+  LabelData,
 } from "utils";
 import { AnyObject } from "types";
 
