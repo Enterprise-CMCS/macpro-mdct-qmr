@@ -3,13 +3,13 @@
   "type": "module",
   "description": "",
   "version": "1.0.0",
+  "packageManager": "yarn@4.12.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "CC0-1.0",
-  "devDependencies": {},
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.946.0"
   }
