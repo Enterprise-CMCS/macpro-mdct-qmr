@@ -314,6 +314,8 @@ export const IETRate = ({
               >
                 <CUI.Input
                   type="text"
+                  key={`${key}.numerator`}
+                  name={`${key}.numerator`}
                   aria-label={`${key}.numerator`}
                   value={fieldKey?.numerator ?? ""}
                   data-cy={`${key}.numerator`}
@@ -333,6 +335,8 @@ export const IETRate = ({
                 {...rest}
               >
                 <CUI.Input
+                  key={`${key}.denominator`}
+                  name={`${key}.denominator`}
                   aria-label={`${key}.denominator`}
                   value={fieldKey?.denominator ?? ""}
                   type="text"
@@ -349,6 +353,8 @@ export const IETRate = ({
                 {...rest}
               >
                 <CUI.Input
+                  key={`${key}.rate`}
+                  name={`${key}.rate`}
                   aria-label={`${key}.rate`}
                   value={fieldKey?.rate ?? ""}
                   type="text"

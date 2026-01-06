@@ -265,6 +265,7 @@ export const ComplexRate = ({
                   >
                     <CUI.Input
                       key={`input-field-${fieldIndex}`}
+                      name={`input-field-${fieldIndex}`}
                       value={
                         field.value?.[qualIndex]?.fields?.[fieldIndex]?.value ??
                         ""

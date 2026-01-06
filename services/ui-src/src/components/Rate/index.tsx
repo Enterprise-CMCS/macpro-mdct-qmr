@@ -242,6 +242,8 @@ export const Rate = ({
               >
                 <CUI.Input
                   type="text"
+                  name={`${name}.${index}.numerator`}
+                  key={`${name}.${index}.numerator`}
                   aria-label={`${name}.${index}.numerator`}
                   value={field.value[index]?.numerator ?? ""}
                   data-cy={`${name}.${index}.numerator`}
@@ -263,6 +265,8 @@ export const Rate = ({
                 {...rest}
               >
                 <CUI.Input
+                  name={`${name}.${index}.denominator`}
+                  key={`${name}.${index}.denominator`}
                   aria-label={`${name}.${index}.denominator`}
                   value={field.value[index]?.denominator ?? ""}
                   type="text"
@@ -283,6 +287,8 @@ export const Rate = ({
                 {...rest}
               >
                 <CUI.Input
+                  name={`${name}.${index}.rate`}
+                  key={`${name}.${index}.rate`}
                   aria-label={`${name}.${index}.rate`}
                   value={field.value[index]?.rate ?? ""}
                   type="text"
