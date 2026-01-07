@@ -21,6 +21,7 @@ import { coreSetTitles } from "shared/coreSetByYear";
 import { Alert } from "@cmsgov/design-system";
 import { parseLabelToHTML } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
+import { StatusIcon } from "components/StatusIcon";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -106,6 +107,170 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
         <QualifierStatus isComplete={isComplete} />
       )}
     </CUI.Box>
+  );
+};
+
+/**
+ * This is 2025 and previous year UI for accessing the qualifier questions and displaying the submit coreset button
+ */
+const PrevQualifierAndSubmit = ({
+  coreSetId,
+  coreSetStatus,
+  completedAmount,
+  measures,
+  submitted,
+  year,
+}: {
+  coreSetId: CoreSetAbbr;
+  coreSetStatus: CoreSetTableItem.Status;
+  completedAmount: number;
+  measures: MeasureTableItem[];
+  submitted: boolean;
+  year: string;
+}) => {
+  return (
+    <CUI.Stack direction={{ base: "column", md: "row" }}>
+      <CUI.HStack
+        justifyContent="space-between"
+        flex="9"
+        borderRadius="8"
+        backgroundColor="gray.100"
+        px="4"
+        py="2"
+      >
+        <QualifiersStatusAndLink coreSetId={coreSetId} />
+        <CUI.HStack>
+          <CUI.Box
+            textAlign="center"
+            mr="2"
+            fontWeight="semibold"
+            fontSize="sm"
+          >
+            <CUI.Text>Total Measures Completed</CUI.Text>
+          </CUI.Box>
+          <QMR.ProgressCircle
+            circularProgressProps={{ color: "green", size: "4.5rem" }}
+            circularProgressLabelProps={{ fontSize: ".8rem" }}
+            currentProgress={completedAmount}
+            maxValue={measures.length}
+          />
+        </CUI.HStack>
+      </CUI.HStack>
+      <CUI.Spacer />
+      <CUI.Box flex="1" textAlign="center" alignSelf="center">
+        <QMR.SubmitCoreSetButton
+          coreSet={coreSetId! as CoreSetAbbr}
+          coreSetStatus={coreSetStatus}
+          isSubmitted={submitted}
+          year={year!}
+          styleProps={{
+            helperText: {
+              fontSize: ".5rem",
+              paddingTop: "1",
+            },
+            button: { colorScheme: "blue" },
+          }}
+        />
+      </CUI.Box>
+    </CUI.Stack>
+  );
+};
+
+const StepsAndProgressSection = ({
+  coreSetId,
+  coreSetStatus,
+  completedAmount,
+  measures,
+  submitted,
+  year,
+}: {
+  coreSetId: CoreSetAbbr;
+  coreSetStatus: CoreSetTableItem.Status;
+  completedAmount: number;
+  measures: MeasureTableItem[];
+  submitted: boolean;
+  year: string;
+}) => {
+  // const { data, isLoading } = useGetMeasure({
+  //   coreSet: coreSetId,
+  //   measure: "CSQ",
+  // });
+  let { state } = useParams();
+
+  const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
+  const tempSpa =
+    coreSetInfo.length > 1
+      ? SPA[year!].filter(
+          (s) => s.id === coreSetInfo[1] && s.state === state
+        )[0]
+      : "";
+  const spaName =
+    tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
+      ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      : "";
+
+  return (
+    <CUI.Stack gap="1rem" maxW="1060px">
+      <CUI.Heading fontSize="lg">Steps and progress to completion</CUI.Heading>
+      <CUI.HStack gap="1.5rem">
+        <StatusIcon status={coreSetStatus} />
+        <CUI.Box>
+          <CUI.Text fontSize="sm" fontWeight="bold">
+            Complete core set qualifier questions
+          </CUI.Text>
+          <CUI.Text fontSize="sm">
+            Enter the adult core set qualifier questions before completing the
+            measures below.{" "}
+          </CUI.Text>
+        </CUI.Box>
+        <CUI.Button
+          as={Link}
+          to={"CSQ"}
+          variant="outline"
+          data-cy="core-set-qualifiers-link"
+        >
+          Enter qualifier questions
+        </CUI.Button>
+      </CUI.HStack>
+      <CUI.Divider></CUI.Divider>
+      <CUI.HStack gap="2rem">
+        <StatusIcon status={coreSetStatus} />
+        <CUI.Box>
+          <CUI.Text fontSize="sm" fontWeight="bold">
+            Complete the below measures
+          </CUI.Text>
+          <CUI.Text fontSize="sm">
+            Complete all {coreSetTitles(coreSetInfo[0], "Questions") + spaName}{" "}
+            to submit {year}
+          </CUI.Text>
+        </CUI.Box>
+        <CUI.HStack>
+          <QMR.ProgressCircle
+            circularProgressProps={{ color: "green", size: "4.5rem" }}
+            circularProgressLabelProps={{ fontSize: ".8rem" }}
+            currentProgress={completedAmount}
+            maxValue={measures.length}
+          />
+          <CUI.Box fontWeight="semibold" fontSize="xs" width="100px">
+            <CUI.Text>Total Measures Completed</CUI.Text>
+          </CUI.Box>
+        </CUI.HStack>
+        <QMR.SubmitCoreSetButton
+          coreSet={coreSetId}
+          coreSetStatus={coreSetStatus}
+          isSubmitted={submitted}
+          year={year!}
+          styleProps={{
+            helperText: {
+              fontSize: ".5rem",
+              paddingTop: "1",
+            },
+            button: { colorScheme: "blue" },
+          }}
+        />
+      </CUI.HStack>
+      <CUI.Divider></CUI.Divider>
+    </CUI.Stack>
   );
 };
 
@@ -411,51 +576,22 @@ export const CoreSet = () => {
             ></QMR.Notification>
           </CUI.Box>
         )}
-        <CUI.Stack direction={{ base: "column", md: "row" }}>
-          <CUI.HStack
-            justifyContent="space-between"
-            flex="9"
-            borderRadius="8"
-            backgroundColor="gray.100"
-            px="4"
-            py="2"
-          >
-            <QualifiersStatusAndLink coreSetId={coreSetId as CoreSetAbbr} />
-
-            <CUI.HStack>
-              <CUI.Box
-                textAlign="center"
-                mr="2"
-                fontWeight="semibold"
-                fontSize="sm"
-              >
-                <CUI.Text>Total Measures Completed</CUI.Text>
-              </CUI.Box>
-              <QMR.ProgressCircle
-                circularProgressProps={{ color: "green", size: "4.5rem" }}
-                circularProgressLabelProps={{ fontSize: ".8rem" }}
-                currentProgress={completedAmount}
-                maxValue={measures.length}
-              />
-            </CUI.HStack>
-          </CUI.HStack>
-          <CUI.Spacer />
-          <CUI.Box flex="1" textAlign="center" alignSelf="center">
-            <QMR.SubmitCoreSetButton
-              coreSet={coreSetId! as CoreSetAbbr}
-              coreSetStatus={coreSetStatus}
-              isSubmitted={data?.Item?.submitted}
-              year={year!}
-              styleProps={{
-                helperText: {
-                  fontSize: ".5rem",
-                  paddingTop: "1",
-                },
-                button: { colorScheme: "blue" },
-              }}
-            />
-          </CUI.Box>
-        </CUI.Stack>
+        <PrevQualifierAndSubmit
+          coreSetId={coreSetId as CoreSetAbbr}
+          coreSetStatus={coreSetStatus}
+          completedAmount={completedAmount}
+          measures={measures}
+          submitted={data?.Item?.submitted}
+          year={year}
+        ></PrevQualifierAndSubmit>
+        <StepsAndProgressSection
+          coreSetId={coreSetId as CoreSetAbbr}
+          coreSetStatus={coreSetStatus}
+          completedAmount={completedAmount}
+          measures={measures}
+          submitted={data?.Item?.submitted}
+          year={year}
+        ></StepsAndProgressSection>
         <CUI.Box mt="4">
           <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
             {!isError && (

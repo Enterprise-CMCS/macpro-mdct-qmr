@@ -26,20 +26,18 @@ export const SubmitCoreSetButton = ({
 }: Props) => {
   const helperTextFiller = () => {
     const abbr = coreSet?.split("_") ?? [coreSet];
-    switch (abbr[0]) {
-      case CoreSetAbbr.ACS:
-      case CoreSetAbbr.ACSC:
-      case CoreSetAbbr.ACSM:
-        return "Adult ";
-      case CoreSetAbbr.CCS:
-      case CoreSetAbbr.CCSM:
-      case CoreSetAbbr.CCSC:
-        return "Child ";
-      case CoreSetAbbr.HHCS:
-        return "Health Home ";
-      default:
-        return "";
+    const adultAbbr = [CoreSetAbbr.ACS, CoreSetAbbr.ACSC, CoreSetAbbr.ACSM];
+    const childAbbr = [CoreSetAbbr.CCS, CoreSetAbbr.CCSC, CoreSetAbbr.CCSM];
+    const healthAbbr = [CoreSetAbbr.HHCS];
+
+    if (adultAbbr.includes(abbr[0] as CoreSetAbbr)) {
+      return "Adult ";
+    } else if (childAbbr.includes(abbr[0] as CoreSetAbbr)) {
+      return "Child ";
+    } else if (healthAbbr.includes(abbr[0] as CoreSetAbbr)) {
+      return "Health Home";
     }
+    return "";
   };
 
   const subSetTextFiller = () => {
