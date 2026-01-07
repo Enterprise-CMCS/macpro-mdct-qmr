@@ -38,4 +38,10 @@ export const data: MeasureTemplateData = {
     "validateEqualQualifierDenominatorsPM",
     "validateYearFormat",
   ],
+  override: {
+    validateOneCatRateHigherThanOtherCat: [
+      { highIndex: 0, lowIndex: 1 },
+      { highIndex: 0, lowIndex: 2 },
+    ],
+  },
 };
