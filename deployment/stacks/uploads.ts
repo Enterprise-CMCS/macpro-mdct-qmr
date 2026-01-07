@@ -10,8 +10,8 @@ import {
   RemovalPolicy,
   Aws,
 } from "aws-cdk-lib";
-import { Lambda } from "../constructs/lambda.js";
-import { DynamoDBTable } from "../constructs/dynamodb-table.js";
+import { Lambda } from "../constructs/lambda.ts";
+import { DynamoDBTable } from "../constructs/dynamodb-table.ts";
 
 interface createUploadsComponentsProps {
   scope: Construct;

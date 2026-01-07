@@ -11,9 +11,9 @@ beforeEach(() => {
   render(
     <RouterWrappedComp>
       <AutocompletedMeasureTemplate
-        measureTitle="Test title"
-        performanceMeasureText="test measure test"
         year="2021"
+        name={"test title"}
+        measureId={"LBW-CH"}
       />
     </RouterWrappedComp>
   );
@@ -23,11 +23,15 @@ describe("Test AutocompletedMeasureTemplate.tsx", () => {
   it("renders component properly with correct test text", () => {
     expect(screen.getByText(/test title/i)).toBeInTheDocument();
 
-    expect(screen.getByText(/test measure test/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Percentage of live births that weighed less than 2,500 grams at birth during the measurement year./i
+      )
+    ).toBeInTheDocument();
 
     expect(
       screen.getByText(
-        /States are not asked to report data for this measure for FFY 2021 Core Set/i
+        "To reduce state burden and streamline reporting, CMS will calculate this measure for states using state natality data obtained through the Centers for Disease Control and Prevention Wide-ranging Online Data for Epidemiologic Research (CDC WONDER)."
       )
     ).toBeInTheDocument();
 

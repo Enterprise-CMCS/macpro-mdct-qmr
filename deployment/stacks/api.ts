@@ -9,12 +9,12 @@ import {
   Duration,
   RemovalPolicy,
 } from "aws-cdk-lib";
-import { Lambda } from "../constructs/lambda.js";
-import { WafConstruct } from "../constructs/waf.js";
-import { LambdaDynamoEventSource } from "../constructs/lambda-dynamo-event.js";
-import { DynamoDBTable } from "../constructs/dynamodb-table.js";
-import { isDefined } from "../utils/misc.js";
-import { isLocalStack } from "../local/util.js";
+import { Lambda } from "../constructs/lambda.ts";
+import { WafConstruct } from "../constructs/waf.ts";
+import { LambdaDynamoEventSource } from "../constructs/lambda-dynamo-event.ts";
+import { DynamoDBTable } from "../constructs/dynamodb-table.ts";
+import { isDefined } from "../utils/misc.ts";
+import { isLocalStack } from "../local/util.ts";
 
 interface CreateApiComponentsProps {
   scope: Construct;
@@ -68,7 +68,9 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     deployOptions: {
       stageName: stage,
       tracingEnabled: true,
-      loggingLevel: apigateway.MethodLoggingLevel.INFO,
+      loggingLevel: isDev
+        ? apigateway.MethodLoggingLevel.OFF
+        : apigateway.MethodLoggingLevel.INFO,
       dataTraceEnabled: true,
       accessLogDestination: new apigateway.LogGroupLogDestination(logGroup),
     },

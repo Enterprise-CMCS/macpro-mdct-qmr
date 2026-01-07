@@ -1,5 +1,4 @@
 import { gunzipSync } from "zlib";
-import { fetch } from "cross-fetch"; // TODO delete this line and uninstall this package, once QMR is running on Nodejs 18+
 import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
