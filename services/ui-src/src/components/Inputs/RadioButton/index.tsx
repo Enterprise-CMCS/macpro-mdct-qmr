@@ -3,6 +3,12 @@ import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { ControllerRules } from "global";
+import { ComponentProps } from "react";
+
+// Chakra UI v2 Collapse types are incompatible with React 19
+const Collapse = CUI.Collapse as React.FC<
+  ComponentProps<typeof CUI.Collapse> & { children?: React.ReactNode }
+>;
 
 export interface RadioButtonOption {
   displayValue: string;
@@ -110,13 +116,13 @@ export const RadioButton = ({
                       {option.displayValue}
                     </CUI.Text>
                   </CUI.Radio>
-                  <CUI.Collapse in={showChildren} animateOpacity>
+                  <Collapse in={showChildren} animateOpacity>
                     {showChildren && (
                       <QMR.QuestionChild show={!!option.children?.length}>
                         {option.children}
                       </QMR.QuestionChild>
                     )}
-                  </CUI.Collapse>
+                  </Collapse>
                 </QMR.DeleteWrapper>
               );
             })}

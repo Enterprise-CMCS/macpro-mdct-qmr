@@ -38,7 +38,7 @@ describe("Test Accordion Component", () => {
       });
       userEvent.click(accordionBtn);
 
-      const childAccordionBtn = screen.getByRole("button", {
+      const childAccordionBtn = await screen.findByRole("button", {
         name: "mock child accordion",
       });
       await waitFor(() => expect(childAccordionBtn).toBeVisible());

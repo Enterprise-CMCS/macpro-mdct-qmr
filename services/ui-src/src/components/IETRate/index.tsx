@@ -1,12 +1,10 @@
 //NOTE: This component is only being called from reporting year 2023 and above
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-
+import { IRate } from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
 import { useEffect, useLayoutEffect } from "react";
-import { LabelData, getLabelText } from "utils";
-import { IRate } from "components";
 import { defaultRateCalculation } from "utils/rateFormulas";
 import {
   allNumbers,
@@ -14,6 +12,8 @@ import {
   rateThatAllowsFourDecimals,
   rateThatAllowsOneDecimal,
   allPositiveIntegersWith8Digits,
+  getLabelText,
+  LabelData,
 } from "utils";
 import { AnyObject } from "types";
 
@@ -314,6 +314,8 @@ export const IETRate = ({
               >
                 <CUI.Input
                   type="text"
+                  key={`${key}.numerator`}
+                  name={`${key}.numerator`}
                   aria-label={`${key}.numerator`}
                   value={fieldKey?.numerator ?? ""}
                   data-cy={`${key}.numerator`}
@@ -333,6 +335,8 @@ export const IETRate = ({
                 {...rest}
               >
                 <CUI.Input
+                  key={`${key}.denominator`}
+                  name={`${key}.denominator`}
                   aria-label={`${key}.denominator`}
                   value={fieldKey?.denominator ?? ""}
                   type="text"
@@ -349,6 +353,8 @@ export const IETRate = ({
                 {...rest}
               >
                 <CUI.Input
+                  key={`${key}.rate`}
+                  name={`${key}.rate`}
                   aria-label={`${key}.rate`}
                   value={fieldKey?.rate ?? ""}
                   type="text"

@@ -1,23 +1,20 @@
 import { getPDF } from "../pdf";
-import { fetch } from "cross-fetch";
 import { testEvent } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 import { gzipSync } from "zlib";
 
 jest.spyOn(console, "warn").mockImplementation();
 
-jest.mock("cross-fetch", () => ({
-  fetch: jest.fn().mockResolvedValue({
-    status: 200,
-    headers: {
-      get: jest.fn().mockReturnValue("3"),
-    },
-    arrayBuffer: jest.fn().mockResolvedValue(
-      // An ArrayBuffer containing `%PDF-1.7`
-      new Uint8Array([37, 80, 68, 70, 45, 49, 46, 55]).buffer
-    ),
-  }),
-}));
+global.fetch = jest.fn().mockResolvedValue({
+  status: 200,
+  headers: {
+    get: jest.fn().mockReturnValue("3"),
+  },
+  arrayBuffer: jest.fn().mockResolvedValue(
+    // An ArrayBuffer containing `%PDF-1.7`
+    new Uint8Array([37, 80, 68, 70, 45, 49, 46, 55]).buffer
+  ),
+});
 
 const dangerousHtml =
   "<html><head></head><body><p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p></body></html>";

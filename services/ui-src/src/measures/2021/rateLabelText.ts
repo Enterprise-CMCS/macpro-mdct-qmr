@@ -144,12 +144,14 @@ export const rawData = {
             {
                 "label": "Ages 19 to 50",
                 "id": "Ages19to50",
-                "text": "Ages 19 to 50"
+                "text": "Ages 19 to 50",
+                "excludeFromOMS": true
             },
             {
                 "label": "Ages 51 to 64",
                 "id": "Ages51to64",
-                "text": "Ages 51 to 64"
+                "text": "Ages 51 to 64",
+                "excludeFromOMS": true
             },
             {
                 "label": "Total (Ages 19 to 64)",
