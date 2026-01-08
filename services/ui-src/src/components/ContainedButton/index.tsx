@@ -1,33 +1,28 @@
 import * as CUI from "@chakra-ui/react";
 import { FaPlusCircle, FaPrint } from "react-icons/fa";
 interface ContainedButtonProps {
+  type?: "button" | "submit";
   buttonText: any;
-  buttonProps?: CUI.ButtonProps;
   disabledStatus?: boolean;
-  helperText?: string;
-  helperTextProps?: CUI.TextProps;
   icon?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  zIndex?: number;
   testId?: string;
   loading?: boolean;
+  variant?: string;
 }
 
 export const ContainedButton = ({
+  type,
   disabledStatus,
   buttonText,
-  buttonProps,
-  helperText,
-  helperTextProps,
+  variant,
   icon,
   onClick,
-  zIndex,
   testId,
   loading = false,
 }: ContainedButtonProps) => {
   const printIcon = icon === "print" ? <FaPrint /> : undefined;
   const plusIcon = icon === "plus" ? <FaPlusCircle /> : undefined;
-  zIndex = zIndex ? zIndex : 1;
 
   return (
     <CUI.Box>
@@ -37,19 +32,13 @@ export const ContainedButton = ({
         rightIcon={plusIcon}
         onClick={onClick}
         isDisabled={disabledStatus}
-        borderRadius="sm"
-        zIndex={zIndex}
-        fontSize="1.2rem"
-        color="white"
-        textTransform="capitalize"
-        fontWeight="bold"
         isLoading={loading}
         loadingText={buttonText}
-        {...buttonProps}
+        variant={variant ?? "primary"}
+        type={type ?? "button"}
       >
         {buttonText}
       </CUI.Button>
-      {helperText && <CUI.Text {...helperTextProps}>{helperText}</CUI.Text>}
     </CUI.Box>
   );
 };

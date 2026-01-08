@@ -21,7 +21,6 @@ export const SubmitCoreSetButton = ({
   coreSetStatus,
   isSubmitted = false,
   year,
-  styleProps,
 }: Props) => {
   const { mutate, isPending } = useEditCoreSet();
   const queryClient = useQueryClient();
@@ -42,12 +41,6 @@ export const SubmitCoreSetButton = ({
             !userInfo.isStateUser ||
             coreSetStatus !== CoreSetTableItem.Status.COMPLETED
           }
-          buttonProps={{
-            bg: "blue.600",
-            colorScheme: "blue",
-            w: "full",
-            ...styleProps?.button,
-          }}
           onClick={() => {
             mutate(
               {

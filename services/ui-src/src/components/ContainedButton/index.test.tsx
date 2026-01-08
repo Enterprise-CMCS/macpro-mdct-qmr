@@ -10,19 +10,6 @@ describe("Test ContainedButton", () => {
     expect(getByText(/test1/i)).toBeVisible();
   });
 
-  it("Check that the helper text renders", () => {
-    const { getByText } = render(
-      <ContainedButton
-        buttonText="test2"
-        helperText="helper"
-        icon="plus"
-        onClick={() => {}}
-      />
-    );
-
-    expect(getByText(/helper/i)).toBeVisible();
-  });
-
   it("Check the button renders an icon correcty", () => {
     const { rerender } = render(
       <ContainedButton buttonText="test3" icon="plus" onClick={() => {}} />

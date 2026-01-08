@@ -96,8 +96,7 @@ const StepsAndProgressSection = ({
           width="246px"
           as={Link}
           to={"CSQ"}
-          variant="outline"
-          colorScheme="blue"
+          variant="outline-primary"
           data-cy="core-set-qualifiers-link"
           disabled={isLoading}
         >
@@ -132,9 +131,6 @@ const StepsAndProgressSection = ({
           coreSetStatus={coreSetStatus}
           isSubmitted={submitted}
           year={year!}
-          styleProps={{
-            button: { colorScheme: "blue", width: "246px" },
-          }}
         />
       ),
     },
@@ -167,7 +163,7 @@ const StepsAndProgressSection = ({
             <CUI.GridItem colSpan={{ base: 2, md: 1 }}>
               {row.indicator}
             </CUI.GridItem>
-            <CUI.GridItem>{row.button}</CUI.GridItem>
+            <CUI.GridItem display="block">{row.button}</CUI.GridItem>
           </CUI.Grid>
           {index < rows.length - 1 ? <CUI.Divider /> : ""}
         </>

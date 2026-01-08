@@ -117,14 +117,15 @@ export const AddChildCoreSet = () => {
                       Child Core Set Measures to submit for CMS review.
                     </CUI.Text>
 
-                    <CUI.HStack paddingTop="5">
+                    <CUI.HStack paddingTop="5" gap="1rem">
                       <QMR.ContainedButton
-                        buttonProps={{ type: "submit", background: "blue.500" }}
+                        type="submit"
+                        variant="primary"
                         buttonText={mutation.isPending ? "Loading" : "Create"}
                         disabledStatus={!watchReportType || mutation.isPending}
                       />
                       <QMR.ContainedButton
-                        buttonProps={{ color: "blue", colorScheme: "white" }}
+                        variant="link"
                         buttonText="Cancel"
                         onClick={() => {
                           navigate(`/${state}/${year}`);

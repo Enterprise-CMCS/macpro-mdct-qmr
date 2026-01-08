@@ -37,8 +37,7 @@ export const AddCoreSetCard = ({
         <CUI.Button
           data-cy={to + "button"}
           rightIcon={<FaPlusCircle />}
-          variant={"outline-primary"}
-          fontSize={"1.2rem"}
+          variant="outline-primary"
           isDisabled={!isStateUser || coreSetExists}
           href="#"
           onClick={() => {
