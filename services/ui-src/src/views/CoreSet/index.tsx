@@ -17,7 +17,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
-import { Alert } from "@cmsgov/design-system";
+import { Alert, Spinner } from "@cmsgov/design-system";
 import { parseLabelToHTML } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
 import { StatusIcon } from "components/StatusIcon";
@@ -82,20 +82,18 @@ const StepsAndProgressSection = ({
       ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
-  const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
-
-  console.log(isLoading, isComplete);
-
   return (
     <CUI.Stack gap="1rem" maxW="1060px">
-      <CUI.Heading fontSize="lg">Steps and progress to completion</CUI.Heading>
+      <CUI.Heading fontSize="lg" my="1rem">
+        Steps and progress to completion
+      </CUI.Heading>
       <CUI.Grid
         alignItems="anchor-center"
         templateColumns="20px 420px 1fr"
         gap="2rem"
       >
         <CUI.GridItem>
-          <StatusIcon status={coreSetStatus} />
+          <StatusIcon status={data?.Item?.status} />
         </CUI.GridItem>
         <CUI.GridItem>
           <CUI.Text fontSize="sm" fontWeight="bold">
@@ -112,16 +110,18 @@ const StepsAndProgressSection = ({
             as={Link}
             to={"CSQ"}
             variant="outline"
+            colorScheme="blue"
             data-cy="core-set-qualifiers-link"
+            disabled={isLoading}
           >
-            Enter qualifier questions
+            {isLoading ? <Spinner size="small" /> : "Enter qualifier questions"}
           </CUI.Button>
         </CUI.GridItem>
       </CUI.Grid>
       <CUI.Divider></CUI.Divider>
       <CUI.Grid
         alignItems="anchor-center"
-        templateColumns="20px 420px 182px 1fr"
+        templateColumns="20px minmax(0, 420px) 182px 1fr"
         gap="2rem"
       >
         <CUI.GridItem>
@@ -165,7 +165,6 @@ const StepsAndProgressSection = ({
           />
         </CUI.GridItem>
       </CUI.Grid>
-      <CUI.Divider></CUI.Divider>
     </CUI.Stack>
   );
 };
@@ -482,6 +481,8 @@ export const CoreSet = () => {
         ></StepsAndProgressSection>
         <CUI.Box mt="4">
           <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
+            <CUI.Divider my="2rem"></CUI.Divider>
+            <CUI.Heading fontSize="lg">Core Set Measures</CUI.Heading>
             {!isError && (
               <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
             )}

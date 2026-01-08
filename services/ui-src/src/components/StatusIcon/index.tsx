@@ -3,13 +3,16 @@ import { CoreSetTableItem } from "components/Table/types";
 import successIcon from "assets/icons/status/icon_status_check.svg";
 import notStartedIcon from "assets/icons/status/icon_status_alert.svg";
 import inProgressIcon from "assets/icons/status/icon_status_inprogress.svg";
+import { MeasureStatus } from "types";
 
 interface Props {
   status: CoreSetTableItem.Status;
 }
 export const StatusIcon = ({ status }: Props) => {
-  const getStatus = (status: CoreSetTableItem.Status) => {
+  const getStatus = (status: CoreSetTableItem.Status | MeasureStatus) => {
     switch (status) {
+      default:
+      case MeasureStatus.INCOMPLETE:
       case CoreSetTableItem.Status.NOT_STARTED:
         return {
           src: notStartedIcon,
@@ -24,6 +27,7 @@ export const StatusIcon = ({ status }: Props) => {
           text: "In progress",
           textColor: "palette.primary",
         };
+      case MeasureStatus.COMPLETE:
       case CoreSetTableItem.Status.COMPLETED:
       case CoreSetTableItem.Status.SUBMITTED:
         return {
