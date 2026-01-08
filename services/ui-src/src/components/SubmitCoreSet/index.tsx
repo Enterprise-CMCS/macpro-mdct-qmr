@@ -7,7 +7,6 @@ import { useEditCoreSet } from "hooks/api";
 import { useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
 import { useQueryClient } from "@tanstack/react-query";
-import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   coreSet: CoreSetAbbr;
@@ -24,44 +23,6 @@ export const SubmitCoreSetButton = ({
   year,
   styleProps,
 }: Props) => {
-  const helperTextFiller = () => {
-    const abbr = coreSet?.split("_") ?? [coreSet];
-    const adultAbbr = [CoreSetAbbr.ACS, CoreSetAbbr.ACSC, CoreSetAbbr.ACSM];
-    const childAbbr = [CoreSetAbbr.CCS, CoreSetAbbr.CCSC, CoreSetAbbr.CCSM];
-    const healthAbbr = [CoreSetAbbr.HHCS];
-
-    if (adultAbbr.includes(abbr[0] as CoreSetAbbr)) {
-      return "Adult ";
-    } else if (childAbbr.includes(abbr[0] as CoreSetAbbr)) {
-      return "Child ";
-    } else if (healthAbbr.includes(abbr[0] as CoreSetAbbr)) {
-      return "Health Home";
-    }
-    return "";
-  };
-
-  const subSetTextFiller = () => {
-    const abbr = coreSet?.split("_") ?? [coreSet];
-    switch (abbr[0]) {
-      case CoreSetAbbr.ACS:
-        return " ";
-      case CoreSetAbbr.CCS:
-        return ": Medicaid & CHIP ";
-      case CoreSetAbbr.ACSM:
-      case CoreSetAbbr.CCSM:
-        return ": Medicaid ";
-      case CoreSetAbbr.ACSC:
-      case CoreSetAbbr.CCSC:
-        return ": CHIP ";
-      case CoreSetAbbr.HHCS:
-        return " ";
-      default:
-        return " ";
-    }
-  };
-  const helperText = `Complete all ${helperTextFiller()}Core Set Questions${subSetTextFiller()}and ${helperTextFiller()}Core Set Measures${subSetTextFiller()}to submit ${
-    featuresByYear.displayFFYLanguage ? "FFY" : ""
-  } ${year}`;
   const { mutate, isPending } = useEditCoreSet();
   const queryClient = useQueryClient();
   const userInfo = useUser();
@@ -87,8 +48,6 @@ export const SubmitCoreSetButton = ({
             w: "full",
             ...styleProps?.button,
           }}
-          helperText={helperText}
-          helperTextProps={styleProps?.helperText}
           onClick={() => {
             mutate(
               {

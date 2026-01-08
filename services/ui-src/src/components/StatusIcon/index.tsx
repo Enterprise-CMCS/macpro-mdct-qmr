@@ -38,7 +38,7 @@ export const StatusIcon = ({ status }: Props) => {
   const statusObject = getStatus(status);
 
   return (
-    <Box>
+    <Box minWidth="fit-content">
       <Image src={statusObject.src} alt={statusObject.alt}></Image>
     </Box>
   );
