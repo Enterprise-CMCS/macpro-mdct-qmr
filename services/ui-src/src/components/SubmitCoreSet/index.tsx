@@ -61,7 +61,7 @@ export const SubmitCoreSetButton = ({
   return (
     <Button
       variant="primary"
-      onClick={() => handleSubmiCoreSet}
+      onClick={handleSubmiCoreSet}
       isDisabled={isDisabled}
       width="246px"
     >

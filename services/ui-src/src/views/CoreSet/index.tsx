@@ -49,6 +49,18 @@ interface LocationState {
   state: { success: boolean };
 }
 
+const abbrToName = (abbr: CoreSetAbbr) => {
+  const child = [CoreSetAbbr.CCS, CoreSetAbbr.CCSM, CoreSetAbbr.CCSC];
+  const adult = [CoreSetAbbr.ACS, CoreSetAbbr.ACSM, CoreSetAbbr.ACSC];
+  const health = [CoreSetAbbr.HHCS];
+
+  if (child.includes(abbr)) return "Child";
+  else if (adult.includes(abbr)) return "Adult";
+  else if (health.includes(abbr)) return "Health Home";
+
+  return "";
+};
+
 const StepsAndProgressSection = ({
   coreSetId,
   coreSetStatus,
@@ -82,14 +94,14 @@ const StepsAndProgressSection = ({
       ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
-  // const coreSetName = coreSetType[coreSetInfo];
+  const coreSetName = abbrToName(coreSetInfo[0] as CoreSetAbbr);
 
   const rows = [
     {
       status: data?.Item?.status,
       label: {
         title: "Complete core set qualifier questions",
-        hintText: `Enter the ${coreSetType} core set qualifier questions before completing the measures below.`,
+        hintText: `Enter the ${coreSetName} core set qualifier questions before completing the measures below.`,
       },
       indicator: "",
       button: (
@@ -486,7 +498,9 @@ export const CoreSet = () => {
         <CUI.Box mt="4">
           <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
             <CUI.Divider my="2rem"></CUI.Divider>
-            <CUI.Heading fontSize="lg">Core Set Measures</CUI.Heading>
+            <CUI.Heading fontSize="lg">
+              {abbrToName(coreSetPrefix as CoreSetAbbr)} Core Set Measures
+            </CUI.Heading>
             {!isError && (
               <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
             )}
