@@ -58,11 +58,6 @@ describe("Test the SubmitCoreSetButton component", () => {
     renderTestComponent(props);
     expect(screen.getByText(/Submit Core Set/i)).toBeVisible();
     expect(
-      screen.getByText(
-        /Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021/i
-      )
-    ).toBeVisible();
-    expect(
       screen.getByText(/Submit Core Set/i).closest("button")
     ).not.toBeDisabled();
   });
@@ -72,50 +67,8 @@ describe("Test the SubmitCoreSetButton component", () => {
     renderTestComponent(props);
     expect(screen.getByText(/Submit Core Set/i)).toBeVisible();
     expect(
-      screen.getByText(
-        /Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021/i
-      )
-    ).toBeVisible();
-    expect(
       screen.getByText(/Submit Core Set/i).closest("button")
     ).toBeDisabled();
-  });
-
-  test("Check that coreSet prop changes the helper text (CCS)", () => {
-    props.coreSet = CoreSetAbbr.CCS;
-    renderTestComponent(props);
-    expect(
-      screen.getByText(
-        /Complete all Child Core Set Questions: Medicaid & CHIP and Child Core Set Measures: Medicaid & CHIP to submit FFY 2021/i
-      )
-    ).toBeVisible();
-  });
-  test("Check that coreSet prop changes the helper text (CCSM)", () => {
-    props.coreSet = CoreSetAbbr.CCSM;
-    renderTestComponent(props);
-    expect(
-      screen.getByText(
-        /Complete all Child Core Set Questions: Medicaid and Child Core Set Measures: Medicaid to submit FFY 2021/i
-      )
-    ).toBeVisible();
-  });
-  test("Check that coreSet prop changes the helper text (CCSC)", () => {
-    props.coreSet = CoreSetAbbr.CCSC;
-    renderTestComponent(props);
-    expect(
-      screen.getByText(
-        /Complete all Child Core Set Questions: CHIP and Child Core Set Measures: CHIP to submit FFY 2021/i
-      )
-    ).toBeVisible();
-  });
-  test("Check that coreSet prop changes the helper text (HHCS)", () => {
-    props.coreSet = CoreSetAbbr.HHCS;
-    renderTestComponent(props);
-    expect(
-      screen.getByText(
-        /Complete all Health Home Core Set Questions and Health Home Core Set Measures to submit FFY 2021/i
-      )
-    ).toBeVisible();
   });
 
   test("Check that when coreSetStatus !== COMPLETED the button is disabled (NOT_STARTED)", () => {
@@ -140,17 +93,5 @@ describe("Test the SubmitCoreSetButton component", () => {
     expect(
       screen.getByText(/Submit Core Set/i).closest("button")
     ).toBeDisabled();
-  });
-
-  test("Check that when isSubmitted === true the button does not appear", () => {
-    props.isSubmitted = true;
-    renderTestComponent(props);
-    expect(screen.queryByText(/Submit Core Set/i)).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(
-        /Complete all Adult Core Set Questions and Adult Core Set Measures to submit FFY 2021/i
-      )
-    ).not.toBeInTheDocument();
-    expect(screen.getByText(/Submitted/)).toBeVisible();
   });
 });

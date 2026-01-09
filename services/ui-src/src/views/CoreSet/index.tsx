@@ -104,7 +104,11 @@ const StepsAndProgressSection = ({
         hintText: `Enter the ${coreSetName} core set qualifier questions before completing the measures below.`,
       },
       indicator: "",
-      button: (
+      button: isLoading ? (
+        <CUI.Flex justifyContent="center" width="246px">
+          <Spinner size="small" />
+        </CUI.Flex>
+      ) : (
         <CUI.Button
           width="246px"
           as={Link}
@@ -112,7 +116,7 @@ const StepsAndProgressSection = ({
           variant="outline-primary"
           data-cy="core-set-qualifiers-link"
         >
-          {isLoading ? <Spinner size="small" /> : "Enter qualifier questions"}
+          Enter Qualifier Questions
         </CUI.Button>
       ),
     },
@@ -155,7 +159,7 @@ const StepsAndProgressSection = ({
         Steps and progress to completion
       </CUI.Heading>
       {rows.map((row, index) => (
-        <>
+        <CUI.Box key={`step-progress-${index}`}>
           <CUI.Grid
             alignItems="anchor-center"
             templateColumns={{
@@ -164,7 +168,7 @@ const StepsAndProgressSection = ({
             }}
             gap={{ base: "1.5rem", md: "2rem" }}
           >
-            <CUI.GridItem>
+            <CUI.GridItem key={`status-${index}`}>
               <StatusIcon status={row.status} />
             </CUI.GridItem>
             <CUI.GridItem>
@@ -178,8 +182,8 @@ const StepsAndProgressSection = ({
             </CUI.GridItem>
             <CUI.GridItem display="block">{row.button}</CUI.GridItem>
           </CUI.Grid>
-          {index < rows.length - 1 ? <CUI.Divider /> : ""}
-        </>
+          {index < rows.length - 1 ? <CUI.Divider mt="1.5rem" /> : ""}
+        </CUI.Box>
       ))}
     </CUI.Stack>
   );
