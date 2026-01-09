@@ -48,11 +48,17 @@ const linkVariant = {
 const greenVariant = {
   background: "green.500",
   color: "white",
+  " &:disabled:hover": {
+    background: "green.500",
+  },
 };
 
 const redVariant = {
   background: "red.500",
   color: "white",
+  " &:disabled:hover": {
+    background: "red.500",
+  },
 };
 
 const variants = {
