@@ -28,6 +28,14 @@ const outlinePrimaryVariant = {
   border: "1px solid #2b6cb0",
   borderRadius: "sm",
   textDecoration: "none",
+  "&:disabled, &:disabled:hover": {
+    opacity: 1,
+    borderColor: "#D9D9D9",
+    color: "#D9D9D9",
+  },
+  "&:visited": {
+    color: "#2b6cb0",
+  },
 };
 
 const primaryVariant = {
@@ -36,28 +44,38 @@ const primaryVariant = {
   textTransform: "capitalize",
   fontWeight: "bold",
   borderRadius: "sm",
-  " &:disabled:hover": {
-    background: "blue.600",
+  "&:disabled, &:disabled:hover": {
+    opacity: 1.0,
+    background: "#D9D9D9",
+    color: "#404040",
   },
 };
 
 const linkVariant = {
   color: "blue.600",
+  "&:disabled, &:disabled:hover": {
+    opacity: 0.6,
+    color: "#404040",
+  },
 };
 
 const greenVariant = {
   background: "green.500",
   color: "white",
-  " &:disabled:hover": {
-    background: "green.500",
+  "&:disabled, &:disabled:hover": {
+    opacity: 1.0,
+    background: "#D9D9D9",
+    color: "#404040",
   },
 };
 
 const redVariant = {
   background: "red.500",
   color: "white",
-  " &:disabled:hover": {
-    background: "red.500",
+  "&:disabled, &:disabled:hover": {
+    opacity: 1.0,
+    background: "#D9D9D9",
+    color: "#404040",
   },
 };
 

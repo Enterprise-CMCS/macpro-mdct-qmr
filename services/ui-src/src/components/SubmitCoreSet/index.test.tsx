@@ -34,7 +34,6 @@ const renderTestComponent = (props: Props) => {
       <SubmitCoreSetButton
         coreSet={props.coreSet}
         coreSetStatus={props.coreSetStatus}
-        isSubmitted={props.isSubmitted}
         year={props.year}
       />
     </QueryClientProvider>

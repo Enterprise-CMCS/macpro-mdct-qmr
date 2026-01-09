@@ -1,8 +1,5 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { CoreSetTableItem } from "components/Table/types";
-import successIcon from "assets/icons/status/icon_status_check.svg";
-import notStartedIcon from "assets/icons/status/icon_status_alert.svg";
-import inProgressIcon from "assets/icons/status/icon_status_inprogress.svg";
 import { MeasureStatus } from "types";
 
 interface Props {
@@ -15,14 +12,14 @@ export const StatusIcon = ({ status }: Props) => {
       case MeasureStatus.INCOMPLETE:
       case CoreSetTableItem.Status.NOT_STARTED:
         return {
-          src: notStartedIcon,
+          src: "/icons/status/icon_status_alert.svg",
           alt: "not started icon",
           text: "Not started",
           textColor: "palette.error_darker",
         };
       case CoreSetTableItem.Status.IN_PROGRESS:
         return {
-          src: inProgressIcon,
+          src: "/icons/status/icon_status_inprogress.svg",
           alt: "in progress icon",
           text: "In progress",
           textColor: "palette.primary",
@@ -31,7 +28,7 @@ export const StatusIcon = ({ status }: Props) => {
       case CoreSetTableItem.Status.COMPLETED:
       case CoreSetTableItem.Status.SUBMITTED:
         return {
-          src: successIcon,
+          src: "/icons/status/icon_status_check.svg",
           alt: "complete icon",
           text: "Complete",
           textColor: "palette.success",
@@ -43,7 +40,7 @@ export const StatusIcon = ({ status }: Props) => {
 
   return (
     <Box minWidth="fit-content">
-      <Image src={statusObject.src} alt={statusObject.alt}></Image>
+      <img src={statusObject.src} alt={statusObject.alt} />
     </Box>
   );
 };

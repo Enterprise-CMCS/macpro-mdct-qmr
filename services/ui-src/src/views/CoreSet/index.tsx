@@ -82,13 +82,14 @@ const StepsAndProgressSection = ({
       ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
+  // const coreSetName = coreSetType[coreSetInfo];
+
   const rows = [
     {
       status: data?.Item?.status,
       label: {
         title: "Complete core set qualifier questions",
-        hintText:
-          "Enter the adult core set qualifier questions before completing the measures below.",
+        hintText: `Enter the ${coreSetType} core set qualifier questions before completing the measures below.`,
       },
       indicator: "",
       button: (
@@ -98,7 +99,6 @@ const StepsAndProgressSection = ({
           to={"CSQ"}
           variant="outline-primary"
           data-cy="core-set-qualifiers-link"
-          disabled={isLoading}
         >
           {isLoading ? <Spinner size="small" /> : "Enter qualifier questions"}
         </CUI.Button>
@@ -125,11 +125,12 @@ const StepsAndProgressSection = ({
           </CUI.Box>
         </CUI.HStack>
       ),
-      button: (
+      button: submitted ? (
+        <CUI.Text fontStyle="italic">Submitted</CUI.Text>
+      ) : (
         <QMR.SubmitCoreSetButton
           coreSet={coreSetId}
           coreSetStatus={coreSetStatus}
-          isSubmitted={submitted}
           year={year!}
         />
       ),
@@ -149,7 +150,7 @@ const StepsAndProgressSection = ({
               base: "20px 1fr",
               md: "20px minmax(0, 420px) 182px 1fr",
             }}
-            gap="2rem"
+            gap={{ base: "1.5rem", md: "2rem" }}
           >
             <CUI.GridItem>
               <StatusIcon status={row.status} />
