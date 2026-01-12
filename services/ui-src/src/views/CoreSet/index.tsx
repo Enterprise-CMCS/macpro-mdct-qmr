@@ -142,7 +142,9 @@ const StepsAndProgressSection = ({
         </CUI.HStack>
       ),
       button: submitted ? (
-        <CUI.Text fontStyle="italic">Submitted</CUI.Text>
+        <CUI.Text fontStyle="italic" data-cy="SubmitCoreSetButtonWrapper">
+          Submitted
+        </CUI.Text>
       ) : (
         <QMR.SubmitCoreSetButton
           coreSet={coreSetId}

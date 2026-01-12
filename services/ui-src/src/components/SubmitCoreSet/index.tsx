@@ -60,6 +60,7 @@ export const SubmitCoreSetButton = ({
 
   return (
     <Button
+      data-cy="Submit Core Set"
       variant="primary"
       onClick={handleSubmiCoreSet}
       isDisabled={isDisabled}
