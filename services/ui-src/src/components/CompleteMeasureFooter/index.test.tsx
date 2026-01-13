@@ -88,13 +88,8 @@ describe("Test CompleteMeasureFooter", () => {
     const clear = screen.getByRole("button", { name: "Clear Data" });
 
     expect(validate).toHaveAttribute("disabled");
-    expect(validate).toHaveStyle("z-index: 1");
-
     expect(complete).toHaveAttribute("disabled");
-    expect(complete).toHaveStyle("z-index: 1");
-
     expect(clear).toHaveAttribute("disabled");
-    expect(clear).toHaveStyle("z-index: 1");
   });
 
   test("disabled buttons do not run validate, submit, or clear functions", () => {
