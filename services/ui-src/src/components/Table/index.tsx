@@ -28,12 +28,12 @@ export const VerticalTable = <T extends TableData>({
                     >
                       {column.header}
                     </CUI.Text>
-                    <CUI.Text
+                    <CUI.Box
                       data-cy={`${column.header}-${col_idx}`}
                       key={column.id + "_td"}
                     >
                       {element}
-                    </CUI.Text>
+                    </CUI.Box>
                   </CUI.Box>
                 );
               })}

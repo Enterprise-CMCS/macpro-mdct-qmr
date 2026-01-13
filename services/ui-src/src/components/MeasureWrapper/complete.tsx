@@ -31,20 +31,13 @@ export const CompleteCoreSets = ({
           testId="validate-core-set-questions-button"
           buttonText="Validate Core Set Questions"
           onClick={handleValidation}
-          buttonProps={{
-            colorScheme: "green",
-            width: "100%",
-          }}
+          variant="green"
         />
 
         <QMR.ContainedButton
           testId="complete-core-set-questions-button"
           buttonText="Complete Core Set Questions"
           onClick={handleSubmit}
-          buttonProps={{
-            colorScheme: "blue",
-            width: "100%",
-          }}
         />
       </CUI.Stack>
     </CUI.Box>

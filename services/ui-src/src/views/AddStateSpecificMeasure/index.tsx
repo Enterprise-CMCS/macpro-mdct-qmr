@@ -149,16 +149,10 @@ export const AddStateSpecificMeasure = () => {
               userCreatedCount={userCreatedMeasuresCount}
             ></QMR.AddSSM>
           </CUI.Box>
-          <CUI.HStack paddingTop="5">
+          <CUI.HStack paddingTop="5" gap="1rem">
+            <QMR.ContainedButton type="submit" buttonText="Create" />
             <QMR.ContainedButton
-              buttonProps={{
-                type: "submit",
-                colorScheme: "blue",
-              }}
-              buttonText="Create"
-            />
-            <QMR.ContainedButton
-              buttonProps={{ color: "blue.500", colorScheme: "white" }}
+              variant="link"
               buttonText="Cancel"
               onClick={() => {
                 navigate(`/${state}/${year}/${coreSetId}`);
