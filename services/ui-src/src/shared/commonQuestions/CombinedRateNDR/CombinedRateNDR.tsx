@@ -23,9 +23,9 @@ export const CombinedRateNDR = ({
     : (["numerator", "denominator", "rate"] as const);
 
   const displayValue = (
-    table: typeof Rates[number],
+    table: (typeof Rates)[number],
     program: ProgramTypes,
-    rateComponent: typeof rateComponents[number]
+    rateComponent: (typeof rateComponents)[number]
   ) => {
     const value = table[program][rateComponent];
     if (value !== undefined) {

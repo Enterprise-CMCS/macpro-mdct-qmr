@@ -114,7 +114,7 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     .chakra-link * { color: blue !important; }
     
     ${
-      /* On line 61 of this file, we are replacing text-align: right with text-align: center. 
+      /* On line 61 of this file, we are replacing text-align: right with text-align: center.
       There are few places where we don't want to do this so we are overriding those styles below for some inputs.
       The classes below are targeting the core set qualifiers Delivery System percentage inputs and elements inside the inputs
       css-xumdn4 is the main Delivery System percentage input element. 

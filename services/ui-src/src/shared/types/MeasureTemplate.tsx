@@ -75,7 +75,7 @@ export const validationFunctions = [
   "validateCollecting",
 ] as const;
 
-export type ValidationFunction = typeof validationFunctions[number];
+export type ValidationFunction = (typeof validationFunctions)[number];
 
 export interface MeasureTemplateData {
   type: string;
