@@ -27,12 +27,7 @@ export const AddAnotherButton = ({
   return (
     <QMR.ContainedButton
       buttonText={"+ Add Another " + additionalText}
-      buttonProps={{
-        variant: "outline",
-        colorScheme: "blue",
-        color: "blue.500",
-        mt: "4",
-      }}
+      variant="outline-primary"
       key={"AddAnotherButton"}
       onClick={onClick}
       disabledStatus={isDisabled}

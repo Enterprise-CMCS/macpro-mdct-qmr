@@ -134,11 +134,7 @@ export const PerformanceMeasure = ({
 
         <QMR.ContainedButton
           buttonText={"+ Add Another"}
-          buttonProps={{
-            variant: "outline",
-            colorScheme: "blue",
-            color: "blue.500",
-          }}
+          variant="outline-primary"
           onClick={() => {
             append({});
           }}

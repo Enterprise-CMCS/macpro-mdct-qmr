@@ -138,22 +138,16 @@ export const AddHHCoreSet = () => {
                           for CMS review.
                         </CUI.Text>
 
-                        <CUI.HStack paddingTop="5">
+                        <CUI.HStack paddingTop="5" gap="1rem">
                           <QMR.ContainedButton
-                            buttonProps={{
-                              type: "submit",
-                              colorScheme: "blue",
-                            }}
+                            type="submit"
                             buttonText="Create"
                             disabledStatus={
                               !sortedSPAs.length || !watchSPAchoice
                             }
                           />
                           <QMR.ContainedButton
-                            buttonProps={{
-                              color: "blue",
-                              colorScheme: "white",
-                            }}
+                            variant="link"
                             buttonText="Cancel"
                             onClick={() => {
                               navigate(`/${state}/${year}`);
