@@ -12,10 +12,10 @@ interface ContainedButtonProps {
 }
 
 export const ContainedButton = ({
-  type,
+  type = "button",
   disabledStatus,
   buttonText,
-  variant,
+  variant = "primary",
   icon,
   onClick,
   testId,
@@ -34,8 +34,8 @@ export const ContainedButton = ({
         isDisabled={disabledStatus}
         isLoading={loading}
         loadingText={buttonText}
-        variant={variant ?? "primary"}
-        type={type ?? "button"}
+        variant={variant}
+        type={type}
       >
         {buttonText}
       </CUI.Button>

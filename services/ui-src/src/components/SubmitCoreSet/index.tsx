@@ -32,7 +32,7 @@ export const SubmitCoreSetButton = ({
     !userInfo.isStateUser ||
     coreSetStatus !== CoreSetTableItem.Status.COMPLETED;
 
-  const handleSubmiCoreSet = () => {
+  const handleSubmitCoreSet = () => {
     return mutate(
       {
         coreSet,
@@ -62,7 +62,7 @@ export const SubmitCoreSetButton = ({
     <Button
       data-cy="Submit Core Set"
       variant="primary"
-      onClick={handleSubmiCoreSet}
+      onClick={handleSubmitCoreSet}
       isDisabled={isDisabled}
       width="246px"
     >
