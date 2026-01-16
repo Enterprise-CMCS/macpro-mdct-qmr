@@ -1,13 +1,22 @@
 {
   "name": "macpro-mdct-qmr",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
-  "main": "index.js",
-  "packageManager": "yarn@4.12.0",
+  "homepage": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr#readme",
+  "bugs": {
+    "url": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr/issues"
+  },
+  "license": "CC0-1.0",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Enterprise-CMCS/macpro-mdct-qmr.git"
+  },
   "directories": {
     "test": "tests"
   },
+  "type": "module",
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
@@ -15,16 +24,18 @@
     "test": "cd tests/cypress && yarn test && cd -",
     "test:ci": "cd tests/cypress && yarn run test:ci"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Enterprise-CMCS/macpro-mdct-qmr.git"
+  "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.946.0",
+    "@aws-sdk/client-cloudfront": "^3.946.0",
+    "@aws-sdk/client-lambda": "^3.946.0",
+    "@aws-sdk/client-s3": "^3.946.0",
+    "@aws-sdk/client-secrets-manager": "^3.946.0",
+    "aws-cdk-lib": "^2.214.0",
+    "constructs": "^10.4.2",
+    "jsdom": "^26.1.0",
+    "react-helmet-async": "^2.0.5",
+    "source-map-support": "^0.5.21"
   },
-  "author": "",
-  "license": "CC0-1.0",
-  "bugs": {
-    "url": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr/issues"
-  },
-  "homepage": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr#readme",
   "devDependencies": {
     "@aws-sdk/client-wafv2": "^3.946.0",
     "@octokit/auth-action": "^6.0.1",
@@ -57,21 +68,10 @@
     "util": "^0.12.5",
     "yargs": "^17.7.2"
   },
-  "dependencies": {
-    "@aws-sdk/client-cloudformation": "^3.946.0",
-    "@aws-sdk/client-cloudfront": "^3.946.0",
-    "@aws-sdk/client-lambda": "^3.946.0",
-    "@aws-sdk/client-s3": "^3.946.0",
-    "@aws-sdk/client-secrets-manager": "^3.946.0",
-    "aws-cdk-lib": "^2.214.0",
-    "constructs": "^10.4.2",
-    "jsdom": "^26.1.0",
-    "react-helmet-async": "^2.0.5",
-    "source-map-support": "^0.5.21"
-  },
   "resolutions": {
-    "json5": "^2.2.3",
     "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17"
-  }
+    "@types/react-dom": "^18.2.17",
+    "json5": "^2.2.3"
+  },
+  "packageManager": "yarn@4.12.0"
 }
