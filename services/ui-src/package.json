@@ -121,7 +121,6 @@
     "jest-launchdarkly-mock": "^2.1.0",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
-    "prettier": "^2.4.1",
     "ts-jest": "^27.1.5",
     "typescript": "^5.9.3",
     "vite": "^7.1.7",

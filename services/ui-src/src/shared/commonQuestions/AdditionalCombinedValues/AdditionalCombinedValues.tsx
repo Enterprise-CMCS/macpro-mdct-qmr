@@ -8,7 +8,7 @@ export const AdditionalCombinedValues = ({
   measure,
 }: Props) => {
   const displayValue = (
-    row: typeof AdditionalValues[number],
+    row: (typeof AdditionalValues)[number],
     program: ProgramTypes
   ) => {
     const value = row[program];

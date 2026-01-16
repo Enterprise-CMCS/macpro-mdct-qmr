@@ -266,11 +266,11 @@ export const DefinitionOfPopulation = ({
             removeOtherOption
           )
         : childMeasure
-        ? ChildDefinitions()
-        : StandardDefinitions(
-            labels.DefinitionsOfPopulation,
-            healthHomeMeasure
-          )}
+          ? ChildDefinitions()
+          : StandardDefinitions(
+              labels.DefinitionsOfPopulation,
+              healthHomeMeasure
+            )}
       {labels.DefinitionsOfPopulation.changeInPopExplanation && (
         <CUI.Box my="5">
           <QMR.TextArea

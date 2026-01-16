@@ -20,9 +20,12 @@ export const SessionTimeout = ({ handleSave }: Props) => {
     const values = getValues();
     handleSave(values);
     setShowModal(!showModal);
-    logoutTimer.current = setTimeout(() => {
-      logout();
-    }, 1000 * 60 * 5); // 5 mins
+    logoutTimer.current = setTimeout(
+      () => {
+        logout();
+      },
+      1000 * 60 * 5
+    ); // 5 mins
   };
 
   const handleStayLoggedIn = () => {

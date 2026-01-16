@@ -354,4 +354,4 @@ export type WeightedRateShape = {
   weightedRate?: number;
 };
 
-export type State = typeof states[number];
+export type State = (typeof states)[number];

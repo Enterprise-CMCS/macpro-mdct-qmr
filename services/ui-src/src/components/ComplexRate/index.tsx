@@ -240,8 +240,8 @@ export const ComplexRate = ({
               {lowerCaseMeasureName === "aifhh"
                 ? qual.label
                 : qual.label === "Total" || categoryName === ""
-                ? `${qual.label} ${categoryName}`
-                : `${categoryName} ${qual.label?.toLowerCase()}`}
+                  ? `${qual.label} ${categoryName}`
+                  : `${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>
             <CUI.Stack
               direction={{ base: "column", md: "row" }}

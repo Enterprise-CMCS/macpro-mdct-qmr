@@ -19,12 +19,12 @@ const event = { ...testEvent };
 describe("Testing Updating Core Set Functions", () => {
   beforeEach(() => {
     mockHasStatePermissions.mockImplementation(() => true);
-    (event.headers = { "cognito-identity-id": "branchUser" }),
+    ((event.headers = { "cognito-identity-id": "branchUser" }),
       (event.pathParameters = {
         state: "WA",
         year: "2021",
         coreSet: CoreSetAbbr.ACS,
-      });
+      }));
   });
 
   test("Test unauthorized user attempt (incorrect state)", async () => {
