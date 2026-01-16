@@ -4,20 +4,20 @@ env:
   node: true
   jest/globals: true
   cypress/globals: true
-parser: '@typescript-eslint/parser'
+parser: "@typescript-eslint/parser"
 plugins:
-  - '@typescript-eslint'
-  - 'jest'
-  - 'cypress'
-  - 'playwright'
-  - 'react-hooks'
+  - "@typescript-eslint"
+  - "jest"
+  - "cypress"
+  - "playwright"
+  - "react-hooks"
 parserOptions:
   ecmaVersion: 2022
   sourceType: module
   ecmaFeatures:
     modules: true
 extends:
-  - 'eslint:recommended'
+  - "eslint:recommended"
 
 rules:
   no-const-assign: error
@@ -25,20 +25,20 @@ rules:
   "@typescript-eslint/no-duplicate-imports": error
   no-unreachable: error
   no-unused-vars: off
-  '@typescript-eslint/no-unused-vars':
+  "@typescript-eslint/no-unused-vars":
     - off
     - argsIgnorePattern: "^_"
   no-console: off
   no-empty: error
   no-extra-semi: error
   multiline-comment-style: off
-  'react-hooks/rules-of-hooks': off
-  'react-hooks/exhaustive-deps': off
+  "react-hooks/rules-of-hooks": off
+  "react-hooks/exhaustive-deps": off
   no-constant-condition: off
   no-restricted-globals: off
-  '@typescript-eslint/no-unused-expressions': off
-  'no-useless-escape': off
-  'no-useless-catch': off
+  "@typescript-eslint/no-unused-expressions": off
+  "no-useless-escape": off
+  "no-useless-catch": off
   no-undef: off
   no-case-declarations: off
   no-extra-boolean-cast: off

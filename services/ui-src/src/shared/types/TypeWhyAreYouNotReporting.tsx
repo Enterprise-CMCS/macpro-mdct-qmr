@@ -12,7 +12,7 @@ export interface WhyAreYouNotReporting {
   >;
 
   [DC.AMOUNT_OF_POP_NOT_COVERED]: // if POP_NOT_COVERED selected in WHY_ARE_YOU_NOT_REPORTING
-  typeof DC.ENTIRE_POP_NOT_COVERED | typeof DC.PARTIAL_POP_NOT_COVERED;
+    typeof DC.ENTIRE_POP_NOT_COVERED | typeof DC.PARTIAL_POP_NOT_COVERED;
 
   [DC.PARTIAL_POP_NOT_COVERED_EXPLAINATION]: string; // if PARTIAL_POP_NOT_COVERED in AMOUNT_OF_POP_NOT_COVERED selected -> explaination of the population not covered
 
