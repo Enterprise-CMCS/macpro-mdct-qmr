@@ -11,6 +11,7 @@ import { Alert } from "@cmsgov/design-system";
 
 interface Props {
   reset?: () => void;
+  year: number;
 }
 
 export const GetLinks = (type: string) => {
@@ -72,13 +73,13 @@ export const StratificationAdditionalNotes = () => {
   );
 };
 
-export const StratificationOption = ({ reset }: Props) => {
+export const StratificationOption = ({ reset, year }: Props) => {
   return (
     <QMR.RadioButton
       key={`OptionalMeasureStratification.${DC.VERSION}`}
       name={`OptionalMeasureStratification.${DC.VERSION}`}
       formLabelProps={{ fontWeight: "700" }}
-      label="Which race and ethnicity standards would your state like to use for 2025 Core Sets reporting?"
+      label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
       subTextElement={[
         <CUI.Text key="description" mb={2}>
           A summary of the race and ethnicity subcategories included in each
@@ -228,9 +229,9 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         </CUI.Text>
         <br />
         <CUI.Text>
-          For 2025 Core Sets reporting, states have the option to stratify race
-          and ethnicity data using either (1) the {GetLinks("1997-omb")}, as
-          specified in the {GetLinks("hss-standard")}, or (2) the{" "}
+          For {year} Core Sets reporting, states have the option to stratify
+          race and ethnicity data using either (1) the {GetLinks("1997-omb")},
+          as specified in the {GetLinks("hss-standard")}, or (2) the{" "}
           {GetLinks("2024-omb")} for each measure selected for stratification.
         </CUI.Text>
         <br />
@@ -244,7 +245,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           with a denominator less than 30 due to reliability concerns.
         </CUI.Text>
       </QMR.Accordion>
-      <StratificationOption reset={onReset}></StratificationOption>
+      <StratificationOption reset={onReset} year={year}></StratificationOption>
       {(version === "1997-omb" || version === "2024-omb") && (
         <Stratification
           {...props}
