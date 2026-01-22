@@ -78,6 +78,7 @@ export const measuresColumns = (
       header: "Measure",
       id: "title_column_header",
       cell: (data: MeasureTableItem.Data) => {
+        console.log(data);
         return (
           <CUI.Link
             as={Link}
