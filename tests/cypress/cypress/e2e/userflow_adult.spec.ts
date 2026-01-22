@@ -3,7 +3,6 @@ const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
 
-// fill out a measure for 2024
 const abbr = "ACSC";
 
 describe(`Adult Core Sets should be able to be created for ${testingYear}`, () => {
@@ -66,7 +65,7 @@ describe("submit coreset", () => {
       force: true,
       waitForAnimations: false,
     });
-    cy.wait(1000);
+    cy.wait(4000);
     // confirm reset
     cy.get(`[data-cy="Status-AL${testingYear}"]`).should(
       "contain.text",
