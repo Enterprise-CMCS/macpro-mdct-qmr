@@ -1841,11 +1841,6 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "AMM-AD",
-      measureType: MeasureType.MANDATORY,
-    },
-    {
-      type: "A",
       measure: "AMR-AD",
     },
     {
@@ -1892,10 +1887,6 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "CPA-AD",
-    },
-    {
-      type: "A",
-      measure: "CPU-AD",
     },
     {
       type: "A",
@@ -1949,16 +1940,7 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "NCIIDD-AD",
-      autocompleteOnCreation: true,
-    },
-    {
-      type: "A",
       measure: "OEVP-AD",
-    },
-    {
-      type: "A",
-      measure: "OHD-AD",
     },
     {
       type: "A",

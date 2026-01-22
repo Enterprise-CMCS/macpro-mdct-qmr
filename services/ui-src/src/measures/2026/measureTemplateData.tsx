@@ -5,7 +5,6 @@ import { data as AABCH_Data } from "./AABCH/data";
 import { data as ADDCH_Data } from "./ADDCH/data";
 import { data as AIFHH_Data } from "./AIFHH/data";
 import { data as AISAD_Data } from "./AISAD/data";
-import { data as AMMAD_Data } from "./AMMAD/data";
 import { data as AMRCH_Data } from "./AMRCH/data";
 import { data as APMCH_Data } from "./APMCH/data";
 import { data as APPCH_Data } from "./APPCH/data";
@@ -48,7 +47,6 @@ import { data as LSCCH_Data } from "./LSCCH/data";
 import { data as OEVCH_Data } from "./OEVCH/data";
 import { data as OEVPAD_Data } from "./OEVPAD/data";
 import { data as OEVPCH_Data } from "./OEVPCH/data";
-import { data as OHDAD_Data } from "./OHDAD/data";
 import { data as OUDAD_Data } from "./OUDAD/data";
 import { data as OUDHH_Data } from "./OUDHH/data";
 import { data as PDSCH_Data } from "./PDSCH/data";
@@ -75,7 +73,6 @@ export const measureTemplateData: { [measure: string]: any } = {
   "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },
   "AIS-AD": { data: AISAD_Data, validationFunctions: validationFunctions },
-  "AMM-AD": { data: AMMAD_Data, validationFunctions: validationFunctions },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: validationFunctions },
   "APM-CH": { data: APMCH_Data, validationFunctions: validationFunctions },
   "APP-CH": { data: APPCH_Data, validationFunctions: validationFunctions },
@@ -118,7 +115,6 @@ export const measureTemplateData: { [measure: string]: any } = {
   "OEV-CH": { data: OEVCH_Data, validationFunctions: validationFunctions },
   "OEVP-AD": { data: OEVPAD_Data, validationFunctions: validationFunctions },
   "OEVP-CH": { data: OEVPCH_Data, validationFunctions: validationFunctions },
-  "OHD-AD": { data: OHDAD_Data, validationFunctions: validationFunctions },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: validationFunctions },
   "OUD-HH": { data: OUDHH_Data, validationFunctions: validationFunctions },
   "PDS-CH": { data: PDSCH_Data, validationFunctions: validationFunctions },
