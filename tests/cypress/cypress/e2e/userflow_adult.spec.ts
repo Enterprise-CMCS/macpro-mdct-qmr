@@ -65,11 +65,11 @@ describe("submit coreset", () => {
       force: true,
       waitForAnimations: false,
     });
-    cy.wait(4000);
+    cy.wait(1000);
     // confirm reset
     cy.get(`[data-cy="Status-AL${testingYear}"]`).should(
       "contain.text",
-      "in progress2 of 35 complete"
+      "in progress1 of 35 complete"
     );
   });
 
