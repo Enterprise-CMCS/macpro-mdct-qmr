@@ -1,15 +1,15 @@
 import * as DC from "dataConstants";
 import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
-import { OmsNode } from "shared/types";
-import { LabelData, isLegacyLabel } from "utils";
 import {
+  OmsNode,
   RateFields,
   OmsNodes as OMS,
   PerformanceMeasure,
   OtherRatesFields,
   OptionalMeasureStratification,
+  DataDrivenTypes as DDT,
 } from "shared/types";
-import { DataDrivenTypes as DDT } from "shared/types";
+import { LabelData, isLegacyLabel } from "utils";
 
 // Test Rate Objects
 export const partialRate: RateFields = {
@@ -304,7 +304,7 @@ export const generateOmsFormData = (
   addToSelections = true,
   renderData?: DDT.OptionalMeasureStrat
 ) => {
-  const data = renderData ?? isLegacyLabel() ? OMSData(2021) : OMSData(2023);
+  const data = (renderData ?? isLegacyLabel()) ? OMSData(2021) : OMSData(2023);
   const description = "TestAdditionalCategoryOrSubCategory";
   const omsData: OptionalMeasureStratification = {
     OptionalMeasureStratification: { options: [], selections: {} },

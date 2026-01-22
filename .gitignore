@@ -21,3 +21,5 @@ tests/cypress/cypress.env.json
 .vscode
 /.cdk
 cdk.context.json
+**/.yarn/*
+services/ui-src/public/env-config.ts

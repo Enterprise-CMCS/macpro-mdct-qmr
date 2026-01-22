@@ -1,6 +1,7 @@
 import { Construct } from "constructs";
 import {
   aws_cloudfront as cloudfront,
+  aws_iam as iam,
   aws_s3 as s3,
   aws_s3_deployment as s3_deployment,
   Duration,
@@ -10,7 +11,6 @@ import { execSync } from "node:child_process";
 
 interface DeployFrontendProps {
   scope: Construct;
-  stage: string;
   uiBucket: s3.Bucket;
   distribution: cloudfront.Distribution;
   apiGatewayRestApiUrl: string;
@@ -22,12 +22,12 @@ interface DeployFrontendProps {
   launchDarklyClient: string;
   redirectSignout: string;
   attachmentsBucketName: string;
+  isDev: boolean;
 }
 
 export function deployFrontend(props: DeployFrontendProps) {
   const {
     scope,
-    stage,
     distribution,
     apiGatewayRestApiUrl,
     applicationEndpointUrl,
@@ -39,6 +39,7 @@ export function deployFrontend(props: DeployFrontendProps) {
     launchDarklyClient,
     redirectSignout,
     attachmentsBucketName,
+    isDev,
   } = props;
 
   const reactAppPath = "./services/ui-src/";
@@ -90,4 +91,13 @@ export function deployFrontend(props: DeployFrontendProps) {
   );
 
   deployTimeConfig.node.addDependency(deployWebsite);
+
+  if (isDev) {
+    const denyLogs = new iam.PolicyStatement({
+      effect: iam.Effect.DENY,
+      actions: ["logs:CreateLogGroup"],
+      resources: ["*"],
+    });
+    deployWebsite.handlerRole.addToPrincipalPolicy(denyLogs);
+  }
 }

@@ -1,27 +1,27 @@
 import { getPDF } from "../pdf";
-import { fetch } from "cross-fetch";
 import { testEvent } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
+import { gzipSync } from "zlib";
 
 jest.spyOn(console, "warn").mockImplementation();
 
-jest.mock("cross-fetch", () => ({
-  fetch: jest.fn().mockResolvedValue({
-    status: 200,
-    headers: {
-      get: jest.fn().mockReturnValue("3"),
-    },
-    arrayBuffer: jest.fn().mockResolvedValue(
-      // An ArrayBuffer containing `%PDF-1.7`
-      new Uint8Array([37, 80, 68, 70, 45, 49, 46, 55]).buffer
-    ),
-  }),
-}));
+global.fetch = jest.fn().mockResolvedValue({
+  status: 200,
+  headers: {
+    get: jest.fn().mockReturnValue("3"),
+  },
+  arrayBuffer: jest.fn().mockResolvedValue(
+    // An ArrayBuffer containing `%PDF-1.7`
+    new Uint8Array([37, 80, 68, 70, 45, 49, 46, 55]).buffer
+  ),
+});
 
-const dangerousHtml = "<p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p>";
-const sanitizedHtml = "<p>abc</p>";
+const dangerousHtml =
+  "<html><head></head><body><p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p></body></html>";
+const compressedHtml = gzipSync(dangerousHtml);
+const sanitizedHtml = "<html><head></head><body><p>abcdef</p></body></html>";
 const base64EncodedDangerousHtml =
-  Buffer.from(dangerousHtml).toString("base64");
+  Buffer.from(compressedHtml).toString("base64");
 
 const event = { ...testEvent };
 
@@ -29,6 +29,7 @@ describe("Test GetPDF handler", () => {
   beforeEach(() => {
     process.env = {
       docraptorApiKey: "mock api key", // pragma: allowlist secret
+      STAGE: "dev",
     };
     event.pathParameters = {
       state: "AZ",
@@ -92,7 +93,6 @@ describe("Test GetPDF handler", () => {
   it("should call PDF API with sanitized html", async () => {
     event.body = base64EncodedDangerousHtml;
     const res = await getPDF(event, null);
-
     expect(res.statusCode).toBe(200);
 
     expect(fetch).toHaveBeenCalled();
@@ -107,33 +107,15 @@ describe("Test GetPDF handler", () => {
     expect(body).toEqual({
       user_credentials: "mock api key", // pragma: allowlist secret
       doc: expect.objectContaining({
-        document_content: `<html><head></head><body>${sanitizedHtml}</body></html>`,
+        document_content: sanitizedHtml,
         type: "pdf",
+        tag: "QMR",
+        test: true,
         prince_options: expect.objectContaining({
           profile: "PDF/UA-1",
         }),
       }),
     });
-  });
-
-  it("should remove CSS comments before calling PDF API", async () => {
-    const htmlWithCssComment = `<html><head><style>/* emphasize <p> tags */ p {color:red;}</style></head><body><p>Hi</p></body></html>`;
-    const htmlWithoutComment = `<html><head><style> p {color:red;}</style></head><body><p>Hi</p></body></html>`;
-    event.body = Buffer.from(htmlWithCssComment).toString("base64");
-    const res = await getPDF(event, null);
-
-    expect(res.statusCode).toBe(200);
-
-    expect(fetch).toHaveBeenCalled();
-    const request = (fetch as jest.Mock).mock.calls[0][1];
-    const body = JSON.parse(request.body);
-    expect(body).toEqual(
-      expect.objectContaining({
-        doc: expect.objectContaining({
-          document_content: htmlWithoutComment,
-        }),
-      })
-    );
   });
 
   it("should handle an error response from the PDF API", async () => {

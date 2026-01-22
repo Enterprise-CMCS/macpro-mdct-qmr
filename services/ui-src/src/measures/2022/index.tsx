@@ -2,27 +2,16 @@ import { lazy } from "react";
 import { measureTemplate } from "./measureTemplate";
 import { Qualifier } from "shared/Qualifiers";
 import { Data } from "labels/2022/qualifierFormsData";
+import { AutocompletedMeasureTemplate } from "components";
 
-const AMRAD = lazy(() =>
-  import("./AMRAD").then((module) => ({ default: module.AMRAD }))
-);
 const CPAAD = lazy(() =>
   import("./CPAAD").then((module) => ({ default: module.CPAAD }))
 );
 const CPCCH = lazy(() =>
   import("./CPCCH").then((module) => ({ default: module.CPCCH }))
 );
-const LBWCH = lazy(() =>
-  import("./LBWCH").then((module) => ({ default: module.LBWCH }))
-);
-const LRCDCH = lazy(() =>
-  import("./LRCDCH").then((module) => ({ default: module.LRCDCH }))
-);
 const MSCAD = lazy(() =>
   import("./MSCAD").then((module) => ({ default: module.MSCAD }))
-);
-const NCIDDSAD = lazy(() =>
-  import("./NCIDDSAD").then((module) => ({ default: module.NCIDDSAD }))
 );
 const PCRAD = lazy(() =>
   import("./PCRAD").then((module) => ({ default: module.PCRAD }))
@@ -40,7 +29,7 @@ const twentyTwentyTwoMeasures = {
   "AMB-CH": measureTemplate,
   "AMB-HH": measureTemplate,
   "AMM-AD": measureTemplate,
-  "AMR-AD": AMRAD,
+  "AMR-AD": measureTemplate,
   "AMR-CH": measureTemplate,
   "APM-CH": measureTemplate,
   "APP-CH": measureTemplate,
@@ -81,10 +70,10 @@ const twentyTwentyTwoMeasures = {
   "IET-HH": measureTemplate,
   "IMA-CH": measureTemplate,
   "IU-HH": measureTemplate,
-  "LBW-CH": LBWCH,
-  "LRCD-CH": LRCDCH,
+  "LBW-CH": AutocompletedMeasureTemplate,
+  "LRCD-CH": AutocompletedMeasureTemplate,
   "MSC-AD": MSCAD,
-  "NCIDDS-AD": NCIDDSAD,
+  "NCIDDS-AD": AutocompletedMeasureTemplate,
   "OEV-CH": measureTemplate,
   "OHD-AD": measureTemplate,
   "OUD-AD": measureTemplate,

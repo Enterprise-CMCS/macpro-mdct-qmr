@@ -1,38 +1,31 @@
 // This file is managed by macpro-mdct-core so if you'd like to change it let's do it there
-import { runCommand } from "../lib/runner.js";
-import { existsSync, readdirSync } from "node:fs";
-import path from "node:path";
+import { runCommand } from "../lib/runner.ts";
+import { readdir } from "node:fs/promises";
+import { join } from "node:path";
 
-const directories = [
-  "./deployment",
-  ...(existsSync(path.join("tests", "package.json")) ? ["./tests"] : []),
-  ...readdirSync("services", { withFileTypes: true })
-    .filter(
-      (d: { isDirectory(): boolean; name: string }) =>
-        d.isDirectory() &&
-        existsSync(path.join("services", d.name, "package.json"))
-    )
-    .map(
-      (d: { isDirectory(): boolean; name: string }) => `./services/${d.name}`
-    )
-    .sort(),
-];
+async function* findPackageJsonDirectories(
+  directory: string
+): AsyncGenerator<string> {
+  const SKIP_DIRECTORIES = [".git", ".cdk", "node_modules"];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    if (entry.isDirectory() && !SKIP_DIRECTORIES.includes(entry.name)) {
+      yield* findPackageJsonDirectories(join(directory, entry.name));
+    } else if (entry.isFile() && entry.name === "package.json") {
+      yield directory;
+    }
+  }
+}
 
 export const installDeps = async () => {
-  await runCommand(
-    "yarn install root",
-    ["yarn", "--silent", "install", "--frozen-lockfile"],
-    ".",
-    { quiet: true }
-  );
+  for await (const dir of findPackageJsonDirectories(".")) {
+    const commandPieces = ["yarn", "install"];
+    if (process.env.CI === "true") {
+      commandPieces.push("--immutable");
+    }
 
-  for (const dir of directories) {
-    await runCommand(
-      `yarn install ${dir}`,
-      ["yarn", "--silent", "install", "--frozen-lockfile"],
-      dir,
-      { quiet: true }
-    );
+    await runCommand(`yarn install ${dir}`, commandPieces, dir, {
+      quiet: true,
+    });
   }
 };
 

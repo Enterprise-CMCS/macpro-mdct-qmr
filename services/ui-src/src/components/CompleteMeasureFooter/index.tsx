@@ -40,20 +40,13 @@ export const CompleteMeasureFooter = ({
           width="100%"
         >
           <QMR.ContainedButton
-            buttonProps={{
-              colorScheme: "green",
-              width: "100%",
-            }}
+            variant="green"
             buttonText="Validate Measure"
             disabledStatus={disabled}
             loading={validating}
             onClick={handleValidation}
           />
           <QMR.ContainedButton
-            buttonProps={{
-              colorScheme: "blue",
-              width: "100%",
-            }}
             buttonText="Complete Measure"
             disabledStatus={disabled}
             onClick={(e) => {
@@ -63,10 +56,7 @@ export const CompleteMeasureFooter = ({
           />
           {isDevEnv() && (
             <QMR.ContainedButton
-              buttonProps={{
-                colorScheme: "red",
-                width: "100%",
-              }}
+              variant="red"
               buttonText="Clear Data"
               disabledStatus={disabled}
               onClick={handleClear}

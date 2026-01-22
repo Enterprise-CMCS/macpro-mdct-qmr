@@ -127,12 +127,7 @@ export const DeliverySystems = ({ data, year }: Props) => {
             <CUI.Td px={"0"}>
               <QMR.ContainedButton
                 buttonText={"+ Add Another"}
-                buttonProps={{
-                  variant: "outline",
-                  colorScheme: "blue",
-                  color: "blue.500",
-                  width: "full",
-                }}
+                variant="outline-primary"
                 onClick={() => append(initialDeliverySystemValue)}
               />
             </CUI.Td>

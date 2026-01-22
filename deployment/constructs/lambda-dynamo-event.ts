@@ -9,11 +9,10 @@ import {
   Duration,
   RemovalPolicy,
 } from "aws-cdk-lib";
-import { createHash } from "crypto";
-import { DynamoDBTable } from "./dynamodb-table";
+import { createHash } from "node:crypto";
+import { DynamoDBTable } from "./dynamodb-table.ts";
 
-interface LambdaDynamoEventProps
-  extends Partial<lambda_nodejs.NodejsFunctionProps> {
+interface LambdaDynamoEventProps extends Partial<lambda_nodejs.NodejsFunctionProps> {
   additionalPolicies?: iam.PolicyStatement[];
   stackName: string;
   tables: DynamoDBTable[];
@@ -46,7 +45,7 @@ export class LambdaDynamoEventSource extends Construct {
 
     this.lambda = new lambda_nodejs.NodejsFunction(this, id, {
       functionName: `${stackName}-${id}`,
-      runtime: lambda.Runtime.NODEJS_20_X,
+      runtime: lambda.Runtime.NODEJS_22_X,
       timeout,
       memorySize,
       bundling: {

@@ -135,11 +135,7 @@ export const Audit = ({ type, year }: Props) => {
                   </CUI.Stack>,
                   <QMR.ContainedButton
                     buttonText={"+ Add Another"}
-                    buttonProps={{
-                      variant: "outline",
-                      colorScheme: "blue",
-                      color: "blue.500",
-                    }}
+                    variant="outline-primary"
                     onClick={() => append(initialAuditValues)}
                     key={"AddAnotherAuditSelectorButton"}
                   />,

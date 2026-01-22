@@ -124,7 +124,7 @@ const Measure = ({ measure, handleSave, ...rest }: MeasureProps) => {
     isPrimaryMeasureSpecSelected,
     showOptionalMeasureStrat,
     isOtherMeasureSpecSelected,
-  });
+  } as MeasureWrapperProps);
 };
 
 interface Props {

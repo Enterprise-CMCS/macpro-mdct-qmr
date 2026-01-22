@@ -1,6 +1,6 @@
 import { OtherPerformanceMeasure } from "shared/types";
 
-/* Other Performance Measure Rate Description. Check all rate descriptions 
+/* Other Performance Measure Rate Description. Check all rate descriptions
 to make sure there are no identical descriptions */
 
 export const validateOPMRates = (

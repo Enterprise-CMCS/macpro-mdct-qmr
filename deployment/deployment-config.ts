@@ -1,5 +1,5 @@
-import { isLocalStack } from "./local/util";
-import { getSecret } from "./utils/secrets-manager";
+import { isLocalStack } from "./local/util.ts";
+import { getSecret } from "./utils/secrets-manager.ts";
 
 export interface DeploymentConfigProperties {
   project: string;

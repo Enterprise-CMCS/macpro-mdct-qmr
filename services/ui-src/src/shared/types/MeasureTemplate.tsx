@@ -75,7 +75,7 @@ export const validationFunctions = [
   "validateCollecting",
 ] as const;
 
-export type ValidationFunction = typeof validationFunctions[number];
+export type ValidationFunction = (typeof validationFunctions)[number];
 
 export interface MeasureTemplateData {
   type: string;
@@ -125,4 +125,10 @@ export interface MeasureTemplateData {
       ageGroups: string[];
     }[];
   };
+}
+
+export interface AutocompletedMeasureTemplateData {
+  performanceMeasureText: string;
+  performanceMeasureSubtext?: string | [];
+  performanceMeasureList?: string[];
 }
