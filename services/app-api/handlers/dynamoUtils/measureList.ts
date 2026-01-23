@@ -2105,7 +2105,7 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "OEVP-CH",
-      measureType: MeasureType.PROVISIONAL,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
@@ -2125,7 +2125,7 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "PRS-CH",
-      measureType: MeasureType.PROVISIONAL,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
