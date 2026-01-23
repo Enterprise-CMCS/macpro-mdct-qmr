@@ -1,5 +1,5 @@
 import * as cognitolib from "../libs/cognito-lib.js";
-import users from "../libs/users.json" assert { type: "json" };
+import users from "../libs/users.json" with { type: "json" };
 const userPoolId = process.env.userPoolId;
 
 export const handler = async (event, context, callback) => {
