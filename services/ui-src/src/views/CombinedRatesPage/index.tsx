@@ -128,7 +128,7 @@ export const CombinedRatesPage = () => {
       case "2025":
         return "The following measures are excluded from the combined rates page because states are not asked to report performance measure data for these measures for 2025 Core Sets reporting in the online reporting system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, LRCD-AD, and NCIIDD-AD. MSC-AD is also excluded from the combined rates page because the measure uses survey data.";
       default:
-        return "The following measures are excluded from the combined rates page because states are not asked to report performance measure data for these measures for 2026 Core Sets reporting in the online reporting system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, LRCD-AD, and NCIIDD-AD. MSC-AD is also excluded from the combined rates page because the measure uses survey data.";
+        return "The following measures are excluded from the combined rates page because states are not asked to report performance measure data for these measures for 2026 Core Sets reporting in the online reporting system: CPC-CH, LBW-CH, LRCD-CH, CPA-AD, and LRCD-AD. MSC-AD is also excluded from the combined rates page because the measure uses survey data.";
     }
   };
 
