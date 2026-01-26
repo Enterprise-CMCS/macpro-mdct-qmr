@@ -265,7 +265,7 @@ export const validationTemplate = (
             : undefined
         );
       case "validateEqualQualifierDenominatorsPM":
-        //AMM-AD, FUH-AD, FUH-CH, IET-AD, IET-HH, SFM-CH, W30-CH
+        //FUH-AD, FUH-CH, IET-AD, IET-HH, SFM-CH, W30-CH
         if (PMD.override?.validateEqualQualifierDenominatorsPM?.category) {
           let unfilteredSameDenominatorErrors: any[] = [];
           let filteredSameDenominatorErrors: any = [];

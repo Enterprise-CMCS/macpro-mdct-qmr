@@ -10,9 +10,6 @@ const CPAAD = lazy(() =>
 const CPCCH = lazy(() =>
   import("./CPCCH").then((module) => ({ default: module.CPCCH }))
 );
-const CPUAD = lazy(() =>
-  import("./CPUAD").then((module) => ({ default: module.CPUAD }))
-);
 const MSCAD = lazy(() =>
   import("./MSCAD").then((module) => ({ default: module.MSCAD }))
 );
@@ -31,7 +28,6 @@ const twentyTwentySixMeasures = {
   "ADD-CH": measureTemplate,
   "AIF-HH": measureTemplate,
   "AIS-AD": measureTemplate,
-  "AMM-AD": measureTemplate,
   "AMR-AD": measureTemplate,
   "AMR-CH": measureTemplate,
   "APM-CH": measureTemplate,
@@ -55,7 +51,6 @@ const twentyTwentySixMeasures = {
   "COL-HH": measureTemplate,
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
-  "CPU-AD": CPUAD,
   "DEV-CH": measureTemplate,
   "EDV-AD": measureTemplate,
   "FUA-AD": measureTemplate,
@@ -79,11 +74,9 @@ const twentyTwentySixMeasures = {
   "LRCD-CH": AutocompletedMeasureTemplate,
   "LSC-CH": measureTemplate,
   "MSC-AD": MSCAD,
-  "NCIIDD-AD": AutocompletedMeasureTemplate,
   "OEV-CH": measureTemplate,
   "OEVP-AD": measureTemplate,
   "OEVP-CH": measureTemplate,
-  "OHD-AD": measureTemplate,
   "OUD-AD": measureTemplate,
   "OUD-HH": measureTemplate,
   "PCR-AD": PCRAD,
