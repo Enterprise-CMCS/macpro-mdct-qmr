@@ -41,7 +41,7 @@ const _validation = ({
   errorMessageFunc = validatePartialRateCompletionErrorMessage,
 }: ValProps) => {
   const errors: FormError[] = [];
-
+  console.log("bbep");
   for (const [i, rateSet] of rateData.entries()) {
     for (const [j, rate] of rateSet.entries()) {
       if (
