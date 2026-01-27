@@ -1,5 +1,6 @@
 import * as Types from "shared/types";
-import { AnyObject } from "types";
+import { AnyObject, DataSource } from "types";
+import { featuresByYear } from "utils/featuresByYear";
 
 /**
  * Given a PerformanceMeasure or OtherPerformanceMeasure object, return true if any of the rates are
@@ -81,6 +82,37 @@ export const arrayIsReadOnly = (dataSource: string[]) => {
   return (
     dataSource?.every((source) => source === "AdministrativeData") ?? false
   );
+};
+
+export const rateIsReadOnly = (dataSource: string | string[] | undefined) => {
+  console.log("rateIsReadOnly dataSource:", dataSource);
+  if (featuresByYear.updatedReadOnlyRateCheck) {
+    // New logic for 2026 and beyond
+    if (dataSource && Array.isArray(dataSource)) {
+      if (dataSource.length > 1) return false;
+      if (
+        dataSource.length === 1 &&
+        (dataSource[0] === DataSource.Hybrid ||
+          dataSource[0] === DataSource.CaseMagementRecordReview)
+      )
+        return false;
+    } else if (
+      dataSource &&
+      (dataSource === DataSource.Hybrid ||
+        dataSource === DataSource.CaseMagementRecordReview)
+    ) {
+      return false;
+    }
+    return true;
+  } else {
+    // Pre 2026 logic
+    if (dataSource && Array.isArray(dataSource)) {
+      return arrayIsReadOnly(dataSource);
+    } else if (dataSource) {
+      return stringIsReadOnly(dataSource);
+    }
+    return false;
+  }
 };
 
 export const hasNumOrDenom = (rates: any) =>

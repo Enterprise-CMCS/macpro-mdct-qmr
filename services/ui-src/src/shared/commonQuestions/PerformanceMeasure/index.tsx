@@ -10,6 +10,7 @@ import {
   isLegacyLabel,
   LabelData,
   stringIsReadOnly,
+  rateIsReadOnly,
 } from "utils";
 import { ndrFormula } from "types";
 import { useContext } from "react";
@@ -214,7 +215,8 @@ export const PerformanceMeasure = ({
   } else if (dataSourceWatch) {
     readOnly = stringIsReadOnly(dataSourceWatch);
   }
-
+  console.log("old:", readOnly);
+  console.log("new", rateIsReadOnly(dataSourceWatch));
   data.questionText = data.questionText ?? [];
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
