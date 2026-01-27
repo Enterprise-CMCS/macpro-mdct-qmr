@@ -20,7 +20,7 @@ export const validateAtLeastOneDataSourceType = (
     errorArray.push(
       ...unfilledDataSources.map((key) => {
         const lookupKey = key.split("-")?.[1] ?? key;
-        const label = Types.dataSourceDisplayNames[lookupKey];
+        const label = Types.getDataSourceDisplayName(lookupKey);
         return {
           errorLocation: "Data Source",
           errorMessage:

@@ -1,7 +1,12 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Types from "shared/types";
-import { DataSourceData, defaultData, OptionNode } from "shared/types";
+import {
+  DataSourceData,
+  defaultData,
+  getDataSourceDisplayName,
+  OptionNode,
+} from "shared/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
@@ -116,7 +121,7 @@ const buildDataSourceOptions: DSCBFunc = ({
 
     checkBoxOptions.push({
       value: cleanedNodeValue,
-      displayValue: node.value,
+      displayValue: getDataSourceDisplayName(node.value),
       children,
     });
   }

@@ -29,7 +29,7 @@ export interface DataSourceData {
   optionsLabel: string;
 }
 
-export const dataSourceDisplayNames: Record<string, string> = {
+const dataSourceDisplayNames: Record<string, string> = {
   AdministrativeData: "Administrative Data",
   AdministrativeDataOther: "Administrative Data Other",
   HybridAdministrativeandMedicalRecordsData:
@@ -49,6 +49,9 @@ export const dataSourceDisplayNames: Record<string, string> = {
     "Immunization Registry/Immunization Information System (IIS)",
   ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
   VitalRecords: "Vital Records",
+};
+export const getDataSourceDisplayName = (dataSourceIdentifier: string) => {
+  return dataSourceDisplayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
 };
 
 export const defaultData: DataSourceData = {
