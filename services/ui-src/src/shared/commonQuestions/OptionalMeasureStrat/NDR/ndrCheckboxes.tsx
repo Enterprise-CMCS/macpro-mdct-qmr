@@ -2,7 +2,13 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
 import * as QMR from "components";
-import { LabelData, cleanString, getLabelText, isLegacyLabel } from "utils";
+import {
+  LabelData,
+  cleanString,
+  getLabelText,
+  isLegacyLabel,
+  rateIsReadOnly,
+} from "utils";
 import { useFormContext } from "react-hook-form";
 import { ContextProps, usePerformanceMeasureContext } from "../context";
 import {
@@ -25,10 +31,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
-  const shouldDisplay =
-    dataSourceWatch?.[0] !== "AdministrativeData" ||
-    dataSourceWatch?.length !== 1;
-
+  const rateReadOnly = rateIsReadOnly(dataSourceWatch);
   const standardRates = useStandardRateArray(name);
   const qualRates = useQualRateArray(name);
   const completedPMQualRates = useRatesForCompletedPmQualifiers(name);
@@ -47,7 +50,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
           cleanedLabel,
           displayValue,
           rateArrays[idx],
-          shouldDisplay,
+          rateReadOnly,
           customPrompt
         );
         options.push(ageGroupCheckBox);
@@ -70,7 +73,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
           value.id,
           value.text,
           rateArrays[idx],
-          shouldDisplay,
+          rateReadOnly,
           customPrompt
         );
         options.push(ageGroupCheckBox);
@@ -92,9 +95,7 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
-  const shouldDisplay =
-    dataSourceWatch?.[0] !== "AdministrativeData" ||
-    dataSourceWatch?.length !== 1;
+  const rateReadOnly = rateIsReadOnly(dataSourceWatch);
 
   OPM?.forEach(({ description }, idx) => {
     if (description) {
@@ -116,7 +117,7 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
           cleanedFieldName,
           displayValue,
           [rateComponent],
-          shouldDisplay,
+          rateReadOnly,
           customPrompt
         )
       );
@@ -154,7 +155,7 @@ const checkboxComponent = (
   label: string,
   value: string,
   rateComponent: React.ReactElement[],
-  shouldDisplay: boolean,
+  rateReadOnly: boolean,
   customPrompt?: string
 ) => {
   return {
@@ -175,7 +176,7 @@ const checkboxComponent = (
         pt="1"
         size={"sm"}
         key={`${name}.rates.${label}HeaderHelper`}
-        hidden={!shouldDisplay}
+        hidden={rateReadOnly}
       >
         Please review the auto-calculated rate and revise if needed.
       </CUI.Heading>,

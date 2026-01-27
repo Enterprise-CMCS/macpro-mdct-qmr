@@ -5,12 +5,7 @@ import * as Types from "../../../types";
 import { TopLevelOmsChildren } from "../omsNodeBuilder";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import {
-  arrayIsReadOnly,
-  cleanString,
-  getFilledKeys,
-  stringIsReadOnly,
-} from "utils";
+import { cleanString, getFilledKeys, rateIsReadOnly } from "utils";
 import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
@@ -123,11 +118,9 @@ export const Stratification = ({
 
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {
-    rateReadOnly = false;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
-    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
-  } else if (dataSourceWatch) {
-    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+    rateReadOnly = !rateAlwaysEditable;
+  } else {
+    rateReadOnly = rateIsReadOnly(dataSourceWatch);
   }
 
   /**

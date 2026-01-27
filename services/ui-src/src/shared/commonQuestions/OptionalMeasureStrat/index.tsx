@@ -7,7 +7,7 @@ import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
+import { cleanString, rateIsReadOnly } from "utils";
 import SharedContext from "shared/SharedContext";
 
 /**
@@ -106,11 +106,9 @@ export const OptionalMeasureStrat = ({
 
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {
-    rateReadOnly = false;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
-    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
-  } else if (dataSourceWatch) {
-    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+    rateReadOnly = !rateAlwaysEditable;
+  } else {
+    rateReadOnly = rateIsReadOnly(dataSourceWatch);
   }
 
   /**

@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
 import * as QMR from "components";
-import { LabelData, cleanString } from "utils";
+import { LabelData, cleanString, rateIsReadOnly } from "utils";
 import { useFormContext } from "react-hook-form";
 import {
   ContextProps,
@@ -24,10 +24,7 @@ export const useAgeGroupsFields = (name: string) => {
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
-  const shouldDisplay =
-    dataSourceWatch?.[0] !== "AdministrativeData" ||
-    dataSourceWatch?.length !== 1;
-
+  const rateReadOnly = rateIsReadOnly(dataSourceWatch);
   const standardRates = useStandardRateArray(name);
   const completedPMQualRates = useRatesForCompletedPmQualifiers(name);
 
@@ -45,7 +42,7 @@ export const useAgeGroupsFields = (name: string) => {
     checkbox,
     name,
     rateArrays,
-    shouldDisplay,
+    rateReadOnly,
     customPrompt
   );
 };
@@ -60,9 +57,7 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
   const { watch } = useFormContext<Types.DataSource>();
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
-  const shouldDisplay =
-    dataSourceWatch?.[0] !== "AdministrativeData" ||
-    dataSourceWatch?.length !== 1;
+  const rateReadOnly = rateIsReadOnly(dataSourceWatch);
 
   const options = OPM?.filter(
     ({ description }) => description != undefined && description != ""
@@ -92,7 +87,7 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
         pt="1"
         size={"sm"}
         key={`${name}.rates.HeaderHelper`}
-        hidden={!shouldDisplay}
+        hidden={rateReadOnly}
       >
         Please review the auto-calculated rate and revise if needed.
       </CUI.Heading>
@@ -129,7 +124,7 @@ const buildNDRComponent = (
   sets: LabelData[],
   name: string,
   rateArrays: React.ReactElement[][],
-  shouldDisplay: boolean,
+  rateReadOnly: boolean,
   customPrompt?: string
 ) => {
   return (
@@ -148,7 +143,7 @@ const buildNDRComponent = (
         pt="1"
         size={"sm"}
         key={`${name}.rates.HeaderHelper`}
-        hidden={!shouldDisplay}
+        hidden={rateReadOnly}
       >
         Please review the auto-calculated rate and revise if needed.
       </CUI.Heading>

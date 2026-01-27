@@ -4,7 +4,7 @@ import * as QMR from "components";
 import * as DC from "dataConstants";
 import * as Types from "shared/types";
 import { useEffect } from "react";
-import { arrayIsReadOnly, stringIsReadOnly } from "utils";
+import { rateIsReadOnly } from "utils";
 
 interface Props {
   hybridMeasure?: boolean;
@@ -38,14 +38,11 @@ export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
   // Watch for dataSource data
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {
-    rateReadOnly = false;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
-    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
-  } else if (dataSourceWatch) {
-    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+    rateReadOnly = !rateAlwaysEditable;
+  } else {
+    rateReadOnly = rateIsReadOnly(dataSourceWatch);
   }
 
   return (
@@ -77,8 +74,7 @@ export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
                   Enter a number for the numerator and the denominator. Rate
                   will auto-calculate:
                 </CUI.Text>
-                {(dataSourceWatch?.[0] !== "AdministrativeData" ||
-                  dataSourceWatch?.length !== 1) && (
+                {!rateReadOnly && (
                   <CUI.Heading pt="5" size={"sm"}>
                     Please review the auto-calculated rate and revise if needed.
                   </CUI.Heading>
