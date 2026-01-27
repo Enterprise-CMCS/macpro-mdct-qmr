@@ -15,6 +15,7 @@ export const AMOUNT_OF_POP_NOT_COVERED = "AmountOfPopulationNotCovered";
 export const BUDGET_CONSTRAINTS = "BudgetConstraints";
 export const CASE_MANAGEMENT_RECORD_REVIEW = "Case management record review";
 export const CASE_MANAGEMENT_RECORD_REVIEW_DATA = "Casemanagementrecordreview";
+/** Displayed as "Case management system" (lowercase 'm') */
 export const CASE_MANAGEMENT_SYSTEM = "Case Management system";
 export const CATEGORIES = "categories";
 export const CDC = "CDC";

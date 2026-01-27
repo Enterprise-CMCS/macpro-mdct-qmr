@@ -42,7 +42,7 @@ const dataSourceDisplayNames: Record<string, string> = {
     "Electronic health record (EHR) / personal health registry (PHR)",
   HealthinformationexchangeHIEclinicalregistry:
     "Health information exchange (HIE) / clinical registry",
-  CaseManagementsystem: "Case Management system",
+  CaseManagementsystem: "Case management system",
   MedicaidManagementInformationSystemMMIS:
     "Medicaid Management Information System (MMIS)",
   ImmunizationRegistryImmunizationInformationSystemIIS:
