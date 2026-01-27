@@ -38,7 +38,6 @@ export const OtherPerformanceMeasure = ({
   // Watch for dataSource data
   const dataSourceWatch = watch(DC.DATA_SOURCE);
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {
     rateReadOnly = !rateAlwaysEditable;

@@ -87,7 +87,7 @@ const PCRNDRSets = ({ name }: NdrProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate
       </CUI.Heading>
-      {rateReadOnly && (
+      {!rateReadOnly && (
         <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
           Please review the auto-calculated rate and revise if needed.
         </CUI.Heading>
