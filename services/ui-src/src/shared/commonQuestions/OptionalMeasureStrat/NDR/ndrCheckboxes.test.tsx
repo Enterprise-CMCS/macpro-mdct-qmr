@@ -9,11 +9,13 @@ import {
   useRatesForCompletedPmQualifiers,
   useStandardRateArray,
 } from "./rates";
-import { isLegacyLabel, getLabelText } from "utils";
-
 jest.mock("../context");
 jest.mock("./rates");
-jest.mock("utils");
+jest.mock("utils", () => ({
+  ...jest.requireActual("utils"),
+  isLegacyLabel: () => mockIsLegacyLabel(),
+  getLabelText: () => mockGetLabelText(),
+}));
 jest.mock("dataConstants", () => ({
   DATA_SOURCE: "dataSource",
 }));
@@ -32,12 +34,8 @@ const mockUseRatesForCompletedPmQualifiers =
 const mockUseStandardRateArray = useStandardRateArray as jest.MockedFunction<
   typeof useStandardRateArray
 >;
-const mockIsLegacyLabel = isLegacyLabel as jest.MockedFunction<
-  typeof isLegacyLabel
->;
-const mockGetLabelText = getLabelText as jest.MockedFunction<
-  typeof getLabelText
->;
+const mockIsLegacyLabel = jest.fn();
+const mockGetLabelText = jest.fn();
 
 let ageGroupsResult: any;
 let opmResult: any;
