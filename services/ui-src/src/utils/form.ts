@@ -85,33 +85,39 @@ export const arrayIsReadOnly = (dataSource: string[]) => {
 };
 
 export const rateIsReadOnly = (dataSource: string | string[] | undefined) => {
-  console.log("rateIsReadOnly dataSource:", dataSource);
   if (featuresByYear.updatedReadOnlyRateCheck) {
     // New logic for 2026 and beyond
-    if (dataSource && Array.isArray(dataSource)) {
+    if (!dataSource) return true;
+
+    const editableDataSources = [
+      DataSource.Hybrid,
+      DataSource.CaseMagementRecordReview,
+    ];
+
+    if (Array.isArray(dataSource)) {
+      // Multiple data sources are always editable
       if (dataSource.length > 1) return false;
-      if (
-        dataSource.length === 1 &&
-        (dataSource[0] === DataSource.Hybrid ||
-          dataSource[0] === DataSource.CaseMagementRecordReview)
-      )
-        return false;
-    } else if (
-      dataSource &&
-      (dataSource === DataSource.Hybrid ||
-        dataSource === DataSource.CaseMagementRecordReview)
-    ) {
-      return false;
+
+      // Single data source - check if it's editable
+      if (dataSource.length === 1) {
+        return !editableDataSources.includes(dataSource[0] as DataSource);
+      }
+
+      // Empty array is read-only
+      return true;
     }
-    return true;
+
+    // Single string data source - check if it's editable
+    return !editableDataSources.includes(dataSource as DataSource);
   } else {
     // Pre 2026 logic
-    if (dataSource && Array.isArray(dataSource)) {
+    if (!dataSource) return false;
+
+    if (Array.isArray(dataSource)) {
       return arrayIsReadOnly(dataSource);
-    } else if (dataSource) {
-      return stringIsReadOnly(dataSource);
     }
-    return false;
+
+    return stringIsReadOnly(dataSource);
   }
 };
 

@@ -4,14 +4,7 @@ import * as Types from "../../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import {
-  arrayIsReadOnly,
-  getLabelText,
-  isLegacyLabel,
-  LabelData,
-  stringIsReadOnly,
-  rateIsReadOnly,
-} from "utils";
+import { getLabelText, isLegacyLabel, LabelData, rateIsReadOnly } from "utils";
 import { ndrFormula } from "types";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
@@ -210,13 +203,10 @@ export const PerformanceMeasure = ({
   let readOnly = false;
   if (rateReadOnly !== undefined) {
     readOnly = rateReadOnly;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
-    readOnly = arrayIsReadOnly(dataSourceWatch);
-  } else if (dataSourceWatch) {
-    readOnly = stringIsReadOnly(dataSourceWatch);
+  } else {
+    readOnly = rateIsReadOnly(dataSourceWatch);
   }
-  console.log("old:", readOnly);
-  console.log("new", rateIsReadOnly(dataSourceWatch));
+
   data.questionText = data.questionText ?? [];
   //WIP: using form context to get the labels for this component temporarily.
   const labels: any = useContext(SharedContext);
@@ -313,8 +303,7 @@ export const PerformanceMeasure = ({
         }}
         data-cy="Enter a number for the numerator and the denominator"
       />
-      {(dataSourceWatch?.[0] !== "AdministrativeData" ||
-        dataSourceWatch?.length !== 1) && (
+      {!readOnly && (
         <CUI.Heading pt="5" size={"sm"}>
           Please review the auto-calculated rate and revise if needed.
         </CUI.Heading>
