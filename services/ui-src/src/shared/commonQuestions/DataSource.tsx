@@ -121,7 +121,7 @@ const buildDataSourceOptions: DSCBFunc = ({
 
     checkBoxOptions.push({
       value: cleanedNodeValue,
-      displayValue: getDataSourceDisplayName(node.value),
+      displayValue: getDataSourceDisplayName(cleanedNodeValue),
       children,
     });
   }
