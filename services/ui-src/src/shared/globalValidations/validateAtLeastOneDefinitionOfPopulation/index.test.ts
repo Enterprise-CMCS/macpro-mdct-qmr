@@ -44,4 +44,19 @@ describe("validateAtLeastOneDefinitionOfPopulation", () => {
     expect(errorArray.length).toBe(1);
     expect(errorArray[0].errorMessage).toBe(errorMessage);
   });
+
+  it("should fail when the Other population is not described ", () => {
+    formData[DC.DEFINITION_OF_DENOMINATOR] = [DC.DENOMINATOR_INC_OTHER];
+    delete formData[DC.DEFINITION_DENOMINATOR_OTHER];
+    const errorMessage = "Please describe the Other Definition of denominator";
+    errorArray = validateAtLeastOneDefinitionOfPopulation(formData);
+    expect(errorArray).toEqual([expect.objectContaining({ errorMessage })]);
+  });
+
+  it("should pass when the Other population is described ", () => {
+    formData[DC.DEFINITION_OF_DENOMINATOR] = [DC.DENOMINATOR_INC_OTHER];
+    formData[DC.DEFINITION_DENOMINATOR_OTHER] = "some other population";
+    errorArray = validateAtLeastOneDefinitionOfPopulation(formData);
+    expect(errorArray).toEqual([]);
+  });
 });
