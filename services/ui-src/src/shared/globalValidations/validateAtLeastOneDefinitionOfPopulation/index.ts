@@ -1,4 +1,5 @@
 import * as Types from "shared/types";
+import * as DC from "dataConstants";
 
 export const validateAtLeastOneDefinitionOfPopulation = (
   data: Types.DefinitionOfPopulation,
@@ -14,6 +15,16 @@ export const validateAtLeastOneDefinitionOfPopulation = (
       errorMessage:
         errorMessage ??
         "You must select at least one definition of population option",
+    });
+  }
+
+  if (
+    data.DefinitionOfDenominator?.includes(DC.DENOMINATOR_INC_OTHER) &&
+    !data[DC.DEFINITION_DENOMINATOR_OTHER]
+  ) {
+    errorArray.push({
+      errorLocation: "Definition of Population",
+      errorMessage: "Please describe the Other Definition of denominator",
     });
   }
 
