@@ -86,7 +86,7 @@ export const arrayIsReadOnly = (dataSource: string[]) => {
 };
 
 export const rateIsReadOnly = (
-  dataSources: [string[] | undefined, DataSourceSelections]
+  dataSources: [string[] | undefined, DataSourceSelections | undefined]
 ) => {
   const [dataSource, dataSourceSelections] = dataSources;
 

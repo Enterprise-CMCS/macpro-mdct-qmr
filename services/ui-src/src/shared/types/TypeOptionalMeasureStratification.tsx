@@ -57,8 +57,8 @@ export type OMSProps = BaseProps & (DataDrivenProp | DefaultDataProp);
 
 export type DataSourceSelections = {
   [key: string]: {
-    selected: string[] | undefined;
-    description: string | undefined;
+    selected?: string[] | undefined;
+    description?: string | undefined;
   };
 };
 
