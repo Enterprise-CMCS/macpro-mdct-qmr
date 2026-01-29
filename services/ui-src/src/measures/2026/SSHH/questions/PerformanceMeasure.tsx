@@ -35,8 +35,7 @@ export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
 
   const { watch } = useFormContext<Types.DataSource>();
 
-  // Watch for dataSource data
-  const dataSourceWatch = watch(DC.DATA_SOURCE);
+  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
 
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {

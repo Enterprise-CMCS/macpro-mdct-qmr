@@ -55,9 +55,17 @@ interface DefaultDataProp {
 
 export type OMSProps = BaseProps & (DataDrivenProp | DefaultDataProp);
 
+export type DataSourceSelections = {
+  [key: string]: {
+    selected: string[] | undefined;
+    description: string | undefined;
+  };
+};
+
 /** OMS react-hook-form typing */
 export type OMSType = OptionalMeasureStratification & {
   DataSource: string[];
+  DataSourceSelections: DataSourceSelections;
 } & { MeasurementSpecification: string } & {
   "OtherPerformanceMeasure-Rates": OtherRatesFields[];
 };

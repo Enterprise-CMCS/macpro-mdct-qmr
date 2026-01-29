@@ -35,8 +35,7 @@ export const OtherPerformanceMeasure = ({
   // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();
 
-  // Watch for dataSource data
-  const dataSourceWatch = watch(DC.DATA_SOURCE);
+  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
 
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {

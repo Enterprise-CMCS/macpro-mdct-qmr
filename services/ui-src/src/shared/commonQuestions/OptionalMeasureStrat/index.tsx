@@ -89,7 +89,7 @@ export const OptionalMeasureStrat = ({
     useFormContext<Types.OMSType>();
   const values = getValues();
 
-  const dataSourceWatch = watch("DataSource");
+  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
   const watchDataSourceSwitch = watch("MeasurementSpecification");
   //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
   const OPM =

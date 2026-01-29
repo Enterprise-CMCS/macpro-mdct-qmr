@@ -9,6 +9,7 @@ import { ndrFormula } from "types";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { featuresByYear } from "utils/featuresByYear";
+import { DataSourceSelections } from "../../types";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -197,8 +198,8 @@ export const PerformanceMeasure = ({
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const dataSourceWatch = useWatch<Types.DataSource>({
-    name: DC.DATA_SOURCE,
-  }) as string[] | string | undefined;
+    name: [DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS],
+  }) as [string[] | undefined, DataSourceSelections];
 
   let readOnly = false;
   if (rateReadOnly !== undefined) {

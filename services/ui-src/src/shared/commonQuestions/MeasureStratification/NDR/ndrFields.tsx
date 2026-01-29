@@ -22,7 +22,7 @@ export const useAgeGroupsFields = (name: string) => {
 
   const quals = calcTotal ? qualifiers.slice(0, -1) : qualifiers;
   const { watch } = useFormContext<Types.DataSource>();
-  const dataSourceWatch = watch(DC.DATA_SOURCE);
+  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
 
   const rateReadOnly = rateIsReadOnly(dataSourceWatch);
   const standardRates = useStandardRateArray(name);
@@ -55,7 +55,7 @@ export const useRenderOPMCheckboxOptions = (name: string) => {
   const { OPM, customPrompt } = context;
 
   const { watch } = useFormContext<Types.DataSource>();
-  const dataSourceWatch = watch(DC.DATA_SOURCE);
+  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
 
   const rateReadOnly = rateIsReadOnly(dataSourceWatch);
 
