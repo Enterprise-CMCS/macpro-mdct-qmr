@@ -131,9 +131,9 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
         options.hint = labels.ehrSrc;
       } else if (
         options.value === DC.ELECTRONIC_CLINIC_DATA_SYSTEMS &&
-        labels.describeOptionalDataSrc
+        labels.describeOptionalECDSDataSrc
       ) {
-        options.hint = labels.describeOptionalDataSrc;
+        options.hint = labels.describeOptionalECDSDataSrc;
       } else {
         options.hint = labels.describeDataSrc;
       }
