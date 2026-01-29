@@ -542,6 +542,8 @@ export const measureDescriptions: MeasureList = {
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
     "PDS-AD": "Postpartum Depression Screening and Follow-Up: Age 21 and Older",
+    "PND-AD": "",
+    "PND-CH": "",
     "PPC2-AD": "Prenatal and Postpartum Care: Age 21 and Over",
     "PQI01-AD": "PQI 01: Diabetes Short-Term Complications Admission Rate",
     "PQI05-AD":
