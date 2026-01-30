@@ -65,16 +65,12 @@ const NdrSubNode = (omsNode: OmsNode, flagSubCat: boolean, name: string) => {
           omsNode?.options!.map((node) => {
             return buildChildCheckboxOption({
               omsNode: node,
-              name: `${name}.selections.${
-                cleanString(node.id) ?? "ID_NOT_SET"
-              }`,
+              name: `${name}.selections.${cleanString(node.id) ?? "ID_NOT_SET"}`,
             });
           }) || []
         }
       />
-      {flagSubCat && (
-        <SubCatSection name={name} flagSubLabel={omsNode.flagSubLabel} />
-      )}
+      {flagSubCat && <SubCatSection name={name} flagSubLabel={omsNode.flagSubLabel} />}
     </>
   );
 };
@@ -83,14 +79,9 @@ const NdrSubNode = (omsNode: OmsNode, flagSubCat: boolean, name: string) => {
  * Build Sub-Category checkbox options
  * ex: Asian -> Korean, Chinese, Japanese, etc.
  */
-const renderRadioButtonOptions = ({
-  omsNode,
-  name,
-  label,
-}: ChildCheckBoxOptionProps) => {
+const renderRadioButtonOptions = ({ omsNode, name, label }: ChildCheckBoxOptionProps) => {
   //this was the legacy way of displaying the sub categories
-  const flagYesSubCat =
-    featuresByYear.hasQualCatLabels && !!omsNode?.flagSubCat;
+  const flagYesSubCat = featuresByYear.hasQualCatLabels && !!omsNode?.flagSubCat;
   //in 2023, we moved the sub categories to the no option and changed the yes
   const flagNoSubCat = !featuresByYear.hasQualCatLabels;
 
@@ -112,18 +103,12 @@ const renderRadioButtonOptions = ({
  * Builds child level checkbox options
  * ex: Race -> White, African American, Asian, etc.
  */
-const buildChildCheckboxOption = ({
-  omsNode,
-  name,
-  label,
-}: ChildCheckBoxOptionProps) => {
+const buildChildCheckboxOption = ({ omsNode, name, label }: ChildCheckBoxOptionProps) => {
   let children = [];
   const id = omsNode?.id ? cleanString(omsNode.id) : "ID_NOT_SET";
 
   if (!omsNode?.options) {
-    children = [
-      <NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />,
-    ];
+    children = [<NdrNode flagSubCat={!!omsNode?.flagSubCat} name={name} key={name} />];
   }
   // catch condition for subCategory ex: Asian -> Korean
   else {
@@ -158,19 +143,15 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   }
   //a flag added in 2025, if it's turned off, it'll hide [+Add Another Sex] button
   const sogiFlag =
-    useFlags()?.["sogi-stratification-options"] &&
-    props.id === "O8BrOa" &&
-    props.year! >= 2025;
+    useFlags()?.["sogi-stratification-options"] && props.id === "O8BrOa" && props.year! >= 2025;
 
-  const checkboxOptions = [
-    ...props.options.map((lvlTwoOption) => {
-      return buildChildCheckboxOption({
-        omsNode: lvlTwoOption,
-        name: `${props.name}.selections.${lvlTwoOption.id}`,
-        label: omsLabels(lvlTwoOption, props.customLabels.addAnotherType),
-      });
-    }),
-  ];
+  const checkboxOptions = props.options.map((lvlTwoOption) => {
+    return buildChildCheckboxOption({
+      omsNode: lvlTwoOption,
+      name: `${props.name}.selections.${lvlTwoOption.id}`,
+      label: omsLabels(lvlTwoOption, props.customLabels.addAnotherType),
+    });
+  });
 
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
