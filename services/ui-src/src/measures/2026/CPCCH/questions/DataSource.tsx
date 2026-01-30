@@ -47,7 +47,7 @@ export const DataSource = ({ type }: DataSourceProps) => {
       />
       <QMR.RadioButton
         formControlProps={{ paddingBottom: 4 }}
-        label=" Did you include the CAHPS Item Set for Children with Chronic Conditions
+        label=" Did you include the CAHPS Supplemental Item Set for Children with Chronic Conditions
         in the survey?"
         formLabelProps={{ fontWeight: 700 }}
         key={DC.DATA_SOURCE_INCLUDE_ITEMSETS}
@@ -55,15 +55,15 @@ export const DataSource = ({ type }: DataSourceProps) => {
         options={[
           {
             displayValue:
-              "Yes, we included the CAHPS Item Set for Children with Chronic Conditions in the survey.",
+              "Yes, we included the CAHPS Supplemental Item Set for Children with Chronic Conditions in the survey.",
             value:
-              "Yes, we included the CAHPS Item Set for Children with Chronic Conditions in the survey.",
+              "Yes, we included the CAHPS Supplemental Item Set for Children with Chronic Conditions in the survey.",
           },
           {
             displayValue:
-              "No, we did not include the CAHPS Item Set for Children with Chronic Conditions in the survey.",
+              "No, we did not include the CAHPS Supplemental Item Set for Children with Chronic Conditions in the survey.",
             value:
-              "No, we did not include the CAHPS Item Set for Children with Chronic Conditions in the survey.",
+              "No, we did not include the CAHPS Supplemental Item Set for Children with Chronic Conditions in the survey.",
           },
         ]}
       />
