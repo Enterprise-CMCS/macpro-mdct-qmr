@@ -161,15 +161,13 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     props.id === "O8BrOa" &&
     props.year! >= 2025;
 
-  const checkboxOptions = [
-    ...props.options.map((lvlTwoOption) => {
-      return buildChildCheckboxOption({
-        omsNode: lvlTwoOption,
-        name: `${props.name}.selections.${lvlTwoOption.id}`,
-        label: omsLabels(lvlTwoOption),
-      });
-    }),
-  ];
+  const checkboxOptions = props.options.map((lvlTwoOption) => {
+    return buildChildCheckboxOption({
+      omsNode: lvlTwoOption,
+      name: `${props.name}.selections.${lvlTwoOption.id}`,
+      label: omsLabels(lvlTwoOption),
+    });
+  });
 
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
