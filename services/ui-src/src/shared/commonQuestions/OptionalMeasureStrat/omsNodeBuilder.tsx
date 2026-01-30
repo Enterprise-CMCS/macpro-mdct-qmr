@@ -173,21 +173,19 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
       <QMR.Checkbox
         name={`${props.name}.options`}
         key={`${props.name}.options`}
-        options={[
-          ...props.options.map((lvlTwoOption) => {
-            //cleanString is used for year <= 2022 options, and has no effect on year >= 2023 ids
-            const cleanedId =
-              cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
+        options={props.options.map((lvlTwoOption) => {
+          //cleanString is used for year <= 2022 options, and has no effect on year >= 2023 ids
+          const cleanedId =
+            cleanString(lvlTwoOption?.id) ?? "LVL_TWO_ID_NOT_SET";
 
-            const labels = omsLabels(lvlTwoOption);
+          const labels = omsLabels(lvlTwoOption);
 
-            return buildChildCheckboxOption({
-              omsNode: lvlTwoOption,
-              name: `${props.name}.selections.${cleanedId}`,
-              label: labels,
-            });
-          }),
-        ]}
+          return buildChildCheckboxOption({
+            omsNode: lvlTwoOption,
+            name: `${props.name}.selections.${cleanedId}`,
+            label: labels,
+          });
+        })}
       />
       {props.addMore && (props.id !== "O8BrOa" || sogiFlag) && (
         <AddAnotherSection
