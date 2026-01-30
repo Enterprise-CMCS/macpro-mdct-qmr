@@ -3,6 +3,7 @@ export const ADDITIONAL_NOTES = "AdditionalNotes-AdditionalNotes";
 export const ADDITIONAL_NOTES_UPLOAD = "AdditionalNotes-Upload";
 export const ADDITIONAL_SELECTIONS = "additionalSelections";
 export const ADDITIONAL_CONTEXT = "additionalContext";
+export const ADMINISTRATIVE = "Administrative";
 export const ADMINISTRATIVE_DATA = "Administrative Data";
 export const ADMINISTRATIVE_DATA_OTHER = "Administrative Data Other";
 export const AGE_RANGE_RATES = "ageRangeRates";
