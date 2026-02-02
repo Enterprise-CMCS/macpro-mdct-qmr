@@ -46,8 +46,6 @@
     "@types/react-dom": "^18.2.17",
     "@types/react-helmet-async": "^1.0.3",
     "@types/yargs": "^17.0.33",
-    "@typescript-eslint/eslint-plugin": "5.18.0",
-    "@typescript-eslint/parser": "5.18.0",
     "aws-cdk": "^2.1029.0",
     "aws-cdk-local": "^2.19.2",
     "core-js": "^3.41.0",
