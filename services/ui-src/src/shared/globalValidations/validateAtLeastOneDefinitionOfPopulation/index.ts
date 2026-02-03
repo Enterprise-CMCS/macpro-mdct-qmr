@@ -23,7 +23,7 @@ export const validateAtLeastOneDefinitionOfPopulation = (
     !data[DC.DEFINITION_DENOMINATOR_OTHER]
   ) {
     errorArray.push({
-      errorLocation: "Definition of Population",
+      errorLocation: "Definition of Population Included in the Measure",
       errorMessage: "Please describe the Other Definition of denominator",
     });
   }
