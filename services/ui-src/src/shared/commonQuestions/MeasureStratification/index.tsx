@@ -218,9 +218,9 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           and/or geography. Beginning with 2025 Core Sets reporting, states are
           required to report stratified data for a specific subset of Child,
           Adult, and Health Home Core Set measures. More information on
-          stratification reporting requirements, including the list of measures 
-          and rates subject to mandatory stratification for 2026 Core Set 
-          reporting, is included in the{" "} {GetLinks("strat-ta-resource")}.
+          stratification reporting requirements, including the list of measures
+          and rates subject to mandatory stratification for 2026 Core Set
+          reporting, is included in the {GetLinks("strat-ta-resource")}.
         </CUI.Text>
         <br />
         <CUI.Text>
@@ -232,14 +232,14 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         <br />
         <CUI.Text>
           CMS encourages states to report data in the QMR system for measures
-          and rates with small cell sizes. For public reporting,
-          data will be suppressed in accordance with the CMS cell-size
-          suppression policy, which prohibits the direct reporting of
-          beneficiary and record counts of 1 to 10 and values from which users
-          can derive values of 1 to 10. Furthermore, CMS will suppress rates
-          with a denominator less than 30 due to reliability concerns.
-          If state policy prohibits reporting certain cell counts, please adhere 
-          to state policies and include a note in the stratification open text field.
+          and rates with small cell sizes. For public reporting, data will be
+          suppressed in accordance with the CMS cell-size suppression policy,
+          which prohibits the direct reporting of beneficiary and record counts
+          of 1 to 10 and values from which users can derive values of 1 to 10.
+          Furthermore, CMS will suppress rates with a denominator less than 30
+          due to reliability concerns. If state policy prohibits reporting
+          certain cell counts, please adhere to state policies and include a
+          note in the stratification open text field.
         </CUI.Text>
       </QMR.Accordion>
       <StratificationOption reset={onReset} year={year}></StratificationOption>
