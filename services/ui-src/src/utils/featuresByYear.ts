@@ -155,4 +155,13 @@ export const featuresByYear = {
   get hasAdultSeparateCHIPInclusiveWarning() {
     return getMeasureYear() >= 2025;
   },
+
+  /**
+   * Prior to 2025, auto-calulated rate was read-only when the data source was Administrative Data"
+   *
+   * In 2026 and beyond, we want to allow manual editing of rates only when multiple data sources are selected OR data source is either: Hybrid or Case Management
+   */
+  get updatedReadOnlyRateCheck() {
+    return getMeasureYear() >= 2026;
+  },
 };

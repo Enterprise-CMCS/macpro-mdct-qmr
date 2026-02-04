@@ -4,17 +4,12 @@ import * as Types from "../../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
-import {
-  arrayIsReadOnly,
-  getLabelText,
-  isLegacyLabel,
-  LabelData,
-  stringIsReadOnly,
-} from "utils";
+import { getLabelText, isLegacyLabel, LabelData, rateIsReadOnly } from "utils";
 import { ndrFormula } from "types";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { featuresByYear } from "utils/featuresByYear";
+import { DataSourceSelections } from "../../types";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -203,16 +198,14 @@ export const PerformanceMeasure = ({
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
   const dataSourceWatch = useWatch<Types.DataSource>({
-    name: DC.DATA_SOURCE,
-  }) as string[] | string | undefined;
+    name: [DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS],
+  }) as [string[] | undefined, DataSourceSelections];
 
   let readOnly = false;
   if (rateReadOnly !== undefined) {
     readOnly = rateReadOnly;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
-    readOnly = arrayIsReadOnly(dataSourceWatch);
-  } else if (dataSourceWatch) {
-    readOnly = stringIsReadOnly(dataSourceWatch);
+  } else {
+    readOnly = rateIsReadOnly(dataSourceWatch);
   }
 
   data.questionText = data.questionText ?? [];
@@ -311,8 +304,7 @@ export const PerformanceMeasure = ({
         }}
         data-cy="Enter a number for the numerator and the denominator"
       />
-      {(dataSourceWatch?.[0] !== "AdministrativeData" ||
-        dataSourceWatch?.length !== 1) && (
+      {!readOnly && (
         <CUI.Heading pt="5" size={"sm"}>
           Please review the auto-calculated rate and revise if needed.
         </CUI.Heading>
