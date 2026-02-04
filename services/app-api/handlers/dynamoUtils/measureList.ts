@@ -1960,6 +1960,11 @@ export const measures: Measure = {
     },
     {
       type: "A",
+      measure: "PND-AD",
+      measureType: MeasureType.PROVISIONAL,
+    },
+    {
+      type: "A",
       measure: "PPC2-AD",
     },
     {
@@ -2147,6 +2152,11 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "PDS-CH",
+      measureType: MeasureType.PROVISIONAL,
+    },
+    {
+      type: "C",
+      measure: "PND-CH",
       measureType: MeasureType.PROVISIONAL,
     },
     {
