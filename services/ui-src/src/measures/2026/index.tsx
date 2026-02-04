@@ -83,6 +83,8 @@ const twentyTwentySixMeasures = {
   "PCR-HH": PCRHH,
   "PDS-AD": measureTemplate,
   "PDS-CH": measureTemplate,
+  // "PND-AD": measureTemplate, // TO DO: replace with real measure
+  // "PND-CH": measureTemplate, // TO DO: replace with real measure
   "PPC2-AD": measureTemplate,
   "PPC2-CH": measureTemplate,
   "PQI01-AD": measureTemplate,
