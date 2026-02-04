@@ -14,6 +14,7 @@ import {
   useGetMeasures,
   useUpdateMeasure,
 } from "hooks/api";
+import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
@@ -347,6 +348,11 @@ export const CoreSet = () => {
   year = year ?? "";
 
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
+  const coreSetPrefix = (coreSet[0] as CoreSetAbbr) ?? "ACS";
+
+  // Get measure list info for determining mandatory status
+  const { data: measureListInfo } = useGetMeasureListInfo();
+
   const tempSpa =
     coreSet.length > 1
       ? SPA[year].filter((s) => s.id === coreSet[1] && s.state === state)[0]
@@ -428,8 +434,6 @@ export const CoreSet = () => {
     },
   };
 
-  const coreSetPrefix = coreSet[0].slice(0, 4);
-
   // i.e, "Child Core Set Measures: Medicaid - Core Set Measures - 2025 QMR"
   const simplifiedTitle = coreSetTitles(coreSet[0]).replace(/ \(.*?\)/g, ""); // Remove anything in parentheses
 
@@ -508,7 +512,14 @@ export const CoreSet = () => {
               {abbrToName(coreSetPrefix as CoreSetAbbr)} Core Set Measures
             </CUI.Heading>
             {!isError && (
-              <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
+              <QMR.Table
+                data={measures}
+                columns={QMR.measuresColumns(
+                  year,
+                  coreSetPrefix,
+                  measureListInfo
+                )}
+              />
             )}
             {isError && (
               <QMR.Notification

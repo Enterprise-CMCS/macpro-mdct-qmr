@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { MeasureTableItem, TableColumn } from "../types";
 import { featuresByYear } from "utils/featuresByYear";
+import { CoreSetAbbr, MeasureType } from "types";
 
 // Get status string from measure data
 const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
@@ -54,7 +55,9 @@ const MeasureStatusText = ({
 
 // Measure table columns with cell formatting
 export const measuresColumns = (
-  year: string
+  year: string,
+  coreSet?: CoreSetAbbr,
+  measureListInfo?: any
 ): TableColumn<MeasureTableItem.Data>[] => {
   return [
     {
@@ -100,18 +103,32 @@ export const measuresColumns = (
             id: "mandatory_column_header",
             styleProps: { textAlign: "center" },
             cell: (data: MeasureTableItem.Data) => {
+              // Get measure metadata to determine if mandatory for core set
+              const measureMetadata = measureListInfo?.[year]?.find(
+                (m: any) => m.measure === data.abbr
+              );
+              const isMandatory =
+                measureMetadata?.measureType === MeasureType.MANDATORY &&
+                (!measureMetadata?.mandatoryForCoreSets ||
+                  (coreSet &&
+                    measureMetadata.mandatoryForCoreSets.includes(coreSet)));
+
               return (
-                <CUI.Badge
-                  fontSize="xs"
-                  backgroundColor="blue.50"
-                  textTransform="capitalize"
-                  borderRadius="lg"
-                  px="2"
-                >
-                  {data?.measureType && (
-                    <CUI.Text fontWeight="normal">{data?.measureType}</CUI.Text>
-                  )}
-                </CUI.Badge>
+                <CUI.Box textAlign="center">
+                  {isMandatory ? (
+                    <CUI.Badge
+                      fontSize="xs"
+                      backgroundColor="blue.50"
+                      textTransform="capitalize"
+                      borderRadius="lg"
+                      px="2"
+                    >
+                      <CUI.Text fontWeight="normal">
+                        {data?.measureType}
+                      </CUI.Text>
+                    </CUI.Badge>
+                  ) : null}
+                </CUI.Box>
               );
             },
           },
