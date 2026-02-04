@@ -14,7 +14,8 @@ export const commonQuestionsLabel = {
     ehrSrc: "Optional - Describe the data source(s) used:",
     describeDataSrc:
       "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
-    describeOptionalDataSrc: "Optional - Describe the data source(s) used:",
+    describeOptionalECDSDataSrc:
+      "Optional - Describe the ECDS data source(s) used:",
     srcExplanation: "Data Source Explanation",
     srcExplanationText:
       "For each data source selected above, describe which reporting entities used each data source (e.g., health plans, FFS). If the data source differed across health plans or delivery systems, identify the number of plans or delivery systems that used each data source (<em>text in this field is included in publicly-reported state-specific comments</em>).",
