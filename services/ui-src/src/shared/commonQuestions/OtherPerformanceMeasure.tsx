@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import * as DC from "dataConstants";
 import * as Types from "../types";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { arrayIsReadOnly, stringIsReadOnly } from "utils";
+import { rateIsReadOnly } from "utils";
 
 interface Props {
   rateAlwaysEditable?: boolean;
@@ -35,17 +35,13 @@ export const OtherPerformanceMeasure = ({
   // ! Waiting for data source refactor to type data source here
   const { watch } = useFormContext<Types.DataSource>();
 
-  // Watch for dataSource data
-  const dataSourceWatch = watch(DC.DATA_SOURCE);
+  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
 
-  // Conditional check to let rate be readonly when administrative data is the only option or no option is selected
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {
-    rateReadOnly = false;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
-    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
-  } else if (dataSourceWatch) {
-    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+    rateReadOnly = !rateAlwaysEditable;
+  } else {
+    rateReadOnly = rateIsReadOnly(dataSourceWatch);
   }
 
   return (
@@ -81,8 +77,7 @@ export const OtherPerformanceMeasure = ({
                     `Enter a number for the numerator and the denominator. Rate will
         auto-calculate:`}
                 </CUI.Text>
-                {(dataSourceWatch?.[0] !== "AdministrativeData" ||
-                  dataSourceWatch?.length !== 1) && (
+                {!rateReadOnly && (
                   <CUI.Heading pt="5" size={"sm"}>
                     Please review the auto-calculated rate and revise if needed.
                   </CUI.Heading>
