@@ -95,9 +95,16 @@ export const validateOMSTotalNDR =
     return error;
   };
 
-const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
+const validateTotalNDRErrorMessage = (
+  qualifier: string,
+  fieldType: string,
+  category?: string
+) => {
   if (fieldType === "Total") {
     return `${qualifier} must contain values if other fields are filled.`;
+  }
+  if (category !== undefined) {
+    return `${qualifier} ${fieldType.toLowerCase()} field is not equal to the sum of other ${fieldType.toLowerCase()}s for the ${category} rate.`;
   }
   return `${qualifier} ${fieldType.toLowerCase()} field is not equal to the sum of other ${fieldType.toLowerCase()}s.`;
 };
@@ -153,7 +160,11 @@ export const validateTotalNDR = (
           (categories && categories[idx].label) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: errorMessageFunc(qualifier!, "Numerator"),
+          errorMessage: errorMessageFunc(
+            qualifier!,
+            "Numerator",
+            totalNDR.category
+          ),
         });
       }
       if (
@@ -165,7 +176,11 @@ export const validateTotalNDR = (
           (categories && categories[idx].label) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: errorMessageFunc(qualifier!, "Denominator"),
+          errorMessage: errorMessageFunc(
+            qualifier!,
+            "Denominator",
+            totalNDR.category
+          ),
         });
       }
     } else if (numeratorSum && denominatorSum) {
