@@ -3,7 +3,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../../types";
 import { TopLevelOmsChildren } from "../omsNodeBuilder";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useFormContext } from "react-hook-form";
 import {
   arrayIsReadOnly,
@@ -15,6 +15,7 @@ import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasu
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
 import { usePathParams } from "hooks/api/usePathParams";
+import SharedContext from "shared/SharedContext";
 
 /**
  * Builds out parent level checkboxes
@@ -31,6 +32,7 @@ export const buildOmsCheckboxes = ({
   excludeOptions,
   year,
   overrideAccordion,
+  customLabels,
 }: Types.OmsCheckboxProps) => {
   return data
     .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
@@ -52,6 +54,7 @@ export const buildOmsCheckboxes = ({
           label={displayValue}
           year={year}
           overrideAccordion={overrideAccordion}
+          customLabels={customLabels!}
         />,
       ];
 
@@ -91,6 +94,10 @@ export const Stratification = ({
   const values = getValues();
   const { userRole } = useUser();
   const { measureId } = usePathParams();
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: Types.MeasureStratificationLabels = (
+    useContext(SharedContext) as any
+  ).MeasureStratification;
 
   const dataSourceWatch = watch("DataSource");
   const watchDataSourceSwitch = watch("MeasurementSpecification");
@@ -119,6 +126,7 @@ export const Stratification = ({
     excludeOptions,
     year,
     overrideAccordion,
+    customLabels: labels,
   });
 
   let rateReadOnly = false;
@@ -187,15 +195,9 @@ export const Stratification = ({
           rateCalculation: rateCalc,
         }}
       >
-        <CUI.Text>
-          Do not select categories and subcategories for which your state does
-          not collect data.
-        </CUI.Text>
-        <CUI.Text>
-          For each category and subcategory, enter a number for the numerator
-          and denominator. The rate will auto-calculate but can be revised if
-          needed.
-        </CUI.Text>
+        {labels.subHeader.map((text: string) => (
+          <CUI.Text>{text}</CUI.Text>
+        ))}
         <CUI.UnorderedList
           my={6}
           aria-label="accordion controls"
