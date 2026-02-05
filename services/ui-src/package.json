@@ -1,9 +1,17 @@
 {
   "name": "ui-src",
-  "description": "",
   "version": "1.0.0",
-  "packageManager": "yarn@4.12.0",
+  "description": "",
   "license": "CC0-1.0",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "coverage": "jest --coverage",
+    "test": "jest",
+    "watchTest": "jest --watch",
+    "postinstall": "patch-package"
+  },
   "dependencies": {
     "@chakra-ui/react": "2.5.5",
     "@cmsgov/design-system": "^13.0.0",
@@ -35,63 +43,6 @@
     "sass": "^1.80.4",
     "uuid": "^8.3.2"
   },
-  "scripts": {
-    "start": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "coverage": "jest --coverage",
-    "test": "jest",
-    "watchTest": "jest --watch",
-    "postinstall": "patch-package"
-  },
-  "jest": {
-    "testTimeout": 180000,
-    "coverageReporters": [
-      "json",
-      [
-        "lcov",
-        {
-          "projectRoot": "../../"
-        }
-      ],
-      "text",
-      "text-summary"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "verbose": true,
-    "moduleNameMapper": {
-      "\\.(css|less|scss)$": "<rootDir>/src/utils/testUtils/styleMock.ts",
-      "^@ui-src/(.*)$": "<rootDir>/$1"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>/setupJest.ts"
-    ],
-    "globals": {
-      "_env_": {}
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!axios)"
-    ],
-    "testEnvironment": "jest-environment-jsdom"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@aws-sdk/types": "^3.716.0",
     "@babel/core": "^7.13.16",
@@ -121,16 +72,64 @@
     "jest-launchdarkly-mock": "^2.1.0",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
-    "prettier": "^2.4.1",
     "ts-jest": "^27.1.5",
     "typescript": "^5.9.3",
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^4.3.2"
   },
   "resolutions": {
-    "node-forge": "^1.3.1",
     "degenerator": "^4.0.4",
-    "nth-check": "^2.0.1",
-    "json5": "^2.2.3"
-  }
+    "json5": "^2.2.3",
+    "node-forge": "^1.3.1",
+    "nth-check": "^2.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}"
+    ],
+    "coverageReporters": [
+      "json",
+      [
+        "lcov",
+        {
+          "projectRoot": "../../"
+        }
+      ],
+      "text",
+      "text-summary"
+    ],
+    "globals": {
+      "_env_": {}
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss)$": "<rootDir>/src/utils/testUtils/styleMock.ts",
+      "^@ui-src/(.*)$": "<rootDir>/$1"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupJest.ts"
+    ],
+    "testEnvironment": "jest-environment-jsdom",
+    "testTimeout": 180000,
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)"
+    ],
+    "verbose": true
+  },
+  "packageManager": "yarn@4.12.0"
 }

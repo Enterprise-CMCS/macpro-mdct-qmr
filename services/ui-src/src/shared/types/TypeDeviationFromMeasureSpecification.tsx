@@ -22,8 +22,7 @@ export interface DeviationFromMeasureSpecification {
 }
 
 //used for 2021 & 2022 measures
-export interface DeviationFromMeasureSpecificationCheckboxes
-  extends DeviationFromMeasureSpecification {
+export interface DeviationFromMeasureSpecificationCheckboxes extends DeviationFromMeasureSpecification {
   [DC.DEVIATIONS]: {
     // the DEVIATION_OPTIONS will map the DEVIATIONS
     [option: string]: {
@@ -38,7 +37,6 @@ export interface DeviationFromMeasureSpecificationCheckboxes
 }
 
 //use for years >= 2023, they just want a simple textfield to capture the deviation compare to before
-export interface DeviationFromMeasureSpecificationTextField
-  extends DeviationFromMeasureSpecification {
+export interface DeviationFromMeasureSpecificationTextField extends DeviationFromMeasureSpecification {
   [DC.DEVIATION_REASON]: string;
 }

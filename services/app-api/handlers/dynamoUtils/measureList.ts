@@ -1841,11 +1841,6 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "AMM-AD",
-      measureType: MeasureType.MANDATORY,
-    },
-    {
-      type: "A",
       measure: "AMR-AD",
     },
     {
@@ -1895,10 +1890,6 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "CPU-AD",
-    },
-    {
-      type: "A",
       measure: "EDV-AD",
     },
     {
@@ -1917,6 +1908,7 @@ export const measures: Measure = {
       type: "A",
       measure: "FUM-AD",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
@@ -1949,21 +1941,13 @@ export const measures: Measure = {
     },
     {
       type: "A",
-      measure: "NCIIDD-AD",
-      autocompleteOnCreation: true,
-    },
-    {
-      type: "A",
       measure: "OEVP-AD",
-    },
-    {
-      type: "A",
-      measure: "OHD-AD",
     },
     {
       type: "A",
       measure: "OUD-AD",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
@@ -1972,6 +1956,11 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "PDS-AD",
+      measureType: MeasureType.PROVISIONAL,
+    },
+    {
+      type: "A",
+      measure: "PND-AD",
       measureType: MeasureType.PROVISIONAL,
     },
     {
@@ -2012,16 +2001,31 @@ export const measures: Measure = {
       type: "C",
       measure: "AAB-CH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
       measure: "ADD-CH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
       measure: "AMR-CH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
@@ -2057,6 +2061,11 @@ export const measures: Measure = {
       type: "C",
       measure: "CIS-CH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
@@ -2072,6 +2081,11 @@ export const measures: Measure = {
       type: "C",
       measure: "FUA-CH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
@@ -2092,11 +2106,21 @@ export const measures: Measure = {
       type: "C",
       measure: "IMA-CH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
       measure: "LSC-CH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [
+        CoreSetAbbr.CCS,
+        CoreSetAbbr.CCSC,
+        CoreSetAbbr.CCSM,
+      ],
     },
     {
       type: "C",
@@ -2123,11 +2147,16 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "OEVP-CH",
-      measureType: MeasureType.PROVISIONAL,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
       measure: "PDS-CH",
+      measureType: MeasureType.PROVISIONAL,
+    },
+    {
+      type: "C",
+      measure: "PND-CH",
       measureType: MeasureType.PROVISIONAL,
     },
     {
@@ -2143,7 +2172,7 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "PRS-CH",
-      measureType: MeasureType.PROVISIONAL,
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
@@ -2206,6 +2235,7 @@ export const measures: Measure = {
       type: "H",
       measure: "FUA-HH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [CoreSetAbbr.HHCS],
     },
     {
       type: "H",
@@ -2217,6 +2247,7 @@ export const measures: Measure = {
       type: "H",
       measure: "FUM-HH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [CoreSetAbbr.HHCS],
     },
     {
       type: "H",
@@ -2232,6 +2263,7 @@ export const measures: Measure = {
       type: "H",
       measure: "OUD-HH",
       measureType: MeasureType.MANDATORY,
+      stratificationRequired: [CoreSetAbbr.HHCS],
     },
     {
       type: "H",

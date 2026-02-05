@@ -29,7 +29,7 @@ export interface DataSourceData {
   optionsLabel: string;
 }
 
-export const dataSourceDisplayNames: Record<string, string> = {
+const dataSourceDisplayNames: Record<string, string> = {
   AdministrativeData: "Administrative Data",
   AdministrativeDataOther: "Administrative Data Other",
   HybridAdministrativeandMedicalRecordsData:
@@ -42,13 +42,16 @@ export const dataSourceDisplayNames: Record<string, string> = {
     "Electronic health record (EHR) / personal health registry (PHR)",
   HealthinformationexchangeHIEclinicalregistry:
     "Health information exchange (HIE) / clinical registry",
-  CaseManagementsystem: "Case Management system",
+  CaseManagementsystem: "Case management system",
   MedicaidManagementInformationSystemMMIS:
     "Medicaid Management Information System (MMIS)",
   ImmunizationRegistryImmunizationInformationSystemIIS:
     "Immunization Registry/Immunization Information System (IIS)",
   ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
   VitalRecords: "Vital Records",
+};
+export const getDataSourceDisplayName = (dataSourceIdentifier: string) => {
+  return dataSourceDisplayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
 };
 
 export const defaultData: DataSourceData = {

@@ -3,6 +3,7 @@ export const ADDITIONAL_NOTES = "AdditionalNotes-AdditionalNotes";
 export const ADDITIONAL_NOTES_UPLOAD = "AdditionalNotes-Upload";
 export const ADDITIONAL_SELECTIONS = "additionalSelections";
 export const ADDITIONAL_CONTEXT = "additionalContext";
+export const ADMINISTRATIVE = "Administrative";
 export const ADMINISTRATIVE_DATA = "Administrative Data";
 export const ADMINISTRATIVE_DATA_OTHER = "Administrative Data Other";
 export const AGE_RANGE_RATES = "ageRangeRates";
@@ -15,6 +16,7 @@ export const AMOUNT_OF_POP_NOT_COVERED = "AmountOfPopulationNotCovered";
 export const BUDGET_CONSTRAINTS = "BudgetConstraints";
 export const CASE_MANAGEMENT_RECORD_REVIEW = "Case management record review";
 export const CASE_MANAGEMENT_RECORD_REVIEW_DATA = "Casemanagementrecordreview";
+/** Displayed as "Case management system" (lowercase 'm') */
 export const CASE_MANAGEMENT_SYSTEM = "Case Management system";
 export const CATEGORIES = "categories";
 export const CDC = "CDC";

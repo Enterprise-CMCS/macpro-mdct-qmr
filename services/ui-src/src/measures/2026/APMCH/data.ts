@@ -31,7 +31,7 @@ export const data: MeasureTemplateData = {
               { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
               { value: DC.HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY },
               { value: DC.CASE_MANAGEMENT_SYSTEM },
-              { value: DC.ADMINISTRATIVE_DATA },
+              { value: DC.ADMINISTRATIVE },
             ],
           },
         ],

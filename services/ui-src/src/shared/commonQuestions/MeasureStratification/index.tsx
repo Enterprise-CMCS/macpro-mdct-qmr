@@ -11,6 +11,7 @@ import { Alert } from "@cmsgov/design-system";
 
 interface Props {
   reset?: () => void;
+  year: number;
 }
 
 export const GetLinks = (type: string) => {
@@ -72,23 +73,23 @@ export const StratificationAdditionalNotes = () => {
   );
 };
 
-export const StratificationOption = ({ reset }: Props) => {
+export const StratificationOption = ({ reset, year }: Props) => {
   return (
     <QMR.RadioButton
       key={`OptionalMeasureStratification.${DC.VERSION}`}
       name={`OptionalMeasureStratification.${DC.VERSION}`}
       formLabelProps={{ fontWeight: "700" }}
-      label="Which race and ethnicity standards would your state like to use for 2025 Core Sets reporting?"
+      label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
       subTextElement={[
         <CUI.Text key="description" mb={2}>
-          A summary of the race and ethnicity subcategories included in each
-          option is available in Boxes 1 and 2 of the{" "}
+          A summary of the race and ethnicity categories and detailed categories
+          included in each standard is available in Boxes 1 and 2 of the{" "}
           {GetLinks("strat-ta-resource")}.
         </CUI.Text>,
         <CUI.UnorderedList key="list" padding="0 0 1rem 2rem">
           <CUI.ListItem key="1997-omb-item">
             1997 Office of Management and Budget (OMB) minimum race and
-            ethnicity categories, as specified in the 2011 HHS standards
+            ethnicity standards, as specified in the 2011 HHS standards
           </CUI.ListItem>
           <CUI.ListItem key="2024-omb-item" mb={2}>
             2024 OMB Statistical Policy Directive No. 15 race and ethnicity
@@ -110,7 +111,7 @@ export const StratificationOption = ({ reset }: Props) => {
       options={[
         {
           displayValue:
-            "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
+            "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
           value: "1997-omb",
           onClick: reset,
         },
@@ -121,8 +122,7 @@ export const StratificationOption = ({ reset }: Props) => {
           onClick: reset,
         },
         {
-          displayValue:
-            "I am not reporting measure stratification for this measure",
+          displayValue: "I am not reporting stratified data for this measure",
           value: "not-reporting",
           onClick: reset,
         },
@@ -228,9 +228,9 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         </CUI.Text>
         <br />
         <CUI.Text>
-          For 2025 Core Sets reporting, states have the option to stratify race
-          and ethnicity data using either (1) the {GetLinks("1997-omb")}, as
-          specified in the {GetLinks("hss-standard")}, or (2) the{" "}
+          For {year} Core Sets reporting, states have the option to stratify
+          race and ethnicity data using either (1) the {GetLinks("1997-omb")},
+          as specified in the {GetLinks("hss-standard")}, or (2) the{" "}
           {GetLinks("2024-omb")} for each measure selected for stratification.
         </CUI.Text>
         <br />
@@ -244,7 +244,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           with a denominator less than 30 due to reliability concerns.
         </CUI.Text>
       </QMR.Accordion>
-      <StratificationOption reset={onReset}></StratificationOption>
+      <StratificationOption reset={onReset} year={year}></StratificationOption>
       {(version === "1997-omb" || version === "2024-omb") && (
         <Stratification
           {...props}

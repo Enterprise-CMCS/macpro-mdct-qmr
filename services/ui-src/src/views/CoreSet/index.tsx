@@ -4,7 +4,6 @@ import { AddSSMCard } from "./AddSSMCard";
 import { CoreSetAbbr, MeasureStatus, MeasureData, coreSetType } from "types";
 import { CoreSetTableItem } from "components/Table/types";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { HiCheckCircle } from "react-icons/hi";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { SPA } from "libs/spaLib";
 import { useEffect, useState } from "react";
@@ -18,9 +17,10 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
-import { Alert } from "@cmsgov/design-system";
+import { Alert, Spinner } from "@cmsgov/design-system";
 import { parseLabelToHTML } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
+import { StatusIcon } from "components/StatusIcon";
 
 interface HandleDeleteMeasureData {
   coreSet: CoreSetAbbr;
@@ -49,31 +49,38 @@ interface LocationState {
   state: { success: boolean };
 }
 
-const QualifierStatus = ({ isComplete }: { isComplete: boolean }) => {
-  if (isComplete) {
-    return (
-      <CUI.Flex alignItems="center">
-        <CUI.Box pr="1" pt="2px" color="green.500">
-          <HiCheckCircle />
-        </CUI.Box>
-        <CUI.Text data-cy="qualifier-status-text">Complete</CUI.Text>
-      </CUI.Flex>
-    );
-  }
-  return (
-    <CUI.Text>
-      Incomplete (Qualifier Questions must be complete to submit the Core Set)
-    </CUI.Text>
-  );
+const abbrToName = (abbr: CoreSetAbbr) => {
+  const child = [CoreSetAbbr.CCS, CoreSetAbbr.CCSM, CoreSetAbbr.CCSC];
+  const adult = [CoreSetAbbr.ACS, CoreSetAbbr.ACSM, CoreSetAbbr.ACSC];
+  const health = [CoreSetAbbr.HHCS];
+
+  if (child.includes(abbr)) return "Child";
+  else if (adult.includes(abbr)) return "Adult";
+  else if (health.includes(abbr)) return "Health Home";
+
+  return "";
 };
 
-const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
-  // get the core set qualifier measure for the coreset and display the status
+const StepsAndProgressSection = ({
+  coreSetId,
+  coreSetStatus,
+  completedAmount,
+  measures,
+  submitted,
+  year,
+}: {
+  coreSetId: CoreSetAbbr;
+  coreSetStatus: CoreSetTableItem.Status;
+  completedAmount: number;
+  measures: MeasureTableItem[];
+  submitted: boolean;
+  year: string;
+}) => {
   const { data, isLoading } = useGetMeasure({
     coreSet: coreSetId,
     measure: "CSQ",
   });
-  let { state, year } = useParams();
+  let { state } = useParams();
 
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
@@ -87,25 +94,100 @@ const QualifiersStatusAndLink = ({ coreSetId }: { coreSetId: CoreSetAbbr }) => {
       ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
-  const isComplete = data?.Item?.status === MeasureStatus.COMPLETE;
-  return (
-    <CUI.Box fontWeight="semibold" fontSize="sm">
-      <CUI.Text>Core Set Qualifiers</CUI.Text>
-      <CUI.Link
-        as={Link}
-        to={"CSQ"}
-        variant="unlined"
-        data-cy="core-set-qualifiers-link"
-      >
-        {coreSetTitles(coreSetInfo[0], "Questions") + spaName}
-      </CUI.Link>
+  const coreSetName = abbrToName(coreSetInfo[0] as CoreSetAbbr);
 
-      {isLoading ? (
-        <CUI.SkeletonText maxW={48} noOfLines={1} mt="1" />
+  const rows = [
+    {
+      status: data?.Item?.status,
+      label: {
+        title: "Complete core set qualifier questions",
+        hintText: `Enter the ${coreSetName} core set qualifier questions before completing the measures below.`,
+      },
+      indicator: "",
+      button: isLoading ? (
+        <CUI.Flex justifyContent="center" width="246px">
+          <Spinner size="small" />
+        </CUI.Flex>
       ) : (
-        <QualifierStatus isComplete={isComplete} />
-      )}
-    </CUI.Box>
+        <CUI.Button
+          width="246px"
+          as={Link}
+          to={"CSQ"}
+          variant="outline-primary"
+          data-cy="core-set-qualifiers-link"
+        >
+          Enter Qualifier Questions
+        </CUI.Button>
+      ),
+    },
+    {
+      status: coreSetStatus,
+      label: {
+        title: "Complete the below measures",
+        hintText: `Complete all ${
+          coreSetTitles(coreSetInfo[0], "Questions") + spaName
+        } to submit ${year}`,
+      },
+      indicator: (
+        <CUI.HStack>
+          <QMR.ProgressCircle
+            circularProgressProps={{ color: "green", size: "4.5rem" }}
+            circularProgressLabelProps={{ fontSize: ".8rem" }}
+            currentProgress={completedAmount}
+            maxValue={measures.length}
+          />
+          <CUI.Box fontWeight="semibold" fontSize="xs" width="100px">
+            <CUI.Text>Total Measures Completed</CUI.Text>
+          </CUI.Box>
+        </CUI.HStack>
+      ),
+      button: submitted ? (
+        <CUI.Text fontStyle="italic" data-cy="SubmitCoreSetButtonWrapper">
+          Submitted
+        </CUI.Text>
+      ) : (
+        <QMR.SubmitCoreSetButton
+          coreSet={coreSetId}
+          coreSetStatus={coreSetStatus}
+          year={year!}
+        />
+      ),
+    },
+  ];
+
+  return (
+    <CUI.Stack gap="1rem" maxW="1060px">
+      <CUI.Heading fontSize="lg" my="1rem">
+        Steps and progress to completion
+      </CUI.Heading>
+      {rows.map((row, index) => (
+        <CUI.Box key={`step-progress-${index}`}>
+          <CUI.Grid
+            alignItems="anchor-center"
+            templateColumns={{
+              base: "20px 1fr",
+              md: "20px minmax(0, 420px) 182px 1fr",
+            }}
+            gap={{ base: "1.5rem", md: "2rem" }}
+          >
+            <CUI.GridItem key={`status-${index}`}>
+              <StatusIcon status={row.status} />
+            </CUI.GridItem>
+            <CUI.GridItem>
+              <CUI.Text fontSize="sm" fontWeight="bold">
+                {row.label.title}
+              </CUI.Text>
+              <CUI.Text fontSize="sm">{row.label.hintText}</CUI.Text>
+            </CUI.GridItem>
+            <CUI.GridItem colSpan={{ base: 2, md: 1 }}>
+              {row.indicator}
+            </CUI.GridItem>
+            <CUI.GridItem display="block">{row.button}</CUI.GridItem>
+          </CUI.Grid>
+          {index < rows.length - 1 ? <CUI.Divider mt="1.5rem" /> : ""}
+        </CUI.Box>
+      ))}
+    </CUI.Stack>
   );
 };
 
@@ -336,13 +418,13 @@ export const CoreSet = () => {
       HHCS: "States with approved Health Home Programs in operation by July 1, 2024 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets</a>. <p>&nbsp;</p> For 2025 Core Sets reporting, states are expected to report stratified data for the following measures in the Health Home report: CBP-HH, COL-HH, and FUH-HH.",
     },
     "2026": {
-      ACSM: "For 2025 Core Sets reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as “Mandatory” in the measure list below. New behavioral health measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2025. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2025 Core Sets reporting, states are expected to report stratified data for the following measures in the Adult Medicaid report: FUA-AD, FUH-AD, and IET-AD.",
-      ACSC: "For 2025 Core Sets reporting, states are required to report the behavioral health measures on the Adult Core Set. Reporting of these measures for the separate CHIP population is highly encouraged but not mandatory. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>.",
-      ACS: "For 2025 Core Sets reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as “Mandatory” in the measure list below. New behavioral health measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2025. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2025 Core Sets reporting, states are expected to report stratified data for the following measures in the Adult Medicaid report: FUA-AD, FUH-AD, and IET-AD.",
-      CCSM: "For 2025 Core Sets reporting, states are required to report all of the measures on the Child Core Set (denoted as “Mandatory” in the measure list below). New measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2025. <p>&nbsp;</p> States with Title XXI-funded Medicaid expansion CHIP are expected to report data for this population in the Medicaid report (along with the Title XIX-funded Medicaid population). More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2025 Core Sets reporting, states are expected to report stratified data for the following measures in the Child Medicaid report: FUH-CH, OEV-CH, PPC2-CH, W30-CH, and WCV-CH.",
-      CCSC: "For 2025 Core Sets reporting, states are required to report all of the measures on the Child Core Set (denoted as “Mandatory” in the measure list below). New measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2025. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2025 Core Sets reporting, states are expected to report stratified data for the following measures in the Child Separate CHIP report: FUH-CH, OEV-CH, PPC2-CH, W30-CH, and WCV-CH.",
-      CCS: "For 2025 Core Sets reporting, states are required to report all of the measures on the Child Core Set (denoted as “Mandatory” in the measure list below). New measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2025. <p>&nbsp;</p> States with Title XXI-funded Medicaid expansion CHIP are expected to report data for this population in the Medicaid report (along with the Title XIX-funded Medicaid population). More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2025 Core Sets reporting, states are expected to report stratified data for the following measures in the Child Medicaid report: FUH-CH, OEV-CH, PPC2-CH, W30-CH, and WCV-CH.",
-      HHCS: "States with approved Health Home Programs in operation by July 1, 2024 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets</a>. <p>&nbsp;</p> For 2025 Core Sets reporting, states are expected to report stratified data for the following measures in the Health Home report: CBP-HH, COL-HH, and FUH-HH.",
+      ACSM: "For 2026 Core Sets reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as “Mandatory” in the measure list below. New behavioral health measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2026. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2026 Core Sets reporting, states are expected to report stratified data for the following measures in the Adult Medicaid report: FUA-AD, FUH-AD, and IET-AD.",
+      ACSC: "For 2026 Core Sets reporting, states are required to report the behavioral health measures on the Adult Core Set. Reporting of these measures for the separate CHIP population is highly encouraged but not mandatory. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>.",
+      ACS: "For 2026 Core Sets reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as “Mandatory” in the measure list below. New behavioral health measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2026. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2026 Core Sets reporting, states are expected to report stratified data for the following measures in the Adult Medicaid report: FUA-AD, FUH-AD, and IET-AD.",
+      CCSM: "For 2026 Core Sets reporting, states are required to report all of the measures on the Child Core Set (denoted as “Mandatory” in the measure list below). New measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2026. <p>&nbsp;</p> States with Title XXI-funded Medicaid expansion CHIP are expected to report data for this population in the Medicaid report (along with the Title XIX-funded Medicaid population). More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2026 Core Sets reporting, states are expected to report stratified data for the following measures in the Child Medicaid report: FUH-CH, OEV-CH, PPC2-CH, W30-CH, and WCV-CH.",
+      CCSC: "For 2026 Core Sets reporting, states are required to report all of the measures on the Child Core Set (denoted as “Mandatory” in the measure list below). New measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2026. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2026 Core Sets reporting, states are expected to report stratified data for the following measures in the Child Separate CHIP report: FUH-CH, OEV-CH, PPC2-CH, W30-CH, and WCV-CH.",
+      CCS: "For 2026 Core Sets reporting, states are required to report all of the measures on the Child Core Set (denoted as “Mandatory” in the measure list below). New measures are denoted as “Provisional” in the measure list below and are available for voluntary reporting in 2026. <p>&nbsp;</p> States with Title XXI-funded Medicaid expansion CHIP are expected to report data for this population in the Medicaid report (along with the Title XIX-funded Medicaid population). More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf' target='_blank'>2025 Updates to the Child and Adult Core Health Care Quality Measurement Sets and Mandatory Reporting Guidance State Health Official Letter</a>. <p>&nbsp;</p> For 2026 Core Sets reporting, states are expected to report stratified data for the following measures in the Child Medicaid report: FUH-CH, OEV-CH, PPC2-CH, W30-CH, and WCV-CH.",
+      HHCS: "States with approved Health Home Programs in operation by July 1, 2024 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets</a>. <p>&nbsp;</p> For 2026 Core Sets reporting, states are expected to report stratified data for the following measures in the Health Home report: CBP-HH, COL-HH, and FUH-HH.",
     },
   };
 
@@ -411,53 +493,20 @@ export const CoreSet = () => {
             ></QMR.Notification>
           </CUI.Box>
         )}
-        <CUI.Stack direction={{ base: "column", md: "row" }}>
-          <CUI.HStack
-            justifyContent="space-between"
-            flex="9"
-            borderRadius="8"
-            backgroundColor="gray.100"
-            px="4"
-            py="2"
-          >
-            <QualifiersStatusAndLink coreSetId={coreSetId as CoreSetAbbr} />
-
-            <CUI.HStack>
-              <CUI.Box
-                textAlign="center"
-                mr="2"
-                fontWeight="semibold"
-                fontSize="sm"
-              >
-                <CUI.Text>Total Measures Completed</CUI.Text>
-              </CUI.Box>
-              <QMR.ProgressCircle
-                circularProgressProps={{ color: "green", size: "4.5rem" }}
-                circularProgressLabelProps={{ fontSize: ".8rem" }}
-                currentProgress={completedAmount}
-                maxValue={measures.length}
-              />
-            </CUI.HStack>
-          </CUI.HStack>
-          <CUI.Spacer />
-          <CUI.Box flex="1" textAlign="center" alignSelf="center">
-            <QMR.SubmitCoreSetButton
-              coreSet={coreSetId! as CoreSetAbbr}
-              coreSetStatus={coreSetStatus}
-              isSubmitted={data?.Item?.submitted}
-              year={year!}
-              styleProps={{
-                helperText: {
-                  fontSize: ".5rem",
-                  paddingTop: "1",
-                },
-                button: { colorScheme: "blue" },
-              }}
-            />
-          </CUI.Box>
-        </CUI.Stack>
+        <StepsAndProgressSection
+          coreSetId={coreSetId as CoreSetAbbr}
+          coreSetStatus={coreSetStatus}
+          completedAmount={completedAmount}
+          measures={measures}
+          submitted={data?.Item?.submitted}
+          year={year}
+        ></StepsAndProgressSection>
         <CUI.Box mt="4">
           <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
+            <CUI.Divider my="2rem"></CUI.Divider>
+            <CUI.Heading fontSize="lg">
+              {abbrToName(coreSetPrefix as CoreSetAbbr)} Core Set Measures
+            </CUI.Heading>
             {!isError && (
               <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
             )}

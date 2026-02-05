@@ -5,7 +5,6 @@ export const measureAbbrList = {
   ADULT: [
     "AAB-AD",
     "AIS-AD",
-    "AMM-AD",
     "AMR-AD",
     "BCS-AD",
     "CBP-AD",
@@ -27,9 +26,7 @@ export const measureAbbrList = {
     "IET-AD",
     "LRCD-AD",
     "MSC-AD",
-    "NCIIDD-AD", // complete on creation
     "OEVP-AD",
-    "OHD-AD",
     "OUD-AD",
     "PCR-AD",
     "PDS-AD",
