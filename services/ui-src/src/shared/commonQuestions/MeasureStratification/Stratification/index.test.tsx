@@ -3,6 +3,8 @@ import { Stratification } from ".";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { FormProvider, useForm } from "react-hook-form";
+import SharedContext from "shared/SharedContext";
+import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 expect.extend(toHaveNoViolations);
 
 const props = {
@@ -55,11 +57,13 @@ const TestComponent = () => {
     },
   });
   return (
-    <FormProvider {...form}>
-      <form id="uniqueId" onSubmit={form.handleSubmit(jest.fn())}>
-        <Stratification {...props} />
-      </form>
-    </FormProvider>
+    <SharedContext.Provider value={commonQuestionsLabels2025}>
+      <FormProvider {...form}>
+        <form id="uniqueId" onSubmit={form.handleSubmit(jest.fn())}>
+          <Stratification {...props} />
+        </form>
+      </FormProvider>
+    </SharedContext.Provider>
   );
 };
 
