@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as readline from "readline";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {

@@ -89,7 +89,7 @@ export const Rate = ({
     }
 
     field.onChange([...prevRate]);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeRate = (
     index: number,

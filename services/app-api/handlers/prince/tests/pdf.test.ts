@@ -130,7 +130,6 @@ describe("Test GetPDF handler", () => {
 
     expect(res.statusCode).toBe(500);
 
-    // eslint-disable-next-line no-console
     expect(console.warn).toBeCalledWith(expect.stringContaining("It broke."));
   });
 });

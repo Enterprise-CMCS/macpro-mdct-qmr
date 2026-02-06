@@ -167,7 +167,7 @@ export const ComplexRate = ({
     prevRate[prevRate.length - 1]["isTotal"] = true;
 
     field.onChange([...prevRate]);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeRate = (
     qualIndex: number,
@@ -221,7 +221,6 @@ export const ComplexRate = ({
       field.onChange([]);
     };
     // purposefully ignoring field to stop infinite rerender
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
   const lowerCaseMeasureName = measureName.toLowerCase();

@@ -152,7 +152,6 @@ export const Stratification = ({
       };
     }
     return;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDataSourceSwitch]);
 
   //filter out cat & qual that do not want to capture OMS data
