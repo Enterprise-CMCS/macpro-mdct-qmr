@@ -1,13 +1,14 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
 import { Alert } from "@cmsgov/design-system";
+import { InstructionParts } from "labels/2025/commonQuestionsLabel";
 
 interface Props {
   reset?: () => void;
@@ -15,9 +16,6 @@ interface Props {
 }
 
 export const GetLinks = (type: string) => {
-  const labels: any = useContext(SharedContext);
-  const year = labels.year;
-
   const links = {
     ["sho24001"]: {
       link: "https://www.medicaid.gov/federal-policy-guidance/downloads/sho24001.pdf",
@@ -38,8 +36,15 @@ export const GetLinks = (type: string) => {
     },
     ["1997-omb"]: {
       link: "https://www.govinfo.gov/content/pkg/FR-1997-10-30/pdf/97-28653.pdf",
-      label: `1997 Office of Management and Budget (OMB) minimum race and ethnicity ${year != 2026 ? "categories" : "standards"}`,
-      aria: `1997 Office of Management and Budget (OMB) minimum race and ethnicity ${year != 2026 ? "categories" : "standards"}`,
+      label:
+        "1997 Office of Management and Budget (OMB) minimum race and ethnicity categories",
+      aria: "1997 Office of Management and Budget (OMB) minimum race and ethnicity categories",
+    },
+    ["1997-omb-for-2026"]: {
+      link: "https://www.govinfo.gov/content/pkg/FR-1997-10-30/pdf/97-28653.pdf",
+      label:
+        "1997 Office of Management and Budget (OMB) minimum race and ethnicity standards",
+      aria: "1997 Office of Management and Budget (OMB) minimum race and ethnicity standards",
     },
     ["2024-omb"]: {
       link: "https://www.federalregister.gov/d/2024-06469",
@@ -55,6 +60,8 @@ export const GetLinks = (type: string) => {
   };
 
   const data = links[type as keyof typeof links];
+
+  if (!data) return null;
 
   return (
     <CUI.Link href={data.link} target={"_blank"} aria-label={data.aria}>
@@ -220,46 +227,25 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
       <QMR.Accordion label="Instructions (Click to Expand)">
-        <CUI.Text>
-          Enter data below to stratify this measure by race, ethnicity, sex,
-          and/or geography. Beginning with 2025 Core Sets reporting, states are
-          required to report stratified data for a specific subset of Child,
-          Adult, and Health Home Core Set measures. More information on
-          stratification reporting requirements
-          {year == 2026 &&
-            ", including the list of measures and rates subject to mandatory stratification for 2026 Core Set reporting, "}
-          is included in the{" "}
-          {year == 2026 ? (
-            GetLinks("strat-ta-resource")
-          ) : (
-            <>
-              {GetLinks("sho24001")}
-              {" and the "}
-              {GetLinks("initial-core")}
-            </>
-          )}
-          .
-        </CUI.Text>
-        <br />
-        <CUI.Text>
-          For {year} Core Sets reporting, states have the option to stratify
-          race and ethnicity data using either (1) the {GetLinks("1997-omb")},
-          as specified in the {GetLinks("hss-standard")}, or (2) the{" "}
-          {GetLinks("2024-omb")} for each measure selected for stratification.
-        </CUI.Text>
-        <br />
-        <CUI.Text>
-          CMS encourages states to report data in the QMR system for measures
-          and rates with small cell sizes. For{" "}
-          {year != 2026 && "the purpose of"} public reporting, data will be
-          suppressed in accordance with the CMS cell-size suppression policy,
-          which prohibits the direct reporting of beneficiary and record counts
-          of 1 to 10 and values from which users can derive values of 1 to 10.
-          Furthermore, CMS will suppress rates with a denominator less than 30
-          due to reliability concerns.{" "}
-          {year == 2026 &&
-            "If state policy prohibits reporting certain cell counts, please adhere to state policies and include a note in the stratification open text field."}
-        </CUI.Text>
+        {labels.MeasureStratification.instructions.map(
+          (paragraphParts: InstructionParts[], paragraphIndex: number) => (
+            <React.Fragment key={paragraphIndex}>
+              <CUI.Text>
+                {paragraphParts.map(
+                  (part: InstructionParts, partIndex: number) =>
+                    typeof part === "string" ? (
+                      part
+                    ) : (
+                      <span key={partIndex}>{GetLinks(part.link)}</span>
+                    )
+                )}
+              </CUI.Text>
+
+              {paragraphIndex <
+                labels.MeasureStratification.instructions.length - 1 && <br />}
+            </React.Fragment>
+          )
+        )}
       </QMR.Accordion>
       <StratificationOption reset={onReset} year={year}></StratificationOption>
       {(version === "1997-omb" || version === "2024-omb") && (
