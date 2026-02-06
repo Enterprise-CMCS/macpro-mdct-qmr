@@ -10,6 +10,7 @@ export interface MeasureMetaData {
   autocompleteOnCreation?: boolean;
   placeholder?: boolean;
   measureType?: MeasureType;
+  typeTagForCoreSets?: CoreSetAbbr[];
   stratificationRequired?: CoreSetAbbr[];
 }
 
@@ -1871,6 +1872,7 @@ export const measures: Measure = {
       type: "A",
       measure: "CDF-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
@@ -1896,18 +1898,21 @@ export const measures: Measure = {
       type: "A",
       measure: "FUA-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
       stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
       measure: "FUH-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
       stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
       type: "A",
       measure: "FUM-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
       stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
@@ -1918,6 +1923,7 @@ export const measures: Measure = {
       type: "A",
       measure: "HPCMI-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
@@ -1927,6 +1933,7 @@ export const measures: Measure = {
       type: "A",
       measure: "IET-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
       stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
@@ -1938,6 +1945,7 @@ export const measures: Measure = {
       type: "A",
       measure: "MSC-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
@@ -1947,6 +1955,7 @@ export const measures: Measure = {
       type: "A",
       measure: "OUD-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
       stratificationRequired: [CoreSetAbbr.ACSM],
     },
     {
@@ -1957,6 +1966,7 @@ export const measures: Measure = {
       type: "A",
       measure: "PDS-AD",
       measureType: MeasureType.PROVISIONAL,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
@@ -1991,11 +2001,13 @@ export const measures: Measure = {
       type: "A",
       measure: "SAA-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
       measure: "SSD-AD",
       measureType: MeasureType.MANDATORY,
+      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "C",

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { MeasureTableItem, TableColumn } from "../types";
 import { featuresByYear } from "utils/featuresByYear";
+import { MeasureType } from "types";
 
 // Get status string from measure data
 const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
@@ -100,18 +101,30 @@ export const measuresColumns = (
             id: "mandatory_column_header",
             styleProps: { textAlign: "center" },
             cell: (data: MeasureTableItem.Data) => {
+              // Get measure metadata to determine if mandatory for core set
+              const isTypeTag =
+                (data?.measureType === MeasureType.MANDATORY ||
+                  data?.measureType === MeasureType.PROVISIONAL) &&
+                (!data?.typeTagForCoreSets ||
+                  (data.coreSet &&
+                    data.typeTagForCoreSets.includes(data.coreSet)));
+
               return (
-                <CUI.Badge
-                  fontSize="xs"
-                  backgroundColor="blue.50"
-                  textTransform="capitalize"
-                  borderRadius="lg"
-                  px="2"
-                >
-                  {data?.measureType && (
-                    <CUI.Text fontWeight="normal">{data?.measureType}</CUI.Text>
-                  )}
-                </CUI.Badge>
+                <>
+                  {isTypeTag ? (
+                    <CUI.Badge
+                      fontSize="xs"
+                      backgroundColor="blue.50"
+                      textTransform="capitalize"
+                      borderRadius="lg"
+                      px="2"
+                    >
+                      <CUI.Text fontWeight="normal">
+                        {data?.measureType}
+                      </CUI.Text>
+                    </CUI.Badge>
+                  ) : null}
+                </>
               );
             },
           },

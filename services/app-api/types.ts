@@ -68,6 +68,7 @@ export interface Measure {
    */
   autoCompleted?: boolean;
   measureType?: MeasureType;
+  typeTagForCoreSets?: CoreSetAbbr[];
   stratificationRequired?: CoreSetAbbr[];
   data?: {
     /**
