@@ -109,9 +109,9 @@ export const measuresColumns = (
               );
               const isMandatory =
                 measureMetadata?.measureType === MeasureType.MANDATORY &&
-                (!measureMetadata?.mandatoryForCoreSets ||
+                (!measureMetadata?.typeTagForCoreSets ||
                   (coreSet &&
-                    measureMetadata.mandatoryForCoreSets.includes(coreSet)));
+                    measureMetadata.typeTagForCoreSets.includes(coreSet)));
 
               return (
                 <CUI.Box textAlign="center">

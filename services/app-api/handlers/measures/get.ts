@@ -48,7 +48,7 @@ export const listMeasures = handler(async (event, context) => {
 
     v.autoCompleted = !!measure?.autocompleteOnCreation;
     v.measureType = measure?.measureType;
-    v.mandatoryForCoreSets = measure?.mandatoryForCoreSets;
+    v.typeTagForCoreSets = measure?.typeTagForCoreSets;
     v.stratificationRequired = measure?.stratificationRequired;
   }
 
@@ -99,7 +99,7 @@ export const getMeasure = handler(async (event, context) => {
     if (measureMetadata) {
       queryValue.autoCompleted = !!measureMetadata.autocompleteOnCreation;
       queryValue.measureType = measureMetadata.measureType;
-      queryValue.mandatoryForCoreSets = measureMetadata.mandatoryForCoreSets;
+      queryValue.typeTagForCoreSets = measureMetadata.typeTagForCoreSets;
       queryValue.stratificationRequired =
         measureMetadata.stratificationRequired;
     }
