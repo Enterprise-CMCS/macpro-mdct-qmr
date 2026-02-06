@@ -84,14 +84,14 @@ export const StratificationOption = ({ reset, year }: Props) => {
       label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
       subTextElement={[
         <CUI.Text key="description" mb={2}>
-          A summary of the race and ethnicity subcategories included in each
-          option is available in Boxes 1 and 2 of the{" "}
+          A summary of the race and ethnicity categories and detailed categories
+          included in each standard is available in Boxes 1 and 2 of the{" "}
           {GetLinks("strat-ta-resource")}.
         </CUI.Text>,
         <CUI.UnorderedList key="list" padding="0 0 1rem 2rem">
           <CUI.ListItem key="1997-omb-item">
             1997 Office of Management and Budget (OMB) minimum race and
-            ethnicity categories, as specified in the 2011 HHS standards
+            ethnicity standards, as specified in the 2011 HHS standards
           </CUI.ListItem>
           <CUI.ListItem key="2024-omb-item" mb={2}>
             2024 OMB Statistical Policy Directive No. 15 race and ethnicity
@@ -113,7 +113,7 @@ export const StratificationOption = ({ reset, year }: Props) => {
       options={[
         {
           displayValue:
-            "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
+            "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
           value: "1997-omb",
           onClick: reset,
         },
@@ -124,8 +124,7 @@ export const StratificationOption = ({ reset, year }: Props) => {
           onClick: reset,
         },
         {
-          displayValue:
-            "I am not reporting measure stratification for this measure",
+          displayValue: "I am not reporting stratified data for this measure",
           value: "not-reporting",
           onClick: reset,
         },

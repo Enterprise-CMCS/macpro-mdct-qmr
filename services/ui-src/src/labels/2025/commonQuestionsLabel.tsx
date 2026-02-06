@@ -197,6 +197,18 @@ export const commonQuestionsLabel = {
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
     additionalContext:
       "If the state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below (optional)",
+    addAnotherLabel: {
+      header: "Additional Subcategory",
+      help: "Define the Additional Subcategory",
+      button: "Subcategory",
+    },
+  },
+  MeasureStratification: {
+    subHeader: [
+      "Do not select categories and subcategories for which your state does not collect data.",
+      "For each category and subcategory, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
+    ],
+    addAnotherType: "subcategories",
   },
   PerformanceMeasure: {
     phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
