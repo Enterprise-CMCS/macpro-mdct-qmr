@@ -125,6 +125,11 @@ export const commonQuestionsLabel = {
   OptionalMeasureStratification: {
     section:
       "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, language, disability status, or geography, complete the following as applicable. If your state reported for classifications/sub-categories other than those listed below, or reported for different rate sets, please click on “Add Another” to add Additional/Alternative Classification/Sub-categories as needed.",
+    addAnotherLabel: {
+      header: "Additional/Alternative Classification/Sub-category",
+      help: "Define the Alternative Classification/Sub-category",
+      button: "Sub-Category",
+    },
   },
   WhyAreYouNotReporting: {
     limitWithDataCollection:

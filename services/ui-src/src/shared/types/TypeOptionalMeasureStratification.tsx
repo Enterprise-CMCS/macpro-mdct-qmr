@@ -5,6 +5,11 @@ import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/c
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
 
+export interface MeasureStratificationLabels {
+  subHeader: string[];
+  addAnotherType: string;
+}
+
 export interface OmsCheckboxProps {
   /** name for react-hook-form registration */
   name: string;
@@ -13,6 +18,7 @@ export interface OmsCheckboxProps {
   year: number;
   excludeOptions: string[];
   overrideAccordion?: (option: string) => boolean;
+  customLabels?: MeasureStratificationLabels;
 }
 
 export interface BaseProps extends Qualifiers, Categories {
