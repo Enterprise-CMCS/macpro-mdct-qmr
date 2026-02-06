@@ -1,6 +1,10 @@
 import { OmsNode } from "shared/types";
 
-export const OMSData = (year: number, adultMeasure?: boolean): OmsNode[] => {
+export const OMSData = (
+  year: number,
+  adultMeasure?: boolean,
+  version?: string
+): OmsNode[] => {
   switch (Number(year)) {
     case 2021:
     case 2022:
@@ -8,9 +12,28 @@ export const OMSData = (year: number, adultMeasure?: boolean): OmsNode[] => {
     case 2023:
     case 2024:
       return omb1997();
-    default:
-      return omb2024();
+    case 2025:
+      return version === "1997-omb" ? omb1997() : omb2024();
+    default: {
+      return modifyMissingLabel(version === "1997-omb" ? omb1997() : omb2024());
+    }
   }
+};
+
+/** In 2026, we want the "Missing or not reported" label to be more specific so this function will turn it to "Missing or not reported (Race), etc"*/
+const modifyMissingLabel = (data: OmsNode[]) => {
+  return data.map((node) => {
+    if (!node.options) return node;
+
+    return {
+      ...node,
+      options: node.options.map((option) => {
+        if (option.label == "Missing or not reported")
+          option.label = `${option.label} (${node.label})`;
+        return option;
+      }),
+    };
+  });
 };
 
 const omb2024 = () => {
