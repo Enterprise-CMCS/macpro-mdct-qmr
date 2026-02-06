@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { MeasureTableItem, TableColumn } from "../types";
 import { featuresByYear } from "utils/featuresByYear";
-import { CoreSetAbbr, MeasureType } from "types";
+import { MeasureType } from "types";
 
 // Get status string from measure data
 const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
@@ -55,9 +55,7 @@ const MeasureStatusText = ({
 
 // Measure table columns with cell formatting
 export const measuresColumns = (
-  year: string,
-  coreSet?: CoreSetAbbr,
-  measureListInfo?: any
+  year: string
 ): TableColumn<MeasureTableItem.Data>[] => {
   return [
     {
@@ -104,18 +102,16 @@ export const measuresColumns = (
             styleProps: { textAlign: "center" },
             cell: (data: MeasureTableItem.Data) => {
               // Get measure metadata to determine if mandatory for core set
-              const measureMetadata = measureListInfo?.[year]?.find(
-                (m: any) => m.measure === data.abbr
-              );
-              const isMandatory =
-                measureMetadata?.measureType === MeasureType.MANDATORY &&
-                (!measureMetadata?.typeTagForCoreSets ||
-                  (coreSet &&
-                    measureMetadata.typeTagForCoreSets.includes(coreSet)));
+              const isTypeTag =
+                (data?.measureType === MeasureType.MANDATORY ||
+                  data?.measureType === MeasureType.PROVISIONAL) &&
+                (!data?.typeTagForCoreSets ||
+                  (data.coreSet &&
+                    data.typeTagForCoreSets.includes(data.coreSet)));
 
               return (
-                <CUI.Box textAlign="center">
-                  {isMandatory ? (
+                <>
+                  {isTypeTag ? (
                     <CUI.Badge
                       fontSize="xs"
                       backgroundColor="blue.50"
@@ -128,7 +124,7 @@ export const measuresColumns = (
                       </CUI.Text>
                     </CUI.Badge>
                   ) : null}
-                </CUI.Box>
+                </>
               );
             },
           },

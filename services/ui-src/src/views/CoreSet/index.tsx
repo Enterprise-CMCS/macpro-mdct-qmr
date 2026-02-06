@@ -14,7 +14,6 @@ import {
   useGetMeasures,
   useUpdateMeasure,
 } from "hooks/api";
-import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/authHooks";
 import { coreSetTitles } from "shared/coreSetByYear";
@@ -41,6 +40,8 @@ interface MeasureTableItem {
   lastDateModified: number;
   id: string;
   userCreated?: boolean;
+  coreSet: CoreSetAbbr;
+  typeTagForCoreSets: CoreSetAbbr[];
   actions: { itemText: string; handleSelect: () => void }[];
 }
 
@@ -290,6 +291,8 @@ const useMeasureTableDataBuilder = () => {
             id: item.measure,
             userCreated: item.userCreated,
             actions: actions,
+            coreSet: item.coreSet,
+            typeTagForCoreSets: item.typeTagForCoreSets,
           };
         });
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
@@ -349,9 +352,6 @@ export const CoreSet = () => {
 
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
   const coreSetPrefix = (coreSet[0] as CoreSetAbbr) ?? "ACS";
-
-  // Get measure list info for determining mandatory status
-  const { data: measureListInfo } = useGetMeasureListInfo();
 
   const tempSpa =
     coreSet.length > 1
@@ -512,14 +512,7 @@ export const CoreSet = () => {
               {abbrToName(coreSetPrefix as CoreSetAbbr)} Core Set Measures
             </CUI.Heading>
             {!isError && (
-              <QMR.Table
-                data={measures}
-                columns={QMR.measuresColumns(
-                  year,
-                  coreSetPrefix,
-                  measureListInfo
-                )}
-              />
+              <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />
             )}
             {isError && (
               <QMR.Notification

@@ -45,6 +45,7 @@ export interface Params {
 export interface MeasureData<DataType = any> {
   compoundKey: string;
   coreSet: CoreSetAbbr;
+  typeTagForCoreSets: CoreSetAbbr[];
   createdAt: number;
   description: string;
   detailedDescription?: string;
