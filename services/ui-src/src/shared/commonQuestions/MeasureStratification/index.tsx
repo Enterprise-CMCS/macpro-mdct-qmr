@@ -150,9 +150,11 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     ) {
       setVersion(data.OptionalMeasureStratification.version);
       setOMSData(
-        data.OptionalMeasureStratification.version === "1997-omb"
-          ? OMSData(2024)
-          : OMSData(year, coreset === "adult")
+        OMSData(
+          year,
+          coreset === "adult",
+          data.OptionalMeasureStratification.version
+        )
       );
     }
   }, [data.OptionalMeasureStratification?.version]);
