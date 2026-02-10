@@ -16,9 +16,9 @@
     "modify-descriptions": "ts-node ./handlers/dynamoUtils/scripts/modifyDescription.ts"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.946.0",
-    "@aws-sdk/lib-dynamodb": "^3.946.0",
-    "@aws-sdk/util-dynamodb": "^3.946.0",
+    "@aws-sdk/client-dynamodb": "^3.985.0",
+    "@aws-sdk/lib-dynamodb": "^3.985.0",
+    "@aws-sdk/util-dynamodb": "^3.985.0",
     "aws4": "^1.13.1",
     "dompurify": "^3.2.3",
     "jsdom": "^26.1.0",
