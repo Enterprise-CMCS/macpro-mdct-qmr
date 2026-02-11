@@ -41,6 +41,7 @@ interface MeasureTableItem {
   id: string;
   userCreated?: boolean;
   coreSet: CoreSetAbbr;
+  /** For which core sets will the measureType be displayed? */
   typeTagForCoreSets: CoreSetAbbr[];
   actions: { itemText: string; handleSelect: () => void }[];
 }
@@ -351,7 +352,7 @@ export const CoreSet = () => {
   year = year ?? "";
 
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
-  const coreSetPrefix = (coreSet[0] as CoreSetAbbr) ?? "ACS";
+  const coreSetPrefix = coreSet[0] as CoreSetAbbr;
 
   const tempSpa =
     coreSet.length > 1

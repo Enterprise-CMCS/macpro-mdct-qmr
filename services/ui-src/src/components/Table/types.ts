@@ -53,6 +53,7 @@ export namespace MeasureTableItem {
     autoCompleted?: boolean;
     measureType?: MeasureType;
     coreSet: CoreSetAbbr;
+    /** For which core sets will the measureType be displayed? */
     typeTagForCoreSets: CoreSetAbbr[];
   };
 
