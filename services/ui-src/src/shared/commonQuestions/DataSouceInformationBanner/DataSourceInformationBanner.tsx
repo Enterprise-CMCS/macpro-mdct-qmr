@@ -5,6 +5,7 @@ import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
 
 type Props = {
   payload?: CombinedRatesPayload;
+  year?: string;
 };
 
 const programDisplayNames = {
@@ -12,9 +13,15 @@ const programDisplayNames = {
   CHIP: "Separate CHIP",
 } as const;
 
-export const DataSourceInformationBanner = ({ payload }: Props) => {
+const getDataSourceLabel = (year?: string) => {
+  const yearNum = year ? parseInt(year) : new Date().getFullYear();
+  return yearNum >= 2026 ? "Data Collection Method" : "Data Source";
+};
+
+export const DataSourceInformationBanner = ({ payload, year }: Props) => {
   const DataSources = payload?.DataSources;
   const programTypes = ["Medicaid", "CHIP"] as const;
+  const dataSourceLabel = getDataSourceLabel(year);
 
   const unusableExplanation = (dataSources: DataSourcePayload | undefined) => {
     if (!dataSources?.isUnusableForCalc) {
@@ -56,7 +63,7 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
           sx={sx.header}
           data-cy={`data-source-component-${programType}-heading`}
         >
-          {`${programDisplayNames[programType]} Data Source`}
+          {`${programDisplayNames[programType]} ${dataSourceLabel}`}
         </CUI.Heading>
 
         {DataSources?.[programType].DataSource.length ? (
@@ -64,11 +71,12 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
             return (
               <CUI.UnorderedList key={`${dataSource}-${idx}`}>
                 <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
-                  {getDataSourceDisplayName(dataSource)}
+                  {getDataSourceDisplayName(dataSource, year)}
                 </CUI.Heading>
                 {dataSourceSelections(
                   dataSource,
-                  DataSources[programType].DataSourceSelections
+                  DataSources[programType].DataSourceSelections,
+                  year
                 ).map((item, srcIdx) => (
                   <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
                     {item}
@@ -116,7 +124,8 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
 
 export const dataSourceSelections = (
   dataSource: string,
-  dataSourceSelections: DataSourcePayload["DataSourceSelections"]
+  dataSourceSelections: DataSourcePayload["DataSourceSelections"],
+  year?: string
 ) => {
   let selected = [];
 
@@ -158,7 +167,7 @@ export const dataSourceSelections = (
       const textfieldData = textfield?.description
         ? ` - ${textfield.description}`
         : "";
-      return `${getDataSourceDisplayName(key)}${textfieldData}`;
+      return `${getDataSourceDisplayName(key, year)}${textfieldData}`;
     })
   );
   //descriptions do not need formatting so they can be added straight to the array

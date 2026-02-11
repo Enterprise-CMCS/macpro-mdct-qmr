@@ -50,8 +50,20 @@ const dataSourceDisplayNames: Record<string, string> = {
   ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
   VitalRecords: "Vital Records",
 };
-export const getDataSourceDisplayName = (dataSourceIdentifier: string) => {
-  return dataSourceDisplayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
+export const getDataSourceDisplayName = (
+  dataSourceIdentifier: string,
+  year?: string
+) => {
+  const displayName =
+    dataSourceDisplayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
+  // For 2026 and beyond, use "Other" instead of "Other Data Source"
+  if (displayName === "Other Data Source" && year) {
+    const yearNum = parseInt(year);
+    if (yearNum >= 2026) {
+      return "Other";
+    }
+  }
+  return displayName;
 };
 
 export const defaultData: DataSourceData = {

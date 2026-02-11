@@ -68,7 +68,7 @@ describe("DataSourceInformationBanner", () => {
       Rates: [],
       AdditionalValues: [],
     } as CombinedRatesPayload;
-    const props = { payload };
+    const props = { payload, year: "2025" };
 
     const { container } = render(<DataSourceInformationBanner {...props} />);
 
@@ -103,6 +103,106 @@ describe("DataSourceInformationBanner", () => {
     expect(chipSection).toHaveTextContent(
       /Other Data Source - A little bird told me/
     );
+  });
+
+  it("should render 'Data Collection Method' for year 2026 and beyond", () => {
+    const payload = {
+      DataSources: {
+        Medicaid: {
+          DataSource: ["AdministrativeData"],
+          DataSourceSelections: {
+            AdministrativeData0: {
+              selected: ["MedicaidManagementInformationSystemMMIS"],
+            },
+          },
+          requiresWeightedCalc: false,
+          isUnusableForCalc: false,
+          hasECDSDataSource: false,
+          hasOtherDataSource: false,
+          hasOtherSpecification: false,
+        },
+        CHIP: emptyDataSource,
+      },
+      Rates: [],
+      AdditionalValues: [],
+    } as CombinedRatesPayload;
+    const props = { payload, year: "2026" };
+
+    const { container } = render(<DataSourceInformationBanner {...props} />);
+
+    const sections = container.querySelectorAll("section");
+    const medicaidSection = sections[0];
+    expect(medicaidSection.querySelector("h2")).toHaveTextContent(
+      "Medicaid Data Collection Method"
+    );
+
+    const chipSection = sections[1];
+    expect(chipSection.querySelector("h2")).toHaveTextContent(
+      "Separate CHIP Data Collection Method"
+    );
+  });
+
+  it("should render 'Other' instead of 'Other Data Source' for year 2026", () => {
+    const payload = {
+      DataSources: {
+        Medicaid: {
+          DataSource: ["OtherDataSource"],
+          DataSourceSelections: {
+            OtherDataSource: {
+              description: "Custom data source description",
+            },
+          },
+          requiresWeightedCalc: false,
+          isUnusableForCalc: false,
+          hasECDSDataSource: false,
+          hasOtherDataSource: false,
+          hasOtherSpecification: false,
+        },
+        CHIP: emptyDataSource,
+      },
+      Rates: [],
+      AdditionalValues: [],
+    } as CombinedRatesPayload;
+    const props = { payload, year: "2026" };
+
+    const { container } = render(<DataSourceInformationBanner {...props} />);
+
+    const sections = container.querySelectorAll("section");
+    const medicaidSection = sections[0];
+    // Check that it contains "Other" but not "Other Data Source"
+    // The heading with size="sm" doesn't have a specific tag, so we check the text content
+    expect(medicaidSection.textContent).toContain("Other");
+    expect(medicaidSection.textContent).not.toContain("Other Data Source");
+  });
+
+  it("should render 'Other Data Source' for year 2025 and earlier", () => {
+    const payload = {
+      DataSources: {
+        Medicaid: {
+          DataSource: ["OtherDataSource"],
+          DataSourceSelections: {
+            OtherDataSource: {
+              description: "Custom data source description",
+            },
+          },
+          requiresWeightedCalc: false,
+          isUnusableForCalc: false,
+          hasECDSDataSource: false,
+          hasOtherDataSource: false,
+          hasOtherSpecification: false,
+        },
+        CHIP: emptyDataSource,
+      },
+      Rates: [],
+      AdditionalValues: [],
+    } as CombinedRatesPayload;
+    const props = { payload, year: "2025" };
+
+    const { container } = render(<DataSourceInformationBanner {...props} />);
+
+    const sections = container.querySelectorAll("section");
+    const medicaidSection = sections[0];
+    expect(medicaidSection).toHaveTextContent("Other Data Source");
   });
 
   it("should render an explanation for why ECDS-sourced data is excluded from the combined rate", () => {
