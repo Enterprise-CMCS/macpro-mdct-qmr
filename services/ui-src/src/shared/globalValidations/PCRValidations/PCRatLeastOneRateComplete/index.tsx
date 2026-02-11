@@ -28,7 +28,7 @@ export const PCRatLeastOneRateComplete = (
     performanceMeasureArray?.forEach((_performanceObj: any) => {
       if (_performanceObj.length === ageGroups.length) {
         const values = _performanceObj.map((obj: any) => {
-          if (obj?.value && obj.value) return true;
+          if (obj?.value) return true;
           return false;
         });
         const sum = values.reduce((x: any, y: any) => x + y);
