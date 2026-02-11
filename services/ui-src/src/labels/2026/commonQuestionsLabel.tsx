@@ -1,5 +1,5 @@
 import * as DC from "dataConstants";
-import { InstructionParts } from "labels/2025/commonQuestionsLabel";
+import { InstructionParts } from "shared/types";
 
 export const commonQuestionsLabel = {
   AdditionalNotes: {

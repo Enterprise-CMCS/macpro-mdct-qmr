@@ -1,6 +1,5 @@
 import * as DC from "dataConstants";
-
-export type InstructionParts = string | { link: string };
+import { InstructionParts } from "shared/types";
 
 export const commonQuestionsLabel = {
   AdditionalNotes: {

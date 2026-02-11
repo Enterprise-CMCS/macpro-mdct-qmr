@@ -8,7 +8,6 @@ import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
 import { Alert } from "@cmsgov/design-system";
-import { InstructionParts } from "labels/2025/commonQuestionsLabel";
 
 interface Props {
   reset?: () => void;
@@ -228,11 +227,11 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
       <QMR.Accordion label="Instructions (Click to Expand)">
         {labels.MeasureStratification.instructions.map(
-          (paragraphParts: InstructionParts[], paragraphIndex: number) => (
+          (paragraphParts: Types.InstructionParts[], paragraphIndex: number) => (
             <React.Fragment key={paragraphIndex}>
               <CUI.Text>
                 {paragraphParts.map(
-                  (part: InstructionParts, partIndex: number) =>
+                  (part: Types.InstructionParts, partIndex: number) =>
                     typeof part === "string" ? (
                       part
                     ) : (
