@@ -1,4 +1,6 @@
 import * as DC from "dataConstants";
+import * as CUI from "@chakra-ui/react";
+import { GetLinks } from "labels/CommonLinks";
 
 export const commonQuestionsLabel = {
   AdditionalNotes: {
@@ -210,6 +212,39 @@ export const commonQuestionsLabel = {
       "For each category and detailed category, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
     ],
     addAnotherType: "detailed categories",
+    instructions: (
+      <>
+        <CUI.Text>
+          Enter data below to stratify this measure by race, ethnicity, sex,
+          and/or geography. Beginning with 2025 Core Sets reporting, states are
+          required to report stratified data for a specific subset of Child,
+          Adult, and Health Home Core Set measures. More information on
+          stratification reporting requirements, including the list of measures
+          and rates subject to mandatory stratification for 2026 Core Set
+          reporting, is included in the {GetLinks("strat-ta-resource")}.
+        </CUI.Text>
+        <br />
+        <CUI.Text>
+          For 2026 Core Sets reporting, states have the option to stratify race
+          and ethnicity data using either (1) the{" "}
+          {GetLinks("1997-omb-for-2026")}, as specified in the{" "}
+          {GetLinks("hss-standard")}, or (2) the {GetLinks("2024-omb")} for each
+          measure selected for stratification.
+        </CUI.Text>
+        <br />
+        <CUI.Text>
+          CMS encourages states to report data in the QMR system for measures
+          and rates with small cell sizes. For public reporting, data will be
+          suppressed in accordance with the CMS cell-size suppression policy,
+          which prohibits the direct reporting of beneficiary and record counts
+          of 1 to 10 and values from which users can derive values of 1 to 10.
+          Furthermore, CMS will suppress rates with a denominator less than 30
+          due to reliability concerns. If state policy prohibits reporting
+          certain cell counts, please adhere to state policies and include a
+          note in the stratification open text field.
+        </CUI.Text>
+      </>
+    ),
   },
   PerformanceMeasure: {
     phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
