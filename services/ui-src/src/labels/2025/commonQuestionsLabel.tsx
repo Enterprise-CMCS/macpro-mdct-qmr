@@ -1,5 +1,4 @@
 import * as DC from "dataConstants";
-import { InstructionParts } from "shared/types";
 
 export const commonQuestionsLabel = {
   AdditionalNotes: {
@@ -230,7 +229,7 @@ export const commonQuestionsLabel = {
       [
         "CMS encourages states to report data in the QMR system for measures and rates with small cell sizes. For the purpose of public reporting, data will be suppressed in accordance with the CMS cell-size suppression policy, which prohibits the direct reporting of beneficiary and record counts of 1 to 10 and values from which users can derive values of 1 to 10. Furthermore, CMS will suppress rates with a denominator less than 30 due to reliability concerns.",
       ],
-    ] as InstructionParts[][],
+    ],
   },
   PerformanceMeasure: {
     phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",

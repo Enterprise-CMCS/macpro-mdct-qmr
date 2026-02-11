@@ -229,7 +229,10 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
       <QMR.Accordion label="Instructions (Click to Expand)">
         {labels.MeasureStratification.instructions.map(
-          (paragraphParts: Types.InstructionParts[], paragraphIndex: number) => (
+          (
+            paragraphParts: Types.InstructionParts[],
+            paragraphIndex: number
+          ) => (
             <React.Fragment key={paragraphIndex}>
               <CUI.Text>
                 {paragraphParts.map(
