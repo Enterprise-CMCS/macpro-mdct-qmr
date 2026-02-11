@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
