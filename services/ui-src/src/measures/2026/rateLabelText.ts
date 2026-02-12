@@ -1745,7 +1745,7 @@ export const data = {
 export const getCatQualLabels = (measure: keyof typeof data) => {
     const qualifiers = data[measure].qualifiers;
     const categories = data[measure].categories;
-  
+   
     return {
       qualifiers,
       categories,

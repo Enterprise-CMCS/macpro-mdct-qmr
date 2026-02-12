@@ -1,7 +1,11 @@
 import * as QMR from "components";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { DataSourceData, defaultData } from "../types/TypeDataSourceCahps";
+import {
+  DataSourceData,
+  defaultData,
+  defaultData2026AndBeyond,
+} from "../types/TypeDataSourceCahps";
 import { parseLabelToHTML } from "utils/parser";
 import * as DC from "dataConstants";
 import SharedContext from "shared/SharedContext";
@@ -16,12 +20,14 @@ interface DataSourceProps {
 /**
  * Fully built DataSource component
  */
-export const DataSourceRadio = ({
-  data = defaultData,
-  type,
-}: DataSourceProps) => {
+export const DataSourceRadio = ({ data, type }: DataSourceProps) => {
   const { year } = useParams();
   const labels: any = useContext(SharedContext);
+
+  // Use year-appropriate default data
+  const dataSourceData =
+    data ||
+    (year && parseInt(year) >= 2026 ? defaultData2026AndBeyond : defaultData);
 
   const dataSourceLabel =
     year && parseInt(year) >= 2026 ? "Data Collection Method" : "Data Source";
@@ -31,7 +37,7 @@ export const DataSourceRadio = ({
       <QMR.RadioButton
         key={DC.DATA_SOURCE}
         name={DC.DATA_SOURCE}
-        label={data.optionsLabel}
+        label={dataSourceData.optionsLabel}
         options={[
           {
             displayValue: "CAHPS 5.1H",
