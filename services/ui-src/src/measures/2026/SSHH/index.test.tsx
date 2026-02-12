@@ -10,6 +10,7 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { clearMocks } from "shared/util/validationsMock";
+import { useParams } from "react-router-dom";
 
 expect.extend(toHaveNoViolations);
 
@@ -24,10 +25,23 @@ const apiData: any = {};
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: jest.fn(),
+}));
+const mockUseParams = useParams as jest.Mock;
+
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
   let component: JSX.Element;
   beforeEach(() => {
     clearMocks();
+
+    mockUseParams.mockReturnValue({
+      year: "2026",
+      state: "CT",
+      coreSetId: "HHCS",
+      measureId: measureAbbr,
+    });
     apiData.useGetMeasureValues = {
       data: {
         Item: {
