@@ -74,6 +74,6 @@ declare namespace Cypress {
     deleteStateSpecificMeasure(description?: string): Chainable<Element>;
 
     /** Correct sections visible in SSHH measure */
-    SSHHdisplaysCorrectSections(year: string): Chainable<Element>;
+    SSHHdisplaysCorrectSections(): Chainable<Element>;
   }
 }
