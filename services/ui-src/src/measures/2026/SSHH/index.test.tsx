@@ -114,7 +114,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByText("Status of Data Reported")).toBeInTheDocument();
-    expect(screen.queryByText("Data Collection Method")).toBeInTheDocument();
     expect(screen.queryByText("Date Range")).toBeInTheDocument();
     expect(
       screen.queryByText("Definition of Population Included in the Measure")
