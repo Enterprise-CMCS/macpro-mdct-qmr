@@ -347,7 +347,7 @@ Cypress.Commands.add("deleteStateSpecificMeasure", (description?) => {
 });
 
 // Correct sections visible when user is reporting data on measure
-Cypress.Commands.add("SSHHdisplaysCorrectSections", () => {
+Cypress.Commands.add("SSHHdisplaysCorrectSections", (year: string) => {
   cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
   if (Number(year) < 2026) {
     cy.get('[data-cy="Data Source"]').should("be.visible");
