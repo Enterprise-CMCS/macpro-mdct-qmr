@@ -1,3 +1,4 @@
+import { CoreSetAbbr } from "types";
 import { MeasureTableItem } from "./types";
 
 // Example Measures list data for testing and demo page.
@@ -12,6 +13,8 @@ export const exampleMeasuresData: MeasureTableItem.Data[] = [
     lastDateModified: 1642190951029,
     id: "test1",
     reporting: undefined,
+    coreSet: CoreSetAbbr.ACSC,
+    typeTagForCoreSets: [],
   },
   {
     path: "/example-measures-path-2",
@@ -23,6 +26,8 @@ export const exampleMeasuresData: MeasureTableItem.Data[] = [
     lastDateModified: 1642190951029,
     id: "test2",
     reporting: undefined,
+    coreSet: CoreSetAbbr.ACSC,
+    typeTagForCoreSets: [],
   },
   {
     path: "/example-measures-path-3",
@@ -34,6 +39,8 @@ export const exampleMeasuresData: MeasureTableItem.Data[] = [
     createdAt: 1642190951029,
     id: "test3",
     reporting: "yes",
+    coreSet: CoreSetAbbr.ACS,
+    typeTagForCoreSets: [],
   },
   {
     path: "/example-measures-path-4",
@@ -45,5 +52,7 @@ export const exampleMeasuresData: MeasureTableItem.Data[] = [
     lastDateModified: 1642190951029,
     id: "test4",
     reporting: "no",
+    coreSet: CoreSetAbbr.ACSC,
+    typeTagForCoreSets: [],
   },
 ];

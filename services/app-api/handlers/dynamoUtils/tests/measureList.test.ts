@@ -1,4 +1,4 @@
-import { MeasureMetaData, measures } from "../measureList";
+import { measures } from "../measureList";
 
 // This test is worthless, but there isn't a curently useful test for a measure array
 describe("Testing Measure List", () => {

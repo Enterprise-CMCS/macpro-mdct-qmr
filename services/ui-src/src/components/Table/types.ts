@@ -52,6 +52,9 @@ export namespace MeasureTableItem {
     reporting: string | undefined | null;
     autoCompleted?: boolean;
     measureType?: MeasureType;
+    coreSet: CoreSetAbbr;
+    /** For which core sets will the measureType be displayed? */
+    typeTagForCoreSets: CoreSetAbbr[];
   };
 
   export interface StatusTextProps {
