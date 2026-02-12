@@ -218,7 +218,7 @@ Cypress.Commands.add("deleteHealthHomeSets", () => {
     if ($tbody.find('[data-cy="health home-kebab-menu"]').length > 0) {
       removeCoreSetElements(
         '[data-cy="health home-kebab-menu"]',
-        '[aria-label="Delete for HHCS_15-014"]'
+        '[aria-label="Delete for HHCS_24-0024"]'
       );
     }
   });
