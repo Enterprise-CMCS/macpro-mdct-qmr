@@ -9,7 +9,6 @@ import {
   OptionNode,
 } from "shared/types";
 import { useFormContext, useWatch } from "react-hook-form";
-import { useParams } from "react-router-dom";
 import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
 import { parseLabelToHTML } from "utils/parser";
@@ -174,13 +173,12 @@ const addLabelByType = (
  * Fully built DataSource component
  */
 export const DataSource = ({ data, type }: DataSourceProps) => {
-  const { year } = useParams();
   const { getValues } = useFormContext<Types.DataSource>();
 
   // Use year-appropriate default data
   const dataSourceData =
     data ||
-    (year && featuresByYear.useDataCollectionMethod
+    (featuresByYear.useDataCollectionMethod
       ? defaultData2026AndBeyond
       : defaultData);
 
@@ -197,10 +195,9 @@ export const DataSource = ({ data, type }: DataSourceProps) => {
   addHintLabel(dataSourceData.options, labels.DataSource);
   addLabelByType("warning", dataSourceData.options, labels.DataSource);
 
-  const dataSourceLabel =
-    year && featuresByYear.useDataCollectionMethod
-      ? "Data Collection Method"
-      : "Data Source";
+  const dataSourceLabel = featuresByYear.useDataCollectionMethod
+    ? "Data Collection Method"
+    : "Data Source";
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label={dataSourceLabel}>
