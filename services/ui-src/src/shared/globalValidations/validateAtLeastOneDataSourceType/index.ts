@@ -5,10 +5,15 @@ const OPTIONAL_DATA_SOURCES = new Set([DataSource.EHR, DataSource.ECDS]);
 
 export const validateAtLeastOneDataSourceType = (
   data: Types.DataSource,
-  errorMessage?: string
+  errorMessage?: string,
+  year?: string
 ) => {
   const errorArray: FormError[] = [];
   const dataSources = data.DataSourceSelections;
+
+  const dataSourceLabel =
+    year && parseInt(year) >= 2026 ? "Data Collection Method" : "Data Source";
+
   if (dataSources) {
     //find selected data sources with unfilled explanation boxes, which are not optional
     const unfilledDataSources = Object.keys(dataSources).filter(
@@ -20,13 +25,15 @@ export const validateAtLeastOneDataSourceType = (
     errorArray.push(
       ...unfilledDataSources.map((key) => {
         const lookupKey = key.split("-")?.[1] ?? key;
-        const label = Types.getDataSourceDisplayName(lookupKey);
+        const label = Types.getDataSourceDisplayName(lookupKey, year);
         return {
-          errorLocation: "Data Source",
+          errorLocation: dataSourceLabel,
           errorMessage:
             errorMessage ??
             `Please describe the ${label}${
-              !label.includes("Source") ? " Source" : ""
+              !label.includes("Source") && !label.includes("Method")
+                ? " Source"
+                : ""
             }`,
         };
       })
@@ -40,8 +47,9 @@ export const validateAtLeastOneDataSourceType = (
     );
     errorArray.push(
       ...unselectedDataSources.map((_key) => ({
-        errorLocation: "Data Source",
-        errorMessage: errorMessage ?? "You must select a data source",
+        errorLocation: dataSourceLabel,
+        errorMessage:
+          errorMessage ?? `You must select a ${dataSourceLabel.toLowerCase()}`,
       }))
     );
   }

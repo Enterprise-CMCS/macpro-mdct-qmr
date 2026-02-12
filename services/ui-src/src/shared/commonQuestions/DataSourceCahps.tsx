@@ -1,5 +1,6 @@
 import * as QMR from "components";
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import { DataSourceData, defaultData } from "../types/TypeDataSourceCahps";
 import { parseLabelToHTML } from "utils/parser";
 import * as DC from "dataConstants";
@@ -19,10 +20,14 @@ export const DataSourceRadio = ({
   data = defaultData,
   type,
 }: DataSourceProps) => {
+  const { year } = useParams();
   const labels: any = useContext(SharedContext);
 
+  const dataSourceLabel =
+    year && parseInt(year) >= 2026 ? "Data Collection Method" : "Data Source";
+
   return (
-    <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
+    <QMR.CoreQuestionWrapper testid="data-source" label={dataSourceLabel}>
       <QMR.RadioButton
         key={DC.DATA_SOURCE}
         name={DC.DATA_SOURCE}
