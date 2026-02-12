@@ -1,4 +1,5 @@
 import * as Types from "shared/types";
+import { featuresByYear } from "utils/featuresByYear";
 
 export const validateAtLeastOneDataSource = (
   data: Types.DataSource,
@@ -8,7 +9,9 @@ export const validateAtLeastOneDataSource = (
   const errorArray: FormError[] = [];
 
   const dataSourceLabel =
-    year && parseInt(year) >= 2026 ? "Data Collection Method" : "Data Source";
+    year && featuresByYear.useDataCollectionMethod
+      ? "Data Collection Method"
+      : "Data Source";
 
   const defaultErrorMessage = `You must select at least one ${dataSourceLabel} option`;
 

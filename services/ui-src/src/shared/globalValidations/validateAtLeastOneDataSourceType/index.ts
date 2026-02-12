@@ -1,5 +1,6 @@
 import * as Types from "shared/types";
 import { DataSource } from "../../../types";
+import { featuresByYear } from "utils/featuresByYear";
 
 const OPTIONAL_DATA_SOURCES = new Set([DataSource.EHR, DataSource.ECDS]);
 
@@ -12,7 +13,9 @@ export const validateAtLeastOneDataSourceType = (
   const dataSources = data.DataSourceSelections;
 
   const dataSourceLabel =
-    year && parseInt(year) >= 2026 ? "Data Collection Method" : "Data Source";
+    year && featuresByYear.useDataCollectionMethod
+      ? "Data Collection Method"
+      : "Data Source";
 
   if (dataSources) {
     //find selected data sources with unfilled explanation boxes, which are not optional

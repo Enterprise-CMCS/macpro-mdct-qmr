@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import { Alert } from "@cmsgov/design-system";
 import { getDataSourceDisplayName } from "shared/types";
 import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
+import { featuresByYear } from "utils/featuresByYear";
 
 type Props = {
   payload?: CombinedRatesPayload;
@@ -13,15 +14,12 @@ const programDisplayNames = {
   CHIP: "Separate CHIP",
 } as const;
 
-const getDataSourceLabel = (year?: string) => {
-  const yearNum = year ? parseInt(year) : new Date().getFullYear();
-  return yearNum >= 2026 ? "Data Collection Method" : "Data Source";
-};
-
 export const DataSourceInformationBanner = ({ payload, year }: Props) => {
   const DataSources = payload?.DataSources;
   const programTypes = ["Medicaid", "CHIP"] as const;
-  const dataSourceLabel = getDataSourceLabel(year);
+  const dataSourceLabel = featuresByYear.useDataCollectionMethod
+    ? "Data Collection Method"
+    : "Data Source";
 
   const unusableExplanation = (dataSources: DataSourcePayload | undefined) => {
     if (!dataSources?.isUnusableForCalc) {

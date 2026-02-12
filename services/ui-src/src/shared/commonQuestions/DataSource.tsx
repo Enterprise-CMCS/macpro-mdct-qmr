@@ -17,6 +17,7 @@ import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
 import { Alert } from "@cmsgov/design-system";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -179,7 +180,9 @@ export const DataSource = ({ data, type }: DataSourceProps) => {
   // Use year-appropriate default data
   const dataSourceData =
     data ||
-    (year && parseInt(year) >= 2026 ? defaultData2026AndBeyond : defaultData);
+    (year && featuresByYear.useDataCollectionMethod
+      ? defaultData2026AndBeyond
+      : defaultData);
 
   const watchDataSource = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
@@ -195,7 +198,9 @@ export const DataSource = ({ data, type }: DataSourceProps) => {
   addLabelByType("warning", dataSourceData.options, labels.DataSource);
 
   const dataSourceLabel =
-    year && parseInt(year) >= 2026 ? "Data Collection Method" : "Data Source";
+    year && featuresByYear.useDataCollectionMethod
+      ? "Data Collection Method"
+      : "Data Source";
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label={dataSourceLabel}>

@@ -11,6 +11,7 @@ import * as DC from "dataConstants";
 import SharedContext from "shared/SharedContext";
 import { Alert } from "@cmsgov/design-system";
 import * as CUI from "@chakra-ui/react";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -27,10 +28,14 @@ export const DataSourceRadio = ({ data, type }: DataSourceProps) => {
   // Use year-appropriate default data
   const dataSourceData =
     data ||
-    (year && parseInt(year) >= 2026 ? defaultData2026AndBeyond : defaultData);
+    (year && featuresByYear.useDataCollectionMethod
+      ? defaultData2026AndBeyond
+      : defaultData);
 
   const dataSourceLabel =
-    year && parseInt(year) >= 2026 ? "Data Collection Method" : "Data Source";
+    year && featuresByYear.useDataCollectionMethod
+      ? "Data Collection Method"
+      : "Data Source";
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label={dataSourceLabel}>

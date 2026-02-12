@@ -1,4 +1,5 @@
 import * as DC from "dataConstants";
+import { featuresByYear } from "utils/featuresByYear";
 
 export interface DataSource {
   [DC.DATA_SOURCE]: string[];
@@ -58,8 +59,7 @@ export const getDataSourceDisplayName = (
     dataSourceDisplayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
   // For 2026 and beyond, use "Other" instead of "Other Data Source"
   if (displayName === "Other Data Source" && year) {
-    const yearNum = parseInt(year);
-    if (yearNum >= 2026) {
+    if (featuresByYear.useDataCollectionMethod) {
       return "Other";
     }
   }
