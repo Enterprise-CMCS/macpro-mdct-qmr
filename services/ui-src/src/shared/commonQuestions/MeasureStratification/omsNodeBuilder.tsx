@@ -65,9 +65,7 @@ const NdrSubNode = (omsNode: OmsNode, flagSubCat: boolean, name: string) => {
           omsNode?.options!.map((node) => {
             return buildChildCheckboxOption({
               omsNode: node,
-              name: `${name}.selections.${
-                cleanString(node.id) ?? "ID_NOT_SET"
-              }`,
+              name: `${name}.selections.${cleanString(node.id) ?? "ID_NOT_SET"}`,
             });
           }) || []
         }
@@ -162,15 +160,13 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     props.id === "O8BrOa" &&
     props.year! >= 2025;
 
-  const checkboxOptions = [
-    ...props.options.map((lvlTwoOption) => {
-      return buildChildCheckboxOption({
-        omsNode: lvlTwoOption,
-        name: `${props.name}.selections.${lvlTwoOption.id}`,
-        label: omsLabels(lvlTwoOption, props.customLabels.addAnotherType),
-      });
-    }),
-  ];
+  const checkboxOptions = props.options.map((lvlTwoOption) => {
+    return buildChildCheckboxOption({
+      omsNode: lvlTwoOption,
+      name: `${props.name}.selections.${lvlTwoOption.id}`,
+      label: omsLabels(lvlTwoOption, props.customLabels.addAnotherType),
+    });
+  });
 
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>

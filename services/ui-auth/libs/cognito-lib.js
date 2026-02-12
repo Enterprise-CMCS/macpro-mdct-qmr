@@ -12,9 +12,9 @@ const COGNITO_CLIENT = new CognitoIdentityProviderClient({
     debug: () => {
       /* Debug logs are very noisy */
     },
-    info: console.info, // eslint-disable-line no-console
-    warn: console.warn, // eslint-disable-line no-console
-    error: console.error, // eslint-disable-line no-console
+    info: console.info,
+    warn: console.warn,
+    error: console.error,
   },
 });
 

@@ -1,4 +1,7 @@
 import * as DC from "dataConstants";
+import * as CUI from "@chakra-ui/react";
+import { GetLinks } from "labels/CommonLinks";
+import { Alert } from "@cmsgov/design-system";
 
 export const commonQuestionsLabel = {
   AdditionalNotes: {
@@ -209,6 +212,73 @@ export const commonQuestionsLabel = {
       "For each category and subcategory, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
     ],
     addAnotherType: "subcategories",
+    instructions: (
+      <>
+        <CUI.Text>
+          Enter data below to stratify this measure by race, ethnicity, sex,
+          and/or geography. Beginning with 2025 Core Sets reporting, states are
+          required to report stratified data for a specific subset of Child,
+          Adult, and Health Home Core Set measures. More information on
+          stratification reporting requirements is included in the{" "}
+          {GetLinks("sho24001")} and the {GetLinks("initial-core")}.
+        </CUI.Text>
+        <br />
+        <CUI.Text>
+          For 2025 Core Sets reporting, states have the option to stratify race
+          and ethnicity data using either (1) the {GetLinks("1997-omb")}, as
+          specified in the {GetLinks("hss-standard")}, or (2) the{" "}
+          {GetLinks("2024-omb")} for each measure selected for stratification.
+        </CUI.Text>
+        <br />
+        <CUI.Text>
+          CMS encourages states to report data in the QMR system for measures
+          and rates with small cell sizes. For the purpose of public reporting,
+          data will be suppressed in accordance with the CMS cell-size
+          suppression policy, which prohibits the direct reporting of
+          beneficiary and record counts of 1 to 10 and values from which users
+          can derive values of 1 to 10. Furthermore, CMS will suppress rates
+          with a denominator less than 30 due to reliability concerns.
+        </CUI.Text>
+      </>
+    ),
+  },
+  StratificationOption: {
+    subText: [
+      <CUI.Text key="description" mb={2}>
+        A summary of the race and ethnicity subcategories included in each
+        option is available in Boxes 1 and 2 of the{" "}
+        {GetLinks("strat-ta-resource")}.
+      </CUI.Text>,
+      <CUI.UnorderedList key="list" padding="0 0 1rem 2rem">
+        <CUI.ListItem key="1997-omb-item">
+          1997 Office of Management and Budget (OMB) minimum race and ethnicity
+          categories, as specified in the 2011 HHS standards
+        </CUI.ListItem>
+        <CUI.ListItem key="2024-omb-item" mb={2}>
+          2024 OMB Statistical Policy Directive No. 15 race and ethnicity
+          standards
+        </CUI.ListItem>
+        ,
+      </CUI.UnorderedList>,
+      <CUI.Box key="alert" mb="1rem">
+        <Alert
+          heading="Entered data will not be saved if you switch race and ethnicity reporting standards."
+          variation="warn"
+        >
+          <CUI.Text>
+            Please confirm which standard you are using before entering data.
+          </CUI.Text>
+        </Alert>
+      </CUI.Box>,
+    ],
+    options: {
+      "1997-omb":
+        "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
+      "2024-omb":
+        "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
+      "not-reporting":
+        "I am not reporting measure stratification for this measure",
+    },
   },
   PerformanceMeasure: {
     phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
