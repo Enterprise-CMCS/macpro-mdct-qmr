@@ -93,3 +93,31 @@ export const defaultData: DataSourceData = {
     },
   ],
 };
+
+export const defaultData2026AndBeyond: DataSourceData = {
+  optionsLabel:
+    "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable data sources used below.",
+  options: [
+    {
+      value: DC.ADMINISTRATIVE_DATA,
+      subOptions: [
+        {
+          label: "What is the Administrative Data Source?",
+          options: [
+            {
+              value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM,
+            },
+            {
+              value: DC.ADMINISTRATIVE_DATA_OTHER,
+              description: true,
+            },
+          ],
+        },
+      ],
+    },
+    {
+      value: DC.OTHER,
+      description: true,
+    },
+  ],
+};

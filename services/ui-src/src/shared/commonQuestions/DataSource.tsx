@@ -4,10 +4,12 @@ import * as Types from "shared/types";
 import {
   DataSourceData,
   defaultData,
+  defaultData2026AndBeyond,
   getDataSourceDisplayName,
   OptionNode,
 } from "shared/types";
 import { useFormContext, useWatch } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
 import { parseLabelToHTML } from "utils/parser";
@@ -98,7 +100,7 @@ const buildDataSourceOptions: DSCBFunc = ({
     if (
       (type === "adult" || type === "child") &&
       otherDataSourceWarning &&
-      node.value === DC.OTHER_DATA_SOURCE
+      (node.value === DC.OTHER_DATA_SOURCE || node.value === DC.OTHER)
     ) {
       children.push(
         <CUI.Box mt="8">
@@ -170,8 +172,15 @@ const addLabelByType = (
 /**
  * Fully built DataSource component
  */
-export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
+export const DataSource = ({ data, type }: DataSourceProps) => {
+  const { year } = useParams();
   const { getValues } = useFormContext<Types.DataSource>();
+
+  // Use year-appropriate default data
+  const dataSourceData =
+    data ||
+    (year && parseInt(year) >= 2026 ? defaultData2026AndBeyond : defaultData);
+
   const watchDataSource = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
     defaultValue: getValues().DataSource,
@@ -182,18 +191,21 @@ export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
   const labels: any = useContext(SharedContext);
 
   //adding hint label text recursively
-  addHintLabel(data.options, labels.DataSource);
-  addLabelByType("warning", data.options, labels.DataSource);
+  addHintLabel(dataSourceData.options, labels.DataSource);
+  addLabelByType("warning", dataSourceData.options, labels.DataSource);
+
+  const dataSourceLabel =
+    year && parseInt(year) >= 2026 ? "Data Collection Method" : "Data Source";
 
   return (
-    <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
+    <QMR.CoreQuestionWrapper testid="data-source" label={dataSourceLabel}>
       <div data-cy="data-source-options">
         <QMR.Checkbox
           key={DC.DATA_SOURCE}
           name={DC.DATA_SOURCE}
-          label={data.optionsLabel}
+          label={dataSourceData.optionsLabel}
           options={buildDataSourceOptions({
-            data: data.options,
+            data: dataSourceData.options,
             otherDataSourceWarning: labels.DataSource.otherDataSourceWarning,
             type: type,
           })}
