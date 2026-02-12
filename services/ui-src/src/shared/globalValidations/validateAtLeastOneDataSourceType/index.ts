@@ -12,10 +12,9 @@ export const validateAtLeastOneDataSourceType = (
   const errorArray: FormError[] = [];
   const dataSources = data.DataSourceSelections;
 
-  const dataSourceLabel =
-    year && featuresByYear.useDataCollectionMethod
-      ? "Data Collection Method"
-      : "Data Source";
+  const dataSourceLabel = featuresByYear.useDataCollectionMethod
+    ? "Data Collection Method"
+    : "Data Source";
 
   if (dataSources) {
     //find selected data sources with unfilled explanation boxes, which are not optional

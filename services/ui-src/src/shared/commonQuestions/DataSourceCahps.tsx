@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
 import {
   DataSourceData,
   defaultData,
@@ -22,20 +21,18 @@ interface DataSourceProps {
  * Fully built DataSource component
  */
 export const DataSourceRadio = ({ data, type }: DataSourceProps) => {
-  const { year } = useParams();
   const labels: any = useContext(SharedContext);
 
   // Use year-appropriate default data
   const dataSourceData =
     data ||
-    (year && featuresByYear.useDataCollectionMethod
+    (featuresByYear.useDataCollectionMethod
       ? defaultData2026AndBeyond
       : defaultData);
 
-  const dataSourceLabel =
-    year && featuresByYear.useDataCollectionMethod
-      ? "Data Collection Method"
-      : "Data Source";
+  const dataSourceLabel = featuresByYear.useDataCollectionMethod
+    ? "Data Collection Method"
+    : "Data Source";
 
   return (
     <QMR.CoreQuestionWrapper testid="data-source" label={dataSourceLabel}>
