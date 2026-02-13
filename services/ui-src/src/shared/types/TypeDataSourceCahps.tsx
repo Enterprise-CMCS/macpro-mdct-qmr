@@ -24,3 +24,16 @@ export const defaultData: DataSourceData = {
     },
   ],
 };
+
+export const defaultData2026AndBeyond: DataSourceData = {
+  optionsLabel: "Which version of the CAHPS survey was used for reporting?",
+  options: [
+    {
+      value: "CAHPS 5.1H",
+    },
+    {
+      value: "Other",
+      description: true,
+    },
+  ],
+};

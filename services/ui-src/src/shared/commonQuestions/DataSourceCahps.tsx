@@ -1,11 +1,16 @@
 import * as QMR from "components";
 import { useContext } from "react";
-import { DataSourceData, defaultData } from "../types/TypeDataSourceCahps";
+import {
+  DataSourceData,
+  defaultData,
+  defaultData2026AndBeyond,
+} from "../types/TypeDataSourceCahps";
 import { parseLabelToHTML } from "utils/parser";
 import * as DC from "dataConstants";
 import SharedContext from "shared/SharedContext";
 import { Alert } from "@cmsgov/design-system";
 import * as CUI from "@chakra-ui/react";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -15,18 +20,26 @@ interface DataSourceProps {
 /**
  * Fully built DataSource component
  */
-export const DataSourceRadio = ({
-  data = defaultData,
-  type,
-}: DataSourceProps) => {
+export const DataSourceRadio = ({ data, type }: DataSourceProps) => {
   const labels: any = useContext(SharedContext);
 
+  // Use year-appropriate default data
+  const dataSourceData =
+    data ||
+    (featuresByYear.useDataCollectionMethod
+      ? defaultData2026AndBeyond
+      : defaultData);
+
+  const dataSourceLabel = featuresByYear.useDataCollectionMethod
+    ? "Data Collection Method"
+    : "Data Source";
+
   return (
-    <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
+    <QMR.CoreQuestionWrapper testid="data-source" label={dataSourceLabel}>
       <QMR.RadioButton
         key={DC.DATA_SOURCE}
         name={DC.DATA_SOURCE}
-        label={data.optionsLabel}
+        label={dataSourceData.optionsLabel}
         options={[
           {
             displayValue: "CAHPS 5.1H",

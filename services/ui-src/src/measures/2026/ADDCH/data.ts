@@ -24,7 +24,7 @@ export const data: MeasureTemplateData = {
   },
   dataSource: {
     optionsLabel:
-      "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
+      "If reporting entities (e.g., health plans) used different data collection methods, please select all applicable data sources used below.",
     options: [
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
@@ -41,7 +41,7 @@ export const data: MeasureTemplateData = {
         description: true,
       },
       { value: DC.ELECTRONIC_HEALTH_RECORDS, description: true },
-      { value: DC.OTHER_DATA_SOURCE, description: true },
+      { value: DC.OTHER, description: true },
     ],
   },
   validations: [

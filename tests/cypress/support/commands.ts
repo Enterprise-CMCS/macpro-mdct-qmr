@@ -112,7 +112,7 @@ Cypress.Commands.add(
     // these sections should be visible when a user selects they are reporting
     cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
     cy.get('[data-cy="Measurement Specification"]').should("be.visible");
-    cy.get('[data-cy="Data Source"]').should("be.visible");
+    cy.get('[data-cy="Data Collection Method"]').should("be.visible");
     cy.get('[data-cy="Date Range"]').should("be.visible");
     cy.get(
       '[data-cy="Definition of Population Included in the Measure"]'
@@ -140,7 +140,7 @@ Cypress.Commands.add(
     // these sections should not exist when a user selects they are not reporting
     cy.get('[data-cy="Status of Data Reported"]').should("not.exist");
     cy.get('[data-cy="Measurement Specification"]').should("not.exist");
-    cy.get('[data-cy="Data Source"]').should("not.exist");
+    cy.get('[data-cy="Data Collection Method"]').should("not.exist");
     cy.get('[data-cy="Date Range"]').should("not.exist");
     cy.get(
       '[data-cy="Definition of Population Included in the Measure"]'
@@ -345,7 +345,7 @@ Cypress.Commands.add("deleteStateSpecificMeasure", (description?) => {
 // Correct sections visible when user is reporting data on measure
 Cypress.Commands.add("SSHHdisplaysCorrectSections", () => {
   cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
-  cy.get('[data-cy="Data Source"]').should("be.visible");
+  cy.get('[data-cy="Data Collection Method"]').should("be.visible");
   cy.get('[data-cy="Date Range"]').should("be.visible");
   cy.get('[data-cy="Definition of Population Included in the Measure"]').should(
     "be.visible"
