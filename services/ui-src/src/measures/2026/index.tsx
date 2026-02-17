@@ -84,7 +84,7 @@ const twentyTwentySixMeasures = {
   "PDS-AD": measureTemplate,
   "PDS-CH": measureTemplate,
   "PND-AD": measureTemplate,
-  // "PND-CH": measureTemplate, // TO DO: replace with real measure
+  "PND-CH": measureTemplate,
   "PPC2-AD": measureTemplate,
   "PPC2-CH": measureTemplate,
   "PQI01-AD": measureTemplate,

@@ -54,6 +54,7 @@ import { data as OEVPCH_Data } from "./OEVPCH/data";
 import { data as OUDAD_Data } from "./OUDAD/data";
 import { data as OUDHH_Data } from "./OUDHH/data";
 import { data as PDSCH_Data } from "./PDSCH/data";
+import { data as PNDCH_Data } from "./PNDCH/data";
 import { data as PPC2AD_Data } from "./PPC2AD/data";
 import { data as PPC2CH_Data } from "./PPC2CH/data";
 import { data as PDSAD_Data } from "./PDSAD/data";
@@ -127,6 +128,7 @@ export const measureTemplateData: { [measure: string]: any } = {
   "OUD-AD": { data: OUDAD_Data, validationFunctions: validationFunctions },
   "OUD-HH": { data: OUDHH_Data, validationFunctions: validationFunctions },
   "PDS-CH": { data: PDSCH_Data, validationFunctions: validationFunctions },
+  "PND-CH": { data: PNDCH_Data, validationFunctions: validationFunctions },
   "PPC2-AD": { data: PPC2AD_Data, validationFunctions: validationFunctions },
   "PPC2-CH": { data: PPC2CH_Data, validationFunctions: validationFunctions },
   "PDS-AD": { data: PDSAD_Data, validationFunctions: validationFunctions },

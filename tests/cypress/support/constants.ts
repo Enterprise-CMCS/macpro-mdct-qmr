@@ -63,6 +63,7 @@ export const measureAbbrList = {
     "OEV-CH",
     "OEVP-CH",
     "PDS-CH",
+    "PND-CH",
     "PRS-CH",
     "PPC2-CH",
     "SFM-CH",
