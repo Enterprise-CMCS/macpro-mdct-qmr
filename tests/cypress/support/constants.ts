@@ -30,6 +30,7 @@ export const measureAbbrList = {
     "OUD-AD",
     "PCR-AD",
     "PDS-AD",
+    "PND-AD",
     "PPC2-AD",
     "PQI01-AD",
     "PQI05-AD",
