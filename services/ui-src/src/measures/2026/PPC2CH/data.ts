@@ -53,7 +53,7 @@ export const data: MeasureTemplateData = {
           },
         ],
       },
-      { value: DC.OTHER, description: true },
+      { value: DC.OTHER_DATA_SOURCE, description: true },
     ],
   },
   opm: {

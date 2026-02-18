@@ -32,7 +32,7 @@ export const data: MeasureTemplateData = {
         ],
         description: true,
       },
-      { value: DC.OTHER, description: true },
+      { value: DC.OTHER_DATA_SOURCE, description: true },
     ],
   },
   opm: {

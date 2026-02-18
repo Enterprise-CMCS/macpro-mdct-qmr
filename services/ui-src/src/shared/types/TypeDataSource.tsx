@@ -51,6 +51,7 @@ const dataSourceDisplayNames: Record<string, string> = {
   ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
   VitalRecords: "Vital Records",
 };
+
 export const getDataSourceDisplayName = (
   dataSourceIdentifier: string,
   year?: string
@@ -116,7 +117,7 @@ export const defaultData2026AndBeyond: DataSourceData = {
       ],
     },
     {
-      value: DC.OTHER,
+      value: DC.OTHER_DATA_SOURCE,
       description: true,
     },
   ],

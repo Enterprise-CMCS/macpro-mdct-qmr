@@ -100,7 +100,7 @@ const buildDataSourceOptions: DSCBFunc = ({
     if (
       (type === "adult" || type === "child") &&
       otherDataSourceWarning &&
-      (node.value === DC.OTHER_DATA_SOURCE || node.value === DC.OTHER)
+      node.value === DC.OTHER_DATA_SOURCE
     ) {
       children.push(
         <CUI.Box mt="8">

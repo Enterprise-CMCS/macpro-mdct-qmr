@@ -49,7 +49,7 @@ export const data: MeasureTemplateData = {
         ],
       },
       { value: DC.ELECTRONIC_HEALTH_RECORDS, description: true },
-      { value: DC.OTHER, description: true },
+      { value: DC.OTHER_DATA_SOURCE, description: true },
     ],
   },
   custom: {
