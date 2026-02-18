@@ -96,7 +96,7 @@ export const defaultData: DataSourceData = {
 
 export const defaultData2026AndBeyond: DataSourceData = {
   optionsLabel:
-    "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable data sources used below.",
+    "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are that are applicable below.",
   options: [
     {
       value: DC.ADMINISTRATIVE_DATA,

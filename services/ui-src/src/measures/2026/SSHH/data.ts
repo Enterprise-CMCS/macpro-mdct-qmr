@@ -3,7 +3,7 @@ import * as DC from "dataConstants";
 
 export const dataSourceData: DataDrivenTypes.DataSource = {
   optionsLabel:
-    "If reporting entities (e.g., health plans) used different data collection methods, please select all applicable data sources used below.",
+    "If reporting entities (e.g., health plans) used different data collection methods, please select all that are applicable below.",
   options: [
     {
       value: DC.ADMINISTRATIVE_DATA,
