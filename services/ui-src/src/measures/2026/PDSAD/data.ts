@@ -12,12 +12,12 @@ export const data: MeasureTemplateData = {
       "The percentage of deliveries in which beneficiaries were screened for clinical depression during the postpartum period, and if screened positive, received follow-up care.",
     ],
     questionListTitles: [
-      "Depression Screening",
-      "Follow-Up on Positive Screen",
+      "Depression Screening. ",
+      "Follow-Up on Positive Screen. ",
     ],
     questionListItems: [
-      "– The percentage of deliveries in which beneficiaries were screened for clinical depression using a standardized instrument during the postpartum period.",
-      "– The percentage of deliveries in which beneficiaries received follow-up care within 30 days of a positive depression screen finding.",
+      "The percentage of deliveries in which beneficiaries were screened for clinical depression using a standardized instrument during the postpartum period.",
+      "The percentage of deliveries in which beneficiaries received follow-up care within 30 days of a positive depression screen finding.",
     ],
     categories,
     qualifiers,
