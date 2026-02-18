@@ -30,41 +30,13 @@ export interface DataSourceData {
   optionsLabel: string;
 }
 
-const dataSourceDisplayNames: Record<string, string> = {
-  AdministrativeData: "Administrative Data",
-  AdministrativeDataOther: "Administrative Data Other",
-  HybridAdministrativeandMedicalRecordsData:
-    "Hybrid (Administrative and Medical Records Data)",
-  OtherDataSource: "Other Data Source",
-  ElectronicHealthRecords: "Electronic Health Record (EHR) Data",
-  ElectronicClinicalDataSystemsECDS: "Electronic Clinical Data Systems (ECDS)",
-  Casemanagementrecordreview: "Case management record review",
-  ElectronichealthrecordEHRpersonalhealthregistryPHR:
-    "Electronic health record (EHR) / personal health registry (PHR)",
-  HealthinformationexchangeHIEclinicalregistry:
-    "Health information exchange (HIE) / clinical registry",
-  CaseManagementsystem: "Case management system",
-  MedicaidManagementInformationSystemMMIS:
-    "Medicaid Management Information System (MMIS)",
-  ImmunizationRegistryImmunizationInformationSystemIIS:
-    "Immunization Registry/Immunization Information System (IIS)",
-  ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
-  VitalRecords: "Vital Records",
-};
-
-export const getDataSourceDisplayName = (
-  dataSourceIdentifier: string,
-  year?: string
-) => {
-  const displayName =
-    dataSourceDisplayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
-  // For 2026 and beyond, use "Other" instead of "Other Data Source"
-  if (displayName === "Other Data Source" && year) {
-    if (featuresByYear.useDataCollectionMethod) {
-      return "Other";
-    }
-  }
-  return displayName;
+export const getDataSourceDisplayName = (dataSourceIdentifier: string) => {
+  const displayNames: Record<string, string> = {
+    OtherDataSource: featuresByYear.useDataCollectionMethod
+      ? "Other"
+      : "Other Data Source",
+  };
+  return displayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
 };
 
 export const defaultData: DataSourceData = {

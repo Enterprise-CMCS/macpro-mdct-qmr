@@ -14,7 +14,7 @@ const programDisplayNames = {
   CHIP: "Separate CHIP",
 } as const;
 
-export const DataSourceInformationBanner = ({ payload, year }: Props) => {
+export const DataSourceInformationBanner = ({ payload }: Props) => {
   const DataSources = payload?.DataSources;
   const programTypes = ["Medicaid", "CHIP"] as const;
   const dataSourceLabel = featuresByYear.useDataCollectionMethod
@@ -69,12 +69,11 @@ export const DataSourceInformationBanner = ({ payload, year }: Props) => {
             return (
               <CUI.UnorderedList key={`${dataSource}-${idx}`}>
                 <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
-                  {getDataSourceDisplayName(dataSource, year)}
+                  {getDataSourceDisplayName(dataSource)}
                 </CUI.Heading>
                 {dataSourceSelections(
                   dataSource,
-                  DataSources[programType].DataSourceSelections,
-                  year
+                  DataSources[programType].DataSourceSelections
                 ).map((item, srcIdx) => (
                   <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
                     {item}
@@ -122,8 +121,7 @@ export const DataSourceInformationBanner = ({ payload, year }: Props) => {
 
 export const dataSourceSelections = (
   dataSource: string,
-  dataSourceSelections: DataSourcePayload["DataSourceSelections"],
-  year?: string
+  dataSourceSelections: DataSourcePayload["DataSourceSelections"]
 ) => {
   let selected = [];
 
@@ -165,7 +163,7 @@ export const dataSourceSelections = (
       const textfieldData = textfield?.description
         ? ` - ${textfield.description}`
         : "";
-      return `${getDataSourceDisplayName(key, year)}${textfieldData}`;
+      return `${getDataSourceDisplayName(key)}${textfieldData}`;
     })
   );
   //descriptions do not need formatting so they can be added straight to the array

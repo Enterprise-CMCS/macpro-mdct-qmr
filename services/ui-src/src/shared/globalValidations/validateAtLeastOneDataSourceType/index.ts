@@ -6,8 +6,7 @@ const OPTIONAL_DATA_SOURCES = new Set([DataSource.EHR, DataSource.ECDS]);
 
 export const validateAtLeastOneDataSourceType = (
   data: Types.DataSource,
-  errorMessage?: string,
-  year?: string
+  errorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
   const dataSources = data.DataSourceSelections;
@@ -27,7 +26,7 @@ export const validateAtLeastOneDataSourceType = (
     errorArray.push(
       ...unfilledDataSources.map((key) => {
         const lookupKey = key.split("-")?.[1] ?? key;
-        const label = Types.getDataSourceDisplayName(lookupKey, year);
+        const label = Types.getDataSourceDisplayName(lookupKey);
         return {
           errorLocation: dataSourceLabel,
           errorMessage:
