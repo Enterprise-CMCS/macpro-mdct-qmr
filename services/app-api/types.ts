@@ -68,6 +68,8 @@ export interface Measure {
    */
   autoCompleted?: boolean;
   measureType?: MeasureType;
+  /** For which core sets will the measureType be displayed? */
+  typeTagForCoreSets?: CoreSetAbbr[];
   stratificationRequired?: CoreSetAbbr[];
   data?: {
     /**
@@ -354,4 +356,4 @@ export type WeightedRateShape = {
   weightedRate?: number;
 };
 
-export type State = typeof states[number];
+export type State = (typeof states)[number];

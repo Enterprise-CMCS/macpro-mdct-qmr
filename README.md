@@ -20,9 +20,9 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 - [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
   - [Local Development Setup](#local-development-setup)
-    - [Prettier](#prettier)
-      - [Prettier with VS Code](#prettier-with-vs-code)
-      - [Prettier CLI](#prettier-cli)
+    - [Oxfmt](#oxfmt)
+      - [Oxfmt with VS Code](#oxfmt-with-vs-code)
+      - [Oxfmt CLI](#oxfmt-cli)
 - [Testing](#testing)
   - [Runners and Assertion Libraries](#runners-and-assertion-libraries)
   - [Update Node Modules](#update-node-modules)
@@ -119,31 +119,30 @@ If you do not have a 1Password account you can run `./run local` however you wil
 
 To login a number of test users are provisioned via the `users.json`. Look in the 1password secret named `qmr-secrets` for the test user password.
 
-### Prettier
+### oxfmt
 
 ---
 
-This repo uses the code formatter [Prettier](https://prettier.io/docs/en/index.html). The package is downloaded during `yarn install` and is run automatically in a pre-commit hook. Additionally, the Prettier formatter can be run on file save in many IDEs or run ad hoc from the command line.
+This repo uses the code formatter [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html). The formatter is run automatically in a pre-commit hook. Additionally, oxfmt can be run on file save in many IDEs or run ad hoc from the command line.
 
-#### Prettier with VS Code
-
----
-
-The Prettier extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
-
-Once installed, open VS Code's Preferences. Search for "Format on Save". Clicking the checkbox should engage the Prettier formatter on file save.
-
-VS Code is used almost ubiquitously across the current development team, but similar instructions are available for other IDEs.
-
-#### Prettier CLI
+#### oxfmt with VS Code
 
 ---
 
-Using this command, or a variant of it, will format all matching files in the codebase and write the changes. Prettier has complete [CLI documentation](https://prettier.io/docs/en/cli.html) on their website.
+The oxc extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode).
+
+Once installed, open VS Code's Preferences. Search for "Format on Save". Clicking the checkbox should engage the oxfmt formatter on file save.
+
+VS Code is used almost ubiquitously across the current development team, generally speaking this tools should also work for most other IDEs.
+
+#### oxfmt CLI
+
+---
+
+Using this command, or a variant of it, will format all matching files in the codebase and write the changes. oxfmt has complete [CLI documentation](https://oxc.rs/docs/guide/usage/formatter.html) on their website.
 
 ```bash
-npx prettier --write . # format everything relative to the pwd
-npx prettier --write "**/*.tsx" "**/*.ts" # format all TypeScript files
+npx yarn oxfmt
 ```
 
 # Testing
@@ -534,7 +533,6 @@ This repository uses 3 webhooks to publish to 3 different channels all in CMS Sl
 - INTEGRATIONS_SLACK_WEBHOOK: This is used to publish new pull requests to the `mdct-integrations-channel`
 
 - PROD_RELEASE_SLACK_WEBHOOK: This is used to publish to the `mdct-prod-releases` channel upon successful release of QMR to production.
-
   - Webhooks are created by CMS tickets, populated into GitHub Secrets
 
 ## GitHub Actions Secret Management

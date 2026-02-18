@@ -1,8 +1,13 @@
 {
   "name": "app-api",
-  "description": "",
   "version": "1.0.0",
-  "packageManager": "yarn@4.12.0",
+  "description": "",
+  "license": "CC0-1.0",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr.git"
+  },
   "main": "handler.js",
   "scripts": {
     "coverage": "jest --coverage",
@@ -10,11 +15,18 @@
     "test-watch": "jest --watch",
     "modify-descriptions": "ts-node ./handlers/dynamoUtils/scripts/modifyDescription.ts"
   },
-  "author": "",
-  "license": "CC0-1.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr.git"
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.985.0",
+    "@aws-sdk/lib-dynamodb": "^3.985.0",
+    "@aws-sdk/util-dynamodb": "^3.985.0",
+    "aws4": "^1.13.1",
+    "dompurify": "^3.2.3",
+    "jsdom": "^26.1.0",
+    "jwt-decode": "^3.1.2",
+    "kafkajs": "^2.2.4",
+    "prompt-sync": "^4.2.0",
+    "sanitize-html": "^2.17.0",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@types/aws4": "^1.11.2",
@@ -29,31 +41,15 @@
     "ts-node": "^10.8.1",
     "typescript": "^5.9.3"
   },
-  "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.946.0",
-    "@aws-sdk/lib-dynamodb": "^3.946.0",
-    "@aws-sdk/util-dynamodb": "^3.946.0",
-    "aws4": "^1.13.1",
-    "dompurify": "^3.2.3",
-    "jsdom": "^26.1.0",
-    "jwt-decode": "^3.1.2",
-    "kafkajs": "^2.2.4",
-    "prompt-sync": "^4.2.0",
-    "sanitize-html": "^2.17.0",
-    "uuid": "^7.0.3"
-  },
   "resolutions": {
     "ws": "^8.18.0"
   },
   "jest": {
-    "testTimeout": 33000,
-    "verbose": true,
-    "transform": {
-      "^.+\\.ts?$": "ts-jest"
-    },
-    "globals": {
-      "isolatedModules": true
-    },
+    "collectCoverageFrom": [
+      "handlers/**/*.{ts,tsx}",
+      "libs/**/*.{ts,tsx}",
+      "storage/**/*.{ts,tsx}"
+    ],
     "coverageReporters": [
       "json",
       [
@@ -65,11 +61,9 @@
       "text",
       "text-summary"
     ],
-    "collectCoverageFrom": [
-      "handlers/**/*.{ts,tsx}",
-      "libs/**/*.{ts,tsx}",
-      "storage/**/*.{ts,tsx}"
-    ],
+    "globals": {
+      "isolatedModules": true
+    },
     "moduleDirectories": [
       "node_modules",
       "handlers",
@@ -77,6 +71,12 @@
       "util",
       "storage"
     ],
-    "setupFilesAfterEnv": []
-  }
+    "setupFilesAfterEnv": [],
+    "testTimeout": 33000,
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "verbose": true
+  },
+  "packageManager": "yarn@4.12.0"
 }

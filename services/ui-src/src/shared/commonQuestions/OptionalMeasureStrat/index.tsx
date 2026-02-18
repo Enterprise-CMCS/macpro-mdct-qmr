@@ -7,7 +7,7 @@ import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { arrayIsReadOnly, cleanString, stringIsReadOnly } from "utils";
+import { cleanString, rateIsReadOnly } from "utils";
 import SharedContext from "shared/SharedContext";
 
 /**
@@ -89,7 +89,7 @@ export const OptionalMeasureStrat = ({
     useFormContext<Types.OMSType>();
   const values = getValues();
 
-  const dataSourceWatch = watch("DataSource");
+  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
   const watchDataSourceSwitch = watch("MeasurementSpecification");
   //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
   const OPM =
@@ -106,11 +106,9 @@ export const OptionalMeasureStrat = ({
 
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {
-    rateReadOnly = false;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
-    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
-  } else if (dataSourceWatch) {
-    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+    rateReadOnly = !rateAlwaysEditable;
+  } else {
+    rateReadOnly = rateIsReadOnly(dataSourceWatch);
   }
 
   /**
@@ -131,7 +129,6 @@ export const OptionalMeasureStrat = ({
       };
       unregister("OptionalMeasureStratification.options");
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDataSourceSwitch]);
 
   //filter out cat & qual that do not want to capture OMS data

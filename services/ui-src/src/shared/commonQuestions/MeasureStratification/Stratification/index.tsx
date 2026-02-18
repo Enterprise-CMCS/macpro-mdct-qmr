@@ -3,18 +3,14 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../../types";
 import { TopLevelOmsChildren } from "../omsNodeBuilder";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useFormContext } from "react-hook-form";
-import {
-  arrayIsReadOnly,
-  cleanString,
-  getFilledKeys,
-  stringIsReadOnly,
-} from "utils";
+import { cleanString, getFilledKeys, rateIsReadOnly } from "utils";
 import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
 import { usePathParams } from "hooks/api/usePathParams";
+import SharedContext from "shared/SharedContext";
 
 /**
  * Builds out parent level checkboxes
@@ -31,6 +27,7 @@ export const buildOmsCheckboxes = ({
   excludeOptions,
   year,
   overrideAccordion,
+  customLabels,
 }: Types.OmsCheckboxProps) => {
   return data
     .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
@@ -52,6 +49,7 @@ export const buildOmsCheckboxes = ({
           label={displayValue}
           year={year}
           overrideAccordion={overrideAccordion}
+          customLabels={customLabels!}
         />,
       ];
 
@@ -91,8 +89,12 @@ export const Stratification = ({
   const values = getValues();
   const { userRole } = useUser();
   const { measureId } = usePathParams();
+  //WIP: using form context to get the labels for this component temporarily.
+  const labels: Types.MeasureStratificationLabels = (
+    useContext(SharedContext) as any
+  ).MeasureStratification;
 
-  const dataSourceWatch = watch("DataSource");
+  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
   const watchDataSourceSwitch = watch("MeasurementSpecification");
   const watchStratification = watch("OptionalMeasureStratification.selections");
   //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
@@ -119,15 +121,14 @@ export const Stratification = ({
     excludeOptions,
     year,
     overrideAccordion,
+    customLabels: labels,
   });
 
   let rateReadOnly = false;
   if (rateAlwaysEditable !== undefined) {
-    rateReadOnly = false;
-  } else if (dataSourceWatch && Array.isArray(dataSourceWatch)) {
-    rateReadOnly = arrayIsReadOnly(dataSourceWatch);
-  } else if (dataSourceWatch) {
-    rateReadOnly = stringIsReadOnly(dataSourceWatch);
+    rateReadOnly = !rateAlwaysEditable;
+  } else {
+    rateReadOnly = rateIsReadOnly(dataSourceWatch);
   }
 
   /**
@@ -151,7 +152,6 @@ export const Stratification = ({
       };
     }
     return;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDataSourceSwitch]);
 
   //filter out cat & qual that do not want to capture OMS data
@@ -187,15 +187,9 @@ export const Stratification = ({
           rateCalculation: rateCalc,
         }}
       >
-        <CUI.Text>
-          Do not select categories and subcategories for which your state does
-          not collect data.
-        </CUI.Text>
-        <CUI.Text>
-          For each category and subcategory, enter a number for the numerator
-          and denominator. The rate will auto-calculate but can be revised if
-          needed.
-        </CUI.Text>
+        {labels.subHeader.map((text: string) => (
+          <CUI.Text>{text}</CUI.Text>
+        ))}
         <CUI.UnorderedList
           my={6}
           aria-label="accordion controls"

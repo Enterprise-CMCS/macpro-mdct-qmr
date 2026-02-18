@@ -1,8 +1,5 @@
 import * as CUI from "@chakra-ui/react";
-import * as DC from "dataConstants";
-import * as Types from "shared/types";
 import * as QMR from "components";
-import { useFormContext } from "react-hook-form";
 import { usePerformanceMeasureContext } from "../../OptionalMeasureStrat/context";
 import { useRenderOPMCheckboxOptions, useAgeGroupsFields } from "./ndrFields";
 import { TotalNDRSets } from "./../../OptionalMeasureStrat/NDR/totalNDRSets";
@@ -66,11 +63,6 @@ const PCRNDRSets = ({ name }: NdrProps) => {
   const rates = qualifiers.map((qual, i) => {
     return { label: qual.label, id: i };
   });
-  // ! Waiting for data source refactor to type data source here
-  const { watch } = useFormContext<Types.DataSource>();
-
-  // Watch for dataSource data
-  const dataSourceWatch = watch(DC.DATA_SOURCE);
 
   return (
     <>
@@ -78,12 +70,11 @@ const PCRNDRSets = ({ name }: NdrProps) => {
         Enter a number for the numerator and the denominator. Rate will
         auto-calculate
       </CUI.Heading>
-      {dataSourceWatch?.[0] !== "AdministrativeData" ||
-        (dataSourceWatch?.length !== 1 && (
-          <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
-            Please review the auto-calculated rate and revise if needed.
-          </CUI.Heading>
-        ))}
+      {!rateReadOnly && (
+        <CUI.Heading pt="1" key={`${name}.rates.HeaderHelper`} size={"sm"}>
+          Please review the auto-calculated rate and revise if needed.
+        </CUI.Heading>
+      )}
       <QMR.PCRRate
         rates={rates}
         name={`${name}.pcr-rate`}

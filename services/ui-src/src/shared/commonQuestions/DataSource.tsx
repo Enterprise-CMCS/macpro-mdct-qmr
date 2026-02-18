@@ -1,7 +1,12 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Types from "shared/types";
-import { DataSourceData, defaultData, OptionNode } from "shared/types";
+import {
+  DataSourceData,
+  defaultData,
+  getDataSourceDisplayName,
+  OptionNode,
+} from "shared/types";
 import { useFormContext, useWatch } from "react-hook-form";
 import * as DC from "dataConstants";
 import { cleanString } from "utils/cleanString";
@@ -116,7 +121,7 @@ const buildDataSourceOptions: DSCBFunc = ({
 
     checkBoxOptions.push({
       value: cleanedNodeValue,
-      displayValue: node.value,
+      displayValue: getDataSourceDisplayName(cleanedNodeValue),
       children,
     });
   }
@@ -131,9 +136,9 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
         options.hint = labels.ehrSrc;
       } else if (
         options.value === DC.ELECTRONIC_CLINIC_DATA_SYSTEMS &&
-        labels.describeOptionalDataSrc
+        labels.describeOptionalECDSDataSrc
       ) {
-        options.hint = labels.describeOptionalDataSrc;
+        options.hint = labels.describeOptionalECDSDataSrc;
       } else {
         options.hint = labels.describeDataSrc;
       }

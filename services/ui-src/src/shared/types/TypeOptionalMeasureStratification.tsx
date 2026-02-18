@@ -5,6 +5,11 @@ import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/c
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
 
+export interface MeasureStratificationLabels {
+  subHeader: string[];
+  addAnotherType: string;
+}
+
 export interface OmsCheckboxProps {
   /** name for react-hook-form registration */
   name: string;
@@ -13,6 +18,7 @@ export interface OmsCheckboxProps {
   year: number;
   excludeOptions: string[];
   overrideAccordion?: (option: string) => boolean;
+  customLabels?: MeasureStratificationLabels;
 }
 
 export interface BaseProps extends Qualifiers, Categories {
@@ -55,9 +61,17 @@ interface DefaultDataProp {
 
 export type OMSProps = BaseProps & (DataDrivenProp | DefaultDataProp);
 
+export type DataSourceSelections = {
+  [key: string]: {
+    selected?: string[] | undefined;
+    description?: string | undefined;
+  };
+};
+
 /** OMS react-hook-form typing */
 export type OMSType = OptionalMeasureStratification & {
   DataSource: string[];
+  DataSourceSelections: DataSourceSelections;
 } & { MeasurementSpecification: string } & {
   "OtherPerformanceMeasure-Rates": OtherRatesFields[];
 };
@@ -113,9 +127,7 @@ export namespace OmsNodes {
   export interface OmsRateFields {
     [DC.OPTIONS]?: string[];
     [DC.RATES]?: {
-      [
-        category: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */
-      ]: {
+      [category: string /** rate label will be some combination of ageRange_perfDesc or opmFieldLabel */]: {
         [qualifier: string]: RateFields[];
       };
     };

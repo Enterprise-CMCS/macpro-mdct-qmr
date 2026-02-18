@@ -5,7 +5,6 @@ import { data as AABCH_Data } from "./AABCH/data";
 import { data as ADDCH_Data } from "./ADDCH/data";
 import { data as AIFHH_Data } from "./AIFHH/data";
 import { data as AISAD_Data } from "./AISAD/data";
-import { data as AMMAD_Data } from "./AMMAD/data";
 import { data as AMRAD_Data } from "./AMRAD/data";
 import { data as AMRCH_Data } from "./AMRCH/data";
 import { data as APMCH_Data } from "./APMCH/data";
@@ -48,12 +47,10 @@ import { data as IUHH_Data } from "./IUHH/data";
 import { data as LBWCH_Data } from "./LBWCH/data";
 import { data as LRCDCH_Data } from "./LRCDCH/data";
 import { data as LRCDAD_Data } from "./LRCDAD/data";
-import { data as NCIIDDAD_Data } from "./NCIIDDAD/data";
 import { data as LSCCH_Data } from "./LSCCH/data";
 import { data as OEVCH_Data } from "./OEVCH/data";
 import { data as OEVPAD_Data } from "./OEVPAD/data";
 import { data as OEVPCH_Data } from "./OEVPCH/data";
-import { data as OHDAD_Data } from "./OHDAD/data";
 import { data as OUDAD_Data } from "./OUDAD/data";
 import { data as OUDHH_Data } from "./OUDHH/data";
 import { data as PDSCH_Data } from "./PDSCH/data";
@@ -80,7 +77,6 @@ export const measureTemplateData: { [measure: string]: any } = {
   "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },
   "AIS-AD": { data: AISAD_Data, validationFunctions: validationFunctions },
-  "AMM-AD": { data: AMMAD_Data, validationFunctions: validationFunctions },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: validationFunctions },
   "AMR-AD": { data: AMRAD_Data, validationFunctions: validationFunctions },
   "APM-CH": { data: APMCH_Data, validationFunctions: validationFunctions },
@@ -124,14 +120,9 @@ export const measureTemplateData: { [measure: string]: any } = {
   "LRCD-CH": { data: LRCDCH_Data, validationFunctions: validationFunctions },
   "LRCD-AD": { data: LRCDAD_Data, validationFunctions: validationFunctions },
   "LSC-CH": { data: LSCCH_Data, validationFunctions: validationFunctions },
-  "NCIIDD-AD": {
-    data: NCIIDDAD_Data,
-    validationFunctions: validationFunctions,
-  },
   "OEV-CH": { data: OEVCH_Data, validationFunctions: validationFunctions },
   "OEVP-AD": { data: OEVPAD_Data, validationFunctions: validationFunctions },
   "OEVP-CH": { data: OEVPCH_Data, validationFunctions: validationFunctions },
-  "OHD-AD": { data: OHDAD_Data, validationFunctions: validationFunctions },
   "OUD-AD": { data: OUDAD_Data, validationFunctions: validationFunctions },
   "OUD-HH": { data: OUDHH_Data, validationFunctions: validationFunctions },
   "PDS-CH": { data: PDSCH_Data, validationFunctions: validationFunctions },
