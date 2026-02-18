@@ -32,9 +32,28 @@ export interface DataSourceData {
 
 export const getDataSourceDisplayName = (dataSourceIdentifier: string) => {
   const displayNames: Record<string, string> = {
+    AdministrativeData: "Administrative Data",
+    AdministrativeDataOther: "Administrative Data Other",
+    HybridAdministrativeandMedicalRecordsData:
+      "Hybrid (Administrative and Medical Records Data)",
     OtherDataSource: featuresByYear.useDataCollectionMethod
       ? "Other"
       : "Other Data Source",
+    ElectronicHealthRecords: "Electronic Health Record (EHR) Data",
+    ElectronicClinicalDataSystemsECDS:
+      "Electronic Clinical Data Systems (ECDS)",
+    Casemanagementrecordreview: "Case management record review",
+    ElectronichealthrecordEHRpersonalhealthregistryPHR:
+      "Electronic health record (EHR) / personal health registry (PHR)",
+    HealthinformationexchangeHIEclinicalregistry:
+      "Health information exchange (HIE) / clinical registry",
+    CaseManagementsystem: "Case management system",
+    MedicaidManagementInformationSystemMMIS:
+      "Medicaid Management Information System (MMIS)",
+    ImmunizationRegistryImmunizationInformationSystemIIS:
+      "Immunization Registry/Immunization Information System (IIS)",
+    ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
+    VitalRecords: "Vital Records",
   };
   return displayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
 };

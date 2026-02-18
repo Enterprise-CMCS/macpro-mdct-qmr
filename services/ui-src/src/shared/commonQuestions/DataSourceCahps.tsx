@@ -1,10 +1,6 @@
 import * as QMR from "components";
 import { useContext } from "react";
-import {
-  DataSourceData,
-  defaultData,
-  defaultData2026AndBeyond,
-} from "../types/TypeDataSourceCahps";
+import { DataSourceData, defaultData } from "../types/TypeDataSourceCahps";
 import { parseLabelToHTML } from "utils/parser";
 import * as DC from "dataConstants";
 import SharedContext from "shared/SharedContext";
@@ -24,11 +20,7 @@ export const DataSourceRadio = ({ data, type }: DataSourceProps) => {
   const labels: any = useContext(SharedContext);
 
   // Use year-appropriate default data
-  const dataSourceData =
-    data ||
-    (featuresByYear.useDataCollectionMethod
-      ? defaultData2026AndBeyond
-      : defaultData);
+  const dataSourceData = data || defaultData;
 
   const dataSourceLabel = featuresByYear.useDataCollectionMethod
     ? "Data Collection Method"

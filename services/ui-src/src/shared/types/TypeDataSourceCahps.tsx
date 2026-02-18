@@ -1,3 +1,4 @@
+import * as DC from "../../dataConstants";
 export interface OptionNode {
   value: string;
   subOptions?: {
@@ -19,20 +20,7 @@ export const defaultData: DataSourceData = {
       value: "CAHPS 5.1H",
     },
     {
-      value: "Other Data Source",
-      description: true,
-    },
-  ],
-};
-
-export const defaultData2026AndBeyond: DataSourceData = {
-  optionsLabel: "Which version of the CAHPS survey was used for reporting?",
-  options: [
-    {
-      value: "CAHPS 5.1H",
-    },
-    {
-      value: "Other",
+      value: DC.OTHER_DATA_SOURCE,
       description: true,
     },
   ],
