@@ -121,7 +121,7 @@ export const checkDateRangeStatus = (
   startDate: number,
   endDate: number
 ): boolean => {
-  const currentTime = new Date().valueOf();
+  const currentTime = Date.now();
   return currentTime >= startDate && currentTime <= endDate;
 };
 

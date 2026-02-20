@@ -12,7 +12,7 @@ import {
   parseMeasureParameters,
 } from "../../utils/parseParameters";
 
-export const listMeasures = handler(async (event, context) => {
+export const listMeasures = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet } =
     parseCoreSetParameters(event);
   if (!allParamsValid) {
@@ -42,9 +42,9 @@ export const listMeasures = handler(async (event, context) => {
 
   const queriedMeasures = await dynamoDb.queryAll<Measure>(params);
   for (let v of queriedMeasures) {
-    const measure = measures[year as number]?.filter(
+    const measure = measures[year as number]?.find(
       (m) => m.measure === (v as Measure)?.measure
-    )[0];
+    );
 
     v.autoCompleted = !!measure?.autocompleteOnCreation;
     v.measureType = measure?.measureType;
@@ -60,7 +60,7 @@ export const listMeasures = handler(async (event, context) => {
   };
 });
 
-export const getMeasure = handler(async (event, context) => {
+export const getMeasure = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet, measure } =
     parseMeasureParameters(event);
   if (!allParamsValid) {
@@ -92,9 +92,9 @@ export const getMeasure = handler(async (event, context) => {
 
   // Add metadata from measureList
   if (queryValue) {
-    const measureMetadata = measures[year as number]?.filter(
+    const measureMetadata = measures[year as number]?.find(
       (m) => m.measure === queryValue.measure
-    )[0];
+    );
 
     if (measureMetadata) {
       queryValue.autoCompleted = !!measureMetadata.autocompleteOnCreation;

@@ -1,7 +1,7 @@
 import { getPDF } from "../pdf";
 import { testEvent } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
-import { gzipSync } from "zlib";
+import { gzipSync } from "node:zlib";
 
 jest.spyOn(console, "warn").mockImplementation();
 

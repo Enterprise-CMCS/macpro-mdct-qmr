@@ -42,5 +42,5 @@ export const useGetMeasures = (coreSetAbbr?: string) => {
         }),
     });
   }
-  throw Error("state or year unavailable");
+  throw new Error("state or year unavailable");
 };
