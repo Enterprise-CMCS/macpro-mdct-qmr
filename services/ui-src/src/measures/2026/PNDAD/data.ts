@@ -2,21 +2,21 @@ import { getCatQualLabels } from "../rateLabelText";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import * as DC from "dataConstants";
 
-export const { categories, qualifiers } = getCatQualLabels("PDS-AD");
+export const { categories, qualifiers } = getCatQualLabels("PND-AD");
 
 export const data: MeasureTemplateData = {
   type: "HEDIS",
   coreset: "adult",
   performanceMeasure: {
     questionText: [
-      "The percentage of deliveries in which beneficiaries were screened for clinical depression during the postpartum period, and if screened positive, received follow-up care.",
+      "The percentage of deliveries in which beneficiaries age 21 and older were screened for clinical depression while pregnant, and if screened positive, received follow-up care.",
     ],
     questionListTitles: [
       "Depression Screening. ",
       "Follow-Up on Positive Screen. ",
     ],
     questionListItems: [
-      "The percentage of deliveries in which beneficiaries were screened for clinical depression using a standardized instrument during the postpartum period.",
+      "The percentage of deliveries in which beneficiaries were screened for clinical depression during pregnancy using a standardized instrument.",
       "The percentage of deliveries in which beneficiaries received follow-up care within 30 days of a positive depression screen finding.",
     ],
     categories,
@@ -24,7 +24,7 @@ export const data: MeasureTemplateData = {
   },
   dataSource: {
     optionsLabel:
-      "If reporting entities (e.g., health plans) used different data collection methods, please select all that are applicable below.",
+      "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
     options: [
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
