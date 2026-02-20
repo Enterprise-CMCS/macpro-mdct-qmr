@@ -132,7 +132,7 @@ export const CombinedRatesMeasure = ({
           </CUI.ListItem>
         </CUI.UnorderedList>
         <LoadingWrapper isLoaded={!queryResult.isLoading}>
-          <DataSourceInformationBanner payload={combinedRateData} year={year} />
+          <DataSourceInformationBanner payload={combinedRateData} />
           {combinedRateData && (
             <>
               <CombinedRateNDR

@@ -6,7 +6,6 @@ import { featuresByYear } from "utils/featuresByYear";
 
 type Props = {
   payload?: CombinedRatesPayload;
-  year?: string;
 };
 
 const programDisplayNames = {
