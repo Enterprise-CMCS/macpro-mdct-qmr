@@ -164,4 +164,13 @@ export const featuresByYear = {
   get updatedReadOnlyRateCheck() {
     return getMeasureYear() >= 2026;
   },
+
+  /**
+   * Prior to 2025, we solely use the language Data Source
+   *
+   * In 2026 and beyond, we want to use Data Collection Method instead of Data Source in most instances
+   */
+  get useDataCollectionMethod() {
+    return getMeasureYear() >= 2026;
+  },
 };

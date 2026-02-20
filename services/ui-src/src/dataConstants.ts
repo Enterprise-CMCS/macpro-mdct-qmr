@@ -187,6 +187,7 @@ export const OPM_NOTES_TEXT_INPUT = "OtherPerformanceMeasure-Rates-TextInput";
 export const OPM_RATES = "OtherPerformanceMeasure-Rates";
 export const OPTIONS = "options";
 export const OTHER = "Other";
+/** Displayed as "Other" in 2026 and beyond; see getDataSourceDisplayName() */
 export const OTHER_DATA_SOURCE = "Other Data Source";
 export const PAPER = "Paper";
 export const PARTIAL_POP_NOT_COVERED = "PartialPopulationNotCovered";
