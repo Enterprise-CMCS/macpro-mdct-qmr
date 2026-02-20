@@ -39,7 +39,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
   //using the data to determine if the data is pre or post data structure change, string is pre-change
   if (isLegacyLabel()) {
     const labelText = getLabelText();
-    const rateArrays = !categories.length ? qualRates : standardRates;
+    const rateArrays = categories.length === 0 ? qualRates : standardRates;
 
     quals?.forEach((value, idx) => {
       if (rateArrays?.[idx]?.length) {
@@ -58,7 +58,7 @@ export const useAgeGroupsCheckboxes: CheckBoxBuilder = (name) => {
     });
   } else {
     const rateArrays =
-      !categories.length ||
+      categories.length === 0 ||
       !(categories as LabelData[]).some((item) => item.label)
         ? completedPMQualRates
         : standardRates;

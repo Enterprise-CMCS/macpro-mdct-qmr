@@ -45,7 +45,7 @@ const primaryVariant = {
   fontWeight: "bold",
   borderRadius: "sm",
   "&:disabled, &:disabled:hover": {
-    opacity: 1.0,
+    opacity: 1,
     background: "#D9D9D9",
     color: "#404040",
   },
@@ -63,7 +63,7 @@ const greenVariant = {
   background: "green.500",
   color: "white",
   "&:disabled, &:disabled:hover": {
-    opacity: 1.0,
+    opacity: 1,
     background: "#D9D9D9",
     color: "#404040",
   },
@@ -73,7 +73,7 @@ const redVariant = {
   background: "red.500",
   color: "white",
   "&:disabled, &:disabled:hover": {
-    opacity: 1.0,
+    opacity: 1,
     background: "#D9D9D9",
     color: "#404040",
   },

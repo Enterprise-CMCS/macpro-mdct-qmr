@@ -58,7 +58,7 @@ export const RadioButton = ({
 
   const getFieldValue = () => {
     //when running a clear call, the radio button doesn't remove the selection even when the value is undefined. setting it to "" clears it
-    return (!!valueAsArray ? field.value?.[0] : field.value) ?? "";
+    return (valueAsArray ? field.value?.[0] : field.value) ?? "";
   };
 
   return (
@@ -83,7 +83,7 @@ export const RadioButton = ({
           value={getFieldValue()}
           onBlur={field.onBlur}
           onChange={(newValue) => {
-            field.onChange(!!valueAsArray ? [newValue] : newValue);
+            field.onChange(valueAsArray ? [newValue] : newValue);
           }}
           {...radioGroupProps}
         >

@@ -61,5 +61,5 @@ export const useUpdateMeasure = () => {
         }),
     });
   }
-  throw Error("Missing required fields");
+  throw new Error("Missing required fields");
 };

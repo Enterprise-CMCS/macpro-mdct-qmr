@@ -67,7 +67,7 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSQualifierForm) => {
     }
   }
 
-  return errorArray.length ? errorArray : [];
+  return errorArray.length > 0 ? errorArray : [];
 };
 
 export const CCS = [validate21To64EqualsToOneHundredPercent];

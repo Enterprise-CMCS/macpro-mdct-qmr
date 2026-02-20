@@ -71,9 +71,10 @@ const generateRates = (values: any) => {
     rates[cat.id] = rate;
   });
 
-  let allRates: any = {};
-  allRates["PerformanceMeasure"] = {
-    rates: rates,
+  let allRates: any = {
+    PerformanceMeasure: {
+      rates: rates,
+    },
   };
 
   return allRates;

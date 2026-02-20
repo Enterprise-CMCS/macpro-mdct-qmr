@@ -23,7 +23,7 @@ const QualifierNdrSets = ({
   customRateLabel,
   rateCalc,
 }: NdrSetProps) => {
-  const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
+  const categoryID = categories[0]?.id ?? DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
     label: item.label,
@@ -106,8 +106,10 @@ const changeRate = (field: any, index: number, newValue: string) => {
   //make a copy of current rate before update
   const prevRate = [...field.value];
   //store to edit.
-  const editRate = { ...prevRate[index] };
-  editRate["value"] = newValue;
+  const editRate = {
+    ...prevRate[index],
+    value: newValue,
+  };
   //pass edit value back to previous rate
   prevRate[index] = editRate;
   //trigger field change to new rate

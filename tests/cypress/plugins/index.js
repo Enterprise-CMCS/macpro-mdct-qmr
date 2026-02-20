@@ -1,4 +1,4 @@
-export default async (on, config) => {
+export default (defaultFn = async (on, _config) => {
   // e2e testing node events setup code
   // set default size for headless mode
   on("before:browser:launch", (browser = {}, launchOptions) => {
@@ -22,4 +22,4 @@ export default async (on, config) => {
       return null;
     },
   });
-};
+});

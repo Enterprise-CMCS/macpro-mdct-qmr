@@ -20,8 +20,8 @@ describe("Test StateHome with Inactive Banner", () => {
   test("Check that the banner is not displayed when inactive", () => {
     const inactiveBanner = { ...defaultMockValues.useGetBannerValues };
 
-    inactiveBanner.data.startDate = new Date().getTime() - 360000;
-    inactiveBanner.data.endDate = new Date().getTime() - 3600;
+    inactiveBanner.data.startDate = Date.now() - 360000;
+    inactiveBanner.data.endDate = Date.now() - 3600;
     useApiMock({
       useGetBannerValues: { ...inactiveBanner },
     });

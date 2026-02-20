@@ -16,11 +16,6 @@ export interface LabelData {
   excludeFromIds?: string[];
 }
 
-const addLabelTextData = (acc: LabelText, data: LabelData) => {
-  acc[data.label] = data.text;
-  return acc;
-};
-
 export const getLabelText = (): { [key: string]: string } => {
   const { pathname } = window.location;
   const params = pathname.split("/");
@@ -28,10 +23,12 @@ export const getLabelText = (): { [key: string]: string } => {
   const measure = params[4];
   if (year && measure) {
     const data: any = Labels[`RateLabel${year}` as keyof typeof Labels];
-    return {
-      ...data[measure]?.qualifiers.reduce(addLabelTextData, {}),
-      ...data[measure]?.categories.reduce(addLabelTextData, {}),
-    };
+    const labelText: LabelText = {};
+    for (const { label, text } of (data[measure]?.qualifiers ?? []) +
+      (data[measure]?.categories ?? [])) {
+      labelText[label] = text;
+    }
+    return labelText;
   }
   return {};
 };

@@ -33,7 +33,7 @@ export const UserProvider = ({ children }: Props) => {
       setUser(null);
       await signOut();
     } catch (error) {
-      console.log("error signing out: ", error);
+      console.log("error signing out:", error);
     }
   }, []);
 
@@ -65,7 +65,7 @@ export const UserProvider = ({ children }: Props) => {
       setUser({
         ...payload,
       });
-    } catch (e) {
+    } catch {
       if (isProduction) {
         await authenticateWithIDM();
       } else {

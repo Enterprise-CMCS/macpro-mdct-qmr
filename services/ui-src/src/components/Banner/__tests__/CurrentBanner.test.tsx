@@ -32,8 +32,8 @@ describe("Test Current Banner", () => {
     const bannerData: BannerData = {
       title: "Banner Title",
       description: "Banner Description",
-      startDate: new Date().getTime() - dayInMS,
-      endDate: new Date().getTime() + dayInMS,
+      startDate: Date.now() - dayInMS,
+      endDate: Date.now() + dayInMS,
     };
 
     render(testComponent(bannerData));
@@ -49,8 +49,8 @@ describe("Test Current Banner", () => {
     const bannerData: BannerData = {
       title: "Banner Title",
       description: "Banner Description",
-      startDate: new Date().getTime() - dayInMS * 2,
-      endDate: new Date().getTime() - dayInMS,
+      startDate: Date.now() - dayInMS * 2,
+      endDate: Date.now() - dayInMS,
     };
 
     render(testComponent(bannerData));
@@ -74,8 +74,8 @@ describe("Test CurrentBanner accessibility", () => {
     const bannerData: BannerData = {
       title: "Banner Title",
       description: "Banner Description",
-      startDate: new Date().getTime() - dayInMS,
-      endDate: new Date().getTime() + dayInMS,
+      startDate: Date.now() - dayInMS,
+      endDate: Date.now() + dayInMS,
     };
 
     const { container } = render(testComponent(bannerData));

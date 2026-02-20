@@ -50,7 +50,7 @@ export const AddStateSpecificMeasure = () => {
     const matches = id.match(/\d+/) || [];
 
     // Add it to the existingIDs array
-    if (matches.length) {
+    if (matches.length > 0) {
       existingIds.push(parseInt(matches[0]!));
     }
   });

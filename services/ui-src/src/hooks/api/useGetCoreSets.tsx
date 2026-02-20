@@ -23,5 +23,5 @@ export const useGetCoreSets = (releasedYear: boolean) => {
       queryFn: () => getCoreSets({ state, year }),
     });
   }
-  throw Error("state or year unavailable");
+  throw new Error("state or year unavailable");
 };

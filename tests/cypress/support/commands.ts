@@ -73,15 +73,13 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 // Visit Health Home Core Set Measures
 Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
-    if ($tbody.find('[data-cy^="HHCS"]').length > 0) {
-      cy.get('[data-cy^="HHCS"]').first().click();
-    } else {
+    if ($tbody.find('[data-cy^="HHCS"]').length === 0) {
       // adds first available HH core set if no healthhome was made
       cy.get('[data-cy="add-hhbutton"]').click(); // clicking on adding child core set measures
       cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select(1); // select first available SPA
       cy.get('[data-cy="Create"]').click(); //clicking create
-      cy.get('[data-cy^="HHCS"]').first().click();
     }
+    cy.get('[data-cy^="HHCS"]').first().click();
   });
 });
 
@@ -219,27 +217,6 @@ Cypress.Commands.add("deleteHealthHomeSets", () => {
     }
   });
 });
-
-// Define at the top of the spec file or just import it
-function terminalLog(violations) {
-  cy.task(
-    "log",
-    `${violations.length} accessibility violation${
-      violations.length === 1 ? "" : "s"
-    } ${violations.length === 1 ? "was" : "were"} detected`
-  );
-  // pluck specific keys to keep the table readable
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      nodes: nodes.length,
-    })
-  );
-
-  cy.task("table", violationData);
-}
 
 // if user doesn't fill description box, show error
 Cypress.Commands.add("showErrorIfNotReportingAndNotWhy", () => {

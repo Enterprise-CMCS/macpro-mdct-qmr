@@ -21,7 +21,7 @@ export const validateAtLeastOneDeviationFieldFilled = (
       );
       ndrCount += filled.length;
 
-      if (rates.find((rate) => rate.label === "All Women Ages 21 to 44"))
+      if (rates.some((rate) => rate.label === "All Women Ages 21 to 44"))
         isCCWAD = true;
     });
 

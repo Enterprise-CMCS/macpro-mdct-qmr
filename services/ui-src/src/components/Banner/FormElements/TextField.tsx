@@ -5,10 +5,7 @@ import { TextField as CmsdsTextField } from "@cmsgov/design-system";
 export const TextField = ({
   name,
   label,
-  hint,
   placeholder,
-  sxOverride,
-  nested,
   children: _children,
   ...props
 }: Props) => {

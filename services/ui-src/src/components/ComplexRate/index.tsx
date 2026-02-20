@@ -65,25 +65,27 @@ const calculateTotals = (prevRate: any[], ndrFormulas: ndrFormula[]) => {
     numeratorPositions.push(formula.numerator);
   });
   let numberOfNumerators = numeratorPositions.length;
-  valueArray = new Array(numberOfNumerators).fill(0);
+  valueArray = Array.from({ length: numberOfNumerators }).fill(0);
   let i: number;
 
   // sum all field values - we assume last row is total
   prevRate.slice(0, -1).forEach((item) => {
-    if (!!item && !item["isTotal"]) {
-      if (item.fields?.every((f: { value?: string }) => !!f?.value)) {
-        if (!isNaN((x = parseFloat(item.fields[0].value)))) {
-          numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
-        }
-        i = numberOfNumerators;
-        numeratorPositions.forEach((position) => {
-          if (!isNaN((x = parseFloat(item.fields[position].value)))) {
-            valueArray[numberOfNumerators - i] =
-              valueArray[numberOfNumerators - i] + x;
-          }
-          i -= 1;
-        });
+    if (
+      !!item &&
+      !item["isTotal"] &&
+      item.fields?.every((f: { value?: string }) => !!f?.value)
+    ) {
+      if (!isNaN((x = parseFloat(item.fields[0].value)))) {
+        numEnrolleeSum = numEnrolleeSum + x; // += syntax does not work if default value is null
       }
+      i = numberOfNumerators;
+      numeratorPositions.forEach((position) => {
+        if (!isNaN((x = parseFloat(item.fields[position].value)))) {
+          valueArray[numberOfNumerators - i] =
+            valueArray[numberOfNumerators - i] + x;
+        }
+        i -= 1;
+      });
     }
   });
 
@@ -128,10 +130,10 @@ export const ComplexRate = ({
     defaultValue: [],
   });
 
-  if (measureName === "IUHH") {
-    if (categoryName === "Maternity") rates = [rates[1], rates[3], rates[4]];
+  if (measureName === "IUHH" && categoryName === "Maternity") {
+    rates = [rates[1], rates[3], rates[4]];
   }
-  rates[rates.length - 1]["isTotal"] = true;
+  rates.at(-1)!["isTotal"] = true;
 
   /*
   On component render, verify that all NDRs have a label and isTotal value.
@@ -164,7 +166,7 @@ export const ComplexRate = ({
       }
     });
 
-    prevRate[prevRate.length - 1]["isTotal"] = true;
+    prevRate.at(-1)["isTotal"] = true;
 
     field.onChange([...prevRate]);
   }, []);
@@ -238,7 +240,8 @@ export const ComplexRate = ({
             <CUI.Heading size={"sm"} key={`${qual.label}-heading`}>
               {lowerCaseMeasureName === "aifhh"
                 ? qual.label
-                : qual.label === "Total" || categoryName === ""
+                : /* oxlint-disable-next-line no-nested-ternary */
+                  qual.label === "Total" || categoryName === ""
                   ? `${qual.label} ${categoryName}`
                   : `${categoryName} ${qual.label?.toLowerCase()}`}
             </CUI.Heading>

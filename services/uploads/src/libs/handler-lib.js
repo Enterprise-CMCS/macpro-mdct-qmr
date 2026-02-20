@@ -7,9 +7,9 @@ function handler(lambda) {
       const body = await lambda(event, context);
       console.info("Handler executed successfully.");
       return success(body);
-    } catch (e) {
-      console.error(e);
-      const body = { error: e.message };
+    } catch (error) {
+      console.error(error);
+      const body = { error: error.message };
       return failure(body);
     }
   };

@@ -64,7 +64,7 @@ export const AddHHCoreSet = () => {
         value: spa.id,
       };
     })
-    .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
+    .toSorted((a, b) => (a.displayValue > b.displayValue && 1) || -1);
 
   const handleSubmit = (data: HealthHome) => {
     if (data[DC.HEALTH_HOME_CORESET_SPA]) {
@@ -143,7 +143,7 @@ export const AddHHCoreSet = () => {
                             type="submit"
                             buttonText="Create"
                             disabledStatus={
-                              !sortedSPAs.length || !watchSPAchoice
+                              sortedSPAs.length === 0 || !watchSPAchoice
                             }
                           />
                           <QMR.ContainedButton

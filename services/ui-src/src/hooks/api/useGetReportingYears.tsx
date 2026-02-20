@@ -29,5 +29,5 @@ export const useGetReportingYears = () => {
         }),
     });
   }
-  throw Error("state or year unavailable");
+  throw new Error("state or year unavailable");
 };

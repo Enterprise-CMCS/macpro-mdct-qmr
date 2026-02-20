@@ -8,7 +8,7 @@ import { MeasureStatus, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 
-export const createMeasure = handler(async (event, context) => {
+export const createMeasure = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet, measure } =
     parseMeasureParameters(event);
   if (!allParamsValid) {

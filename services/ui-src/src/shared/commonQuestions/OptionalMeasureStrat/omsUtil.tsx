@@ -277,7 +277,7 @@ export const useTotalAutoCalculation = ({
 
   useEffect(() => {
     const totalFieldName = `${name}.rates.${
-      qualifiers.slice(-1)[0].id
+      qualifiers.at(-1)!.id
     }.${cleanedCategory}`;
     const nonTotalQualifiers = qualifiers.slice(0, -1);
     const includedNames = nonTotalQualifiers.map(

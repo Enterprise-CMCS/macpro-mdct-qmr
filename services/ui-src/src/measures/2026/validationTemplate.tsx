@@ -278,8 +278,7 @@ export const validationTemplate = (
                 qual,
               ])} for ${categories[i].label} and ${categories[i + 1].label}.`;
 
-            unfilteredSameDenominatorErrors = [
-              ...unfilteredSameDenominatorErrors,
+            unfilteredSameDenominatorErrors.push(
               ...GV.validateEqualQualifierDenominatorsPM(
                 [performanceMeasureArray[i], performanceMeasureArray[i + 1]],
                 qualifiers,
@@ -287,11 +286,11 @@ export const validationTemplate = (
                 PMD.override?.validateEqualQualifierDenominatorsPM?.errorMessage
                   ? errorMsg
                   : undefined
-              ),
-            ];
+              )
+            );
           }
           unfilteredSameDenominatorErrors.forEach((error) => {
-            if (!(errorList.indexOf(error.errorMessage) > -1)) {
+            if (!errorList.includes(error.errorMessage)) {
               errorList.push(error.errorMessage);
               filteredSameDenominatorErrors.push(error);
             }

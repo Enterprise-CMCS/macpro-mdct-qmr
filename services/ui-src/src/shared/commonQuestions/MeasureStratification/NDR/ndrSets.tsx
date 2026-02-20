@@ -58,8 +58,7 @@ const AIFHHNDRSets = ({ name }: NdrProps) => {
 };
 
 const PCRNDRSets = ({ name }: NdrProps) => {
-  const { rateReadOnly, qualifiers, customMask } =
-    usePerformanceMeasureContext();
+  const { rateReadOnly, qualifiers } = usePerformanceMeasureContext();
   const rates = qualifiers.map((qual, i) => {
     return { label: qual.label, id: i };
   });
@@ -79,7 +78,6 @@ const PCRNDRSets = ({ name }: NdrProps) => {
         rates={rates}
         name={`${name}.pcr-rate`}
         readOnly={rateReadOnly}
-        customMask={customMask}
       />
     </>
   );

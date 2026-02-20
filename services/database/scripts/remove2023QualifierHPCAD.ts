@@ -1,4 +1,4 @@
-import * as readline from "readline";
+import * as readline from "node:readline";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
@@ -17,7 +17,7 @@ const rl = readline.createInterface({
 const promptString = (query: string) =>
   new Promise<string>((resolve) => rl.question(query, resolve));
 const promptYesNo = async (query: string) => {
-  do {
+  while (true) {
     const userInput = await promptString(query);
     switch (userInput.toUpperCase()[0]) {
       case "Y":
@@ -27,7 +27,7 @@ const promptYesNo = async (query: string) => {
       default:
         rl.write("Y or N only, please.\n");
     }
-  } while (true);
+  }
 };
 
 async function remove2023QualifierHPCAD() {

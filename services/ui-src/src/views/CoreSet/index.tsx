@@ -88,9 +88,7 @@ const StepsAndProgressSection = ({
   const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
   const tempSpa =
     coreSetInfo.length > 1
-      ? SPA[year!].filter(
-          (s) => s.id === coreSetInfo[1] && s.state === state
-        )[0]
+      ? SPA[year!].find((s) => s.id === coreSetInfo[1] && s.state === state)
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
@@ -356,7 +354,7 @@ export const CoreSet = () => {
 
   const tempSpa =
     coreSet.length > 1
-      ? SPA[year].filter((s) => s.id === coreSet[1] && s.state === state)[0]
+      ? SPA[year].find((s) => s.id === coreSet[1] && s.state === state)
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
@@ -436,7 +434,7 @@ export const CoreSet = () => {
   };
 
   // i.e, "Child Core Set Measures: Medicaid - Core Set Measures - 2025 QMR"
-  const simplifiedTitle = coreSetTitles(coreSet[0]).replace(/ \(.*?\)/g, ""); // Remove anything in parentheses
+  const simplifiedTitle = coreSetTitles(coreSet[0]).replaceAll(/ \(.*?\)/g, ""); // Remove anything in parentheses
 
   // For Health Home Core Sets, format the SPA name to exclude the full name
   let formattedSpaName = spaName;

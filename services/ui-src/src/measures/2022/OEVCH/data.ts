@@ -15,7 +15,7 @@ export const data: MeasureTemplateData = {
   },
   custom: {
     calcTotal: true,
-    customTotalLabel: qualifiers.slice(-1)[0].label,
+    customTotalLabel: qualifiers.at(-1)!.label,
   },
   validations: [
     "validateRequiredRadioButtonForCombinedRates",

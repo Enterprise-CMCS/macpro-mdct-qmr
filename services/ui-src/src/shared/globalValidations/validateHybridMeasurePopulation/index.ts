@@ -10,16 +10,15 @@ export const validateHybridMeasurePopulation = (
 ) => {
   const errorArray: FormError[] = [];
   if (
-    data.DataSource?.includes(HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA) ||
-    data.DataSource?.includes(CASE_MANAGEMENT_RECORD_REVIEW_DATA)
+    (data.DataSource?.includes(HYBRID_ADMINSTRATIVE_AND_MEDICAL_RECORDS_DATA) ||
+      data.DataSource?.includes(CASE_MANAGEMENT_RECORD_REVIEW_DATA)) &&
+    !data.HybridMeasurePopulationIncluded
   ) {
-    if (!data.HybridMeasurePopulationIncluded) {
-      errorArray.push({
-        errorLocation: "Definition of Population",
-        errorMessage:
-          errorMessage ?? "Size of the measure-eligible population is required",
-      });
-    }
+    errorArray.push({
+      errorLocation: "Definition of Population",
+      errorMessage:
+        errorMessage ?? "Size of the measure-eligible population is required",
+    });
   }
   return errorArray;
 };

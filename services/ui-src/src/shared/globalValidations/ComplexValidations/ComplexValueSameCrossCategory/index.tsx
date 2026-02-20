@@ -30,8 +30,7 @@ export const ComplexValueSameCrossCategoryOMS = (
     }
     // only need to add total data if other data exists
     if (row.length > 0) {
-      const catTotal = { ...totalData[cat.id][0] };
-      catTotal.label = "Total";
+      const catTotal = { ...totalData[cat.id][0], label: "Total" };
       row.push(catTotal);
       performanceMeasureArray.push(row);
     }
