@@ -13,7 +13,10 @@ export const DataSource = ({ type }: DataSourceProps) => {
   const labels: any = useContext(SharedContext);
 
   return (
-    <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
+    <QMR.CoreQuestionWrapper
+      testid="data-source"
+      label="Data Collection Method"
+    >
       <QMR.RadioButton
         formControlProps={{ paddingBottom: 4 }}
         label="Which version of the CAHPS survey was used for reporting?"

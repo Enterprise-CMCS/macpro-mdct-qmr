@@ -100,6 +100,17 @@ export const measuresColumns = (
             id: "mandatory_column_header",
             styleProps: { textAlign: "center" },
             cell: (data: MeasureTableItem.Data) => {
+              if (!data?.measureType) {
+                // This coreset is neither marked mandatory nor provisional
+                return <></>;
+              }
+              if (
+                data.typeTagForCoreSets &&
+                !data.typeTagForCoreSets.includes(data.coreSet)
+              ) {
+                // This coreset is explicitly excluded from tagging
+                return <></>;
+              }
               return (
                 <CUI.Badge
                   fontSize="xs"
@@ -108,9 +119,7 @@ export const measuresColumns = (
                   borderRadius="lg"
                   px="2"
                 >
-                  {data?.measureType && (
-                    <CUI.Text fontWeight="normal">{data?.measureType}</CUI.Text>
-                  )}
+                  <CUI.Text fontWeight="normal">{data.measureType}</CUI.Text>
                 </CUI.Badge>
               );
             },
