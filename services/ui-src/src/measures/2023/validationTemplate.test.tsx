@@ -5,7 +5,7 @@ import {
   testComplexValidations,
   testMeasure,
   testOMSValidations,
-  testValidations,
+  legacyTestValidations,
 } from "shared/globalValidations/testHelpers/_testMeasure";
 import * as DC from "dataConstants";
 
@@ -24,7 +24,7 @@ describe("Test validationTemplate", () => {
   it("there are not validation errors", () => {
     const modifiedTestMeasure = {
       ...testMeasure,
-      validations: [...testValidations, ...testComplexValidations],
+      validations: [...legacyTestValidations, ...testComplexValidations],
     };
     const error = validationTemplate(defaultFormData, modifiedTestMeasure);
     expect(error).toStrictEqual([]);
@@ -51,7 +51,7 @@ describe("Test validationTemplate", () => {
     };
     const modifiedTestMeasure = {
       ...testMeasure,
-      validations: [...testValidations],
+      validations: [...legacyTestValidations],
       override: {
         validateEqualQualifierDenominatorsPM: {
           category: true,
@@ -86,7 +86,7 @@ describe("Test validationTemplate", () => {
   it("there are no complex validations errors", () => {
     const modifiedTestMeasure = {
       ...testMeasure,
-      validations: [...testValidations, ...testComplexValidations],
+      validations: [...legacyTestValidations, ...testComplexValidations],
     };
     modifiedTestMeasure.performanceMeasure.measureName = "AIFHH";
 
@@ -104,7 +104,7 @@ describe("Test validationTemplate", () => {
     };
     const modifiedTestMeasure = {
       ...testMeasure,
-      validations: [...testValidations, ...testComplexValidations],
+      validations: [...legacyTestValidations, ...testComplexValidations],
     };
     modifiedTestMeasure.performanceMeasure.measureName = "PCRHH";
     const error = validationTemplate(modifiedFormData, modifiedTestMeasure);
