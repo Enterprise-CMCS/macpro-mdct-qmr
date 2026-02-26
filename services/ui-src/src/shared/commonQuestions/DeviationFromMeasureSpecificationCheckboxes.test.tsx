@@ -56,4 +56,14 @@ describe("Test DeviationFromMeasureSpec Component", () => {
     const checkboxes = screen.queryAllByRole("checkbox");
     expect(checkboxes).toHaveLength(0);
   });
+
+  it("Checkboxes render for legacy rates", () => {
+    const radioButtonYes = screen.getByRole("radio", {
+      name: "Yes, the calculation of the measure varies from the measure specification.",
+    });
+    fireEvent.click(radioButtonYes);
+    // const checkboxes = screen.queryAllByRole("checkbox");
+    screen.debug();
+    console.log("hello");
+  });
 });
