@@ -23,7 +23,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "WCV-CH";
 const coreSet = "CCSC";
 const state = "AL";
-const year = 2025;
+const year = 2024;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 

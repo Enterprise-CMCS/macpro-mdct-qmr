@@ -11,6 +11,7 @@ import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { clearMocks } from "shared/util/validationsMock";
 import { useParams } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
 
 expect.extend(toHaveNoViolations);
 
@@ -124,6 +125,27 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
       screen.queryByText("Definition of Population Included in the Measure")
     ).toBeInTheDocument();
     expect(screen.queryByText("Performance Measure")).toBeInTheDocument();
+  });
+
+  it("test add and delete of another", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+
+    expect(
+      screen.queryByRole("button", { name: "+ Add Another" })
+    ).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole("button", { name: "+ Add Another" }));
+
+    expect(
+      screen.getByRole("button", { name: "Delete Field" })
+    ).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole("button", { name: "Delete Field" }));
+
+    expect(
+      screen.queryByRole("button", { name: "Delete Field" })
+    ).not.toBeInTheDocument();
   });
 });
 

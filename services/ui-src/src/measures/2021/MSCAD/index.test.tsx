@@ -24,7 +24,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "MSC-AD";
 const coreSet = "ACS";
 const state = "AL";
-const year = 2022;
+const year = 2021;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 
@@ -101,13 +101,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
+    expect(screen.queryByText("Measurement Specification")).toBeInTheDocument();
+    expect(screen.queryByText("Data Source")).toBeInTheDocument();
+    expect(screen.queryByText("Date Range")).toBeInTheDocument();
     expect(
-      screen.queryByTestId("measurement-specification")
-    ).toBeInTheDocument();
-    expect(screen.queryByTestId("data-source")).toBeInTheDocument();
-    expect(screen.queryByTestId("date-range")).toBeInTheDocument();
-    expect(
-      screen.queryByTestId("definition-of-population")
+      screen.queryByText("Definition of Population Included in the Measure")
     ).toBeInTheDocument();
   });
 

@@ -251,3 +251,25 @@ export const DefinitionOfPopulationData = {
     "DenominatorDefineHealthHome-No-Explanation": "Another one bites the dust",
   },
 };
+
+export const qualifierBaseData = {
+  AdministrativeData: {
+    numberOfAdults: "",
+    minAgeOfAdults: "",
+    numberOfChildren: "",
+    maxAgeChildren: "",
+    numberOfIndividuals: "",
+    numberOfProviders: "",
+  },
+  CostSavingsData: {
+    yearlyCostSavings: 0,
+    costSavingsMethodology: "",
+    costSavingsFile: [],
+  },
+  PercentageEnrolledInEachDeliverySystem: [{}],
+  CoreSetMeasuresAuditedOrValidated: "",
+  CoreSetMeasuresAuditedOrValidatedDetails: [],
+  WasExternalContractorUsed: "",
+  ExternalContractorsUsed: [],
+  OtherContractorDetails: "",
+};
