@@ -1,4 +1,4 @@
-export const enum Errors {
+export enum Errors {
   // generic errors
   UNAUTHORIZED = "User is not authorized to access this resource.",
   NO_KEY = "Must provide key for table",
@@ -12,7 +12,7 @@ export const enum Errors {
   CORESET_ALREADY_EXISTS = "Failure to create coreset. Coreset already exists.",
 }
 
-export const enum StatusCodes {
+export enum StatusCodes {
   SUCCESS = 200,
   CREATED = 201,
   BAD_REQUEST = 400,

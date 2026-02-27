@@ -21,7 +21,7 @@ export const ExportAll = () => {
   const regMeasures = data?.Items?.filter((d: any) => d.measure !== "CSQ")
     // filter out non-created State Specific measures
     ?.filter((m: any) => !/SS-\d-HH/g.test(m.measure) || m?.userCreated)
-    .sort((a: any, b: any) => a?.measure?.localeCompare(b?.measure));
+    .toSorted((a: any, b: any) => a?.measure?.localeCompare(b?.measure));
   const sortedData = [csqMeasure, ...regMeasures];
 
   //build the data to render the measures

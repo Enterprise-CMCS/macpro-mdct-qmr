@@ -9,14 +9,11 @@ export const BannerCard = () => {
   const bannerData = useGetBanner(bannerId);
 
   useEffect(() => {
-    if (bannerData?.isFetched) {
-      if (
-        checkDateRangeStatus(
-          bannerData.data?.startDate,
-          bannerData.data?.endDate
-        )
-      )
-        setBanner(bannerData.data);
+    if (
+      bannerData?.isFetched &&
+      checkDateRangeStatus(bannerData.data?.startDate, bannerData.data?.endDate)
+    ) {
+      setBanner(bannerData.data);
     }
   }, [bannerData]);
 

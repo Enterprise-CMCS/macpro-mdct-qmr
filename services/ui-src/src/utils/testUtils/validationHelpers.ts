@@ -150,9 +150,10 @@ export const generateOmsQualifierRateData = (
     return {};
   }
   const rateData: OMS.OmsRateFields = {};
-  const cats = categories.length
-    ? categories.map((item) => item.id)
-    : [DC.SINGLE_CATEGORY];
+  const cats =
+    categories.length > 0
+      ? categories.map((item) => item.id)
+      : [DC.SINGLE_CATEGORY];
   rateData.options = qualifiers.map((s) => s.id);
   const legacy = isLegacyLabel();
 
@@ -191,8 +192,9 @@ export const generateOmsCategoryRateData = (
     return {};
   }
 
-  const rateData: OMS.OmsRateFields = {};
-  rateData.options = qualifiers.map((s) => s.id);
+  const rateData: OMS.OmsRateFields = {
+    options: qualifiers.map((s) => s.id),
+  };
   const legacy = isLegacyLabel();
 
   for (const [i, c] of categories.map((c) => c.id).entries()) {
@@ -313,7 +315,7 @@ export const generateOmsFormData = (
   // urban/domestic - english/spanish - etc
   const createMidLevelNode = (node: OmsNode): OMS.MidLevelOMSNode => {
     const midNode: OMS.MidLevelOMSNode = {};
-    if (!!node.options?.length) {
+    if (node.options?.length) {
       midNode.aggregate = "NoIndependentData";
       for (const opt of node.options) {
         midNode.options ??= [];
@@ -339,7 +341,7 @@ export const generateOmsFormData = (
     if (!node.options) {
       topNode.rateData = rateData;
     }
-    if (!!node.options?.length) {
+    if (node.options?.length) {
       for (const opt of node.options) {
         topNode.options ??= [];
         topNode.label ??= "";

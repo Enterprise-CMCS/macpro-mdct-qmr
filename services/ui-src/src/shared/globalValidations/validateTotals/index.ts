@@ -65,7 +65,7 @@ export const validateOMSTotalNDR =
         ) {
           error.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              [...label, qualifiers.slice(-1)[0].label]
+              [...label, qualifiers.at(-1)!.label]
             )}`,
             errorMessage: errorMessageFunc("numerator", customTotalLabel),
           });
@@ -77,7 +77,7 @@ export const validateOMSTotalNDR =
         ) {
           error.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              [...label, qualifiers.slice(-1)[0].label]
+              [...label, qualifiers.at(-1)!.label]
             )}`,
             errorMessage: errorMessageFunc("denominator", customTotalLabel),
           });
@@ -85,7 +85,7 @@ export const validateOMSTotalNDR =
       } else if (numeratorSum && denominatorSum) {
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qualifiers.slice(-1)[0].label]
+            [...label, qualifiers.at(-1)!.label]
           )}`,
           errorMessage: errorMessageFunc("Total", customTotalLabel),
         });
@@ -145,7 +145,7 @@ export const validateTotalNDR = (
       }
     });
 
-    let totalNDR = ndrSet[ndrSet.length - 1];
+    let totalNDR = ndrSet.at(-1);
     if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
 
@@ -187,8 +187,8 @@ export const validateTotalNDR = (
       const fieldLabel =
         (categories &&
           categories[idx]?.label &&
-          `${categories[idx].label} - ${totalNDR.label}`) ||
-        totalNDR.label;
+          `${categories[idx].label} - ${totalNDR!.label}`) ||
+        totalNDR!.label;
       errorArray.push({
         errorLocation: errorLocation,
         errorMessage: errorMessageFunc(fieldLabel!, "Total"),

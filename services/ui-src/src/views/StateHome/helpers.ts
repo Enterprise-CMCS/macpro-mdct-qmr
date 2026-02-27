@@ -77,7 +77,7 @@ export const formatTableItems = ({
       const tempSet = coreSet.split("_");
       const tempSpa =
         tempSet.length === 2 &&
-        filteredSpas!.filter((s) => s.id === tempSet?.[1])[0];
+        filteredSpas!.find((s) => s.id === tempSet?.[1]);
       const tempTitle =
         tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
           ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
@@ -145,7 +145,7 @@ export const formatTableItems = ({
   );
 
   // sort the table items alphabetically by type
-  return coreSetTableItems.sort(
+  return coreSetTableItems.toSorted(
     (a: CoreSetTableItem.Data, b: CoreSetTableItem.Data) => {
       if (a.type > b.type) return 1;
       return -1;

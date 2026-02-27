@@ -25,5 +25,5 @@ export const useGetRate = ({ measure, state, coreSet, year }: GetRate) => {
       queryFn: () => _getRate({ measure, state, coreSet, year }),
     });
   }
-  throw Error("state or year unavailable");
+  throw new Error("state or year unavailable");
 };

@@ -111,11 +111,11 @@ describe("ExportAll utils", () => {
   });
 
   describe("cloneEmotionStyles", () => {
-    let appendChildSpy: jest.SpyInstance;
+    let appendSpy: jest.SpyInstance;
     let createTextNodeSpy: jest.SpyInstance;
 
     beforeEach(() => {
-      appendChildSpy = jest.spyOn(document.body, "appendChild");
+      appendSpy = jest.spyOn(document.body, "append");
       createTextNodeSpy = jest.spyOn(document, "createTextNode");
     });
 
@@ -134,7 +134,7 @@ describe("ExportAll utils", () => {
 
       const tags = cloneEmotionStyles();
       expect(tags.length).toBe(2);
-      expect(appendChildSpy).toHaveBeenCalled();
+      expect(appendSpy).toHaveBeenCalled();
       expect(createTextNodeSpy).toHaveBeenCalledWith(
         expect.stringContaining("text-align: center")
       );
@@ -158,7 +158,7 @@ describe("ExportAll utils", () => {
 
       const tags = cloneEmotionStyles();
       expect(tags.length).toBe(0);
-      expect(appendChildSpy).not.toHaveBeenCalled();
+      expect(appendSpy).not.toHaveBeenCalled();
       expect(createTextNodeSpy).not.toHaveBeenCalled();
     });
   });

@@ -14,8 +14,8 @@ jest.mock("../../../libs/dynamodb-lib", () => ({
     link: "https://www.example.com",
     startDate: 1000,
     endDate: 2000,
-    createdAt: new Date().getTime(),
-    lastAltered: new Date().getTime(),
+    createdAt: Date.now(),
+    lastAltered: Date.now(),
   }),
 }));
 

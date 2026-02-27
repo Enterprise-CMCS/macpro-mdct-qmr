@@ -65,7 +65,7 @@ const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
         !item.autoCompleted &&
         !measuresWithoutPerformanceData.includes(item.measure)
     )
-    .sort((a, b) => a?.measure?.localeCompare(b?.measure));
+    .toSorted((a, b) => a?.measure?.localeCompare(b?.measure));
 
   return formatted?.map((item) => {
     return {

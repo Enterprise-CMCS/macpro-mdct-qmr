@@ -41,5 +41,5 @@ export const useGetMeasure = ({ coreSet, measure }: GetMeasure) => {
       refetchOnWindowFocus: false,
     });
   }
-  throw Error("state or year unavailable");
+  throw new Error("state or year unavailable");
 };

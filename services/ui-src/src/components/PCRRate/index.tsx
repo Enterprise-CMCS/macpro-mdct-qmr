@@ -14,18 +14,9 @@ interface Props extends QMR.InputWrapperProps {
   rates: IRate[];
   name: string;
   readOnly?: boolean;
-  allowMultiple?: boolean;
-  customMask?: RegExp;
 }
 
-export const PCRRate = ({
-  rates,
-  name,
-  allowMultiple = false,
-  readOnly = true,
-  customMask,
-  ...rest
-}: Props) => {
+export const PCRRate = ({ rates, name, readOnly = true, ...rest }: Props) => {
   const {
     control,
     formState: { errors },
@@ -115,11 +106,10 @@ export const PCRRate = ({
 
     if (isRate || index === 3) {
       validValue = sixteenNumbersFourDecimal.test(newValue);
-      editRate["value"] = validValue ? newValue : editRate["value"];
     } else {
       validValue = allPositiveIntegersWith10Digits.test(newValue);
-      editRate["value"] = validValue ? newValue : editRate["value"];
     }
+    editRate["value"] = validValue ? newValue : editRate["value"];
 
     prevRate[index] = {
       label: rates[index].label,
@@ -204,7 +194,7 @@ export const PCRRate = ({
           return generateInputs(rate, index);
         })}
       </CUI.Stack>
-      {!!(warnings.length > 0) && (
+      {warnings.length > 0 && (
         <CUI.Stack my={8} spacing={3} className="multi-rate-print-stack">
           {warnings}
         </CUI.Stack>

@@ -40,9 +40,9 @@ export const validateDualPopInformationPM = (
   const labels = getLabels(errorReplacementText, coreSet);
 
   const dualEligible = DefinitionOfDenominator
-    ? DefinitionOfDenominator.indexOf(
+    ? DefinitionOfDenominator.includes(
         DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE
-      ) !== -1
+      )
     : false;
 
   const errorArray: FormError[] = [];

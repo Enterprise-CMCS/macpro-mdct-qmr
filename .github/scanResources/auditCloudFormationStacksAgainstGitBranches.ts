@@ -57,7 +57,7 @@ export async function getOrphanedStacks(
 
   const orphanedStacks = stacks
     .filter((stack) => !branches.some((branch) => stack.name.includes(branch)))
-    .sort((a, b) => a.creationTime.getTime() - b.creationTime.getTime());
+    .toSorted((a, b) => a.creationTime.getTime() - b.creationTime.getTime());
 
   return orphanedStacks;
 }
@@ -76,7 +76,7 @@ async function main() {
 
   const repoEnding = repoName.replace(/^macpro-mdct-/, "");
   const accountIdentifier = await getAccountIdentifier();
-  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+  const timestamp = new Date().toISOString().replaceAll(/[:.]/g, "-");
   const outputFile = `orphaned-stacks-${repoEnding}-${accountIdentifier}-${timestamp}.txt`;
 
   const log = (line: string = "") => {
@@ -94,15 +94,15 @@ async function main() {
   let orphanedStacks: StackInfo[] = [];
   try {
     orphanedStacks = await getOrphanedStacks(repoName);
-  } catch (e: any) {
-    log(`Failed to fetch orphaned stacks: ${e?.message || e}`);
+  } catch (error: any) {
+    log(`Failed to fetch orphaned stacks: ${error?.message || error}`);
     process.exit(1);
   }
 
   log(`Orphaned stacks (no matching branch): ${orphanedStacks.length}`);
   log();
 
-  if (!orphanedStacks.length) {
+  if (orphanedStacks.length === 0) {
     log("✅ No orphaned stacks found.");
   } else {
     log("❌ Orphaned stacks:");

@@ -374,15 +374,12 @@ export const MeasureWrapper = ({
       (acc: any, current: any) => {
         //temporary code to be used during migration of validation file
         const error = current(data, validationFunctions.data, coreSetId);
-        let errorArray = [];
+        if (!error) return acc;
 
-        if (Array.isArray(error)) {
-          errorArray = [...error];
-        } else {
-          errorArray = [error];
-        }
+        const errorArray = Array.isArray(error) ? error : [error];
 
-        return error ? [...acc, ...errorArray] : acc;
+        acc.push(...errorArray);
+        return acc;
       },
       []
     );
@@ -430,7 +427,7 @@ export const MeasureWrapper = ({
 
     // Qualifiers -> "Qualifiers - Child Core Set Measures: Medicaid - 2025 QMR"
     if (measureId === "CSQ") {
-      const cleanTitle = coreSetTitle.replace(/ \(.*?\)/g, "");
+      const cleanTitle = coreSetTitle.replaceAll(/ \(.*?\)/g, "");
       return `Qualifiers - ${cleanTitle} - ${year} QMR`;
     }
 
@@ -442,7 +439,7 @@ export const MeasureWrapper = ({
       );
       if (spa) {
         const spaName = `${spa.state} ${spa.id}`;
-        const cleanTitle = coreSetTitle.replace(/ \(.*?\)/g, "");
+        const cleanTitle = coreSetTitle.replaceAll(/ \(.*?\)/g, "");
         // Health Home Core Set Measures -> "AIF-HH - Health Home Core Set Measures: IA 22-0004 - 2025 QMR"
         return `${measureId} - ${cleanTitle}: ${spaName} - ${year} QMR`;
       }
@@ -452,13 +449,13 @@ export const MeasureWrapper = ({
     if (coreSetTitle.includes(": ")) {
       const [mainPart, subtitle] = coreSetTitle.split(": ");
       // Clean up stuff in parentheses from subtitle
-      let cleanSubtitle = subtitle.replace(/ \(.*?\)/g, "");
+      let cleanSubtitle = subtitle.replaceAll(/ \(.*?\)/g, "");
       // Individual Measures -> "AAB-CH - Medicaid: Child Core Set Measures - 2025 QMR"
       return `${measureId} - ${cleanSubtitle}: ${mainPart} - ${year} QMR`;
     }
 
     // If no colon, use the original format
-    const cleanTitle = coreSetTitle.replace(/ \(.*?\)/g, "");
+    const cleanTitle = coreSetTitle.replaceAll(/ \(.*?\)/g, "");
     return `${measureId} - ${cleanTitle} - ${year} QMR`;
   })();
 
@@ -578,7 +575,7 @@ export const MeasureWrapper = ({
                   />
                 )}
                 {errors
-                  ?.sort((a, b) =>
+                  ?.toSorted((a, b) =>
                     a.errorLocation.localeCompare(b.errorLocation)
                   )
                   ?.map((error, index) => (
@@ -594,9 +591,7 @@ export const MeasureWrapper = ({
                       close={() => {
                         const newErrors = [...errors];
                         newErrors.splice(index, 1);
-                        setErrors(
-                          newErrors.length !== 0 ? newErrors : undefined
-                        );
+                        setErrors(newErrors.length > 0 ? newErrors : undefined);
                       }}
                     />
                   ))}

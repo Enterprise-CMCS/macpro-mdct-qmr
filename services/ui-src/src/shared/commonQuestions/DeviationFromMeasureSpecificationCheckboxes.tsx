@@ -94,7 +94,7 @@ export const getLowLvlDeviationOptions = ({
   }
 
   return qualifiers
-    .sort((a: any, b: any) => b.label! - a.label!)
+    .toSorted((a: any, b: any) => b.label! - a.label!)
     .map((item) => {
       const value = `${item.label && cleanString(item.label)}`;
       return {
@@ -152,7 +152,7 @@ export const DeviationFromMeasureSpecificationCheckboxes = ({
         const totalIndex = rates.singleCategory.findIndex(
           (cat: any) => cat?.isTotal === true
         );
-        if (totalIndex >= 0) {
+        if (totalIndex !== -1) {
           rates.singleCategory[totalIndex].label = `${
             customTotalLabel ? `${customTotalLabel}` : "Total"
           }`;

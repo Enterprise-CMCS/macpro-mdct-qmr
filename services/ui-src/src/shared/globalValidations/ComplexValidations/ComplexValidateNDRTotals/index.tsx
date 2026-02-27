@@ -94,7 +94,7 @@ export const ComplexValidateNDRTotals = (
     }
 
     // Compare calculated sums to values in Total qualifier
-    const categoryTotal = category.slice(-1)[0];
+    const categoryTotal = category.at(-1);
     if (
       categorySums.length > 0 &&
       !categoryTotal?.fields.every(
@@ -102,11 +102,9 @@ export const ComplexValidateNDRTotals = (
       )
     ) {
       errorArray.push({
-        errorLocation: `${errorLocation} - ${
-          categories[i]?.label ? categories[i].label : ""
-        }`,
+        errorLocation: `${errorLocation} - ${categories[i]?.label ?? ""}`,
         errorMessage: `Total ${
-          categories[i]?.label ? categories[i].label : ""
+          categories[i]?.label ?? ""
         } must contain values if other fields are filled.`,
       });
     } else {
@@ -117,13 +115,11 @@ export const ComplexValidateNDRTotals = (
           categorySums[x] !== parseFloat(field.value)
         ) {
           errorArray.push({
-            errorLocation: `${errorLocation} - ${
-              categories[i]?.label ? categories[i].label : ""
-            }`,
+            errorLocation: `${errorLocation} - ${categories[i]?.label ?? ""}`,
             errorMessage: `Total ${
               field.label
             } is not equal to the sum of other "${field.label}" fields in ${
-              categories[i]?.label ? categories[i].label : ""
+              categories[i]?.label ?? ""
             } section.`,
           });
         }

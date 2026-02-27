@@ -42,19 +42,16 @@ const _validation = ({
       highDenom &&
       lowerDenom &&
       highDenom.denominator &&
-      lowerDenom.denominator
+      lowerDenom.denominator &&
+      parseFloat(lowerDenom.denominator) > parseFloat(highDenom.denominator)
     ) {
-      if (
-        parseFloat(lowerDenom.denominator) > parseFloat(highDenom.denominator)
-      ) {
-        errorArray.push({
-          errorLocation: location,
-          errorMessage: errorMessageFunc(
-            qualifiers?.[lowerIndex]?.label!,
-            qualifiers?.[higherIndex]?.label!
-          ),
-        });
-      }
+      errorArray.push({
+        errorLocation: location,
+        errorMessage: errorMessageFunc(
+          qualifiers?.[lowerIndex]?.label!,
+          qualifiers?.[higherIndex]?.label!
+        ),
+      });
     }
   }
 
