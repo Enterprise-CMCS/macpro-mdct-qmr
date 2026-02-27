@@ -2,8 +2,6 @@ import { screen } from "@testing-library/react";
 import { PrintableMeasureWrapper } from ".";
 import { renderWithHookForm } from "utils";
 import { useParams } from "react-router-dom";
-import { Box } from "@chakra-ui/react";
-import { cloneElement } from "react";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -17,10 +15,10 @@ jest.mock("react-router-dom", () => ({
 }));
 const mockUseParam = useParams as jest.Mock;
 
-const mockMeasure = cloneElement(<Box>mock measure</Box>);
+const mockMeasure = <div>mock measure</div>;
 jest.mock("react", () => ({
   ...jest.requireActual("react"),
-  cloneElement: jest.fn().mockReturnValue(mockMeasure),
+  cloneElement: (el: any) => el,
 }));
 
 const mockMeasureData = {
@@ -41,6 +39,7 @@ describe("Test PrintableMeasureWrapper Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
+
   it("PrintableMeasureWrapper renders", () => {
     mockUseParam.mockReturnValue({ coreSetId: "CCSM", state: "MA" });
     renderWithHookForm(
@@ -53,8 +52,9 @@ describe("Test PrintableMeasureWrapper Component", () => {
       ></PrintableMeasureWrapper>
     );
 
-    screen.debug();
+    expect(screen.getByText("mock measure")).toBeVisible();
   });
+
   it("PrintableMeasureWrapper does not render when params are undefined", () => {
     mockUseParam.mockReturnValue({});
     renderWithHookForm(
@@ -66,5 +66,7 @@ describe("Test PrintableMeasureWrapper Component", () => {
         measureData={mockMeasureData}
       ></PrintableMeasureWrapper>
     );
+
+    expect(screen.queryByText("mock measure")).not.toBeInTheDocument();
   });
 });
