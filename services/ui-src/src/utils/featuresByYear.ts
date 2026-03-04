@@ -57,7 +57,7 @@ export const featuresByYear = {
    * In 2024, we added the mandatory flag as column in the measure table,
    * so that users can see at a glance which measures are mandatory.
    * In 2025, we renamed this column from "Mandatory" to "Type".
-   * In 2026, we renamed it back.
+   * In 2026, we renamed it to "Mandatory" again.
    */
   get displayMandatoryMeasuresColumn() {
     const year = getMeasureYear();
@@ -68,7 +68,7 @@ export const featuresByYear = {
    * it allows us to have more options and control over what is displayed
    */
   get displayTypeMeasuresColumn() {
-    return getMeasureYear() >= 2025;
+    return getMeasureYear() == 2025;
   },
   /**
    * Beginning in 2023, the category for a complex rate needs to be set to
