@@ -56,10 +56,12 @@ export const featuresByYear = {
    * Prior to 2024, we didn't distinguish mandatory measures from optional ones.
    * In 2024, we added the mandatory flag as column in the measure table,
    * so that users can see at a glance which measures are mandatory.
-   * In 2025, we turned this column into the Type column
+   * In 2025, we renamed this column from "Mandatory" to "Type".
+   * In 2026, we renamed it back.
    */
   get displayMandatoryMeasuresColumn() {
-    return getMeasureYear() == 2024;
+    const year = getMeasureYear();
+    return year === 2024 || year >= 2026;
   },
   /**
    * In 2025 we changed the mandatory boolean into a measureType enum
