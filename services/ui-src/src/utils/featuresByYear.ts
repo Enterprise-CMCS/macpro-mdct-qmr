@@ -122,9 +122,9 @@ export const featuresByYear = {
     return getMeasureYear() < 2025;
   },
   /**
-   * Prior to 2025, the Measure Stratification section was called Optional Measure Stratification
+   * Prior to 2025, the section was called "Optional Measure Stratification"
    *
-   * In 2025 and beyond, we want to hide an instance of it being referenced as such
+   * In 2025 and beyond, it is just "Measure Stratification".
    */
   get displayOptionalLanguage() {
     return getMeasureYear() < 2025;
@@ -133,7 +133,8 @@ export const featuresByYear = {
   /**
    * Prior to 2025, the report name was "Medicaid (Title XIX & XXI)"
    *
-   * In 2025 and beyond, we want to change it to "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)"
+   * In 2025 and beyond, we want to change it to:
+   * "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)"
    */
   get hasMedicaidInclusiveReportName() {
     return getMeasureYear() >= 2025;
@@ -152,25 +153,29 @@ export const featuresByYear = {
   /**
    * Prior to 2025, the PM validation "
    *
-   * In 2025 and beyond, we want to change it to "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+   * In 2025 and beyond, we want to change it to:
+   * "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
    */
   get hasAdultSeparateCHIPInclusiveWarning() {
     return getMeasureYear() >= 2025;
   },
 
   /**
-   * Prior to 2025, auto-calulated rate was read-only when the data source was Administrative Data"
+   * Prior to 2025, auto-calculated rates were read-only,
+   * if and only if the data source was "Administrative Data"
    *
-   * In 2026 and beyond, we want to allow manual editing of rates only when multiple data sources are selected OR data source is either: Hybrid or Case Management
+   * In 2026 and beyond, we want to allow manual editing of rates
+   * when multiple data sources are selected
+   * OR data source is either: Hybrid or Case Management
    */
   get updatedReadOnlyRateCheck() {
     return getMeasureYear() >= 2026;
   },
 
   /**
-   * Prior to 2025, we solely use the language Data Source
+   * Prior to 2025, we solely use the language "Data Source"
    *
-   * In 2026 and beyond, we want to use Data Collection Method instead of Data Source in most instances
+   * In 2026 and beyond, in most cases, we say "Data Collection Method"
    */
   get useDataCollectionMethod() {
     return getMeasureYear() >= 2026;
