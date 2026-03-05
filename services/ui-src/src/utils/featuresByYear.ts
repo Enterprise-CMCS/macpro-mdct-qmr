@@ -61,14 +61,15 @@ export const featuresByYear = {
    */
   get displayMandatoryMeasuresColumn() {
     const year = getMeasureYear();
-    return year === 2024 || year >= 2026;
+    return year >= 2024;
   },
   /**
    * In 2025 we changed the mandatory boolean into a measureType enum
-   * it allows us to have more options and control over what is displayed
+   * it allows us to have more options and control over what is displayed.
+   * Note that it is still an enum after 2025; we just don't label it as "Type".
    */
-  get displayTypeMeasuresColumn() {
-    return getMeasureYear() == 2025;
+  get renameMandatoryColumnToType() {
+    return getMeasureYear() === 2025;
   },
   /**
    * Beginning in 2023, the category for a complex rate needs to be set to
@@ -81,7 +82,8 @@ export const featuresByYear = {
    * Prior to 2024, we would display a warning if users entered rates for 65+
    * qualifiers, without marking Dual-Eligible in the Definition of Population.
    * In 2024, we removed this validation at the request of CMS.
-   */ get shouldValidateDuallyEligibleCheckbox() {
+   */
+  get shouldValidateDuallyEligibleCheckbox() {
     return getMeasureYear() >= 2023;
   },
   /**

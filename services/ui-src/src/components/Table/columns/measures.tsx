@@ -90,13 +90,12 @@ export const measuresColumns = (
         );
       },
     },
-    ...(featuresByYear.displayMandatoryMeasuresColumn ||
-    featuresByYear.displayTypeMeasuresColumn
+    ...(featuresByYear.displayMandatoryMeasuresColumn
       ? [
           {
-            header: featuresByYear.displayMandatoryMeasuresColumn
-              ? "Mandatory"
-              : "Type",
+            header: featuresByYear.renameMandatoryColumnToType
+              ? "Type"
+              : "Mandatory",
             id: "mandatory_column_header",
             styleProps: { textAlign: "center" },
             cell: (data: MeasureTableItem.Data) => {
