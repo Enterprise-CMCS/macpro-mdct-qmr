@@ -40,6 +40,9 @@ interface MeasureTableItem {
   lastDateModified: number;
   id: string;
   userCreated?: boolean;
+  coreSet: CoreSetAbbr;
+  /** For which core sets will the measureType be displayed? */
+  typeTagForCoreSets: CoreSetAbbr[];
   actions: { itemText: string; handleSelect: () => void }[];
 }
 
@@ -289,6 +292,8 @@ const useMeasureTableDataBuilder = () => {
             id: item.measure,
             userCreated: item.userCreated,
             actions: actions,
+            coreSet: item.coreSet,
+            typeTagForCoreSets: item.typeTagForCoreSets,
           };
         });
       measureTableData.sort((a, b) => a?.abbr?.localeCompare(b?.abbr));
@@ -347,6 +352,8 @@ export const CoreSet = () => {
   year = year ?? "";
 
   const coreSet = coreSetId?.split("_") ?? [coreSetId];
+  const coreSetPrefix = coreSet[0] as CoreSetAbbr;
+
   const tempSpa =
     coreSet.length > 1
       ? SPA[year].filter((s) => s.id === coreSet[1] && s.state === state)[0]
@@ -427,8 +434,6 @@ export const CoreSet = () => {
       HHCS: "States with approved Health Home Programs in operation by July 1, 2024 are required to report all of the measures on the Health Home Core Set. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2024-03/smd24002.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Health Home Core Sets</a>. <p>&nbsp;</p> For 2026 Core Sets reporting, states are expected to report stratified data for the following measures in the Health Home report: CBP-HH, COL-HH, and FUH-HH.",
     },
   };
-
-  const coreSetPrefix = coreSet[0].slice(0, 4);
 
   // i.e, "Child Core Set Measures: Medicaid - Core Set Measures - 2025 QMR"
   const simplifiedTitle = coreSetTitles(coreSet[0]).replace(/ \(.*?\)/g, ""); // Remove anything in parentheses

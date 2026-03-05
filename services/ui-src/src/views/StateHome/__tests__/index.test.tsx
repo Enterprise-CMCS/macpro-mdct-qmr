@@ -37,6 +37,10 @@ jest.mock("hooks/authHooks", () => ({
   useUser: jest.fn(),
 }));
 
+jest.mock("config", () => ({
+  isDevEnv: jest.fn(() => true),
+}));
+
 const testComponent = (
   <QueryClientProvider client={queryClient}>
     <RouterWrappedComp>
@@ -44,6 +48,20 @@ const testComponent = (
     </RouterWrappedComp>
   </QueryClientProvider>
 );
+
+jest.mock("hooks/useUpdateAllMeasures", () => ({
+  useUpdateAllMeasures: jest.fn().mockReturnValue({
+    isPending: false,
+    mutate: () => mockMutate,
+  }),
+}));
+
+jest.mock("hooks/useResetCoreSet", () => ({
+  useResetCoreSet: jest.fn().mockReturnValue({
+    isPending: false,
+    mutate: () => mockMutate,
+  }),
+}));
 
 describe("Test StateHome", () => {
   beforeEach(() => {
@@ -172,6 +190,23 @@ describe("Test kebab menu", () => {
     const test = screen.getByRole("button", { name: "Action Menu for ACS" });
     fireEvent.click(test);
     expect(screen.getByText("Export")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Export"));
+  });
+
+  it("Simulate Complete All Measure from kebab Measure", () => {
+    renderByCoreSet(CoreSetAbbr.ACS);
+    const test = screen.getByRole("button", { name: "Action Menu for ACS" });
+    fireEvent.click(test);
+    expect(screen.getByText("Complete All Measures")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Complete All Measures"));
+  });
+
+  it("Simulate Reset All Measures from kebab Measure", () => {
+    renderByCoreSet(CoreSetAbbr.ACS);
+    const test = screen.getByRole("button", { name: "Action Menu for ACS" });
+    fireEvent.click(test);
+    expect(screen.getByText("Reset All Measures")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Reset All Measures"));
   });
 
   it("Simulate Delete from Kebab Menu for Adult Split", async () => {

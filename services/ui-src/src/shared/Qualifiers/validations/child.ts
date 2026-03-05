@@ -35,7 +35,7 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSQualifierForm) => {
   if (totalUnder21EqualsZeroError) {
     const label = featuresByYear.lessSpecificQualifierValidationLanguage
       ? "Entries for column must have values"
-      : "Entries are required in at least one column.  Entries are permitted in the second column but are not required";
+      : "Entries are required in at least one column. Entries are permitted in the second column but are not required";
     errorArray.push({
       errorLocation: "Delivery System",
       errorMessage: label,

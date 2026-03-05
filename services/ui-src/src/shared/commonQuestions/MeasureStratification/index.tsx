@@ -7,8 +7,6 @@ import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
-import { Alert } from "@cmsgov/design-system";
-import { GetLinks } from "labels/CommonLinks";
 
 interface Props {
   reset?: () => void;
@@ -28,55 +26,28 @@ export const StratificationAdditionalNotes = () => {
 };
 
 export const StratificationOption = ({ reset, year }: Props) => {
+  const labels: any = useContext(SharedContext);
+  const { subText, options } = labels.StratificationOption;
   return (
     <QMR.RadioButton
       key={`OptionalMeasureStratification.${DC.VERSION}`}
       name={`OptionalMeasureStratification.${DC.VERSION}`}
       formLabelProps={{ fontWeight: "700" }}
       label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
-      subTextElement={[
-        <CUI.Text key="description" mb={2}>
-          A summary of the race and ethnicity categories and detailed categories
-          included in each standard is available in Boxes 1 and 2 of the{" "}
-          {GetLinks("strat-ta-resource")}.
-        </CUI.Text>,
-        <CUI.UnorderedList key="list" padding="0 0 1rem 2rem">
-          <CUI.ListItem key="1997-omb-item">
-            1997 Office of Management and Budget (OMB) minimum race and
-            ethnicity standards, as specified in the 2011 HHS standards
-          </CUI.ListItem>
-          <CUI.ListItem key="2024-omb-item" mb={2}>
-            2024 OMB Statistical Policy Directive No. 15 race and ethnicity
-            standards
-          </CUI.ListItem>
-          ,
-        </CUI.UnorderedList>,
-        <CUI.Box key="alert" mb="1rem">
-          <Alert
-            heading="Entered data will not be saved if you switch race and ethnicity reporting standards."
-            variation="warn"
-          >
-            <CUI.Text>
-              Please confirm which standard you are using before entering data.
-            </CUI.Text>
-          </Alert>
-        </CUI.Box>,
-      ]}
+      subTextElement={subText}
       options={[
         {
-          displayValue:
-            "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
+          displayValue: options["1997-omb"],
           value: "1997-omb",
           onClick: reset,
         },
         {
-          displayValue:
-            "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
+          displayValue: options["2024-omb"],
           value: "2024-omb",
           onClick: reset,
         },
         {
-          displayValue: "I am not reporting stratified data for this measure",
+          displayValue: options["not-reporting"],
           value: "not-reporting",
           onClick: reset,
         },
