@@ -18,13 +18,13 @@ export const getCoreSetActions = ({
   resetCoreSet,
   exportAll,
 }: ActionsData) => {
-  let actionsList = [];
-
-  actionsList.push({
-    itemText: "Export",
-    handleSelect: exportAll,
-    type: type,
-  });
+  let actionsList = [
+    {
+      itemText: "Export",
+      handleSelect: exportAll,
+      type: type,
+    },
+  ];
 
   if (deletable) {
     actionsList.push({

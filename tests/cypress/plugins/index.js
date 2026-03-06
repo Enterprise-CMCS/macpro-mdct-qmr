@@ -1,4 +1,5 @@
-export default async (on, config) => {
+/* oxlint-disable-next-line no-anonymous-default-export */
+export default async (on, _config) => {
   // e2e testing node events setup code
   // set default size for headless mode
   on("before:browser:launch", (browser = {}, launchOptions) => {

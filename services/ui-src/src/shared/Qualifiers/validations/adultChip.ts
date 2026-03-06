@@ -40,7 +40,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSCQualifierForm) => {
     }
   }
 
-  return errorArray.length ? errorArray : [];
+  return errorArray.length > 0 ? errorArray : [];
 };
 
 export const ACSC = [validate21To64EqualsToOneHundredPercent];

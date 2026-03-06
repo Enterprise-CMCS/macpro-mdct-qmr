@@ -102,15 +102,15 @@ const getCheckboxClassificationRates = (
     for (const midLevelKey of Object.keys(topLevel.selections)) {
       const midLevel = topLevel.selections[midLevelKey];
       const midLabel = locationDictionary([topLevelKey, midLevelKey]);
-      if (midLevel) {
-        //for checkboxes that open up to sub-classifications, we only want to track it when no subclassification has been checked
-        if (
-          !(
-            midLevel.aggregate === "NoIndependentData" &&
-            midLevel.options?.length! > 0
-          )
+      if (
+        midLevel &&
+        !(
+          midLevel.aggregate === "NoIndependentData" &&
+          midLevel.options?.length! > 0
         )
-          omsRates.push({ key: midLabel, ...midLevel });
+      ) {
+        //for checkboxes that open up to sub-classifications, we only want to track it when no subclassification has been checked
+        omsRates.push({ key: midLabel, ...midLevel });
       }
 
       //if user choose to [+Add Another Sub-Category]
@@ -164,24 +164,22 @@ const getAccordionClassificationRates = (
       const midLabel = locationDictionary([topLevelKey, midLevelKey]);
 
       //aggregate haves different checks than non aggregate rate data
-      if (midLevel.aggregate != undefined) {
-        if (
-          midLevel.aggregate === "NoIndependentData" &&
-          midLevel.options?.length! > 0
-        ) {
-          if (midLevel.selections) {
-            for (const lowLevelKey of Object.keys(midLevel.selections)) {
-              const lowLabel = locationDictionary([
-                topLevelKey,
-                midLevelKey,
-                lowLevelKey,
-              ]);
-              const lowLevel = midLevel.selections[lowLevelKey];
+      if (
+        midLevel.aggregate != undefined &&
+        midLevel.aggregate === "NoIndependentData" &&
+        midLevel.options?.length! > 0 &&
+        midLevel.selections
+      ) {
+        for (const lowLevelKey of Object.keys(midLevel.selections)) {
+          const lowLabel = locationDictionary([
+            topLevelKey,
+            midLevelKey,
+            lowLevelKey,
+          ]);
+          const lowLevel = midLevel.selections[lowLevelKey];
 
-              if (lowLevel) {
-                omsRates.push({ key: lowLabel, ...lowLevel });
-              }
-            }
+          if (lowLevel) {
+            omsRates.push({ key: lowLabel, ...lowLevel });
           }
         }
       }

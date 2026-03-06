@@ -31,7 +31,7 @@ export function validateNDRTotalsMatchSum(
   for (let rate of allRates) {
     if (!isCompleted(rate)) continue;
     const groupKey = groupKeyOf(rate);
-    groups[groupKey] = (groups[groupKey] ?? []).concat([rate]);
+    groups[groupKey] = [...(groups[groupKey] ?? []), rate];
   }
 
   for (let group of Object.values(groups)) {
