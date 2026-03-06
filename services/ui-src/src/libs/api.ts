@@ -11,9 +11,9 @@ async function requestOptions(): Promise<any> {
     };
 
     return options;
-  } catch (e) {
+  } catch (error) {
     console.log("Error getting current session - signing out");
-    console.log({ e });
+    console.log({ error });
     await signOut();
     if (window !== undefined) {
       window.location.href = window.location.origin;
@@ -33,10 +33,10 @@ const apiRequest = async (request: any, path: string, options: AnyObject) => {
     const { body } = await request({ apiName, path, options }).response;
     const res = await body.text(); // body.json() dies on an empty response, spectacularly
     return res && res.length > 0 ? JSON.parse(res) : null;
-  } catch (e: any) {
+  } catch (error: any) {
     // Return our own error for handling in the app
-    const info = `Request Failed - ${path} - ${e.response?.body}`;
-    console.log(e);
+    const info = `Request Failed - ${path} - ${error.response?.body}`;
+    console.log(error);
     console.log(info);
     throw new Error(info);
   }

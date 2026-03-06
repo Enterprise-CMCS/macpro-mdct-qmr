@@ -4,7 +4,7 @@ import { hasStatePermissions } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 
-export const deleteMeasure = handler(async (event, context) => {
+export const deleteMeasure = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet, measure } =
     parseMeasureParameters(event);
   if (!allParamsValid) {

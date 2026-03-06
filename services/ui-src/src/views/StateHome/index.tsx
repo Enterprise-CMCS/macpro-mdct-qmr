@@ -61,7 +61,7 @@ const ReportingYear = () => {
     state && !statesWithoutCombinedRates.includes(state);
 
   let reportingyearOptions: IRepYear[] =
-    reportingYears && reportingYears.length
+    reportingYears && reportingYears.length > 0
       ? reportingYears?.map((year: string) => ({
           displayValue: year + " Core Set",
           value: year,

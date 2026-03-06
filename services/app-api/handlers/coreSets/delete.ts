@@ -5,7 +5,7 @@ import { Measure } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 
-export const deleteCoreSet = handler(async (event, context) => {
+export const deleteCoreSet = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet } =
     parseCoreSetParameters(event);
   if (!allParamsValid) {

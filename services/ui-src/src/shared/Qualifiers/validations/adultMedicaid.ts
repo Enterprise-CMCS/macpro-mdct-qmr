@@ -64,7 +64,7 @@ const validate21To64EqualsToOneHundredPercent = (data: ACSMQualifierForm) => {
     }
   }
 
-  return errorArray.length ? errorArray : [];
+  return errorArray.length > 0 ? errorArray : [];
 };
 
 export const ACSM = [validate21To64EqualsToOneHundredPercent];

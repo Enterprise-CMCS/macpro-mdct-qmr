@@ -39,19 +39,17 @@ const _validation = ({
     const lrate = lowerRate?.[i]?.rate;
     const hrate = higherRate?.[i]?.rate;
 
-    if (lrate && hrate) {
-      if (parseFloat(lrate) > parseFloat(hrate)) {
-        errorArray.push({
-          errorLocation: locationFunc
-            ? locationFunc(qualifiers![i].label)
-            : location,
-          errorMessage: errorMessageFunc(
-            categories![higherIndex].label,
-            categories![lowerIndex].label,
-            qualifiers![i].label
-          ),
-        });
-      }
+    if (lrate && hrate && parseFloat(lrate) > parseFloat(hrate)) {
+      errorArray.push({
+        errorLocation: locationFunc
+          ? locationFunc(qualifiers![i].label)
+          : location,
+        errorMessage: errorMessageFunc(
+          categories![higherIndex].label,
+          categories![lowerIndex].label,
+          qualifiers![i].label
+        ),
+      });
     }
   }
   return errorArray;

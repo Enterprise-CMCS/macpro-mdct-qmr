@@ -15,7 +15,7 @@ module.exports = {
   scanAll: async (TableName) => {
     let items = [];
     for await (let page of paginateScan({ client }, { TableName })) {
-      items = items.concat(page.Items ?? []);
+      items.push(...(page.Items ?? []));
     }
     return items;
   },
