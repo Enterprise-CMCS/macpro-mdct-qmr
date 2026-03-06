@@ -1,5 +1,6 @@
 import jwt_decode from "jwt-decode";
 import { APIGatewayProxyEvent, UserRoles } from "../types";
+import { logger } from "./debug-lib";
 
 interface DecodedToken {
   "custom:cms_roles": string;
@@ -7,6 +8,7 @@ interface DecodedToken {
   given_name?: string;
   family_name?: string;
   identities?: [{ userId?: string }];
+  sub?: string;
 }
 
 export const hasRolePermissions = (
@@ -17,6 +19,7 @@ export const hasRolePermissions = (
   if (event?.headers["x-api-key"]) {
     // decode the idToken
     const decoded = jwt_decode(event.headers["x-api-key"]) as DecodedToken;
+    logger.debug(`Requesting user has sub '${decoded.sub}'`);
     const idmUserRoles = decoded["custom:cms_roles"];
     const qmrUserRole = idmUserRoles
       ?.split(",")
