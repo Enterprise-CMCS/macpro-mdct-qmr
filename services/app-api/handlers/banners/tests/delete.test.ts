@@ -1,7 +1,5 @@
 import { deleteBanner } from "../delete";
-import { APIGatewayProxyEvent } from "../../../types";
-import { testBanner, proxyEvent } from "./proxyEvent";
-import dynamoDb from "../../../libs/dynamodb-lib";
+import { proxyEvent } from "./proxyEvent";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 
 const mockHasRolePermissions = jest.fn();

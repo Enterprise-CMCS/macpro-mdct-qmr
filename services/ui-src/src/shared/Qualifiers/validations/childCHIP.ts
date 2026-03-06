@@ -48,7 +48,7 @@ const validate21To64EqualsToOneHundredPercent = (data: CCSCQualifierForm) => {
     }
   }
 
-  return errorArray.length ? errorArray : [];
+  return errorArray.length > 0 ? errorArray : [];
 };
 
 export const CCSC = [validate21To64EqualsToOneHundredPercent];

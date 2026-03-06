@@ -29,7 +29,7 @@ const removeNullOPM = async () => {
 
   if (foundMeasure.Items && foundMeasure.Items.length > 0) {
     const opmRates: any[] = foundMeasure.Items[0].data[ratesField];
-    const newOpmRates = opmRates.filter((n) => n); // remove all falsey values
+    const newOpmRates = opmRates.filter(Boolean); // remove all falsey values
 
     const params = {
       TableName: tableName,

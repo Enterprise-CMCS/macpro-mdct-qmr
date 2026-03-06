@@ -61,7 +61,7 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
 
   const { ToastContainer } = createStandaloneToast();
 
-  createRoot(document.getElementById("root")!).render(
+  createRoot(document.querySelector("#root")!).render(
     <Router>
       <UserProvider>
         <ApiProvider>
@@ -78,6 +78,6 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
       </UserProvider>
     </Router>
   );
-})().catch((e) => {
-  throw e;
+})().catch((error) => {
+  throw error;
 });

@@ -12,7 +12,7 @@ const omsData = {
         rateData: {
           rates: {
             ZCy3XP: {
-              xS5HMm: [{ numerator: 5, denominator: 5, rate: 100.0 }],
+              xS5HMm: [{ numerator: 5, denominator: 5, rate: 100 }],
             },
           },
         },
@@ -72,7 +72,7 @@ describe("Test MeasureStratification", () => {
     fireEvent.click(radioA);
     expect(
       omsData.O8BrOa.selections.KRwFRN.rateData.rates.ZCy3XP.xS5HMm[0]
-    ).toStrictEqual({ numerator: 5, denominator: 5, rate: 100.0 });
+    ).toStrictEqual({ numerator: 5, denominator: 5, rate: 100 });
 
     //when selecting another radio button, it should run the reset function
     fireEvent.click(radioC);

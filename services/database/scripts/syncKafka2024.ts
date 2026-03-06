@@ -1,11 +1,10 @@
-import * as readline from "readline";
+import * as readline from "node:readline";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
   paginateScan,
   UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
-import prompt from "prompt-sync";
 
 /***
  * Run with `npx tsx syncKafka2024.ts`
@@ -27,7 +26,7 @@ let stage = "local";
 const promptString = (query: string) =>
   new Promise<string>((resolve) => rl.question(query, resolve));
 const promptYesNo = async (query: string) => {
-  do {
+  while (true) {
     const userInput = await promptString(query);
     switch (userInput.toUpperCase()[0]) {
       case "Y":
@@ -37,7 +36,7 @@ const promptYesNo = async (query: string) => {
       default:
         rl.write("Y or N only, please.\n");
     }
-  } while (true);
+  }
 };
 
 async function handler() {
@@ -68,11 +67,11 @@ async function handler() {
       statusCode: 200,
       body: "All done!",
     };
-  } catch (err: any) {
-    console.error(err);
+  } catch (error: any) {
+    console.error(error);
     return {
       statusCode: 500,
-      body: err.message,
+      body: error.message,
     };
   }
 }

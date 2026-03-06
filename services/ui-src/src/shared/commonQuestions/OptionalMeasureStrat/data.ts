@@ -14,9 +14,8 @@ export const OMSData = (
       return omb1997();
     case 2025:
       return version === "1997-omb" ? omb1997() : omb2024();
-    default: {
+    default:
       return modifyMissingLabel(version === "1997-omb" ? omb1997() : omb2024());
-    }
   }
 };
 

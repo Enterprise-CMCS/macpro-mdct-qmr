@@ -265,7 +265,8 @@ export const DefinitionOfPopulation = ({
               labels.DefinitionsOfPopulation.coreSetSpecificOptions,
             removeOtherOption
           )
-        : childMeasure
+        : /* oxlint-disable-next-line no-nested-ternary */
+          childMeasure
           ? ChildDefinitions()
           : StandardDefinitions(
               labels.DefinitionsOfPopulation,
