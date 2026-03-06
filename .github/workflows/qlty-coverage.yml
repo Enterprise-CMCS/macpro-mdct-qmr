@@ -5,7 +5,6 @@ name: Publish main Code Coverage
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: read
