@@ -95,8 +95,6 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
  */
 const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
   const defaults = sanitizeHtml.defaults;
-  console.log("defaults.allowedAttributes.a");
-  console.log(defaults.allowedAttributes.a);
   const extraAttributes = {
     a: [...defaults.allowedAttributes.a, "rel"],
     img: [...defaults.allowedAttributes.img, "class", "style"],

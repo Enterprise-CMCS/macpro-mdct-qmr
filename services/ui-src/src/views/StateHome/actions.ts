@@ -18,7 +18,7 @@ export const getCoreSetActions = ({
   resetCoreSet,
   exportAll,
 }: ActionsData) => {
-  let actionsList = [
+  const actionsList = [
     {
       itemText: "Export",
       handleSelect: exportAll,
@@ -34,7 +34,7 @@ export const getCoreSetActions = ({
     });
   }
 
-  //avaliable only in the testing environment
+  //available only in the testing environment
   if (isDevEnv()) {
     actionsList.push({
       itemText: "Complete All Measures",

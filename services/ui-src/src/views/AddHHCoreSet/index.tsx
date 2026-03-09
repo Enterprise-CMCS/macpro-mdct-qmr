@@ -64,7 +64,7 @@ export const AddHHCoreSet = () => {
         value: spa.id,
       };
     })
-    .toSorted((a, b) => (a.displayValue > b.displayValue && 1) || -1);
+    .toSorted((a, b) => a.displayValue.localeCompare(b.displayValue));
 
   const handleSubmit = (data: HealthHome) => {
     if (data[DC.HEALTH_HOME_CORESET_SPA]) {
