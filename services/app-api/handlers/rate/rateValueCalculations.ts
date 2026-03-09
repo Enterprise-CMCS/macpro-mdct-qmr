@@ -20,7 +20,7 @@ export const calculateAdditionalValues = (
 ): CombinedRatesPayload["AdditionalValues"] => {
   const [medicaidValues, chipValues] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
-    .map((rateMap) => Object.values(rateMap).flat(1).filter(isRateValueShape));
+    .map((rateMap) => Object.values(rateMap).flat().filter(isRateValueShape));
 
   const findValues = (uid: string) => {
     const fieldObj = {

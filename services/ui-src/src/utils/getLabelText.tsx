@@ -1,7 +1,6 @@
 import * as Labels from "./../labels/RateLabelTexts";
 import { featuresByYear } from "./featuresByYear";
 
-type LabelText = { [key: string]: string };
 export interface LabelData {
   isField?: boolean;
   label: string;
@@ -16,22 +15,18 @@ export interface LabelData {
   excludeFromIds?: string[];
 }
 
-const addLabelTextData = (acc: LabelText, data: LabelData) => {
-  acc[data.label] = data.text;
-  return acc;
-};
-
 export const getLabelText = (): { [key: string]: string } => {
   const { pathname } = window.location;
   const params = pathname.split("/");
   const year = params[2];
   const measure = params[4];
   if (year && measure) {
-    const data: any = Labels[`RateLabel${year}` as keyof typeof Labels];
-    return {
-      ...data[measure]?.qualifiers.reduce(addLabelTextData, {}),
-      ...data[measure]?.categories.reduce(addLabelTextData, {}),
-    };
+    const data: any = Labels[`RateLabel${year}` as keyof typeof Labels].data;
+    const qualifiers = data[measure]?.qualifiers ?? [];
+    const categories = data[measure]?.categories ?? [];
+    return Object.fromEntries(
+      [...qualifiers, ...categories].map((x) => [x.label, x.text])
+    );
   }
   return {};
 };

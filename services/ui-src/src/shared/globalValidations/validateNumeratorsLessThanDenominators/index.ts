@@ -90,5 +90,5 @@ export const validateNumeratorsLessThanDenominatorsPM = (
     }),
   ];
 
-  return !!errorArray.length ? [errorArray[0]] : [];
+  return errorArray.length > 0 ? [errorArray[0]] : [];
 };

@@ -1,4 +1,4 @@
-import { gunzipSync } from "zlib";
+import { gunzipSync } from "node:zlib";
 import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
@@ -29,8 +29,8 @@ export const getPDF = handler(async (event, _context) => {
   let decodedHtml;
   try {
     decodedHtml = gunzipSync(compressedBuffer).toString();
-  } catch (e) {
-    throw new Error("Failed to decompress gzipped HTML: " + e);
+  } catch (error) {
+    throw new Error("Failed to decompress gzipped HTML: " + error);
   }
 
   // DOMPurify was making us timeout on large documents, so switched to sanitize-html
@@ -96,8 +96,8 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
 const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
   const defaults = sanitizeHtml.defaults;
   const extraAttributes = {
-    a: defaults.allowedAttributes.a.concat(["rel"]),
-    img: defaults.allowedAttributes.img.concat(["class", "style"]),
+    a: [...defaults.allowedAttributes.a, "rel"],
+    img: [...defaults.allowedAttributes.img, "class", "style"],
     link: ["rel", "href", "type", "media"],
     base: ["href", "target"],
     input: [
@@ -134,9 +134,11 @@ const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
       ...extraAttributes,
       "*": ["class", "style", "id", "data-*"],
     },
-    allowedTags: defaults.allowedTags
-      .concat(Object.keys(extraAttributes))
-      .concat(extraTags),
+    allowedTags: [
+      ...defaults.allowedTags,
+      ...Object.keys(extraAttributes),
+      ...extraTags,
+    ],
   };
 };
 

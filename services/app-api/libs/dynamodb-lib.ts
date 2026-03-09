@@ -44,7 +44,7 @@ export default {
   ) => {
     let items: Result[] = [];
     for await (let page of paginateQuery({ client }, params)) {
-      items = items.concat((page.Items as Result[]) ?? []);
+      items.push(...((page.Items as Result[]) ?? []));
     }
     return items;
   },
@@ -53,7 +53,7 @@ export default {
   ) => {
     let items: Result[] = [];
     for await (let page of paginateScan({ client }, params)) {
-      items = items.concat((page.Items as Result[]) ?? []);
+      items.push(...((page.Items as Result[]) ?? []));
     }
     return items;
   },
