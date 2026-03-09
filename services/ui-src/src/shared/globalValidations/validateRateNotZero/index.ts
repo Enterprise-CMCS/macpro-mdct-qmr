@@ -18,19 +18,21 @@ export const validationRateNotZero = ({
 
   for (const ratefields of rateData) {
     for (const rate of ratefields) {
-      if (rate && rate.denominator && rate.numerator && rate.rate) {
-        if (
-          parseFloat(rate.numerator) > 0 &&
-          parseFloat(rate.denominator) > 0 &&
-          parseFloat(rate.rate) === 0
-        ) {
-          errorArray.push({
-            errorLocation: location,
-            errorMessage:
-              errorMessage ??
-              "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
-          });
-        }
+      if (
+        rate &&
+        rate.denominator &&
+        rate.numerator &&
+        rate.rate &&
+        parseFloat(rate.numerator) > 0 &&
+        parseFloat(rate.denominator) > 0 &&
+        parseFloat(rate.rate) === 0
+      ) {
+        errorArray.push({
+          errorLocation: location,
+          errorMessage:
+            errorMessage ??
+            "Rate should not be 0 if numerator and denominator are not 0. If the calculated rate is less than 0.5, disregard this validation.",
+        });
       }
     }
   }
@@ -74,6 +76,6 @@ export const validateRateNotZeroPM = (
       errorMessage,
     }),
   ];
-  if (!!errors.length) errorArray.push(errors[0]);
+  if (errors.length > 0) errorArray.push(errors[0]);
   return errorArray;
 };

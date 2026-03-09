@@ -70,7 +70,7 @@ const validateEqualsToOneHundredPercent = (data: HHCSQualifierForm) => {
     }
   }
 
-  return errorArray.length ? errorArray : [];
+  return errorArray.length > 0 ? errorArray : [];
 };
 
 const validateTotalNumberOfIndividuals = (data: HHCSQualifierForm) => {
@@ -88,7 +88,7 @@ const validateTotalNumberOfIndividuals = (data: HHCSQualifierForm) => {
     });
   }
 
-  return errorArray.length ? errorArray : [];
+  return errorArray.length > 0 ? errorArray : [];
 };
 
 export const HHCS = [

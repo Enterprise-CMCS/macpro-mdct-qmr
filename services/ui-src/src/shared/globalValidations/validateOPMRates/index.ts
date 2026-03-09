@@ -30,7 +30,7 @@ export const validateOPMRates = (
     }
 
     //check to see if the rate has been described for other performance measure
-    if (otherPerformanceMeasure.find((rates) => !rates.description)) {
+    if (otherPerformanceMeasure.some((rates) => !rates.description)) {
       errorArray.push({
         errorLocation: `Other Performance Measure`,
         errorMessage: "Rate name required",

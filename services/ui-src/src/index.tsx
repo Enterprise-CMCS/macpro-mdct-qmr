@@ -78,6 +78,6 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
       </UserProvider>
     </Router>
   );
-})().catch((e) => {
-  throw e;
+})().catch((error) => {
+  throw error;
 });

@@ -124,20 +124,19 @@ export const validatePartialRateCompletionOMS =
   ): OmsValidationCallback =>
   ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
     return [
-      ...(!!singleValueFieldFlag
+      ...(singleValueFieldFlag
         ? _singleValueValidation({
             location: `Optional Measure Stratification: ${locationDictionary([
               ...label,
             ])}`,
             rateData: rateData?.[singleValueFieldFlag],
-            categories: !!(
+            categories:
               isOPM ||
               categories[0]?.label === SINGLE_CATEGORY ||
               !categories[0]?.label
-            )
-              ? undefined
-              : categories,
-            qualifiers: !!isOPM ? undefined : qualifiers,
+                ? undefined
+                : categories,
+            qualifiers: isOPM ? undefined : qualifiers,
             locationDictionary,
             errorMessageFunc,
           })
@@ -150,14 +149,13 @@ export const validatePartialRateCompletionOMS =
               qualifiers,
               rateData
             ),
-            categories: !!(
+            categories:
               isOPM ||
               categories[0]?.label === SINGLE_CATEGORY ||
               !categories[0]?.label
-            )
-              ? undefined
-              : categories,
-            qualifiers: !!isOPM ? undefined : qualifiers,
+                ? undefined
+                : categories,
+            qualifiers: isOPM ? undefined : qualifiers,
             errorMessageFunc,
           })),
     ];

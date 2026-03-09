@@ -222,12 +222,12 @@ export enum Program {
   C = "CHIP",
 }
 
-export const enum MeasureStatus {
+export enum MeasureStatus {
   COMPLETE = "complete",
   INCOMPLETE = "incomplete",
 }
 
-export const enum UserRoles {
+export enum UserRoles {
   ADMIN = "mdctqmr-bor", // "MDCT QMR ADMIN"
   APPROVER = "mdctqmr-approver", // "MDCT QMR APPROVER"
   INTERNAL = "mdctqmr-internal-user", // "MDCT QMR INTERNAL USER"
@@ -235,7 +235,7 @@ export const enum UserRoles {
   STATE_USER = "mdctqmr-state-user", // "MDCT QMR STATE USER"
 }
 
-export const enum RequestMethods {
+export enum RequestMethods {
   POST = "POST",
   GET = "GET",
   PUT = "PUT",

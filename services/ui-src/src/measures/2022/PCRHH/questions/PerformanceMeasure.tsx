@@ -64,11 +64,7 @@ const CategoryNdrSets = ({
 };
 
 /** If no categories, we still need a rate for the PM */
-const QualifierNdrSets = ({
-  rateReadOnly,
-  qualifiers = [],
-  customMask,
-}: NdrSetProps) => {
+const QualifierNdrSets = ({ rateReadOnly, qualifiers = [] }: NdrSetProps) => {
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
     label: item.label,
     id: idx,
@@ -78,7 +74,6 @@ const QualifierNdrSets = ({
     <PCRRate
       rates={rates}
       readOnly={rateReadOnly}
-      customMask={customMask}
       key={"PerformanceMeasure.rates.singleCategory"}
       name={"PerformanceMeasure.rates.singleCategory"}
     />

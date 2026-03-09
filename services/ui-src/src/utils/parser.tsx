@@ -30,7 +30,7 @@ export const parseLabelToHTML = (label: string) => {
       const children = [...node.childNodes].map(convertNodetoReactElement);
       return React.createElement(tagName, props, children);
     } else {
-      throw new Error(`Unrecognized node type in label:\n${label}`);
+      throw new TypeError(`Unrecognized node type in label:\n${label}`);
     }
   };
 

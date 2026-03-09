@@ -25,7 +25,7 @@ export const combineRates = (
 ): CombinedRatesPayload["Rates"] => {
   const [medicaidRates, chipRates] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
-    .map((rateMap) => Object.values(rateMap).flat(1).filter(isRateNDRShape));
+    .map((rateMap) => Object.values(rateMap).flat().filter(isRateNDRShape));
 
   let uniqueRateIds = [...medicaidRates, ...chipRates]
     .map((rate) => rate.uid)

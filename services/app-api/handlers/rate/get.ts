@@ -8,7 +8,7 @@ import { UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 
-export const getRate = handler(async (event, context) => {
+export const getRate = handler(async (event, _context) => {
   const { allParamsValid, year, state, coreSet, measure } =
     parseMeasureParameters(event);
   if (!allParamsValid) {

@@ -25,5 +25,5 @@ export const useAddCoreSet = () => {
         addCoreSet({ state, year, coreSet }),
     });
   }
-  throw Error("Missing required fields");
+  throw new Error("Missing required fields");
 };
