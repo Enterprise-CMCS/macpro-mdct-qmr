@@ -1,17 +1,13 @@
 # Cypress Testing
 
-[Cypress](https://www.cypress.io/features) is an open source testing tool.
+[Cypress](https://www.cypress.io/features) is an open source testing tool used for end-to-end (E2E) and integration tests.
 
 ## Getting Started
 
-1. The `scripts` section defines 2 jobs:
-   - `npm run test`
-     - runs two parallel processes:
-       1. `npm start`, which is a wrapper to `./run local`, and runs the local application
-       1. `npm run cypress`, which opens cypress using chrome against the local instance
-   - `npm run test:ci`
-     - to be run in pipelines/actions
-     - runs cypress headless against the branch-specific instance of the application (eg. )
+- `npm run test` Runs two parallel processes:
+  - `npm start` (wrapper to `./run local`) runs the local application
+  - `npm run cypress` opens Cypress using Chrome against the local instance
+- `npm run test:ci` Used in pipelines/actions; runs Cypress headless against branch-specific instances
 
 ## Configuration
 
@@ -19,4 +15,4 @@
 
 ## Cypress CLI
 
-The [cypress cli](https://docs.cypress.io/guides/guides/command-line) comes with a number of options/flags/behaviors built into it, which allow it to target browsers, configure parallelization, and so on.
+The [Cypress CLI](https://docs.cypress.io/guides/guides/command-line) provides options for targeting browsers, configuring parallelization, and more.
