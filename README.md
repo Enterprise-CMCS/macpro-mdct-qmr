@@ -78,29 +78,29 @@ Team members are encouraged to set up all MDCT Products using the script located
 The following are prerequisites for local development. **If you have run the MDCT Workspace setup script please ignore this section it is not needed.**
 
 1. [Create an SSH Key and link it to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-1. Clone this repository locally
+2. Clone this repository locally
    ```bash
    git clone git@github.com:Enterprise-CMCS/macpro-mdct-qmr.git
    ```
-1. Install [Node](https://nodejs.org/en/download/)
-1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
+3. Install [Node](https://nodejs.org/en/download/)
+4. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
    - A specific version of Node is enforced and specified in the `.nvmrc` file. This version matches the Lambda runtime.
-1. Install the correct version of Node
+5. Install the correct version of Node
    ```bash
    # nvm commands will default to Node version defined in .nvmrc
    nvm install
    nvm use
    ```
-1. Install [Homebrew](https://brew.sh)
+6. Install [Homebrew](https://brew.sh)
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
-1. Install [Yarn](https://classic.yarnpkg.com)
+7. Install [Yarn](https://classic.yarnpkg.com)
    ```bash
    brew install yarn
    ```
-1. Look up [here](deployment/local/README.md) for other things you'll need to install though it will prompt you when your `./run local` if you're missing something.
-1. Install all other node packages.
+8. Look up [here](deployment/local/README.md) for other things you'll need to install though it will prompt you when your `./run local` if you're missing something.
+9. Install all other node packages.
    ```bash
    yarn install  # can be skipped, will run automatically in dev script
    ```
@@ -154,7 +154,7 @@ First, make sure your `node_modules` are up to date:
    ```bash
    yarn install
    ```
-1. Navigate to tests/cypress and run
+2. Navigate to tests/cypress and run
    ```bash
    yarn install
    ```
@@ -267,8 +267,8 @@ No values should be specified in both secrets. Just don't do it. Ok if that did 
 In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
 
 1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
-1. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
-1. `./run destroy name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
+2. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
+3. `./run destroy name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
 ## App API
 
@@ -400,7 +400,7 @@ When creating a new form, it's best to find an existing form that closely matche
 The Uploads service consists of a few S3 buckets and some integration functions. It is the only point where the downstream applications owned by Mathematica interact with our application. This is in two buckets.
 
 1. Uploads: This is where attachment files are stored
-1. DynamoSnapshotBucket: This is where snapshots of our dynamo database are stored as JSON objects for Mathematica to download.
+2. DynamoSnapshotBucket: This is where snapshots of our dynamo database are stored as JSON objects for Mathematica to download.
 
 Any uploads are first stored in an inaccessible folder until they are scanned by the anti-virus scanner. Antivirus definitions are updated daily. This is to prevent anyone from uploading malicious files.
 
