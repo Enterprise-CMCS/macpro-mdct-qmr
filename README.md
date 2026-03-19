@@ -12,7 +12,7 @@
 | val        | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=val)        |
 | production | ![deploy](https://github.com/Enterprise-CMCS/macpro-mdct-qmr/actions/workflows/deploy.yml/badge.svg?branch=production) |
 
-QMR is the CMCS MDCT application for collecting state data for related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
+QMR is the CMCS MDCT application for collecting state data related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
 # Table of Contents
 
@@ -33,6 +33,7 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
     - [Running Unit Tests](#running-unit-tests)
       - [Snapshot Tests](#snapshot-tests)
       - [Code Coverage Report](#code-coverage-report)
+      - [Code Coverage Targets](#code-coverage-targets)
 - [Services](#services)
   - [Architecture Diagram](#architecture-diagram)
   - [CDK](#cdk)
@@ -72,7 +73,7 @@ QMR is the CMCS MDCT application for collecting state data for related to measur
 
 ### Running MDCT Workspace Setup
 
-Team members are encouraged to setup all MDCT Products using the script located in the [MDCT Tools Repository](https://github.com/Enterprise-CMCS/macpro-mdct-tools). Please refer to the README for instructions running the MDCT Workspace Setup. After Running workspace setup team members can refer to the Running the project locally section below to proceed with running the application.
+Team members are encouraged to set up all MDCT Products using the script located in the [MDCT Tools Repository](https://github.com/Enterprise-CMCS/macpro-mdct-tools). Please refer to the README for instructions on running the MDCT Workspace Setup. After running workspace setup, team members can refer to the [Running the project locally](#running-the-project-locally) section below to proceed with running the application.
 
 The following are prerequisites for local development. **If you have run the MDCT Workspace setup script please ignore this section it is not needed.**
 
@@ -83,7 +84,7 @@ The following are prerequisites for local development. **If you have run the MDC
    ```
 1. Install [Node](https://nodejs.org/en/download/)
 1. Install [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm#installing-and-updating)
-   - A specific version of Node is enforced and specified in the file `.nvmrc`. This version matches the Lambda runtime.
+   - A specific version of Node is enforced and specified in the `.nvmrc` file. This version matches the Lambda runtime.
 1. Install the correct version of Node
    ```bash
    # nvm commands will default to Node version defined in .nvmrc
@@ -113,31 +114,25 @@ The following are prerequisites for local development. **If you have run the MDC
    ./run local
    ```
 
-   Note: This will populate a .env file at the root of the directory as well as in the `/services/ui-src/` directory by authenticating to 1Password and pulling in development secrets. Both of those .env files are gitignored.
+   Note: This will populate a .env file at the root of the directory as well as in the `/services/ui-src/` directory, by authenticating to 1Password and pulling in development secrets. Both of those .env files are gitignored.
 
-If you do not have a 1Password account you can run `./run local` however you will need to reach out to a team member for .env values and populate those by hand both in the root of the repo as well as `/services/ui-src`
+If you do not have a 1Password account, you can run `./run local`; however, you will need to reach out to a team member for .env values and populate those by hand, both in the root of the repo and in `/services/ui-src`.
 
 To login a number of test users are provisioned via the `users.json`. Look in the 1password secret named `qmr-secrets` for the test user password.
 
 ### oxfmt
 
----
-
 This repo uses the code formatter [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html). The formatter is run automatically in a pre-commit hook. Additionally, oxfmt can be run on file save in many IDEs or run ad hoc from the command line.
 
 #### oxfmt with VS Code
-
----
 
 The oxc extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode).
 
 Once installed, open VS Code's Preferences. Search for "Format on Save". Clicking the checkbox should engage the oxfmt formatter on file save.
 
-VS Code is used almost ubiquitously across the current development team, generally speaking this tools should also work for most other IDEs.
+VS Code is used almost ubiquitously across the current development team; generally speaking, these tools should also work for most other IDEs.
 
 #### oxfmt CLI
-
----
 
 Using this command, or a variant of it, will format all matching files in the codebase and write the changes. oxfmt has complete [CLI documentation](https://oxc.rs/docs/guide/usage/formatter.html) on their website.
 
@@ -244,6 +239,10 @@ On the terminal, there will be a detailed coverage report followed by a coverage
 
 ![Code Coverage Report](./.images/codeCoverageReport.png?raw=true)
 
+#### Code Coverage Targets
+
+The project maintains a high standard for unit and integration test coverage, targeting 90% or higher across critical components. Recent efforts have focused on increasing coverage and improving test reliability.
+
 # Services
 
 ## Architecture Diagram
@@ -254,17 +253,16 @@ On the terminal, there will be a detailed coverage report followed by a coverage
 
 This project is built as a series of micro-services using the [CDK](https://aws.amazon.com/cdk/). CDK allows you to write typescript that compiles into CloudFormation Templates.
 
-### Configuration AWS Secrets Manager
+> **Bootstrapping AWS Accounts:**
+> For detailed instructions on bootstrapping AWS accounts with CDK (including custom templates and prerequisites), please see [deployment/README.md](deployment/README.md).
 
----
+### Configuration AWS Secrets Manager
 
 Look in `deployment/deployment-config.ts` and look at the `DeploymentConfigProperties` interface which should give you a sense of which values are being injected into the app. The values must either be in `qmr-default` secret or `qmr-STAGE` to be picked up. The secrets are json objects so they contain multiple values each.
 
 No values should be specified in both secrets. Just don't do it. Ok if that did ever happen the stage value would supercede. But really I promise you don't need it.
 
 ### Destroy Entire Branch from Local
-
----
 
 In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
 
@@ -276,21 +274,15 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 
 ### Overview
 
----
-
 The API service contains all of the API calls for the application. It is deployed with cdk and depends on the database service to exist first.
 
 ### Parameters
-
----
 
 Parameters are passed in by the URL in this order `state/year/coreset` for coreset endpoints and `state/year/coreset/measure` for measures and are used to determine the unique id of the dynamo record.
 
 The only endpoints that need a body is `update`
 
 ### CoreSet
-
----
 
 `create`: Creates the identified coreset, and then creates all child measures corresponding to the Adult, Child, or Health Home coreset.
 
@@ -304,8 +296,6 @@ The only endpoints that need a body is `update`
 
 ### Measures
 
----
-
 `create`: Creates the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the create coreset endpoint.
 
 `delete`: Deletes the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the delete coreset endpoint.
@@ -318,15 +308,11 @@ The only endpoints that need a body is `update`
 
 ### Kafka
 
----
-
 The Kafka Queues we link to are in the BigMac account and are currently not being used for any downstream purposes
 
 `postKafkaData`: Fires when an update to the database happens and syncs kafka to reflect the current state of the database.
 
 ### Utilities
-
----
 
 `convertToDynamoExpressionVars`: Dynamo requires very specific variable naming conventions which are unwieldly to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
 
@@ -342,15 +328,11 @@ We are using DynamoDB for our database solution for QMR. When looking for the da
 
 ### Tables
 
----
-
 `coresets`: Takes a compound key containing a unique combination of state, year, and coreset ID.
 
 `measures`: Takes a compound key containing a unique combination of state, year, coreset ID, and Measure ID.
 
 ### How to set up Dynamo endpoint to view local Db
-
----
 
 In order to run dynamodb locally you will need to have java installed on your system. If not currently installed go here: https://java.com/en/download/ to download the latest version.
 
@@ -367,13 +349,9 @@ For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with 
 
 ### Dev/Impl/Prod endpoints
 
----
-
 [Live URL's](#live-urls)
 
 ### Branch Endpoints
-
----
 
 The Endpoints created by a branch are random and can be found in the output of the cloudformation stack for the UI, it can also be found as an output of the deploy step of our github actions.
 
@@ -385,13 +363,9 @@ User data is synced from IDM to Cognito to allow for login to the application an
 
 ### Okta
 
----
-
 Okta is the Federated Identity Provider being used to allow users to use their IDM credentials with our application.
 
 ### Automating Test User Creation
-
----
 
 There is one lambda function in the UI-Auth Service, this is to create test users that can login to the branch environments, dev, and Val, for testing, but not production.
 
@@ -403,27 +377,23 @@ The ui-src service contains all of our frontend code and is therefore the larges
 
 ### General Stack Details
 
----
-
-| Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                           |
-| ----------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| React       | Library for writing UI Components and Application Organization | We went with React because the majority of the team was comfortable with it, and the quickstart from which this application was forked came with a good React Skeleton                                                                                           |
-| Typescript  | Maintaining and enforcing types throughout the application     | JavaScript does not throw compile-time errors for types which can lead to extremely difficult debugging. It also helps enforce code quality. Typscript's plugins with IDE's also make local development faster and easier by autofilling pieces for known types. |
-| Chakra_UI   | Rendering UI components and page Layout                        | We went with Chakra over material because we did a test. We chose one simple component and created it first with Material and then with Chakra. We found that chakra was far easier to develop with so we went with chakra                                       |
-| React-Icons | Simple Icons throughout the application                        | It was free, easy to use, and had all of the icons we needed                                                                                                                                                                                                     |
-| React-Query | State management                                               | It was the more lightweight option and was more simple to plugin to the application compared to its competetors                                                                                                                                                  |
+| Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                            |
+| ----------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| React       | Library for writing UI Components and Application Organization | We went with React because the majority of the team was comfortable with it, and the quickstart from which this application was forked came with a good React Skeleton                                                                                            |
+| TypeScript  | Maintaining and enforcing types throughout the application     | JavaScript does not throw compile-time errors for types, which can lead to extremely difficult debugging. It also helps enforce code quality. TypeScript's plugins with IDEs also make local development faster and easier by autofilling pieces for known types. |
+| Chakra_UI   | Rendering UI components and page Layout                        | We went with Chakra over material because we did a test. We chose one simple component and created it first with Material and then with Chakra. We found that chakra was far easier to develop with so we went with chakra                                        |
+| React-Icons | Simple Icons throughout the application                        | It was free, easy to use, and had all of the icons we needed                                                                                                                                                                                                      |
+| React-Query | State management                                               | It was the more lightweight option and was simpler to plug into the application compared to its competitors                                                                                                                                                       |
 
 ### Component Library
 
----
-
-At it's core QMR consists of several small simple components in `/services/ui-src/src/components`
+At its core, QMR consists of several small, simple components in `/services/ui-src/src/components`
 
 These are then used to create more complex components in `/services/ui-src/src/measures/year/CommonQuestions`
 
 These complex components are then used along with some of the simple components to create the forms for the application in `/services/ui-src/src/measures/year`
 
-When creating a new form it's best to find an existing form that is as close to what you are trying to make as possible, then modifying it with complex components if necessary, or creating a new complex component and modifying it with simple components if necessary etc...
+When creating a new form, it's best to find an existing form that closely matches your requirements, then modify it with complex components if necessary, or create a new complex component and modify it with simple components if needed, etc.
 
 ## Uploads
 
@@ -435,8 +405,6 @@ The Uploads service consists of a few S3 buckets and some integration functions.
 Any uploads are first stored in an inaccessible folder until they are scanned by the anti-virus scanner. Antivirus definitions are updated daily. This is to prevent anyone from uploading malicious files.
 
 ### Integrations with Mathematica
-
----
 
 The IAM roles that we receive from Mathematica are stored as SSM parameters and can be accessed and changed in the corresponding AWS account.
 
@@ -528,7 +496,7 @@ This application was forked from the [Quickstart Repository](https://github.com/
 
 This repository uses 3 webhooks to publish to 3 different channels all in CMS Slack.
 
-- SLACK_WEBHOOK: This pubishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `main`, `val`, or `production` branches.
+- SLACK_WEBHOOK: This publishes to the `macpro-mdct-qmr-alerts` channel. Alerts published there are for deploy or test failures to the `main`, `val`, or `production` branches.
 
 - INTEGRATIONS_SLACK_WEBHOOK: This is used to publish new pull requests to the `mdct-integrations-channel`
 
