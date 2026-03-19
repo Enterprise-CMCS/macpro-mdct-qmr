@@ -4,9 +4,9 @@
   "license": "CC0-1.0",
   "type": "commonjs",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.716.0",
-    "@aws-sdk/client-s3": "^3.716.0",
-    "@aws-sdk/lib-dynamodb": "^3.716.0",
+    "@aws-sdk/client-dynamodb": "~3.1012.0",
+    "@aws-sdk/client-s3": "~3.1012.0",
+    "@aws-sdk/lib-dynamodb": "~3.1012.0",
     "flat": "^5.0.2",
     "json2csv": "^5.0.7"
   },
