@@ -41,9 +41,6 @@
     "ts-node": "^10.8.1",
     "typescript": "^5.9.3"
   },
-  "resolutions": {
-    "ws": "^8.18.0"
-  },
   "jest": {
     "collectCoverageFrom": [
       "handlers/**/*.{ts,tsx}",
@@ -77,6 +74,5 @@
       "^.+\\.ts?$": "ts-jest"
     },
     "verbose": true
-  },
-  "packageManager": "yarn@4.12.0"
+  }
 }

@@ -12,9 +12,22 @@
     "type": "git",
     "url": "git+https://github.com/Enterprise-CMCS/macpro-mdct-qmr.git"
   },
+  "private": true,
   "directories": {
     "test": "tests"
   },
+  "workspaces": [
+    "cli",
+    "deployment",
+    "services/app-api",
+    "services/database",
+    "services/topics",
+    "services/ui",
+    "services/ui-auth",
+    "services/ui-src",
+    "services/uploads",
+    "tests/cypress"
+  ],
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -57,11 +70,6 @@
     "typescript": "^5.9.3",
     "util": "^0.12.5",
     "yargs": "^17.7.2"
-  },
-  "resolutions": {
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "json5": "^2.2.3"
   },
   "packageManager": "yarn@4.12.0"
 }
