@@ -99,7 +99,6 @@ const renameCoreSet = async () => {
   // Create modified object with correct ID
   const renamedCoreSet = {
     ...response.Item,
-    compoundKey: "IA2025",
     coreSet: NEW_CORE_SET,
   };
 
