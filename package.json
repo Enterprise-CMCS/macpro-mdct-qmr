@@ -1,6 +1,7 @@
 {
   "name": "macpro-mdct-qmr",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "homepage": "https://github.com/Enterprise-CMCS/macpro-mdct-qmr#readme",
   "bugs": {
@@ -12,7 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/Enterprise-CMCS/macpro-mdct-qmr.git"
   },
-  "private": true,
   "directories": {
     "test": "tests"
   },
