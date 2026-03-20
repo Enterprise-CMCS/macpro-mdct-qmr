@@ -75,7 +75,7 @@ QMR is the CMCS MDCT application for collecting state data related to measuring 
 
 Team members are encouraged to set up all MDCT Products using the script located in the [MDCT Tools Repository](https://github.com/Enterprise-CMCS/macpro-mdct-tools). Please refer to the README for instructions on running the MDCT Workspace Setup. After running workspace setup, team members can refer to the [Running the project locally](#running-the-project-locally) section below to proceed with running the application.
 
-The following are prerequisites for local development. **If you have run the MDCT Workspace setup script please ignore this section it is not needed.**
+The following are prerequisites for local development. **If you have run the MDCT Workspace setup script, please ignore this section; it is not needed.**
 
 1. [Create an SSH Key and link it to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 2. Clone this repository locally
@@ -99,7 +99,7 @@ The following are prerequisites for local development. **If you have run the MDC
    ```bash
    brew install yarn
    ```
-8. Look up [here](deployment/local/README.md) for other things you'll need to install though it will prompt you when your `./run local` if you're missing something.
+8. Look up [here](deployment/local/README.md) for other things you'll need to install, though it will prompt you when your `./run local` if you're missing something.
 9. Install all other node packages.
    ```bash
    yarn install  # can be skipped, will run automatically in dev script
@@ -217,7 +217,7 @@ For example:
 
 Many of commonly used components and common question components are tested with snapshot tests. [Jest's documentation](https://jestjs.io/docs/snapshot-testing) describes what snapshot testing is and how to interact with their tooling.
 
-If a change is made that affects the way a component renders, and that component is covered by snapshot testing, the snapshot tests will fail. This is expected behavior. Output logs should highlight clearly the discrepancies between the rendered component and the stored snapshot. Assuming the changes are anticipated the snapshot should be updated to match the component so tests will pass going forward. See the ["Updating Snapshots"](https://jestjs.io/docs/snapshot-testing#updating-snapshots) section of the Jest docs for specific instructions on overwriting the snapshots. Alternatively, the old snapshot file can be deleted and will be re-generated on the next run of the test.
+If a change is made that affects the way a component renders, and that component is covered by snapshot testing, the snapshot tests will fail. This is expected behavior. Output logs should highlight clearly the discrepancies between the rendered component and the stored snapshot. Assuming the changes are anticipated, the snapshot should be updated to match the component so tests will pass going forward. See the ["Updating Snapshots"](https://jestjs.io/docs/snapshot-testing#updating-snapshots) section of the Jest docs for specific instructions on overwriting the snapshots. Alternatively, the old snapshot file can be deleted and will be re-generated on the next run of the test.
 
 #### Code Coverage Report
 
@@ -344,12 +344,12 @@ From here you can view the tables and perform operations on the local tables.
 
 ## UI
 
-The UI Service creates the URL's associated with the application and the cloudfront logs that monitor traffic.
-For Master, Val, and Prod these URL's end with `.gov` the branch URL's end with `.com`
+The UI Service creates the URLs associated with the application and the cloudfront logs that monitor traffic.
+For Master, Val, and Prod, these URLs end with `.gov`; the branch URLs end with `.com`
 
 ### Dev/Impl/Prod endpoints
 
-[Live URL's](#live-urls)
+[Live URLs](#live-urls)
 
 ### Branch Endpoints
 
