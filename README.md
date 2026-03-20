@@ -26,7 +26,6 @@ QMR is the CMCS MDCT application for collecting state data related to measuring 
 - [Testing](#testing)
   - [Runners and Assertion Libraries](#runners-and-assertion-libraries)
   - [Update Node Modules](#update-node-modules)
-  - [Generate .env file with AWS Credentials](#generate-env-file-with-aws-credentials)
   - [How to Run Tests](#how-to-run-tests)
     - [Cypress Setup](#cypress-setup)
     - [Running Cypress Tests](#running-cypress-tests)
@@ -49,6 +48,7 @@ QMR is the CMCS MDCT application for collecting state data related to measuring 
   - [Database](#database)
     - [Tables](#tables)
     - [How to set up Dynamo endpoint to view local Db](#how-to-set-up-dynamo-endpoint-to-view-local-db)
+    - [Running database scripts](#running-database-scripts)
   - [UI](#ui)
     - [Dev/Impl/Prod endpoints](#devimplprod-endpoints)
     - [Branch Endpoints](#branch-endpoints)
@@ -328,19 +328,43 @@ We are using DynamoDB for our database solution for QMR. When looking for the da
 
 ### Tables
 
-`coresets`: Takes a compound key containing a unique combination of state, year, and coreset ID.
+| Table Name | Description                                                                                                                                                                                                                           |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `banners`  | Stores a single banner with the ID `admin-banner-id` that an admin can set to show on the home page for state users.                                                                                                                  |
+| `coreSet`  | Tracks the existence, status, and progress of core sets for each state and year. Each record has a compound key of `${stateAbbr}${year}`                                                                                              |
+| `measure`  | Primary storage for all individual measure records, capturing both metadata and user-supplied data for each measure within a state, year, and core set context. Each record has a compound key of `${stateAbbr}${year}${coreSetAbbr}` |
+| `rate`     | Record of calculated, cross-program rates for each measure, state, year, and core set. Each record has a compound key of `${stateAbbr}${year}${coreSetAbbr}`                                                                          |
 
-`measures`: Takes a compound key containing a unique combination of state, year, coreset ID, and Measure ID.
+> Note that [HCBS](https://github.com/Enterprise-CMCS/macpro-mdct-hcbs) recently expanded the banner functionality to enable multiple banners stored within the app; presumably, eventually this application will do the same.
 
-### How to set up Dynamo endpoint to view local Db
+### How to set up Dynamo endpoint to view local DB
 
-In order to run dynamodb locally you will need to have java installed on your system. If not currently installed go here: https://java.com/en/download/ to download the latest version.
+In order to run DynamoDB locally, you will need to have Java installed on your system. If not currently installed, go [here](https://java.com/en/download/) to download the latest version.
 
-If you want to a visual view of your dynamodb after the application is up and running you can install the dynamodb-admin tool from here: https://www.npmjs.com/package/dynamodb-admin
+If you want to a visual view of your DynamoDB after the application is up and running, you can install the `dynamodb-admin` tool from [here](https://www.npmjs.com/package/dynamodb-admin).
 
-To run the dynamodb gui, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window
+To run the DynamoDB GUI, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window. From here, you can view the tables and perform operations on the local tables.
 
-From here you can view the tables and perform operations on the local tables.
+### Running database scripts
+
+There are a few scripts located within `services/database/scripts` that can be run to perform various operations on the database. In deployed environments, these can be run using environment variables that can be obtained from Kion for a given target environment.
+
+In order to tell the AWS SDK to interact with the local database, you will need to set a these environment variables to point to your LocalStack instance instead:
+
+```bash
+export AWS_ACCESS_KEY_ID="test"
+export AWS_SECRET_ACCESS_KEY="test" # pragma: allowlist secret
+export AWS_DEFAULT_REGION="us-east-1"
+export AWS_ENDPOINT_URL="http://localhost.localstack.cloud:4566"
+```
+
+Once your environment variables are set, ensure your LocalStack instance is running. You can then run a script with the following command:
+
+```bash
+npx ts-node services/database/scripts/scriptName.ts
+```
+
+Scripts in this directory can be used to perform a variety of operations, such as migrating data from one table to another or correcting data that has already been recorded.
 
 ## UI
 
