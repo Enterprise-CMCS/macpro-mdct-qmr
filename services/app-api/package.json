@@ -18,7 +18,7 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "~3.1012.0",
     "@aws-sdk/lib-dynamodb": "~3.1012.0",
-    "@aws-sdk/util-dynamodb": "~3.1012.0",
+    "@aws-sdk/util-dynamodb": "~3.996.2",
     "aws4": "~1.13.2",
     "dompurify": "^3.2.3",
     "jsdom": "^26.1.0",
