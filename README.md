@@ -369,7 +369,7 @@ Scripts in this directory can be used to perform a variety of operations, such a
 ## UI
 
 The UI Service creates the URLs associated with the application and the cloudfront logs that monitor traffic.
-For Master, Val, and Prod, these URLs end with `.gov`; the branch URLs end with `.com`
+For Main, Val, and Production, these URLs end with `.gov`; the branch URLs end with `.com`
 
 ### Dev/Impl/Prod endpoints
 
