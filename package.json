@@ -34,8 +34,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "cdk": "cdk",
-    "test": "cd tests/cypress && yarn test && cd -",
-    "test:ci": "cd tests/cypress && yarn run test:ci"
+    "test": "yarn workspace cypress-tests test",
+    "test:ci": "yarn workspace cypress-tests test:ci"
   },
   "dependencies": {
     "@aws-sdk/client-cloudformation": "~3.1012.0",
