@@ -260,7 +260,7 @@ This project is built as a series of micro-services using the [CDK](https://aws.
 
 Look in `deployment/deployment-config.ts` and look at the `DeploymentConfigProperties` interface which should give you a sense of which values are being injected into the app. The values must either be in `qmr-default` secret or `qmr-STAGE` to be picked up. The secrets are json objects so they contain multiple values each.
 
-No values should be specified in both secrets. Just don't do it. Ok if that did ever happen the stage value would supercede. But really I promise you don't need it.
+No values should be specified in both secrets. Just don't do it. Ok if that did ever happen the stage value would supersede. But really I promise you don't need it.
 
 ### Destroy Entire Branch from Local
 
@@ -314,7 +314,7 @@ The Kafka Queues we link to are in the BigMac account and are currently not bein
 
 ### Utilities
 
-`convertToDynamoExpressionVars`: Dynamo requires very specific variable naming conventions which are unwieldly to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
+`convertToDynamoExpressionVars`: Dynamo requires very specific variable naming conventions which are unwieldy to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
 
 A known issue with this utility is that right now it only `ands` arguments, so if you have a list or get query that needs to exclude characteristics, this utility will need to be updated
 
@@ -401,13 +401,13 @@ The ui-src service contains all of our frontend code and is therefore the larges
 
 ### General Stack Details
 
-| Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                            |
-| ----------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| React       | Library for writing UI Components and Application Organization | We went with React because the majority of the team was comfortable with it, and the quickstart from which this application was forked came with a good React Skeleton                                                                                            |
-| TypeScript  | Maintaining and enforcing types throughout the application     | JavaScript does not throw compile-time errors for types, which can lead to extremely difficult debugging. It also helps enforce code quality. TypeScript's plugins with IDEs also make local development faster and easier by autofilling pieces for known types. |
-| Chakra_UI   | Rendering UI components and page Layout                        | We went with Chakra over material because we did a test. We chose one simple component and created it first with Material and then with Chakra. We found that chakra was far easier to develop with so we went with chakra                                        |
-| React-Icons | Simple Icons throughout the application                        | It was free, easy to use, and had all of the icons we needed                                                                                                                                                                                                      |
-| React-Query | State management                                               | It was the more lightweight option and was simpler to plug into the application compared to its competitors                                                                                                                                                       |
+| Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                             |
+| ----------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| React       | Library for writing UI Components and Application Organization | We went with React because the majority of the team was comfortable with it, and the quickstart from which this application was forked came with a good React Skeleton                                                                                             |
+| TypeScript  | Maintaining and enforcing types throughout the application     | JavaScript does not throw compile-time errors for types, which can lead to extremely difficult debugging. It also helps enforce code quality. TypeScript's plugins with IDEs also make local development faster and easier by auto filling pieces for known types. |
+| Chakra_UI   | Rendering UI components and page Layout                        | We went with Chakra over material because we did a test. We chose one simple component and created it first with Material and then with Chakra. We found that chakra was far easier to develop with so we went with chakra                                         |
+| React-Icons | Simple Icons throughout the application                        | It was free, easy to use, and had all of the icons we needed                                                                                                                                                                                                       |
+| React-Query | State management                                               | It was the more lightweight option and was simpler to plug into the application compared to its competitors                                                                                                                                                        |
 
 ### Component Library
 
