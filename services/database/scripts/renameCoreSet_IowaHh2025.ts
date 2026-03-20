@@ -2,9 +2,9 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DeleteCommand,
   DynamoDBDocumentClient,
+  GetCommand,
   paginateQuery,
   PutCommand,
-  UpdateCommand,
 } from "@aws-sdk/lib-dynamodb";
 
 const { MeasuresTable, QualityCoreSetsTable } = process.env;
@@ -82,19 +82,47 @@ const renameMeasures = async () => {
 };
 
 const renameCoreSet = async () => {
-  await client.send(
-    new UpdateCommand({
+  const response = await client.send(
+    new GetCommand({
       TableName: QualityCoreSetsTable,
       Key: {
         compoundKey: "IA2025",
         coreSet: OLD_CORE_SET,
       },
-      UpdateExpression: "SET coreSet = :coreSet",
-      ExpressionAttributeValues: {
-        ":coreSet": NEW_CORE_SET,
+    })
+  );
+  if (!response.Item) {
+    console.warn(`${logPrefix()}Could not find old core set. Skipping.`);
+    return;
+  }
+
+  // Create modified object with correct ID
+  const renamedCoreSet = {
+    ...response.Item,
+    compoundKey: "IA2025",
+    coreSet: NEW_CORE_SET,
+  };
+
+  // Save the modified object to the DB
+  await client.send(
+    new PutCommand({
+      TableName: QualityCoreSetsTable,
+      Item: renamedCoreSet,
+    })
+  );
+
+  // Delete the original object from the DB
+  await client.send(
+    new DeleteCommand({
+      TableName: QualityCoreSetsTable,
+      Key: {
+        compoundKey: "IA2025",
+        coreSet: OLD_CORE_SET,
       },
     })
   );
+
+  console.debug(`${logPrefix()}Renamed core set.`);
 };
 
 const main = async () => {
