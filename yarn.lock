@@ -9962,7 +9962,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-amplify@npm:^6.12.3":
+"aws-amplify@npm:~6.16.2":
   version: 6.16.3
   resolution: "aws-amplify@npm:6.16.3"
   dependencies:
@@ -11054,15 +11054,15 @@ __metadata:
   resolution: "cypress-tests@workspace:tests/cypress"
   dependencies:
     concurrently: "npm:^8.2.0"
-    cypress: "npm:^13"
+    cypress: "npm:13.16.0"
     dotenv: "npm:^16.4.5"
     typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
 
-"cypress@npm:^13":
-  version: 13.17.0
-  resolution: "cypress@npm:13.17.0"
+"cypress@npm:13.16.0":
+  version: 13.16.0
+  resolution: "cypress@npm:13.16.0"
   dependencies:
     "@cypress/request": "npm:^3.0.6"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -11109,7 +11109,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10c0/159ce620e32d2785082aaa1f4f30f203dcec466df4a8e80dfa299035358772fd513c35820070ba8db52e2bf58078a372ff7009068e26967f993656e7da62e221
+  checksum: 10c0/bdda12386d5f0404ef24c9df58e8035af47ba6cdaa09619187ccbb6e69e442cfecf013d03878b9d399eb3538536bde66ad5eea2c17d99c5a56abb1e25024fba2
   languageName: node
   linkType: hard
 
@@ -17569,7 +17569,7 @@ __metadata:
     "@types/react-router-dom": "npm:^5.3.2"
     "@types/uuid": "npm:^8.3.3"
     "@vitejs/plugin-react": "npm:^4.3.1"
-    aws-amplify: "npm:^6.12.3"
+    aws-amplify: "npm:~6.16.2"
     babel: "npm:^6.23.0"
     babel-jest: "npm:^27.5.1"
     base-64: "npm:^1.0.0"
