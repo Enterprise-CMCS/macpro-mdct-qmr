@@ -9962,7 +9962,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-amplify@npm:~6.16.2":
+"aws-amplify@npm:^6.12.3":
   version: 6.16.3
   resolution: "aws-amplify@npm:6.16.3"
   dependencies:
@@ -17569,7 +17569,7 @@ __metadata:
     "@types/react-router-dom": "npm:^5.3.2"
     "@types/uuid": "npm:^8.3.3"
     "@vitejs/plugin-react": "npm:^4.3.1"
-    aws-amplify: "npm:~6.16.2"
+    aws-amplify: "npm:^6.12.3"
     babel: "npm:^6.23.0"
     babel-jest: "npm:^27.5.1"
     base-64: "npm:^1.0.0"
