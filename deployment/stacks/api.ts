@@ -302,12 +302,34 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   });
 
   if (!isLocalStack) {
+    const githubIpSet = new wafv2.CfnIPSet(scope, "ApiGitHubIPSet", {
+      name: `${stage}-api-gh-ipset`,
+      scope: "REGIONAL",
+      addresses: [],
+      ipAddressVersion: "IPV4",
+    });
+
     const waf = new WafConstruct(
       scope,
       "ApiWafConstruct",
       {
         name: `${project}-${stage}-${service}`,
         blockRequestBodyOver8KB: false,
+        additionalRules: [
+          {
+            name: "allow-github-actions",
+            priority: 0,
+            action: { allow: {} },
+            statement: {
+              ipSetReferenceStatement: { arn: githubIpSet.attrArn },
+            },
+            visibilityConfig: {
+              sampledRequestsEnabled: true,
+              cloudWatchMetricsEnabled: true,
+              metricName: `${project}-${stage}-${service}-allow-github-actions`,
+            },
+          },
+        ],
       },
       "REGIONAL"
     );

@@ -9,6 +9,7 @@ import {
 import { createActionAuth } from "@octokit/auth-action";
 
 const ipsetName = `${process.env.BRANCH_NAME!}-gh-ipset`;
+const apiIpsetName = `${process.env.BRANCH_NAME!}-api-gh-ipset`;
 const client = new WAFV2Client({});
 
 async function run() {
@@ -44,7 +45,38 @@ async function run() {
     })
   );
   if (response.$metadata.httpStatusCode === 200) {
-    console.log("WAF IP Set updated");
+    console.log("CloudFront WAF IP Set updated");
+  }
+
+  const regionalListResponse = await client.send(
+    new ListIPSetsCommand({
+      Scope: "REGIONAL",
+    })
+  );
+  const apiIpset = regionalListResponse.IPSets?.find(
+    (set) => set.Name === apiIpsetName
+  );
+  const apiIpsetId = apiIpset!.Id;
+
+  const apiGetResponse = await client.send(
+    new GetIPSetCommand({
+      Scope: "REGIONAL",
+      Id: apiIpsetId,
+      Name: apiIpsetName,
+    })
+  );
+
+  const apiResponse = await client.send(
+    new UpdateIPSetCommand({
+      Scope: "REGIONAL",
+      Id: apiIpsetId,
+      Name: apiIpsetName,
+      LockToken: apiGetResponse.LockToken!,
+      Addresses: actionsCidrs,
+    })
+  );
+  if (apiResponse.$metadata.httpStatusCode === 200) {
+    console.log("API Gateway WAF IP Set updated");
   }
 }
 
