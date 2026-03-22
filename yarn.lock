@@ -111,26 +111,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-amplify/data-schema-types@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@aws-amplify/data-schema-types@npm:1.2.0"
+"@aws-amplify/data-schema-types@npm:*":
+  version: 1.2.1
+  resolution: "@aws-amplify/data-schema-types@npm:1.2.1"
   dependencies:
     graphql: "npm:15.8.0"
     rxjs: "npm:^7.8.1"
-  checksum: 10c0/aa24a3c94561731fec8096d9caf03a4c70a83bb9f8a3f9cd7cc53c3de1932c6e89f58fc9ed64b741470cfc74d93884958167d49b88251dd426cc1b156bebf1ab
+  checksum: 10c0/55196fb8533f0067161d7fcbe4ca1c22bab3bb5496974ab252a884cb41ff99054437055c3b620070e51b8aefa0f29721d83b97de39c8ecc4860be268e44a954e
   languageName: node
   linkType: hard
 
-"@aws-amplify/data-schema@npm:1.21.1":
-  version: 1.21.1
-  resolution: "@aws-amplify/data-schema@npm:1.21.1"
+"@aws-amplify/data-schema@npm:^1.7.0":
+  version: 1.25.3
+  resolution: "@aws-amplify/data-schema@npm:1.25.3"
   dependencies:
     "@aws-amplify/data-schema-types": "npm:*"
     "@smithy/util-base64": "npm:^3.0.0"
     "@types/aws-lambda": "npm:^8.10.134"
     "@types/json-schema": "npm:^7.0.15"
     rxjs: "npm:^7.8.1"
-  checksum: 10c0/1edd584219aa12f5531dae9cd0c6bda142428587680dd077c587d3ec4442dd5fd9a696095d3cee06d6c5f14d3e48ccfc329fcf45645c5e9cb3d64bdcefd5986c
+  checksum: 10c0/487a4241e056f69e84c37e8b8edd4e54d639e7ae45563f74db57070cbd5bde32a1fafc971677f0d92c9ae6af52df37df94703859a0148ef8d429e447a88b5534
   languageName: node
   linkType: hard
 

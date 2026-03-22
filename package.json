@@ -72,18 +72,11 @@
     "yargs": "^17.7.2"
   },
   "resolutions": {
-    "aws-amplify": "6.15.5",
     "@aws-amplify/api": "6.3.17",
     "@aws-amplify/api-rest": "4.3.0",
-    "@aws-amplify/api-graphql": "4.7.21",
     "@aws-amplify/auth": "6.15.0",
     "@aws-amplify/core": "6.13.1",
-    "@aws-amplify/storage": "6.9.5",
-    "@aws-amplify/analytics": "7.0.86",
-    "@aws-amplify/datastore": "5.0.88",
-    "@aws-amplify/notifications": "2.0.86",
-    "@aws-amplify/data-schema": "1.21.1",
-    "@aws-amplify/data-schema-types": "1.2.0"
+    "aws-amplify": "6.15.5"
   },
   "packageManager": "yarn@4.12.0"
 }
