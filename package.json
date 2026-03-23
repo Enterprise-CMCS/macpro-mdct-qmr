@@ -73,7 +73,6 @@
   },
   "resolutions": {
     "@aws-amplify/auth": "6.15.0",
-    "@aws-amplify/core": "6.13.1",
     "aws-amplify": "6.15.5"
   },
   "packageManager": "yarn@4.12.0"
