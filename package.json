@@ -72,8 +72,7 @@
     "yargs": "^17.7.2"
   },
   "resolutions": {
-    "@aws-amplify/auth": "6.15.0",
-    "aws-amplify": "6.15.5"
+    "@aws-amplify/auth": "6.15.0"
   },
   "packageManager": "yarn@4.12.0"
 }
