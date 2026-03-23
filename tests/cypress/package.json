@@ -7,14 +7,14 @@
   "main": "index.js",
   "scripts": {
     "start": "cd ../../ && ./run local && cd -",
+    "cypress": "cypress",
     "test:ci": "cypress install && cypress run --browser chrome --headless",
-    "test": "concurrently --kill-others \"npm start\" \"npm run cypress open\""
+    "test": "concurrently --kill-others \"yarn start\" \"yarn cypress open\""
   },
   "devDependencies": {
     "concurrently": "^8.2.0",
     "cypress": "^13",
     "dotenv": "^16.4.5",
     "typescript": "^5.9.3"
-  },
-  "packageManager": "yarn@4.12.0"
+  }
 }
