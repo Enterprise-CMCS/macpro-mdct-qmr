@@ -84,6 +84,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: tests/cypress
+          browser: chrome
           config: baseUrl=${{ needs.deploy.outputs.application_endpoint }}
         env:
           CYPRESS_STATE_USER_2: ${{ secrets.CYPRESS_STATE_USER_2 }}
