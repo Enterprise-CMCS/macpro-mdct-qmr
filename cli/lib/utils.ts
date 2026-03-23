@@ -76,5 +76,5 @@ export const runFrontendLocally = async (stage: string) => {
   const envVars = buildUiEnvObject(stage, outputs);
   await writeLocalUiEnvFile(envVars);
 
-  return runCommand("ui", ["yarn", "start"], "services/ui-src");
+  runCommand("ui", ["yarn", "start"], "services/ui-src");
 };
