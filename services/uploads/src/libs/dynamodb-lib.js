@@ -13,9 +13,9 @@ const client = DynamoDBDocumentClient.from(
 
 module.exports = {
   scanAll: async (TableName) => {
-    let items = [];
-    for await (let page of paginateScan({ client }, { TableName })) {
-      items = items.concat(page.Items ?? []);
+    const items = [];
+    for await (const page of paginateScan({ client }, { TableName })) {
+      items.push(...(page.Items ?? []));
     }
     return items;
   },

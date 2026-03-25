@@ -40,7 +40,7 @@ const TotalNDR = ({
     rateCalculation,
   } = usePerformanceMeasureContext();
 
-  const lastQualifier = qualifier ?? qualifiers.slice(-1)[0];
+  const lastQualifier = qualifier ?? qualifiers.at(-1)!;
   const cleanedQualifier = lastQualifier.id;
   const cleanedCategory = category.id;
 
@@ -100,12 +100,12 @@ export const TotalNDRSets = ({
   const rateArray: React.ReactElement[] = [];
 
   const { qualifiers, categories } = usePerformanceMeasureContext();
-  const totalQual = qualifiers.slice(-1)[0];
+  const totalQual = qualifiers.at(-1);
 
   const type = isLegacyLabel();
   const ndrCategory = !type && categories[0]?.id ? categories[0] : undefined;
 
-  if (categories.length && categories.some((item) => item.label)) {
+  if (categories.some((item) => item.label)) {
     categories.forEach((cat, idx) => {
       rateArray.push(
         <CUI.Box key={`${name}.${idx}.totalWrapper`}>
@@ -136,7 +136,7 @@ export const TotalNDRSets = ({
       {type && <CUI.Divider key={`totalNDRDivider`} mt={2} mb={5} />}
       {categories.length > 0 && (
         <CUI.Heading size={"sm"} key={`totalNDRHeader`}>
-          {totalQual.label}
+          {totalQual!.label}
         </CUI.Heading>
       )}
       <CUI.Box>{rateArray}</CUI.Box>

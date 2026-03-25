@@ -11,8 +11,7 @@ jest.mock("jwt-decode", () => jest.fn());
 const mockedDecode = jwtDecode as jest.MockedFunction<typeof jwtDecode>;
 
 describe("hasRolePermissions checks if the user has one of a given set of roles", () => {
-  const event = { ...testEvent };
-  event.headers = { "x-api-key": "test" };
+  const event = { ...testEvent, headers: { "x-api-key": "test" } };
 
   beforeEach(() => {
     mockedDecode.mockReturnValue({
@@ -36,8 +35,7 @@ describe("hasRolePermissions checks if the user has one of a given set of roles"
 });
 
 describe("hasStatePermissions checks if the user's state matches event's state", () => {
-  const event = { ...testEvent };
-  event.headers = { "x-api-key": "test" };
+  const event = { ...testEvent, headers: { "x-api-key": "test" } };
 
   beforeEach(() => {
     event.pathParameters = { ...event.pathParameters, state: "MN" };

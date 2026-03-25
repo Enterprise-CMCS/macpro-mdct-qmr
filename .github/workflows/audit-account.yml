@@ -21,16 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
-
-      - name: Checkout macpro-mdct-tools repository
-        uses: actions/checkout@v5
-        with:
-          repository: Enterprise-CMCS/macpro-mdct-tools
-          path: macpro-mdct-tools
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6
         with:
           node-version-file: ".nvmrc"
 
@@ -43,13 +37,13 @@ jobs:
           echo "branch_name=${BRANCH_NAME}" >> $GITHUB_ENV
 
       - name: Configure AWS credentials for GitHub Actions
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4
         with:
           role-to-assume: ${{ secrets.AWS_OIDC_ROLE_TO_ASSUME }}
           aws-region: us-east-1
 
       - name: Cache Node modules and Cypress folder
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: |
             **/node_modules
@@ -67,36 +61,27 @@ jobs:
         env:
           PROJECT: ${{ vars.APP_NAME_LOWER }}
 
-      - name: Collect resources from account
-        run: pushd .github && aws resourcegroupstaggingapi get-resources > resources.json
-
-      - name: List orphaned resources created by CI pipeline
-        run: pushd .github && ./auditAccount.sh ci_inactive resources.json
-
-      - name: List untagged resources
-        run: pushd .github && ./auditAccount.sh untagged resources.json
-
       - name: List orphaned topics
         run: pushd .github && ./auditAccount.sh orphaned_topics
 
       - name: Create reports dir
         run: pushd .github && mkdir -p reports
 
-      - name: Install macpro-mdct-tools dependencies
+      - name: Install scan resources dependencies
         run: |
-          pushd macpro-mdct-tools/scripts
+          pushd .github/scanResources
           yarn install --immutable
           popd
 
       - name: Run unmanaged resources scan
         run: |
           set -euo pipefail
-          pushd macpro-mdct-tools/scripts
+          pushd .github/scanResources
           ./scanResources.ts || { echo "scanResources.ts failed"; exit 1; }
           popd
           set +e
 
-          REPORT_FILE=$(ls macpro-mdct-tools/scripts/unmanaged-resources-*.txt 2>/dev/null | grep -v -- '-delete-commands\.txt$' | head -n1 || true)
+          REPORT_FILE=$(ls .github/scanResources/unmanaged-resources-*.txt 2>/dev/null | grep -v -- '-delete-commands\.txt$' | head -n1 || true)
           if [ -n "${REPORT_FILE:-}" ]; then
             echo "Found unmanaged resources report: $REPORT_FILE"
             cp "$REPORT_FILE" .github/reports/ || echo "Warning: Failed to copy report file"
@@ -104,7 +89,7 @@ jobs:
             echo "No unmanaged resources report generated."
           fi
 
-          DELETE_FILE=$(ls macpro-mdct-tools/scripts/unmanaged-resources-*-delete-commands.txt 2>/dev/null | head -n1 || true)
+          DELETE_FILE=$(ls .github/scanResources/unmanaged-resources-*-delete-commands.txt 2>/dev/null | head -n1 || true)
           if [ -n "${DELETE_FILE:-}" ]; then
             echo "Found unmanaged resources delete commands: $DELETE_FILE"
             cp "$DELETE_FILE" .github/reports/ || echo "Warning: Failed to copy delete commands file"
@@ -119,18 +104,12 @@ jobs:
           #!/bin/bash
           pushd .github
           echo "Reports with no entries will be omitted"
-          CI_INACTIVE="$(./auditAccount.sh ci_inactive resources.json)"
-          [[ $(jq -r 'length' <<< "${CI_INACTIVE}") -gt 0 ]] && jq -r '(.[0]
-            | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' <<< "${CI_INACTIVE}" > reports/ci_inactive.csv || :
-          UNTAGGED="$(./auditAccount.sh untagged resources.json)"
-          [[ $(jq -r 'length' <<< "${UNTAGGED}") -gt 0 ]] && jq -r '(.[0]
-            | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' <<< "${UNTAGGED}" > reports/untagged.csv || :
           TOPICS="$(./auditAccount.sh orphaned_topics)"
           [[ $(jq -r 'length' <<< "${TOPICS}") -gt 0 ]] && jq -r '(.[0]
             | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv' <<< "${TOPICS}" > reports/orphaned_topics.csv || :
 
       - name: Upload reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: resource-reports
           path: .github/reports/

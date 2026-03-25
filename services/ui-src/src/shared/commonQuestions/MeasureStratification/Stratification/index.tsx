@@ -30,7 +30,7 @@ export const buildOmsCheckboxes = ({
   customLabels,
 }: Types.OmsCheckboxProps) => {
   return data
-    .filter((d) => !excludeOptions.find((options) => options === d.id)) //remove any options the measure wants to exclude
+    .filter((d) => !excludeOptions.some((options) => options === d.id)) //remove any options the measure wants to exclude
     .map((lvlOneOption) => {
       const displayValue = lvlOneOption.label;
       const value = cleanString(lvlOneOption.id);

@@ -113,8 +113,8 @@ export const defaultMockValues = {
       title: "test banner",
       description: "test description",
       link: "https://www.mocklink.com",
-      startDate: new Date().getTime(),
-      endDate: new Date().getTime() + 60000,
+      startDate: Date.now(),
+      endDate: Date.now() + 60000,
     },
   },
   useDeleteBannerValues: {

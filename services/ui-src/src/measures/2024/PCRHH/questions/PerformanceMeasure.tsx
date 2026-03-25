@@ -70,9 +70,8 @@ const QualifierNdrSets = ({
   rateReadOnly,
   categories = [],
   qualifiers = [],
-  customMask,
 }: NdrSetProps) => {
-  const categoryID = categories[0]?.id ? categories[0].id : DC.SINGLE_CATEGORY;
+  const categoryID = categories[0]?.id ?? DC.SINGLE_CATEGORY;
 
   const rates: QMR.IRate[] = qualifiers.map((item, idx) => ({
     label: item.label,
@@ -84,7 +83,6 @@ const QualifierNdrSets = ({
     <PCRRate
       rates={rates}
       readOnly={rateReadOnly}
-      customMask={customMask}
       key={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
       name={`${DC.PERFORMANCE_MEASURE}.${DC.RATES}.${categoryID}`}
     />
