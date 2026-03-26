@@ -1447,6 +1447,36 @@ export const data = {
         ],
         "categories": [{"id":"0YSQj5", "label": "", "text":""}]
     },
+    "PND-AD": {
+        "qualifiers": [
+             {
+                 "label": "Depression Screening: Age 21 and Older",
+                 "text": "Depression Screening: Age 21 and Older",
+                 "id": "e4G131"
+             },
+             {
+                 "label": "Follow-Up Positive Screen: Age 21 and Older",
+                 "text": "Follow-Up Positive Screen: Age 21 and Older",
+                 "id": "hTfHWz"
+             }
+         ],
+         "categories": [{"id":"NWyW0B", "label": "", "text":""}]
+    },
+    "PND-CH":{
+        "qualifiers":[
+            {
+                "label": "Depression Screening: Under Age 21", 
+                "text": "Depression Screening: Under Age 21",
+                "id": "2Onni0" 
+            },
+            {
+                "label": "Follow-Up Positive Screen: Under Age 21", 
+                "text": "Follow-Up Positive Screen: Under Age 21",
+                "id": "j73ieP" 
+            },
+        ],
+        "categories": [{"id":"hONfZG", "label": "", "text":""}]
+    },
     "PPC2-AD": {
         "qualifiers": [
             {
@@ -1745,7 +1775,6 @@ export const data = {
 export const getCatQualLabels = (measure: keyof typeof data) => {
     const qualifiers = data[measure].qualifiers;
     const categories = data[measure].categories;
-  
     return {
       qualifiers,
       categories,

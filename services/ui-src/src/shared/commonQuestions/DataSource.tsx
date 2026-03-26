@@ -4,6 +4,7 @@ import * as Types from "shared/types";
 import {
   DataSourceData,
   defaultData,
+  defaultData2026AndBeyond,
   getDataSourceDisplayName,
   OptionNode,
 } from "shared/types";
@@ -15,6 +16,7 @@ import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
 import { Alert } from "@cmsgov/design-system";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface DataSourceProps {
   data?: DataSourceData;
@@ -170,8 +172,16 @@ const addLabelByType = (
 /**
  * Fully built DataSource component
  */
-export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
+export const DataSource = ({ data, type }: DataSourceProps) => {
   const { getValues } = useFormContext<Types.DataSource>();
+
+  // Use year-appropriate default data
+  const dataSourceData =
+    data ||
+    (featuresByYear.useDataCollectionMethod
+      ? defaultData2026AndBeyond
+      : defaultData);
+
   const watchDataSource = useWatch<Types.DataSource>({
     name: DC.DATA_SOURCE,
     defaultValue: getValues().DataSource,
@@ -182,18 +192,22 @@ export const DataSource = ({ data = defaultData, type }: DataSourceProps) => {
   const labels: any = useContext(SharedContext);
 
   //adding hint label text recursively
-  addHintLabel(data.options, labels.DataSource);
-  addLabelByType("warning", data.options, labels.DataSource);
+  addHintLabel(dataSourceData.options, labels.DataSource);
+  addLabelByType("warning", dataSourceData.options, labels.DataSource);
+
+  const dataSourceLabel = featuresByYear.useDataCollectionMethod
+    ? "Data Collection Method"
+    : "Data Source";
 
   return (
-    <QMR.CoreQuestionWrapper testid="data-source" label="Data Source">
+    <QMR.CoreQuestionWrapper testid="data-source" label={dataSourceLabel}>
       <div data-cy="data-source-options">
         <QMR.Checkbox
           key={DC.DATA_SOURCE}
           name={DC.DATA_SOURCE}
-          label={data.optionsLabel}
+          label={dataSourceData.optionsLabel}
           options={buildDataSourceOptions({
-            data: data.options,
+            data: dataSourceData.options,
             otherDataSourceWarning: labels.DataSource.otherDataSourceWarning,
             type: type,
           })}

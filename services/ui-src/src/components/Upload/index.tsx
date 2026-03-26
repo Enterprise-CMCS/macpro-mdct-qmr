@@ -181,7 +181,7 @@ export const Upload = ({
     if (fileNameExtension === lowerCaseFileNameExtension) {
       return file;
     } else {
-      const updatedFileName = fileNameText.concat(lowerCaseFileNameExtension);
+      const updatedFileName = fileNameText + lowerCaseFileNameExtension;
       const updatedFile = new File([file], updatedFileName, {
         type: file.type,
       });
@@ -239,7 +239,7 @@ export const Upload = ({
           <CUI.AlertIcon />
           <CUI.AlertTitle mr={2}>
             {erroredFile.file.name}:{" "}
-            {erroredFile.errors[0].message.replace(
+            {erroredFile.errors[0].message.replaceAll(
               /[0-9]* bytes/g,
               convertFileSize(maxSize)
             )}

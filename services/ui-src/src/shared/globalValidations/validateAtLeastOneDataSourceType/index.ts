@@ -1,5 +1,6 @@
 import * as Types from "shared/types";
 import { DataSource } from "../../../types";
+import { featuresByYear } from "utils/featuresByYear";
 
 const OPTIONAL_DATA_SOURCES = new Set([DataSource.EHR, DataSource.ECDS]);
 
@@ -9,6 +10,11 @@ export const validateAtLeastOneDataSourceType = (
 ) => {
   const errorArray: FormError[] = [];
   const dataSources = data.DataSourceSelections;
+
+  const dataSourceLabel = featuresByYear.useDataCollectionMethod
+    ? "Data Collection Method"
+    : "Data Source";
+
   if (dataSources) {
     //find selected data sources with unfilled explanation boxes, which are not optional
     const unfilledDataSources = Object.keys(dataSources).filter(
@@ -22,11 +28,13 @@ export const validateAtLeastOneDataSourceType = (
         const lookupKey = key.split("-")?.[1] ?? key;
         const label = Types.getDataSourceDisplayName(lookupKey);
         return {
-          errorLocation: "Data Source",
+          errorLocation: dataSourceLabel,
           errorMessage:
             errorMessage ??
             `Please describe the ${label}${
-              !label.includes("Source") ? " Source" : ""
+              !label.includes("Source") && !label.includes("Method")
+                ? " Source"
+                : ""
             }`,
         };
       })
@@ -40,8 +48,9 @@ export const validateAtLeastOneDataSourceType = (
     );
     errorArray.push(
       ...unselectedDataSources.map((_key) => ({
-        errorLocation: "Data Source",
-        errorMessage: errorMessage ?? "You must select a data source",
+        errorLocation: dataSourceLabel,
+        errorMessage:
+          errorMessage ?? `You must select a ${dataSourceLabel.toLowerCase()}`,
       }))
     );
   }

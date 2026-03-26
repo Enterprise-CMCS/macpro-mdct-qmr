@@ -33,7 +33,7 @@ export const createCoreSet = handler(async (event, context) => {
   const type = coreSet!.substring(0, 1);
 
   const coreSetQuery = await getCoreSet(event, context);
-  const coreSetExists = !!Object.keys(JSON.parse(coreSetQuery.body)).length;
+  const coreSetExists = Object.keys(JSON.parse(coreSetQuery.body)).length > 0;
 
   if (coreSetExists) {
     return {

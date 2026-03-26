@@ -487,7 +487,11 @@ export const SPA: { [year: string]: SPAi[] } = {
       name: "Chronic Care Management for Individuals with Serious and Persistent Mental Health Conditions",
     },
     { id: "24-0020", state: "DC", name: "Chronic Conditions" },
-    { id: "22-0004", state: "IA", name: "Iowa Health Home Services" },
+    {
+      id: "20-0011",
+      state: "IA",
+      name: "Iowa Severe and Persistent Mental Illness Health Home ",
+    },
     {
       id: "23-0001",
       state: "ID",

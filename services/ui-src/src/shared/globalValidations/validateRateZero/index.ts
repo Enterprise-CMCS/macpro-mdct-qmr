@@ -25,20 +25,22 @@ export const validationRateZero = ({
 
   for (const ratefields of rateData) {
     for (const rate of ratefields) {
-      if (rate && rate.denominator && rate.numerator && rate.rate) {
-        if (
-          parseFloat(rate.numerator) === 0 &&
-          parseFloat(rate.denominator) > 0 &&
-          parseFloat(rate.rate) !== 0 &&
-          !hybridData
-        ) {
-          errorArray.push({
-            errorLocation: location,
-            errorMessage:
-              errorMessage ??
-              "Manually entered rate should be 0 if numerator is 0",
-          });
-        }
+      if (
+        rate &&
+        rate.denominator &&
+        rate.numerator &&
+        rate.rate &&
+        parseFloat(rate.numerator) === 0 &&
+        parseFloat(rate.denominator) > 0 &&
+        parseFloat(rate.rate) !== 0 &&
+        !hybridData
+      ) {
+        errorArray.push({
+          errorLocation: location,
+          errorMessage:
+            errorMessage ??
+            "Manually entered rate should be 0 if numerator is 0",
+        });
       }
     }
   }
@@ -100,6 +102,6 @@ export const validateRateZeroPM = (
     }),
   ];
 
-  if (!!errors.length) errorArray.push(errors[0]);
+  if (errors.length > 0) errorArray.push(errors[0]);
   return errorArray;
 };

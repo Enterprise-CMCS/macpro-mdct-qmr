@@ -63,7 +63,7 @@ export const useUpdateAllMeasures = () => {
         year: data.year,
         coreSet: data.coreSet,
       }).then(async (measureList) => {
-        for (const measureInfo of measureList?.Items) {
+        for (const measureInfo of measureList.Items) {
           const measureData = measureInfo.data ?? {};
           await updateMeasure({
             ...measureInfo,
