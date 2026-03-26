@@ -1,0 +1,7 @@
+# To utilize this file within your IDE, run the following and restart your IDE:
+#  git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Linting fixes from the oxlint update
+db6174d5e64d0aa8ffb49845ec4a989b61ceeb3a
+983283ae94c1e2ac43130d4625896c746cd7ed8a
+7b72ed71844c32f59f42b2f1ef12df12ad128a60
