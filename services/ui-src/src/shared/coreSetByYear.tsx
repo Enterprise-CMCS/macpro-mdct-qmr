@@ -255,3 +255,39 @@ export const coreSets: CoreSetFields = {
     },
   ],
 };
+
+export const getSubmitHint = (year: string): string => {
+  if (year === "2026") return "to submit the Core Set report.";
+  return `to submit ${year}`;
+};
+
+export const getTypeLabel = (year: string, coreSetPrefix: string): string => {
+  if (
+    year === "2026" &&
+    (coreSetPrefix === CoreSetAbbr.CCSM || coreSetPrefix === CoreSetAbbr.CCS)
+  ) {
+    return "Measures";
+  }
+  return "Questions";
+};
+
+export const getQualifierHintText = (
+  year: string,
+  coreSetPrefix: string,
+  coreSetName: string
+): string => {
+  if (year === "2026" && coreSetPrefix === CoreSetAbbr.CCSM) {
+    return `Complete the ${coreSetName} Core Set Qualifier Questions before submitting the Core Set report.`;
+  }
+  return `Enter the ${coreSetName} core set qualifier questions before completing the measures below.`;
+};
+
+export const getStepsHeading = (
+  year: string,
+  coreSetPrefix: string
+): string => {
+  if (year === "2026" && coreSetPrefix === CoreSetAbbr.CCSM) {
+    return "Report Progress";
+  }
+  return "Steps and progress to completion";
+};
