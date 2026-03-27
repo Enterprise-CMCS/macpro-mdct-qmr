@@ -1910,21 +1910,21 @@ export const measures: Measure = {
       measure: "FUA-AD",
       measureType: MeasureType.MANDATORY,
       typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
-      stratificationRequired: [CoreSetAbbr.ACSM],
+      stratificationRequired: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
       measure: "FUH-AD",
       measureType: MeasureType.MANDATORY,
       typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
-      stratificationRequired: [CoreSetAbbr.ACSM],
+      stratificationRequired: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
       measure: "FUM-AD",
       measureType: MeasureType.MANDATORY,
       typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
-      stratificationRequired: [CoreSetAbbr.ACSM],
+      stratificationRequired: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
@@ -1945,7 +1945,7 @@ export const measures: Measure = {
       measure: "IET-AD",
       measureType: MeasureType.MANDATORY,
       typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
-      stratificationRequired: [CoreSetAbbr.ACSM],
+      stratificationRequired: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
@@ -1967,7 +1967,7 @@ export const measures: Measure = {
       measure: "OUD-AD",
       measureType: MeasureType.MANDATORY,
       typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
-      stratificationRequired: [CoreSetAbbr.ACSM],
+      stratificationRequired: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
       type: "A",
