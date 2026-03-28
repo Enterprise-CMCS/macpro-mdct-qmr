@@ -6,7 +6,6 @@ describe(`healthhome core set workflow test`, () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
-    cy.wait(500);
   });
 
   it("create hh core set", () => {
@@ -23,7 +22,6 @@ describe("Measure: CBP-HH", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
-    cy.wait(500);
     cy.goToHealthHomeSetMeasures();
     cy.goToMeasure("CBP-HH");
   });
@@ -43,7 +41,6 @@ describe("Add custom measure", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
-    cy.wait(500);
     cy.goToHealthHomeSetMeasures();
   });
   it("add state specific measure", () => {
@@ -65,7 +62,6 @@ describe.skip("submit coreset", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
-    cy.wait(500);
     cy.get('[data-cy="health home-kebab-menu"]').click();
     cy.get('[aria-label="Reset All Measures for HHCS_24-0024"]').click();
     cy.wait(1000);
@@ -106,7 +102,6 @@ describe("Export All Measures", () => {
   beforeEach(() => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
-    cy.wait(500);
     cy.window().then((win) => {
       cy.stub(win, "open").callsFake((url) => {
         win.location.href = url;

@@ -9,7 +9,6 @@ describe(`Adult Core Sets should be able to be created for ${testingYear}`, () =
   beforeEach(() => {
     cy.login();
     cy.selectYear(testingYear);
-    cy.wait(500);
   });
 
   // create an adult core set
