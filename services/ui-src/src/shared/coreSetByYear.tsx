@@ -276,7 +276,7 @@ export const getQualifierHintText = (
   coreSetPrefix: string,
   coreSetName: string
 ): string => {
-  if (year === "2026" && coreSetPrefix === CoreSetAbbr.CCSM) {
+  if (year === "2026" && coreSetPrefix === CoreSetAbbr.CCSM || coreSetPrefix === CoreSetAbbr.CCS) {
     return `Complete the ${coreSetName} Core Set Qualifier Questions before submitting the Core Set report.`;
   }
   return `Enter the ${coreSetName} core set qualifier questions before completing the measures below.`;
@@ -286,7 +286,7 @@ export const getStepsHeading = (
   year: string,
   coreSetPrefix: string
 ): string => {
-  if (year === "2026" && coreSetPrefix === CoreSetAbbr.CCSM) {
+  if (year === "2026" && coreSetPrefix === CoreSetAbbr.CCSM || coreSetPrefix === CoreSetAbbr.CCS) {
     return "Report Progress";
   }
   return "Steps and progress to completion";
