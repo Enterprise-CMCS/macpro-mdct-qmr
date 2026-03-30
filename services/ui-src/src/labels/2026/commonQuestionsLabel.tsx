@@ -211,7 +211,6 @@ export const commonQuestionsLabel = {
     subHeader: [
       "Do not select categories and detailed categories for which your state does not collect data.",
       "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
-      <br />,
       "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields.",
     ],
     addAnotherType: "detailed categories",
