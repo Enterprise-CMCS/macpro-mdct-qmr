@@ -100,10 +100,15 @@ The following are prerequisites for local development. **If you have run the MDC
    brew install yarn
    ```
 8. Look up [here](deployment/local/README.md) for other things you'll need to install, though it will prompt you when your `./run local` if you're missing something.
-9. Install all other node packages.
+9. Install the pre-commit hook to run oxfmt on staged files before every commit
    ```bash
-   yarn install  # can be skipped, will run automatically in dev script
+   pre-commit install
    ```
+10. Install all other node packages.
+
+```bash
+yarn install  # can be skipped, will run automatically in dev script
+```
 
 ## Running the project locally
 
@@ -266,7 +271,7 @@ No values should be specified in both secrets. Just don't do it. Ok if that did 
 
 In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
 
-1. [set up local AWS credentials](#setting-up-aws-credentials-locally)
+1. set up local AWS credentials per the [running database scripts](#running-database-scripts) section
 2. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
 3. `./run destroy name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
@@ -373,7 +378,13 @@ For Main, Val, and Production, these URLs end with `.gov`; the branch URLs end w
 
 ### Dev/Impl/Prod endpoints
 
-[Live URLs](#live-urls)
+| Environment | URL                                    |
+| ----------- | -------------------------------------- |
+| Local       | http://localhost:3000/                 |
+| Branch      | Found in the output of the Deploy step |
+| Master      | https://mdctqmrdev.cms.gov/            |
+| Val         | https://mdctqmrval.cms.gov/            |
+| Prod        | https://mdctqmr.cms.gov/               |
 
 ### Branch Endpoints
 
