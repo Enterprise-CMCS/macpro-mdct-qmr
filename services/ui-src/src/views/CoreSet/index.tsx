@@ -126,7 +126,7 @@ const StepsAndProgressSection = ({
       label: {
         title: "Complete the below measures",
         hintText: `Complete all ${
-          coreSetTitles(coreSetInfo[0], "Measures") + spaName
+          coreSetTitles(coreSetInfo[0]) + spaName
         } to submit the Core Set report.`,
       },
       indicator: (
