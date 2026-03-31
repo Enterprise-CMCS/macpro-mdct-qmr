@@ -4,6 +4,9 @@ before(() => {
 
 const emailForCognito = "input[name='email']";
 const passwordForCognito = "input[name='password']";
+const coresetListRoute = "**/coreset/**/list";
+const adminBannerRoute = "**/banners/admin-banner-id";
+const reportingYearsRoute = "**/coreset/reportingyears";
 
 const loginUser = (user: string) => {
   cy.session([user], () => {
@@ -45,7 +48,11 @@ Cypress.Commands.add(
 
 // Select the year
 Cypress.Commands.add("selectYear", (year) => {
+  cy.intercept("GET", coresetListRoute).as("coresetList");
+  cy.intercept("GET", adminBannerRoute).as("adminBanner");
+  cy.intercept("GET", reportingYearsRoute).as("reportingYears");
   cy.get('[data-cy="year-select"]').select(year);
+  cy.wait(["@coresetList", "@adminBanner", "@reportingYears"]);
 });
 
 // Visit Adult Core Set Measures
