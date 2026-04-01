@@ -21,6 +21,7 @@ export const CASE_MANAGEMENT_SYSTEM = "Case Management system";
 export const CATEGORIES = "categories";
 export const CDC = "CDC";
 export const CHANGE_IN_POP_EXPLANATION = "ChangeInPopulationExplanation";
+export const CLINICAL_REGISTRY = "ClinicalRegistry";
 export const CMS = "CMS";
 export const COMBINED_NOT_WEIGHTED_RATES = "Combined Not Weighted Rates";
 export const COMBINED_RATES = "CombinedRates";
@@ -130,6 +131,7 @@ export const EXPLAINATION = "explanation";
 export const FFS = "FFS";
 export const HEALTH_HOME_QUALIFIER_FILE_UPLOAD = "costSavingsFile";
 export const HEALTH_HOME_CORESET_SPA = "HealthHomeCoreSet-SPA";
+export const HEALTH_INFORMATION_EXCHANGE = "Healthinformationexchange";
 export const HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY =
   "Health information exchange (HIE) / clinical registry";
 export const HEDIS_2019 = "HEDIS 2019";
