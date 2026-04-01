@@ -10,6 +10,8 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { clearMocks } from "shared/util/validationsMock";
+import { useParams } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
 
 expect.extend(toHaveNoViolations);
 
@@ -24,10 +26,27 @@ const apiData: any = {};
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: jest.fn(),
+}));
+const mockUseParams = useParams as jest.Mock;
+
+jest.mock("../../../utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn().mockReturnValue(2026),
+}));
+
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
   let component: JSX.Element;
   beforeEach(() => {
     clearMocks();
+
+    mockUseParams.mockReturnValue({
+      year: "2026",
+      state: "CT",
+      coreSetId: "HHCS",
+      measureId: measureAbbr,
+    });
     apiData.useGetMeasureValues = {
       data: {
         Item: {
@@ -100,12 +119,33 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     useApiMock(apiData);
     renderWithHookForm(component);
     expect(screen.queryByText("Status of Data Reported")).toBeInTheDocument();
-    expect(screen.queryByText("Data Source")).toBeInTheDocument();
+    expect(screen.queryByText("Data Collection Method")).toBeInTheDocument();
     expect(screen.queryByText("Date Range")).toBeInTheDocument();
     expect(
       screen.queryByText("Definition of Population Included in the Measure")
     ).toBeInTheDocument();
     expect(screen.queryByText("Performance Measure")).toBeInTheDocument();
+  });
+
+  it("test add and delete of another", async () => {
+    useApiMock(apiData);
+    renderWithHookForm(component);
+
+    expect(
+      screen.queryByRole("button", { name: "+ Add Another" })
+    ).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole("button", { name: "+ Add Another" }));
+
+    expect(
+      screen.getByRole("button", { name: "Delete Field" })
+    ).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole("button", { name: "Delete Field" }));
+
+    expect(
+      screen.queryByRole("button", { name: "Delete Field" })
+    ).not.toBeInTheDocument();
   });
 });
 

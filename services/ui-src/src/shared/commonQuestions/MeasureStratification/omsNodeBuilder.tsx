@@ -1,7 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 
-import { OmsNode } from "shared/types";
+import { MeasureStratificationLabels, OmsNode } from "shared/types";
 
 import { cleanString } from "utils/cleanString";
 import { AnyObject } from "types";
@@ -17,6 +17,7 @@ interface CheckboxChildrenProps extends OmsNode {
   /** name of parent category for additionalCategory rendering */
   parentDisplayName: string;
   year?: number;
+  customLabels: MeasureStratificationLabels;
   overrideAccordion?: (option: string) => boolean;
 }
 
@@ -32,7 +33,7 @@ interface NdrNodeProps {
   flagSubCat: boolean;
 }
 
-const omsLabels = (omsNode: OmsNode) => {
+const omsLabels = (omsNode: OmsNode, addAnotherType: string) => {
   return {
     checkboxOpt: `Are you reporting aggregate data for the ${
       omsNode.aggregateTitle || omsNode.label
@@ -42,7 +43,7 @@ const omsLabels = (omsNode: OmsNode) => {
     } category.`,
     NoIndependentData: `No, we are reporting disaggregated data for ${
       omsNode?.aggregateTitle || omsNode?.label
-    } subcategories.`,
+    } ${addAnotherType}.`,
   };
 };
 
@@ -64,9 +65,7 @@ const NdrSubNode = (omsNode: OmsNode, flagSubCat: boolean, name: string) => {
           omsNode?.options!.map((node) => {
             return buildChildCheckboxOption({
               omsNode: node,
-              name: `${name}.selections.${
-                cleanString(node.id) ?? "ID_NOT_SET"
-              }`,
+              name: `${name}.selections.${cleanString(node.id) ?? "ID_NOT_SET"}`,
             });
           }) || []
         }
@@ -161,15 +160,13 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     props.id === "O8BrOa" &&
     props.year! >= 2025;
 
-  const checkboxOptions = [
-    ...props.options.map((lvlTwoOption) => {
-      return buildChildCheckboxOption({
-        omsNode: lvlTwoOption,
-        name: `${props.name}.selections.${lvlTwoOption.id}`,
-        label: omsLabels(lvlTwoOption),
-      });
-    }),
-  ];
+  const checkboxOptions = props.options.map((lvlTwoOption) => {
+    return buildChildCheckboxOption({
+      omsNode: lvlTwoOption,
+      name: `${props.name}.selections.${lvlTwoOption.id}`,
+      label: omsLabels(lvlTwoOption, props.customLabels.addAnotherType),
+    });
+  });
 
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>

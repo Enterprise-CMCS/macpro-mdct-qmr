@@ -47,7 +47,6 @@ export const IETRate = ({
   categories,
   qualifiers,
   customMask,
-  calcTotal,
   allowNumeratorGreaterThanDenominator,
   customDenominatorLabel,
   customNumeratorLabel,
@@ -264,7 +263,7 @@ export const IETRate = ({
         ? rate?.uid.toLowerCase().includes(".total") && rate.isTotal
         : rate.isTotal
     );
-    if (totalRateIndex > -1) {
+    if (totalRateIndex !== -1) {
       let totalRate = rates.splice(totalRateIndex, 1).flat()[0];
       const total = calculate(rates);
       return { ...totalRate, ...total };
@@ -286,7 +285,6 @@ export const IETRate = ({
       field.onChange([]);
     };
     // purposefully ignoring field to stop infinite rerender
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
   return (

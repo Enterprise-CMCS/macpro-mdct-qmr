@@ -1,7 +1,7 @@
 import { getPDF } from "../pdf";
 import { testEvent } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
-import { gzipSync } from "zlib";
+import { gzipSync } from "node:zlib";
 
 jest.spyOn(console, "warn").mockImplementation();
 
@@ -130,7 +130,6 @@ describe("Test GetPDF handler", () => {
 
     expect(res.statusCode).toBe(500);
 
-    // eslint-disable-next-line no-console
     expect(console.warn).toBeCalledWith(expect.stringContaining("It broke."));
   });
 });

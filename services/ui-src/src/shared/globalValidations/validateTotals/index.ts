@@ -65,7 +65,7 @@ export const validateOMSTotalNDR =
         ) {
           error.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              [...label, qualifiers.slice(-1)[0].label]
+              [...label, qualifiers.at(-1)!.label]
             )}`,
             errorMessage: errorMessageFunc("numerator", customTotalLabel),
           });
@@ -77,7 +77,7 @@ export const validateOMSTotalNDR =
         ) {
           error.push({
             errorLocation: `Optional Measure Stratification: ${locationDictionary(
-              [...label, qualifiers.slice(-1)[0].label]
+              [...label, qualifiers.at(-1)!.label]
             )}`,
             errorMessage: errorMessageFunc("denominator", customTotalLabel),
           });
@@ -85,7 +85,7 @@ export const validateOMSTotalNDR =
       } else if (numeratorSum && denominatorSum) {
         error.push({
           errorLocation: `Optional Measure Stratification: ${locationDictionary(
-            [...label, qualifiers.slice(-1)[0].label]
+            [...label, qualifiers.at(-1)!.label]
           )}`,
           errorMessage: errorMessageFunc("Total", customTotalLabel),
         });
@@ -95,9 +95,16 @@ export const validateOMSTotalNDR =
     return error;
   };
 
-const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
+const validateTotalNDRErrorMessage = (
+  qualifier: string,
+  fieldType: string,
+  category?: string
+) => {
   if (fieldType === "Total") {
     return `${qualifier} must contain values if other fields are filled.`;
+  }
+  if (category !== undefined) {
+    return `${qualifier} ${fieldType.toLowerCase()} field is not equal to the sum of other ${fieldType.toLowerCase()}s for the ${category} rate.`;
   }
   return `${qualifier} ${fieldType.toLowerCase()} field is not equal to the sum of other ${fieldType.toLowerCase()}s.`;
 };
@@ -138,7 +145,7 @@ export const validateTotalNDR = (
       }
     });
 
-    let totalNDR = ndrSet[ndrSet.length - 1];
+    let totalNDR = ndrSet.at(-1);
     if (totalNDR?.denominator && totalNDR?.numerator) {
       // If we wanted to get fancy we could offer expected values in here quite easily.
 
@@ -153,7 +160,11 @@ export const validateTotalNDR = (
           (categories && categories[idx].label) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: errorMessageFunc(qualifier!, "Numerator"),
+          errorMessage: errorMessageFunc(
+            qualifier!,
+            "Numerator",
+            totalNDR.category
+          ),
         });
       }
       if (
@@ -165,15 +176,19 @@ export const validateTotalNDR = (
           (categories && categories[idx].label) || totalNDR.label;
         errorArray.push({
           errorLocation: errorLocation,
-          errorMessage: errorMessageFunc(qualifier!, "Denominator"),
+          errorMessage: errorMessageFunc(
+            qualifier!,
+            "Denominator",
+            totalNDR.category
+          ),
         });
       }
     } else if (numeratorSum && denominatorSum) {
       const fieldLabel =
         (categories &&
           categories[idx]?.label &&
-          `${categories[idx].label} - ${totalNDR.label}`) ||
-        totalNDR.label;
+          `${categories[idx].label} - ${totalNDR!.label}`) ||
+        totalNDR!.label;
       errorArray.push({
         errorLocation: errorLocation,
         errorMessage: errorMessageFunc(fieldLabel!, "Total"),

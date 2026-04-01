@@ -50,8 +50,8 @@ export const main = async () => {
 
     console.info("Migration complete!");
     return { status: 200 };
-  } catch (err) {
-    console.error("Error!", err);
+  } catch (error) {
+    console.error("Error!", error);
     return { status: 500 };
   }
 };

@@ -122,32 +122,6 @@ export const data = {
             "id": "B4SxBy",
         }]
     },
-    "AMM-AD": {
-        "qualifiers": [
-            {
-                "label": "Ages 18 to 64",
-                "text": "Ages 18 to 64",
-                "id": "g91VU9"
-            },
-            {
-                "label": "Age 65 and older",
-                "text": "Age 65 and older",
-                "id": "Gjknmo"
-            }
-        ],
-        "categories": [
-            {
-                "label": "Effective Acute Phase Treatment",
-                "text": "Effective Acute Phase Treatment",
-                "id": "DFukSh"
-            },
-            {
-                "label": "Effective Continuation Phase Treatment",
-                "text": "Effective Continuation Phase Treatment",
-                "id": "JjQeAC"
-            }
-        ]
-    },
     "AMR-AD": {
         "qualifiers": [
             {
@@ -603,35 +577,6 @@ export const data = {
             }
         ],
         "categories": [{"id":"sYNAsL", "label": "", "text":""}]
-    },
-    "CPU-AD": {
-        "qualifiers": [
-            {
-                "label": "Care Plan with Core Elements Documented",
-                "text": "Care Plan with Core Elements Documented",
-                "id": "T6dADz",
-            },
-            {
-                "label": "Care Plan with Supplemental Elements Documented",
-                "text": "Care Plan with Supplemental Elements Documented",
-                "id": "NBz553",
-            },
-            {
-                "label": "Could Not Be Reached for Care Planning",
-                "text": "Could Not Be Reached for Care Planning",
-                "id": "7dC1vt",
-                "excludeFromOMS": true,
-                "isField": true,
-            },
-            {
-                "label": "Refusal to Participate in Care Planning",
-                "text": "Refusal to Participate in Care Planning",
-                "id": "6zIwnx",
-                "excludeFromOMS": true,
-                "isField": true,
-            },
-        ],
-        "categories": [{"id":"HLXNLW", "label": "", "text":""}]
     },
     "DEV-CH": {
         "qualifiers": [
@@ -1304,21 +1249,6 @@ export const data = {
         ],
         "categories": [{"id":"oxB9C2", "label": "", "text":""}]
     },
-    "OHD-AD": {
-        "qualifiers": [
-            {
-                "label": "Ages 18 to 64",
-                "text": "Ages 18 to 64",
-                "id": "NyGIus"
-            },
-            {
-                "label": "Age 65 and older",
-                "text": "Age 65 and older",
-                "id": "23IWY1"
-            }
-        ],
-        "categories": [{"id":"aeOiMF", "label": "", "text":""}]
-    },
     "OUD-AD": {
         "qualifiers": [
             {
@@ -1516,6 +1446,36 @@ export const data = {
             },
         ],
         "categories": [{"id":"0YSQj5", "label": "", "text":""}]
+    },
+    "PND-AD": {
+        "qualifiers": [
+             {
+                 "label": "Depression Screening: Age 21 and Older",
+                 "text": "Depression Screening: Age 21 and Older",
+                 "id": "e4G131"
+             },
+             {
+                 "label": "Follow-Up Positive Screen: Age 21 and Older",
+                 "text": "Follow-Up Positive Screen: Age 21 and Older",
+                 "id": "hTfHWz"
+             }
+         ],
+         "categories": [{"id":"NWyW0B", "label": "", "text":""}]
+    },
+    "PND-CH":{
+        "qualifiers":[
+            {
+                "label": "Depression Screening: Under Age 21", 
+                "text": "Depression Screening: Under Age 21",
+                "id": "2Onni0" 
+            },
+            {
+                "label": "Follow-Up Positive Screen: Under Age 21", 
+                "text": "Follow-Up Positive Screen: Under Age 21",
+                "id": "j73ieP" 
+            },
+        ],
+        "categories": [{"id":"hONfZG", "label": "", "text":""}]
     },
     "PPC2-AD": {
         "qualifiers": [
@@ -1815,7 +1775,6 @@ export const data = {
 export const getCatQualLabels = (measure: keyof typeof data) => {
     const qualifiers = data[measure].qualifiers;
     const categories = data[measure].categories;
-  
     return {
       qualifiers,
       categories,

@@ -90,16 +90,26 @@ export const measuresColumns = (
         );
       },
     },
-    ...(featuresByYear.displayMandatoryMeasuresColumn ||
-    featuresByYear.displayTypeMeasuresColumn
+    ...(featuresByYear.displayMandatoryMeasuresColumn
       ? [
           {
-            header: featuresByYear.displayMandatoryMeasuresColumn
-              ? "Mandatory"
-              : "Type",
+            header: featuresByYear.renameMandatoryColumnToType
+              ? "Type"
+              : "Mandatory",
             id: "mandatory_column_header",
             styleProps: { textAlign: "center" },
             cell: (data: MeasureTableItem.Data) => {
+              if (!data?.measureType) {
+                // This coreset is neither marked mandatory nor provisional
+                return <></>;
+              }
+              if (
+                data.typeTagForCoreSets &&
+                !data.typeTagForCoreSets.includes(data.coreSet)
+              ) {
+                // This coreset is explicitly excluded from tagging
+                return <></>;
+              }
               return (
                 <CUI.Badge
                   fontSize="xs"
@@ -108,9 +118,7 @@ export const measuresColumns = (
                   borderRadius="lg"
                   px="2"
                 >
-                  {data?.measureType && (
-                    <CUI.Text fontWeight="normal">{data?.measureType}</CUI.Text>
-                  )}
+                  <CUI.Text fontWeight="normal">{data.measureType}</CUI.Text>
                 </CUI.Badge>
               );
             },
@@ -125,7 +133,7 @@ export const measuresColumns = (
       cell: (data: MeasureTableItem.Data) => {
         let reportingText = "--";
         if (data.reporting) reportingText = data.reporting;
-        if (!!data?.autoCompleted) reportingText = "N/A";
+        if (data?.autoCompleted) reportingText = "N/A";
         return (
           <CUI.Text fontSize="xs" textTransform="capitalize">
             {reportingText}

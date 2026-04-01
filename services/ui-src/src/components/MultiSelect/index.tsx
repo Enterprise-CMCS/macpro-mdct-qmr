@@ -34,7 +34,7 @@ export const MultiSelect = ({ multiSelectList, name, isRequired }: Props) => {
     path?.message || (path?.type === "required" && `This is a required field`);
 
   const [multiSelects, setMultiSelects] = useState<ICheckbox[]>(() =>
-    [...multiSelectList].sort((a, b) => (a.label > b.label ? 1 : -1))
+    [...multiSelectList].toSorted((a, b) => (a.label > b.label ? 1 : -1))
   );
   const [checkboxGroupVisibile, setCheckboxGroupVisibility] = useState(true);
   const [filterText, setFilterText] = useState("");

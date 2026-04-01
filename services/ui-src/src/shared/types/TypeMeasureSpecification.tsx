@@ -84,7 +84,7 @@ export const Specifications: SpecifictionProps = {
 
 export interface MeasurementSpecification {
   [DC.MEASUREMENT_SPECIFICATION]: // Selected Measurement Specification
-  | typeof DC.NCQA
+    | typeof DC.NCQA
     | typeof DC.OPA
     | typeof DC.AHRQ
     | typeof DC.CMS

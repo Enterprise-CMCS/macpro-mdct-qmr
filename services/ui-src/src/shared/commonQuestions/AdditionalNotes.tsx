@@ -24,7 +24,7 @@ export const AdditionalNotes = () => {
     } else {
       setTextAreaLabel(section.isReportingText);
     }
-  }, [didReport, resetField]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [didReport, resetField]);
 
   return (
     <QMR.CoreQuestionWrapper testid="additional-notes" label={header}>

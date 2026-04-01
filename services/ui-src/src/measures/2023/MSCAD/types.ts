@@ -1,7 +1,8 @@
 import * as Types from "shared/types";
 
 export interface FormData
-  extends Types.DefinitionOfPopulation,
+  extends
+    Types.DefinitionOfPopulation,
     Types.StatusOfData,
     Types.DateRange,
     Types.DidReport,

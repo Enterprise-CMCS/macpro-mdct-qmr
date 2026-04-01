@@ -21,7 +21,7 @@ export const Breadcrumbs = ({ items, color }: Props) => {
       {isMultipleItems && (
         <CUI.Center fontSize="2xl" mr="4">
           <Link
-            to={items[items.length - 2].path}
+            to={items.at(-2)!.path}
             aria-label="Return to measures list"
             className="logo-link"
           >

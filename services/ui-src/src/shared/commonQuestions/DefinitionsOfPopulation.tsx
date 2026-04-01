@@ -265,12 +265,13 @@ export const DefinitionOfPopulation = ({
               labels.DefinitionsOfPopulation.coreSetSpecificOptions,
             removeOtherOption
           )
-        : childMeasure
-        ? ChildDefinitions()
-        : StandardDefinitions(
-            labels.DefinitionsOfPopulation,
-            healthHomeMeasure
-          )}
+        : /* oxlint-disable-next-line no-nested-ternary */
+          childMeasure
+          ? ChildDefinitions()
+          : StandardDefinitions(
+              labels.DefinitionsOfPopulation,
+              healthHomeMeasure
+            )}
       {labels.DefinitionsOfPopulation.changeInPopExplanation && (
         <CUI.Box my="5">
           <QMR.TextArea

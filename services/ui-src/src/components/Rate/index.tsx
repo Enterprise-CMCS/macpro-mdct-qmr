@@ -64,7 +64,7 @@ export const Rate = ({
   });
 
   if (calcTotal) {
-    rates[rates.length - 1]["isTotal"] = true;
+    rates.at(-1)!["isTotal"] = true;
   }
 
   /*
@@ -85,11 +85,11 @@ export const Rate = ({
     });
 
     if (calcTotal) {
-      prevRate[prevRate.length - 1]["isTotal"] = true;
+      prevRate.at(-1)["isTotal"] = true;
     }
 
     field.onChange([...prevRate]);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const changeRate = (
     index: number,
@@ -175,14 +175,17 @@ export const Rate = ({
     // sum all Ns and Ds
     // we assume last NDR is total if calcTotal is true
     prevRate.slice(0, -1).forEach((item) => {
-      if (item !== undefined && item !== null && !item["isTotal"]) {
-        if (item["rate"]) {
-          if (!isNaN((x = parseFloat(item["numerator"])))) {
-            numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
-          }
-          if (!isNaN((x = parseFloat(item["denominator"])))) {
-            denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
-          }
+      if (
+        item !== undefined &&
+        item !== null &&
+        !item["isTotal"] &&
+        item["rate"]
+      ) {
+        if (!isNaN((x = parseFloat(item["numerator"])))) {
+          numeratorSum = numeratorSum + x; // += syntax does not work if default value is null
+        }
+        if (!isNaN((x = parseFloat(item["denominator"])))) {
+          denominatorSum = denominatorSum + x; // += syntax does not work if default value is null
         }
       }
     });

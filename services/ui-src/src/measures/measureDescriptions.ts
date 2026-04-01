@@ -510,7 +510,6 @@ export const measureDescriptions: MeasureList = {
     "AAB-AD":
       "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older",
     "AIS-AD": "Adult Immunization Status",
-    "AMM-AD": "Antidepressant Medication Management",
     "AMR-AD": "Asthma Medication Ratio: Ages 19 to 64",
     "BCS-AD": "Breast Cancer Screening",
     "CBP-AD": "Controlling High Blood Pressure",
@@ -523,8 +522,6 @@ export const measureDescriptions: MeasureList = {
     "COL-AD": "Colorectal Cancer Screening",
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
-    "CPU-AD":
-      "Long-Term Services and Supports Comprehensive Care Plan and Update",
     "EDV-AD":
       "Ambulatory Care Sensitive Emergency Department Visits for Non-Traumatic Dental Conditions in Adults",
     "FUA-AD":
@@ -541,12 +538,12 @@ export const measureDescriptions: MeasureList = {
     "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
     "LRCD-AD": "Low-Risk Cesarean Delivery: Age 20 and Older",
     "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
-    "NCIIDD-AD": "National Core Indicators Survey",
     "OEVP-AD": "Oral Evaluation During Pregnancy: Ages 21 to 44",
-    "OHD-AD": "Use of Opioids at High Dosage in Persons Without Cancer",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
     "PDS-AD": "Postpartum Depression Screening and Follow-Up: Age 21 and Older",
+    "PND-AD": "Prenatal Depression Screening and Follow-Up: Age 21 and Older",
+    "PND-CH": "Prenatal Depression Screening and Follow-Up: Under Age 21",
     "PPC2-AD": "Prenatal and Postpartum Care: Age 21 and Over",
     "PQI01-AD": "PQI 01: Diabetes Short-Term Complications Admission Rate",
     "PQI05-AD":

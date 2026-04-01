@@ -159,7 +159,7 @@ describe("Test Update Measure Handler", () => {
     event.body = `{"data": {}, "status": "status", "reporting": "yes", "description": "sample desc", "detailedDescription": "sample detailed desc"}`;
     Date.now = jest.fn(() => 20);
 
-    const res = await editMeasure(event, null);
+    await editMeasure(event, null);
 
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",

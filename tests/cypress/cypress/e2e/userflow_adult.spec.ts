@@ -3,7 +3,6 @@ const filePath = "fixtures/files/";
 
 // workflow to test: user goes through basic expected functionality for adult core set
 
-// fill out a measure for 2024
 const abbr = "ACSC";
 
 describe(`Adult Core Sets should be able to be created for ${testingYear}`, () => {
@@ -70,7 +69,7 @@ describe("submit coreset", () => {
     // confirm reset
     cy.get(`[data-cy="Status-AL${testingYear}"]`).should(
       "contain.text",
-      "in progress2 of 39 complete"
+      "in progress1 of 36 complete"
     );
   });
 
@@ -84,7 +83,7 @@ describe("submit coreset", () => {
     cy.wait(4000);
     cy.get(`[data-cy="Status-AL${testingYear}"]`).should(
       "contain.text",
-      "complete39 of 39 complete"
+      "complete36 of 36 complete"
     );
 
     // submit core set
@@ -99,7 +98,7 @@ describe("submit coreset", () => {
     cy.visit("/");
     cy.get(`[data-cy="Status-AL${testingYear}"]`).should(
       "contain.text",
-      "submitted39 of 39 complete"
+      "submitted36 of 36 complete"
     );
   });
 });

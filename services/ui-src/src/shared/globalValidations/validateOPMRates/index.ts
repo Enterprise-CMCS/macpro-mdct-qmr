@@ -1,6 +1,6 @@
 import { OtherPerformanceMeasure } from "shared/types";
 
-/* Other Performance Measure Rate Description. Check all rate descriptions 
+/* Other Performance Measure Rate Description. Check all rate descriptions
 to make sure there are no identical descriptions */
 
 export const validateOPMRates = (
@@ -30,7 +30,7 @@ export const validateOPMRates = (
     }
 
     //check to see if the rate has been described for other performance measure
-    if (otherPerformanceMeasure.find((rates) => !rates.description)) {
+    if (otherPerformanceMeasure.some((rates) => !rates.description)) {
       errorArray.push({
         errorLocation: `Other Performance Measure`,
         errorMessage: "Rate name required",

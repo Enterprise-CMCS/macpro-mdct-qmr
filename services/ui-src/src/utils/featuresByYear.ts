@@ -56,17 +56,20 @@ export const featuresByYear = {
    * Prior to 2024, we didn't distinguish mandatory measures from optional ones.
    * In 2024, we added the mandatory flag as column in the measure table,
    * so that users can see at a glance which measures are mandatory.
-   * In 2025, we turned this column into the Type column
+   * In 2025, we renamed this column from "Mandatory" to "Type".
+   * In 2026, we renamed it to "Mandatory" again.
    */
   get displayMandatoryMeasuresColumn() {
-    return getMeasureYear() == 2024;
+    const year = getMeasureYear();
+    return year >= 2024;
   },
   /**
    * In 2025 we changed the mandatory boolean into a measureType enum
-   * it allows us to have more options and control over what is displayed
+   * it allows us to have more options and control over what is displayed.
+   * Note that it is still an enum after 2025; we just don't label it as "Type".
    */
-  get displayTypeMeasuresColumn() {
-    return getMeasureYear() >= 2025;
+  get renameMandatoryColumnToType() {
+    return getMeasureYear() === 2025;
   },
   /**
    * Beginning in 2023, the category for a complex rate needs to be set to
@@ -79,7 +82,8 @@ export const featuresByYear = {
    * Prior to 2024, we would display a warning if users entered rates for 65+
    * qualifiers, without marking Dual-Eligible in the Definition of Population.
    * In 2024, we removed this validation at the request of CMS.
-   */ get shouldValidateDuallyEligibleCheckbox() {
+   */
+  get shouldValidateDuallyEligibleCheckbox() {
     return getMeasureYear() >= 2023;
   },
   /**
@@ -120,9 +124,9 @@ export const featuresByYear = {
     return getMeasureYear() < 2025;
   },
   /**
-   * Prior to 2025, the Measure Stratification section was called Optional Measure Stratification
+   * Prior to 2025, the section was called "Optional Measure Stratification"
    *
-   * In 2025 and beyond, we want to hide an instance of it being referenced as such
+   * In 2025 and beyond, it is just "Measure Stratification".
    */
   get displayOptionalLanguage() {
     return getMeasureYear() < 2025;
@@ -131,7 +135,8 @@ export const featuresByYear = {
   /**
    * Prior to 2025, the report name was "Medicaid (Title XIX & XXI)"
    *
-   * In 2025 and beyond, we want to change it to "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)"
+   * In 2025 and beyond, we want to change it to:
+   * "Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)"
    */
   get hasMedicaidInclusiveReportName() {
     return getMeasureYear() >= 2025;
@@ -150,9 +155,31 @@ export const featuresByYear = {
   /**
    * Prior to 2025, the PM validation "
    *
-   * In 2025 and beyond, we want to change it to "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
+   * In 2025 and beyond, we want to change it to:
+   * "Medicaid inclusive of CHIP-funded Medicaid expansion (Title XIX & XXI)"
    */
   get hasAdultSeparateCHIPInclusiveWarning() {
     return getMeasureYear() >= 2025;
+  },
+
+  /**
+   * Prior to 2025, auto-calculated rates were read-only,
+   * if and only if the data source was "Administrative Data"
+   *
+   * In 2026 and beyond, we want to allow manual editing of rates
+   * when multiple data sources are selected
+   * OR data source is either: Hybrid or Case Management
+   */
+  get updatedReadOnlyRateCheck() {
+    return getMeasureYear() >= 2026;
+  },
+
+  /**
+   * Prior to 2025, we solely use the language "Data Source"
+   *
+   * In 2026 and beyond, in most cases, we say "Data Collection Method"
+   */
+  get useDataCollectionMethod() {
+    return getMeasureYear() >= 2026;
   },
 };

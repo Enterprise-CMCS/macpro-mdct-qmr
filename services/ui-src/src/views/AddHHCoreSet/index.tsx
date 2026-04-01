@@ -64,7 +64,7 @@ export const AddHHCoreSet = () => {
         value: spa.id,
       };
     })
-    .sort((a, b) => (a.displayValue > b.displayValue && 1) || -1);
+    .toSorted((a, b) => a.displayValue.localeCompare(b.displayValue));
 
   const handleSubmit = (data: HealthHome) => {
     if (data[DC.HEALTH_HOME_CORESET_SPA]) {
@@ -138,22 +138,16 @@ export const AddHHCoreSet = () => {
                           for CMS review.
                         </CUI.Text>
 
-                        <CUI.HStack paddingTop="5">
+                        <CUI.HStack paddingTop="5" gap="1rem">
                           <QMR.ContainedButton
-                            buttonProps={{
-                              type: "submit",
-                              colorScheme: "blue",
-                            }}
+                            type="submit"
                             buttonText="Create"
                             disabledStatus={
-                              !sortedSPAs.length || !watchSPAchoice
+                              sortedSPAs.length === 0 || !watchSPAchoice
                             }
                           />
                           <QMR.ContainedButton
-                            buttonProps={{
-                              color: "blue",
-                              colorScheme: "white",
-                            }}
+                            variant="link"
                             buttonText="Cancel"
                             onClick={() => {
                               navigate(`/${state}/${year}`);

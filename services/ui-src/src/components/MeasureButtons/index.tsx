@@ -28,11 +28,6 @@ export const MeasureButtons = ({
           <QMR.ContainedButton
             disabledStatus={!isStateUser || isLoading}
             buttonText={isLoading ? "Saving" : "Save"}
-            buttonProps={{
-              padding: "0 1.5rem",
-              colorScheme: "blue",
-              width: "full",
-            }}
             onClick={handleSave}
           />
         )}
@@ -41,13 +36,7 @@ export const MeasureButtons = ({
           disabledStatus={isLoading}
           icon="print"
           buttonText="Print"
-          buttonProps={{
-            padding: "0 1.5rem",
-            width: "full",
-            colorScheme: "blue",
-            variant: "outline",
-            color: "blue.500",
-          }}
+          variant="outline-primary"
           onClick={window.print}
         />
       </CUI.HStack>

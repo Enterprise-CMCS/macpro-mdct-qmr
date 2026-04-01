@@ -63,10 +63,10 @@ describe.skip("submit coreset", () => {
     cy.loginHealthHome();
     cy.selectYear(testingYear);
     cy.get('[data-cy="health home-kebab-menu"]').click();
-    cy.get('[aria-label="Reset All Measures for HHCS_15-014"]').click();
+    cy.get('[aria-label="Reset All Measures for HHCS_24-0024"]').click();
     cy.wait(1000);
     // confirm reset
-    cy.get(`[data-cy="Status-CT${testingYear}HHCS_15-014"]`).should(
+    cy.get(`[data-cy="Status-CT${testingYear}HHCS_24-0024"]`).should(
       "contain.text",
       "not started0 of 11 complete"
     );
@@ -74,9 +74,9 @@ describe.skip("submit coreset", () => {
   it("submit and confirm submission", () => {
     // complete core set
     cy.get('[data-cy="health home-kebab-menu"]').click();
-    cy.get('[aria-label="Complete All Measures for HHCS_15-014"]').click();
+    cy.get('[aria-label="Complete All Measures for HHCS_24-0024"]').click();
     cy.wait(4000);
-    cy.get(`[data-cy="Status-CT${testingYear}HHCS_15-014"]`).should(
+    cy.get(`[data-cy="Status-CT${testingYear}HHCS_24-0024"]`).should(
       "contain.text",
       "complete11 of 11 complete"
     );
@@ -91,7 +91,7 @@ describe.skip("submit coreset", () => {
 
     // confirm submission
     cy.visit("/");
-    cy.get(`[data-cy="Status-CT${testingYear}HHCS_15-014"]`).should(
+    cy.get(`[data-cy="Status-CT${testingYear}HHCS_24-0024"]`).should(
       "contain.text",
       "submitted11 of 11 complete"
     );
@@ -120,7 +120,7 @@ describe("Export All Measures", () => {
 
     cy.contains("tr", "Health Home").within(() => {
       cy.get('[data-cy="health home-kebab-menu"]').click();
-      cy.get('[aria-label="Export for HHCS_15-014"]').click();
+      cy.get('[aria-label="Export for HHCS_24-0024"]').click();
     });
 
     // Check all measures + CSQ present

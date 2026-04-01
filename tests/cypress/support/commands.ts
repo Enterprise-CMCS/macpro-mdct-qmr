@@ -73,15 +73,13 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 // Visit Health Home Core Set Measures
 Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
-    if ($tbody.find('[data-cy^="HHCS"]').length > 0) {
-      cy.get('[data-cy^="HHCS"]').first().click();
-    } else {
+    if ($tbody.find('[data-cy^="HHCS"]').length === 0) {
       // adds first available HH core set if no healthhome was made
       cy.get('[data-cy="add-hhbutton"]').click(); // clicking on adding child core set measures
       cy.get('[data-cy="HealthHomeCoreSet-SPA"]').select(1); // select first available SPA
       cy.get('[data-cy="Create"]').click(); //clicking create
-      cy.get('[data-cy^="HHCS"]').first().click();
     }
+    cy.get('[data-cy^="HHCS"]').first().click();
   });
 });
 
@@ -112,7 +110,7 @@ Cypress.Commands.add(
     // these sections should be visible when a user selects they are reporting
     cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
     cy.get('[data-cy="Measurement Specification"]').should("be.visible");
-    cy.get('[data-cy="Data Source"]').should("be.visible");
+    cy.get('[data-cy="Data Collection Method"]').should("be.visible");
     cy.get('[data-cy="Date Range"]').should("be.visible");
     cy.get(
       '[data-cy="Definition of Population Included in the Measure"]'
@@ -140,7 +138,7 @@ Cypress.Commands.add(
     // these sections should not exist when a user selects they are not reporting
     cy.get('[data-cy="Status of Data Reported"]').should("not.exist");
     cy.get('[data-cy="Measurement Specification"]').should("not.exist");
-    cy.get('[data-cy="Data Source"]').should("not.exist");
+    cy.get('[data-cy="Data Collection Method"]').should("not.exist");
     cy.get('[data-cy="Date Range"]').should("not.exist");
     cy.get(
       '[data-cy="Definition of Population Included in the Measure"]'
@@ -214,32 +212,11 @@ Cypress.Commands.add("deleteHealthHomeSets", () => {
     if ($tbody.find('[data-cy="health home-kebab-menu"]').length > 0) {
       removeCoreSetElements(
         '[data-cy="health home-kebab-menu"]',
-        '[aria-label="Delete for HHCS_15-014"]'
+        '[aria-label="Delete for HHCS_24-0024"]'
       );
     }
   });
 });
-
-// Define at the top of the spec file or just import it
-function terminalLog(violations) {
-  cy.task(
-    "log",
-    `${violations.length} accessibility violation${
-      violations.length === 1 ? "" : "s"
-    } ${violations.length === 1 ? "was" : "were"} detected`
-  );
-  // pluck specific keys to keep the table readable
-  const violationData = violations.map(
-    ({ id, impact, description, nodes }) => ({
-      id,
-      impact,
-      description,
-      nodes: nodes.length,
-    })
-  );
-
-  cy.task("table", violationData);
-}
 
 // if user doesn't fill description box, show error
 Cypress.Commands.add("showErrorIfNotReportingAndNotWhy", () => {
@@ -345,7 +322,7 @@ Cypress.Commands.add("deleteStateSpecificMeasure", (description?) => {
 // Correct sections visible when user is reporting data on measure
 Cypress.Commands.add("SSHHdisplaysCorrectSections", () => {
   cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
-  cy.get('[data-cy="Data Source"]').should("be.visible");
+  cy.get('[data-cy="Data Collection Method"]').should("be.visible");
   cy.get('[data-cy="Date Range"]').should("be.visible");
   cy.get('[data-cy="Definition of Population Included in the Measure"]').should(
     "be.visible"

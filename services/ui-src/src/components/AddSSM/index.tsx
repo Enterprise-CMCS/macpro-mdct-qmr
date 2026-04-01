@@ -65,12 +65,7 @@ export const AddSSM = ({ userCreatedCount = 0 }: AddSSMProps) => {
       <CUI.Stack spacing={6} direction="row">
         <QMR.ContainedButton
           buttonText={"+ Add Another"}
-          buttonProps={{
-            variant: "outline",
-            colorScheme: "blue",
-            color: "blue.500",
-            mt: "4",
-          }}
+          variant="outline-primary"
           key={"AddAnotherSSMButton"}
           onClick={() =>
             append({

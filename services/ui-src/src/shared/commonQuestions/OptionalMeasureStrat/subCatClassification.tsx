@@ -3,7 +3,8 @@ import * as CUI from "@chakra-ui/react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { NDRSets } from "./NDR/ndrSets";
 import { NDRSetsAccordion } from "../MeasureStratification/NDR/ndrSets";
-import { featuresByYear } from "utils/featuresByYear";
+import { useContext } from "react";
+import SharedContext from "shared/SharedContext";
 
 interface AddAnotherButtonProps {
   /** onClick state updating function for dynamic rendering */
@@ -27,12 +28,7 @@ export const AddAnotherButton = ({
   return (
     <QMR.ContainedButton
       buttonText={"+ Add Another " + additionalText}
-      buttonProps={{
-        variant: "outline",
-        colorScheme: "blue",
-        color: "blue.500",
-        mt: "4",
-      }}
+      variant="outline-primary"
       key={"AddAnotherButton"}
       onClick={onClick}
       disabledStatus={isDisabled}
@@ -63,17 +59,8 @@ export const SubCatSection = ({
     shouldUnregister: true,
   });
 
-  const labels = featuresByYear.displayOptionalLanguage
-    ? {
-        header: "Additional/Alternative Classification/Sub-category",
-        help: "Define the Alternative Classification/Sub-category",
-        button: "Sub-Category",
-      }
-    : {
-        header: "Additional Subcategory",
-        help: "Define the Additional Subcategory",
-        button: "Subcategory",
-      };
+  const labels: any = useContext(SharedContext);
+  const addAnotherLabel = labels.OptionalMeasureStratification.addAnotherLabel;
 
   return (
     <CUI.Box key={`${name}.additionalSubCategoriesWrapper`}>
@@ -84,14 +71,14 @@ export const SubCatSection = ({
           onDelete={() => remove(idx)}
         >
           <CUI.Text size={"xl"} my="3">
-            {labels.header}
+            {addAnotherLabel.header}
           </CUI.Text>
           <QMR.QuestionChild show key={field.id}>
             <CUI.Stack spacing={"5"}>
               <QMR.TextInput
                 name={`${name}.additionalSubCategories.${idx}.description`}
                 key={`${name}.additionalSubCategories.${idx}.description`}
-                label={labels.help}
+                label={addAnotherLabel.help}
                 rules={{ required: true }}
               />
               {checkboxes ? (
@@ -111,7 +98,7 @@ export const SubCatSection = ({
       ))}
       <AddAnotherButton
         onClick={() => append({})}
-        additionalText={labels.button}
+        additionalText={addAnotherLabel.button}
         key={`${name}.additionalSubCategoriesButton`}
         testid={`${name}.additionalSubCategoriesButton`}
       />

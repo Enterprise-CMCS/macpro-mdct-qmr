@@ -17,7 +17,7 @@ export function validateNDRTotalsMatchSum(
     "category",
   ] as const;
   type CompletedRate = RateFields &
-    Required<Pick<RateFields, typeof requiredFields[number]>>;
+    Required<Pick<RateFields, (typeof requiredFields)[number]>>;
   const isCompleted = (rate: RateFields): rate is CompletedRate =>
     requiredFields.every((field) => rate[field]) &&
     rate.category!.includes(":");
@@ -31,7 +31,7 @@ export function validateNDRTotalsMatchSum(
   for (let rate of allRates) {
     if (!isCompleted(rate)) continue;
     const groupKey = groupKeyOf(rate);
-    groups[groupKey] = (groups[groupKey] ?? []).concat([rate]);
+    groups[groupKey] = [...(groups[groupKey] ?? []), rate];
   }
 
   for (let group of Object.values(groups)) {

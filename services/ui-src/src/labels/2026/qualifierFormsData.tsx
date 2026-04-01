@@ -2,7 +2,8 @@ import { initialAuditValues } from "shared/Qualifiers/Common";
 import { DataDriven } from "shared/types/TypeQualifierForm";
 
 const AdultData: DataDriven = {
-  title: "Adult Core Set Qualifiers: Medicaid",
+  title:
+    "Adult Core Set Qualifiers: Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)",
   questionTitle: "Adult Core Set Questions: Medicaid",
   questionIntro:
     "Please report data on Title XIX-funded Medicaid (Medicaid) and Title XXI-funded Medicaid expansion CHIP (Medicaid expansion CHIP) (if applicable for your state) here. If your state wishes to separately report the Adult Core Set for separate CHIP (separate from Medicaid and Medicaid expansion CHIP), please use Adult Core Set Qualifiers: Separate CHIP page.",
@@ -42,7 +43,7 @@ const AdultData: DataDriven = {
 };
 
 const AdultChipData: DataDriven = {
-  title: "Adult Core Set Qualifiers: CHIP",
+  title: "Adult Core Set Qualifiers: Separate CHIP",
   questionTitle: "Adult Core Set Questions: CHIP",
   questionIntro:
     "Please report data on Separate CHIP (Title XXI) for the Adult Core Set on this page. This is not a mandatory requirement.",
@@ -78,7 +79,8 @@ const AdultChipData: DataDriven = {
 };
 
 const AdultMedicaidData: DataDriven = {
-  title: "Adult Core Set Qualifiers: Medicaid",
+  title:
+    "Adult Core Set Qualifiers: Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)",
   questionTitle: "Adult Core Set Questions: Medicaid",
   questionIntro:
     "Please report data on Title XIX-funded Medicaid (Medicaid) and Title XXI-funded Medicaid expansion CHIP (Medicaid expansion CHIP) (if applicable for your state) here. If your state wishes to separately report the Adult Core Set for separate CHIP (separate from Medicaid and Medicaid expansion CHIP), please use Adult Core Set Qualifiers: Separate CHIP page.",
@@ -118,7 +120,8 @@ const AdultMedicaidData: DataDriven = {
 };
 
 const ChildData: DataDriven = {
-  title: "Child Core Set Qualifiers: Medicaid",
+  title:
+    "Child Core Set Qualifiers: Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)",
   questionTitle: "Child Core Set Questions: Medicaid",
   questionIntro:
     "Please report data on Title XIX-funded Medicaid (Medicaid) and Title XXI-funded Medicaid expansion CHIP (Medicaid expansion CHIP) (if applicable for your state) here. If your state has separate CHIP, please report only Title XIX- funded Medicaid and Medicaid expansion CHIP children in this section. Report Separate CHIP on the Child Core Set – Separate CHIP page.",
@@ -154,7 +157,7 @@ const ChildData: DataDriven = {
 };
 
 const ChildChipData: DataDriven = {
-  title: "Child Core Set Qualifiers: CHIP",
+  title: "Child Core Set Qualifiers: Separate CHIP",
   questionTitle: "Child Core Set Questions: CHIP",
   questionIntro:
     "Please report data on Separate CHIP (Title XXI) for the Child Core Set on this page.",
@@ -190,7 +193,8 @@ const ChildChipData: DataDriven = {
 };
 
 const ChildMedicaidData: DataDriven = {
-  title: "Child Core Set Qualifiers: Medicaid",
+  title:
+    "Child Core Set Qualifiers: Medicaid (inclusive of both Title XIX-funded Medicaid and Title XXI-funded Medicaid Expansion CHIP)",
   questionTitle: "Child Core Set Questions: Medicaid",
   questionIntro:
     "Please report data on Title XIX-funded Medicaid (Medicaid) and Title XXI-funded Medicaid expansion CHIP (Medicaid expansion CHIP) (if applicable for your state) here. If your state has separate CHIP, please report only Title XIX- funded Medicaid and Medicaid expansion CHIP children in this section. Report Separate CHIP on the Child Core Set – Separate CHIP page.",

@@ -3,6 +3,8 @@ import { useFlags } from "launchdarkly-react-client-sdk";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { renderWithHookForm } from "utils";
 import { getMeasureYear } from "utils/getMeasureYear";
+import SharedContext from "shared/SharedContext";
+import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 
 jest.mock("launchdarkly-react-client-sdk", () => ({
   useFlags: jest.fn(),
@@ -51,12 +53,14 @@ describe("Test TopLevelOmsChildren", () => {
     });
 
     renderWithHookForm(
-      <TopLevelOmsChildren
-        name={"mock"}
-        parentDisplayName={"mock oms"}
-        id={"mock-id"}
-        options={options}
-      />
+      <SharedContext.Provider value={commonQuestionsLabels2025}>
+        <TopLevelOmsChildren
+          name={"mock"}
+          parentDisplayName={"mock oms"}
+          id={"mock-id"}
+          options={options}
+        />
+      </SharedContext.Provider>
     );
 
     fireEvent.click(screen.getByRole("checkbox", { name: "Option 1" }));

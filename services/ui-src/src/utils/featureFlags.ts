@@ -23,7 +23,7 @@ export const featureFlagEnums: FlagEnumType[] = Object.keys(featureFlags).map(
  * in the featureFlag object. Mainly used in testing to restrict testing to actual feature flags.
  */
 export type FeatureFlagTypes =
-  typeof featureFlags[keyof typeof featureFlags]["flag"];
+  (typeof featureFlags)[keyof typeof featureFlags]["flag"];
 
 /**
  * Flag value types from Launch Darkly and used to restrict feature flag default types as well as values in testing.
