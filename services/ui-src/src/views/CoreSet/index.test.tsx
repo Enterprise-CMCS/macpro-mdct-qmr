@@ -51,11 +51,11 @@ describe("Test CoreSet.tsx", () => {
       coreSetId: "ACSM",
     });
     expect(
-      screen.getByText("Complete core set qualifier questions")
+      screen.getByText("Complete Core Set Qualifier Questions")
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Enter the Adult core set qualifier questions before completing the measures below."
+        "Complete the Adult Core Set Qualifier Questions before submitting the Core Set report."
       )
     ).toBeInTheDocument();
     expect(
@@ -65,7 +65,7 @@ describe("Test CoreSet.tsx", () => {
     expect(screen.getByText("Complete the below measures")).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Complete all Adult Core Set Questions: Medicaid to submit 2025"
+        "Complete all Adult Core Set Measures: Medicaid to submit the Core Set report."
       )
     ).toBeInTheDocument();
     expect(
@@ -80,11 +80,11 @@ describe("Test CoreSet.tsx", () => {
     });
 
     expect(
-      screen.getByText("Complete core set qualifier questions")
+      screen.getByText("Complete Core Set Qualifier Questions")
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Enter the Child core set qualifier questions before completing the measures below."
+        "Complete the Child Core Set Qualifier Questions before submitting the Core Set report."
       )
     ).toBeInTheDocument();
     expect(
@@ -94,7 +94,7 @@ describe("Test CoreSet.tsx", () => {
     expect(screen.getByText("Complete the below measures")).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Complete all Child Core Set Questions: Medicaid to submit 2025"
+        "Complete all Child Core Set Measures: Medicaid to submit the Core Set report."
       )
     ).toBeInTheDocument();
     expect(
@@ -110,11 +110,11 @@ describe("Test CoreSet.tsx", () => {
     });
 
     expect(
-      screen.getByText("Complete core set qualifier questions")
+      screen.getByText("Complete Core Set Qualifier Questions")
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Enter the Health Home core set qualifier questions before completing the measures below."
+        "Complete the Health Home Core Set Qualifier Questions before submitting the Core Set report."
       )
     ).toBeInTheDocument();
     expect(
@@ -124,7 +124,7 @@ describe("Test CoreSet.tsx", () => {
     expect(screen.getByText("Complete the below measures")).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Complete all Health Home Core Set Questions to submit 2025"
+        "Complete all Health Home Core Set Measures to submit the Core Set report."
       )
     ).toBeInTheDocument();
     expect(

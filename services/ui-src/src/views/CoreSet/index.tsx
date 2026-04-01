@@ -101,8 +101,8 @@ const StepsAndProgressSection = ({
     {
       status: data?.Item?.status,
       label: {
-        title: "Complete core set qualifier questions",
-        hintText: `Enter the ${coreSetName} core set qualifier questions before completing the measures below.`,
+        title: "Complete Core Set Qualifier Questions",
+        hintText: `Complete the ${coreSetName} Core Set Qualifier Questions before submitting the Core Set report.`,
       },
       indicator: "",
       button: isLoading ? (
@@ -126,8 +126,8 @@ const StepsAndProgressSection = ({
       label: {
         title: "Complete the below measures",
         hintText: `Complete all ${
-          coreSetTitles(coreSetInfo[0], "Questions") + spaName
-        } to submit ${year}`,
+          coreSetTitles(coreSetInfo[0]) + spaName
+        } to submit the Core Set report.`,
       },
       indicator: (
         <CUI.HStack>
@@ -159,7 +159,7 @@ const StepsAndProgressSection = ({
   return (
     <CUI.Stack gap="1rem" maxW="1060px">
       <CUI.Heading fontSize="lg" my="1rem">
-        Steps and progress to completion
+        Report Progress
       </CUI.Heading>
       {rows.map((row, index) => (
         <CUI.Box key={`step-progress-${index}`}>
