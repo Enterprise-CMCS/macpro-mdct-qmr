@@ -56,6 +56,8 @@ export const getDataSourceDisplayName = (dataSourceIdentifier: string) => {
     VitalRecords: "Vital Records",
     ClinicalRegistry: "Clinical registry",
     Healthinformationexchange: "Health information exchange (HIE)",
+    ClinicalRegistryOther:
+      "Clinical registry (other than immunization registry)",
   };
   return displayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
 };

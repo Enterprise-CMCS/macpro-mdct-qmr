@@ -22,6 +22,7 @@ export const CATEGORIES = "categories";
 export const CDC = "CDC";
 export const CHANGE_IN_POP_EXPLANATION = "ChangeInPopulationExplanation";
 export const CLINICAL_REGISTRY = "ClinicalRegistry";
+export const CLINICAL_REGISTRY_OTHER = "ClinicalRegistryOther";
 export const CMS = "CMS";
 export const COMBINED_NOT_WEIGHTED_RATES = "Combined Not Weighted Rates";
 export const COMBINED_RATES = "CombinedRates";
