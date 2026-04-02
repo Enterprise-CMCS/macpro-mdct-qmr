@@ -54,7 +54,7 @@ export const getDataSourceDisplayName = (dataSourceIdentifier: string) => {
       "Immunization Registry/Immunization Information System (IIS)",
     ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
     VitalRecords: "Vital Records",
-    ClinicalRegistry: "Clinical Registry",
+    ClinicalRegistry: "Clinical registry",
     Healthinformationexchange: "Health information exchange (HIE)",
   };
   return displayNames[dataSourceIdentifier] ?? dataSourceIdentifier;
