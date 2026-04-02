@@ -154,7 +154,7 @@ export const PMHYBRIDEXPLANATION = "hybridExplanation";
 export const ICM = "ICM";
 export const IMMUNIZATION_REGISTRY = "Immunization Registry";
 export const IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM =
-  "Immunization Registry/Immunization Information System (IIS)";
+  "Immunization registry/Immunization information system (IIS)";
 export const INFO_NOT_COLLECTED = "InformationNotCollected";
 export const INFO_NOT_COLLECTED_OTHER = "InformationNotCollected-Other";
 export const JOINT_COMMISSION = "TheJointCommission";

@@ -51,7 +51,7 @@ export const getDataSourceDisplayName = (dataSourceIdentifier: string) => {
     MedicaidManagementInformationSystemMMIS:
       "Medicaid Management Information System (MMIS)",
     ImmunizationRegistryImmunizationInformationSystemIIS:
-      "Immunization Registry/Immunization Information System (IIS)",
+      "Immunization registry/Immunization information system (IIS)",
     ElectronicHealthRecordEHRData: "Electronic Health Record (EHR) Data",
     VitalRecords: "Vital Records",
     ClinicalRegistry: "Clinical registry",
