@@ -60,8 +60,7 @@ export const featuresByYear = {
    * In 2026, we renamed it to "Mandatory" again.
    */
   get displayMandatoryMeasuresColumn() {
-    const year = getMeasureYear();
-    return year >= 2024;
+    return getMeasureYear() >= 2024;
   },
   /**
    * In 2025 we changed the mandatory boolean into a measureType enum
