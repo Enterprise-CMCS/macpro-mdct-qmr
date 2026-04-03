@@ -168,7 +168,7 @@ export const featuresByYear = {
    *
    * In 2026 and beyond, we want to allow manual editing of rates
    * when multiple data sources are selected
-   * OR data source is either: Hybrid or Case Management
+   * OR data source is Hybrid.
    */
   get updatedReadOnlyRateCheck() {
     return getMeasureYear() >= 2026;
