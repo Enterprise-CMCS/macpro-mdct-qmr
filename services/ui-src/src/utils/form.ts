@@ -1,6 +1,5 @@
 import * as Types from "shared/types";
 import { AnyObject, DataSource } from "types";
-import { DataSourceSelections } from "shared/types/TypeOptionalMeasureStratification";
 import { featuresByYear } from "utils/featuresByYear";
 
 /**
@@ -85,41 +84,23 @@ export const arrayIsReadOnly = (dataSource: string[]) => {
   );
 };
 
-export const rateIsReadOnly = (
-  dataSources: [string[] | undefined, DataSourceSelections | undefined]
-) => {
-  const [dataSource, dataSourceSelections] = dataSources;
+export const rateIsReadOnly = (dataSources: string[] | undefined) => {
+  const dataSource = dataSources;
 
   if (featuresByYear.updatedReadOnlyRateCheck) {
     // New logic for 2026 and beyond
     // Default is read only
     if (!dataSource) return true;
 
-    const editableDataSources = [
-      DataSource.Hybrid,
-      DataSource.CaseMagementRecordReview,
-    ];
-
     if (Array.isArray(dataSource)) {
       // Multiple data sources are always editable
       if (dataSource.length > 1) return false;
 
-      if (
-        dataSource.length === 1 &&
-        editableDataSources.includes(dataSource[0] as DataSource)
-      ) {
+      if (dataSource.length === 1 && dataSource[0] === DataSource.Hybrid) {
         return false;
       }
     } else {
-      if (editableDataSources.includes(dataSource as DataSource)) return false;
-    }
-
-    if (dataSourceSelections !== undefined) {
-      for (let source of Object.values(dataSourceSelections)) {
-        if (Array.isArray(source?.selected) && source.selected.length > 1) {
-          return false; // Multiple nested selections are always editable
-        }
-      }
+      if (dataSource === DataSource.Hybrid) return false;
     }
 
     // Default to read-only if no conditions for editability are met
