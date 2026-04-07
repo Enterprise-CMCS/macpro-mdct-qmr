@@ -22,6 +22,7 @@ export const CATEGORIES = "categories";
 export const CDC = "CDC";
 export const CHANGE_IN_POP_EXPLANATION = "ChangeInPopulationExplanation";
 export const CLINICAL_REGISTRY = "ClinicalRegistry";
+export const CLINICAL_REGISTRY_OTHER = "ClinicalRegistryOther";
 export const CMS = "CMS";
 export const COMBINED_NOT_WEIGHTED_RATES = "Combined Not Weighted Rates";
 export const COMBINED_RATES = "CombinedRates";
@@ -153,7 +154,7 @@ export const PMHYBRIDEXPLANATION = "hybridExplanation";
 export const ICM = "ICM";
 export const IMMUNIZATION_REGISTRY = "Immunization Registry";
 export const IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM =
-  "Immunization Registry/Immunization Information System (IIS)";
+  "ImmunizationRegistryImmunizationInformationSystemIIS";
 export const INFO_NOT_COLLECTED = "InformationNotCollected";
 export const INFO_NOT_COLLECTED_OTHER = "InformationNotCollected-Other";
 export const JOINT_COMMISSION = "TheJointCommission";
