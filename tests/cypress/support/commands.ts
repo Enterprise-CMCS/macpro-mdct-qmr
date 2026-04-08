@@ -79,6 +79,7 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 
 // Visit Health Home Core Set Measures
 Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
+  cy.intercept("GET", "**/measures/list").as("measuresList");
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy^="HHCS"]').length === 0) {
       // adds first available HH core set if no healthhome was made
@@ -88,6 +89,7 @@ Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
     }
     cy.get('[data-cy^="HHCS"]').first().click();
   });
+  cy.wait("@measuresList");
 });
 
 // Visit Measures based on abbr
