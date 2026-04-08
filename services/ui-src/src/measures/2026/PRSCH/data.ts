@@ -62,6 +62,8 @@ export const data: MeasureTemplateData = {
     "validateEqualCategoryDenominatorsOMS",
     "validateEqualCategoryDenominatorsPM",
     "validateYearFormat",
+    "validateOneQualRateLessThanOrEqualToOtherQualRatesOMS",
+    "validateOneQualRateLessThanOrEqualToOtherQualRatesPM",
   ],
   override: {
     validateEqualQualifierDenominatorsPM: {
@@ -70,6 +72,10 @@ export const data: MeasureTemplateData = {
     },
     validateEqualCategoryDenominatorsPM: {
       qualifiers,
+    },
+    validateOneQualRateLessThanOrEqualToOtherQualRates: {
+      qualIndex: 2,
+      otherQualIndices: [0, 1],
     },
   },
 };

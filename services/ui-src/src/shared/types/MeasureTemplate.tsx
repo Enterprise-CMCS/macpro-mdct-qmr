@@ -73,6 +73,8 @@ export const validationFunctions = [
   "validateEqualQualifierOfCategoryDenominatorsOMS",
   "validateEqualQualifierOfCategoryDenominatorsPM",
   "validateCollecting",
+  "validateOneQualRateLessThanOrEqualToOtherQualRatesOMS",
+  "validateOneQualRateLessThanOrEqualToOtherQualRatesPM",
 ] as const;
 
 export type ValidationFunction = (typeof validationFunctions)[number];
@@ -124,6 +126,10 @@ export interface MeasureTemplateData {
       categories: string[];
       ageGroups: string[];
     }[];
+    validateOneQualRateLessThanOrEqualToOtherQualRates?: {
+      qualIndex?: number;
+      otherQualIndices?: number[];
+    };
   };
 }
 
