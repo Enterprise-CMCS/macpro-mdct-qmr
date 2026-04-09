@@ -173,7 +173,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       );
     });
 
-    it("returns error when combination is greater than both influenza and tdap", () => {
+    it("should return error when combination is greater than both influenza and tdap", () => {
       const rateData = generateOmsQualifierRateData(categories, qualifiers, [
         { rate: "20", numerator: "20", denominator: "100" },
         { rate: "20", numerator: "20", denominator: "100" },
