@@ -37,10 +37,13 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
         { rate: "20", numerator: "20", denominator: "100" },
         { rate: "20", numerator: "20", denominator: "100" },
       ]);
-      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(data, {
-        categories,
-        qualifiers,
-      });
+      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(
+        data,
+        {
+          categories,
+          qualifiers,
+        }
+      );
       expect(errors).toHaveLength(0);
     });
 
@@ -50,10 +53,13 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
         { rate: "25", numerator: "25", denominator: "100" },
         { rate: "25", numerator: "25", denominator: "100" },
       ]);
-      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(data, {
-        categories,
-        qualifiers,
-      });
+      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(
+        data,
+        {
+          categories,
+          qualifiers,
+        }
+      );
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
         "Combination rate cannot be greater than the Influenza or Tdap rates"
@@ -66,10 +72,13 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
         { rate: "20", numerator: "20", denominator: "100" },
         { rate: "25", numerator: "25", denominator: "100" },
       ]);
-      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(data, {
-        categories,
-        qualifiers,
-      });
+      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(
+        data,
+        {
+          categories,
+          qualifiers,
+        }
+      );
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
         "Combination rate cannot be greater than the Influenza or Tdap rates"
@@ -82,10 +91,13 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
         { rate: "20", numerator: "20", denominator: "100" },
         { rate: "25", numerator: "25", denominator: "100" },
       ]);
-      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(data, {
-        categories,
-        qualifiers,
-      });
+      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(
+        data,
+        {
+          categories,
+          qualifiers,
+        }
+      );
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
         "Combination rate cannot be greater than the Influenza or Tdap rates"
@@ -93,15 +105,21 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
     });
 
     it("returns no error for single category label", () => {
-      const data = generatePmQualifierRateData({ categories: singleCat, qualifiers }, [
-        { rate: "25", numerator: "25", denominator: "100" },
-        { rate: "20", numerator: "20", denominator: "100" },
-        { rate: "25", numerator: "25", denominator: "100" },
-      ]);
-      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(data, {
-        categories: singleCat,
-        qualifiers,
-      });
+      const data = generatePmQualifierRateData(
+        { categories: singleCat, qualifiers },
+        [
+          { rate: "25", numerator: "25", denominator: "100" },
+          { rate: "20", numerator: "20", denominator: "100" },
+          { rate: "25", numerator: "25", denominator: "100" },
+        ]
+      );
+      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(
+        data,
+        {
+          categories: singleCat,
+          qualifiers,
+        }
+      );
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
         "Combination rate cannot be greater than the Influenza or Tdap rates"
