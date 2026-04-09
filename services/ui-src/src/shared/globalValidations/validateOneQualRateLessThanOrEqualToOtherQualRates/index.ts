@@ -15,7 +15,6 @@ interface ValProps extends UVFP {
 
 const _validation = ({
   location,
-  qualifiers = [],
   rateData,
   qualIndex,
   otherQualIndices,
@@ -29,21 +28,16 @@ const _validation = ({
     const qualRate = parseFloat(ratefields[qualIndex]?.rate ?? "");
     if (Number.isNaN(qualRate)) continue;
 
-    const failingLabels: string[] = [];
-    for (const idx of otherQualIndices) {
+    const hasLowerOtherRate = otherQualIndices.some((idx) => {
       const otherRate = parseFloat(ratefields[idx]?.rate ?? "");
-      if (!Number.isNaN(otherRate) && qualRate > otherRate) {
-        failingLabels.push(qualifiers[idx]?.label ?? "");
-      }
-    }
+      return !Number.isNaN(otherRate) && qualRate > otherRate;
+    });
 
-    if (failingLabels.length > 0) {
-      const errorMessage = `Combination rate cannot be greater than Influence of ${failingLabels.join(
-        " and "
-      )} rates`;
+    if (hasLowerOtherRate) {
       errorArray.push({
         errorLocation: location,
-        errorMessage,
+        errorMessage:
+          "Combination rate cannot be greater than the Influenza or Tdap rates",
       });
     }
   }

@@ -56,7 +56,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       });
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than Influence of Influenza rates."
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
       );
     });
 
@@ -72,7 +72,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       });
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than Influence of Tdap rates."
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
       );
     });
 
@@ -88,7 +88,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       });
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than Influence of Influenza and Tdap rates."
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
       );
     });
 
@@ -104,7 +104,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       });
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than Influence of Tdap rates."
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
       );
     });
   });
@@ -135,7 +135,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       });
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than Influence of Influenza rates."
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
       );
     });
 
@@ -151,7 +151,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       });
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than Influence of Tdap rates."
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
       );
     });
 
@@ -167,7 +167,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       });
       expect(errors).toHaveLength(1);
       expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than Influence of Influenza and Tdap rates."
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
       );
     });
 
