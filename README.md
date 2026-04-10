@@ -35,8 +35,7 @@ QMR is the CMCS MDCT application for collecting state data related to measuring 
   - [App API](#app-api)
     - [Overview](#overview)
     - [Parameters](#parameters)
-    - [CoreSet](#coreset)
-    - [Measures](#measures)
+    - [Endpoints](#endpoints)
     - [Kafka](#kafka)
     - [Utilities](#utilities)
   - [Database](#database)
@@ -288,49 +287,78 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 
 #### Overview
 
-The API service contains all of the API calls for the application. It is deployed with cdk and depends on the database service to exist first.
+The API service provides all backend endpoints for the application. It is deployed with CDK and depends on the database service.
 
 #### Parameters
 
-Parameters are passed in by the URL in this order `state/year/coreset` for coreset endpoints and `state/year/coreset/measure` for measures and are used to determine the unique id of the dynamo record.
+Parameters are passed in the URL in this order:
 
-The only endpoints that need a body is `update`
+- For coreset endpoints: `state/year/coreset`
+- For measure endpoints: `state/year/coreset/measure`
 
-#### CoreSet
+These are used to determine the unique ID of the DynamoDB record.
 
-`create`: Creates the identified coreset, and then creates all child measures corresponding to the Adult, Child, or Health Home coreset.
+#### Endpoints
 
-`delete`: Deletes the identified coreset, and then deletes all child measures to that coreset.
+##### Banners
 
-`get`: Returns the identified coreset.
+| Method   | Path                  | Description                             |
+| -------- | --------------------- | --------------------------------------- |
+| `POST`   | `/banners/{bannerId}` | Create a banner (requires request body) |
+| `DELETE` | `/banners/{bannerId}` | Delete a banner                         |
+| `GET`    | `/banners/{bannerId}` | Fetch a banner                          |
 
-`list`: Given with parameters: `state/year` to return all the coresets for a given state and year.
+##### CoreSets
 
-`update`: The body can contain `submitted` or `status` to change the status of the coreset
+| Method   | Path                                       | Description                                                           |
+| -------- | ------------------------------------------ | --------------------------------------------------------------------- |
+| `GET`    | `/coreset/{state}/{year}/list`             | Get all coresets for a state and year                                 |
+| `GET`    | `/coreset/{state}/{year}/{coreSet}/get`    | Get a specific coreset                                                |
+| `POST`   | `/coreset/{state}/{year}/{coreSet}/create` | Create a coreset (requires request body; also creates child measures) |
+| `PUT`    | `/coreset/{state}/{year}/{coreSet}/edit`   | Edit a coreset (body: `submitted` or `status`)                        |
+| `DELETE` | `/coreset/{state}/{year}/{coreSet}/delete` | Delete a coreset and its child measures                               |
 
-#### Measures
+##### Measures
 
-`create`: Creates the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the create coreset endpoint.
+| Method   | Path                                                          | Description                                                |
+| -------- | ------------------------------------------------------------- | ---------------------------------------------------------- |
+| `GET`    | `/coreset/{state}/{year}/{coreSet}/measures/list`             | Get all measures for a coreset                             |
+| `GET`    | `/coreset/{state}/{year}/{coreSet}/measures/{measure}/get`    | Get a specific measure                                     |
+| `POST`   | `/coreset/{state}/{year}/{coreSet}/measures/{measure}/create` | Create a measure (requires request body)                   |
+| `PUT`    | `/coreset/{state}/{year}/{coreSet}/measures/{measure}/edit`   | Edit a measure (body: `data`, `status`, `reporting`, etc.) |
+| `DELETE` | `/coreset/{state}/{year}/{coreSet}/measures/{measure}/delete` | Delete a measure                                           |
 
-`delete`: Deletes the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the delete coreset endpoint.
+##### Metadata & Utilities
 
-`get`: Returns the identified measure
+| Method | Path                       | Description                   |
+| ------ | -------------------------- | ----------------------------- |
+| `GET`  | `/coreset/reportingyears`  | Get available reporting years |
+| `GET`  | `/coreset/measureListInfo` | Get measure metadata          |
 
-`list`: Given with parameters: `state/year/coreset` to return all measures corresponding to a given coreset.
+##### Rates
 
-`update`: The body can contain `data`, `status`, `reporting`, `description`, `detailedDescription`
+| Method | Path                                           | Description                      |
+| ------ | ---------------------------------------------- | -------------------------------- |
+| `GET`  | `/rate/{state}/{year}/{coreSet}/{measure}/get` | Get combined rates for a measure |
+
+##### PDF Generation
+
+| Method | Path                                       | Description                                          |
+| ------ | ------------------------------------------ | ---------------------------------------------------- |
+| `POST` | `/coreset/{state}/{year}/{coreSet}/getPDF` | Generate a PDF for a coreset (requires request body) |
 
 #### Kafka
 
-The Kafka Queues we link to are in the BigMac account and are currently not being used for any downstream purposes
+<!-- TODO: is this still true? -->
 
-`postKafkaData`: Fires when an update to the database happens and syncs kafka to reflect the current state of the database.
+Kafka queues are linked to the BigMac account and are not currently used for downstream purposes.
+
+- `postKafkaData`: Fires when a database update occurs and syncs Kafka to reflect the current state.
 
 #### Utilities
 
-`createDynamoUpdateParams`: Dynamo requires very specific variable naming conventions which are unwieldy to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
-
-`measureList`: A list of all of the measures and the type of coreset they belong to. This is used when a new coreset is created to create new measures for that coreset.
+- `createDynamoUpdateParams`: Utility to convert arguments into DynamoDB-compatible update parameters.
+- `measureList`: Utility providing a list of all measures and their associated coreset types, used when creating new coresets and measures.
 
 ### Database
 
