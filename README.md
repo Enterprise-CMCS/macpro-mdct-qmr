@@ -16,13 +16,7 @@ QMR is the CMCS MDCT application for collecting state data related to measuring 
 
 ## Table of Contents
 
-- [MDCT QMR (Quality Measure Reporting)](#mdct-qmr-quality-measure-reporting)
-- [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
-  - [Local Development Setup](#local-development-setup)
-    - [Oxfmt](#oxfmt)
-      - [Oxfmt with VS Code](#oxfmt-with-vs-code)
-      - [Oxfmt CLI](#oxfmt-cli)
 - [Testing](#testing)
   - [Runners and Assertion Libraries](#runners-and-assertion-libraries)
   - [Update Node Modules](#update-node-modules)
@@ -68,13 +62,13 @@ QMR is the CMCS MDCT application for collecting state data related to measuring 
 
 ## Getting Started
 
-### Local Development Setup
-
-#### Running MDCT Workspace Setup
+### Running MDCT Workspace Setup
 
 Team members are encouraged to set up all MDCT Products using the script located in the [MDCT Tools Repository](https://github.com/Enterprise-CMCS/macpro-mdct-tools). Please refer to the README for instructions on running the MDCT Workspace Setup. After running workspace setup, team members can refer to the [Running the project locally](#running-the-project-locally) section below to proceed with running the application.
 
-The following are prerequisites for local development. **If you have run the MDCT Workspace setup script, please ignore this section; it is not needed.**
+### One time only
+
+**If you have run the MDCT Setup Script this section can be skipped**
 
 1. [Create an SSH Key and link it to your Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 2. Clone this repository locally
@@ -101,28 +95,33 @@ The following are prerequisites for local development. **If you have run the MDC
 8. Look up [here](deployment/local/README.md) for other things you'll need to install, though it will prompt you when your `./run local` if you're missing something.
 9. Install the pre-commit hook to run oxfmt on staged files before every commit
    ```bash
+   brew install pre-commit # or pip install pre-commit
    pre-commit install
    ```
-10. Install all other node packages.
-
-```bash
-yarn install  # can be skipped, will run automatically in dev script
-```
+10. Install the 1Password CLI tool and authenticate to your 1Password account. This is necessary to pull in secrets for local development and testing.
+    ```bash
+    brew install 1password-cli
+    op vault list
+    ```
+    If you do not have a 1Password account, you can still run the project locally, but you will need to reach out to a team member for `.env` values and populate those manually.
+11. Install all other node packages.
+    ```bash
+    yarn install  # can be skipped, will run automatically in dev script
+    ```
 
 ### Running the project locally
 
-1. To run the project run the following command from the root of the directory
+To run the project, run the following commands from the root of the directory:
 
-   ```
-   ./run update-env
-   ./run local
-   ```
+```bash
+./run update-env
+./run local
+```
 
-   Note: This will populate a .env file at the root of the directory as well as in the `/services/ui-src/` directory, by authenticating to 1Password and pulling in development secrets. Both of those .env files are gitignored.
+> [!NOTE]
+> This will populate a .env file at the root of the directory as well as in the `/services/ui-src/` directory, by authenticating to 1Password and pulling in development secrets. Both of those `.env` files are gitignored.
 
-If you do not have a 1Password account, you can run `./run local`; however, you will need to reach out to a team member for .env values and populate those by hand, both in the root of the repo and in `/services/ui-src`.
-
-To login a number of test users are provisioned via the `users.json`. Look in the 1password secret named `qmr-secrets` for the test user password.
+To login, a number of test users are provisioned via the `users.json` file. Check the 1Password secret named `qmr-secrets` for the test user password.
 
 #### oxfmt
 
@@ -144,6 +143,14 @@ Using this command, or a variant of it, will format all matching files in the co
 npx yarn oxfmt
 ```
 
+### Local development additional info
+
+Local dev is configured as a Typescript project. The entrypoint in `./cli/run.ts` manages running the moving pieces locally.
+
+Local dev is built around the CDK setup which runs locally via LocalStack.
+
+Local authorization uses Cognito from the main stack in dev. The credentials are injected locally by the ./run update-env command which fetches values from 1Password and puts them into a gitignored .env file.
+
 ## Testing
 
 ### Runners and Assertion Libraries
@@ -154,11 +161,11 @@ The JavaScript unit testing framework being used is [Jest](https://jestjs.io/), 
 
 First, make sure your `node_modules` are up to date:
 
-1. Navigate to tests and run
+1. Navigate to `tests` and run
    ```bash
    yarn install
    ```
-2. Navigate to tests/cypress and run
+2. Navigate to `tests/cypress` and run
    ```bash
    yarn install
    ```
@@ -187,13 +194,16 @@ from the root of the directory
 yarn test
 ```
 
-**note:** this will ensure you are using the latest values from 1Password and update your .env files
+> [!NOTE]
+> This will ensure you are using the latest values from 1Password and update your `.env` files.
 
-The `Cypress` application will kick off, where you can find a list of all the available E2E tests.
+The Cypress application will kick off, where you can find a list of all the available E2E tests.
 
 To run an individual Child Measure test, you first need to create these measures by running the `create_delete_child.spec.ts` test.
 
 Similarly, to run an individual Health Home Measure test, you first need to create these measures by running the `create_delete_healthhome.spec.ts` test.
+
+See the [Cypress tests README](./tests/cypress/README.md) for more information.
 
 #### Running Unit Tests
 
@@ -221,7 +231,7 @@ For example:
 
 Many of commonly used components and common question components are tested with snapshot tests. [Jest's documentation](https://jestjs.io/docs/snapshot-testing) describes what snapshot testing is and how to interact with their tooling.
 
-If a change is made that affects the way a component renders, and that component is covered by snapshot testing, the snapshot tests will fail. This is expected behavior. Output logs should highlight clearly the discrepancies between the rendered component and the stored snapshot. Assuming the changes are anticipated, the snapshot should be updated to match the component so tests will pass going forward. See the ["Updating Snapshots"](https://jestjs.io/docs/snapshot-testing#updating-snapshots) section of the Jest docs for specific instructions on overwriting the snapshots. Alternatively, the old snapshot file can be deleted and will be re-generated on the next run of the test.
+If a change is made that affects the way a component renders, and that component is covered by snapshot testing, the snapshot tests will fail. This is expected behavior. Output logs should highlight clearly the discrepancies between the rendered component and the stored snapshot. Assuming the changes are intended, the snapshot should be updated to match the component so tests will pass going forward. See the ["Updating Snapshots"](https://jestjs.io/docs/snapshot-testing#updating-snapshots) section of the Jest docs for specific instructions on overwriting the snapshots. Alternatively, the old snapshot file can be deleted and will be re-generated on the next run of the test.
 
 ##### Code Coverage Report
 
