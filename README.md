@@ -14,7 +14,7 @@
 
 QMR is the CMCS MDCT application for collecting state data related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
-# Table of Contents
+## Table of Contents
 
 - [MDCT QMR (Quality Measure Reporting)](#mdct-qmr-quality-measure-reporting)
 - [Table of Contents](#table-of-contents)
@@ -66,11 +66,11 @@ QMR is the CMCS MDCT application for collecting state data related to measuring 
 - [GitHub Actions Secret Management](#github-actions-secret-management)
 - [License](#license)
 
-# Getting Started
+## Getting Started
 
-## Local Development Setup
+### Local Development Setup
 
-### Running MDCT Workspace Setup
+#### Running MDCT Workspace Setup
 
 Team members are encouraged to set up all MDCT Products using the script located in the [MDCT Tools Repository](https://github.com/Enterprise-CMCS/macpro-mdct-tools). Please refer to the README for instructions on running the MDCT Workspace Setup. After running workspace setup, team members can refer to the [Running the project locally](#running-the-project-locally) section below to proceed with running the application.
 
@@ -109,7 +109,7 @@ The following are prerequisites for local development. **If you have run the MDC
 yarn install  # can be skipped, will run automatically in dev script
 ```
 
-## Running the project locally
+### Running the project locally
 
 1. To run the project run the following command from the root of the directory
 
@@ -124,11 +124,11 @@ If you do not have a 1Password account, you can run `./run local`; however, you 
 
 To login a number of test users are provisioned via the `users.json`. Look in the 1password secret named `qmr-secrets` for the test user password.
 
-### oxfmt
+#### oxfmt
 
 This repo uses the code formatter [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html). The formatter is run automatically in a pre-commit hook. Additionally, oxfmt can be run on file save in many IDEs or run ad hoc from the command line.
 
-#### oxfmt with VS Code
+##### oxfmt with VS Code
 
 The oxc extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode).
 
@@ -136,7 +136,7 @@ Once installed, open VS Code's Preferences. Search for "Format on Save". Clickin
 
 VS Code is used almost ubiquitously across the current development team; generally speaking, these tools should also work for most other IDEs.
 
-#### oxfmt CLI
+##### oxfmt CLI
 
 Using this command, or a variant of it, will format all matching files in the codebase and write the changes. oxfmt has complete [CLI documentation](https://oxc.rs/docs/guide/usage/formatter.html) on their website.
 
@@ -144,13 +144,13 @@ Using this command, or a variant of it, will format all matching files in the co
 npx yarn oxfmt
 ```
 
-# Testing
+## Testing
 
-## Runners and Assertion Libraries
+### Runners and Assertion Libraries
 
 The JavaScript unit testing framework being used is [Jest](https://jestjs.io/), and the React component testing library being used is the [React Testing Library](https://testing-library.com/docs/react-testing-library/intro).
 
-## Update Node Modules
+### Update Node Modules
 
 First, make sure your `node_modules` are up to date:
 
@@ -163,9 +163,9 @@ First, make sure your `node_modules` are up to date:
    yarn install
    ```
 
-## How to Run Tests
+### How to Run Tests
 
-### Cypress Setup
+#### Cypress Setup
 
 Once your local environment is up and running, these steps need to be taken to set up `Cypress`:
 
@@ -176,7 +176,7 @@ cd cypress/
 yarn install
 ```
 
-### Running Cypress Tests
+#### Running Cypress Tests
 
 To run the end-to-end (E2E) `Cypress` tests:
 
@@ -195,7 +195,7 @@ To run an individual Child Measure test, you first need to create these measures
 
 Similarly, to run an individual Health Home Measure test, you first need to create these measures by running the `create_delete_healthhome.spec.ts` test.
 
-### Running Unit Tests
+#### Running Unit Tests
 
 To run the `Jest` unit tests on the React components:
 
@@ -217,13 +217,13 @@ For example:
 
 ![Jest Results](./.images/jestResults.png?raw=true)
 
-#### Snapshot Tests
+##### Snapshot Tests
 
 Many of commonly used components and common question components are tested with snapshot tests. [Jest's documentation](https://jestjs.io/docs/snapshot-testing) describes what snapshot testing is and how to interact with their tooling.
 
 If a change is made that affects the way a component renders, and that component is covered by snapshot testing, the snapshot tests will fail. This is expected behavior. Output logs should highlight clearly the discrepancies between the rendered component and the stored snapshot. Assuming the changes are anticipated, the snapshot should be updated to match the component so tests will pass going forward. See the ["Updating Snapshots"](https://jestjs.io/docs/snapshot-testing#updating-snapshots) section of the Jest docs for specific instructions on overwriting the snapshots. Alternatively, the old snapshot file can be deleted and will be re-generated on the next run of the test.
 
-#### Code Coverage Report
+##### Code Coverage Report
 
 To view a unit test code coverage report on the React components:
 
@@ -243,30 +243,30 @@ On the terminal, there will be a detailed coverage report followed by a coverage
 
 ![Code Coverage Report](./.images/codeCoverageReport.png?raw=true)
 
-#### Code Coverage Targets
+##### Code Coverage Targets
 
 The project maintains a high standard for unit and integration test coverage, targeting 90% or higher across critical components. Recent efforts have focused on increasing coverage and improving test reliability.
 
-# Services
+## Services
 
-## Architecture Diagram
+### Architecture Diagram
 
 ![Architecture Diagram](./.images/architecture.svg?raw=true)
 
-## CDK
+### CDK
 
 This project is built as a series of micro-services using the [CDK](https://aws.amazon.com/cdk/). CDK allows you to write typescript that compiles into CloudFormation Templates.
 
 > **Bootstrapping AWS Accounts:**
 > For detailed instructions on bootstrapping AWS accounts with CDK (including custom templates and prerequisites), please see [deployment/README.md](deployment/README.md).
 
-### Configuration AWS Secrets Manager
+#### Configuration AWS Secrets Manager
 
 Look in `deployment/deployment-config.ts` and look at the `DeploymentConfigProperties` interface which should give you a sense of which values are being injected into the app. The values must either be in `qmr-default` secret or `qmr-STAGE` to be picked up. The secrets are json objects so they contain multiple values each.
 
 No values should be specified in both secrets. Just don't do it. Ok if that did ever happen the stage value would supersede. But really I promise you don't need it.
 
-### Destroy Entire Branch from Local
+#### Destroy Entire Branch from Local
 
 In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
 
@@ -274,19 +274,19 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 2. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
 3. `./run destroy name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
-## App API
+### App API
 
-### Overview
+#### Overview
 
 The API service contains all of the API calls for the application. It is deployed with cdk and depends on the database service to exist first.
 
-### Parameters
+#### Parameters
 
 Parameters are passed in by the URL in this order `state/year/coreset` for coreset endpoints and `state/year/coreset/measure` for measures and are used to determine the unique id of the dynamo record.
 
 The only endpoints that need a body is `update`
 
-### CoreSet
+#### CoreSet
 
 `create`: Creates the identified coreset, and then creates all child measures corresponding to the Adult, Child, or Health Home coreset.
 
@@ -298,7 +298,7 @@ The only endpoints that need a body is `update`
 
 `update`: The body can contain `submitted` or `status` to change the status of the coreset
 
-### Measures
+#### Measures
 
 `create`: Creates the identified coreset. Right now this is only fired directly from the application when a new custom Health Home Measure is created. Otherwise it is used by the create coreset endpoint.
 
@@ -310,23 +310,23 @@ The only endpoints that need a body is `update`
 
 `update`: The body can contain `data`, `status`, `reporting`, `description`, `detailedDescription`
 
-### Kafka
+#### Kafka
 
 The Kafka Queues we link to are in the BigMac account and are currently not being used for any downstream purposes
 
 `postKafkaData`: Fires when an update to the database happens and syncs kafka to reflect the current state of the database.
 
-### Utilities
+#### Utilities
 
 `createDynamoUpdateParams`: Dynamo requires very specific variable naming conventions which are unwieldy to interact with so this util will take all of the arguments and converts them into a dynamo readable version.
 
 `measureList`: A list of all of the measures and the type of coreset they belong to. This is used when a new coreset is created to create new measures for that coreset.
 
-## Database
+### Database
 
 We are using DynamoDB for our database solution for QMR. When looking for the databases in AWS search for `branchName-tableName` to find the tables for your branch.
 
-### Tables
+#### Tables
 
 | Table Name | Description                                                                                                                                                                                                                           |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -337,7 +337,7 @@ We are using DynamoDB for our database solution for QMR. When looking for the da
 
 > Note that [HCBS](https://github.com/Enterprise-CMCS/macpro-mdct-hcbs) recently expanded the banner functionality to enable multiple banners stored within the app; presumably, eventually this application will do the same.
 
-### How to set up Dynamo endpoint to view local DB
+#### How to set up Dynamo endpoint to view local DB
 
 In order to run DynamoDB locally, you will need to have Java installed on your system. If not currently installed, go [here](https://java.com/en/download/) to download the latest version.
 
@@ -345,7 +345,7 @@ If you want to a visual view of your DynamoDB after the application is up and ru
 
 To run the DynamoDB GUI, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window. From here, you can view the tables and perform operations on the local tables.
 
-### Running database scripts
+#### Running database scripts
 
 There are a few scripts located within `services/database/scripts` that can be run to perform various operations on the database. In deployed environments, these can be run using environment variables that can be obtained from Kion for a given target environment.
 
@@ -366,12 +366,12 @@ npx ts-node services/database/scripts/scriptName.ts
 
 Scripts in this directory can be used to perform a variety of operations, such as migrating data from one table to another or correcting data that has already been recorded.
 
-## UI
+### UI
 
 The UI Service creates the URLs associated with the application and the cloudfront logs that monitor traffic.
 For Main, Val, and Production, these URLs end with `.gov`; the branch URLs end with `.com`
 
-### Dev/Impl/Prod endpoints
+#### Dev/Impl/Prod endpoints
 
 | Environment | URL                                    |
 | ----------- | -------------------------------------- |
@@ -381,31 +381,31 @@ For Main, Val, and Production, these URLs end with `.gov`; the branch URLs end w
 | Val         | https://mdctqmrval.cms.gov/            |
 | Prod        | https://mdctqmr.cms.gov/               |
 
-### Branch Endpoints
+#### Branch Endpoints
 
 The Endpoints created by a branch are random and can be found in the output of the cloudformation stack for the UI, it can also be found as an output of the deploy step of our github actions.
 
-## UI Auth
+### UI Auth
 
 The UI Auth service creates and manages the Authentication of the UI.
 
 User data is synced from IDM to Cognito to allow for login to the application and the IDM roles are used to determine what a user has access to in the UI.
 
-### Okta
+#### Okta
 
 Okta is the Federated Identity Provider being used to allow users to use their IDM credentials with our application.
 
-### Automating Test User Creation
+#### Automating Test User Creation
 
 There is one lambda function in the UI-Auth Service, this is to create test users that can login to the branch environments, dev, and Val, for testing, but not production.
 
 To add new users with new attributes, you can edit the `users.json`
 
-## UI-SRC
+### UI-SRC
 
 The ui-src service contains all of our frontend code and is therefore the largest service in the project. Our project uses the React Web Framework, Typescript, Chakra-UI for components, react-icons for various icons in the application, and react-query
 
-### General Stack Details
+#### General Stack Details
 
 | Technology  | Use                                                            | Reason                                                                                                                                                                                                                                                             |
 | ----------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -415,7 +415,7 @@ The ui-src service contains all of our frontend code and is therefore the larges
 | React-Icons | Simple Icons throughout the application                        | It was free, easy to use, and had all of the icons we needed                                                                                                                                                                                                       |
 | React-Query | State management                                               | It was the more lightweight option and was simpler to plug into the application compared to its competitors                                                                                                                                                        |
 
-### Component Library
+#### Component Library
 
 At its core, QMR consists of several small, simple components in `/services/ui-src/src/components`
 
@@ -425,7 +425,7 @@ These complex components are then used along with some of the simple components 
 
 When creating a new form, it's best to find an existing form that closely matches your requirements, then modify it with complex components if necessary, or create a new complex component and modify it with simple components if needed, etc.
 
-## Uploads
+### Uploads
 
 The Uploads service consists of a few S3 buckets and some integration functions. It is the only point where the downstream applications owned by Mathematica interact with our application. This is in two buckets.
 
@@ -434,19 +434,19 @@ The Uploads service consists of a few S3 buckets and some integration functions.
 
 Any uploads are first stored in an inaccessible folder until they are scanned by the anti-virus scanner. Antivirus definitions are updated daily. This is to prevent anyone from uploading malicious files.
 
-### Integrations with Mathematica
+#### Integrations with Mathematica
 
 The IAM roles that we receive from Mathematica are stored as SSM parameters and can be accessed and changed in the corresponding AWS account.
 
-# Year End Transition Documentation
+## Year End Transition Documentation
 
 For details on the year end transition process, please refer to the [Year End Transition](./YEAR_END_TRANSITION.md) documentation file.
 
-# Quickstart
+## Quickstart
 
 This application was forked from the [Quickstart Repository](https://github.com/Enterprise-CMCS/macpro-quickstart-serverless) and efforts are made to feedback any applicable changes to that repository from this one and vice versa.
 
-## Slack Webhooks
+### Slack Webhooks
 
 This repository uses 3 webhooks to publish to 3 different channels all in CMS Slack.
 
@@ -457,12 +457,12 @@ This repository uses 3 webhooks to publish to 3 different channels all in CMS Sl
 - PROD_RELEASE_SLACK_WEBHOOK: This is used to publish to the `mdct-prod-releases` channel upon successful release of QMR to production.
   - Webhooks are created by CMS tickets, populated into GitHub Secrets
 
-## GitHub Actions Secret Management
+### GitHub Actions Secret Management
 
 - Secrets are added to GitHub secrets by GitHub Admins
 - Development secrets are maintained in a 1Password vault
 
-# License
+## License
 
 [![License](https://img.shields.io/badge/License-CC0--1.0--Universal-blue.svg)](https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 
