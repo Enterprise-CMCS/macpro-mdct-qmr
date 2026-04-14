@@ -461,7 +461,7 @@ export const MeasureWrapper = ({
 
   return (
     <FormProvider {...methods}>
-      <QMR.Title tabTitle={tabTitle} />
+      <title>{tabTitle}</title>
       <QMR.YesNoModalDialog
         isOpen={showModal}
         headerText="Validation Error"

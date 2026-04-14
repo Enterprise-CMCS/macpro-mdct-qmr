@@ -70,7 +70,7 @@ export const AddAdultCoreSet = () => {
 
   return (
     <>
-      <QMR.Title tabTitle={`Add Adult Core Set - ${year} QMR`} />
+      <title>{`Add Adult Core Set - ${year} QMR`}</title>
       <QMR.StateLayout
         breadcrumbItems={[
           {

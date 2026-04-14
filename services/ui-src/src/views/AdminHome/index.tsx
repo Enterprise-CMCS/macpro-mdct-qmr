@@ -1,6 +1,5 @@
 import { useState } from "react";
 import * as CUI from "@chakra-ui/react";
-import * as QMR from "components";
 import { stateAbbreviations } from "utils/constants";
 import { useNavigate } from "react-router";
 import config from "config";
@@ -19,7 +18,7 @@ export const AdminHome = () => {
 
   return (
     <>
-      <QMR.Title tabTitle={`Admin Home - ${releaseYearByFlag} QMR`} />
+      <title>{`Admin Home - ${releaseYearByFlag} QMR`}</title>
       <CUI.Container maxW="7xl" py="4">
         <CUI.Box py="4">
           <BannerCard />

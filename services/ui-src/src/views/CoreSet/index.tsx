@@ -447,7 +447,7 @@ export const CoreSet = () => {
 
   return (
     <>
-      <QMR.Title tabTitle={tabTitle} />
+      <title>{tabTitle}</title>
       <QMR.StateLayout
         breadcrumbItems={[
           {

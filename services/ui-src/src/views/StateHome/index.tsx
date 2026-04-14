@@ -296,7 +296,7 @@ const StateHome = () => {
 
   return (
     <>
-      <QMR.Title tabTitle={`Core Set Measures - ${year} QMR`} />
+      <title>{`Core Set Measures - ${year} QMR`}</title>
       <QMR.StateLayout
         breadcrumbItems={[
           { path: `/${state}/${year}`, name: "Core Set Measures" },
