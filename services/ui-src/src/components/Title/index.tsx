@@ -1,13 +1,13 @@
 import { Helmet } from "react-helmet-async";
 
 interface TitleProps {
-  pageTitle: string;
+  tabTitle: string;
 }
 
-export const Title = ({ pageTitle }: TitleProps) => {
+export const Title = ({ tabTitle }: TitleProps) => {
   return (
     <Helmet>
-      <title>{pageTitle}</title>
+      <title>{tabTitle}</title>
     </Helmet>
   );
 };

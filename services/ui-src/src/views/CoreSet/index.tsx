@@ -443,11 +443,11 @@ export const CoreSet = () => {
     formattedSpaName = `: ${tempSpa.state} ${tempSpa.id}`;
   }
 
-  const pageTitle = `${simplifiedTitle}${formattedSpaName} - Core Set Measures - ${year} QMR`;
+  const tabTitle = `${simplifiedTitle}${formattedSpaName} - Core Set Measures - ${year} QMR`;
 
   return (
     <>
-      <QMR.Title pageTitle={pageTitle} />
+      <QMR.Title tabTitle={tabTitle} />
       <QMR.StateLayout
         breadcrumbItems={[
           {
