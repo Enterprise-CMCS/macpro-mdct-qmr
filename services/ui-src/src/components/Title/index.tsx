@@ -5,11 +5,9 @@ interface TitleProps {
 }
 
 export const Title = ({ pageTitle }: TitleProps) => {
-  const fullTitle = `${pageTitle}`;
-
   return (
     <Helmet>
-      <title>{fullTitle}</title>
+      <title>{pageTitle}</title>
     </Helmet>
   );
 };
