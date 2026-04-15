@@ -14,9 +14,20 @@
 
 QMR is the CMCS MDCT application for collecting state data related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
+## Repository at a glance
+
+- **Language/tooling:** TypeScript monorepo using **Yarn workspaces** (Yarn **4.x**, via Corepack). See `package.json` (root).
+- **Local development entrypoint:** `./run` (shell wrapper) which executes `./cli/run.ts`. See `run` and `cli/run.ts`.
+- **Frontend source:** `services/ui-src` (Vite + React). See `services/ui-src/package.json`.
+- **Backend:** Lambda-based API in `services/app-api` deployed via CDK in `deployment/**`. See `deployment/stacks/api.ts` and `services/app-api/**`.
+- **E2E tests:** Cypress workspace at `tests/cypress`. See `tests/cypress/package.json`.
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
+  - [One time only](#one-time-only)
+  - [Running the project locally](#running-the-project-locally)
+  - [oxfmt](#oxfmt)
 - [Testing](#testing)
   - [Runners and Assertion Libraries](#runners-and-assertion-libraries)
   - [Update Node Modules](#update-node-modules)
@@ -87,9 +98,9 @@ Team members are encouraged to set up all MDCT Products using the script located
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
-7. Install [Yarn](https://classic.yarnpkg.com)
+7. Enable **Corepack** (recommended) so the correct Yarn version is used.
    ```bash
-   brew install yarn
+   corepack enable
    ```
 8. Look up [here](deployment/local/README.md) for other things you'll need to install, though it will prompt you when your `./run local` if you're missing something.
 9. Install the pre-commit hook to run oxfmt on staged files before every commit
@@ -105,7 +116,7 @@ Team members are encouraged to set up all MDCT Products using the script located
     If you do not have a 1Password account, you can still run the project locally, but you will need to reach out to a team member for `.env` values and populate those manually.
 11. Install all other node packages.
     ```bash
-    yarn install  # can be skipped, will run automatically in dev script
+    yarn install  # can be skipped; ./run runs yarn install automatically
     ```
 
 ### Running the project locally
@@ -118,9 +129,11 @@ To run the project, run the following commands from the root of the directory:
 ```
 
 > [!NOTE]
-> This will populate a .env file at the root of the directory as well as in the `/services/ui-src/` directory, by authenticating to 1Password and pulling in development secrets. Both of those `.env` files are gitignored.
+> `./run update-env` populates a gitignored `.env` (from `.env.tpl`) by authenticating to 1Password and injecting values.
+>
+> `./run local` writes UI runtime config to `services/ui-src/public/env-config.js` based on CloudFormation outputs and then starts the Vite dev server.
 
-To login, a number of test users are provisioned via the `users.json` file. Check the 1Password secret named `qmr-secrets` for the test user password.
+To login, a number of test users are provisioned via `services/ui-auth/libs/users.json`. Check 1Password in the `qmr_secrets` section for the test user password.
 
 #### oxfmt
 
@@ -144,11 +157,13 @@ npx yarn oxfmt
 
 ### Local development additional info
 
-Local dev is configured as a Typescript project. The entrypoint in `./cli/run.ts` manages running the moving pieces locally.
+Local dev is configured as a TypeScript project. The entrypoint in `./cli/run.ts` manages running the moving pieces locally.
 
 Local dev is built around the CDK setup which runs locally via LocalStack.
 
-Local authorization uses Cognito from the main stack in dev. The credentials are injected locally by the ./run update-env command which fetches values from 1Password and puts them into a gitignored .env file.
+Local authorization uses Cognito from AWS (not LocalStack). `./run update-env` fetches values from 1Password and writes them into a gitignored `.env`.
+
+See `deployment/local/README.md` for LocalStack-specific notes.
 
 ## Testing
 
@@ -158,16 +173,11 @@ The JavaScript unit testing framework being used is [Jest](https://jestjs.io/), 
 
 ### Update Node Modules
 
-First, make sure your `node_modules` are up to date:
+This repo is a Yarn workspaces monorepo. Installing from the repo root installs dependencies for all workspaces.
 
-1. Navigate to `tests` and run
-   ```bash
-   yarn install
-   ```
-2. Navigate to `tests/cypress` and run
-   ```bash
-   yarn install
-   ```
+```bash
+yarn install
+```
 
 ### How to Run Tests
 
@@ -175,23 +185,25 @@ First, make sure your `node_modules` are up to date:
 
 Once your local environment is up and running, these steps need to be taken to set up `Cypress`:
 
-```
-cd tests/
-yarn install
-cd cypress/
+```bash
 yarn install
 ```
+
+> [!NOTE]
+> `./run local` already runs `yarn install` at the repo root; the command above is only needed if you are setting up Cypress without using `./run`.
 
 #### Running Cypress Tests
 
 To run the end-to-end (E2E) `Cypress` tests:
 
-from the root of the directory
+From the repo root:
 
-```
+```bash
 ./run update-env
 yarn test
 ```
+
+`yarn test` runs the Cypress workspace script (`yarn workspace cypress-tests test`). See `package.json` (root) and `tests/cypress/package.json`.
 
 > [!NOTE]
 > This will ensure you are using the latest values from 1Password and update your `.env` files.
@@ -254,7 +266,7 @@ On the terminal, there will be a detailed coverage report followed by a coverage
 
 ##### Code Coverage Targets
 
-The project maintains a high standard for unit and integration test coverage, targeting 90% or higher across critical components. Recent efforts have focused on increasing coverage and improving test reliability.
+The project maintains a high standard for unit and integration test coverage, targeting 90% or higher across critical components. This target is intended as guidance for contributors.
 
 ## Services
 
@@ -271,9 +283,16 @@ This project is built as a series of micro-services using the [CDK](https://aws.
 
 #### Configuration AWS Secrets Manager
 
-Look in `deployment/deployment-config.ts` and look at the `DeploymentConfigProperties` interface which should give you a sense of which values are being injected into the app. The values must either be in `qmr-default` secret or `qmr-STAGE` to be picked up. The secrets are json objects so they contain multiple values each.
+Look in `deployment/deployment-config.ts` and the `DeploymentConfigProperties` interface to see which values are injected into deployed stacks.
 
-No values should be specified in both secrets. Just don't do it. Ok if that did ever happen the stage value would supersede. But really I promise you don't need it.
+Deployment config is loaded from two AWS Secrets Manager secrets (JSON objects):
+
+- `${PROJECT}-default`
+- `${PROJECT}-${stage}` (optional; values override defaults when present)
+
+`PROJECT` comes from environment variables and is set to `qmr` for local development (see `.env.tpl`).
+
+If a key exists in both secrets, the stage secret wins.
 
 #### Destroy Entire Branch from Local
 
@@ -353,7 +372,9 @@ These are used to determine the unique ID of the DynamoDB record.
 
 Kafka queues are linked to the BigMac account and are not currently used for downstream purposes.
 
-- `postKafkaData`: Fires when a database update occurs and syncs Kafka to reflect the current state.
+- `postKafkaData`: DynamoDB-stream-driven Lambda that publishes change-data-capture (CDC) events to Kafka.
+  - Topic prefix/version: `aws.mdct.qmr.cdc` + `v0`
+  - Table→topic mappings (via env): `QualityCoreSetsTable` → `coreSet`, `MeasuresTable` → `measure`, `CombinedRatesTable` → `rate`
 
 #### Utilities
 
@@ -380,7 +401,7 @@ We are using DynamoDB for our database solution for QMR. When looking for the da
 
 In order to run DynamoDB locally, you will need to have Java installed on your system. If not currently installed, go [here](https://java.com/en/download/) to download the latest version.
 
-If you want to a visual view of your DynamoDB after the application is up and running, you can install the `dynamodb-admin` tool from [here](https://www.npmjs.com/package/dynamodb-admin).
+If you want a visual view of your DynamoDB after the application is up and running, you can install the `dynamodb-admin` tool from [here](https://www.npmjs.com/package/dynamodb-admin).
 
 To run the DynamoDB GUI, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window. From here, you can view the tables and perform operations on the local tables.
 
@@ -422,7 +443,7 @@ For Main, Val, and Production, these URLs end with `.gov`; the branch URLs end w
 
 #### Branch Endpoints
 
-The Endpoints created by a branch are random and can be found in the output of the cloudformation stack for the UI, it can also be found as an output of the deploy step of our github actions.
+The endpoints created by a branch can be found in CloudFormation stack outputs for the UI stack and in the output of the deploy step in GitHub Actions.
 
 ### UI Auth
 
@@ -438,7 +459,7 @@ Okta is the Federated Identity Provider being used to allow users to use their I
 
 There is one lambda function in the UI-Auth Service, this is to create test users that can login to the branch environments, dev, and Val, for testing, but not production.
 
-To add new users with new attributes, you can edit the `users.json`
+To add new users with new attributes, edit `services/ui-auth/libs/users.json`.
 
 ### UI-SRC
 
