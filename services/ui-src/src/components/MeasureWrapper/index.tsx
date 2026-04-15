@@ -422,7 +422,7 @@ export const MeasureWrapper = ({
     `- ${formatTitle(apiData?.Item?.description)}`;
 
   // Individual Measures -> "AAB-CH - Medicaid: Child Core Set Measures - 2025 QMR"
-  const pageTitle = (() => {
+  const tabTitle = (() => {
     const coreSetTitle = coreSetTitles(coreSet);
 
     // Qualifiers -> "Qualifiers - Child Core Set Measures: Medicaid - 2025 QMR"
@@ -461,7 +461,7 @@ export const MeasureWrapper = ({
 
   return (
     <FormProvider {...methods}>
-      <QMR.Title pageTitle={pageTitle} />
+      <QMR.Title tabTitle={tabTitle} />
       <QMR.YesNoModalDialog
         isOpen={showModal}
         headerText="Validation Error"
