@@ -202,5 +202,27 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       });
       expect(errors).toHaveLength(0);
     });
+
+    it("supports qualifier id-based lookup", () => {
+      const rateData = generateOmsQualifierRateData(categories, qualifiers, [
+        { rate: "20", numerator: "20", denominator: "100" },
+        { rate: "20", numerator: "20", denominator: "100" },
+        { rate: "25", numerator: "25", denominator: "100" },
+      ]);
+      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesOMS(
+        undefined,
+        undefined,
+        undefined,
+        "Combination",
+        ["Influenza", "Tdap"]
+      )({
+        ...baseOMSInfo,
+        rateData,
+      });
+      expect(errors).toHaveLength(1);
+      expect(errors[0].errorMessage).toBe(
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
+      );
+    });
   });
 });

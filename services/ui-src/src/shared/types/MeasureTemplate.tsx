@@ -129,6 +129,9 @@ export interface MeasureTemplateData {
     validateOneQualRateLessThanOrEqualToOtherQualRates?: {
       qualIndex?: number;
       otherQualIndices?: number[];
+      qualId?: string;
+      otherQualIds?: string[];
+      errorMessage?: string;
     };
   };
 }

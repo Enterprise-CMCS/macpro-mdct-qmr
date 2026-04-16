@@ -74,8 +74,10 @@ export const data: MeasureTemplateData = {
       qualifiers,
     },
     validateOneQualRateLessThanOrEqualToOtherQualRates: {
-      qualIndex: 2,
-      otherQualIndices: [0, 1],
+      qualId: "i5B6xM",
+      otherQualIds: ["DThCVU", "r1aUqr"],
+      errorMessage:
+        "Combination rate cannot be greater than the Influenza or Tdap rates",
     },
   },
 };

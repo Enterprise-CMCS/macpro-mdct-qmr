@@ -158,7 +158,13 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
         PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
           ?.qualIndex,
         PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
-          ?.otherQualIndices
+          ?.otherQualIndices,
+        PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
+          ?.errorMessage,
+        PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
+          ?.qualId,
+        PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
+          ?.otherQualIds
       );
     case "validateSameDenominatorSetsOMS":
       return GV.validateSameDenominatorSetsOMS();
@@ -391,7 +397,13 @@ export const validationTemplate = (
           PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
             ?.qualIndex,
           PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
-            ?.otherQualIndices
+            ?.otherQualIndices,
+          PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
+            ?.errorMessage,
+          PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
+            ?.qualId,
+          PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
+            ?.otherQualIds
         );
       case "ComplexValueSameCrossCategory":
         return GV.ComplexValueSameCrossCategory({
