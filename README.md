@@ -14,14 +14,6 @@
 
 QMR is the CMCS MDCT application for collecting state data related to measuring and quantifying healthcare processes and ensuring quality healthcare for Medicaid beneficiaries. The collected data assists CMCS in monitoring, managing, and better understanding Medicaid and CHIP programs.
 
-## Repository at a glance
-
-- **Language/tooling:** TypeScript monorepo using **Yarn workspaces** (Yarn **4.x**, via Corepack). See `package.json` (root).
-- **Local development entrypoint:** `./run` (shell wrapper) which executes `./cli/run.ts`. See `run` and `cli/run.ts`.
-- **Frontend source:** `services/ui-src` (Vite + React). See `services/ui-src/package.json`.
-- **Backend:** Lambda-based API in `services/app-api` deployed via CDK in `deployment/**`. See `deployment/stacks/api.ts` and `services/app-api/**`.
-- **E2E tests:** Cypress workspace at `tests/cypress`. See `tests/cypress/package.json`.
-
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -266,7 +258,7 @@ On the terminal, there will be a detailed coverage report followed by a coverage
 
 ##### Code Coverage Targets
 
-The project maintains a high standard for unit and integration test coverage, targeting 90% or higher across critical components. This target is intended as guidance for contributors.
+The project maintains a high standard for unit and integration test coverage, targeting 90% or higher across critical components.
 
 ## Services
 
