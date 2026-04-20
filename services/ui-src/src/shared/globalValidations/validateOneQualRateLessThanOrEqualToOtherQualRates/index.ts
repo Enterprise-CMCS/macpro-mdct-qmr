@@ -11,63 +11,93 @@ import {
 const DEFAULT_ERROR_MESSAGE =
   "Combination rate cannot be greater than the Influenza or Tdap rates";
 
-interface ValProps extends UVFP {
-  qualIndex?: number;
-  otherQualIndices: number[];
+interface ValidationOptions {
+  errorMessage?: string;
+  qualId?: string;
+  otherQualIds?: string[];
 }
 
-const resolveQualifierIndex = (
-  qualifiers: UVFP["qualifiers"],
-  qualId?: string,
-  qualIndex?: number
-) => {
-  if (qualId && qualifiers?.length) {
-    const index = qualifiers.findIndex((qualifier) => qualifier.id === qualId);
-    if (index !== -1) return index;
-  }
+interface ValProps extends UVFP {
+  qualId?: string;
+  otherQualIds?: string[];
+}
 
-  return qualIndex;
+const getQualifierIdFromUid = (uid?: string) => {
+  if (!uid) return undefined;
+  const segments = uid.split(".");
+  return segments.at(-1) ?? uid;
 };
 
-const resolveQualifierIndices = (
-  qualifiers: UVFP["qualifiers"],
-  qualIds?: string[],
-  qualIndices: number[] = []
+const findRateFieldByQualifier = (
+  ratefields: UVFP["rateData"][number],
+  qualId?: string
 ) => {
-  if (qualIds?.length && qualifiers?.length) {
-    const indices = qualIds
-      .map((qualId) =>
-        qualifiers.findIndex((qualifier) => qualifier.id === qualId)
-      )
-      .filter((index) => index !== -1);
+  if (qualId) {
+    const matchedField = ratefields.find(
+      (ratefield) =>
+        ratefield?.uid === qualId ||
+        getQualifierIdFromUid(ratefield?.uid) === qualId
+    );
 
-    if (indices.length > 0) return indices;
+    if (matchedField) return matchedField;
   }
 
-  return qualIndices;
+  return undefined;
+};
+
+const findRateFieldsByQualifiers = (
+  ratefields: UVFP["rateData"][number],
+  qualIds: string[] = []
+) => {
+  if (qualIds.length > 0) {
+    const matchedFields = qualIds
+      .map((qualId) =>
+        ratefields.find(
+          (ratefield) =>
+            ratefield?.uid === qualId ||
+            getQualifierIdFromUid(ratefield?.uid) === qualId
+        )
+      )
+      .filter(
+        (
+          ratefield
+        ): ratefield is NonNullable<UVFP["rateData"][number][number]> =>
+          ratefield != null
+      );
+
+    if (matchedFields.length > 0) return matchedFields;
+  }
+
+  return [];
 };
 
 const _validation = ({
   location,
   rateData,
-  qualIndex,
-  otherQualIndices,
+  qualId,
+  otherQualIds = [],
   errorMessage = DEFAULT_ERROR_MESSAGE,
 }: ValProps) => {
   const errorArray: FormError[] = [];
-  if (qualIndex === undefined || otherQualIndices.length === 0)
-    return errorArray;
-
-  const maxOtherIndex = Math.max(...otherQualIndices);
+  if (qualId === undefined || otherQualIds.length === 0) return errorArray;
 
   for (const ratefields of rateData) {
-    if (!ratefields || ratefields.length <= maxOtherIndex) continue;
+    if (!ratefields?.length) continue;
 
-    const qualRate = parseFloat(ratefields[qualIndex]?.rate ?? "");
+    const qualRateField = findRateFieldByQualifier(ratefields, qualId);
+    if (!qualRateField) continue;
+
+    const qualRate = parseFloat(qualRateField.rate ?? "");
     if (Number.isNaN(qualRate)) continue;
 
-    const hasLowerOtherRate = otherQualIndices.some((idx) => {
-      const otherRate = parseFloat(ratefields[idx]?.rate ?? "");
+    const otherRateFields = findRateFieldsByQualifiers(
+      ratefields,
+      otherQualIds
+    );
+    if (otherRateFields.length === 0) continue;
+
+    const hasLowerOtherRate = otherRateFields.some((otherRateField) => {
+      const otherRate = parseFloat(otherRateField.rate ?? "");
       return !Number.isNaN(otherRate) && qualRate > otherRate;
     });
 
@@ -82,13 +112,11 @@ const _validation = ({
   return errorArray;
 };
 
-export const validateOneQualRateLessThanOrEqualToOtherQualRatesOMS = (
-  qualIndex = 2,
-  otherQualIndices = [0, 1],
-  errorMessage?: string,
-  qualId?: string,
-  otherQualIds?: string[]
-): OmsValidationCallback => {
+export const validateOneQualRateLessThanOrEqualToOtherQualRatesOMS = ({
+  errorMessage,
+  qualId,
+  otherQualIds = [],
+}: ValidationOptions = {}): OmsValidationCallback => {
   return ({
     rateData,
     categories,
@@ -102,12 +130,8 @@ export const validateOneQualRateLessThanOrEqualToOtherQualRatesOMS = (
     return _validation({
       qualifiers,
       location: `Optional Measure Stratification: ${locationDictionary(label)}`,
-      qualIndex: resolveQualifierIndex(qualifiers, qualId, qualIndex),
-      otherQualIndices: resolveQualifierIndices(
-        qualifiers,
-        otherQualIds,
-        otherQualIndices
-      ),
+      qualId,
+      otherQualIds,
       rateData: convertOmsDataToRateArray(categories, qualifiers, rateData),
       errorMessage,
     });
@@ -117,25 +141,13 @@ export const validateOneQualRateLessThanOrEqualToOtherQualRatesOMS = (
 export const validateOneQualRateLessThanOrEqualToOtherQualRatesPM = (
   data: Types.PerformanceMeasure,
   performanceMeasureData: Types.DataDrivenTypes.PerformanceMeasure,
-  qualIndex = 2,
-  otherQualIndices = [0, 1],
-  errorMessage?: string,
-  qualId?: string,
-  otherQualIds?: string[]
+  { errorMessage, qualId, otherQualIds = [] }: ValidationOptions = {}
 ) => {
   const perfMeasure = getPerfMeasureRateArray(data, performanceMeasureData);
   return _validation({
     qualifiers: performanceMeasureData.qualifiers,
-    qualIndex: resolveQualifierIndex(
-      performanceMeasureData.qualifiers,
-      qualId,
-      qualIndex
-    ),
-    otherQualIndices: resolveQualifierIndices(
-      performanceMeasureData.qualifiers,
-      otherQualIds,
-      otherQualIndices
-    ),
+    qualId,
+    otherQualIds,
     rateData: perfMeasure,
     location: "Rate",
     errorMessage,
