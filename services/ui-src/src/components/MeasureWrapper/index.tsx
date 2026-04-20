@@ -459,6 +459,18 @@ export const MeasureWrapper = ({
     return `${measureId} - ${cleanTitle} - ${year} QMR`;
   })();
 
+  const outOfScopeMeasures = [
+    "SS-1-HH",
+    "SS-2-HH",
+    "SS-3-HH",
+    "SS-4-HH",
+    "SS-5-HH",
+    "CPA-AD",
+    "MSC-AD",
+    "PCR-AD",
+    "PRC-HH",
+  ];
+
   return (
     <FormProvider {...methods}>
       <QMR.Title tabTitle={tabTitle} />
@@ -499,8 +511,12 @@ export const MeasureWrapper = ({
         <CUI.Skeleton isLoaded={!loadingData}>
           <>
             <QMR.AdminMask />
-            <form data-testid="measure-wrapper-form">
+            <form
+              data-testid="measure-wrapper-form"
+              style={{ maxWidth: "685px" }}
+            >
               <fieldset data-testid="fieldset" disabled={!isStateUser}>
+                {/* <CUI.Container maxW="7xl" as="section" px="0"> */}
                 <CUI.Container maxW="7xl" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
@@ -513,24 +529,26 @@ export const MeasureWrapper = ({
                       </Alert>
                     </CUI.Box>
                   )}
-                  {measureId !== "CSQ" && (
-                    <>
-                      {Object.keys(separatedCoreSet ?? []).includes(
-                        params.coreSetId as CoreSetAbbr
-                      ) && (
-                        <CUI.Heading size="md" mb={6}>
-                          {measureId}: {formatTitle()}
-                        </CUI.Heading>
-                      )}
-                      <CUI.Text fontSize="sm">
-                        For technical questions regarding use of this
-                        application, please reach out to MDCT_Help@cms.hhs.gov.
-                        For content-related questions about measure
-                        specifications, or what information to enter in each
-                        field, please reach out to MACQualityTA@cms.hhs.gov.
-                      </CUI.Text>
-                    </>
-                  )}
+                  {measureId !== "CSQ" &&
+                    !outOfScopeMeasures.includes(measureId) && (
+                      <>
+                        {Object.keys(separatedCoreSet ?? []).includes(
+                          params.coreSetId as CoreSetAbbr
+                        ) && (
+                          <CUI.Heading as="h1" size="md" mb={6}>
+                            {measureId}: {formatTitle()}
+                          </CUI.Heading>
+                        )}
+                        <CUI.Text fontSize="sm">
+                          For technical questions regarding use of this
+                          application, please reach out to
+                          MDCT_Help@cms.hhs.gov. For content-related questions
+                          about measure specifications, or what information to
+                          enter in each field, please reach out to
+                          MACQualityTA@cms.hhs.gov.
+                        </CUI.Text>
+                      </>
+                    )}
                   <SharedContext.Provider value={shared}>
                     <Measure
                       measure={measure}
