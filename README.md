@@ -121,7 +121,8 @@ VS Code is used almost ubiquitously across the current development team; general
 Using this command, or a variant of it, will format all matching files in the codebase and write the changes. oxfmt has complete [CLI documentation](https://oxc.rs/docs/guide/usage/formatter.html) on their website.
 
 ```bash
-npx yarn oxfmt
+yarn oxfmt
+yarn oxlint
 ```
 
 ### Local development additional info
@@ -191,14 +192,14 @@ To run the `Jest` unit tests on the React components:
 
 ```
 cd services/ui-src/
-yarn test
+yarn workspace ui-src test
 ```
 
 To run the `Jest` unit tests on the API endpoints:
 
 ```
 cd services/app-api/
-yarn test
+yarn workspace app-api test
 ```
 
 On the terminal, you will see the unit test results.
