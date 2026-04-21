@@ -51,13 +51,7 @@ const findRateFieldsByQualifiers = (
 ) => {
   if (qualIds.length > 0) {
     const matchedFields = qualIds
-      .map((qualId) =>
-        ratefields.find(
-          (ratefield) =>
-            ratefield?.uid === qualId ||
-            getQualifierIdFromUid(ratefield?.uid) === qualId
-        )
-      )
+      .map((qualId) => findRateFieldByQualifier(ratefields, qualId))
       .filter(
         (
           ratefield

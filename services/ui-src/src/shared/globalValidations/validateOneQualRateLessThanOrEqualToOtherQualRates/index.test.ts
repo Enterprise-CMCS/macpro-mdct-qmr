@@ -65,6 +65,44 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       expect(errors).toHaveLength(0);
     });
 
+    it("supports PM qualifier id-based lookup without indices", () => {
+      const data = generatePmQualifierRateData({ categories, qualifiers }, [
+        {
+          rate: "20",
+          numerator: "20",
+          denominator: "100",
+          uid: "Test Cat 1.Influenza",
+        },
+        {
+          rate: "20",
+          numerator: "20",
+          denominator: "100",
+          uid: "Test Cat 1.Tdap",
+        },
+        {
+          rate: "25",
+          numerator: "25",
+          denominator: "100",
+          uid: "Test Cat 1.Combination",
+        },
+      ]);
+      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(
+        data,
+        {
+          categories,
+          qualifiers,
+        },
+        {
+          qualId: "Combination",
+          otherQualIds: ["Influenza", "Tdap"],
+        }
+      );
+      expect(errors).toHaveLength(1);
+      expect(errors[0].errorMessage).toBe(
+        "Combination rate cannot be greater than the Influenza or Tdap rates"
+      );
+    });
+
     it("returns error when combination is greater than influenza", () => {
       const data = generatePmQualifierRateData({ categories, qualifiers }, [
         ...withQualifierUids(categories[0].id, qualifierIds, [
@@ -131,7 +169,7 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
       );
     });
 
-    it("returns no error for single category label", () => {
+    it("returns error for single category label when combination rate is greater than another rate", () => {
       const data = generatePmQualifierRateData(
         { categories: singleCat, qualifiers },
         withQualifierUids(singleCat[0].id, qualifierIds, [
@@ -249,64 +287,6 @@ describe("Testing One Qualifier Rate Less Than Or Equal To Other Qualifiers Vali
         rateData,
       });
       expect(errors).toHaveLength(0);
-    });
-
-    it("supports qualifier id-based lookup", () => {
-      const rateData = generateOmsQualifierRateData(categories, qualifiers, [
-        ...withQualifierUids(categories[0].id, qualifierIds, [
-          { rate: "20", numerator: "20", denominator: "100" },
-          { rate: "20", numerator: "20", denominator: "100" },
-          { rate: "25", numerator: "25", denominator: "100" },
-        ]),
-      ]);
-      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesOMS(
-        validationOptions
-      )({
-        ...baseOMSInfo,
-        rateData,
-      });
-      expect(errors).toHaveLength(1);
-      expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than the Influenza or Tdap rates"
-      );
-    });
-
-    it("supports PM qualifier id-based lookup without indices", () => {
-      const data = generatePmQualifierRateData({ categories, qualifiers }, [
-        {
-          rate: "20",
-          numerator: "20",
-          denominator: "100",
-          uid: "Test Cat 1.Influenza",
-        },
-        {
-          rate: "20",
-          numerator: "20",
-          denominator: "100",
-          uid: "Test Cat 1.Tdap",
-        },
-        {
-          rate: "25",
-          numerator: "25",
-          denominator: "100",
-          uid: "Test Cat 1.Combination",
-        },
-      ]);
-      const errors = validateOneQualRateLessThanOrEqualToOtherQualRatesPM(
-        data,
-        {
-          categories,
-          qualifiers,
-        },
-        {
-          qualId: "Combination",
-          otherQualIds: ["Influenza", "Tdap"],
-        }
-      );
-      expect(errors).toHaveLength(1);
-      expect(errors[0].errorMessage).toBe(
-        "Combination rate cannot be greater than the Influenza or Tdap rates"
-      );
     });
   });
 });
