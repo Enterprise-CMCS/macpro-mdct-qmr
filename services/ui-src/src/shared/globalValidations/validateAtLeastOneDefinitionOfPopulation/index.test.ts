@@ -48,7 +48,8 @@ describe("validateAtLeastOneDefinitionOfPopulation", () => {
   it("should fail when the Other population is not described ", () => {
     formData[DC.DEFINITION_OF_DENOMINATOR] = [DC.DENOMINATOR_INC_OTHER];
     delete formData[DC.DEFINITION_DENOMINATOR_OTHER];
-    const errorMessage = "Please describe the Other Definition of denominator";
+    const errorMessage =
+      "Please describe the Other population included in the denominator";
     errorArray = validateAtLeastOneDefinitionOfPopulation(formData);
     expect(errorArray).toEqual([expect.objectContaining({ errorMessage })]);
   });

@@ -4,6 +4,9 @@ before(() => {
 
 const emailForCognito = "input[name='email']";
 const passwordForCognito = "input[name='password']";
+const coresetListRoute = "**/coreset/**/list";
+const adminBannerRoute = "**/banners/admin-banner-id";
+const reportingYearsRoute = "**/coreset/reportingyears";
 
 const loginUser = (user: string) => {
   cy.session([user], () => {
@@ -45,7 +48,11 @@ Cypress.Commands.add(
 
 // Select the year
 Cypress.Commands.add("selectYear", (year) => {
+  cy.intercept("GET", coresetListRoute).as("coresetList");
+  cy.intercept("GET", adminBannerRoute).as("adminBanner");
+  cy.intercept("GET", reportingYearsRoute).as("reportingYears");
   cy.get('[data-cy="year-select"]').select(year);
+  cy.wait(["@coresetList", "@adminBanner", "@reportingYears"]);
 });
 
 // Visit Adult Core Set Measures
@@ -72,6 +79,7 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 
 // Visit Health Home Core Set Measures
 Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
+  cy.intercept("GET", "**/measures/list").as("measuresList");
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy^="HHCS"]').length === 0) {
       // adds first available HH core set if no healthhome was made
@@ -81,6 +89,7 @@ Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
     }
     cy.get('[data-cy^="HHCS"]').first().click();
   });
+  cy.wait("@measuresList");
 });
 
 // Visit Measures based on abbr
