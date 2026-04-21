@@ -248,19 +248,6 @@ export const DefinitionOfPopulation = ({
   const childMeasure = coreset === "child";
   const healthHomeMeasure = coreset === "health";
   const coreSetType = healthHomeMeasure ? "HHCS" : params.coreSetId;
-  const outOfScopeMeasures = [
-    "SS-1-HH",
-    "SS-2-HH",
-    "SS-3-HH",
-    "SS-4-HH",
-    "SS-5-HH",
-    "CPA-AD",
-    "MSC-AD",
-    "PCR-AD",
-    "PRC-HH",
-  ];
-  const isOutOfScopeMeasure =
-    !!params.measureId && outOfScopeMeasures.includes(params.measureId);
 
   return (
     <QMR.CoreQuestionWrapper
@@ -286,7 +273,7 @@ export const DefinitionOfPopulation = ({
               healthHomeMeasure
             )}
       {labels.DefinitionsOfPopulation.changeInPopExplanation && (
-        <CUI.Box {...(isOutOfScopeMeasure ? { my: "5" } : { my: 6 })}>
+        <CUI.Box my={6}>
           <QMR.TextArea
             key={DC.CHANGE_IN_POP_EXPLANATION}
             name={DC.CHANGE_IN_POP_EXPLANATION}
@@ -295,7 +282,7 @@ export const DefinitionOfPopulation = ({
           />
         </CUI.Box>
       )}
-      <CUI.Box {...(isOutOfScopeMeasure ? { my: "5" } : { my: 6 })}>
+      <CUI.Box my={6}>
         {populationTotalTechSpec && (
           <QMR.RadioButton
             key={DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC}
@@ -345,7 +332,7 @@ export const DefinitionOfPopulation = ({
       {(hybridMeasure || populationSampleSize) &&
         HybridDefinitions(!populationSampleSize)}
       {deliverySystems && (
-        <CUI.Box {...(isOutOfScopeMeasure ? { mt: "5" } : { mt: 6, mb: 1 })}>
+        <CUI.Box mt={6} mb={1}>
           <CUI.Heading size="sm" as="h2" my="2">
             {"Which delivery systems are represented in the denominator?"}
           </CUI.Heading>
@@ -454,10 +441,7 @@ export const DefinitionOfPopulation = ({
                   "Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP)",
                 value: DC.MCO_PIHP,
                 children: [
-                  <CUI.Box
-                    {...(isOutOfScopeMeasure ? { py: "5" } : { my: 6 })}
-                    key="DeliverySys-MCO_PIHP-NumberOfPlans"
-                  >
+                  <CUI.Box my={6} key="DeliverySys-MCO_PIHP-NumberOfPlans">
                     <QMR.NumberInput
                       key={DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS}
                       name={DC.DELIVERY_SYS_MCO_PIHP_NUM_PLANS}
@@ -466,10 +450,7 @@ export const DefinitionOfPopulation = ({
                       label="What is the number of Managed Care Organization/Pre-paid Inpatient Health Plan (MCO/PIHP) plans that are included in the reported data?"
                     />
                   </CUI.Box>,
-                  <CUI.Box
-                    {...(isOutOfScopeMeasure ? { pt: "5" } : { my: 6 })}
-                    key="DeliverySys-MCO_PIHP"
-                  >
+                  <CUI.Box my={6} key="DeliverySys-MCO_PIHP">
                     <QMR.RadioButton
                       key={DC.DELIVERY_SYS_MCO_PIHP}
                       name={DC.DELIVERY_SYS_MCO_PIHP}
@@ -603,10 +584,7 @@ export const DefinitionOfPopulation = ({
                 displayValue: "Other",
                 value: DC.OTHER,
                 children: [
-                  <CUI.Box
-                    {...(isOutOfScopeMeasure ? { pb: "5" } : { my: 6 })}
-                    key="DeliverySys-Other"
-                  >
+                  <CUI.Box my={6} key="DeliverySys-Other">
                     <QMR.TextArea
                       key={DC.DELIVERY_SYS_OTHER}
                       name={DC.DELIVERY_SYS_OTHER}
@@ -616,10 +594,7 @@ export const DefinitionOfPopulation = ({
                       )}
                     />
                   </CUI.Box>,
-                  <CUI.Box
-                    {...(isOutOfScopeMeasure ? { py: "5" } : { my: 6 })}
-                    key="DeliverySys-Other-Percent"
-                  >
+                  <CUI.Box my={6} key="DeliverySys-Other-Percent">
                     <QMR.NumberInput
                       key={DC.DELIVERY_SYS_OTHER_PERCENT}
                       name={DC.DELIVERY_SYS_OTHER_PERCENT}
@@ -638,10 +613,7 @@ export const DefinitionOfPopulation = ({
                       label="Percentage of total other population represented in data reported:"
                     />
                   </CUI.Box>,
-                  <CUI.Box
-                    {...(isOutOfScopeMeasure ? { py: "5" } : { mt: 6 })}
-                    key="DeliverySys-Other-NumberOfHealthPlans"
-                  >
+                  <CUI.Box mt={6} key="DeliverySys-Other-NumberOfHealthPlans">
                     <QMR.NumberInput
                       key={DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS}
                       name={DC.DELIVERY_SYS_OTHER_NUM_HEALTH_PLANS}
