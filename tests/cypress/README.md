@@ -4,10 +4,10 @@
 
 ## Getting Started
 
-- `npm run test` Runs two parallel processes:
-  - `npm start` (wrapper to `./run local`) runs the local application
-  - `npm run cypress` opens Cypress using Chrome against the local instance
-- `npm run test:ci` Used in pipelines/actions; runs Cypress headless against branch-specific instances
+- `yarn test` Runs two parallel processes:
+  - `yarn start` (wrapper to `./run local`) runs the local application
+  - `yarn cypress` opens Cypress using Chrome against the local instance
+- `yarn test:ci` Used in pipelines/actions; runs Cypress headless against branch-specific instances
 
 ## Configuration
 
