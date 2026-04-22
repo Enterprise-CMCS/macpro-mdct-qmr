@@ -72,7 +72,7 @@ Team members are encouraged to set up all MDCT Products using the script located
    corepack enable
    ```
 8. Look at [the deployment README](deployment/local/README.md) for other things you'll need to install, though it will prompt you when your `./run local` if you're missing something.
-9. Install pre-commit to the formatter and other checks before every commit.
+9. Install pre-commit to run the formatter and other checks before every commit.
    ```bash
    brew install pre-commit # or pip install pre-commit
    pre-commit install
