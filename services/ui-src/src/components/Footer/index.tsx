@@ -109,7 +109,8 @@ export function Footer(): JSX.Element {
         <CUI.Container
           data-testid="help-section"
           className="help-section"
-          maxW="7xl"
+          maxW="1000px"
+          px="0"
         >
           <CUI.Box maxW="4xl">
             <CUI.Heading

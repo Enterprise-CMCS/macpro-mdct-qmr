@@ -499,13 +499,9 @@ export const MeasureWrapper = ({
         <CUI.Skeleton isLoaded={!loadingData}>
           <>
             <QMR.AdminMask />
-            <form
-              data-testid="measure-wrapper-form"
-              style={{ maxWidth: "685px" }}
-            >
+            <form data-testid="measure-wrapper-form">
               <fieldset data-testid="fieldset" disabled={!isStateUser}>
-                {/* <CUI.Container maxW="7xl" as="section" px="0"> */}
-                <CUI.Container maxW="7xl" as="section" px="0">
+                <CUI.Container maxW="1000px" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
                   {stratificationRequired?.includes(coreSet) && (
