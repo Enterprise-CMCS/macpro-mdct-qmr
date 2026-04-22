@@ -259,8 +259,7 @@ If a key exists in both secrets, the stage secret wins.
 In some circumstances you may want to remove all resources of a given branch. Occasionally there will be orphaned infrastructure that was not destroyed when the branch was destroyed for one reason or another. The process for destroying the branch
 
 1. set up local AWS credentials per the [running database scripts](#running-database-scripts) section
-2. `brew install jq` Install jq (command-line JSON processor). This is necessary for the destroy script to run properly.
-3. `./run destroy name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
+2. `./run destroy name_of_your_branch` Run destroy script. You will be prompted to re-enter the branch name once it has found all associated resources. (There shouldn't be any errors but if there are any. Re-running the script should fix it)
 
 ### App API
 
