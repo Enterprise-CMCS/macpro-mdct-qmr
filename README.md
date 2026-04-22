@@ -19,7 +19,7 @@ QMR is the CMCS MDCT application for collecting state data related to measuring 
 - [Getting Started](#getting-started)
   - [One time only](#one-time-only)
   - [Running the project locally](#running-the-project-locally)
-  - [oxfmt](#oxfmt)
+  - [oxfmt and oxlint](#oxfmt-and-oxlint)
 - [Testing](#testing)
   - [Runners and Assertion Libraries](#runners-and-assertion-libraries)
   - [Update Node Modules](#update-node-modules)
@@ -67,12 +67,12 @@ Team members are encouraged to set up all MDCT Products using the script located
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
-7. Enable **Corepack** (recommended) so the correct Yarn version is used.
+7. Enable **Corepack** so the correct Yarn version is used.
    ```bash
    corepack enable
    ```
-8. Look up [here](deployment/local/README.md) for other things you'll need to install, though it will prompt you when your `./run local` if you're missing something.
-9. Install the pre-commit hook to run oxfmt on staged files before every commit
+8. Look at [the deployment README](deployment/local/README.md) for other things you'll need to install, though it will prompt you when your `./run local` if you're missing something.
+9. Install pre-commit to the formatter and other checks before every commit.
    ```bash
    brew install pre-commit # or pip install pre-commit
    pre-commit install
@@ -104,11 +104,11 @@ To run the project, run the following commands from the root of the directory:
 
 To login, a number of test users are provisioned via `services/ui-auth/libs/users.json`. Check 1Password in the `qmr_secrets` section for the test user password.
 
-#### oxfmt
+#### oxfmt and oxlint
 
 This repo uses the code formatter [oxfmt](https://oxc.rs/docs/guide/usage/formatter.html). The formatter is run automatically in a pre-commit hook. Additionally, oxfmt can be run on file save in many IDEs or run ad hoc from the command line.
 
-##### oxfmt with VS Code
+##### with VS Code
 
 The oxc extension can be downloaded from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode).
 
@@ -116,24 +116,14 @@ Once installed, open VS Code's Preferences. Search for "Format on Save". Clickin
 
 VS Code is used almost ubiquitously across the current development team; generally speaking, these tools should also work for most other IDEs.
 
-##### oxfmt CLI
+##### CLI
 
-Using this command, or a variant of it, will format all matching files in the codebase and write the changes. oxfmt has complete [CLI documentation](https://oxc.rs/docs/guide/usage/formatter.html) on their website.
+Using these commands will format all matching files in the codebase and write the changes. oxfmt has complete [CLI documentation](https://oxc.rs/docs/guide/usage/formatter.html) on their website, as does [oxlint](https://oxc.rs/docs/guide/usage/linter/cli.html).
 
 ```bash
 yarn oxfmt
 yarn oxlint
 ```
-
-### Local development additional info
-
-Local dev is configured as a TypeScript project. The entrypoint in `./cli/run.ts` manages running the moving pieces locally.
-
-Local dev is built around the CDK setup which runs locally via LocalStack.
-
-Local authorization uses Cognito from AWS (not LocalStack). `./run update-env` fetches values from 1Password and writes them into a gitignored `.env`.
-
-See `deployment/local/README.md` for LocalStack-specific notes.
 
 ## Testing
 
@@ -210,7 +200,7 @@ For example:
 
 ##### Snapshot Tests
 
-Many of commonly used components and common question components are tested with snapshot tests. [Jest's documentation](https://jestjs.io/docs/snapshot-testing) describes what snapshot testing is and how to interact with their tooling.
+One commonly used component is tested with snapshot tests. [Jest's documentation](https://jestjs.io/docs/snapshot-testing) describes what snapshot testing is and how to interact with their tooling.
 
 If a change is made that affects the way a component renders, and that component is covered by snapshot testing, the snapshot tests will fail. This is expected behavior. Output logs should highlight clearly the discrepancies between the rendered component and the stored snapshot. Assuming the changes are intended, the snapshot should be updated to match the component so tests will pass going forward. See the ["Updating Snapshots"](https://jestjs.io/docs/snapshot-testing#updating-snapshots) section of the Jest docs for specific instructions on overwriting the snapshots. Alternatively, the old snapshot file can be deleted and will be re-generated on the next run of the test.
 
@@ -366,14 +356,6 @@ We are using DynamoDB for our database solution for QMR. When looking for the da
 
 > [!NOTE]
 > [HCBS](https://github.com/Enterprise-CMCS/macpro-mdct-hcbs) recently expanded the banner functionality to enable multiple banners stored within the app; presumably, eventually this application will do the same.
-
-#### How to set up Dynamo endpoint to view local DB
-
-In order to run DynamoDB locally, you will need to have Java installed on your system. If not currently installed, go [here](https://java.com/en/download/) to download the latest version.
-
-If you want a visual view of your DynamoDB after the application is up and running, you can install the `dynamodb-admin` tool from [here](https://www.npmjs.com/package/dynamodb-admin).
-
-To run the DynamoDB GUI, run `DYNAMO_ENDPOINT=http://localhost:8000 dynamodb-admin` in a new terminal window. From here, you can view the tables and perform operations on the local tables.
 
 #### Running database scripts
 
