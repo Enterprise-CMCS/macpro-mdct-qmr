@@ -50,7 +50,7 @@ export const MeasurementSpecificationQuestionYesNo = (
       : Specifications[type].displayValue;
   return (
     <>
-      <CUI.Text key="measureSpecAdditionalContext-HelperText" size="sm" pb="3">
+      <CUI.Text key="measureSpecAdditionalContext-HelperText" size="sm" pb="6">
         If your state substantially varied from the {label[coreset!]} Core Set
         measure specifications (including different methodology, timeframe, or
         reported age groups), please report your data using “Other”

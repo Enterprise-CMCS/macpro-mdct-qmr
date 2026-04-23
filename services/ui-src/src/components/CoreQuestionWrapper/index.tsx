@@ -8,7 +8,7 @@ export interface Props {
 
 export const CoreQuestionWrapper = ({ label, children, testid }: Props) => {
   return (
-    <CUI.Box my={4}>
+    <CUI.Box mt={8} mb={6}>
       <CUI.FormLabel
         fontWeight="bold"
         data-testid={testid}
