@@ -62,6 +62,8 @@ export const data: MeasureTemplateData = {
     "validateEqualCategoryDenominatorsOMS",
     "validateEqualCategoryDenominatorsPM",
     "validateYearFormat",
+    "validateOneQualRateLessThanOrEqualToOtherQualRatesOMS",
+    "validateOneQualRateLessThanOrEqualToOtherQualRatesPM",
   ],
   override: {
     validateEqualQualifierDenominatorsPM: {
@@ -70,6 +72,12 @@ export const data: MeasureTemplateData = {
     },
     validateEqualCategoryDenominatorsPM: {
       qualifiers,
+    },
+    validateOneQualRateLessThanOrEqualToOtherQualRates: {
+      qualId: "bckEFl",
+      otherQualIds: ["D9V4Ql", "Btw7QZ"],
+      errorMessage:
+        "Combination rate cannot be greater than the Influenza or Tdap rates",
     },
   },
 };

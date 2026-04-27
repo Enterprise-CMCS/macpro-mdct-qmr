@@ -501,7 +501,7 @@ export const MeasureWrapper = ({
             <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
               <fieldset data-testid="fieldset" disabled={!isStateUser}>
-                <CUI.Container maxW="7xl" as="section" px="0">
+                <CUI.Container maxW="1000px" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
                   {stratificationRequired?.includes(coreSet) && (
@@ -518,7 +518,7 @@ export const MeasureWrapper = ({
                       {Object.keys(separatedCoreSet ?? []).includes(
                         params.coreSetId as CoreSetAbbr
                       ) && (
-                        <CUI.Heading size="md" mb={6}>
+                        <CUI.Heading as="h1" size="md" mb={6}>
                           {measureId}: {formatTitle()}
                         </CUI.Heading>
                       )}
