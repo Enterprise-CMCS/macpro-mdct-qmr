@@ -388,7 +388,7 @@ For Main, Val, and Production, these URLs end with `.gov`; the branch URLs end w
 | ----------- | -------------------------------------- |
 | Local       | http://localhost:3000/                 |
 | Branch      | Found in the output of the Deploy step |
-| Master      | https://mdctqmrdev.cms.gov/            |
+| Main        | https://mdctqmrdev.cms.gov/            |
 | Val         | https://mdctqmrval.cms.gov/            |
 | Prod        | https://mdctqmr.cms.gov/               |
 
