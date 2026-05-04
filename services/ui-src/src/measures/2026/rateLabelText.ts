@@ -84,21 +84,34 @@ export const data = {
     "AIS-AD": {
         "qualifiers": [
             {
-                "label": "Ages 19 to 65",
-                "text": "Ages 19 to 65",
+                "label": "Ages 19 to 64",
+                "text": "Ages 19 to 64",
                 "id": "xz7TUf",
-                "excludeFromIds": ["HCnSrs", "B4SxBy"]
+                "excludeFromIds": ["HCnSrs", "B4SxBy", "8C1bKd"]
             },
             {
-                "label": "Ages 50 to 65",
-                "text": "Ages 50 to 65",
+                "label": "Ages 50 to 64",
+                "text": "Ages 50 to 64",
                 "id": "Fmvnxp",
-                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy"]
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy", "8C1bKd"]
             },
             {
-                "label": "Age 66 and older",
-                "text": "Age 66 and older",
+                "label": "Age 65 and older",
+                "text": "Age 65 and older",
                 "id": "VooeEU",
+                "excludeFromIds": ["8C1bKd"]
+            },
+            {
+                "label": "Ages 19 to 30",
+                "text": "Ages 19 to 30",
+                "id": "h4kJ2P",
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "HCnSrs", "B4SxBy"]
+            },
+            {
+                "label": "Ages 31 to 59",
+                "text": "Ages 31 to 59",
+                "id": "mRzL8N",
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "HCnSrs", "B4SxBy"]
             },
         ],
         "categories": [{
@@ -120,6 +133,11 @@ export const data = {
             "label": "Pneumococcal",
             "text": "Pneumococcal",
             "id": "B4SxBy",
+        },
+        {
+            "label": "Hepatitis B",
+            "text": "Hepatitis B",
+            "id": "8C1bKd",
         }]
     },
     "AMR-AD": {
