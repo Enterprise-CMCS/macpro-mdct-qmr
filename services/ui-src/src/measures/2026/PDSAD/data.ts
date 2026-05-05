@@ -5,7 +5,7 @@ import * as DC from "dataConstants";
 export const { categories, qualifiers } = getCatQualLabels("PDS-AD");
 
 export const data: MeasureTemplateData = {
-  type: "HEDIS",
+  type: "NCQA/HEDIS",
   coreset: "adult",
   performanceMeasure: {
     questionText: [
