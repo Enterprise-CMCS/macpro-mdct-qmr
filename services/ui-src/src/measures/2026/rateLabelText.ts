@@ -84,21 +84,34 @@ export const data = {
     "AIS-AD": {
         "qualifiers": [
             {
-                "label": "Ages 19 to 65",
-                "text": "Ages 19 to 65",
+                "label": "Ages 19 to 64",
+                "text": "Ages 19 to 64",
                 "id": "xz7TUf",
-                "excludeFromIds": ["HCnSrs", "B4SxBy"]
+                "excludeFromIds": ["HCnSrs", "B4SxBy", "8C1bKd"]
             },
             {
-                "label": "Ages 50 to 65",
-                "text": "Ages 50 to 65",
+                "label": "Ages 50 to 64",
+                "text": "Ages 50 to 64",
                 "id": "Fmvnxp",
-                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy"]
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "B4SxBy", "8C1bKd"]
             },
             {
-                "label": "Age 66 and older",
-                "text": "Age 66 and older",
+                "label": "Age 65 and older",
+                "text": "Age 65 and older",
                 "id": "VooeEU",
+                "excludeFromIds": ["8C1bKd"]
+            },
+            {
+                "label": "Ages 19 to 30",
+                "text": "Ages 19 to 30",
+                "id": "h4kJ2P",
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "HCnSrs", "B4SxBy"]
+            },
+            {
+                "label": "Ages 31 to 59",
+                "text": "Ages 31 to 59",
+                "id": "mRzL8N",
+                "excludeFromIds": ["VZ0nYO", "2Bh7J8", "HCnSrs", "B4SxBy"]
             },
         ],
         "categories": [{
@@ -120,6 +133,11 @@ export const data = {
             "label": "Pneumococcal",
             "text": "Pneumococcal",
             "id": "B4SxBy",
+        },
+        {
+            "label": "Hepatitis B",
+            "text": "Hepatitis B",
+            "id": "8C1bKd",
         }]
     },
     "AMR-AD": {
@@ -229,14 +247,19 @@ export const data = {
     "BCS-AD": {
         "qualifiers": [
             {
-                "label": "Ages 50 to 64",
-                "text": "Ages 50 to 64",
+                "label": "Ages 42 to 51",
+                "text": "Ages 42 to 51",
                 "id": "bfvp78"
+            },
+            {
+                "label": "Ages 52 to 64",
+                "text": "Ages 52 to 64",
+                "id": "vRqegW"
             },
             {
                 "label": "Ages 65 to 74",
                 "text": "Ages 65 to 74",
-                "id": "vRqegW"
+                "id": "RBUzwz"
             }
         ],
         "categories": [{"id":"xacc8a", "label": "", "text":""}]
@@ -1232,8 +1255,8 @@ export const data = {
     "OEVP-AD": {
         "qualifiers": [
             {
-                "label": "Ages 21 to 44",
-                "text": "Ages 21 to 44",
+                "label": "Ages 21 through 44",
+                "text": "Ages 21 through 44",
                 "id": "wnh2qA",
             },
         ],
@@ -1455,8 +1478,8 @@ export const data = {
                  "id": "e4G131"
              },
              {
-                 "label": "Follow-Up Positive Screen: Age 21 and Older",
-                 "text": "Follow-Up Positive Screen: Age 21 and Older",
+                 "label": "Follow-Up on Positive Screen: Age 21 and Older",
+                 "text": "Follow-Up on Positive Screen: Age 21 and Older",
                  "id": "hTfHWz"
              }
          ],

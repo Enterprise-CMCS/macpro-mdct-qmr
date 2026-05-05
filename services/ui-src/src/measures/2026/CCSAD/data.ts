@@ -24,34 +24,6 @@ export const data: MeasureTemplateData = {
     optionsLabel:
       "If reporting entities (e.g., health plans) used different data collection methods, please select all that are applicable below. If your state followed the 2026 Core Set technical specifications and used administrative data only, select ECDS > Administrative.",
     options: [
-      {
-        value: DC.ADMINISTRATIVE_DATA,
-        subOptions: [
-          {
-            label: "What is the Administrative Data Source?",
-            options: [
-              { value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM },
-              { value: DC.ADMINISTRATIVE_DATA_OTHER, description: true },
-            ],
-          },
-        ],
-      },
-      {
-        value: DC.HYBRID_DATA,
-        subOptions: [
-          {
-            label: "What is the Administrative Data Source?",
-            options: [
-              { value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM },
-              { value: DC.ADMINISTRATIVE_DATA_OTHER, description: true },
-            ],
-          },
-          {
-            label: "What is the Medical Records Data Source?",
-            options: [{ value: DC.EHR_DATA }, { value: DC.PAPER }],
-          },
-        ],
-      },
       { value: DC.ELECTRONIC_HEALTH_RECORDS, description: true },
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
