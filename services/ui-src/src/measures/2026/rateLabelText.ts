@@ -247,14 +247,19 @@ export const data = {
     "BCS-AD": {
         "qualifiers": [
             {
-                "label": "Ages 50 to 64",
-                "text": "Ages 50 to 64",
+                "label": "Ages 42 to 51",
+                "text": "Ages 42 to 51",
                 "id": "bfvp78"
+            },
+            {
+                "label": "Ages 52 to 64",
+                "text": "Ages 52 to 64",
+                "id": "vRqegW"
             },
             {
                 "label": "Ages 65 to 74",
                 "text": "Ages 65 to 74",
-                "id": "vRqegW"
+                "id": "RBUzwz"
             }
         ],
         "categories": [{"id":"xacc8a", "label": "", "text":""}]
