@@ -517,7 +517,7 @@ export const measureDescriptions: MeasureList = {
     "CCS-AD": "Cervical Cancer Screening",
     "CCW-AD": "Contraceptive Care - All Women Ages 21 to 44",
     "CDF-AD": "Screening for Depression and Follow-Up Plan: Age 18 and Older",
-    "CHL-AD": "Chlamydia Screening in Women Ages 21 to 24",
+    "CHL-AD": "Chlamydia Screening: Ages 21 to 24",
     "COB-AD": "Concurrent Use of Opioids and Benzodiazepines",
     "COL-AD": "Colorectal Cancer Screening",
     "CPA-AD":
