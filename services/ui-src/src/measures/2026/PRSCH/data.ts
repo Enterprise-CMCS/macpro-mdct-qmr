@@ -9,7 +9,7 @@ export const data: MeasureTemplateData = {
   coreset: "child",
   performanceMeasure: {
     questionText: [
-      "The percentage of deliveries in the measurement period in which beneficiaries had received influenza and tetanus, diphtheria toxoids and acellular pertussis (Tdap) vaccinations.",
+      "The percentage of deliveries in the measurement period in which beneficiaries under age 21 had received influenza and tetanus, diphtheria toxoids and acellular pertussis (Tdap) vaccinations.",
     ],
     categories,
     qualifiers,

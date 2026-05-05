@@ -571,7 +571,7 @@ export const measureDescriptions: MeasureList = {
     "CCP-CH": "Contraceptive Care - Postpartum Women Ages 15 to 20",
     "CCW-CH": "Contraceptive Care - All Women Ages 15 to 20",
     "CDF-CH": "Screening for Depression and Follow-Up Plan: Ages 12 to 17",
-    "CHL-CH": "Chlamydia Screening in Women Ages 16 to 20",
+    "CHL-CH": "Chlamydia Screening: Ages 16 to 20",
     "CIS-CH": "Childhood Immunization Status",
     "CPC-CH":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H - Child Version Including Medicaid and Children with Chronic Conditions Supplemental Items",
@@ -587,7 +587,7 @@ export const measureDescriptions: MeasureList = {
     "LRCD-CH": "Low-Risk Cesarean Delivery: Under Age 20",
     "LSC-CH": "Lead Screening in Children",
     "OEV-CH": "Oral Evaluation, Dental Services",
-    "OEVP-CH": "Oral Evaluation During Pregnancy: Ages 15 to 20",
+    "OEVP-CH": "Oral Evaluation During Pregnancy: Ages 15 through 20",
     "PPC2-CH": "Prenatal and Postpartum Care: Under Age 21",
     "PDS-CH": "Postpartum Depression Screening and Follow-Up: Under Age 21",
     "PRS-CH": "Prenatal Immunization Status: Under Age 21 ",

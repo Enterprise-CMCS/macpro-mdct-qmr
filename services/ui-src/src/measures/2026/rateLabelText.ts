@@ -1265,8 +1265,8 @@ export const data = {
     "OEVP-CH": {
         "qualifiers": [
             {
-                "label": "Ages 15 to 20",
-                "text": "Ages 15 to 20",
+                "label": "Ages 15 through 20",
+                "text": "Ages 15 through 20",
                 "id": "Xq5NFt",
             },
         ],
@@ -1749,8 +1749,8 @@ export const data = {
         ],
         "categories": [
             {
-                "label": "Body mass index (BMI) Percentile documentation",
-                "text": "Body mass index (BMI) Percentile documentation",
+                "label": "Body mass index (BMI) Percentile",
+                "text": "Body mass index (BMI) Percentile",
                 "id": "4TXd3h"
             },
             {
