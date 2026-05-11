@@ -9,7 +9,7 @@ export const data: MeasureTemplateData = {
   coreset: "child",
   performanceMeasure: {
     questionText: [
-      "The percentage of deliveries in which beneficiaries were screened for clinical depression during the postpartum period, and if screened positive, received follow-up care.",
+      "The percentage of deliveries in which beneficiaries under age 21 were screened for clinical depression during the postpartum period, and if screened positive, received follow-up care.",
     ],
     questionListTitles: [
       "Depression Screening. ",

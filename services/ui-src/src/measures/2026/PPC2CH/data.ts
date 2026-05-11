@@ -10,7 +10,7 @@ export const data: MeasureTemplateData = {
   hybridMeasure: true,
   performanceMeasure: {
     questionText: [
-      "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year. For these beneficiaries, the measure assesses the following facets of prenatal and postpartum care:",
+      "Percentage of deliveries of live births on or between October 8 of the year prior to the measurement year and October 7 of the measurement year for beneficiaries under age 21. For these beneficiaries, the measure assesses the following facets of prenatal and postpartum care:",
     ],
     questionListItems: [
       "Timeliness of Prenatal Care: Percentage of deliveries that received a prenatal care visit in the first trimester, on or before the enrollment start date or within 42 days of enrollment in Medicaid/CHIP.",

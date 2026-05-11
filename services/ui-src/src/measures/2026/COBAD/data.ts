@@ -8,7 +8,7 @@ export const data: MeasureTemplateData = {
   coreset: "adult",
   performanceMeasure: {
     questionText: [
-      "Percentage of beneficiaries age 18 and older with concurrent use of prescription opioids and benzodiazepines. Beneficiaries with a cancer diagnosis, sickle cell disease diagnosis, or in hospice or palliative care are excluded.",
+      "Percentage of beneficiaries age 18 and older with concurrent use of prescription opioids and benzodiazepines. Beneficiaries with a cancer diagnosis, receiving treatment for cancer-related pain, sickle cell disease diagnosis, or in hospice or palliative care are excluded.",
     ],
     questionListItems: [],
     categories,

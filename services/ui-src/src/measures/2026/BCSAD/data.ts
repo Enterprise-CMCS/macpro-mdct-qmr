@@ -9,7 +9,7 @@ export const data: MeasureTemplateData = {
   coreset: "adult",
   performanceMeasure: {
     questionText: [
-      "Percentage of beneficiaries ages 50 to 74 who were recommended for routine breast cancer screening and had a mammogram to screen for breast cancer.",
+      "The percentage of beneficiaries ages 40 to 74 who were recommended for routine breast cancer screening and had a mammogram to screen for breast cancer. This measure applies to beneficiaries ages 42 to 74 to account for the 2-year, 3-month look-back period.",
     ],
     questionListItems: [],
     categories,
