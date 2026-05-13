@@ -11,7 +11,7 @@ import { fireTealiumPageView, makeMediaQueryClasses } from "utils";
 const App = () => {
   const mqClasses = makeMediaQueryClasses();
 
-  const { logout, user, showLocalLogins, loginWithIDM } = useUser();
+  const { logout, user, showLocalLogins, loginWithIDM, isLoading } = useUser();
   const { pathname, key } = useLocation();
 
   // fire tealium page view on route change
@@ -21,7 +21,8 @@ const App = () => {
 
   const authenticatedRoutes = (
     <>
-      {user && (
+      {isLoading && MeasuresLoading()}
+      {!isLoading && user && (
         <>
           <QMR.SkipNav />
           <QMR.ScrollToTop />
@@ -32,7 +33,9 @@ const App = () => {
           <QMR.Footer />
         </>
       )}
-      {!user && showLocalLogins && <LocalLogins loginWithIDM={loginWithIDM} />}
+      {!isLoading && !user && showLocalLogins && (
+        <LocalLogins loginWithIDM={loginWithIDM} />
+      )}
     </>
   );
 

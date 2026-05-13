@@ -27,6 +27,7 @@ export const UserProvider = ({ children }: Props) => {
   const [isStateUser, setIsStateUser] = useState<boolean>(false);
   const [userState, setUserState] = useState<any>("");
   const [showLocalLogins, setShowLocalLogins] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const logout = useCallback(async () => {
     try {
@@ -46,6 +47,7 @@ export const UserProvider = ({ children }: Props) => {
 
     // Authenticate
     try {
+      setIsLoading(true);
       const tokens = (await fetchAuthSession()).tokens;
       if (!tokens?.idToken) {
         throw new Error("Missing tokens auth session.");
@@ -71,6 +73,8 @@ export const UserProvider = ({ children }: Props) => {
       } else {
         setShowLocalLogins(true);
       }
+    } finally {
+      setIsLoading(false);
     }
   }, [isProduction, location]);
 
@@ -84,12 +88,13 @@ export const UserProvider = ({ children }: Props) => {
       user,
       logout,
       showLocalLogins,
+      isLoading,
       loginWithIDM: authenticateWithIDM,
       isStateUser,
       userState,
       userRole,
     }),
-    [user, logout, showLocalLogins, isStateUser, userState, userRole]
+    [user, logout, showLocalLogins, isLoading, isStateUser, userState, userRole]
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;
