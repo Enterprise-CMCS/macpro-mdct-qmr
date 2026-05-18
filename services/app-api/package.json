@@ -20,13 +20,13 @@
     "@aws-sdk/lib-dynamodb": "~3.1012.0",
     "@aws-sdk/util-dynamodb": "~3.996.2",
     "aws4": "~1.13.2",
-    "dompurify": "^3.2.3",
+    "dompurify": "^3.4.0",
     "jsdom": "^26.1.0",
     "jwt-decode": "^3.1.2",
     "kafkajs": "^2.2.4",
     "prompt-sync": "^4.2.0",
-    "sanitize-html": "^2.17.0",
-    "uuid": "^7.0.3"
+    "sanitize-html": "^2.17.4",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@types/aws4": "~1.11.6",
