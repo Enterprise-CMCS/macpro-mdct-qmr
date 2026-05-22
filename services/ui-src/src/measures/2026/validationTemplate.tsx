@@ -425,6 +425,8 @@ export const validationTemplate = (
         return GV.validateAtLeastOneDefinitionOfPopulation(data);
       case "validateHybridMeasurePopulation":
         return GV.validateHybridMeasurePopulation(data);
+      case "validateDefinitionOfDenominatorNoExplain":
+        return GV.validateDefinitionOfDenominatorNoExplain(data);
       case "validateEqualQualifierOfCategoryDenominatorsPM":
         const sets = PMD.override?.validateEqualQualifierOfCategoryDenominators;
         return sets?.flatMap((set) =>
@@ -477,6 +479,9 @@ export const validationTemplate = (
   )) {
     errorArray.push(...(validationList(validation) ?? []));
   }
+
+  // 2026-only denominator "No" follow-up validation
+  errorArray.push(...GV.validateDefinitionOfDenominatorNoExplain(data));
 
   errorArray.push(
     ...GV.omsValidations({

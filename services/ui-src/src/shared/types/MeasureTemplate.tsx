@@ -75,6 +75,7 @@ export const validationFunctions = [
   "validateCollecting",
   "validateOneQualRateLessThanOrEqualToOtherQualRatesOMS",
   "validateOneQualRateLessThanOrEqualToOtherQualRatesPM",
+  "validateDefinitionOfDenominatorNoExplain",
 ] as const;
 
 export type ValidationFunction = (typeof validationFunctions)[number];
