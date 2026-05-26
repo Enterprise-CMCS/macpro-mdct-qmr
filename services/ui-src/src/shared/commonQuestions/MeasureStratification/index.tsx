@@ -28,52 +28,57 @@ export const StratificationAdditionalNotes = () => {
 export const StratificationOption = ({ reset, year }: Props) => {
   const labels: any = useContext(SharedContext);
   const { subText, options } = labels.StratificationOption;
+  const { watch } = useFormContext();
+  const reportingMeasureStratification = watch(
+    "Are you reporting measure stratification for this measure?"
+  );
+
   return (
     <>
-    {year == 2026 && (
-      <QMR.RadioButton
-        formLabelProps={{ fontWeight: "700" }}
-        name={"Are you reporting measure stratification for this measure?"}
-        label={"Are you reporting measure stratification for this measure?"}
-        options={[
-          {
-            displayValue: "Yes",
-            value: "yes",
-            onClick: reset,
-          },
-          {
-            displayValue: "No",
-            value: "no",
-            onClick: reset,
-          },
-        ]}
-      ></QMR.RadioButton>
+      {year == 2026 && (
+        <QMR.RadioButton
+          formLabelProps={{ fontWeight: "700" }}
+          name={"Are you reporting measure stratification for this measure?"}
+          label={"Are you reporting measure stratification for this measure?"}
+          options={[
+            {
+              displayValue: "Yes",
+              value: "yes",
+              onClick: reset,
+            },
+            {
+              displayValue: "No",
+              value: "no",
+              onClick: reset,
+            },
+          ]}
+        ></QMR.RadioButton>
       )}
-      {year == 2026 && options.value == "yes" || year < 2026 && (
-      <QMR.RadioButton
-        key={`OptionalMeasureStratification.${DC.VERSION}`}
-        name={`OptionalMeasureStratification.${DC.VERSION}`}
-        formLabelProps={{ fontWeight: "700" }}
-        label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
-        subTextElement={subText}
-        options={[
-          {
-            displayValue: options["1997-omb"],
-            value: "1997-omb",
-            onClick: reset,
-          },
-          {
-            displayValue: options["2024-omb"],
-            value: "2024-omb",
-            onClick: reset,
-          },
-          {
-            displayValue: options["not-reporting"],
-            value: "not-reporting",
-            onClick: reset,
-          },
-        ]}
-      ></QMR.RadioButton>
+      {(year !== 2026 || reportingMeasureStratification === "yes") && (
+        <QMR.RadioButton
+          key={`OptionalMeasureStratification.${DC.VERSION}`}
+          name={`OptionalMeasureStratification.${DC.VERSION}`}
+          formLabelProps={{ fontWeight: "700" }}
+          label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
+          subTextElement={subText}
+          options={[
+            {
+              displayValue: options["1997-omb"],
+              value: "1997-omb",
+              onClick: reset,
+            },
+            {
+              displayValue: options["2024-omb"],
+              value: "2024-omb",
+              onClick: reset,
+            },
+            {
+              displayValue: options["not-reporting"],
+              value: "not-reporting",
+              onClick: reset,
+            },
+          ]}
+        ></QMR.RadioButton>
       )}
     </>
   );
@@ -101,8 +106,8 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         OMSData(
           year,
           coreset === "adult",
-          data.OptionalMeasureStratification.version,
-        ),
+          data.OptionalMeasureStratification.version
+        )
       );
     }
   }, [data.OptionalMeasureStratification?.version]);
@@ -112,7 +117,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
 
     //create a copy of the original data to be used as the clear template
     const clearedData = structuredClone(
-      data.OptionalMeasureStratification.selections,
+      data.OptionalMeasureStratification.selections
     );
 
     //transverse through data object and set all values to "" if key is not an array
@@ -123,12 +128,12 @@ export const MeasureStrat = (props: Types.OMSProps) => {
           if (topValue[key])
             setValue(
               `OptionalMeasureStratification.selections.${topKey}.${key}`,
-              [],
+              []
             );
-        },
+        }
       );
       for (const [midKey, midValue] of Object.entries(
-        topValue.selections as Types.OmsNodes.MidLevelOMSNode,
+        topValue.selections as Types.OmsNodes.MidLevelOMSNode
       )) {
         //this clears the checked boxes when that appear affter selecting "No, we are reporting disaggregated..."
         midValue.aggregate = "";
@@ -136,16 +141,16 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         if (midValue.additionalSubCategories) {
           setValue(
             `OptionalMeasureStratification.selections.${topKey}.selections.${midKey}.additionalSubCategories`,
-            [],
+            []
           );
         }
 
         if (midValue.rateData) {
           for (const [_catKey, catValue] of Object.entries(
-            midValue.rateData.rates,
+            midValue.rateData.rates
           )) {
             for (const [_qualKey, qualValue] of Object.entries(
-              catValue as { [qualifier: string]: Types.RateFields[] },
+              catValue as { [qualifier: string]: Types.RateFields[] }
             )) {
               for (var i = 0; i < qualValue.length; i++) {
                 qualValue[i].numerator = "";

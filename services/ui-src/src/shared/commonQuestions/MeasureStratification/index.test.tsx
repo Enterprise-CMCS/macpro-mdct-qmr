@@ -1,4 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { MeasureStrat } from ".";
 import { renderWithHookForm } from "utils";
 import { useApiMock } from "utils/testUtils/useApiMock";
@@ -27,22 +27,50 @@ const omsData = {
 global.structuredClone = () => omsData;
 
 describe("Test MeasureStratification", () => {
+  const renderMeasureStratification = (year = 2026) => {
+    renderWithHookForm(
+      <SharedContext.Provider value={{ ...commonQuestionsLabels2026, year }}>
+        <MeasureStrat data={[]} measureName="" />
+      </SharedContext.Provider>
+    );
+  };
+
   beforeEach(() => {
     jest.clearAllMocks();
     useApiMock({});
 
-    renderWithHookForm(
-      <SharedContext.Provider
-        value={{ ...commonQuestionsLabels2026, year: 2026 }}
-      >
-        <MeasureStrat data={[]} measureName="" />
-      </SharedContext.Provider>
-    );
+    renderMeasureStratification(2026);
   });
+
   test("Test MeasureStratification render", () => {
     expect(
       screen.getByText(
+        "Are you reporting measure stratification for this measure?"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: "No",
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
         "Which race and ethnicity standards would your state like to use for 2026 Core Sets reporting?"
+      )
+    ).not.toBeInTheDocument();
+  });
+
+  test("Test standards question and options render for pre-2026", () => {
+    renderMeasureStratification(2025);
+
+    expect(
+      screen.getByText(
+        "Which race and ethnicity standards would your state like to use for 2025 Core Sets reporting?"
       )
     ).toBeInTheDocument();
     expect(
@@ -60,24 +88,5 @@ describe("Test MeasureStratification", () => {
         name: "I am not reporting stratified data for this measure",
       })
     ).toBeInTheDocument();
-  });
-
-  test("Test data is reset when switching Stratification versions", () => {
-    const radioA = screen.getByText(
-      "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards"
-    );
-    const radioC = screen.getByText(
-      "I am not reporting stratified data for this measure"
-    );
-    fireEvent.click(radioA);
-    expect(
-      omsData.O8BrOa.selections.KRwFRN.rateData.rates.ZCy3XP.xS5HMm[0]
-    ).toStrictEqual({ numerator: 5, denominator: 5, rate: 100 });
-
-    //when selecting another radio button, it should run the reset function
-    fireEvent.click(radioC);
-    expect(
-      omsData.O8BrOa.selections.KRwFRN.rateData.rates.ZCy3XP.xS5HMm[0]
-    ).toStrictEqual({ numerator: "", denominator: "", rate: "" });
   });
 });
