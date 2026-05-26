@@ -480,7 +480,6 @@ export const validationTemplate = (
     errorArray.push(...(validationList(validation) ?? []));
   }
 
-  // 2026-only denominator "No" follow-up validation
   errorArray.push(...GV.validateDefinitionOfDenominatorNoExplain(data));
 
   errorArray.push(

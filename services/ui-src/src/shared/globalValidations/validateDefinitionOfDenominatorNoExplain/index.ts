@@ -1,21 +1,8 @@
 import * as DC from "dataConstants";
-import { DefaultFormData } from "shared/types/FormData";
 
-export const validateDefinitionOfDenominatorNoExplain = (
-  data: DefaultFormData
-) => {
-  const isNo =
-    data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC as keyof DefaultFormData] ===
-    DC.NO;
-
-  if (!isNo) return [];
-
-  const explanation =
-    data[
-      DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN as keyof DefaultFormData
-    ];
-
-  if (explanation) return [];
+export const validateDefinitionOfDenominatorNoExplain = (data: any) => {
+  if (data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC] !== DC.NO) return [];
+  if (data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]) return [];
 
   return [
     {
