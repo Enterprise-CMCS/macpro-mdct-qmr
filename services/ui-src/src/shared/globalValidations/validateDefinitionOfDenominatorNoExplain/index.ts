@@ -1,6 +1,9 @@
 import * as DC from "dataConstants";
+import * as Types from "shared/types";
 
-export const validateDefinitionOfDenominatorNoExplain = (data: any) => {
+export const validateDefinitionOfDenominatorNoExplain = (
+  data: Types.DefinitionOfPopulation
+) => {
   if (data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC] !== DC.NO) return [];
   if (
     data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN] &&
