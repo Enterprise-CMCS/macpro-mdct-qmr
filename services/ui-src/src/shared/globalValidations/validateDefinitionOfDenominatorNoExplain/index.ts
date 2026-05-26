@@ -2,7 +2,11 @@ import * as DC from "dataConstants";
 
 export const validateDefinitionOfDenominatorNoExplain = (data: any) => {
   if (data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC] !== DC.NO) return [];
-  if (data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]) return [];
+  if (
+    data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN] &&
+    data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE]
+  )
+    return [];
 
   return [
     {
