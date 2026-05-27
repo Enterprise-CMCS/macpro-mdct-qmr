@@ -1977,12 +1977,11 @@ export const measures: Measure = {
       type: "A",
       measure: "PDS-AD",
       measureType: MeasureType.PROVISIONAL,
-      typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
+      typeTagForCoreSets: [CoreSetAbbr.ACS],
     },
     {
       type: "A",
       measure: "PND-AD",
-      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "A",
@@ -2083,7 +2082,6 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "CIS-CH",
-      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
@@ -2123,7 +2121,6 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "IMA-CH",
-      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
@@ -2165,12 +2162,10 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "PDS-CH",
-      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "C",
       measure: "PND-CH",
-      measureType: MeasureType.PROVISIONAL,
     },
     {
       type: "C",
@@ -2185,7 +2180,6 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "PRS-CH",
-      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
