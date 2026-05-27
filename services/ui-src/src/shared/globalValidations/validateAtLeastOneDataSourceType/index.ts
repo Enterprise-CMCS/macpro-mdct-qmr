@@ -31,11 +31,13 @@ export const validateAtLeastOneDataSourceType = (
           errorLocation: dataSourceLabel,
           errorMessage:
             errorMessage ??
-            `Please describe the ${label}${
-              !label.includes("Source") && !label.includes("Method")
-                ? " Source"
-                : ""
-            }`,
+            (featuresByYear.useDataCollectionMethod
+              ? "Please describe the Other Data Collection Method or Data Source"
+              : `Please describe the ${label}${
+                  !label.includes("Source") && !label.includes("Method")
+                    ? " Source"
+                    : ""
+                }`),
         };
       })
     );
