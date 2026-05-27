@@ -425,8 +425,6 @@ export const validationTemplate = (
         return GV.validateAtLeastOneDefinitionOfPopulation(data);
       case "validateHybridMeasurePopulation":
         return GV.validateHybridMeasurePopulation(data);
-      case "validateDefinitionOfDenominatorNoExplain":
-        return GV.validateDefinitionOfDenominatorNoExplain(data);
       case "validateEqualQualifierOfCategoryDenominatorsPM":
         const sets = PMD.override?.validateEqualQualifierOfCategoryDenominators;
         return sets?.flatMap((set) =>
@@ -480,6 +478,7 @@ export const validationTemplate = (
     errorArray.push(...(validationList(validation) ?? []));
   }
 
+  // Run for all measures: if the denominator does not represent the total measure-eligible population, require follow-up details.
   errorArray.push(...GV.validateDefinitionOfDenominatorNoExplain(data));
 
   errorArray.push(
