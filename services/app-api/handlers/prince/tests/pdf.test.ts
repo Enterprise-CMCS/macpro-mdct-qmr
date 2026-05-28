@@ -2,19 +2,31 @@ import { getPDF } from "../pdf";
 import { testEvent } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 import { gzipSync } from "node:zlib";
+import Prince from "prince";
 
 jest.spyOn(console, "warn").mockImplementation();
 
-global.fetch = jest.fn().mockResolvedValue({
-  status: 200,
-  headers: {
-    get: jest.fn().mockReturnValue("3"),
-  },
-  arrayBuffer: jest.fn().mockResolvedValue(
-    // An ArrayBuffer containing `%PDF-1.7`
-    new Uint8Array([37, 80, 68, 70, 45, 49, 46, 55]).buffer
-  ),
+jest.mock("prince", () => {
+  const mockExecute = jest.fn().mockResolvedValue(undefined);
+  const mockOption = jest.fn().mockReturnThis();
+  const mockOutput = jest.fn().mockReturnThis();
+  const mockInputs = jest.fn().mockReturnThis();
+  const mockLicense = jest.fn().mockReturnThis();
+  const mockPrince = jest.fn(() => ({
+    license: mockLicense,
+    inputs: mockInputs,
+    output: mockOutput,
+    option: mockOption,
+    execute: mockExecute,
+  }));
+  return mockPrince;
 });
+
+jest.mock("fs", () => ({
+  writeFileSync: jest.fn(),
+  readFileSync: jest.fn(() => Buffer.from("%PDF-1.7")),
+  unlinkSync: jest.fn(),
+}));
 
 const dangerousHtml =
   "<html><head></head><body><p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p></body></html>";
@@ -28,8 +40,7 @@ const event = { ...testEvent };
 describe("Test GetPDF handler", () => {
   beforeEach(() => {
     process.env = {
-      docraptorApiKey: "mock api key", // pragma: allowlist secret
-      STAGE: "dev",
+      princeLicense: "mock-license-content",
     };
     event.pathParameters = {
       state: "AZ",
@@ -58,14 +69,14 @@ describe("Test GetPDF handler", () => {
     expect(res.body).toContain("must be base64-encoded HTML");
   });
 
-  it("should throw error when config not defined", async () => {
-    delete process.env.docraptorApiKey;
+  it("should throw error when license not defined", async () => {
+    delete process.env.princeLicense;
     event.body = base64EncodedDangerousHtml;
 
     const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(500);
-    expect(res.body).toContain("No config found to make request to PDF API");
+    expect(res.body).toContain("No config found for Prince XML license");
   });
 
   it("should throw error when path params are missing", async () => {
@@ -90,38 +101,38 @@ describe("Test GetPDF handler", () => {
     expect(res.body).toContain(Errors.NO_KEY);
   });
 
-  it("should call PDF API with sanitized html", async () => {
+  it("should call Prince XML with sanitized html", async () => {
     event.body = base64EncodedDangerousHtml;
     const res = await getPDF(event, null);
     expect(res.statusCode).toBe(200);
 
-    expect(fetch).toHaveBeenCalled();
-    const [url, request] = (fetch as jest.Mock).mock.calls[0];
-    const body = JSON.parse(request.body);
-    expect(url).toBe("https://docraptor.com/docs");
-    expect(request).toEqual({
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: expect.stringMatching(/^\{.*\}$/),
-    });
-    expect(body).toEqual({
-      user_credentials: "mock api key", // pragma: allowlist secret
-      doc: expect.objectContaining({
-        document_content: sanitizedHtml,
-        type: "pdf",
-        tag: "QMR",
-        test: true,
-        prince_options: expect.objectContaining({
-          profile: "PDF/UA-1",
-        }),
-      }),
-    });
+    expect(Prince).toHaveBeenCalled();
+    const princeInstance = (Prince as jest.Mock).mock.results[0].value;
+    expect(princeInstance.license).toHaveBeenCalled();
+    expect(princeInstance.inputs).toHaveBeenCalled();
+    expect(princeInstance.output).toHaveBeenCalled();
+    expect(princeInstance.option).toHaveBeenCalledWith(
+      "pdf-profile",
+      "PDF/UA-1"
+    );
+    expect(princeInstance.execute).toHaveBeenCalled();
+
+    const fs = require("node:fs");
+    expect(fs.writeFileSync).toHaveBeenCalled();
+    const writtenHtml = (fs.writeFileSync as jest.Mock).mock.calls[0][1];
+    expect(writtenHtml).toBe(sanitizedHtml);
   });
 
-  it("should handle an error response from the PDF API", async () => {
-    (fetch as jest.Mock).mockResolvedValueOnce({
-      status: 500,
-      text: jest.fn().mockResolvedValue("<error>It broke.</error>"),
+  it("should handle an error response from Prince XML", async () => {
+    const mockExecute = jest
+      .fn()
+      .mockRejectedValue(new Error("Prince conversion failed"));
+    (Prince as jest.Mock).mockReturnValueOnce({
+      license: jest.fn().mockReturnThis(),
+      inputs: jest.fn().mockReturnThis(),
+      output: jest.fn().mockReturnThis(),
+      option: jest.fn().mockReturnThis(),
+      execute: mockExecute,
     });
 
     event.body = base64EncodedDangerousHtml;
@@ -129,7 +140,6 @@ describe("Test GetPDF handler", () => {
     const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(500);
-
-    expect(console.warn).toBeCalledWith(expect.stringContaining("It broke."));
+    expect(console.warn).toHaveBeenCalled();
   });
 });

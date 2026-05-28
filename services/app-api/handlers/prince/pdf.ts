@@ -3,6 +3,10 @@ import handler from "../../libs/handler-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 import sanitizeHtml from "sanitize-html";
+import Prince from "prince";
+import { writeFileSync, readFileSync, unlinkSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 export const getPDF = handler(async (event, _context) => {
   const { allParamsValid } = parseCoreSetParameters(event);
@@ -19,9 +23,9 @@ export const getPDF = handler(async (event, _context) => {
   if (rawBody.startsWith("{")) {
     throw new Error("Body must be base64-encoded HTML, not a JSON object");
   }
-  const { docraptorApiKey, STAGE } = process.env;
-  if (!docraptorApiKey) {
-    throw new Error("No config found to make request to PDF API");
+  const { princeLicense } = process.env;
+  if (!princeLicense) {
+    throw new Error("No config found for Prince XML license");
   }
 
   const compressedBuffer = Buffer.from(rawBody, "base64");
@@ -37,47 +41,57 @@ export const getPDF = handler(async (event, _context) => {
   // Use sanitize-html to match previous DOMPurify config, and allow Chakra necessary tags/attributes
   const sanitizedHtml = sanitizeHtml(decodedHtml, buildSanitizationConfig());
 
-  const requestBody = {
-    user_credentials: docraptorApiKey,
-    doc: {
-      document_content: sanitizedHtml,
-      type: "pdf" as const,
-      // This tag differentiates QMR and CARTS requests in DocRaptor's logs.
-      tag: "QMR",
-      test: STAGE !== "production",
-      prince_options: {
-        profile: "PDF/UA-1" as const,
-      },
-    },
-  };
-
-  const arrayBuffer = await sendDocRaptorRequest(requestBody);
-  const base64PdfData = Buffer.from(arrayBuffer).toString("base64");
+  const pdfBuffer = await generatePdfWithPrince(sanitizedHtml, princeLicense);
+  const base64PdfData = pdfBuffer.toString("base64");
   return {
     status: StatusCodes.SUCCESS,
     body: base64PdfData,
   };
 });
 
-async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
-  const response = await fetch("https://docraptor.com/docs", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(request),
-  });
+async function generatePdfWithPrince(
+  html: string,
+  license: string
+): Promise<Buffer> {
+  const tmpDir = tmpdir();
+  const inputFile = join(tmpDir, `prince-input-${Date.now()}.html`);
+  const outputFile = join(tmpDir, `prince-output-${Date.now()}.pdf`);
+  const licenseFile = join(tmpDir, `prince-license-${Date.now()}.dat`);
 
-  await handlePdfStatusCode(response);
+  try {
+    writeFileSync(inputFile, html, "utf8");
+    writeFileSync(licenseFile, license, "utf8");
 
-  const pdfPageCount = response.headers.get("X-DocRaptor-Num-Pages");
-  console.debug(`Successfully generated a ${pdfPageCount}-page PDF.`);
+    const prince = new Prince()
+      .license(licenseFile)
+      .inputs(inputFile)
+      .output(outputFile)
+      .option("pdf-profile", "PDF/UA-1");
 
-  return response.arrayBuffer();
+    await prince.execute();
+
+    const pdfBuffer = readFileSync(outputFile);
+    console.debug(`Successfully generated PDF with Prince XML`);
+
+    return pdfBuffer;
+  } catch (error) {
+    console.warn("Prince XML Error:", error);
+    throw new Error(
+      `PDF generation failed: ${error instanceof Error ? error.message : String(error)}`
+    );
+  } finally {
+    try {
+      unlinkSync(inputFile);
+      unlinkSync(outputFile);
+      unlinkSync(licenseFile);
+    } catch (error) {
+      console.warn("Failed to clean up temporary files:", error);
+    }
+  }
 }
 
 /*
- * These settings are a best-effort to prevent attacks on DocRaptor's servers.
+ * These settings are a best-effort to prevent attacks when processing the document.
  * Since no one but the user making the request will see the resulting PDF,
  * these settings are more relaxed than how we sanitize other API requests.
  * Notably, we allow `style` (tags and attrs), which is normally forbidden.
@@ -87,9 +101,9 @@ async function sendDocRaptorRequest(request: DocRaptorRequestBody) {
  *  - "link" - We use <link> tags to include some styles.
  *  - "base" - The <base> tag tells the renderer to treat relative
  *    URLs (such as <img src="/bar.jpg"/>) as absolute ones (such as
- *    <img src="https://foo.com/bar.jpg"/>). Without this, DocRaptor would
- *    reject our documents; when they render it on their servers, relative
- *    URLs would appear as filesystem access attempts, which they disallow.
+ *    <img src="https://foo.com/bar.jpg"/>). Without this, Prince XML would
+ *    reject our documents; when processing the document, relative
+ *    URLs would appear as filesystem access attempts, which it disallows.
  *  - "polyline" - This makes checkbox checkmarks visible
  *  - "style" - Chakra UI uses style tags for critical CSS.
  */
@@ -139,80 +153,5 @@ const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
       ...Object.keys(extraAttributes),
       ...extraTags,
     ],
-  };
-};
-
-/**
- * If PDF generation was not successful, log the reason and throw an error.
- *
- * For more details see https://docraptor.com/documentation/api/status_codes
- */
-async function handlePdfStatusCode(response: Response) {
-  if (response.status === 200) {
-    return;
-  }
-
-  const xmlErrorMessage = await response.text();
-  console.warn("DocRaptor Error Message:\n" + xmlErrorMessage);
-
-  switch (response.status) {
-    case 400: // Bad Request
-    case 422: // Unprocessable Entity
-      throw new Error("PDF generation failed - possibly an HTML issue");
-    case 401: // Unauthorized
-    case 403: // Forbidden
-      throw new Error(
-        "PDF generation failed - possibly a configuration or throttle issue"
-      );
-    default:
-      throw new Error(
-        `Received status code ${response.status} from PDF generation service`
-      );
-  }
-}
-
-type DocRaptorRequestBody = {
-  /** Your DocRaptor API key */
-  user_credentials: string;
-  doc: DocRaptorParameters;
-};
-
-/**
- * Here is some in-band documentation for the more common DocRaptor options.
- * There also options for JS handling, asset handling, PDF metadata, and more.
- * Note that we do not use DocRaptor's hosting; we return the PDF directly.
- * For more details see https://docraptor.com/documentation/api
- */
-type DocRaptorParameters = {
-  /** Test documents are watermarked, but don't count against API limits. */
-  test?: boolean;
-  /** We only use `pdf`. */
-  type: "pdf" | "xls" | "xlsx";
-  /** The HTML to render. Either this or `document_url` is required. */
-  document_content?: string;
-  /** The URL to fetch and render. Either this or `document_content` is required. */
-  document_url?: string;
-  /** Synchronous calls have a 60s limit. Callbacks are required for longer-running docs. */
-  async?: boolean;
-  /** This name will show up in the logs: https://docraptor.com/doc_logs */
-  name?: string;
-  /** This tag will also show up in DocRaptor's logs. */
-  tag?: string;
-  /** Should DocRaptor run JS embedded in your HTML? Default is `false`. */
-  javascript?: boolean;
-  prince_options: {
-    /**
-     * In theory we can choose a different PDF version, but UA-1 is the only accessible one.
-     * https://docraptor.com/documentation/article/6637003-accessible-tagged-pdfs
-     */
-    profile: "PDF/UA-1";
-    /** The default is `print`. */
-    media?: "print" | "screen";
-    /** May be needed to load relative urls. Alternatively, use the `<base>` tag. */
-    baseurl?: string;
-    /** The title of your PDF. By default this is the `<title>` of your HTML. */
-    pdf_title?: string;
-    /** This may be used to override the default DPI of `96`. */
-    css_dpi?: number;
   };
 };

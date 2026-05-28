@@ -25,7 +25,7 @@ interface CreateApiComponentsProps {
   kafkaAuthorizedSubnets: ec2.ISubnet[];
   tables: DynamoDBTable[];
   brokerString: string;
-  docraptorApiKey: string;
+  princeLicense: string;
   kafkaClientId?: string;
 }
 
@@ -39,7 +39,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     kafkaAuthorizedSubnets,
     tables,
     brokerString,
-    docraptorApiKey,
+    princeLicense,
     kafkaClientId,
   } = props;
 
@@ -97,7 +97,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   });
 
   const environment = {
-    docraptorApiKey,
+    princeLicense,
     brokerString,
     STAGE: stage,
     KAFKA_CLIENT_ID: kafkaClientId ?? `qmr-${stage}`,

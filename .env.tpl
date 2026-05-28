@@ -12,7 +12,7 @@ S3_ATTACHMENTS_BUCKET_NAME=op://mdct_devs/qmr_secrets/S3_ATTACHMENTS_BUCKET_NAME
 # LAUNCHDARKLY
 REACT_APP_LD_SDK_CLIENT=op://mdct_devs/qmr_secrets/REACT_APP_LD_SDK_CLIENT
 
-docraptorApiKey=op://mdct_devs/qmr_secrets/docraptorApiKey # pragma: allowlist secret
+princeLicense=op://mdct_devs/qmr_secrets/princeLicense # pragma: allowlist secret
 
 CYPRESS_STATE_USER_2=op://mdct_devs/qmr_secrets/CYPRESS_STATE_USER_2
 CYPRESS_STATE_USER_4=op://mdct_devs/qmr_secrets/CYPRESS_STATE_USER_4

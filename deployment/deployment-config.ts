@@ -13,7 +13,7 @@ export interface DeploymentConfigProperties {
   oktaMetadataUrl: string;
   launchDarklyClient: string;
   redirectSignout: string;
-  docraptorApiKey: string;
+  princeLicense: string;
   bootstrapUsersPassword?: string;
   vpnIpSetArn?: string;
   vpnIpv6SetArn?: string;
@@ -85,7 +85,7 @@ function validateConfig(config: {
     "oktaMetadataUrl",
     "launchDarklyClient",
     "redirectSignout",
-    "docraptorApiKey",
+    "princeLicense",
   ];
 
   const invalidKeys = expectedKeys.filter(
