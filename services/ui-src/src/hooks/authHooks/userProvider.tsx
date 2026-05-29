@@ -15,16 +15,14 @@ interface Props {
 }
 
 const authenticateWithIDM = async () => {
-  // Clear any stale cached tokens / OAuth state before initiating the
-  // redirect. If a previous session left expired tokens or stale PKCE
+  // Clear any stale cached tokens before initiating the
+  // redirect. If a previous session left expired tokens or stale
   // values in localStorage, signInWithRedirect can fail silently or
-  // produce an OAuth state mismatch when IDM redirects back. This runs
-  // in all environments because every caller of this function is about
-  // to redirect away — we never call it on a user with a valid session.
+  // produce an OAuth state mismatch when IDM redirects back.
   try {
     await signOut({ global: false });
   } catch {
-    // Ignore — we only care about clearing local state, not server-side.
+    // Ignoring as we only care about clearing local tokens
   }
   await signInWithRedirect({ provider: { custom: "Okta" } });
 };
@@ -38,7 +36,6 @@ export const UserProvider = ({ children }: Props) => {
   const [isStateUser, setIsStateUser] = useState<boolean>(false);
   const [userState, setUserState] = useState<any>("");
   const [showLocalLogins, setShowLocalLogins] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [authError, setAuthError] = useState(false);
 
   const logout = useCallback(async () => {
@@ -59,7 +56,6 @@ export const UserProvider = ({ children }: Props) => {
 
     // Authenticate
     try {
-      setIsLoading(true);
       const tokens = (await fetchAuthSession()).tokens;
       if (!tokens?.idToken) {
         throw new Error("Missing tokens auth session.");
@@ -84,17 +80,12 @@ export const UserProvider = ({ children }: Props) => {
         try {
           await authenticateWithIDM();
         } catch (error) {
-          // signInWithRedirect failed before navigating away (network,
-          // config, etc.). Surface an error so the user isn't stuck on
-          // a blank spinner with no recovery path.
           console.log("Error initiating IDM sign-in:", error);
           setAuthError(true);
         }
       } else {
         setShowLocalLogins(true);
       }
-    } finally {
-      setIsLoading(false);
     }
   }, [isProduction, location]);
 
@@ -118,7 +109,6 @@ export const UserProvider = ({ children }: Props) => {
       user,
       logout,
       showLocalLogins,
-      isLoading,
       authError,
       loginWithIDM,
       isStateUser,
@@ -129,8 +119,6 @@ export const UserProvider = ({ children }: Props) => {
       user,
       logout,
       showLocalLogins,
-      isLoading,
-      authError,
       loginWithIDM,
       isStateUser,
       userState,
