@@ -34,7 +34,7 @@ export const DataSource = ({ type }: DataSourceProps) => {
                 name={DC.DATA_SOURCE_CAHPS_VERSION_OTHER}
                 label={
                   <>
-                    Describe the data source (
+                    Describe the data collection method or data source (
                     <em>
                       text in this field is included in publicly-reported
                       state-specific comments
