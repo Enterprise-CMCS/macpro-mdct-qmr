@@ -1,9 +1,15 @@
 import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MeasureStrat } from ".";
 import { renderWithHookForm } from "utils";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/commonQuestionsLabel";
+import { getMeasureYear } from "utils/getMeasureYear";
+
+jest.mock("utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn(),
+}));
 
 const omsData = {
   O8BrOa: {
@@ -28,6 +34,8 @@ global.structuredClone = () => omsData;
 
 describe("Test MeasureStratification", () => {
   const renderMeasureStratification = (year = 2026) => {
+    (getMeasureYear as jest.Mock).mockReturnValue(year);
+
     renderWithHookForm(
       <SharedContext.Provider value={{ ...commonQuestionsLabels2026, year }}>
         <MeasureStrat data={[]} measureName="" />
@@ -86,6 +94,25 @@ describe("Test MeasureStratification", () => {
     expect(
       screen.getByRole("radio", {
         name: "I am not reporting stratified data for this measure",
+      })
+    ).toBeInTheDocument();
+  });
+
+  test("Test 2026 standards question and not-applicable label after selecting yes", () => {
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    expect(
+      screen.getByText(
+        "Which race and ethnicity standards would your state like to use for 2026 Core Sets reporting?"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: "Not applicable",
       })
     ).toBeInTheDocument();
   });
