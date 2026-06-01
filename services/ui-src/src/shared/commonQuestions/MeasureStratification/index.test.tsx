@@ -36,9 +36,7 @@ global.structuredClone = () => omsData;
 describe("Test MeasureStratification", () => {
   const renderMeasureStratification = (year = 2026) => {
     (getMeasureYear as jest.Mock).mockReturnValue(year);
-
-    const labels =
-      year === 2025 ? commonQuestionsLabels2025 : commonQuestionsLabels2026;
+    const labels = year === 2025 ? commonQuestionsLabels2025 : commonQuestionsLabels2026;
 
     renderWithHookForm(
       <SharedContext.Provider value={{ ...labels, year }}>
@@ -50,7 +48,6 @@ describe("Test MeasureStratification", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     useApiMock({});
-    cleanup();
 
     renderMeasureStratification(2026);
   });
@@ -89,7 +86,7 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("radio", {
-        name: "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
+        name: "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
       })
     ).toBeInTheDocument();
     expect(
@@ -99,7 +96,7 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("radio", {
-        name: "I am not reporting stratified data for this measure",
+        name: "I am not reporting measure stratification for this measure",
       })
     ).toBeInTheDocument();
   });
@@ -136,9 +133,7 @@ describe("Test MeasureStratification", () => {
       })
     );
 
-    expect(
-      screen.getByText("Enter Measure Stratification")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Enter Measure Stratification")).toBeInTheDocument();
     expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
     expect(screen.getByText("Sex")).toBeInTheDocument();
     expect(screen.getByText("Geography")).toBeInTheDocument();
@@ -150,7 +145,7 @@ describe("Test MeasureStratification", () => {
 
     userEvent.click(
       screen.getByRole("radio", {
-        name: "I am not reporting stratified data for this measure",
+        name: "I am not reporting measure stratification for this measure",
       })
     );
 
@@ -175,9 +170,7 @@ describe("Test MeasureStratification", () => {
       })
     );
 
-    expect(
-      screen.getByText("Enter Measure Stratification")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Enter Measure Stratification")).toBeInTheDocument();
     expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
     expect(screen.getByText("Sex")).toBeInTheDocument();
     expect(screen.getByText("Geography")).toBeInTheDocument();
