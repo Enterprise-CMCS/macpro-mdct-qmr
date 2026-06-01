@@ -16,6 +16,8 @@ export const commonQuestionsLabel = {
   DataSource: {
     ehrSrc: "Optional - Describe the data source(s) used:",
     describeDataSrc:
+      "Describe the data collection method or data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    describeAdminDataOtherSrc:
       "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     describeOptionalECDSDataSrc:
       "Optional - Describe the ECDS data source(s) used:",
