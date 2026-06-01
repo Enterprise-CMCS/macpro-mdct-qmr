@@ -27,17 +27,24 @@ export const validateAtLeastOneDataSourceType = (
       ...unfilledDataSources.map((key) => {
         const lookupKey = key.split("-")?.[1] ?? key;
         const label = Types.getDataSourceDisplayName(lookupKey);
+        let generatedMessage = "";
+
+        if (
+          featuresByYear.useDataCollectionMethod &&
+          lookupKey === DataSource.Other
+        ) {
+          generatedMessage =
+            "Please describe the Other Data Collection Method or Data Source";
+        } else {
+          const shouldAppendSource =
+            !label.includes("Source") && !label.includes("Method");
+          const sourceSuffix = shouldAppendSource ? " Source" : "";
+          generatedMessage = `Please describe the ${label}${sourceSuffix}`;
+        }
+
         return {
           errorLocation: dataSourceLabel,
-          errorMessage:
-            errorMessage ??
-            (featuresByYear.useDataCollectionMethod
-              ? "Please describe the Other Data Collection Method or Data Source"
-              : `Please describe the ${label}${
-                  !label.includes("Source") && !label.includes("Method")
-                    ? " Source"
-                    : ""
-                }`),
+          errorMessage: errorMessage ?? generatedMessage,
         };
       })
     );
