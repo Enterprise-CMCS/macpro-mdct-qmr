@@ -478,6 +478,9 @@ export const validationTemplate = (
     errorArray.push(...(validationList(validation) ?? []));
   }
 
+  // Run for all measures: if the denominator does not represent the total measure-eligible population, require follow-up details.
+  errorArray.push(...GV.validateDefinitionOfDenominatorNoExplain(data));
+
   errorArray.push(
     ...GV.omsValidations({
       data,

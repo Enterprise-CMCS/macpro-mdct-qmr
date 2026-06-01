@@ -33,6 +33,7 @@ export * from "shared/globalValidations/validateNDRTotalsMatchSum";
 export * from "shared/globalValidations/validateAtLeastOneDeviationFieldFilled";
 export * from "shared/globalValidations/validateCollecting";
 export * from "shared/globalValidations/validateOneQualRateLessThanOrEqualToOtherQualRates";
+export * from "shared/globalValidations/validateDefinitionOfDenominatorNoExplain";
 
 // PCR-XX Specific Validations
 export { PCRatLeastOneRateComplete } from "shared/globalValidations/PCRValidations/PCRatLeastOneRateComplete";
