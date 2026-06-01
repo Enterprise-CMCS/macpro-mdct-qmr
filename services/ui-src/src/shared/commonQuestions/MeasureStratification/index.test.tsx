@@ -36,7 +36,8 @@ global.structuredClone = () => omsData;
 describe("Test MeasureStratification", () => {
   const renderMeasureStratification = (year = 2026) => {
     (getMeasureYear as jest.Mock).mockReturnValue(year);
-    const labels = year === 2025 ? commonQuestionsLabels2025 : commonQuestionsLabels2026;
+    const labels =
+      year === 2025 ? commonQuestionsLabels2025 : commonQuestionsLabels2026;
 
     renderWithHookForm(
       <SharedContext.Provider value={{ ...labels, year }}>
@@ -133,7 +134,9 @@ describe("Test MeasureStratification", () => {
       })
     );
 
-    expect(screen.getByText("Enter Measure Stratification")).toBeInTheDocument();
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
     expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
     expect(screen.getByText("Sex")).toBeInTheDocument();
     expect(screen.getByText("Geography")).toBeInTheDocument();
@@ -170,7 +173,9 @@ describe("Test MeasureStratification", () => {
       })
     );
 
-    expect(screen.getByText("Enter Measure Stratification")).toBeInTheDocument();
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
     expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
     expect(screen.getByText("Sex")).toBeInTheDocument();
     expect(screen.getByText("Geography")).toBeInTheDocument();
