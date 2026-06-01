@@ -1,4 +1,4 @@
-import { cleanup, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MeasureStrat } from ".";
 import { renderWithHookForm } from "utils";
@@ -49,11 +49,11 @@ describe("Test MeasureStratification", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     useApiMock({});
-
-    renderMeasureStratification(2026);
   });
 
   test("Test MeasureStratification render", () => {
+    renderMeasureStratification(2026);
+
     expect(
       screen.getByText(
         "Are you reporting measure stratification for this measure?"
@@ -77,7 +77,6 @@ describe("Test MeasureStratification", () => {
   });
 
   test("Test standards question and options render for pre-2026", () => {
-    cleanup();
     renderMeasureStratification(2025);
 
     expect(
@@ -103,6 +102,8 @@ describe("Test MeasureStratification", () => {
   });
 
   test("Test 2026 standards question and not-applicable label after selecting yes", () => {
+    renderMeasureStratification(2026);
+
     userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
@@ -122,6 +123,8 @@ describe("Test MeasureStratification", () => {
   });
 
   test("Test selecting Not applicable shows stratification section", () => {
+    renderMeasureStratification(2026);
+
     userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
@@ -143,7 +146,6 @@ describe("Test MeasureStratification", () => {
   });
 
   test("Test pre-2026 not-reporting does not show stratification section", () => {
-    cleanup();
     renderMeasureStratification(2025);
 
     userEvent.click(
@@ -158,7 +160,6 @@ describe("Test MeasureStratification", () => {
   });
 
   test("Test 2026 not-applicable shows stratification without Race and Ethnicity", () => {
-    cleanup();
     renderMeasureStratification(2026);
 
     userEvent.click(
