@@ -1976,7 +1976,6 @@ export const measures: Measure = {
     {
       type: "A",
       measure: "PDS-AD",
-      measureType: MeasureType.PROVISIONAL,
       typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
     },
     {
