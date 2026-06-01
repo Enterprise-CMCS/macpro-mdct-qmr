@@ -3,7 +3,6 @@ import { createContext } from "react";
 export interface UserContextInterface {
   user?: any;
   showLocalLogins?: boolean;
-  authError?: boolean;
   logout: () => Promise<void>;
   loginWithIDM: () => Promise<void>;
   isStateUser: boolean;

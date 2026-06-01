@@ -36,7 +36,6 @@ export const UserProvider = ({ children }: Props) => {
   const [isStateUser, setIsStateUser] = useState<boolean>(false);
   const [userState, setUserState] = useState<any>("");
   const [showLocalLogins, setShowLocalLogins] = useState(false);
-  const [authError, setAuthError] = useState(false);
 
   const logout = useCallback(async () => {
     try {
@@ -81,7 +80,6 @@ export const UserProvider = ({ children }: Props) => {
           await authenticateWithIDM();
         } catch (error) {
           console.log("Error initiating IDM sign-in:", error);
-          setAuthError(true);
         }
       } else {
         setShowLocalLogins(true);
@@ -95,12 +93,10 @@ export const UserProvider = ({ children }: Props) => {
   }, [location, checkAuthState]);
 
   const loginWithIDM = useCallback(async () => {
-    setAuthError(false);
     try {
       await authenticateWithIDM();
     } catch (error) {
       console.log("Error initiating IDM sign-in:", error);
-      setAuthError(true);
     }
   }, []);
 
@@ -109,7 +105,6 @@ export const UserProvider = ({ children }: Props) => {
       user,
       logout,
       showLocalLogins,
-      authError,
       loginWithIDM,
       isStateUser,
       userState,
