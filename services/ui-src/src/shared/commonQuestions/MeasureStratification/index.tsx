@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
 import { useContext, useEffect, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
@@ -31,16 +31,16 @@ export const StratificationOption = ({ reset, year }: Props) => {
   const { subText, options } = labels.StratificationOption;
   const { watch } = useFormContext();
   const reportingMeasureStratification = watch(
-    "Are you reporting measure stratification for this measure?"
+    `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`
   );
 
   return (
     <>
-      {featuresByYear.useDataCollectionMethod && (
+      {featuresByYear.useStratificationYesNo && (
         <CUI.Box mt="32px">
           <QMR.RadioButton
             formLabelProps={{ fontWeight: "700" }}
-            name={"Are you reporting measure stratification for this measure?"}
+            name={`OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`}
             label={"Are you reporting measure stratification for this measure?"}
             options={[
               {
@@ -57,10 +57,10 @@ export const StratificationOption = ({ reset, year }: Props) => {
           ></QMR.RadioButton>
         </CUI.Box>
       )}
-      {(!featuresByYear.useDataCollectionMethod ||
+      {(!featuresByYear.useStratificationYesNo ||
         reportingMeasureStratification === "yes") && (
         <CUI.Box
-          mt={featuresByYear.useDataCollectionMethod ? "32px" : undefined}
+          mt={featuresByYear.useStratificationYesNo ? "32px" : undefined}
         >
           <QMR.RadioButton
             key={`OptionalMeasureStratification.${DC.VERSION}`}
@@ -80,7 +80,7 @@ export const StratificationOption = ({ reset, year }: Props) => {
                 onClick: reset,
               },
               {
-                displayValue: featuresByYear.useDataCollectionMethod
+                displayValue: featuresByYear.useStratificationYesNo
                   ? "Not applicable"
                   : options["not-reporting"],
                 value: "not-reporting",
@@ -102,6 +102,9 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const { watch, setValue, resetField } =
     useFormContext<Types.OptionalMeasureStratification>();
   const data = watch();
+  const reportingMeasureStratification = useWatch({
+    name: `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`,
+  });
 
   const [version, setVersion] = useState<string>();
   const [omsData, setOMSData] = useState<Types.OmsNode[]>();
@@ -195,17 +198,22 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         {labels.MeasureStratification.instructions}
       </QMR.Accordion>
       <StratificationOption reset={onReset} year={year}></StratificationOption>
-      {featuresByYear.useDataCollectionMethod &&
+      {featuresByYear.useStratificationYesNo &&
+        reportingMeasureStratification === "yes" &&
         version != undefined &&
         detailsSection}
-      {(version === "1997-omb" || version === "2024-omb") && (
-        <Stratification
-          {...props}
-          omsData={omsData!}
-          year={year}
-        ></Stratification>
-      )}
-      {!featuresByYear.useDataCollectionMethod &&
+      {(version === "1997-omb" ||
+        version === "2024-omb" ||
+        (featuresByYear.useStratificationYesNo &&
+          version === "not-reporting")) &&
+        reportingMeasureStratification === "yes" && (
+          <Stratification
+            {...props}
+            omsData={omsData!}
+            year={year}
+          ></Stratification>
+        )}
+      {!featuresByYear.useStratificationYesNo &&
         version != undefined &&
         detailsSection}
     </QMR.CoreQuestionWrapper>

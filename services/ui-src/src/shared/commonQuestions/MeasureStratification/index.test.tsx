@@ -1,10 +1,11 @@
-import { screen } from "@testing-library/react";
+import { cleanup, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MeasureStrat } from ".";
 import { renderWithHookForm } from "utils";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/commonQuestionsLabel";
+import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 import { getMeasureYear } from "utils/getMeasureYear";
 
 jest.mock("utils/getMeasureYear", () => ({
@@ -36,8 +37,11 @@ describe("Test MeasureStratification", () => {
   const renderMeasureStratification = (year = 2026) => {
     (getMeasureYear as jest.Mock).mockReturnValue(year);
 
+    const labels =
+      year === 2025 ? commonQuestionsLabels2025 : commonQuestionsLabels2026;
+
     renderWithHookForm(
-      <SharedContext.Provider value={{ ...commonQuestionsLabels2026, year }}>
+      <SharedContext.Provider value={{ ...labels, year }}>
         <MeasureStrat data={[]} measureName="" />
       </SharedContext.Provider>
     );
@@ -46,6 +50,7 @@ describe("Test MeasureStratification", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     useApiMock({});
+    cleanup();
 
     renderMeasureStratification(2026);
   });
@@ -74,6 +79,7 @@ describe("Test MeasureStratification", () => {
   });
 
   test("Test standards question and options render for pre-2026", () => {
+    cleanup();
     renderMeasureStratification(2025);
 
     expect(
@@ -115,5 +121,65 @@ describe("Test MeasureStratification", () => {
         name: "Not applicable",
       })
     ).toBeInTheDocument();
+  });
+
+  test("Test selecting Not applicable shows stratification section", () => {
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Not applicable",
+      })
+    );
+
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
+    expect(screen.getByText("Sex")).toBeInTheDocument();
+    expect(screen.getByText("Geography")).toBeInTheDocument();
+  });
+
+  test("Test pre-2026 not-reporting does not show stratification section", () => {
+    cleanup();
+    renderMeasureStratification(2025);
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "I am not reporting stratified data for this measure",
+      })
+    );
+
+    expect(
+      screen.queryByText("Enter Measure Stratification")
+    ).not.toBeInTheDocument();
+  });
+
+  test("Test 2026 not-applicable shows stratification without Race and Ethnicity", () => {
+    cleanup();
+    renderMeasureStratification(2026);
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Not applicable",
+      })
+    );
+
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
+    expect(screen.getByText("Sex")).toBeInTheDocument();
+    expect(screen.getByText("Geography")).toBeInTheDocument();
   });
 });

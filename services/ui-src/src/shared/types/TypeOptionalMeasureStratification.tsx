@@ -208,6 +208,7 @@ export namespace OmsNodes {
 
 export interface OptionalMeasureStratification {
   [DC.OMS]: {
+    [DC.REPORTING_STRATIFICATION]?: string;
     [DC.VERSION]?: string;
     [DC.OPTIONS]: string[]; //checkbox
     [DC.SELECTIONS]: {
