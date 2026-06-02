@@ -16,6 +16,18 @@ export const validateAtLeastOneDataSourceType = (
     : "Data Source";
 
   if (dataSources) {
+    const getGeneratedMessage = (lookupKey: string, label: string) => {
+      if (
+        featuresByYear.useDataCollectionMethod &&
+        lookupKey === DataSource.Other
+      ) {
+        return "Please describe the Other Data Collection Method or Data Source";
+      }
+      const sourceSuffix =
+        !label.includes("Source") && !label.includes("Method") ? " Source" : "";
+      return `Please describe the ${label}${sourceSuffix}`;
+    };
+
     //find selected data sources with unfilled explanation boxes, which are not optional
     const unfilledDataSources = Object.keys(dataSources).filter(
       (key) =>
@@ -27,24 +39,10 @@ export const validateAtLeastOneDataSourceType = (
       ...unfilledDataSources.map((key) => {
         const lookupKey = key.split("-")?.[1] ?? key;
         const label = Types.getDataSourceDisplayName(lookupKey);
-        let generatedMessage = "";
-
-        if (
-          featuresByYear.useDataCollectionMethod &&
-          lookupKey === DataSource.Other
-        ) {
-          generatedMessage =
-            "Please describe the Other Data Collection Method or Data Source";
-        } else {
-          const shouldAppendSource =
-            !label.includes("Source") && !label.includes("Method");
-          const sourceSuffix = shouldAppendSource ? " Source" : "";
-          generatedMessage = `Please describe the ${label}${sourceSuffix}`;
-        }
 
         return {
           errorLocation: dataSourceLabel,
-          errorMessage: errorMessage ?? generatedMessage,
+          errorMessage: errorMessage ?? getGeneratedMessage(lookupKey, label),
         };
       })
     );
