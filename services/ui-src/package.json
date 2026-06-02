@@ -41,7 +41,7 @@
     "react-router-dom": "6.27.0",
     "react-textarea-autosize": "^8.5.3",
     "sass": "^1.80.4",
-    "uuid": "^8.3.2"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@aws-sdk/types": "~3.973.6",
@@ -74,7 +74,7 @@
     "postinstall-postinstall": "^2.1.0",
     "ts-jest": "^27.1.5",
     "typescript": "^5.9.3",
-    "vite": "^7.3.2",
+    "vite": "^8.0.16",
     "vite-tsconfig-paths": "^4.3.2"
   },
   "browserslist": {
