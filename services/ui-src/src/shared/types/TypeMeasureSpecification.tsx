@@ -1,4 +1,5 @@
 import * as DC from "dataConstants";
+import { JSX } from "react";
 
 export type SpecificationType =
   | "ADA-DQA"

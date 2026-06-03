@@ -1,5 +1,5 @@
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";
-import { createElement, Suspense } from "react";
+import { createElement, JSX, Suspense } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
 import { useApiMock } from "utils/testUtils/useApiMock";
