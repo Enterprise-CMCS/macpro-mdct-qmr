@@ -157,6 +157,26 @@ describe("Test MeasureStratification", () => {
     expect(
       screen.queryByText("Enter Measure Stratification")
     ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Measure Stratification Details")
+    ).not.toBeInTheDocument();
+  });
+
+  test("Test pre-2026 standards selection shows stratification section", () => {
+    renderMeasureStratification(2025);
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
+      })
+    );
+
+    expect(
+      screen.getByText("Measure Stratification Details")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
   });
 
   test("Test 2026 not-applicable shows stratification without Race and Ethnicity", () => {

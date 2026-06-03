@@ -33,10 +33,18 @@ export const StratificationOption = ({ reset, year }: Props) => {
   const reportingMeasureStratification = watch(
     `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`
   );
+  const shouldShowReportingMeasureStratification =
+    featuresByYear.useStratificationYesNo;
+  const shouldShowStandardsQuestion =
+    !shouldShowReportingMeasureStratification ||
+    reportingMeasureStratification === "yes";
+  const notReportingLabel = shouldShowReportingMeasureStratification
+    ? "Not applicable"
+    : options["not-reporting"];
 
   return (
     <>
-      {featuresByYear.useStratificationYesNo && (
+      {shouldShowReportingMeasureStratification && (
         <CUI.Box mt="32px">
           <QMR.RadioButton
             formLabelProps={{ fontWeight: "700" }}
@@ -57,10 +65,9 @@ export const StratificationOption = ({ reset, year }: Props) => {
           ></QMR.RadioButton>
         </CUI.Box>
       )}
-      {(!featuresByYear.useStratificationYesNo ||
-        reportingMeasureStratification === "yes") && (
+      {shouldShowStandardsQuestion && (
         <CUI.Box
-          mt={featuresByYear.useStratificationYesNo ? "32px" : undefined}
+          mt={shouldShowReportingMeasureStratification ? "32px" : undefined}
         >
           <QMR.RadioButton
             key={`OptionalMeasureStratification.${DC.VERSION}`}
@@ -80,9 +87,7 @@ export const StratificationOption = ({ reset, year }: Props) => {
                 onClick: reset,
               },
               {
-                displayValue: featuresByYear.useStratificationYesNo
-                  ? "Not applicable"
-                  : options["not-reporting"],
+                displayValue: notReportingLabel,
                 value: "not-reporting",
                 onClick: reset,
               },
@@ -105,6 +110,8 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const reportingMeasureStratification = useWatch({
     name: `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`,
   });
+  const shouldUseReportingMeasureStratification =
+    featuresByYear.useStratificationYesNo;
 
   const [version, setVersion] = useState<string>();
   const [omsData, setOMSData] = useState<Types.OmsNode[]>();
@@ -192,30 +199,35 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     </>
   );
 
+  const hasSelectedVersion = version != undefined;
+  const isReportingStratification =
+    !shouldUseReportingMeasureStratification ||
+    reportingMeasureStratification === "yes";
+  const shouldShowDetailsSection =
+    hasSelectedVersion &&
+    isReportingStratification &&
+    (shouldUseReportingMeasureStratification || version !== "not-reporting");
+  const shouldShowStratification =
+    hasSelectedVersion &&
+    isReportingStratification &&
+    (version === "1997-omb" ||
+      version === "2024-omb" ||
+      (shouldUseReportingMeasureStratification && version === "not-reporting"));
+
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
       <QMR.Accordion label="Instructions (Click to Expand)">
         {labels.MeasureStratification.instructions}
       </QMR.Accordion>
       <StratificationOption reset={onReset} year={year}></StratificationOption>
-      {featuresByYear.useStratificationYesNo &&
-        reportingMeasureStratification === "yes" &&
-        version != undefined &&
-        detailsSection}
-      {(version === "1997-omb" ||
-        version === "2024-omb" ||
-        (featuresByYear.useStratificationYesNo &&
-          version === "not-reporting")) &&
-        reportingMeasureStratification === "yes" && (
-          <Stratification
-            {...props}
-            omsData={omsData!}
-            year={year}
-          ></Stratification>
-        )}
-      {!featuresByYear.useStratificationYesNo &&
-        version != undefined &&
-        detailsSection}
+      {shouldShowDetailsSection && detailsSection}
+      {shouldShowStratification && (
+        <Stratification
+          {...props}
+          omsData={omsData!}
+          year={year}
+        ></Stratification>
+      )}
     </QMR.CoreQuestionWrapper>
   );
 };
