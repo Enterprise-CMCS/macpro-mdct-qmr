@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { JSX } from "react";
 
 export function MeasuresLoading(): JSX.Element {
   return (

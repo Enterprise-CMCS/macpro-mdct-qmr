@@ -1,4 +1,5 @@
 import * as CUI from "@chakra-ui/react";
+import { JSX } from "react";
 
 export function NotFound(): JSX.Element {
   return (
