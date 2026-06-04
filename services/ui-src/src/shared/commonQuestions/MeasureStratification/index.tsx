@@ -3,6 +3,7 @@ import * as QMR from "components";
 import * as Types from "../../types";
 import { useContext, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
@@ -60,6 +61,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const labels: any = useContext(SharedContext);
   const year = labels.year;
   const { coreset } = props;
+  const { coreSetId } = useParams();
 
   const { watch, setValue, resetField } =
     useFormContext<Types.OptionalMeasureStratification>();
@@ -78,7 +80,8 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         OMSData(
           year,
           coreset === "adult",
-          data.OptionalMeasureStratification.version
+          data.OptionalMeasureStratification.version,
+          coreSetId
         )
       );
     }

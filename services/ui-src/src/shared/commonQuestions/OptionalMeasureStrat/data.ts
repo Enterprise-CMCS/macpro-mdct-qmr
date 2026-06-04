@@ -3,7 +3,8 @@ import { OmsNode } from "shared/types";
 export const OMSData = (
   year: number,
   adultMeasure?: boolean,
-  version?: string
+  version?: string,
+  coreSetId?: string
 ): OmsNode[] => {
   switch (Number(year)) {
     case 2021:
@@ -14,6 +15,8 @@ export const OMSData = (
       return omb1997();
     case 2025:
       return version === "1997-omb" ? omb1997() : omb2024();
+    case 2026:
+      return version === "1997-omb" ? omb1997() : strat2026(coreSetId);
     default:
       return modifyMissingLabel(version === "1997-omb" ? omb1997() : omb2024());
   }
@@ -35,7 +38,7 @@ const modifyMissingLabel = (data: OmsNode[]) => {
   });
 };
 
-const omb2024 = () => {
+const omb2024 = (): OmsNode[] => {
   return [
     {
       id: "3dpUZu",
@@ -176,7 +179,52 @@ const omb2024 = () => {
   ];
 };
 
-const omb1997 = () => {
+const strat2026 = (coreSetId?: string): OmsNode[] => {
+  const data: OmsNode[] = [...omb2024()];
+
+  // Foster Care: Child Medicaid + Health Home only
+  if (coreSetId?.startsWith("HHCS") || coreSetId === "CCSM") {
+    data.push({
+      id: "foster-care",
+      label: "Foster Care",
+      options: [
+        {
+          id: "in-foster-care",
+          label: "In foster care during the measurement period",
+        },
+        {
+          id: "not-in-foster-care",
+          label: "Not in foster care during the measurement period",
+        },
+      ],
+      addMore: false,
+    });
+  }
+
+  // Medicaid Expansion: Adult Medicaid + Health Home only
+  if (coreSetId?.startsWith("HHCS") || coreSetId === "ACSM") {
+    data.push({
+      id: "medicaid-expansion",
+      label: "Medicaid Expansion",
+      aggregateTitle: "expansion group",
+      options: [
+        {
+          id: "adult-group-full-expansion",
+          label: "Adult group – Full expansion",
+        },
+        {
+          id: "medicaid-expansion-non-expansion-beneficiaries",
+          label: "Medicaid-Non-expansion beneficiaries",
+        },
+      ],
+      addMore: true,
+    });
+  }
+
+  return data;
+};
+
+const omb1997 = (): OmsNode[] => {
   return [
     {
       id: "3dpUZu",

@@ -7,6 +7,7 @@ import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import { cleanString, rateIsReadOnly } from "utils";
 import SharedContext from "shared/SharedContext";
 
@@ -42,7 +43,11 @@ export const buildOmsCheckboxes = ({
         />,
       ];
 
-      return { value, displayValue, children };
+      return {
+        value,
+        displayValue,
+        children,
+      };
     });
 };
 
@@ -84,7 +89,9 @@ export const OptionalMeasureStrat = ({
   if (IUHHPerformanceMeasureArray || AIFHHPerformanceMeasureArray)
     performanceMeasureArray = undefined;
 
-  const omsData = data ?? OMSData(year, coreset === "adult");
+  const { coreSetId } = useParams();
+  const omsData =
+    data ?? OMSData(year, coreset === "adult", undefined, coreSetId);
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<Types.OMSType>();
   const values = getValues();
