@@ -1,7 +1,6 @@
-import fireEvent from "@testing-library/user-event";
 import { OtherPerformanceMeasure } from "./OtherPerformanceMeasure";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { DataDrivenTypes } from "../types";
 import * as DC from "dataConstants";
 
@@ -51,12 +50,12 @@ describe("Test the OtherPerformanceMeasure RateComponent prop", () => {
     const numeratorTextBox = screen.getByLabelText("Numerator");
     const denominatorTextBox = screen.getByLabelText("Denominator");
     const rateTextBox = screen.getByLabelText("Rate");
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
+    fireEvent.change(numeratorTextBox, { target: { value: "123" } });
+    fireEvent.change(denominatorTextBox, { target: { value: "123" } });
     expect(rateTextBox).toHaveDisplayValue("100.0");
 
     // rates should be editable by default
-    fireEvent.type(rateTextBox, "99.9");
+    fireEvent.change(rateTextBox, { target: { value: "99.9" } });
     expect(rateTextBox).toHaveDisplayValue("99.9");
   });
 
@@ -68,7 +67,7 @@ describe("Test the OtherPerformanceMeasure RateComponent prop", () => {
     fireEvent.click(addRate);
     const deleteAddedRate = screen.getByTestId("delete-wrapper");
     const rateTextBox = screen.getAllByLabelText("Rate")[0];
-    fireEvent.type(rateTextBox, "123");
+    fireEvent.change(rateTextBox, { target: { value: "123" } });
     fireEvent.click(deleteAddedRate);
     const rateHeaders = screen.getAllByLabelText(labelText);
     expect(rateHeaders).toHaveLength(1);

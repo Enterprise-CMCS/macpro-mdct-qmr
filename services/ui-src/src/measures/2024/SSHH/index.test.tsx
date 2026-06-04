@@ -1,4 +1,4 @@
-import { screen, waitFor, act } from "@testing-library/react";
+import { screen, waitFor, act, fireEvent } from "@testing-library/react";
 import { createElement, JSX, Suspense } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
@@ -10,7 +10,6 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { clearMocks } from "shared/util/validationsMock";
-import userEvent from "@testing-library/user-event";
 
 expect.extend(toHaveNoViolations);
 
@@ -122,19 +121,27 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
 
   it("test add and delete of another", async () => {
     useApiMock(apiData);
-    renderWithHookForm(component);
+    renderWithHookForm(component, {
+      defaultValues: {
+        "OtherPerformanceMeasure-Rates": [{ description: "" }],
+      },
+    });
 
     expect(
       screen.queryByRole("button", { name: "+ Add Another" })
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "+ Add Another" }));
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: "+ Add Another" }));
+    });
 
     expect(
       screen.getByRole("button", { name: "Delete Field" })
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "Delete Field" }));
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: "Delete Field" }));
+    });
 
     expect(
       screen.queryByRole("button", { name: "Delete Field" })

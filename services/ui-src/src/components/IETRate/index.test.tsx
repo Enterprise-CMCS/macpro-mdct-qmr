@@ -1,5 +1,4 @@
-import { screen } from "@testing-library/react";
-import fireEvent from "@testing-library/user-event";
+import { screen, fireEvent } from "@testing-library/react";
 import { IETRate } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 
@@ -161,14 +160,14 @@ describe("Test the IETRate component", () => {
     const denominatorTextBox = screen.getAllByLabelText(/Denominator/)[0];
     const rateTextBox = screen.getAllByLabelText(/Rate/)[0];
 
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
+    fireEvent.change(numeratorTextBox, { target: { value: "123" } });
+    fireEvent.change(denominatorTextBox, { target: { value: "123" } });
     expect(rateTextBox).toHaveDisplayValue("100.0");
   });
 
   it("Check that the rate text box is readonly", async () => {
     const rateTextBox = screen.getAllByLabelText(/Rate/)[0];
-    fireEvent.type(rateTextBox, "43");
+    fireEvent.change(rateTextBox, { target: { value: "43" } });
     expect(rateTextBox).toHaveDisplayValue(intialValues.rate);
   });
 });
@@ -181,7 +180,7 @@ describe("Test non-readonly rate component", () => {
 
   it("Check that the rate can be typed in when not readonly", () => {
     const rateTextBox = screen.getAllByLabelText(/Rate/)[0];
-    fireEvent.type(rateTextBox, "43");
+    fireEvent.change(rateTextBox, { target: { value: "43" } });
     expect(rateTextBox).toHaveDisplayValue("43");
   });
 });
@@ -212,10 +211,10 @@ describe("Test the IETRate component when it includes a total NDR", () => {
 
   it("Check that user input in a non-total field triggers total calculation", () => {
     const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
-    fireEvent.type(numeratorToChange, "1");
+    fireEvent.change(numeratorToChange, { target: { value: "1" } });
 
     const denominatorToChange = screen.getAllByLabelText(/Denominator/i)[0];
-    fireEvent.type(denominatorToChange, "5");
+    fireEvent.change(denominatorToChange, { target: { value: "5" } });
 
     const changedRate = screen.getAllByLabelText(/Rate/i)[0];
     expect(changedRate).toHaveValue("20.0");
@@ -223,10 +222,10 @@ describe("Test the IETRate component when it includes a total NDR", () => {
 
   it("Check that if numerator > denominator, the calculated total rate should be empty", () => {
     const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
-    fireEvent.type(numeratorToChange, "3");
+    fireEvent.change(numeratorToChange, { target: { value: "3" } });
 
     const denominatorToChange = screen.getAllByLabelText(/Denominator/i)[0];
-    fireEvent.type(denominatorToChange, "1");
+    fireEvent.change(denominatorToChange, { target: { value: "1" } });
 
     const changedRate = screen.getAllByLabelText(/Rate/i)[0];
     expect(changedRate).toHaveValue("");
@@ -234,7 +233,7 @@ describe("Test the IETRate component when it includes a total NDR", () => {
 
   it("Check that user input triggers total calculation in qualifier total", () => {
     const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
-    fireEvent.type(numeratorToChange, "1");
+    fireEvent.change(numeratorToChange, { target: { value: "1" } });
 
     const expectedValue = {
       numerator: "3",
@@ -247,20 +246,20 @@ describe("Test the IETRate component when it includes a total NDR", () => {
 
   it("Check that user input triggers total calculation in category total", () => {
     const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
-    fireEvent.type(numeratorToChange, "3");
+    fireEvent.change(numeratorToChange, { target: { value: "3" } });
 
     const denominatorToChange = screen.getAllByLabelText(/Denominator/i)[0];
-    fireEvent.type(denominatorToChange, "8");
+    fireEvent.change(denominatorToChange, { target: { value: "8" } });
 
     const nextCatIndex = qualifiers.length;
 
     const numeratorToChange2 =
       screen.getAllByLabelText(/Numerator/i)[nextCatIndex];
-    fireEvent.type(numeratorToChange2, "1");
+    fireEvent.change(numeratorToChange2, { target: { value: "1" } });
 
     const denominatorToChange2 =
       screen.getAllByLabelText(/Denominator/i)[nextCatIndex];
-    fireEvent.type(denominatorToChange2, "4");
+    fireEvent.change(denominatorToChange2, { target: { value: "4" } });
 
     const expectedValue = {
       numerator: "4",
@@ -274,7 +273,7 @@ describe("Test the IETRate component when it includes a total NDR", () => {
 
   it("Check total category qualifer sum can be overwritten by user input", () => {
     const denominatorToChange2 = screen.getAllByLabelText(/Denominator/i)[7];
-    fireEvent.type(denominatorToChange2, "5");
+    fireEvent.change(denominatorToChange2, { target: { value: "5" } });
 
     const expectedValue = {
       numerator: "4",
@@ -295,10 +294,10 @@ describe("Test empty rates in component", () => {
 
   it("Total should be empty when only 1 field is entered", () => {
     const denominatorToChange = screen.getAllByLabelText(/Denominator/i)[0];
-    fireEvent.type(denominatorToChange, "8");
+    fireEvent.change(denominatorToChange, { target: { value: "8" } });
 
     const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
-    fireEvent.type(numeratorToChange, "");
+    fireEvent.change(numeratorToChange, { target: { value: "" } });
 
     const changedRate = screen.getAllByLabelText(/Rate/i)[0];
     expect(changedRate).toHaveValue("");
@@ -306,10 +305,10 @@ describe("Test empty rates in component", () => {
 
   it("Rate should calculate to 0.0 if numerator is zero", () => {
     const denominatorToChange = screen.getAllByLabelText(/Denominator/i)[0];
-    fireEvent.type(denominatorToChange, "8");
+    fireEvent.change(denominatorToChange, { target: { value: "8" } });
 
     const numeratorToChange = screen.getAllByLabelText(/Numerator/i)[0];
-    fireEvent.type(numeratorToChange, "0");
+    fireEvent.change(numeratorToChange, { target: { value: "0" } });
 
     const changedRate = screen.getAllByLabelText(/Rate/i)[0];
     expect(changedRate).toHaveValue("0.0");

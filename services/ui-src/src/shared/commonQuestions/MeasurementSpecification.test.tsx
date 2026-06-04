@@ -1,7 +1,6 @@
-import fireEvent from "@testing-library/user-event";
 import { MeasurementSpecification } from "./MeasurementSpecification";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import SharedContext from "shared/SharedContext";
 import commonQuestionsLabel2024 from "labels/2024/commonQuestionsLabel";
 import commonQuestionsLabel2023 from "labels/2023/commonQuestionsLabel";
@@ -32,7 +31,7 @@ describe("MeasurementSpecification component", () => {
     expect(textArea).toBeInTheDocument();
 
     const testText = "This is test text for TextArea";
-    fireEvent.type(textArea, testText);
+    fireEvent.change(textArea, { target: { value: testText } });
     expect(textArea).toHaveDisplayValue(testText);
   });
 
@@ -61,7 +60,7 @@ describe("MeasurementSpecification component", () => {
     expect(textArea).toBeInTheDocument();
 
     const testText = "This is test text for TextArea";
-    fireEvent.type(textArea, testText);
+    fireEvent.change(textArea, { target: { value: testText } });
     expect(textArea).toHaveDisplayValue(testText);
     expect(
       screen.getByText(

@@ -4,10 +4,9 @@ import {
 } from "shared/commonQuestions/PerformanceMeasure/data";
 import { data as PCRData } from "measures/2025/PCRAD/data";
 import { data as CBPdata } from "measures/2025/CBPAD/data";
-import fireEvent from "@testing-library/user-event";
 import { PerformanceMeasure } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { PCRRate } from "components";
 import { LabelData } from "utils";
 import SharedContext from "shared/SharedContext";
@@ -84,12 +83,12 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
     const rateTextBox = screen.queryAllByLabelText("Rate")[0];
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
+    fireEvent.change(numeratorTextBox, { target: { value: "123" } });
+    fireEvent.change(denominatorTextBox, { target: { value: "123" } });
     expect(rateTextBox).toHaveDisplayValue("100.0");
 
     // rates should be editable by default
-    fireEvent.type(rateTextBox, "99.9");
+    fireEvent.change(rateTextBox, { target: { value: "99.9" } });
     expect(rateTextBox).toHaveDisplayValue("99.9");
 
     // last NDR in categroy should not total
@@ -108,8 +107,8 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     const numeratorTextBox = screen.queryAllByLabelText("Numerator")[0];
     const denominatorTextBox = screen.queryAllByLabelText("Denominator")[0];
     const rateTextBox = screen.queryAllByLabelText("Rate")[0];
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
+    fireEvent.change(numeratorTextBox, { target: { value: "123" } });
+    fireEvent.change(denominatorTextBox, { target: { value: "123" } });
     expect(numeratorTextBox).toHaveDisplayValue("123");
     expect(denominatorTextBox).toHaveDisplayValue("123");
     expect(rateTextBox).toHaveDisplayValue("100.0");
@@ -161,13 +160,13 @@ describe("Test the PerformanceMeasure RateComponent prop", () => {
     const rateTextBox = screen.getByLabelText(
       PCRData.performanceMeasure.qualifiers[2].label
     );
-    fireEvent.type(numeratorTextBox, "123");
-    fireEvent.type(denominatorTextBox, "123");
+    fireEvent.change(numeratorTextBox, { target: { value: "123" } });
+    fireEvent.change(denominatorTextBox, { target: { value: "123" } });
     expect(numeratorTextBox).toHaveDisplayValue("123");
     expect(denominatorTextBox).toHaveDisplayValue("123");
     expect(rateTextBox).toHaveDisplayValue("100.0000");
 
-    fireEvent.type(rateTextBox, "123");
+    fireEvent.change(rateTextBox, { target: { value: "123" } });
     expect(rateTextBox).toHaveDisplayValue("123");
   });
 
