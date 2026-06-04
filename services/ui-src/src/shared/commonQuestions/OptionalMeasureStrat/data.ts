@@ -15,8 +15,21 @@ export const OMSData = (
     case 2025:
       return version === "1997-omb" ? omb1997() : omb2024();
     default:
+      if (version === "not-reporting") {
+        return removeRaceAndEthnicity(modifyMissingLabel(omb2024()));
+      }
+
       return modifyMissingLabel(version === "1997-omb" ? omb1997() : omb2024());
   }
+};
+
+const removeRaceAndEthnicity = (data: OmsNode[]) => {
+  return data.filter(
+    (node) =>
+      node.label !== "Race" &&
+      node.label !== "Ethnicity" &&
+      node.label !== "Race and Ethnicity"
+  );
 };
 
 /** In 2026, we want the "Missing or not reported" label to be more specific so this function will turn it to "Missing or not reported (Race), etc"*/
