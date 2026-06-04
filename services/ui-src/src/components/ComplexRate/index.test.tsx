@@ -264,6 +264,6 @@ describe("Rates should have correct properties", () => {
   });
 
   test("Should have category property only on FFY 2023", () => {
-    expect(getMeasureYear).toBeCalled();
+    expect(getMeasureYear).toHaveBeenCalled();
   });
 });

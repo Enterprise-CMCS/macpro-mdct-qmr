@@ -41,7 +41,7 @@ describe("AddSSMCard", () => {
       const btn = screen.getByText("Test button text");
       expect(btn).toBeInTheDocument();
       userEvent.click(btn);
-      expect(mockNavigate).toBeCalled();
+      expect(mockNavigate).toHaveBeenCalled();
       expect(mockNavigate).toHaveReturnedWith("/test-link");
     });
 
@@ -85,7 +85,7 @@ describe("AddSSMCard", () => {
       //because this is a button masking itself as a link, it can't actually be disabled, so we need to check if useNavigate had ran instead.
       const btn = screen.getByText(/Test button text/i);
       userEvent.click(btn);
-      expect(mockNavigate).toBeCalledTimes(0);
+      expect(mockNavigate).toHaveBeenCalledTimes(0);
     });
   });
 });

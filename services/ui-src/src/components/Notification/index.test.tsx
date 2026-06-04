@@ -21,6 +21,6 @@ describe("Test Notification", () => {
 
   test("Check that the Notification changes with updated prop values", () => {
     fireEvent.click(screen.getByTestId(/close/i));
-    expect(myMock).toBeCalled();
+    expect(myMock).toHaveBeenCalled();
   });
 });

@@ -25,13 +25,13 @@ describe("Test CompleteCoreSet", () => {
     });
     expect(validateBtn).toBeVisible();
     userEvent.click(validateBtn);
-    expect(mockHandleValidation).toBeCalled();
+    expect(mockHandleValidation).toHaveBeenCalled();
 
     const completeBtn = screen.getByRole("button", {
       name: "Complete Core Set Questions",
     });
     expect(completeBtn).toBeVisible();
     userEvent.click(completeBtn);
-    expect(mockHandleSubmit).toBeCalled();
+    expect(mockHandleSubmit).toHaveBeenCalled();
   });
 });
