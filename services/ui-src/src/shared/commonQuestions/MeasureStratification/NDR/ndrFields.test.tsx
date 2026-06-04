@@ -1,8 +1,7 @@
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { renderWithHookForm } from "utils";
 import { useAgeGroupsFields, useRenderOPMCheckboxOptions } from "./ndrFields";
 import { usePerformanceMeasureContext } from "shared/commonQuestions/OptionalMeasureStrat/context";
-import userEvent from "@testing-library/user-event";
 
 const mockValues = {
   OPM: [],
@@ -64,7 +63,7 @@ describe("Test ndrFields Components", () => {
         name: `test.rates.cat-1.qual-1.0.${id}`,
       });
       expect(textbox).toBeInTheDocument();
-      userEvent.type(textbox, "2");
+      fireEvent.change(textbox, { target: { value: "2" } });
       const expectedValue = id === "rate" ? "100.0" : "2";
       expect(textbox).toHaveValue(expectedValue);
     });
@@ -85,7 +84,7 @@ describe("Test ndrFields Components", () => {
         name: `mock-checkbox.rates.OPM.OPM_mockrate.0.${id}`,
       });
       expect(textbox).toBeInTheDocument();
-      userEvent.type(textbox, "2");
+      fireEvent.change(textbox, { target: { value: "2" } });
       const expectedValue = id === "rate" ? "100.0" : "2";
       expect(textbox).toHaveValue(expectedValue);
     });

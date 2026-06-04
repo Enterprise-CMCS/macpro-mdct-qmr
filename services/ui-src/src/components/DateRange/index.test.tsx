@@ -1,7 +1,6 @@
-import { waitFor } from "@testing-library/react";
+import { waitFor, fireEvent } from "@testing-library/react";
 import { DateRange } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import userEvent from "@testing-library/user-event";
 
 describe("Test DateRange", () => {
   test("Check DateRange Renders", () => {
@@ -22,8 +21,8 @@ describe("Test DateRange", () => {
 
     const monthLabel = screen.getAllByLabelText(/month/i)[0];
     const yearLabel = screen.getAllByLabelText(/year/i)[0];
-    userEvent.type(monthLabel, "01");
-    userEvent.type(yearLabel, "202");
+    fireEvent.change(monthLabel, { target: { value: "01" } });
+    fireEvent.change(yearLabel, { target: { value: "202" } });
     const errorMessage = screen.getByText(
       "Please enter start date year in YYYY-format"
     );
@@ -35,8 +34,8 @@ describe("Test DateRange", () => {
 
     const monthLabel = screen.getAllByLabelText(/month/i)[0];
     const yearLabel = screen.getAllByLabelText(/year/i)[0];
-    userEvent.type(monthLabel, "01");
-    userEvent.type(yearLabel, "2022");
+    fireEvent.change(monthLabel, { target: { value: "01" } });
+    fireEvent.change(yearLabel, { target: { value: "2022" } });
     expect(
       screen.queryByText("Please enter start date year in YYYY-format")
     ).not.toBeInTheDocument();
@@ -49,10 +48,10 @@ describe("Test DateRange", () => {
     const yearLabel = screen.getAllByLabelText(/year/i)[0];
     const endMonthLabel = screen.getAllByLabelText(/month/i)[1];
     const endYearLabel = screen.getAllByLabelText(/year/i)[1];
-    userEvent.type(startMonthLabel, "01");
-    userEvent.type(yearLabel, "2023");
-    userEvent.type(endMonthLabel, "02");
-    userEvent.type(endYearLabel, "2022");
+    fireEvent.change(startMonthLabel, { target: { value: "01" } });
+    fireEvent.change(yearLabel, { target: { value: "2023" } });
+    fireEvent.change(endMonthLabel, { target: { value: "02" } });
+    fireEvent.change(endYearLabel, { target: { value: "2022" } });
     waitFor(() => {
       expect(
         screen.queryByText("Start Date must be before the End Date")
@@ -64,8 +63,8 @@ describe("Test DateRange", () => {
     const screen = renderWithHookForm(<DateRange name="testComponent" />);
     const startMonthLabel = screen.getAllByLabelText(/month/i)[0];
     const yearLabel = screen.getAllByLabelText(/year/i)[0];
-    userEvent.type(startMonthLabel, "01");
-    userEvent.type(yearLabel, "2080");
+    fireEvent.change(startMonthLabel, { target: { value: "01" } });
+    fireEvent.change(yearLabel, { target: { value: "2080" } });
     expect(
       screen.queryByText("Start date cannot be a future date")
     ).toBeInTheDocument();
@@ -76,8 +75,8 @@ describe("Test DateRange", () => {
 
     const endMonthLabel = screen.getAllByLabelText(/month/i)[1];
     const endYearLabel = screen.getAllByLabelText(/year/i)[1];
-    userEvent.type(endMonthLabel, "02");
-    userEvent.type(endYearLabel, "2080");
+    fireEvent.change(endMonthLabel, { target: { value: "02" } });
+    fireEvent.change(endYearLabel, { target: { value: "2080" } });
     expect(
       screen.queryByText("End date cannot be a future date")
     ).toBeInTheDocument();

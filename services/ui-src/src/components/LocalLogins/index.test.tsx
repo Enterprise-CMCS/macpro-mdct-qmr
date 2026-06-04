@@ -1,6 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { LocalLogins } from ".";
-import userEvent from "@testing-library/user-event";
 
 const mockedNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -44,10 +43,12 @@ describe("Test LocalLogins", () => {
     );
     const emailField = container.querySelector(`input[name="email"]`);
     const passwordField = container.querySelector(`input[name="email"]`);
-    if (emailField) userEvent.type(emailField, "mail@mail.com");
-    if (passwordField) userEvent.type(passwordField, "!@#$%");
+    if (emailField)
+      fireEvent.change(emailField, { target: { value: "mail@mail.com" } });
+    if (passwordField)
+      fireEvent.change(passwordField, { target: { value: "!@#$%" } });
 
-    userEvent.click(screen.getByRole("button", { name: "Login with Cognito" }));
+    fireEvent.click(screen.getByRole("button", { name: "Login with Cognito" }));
     expect(mockedNavigate).toHaveBeenCalled();
   });
 });

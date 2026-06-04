@@ -1,5 +1,4 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { RouterWrappedComp } from "utils/testing";
 import { AddChildCoreSet } from ".";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -52,7 +51,7 @@ describe("Test Add Child Core Set Component", () => {
   });
 
   it("Form properly interactable", () => {
-    userEvent.click(
+    fireEvent.click(
       screen.getByText(
         /Reporting Medicaid and CHIP measures in separate Core Sets/i
       )

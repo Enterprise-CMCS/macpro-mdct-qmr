@@ -1,5 +1,4 @@
-import { screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { screen, fireEvent } from "@testing-library/react";
 import { MeasureStrat } from ".";
 import { renderWithHookForm } from "utils";
 import { useApiMock } from "utils/testUtils/useApiMock";
@@ -104,7 +103,7 @@ describe("Test MeasureStratification", () => {
   test("Test 2026 standards question and not-applicable label after selecting yes", () => {
     renderMeasureStratification(2026);
 
-    userEvent.click(
+    fireEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
@@ -125,13 +124,13 @@ describe("Test MeasureStratification", () => {
   test("Test selecting Not applicable shows stratification section", () => {
     renderMeasureStratification(2026);
 
-    userEvent.click(
+    fireEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    userEvent.click(
+    fireEvent.click(
       screen.getByRole("radio", {
         name: "Not applicable",
       })
@@ -148,7 +147,7 @@ describe("Test MeasureStratification", () => {
   test("Test pre-2026 not-reporting does not show stratification section", () => {
     renderMeasureStratification(2025);
 
-    userEvent.click(
+    fireEvent.click(
       screen.getByRole("radio", {
         name: "I am not reporting measure stratification for this measure",
       })
@@ -165,7 +164,7 @@ describe("Test MeasureStratification", () => {
   test("Test pre-2026 standards selection shows stratification section", () => {
     renderMeasureStratification(2025);
 
-    userEvent.click(
+    fireEvent.click(
       screen.getByRole("radio", {
         name: "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
       })
@@ -182,13 +181,13 @@ describe("Test MeasureStratification", () => {
   test("Test 2026 not-applicable shows stratification without Race and Ethnicity", () => {
     renderMeasureStratification(2026);
 
-    userEvent.click(
+    fireEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    userEvent.click(
+    fireEvent.click(
       screen.getByRole("radio", {
         name: "Not applicable",
       })
