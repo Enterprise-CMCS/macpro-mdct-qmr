@@ -1,4 +1,5 @@
 import { screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { WhyAreYouNotReporting } from "./WhyAreYouNotReporting";
 import SharedContext from "shared/SharedContext";
@@ -157,16 +158,18 @@ describe(`Options`, () => {
   });
 
   describe("Small sample size (less than 30)", () => {
-    it("renders textBox correctly with max value 29", () => {
+    it("renders textBox correctly with max value 29", async () => {
       fireEvent.click(
         screen.getByLabelText("Small sample size (less than 30)")
       );
 
       const numberInput = screen.getByTestId("test-number-input");
       expect(numberInput).toBeInTheDocument();
-      fireEvent.change(numberInput, { target: { value: "29" } });
+      await userEvent.type(numberInput, "29");
       expect(numberInput).toHaveDisplayValue("29");
-      fireEvent.change(numberInput, { target: { value: "30" } });
+      // Typing "30" character-by-character: "3" is accepted, "0" is rejected
+      await userEvent.clear(numberInput);
+      await userEvent.type(numberInput, "30");
       expect(numberInput).toHaveDisplayValue("3");
     });
   });
