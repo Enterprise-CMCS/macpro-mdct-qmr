@@ -94,7 +94,7 @@ Object {
 `;
 
 exports[`Test Table Component renders measures table correctly 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
