@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { LocalLogins } from ".";
 
 const mockedNavigate = jest.fn();
@@ -32,7 +32,7 @@ describe("Test LocalLogins", () => {
     ).toBeVisible();
   });
 
-  it("Test login with cognito", () => {
+  it("Test login with cognito", async () => {
     mockSignIn.mockReturnValue({});
     const { container } = render(
       <LocalLogins
@@ -42,13 +42,13 @@ describe("Test LocalLogins", () => {
       />
     );
     const emailField = container.querySelector(`input[name="email"]`);
-    const passwordField = container.querySelector(`input[name="email"]`);
+    const passwordField = container.querySelector(`input[name="password"]`);
     if (emailField)
       fireEvent.change(emailField, { target: { value: "mail@mail.com" } });
     if (passwordField)
       fireEvent.change(passwordField, { target: { value: "!@#$%" } });
 
     fireEvent.click(screen.getByRole("button", { name: "Login with Cognito" }));
-    expect(mockedNavigate).toHaveBeenCalled();
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalled());
   });
 });
