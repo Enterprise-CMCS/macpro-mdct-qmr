@@ -46,6 +46,7 @@ export const buildOmsCheckboxes = ({
       return {
         value,
         displayValue,
+        helperText: lvlOneOption.helperText,
         children,
       };
     });

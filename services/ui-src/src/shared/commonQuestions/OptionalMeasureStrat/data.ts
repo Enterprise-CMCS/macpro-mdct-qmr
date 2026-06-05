@@ -207,14 +207,20 @@ const strat2026 = (coreSetId?: string): OmsNode[] => {
       id: "medicaid-expansion",
       label: "Medicaid Expansion",
       aggregateTitle: "expansion group",
+      helperText:
+        "Skip the Medicaid expansion stratification if your state has not fully expanded Medicaid for the adult population.",
       options: [
         {
           id: "adult-group-full-expansion",
           label: "Adult group – Full expansion",
+          helperText:
+            "Adults enrolled in Medicaid under the adult group at section 1902(a)(10)(A)(i )(VIII) of the Act, and in regulation at 42 C.F.R. § 435.119[1] or in a section 1115 demonstration that provides eligibility for the entire adult group population.",
         },
         {
           id: "medicaid-expansion-non-expansion-beneficiaries",
           label: "Medicaid-Non-expansion beneficiaries",
+          helperText:
+            "Includes Adults enrolled in Medicaid that are not in the Adult group – Full expansion, as defined above.",
         },
       ],
       addMore: true,

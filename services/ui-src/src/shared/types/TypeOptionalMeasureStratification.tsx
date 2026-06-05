@@ -81,6 +81,8 @@ export interface OmsNode {
   id: string;
   /** displayName value for option*/
   label?: string;
+  /** helper text displayed with this option */
+  helperText?: string;
   /** should additional category render? */
   addMore?: boolean;
   /** should this node have a subCatOption? */
