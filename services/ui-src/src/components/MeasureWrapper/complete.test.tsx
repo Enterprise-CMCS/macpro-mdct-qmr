@@ -1,11 +1,12 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { CompleteCoreSets } from "./complete";
+import userEvent from "@testing-library/user-event";
 
 const mockHandleValidation = jest.fn();
 const mockHandleSubmit = jest.fn();
 
 describe("Test CompleteCoreSet", () => {
-  it("Test CompleteCoreSet render", () => {
+  it("Test CompleteCoreSet render", async () => {
     render(
       <CompleteCoreSets
         handleSubmit={mockHandleSubmit}
@@ -23,14 +24,14 @@ describe("Test CompleteCoreSet", () => {
       name: "Validate Core Set Questions",
     });
     expect(validateBtn).toBeVisible();
-    fireEvent.click(validateBtn);
+    await userEvent.click(validateBtn);
     expect(mockHandleValidation).toHaveBeenCalled();
 
     const completeBtn = screen.getByRole("button", {
       name: "Complete Core Set Questions",
     });
     expect(completeBtn).toBeVisible();
-    fireEvent.click(completeBtn);
+    await userEvent.click(completeBtn);
     expect(mockHandleSubmit).toHaveBeenCalled();
   });
 });

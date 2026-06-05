@@ -1,4 +1,5 @@
-import { screen, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Rate } from ".";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { getMeasureYear } from "../../utils/getMeasureYear";
@@ -72,8 +73,8 @@ describe("Test the Rate component", () => {
     const denominatorTextBox = await screen.findByLabelText("Denominator");
     const rateTextBox = await screen.findByLabelText("Rate");
 
-    fireEvent.change(numeratorTextBox, { target: { value: "123" } });
-    fireEvent.change(denominatorTextBox, { target: { value: "123" } });
+    await userEvent.type(numeratorTextBox, "123");
+    await userEvent.type(denominatorTextBox, "123");
 
     expect(rateTextBox).toHaveDisplayValue("100.0");
   });
@@ -81,7 +82,7 @@ describe("Test the Rate component", () => {
   test("Check that the rate text box is readonly", async () => {
     const rateTextBox = await screen.findByLabelText("Rate");
 
-    fireEvent.change(rateTextBox, { target: { value: "4321" } });
+    await userEvent.type(rateTextBox, "4321");
 
     expect(rateTextBox).toHaveDisplayValue("1");
   });
@@ -92,21 +93,25 @@ describe("Test the Rate component", () => {
     const rateTextBox = await screen.findByLabelText("Rate");
 
     // 3/9*100 = 3.333... -> 33.3
-    fireEvent.change(numeratorTextBox, { target: { value: "3" } });
-    fireEvent.change(denominatorTextBox, { target: { value: "9" } });
+    await userEvent.clear(numeratorTextBox);
+    await userEvent.type(numeratorTextBox, "3");
+    await userEvent.clear(denominatorTextBox);
+    await userEvent.type(denominatorTextBox, "9");
 
     expect(rateTextBox).toHaveDisplayValue("33.3");
 
     // 6/9*100 = 66.666... -> 66.7
-    fireEvent.change(numeratorTextBox, { target: { value: "6" } });
-    fireEvent.change(denominatorTextBox, { target: { value: "9" } });
+    await userEvent.clear(numeratorTextBox);
+    await userEvent.type(numeratorTextBox, "6");
+    await userEvent.clear(denominatorTextBox);
+    await userEvent.type(denominatorTextBox, "9");
 
     expect(rateTextBox).toHaveDisplayValue("66.7");
   });
 });
 
 describe("Test non-readonly rate component", () => {
-  test("Check that the rate can be typed in when not readonly", () => {
+  test("Check that the rate can be typed in when not readonly", async () => {
     renderWithHookForm(<TestComponent2 />, {
       defaultValues: {
         "test-component": [
@@ -121,12 +126,13 @@ describe("Test non-readonly rate component", () => {
 
     const rateTextBox = screen.getByLabelText("Rate");
 
-    fireEvent.change(rateTextBox, { target: { value: "43" } });
+    await userEvent.clear(rateTextBox);
+    await userEvent.type(rateTextBox, "43");
 
     expect(rateTextBox).toHaveDisplayValue("43");
   });
 
-  test("Ensure that warning appears if N=0, D>0, then R should be = 0 for user entered rates.", () => {
+  test("Ensure that warning appears if N=0, D>0, then R should be = 0 for user entered rates.", async () => {
     renderWithHookForm(<TestComponent2 />, {
       defaultValues: {
         "test-component": [
@@ -143,7 +149,8 @@ describe("Test non-readonly rate component", () => {
 
     const numeratorTextBox = screen.getByLabelText("Numerator");
 
-    fireEvent.change(numeratorTextBox, { target: { value: "0" } });
+    await userEvent.clear(numeratorTextBox);
+    await userEvent.type(numeratorTextBox, "0");
 
     expect(numeratorTextBox).toHaveDisplayValue("0");
     const rateTextBox = screen.getByLabelText("Rate");
@@ -252,10 +259,11 @@ describe("Test the Rate component when it includes a total NDR", () => {
     checkNDRs(expectedValues);
   });
 
-  test("Check that user input in a non-total field triggers total calculation", () => {
+  test("Check that user input in a non-total field triggers total calculation", async () => {
     // Change the test2 numerator from 2 to 1
     const numeratorToChange = screen.getAllByLabelText(/numerator/i)[1];
-    fireEvent.change(numeratorToChange, { target: { value: "1" } });
+    await userEvent.clear(numeratorToChange);
+    await userEvent.type(numeratorToChange, "1");
 
     const expectedValues = [
       {
@@ -282,7 +290,8 @@ describe("Test the Rate component when it includes a total NDR", () => {
 
     // Change the test1 denominator from 1 to 5
     const denominatorToChange = screen.getAllByLabelText(/denominator/i)[0];
-    fireEvent.change(denominatorToChange, { target: { value: "5" } });
+    await userEvent.clear(denominatorToChange);
+    await userEvent.type(denominatorToChange, "5");
 
     expectedValues[0] = {
       label: "test1",
@@ -300,10 +309,11 @@ describe("Test the Rate component when it includes a total NDR", () => {
     checkNDRs(expectedValues);
   });
 
-  test("Check that if numerator > denominator, the calculated total rate should be empty", () => {
+  test("Check that if numerator > denominator, the calculated total rate should be empty", async () => {
     // Change the numerator from 1 to 5
     const numeratorToChange = screen.getAllByLabelText(/numerator/i)[0];
-    fireEvent.change(numeratorToChange, { target: { value: "5" } });
+    await userEvent.clear(numeratorToChange);
+    await userEvent.type(numeratorToChange, "5");
 
     const expectedValues = [
       {
@@ -329,10 +339,11 @@ describe("Test the Rate component when it includes a total NDR", () => {
     checkNDRs(expectedValues);
   });
 
-  test("Check that user input in a total field does not trigger total calculation", () => {
+  test("Check that user input in a total field does not trigger total calculation", async () => {
     // Manually set the total numerator
     const numeratorToChange = screen.getAllByLabelText(/numerator/i)[2];
-    fireEvent.change(numeratorToChange, { target: { value: "5" } });
+    await userEvent.clear(numeratorToChange);
+    await userEvent.type(numeratorToChange, "5");
 
     const expectedValues = [
       {
@@ -359,7 +370,8 @@ describe("Test the Rate component when it includes a total NDR", () => {
 
     // Manually set the total denominator
     const denominatorToChange = screen.getAllByLabelText(/denominator/i)[2];
-    fireEvent.change(denominatorToChange, { target: { value: "10" } });
+    await userEvent.clear(denominatorToChange);
+    await userEvent.type(denominatorToChange, "10");
 
     expectedValues[2] = {
       label: "total",

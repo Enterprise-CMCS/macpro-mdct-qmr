@@ -1,5 +1,6 @@
 import { DeleteWrapper } from ".";
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 const testFunction = jest.fn();
 const testFunction2 = jest.fn();
@@ -18,18 +19,14 @@ describe("Test DeleteWrapper", () => {
       expect(screen.getByTestId("delete-wrapper")).toBeInTheDocument();
     });
 
-    test("Check that clicking delete removes from render", () => {
-      act(() => {
-        fireEvent.click(screen.getByTestId("delete-wrapper"));
-      });
+    test("Check that clicking delete removes from render", async () => {
+      await userEvent.click(screen.getByTestId("delete-wrapper"));
       expect(screen.queryByText("test label")).not.toBeInTheDocument();
       expect(screen.queryByTestId("delete-wrapper")).not.toBeInTheDocument();
     });
 
-    test("Check that onDeleteFunction is called on click", () => {
-      act(() => {
-        fireEvent.click(screen.getByTestId("delete-wrapper"));
-      });
+    test("Check that onDeleteFunction is called on click", async () => {
+      await userEvent.click(screen.getByTestId("delete-wrapper"));
       expect(screen.queryByText("test label")).not.toBeInTheDocument();
       expect(screen.queryByTestId("delete-wrapper")).not.toBeInTheDocument();
       expect(testFunction).toHaveBeenCalled();

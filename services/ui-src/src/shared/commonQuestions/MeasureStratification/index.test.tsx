@@ -1,4 +1,4 @@
-import { screen, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { MeasureStrat } from ".";
 import { renderWithHookForm } from "utils";
 import { useApiMock } from "utils/testUtils/useApiMock";
@@ -6,6 +6,7 @@ import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/commonQuestionsLabel";
 import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 import { getMeasureYear } from "utils/getMeasureYear";
+import userEvent from "@testing-library/user-event";
 
 jest.mock("utils/getMeasureYear", () => ({
   getMeasureYear: jest.fn(),
@@ -100,10 +101,10 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
   });
 
-  test("Test 2026 standards question and not-applicable label after selecting yes", () => {
+  test("Test 2026 standards question and not-applicable label after selecting yes", async () => {
     renderMeasureStratification(2026);
 
-    fireEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
@@ -121,16 +122,16 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
   });
 
-  test("Test selecting Not applicable shows stratification section", () => {
+  test("Test selecting Not applicable shows stratification section", async () => {
     renderMeasureStratification(2026);
 
-    fireEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    fireEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Not applicable",
       })
@@ -144,10 +145,10 @@ describe("Test MeasureStratification", () => {
     expect(screen.getByText("Geography")).toBeInTheDocument();
   });
 
-  test("Test pre-2026 not-reporting does not show stratification section", () => {
+  test("Test pre-2026 not-reporting does not show stratification section", async () => {
     renderMeasureStratification(2025);
 
-    fireEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "I am not reporting measure stratification for this measure",
       })
@@ -161,10 +162,10 @@ describe("Test MeasureStratification", () => {
     ).not.toBeInTheDocument();
   });
 
-  test("Test pre-2026 standards selection shows stratification section", () => {
+  test("Test pre-2026 standards selection shows stratification section", async () => {
     renderMeasureStratification(2025);
 
-    fireEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
       })
@@ -178,16 +179,16 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
   });
 
-  test("Test 2026 not-applicable shows stratification without Race and Ethnicity", () => {
+  test("Test 2026 not-applicable shows stratification without Race and Ethnicity", async () => {
     renderMeasureStratification(2026);
 
-    fireEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    fireEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Not applicable",
       })
