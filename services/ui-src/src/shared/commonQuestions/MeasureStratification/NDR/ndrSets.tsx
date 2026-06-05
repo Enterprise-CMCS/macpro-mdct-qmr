@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { JSX } from "react";
 import { usePerformanceMeasureContext } from "../../OptionalMeasureStrat/context";
 import { useRenderOPMCheckboxOptions, useAgeGroupsFields } from "./ndrFields";
 import { TotalNDRSets } from "./../../OptionalMeasureStrat/NDR/totalNDRSets";

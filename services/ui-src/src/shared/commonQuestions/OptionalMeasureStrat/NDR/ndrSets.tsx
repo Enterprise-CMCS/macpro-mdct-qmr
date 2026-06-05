@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { JSX } from "react";
 import { usePerformanceMeasureContext } from "../context";
 import {
   useRenderOPMCheckboxOptions,

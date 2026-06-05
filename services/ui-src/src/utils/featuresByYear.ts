@@ -181,4 +181,14 @@ export const featuresByYear = {
   get useDataCollectionMethod() {
     return getMeasureYear() >= 2026;
   },
+
+  /**
+   * In 2026, we introduced a new measure stratification workflow:
+   * - Added a yes/no radio for "Are you reporting measure stratification?"
+   * - Changed the third standards option from "not-reporting" to "Not applicable"
+   * - "Not applicable" now renders stratification options (excluding Race/Ethnicity)
+   */
+  get useStratificationYesNo() {
+    return getMeasureYear() >= 2026;
+  },
 };

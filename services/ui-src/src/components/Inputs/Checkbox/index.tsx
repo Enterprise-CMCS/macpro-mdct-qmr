@@ -2,7 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useController, useFormContext } from "react-hook-form";
 import objectPath from "object-path";
-import { ComponentProps } from "react";
+import { ComponentProps, JSX } from "react";
 
 // Chakra UI v2 Collapse types are incompatible with React 19
 const Collapse = CUI.Collapse as React.FC<

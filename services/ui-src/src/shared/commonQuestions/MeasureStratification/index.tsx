@@ -2,12 +2,13 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
 import { useContext, useEffect, useState } from "react";
-import { useFormContext } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { useFormContext, useWatch } from "react-hook-form";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
+import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
   reset?: () => void;
@@ -29,31 +30,73 @@ export const StratificationAdditionalNotes = () => {
 export const StratificationOption = ({ reset, year }: Props) => {
   const labels: any = useContext(SharedContext);
   const { subText, options } = labels.StratificationOption;
+  const { watch } = useFormContext();
+  const reportingMeasureStratification = watch(
+    `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`
+  );
+  const shouldShowReportingMeasureStratification =
+    featuresByYear.useStratificationYesNo;
+  const shouldShowStandardsQuestion =
+    !shouldShowReportingMeasureStratification ||
+    reportingMeasureStratification === "yes";
+  const notReportingLabel = shouldShowReportingMeasureStratification
+    ? "Not applicable"
+    : options["not-reporting"];
+
   return (
-    <QMR.RadioButton
-      key={`OptionalMeasureStratification.${DC.VERSION}`}
-      name={`OptionalMeasureStratification.${DC.VERSION}`}
-      formLabelProps={{ fontWeight: "700" }}
-      label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
-      subTextElement={subText}
-      options={[
-        {
-          displayValue: options["1997-omb"],
-          value: "1997-omb",
-          onClick: reset,
-        },
-        {
-          displayValue: options["2024-omb"],
-          value: "2024-omb",
-          onClick: reset,
-        },
-        {
-          displayValue: options["not-reporting"],
-          value: "not-reporting",
-          onClick: reset,
-        },
-      ]}
-    ></QMR.RadioButton>
+    <>
+      {shouldShowReportingMeasureStratification && (
+        <CUI.Box mt="32px">
+          <QMR.RadioButton
+            formLabelProps={{ fontWeight: "700" }}
+            name={`OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`}
+            label={"Are you reporting measure stratification for this measure?"}
+            options={[
+              {
+                displayValue: "Yes",
+                value: "yes",
+                onClick: reset,
+              },
+              {
+                displayValue: "No",
+                value: "no",
+                onClick: reset,
+              },
+            ]}
+          ></QMR.RadioButton>
+        </CUI.Box>
+      )}
+      {shouldShowStandardsQuestion && (
+        <CUI.Box
+          mt={shouldShowReportingMeasureStratification ? "32px" : undefined}
+        >
+          <QMR.RadioButton
+            key={`OptionalMeasureStratification.${DC.VERSION}`}
+            name={`OptionalMeasureStratification.${DC.VERSION}`}
+            formLabelProps={{ fontWeight: "700" }}
+            label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
+            subTextElement={subText}
+            options={[
+              {
+                displayValue: options["1997-omb"],
+                value: "1997-omb",
+                onClick: reset,
+              },
+              {
+                displayValue: options["2024-omb"],
+                value: "2024-omb",
+                onClick: reset,
+              },
+              {
+                displayValue: notReportingLabel,
+                value: "not-reporting",
+                onClick: reset,
+              },
+            ]}
+          ></QMR.RadioButton>
+        </CUI.Box>
+      )}
+    </>
   );
 };
 
@@ -66,6 +109,11 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const { watch, setValue, resetField } =
     useFormContext<Types.OptionalMeasureStratification>();
   const data = watch();
+  const reportingMeasureStratification = useWatch({
+    name: `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`,
+  });
+  const shouldUseReportingMeasureStratification =
+    featuresByYear.useStratificationYesNo;
 
   const [version, setVersion] = useState<string>();
   const [omsData, setOMSData] = useState<Types.OmsNode[]>();
@@ -145,26 +193,43 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     setValue("OptionalMeasureStratification.selections", clearedData);
   };
 
+  const detailsSection = (
+    <>
+      <CUI.Heading size="md" as="h2" my="6">
+        Measure Stratification Details
+      </CUI.Heading>
+      <StratificationAdditionalNotes />
+    </>
+  );
+
+  const hasSelectedVersion = version != undefined;
+  const isReportingStratification =
+    !shouldUseReportingMeasureStratification ||
+    reportingMeasureStratification === "yes";
+  const shouldShowDetailsSection =
+    hasSelectedVersion &&
+    isReportingStratification &&
+    (shouldUseReportingMeasureStratification || version !== "not-reporting");
+  const shouldShowStratification =
+    hasSelectedVersion &&
+    isReportingStratification &&
+    (version === "1997-omb" ||
+      version === "2024-omb" ||
+      (shouldUseReportingMeasureStratification && version === "not-reporting"));
+
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
       <QMR.Accordion label="Instructions (Click to Expand)">
         {labels.MeasureStratification.instructions}
       </QMR.Accordion>
       <StratificationOption reset={onReset} year={year}></StratificationOption>
-      {(version === "1997-omb" || version === "2024-omb") && (
+      {shouldShowDetailsSection && detailsSection}
+      {shouldShowStratification && (
         <Stratification
           {...props}
           omsData={omsData!}
           year={year}
         ></Stratification>
-      )}
-      {version != undefined && (
-        <>
-          <CUI.Heading size="md" as="h2" my="6">
-            Measure Stratification Details
-          </CUI.Heading>
-          <StratificationAdditionalNotes />
-        </>
       )}
     </QMR.CoreQuestionWrapper>
   );

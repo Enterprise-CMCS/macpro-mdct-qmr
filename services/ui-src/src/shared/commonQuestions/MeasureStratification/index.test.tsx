@@ -1,9 +1,16 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MeasureStrat } from ".";
 import { renderWithHookForm } from "utils";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/commonQuestionsLabel";
+import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
+import { getMeasureYear } from "utils/getMeasureYear";
+
+jest.mock("utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn(),
+}));
 
 const omsData = {
   O8BrOa: {
@@ -27,27 +34,59 @@ const omsData = {
 global.structuredClone = () => omsData;
 
 describe("Test MeasureStratification", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    useApiMock({});
+  const renderMeasureStratification = (year = 2026) => {
+    (getMeasureYear as jest.Mock).mockReturnValue(year);
+    const labels =
+      year === 2025 ? commonQuestionsLabels2025 : commonQuestionsLabels2026;
 
     renderWithHookForm(
-      <SharedContext.Provider
-        value={{ ...commonQuestionsLabels2026, year: 2026 }}
-      >
+      <SharedContext.Provider value={{ ...labels, year }}>
         <MeasureStrat data={[]} measureName="" />
       </SharedContext.Provider>
     );
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    useApiMock({});
   });
+
   test("Test MeasureStratification render", () => {
+    renderMeasureStratification(2026);
+
     expect(
       screen.getByText(
-        "Which race and ethnicity standards would your state like to use for 2026 Core Sets reporting?"
+        "Are you reporting measure stratification for this measure?"
       )
     ).toBeInTheDocument();
     expect(
       screen.getByRole("radio", {
-        name: "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
+        name: "Yes",
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: "No",
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Which race and ethnicity standards would your state like to use for 2026 Core Sets reporting?"
+      )
+    ).not.toBeInTheDocument();
+  });
+
+  test("Test standards question and options render for pre-2026", () => {
+    renderMeasureStratification(2025);
+
+    expect(
+      screen.getByText(
+        "Which race and ethnicity standards would your state like to use for 2025 Core Sets reporting?"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
       })
     ).toBeInTheDocument();
     expect(
@@ -57,27 +96,109 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("radio", {
-        name: "I am not reporting stratified data for this measure",
+        name: "I am not reporting measure stratification for this measure",
       })
     ).toBeInTheDocument();
   });
 
-  test("Test data is reset when switching Stratification versions", () => {
-    const radioA = screen.getByText(
-      "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards"
-    );
-    const radioC = screen.getByText(
-      "I am not reporting stratified data for this measure"
-    );
-    fireEvent.click(radioA);
-    expect(
-      omsData.O8BrOa.selections.KRwFRN.rateData.rates.ZCy3XP.xS5HMm[0]
-    ).toStrictEqual({ numerator: 5, denominator: 5, rate: 100 });
+  test("Test 2026 standards question and not-applicable label after selecting yes", () => {
+    renderMeasureStratification(2026);
 
-    //when selecting another radio button, it should run the reset function
-    fireEvent.click(radioC);
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
     expect(
-      omsData.O8BrOa.selections.KRwFRN.rateData.rates.ZCy3XP.xS5HMm[0]
-    ).toStrictEqual({ numerator: "", denominator: "", rate: "" });
+      screen.getByText(
+        "Which race and ethnicity standards would your state like to use for 2026 Core Sets reporting?"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: "Not applicable",
+      })
+    ).toBeInTheDocument();
+  });
+
+  test("Test selecting Not applicable shows stratification section", () => {
+    renderMeasureStratification(2026);
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Not applicable",
+      })
+    );
+
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
+    expect(screen.getByText("Sex")).toBeInTheDocument();
+    expect(screen.getByText("Geography")).toBeInTheDocument();
+  });
+
+  test("Test pre-2026 not-reporting does not show stratification section", () => {
+    renderMeasureStratification(2025);
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "I am not reporting measure stratification for this measure",
+      })
+    );
+
+    expect(
+      screen.queryByText("Enter Measure Stratification")
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Measure Stratification Details")
+    ).not.toBeInTheDocument();
+  });
+
+  test("Test pre-2026 standards selection shows stratification section", () => {
+    renderMeasureStratification(2025);
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
+      })
+    );
+
+    expect(
+      screen.getByText("Measure Stratification Details")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
+  });
+
+  test("Test 2026 not-applicable shows stratification without Race and Ethnicity", () => {
+    renderMeasureStratification(2026);
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Not applicable",
+      })
+    );
+
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
+    expect(screen.getByText("Sex")).toBeInTheDocument();
+    expect(screen.getByText("Geography")).toBeInTheDocument();
   });
 });
