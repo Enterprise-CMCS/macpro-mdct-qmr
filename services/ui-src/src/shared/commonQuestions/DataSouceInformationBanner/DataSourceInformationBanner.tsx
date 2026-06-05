@@ -70,19 +70,21 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
         {DataSources?.[programType].DataSource.length ? (
           DataSources[programType].DataSource.map((dataSource: string) => {
             return (
-              <CUI.UnorderedList key={`${dataSource}-${idx}`}>
+              <CUI.Box key={`${dataSource}-${idx}`}>
                 <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
                   {getDataSourceDisplayName(dataSource)}
                 </CUI.Heading>
-                {dataSourceSelections(
-                  dataSource,
-                  DataSources[programType].DataSourceSelections
-                ).map((item, srcIdx) => (
-                  <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
-                    {item}
-                  </CUI.ListItem>
-                ))}
-              </CUI.UnorderedList>
+                <CUI.UnorderedList>
+                  {dataSourceSelections(
+                    dataSource,
+                    DataSources[programType].DataSourceSelections
+                  ).map((item, srcIdx) => (
+                    <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
+                      {item}
+                    </CUI.ListItem>
+                  ))}
+                </CUI.UnorderedList>
+              </CUI.Box>
             );
           })
         ) : (
