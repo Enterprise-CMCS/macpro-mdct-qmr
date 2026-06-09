@@ -1,5 +1,13 @@
 import { OmsNode } from "shared/types";
 
+/**
+ * Returns OMS data for a given year and core set context.
+ *
+ * @param coreSetContext - Replaces the old `adultMeasure` boolean parameter.
+ *   - boolean: true = adult measures, false = child/health measures (legacy callers)
+ *   - string: core set ID like "ACSM", "CCSM", "HHCS_24-xxxx" (2026 Foster Care/Medicaid Expansion)
+ *   Type is checked internally to derive both adultMeasure and coreSetId as needed.
+ */
 export const OMSData = (
   year: number,
   coreSetContext?: string | boolean,

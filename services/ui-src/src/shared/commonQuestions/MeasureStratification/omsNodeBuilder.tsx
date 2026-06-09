@@ -172,7 +172,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {props.helperText && (
-        <CUI.Text fontSize="sm" color="#5A5A5A" mb={4}>
+        <CUI.Text fontSize="sm" color="gray.600" mb={4}>
           {props.helperText}
         </CUI.Text>
       )}
@@ -183,7 +183,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           overrideExpand={props.overrideAccordion?.(options.value)}
         >
           {options.helperText && (
-            <CUI.Text fontSize="sm" color="#5A5A5A" mb={4}>
+            <CUI.Text fontSize="sm" color="gray.600" mb={4}>
               {options.helperText}
             </CUI.Text>
           )}
