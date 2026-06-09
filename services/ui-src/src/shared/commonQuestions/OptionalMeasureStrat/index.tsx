@@ -91,8 +91,7 @@ export const OptionalMeasureStrat = ({
     performanceMeasureArray = undefined;
 
   const { coreSetId } = useParams();
-  const omsData =
-    data ?? OMSData(year, coreset === "adult", undefined, coreSetId);
+  const omsData = data ?? OMSData(year, coreSetId ?? coreset);
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<Types.OMSType>();
   const values = getValues();

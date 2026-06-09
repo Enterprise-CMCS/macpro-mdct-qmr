@@ -127,9 +127,8 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       setOMSData(
         OMSData(
           year,
-          coreset === "adult",
-          data.OptionalMeasureStratification.version,
-          coreSetId
+          coreSetId ?? coreset,
+          data.OptionalMeasureStratification.version
         )
       );
     }

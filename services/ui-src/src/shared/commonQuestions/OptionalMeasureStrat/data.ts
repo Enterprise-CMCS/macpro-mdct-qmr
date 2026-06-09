@@ -2,10 +2,18 @@ import { OmsNode } from "shared/types";
 
 export const OMSData = (
   year: number,
-  adultMeasure?: boolean,
+  coreSetContext?: string | boolean,
   version?: string,
-  coreSetId?: string
+  legacyCoreSetId?: string
 ): OmsNode[] => {
+  const coreSetId =
+    legacyCoreSetId ??
+    (typeof coreSetContext === "string" ? coreSetContext : undefined);
+  const adultMeasure =
+    typeof coreSetContext === "boolean"
+      ? coreSetContext
+      : coreSetContext === "adult" || coreSetContext?.startsWith("ACS");
+
   switch (Number(year)) {
     case 2021:
     case 2022:
@@ -204,15 +212,15 @@ const strat2026 = (coreSetId?: string): OmsNode[] => {
   // Foster Care: Child Medicaid + Health Home only
   if (coreSetId?.startsWith("HHCS") || coreSetId === "CCSM") {
     data.push({
-      id: "foster-care",
+      id: "ggYk0j",
       label: "Foster Care",
       options: [
         {
-          id: "in-foster-care",
+          id: "WwTFBg",
           label: "In foster care during the measurement period",
         },
         {
-          id: "not-in-foster-care",
+          id: "u0TFWg",
           label: "Not in foster care during the measurement period",
         },
       ],
@@ -223,20 +231,20 @@ const strat2026 = (coreSetId?: string): OmsNode[] => {
   // Medicaid Expansion: Adult Medicaid + Health Home only
   if (coreSetId?.startsWith("HHCS") || coreSetId === "ACSM") {
     data.push({
-      id: "medicaid-expansion",
+      id: "KSB26p",
       label: "Medicaid Expansion",
       aggregateTitle: "expansion group",
       helperText:
         "Skip the Medicaid expansion stratification if your state has not fully expanded Medicaid for the adult population.",
       options: [
         {
-          id: "adult-group-full-expansion",
+          id: "34Bj90",
           label: "Adult group – Full expansion",
           helperText:
-            "Adults enrolled in Medicaid under the adult group at section 1902(a)(10)(A)(i )(VIII) of the Act, and in regulation at 42 C.F.R. § 435.119[1] or in a section 1115 demonstration that provides eligibility for the entire adult group population.",
+            "Adults enrolled in Medicaid under the adult group at section 1902(a)(10)(A)(i)(VIII) of the Act, and in regulation at 42 C.F.R. § 435.119[1] or in a section 1115 demonstration that provides eligibility for the entire adult group population.",
         },
         {
-          id: "medicaid-expansion-non-expansion-beneficiaries",
+          id: "N8EWVa",
           label: "Medicaid-Non-expansion beneficiaries",
           helperText:
             "Includes Adults enrolled in Medicaid that are not in the Adult group – Full expansion, as defined above.",
