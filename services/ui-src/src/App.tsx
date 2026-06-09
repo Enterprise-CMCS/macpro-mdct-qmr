@@ -11,7 +11,7 @@ import { fireTealiumPageView, makeMediaQueryClasses } from "utils";
 const App = () => {
   const mqClasses = makeMediaQueryClasses();
 
-  const { logout, user, showLocalLogins, loginWithIDM } = useUser();
+  const { logout, user, loginWithIDM, showLocalLogins } = useUser();
   const { pathname, key } = useLocation();
 
   // fire tealium page view on route change
