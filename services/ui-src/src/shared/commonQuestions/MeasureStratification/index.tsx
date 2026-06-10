@@ -2,6 +2,7 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
 import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useFormContext, useWatch } from "react-hook-form";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
@@ -103,6 +104,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const labels: any = useContext(SharedContext);
   const year = labels.year;
   const { coreset } = props;
+  const { coreSetId } = useParams();
 
   const { watch, setValue, resetField } =
     useFormContext<Types.OptionalMeasureStratification>();
@@ -126,7 +128,8 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         OMSData(
           year,
           coreset === "adult",
-          data.OptionalMeasureStratification.version
+          data.OptionalMeasureStratification.version,
+          coreSetId
         )
       );
     }
