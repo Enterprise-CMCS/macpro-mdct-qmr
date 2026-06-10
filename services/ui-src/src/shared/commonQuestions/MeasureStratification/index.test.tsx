@@ -7,9 +7,15 @@ import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/commonQuestionsLabel";
 import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 import { getMeasureYear } from "utils/getMeasureYear";
+import { useParams } from "react-router-dom";
 
 jest.mock("utils/getMeasureYear", () => ({
   getMeasureYear: jest.fn(),
+}));
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: jest.fn(),
 }));
 
 const omsData = {
@@ -34,8 +40,11 @@ const omsData = {
 global.structuredClone = () => omsData;
 
 describe("Test MeasureStratification", () => {
-  const renderMeasureStratification = (year = 2026) => {
+  const mockUseParams = useParams as jest.Mock;
+
+  const renderMeasureStratification = (year = 2026, coreSetId?: string) => {
     (getMeasureYear as jest.Mock).mockReturnValue(year);
+    mockUseParams.mockReturnValue({ coreSetId });
     const labels =
       year === 2025 ? commonQuestionsLabels2025 : commonQuestionsLabels2026;
 
@@ -200,5 +209,85 @@ describe("Test MeasureStratification", () => {
     expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
     expect(screen.getByText("Sex")).toBeInTheDocument();
     expect(screen.getByText("Geography")).toBeInTheDocument();
+  });
+
+  test("Test 2026 not-applicable keeps Medicaid Expansion for ACSM", () => {
+    renderMeasureStratification(2026, "ACSM");
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Not applicable",
+      })
+    );
+
+    expect(
+      screen.getByText("Enter Measure Stratification")
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
+    expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
+    expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
+  });
+
+  test("Test 2026 ACSM shows Medicaid Expansion only", () => {
+    renderMeasureStratification(2026, "ACSM");
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+      })
+    );
+
+    expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
+    expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
+  });
+
+  test("Test 2026 CCSM shows Foster Care only", () => {
+    renderMeasureStratification(2026, "CCSM");
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+      })
+    );
+
+    expect(screen.getByText("Foster Care")).toBeInTheDocument();
+    expect(screen.queryByText("Medicaid Expansion")).not.toBeInTheDocument();
+  });
+
+  test("Test 2026 HHCS SPA id shows both Foster Care and Medicaid Expansion", () => {
+    renderMeasureStratification(2026, "HHCS_24-0020");
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    userEvent.click(
+      screen.getByRole("radio", {
+        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+      })
+    );
+
+    expect(screen.getByText("Foster Care")).toBeInTheDocument();
+    expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
   });
 });
