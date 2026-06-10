@@ -4,7 +4,7 @@ import * as Types from "../../types";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useFormContext, useWatch } from "react-hook-form";
-import { OMSData } from "../OptionalMeasureStrat/data";
+import { getOmsData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
@@ -100,10 +100,10 @@ export const StratificationOption = ({ reset, year }: Props) => {
   );
 };
 
+/** This is the 2025 redesign of the stratification section. */
 export const MeasureStrat = (props: Types.OMSProps) => {
   const labels: any = useContext(SharedContext);
   const year = labels.year;
-  const { coreset } = props;
   const { coreSetId } = useParams();
 
   const { watch, setValue, resetField } =
@@ -125,12 +125,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     ) {
       setVersion(data.OptionalMeasureStratification.version);
       setOMSData(
-        OMSData(
-          year,
-          coreset === "adult",
-          data.OptionalMeasureStratification.version,
-          coreSetId
-        )
+        getOmsData(data.OptionalMeasureStratification.version, coreSetId)
       );
     }
   }, [data.OptionalMeasureStratification?.version]);

@@ -1,48 +1,25 @@
 import { OmsNode } from "shared/types";
+import { featuresByYear } from "utils/featuresByYear";
 
 /**
- * Select / generate the OMS data for a given year and core set context.
- * - Early QMR years display one set of stratification categories.
- * - Later the categories are updated, with 1997 standards for race & ethnicity.
- * - Then the 2024 standards may be swapped in.
- * - Then the race & ethnicity categories may be removed entirely.
- * @param year - The measure reporting year.
- * @param adultMeasure - `true` if the stratification should relate to adults.
- *   In 2021-2022, this affects the ACA Expansion category.
+ * Select / generate the current OMS data for this context.
  * @param version - Indicates the race & ethnicity standards version.
  * @param coreSetId - Indicates the specific core set.
  *   In 2026+, this affects the Foster Care & Medicaid categories.
  */
-export const OMSData = (
-  year: number,
-  adultMeasure?: boolean,
-  version?: string,
-  coreSetId?: string
-): OmsNode[] => {
-  switch (Number(year)) {
-    case 2021:
-    case 2022:
-      return dataLegacy(adultMeasure);
-    case 2023:
-    case 2024:
-      return omb1997();
-    case 2025:
-      return version === "1997-omb" ? omb1997() : omb2024();
-    case 2026:
-      if (version === "1997-omb") {
-        return omb1997();
-      }
-      if (version === "not-reporting") {
-        return removeRaceAndEthnicity(strat2026(coreSetId));
-      }
-      return strat2026(coreSetId);
-    default:
-      if (version === "not-reporting") {
-        return removeRaceAndEthnicity(modifyMissingLabel(omb2024()));
-      }
-
-      return modifyMissingLabel(version === "1997-omb" ? omb1997() : omb2024());
+export const getOmsData = (version?: string, coreSetId?: string): OmsNode[] => {
+  let data = getOmsData_2024Standards();
+  if (version === "1997-omb") {
+    data = getOmsData_1997Standards();
   }
+  if (featuresByYear.useStratificationYesNo) {
+    if (version === "not-reporting") {
+      data = removeRaceAndEthnicity(data);
+    }
+    data = addFosterCareAndMedicaid(data, coreSetId);
+    data = modifyMissingLabel(data);
+  }
+  return data;
 };
 
 const removeRaceAndEthnicity = (data: OmsNode[]) => {
@@ -54,7 +31,10 @@ const removeRaceAndEthnicity = (data: OmsNode[]) => {
   );
 };
 
-/** In 2026, we want the "Missing or not reported" label to be more specific so this function will turn it to "Missing or not reported (Race), etc"*/
+/**
+ * In 2026, we want the "Missing or not reported" label to be more specific.
+ * So this function will turn it to "Missing or not reported (Race)", etc
+ */
 const modifyMissingLabel = (data: OmsNode[]) => {
   return data.map((node) => {
     if (!node.options) return node;
@@ -70,7 +50,7 @@ const modifyMissingLabel = (data: OmsNode[]) => {
   });
 };
 
-const omb2024 = (): OmsNode[] => {
+const getOmsData_2024Standards = (): OmsNode[] => {
   return [
     {
       id: "3dpUZu",
@@ -211,11 +191,16 @@ const omb2024 = (): OmsNode[] => {
   ];
 };
 
-const strat2026 = (coreSetId?: string): OmsNode[] => {
-  const data: OmsNode[] = [...omb2024()];
+const addFosterCareAndMedicaid = (
+  data: OmsNode[],
+  coreSetId?: string
+): OmsNode[] => {
+  if (!coreSetId) {
+    return data;
+  }
 
   // Foster Care: Child Medicaid + Health Home only
-  if (coreSetId?.startsWith("HHCS") || coreSetId === "CCSM") {
+  if (coreSetId.startsWith("HHCS") || coreSetId === "CCSM") {
     data.push({
       id: "ggYk0j",
       label: "Foster Care",
@@ -234,7 +219,7 @@ const strat2026 = (coreSetId?: string): OmsNode[] => {
   }
 
   // Medicaid Expansion: Adult Medicaid + Health Home only
-  if (coreSetId?.startsWith("HHCS") || coreSetId === "ACSM") {
+  if (coreSetId.startsWith("HHCS") || coreSetId === "ACSM") {
     data.push({
       id: "KSB26p",
       label: "Medicaid Expansion",
@@ -262,7 +247,12 @@ const strat2026 = (coreSetId?: string): OmsNode[] => {
   return data;
 };
 
-const omb1997 = (): OmsNode[] => {
+/**
+ * Fetch the measure stratification categories,
+ * as they existed in 2023-2024,
+ * using the Office of Management & Budget's 1997 standards of race & ethnicity.
+ */
+export const getOmsData_1997Standards = (): OmsNode[] => {
   return [
     {
       id: "3dpUZu",
@@ -382,7 +372,12 @@ const omb1997 = (): OmsNode[] => {
     },
   ];
 };
-const dataLegacy = (adultMeasure?: boolean) => {
+
+/**
+ * Fetch the measure stratification categories, as they existed in 2021-2022.
+ * @param includeAcaExpansion - This category is shown for adult measures only.
+ */
+export const getOmsData_Legacy = (includeAcaExpansion: boolean) => {
   let data: OmsNode[] = [
     {
       id: "Race (Non-Hispanic)",
@@ -459,7 +454,7 @@ const dataLegacy = (adultMeasure?: boolean) => {
 
   data = addLabelToData(data);
 
-  adultMeasure &&
+  includeAcaExpansion &&
     data.push({
       id: "Adult Eligibility Group (ACA Expansion Group)",
       label: "Adult Eligibility Group (ACA Expansion Group)",

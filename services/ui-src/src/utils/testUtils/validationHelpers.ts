@@ -1,5 +1,8 @@
 import * as DC from "dataConstants";
-import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+import {
+  getOmsData_Legacy,
+  getOmsData_1997Standards,
+} from "shared/commonQuestions/OptionalMeasureStrat/data";
 import {
   OmsNode,
   RateFields,
@@ -306,7 +309,10 @@ export const generateOmsFormData = (
   addToSelections = true,
   renderData?: DDT.OptionalMeasureStrat
 ) => {
-  const data = (renderData ?? isLegacyLabel()) ? OMSData(2021) : OMSData(2023);
+  const data =
+    (renderData ?? isLegacyLabel())
+      ? getOmsData_Legacy(true)
+      : getOmsData_1997Standards();
   const description = "TestAdditionalCategoryOrSubCategory";
   const omsData: OptionalMeasureStratification = {
     OptionalMeasureStratification: { options: [], selections: {} },

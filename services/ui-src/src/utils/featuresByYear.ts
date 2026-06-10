@@ -187,6 +187,9 @@ export const featuresByYear = {
    * - Added a yes/no radio for "Are you reporting measure stratification?"
    * - Changed the third standards option from "not-reporting" to "Not applicable"
    * - "Not applicable" now renders stratification options (excluding Race/Ethnicity)
+   *
+   * Additionally, we added stratification categories for Foster Care
+   * and Medicaid Expansion, which will only appear within certain core sets.
    */
   get useStratificationYesNo() {
     return getMeasureYear() >= 2026;

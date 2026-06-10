@@ -2,13 +2,12 @@ import * as DC from "dataConstants";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "./../../types";
-import { OMSData } from "./data";
+import { getOmsData_Legacy, getOmsData_1997Standards } from "./data";
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { useParams } from "react-router-dom";
-import { cleanString, rateIsReadOnly } from "utils";
+import { cleanString, isLegacyLabel, rateIsReadOnly } from "utils";
 import SharedContext from "shared/SharedContext";
 
 /**
@@ -53,7 +52,10 @@ export const buildOmsCheckboxes = ({
 };
 
 /**
- * Final OMS built
+ * The stratification section, as it appeared from 2020-2024.
+ *
+ * There is no need to modify this going forward.
+ * See ../MeasureStrat/index.tsx for the 2025+ version.
  */
 export const OptionalMeasureStrat = ({
   performanceMeasureArray,
@@ -90,9 +92,15 @@ export const OptionalMeasureStrat = ({
   if (IUHHPerformanceMeasureArray || AIFHHPerformanceMeasureArray)
     performanceMeasureArray = undefined;
 
-  const { coreSetId } = useParams();
-  const omsData =
-    data ?? OMSData(year, coreset === "adult", undefined, coreSetId);
+  let omsData;
+  if (data) {
+    omsData = data;
+  } else if (isLegacyLabel()) {
+    omsData = getOmsData_Legacy(coreset === "adult");
+  } else {
+    omsData = getOmsData_1997Standards();
+  }
+
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<Types.OMSType>();
   const values = getValues();
