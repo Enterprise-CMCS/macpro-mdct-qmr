@@ -1,9 +1,23 @@
 import { OmsNode } from "shared/types";
 
+/**
+ * Select / generate the OMS data for a given year and core set context.
+ * - Early QMR years display one set of stratification categories.
+ * - Later the categories are updated, with 1997 standards for race & ethnicity.
+ * - Then the 2024 standards may be swapped in.
+ * - Then the race & ethnicity categories may be removed entirely.
+ * @param year - The measure reporting year.
+ * @param adultMeasure - `true` if the stratification should relate to adults.
+ *   In 2021-2022, this affects the ACA Expansion category.
+ * @param version - Indicates the race & ethnicity standards version.
+ * @param coreSetId - Indicates the specific core set.
+ *   In 2026+, this affects the Foster Care & Medicaid categories.
+ */
 export const OMSData = (
   year: number,
   adultMeasure?: boolean,
-  version?: string
+  version?: string,
+  coreSetId?: string
 ): OmsNode[] => {
   switch (Number(year)) {
     case 2021:
@@ -14,12 +28,13 @@ export const OMSData = (
       return omb1997();
     case 2025:
       return version === "1997-omb" ? omb1997() : omb2024();
-    default:
+    default: // 2026 and forward
       if (version === "not-reporting") {
-        return removeRaceAndEthnicity(modifyMissingLabel(omb2024()));
+        return modifyMissingLabel(removeRaceAndEthnicity(strat2026(coreSetId)));
       }
-
-      return modifyMissingLabel(version === "1997-omb" ? omb1997() : omb2024());
+      return modifyMissingLabel(
+        version === "1997-omb" ? omb1997() : strat2026(coreSetId)
+      );
   }
 };
 
@@ -48,7 +63,7 @@ const modifyMissingLabel = (data: OmsNode[]) => {
   });
 };
 
-const omb2024 = () => {
+const omb2024 = (): OmsNode[] => {
   return [
     {
       id: "3dpUZu",
@@ -189,7 +204,58 @@ const omb2024 = () => {
   ];
 };
 
-const omb1997 = () => {
+const strat2026 = (coreSetId?: string): OmsNode[] => {
+  const data: OmsNode[] = [...omb2024()];
+
+  // Foster Care: Child Medicaid + Health Home only
+  if (coreSetId?.startsWith("HHCS") || coreSetId === "CCSM") {
+    data.push({
+      id: "ggYk0j",
+      label: "Foster Care",
+      options: [
+        {
+          id: "WwTFBg",
+          label: "In foster care during the measurement period",
+        },
+        {
+          id: "u0TFWg",
+          label: "Not in foster care during the measurement period",
+        },
+      ],
+      addMore: false,
+    });
+  }
+
+  // Medicaid Expansion: Adult Medicaid + Health Home only
+  if (coreSetId?.startsWith("HHCS") || coreSetId === "ACSM") {
+    data.push({
+      id: "KSB26p",
+      label: "Medicaid Expansion",
+      aggregateTitle: "expansion group",
+      helperText:
+        "Skip the Medicaid expansion stratification if your state has not fully expanded Medicaid for the adult population.",
+      options: [
+        {
+          id: "34Bj90",
+          label: "Adult group – Full expansion",
+          helperText:
+            "Adults enrolled in Medicaid under the adult group at section 1902(a)(10)(A)(i)(VIII) of the Act, and in regulation at 42 C.F.R. § 435.119[1] or in a section 1115 demonstration that provides eligibility for the entire adult group population.",
+        },
+        {
+          id: "N8EWVa",
+          label: "Medicaid-Non-expansion beneficiaries",
+          helperText:
+            "Includes Adults enrolled in Medicaid that are not in the Adult group – Full expansion, as defined above.",
+        },
+      ],
+      addMore: true,
+    });
+  }
+
+  return data;
+};
+
+const omb1997 = (): OmsNode[] => {
   return [
     {
       id: "3dpUZu",
