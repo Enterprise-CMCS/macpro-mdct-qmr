@@ -28,20 +28,13 @@ export const OMSData = (
       return omb1997();
     case 2025:
       return version === "1997-omb" ? omb1997() : omb2024();
-    case 2026:
-      if (version === "1997-omb") {
-        return omb1997();
-      }
+    default: // 2026 and forward
       if (version === "not-reporting") {
-        return removeRaceAndEthnicity(strat2026(coreSetId));
+        return removeRaceAndEthnicity(modifyMissingLabel(strat2026(coreSetId)));
       }
-      return strat2026(coreSetId);
-    default:
-      if (version === "not-reporting") {
-        return removeRaceAndEthnicity(modifyMissingLabel(omb2024()));
-      }
-
-      return modifyMissingLabel(version === "1997-omb" ? omb1997() : omb2024());
+      return modifyMissingLabel(
+        version === "1997-omb" ? omb1997() : strat2026(coreSetId)
+      );
   }
 };
 
