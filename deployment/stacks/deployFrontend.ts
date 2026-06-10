@@ -79,7 +79,7 @@ export function deployFrontend(props: DeployFrontendProps) {
     ],
     destinationBucket: uiBucket,
     distribution,
-    distributionPaths: ["/*"],
+    distributionPaths: ["/", "/index.html", "/env-config.js"],
     prune: false,
     cacheControl: [
       s3_deployment.CacheControl.noCache(),
