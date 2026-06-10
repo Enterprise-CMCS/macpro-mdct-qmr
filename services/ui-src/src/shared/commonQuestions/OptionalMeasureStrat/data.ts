@@ -30,7 +30,7 @@ export const OMSData = (
       return version === "1997-omb" ? omb1997() : omb2024();
     default: // 2026 and forward
       if (version === "not-reporting") {
-        return removeRaceAndEthnicity(modifyMissingLabel(strat2026(coreSetId)));
+        return modifyMissingLabel(removeRaceAndEthnicity(strat2026(coreSetId)));
       }
       return modifyMissingLabel(
         version === "1997-omb" ? omb1997() : strat2026(coreSetId)
