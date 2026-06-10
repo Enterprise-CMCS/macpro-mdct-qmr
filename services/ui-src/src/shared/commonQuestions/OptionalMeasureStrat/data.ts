@@ -1,27 +1,24 @@
 import { OmsNode } from "shared/types";
 
 /**
- * Returns OMS data for a given year and core set context.
- *
- * @param coreSetContext - Replaces the old `adultMeasure` boolean parameter.
- *   - boolean: true = adult measures, false = child/health measures (legacy callers)
- *   - string: core set ID like "ACSM", "CCSM", "HHCS_24-xxxx" (2026 Foster Care/Medicaid Expansion)
- *   Type is checked internally to derive both adultMeasure and coreSetId as needed.
+ * Select / generate the OMS data for a given year and core set context.
+ * - Early QMR years display one set of stratification categories.
+ * - Later the categories are updated, with 1997 standards for race & ethnicity.
+ * - Then the 2024 standards may be swapped in.
+ * - Then the race & ethnicity categories may be removed entirely.
+ * @param year - The measure reporting year.
+ * @param adultMeasure - `true` if the stratification should relate to adults.
+ *   In 2021-2022, this affects the ACA Expansion category.
+ * @param version - Indicates the race & ethnicity standards version.
+ * @param coreSetId - Indicates the specific core set.
+ *   In 2026+, this affects the Foster Care & Medicaid categories.
  */
 export const OMSData = (
   year: number,
-  coreSetContext?: string | boolean,
+  adultMeasure?: boolean,
   version?: string,
-  legacyCoreSetId?: string
+  coreSetId?: string
 ): OmsNode[] => {
-  const coreSetId =
-    legacyCoreSetId ??
-    (typeof coreSetContext === "string" ? coreSetContext : undefined);
-  const adultMeasure =
-    typeof coreSetContext === "boolean"
-      ? coreSetContext
-      : coreSetContext === "adult" || coreSetContext?.startsWith("ACS");
-
   switch (Number(year)) {
     case 2021:
     case 2022:
