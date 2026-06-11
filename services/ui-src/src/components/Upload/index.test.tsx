@@ -62,17 +62,7 @@ describe("Test Upload Component", () => {
 });
 
 describe("Test Drag and Drop, Download, and Delete", () => {
-  beforeEach(async () => {
-    mockUseUser.mockImplementation(() => {
-      return { isStateUser: true };
-    });
-
-    renderWithHookForm(
-      <QueryClientProvider client={queryClient}>
-        <QMR.Upload name="test-component" label="test label" />
-      </QueryClientProvider>
-    );
-
+  const simulateDragAndDrop = async () => {
     const dropZone = screen.getByTestId("upload-stack");
     const fileToUpload = new File(["test"], "test.png", {
       type: "image/png",
@@ -86,9 +76,22 @@ describe("Test Drag and Drop, Download, and Delete", () => {
         },
       });
     });
+  };
+
+  beforeEach(async () => {
+    mockUseUser.mockImplementation(() => {
+      return { isStateUser: true };
+    });
+
+    renderWithHookForm(
+      <QueryClientProvider client={queryClient}>
+        <QMR.Upload name="test-component" label="test label" />
+      </QueryClientProvider>
+    );
   });
 
   test("Check that you can drag and drop a file", async () => {
+    await simulateDragAndDrop();
     expect(screen.getByText("test.png")).toBeInTheDocument();
   });
 
@@ -111,6 +114,7 @@ describe("Test Drag and Drop, Download, and Delete", () => {
   });
 
   test("Check that file can be downloaded", async () => {
+    await simulateDragAndDrop();
     const mockDownloadData = jest.spyOn(
       require("aws-amplify/storage"),
       "downloadData"
@@ -122,6 +126,7 @@ describe("Test Drag and Drop, Download, and Delete", () => {
   });
 
   test("Check that file can be deleted", async () => {
+    await simulateDragAndDrop();
     const mockRemove = jest.spyOn(require("aws-amplify/storage"), "remove");
     await act(async () => {
       screen.getByTestId("test-delete-btn-0").click();
@@ -138,9 +143,11 @@ describe("Test Drag and Drop, Download, and Delete", () => {
       throw new Error("Mock upload error");
     });
 
-    expect(
-      await screen.findByText("There was an error uploading your file")
-    ).toBeInTheDocument();
+    await simulateDragAndDrop();
+
+    await expect(
+      screen.findByText("There was an error uploading your file")
+    ).resolves.toBeInTheDocument();
 
     mockUploadData.mockRestore();
   });
