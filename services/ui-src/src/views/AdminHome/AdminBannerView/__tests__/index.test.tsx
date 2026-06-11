@@ -18,7 +18,6 @@ const mockErrorMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
 
 describe("Test AdminBannerView", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
     const apiData: any = {
       useDeleteBannerValues: {
         mutate: mockMutate,
