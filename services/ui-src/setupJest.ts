@@ -16,7 +16,7 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: jest.fn(),
   })),
 });
-jest.retryTimes(3);
+// jest.retryTimes(3);
 
 jest.mock("components/Title", () => ({
   Title: () => null,

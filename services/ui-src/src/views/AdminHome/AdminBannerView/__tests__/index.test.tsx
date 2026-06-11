@@ -18,6 +18,7 @@ const mockErrorMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
 
 describe("Test AdminBannerView", () => {
   beforeEach(() => {
+    jest.clearAllMocks();
     const apiData: any = {
       useDeleteBannerValues: {
         mutate: mockMutate,
@@ -33,7 +34,7 @@ describe("Test AdminBannerView", () => {
     expect(screen.getByText("Banner Admin")).toBeInTheDocument();
   });
 
-  test("Test create banner", () => {
+  test("Test create banner", async () => {
     const titleTextbox = screen.getByRole("textbox", { name: "Title Text" });
     fireEvent.change(titleTextbox, { target: { value: "banner title" } });
     const descTextbox = screen.getByRole("textbox", {
@@ -51,7 +52,7 @@ describe("Test AdminBannerView", () => {
 
     const createBtn = screen.getByText("Replace Current Banner");
     fireEvent.click(createBtn);
-    expect(mockMutate).toHaveBeenCalled();
+    await waitFor(() => expect(mockMutate).toHaveBeenCalled());
   });
 
   test("Test delete banner", async () => {
@@ -78,7 +79,7 @@ describe("Test AdminBannerView errors", () => {
     useApiMock(apiData);
     render(testComponent);
   });
-  test("Test submit error", () => {
+  test("Test submit error", async () => {
     const titleTextbox = screen.getByRole("textbox", { name: "Title Text" });
     fireEvent.change(titleTextbox, { target: { value: "banner title" } });
     const descTextbox = screen.getByRole("textbox", {
@@ -96,7 +97,7 @@ describe("Test AdminBannerView errors", () => {
 
     const createBtn = screen.getByText("Replace Current Banner");
     fireEvent.click(createBtn);
-    expect(mockErrorMutate).toHaveBeenCalled();
+    await waitFor(() => expect(mockErrorMutate).toHaveBeenCalled());
   });
   test("test delete error", () => {
     const deleteBtn = screen.getByRole("button", {
