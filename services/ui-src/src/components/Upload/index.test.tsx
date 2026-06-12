@@ -78,7 +78,7 @@ describe("Test Drag and Drop, Download, and Delete", () => {
     });
   };
 
-  beforeEach(async () => {
+  beforeEach(() => {
     mockUseUser.mockImplementation(() => {
       return { isStateUser: true };
     });
