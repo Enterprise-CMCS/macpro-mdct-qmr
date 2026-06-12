@@ -157,7 +157,7 @@ describe("Test StateHome 2024", () => {
       "View Combined Rates"
     )[0];
     userEvent.click(viewCombinedRatesButton);
-    expect(mockedNavigate).toBeCalled();
+    expect(mockedNavigate).toHaveBeenCalled();
   });
 });
 

@@ -6,7 +6,7 @@ const mockHandleValidation = jest.fn();
 const mockHandleSubmit = jest.fn();
 
 describe("Test CompleteCoreSet", () => {
-  it("Test CompleteCoreSet render", () => {
+  it("Test CompleteCoreSet render", async () => {
     render(
       <CompleteCoreSets
         handleSubmit={mockHandleSubmit}
@@ -24,14 +24,14 @@ describe("Test CompleteCoreSet", () => {
       name: "Validate Core Set Questions",
     });
     expect(validateBtn).toBeVisible();
-    userEvent.click(validateBtn);
-    expect(mockHandleValidation).toBeCalled();
+    await userEvent.click(validateBtn);
+    expect(mockHandleValidation).toHaveBeenCalled();
 
     const completeBtn = screen.getByRole("button", {
       name: "Complete Core Set Questions",
     });
     expect(completeBtn).toBeVisible();
-    userEvent.click(completeBtn);
-    expect(mockHandleSubmit).toBeCalled();
+    await userEvent.click(completeBtn);
+    expect(mockHandleSubmit).toHaveBeenCalled();
   });
 });

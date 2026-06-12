@@ -1,6 +1,5 @@
-import fireEvent from "@testing-library/user-event";
 import { CombinedRates } from "./CombinedRates";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import SharedContext from "shared/SharedContext";
 import commonQuestionsLabel from "labels/2023/commonQuestionsLabel";
@@ -69,7 +68,7 @@ describe("Test CombinedRates component", () => {
       "Describe the other weighting factor:"
     );
 
-    fireEvent.type(textArea, "This is the test text");
+    fireEvent.change(textArea, { target: { value: "This is the test text" } });
     expect(textArea).toHaveDisplayValue("This is the test text");
   });
 
@@ -160,7 +159,7 @@ describe("Test CombinedRates component for Health Homes", () => {
       "Describe the other weighting factor:"
     );
 
-    fireEvent.type(textArea, "This is the test text");
+    fireEvent.change(textArea, { target: { value: "This is the test text" } });
     expect(textArea).toHaveDisplayValue("This is the test text");
   });
 

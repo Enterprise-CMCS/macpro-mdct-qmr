@@ -110,10 +110,10 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
   });
 
-  test("Test 2026 standards question and not-applicable label after selecting yes", () => {
+  test("Test 2026 standards question and not-applicable label after selecting yes", async () => {
     renderMeasureStratification(2026);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
@@ -131,16 +131,16 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
   });
 
-  test("Test selecting Not applicable shows stratification section", () => {
+  test("Test selecting Not applicable shows stratification section", async () => {
     renderMeasureStratification(2026);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Not applicable",
       })
@@ -154,10 +154,10 @@ describe("Test MeasureStratification", () => {
     expect(screen.getByText("Geography")).toBeInTheDocument();
   });
 
-  test("Test pre-2026 not-reporting does not show stratification section", () => {
+  test("Test pre-2026 not-reporting does not show stratification section", async () => {
     renderMeasureStratification(2025);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "I am not reporting measure stratification for this measure",
       })
@@ -171,10 +171,10 @@ describe("Test MeasureStratification", () => {
     ).not.toBeInTheDocument();
   });
 
-  test("Test pre-2026 standards selection shows stratification section", () => {
+  test("Test pre-2026 standards selection shows stratification section", async () => {
     renderMeasureStratification(2025);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "1997 OMB minimum race and ethnicity categories, as specified in the 2011 HHS standards",
       })
@@ -188,16 +188,16 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
   });
 
-  test("Test 2026 not-applicable shows stratification without Race and Ethnicity", () => {
+  test("Test 2026 not-applicable shows stratification without Race and Ethnicity", async () => {
     renderMeasureStratification(2026);
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Not applicable",
       })
@@ -211,16 +211,16 @@ describe("Test MeasureStratification", () => {
     expect(screen.getByText("Geography")).toBeInTheDocument();
   });
 
-  test("Test 2026 not-applicable keeps Medicaid Expansion for ACSM", () => {
+  test("Test 2026 not-applicable keeps Medicaid Expansion for ACSM", async () => {
     renderMeasureStratification(2026, "ACSM");
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Not applicable",
       })
@@ -234,16 +234,16 @@ describe("Test MeasureStratification", () => {
     expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
   });
 
-  test("Test 2026 ACSM shows Medicaid Expansion only", () => {
+  test("Test 2026 ACSM shows Medicaid Expansion only", async () => {
     renderMeasureStratification(2026, "ACSM");
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
       })
@@ -253,16 +253,16 @@ describe("Test MeasureStratification", () => {
     expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
   });
 
-  test("Test 2026 CCSM shows Foster Care only", () => {
+  test("Test 2026 CCSM shows Foster Care only", async () => {
     renderMeasureStratification(2026, "CCSM");
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
       })
@@ -272,16 +272,16 @@ describe("Test MeasureStratification", () => {
     expect(screen.queryByText("Medicaid Expansion")).not.toBeInTheDocument();
   });
 
-  test("Test 2026 HHCS SPA id shows both Foster Care and Medicaid Expansion", () => {
+  test("Test 2026 HHCS SPA id shows both Foster Care and Medicaid Expansion", async () => {
     renderMeasureStratification(2026, "HHCS_24-0020");
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: "Yes",
       })
     );
 
-    userEvent.click(
+    await userEvent.click(
       screen.getByRole("radio", {
         name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
       })

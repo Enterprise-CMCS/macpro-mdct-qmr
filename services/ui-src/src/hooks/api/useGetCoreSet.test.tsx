@@ -21,8 +21,8 @@ describe("Test useGetCoreSet", () => {
     expect(mockGetCoreSet).toHaveBeenCalled();
   });
   it("Test error", () => {
-    expect(() =>
-      useGetCoreSet({ coreSetId: "", state: "", year: "" })
-    ).toThrowError("state or year unavailable");
+    expect(() => useGetCoreSet({ coreSetId: "", state: "", year: "" })).toThrow(
+      "state or year unavailable"
+    );
   });
 });

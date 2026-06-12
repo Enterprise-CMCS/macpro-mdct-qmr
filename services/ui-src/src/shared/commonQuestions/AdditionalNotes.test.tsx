@@ -1,7 +1,6 @@
-import fireEvent from "@testing-library/user-event";
 import { AdditionalNotes } from "./AdditionalNotes";
 import { Reporting } from "./Reporting";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2024 } from "labels/2024/commonQuestionsLabel";
@@ -40,7 +39,7 @@ describe("Test AdditionalNotes component for 2024", () => {
 
   it("accepts input", async () => {
     const textArea = await screen.findByLabelText(isReportingTextAreaLabel);
-    fireEvent.type(textArea, "This is the test text");
+    fireEvent.change(textArea, { target: { value: "This is the test text" } });
     expect(textArea).toHaveDisplayValue("This is the test text");
   });
 
@@ -52,7 +51,7 @@ describe("Test AdditionalNotes component for 2024", () => {
     const textArea = await screen.findByLabelText(isReportingTextAreaLabel);
 
     fireEvent.click(reportingNo);
-    fireEvent.type(textArea, "This is the test text");
+    fireEvent.change(textArea, { target: { value: "This is the test text" } });
     expect(textArea).toHaveDisplayValue("This is the test text");
 
     // change reporting radio button option from no to yes

@@ -26,6 +26,6 @@ describe("Test useUpdateMeasure", () => {
   });
   it("Test error", () => {
     mockUseParam.mockReturnValue({});
-    expect(() => useUpdateMeasure()).toThrowError("Missing required fields");
+    expect(() => useUpdateMeasure()).toThrow("Missing required fields");
   });
 });
