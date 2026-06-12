@@ -25,7 +25,7 @@
     "kafkajs": "^2.2.4",
     "prompt-sync": "^4.2.0",
     "sanitize-html": "^2.17.4",
-    "uuid": "^11.1.1"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
