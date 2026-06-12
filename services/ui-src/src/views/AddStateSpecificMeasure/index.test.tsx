@@ -1,5 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import fireEvent from "@testing-library/user-event";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { AddStateSpecificMeasure } from ".";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterWrappedComp } from "utils/testing";
@@ -123,12 +122,12 @@ describe("AddStateSpecificMeasure", () => {
         const nameTextbox = screen.getByRole("textbox", {
           name: "add-ssm.0.description",
         });
-        fireEvent.type(nameTextbox, "name");
+        fireEvent.change(nameTextbox, { target: { value: "name" } });
 
         const descTextbox = screen.getByRole("textbox", {
           name: "Please provide a description of the measure",
         });
-        fireEvent.type(descTextbox, "desc");
+        fireEvent.change(descTextbox, { target: { value: "desc" } });
 
         const createBtn = screen.getByText(/Create/i);
         fireEvent.click(createBtn);
@@ -160,12 +159,12 @@ describe("AddStateSpecificMeasure", () => {
     const nameTextbox = screen.getByRole("textbox", {
       name: "add-ssm.0.description",
     });
-    fireEvent.type(nameTextbox, "name");
+    fireEvent.change(nameTextbox, { target: { value: "name" } });
 
     const descTextbox = screen.getByRole("textbox", {
       name: "Please provide a description of the measure",
     });
-    fireEvent.type(descTextbox, "desc");
+    fireEvent.change(descTextbox, { target: { value: "desc" } });
 
     const createBtn = screen.getByText(/Create/i);
     fireEvent.click(createBtn);

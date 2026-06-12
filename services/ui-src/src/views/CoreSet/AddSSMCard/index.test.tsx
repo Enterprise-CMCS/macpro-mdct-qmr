@@ -1,7 +1,7 @@
 import { AddSSMCard } from ".";
 import { render, screen } from "@testing-library/react";
-import { RouterWrappedComp } from "utils/testing";
 import userEvent from "@testing-library/user-event";
+import { RouterWrappedComp } from "utils/testing";
 
 jest.mock("hooks/authHooks", () => ({
   __esModule: true,
@@ -36,12 +36,12 @@ describe("AddSSMCard", () => {
       expect(screen.getByText(/Test button text/i)).toBeInTheDocument();
     });
 
-    it("renders component properly with correct test link", () => {
+    it("renders component properly with correct test link", async () => {
       mockNavigate.mockReturnValueOnce("/test-link");
       const btn = screen.getByText("Test button text");
       expect(btn).toBeInTheDocument();
-      userEvent.click(btn);
-      expect(mockNavigate).toBeCalled();
+      await userEvent.click(btn);
+      expect(mockNavigate).toHaveBeenCalled();
       expect(mockNavigate).toHaveReturnedWith("/test-link");
     });
 
@@ -70,7 +70,7 @@ describe("AddSSMCard", () => {
       expect(screen.getByText(/Test button text/i)).toBeEnabled();
     });
 
-    it("disables the button properly", () => {
+    it("disables the button properly", async () => {
       render(
         <RouterWrappedComp>
           <AddSSMCard
@@ -84,8 +84,8 @@ describe("AddSSMCard", () => {
 
       //because this is a button masking itself as a link, it can't actually be disabled, so we need to check if useNavigate had ran instead.
       const btn = screen.getByText(/Test button text/i);
-      userEvent.click(btn);
-      expect(mockNavigate).toBeCalledTimes(0);
+      await userEvent.click(btn);
+      expect(mockNavigate).toHaveBeenCalledTimes(0);
     });
   });
 });

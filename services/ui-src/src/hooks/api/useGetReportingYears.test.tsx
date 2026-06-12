@@ -26,8 +26,6 @@ describe("Test useGetReportingYears", () => {
   });
   it("Test error", () => {
     mockUseParam.mockReturnValue({});
-    expect(() => useGetReportingYears()).toThrowError(
-      "state or year unavailable"
-    );
+    expect(() => useGetReportingYears()).toThrow("state or year unavailable");
   });
 });

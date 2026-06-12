@@ -21,6 +21,6 @@ describe("Test useAddCoreSet", () => {
   });
   it("Test error", () => {
     mockUseParam.mockReturnValue({ state: "", year: "2026" });
-    expect(() => useAddCoreSet()).toThrowError("Missing required fields");
+    expect(() => useAddCoreSet()).toThrow("Missing required fields");
   });
 });
