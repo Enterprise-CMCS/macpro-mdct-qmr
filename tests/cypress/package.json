@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "concurrently": "^10.0.3",
-    "cypress": "^13",
+    "cypress": "^15",
     "dotenv": "^16.4.5",
     "typescript": "^5.9.3"
   }
