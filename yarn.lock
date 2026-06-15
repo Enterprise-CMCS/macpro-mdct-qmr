@@ -8497,12 +8497,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-cdk@npm:~2.1112.0":
-  version: 2.1112.0
-  resolution: "aws-cdk@npm:2.1112.0"
+"aws-cdk@npm:~2.1127.0":
+  version: 2.1127.0
+  resolution: "aws-cdk@npm:2.1127.0"
   bin:
     cdk: bin/cdk
-  checksum: 10c0/82eb0c205f6043063b0290625839a20c2683b1b645da02427834669461e46a5aa6517d6b63da3cf984ba032ccc02c4e06b189d7ec3bb3f34e116b433cf74c0cb
+  checksum: 10c0/5cf28a71cfd3ae65593a4afd9b41ac3b94a4707d53991ea0ee897a88aa0dd2ca13a686547b838c0560cde11a5defa2947ce9a37d594c643effb653790c94e4fa
   languageName: node
   linkType: hard
 
@@ -12582,7 +12582,7 @@ __metadata:
     "@types/node": "npm:^25.9.3"
     "@types/react-dom": "npm:^18.2.17"
     "@types/yargs": "npm:^17.0.33"
-    aws-cdk: "npm:~2.1112.0"
+    aws-cdk: "npm:~2.1127.0"
     aws-cdk-lib: "npm:~2.259.0"
     aws-cdk-local: "npm:~2.19.2"
     constructs: "npm:~10.5.0"
