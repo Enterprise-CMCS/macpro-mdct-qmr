@@ -77,9 +77,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("measure should render", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
-      expect(screen.getByText(measureAbbr + " - " + description));
+      expect(screen.queryByTestId("measure-wrapper-form")).toBeInTheDocument();
+      expect(
+        screen.getByText(measureAbbr + " - " + description)
+      ).toBeInTheDocument();
     });
   });
 
