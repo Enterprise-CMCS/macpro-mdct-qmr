@@ -69,8 +69,27 @@
     "setupFilesAfterEnv": [],
     "testTimeout": 33000,
     "transform": {
-      "^.+\\.ts?$": "ts-jest"
+      "^.+\\.m?js$": [
+        "babel-jest",
+        {
+          "presets": [
+            [
+              "@babel/preset-env",
+              {
+                "targets": {
+                  "node": "current"
+                },
+                "modules": "commonjs"
+              }
+            ]
+          ]
+        }
+      ],
+      "^.+\\.tsx?$": "ts-jest"
     },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(@asamuzakjp/|@bramus/|@csstools/|@exodus/bytes/|css-tree/|entities/|lru-cache/|parse5/))"
+    ],
     "verbose": true
   }
 }
