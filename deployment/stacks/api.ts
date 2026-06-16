@@ -280,7 +280,6 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     method: "POST",
     ...commonProps,
     bundling: {
-      forceDockerBundling: true,
       nodeModules: ["prince"],
     },
     timeout: Duration.seconds(30), // apigateway's max
