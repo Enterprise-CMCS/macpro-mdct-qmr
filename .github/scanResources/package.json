@@ -21,7 +21,7 @@
     "@aws-sdk/client-wafv2": "~3.1058.0",
     "@octokit/rest": "^22.0.1",
     "@types/adm-zip": "^0.5.7",
-    "@types/node": "^25.9.3",
+    "@types/node": "^22.19.0",
     "adm-zip": "^0.5.16",
     "ts-node": "^10.9.2",
     "tsx": "^4.22.4",
