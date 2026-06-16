@@ -1,5 +1,6 @@
 import { gunzipSync } from "node:zlib";
 import handler from "../../libs/handler-lib";
+import { logger } from "../../libs/debug-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 import sanitizeHtml from "sanitize-html";
@@ -71,11 +72,10 @@ async function generatePdfWithPrince(
     await prince.execute();
 
     const pdfBuffer = readFileSync(outputFile);
-    console.debug(`Successfully generated PDF with Prince XML`);
-
+    logger.debug(`Successfully generated PDF with Prince XML`);
     return pdfBuffer;
   } catch (error) {
-    console.warn("Prince XML Error:", error);
+    logger.warn("Prince XML Error:", error);
     throw new Error(
       `PDF generation failed: ${error instanceof Error ? error.message : String(error)}`
     );
@@ -85,7 +85,7 @@ async function generatePdfWithPrince(
       unlinkSync(outputFile);
       unlinkSync(licenseFile);
     } catch (error) {
-      console.warn("Failed to clean up temporary files:", error);
+      logger.warn("Failed to clean up temporary files:", error);
     }
   }
 }
@@ -104,6 +104,7 @@ async function generatePdfWithPrince(
  *    <img src="https://foo.com/bar.jpg"/>). Without this, Prince XML would
  *    reject our documents; when processing the document, relative
  *    URLs would appear as filesystem access attempts, which it disallows.
+ *  - "title" and "meta" - Preserve document metadata used by PDF renderers.
  *  - "polyline" - This makes checkbox checkmarks visible
  *  - "style" - Chakra UI uses style tags for critical CSS.
  */
@@ -111,9 +112,11 @@ const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
   const defaults = sanitizeHtml.defaults;
   const extraAttributes = {
     a: [...defaults.allowedAttributes.a, "rel"],
+    html: ["lang"],
     img: [...defaults.allowedAttributes.img, "class", "style"],
     link: ["rel", "href", "type", "media"],
     base: ["href", "target"],
+    meta: ["name", "content", "charset"],
     input: [
       "type",
       "value",
@@ -139,7 +142,16 @@ const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
     path: ["d", "fill", "stroke", "class", "style"],
     polyline: ["points"],
   };
-  const extraTags = ["html", "body", "head", "style", "label", "form"];
+  const extraTags = [
+    "html",
+    "body",
+    "head",
+    "title",
+    "meta",
+    "style",
+    "label",
+    "form",
+  ];
   return {
     // We must allowVulnerableTags in order to preserve `<style>` tags
     allowVulnerableTags: true,

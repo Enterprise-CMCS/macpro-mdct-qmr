@@ -22,7 +22,7 @@ jest.mock("prince", () => {
   return mockPrince;
 });
 
-jest.mock("fs", () => ({
+jest.mock("node:fs", () => ({
   writeFileSync: jest.fn(),
   readFileSync: jest.fn(() => Buffer.from("%PDF-1.7")),
   unlinkSync: jest.fn(),
@@ -121,6 +121,18 @@ describe("Test GetPDF handler", () => {
     expect(fs.writeFileSync).toHaveBeenCalled();
     const writtenHtml = (fs.writeFileSync as jest.Mock).mock.calls[0][1];
     expect(writtenHtml).toBe(sanitizedHtml);
+  });
+
+  it("should preserve document tags and metadata", async () => {
+    const inputHtml = `<html lang="en"><head><title>My Page</title><meta name="author" content="CMS" /></head><body>Hello, world</body></html>`;
+    event.body = Buffer.from(gzipSync(inputHtml)).toString("base64");
+
+    await getPDF(event, null);
+
+    const fs = require("node:fs");
+    expect(fs.writeFileSync).toHaveBeenCalled();
+    const writtenHtml = (fs.writeFileSync as jest.Mock).mock.calls[0][1];
+    expect(writtenHtml).toBe(inputHtml);
   });
 
   it("should handle an error response from Prince XML", async () => {

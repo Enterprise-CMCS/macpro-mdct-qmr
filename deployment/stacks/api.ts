@@ -279,6 +279,10 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     path: "coreset/{state}/{year}/{coreSet}/getPDF",
     method: "POST",
     ...commonProps,
+    bundling: {
+      forceDockerBundling: true,
+      nodeModules: ["prince"],
+    },
     timeout: Duration.seconds(30), // apigateway's max
   });
 
