@@ -69,4 +69,24 @@ describe("Test PrintableMeasureWrapper Component", () => {
 
     expect(screen.queryByText("mock measure")).not.toBeInTheDocument();
   });
+
+  it("renders stratification reminder when required for the core set", () => {
+    mockUseParam.mockReturnValue({ coreSetId: "CCSM", state: "MA" });
+    renderWithHookForm(
+      <PrintableMeasureWrapper
+        measure={mockMeasure}
+        name={"AAB-CH"}
+        year={"2026"}
+        measureId={"AAB-CH"}
+        measureData={{
+          ...mockMeasureData,
+          stratificationRequired: ["CCSM"],
+        }}
+      ></PrintableMeasureWrapper>
+    );
+
+    expect(
+      screen.getByText("Reminder: Measure Stratification Required")
+    ).toBeInTheDocument();
+  });
 });
