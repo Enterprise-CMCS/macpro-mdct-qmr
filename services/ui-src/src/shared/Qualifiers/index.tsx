@@ -8,6 +8,7 @@ import { validationFunctions } from "shared/Qualifiers/validationFunctions";
 import { DeliverySystems } from "shared/Qualifiers/deliverySystems";
 import { useParams } from "react-router-dom";
 import * as Types from "types";
+import { featuresByYear } from "utils/featuresByYear";
 
 export const Qualifier = ({
   setValidationFunctions,
@@ -61,7 +62,9 @@ export const Qualifier = ({
           <DeliverySystems data={data} year={year} />
           <CUI.Spacer flex={2} />
           <Common.Audit type={type} year={year} />
-          {type !== "HH" && <Common.ExternalContractor />}
+          {type !== "HH" && featuresByYear.displayExternalContractor && (
+            <Common.ExternalContractor />
+          )}
         </CUI.OrderedList>
       </CUI.VStack>
     </>

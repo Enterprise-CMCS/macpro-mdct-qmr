@@ -191,4 +191,12 @@ export const featuresByYear = {
   get useStratificationYesNo() {
     return getMeasureYear() >= 2026;
   },
+
+  /**
+   * In 2026, CMS removed the "External Contractor" question
+   * from the Child and Adult Qualifier forms.
+   */
+  get displayExternalContractor() {
+    return getMeasureYear() < 2026;
+  },
 };
