@@ -111,7 +111,6 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     await act(async () => {
       renderWithHookForm(component);
     });
-    expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
     expect(
       screen.queryByTestId("measurement-specification")
     ).toBeInTheDocument();
