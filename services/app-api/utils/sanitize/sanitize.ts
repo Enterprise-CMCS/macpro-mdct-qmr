@@ -4,9 +4,9 @@ import sanitizeHtml, { IOptions as SanitizeHtmlOptions } from "sanitize-html";
  * sanitize-html prevents XSS and "deception" attacks without needing a DOM
  * environment (no jsdom required). With these settings, only the listed tags
  * and attributes are allowed through. If an attacker could put <div style="...">
- * into the site's admin banner, they could make give the banner any appearance,
- * overlaid anywhere on the page. For example, a fake "session expired" modal
- * with a malicious link. Thus, this very strict DOMPurify config.
+ * into the site's admin banner, they could give the banner any appearance,
+ * overlaid anywhere on the page (e.g., a fake "session expired" modal with a malicious link).
+ * Thus, this very strict sanitize-html config is used.
  */
 const allowedTags = ["ul", "ol", "li", "a", "strong", "b", "em"];
 
