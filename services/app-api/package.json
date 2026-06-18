@@ -20,7 +20,7 @@
     "@aws-sdk/lib-dynamodb": "~3.1058.0",
     "@aws-sdk/util-dynamodb": "~3.996.2",
     "dompurify": "^3.4.0",
-    "jsdom": "^26.1.0",
+    "jsdom": "^28.1.0",
     "jwt-decode": "^3.1.2",
     "kafkajs": "^2.2.4",
     "prompt-sync": "^4.2.0",
@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/dompurify": "^3.0.5",
     "@types/jest": "^30.0.0",
-    "@types/jsdom": "^21.1.7",
+    "@types/jsdom": "^28.0.0",
     "@types/prompt-sync": "^4.1.1",
     "@types/sanitize-html": "^2.16.0",
     "aws-sdk-client-mock": "~4.1.0",
@@ -69,8 +69,27 @@
     "setupFilesAfterEnv": [],
     "testTimeout": 33000,
     "transform": {
-      "^.+\\.ts?$": "ts-jest"
+      "^.+\\.m?js$": [
+        "babel-jest",
+        {
+          "presets": [
+            [
+              "@babel/preset-env",
+              {
+                "targets": {
+                  "node": "current"
+                },
+                "modules": "commonjs"
+              }
+            ]
+          ]
+        }
+      ],
+      "^.+\\.tsx?$": "ts-jest"
     },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(@asamuzakjp/|@bramus/|@csstools/|@exodus/bytes/|css-tree/|entities/|lru-cache/|parse5/))"
+    ],
     "verbose": true
   }
 }

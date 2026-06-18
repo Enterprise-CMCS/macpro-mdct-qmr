@@ -199,4 +199,12 @@ export const featuresByYear = {
   get displayExternalContractor() {
     return getMeasureYear() < 2026;
   },
+
+  /**
+   * In 2026, CMS removed the "Audit or Validation of Measures" question
+   * from the Child, Adult, and Health Home Qualifier forms.
+   */
+  get displayAuditOrValidation() {
+    return getMeasureYear() < 2026;
+  },
 };

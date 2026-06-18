@@ -61,7 +61,9 @@ export const Qualifier = ({
           )}
           <DeliverySystems data={data} year={year} />
           <CUI.Spacer flex={2} />
-          <Common.Audit type={type} year={year} />
+          {featuresByYear.displayAuditOrValidation && (
+            <Common.Audit type={type} year={year} />
+          )}
           {type !== "HH" && featuresByYear.displayExternalContractor && (
             <Common.ExternalContractor />
           )}
