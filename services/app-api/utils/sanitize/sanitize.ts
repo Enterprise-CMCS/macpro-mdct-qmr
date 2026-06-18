@@ -8,12 +8,12 @@ import sanitizeHtml, { IOptions as SanitizeHtmlOptions } from "sanitize-html";
  * overlaid anywhere on the page (e.g., a fake "session expired" modal with a malicious link).
  * Thus, this very strict sanitize-html config is used.
  */
-const allowedTags = ["ul", "ol", "li", "a", "strong", "b", "em"];
+const allowedTags = ["ul", "ol", "li", "a", "#text", "strong", "b", "em"];
 
 const sanitizeOptions: SanitizeHtmlOptions = {
   allowedTags,
   allowedAttributes: {
-    a: ["href"],
+    a: ["href", "alt"],
   },
   allowedSchemesByTag: {
     a: ["https", "mailto"],
