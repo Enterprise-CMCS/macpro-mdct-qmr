@@ -13,7 +13,7 @@ const allowedTags = ["ul", "ol", "li", "a", "strong", "b", "em"];
 const sanitizeOptions: SanitizeHtmlOptions = {
   allowedTags,
   allowedAttributes: {
-    a: ["href", "alt"],
+    a: ["href"],
   },
   allowedSchemesByTag: {
     a: ["https", "mailto"],
