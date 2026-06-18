@@ -156,9 +156,9 @@ describe("Test sanitizeString security", () => {
     );
   });
 
-  test("should upgrade http links to https", () => {
+  test("should allow http links", () => {
     expect(sanitizeString('<a href="http://example.com">link</a>')).toEqual(
-      '<a href="https://example.com">link</a>'
+      '<a href="http://example.com">link</a>'
     );
   });
 

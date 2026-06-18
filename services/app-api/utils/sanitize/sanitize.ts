@@ -16,7 +16,7 @@ const sanitizeOptions: SanitizeHtmlOptions = {
     a: ["href", "alt"],
   },
   allowedSchemesByTag: {
-    a: ["https", "mailto"],
+    a: ["https", "http", "mailto"],
   },
   allowProtocolRelative: true,
   // Strip the text content of disallowed tags entirely.
@@ -37,15 +37,6 @@ const sanitizeOptions: SanitizeHtmlOptions = {
     "span",
   ],
   disallowedTagsMode: "discard",
-  transformTags: {
-    a: (tagName, attribs) => {
-      // replace http with https for security
-      if (attribs.href?.startsWith("http:")) {
-        attribs = { ...attribs, href: attribs.href.replace("http:", "https:") };
-      }
-      return { tagName, attribs };
-    },
-  },
 };
 
 // sanitize string
