@@ -8468,14 +8468,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"aws-cdk-local@npm:~2.19.2":
-  version: 2.19.2
-  resolution: "aws-cdk-local@npm:2.19.2"
+"aws-cdk-local@npm:~3.0.4":
+  version: 3.0.4
+  resolution: "aws-cdk-local@npm:3.0.4"
   dependencies:
     diff: "npm:^5.0.0"
+    semver: "npm:^7.7.4"
   bin:
     cdklocal: bin/cdklocal
-  checksum: 10c0/cca4daba97a2438e9742a2d939faa3480ae900db8d589a92fc3d65990f611b95ace538ee66f1812dd043ff43c499fee6925181ea322e28834d5717b8f634770a
+  checksum: 10c0/129d56f3283ac33000103d7663de2e067f31a7a45f3b9bcfd70f7589a586ee60bc6b7c33427d9351993dd0eb80d3e647090b99708f43c274649d7dea5efef35d
   languageName: node
   linkType: hard
 
@@ -12566,7 +12567,7 @@ __metadata:
     "@types/yargs": "npm:^17.0.33"
     aws-cdk: "npm:~2.1127.0"
     aws-cdk-lib: "npm:~2.259.0"
-    aws-cdk-local: "npm:~2.19.2"
+    aws-cdk-local: "npm:~3.0.4"
     constructs: "npm:~10.5.0"
     core-js: "npm:^3.41.0"
     dotenv: "npm:^16.6.1"
@@ -14303,7 +14304,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.8.1, semver@npm:^7.8.4":
+"semver@npm:^7.7.4, semver@npm:^7.8.1, semver@npm:^7.8.4":
   version: 7.8.4
   resolution: "semver@npm:7.8.4"
   bin:
