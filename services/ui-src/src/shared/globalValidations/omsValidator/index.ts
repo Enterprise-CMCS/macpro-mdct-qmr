@@ -333,8 +333,8 @@ export const omsValidations = ({
 
   let errorArray: FormError[] = [];
 
-  // Use the caller-provided location dictionary so error locations match
-  // the currently rendered stratification tree (including core-set specific nodes).
+  //use the dictionary passed in
+  //this keeps error labels the same as what users see on screen
   const dictionary = locationDictionary;
 
   const omsRates = getOMSRates(data, dictionary);
