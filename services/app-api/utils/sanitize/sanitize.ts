@@ -1,30 +1,47 @@
-import createDOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
-
-const windowEmulator: any = new JSDOM("").window;
-const DOMPurify = createDOMPurify(windowEmulator);
+import sanitizeHtml, { IOptions as SanitizeHtmlOptions } from "sanitize-html";
 
 /*
- * DOMPurify prevents all XSS attacks by default. With these settings, it also
- * prevents "deception" attacks. If an attacker could put <div style="...">
- * into the site's admin banner, they could make give the banner any appearance,
- * overlaid anywhere on the page. For example, a fake "session expired" modal
- * with a malicious link. Thus, this very strict DOMPurify config.
+ * sanitize-html prevents XSS and "deception" attacks without needing a DOM
+ * environment (no jsdom required). With these settings, only the listed tags
+ * and attributes are allowed through. If an attacker could put <div style="...">
+ * into the site's admin banner, they could give the banner any appearance,
+ * overlaid anywhere on the page (e.g., a fake "session expired" modal with a malicious link).
+ * Thus, this very strict sanitize-html config is used.
  */
-DOMPurify.setConfig({
-  // Only these tags will be allowed through
-  ALLOWED_TAGS: ["ul", "ol", "li", "a", "#text", "strong", "b", "em"],
-  // On those tags, only these attributes are allowed
-  ALLOWED_ATTR: ["href", "alt"],
-  // If a tag is removed, so will all its child elements & text
-  KEEP_CONTENT: false,
-});
+const allowedTags = ["ul", "ol", "li", "a", "#text", "strong", "b", "em"];
+
+const sanitizeOptions: SanitizeHtmlOptions = {
+  allowedTags,
+  allowedAttributes: {
+    a: ["href", "alt"],
+  },
+  allowedSchemesByTag: {
+    a: ["https", "http", "mailto"],
+  },
+  allowProtocolRelative: true,
+  // Strip the text content of disallowed tags entirely.
+  // Matches DOMPurify's `KEEP_CONTENT: false` behavior.
+  nonTextTags: [
+    "style",
+    "script",
+    "noscript",
+    "textarea",
+    "iframe",
+    "object",
+    "embed",
+    "form",
+    "svg",
+    "math",
+    "template",
+    "div",
+    "span",
+  ],
+  disallowedTagsMode: "discard",
+};
 
 // sanitize string
-export const sanitizeString = (string: string) => {
-  if (DOMPurify.isSupported) {
-    return DOMPurify.sanitize(string);
-  }
+export const sanitizeString = (string: string): string => {
+  return sanitizeHtml(string, sanitizeOptions);
 };
 
 // iterates over array items, sanitizing items recursively
