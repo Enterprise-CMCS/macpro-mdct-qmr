@@ -108,3 +108,112 @@ describe("Test sanitizeObject", () => {
     expect(sanitizeObject(dirtyComplexObject)).toEqual(cleanComplexObject);
   });
 });
+
+describe("Test sanitizeString security", () => {
+  test("should strip script tags and their content entirely", () => {
+    expect(sanitizeString('<script>alert("xss")</script>')).toEqual("");
+    expect(sanitizeString('<script src="evil.js"></script>')).toEqual("");
+    expect(
+      sanitizeString("<ul><script>evil()</script><li>item</li></ul>")
+    ).toEqual("<ul><li>item</li></ul>");
+  });
+
+  test("should strip event handlers from allowed tags", () => {
+    expect(sanitizeString('<a href="/" onclick="evil()">click</a>')).toEqual(
+      '<a href="/">click</a>'
+    );
+    expect(
+      sanitizeString('<strong onmouseover="evil()">text</strong>')
+    ).toEqual("<strong>text</strong>");
+    expect(sanitizeString('<em onload="evil()">text</em>')).toEqual(
+      "<em>text</em>"
+    );
+  });
+
+  test("should strip javascript:, data:, and vbscript: protocols from href", () => {
+    expect(sanitizeString('<a href="javascript:alert(1)">click</a>')).toEqual(
+      "<a>click</a>"
+    );
+    expect(
+      sanitizeString(
+        '<a href="data:text/html,<script>evil()</script>">click</a>'
+      )
+    ).toEqual("<a>click</a>");
+    expect(sanitizeString('<a href="vbscript:evil()">click</a>')).toEqual(
+      "<a>click</a>"
+    );
+  });
+
+  test("should allow safe href schemes including protocol-relative", () => {
+    expect(sanitizeString('<a href="https://example.com">link</a>')).toEqual(
+      '<a href="https://example.com">link</a>'
+    );
+    expect(
+      sanitizeString('<a href="mailto:user@example.com">link</a>')
+    ).toEqual('<a href="mailto:user@example.com">link</a>');
+    expect(sanitizeString('<a href="//example.com">link</a>')).toEqual(
+      '<a href="//example.com">link</a>'
+    );
+  });
+
+  test("should allow http links", () => {
+    expect(sanitizeString('<a href="http://example.com">link</a>')).toEqual(
+      '<a href="http://example.com">link</a>'
+    );
+  });
+
+  test("should strip style attributes from allowed tags", () => {
+    expect(
+      sanitizeString('<a href="/" style="position:fixed;top:0">link</a>')
+    ).toEqual('<a href="/">link</a>');
+    expect(sanitizeString('<strong style="color:red">text</strong>')).toEqual(
+      "<strong>text</strong>"
+    );
+  });
+
+  test("should strip disallowed block/container tags and their text content entirely", () => {
+    // Deception attack: styled overlay with fake content
+    expect(
+      sanitizeString('<div style="position:fixed;top:0">fake login</div>')
+    ).toEqual("");
+    expect(sanitizeString("<span>inline text</span>")).toEqual("");
+  });
+
+  test("should strip iframe, object, and embed and their content entirely", () => {
+    expect(
+      sanitizeString('<iframe src="evil.com">phishing content</iframe>')
+    ).toEqual("");
+    expect(
+      sanitizeString('<object data="evil.swf">fallback text</object>')
+    ).toEqual("");
+    expect(sanitizeString('<embed src="evil.swf">')).toEqual("");
+  });
+
+  test("should strip form elements and their content entirely", () => {
+    expect(
+      sanitizeString(
+        '<form action="https://evil.com"><input name="password"><button>Submit</button></form>'
+      )
+    ).toEqual("");
+  });
+
+  test("should strip SVG and math elements and their content entirely", () => {
+    expect(
+      sanitizeString('<svg onload="evil()"><script>evil()</script></svg>')
+    ).toEqual("");
+    expect(sanitizeString("<math><mo>x</mo></math>")).toEqual("");
+  });
+
+  test("should strip img tags with dangerous attributes", () => {
+    expect(sanitizeString('<img src="x" onerror="evil()">')).toEqual("");
+  });
+
+  test("should preserve plain text outside of any tags", () => {
+    expect(sanitizeString("plain text with no tags")).toEqual(
+      "plain text with no tags"
+    );
+    expect(sanitizeString("text &amp; more text")).toEqual(
+      "text &amp; more text"
+    );
+  });
+});
