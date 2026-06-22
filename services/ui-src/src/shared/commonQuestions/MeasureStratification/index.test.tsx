@@ -253,6 +253,25 @@ describe("Test MeasureStratification", () => {
     expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
   });
 
+  test("Test 2026 ACSM shows Medicaid Expansion with 1997 standards", async () => {
+    renderMeasureStratification(2026, "ACSM");
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: /1997 OMB minimum race and ethnicity standards/i,
+      })
+    );
+
+    expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
+    expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
+  });
+
   test("Test 2026 CCSM shows Foster Care only", async () => {
     renderMeasureStratification(2026, "CCSM");
 
@@ -272,6 +291,25 @@ describe("Test MeasureStratification", () => {
     expect(screen.queryByText("Medicaid Expansion")).not.toBeInTheDocument();
   });
 
+  test("Test 2026 CCSM shows Foster Care with 1997 standards", async () => {
+    renderMeasureStratification(2026, "CCSM");
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: /1997 OMB minimum race and ethnicity standards/i,
+      })
+    );
+
+    expect(screen.getByText("Foster Care")).toBeInTheDocument();
+    expect(screen.queryByText("Medicaid Expansion")).not.toBeInTheDocument();
+  });
+
   test("Test 2026 HHCS SPA id shows both Foster Care and Medicaid Expansion", async () => {
     renderMeasureStratification(2026, "HHCS_24-0020");
 
@@ -284,6 +322,25 @@ describe("Test MeasureStratification", () => {
     await userEvent.click(
       screen.getByRole("radio", {
         name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+      })
+    );
+
+    expect(screen.getByText("Foster Care")).toBeInTheDocument();
+    expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
+  });
+
+  test("Test 2026 HHCS SPA id shows both Foster Care and Medicaid Expansion with 1997 standards", async () => {
+    renderMeasureStratification(2026, "HHCS_24-0020");
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: /1997 OMB minimum race and ethnicity standards/i,
       })
     );
 
