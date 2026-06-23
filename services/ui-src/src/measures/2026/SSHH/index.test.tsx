@@ -104,20 +104,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     });
   });
 
-  it("Always shows What is the status of the data being reported? question", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    const firstQuestion = screen.getByText(
-      "What is the status of the data being reported?"
-    );
-    expect(firstQuestion).toBeVisible();
-  });
-
   it("shows corresponding questions if yes to reporting then ", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByText("Status of Data Reported")).toBeInTheDocument();
+    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(screen.queryByText("Data Collection Method")).toBeInTheDocument();
     expect(screen.queryByText("Date Range")).toBeInTheDocument();
     expect(
