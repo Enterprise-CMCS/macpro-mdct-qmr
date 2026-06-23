@@ -380,7 +380,7 @@ describe("Measure Template tests", () => {
       renderWithHookForm(component);
       await act(() => fireEvent.click(screen.getByText("Validate Measure")));
       // make sure violations are showing
-      await expect(screen.findAllByRole("alert")).resolves.not.toHaveLength(0);
+      expect(screen.queryAllByRole("alert")).not.toHaveLength(0);
       // make sure dual eligible message is one of them
       expect(screen.queryByText(dualEligibleMessage)).toBeInTheDocument();
     });
@@ -408,12 +408,10 @@ describe("Measure Template tests", () => {
       useApiMock(apiData);
       renderWithHookForm(component);
       // make sure there are no violations yet
-      await expect(screen.findAllByRole("alert")).rejects.toThrow(
-        'Unable to find role="alert"'
-      );
+      expect(screen.queryAllByRole("alert")).toHaveLength(0);
       await act(() => fireEvent.click(screen.getByText("Validate Measure")));
       // make sure validations are now showing
-      await expect(screen.findAllByRole("alert")).resolves.not.toHaveLength(0);
+      expect(screen.queryAllByRole("alert")).not.toHaveLength(0);
       expect(screen.queryByText(dualEligibleMessage)).not.toBeInTheDocument();
     });
   });
