@@ -64,7 +64,9 @@ export const Qualifier = ({
           {featuresByYear.displayAuditOrValidation && (
             <Common.Audit type={type} year={year} />
           )}
-          {type !== "HH" && <Common.ExternalContractor />}
+          {type !== "HH" && featuresByYear.displayExternalContractor && (
+            <Common.ExternalContractor />
+          )}
         </CUI.OrderedList>
       </CUI.VStack>
     </>
