@@ -119,13 +119,19 @@ const sortOMSValidations = (
   return [...omsCallbacks];
 };
 
+const useRateLabelForQualifier = (PMD: MeasureTemplateData) =>
+  PMD.performanceMeasure.measureName === "AIS-AD";
+
 const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
   const categories = PMD.performanceMeasure.categories ?? [];
   const qualifiers = PMD.performanceMeasure.qualifiers ?? [];
 
   switch (func) {
     case "validateNumeratorLessThanDenominatorOMS":
-      return GV.validateNumeratorLessThanDenominatorOMS();
+      return GV.validateNumeratorLessThanDenominatorOMS(
+        undefined,
+        useRateLabelForQualifier(PMD)
+      );
     case "validateRateZeroOMS":
       return GV.validateRateZeroOMS();
     case "validateRateNotZeroOMS":
@@ -233,7 +239,9 @@ export const validationTemplate = (
           performanceMeasureArray,
           OPM,
           qualifiers,
-          categories
+          categories,
+          undefined,
+          useRateLabelForQualifier(PMD)
         );
       case "validateRateZeroPM":
         return GV.validateRateZeroPM(
@@ -252,7 +260,9 @@ export const validationTemplate = (
         return GV.validateNumeratorsLessThanDenominatorsPM(
           performanceMeasureArray,
           OPM,
-          qualifiers
+          qualifiers,
+          undefined,
+          useRateLabelForQualifier(PMD)
         );
       case "validateOneQualDenomHigherThanOtherDenomPM":
         return GV.validateOneQualDenomHigherThanOtherDenomPM(data, {
@@ -495,6 +505,7 @@ export const validationTemplate = (
         categories
       ),
       validationCallbacks: sortOMSValidations(OPM, PMD)!.flat(),
+      useRateLabelForQualifier: useRateLabelForQualifier(PMD),
     })
   );
 

@@ -15,6 +15,7 @@ export const data: MeasureTemplateData = {
     questionListItems: [],
     categories,
     qualifiers,
+    measureName: "AIS-AD",
   },
   dataSource: {
     optionsLabel:

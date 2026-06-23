@@ -11,6 +11,7 @@ import { LabelData } from "utils";
 
 interface ValProps extends UVFP {
   locationFunc?: (qualifier: string) => string;
+  useRateLabelForQualifier?: boolean;
 }
 
 const _validation = ({
@@ -19,6 +20,7 @@ const _validation = ({
   errorMessage,
   locationFunc,
   qualifiers,
+  useRateLabelForQualifier = false,
 }: ValProps) => {
   const errorArray: FormError[] = [];
 
@@ -29,10 +31,11 @@ const _validation = ({
         rate.denominator &&
         parseFloat(rate.denominator) < parseFloat(rate.numerator)
       ) {
+        const qualifierLabel = useRateLabelForQualifier
+          ? (rate.label ?? qualifiers?.[i]?.label ?? "")
+          : (qualifiers?.[i]?.label ?? "");
         errorArray.push({
-          errorLocation: locationFunc
-            ? locationFunc(qualifiers![i].label)
-            : location,
+          errorLocation: locationFunc ? locationFunc(qualifierLabel) : location,
           errorMessage: errorMessage!,
         });
       }
@@ -46,7 +49,10 @@ const _validation = ({
  * Validated OMS sections for numerator being less than denominator
  */
 export const validateNumeratorLessThanDenominatorOMS =
-  (errorMessage?: string): OmsValidationCallback =>
+  (
+    errorMessage?: string,
+    useRateLabelForQualifier?: boolean
+  ): OmsValidationCallback =>
   ({ categories, qualifiers, rateData, label, locationDictionary }) => {
     return _validation({
       location: "Optional Measure Stratification",
@@ -58,6 +64,7 @@ export const validateNumeratorLessThanDenominatorOMS =
       errorMessage:
         errorMessage ??
         "Numerator cannot be greater than the Denominator for NDR sets.",
+      useRateLabelForQualifier,
     });
   };
 
@@ -68,7 +75,8 @@ export const validateNumeratorsLessThanDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   qualifiers: LabelData[],
-  errorMessage?: string
+  errorMessage?: string,
+  useRateLabelForQualifier?: boolean
 ) => {
   const location = `Performance Measure/Other Performance Measure`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
@@ -81,12 +89,14 @@ export const validateNumeratorsLessThanDenominatorsPM = (
       qualifiers,
       rateData: performanceMeasureArray,
       errorMessage,
+      useRateLabelForQualifier,
     }),
     ..._validation({
       location,
       qualifiers,
       rateData: rateDataOPM,
       errorMessage,
+      useRateLabelForQualifier,
     }),
   ];
 

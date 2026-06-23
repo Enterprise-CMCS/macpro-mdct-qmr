@@ -19,6 +19,7 @@ interface OmsValidationProps {
   validationCallbacks: OmsValidationCallback[];
   customTotalLabel?: string;
   dataSource?: string[];
+  useRateLabelForQualifier?: boolean;
 }
 
 //if the user had checked an OMS that opened up an NDR and did not fill that NDR, this is the error telling them to fill it
@@ -328,6 +329,7 @@ export const omsValidations = ({
   validationCallbacks,
   customTotalLabel,
   dataSource,
+  useRateLabelForQualifier,
 }: OmsValidationProps) => {
   const isOPM: boolean =
     data.MeasurementSpecification === "Other" &&
@@ -412,7 +414,11 @@ export const omsValidations = ({
     }
 
     errorArray.push(
-      ...validatePartialRateCompletionOMS(rateType)({
+      ...validatePartialRateCompletionOMS(
+        rateType,
+        undefined,
+        useRateLabelForQualifier
+      )({
         rateData,
         categories,
         qualifiers,

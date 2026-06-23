@@ -20,6 +20,7 @@ type ErrorMessageFunc = (
 
 interface ValProps extends UVFP {
   errorMessageFunc?: ErrorMessageFunc;
+  useRateLabelForQualifier?: boolean;
 }
 
 const validatePartialRateCompletionErrorMessage: ErrorMessageFunc = (
@@ -39,6 +40,7 @@ const _validation = ({
   categories,
   qualifiers,
   errorMessageFunc = validatePartialRateCompletionErrorMessage,
+  useRateLabelForQualifier = false,
 }: ValProps) => {
   const errors: FormError[] = [];
 
@@ -51,11 +53,14 @@ const _validation = ({
       ) {
         const multipleQuals: boolean = !!qualifiers?.length;
         const multipleCats: boolean = !!categories?.some((item) => item.label);
+        const qualifierLabel = useRateLabelForQualifier
+          ? (rate.label ?? qualifiers?.[j]?.label ?? "")
+          : (qualifiers?.[j]?.label ?? "");
         errors.push({
           errorLocation: location,
           errorMessage: errorMessageFunc(
             multipleQuals,
-            qualifiers?.[j]?.label!,
+            qualifierLabel,
             multipleCats,
             categories?.[i]?.label!
           ),
@@ -120,7 +125,8 @@ const _singleValueValidation = ({
 export const validatePartialRateCompletionOMS =
   (
     singleValueFieldFlag?: OMS.CustomKeys.Aifhh | OMS.CustomKeys.Iuhh,
-    errorMessageFunc?: ErrorMessageFunc
+    errorMessageFunc?: ErrorMessageFunc,
+    useRateLabelForQualifier?: boolean
   ): OmsValidationCallback =>
   ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
     return [
@@ -157,6 +163,7 @@ export const validatePartialRateCompletionOMS =
                 : categories,
             qualifiers: isOPM ? undefined : qualifiers,
             errorMessageFunc,
+            useRateLabelForQualifier,
           })),
     ];
   };
@@ -174,7 +181,8 @@ export const validatePartialRateCompletionPM = (
   OPM: any,
   qualifiers: LabelData[],
   categories?: LabelData[],
-  errorMessageFunc?: ErrorMessageFunc
+  errorMessageFunc?: ErrorMessageFunc,
+  useRateLabelForQualifier?: boolean
 ) => {
   return [
     ..._validation({
@@ -183,11 +191,13 @@ export const validatePartialRateCompletionPM = (
       categories,
       qualifiers,
       errorMessageFunc,
+      useRateLabelForQualifier,
     }),
     ..._validation({
       location: "Other Performance Measure",
       rateData: getOtherPerformanceMeasureRateArray(OPM),
       errorMessageFunc,
+      useRateLabelForQualifier,
     }),
   ];
 };
