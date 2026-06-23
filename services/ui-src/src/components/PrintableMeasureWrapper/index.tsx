@@ -190,9 +190,8 @@ export const PrintableMeasureWrapper = ({
       {measureData?.stratificationRequired?.includes(coreSet) && (
         <CUI.Box mb="1rem">
           <Alert heading="Reminder: Measure Stratification Required">
-            <CUI.Text>
-              {`For ${year} Core Sets reporting, states are expected to report stratified data for this measure.`}
-            </CUI.Text>
+            For {year} Core Sets reporting, states are expected to report
+            stratified data for this measure.
           </Alert>
         </CUI.Box>
       )}
