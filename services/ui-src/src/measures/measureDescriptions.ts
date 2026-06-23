@@ -546,7 +546,7 @@ export const measureDescriptions: MeasureList = {
     "PND-AD":
       "Prenatal Depression Screening and Follow-Up: Age 21 and Older (PND-AD)",
     "PND-CH": "Prenatal Depression Screening and Follow-Up: Under Age 21",
-    "PPC2-AD": "Prenatal and Postpartum Care: Age 21 and Over",
+    "PPC2-AD": "Prenatal and Postpartum Care: Age 21 and Older",
     "PQI01-AD": "PQI 01: Diabetes Short-Term Complications Admission Rate",
     "PQI05-AD":
       "PQI 05: Chronic Obstructive Pulmonary Disease (COPD) or Asthma in Older Adults Admission Rate",
