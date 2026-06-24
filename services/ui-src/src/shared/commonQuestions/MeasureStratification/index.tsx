@@ -216,10 +216,10 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       </QMR.Accordion>
       <StratificationOption reset={onReset} year={year}></StratificationOption>
       {shouldShowDetailsSection && detailsSection}
-      {shouldShowStratification && omsData && (
+      {shouldShowStratification && (
         <Stratification
           {...props}
-          omsData={omsData}
+          omsData={omsData!}
           year={year}
         ></Stratification>
       )}
