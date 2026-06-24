@@ -1,9 +1,9 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
@@ -106,34 +106,26 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const { coreset } = props;
   const { coreSetId } = useParams();
 
-  const { watch, setValue, resetField } =
+  const { watch, getValues, setValue, resetField, formState } =
     useFormContext<Types.OptionalMeasureStratification>();
-  const data = watch();
-  const reportingMeasureStratification = useWatch({
-    name: `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`,
-  });
+  // Re-run this component whenever anything in the form changes.
+  watch();
+  const data = getValues();
+  // On load the saved answer can be missing from the live form. So use the
+  // live value if it's there, otherwise fall back to the saved one.
+  const liveOms = data.OptionalMeasureStratification;
+  const defaultOms = formState.defaultValues?.OptionalMeasureStratification;
+  const reportingMeasureStratification =
+    liveOms?.[DC.REPORTING_STRATIFICATION] ??
+    defaultOms?.[DC.REPORTING_STRATIFICATION];
   const shouldUseReportingMeasureStratification =
     featuresByYear.useStratificationYesNo;
 
-  const [version, setVersion] = useState<string>();
-  const [omsData, setOMSData] = useState<Types.OmsNode[]>();
-
-  useEffect(() => {
-    if (
-      data.OptionalMeasureStratification?.version != undefined &&
-      data.OptionalMeasureStratification.version != version
-    ) {
-      setVersion(data.OptionalMeasureStratification.version);
-      setOMSData(
-        OMSData(
-          year,
-          coreset === "adult",
-          data.OptionalMeasureStratification.version,
-          coreSetId
-        )
-      );
-    }
-  }, [data.OptionalMeasureStratification?.version]);
+  const version = liveOms?.[DC.VERSION] ?? defaultOms?.[DC.VERSION];
+  const omsData = useMemo(() => {
+    if (version == undefined) return undefined;
+    return OMSData(year, coreset === "adult", version, coreSetId);
+  }, [version, year, coreset, coreSetId]);
 
   const onReset = () => {
     if (!data.OptionalMeasureStratification?.selections) return;
@@ -224,10 +216,10 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       </QMR.Accordion>
       <StratificationOption reset={onReset} year={year}></StratificationOption>
       {shouldShowDetailsSection && detailsSection}
-      {shouldShowStratification && (
+      {shouldShowStratification && omsData && (
         <Stratification
           {...props}
-          omsData={omsData!}
+          omsData={omsData}
           year={year}
         ></Stratification>
       )}
