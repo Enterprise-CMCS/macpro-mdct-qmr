@@ -209,7 +209,7 @@ const omb2024 = (): OmsNode[] => {
 const strat2026 = (coreSetId?: string, baseData = omb2024()): OmsNode[] => {
   const data: OmsNode[] = [...baseData];
 
-  // Foster Care: Child Medicaid + Health Home only
+  // Foster Care: Child Core Set (CCS/CCSM) + Health Home only
   // Includes both separated reports (CCSM) and combined reports (CCS)
   if (
     coreSetId?.startsWith("HHCS") ||
@@ -233,7 +233,7 @@ const strat2026 = (coreSetId?: string, baseData = omb2024()): OmsNode[] => {
     });
   }
 
-  // Medicaid Expansion: Adult Medicaid + Health Home only
+  // Medicaid Expansion: Adult Core Set (ACS/ACSM) + Health Home only
   // Includes both separated reports (ACSM) and combined reports (ACS)
   if (
     coreSetId?.startsWith("HHCS") ||
