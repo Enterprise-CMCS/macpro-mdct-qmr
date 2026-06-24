@@ -20,7 +20,6 @@ const _validation = ({
   errorMessage,
   locationFunc,
   qualifiers,
-  useRateLabelForQualifier = false,
 }: ValProps) => {
   const errorArray: FormError[] = [];
 
@@ -31,9 +30,7 @@ const _validation = ({
         rate.denominator &&
         parseFloat(rate.denominator) < parseFloat(rate.numerator)
       ) {
-        const qualifierLabel = useRateLabelForQualifier
-          ? (rate.label ?? qualifiers?.[i]?.label ?? "")
-          : (qualifiers?.[i]?.label ?? "");
+        const qualifierLabel = rate.label ?? qualifiers?.[i]?.label ?? "";
         errorArray.push({
           errorLocation: locationFunc ? locationFunc(qualifierLabel) : location,
           errorMessage: errorMessage!,

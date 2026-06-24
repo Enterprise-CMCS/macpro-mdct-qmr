@@ -40,7 +40,6 @@ const _validation = ({
   categories,
   qualifiers,
   errorMessageFunc = validatePartialRateCompletionErrorMessage,
-  useRateLabelForQualifier = false,
 }: ValProps) => {
   const errors: FormError[] = [];
 
@@ -53,9 +52,7 @@ const _validation = ({
       ) {
         const multipleQuals: boolean = !!qualifiers?.length;
         const multipleCats: boolean = !!categories?.some((item) => item.label);
-        const qualifierLabel = useRateLabelForQualifier
-          ? (rate.label ?? qualifiers?.[j]?.label ?? "")
-          : (qualifiers?.[j]?.label ?? "");
+        const qualifierLabel = rate.label ?? qualifiers?.[j]?.label ?? "";
         errors.push({
           errorLocation: location,
           errorMessage: errorMessageFunc(
