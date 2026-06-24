@@ -3,7 +3,7 @@ import * as QMR from "components";
 import * as Types from "../../types";
 import { useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
@@ -106,10 +106,15 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const { coreset } = props;
   const { coreSetId } = useParams();
 
-  const { watch, getValues, setValue, resetField, formState } =
+  const { getValues, setValue, resetField, formState } =
     useFormContext<Types.OptionalMeasureStratification>();
-  // Re-run this component whenever anything in the form changes.
-  watch();
+  // Re-run this component only when these two radios change.
+  useWatch({
+    name: [
+      `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`,
+      `OptionalMeasureStratification.${DC.VERSION}`,
+    ],
+  });
   const data = getValues();
   // On load the saved answer can be missing from the live form. So use the
   // live value if it's there, otherwise fall back to the saved one.
