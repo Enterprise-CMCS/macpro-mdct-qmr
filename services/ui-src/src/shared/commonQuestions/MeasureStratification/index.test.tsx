@@ -253,6 +253,25 @@ describe("Test MeasureStratification", () => {
     expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
   });
 
+  test("Test 2026 AC (combined-only) shows Medicaid Expansion", async () => {
+    renderMeasureStratification(2026, "AC");
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+      })
+    );
+
+    expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
+    expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
+  });
+
   test("Test 2026 ACSM shows Medicaid Expansion with 1997 standards", async () => {
     renderMeasureStratification(2026, "ACSM");
 
@@ -274,6 +293,25 @@ describe("Test MeasureStratification", () => {
 
   test("Test 2026 CCSM shows Foster Care only", async () => {
     renderMeasureStratification(2026, "CCSM");
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: "Yes",
+      })
+    );
+
+    await userEvent.click(
+      screen.getByRole("radio", {
+        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+      })
+    );
+
+    expect(screen.getByText("Foster Care")).toBeInTheDocument();
+    expect(screen.queryByText("Medicaid Expansion")).not.toBeInTheDocument();
+  });
+
+  test("Test 2026 CC (combined-only) shows Foster Care", async () => {
+    renderMeasureStratification(2026, "CC");
 
     await userEvent.click(
       screen.getByRole("radio", {
