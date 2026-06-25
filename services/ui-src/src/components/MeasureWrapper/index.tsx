@@ -28,7 +28,7 @@ import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { coreSetBreadCrumbTitle, coreSetTitles } from "shared/coreSetByYear";
 import { featuresByYear } from "utils/featuresByYear";
-import { getStratificationBannerText } from "./stratificationBanner";
+import { getStratificationBannerDescription } from "./stratificationBanner";
 import { Alert } from "@cmsgov/design-system";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import { SPA } from "libs/spaLib";
@@ -460,7 +460,7 @@ export const MeasureWrapper = ({
     return `${measureId} - ${cleanTitle} - ${year} QMR`;
   })();
 
-  const stratificationBannerDescription = getStratificationBannerText(
+  const stratificationBannerDescription = getStratificationBannerDescription(
     year,
     coreSet,
     featuresByYear.hasTailoredStratificationBanner

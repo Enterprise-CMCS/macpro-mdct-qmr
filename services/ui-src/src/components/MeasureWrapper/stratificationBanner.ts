@@ -9,8 +9,8 @@ const optionalStratificationByCoreSet: Partial<Record<CoreSetAbbr, string>> = {
     "States are encouraged, but not required, to report stratified data for foster care and Medicaid expansion.",
 };
 
-export const getStratificationBannerText = (
-  year: string | number,
+export const getStratificationBannerDescription = (
+  year: string,
   coreSet: CoreSetAbbr,
   hasTailoredStratificationBanner: boolean
 ): string => {
