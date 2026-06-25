@@ -8,8 +8,6 @@ import { DefaultFormDataLegacy, DefaultFormData } from "shared/types/FormData";
 import { validatePartialRateCompletionOMS } from "shared/globalValidations/validatePartialRateCompletion";
 import { cleanString, hasNumOrDenom, isLegacyLabel, LabelData } from "utils";
 import { featuresByYear } from "utils/featuresByYear";
-import { omsLocationDictionary } from "../dataDrivenTools";
-import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 
 interface OmsValidationProps {
   data: DefaultFormData | DefaultFormDataLegacy;
@@ -335,11 +333,9 @@ export const omsValidations = ({
 
   let errorArray: FormError[] = [];
 
-  //if there's a version and it is 1997, we want to use a very specific data set for looks up values, if not, we will use what is passed in
-  const dictionary =
-    data.OptionalMeasureStratification?.version === "1997-omb"
-      ? omsLocationDictionary(OMSData(2024), categories, qualifiers)
-      : locationDictionary;
+  //use the dictionary passed in
+  //this keeps error labels the same as what users see on screen
+  const dictionary = locationDictionary;
 
   const omsRates = getOMSRates(data, dictionary);
 
