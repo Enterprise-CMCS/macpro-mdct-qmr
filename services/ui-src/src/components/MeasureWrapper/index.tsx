@@ -459,6 +459,23 @@ export const MeasureWrapper = ({
     return `${measureId} - ${cleanTitle} - ${year} QMR`;
   })();
 
+  const baseStratificationText = `For ${year} Core Sets reporting, states are expected to report stratified data for this measure`;
+  const optionalStratificationByCoreSet: Partial<Record<CoreSetAbbr, string>> =
+    {
+      [CoreSetAbbr.CCSM]:
+        " States are encouraged, but not required, to report stratified data for foster care.",
+      [CoreSetAbbr.ACSM]:
+        " States are encouraged, but not required, to report stratified data for Medicaid expansion.",
+      [CoreSetAbbr.HHCS]:
+        " States are encouraged, but not required, to report stratified data for foster care and Medicaid expansion.",
+    };
+  const stratificationBannerDescription =
+    featuresByYear.hasTailoredStratificationBanner
+      ? `${baseStratificationText} for each of the following required stratification standards: race and ethnicity, sex, and geography.${
+          optionalStratificationByCoreSet[coreSet] ?? ""
+        }`
+      : `${baseStratificationText}.`;
+
   return (
     <FormProvider {...methods}>
       <QMR.Title tabTitle={tabTitle} />
@@ -507,9 +524,7 @@ export const MeasureWrapper = ({
                   {stratificationRequired?.includes(coreSet) && (
                     <CUI.Box mb="1rem">
                       <Alert heading="Reminder: Measure Stratification Required">
-                        <CUI.Text>
-                          {`For ${year} Core Sets reporting, states are expected to report stratified data for this measure.`}
-                        </CUI.Text>
+                        <CUI.Text>{stratificationBannerDescription}</CUI.Text>
                       </Alert>
                     </CUI.Box>
                   )}
