@@ -233,8 +233,7 @@ export const validationTemplate = (
           performanceMeasureArray,
           OPM,
           qualifiers,
-          categories,
-          undefined
+          categories
         );
       case "validateRateZeroPM":
         return GV.validateRateZeroPM(
