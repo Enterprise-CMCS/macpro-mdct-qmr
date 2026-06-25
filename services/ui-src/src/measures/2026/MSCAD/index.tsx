@@ -36,7 +36,6 @@ export const MSCAD = ({
           <>
             {data[DC.DID_REPORT] !== DC.NO && (
               <>
-                <CMQ.StatusOfData />
                 <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
                 {isPrimaryMeasureSpecSelected && (
                   <CMQ.DeviationFromMeasureSpec />
