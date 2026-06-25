@@ -20,7 +20,6 @@ type ErrorMessageFunc = (
 
 interface ValProps extends UVFP {
   errorMessageFunc?: ErrorMessageFunc;
-  useRateLabelForQualifier?: boolean;
 }
 
 const validatePartialRateCompletionErrorMessage: ErrorMessageFunc = (
@@ -122,8 +121,7 @@ const _singleValueValidation = ({
 export const validatePartialRateCompletionOMS =
   (
     singleValueFieldFlag?: OMS.CustomKeys.Aifhh | OMS.CustomKeys.Iuhh,
-    errorMessageFunc?: ErrorMessageFunc,
-    useRateLabelForQualifier?: boolean
+    errorMessageFunc?: ErrorMessageFunc
   ): OmsValidationCallback =>
   ({ categories, isOPM, label, locationDictionary, qualifiers, rateData }) => {
     return [
@@ -160,7 +158,6 @@ export const validatePartialRateCompletionOMS =
                 : categories,
             qualifiers: isOPM ? undefined : qualifiers,
             errorMessageFunc,
-            useRateLabelForQualifier,
           })),
     ];
   };
@@ -178,8 +175,7 @@ export const validatePartialRateCompletionPM = (
   OPM: any,
   qualifiers: LabelData[],
   categories?: LabelData[],
-  errorMessageFunc?: ErrorMessageFunc,
-  useRateLabelForQualifier?: boolean
+  errorMessageFunc?: ErrorMessageFunc
 ) => {
   return [
     ..._validation({
@@ -188,13 +184,11 @@ export const validatePartialRateCompletionPM = (
       categories,
       qualifiers,
       errorMessageFunc,
-      useRateLabelForQualifier,
     }),
     ..._validation({
       location: "Other Performance Measure",
       rateData: getOtherPerformanceMeasureRateArray(OPM),
       errorMessageFunc,
-      useRateLabelForQualifier,
     }),
   ];
 };

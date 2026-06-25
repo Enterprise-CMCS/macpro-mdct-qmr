@@ -7,8 +7,7 @@ export const validateAtLeastOneRateComplete = (
   OPM: any,
   qualifiers: LabelData[],
   categories?: LabelData[],
-  errorMessage?: string,
-  useRateLabelForQualifier?: boolean
+  errorMessage?: string
 ) => {
   const errorArray: FormError[] = [];
   let rateCompletionError = true;
@@ -49,8 +48,7 @@ export const validateAtLeastOneRateComplete = (
       OPM,
       qualifiers,
       categories,
-      undefined,
-      useRateLabelForQualifier
+      undefined
     ),
   ];
 };

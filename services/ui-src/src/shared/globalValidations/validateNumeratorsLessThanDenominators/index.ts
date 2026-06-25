@@ -11,7 +11,6 @@ import { LabelData } from "utils";
 
 interface ValProps extends UVFP {
   locationFunc?: (qualifier: string) => string;
-  useRateLabelForQualifier?: boolean;
 }
 
 const _validation = ({
@@ -46,10 +45,7 @@ const _validation = ({
  * Validated OMS sections for numerator being less than denominator
  */
 export const validateNumeratorLessThanDenominatorOMS =
-  (
-    errorMessage?: string,
-    useRateLabelForQualifier?: boolean
-  ): OmsValidationCallback =>
+  (errorMessage?: string): OmsValidationCallback =>
   ({ categories, qualifiers, rateData, label, locationDictionary }) => {
     return _validation({
       location: "Optional Measure Stratification",
@@ -61,7 +57,6 @@ export const validateNumeratorLessThanDenominatorOMS =
       errorMessage:
         errorMessage ??
         "Numerator cannot be greater than the Denominator for NDR sets.",
-      useRateLabelForQualifier,
     });
   };
 
@@ -72,8 +67,7 @@ export const validateNumeratorsLessThanDenominatorsPM = (
   performanceMeasureArray: FormRateField[][],
   OPM: any,
   qualifiers: LabelData[],
-  errorMessage?: string,
-  useRateLabelForQualifier?: boolean
+  errorMessage?: string
 ) => {
   const location = `Performance Measure/Other Performance Measure`;
   const rateDataOPM = getOtherPerformanceMeasureRateArray(OPM);
@@ -86,14 +80,12 @@ export const validateNumeratorsLessThanDenominatorsPM = (
       qualifiers,
       rateData: performanceMeasureArray,
       errorMessage,
-      useRateLabelForQualifier,
     }),
     ..._validation({
       location,
       qualifiers,
       rateData: rateDataOPM,
       errorMessage,
-      useRateLabelForQualifier,
     }),
   ];
 
