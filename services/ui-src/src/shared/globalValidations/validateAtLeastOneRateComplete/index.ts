@@ -47,8 +47,7 @@ export const validateAtLeastOneRateComplete = (
       performanceMeasureArray,
       OPM,
       qualifiers,
-      categories,
-      undefined
+      categories
     ),
   ];
 };

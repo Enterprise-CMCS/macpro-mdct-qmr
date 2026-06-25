@@ -412,10 +412,7 @@ export const omsValidations = ({
     }
 
     errorArray.push(
-      ...validatePartialRateCompletionOMS(
-        rateType,
-        undefined
-      )({
+      ...validatePartialRateCompletionOMS(rateType)({
         rateData,
         categories,
         qualifiers,

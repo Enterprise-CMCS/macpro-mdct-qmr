@@ -252,8 +252,7 @@ export const validationTemplate = (
         return GV.validateNumeratorsLessThanDenominatorsPM(
           performanceMeasureArray,
           OPM,
-          qualifiers,
-          undefined
+          qualifiers
         );
       case "validateOneQualDenomHigherThanOtherDenomPM":
         return GV.validateOneQualDenomHigherThanOtherDenomPM(data, {
