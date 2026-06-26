@@ -5,6 +5,7 @@ import {
 } from ".";
 import {
   generateOmsCategoryRateData,
+  generateOmsQualifierRateData,
   generateOtherPerformanceMeasureData,
   locationDictionary,
   simpleRate,
@@ -164,6 +165,35 @@ describe("Testing Partial Rate Validation", () => {
         `Should not have partially filled NDR sets${` for ${qualifiers[0].label}`}${`, ${categories[0].label}`}.`
       );
       expect(locationDictionaryJestFunc).toHaveBeenCalledWith(["TestLabel"]);
+    });
+
+    it("should use rate label when present, even if qualifier indices are misaligned", () => {
+      const shiftedQualifierLabel = "Filtered label";
+      const partialRateWithShiftedLabel = {
+        ...partialRate,
+        label: shiftedQualifierLabel,
+      };
+      const category = categories[0];
+      const data = generateOmsQualifierRateData([category], qualifiers, [
+        partialRateWithShiftedLabel,
+        simpleRate,
+      ]);
+
+      const errors = validatePartialRateCompletionOMS(
+        undefined,
+        undefined
+      )({
+        ...baseOMSInfo,
+        categories: [category],
+        qualifiers,
+        rateData: data,
+      });
+
+      expect(errors).toHaveLength(1);
+      expect(errors[0].errorMessage).toBe(
+        `Should not have partially filled NDR sets for ${shiftedQualifierLabel}, ${category.label}.`
+      );
+      expect(errors[0].errorMessage).not.toContain(qualifiers[0].label);
     });
 
     it("should have errors - singleCategory", () => {
