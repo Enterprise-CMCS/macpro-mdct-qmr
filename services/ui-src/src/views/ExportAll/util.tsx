@@ -110,6 +110,7 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
       ********* */ ""
     }
     .chakra-button { background: var(--chakra-colors-gray-100) !important; margin: 16px 8px }
+    .chakra-accordion__button { display: flex !important; visibility: visible !important; }
     .chakra-link { color: var(--chakra-colors-blue-600) !important; }
     .chakra-link * { color: blue !important; }
 
