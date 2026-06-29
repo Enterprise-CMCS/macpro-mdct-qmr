@@ -19,6 +19,7 @@ import { CoreSetAbbr } from "types";
 import { measureDescriptions } from "measures/measureDescriptions";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
+import { Alert } from "@cmsgov/design-system";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -114,7 +115,6 @@ export const PrintableMeasureWrapper = ({
   const params = useParams();
 
   const methods = useForm({
-    shouldUnregister: true,
     mode: "all",
     defaultValues: measureData?.data ?? undefined,
     criteriaMode: "firstError",
@@ -136,10 +136,8 @@ export const PrintableMeasureWrapper = ({
     ) {
       methods.reset(
         params.coreSetId
-          ? defaultData?.[
-              (params.coreSetId?.split("_")?.[0] ??
-                params.coreSetId) as CoreSetAbbr
-            ]?.formData
+          ? defaultData?.[params.coreSetId.split("_")[0] as CoreSetAbbr]
+              ?.formData
           : undefined
       );
     }
@@ -150,6 +148,8 @@ export const PrintableMeasureWrapper = ({
   if (!params.coreSetId || !params.state) {
     return null;
   }
+
+  const coreSet = params.coreSetId.split("_")[0] as CoreSetAbbr;
 
   const foundMeasureDescription =
     measureDescriptions[measureData?.year]?.[measureData?.measure] ||
@@ -185,6 +185,14 @@ export const PrintableMeasureWrapper = ({
           >
             {measureData.detailedDescription}
           </CUI.Text>
+        </CUI.Box>
+      )}
+      {measureData?.stratificationRequired?.includes(coreSet) && (
+        <CUI.Box mb="1rem">
+          <Alert heading="Reminder: Measure Stratification Required">
+            For {year} Core Sets reporting, states are expected to report
+            stratified data for this measure.
+          </Alert>
         </CUI.Box>
       )}
       <FormProvider {...methods}>

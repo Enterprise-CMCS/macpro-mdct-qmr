@@ -51,11 +51,12 @@ const _validation = ({
       ) {
         const multipleQuals: boolean = !!qualifiers?.length;
         const multipleCats: boolean = !!categories?.some((item) => item.label);
+        const qualifierLabel = rate.label ?? qualifiers?.[j]?.label ?? "";
         errors.push({
           errorLocation: location,
           errorMessage: errorMessageFunc(
             multipleQuals,
-            qualifiers?.[j]?.label!,
+            qualifierLabel,
             multipleCats,
             categories?.[i]?.label!
           ),

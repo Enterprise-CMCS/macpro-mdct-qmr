@@ -29,10 +29,9 @@ const _validation = ({
         rate.denominator &&
         parseFloat(rate.denominator) < parseFloat(rate.numerator)
       ) {
+        const qualifierLabel = rate.label ?? qualifiers?.[i]?.label ?? "";
         errorArray.push({
-          errorLocation: locationFunc
-            ? locationFunc(qualifiers![i].label)
-            : location,
+          errorLocation: locationFunc ? locationFunc(qualifierLabel) : location,
           errorMessage: errorMessage!,
         });
       }
