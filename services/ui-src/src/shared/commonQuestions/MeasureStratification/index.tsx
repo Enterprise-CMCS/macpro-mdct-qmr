@@ -40,7 +40,7 @@ export const StratificationOption = ({ reset, year }: Props) => {
     !shouldShowReportingMeasureStratification ||
     reportingMeasureStratification === "yes";
   const notReportingLabel = shouldShowReportingMeasureStratification
-    ? "Not applicable"
+    ? "Not applicable – our state is not reporting race or ethnicity data"
     : options["not-reporting"];
 
   return (
@@ -50,7 +50,7 @@ export const StratificationOption = ({ reset, year }: Props) => {
           <QMR.RadioButton
             formLabelProps={{ fontWeight: "700" }}
             name={`OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`}
-            label={"Are you reporting measure stratification for this measure?"}
+            label={"Are you reporting stratified data for this measure?"}
             options={[
               {
                 displayValue: "Yes",
