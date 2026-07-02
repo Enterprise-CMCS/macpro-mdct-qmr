@@ -59,7 +59,6 @@ export const measureTemplate = ({
 
       {!isNotReportingData && (
         <>
-          <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type={type} coreset={coreset} />
           {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           {custom?.dataSrcRadio ? (

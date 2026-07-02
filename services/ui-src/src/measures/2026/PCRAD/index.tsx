@@ -36,7 +36,6 @@ export const PCRAD = ({
 
       {!isNotReportingData && (
         <>
-          <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="adult" />
           {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           <CMQ.DataSource type="adult" />

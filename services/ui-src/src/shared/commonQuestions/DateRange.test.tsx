@@ -1,7 +1,6 @@
 import { DateRange } from "./DateRange";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
-import { screen } from "@testing-library/react";
-import fireEvent from "@testing-library/user-event";
+import { screen, fireEvent } from "@testing-library/react";
 import SharedContext from "shared/SharedContext";
 import commonQuestionsLabel2022 from "labels/2022/commonQuestionsLabel";
 import commonQuestionsLabel2024 from "labels/2024/commonQuestionsLabel";

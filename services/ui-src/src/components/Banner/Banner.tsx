@@ -1,15 +1,38 @@
 import { Alert } from "@cmsgov/design-system";
+import sanitizeHtml, { IOptions as SanitizeHtmlOptions } from "sanitize-html";
 import { BannerData } from "types";
 import { parseLabelToHTML } from "utils";
-import DOMPurify from "dompurify";
 
-const domPurifyBannerConfig = {
-  // Only these tags will be allowed through
-  ALLOWED_TAGS: ["ul", "ol", "li", "a", "#text", "strong", "b", "em"],
-  // On those tags, only these attributes are allowed
-  ALLOWED_ATTR: ["href", "alt"],
-  // If a tag is removed, so will all its child elements & text
-  KEEP_CONTENT: false,
+/**
+ * Should match with the configuration at services/app-api/utils/sanitize/sanitize.ts
+ */
+const sanitizeOptions: SanitizeHtmlOptions = {
+  allowedTags: ["ul", "ol", "li", "a", "#text", "strong", "b", "em"],
+  allowedAttributes: {
+    a: ["href", "alt"],
+  },
+  allowedSchemesByTag: {
+    a: ["https", "http", "mailto"],
+  },
+  allowProtocolRelative: true,
+  // Strip the text content of disallowed tags entirely.
+  // Matches DOMPurify's `KEEP_CONTENT: false` behavior.
+  nonTextTags: [
+    "style",
+    "script",
+    "noscript",
+    "textarea",
+    "iframe",
+    "object",
+    "embed",
+    "form",
+    "svg",
+    "math",
+    "template",
+    "div",
+    "span",
+  ],
+  disallowedTagsMode: "discard",
 };
 
 export const Banner = ({ bannerData, ...props }: Props) => {
@@ -19,7 +42,7 @@ export const Banner = ({ bannerData, ...props }: Props) => {
         <Alert heading={bannerData.title} {...props}>
           <div className="ds-c-alert__text">
             {parseLabelToHTML(
-              DOMPurify.sanitize(bannerData.description, domPurifyBannerConfig)
+              sanitizeHtml(bannerData.description, sanitizeOptions)
             )}
           </div>
           {bannerData.link && (

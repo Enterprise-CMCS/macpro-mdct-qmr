@@ -191,4 +191,32 @@ export const featuresByYear = {
   get useStratificationYesNo() {
     return getMeasureYear() >= 2026;
   },
+
+  /**
+   * In 2026, CMS removed the "External Contractor" question
+   * from the Child and Adult Qualifier forms.
+   */
+  get displayExternalContractor() {
+    return getMeasureYear() < 2026;
+  },
+
+  /**
+   * In 2026, CMS removed the "Audit or Validation of Measures" question
+   * from the Child, Adult, and Health Home Qualifier forms.
+   */
+  get displayAuditOrValidation() {
+    return getMeasureYear() < 2026;
+  },
+
+  /**
+   * Prior to 2026, the measure stratification reminder banner displayed a
+   * single generic message for every report.
+   *
+   * In 2026 and beyond, the banner language is tailored per report (core set),
+   * since the required/optional stratifications now differ by report
+   * (e.g. foster care for Child Medicaid, Medicaid expansion for Adult Medicaid).
+   */
+  get hasTailoredStratificationBanner() {
+    return getMeasureYear() >= 2026;
+  },
 };

@@ -1,5 +1,4 @@
-import { screen } from "@testing-library/react";
-import fireEvent from "@testing-library/user-event";
+import { screen, fireEvent } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { ComplexRate } from "../ComplexRate";
 import { usePathParams } from "hooks/api/usePathParams";
@@ -126,8 +125,8 @@ describe("Test the AIFHHRate component when readOnly is false", () => {
         aifhhQualifiers[ndr.rateIndex].label
       )[0];
 
-      fireEvent.type(numerator, "42");
-      fireEvent.type(denominator, "84");
+      fireEvent.change(numerator, { target: { value: "42" } });
+      fireEvent.change(denominator, { target: { value: "84" } });
 
       expect(numerator).toHaveDisplayValue([expectedValues[i].numerator]);
       expect(denominator).toHaveDisplayValue([expectedValues[i].denominator]);
@@ -233,8 +232,8 @@ describe("Test the IUHHRate component when readOnly is false", () => {
 
       screen.debug(numerator);
 
-      fireEvent.type(numerator, "42");
-      fireEvent.type(denominator, "84");
+      fireEvent.change(numerator, { target: { value: "42" } });
+      fireEvent.change(denominator, { target: { value: "84" } });
 
       expect(numerator).toHaveDisplayValue([expectedValues[i].numerator]);
       expect(denominator).toHaveDisplayValue([expectedValues[i].denominator]);
@@ -264,6 +263,6 @@ describe("Rates should have correct properties", () => {
   });
 
   test("Should have category property only on FFY 2023", () => {
-    expect(getMeasureYear).toBeCalled();
+    expect(getMeasureYear).toHaveBeenCalled();
   });
 });

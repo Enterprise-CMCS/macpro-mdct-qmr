@@ -5,6 +5,7 @@ import {
 
 import {
   generateOmsCategoryRateData,
+  generateOmsQualifierRateData,
   locationDictionary,
   badNumeratorRate,
   simpleRate,
@@ -146,6 +147,33 @@ describe("Testing Numerator Less Than Denominator", () => {
         "TestLabel",
         qualifiers[0].label,
       ]);
+    });
+
+    it("should use rate label for OMS error location when present", () => {
+      const shiftedQualifierLabel = "Filtered label";
+      const badRateWithShiftedLabel = {
+        ...badNumeratorRate,
+        label: shiftedQualifierLabel,
+      };
+      const category = categories[0];
+      const locationDictionaryForTest = (labels: string[]) =>
+        labels.join(" - ");
+      const data = generateOmsQualifierRateData([category], qualifiers, [
+        badRateWithShiftedLabel,
+        simpleRate,
+      ]);
+
+      const errors = validateNumeratorLessThanDenominatorOMS()({
+        ...baseOMSInfo,
+        categories: [category],
+        qualifiers,
+        locationDictionary: locationDictionaryForTest,
+        rateData: data,
+      });
+
+      expect(errors).toHaveLength(1);
+      expect(errors[0].errorLocation).toContain(shiftedQualifierLabel);
+      expect(errors[0].errorLocation).not.toContain(qualifiers[0].label);
     });
   });
 

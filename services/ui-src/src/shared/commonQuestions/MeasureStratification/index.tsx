@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "../../types";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useFormContext, useWatch } from "react-hook-form";
 import { OMSData } from "../OptionalMeasureStrat/data";
@@ -106,34 +106,31 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const { coreset } = props;
   const { coreSetId } = useParams();
 
-  const { watch, setValue, resetField } =
+  const { getValues, setValue, resetField, formState } =
     useFormContext<Types.OptionalMeasureStratification>();
-  const data = watch();
-  const reportingMeasureStratification = useWatch({
-    name: `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`,
+  // Re-run this component only when these two radios change.
+  useWatch({
+    name: [
+      `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`,
+      `OptionalMeasureStratification.${DC.VERSION}`,
+    ],
   });
+  const data = getValues();
+  // On load the saved answer can be missing from the live form. So use the
+  // live value if it's there, otherwise fall back to the saved one.
+  const liveOms = data.OptionalMeasureStratification;
+  const defaultOms = formState.defaultValues?.OptionalMeasureStratification;
+  const reportingMeasureStratification =
+    liveOms?.[DC.REPORTING_STRATIFICATION] ??
+    defaultOms?.[DC.REPORTING_STRATIFICATION];
   const shouldUseReportingMeasureStratification =
     featuresByYear.useStratificationYesNo;
 
-  const [version, setVersion] = useState<string>();
-  const [omsData, setOMSData] = useState<Types.OmsNode[]>();
-
-  useEffect(() => {
-    if (
-      data.OptionalMeasureStratification?.version != undefined &&
-      data.OptionalMeasureStratification.version != version
-    ) {
-      setVersion(data.OptionalMeasureStratification.version);
-      setOMSData(
-        OMSData(
-          year,
-          coreset === "adult",
-          data.OptionalMeasureStratification.version,
-          coreSetId
-        )
-      );
-    }
-  }, [data.OptionalMeasureStratification?.version]);
+  const version = liveOms?.[DC.VERSION] ?? defaultOms?.[DC.VERSION];
+  const omsData = useMemo(() => {
+    if (version == undefined) return undefined;
+    return OMSData(year, coreset === "adult", version, coreSetId);
+  }, [version, year, coreset, coreSetId]);
 
   const onReset = () => {
     if (!data.OptionalMeasureStratification?.selections) return;

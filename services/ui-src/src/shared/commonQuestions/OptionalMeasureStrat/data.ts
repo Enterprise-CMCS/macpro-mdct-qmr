@@ -33,7 +33,9 @@ export const OMSData = (
         return modifyMissingLabel(removeRaceAndEthnicity(strat2026(coreSetId)));
       }
       return modifyMissingLabel(
-        version === "1997-omb" ? omb1997() : strat2026(coreSetId)
+        version === "1997-omb"
+          ? strat2026(coreSetId, omb1997())
+          : strat2026(coreSetId)
       );
   }
 };
@@ -204,11 +206,17 @@ const omb2024 = (): OmsNode[] => {
   ];
 };
 
-const strat2026 = (coreSetId?: string): OmsNode[] => {
-  const data: OmsNode[] = [...omb2024()];
+const strat2026 = (coreSetId?: string, baseData = omb2024()): OmsNode[] => {
+  const data: OmsNode[] = [...baseData];
 
-  // Foster Care: Child Medicaid + Health Home only
-  if (coreSetId?.startsWith("HHCS") || coreSetId === "CCSM") {
+  // Foster Care: Child Core Set (CCS/CCSM) + Health Home only
+  // Includes both separated reports (CCSM) and combined reports (CCS, CC)
+  if (
+    coreSetId?.startsWith("HHCS") ||
+    coreSetId === "CCSM" ||
+    coreSetId === "CCS" ||
+    coreSetId === "CC"
+  ) {
     data.push({
       id: "ggYk0j",
       label: "Foster Care",
@@ -226,8 +234,14 @@ const strat2026 = (coreSetId?: string): OmsNode[] => {
     });
   }
 
-  // Medicaid Expansion: Adult Medicaid + Health Home only
-  if (coreSetId?.startsWith("HHCS") || coreSetId === "ACSM") {
+  // Medicaid Expansion: Adult Core Set (ACS/ACSM) + Health Home only
+  // Includes both separated reports (ACSM) and combined reports (ACS, AC)
+  if (
+    coreSetId?.startsWith("HHCS") ||
+    coreSetId === "ACSM" ||
+    coreSetId === "ACS" ||
+    coreSetId === "AC"
+  ) {
     data.push({
       id: "KSB26p",
       label: "Medicaid Expansion",

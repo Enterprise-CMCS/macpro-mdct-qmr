@@ -64,7 +64,8 @@ export const data: MeasureTemplateData = {
   ],
   override: {
     validateDualPopInformationPM: {
-      ageIndex: 1,
+      ageIndex: 2,
+      errorLabel: "Ages 65 to 74",
     },
   },
 };
