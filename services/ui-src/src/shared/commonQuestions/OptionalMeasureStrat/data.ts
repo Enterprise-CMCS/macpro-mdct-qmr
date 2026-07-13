@@ -224,6 +224,8 @@ const strat2026 = (coreSetId?: string, baseData = omb2024()): OmsNode[] => {
         {
           id: "WwTFBg",
           label: "In foster care during the measurement period",
+          helperText:
+            "Child was in foster care at any time during the measurement period using enrollment data to identify that the beneficiary was either enrolled in Medicaid in the Title IV-E children eligibility category or in another eligibility category with a foster care indicator.",
         },
         {
           id: "u0TFWg",
