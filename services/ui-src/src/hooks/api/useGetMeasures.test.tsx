@@ -26,8 +26,6 @@ describe("Test useGetMeasures", () => {
   });
   it("Test error", () => {
     mockUseParam.mockReturnValue({});
-    expect(() => useGetMeasures("AC")).toThrowError(
-      "state or year unavailable"
-    );
+    expect(() => useGetMeasures("AC")).toThrow("state or year unavailable");
   });
 });

@@ -7,7 +7,7 @@ import {
   parseLabelToHTML,
 } from "utils";
 import * as DC from "dataConstants";
-import { useContext } from "react";
+import { JSX, useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { AnyObject } from "types";
 import { useParams } from "react-router-dom";

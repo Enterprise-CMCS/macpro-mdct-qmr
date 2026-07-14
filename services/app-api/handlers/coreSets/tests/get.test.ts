@@ -105,7 +105,7 @@ describe("Test Get Core Set Functions", () => {
     (dynamodbLib.queryAll as jest.Mock).mockResolvedValue([]);
     (createCoreSet as jest.Mock).mockResolvedValue({ statusCode: 200 });
     const res = await getAllCoreSets(event, null);
-    expect(createCoreSet).toBeCalled();
+    expect(createCoreSet).toHaveBeenCalled();
     expect(res.statusCode).toBe(200);
   });
 
@@ -114,7 +114,7 @@ describe("Test Get Core Set Functions", () => {
     mockHasStatePermissions.mockImplementation(() => true);
     (dynamodbLib.queryAll as jest.Mock).mockResolvedValue([]);
 
-    expect(createCoreSet).not.toBeCalled();
+    expect(createCoreSet).not.toHaveBeenCalled();
   });
 
   test("Test getAllCoreSets with no existing core sets and creating them fails", async () => {

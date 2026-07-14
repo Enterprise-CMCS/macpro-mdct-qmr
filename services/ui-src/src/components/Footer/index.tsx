@@ -1,6 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Libs from "libs";
+import { JSX } from "react";
 
 const VerticalLogoFooter = () => {
   return (

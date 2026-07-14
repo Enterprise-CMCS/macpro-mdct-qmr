@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
-import { LocalLogins } from ".";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { LocalLogins } from ".";
 
 const mockedNavigate = jest.fn();
 jest.mock("react-router-dom", () => ({
@@ -33,7 +33,7 @@ describe("Test LocalLogins", () => {
     ).toBeVisible();
   });
 
-  it("Test login with cognito", () => {
+  it("Test login with cognito", async () => {
     mockSignIn.mockReturnValue({});
     const { container } = render(
       <LocalLogins
@@ -43,11 +43,13 @@ describe("Test LocalLogins", () => {
       />
     );
     const emailField = container.querySelector(`input[name="email"]`);
-    const passwordField = container.querySelector(`input[name="email"]`);
-    if (emailField) userEvent.type(emailField, "mail@mail.com");
-    if (passwordField) userEvent.type(passwordField, "!@#$%");
+    const passwordField = container.querySelector(`input[name="password"]`);
+    if (emailField) await userEvent.type(emailField, "mail@mail.com");
+    if (passwordField) await userEvent.type(passwordField, "!@#$%");
 
-    userEvent.click(screen.getByRole("button", { name: "Login with Cognito" }));
-    expect(mockedNavigate).toHaveBeenCalled();
+    await userEvent.click(
+      screen.getByRole("button", { name: "Login with Cognito" })
+    );
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalled());
   });
 });

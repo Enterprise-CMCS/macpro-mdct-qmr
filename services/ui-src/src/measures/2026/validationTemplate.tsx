@@ -202,7 +202,7 @@ export const validationTemplate = (
   const OPM = data[DC.OPM_RATES];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(2026, true),
+    OMSData(2026, true, data.OptionalMeasureStratification?.version, coreSetId),
     qualifiers,
     categories
   );
@@ -489,11 +489,7 @@ export const validationTemplate = (
       dataSource: PMD.override?.omsValidations?.dataSource //used in validateRateZeroOMS
         ? data[DC.DATA_SOURCE]
         : undefined,
-      locationDictionary: GV.omsLocationDictionary(
-        OMSData(2026, true),
-        qualifiers,
-        categories
-      ),
+      locationDictionary,
       validationCallbacks: sortOMSValidations(OPM, PMD)!.flat(),
     })
   );

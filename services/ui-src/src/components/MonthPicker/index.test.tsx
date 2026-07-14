@@ -160,11 +160,13 @@ describe("Testing MonthPicker", () => {
     );
 
     // change month
-    userEvent.type(getByLabelText("Month:"), "12");
+    await userEvent.clear(getByLabelText("Month:"));
+    await userEvent.type(getByLabelText("Month:"), "12");
     expect(getByLabelText("Month:")).toHaveValue("12");
 
     // change year
-    userEvent.type(getByLabelText("Year (yyyy):"), "1912");
+    await userEvent.clear(getByLabelText("Year (yyyy):"));
+    await userEvent.type(getByLabelText("Year (yyyy):"), "1912");
     expect(getByLabelText("Year (yyyy):")).toHaveValue("1912");
   });
 
@@ -179,11 +181,13 @@ describe("Testing MonthPicker", () => {
     );
 
     // change month
-    userEvent.type(getByLabelText("Month:"), "73");
+    await userEvent.clear(getByLabelText("Month:"));
+    await userEvent.type(getByLabelText("Month:"), "73");
     expect(getByLabelText("Month:")).toHaveValue("7");
 
     // change year
-    userEvent.type(getByLabelText("Year (yyyy):"), "1712");
+    await userEvent.clear(getByLabelText("Year (yyyy):"));
+    await userEvent.type(getByLabelText("Year (yyyy):"), "1712");
     expect(getByLabelText("Year (yyyy):")).toHaveValue("17");
   });
 });

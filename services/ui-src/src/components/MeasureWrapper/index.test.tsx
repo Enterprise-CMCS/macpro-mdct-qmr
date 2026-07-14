@@ -159,6 +159,34 @@ describe("non-state user", () => {
   });
 });
 
+describe("stratification reminder banner", () => {
+  const renderBanner = (stratificationRequired: string[]) => {
+    useParamsSpy.mockReturnValue({ state: "OH", coreSetId: "ACSM" });
+    renderMeasureWrapper(
+      { measureId: "AMM-AD" },
+      { useGetMeasureValues: { data: { Item: { stratificationRequired } } } }
+    );
+  };
+
+  beforeEach(() => {
+    mockUseUser.mockImplementation(() => ({ isStateUser: true }));
+  });
+
+  it("renders the banner when stratification is required for the core set", () => {
+    renderBanner(["ACSM"]);
+    expect(
+      screen.getByText(/states are expected to report stratified/i)
+    ).toBeInTheDocument();
+  });
+
+  it("does not render the banner when stratification is not required", () => {
+    renderBanner([]);
+    expect(
+      screen.queryByText(/states are expected to report stratified/i)
+    ).not.toBeInTheDocument();
+  });
+});
+
 describe("test auto-completed measures", () => {
   beforeEach(() => {
     mockUseUser.mockImplementation(() => {

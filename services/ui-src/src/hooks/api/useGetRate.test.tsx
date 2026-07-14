@@ -23,6 +23,6 @@ describe("Test useGetRate", () => {
   it("Test error", () => {
     expect(() =>
       useGetRate({ measure: "", state: "", coreSet: "", year: "" })
-    ).toThrowError("state or year unavailable");
+    ).toThrow("state or year unavailable");
   });
 });

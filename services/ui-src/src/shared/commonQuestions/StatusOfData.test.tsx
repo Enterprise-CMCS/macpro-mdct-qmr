@@ -1,5 +1,4 @@
-import fireEvent from "@testing-library/user-event";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { StatusOfData } from "./StatusOfData";
 

@@ -1,5 +1,5 @@
 import { screen, waitFor, act } from "@testing-library/react";
-import { createElement, Suspense } from "react";
+import { createElement, JSX, Suspense } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
 import { useApiMock } from "utils/testUtils/useApiMock";
@@ -105,7 +105,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByTestId("status-of-data")).toBeInTheDocument();
+    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(
       screen.queryByTestId("measurement-specification")
     ).toBeInTheDocument();

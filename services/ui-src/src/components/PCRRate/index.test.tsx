@@ -1,5 +1,4 @@
-import { screen } from "@testing-library/react";
-import fireEvent from "@testing-library/user-event";
+import { screen, fireEvent } from "@testing-library/react";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { PCRRate } from ".";
 import { usePathParams } from "hooks/api/usePathParams";
@@ -82,8 +81,8 @@ describe("Test the Rate component when readOnly is false", () => {
       const denominator = screen.getByLabelText(qualifiers[ndr.denominator]);
       const rate = screen.getByLabelText(qualifiers[ndr.rateIndex]);
 
-      fireEvent.type(numerator, "42");
-      fireEvent.type(denominator, "84");
+      fireEvent.change(numerator, { target: { value: "42" } });
+      fireEvent.change(denominator, { target: { value: "84" } });
 
       expect(numerator).toHaveDisplayValue(expectedValues[i].num);
       expect(denominator).toHaveDisplayValue(expectedValues[i].denom);
@@ -95,7 +94,7 @@ describe("Test the Rate component when readOnly is false", () => {
     // Rate should be editable
     ndrForumlas.forEach((ndr) => {
       const rate = screen.getByLabelText(qualifiers[ndr.rateIndex]);
-      fireEvent.type(rate, "42");
+      fireEvent.change(rate, { target: { value: "42" } });
       expect(rate).toHaveDisplayValue("42");
     });
   });
@@ -133,8 +132,8 @@ describe("Test the Rate component when readOnly is true", () => {
       const denominator = screen.getByLabelText(qualifiers[ndr.denominator]);
       const rate = screen.getByText(qualifiers[ndr.rateIndex]).nextSibling;
 
-      fireEvent.type(numerator, "42");
-      fireEvent.type(denominator, "84");
+      fireEvent.change(numerator, { target: { value: "42" } });
+      fireEvent.change(denominator, { target: { value: "84" } });
 
       expect(numerator).toHaveDisplayValue(expectedValues[i].num);
       expect(denominator).toHaveDisplayValue(expectedValues[i].denom);
@@ -177,8 +176,8 @@ describe("Test the component for PCR-HH specific conditions", () => {
       const denominator = screen.getByLabelText(qualifiers[ndr.denominator]);
       const rate = screen.getByLabelText(qualifiers[ndr.rateIndex]);
 
-      fireEvent.type(numerator, "42");
-      fireEvent.type(denominator, "84");
+      fireEvent.change(numerator, { target: { value: "42" } });
+      fireEvent.change(denominator, { target: { value: "84" } });
 
       expect(numerator).toHaveDisplayValue(expectedValues[i].num);
       expect(denominator).toHaveDisplayValue(expectedValues[i].denom);

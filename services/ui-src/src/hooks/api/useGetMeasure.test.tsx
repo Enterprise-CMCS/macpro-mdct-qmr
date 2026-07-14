@@ -26,8 +26,6 @@ describe("Test useGetMeasure", () => {
   });
   it("Test error", () => {
     mockUseParam.mockReturnValue({});
-    expect(() => useGetMeasure(props)).toThrowError(
-      "state or year unavailable"
-    );
+    expect(() => useGetMeasure(props)).toThrow("state or year unavailable");
   });
 });

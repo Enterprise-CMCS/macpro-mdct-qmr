@@ -143,6 +143,7 @@ const buildChildCheckboxOption = ({
   return {
     value: id,
     displayValue: omsNode?.label ?? "DISPLAY_ID_NOT_SET",
+    helperText: omsNode?.helperText,
     children,
   };
 };
@@ -170,12 +171,22 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
 
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
+      {props.helperText && (
+        <CUI.Text fontSize="sm" color="gray.600" mb={4}>
+          {props.helperText}
+        </CUI.Text>
+      )}
       {checkboxOptions.map((options) => (
         <QMR.Accordion
           externalControlled
           label={options.displayValue}
           overrideExpand={props.overrideAccordion?.(options.value)}
         >
+          {options.helperText && (
+            <CUI.Text fontSize="sm" color="gray.600" mb={4}>
+              {options.helperText}
+            </CUI.Text>
+          )}
           {options.children}
         </QMR.Accordion>
       ))}

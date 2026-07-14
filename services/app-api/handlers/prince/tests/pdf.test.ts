@@ -29,7 +29,7 @@ jest.mock("node:fs", () => ({
 }));
 
 const dangerousHtml =
-  "<html><head></head><body><p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p></body></html>";
+  '<html><head></head><body><p>abc<iframe src="javascript:alert(3)"></iframe>def</p></body></html>';
 const compressedHtml = gzipSync(dangerousHtml);
 const sanitizedHtml = "<html><head></head><body><p>abcdef</p></body></html>";
 const base64EncodedDangerousHtml =

@@ -22,8 +22,6 @@ describe("Test useGetCoreSets", () => {
   });
   it("Test error", () => {
     mockUseParam.mockReturnValue({});
-    expect(() => useGetCoreSets(false)).toThrowError(
-      "state or year unavailable"
-    );
+    expect(() => useGetCoreSets(false)).toThrow("state or year unavailable");
   });
 });

@@ -37,7 +37,6 @@ export const PCRHH = ({
 
       {!isNotReportingData && (
         <>
-          <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type="HEDIS" coreset="health" />
           {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           <CMQ.DataSource />

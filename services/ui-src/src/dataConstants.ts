@@ -211,6 +211,7 @@ export const RATE_DEVIATIONS_SELECTED = "RateDeviationsSelected";
 export const REASON = "Reason";
 export const REPORTING_FINAL_DATA = "ReportingFinalData";
 export const REPORTING_PROVISIONAL_DATA = "ReportingProvisionalData";
+export const REPORTING_STRATIFICATION = "reportingStratification";
 export const REQUIRES_DATA_LINKAGE = "RequireDataLinkage";
 export const REQUIRES_MEDICAL_RECORD_REVIEW = "RequiresMedicalRecordReview";
 export const SAMHSA = "SAMHSA";

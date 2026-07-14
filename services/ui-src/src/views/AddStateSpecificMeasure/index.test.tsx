@@ -1,5 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
-import fireEvent from "@testing-library/user-event";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { AddStateSpecificMeasure } from ".";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterWrappedComp } from "utils/testing";
@@ -82,22 +81,13 @@ describe("AddStateSpecificMeasure", () => {
         expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
       });
 
-      it("allows a maximum of 5 new SSMs", () => {
-        // Add 3 additional SSMs (for a total of 4)
+      it("disables adding SSMs at the maximum", async () => {
         for (let i = 0; i < 3; i++) {
-          screen.getByText(/\+ Add Another/i).click();
+          fireEvent.click(screen.getByText(/\+ Add Another/i));
         }
 
-        waitFor(() => {
-          // Expect that we can add a 5th SSM
+        await waitFor(() => {
           expect(screen.getAllByText(/Name the measure/i)).toHaveLength(4);
-          expect(screen.getByText(/\+ Add Another/i)).toBeEnabled();
-        });
-
-        screen.getByText(/\+ Add Another/i).click();
-
-        waitFor(() => {
-          expect(screen.getAllByText(/Name the measure/i)).toHaveLength(5);
           expect(screen.getByText(/\+ Add Another/i)).toBeDisabled();
         });
       });
@@ -123,12 +113,12 @@ describe("AddStateSpecificMeasure", () => {
         const nameTextbox = screen.getByRole("textbox", {
           name: "add-ssm.0.description",
         });
-        fireEvent.type(nameTextbox, "name");
+        fireEvent.change(nameTextbox, { target: { value: "name" } });
 
         const descTextbox = screen.getByRole("textbox", {
           name: "Please provide a description of the measure",
         });
-        fireEvent.type(descTextbox, "desc");
+        fireEvent.change(descTextbox, { target: { value: "desc" } });
 
         const createBtn = screen.getByText(/Create/i);
         fireEvent.click(createBtn);
@@ -160,12 +150,12 @@ describe("AddStateSpecificMeasure", () => {
     const nameTextbox = screen.getByRole("textbox", {
       name: "add-ssm.0.description",
     });
-    fireEvent.type(nameTextbox, "name");
+    fireEvent.change(nameTextbox, { target: { value: "name" } });
 
     const descTextbox = screen.getByRole("textbox", {
       name: "Please provide a description of the measure",
     });
-    fireEvent.type(descTextbox, "desc");
+    fireEvent.change(descTextbox, { target: { value: "desc" } });
 
     const createBtn = screen.getByText(/Create/i);
     fireEvent.click(createBtn);

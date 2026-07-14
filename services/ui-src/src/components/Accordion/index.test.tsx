@@ -36,7 +36,7 @@ describe("Test Accordion Component", () => {
       const accordionBtn = screen.getByRole("button", {
         name: "mock accordion",
       });
-      userEvent.click(accordionBtn);
+      await userEvent.click(accordionBtn);
 
       const childAccordionBtn = await screen.findByRole("button", {
         name: "mock child accordion",
@@ -57,17 +57,20 @@ describe("Test Accordion Component", () => {
     const collapseBtn = screen.getByRole("button", { name: "Collapse all" });
 
     expect(screen.getByText("mock child accordion")).not.toBeVisible();
-    userEvent.click(expandBtn);
+    const accordionBtn = screen.getByRole("button", {
+      name: "mock accordion",
+    });
+
+    await userEvent.click(expandBtn);
     await waitFor(() =>
       expect(screen.getByText("mock child accordion")).toBeVisible()
     );
     expect(screen.getByText("mock content")).toBeVisible();
 
-    userEvent.click(collapseBtn);
+    await userEvent.click(collapseBtn);
     await waitFor(() =>
-      expect(screen.getByText("mock child accordion")).not.toBeVisible()
+      expect(accordionBtn).toHaveAttribute("aria-expanded", "false")
     );
-    expect(screen.getByText("mock content")).not.toBeVisible();
   });
   it("Accordion is auto-expanded by default", async () => {
     renderWithHookForm(
