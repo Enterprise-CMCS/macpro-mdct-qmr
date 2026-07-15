@@ -261,11 +261,6 @@ export async function generatePDF(
 
   const html = document.querySelector("html")!;
 
-  // add <base> to treat relative URLs as absolute
-  const base = document.createElement("base");
-  base.href = `https://${window.location.host}`;
-  document.querySelector("head")!.prepend(base);
-
   const htmlString = htmlStringCleanup(html.outerHTML);
   const gzipped = gzip(htmlString);
   const base64String = btoa(uint8ToString(gzipped));

@@ -280,7 +280,15 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     method: "POST",
     ...commonProps,
     bundling: {
+      forceDockerBundling: true,
       nodeModules: ["prince"],
+      commandHooks: {
+        beforeBundling: () => [],
+        beforeInstall: () => [],
+        afterBundling: (_inputDir, outputDir) => [
+          `cd "${outputDir}/node_modules/prince" && node prince-npm.js install`,
+        ],
+      },
     },
     timeout: Duration.seconds(30), // apigateway's max
   });
