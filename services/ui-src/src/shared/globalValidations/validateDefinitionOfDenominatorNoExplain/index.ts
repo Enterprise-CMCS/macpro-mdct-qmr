@@ -5,11 +5,7 @@ export const validateDefinitionOfDenominatorNoExplain = (
   data: Types.DefinitionOfPopulation
 ) => {
   if (data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC] !== DC.NO) return [];
-  if (
-    data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN] &&
-    data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_SIZE]
-  )
-    return [];
+  if (data[DC.DENOMINATOR_DEFINE_TOTAL_TECH_SPEC_NO_EXPLAIN]) return [];
 
   return [
     {
