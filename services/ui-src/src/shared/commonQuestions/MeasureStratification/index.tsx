@@ -9,6 +9,9 @@ import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
 import { featuresByYear } from "utils/featuresByYear";
+import { CoreSetAbbr } from "types";
+import { getStratificationBannerDescription } from "../../../components/MeasureWrapper/stratificationBanner";
+import { Alert } from "@cmsgov/design-system";
 
 interface Props {
   reset?: () => void;
@@ -103,8 +106,16 @@ export const StratificationOption = ({ reset, year }: Props) => {
 export const MeasureStrat = (props: Types.OMSProps) => {
   const labels: any = useContext(SharedContext);
   const year = labels.year;
-  const { coreset } = props;
+  const { coreset, stratificationRequired } = props;
   const { coreSetId } = useParams();
+  const coreSet = (coreSetId?.split("_")?.[0] ??
+    coreSetId ??
+    "ACS") as CoreSetAbbr;
+  const stratificationBannerDescription = getStratificationBannerDescription(
+    String(year),
+    coreSet,
+    featuresByYear.hasTailoredStratificationBanner
+  );
 
   const { getValues, setValue, resetField, formState } =
     useFormContext<Types.OptionalMeasureStratification>();
@@ -216,6 +227,16 @@ export const MeasureStrat = (props: Types.OMSProps) => {
 
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
+      {stratificationRequired?.includes(coreSet) && (
+        <CUI.Box mt="24px" mb="32px">
+          <Alert
+            heading="Reminder: Measure Stratification Required"
+            variation="warn"
+          >
+            <CUI.Text>{stratificationBannerDescription}</CUI.Text>
+          </Alert>
+        </CUI.Box>
+      )}
       <QMR.Accordion label="Instructions (Click to Expand)">
         {labels.MeasureStratification.instructions}
       </QMR.Accordion>

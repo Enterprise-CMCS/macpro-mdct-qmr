@@ -47,6 +47,7 @@ export interface MeasureWrapperProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
@@ -60,6 +61,7 @@ interface MeasureProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions: Dispatch<
     SetStateAction<{
       functions: Function[];
@@ -543,6 +545,7 @@ export const MeasureWrapper = ({
                       detailedDescription={detailedDescription}
                       year={year}
                       measureId={measureId}
+                      stratificationRequired={stratificationRequired}
                       setValidationFunctions={setValidationFunctions}
                       handleSave={handleSave}
                     />

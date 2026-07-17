@@ -1,6 +1,7 @@
 import * as DC from "dataConstants";
 import { OtherRatesFields, RateFields } from "./TypeRateFields";
 import { Categories, Qualifiers } from ".";
+import { CoreSetAbbr } from "types";
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { ndrFormula } from "types";
 import { LabelData } from "utils";
@@ -22,6 +23,7 @@ export interface OmsCheckboxProps {
 }
 
 export interface BaseProps extends Qualifiers, Categories {
+  stratificationRequired?: CoreSetAbbr[];
   measureName?: string;
   inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
