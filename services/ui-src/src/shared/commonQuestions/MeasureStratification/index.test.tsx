@@ -8,6 +8,8 @@ import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/c
 import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 import { getMeasureYear } from "utils/getMeasureYear";
 import { useParams } from "react-router-dom";
+import { CoreSetAbbr } from "types";
+import { getStratificationBannerDescription } from "components/MeasureWrapper/stratificationBanner";
 
 jest.mock("utils/getMeasureYear", () => ({
   getMeasureYear: jest.fn(),
@@ -42,7 +44,11 @@ global.structuredClone = () => omsData;
 describe("Test MeasureStratification", () => {
   const mockUseParams = useParams as jest.Mock;
 
-  const renderMeasureStratification = (year = 2026, coreSetId?: string) => {
+  const renderMeasureStratification = (
+    year = 2026,
+    coreSetId?: string,
+    stratificationRequired?: CoreSetAbbr[]
+  ) => {
     (getMeasureYear as jest.Mock).mockReturnValue(year);
     mockUseParams.mockReturnValue({ coreSetId });
     const labels =
@@ -50,7 +56,11 @@ describe("Test MeasureStratification", () => {
 
     renderWithHookForm(
       <SharedContext.Provider value={{ ...labels, year }}>
-        <MeasureStrat data={[]} measureName="" />
+        <MeasureStrat
+          data={[]}
+          measureName=""
+          stratificationRequired={stratificationRequired}
+        />
       </SharedContext.Provider>
     );
   };
@@ -382,5 +392,28 @@ describe("Test MeasureStratification", () => {
 
     expect(screen.getByText("Foster Care")).toBeInTheDocument();
     expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
+  });
+
+  test("renders stratification reminder banner when core set is required", () => {
+    const bannerDescription = getStratificationBannerDescription(
+      "2026",
+      CoreSetAbbr.ACSM,
+      true
+    );
+
+    renderMeasureStratification(2026, "ACSM", [CoreSetAbbr.ACSM]);
+
+    expect(
+      screen.getByText("Reminder: Measure Stratification Required")
+    ).toBeInTheDocument();
+    expect(screen.getByText(bannerDescription)).toBeInTheDocument();
+  });
+
+  test("does not render stratification reminder banner when core set is not required", () => {
+    renderMeasureStratification(2026, "ACSM", [CoreSetAbbr.CCSM]);
+
+    expect(
+      screen.queryByText("Reminder: Measure Stratification Required")
+    ).not.toBeInTheDocument();
   });
 });
