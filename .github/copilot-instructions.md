@@ -8,7 +8,7 @@ This file provides guidance to Copilot Code Review for the **macpro-mdct-qmr** r
 
 Note that this is general guidance, not an exhaustive list of things to watch out for. This should be a living document that can be updated as more guidance and advice is recognized as valuable for inclusion within this document.
 
-### Never commit code directly to the branch withtout confirming with the PR author
+### Never commit code directly to the branch without confirming with the PR author
 
 As a reviewer, it is critical that recommendations are identified and added to the pull request, but it is not Copilot's responsibility to commit any changes. Do not push to the branch without being explicitly instructed to do so.
 
