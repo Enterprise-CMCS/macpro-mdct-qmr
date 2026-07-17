@@ -10,7 +10,7 @@ import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
 import { featuresByYear } from "utils/featuresByYear";
 import { CoreSetAbbr } from "types";
-import { getStratificationBannerDescription } from "../../../components/MeasureWrapper/stratificationBanner";
+import { getStratificationBannerDescription } from "components/MeasureWrapper/stratificationBanner";
 import { Alert } from "@cmsgov/design-system";
 
 interface Props {
