@@ -40,13 +40,10 @@ describe("validateDefinitionOfDenominatorNoExplain", () => {
     expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([]);
   });
 
-  it.each([["explanation is blank", "", "123"]])(
-    "returns an error when %s",
-    (_case, explanation, excludedPopSize) => {
-      setValues(DC.NO, explanation, excludedPopSize);
-      expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([
-        expectedError,
-      ]);
-    }
-  );
+  it("returns an error when explanation is blank", () => {
+    setValues(DC.NO, "", "123");
+    expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([
+      expectedError,
+    ]);
+  });
 });
