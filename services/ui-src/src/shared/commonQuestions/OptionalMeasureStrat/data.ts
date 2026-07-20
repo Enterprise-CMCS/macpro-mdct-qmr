@@ -224,6 +224,8 @@ const strat2026 = (coreSetId?: string, baseData = omb2024()): OmsNode[] => {
         {
           id: "WwTFBg",
           label: "In foster care during the measurement period",
+          helperText:
+            "Child was in foster care at any time during the measurement period, using enrollment data to identify that the beneficiary was either enrolled in Medicaid in the Title IV-E children eligibility category or in another eligibility category with a foster care indicator.",
         },
         {
           id: "u0TFWg",
@@ -253,7 +255,7 @@ const strat2026 = (coreSetId?: string, baseData = omb2024()): OmsNode[] => {
           id: "34Bj90",
           label: "Adult group – Full expansion",
           helperText:
-            "Adults enrolled in Medicaid under the adult group at section 1902(a)(10)(A)(i)(VIII) of the Act, and in regulation at 42 C.F.R. § 435.119[1] or in a section 1115 demonstration that provides eligibility for the entire adult group population.",
+            "Adults enrolled in Medicaid under the adult group at section 1902(a)(10)(A)(i)(VIII) of the Act, and in regulation at 42 C.F.R. § 435.119 or in a section 1115 demonstration that provides eligibility for the entire adult group population.",
         },
         {
           id: "N8EWVa",

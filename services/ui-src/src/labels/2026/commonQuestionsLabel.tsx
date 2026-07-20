@@ -219,13 +219,21 @@ export const commonQuestionsLabel = {
     instructions: (
       <>
         <CUI.Text>
-          Enter data below to stratify this measure by race, ethnicity, sex,
-          and/or geography. Beginning with 2025 Core Sets reporting, states are
-          required to report stratified data for a specific subset of Child,
-          Adult, and Health Home Core Set measures. More information on
-          stratification reporting requirements, including the list of measures
-          and rates subject to mandatory stratification for 2026 Core Set
-          reporting, is included in the {GetLinks("strat-ta-resource")}.
+          Enter stratified data below. Beginning with 2025 Core Sets reporting,
+          states are required to report stratified data for a specific subset of
+          Child, Adult, and Health Home Core Set measures. For measures subject
+          to mandatory stratification for 2026 Core Sets reporting, states are
+          expected to report stratified data for each of the following required
+          stratification standards: race and ethnicity, sex, and geography. In
+          addition, states are encouraged, but not required, to report
+          stratified data for two new stratifications: 1{")"} children in foster
+          care at any time during the measurement period; and 2{")"} adults who
+          are eligible for Medicaid under Medicaid expansion programs, as
+          applicable for each QMR report. More information on stratification
+          reporting requirements, including the list of measures and rates
+          subject to mandatory stratification for 2026 Core Set reporting and
+          the stratification standards available in each QMR report, is included
+          in the {GetLinks("strat-ta-resource")}.
         </CUI.Text>
         <br />
         <CUI.Text>
@@ -233,7 +241,12 @@ export const commonQuestionsLabel = {
           and ethnicity data using either (1) the{" "}
           {GetLinks("1997-omb-for-2026")}, as specified in the{" "}
           {GetLinks("hss-standard")}, or (2) the {GetLinks("2024-omb")} for each
-          measure selected for stratification.
+          measure selected for stratification. Select the race and ethnicity
+          standard your state is using for 2026 Core Sets reporting to display
+          all the available stratifications for the measure. If your state is
+          not reporting race and ethnicity data for this measure but is
+          reporting other stratifications, select “Not applicable – our state is
+          not reporting race or ethnicity data.”
         </CUI.Text>
         <br />
         <CUI.Text>

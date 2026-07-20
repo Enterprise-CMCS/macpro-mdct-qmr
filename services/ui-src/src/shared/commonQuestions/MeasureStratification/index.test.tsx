@@ -64,9 +64,7 @@ describe("Test MeasureStratification", () => {
     renderMeasureStratification(2026);
 
     expect(
-      screen.getByText(
-        "Are you reporting measure stratification for this measure?"
-      )
+      screen.getByText("Are you reporting stratified data for this measure?")
     ).toBeInTheDocument();
     expect(
       screen.getByRole("radio", {
@@ -126,7 +124,7 @@ describe("Test MeasureStratification", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("radio", {
-        name: "Not applicable",
+        name: "Not applicable – our state is not reporting race or ethnicity data",
       })
     ).toBeInTheDocument();
   });
@@ -142,7 +140,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: "Not applicable",
+        name: "Not applicable – our state is not reporting race or ethnicity data",
       })
     );
 
@@ -199,7 +197,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: "Not applicable",
+        name: "Not applicable – our state is not reporting race or ethnicity data",
       })
     );
 
@@ -222,7 +220,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: "Not applicable",
+        name: "Not applicable – our state is not reporting race or ethnicity data",
       })
     );
 
