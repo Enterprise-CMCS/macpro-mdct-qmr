@@ -416,4 +416,12 @@ describe("Test MeasureStratification", () => {
       screen.queryByText("Reminder: Measure Stratification Required")
     ).not.toBeInTheDocument();
   });
+
+  test("does not render stratification reminder banner when stratificationRequired is undefined", () => {
+    renderMeasureStratification(2026, "ACSM");
+
+    expect(
+      screen.queryByText("Reminder: Measure Stratification Required")
+    ).not.toBeInTheDocument();
+  });
 });
