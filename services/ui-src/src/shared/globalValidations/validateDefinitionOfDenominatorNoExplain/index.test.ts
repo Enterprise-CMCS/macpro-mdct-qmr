@@ -30,16 +30,18 @@ describe("validateDefinitionOfDenominatorNoExplain", () => {
     expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([]);
   });
 
-  it("returns no errors when total tech spec is no and both follow-up fields are filled", () => {
+  it("returns no errors when total tech spec is no and explanation is filled", () => {
     setValues(DC.NO, "Population A is excluded due to missing claims", "123");
     expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([]);
   });
 
-  it.each([
-    ["explanation is blank", "", "123"],
-    ["excluded population size is blank", "Population A is excluded", ""],
-  ])("returns an error when %s", (_case, explanation, excludedPopSize) => {
-    setValues(DC.NO, explanation, excludedPopSize);
+  it("returns no errors when total tech spec is no and excluded population size is blank", () => {
+    setValues(DC.NO, "Population A is excluded due to missing claims", "");
+    expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([]);
+  });
+
+  it("returns an error when explanation is blank", () => {
+    setValues(DC.NO, "", "123");
     expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([
       expectedError,
     ]);
