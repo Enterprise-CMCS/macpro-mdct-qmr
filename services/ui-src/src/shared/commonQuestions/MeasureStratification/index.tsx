@@ -8,7 +8,10 @@ import { OMSData } from "../OptionalMeasureStrat/data";
 import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
-import { featuresByYear } from "utils/featuresByYear";
+import {
+  featuresByYear,
+  isStratificationReminderBannerEnabled,
+} from "utils/featuresByYear";
 import { CoreSetAbbr } from "types";
 import { getStratificationBannerDescription } from "components/MeasureWrapper/stratificationBanner";
 import { Alert } from "@cmsgov/design-system";
@@ -225,7 +228,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       version === "2024-omb" ||
       (shouldUseReportingMeasureStratification && version === "not-reporting"));
   const shouldShowStratificationReminderBanner =
-    featuresByYear.hasTailoredStratificationBanner &&
+    isStratificationReminderBannerEnabled(year) &&
     stratificationRequired?.includes(coreSet);
 
   return (

@@ -20,6 +20,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { Alert } from "@cmsgov/design-system";
+import { isStratificationReminderBannerEnabled } from "utils/featuresByYear";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -154,9 +155,9 @@ export const PrintableMeasureWrapper = ({
   const foundMeasureDescription =
     measureDescriptions[measureData?.year]?.[measureData?.measure] ||
     measureData?.description;
-  const is2026OrLater = Number(year) >= 2026;
   const shouldShowStratificationReminderBanner =
-    is2026OrLater && measureData?.stratificationRequired?.includes(coreSet);
+    isStratificationReminderBannerEnabled(year) &&
+    measureData?.stratificationRequired?.includes(coreSet);
 
   return (
     <CUI.VStack padding={10}>

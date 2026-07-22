@@ -1,5 +1,11 @@
 import { getMeasureYear } from "./getMeasureYear";
 
+const getFeatureYear = (year?: number | string) =>
+  Number(year ?? getMeasureYear());
+
+export const isStratificationReminderBannerEnabled = (year?: number | string) =>
+  getFeatureYear(year) >= 2026;
+
 export const featuresByYear = {
   /**
    * Prior to 2024, Adult Core Sets were always reported combined.
@@ -209,6 +215,16 @@ export const featuresByYear = {
   },
 
   /**
+   * Prior to 2026, the measure stratification reminder banner was hidden.
+   *
+   * In 2026 and beyond, the reminder banner is displayed for reports where
+   * measure stratification is required.
+   */
+  get showStratificationReminderBanner() {
+    return isStratificationReminderBannerEnabled();
+  },
+
+  /**
    * Prior to 2026, the measure stratification reminder banner displayed a
    * single generic message for every report.
    *
@@ -217,6 +233,6 @@ export const featuresByYear = {
    * (e.g. foster care for Child Medicaid, Medicaid expansion for Adult Medicaid).
    */
   get hasTailoredStratificationBanner() {
-    return getMeasureYear() >= 2026;
+    return isStratificationReminderBannerEnabled();
   },
 };
