@@ -1,20 +1,23 @@
-import {
-  featuresByYear,
-  isStratificationReminderBannerEnabled,
-} from "./featuresByYear";
+import { featuresByYear } from "./featuresByYear";
+import { getMeasureYear } from "./getMeasureYear";
 
-describe("isStratificationReminderBannerEnabled", () => {
-  it("uses the provided year when one is passed", () => {
-    expect(isStratificationReminderBannerEnabled(2025)).toBe(false);
-    expect(isStratificationReminderBannerEnabled("2026")).toBe(true);
-  });
+jest.mock("./getMeasureYear", () => ({
+  getMeasureYear: jest.fn(),
+}));
 
-  it("matches the feature getters when deriving the year from the route", () => {
-    window.history.pushState({}, "", "/OH/2025/ACSM/AMM-AD");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
+
+describe("featuresByYear stratification banner flags", () => {
+  it("disables both flags before 2026", () => {
+    mockGetMeasureYear.mockReturnValue(2025);
+
     expect(featuresByYear.showStratificationReminderBanner).toBe(false);
     expect(featuresByYear.hasTailoredStratificationBanner).toBe(false);
+  });
 
-    window.history.pushState({}, "", "/OH/2026/ACSM/AMM-AD");
+  it("enables both flags in 2026 and later", () => {
+    mockGetMeasureYear.mockReturnValue(2026);
+
     expect(featuresByYear.showStratificationReminderBanner).toBe(true);
     expect(featuresByYear.hasTailoredStratificationBanner).toBe(true);
   });
