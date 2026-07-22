@@ -47,6 +47,7 @@ export interface MeasureWrapperProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
@@ -60,6 +61,7 @@ interface MeasureProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions: Dispatch<
     SetStateAction<{
       functions: Function[];
@@ -465,6 +467,9 @@ export const MeasureWrapper = ({
     coreSet,
     featuresByYear.hasTailoredStratificationBanner
   );
+  const shouldShowStratificationReminderBanner =
+    featuresByYear.showStratificationReminderBanner &&
+    stratificationRequired?.includes(coreSet);
 
   return (
     <FormProvider {...methods}>
@@ -511,7 +516,7 @@ export const MeasureWrapper = ({
                 <CUI.Container maxW="1000px" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
-                  {stratificationRequired?.includes(coreSet) && (
+                  {shouldShowStratificationReminderBanner && (
                     <CUI.Box mb="1rem">
                       <Alert heading="Reminder: Measure Stratification Required">
                         <CUI.Text>{stratificationBannerDescription}</CUI.Text>
@@ -543,6 +548,7 @@ export const MeasureWrapper = ({
                       detailedDescription={detailedDescription}
                       year={year}
                       measureId={measureId}
+                      stratificationRequired={stratificationRequired}
                       setValidationFunctions={setValidationFunctions}
                       handleSave={handleSave}
                     />
