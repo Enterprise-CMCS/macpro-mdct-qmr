@@ -161,10 +161,10 @@ describe("non-state user", () => {
 });
 
 describe("stratification reminder banner", () => {
-  const renderBanner = (stratificationRequired: string[]) => {
-    useParamsSpy.mockReturnValue({ state: "OH", coreSetId: "ACSM" });
+  const renderBanner = (stratificationRequired: string[], year = "2026") => {
+    useParamsSpy.mockReturnValue({ state: "OH", coreSetId: "ACSM", year });
     renderMeasureWrapper(
-      { measureId: "AMM-AD" },
+      { measureId: "AMM-AD", year },
       { useGetMeasureValues: { data: { Item: { stratificationRequired } } } }
     );
   };
@@ -178,6 +178,13 @@ describe("stratification reminder banner", () => {
     expect(
       screen.getByText(/states are expected to report stratified/i)
     ).toBeInTheDocument();
+  });
+
+  it("does not render the banner before 2026", () => {
+    renderBanner(["ACSM"], "2025");
+    expect(
+      screen.queryByText(/states are expected to report stratified/i)
+    ).not.toBeInTheDocument();
   });
 
   it("does not render the banner when stratification is not required", () => {

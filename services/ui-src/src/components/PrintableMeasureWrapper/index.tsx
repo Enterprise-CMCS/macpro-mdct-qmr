@@ -154,6 +154,9 @@ export const PrintableMeasureWrapper = ({
   const foundMeasureDescription =
     measureDescriptions[measureData?.year]?.[measureData?.measure] ||
     measureData?.description;
+  const is2026OrLater = Number(year) >= 2026;
+  const shouldShowStratificationReminderBanner =
+    is2026OrLater && measureData?.stratificationRequired?.includes(coreSet);
 
   return (
     <CUI.VStack padding={10}>
@@ -187,7 +190,7 @@ export const PrintableMeasureWrapper = ({
           </CUI.Text>
         </CUI.Box>
       )}
-      {measureData?.stratificationRequired?.includes(coreSet) && (
+      {shouldShowStratificationReminderBanner && (
         <CUI.Box mb="1rem">
           <Alert heading="Reminder: Measure Stratification Required">
             For {year} Core Sets reporting, states are expected to report

@@ -467,6 +467,8 @@ export const MeasureWrapper = ({
     coreSet,
     featuresByYear.hasTailoredStratificationBanner
   );
+  const shouldShowStratificationReminderBanner =
+    Number(year) >= 2026 && stratificationRequired?.includes(coreSet);
 
   return (
     <FormProvider {...methods}>
@@ -513,7 +515,7 @@ export const MeasureWrapper = ({
                 <CUI.Container maxW="1000px" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
-                  {stratificationRequired?.includes(coreSet) && (
+                  {shouldShowStratificationReminderBanner && (
                     <CUI.Box mb="1rem">
                       <Alert heading="Reminder: Measure Stratification Required">
                         <CUI.Text>{stratificationBannerDescription}</CUI.Text>
