@@ -20,7 +20,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { Alert } from "@cmsgov/design-system";
-import { isStratificationReminderBannerEnabled } from "utils/featuresByYear";
+import { featuresByYear } from "utils/featuresByYear";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -156,7 +156,7 @@ export const PrintableMeasureWrapper = ({
     measureDescriptions[measureData?.year]?.[measureData?.measure] ||
     measureData?.description;
   const shouldShowStratificationReminderBanner =
-    isStratificationReminderBannerEnabled(year) &&
+    featuresByYear.showStratificationReminderBanner &&
     measureData?.stratificationRequired?.includes(coreSet);
 
   return (

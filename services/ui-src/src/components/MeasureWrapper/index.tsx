@@ -27,10 +27,7 @@ import { CompleteCoreSets } from "./complete";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { coreSetBreadCrumbTitle, coreSetTitles } from "shared/coreSetByYear";
-import {
-  featuresByYear,
-  isStratificationReminderBannerEnabled,
-} from "utils/featuresByYear";
+import { featuresByYear } from "utils/featuresByYear";
 import { getStratificationBannerDescription } from "./stratificationBanner";
 import { Alert } from "@cmsgov/design-system";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
@@ -471,7 +468,7 @@ export const MeasureWrapper = ({
     featuresByYear.hasTailoredStratificationBanner
   );
   const shouldShowStratificationReminderBanner =
-    isStratificationReminderBannerEnabled(year) &&
+    featuresByYear.showStratificationReminderBanner &&
     stratificationRequired?.includes(coreSet);
 
   return (

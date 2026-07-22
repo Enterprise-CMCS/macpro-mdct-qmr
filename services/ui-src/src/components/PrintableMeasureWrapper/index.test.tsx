@@ -2,6 +2,7 @@ import { screen } from "@testing-library/react";
 import { PrintableMeasureWrapper } from ".";
 import { renderWithHookForm } from "utils";
 import { useParams } from "react-router-dom";
+import { getMeasureYear } from "utils/getMeasureYear";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -13,7 +14,11 @@ jest.mock("react-router-dom", () => ({
   }),
   useParams: jest.fn(),
 }));
+jest.mock("utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn(),
+}));
 const mockUseParam = useParams as jest.Mock;
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 const mockMeasure = <div>mock measure</div>;
 jest.mock("react", () => ({
@@ -38,6 +43,7 @@ const mockMeasureData = {
 describe("Test PrintableMeasureWrapper Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockGetMeasureYear.mockReturnValue(2026);
   });
 
   it("PrintableMeasureWrapper renders", () => {
@@ -91,6 +97,7 @@ describe("Test PrintableMeasureWrapper Component", () => {
   });
 
   it("does not render stratification reminder before 2026", () => {
+    mockGetMeasureYear.mockReturnValue(2025);
     mockUseParam.mockReturnValue({ coreSetId: "CCSM", state: "MA" });
     renderWithHookForm(
       <PrintableMeasureWrapper

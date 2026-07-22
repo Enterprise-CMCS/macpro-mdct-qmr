@@ -5,6 +5,7 @@ import { MeasureWrapper } from "./";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
 import { CPUAD } from "measures/2024/CPUAD/index";
+import { getMeasureYear } from "utils/getMeasureYear";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
@@ -34,7 +35,12 @@ jest.mock("config", () => ({
   isDevEnv: jest.fn(() => true),
 }));
 
+jest.mock("utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn(),
+}));
+
 const useParamsSpy = jest.spyOn(require("react-router-dom"), "useParams");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 const mockMutate = jest.fn((_variables: any, options?: any) => {
   if (typeof options?.onSettled === "function")
@@ -43,6 +49,7 @@ const mockMutate = jest.fn((_variables: any, options?: any) => {
 
 const renderMeasureWrapper = (props: any, apiData = {}) => {
   useApiMock(apiData);
+  mockGetMeasureYear.mockReturnValue(Number(props.year ?? "2021"));
   return render(
     <RouterWrappedComp>
       <MeasureWrapper measure={div} name="testing" year="2021" {...props} />
@@ -52,6 +59,7 @@ const renderMeasureWrapper = (props: any, apiData = {}) => {
 
 describe("Test Measure Wrapper Component", () => {
   beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2021);
     mockUseUser.mockImplementation(() => {
       return { isStateUser: false };
     });
@@ -220,6 +228,7 @@ describe("test auto-completed measures", () => {
 
 describe("test measure functions", () => {
   beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2021);
     mockUseUser.mockImplementation(() => {
       return { isStateUser: true };
     });
