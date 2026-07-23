@@ -5,10 +5,12 @@ import { MeasureWrapper } from "./";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
 import { CPUAD } from "measures/2024/CPUAD/index";
+import { getMeasureYear } from "utils/getMeasureYear";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
-const div = createElement("div");
+const MockMeasure = () => createElement("div");
+const div = createElement(MockMeasure);
 
 const useWatchReturnValues = {
   MeasurementSpecification: "Other",
@@ -33,7 +35,12 @@ jest.mock("config", () => ({
   isDevEnv: jest.fn(() => true),
 }));
 
+jest.mock("utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn(),
+}));
+
 const useParamsSpy = jest.spyOn(require("react-router-dom"), "useParams");
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 const mockMutate = jest.fn((_variables: any, options?: any) => {
   if (typeof options?.onSettled === "function")
@@ -42,6 +49,7 @@ const mockMutate = jest.fn((_variables: any, options?: any) => {
 
 const renderMeasureWrapper = (props: any, apiData = {}) => {
   useApiMock(apiData);
+  mockGetMeasureYear.mockReturnValue(Number(props.year ?? "2021"));
   return render(
     <RouterWrappedComp>
       <MeasureWrapper measure={div} name="testing" year="2021" {...props} />
@@ -51,6 +59,7 @@ const renderMeasureWrapper = (props: any, apiData = {}) => {
 
 describe("Test Measure Wrapper Component", () => {
   beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2021);
     mockUseUser.mockImplementation(() => {
       return { isStateUser: false };
     });
@@ -160,10 +169,10 @@ describe("non-state user", () => {
 });
 
 describe("stratification reminder banner", () => {
-  const renderBanner = (stratificationRequired: string[]) => {
-    useParamsSpy.mockReturnValue({ state: "OH", coreSetId: "ACSM" });
+  const renderBanner = (stratificationRequired: string[], year = "2026") => {
+    useParamsSpy.mockReturnValue({ state: "OH", coreSetId: "ACSM", year });
     renderMeasureWrapper(
-      { measureId: "AMM-AD" },
+      { measureId: "AMM-AD", year },
       { useGetMeasureValues: { data: { Item: { stratificationRequired } } } }
     );
   };
@@ -177,6 +186,13 @@ describe("stratification reminder banner", () => {
     expect(
       screen.getByText(/states are expected to report stratified/i)
     ).toBeInTheDocument();
+  });
+
+  it("does not render the banner before 2026", () => {
+    renderBanner(["ACSM"], "2025");
+    expect(
+      screen.queryByText(/states are expected to report stratified/i)
+    ).not.toBeInTheDocument();
   });
 
   it("does not render the banner when stratification is not required", () => {
@@ -212,6 +228,7 @@ describe("test auto-completed measures", () => {
 
 describe("test measure functions", () => {
   beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2021);
     mockUseUser.mockImplementation(() => {
       return { isStateUser: true };
     });

@@ -20,6 +20,7 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { Alert } from "@cmsgov/design-system";
+import { featuresByYear } from "utils/featuresByYear";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -154,6 +155,9 @@ export const PrintableMeasureWrapper = ({
   const foundMeasureDescription =
     measureDescriptions[measureData?.year]?.[measureData?.measure] ||
     measureData?.description;
+  const shouldShowStratificationReminderBanner =
+    featuresByYear.showStratificationReminderBanner &&
+    measureData?.stratificationRequired?.includes(coreSet);
 
   return (
     <CUI.VStack padding={10}>
@@ -187,7 +191,7 @@ export const PrintableMeasureWrapper = ({
           </CUI.Text>
         </CUI.Box>
       )}
-      {measureData?.stratificationRequired?.includes(coreSet) && (
+      {shouldShowStratificationReminderBanner && (
         <CUI.Box mb="1rem">
           <Alert heading="Reminder: Measure Stratification Required">
             For {year} Core Sets reporting, states are expected to report

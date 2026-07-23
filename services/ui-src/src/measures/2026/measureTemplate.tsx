@@ -10,6 +10,7 @@ export const measureTemplate = ({
   name,
   year,
   measureId,
+  stratificationRequired,
   setValidationFunctions,
   isNotReportingData,
   isPrimaryMeasureSpecSelected,
@@ -107,6 +108,7 @@ export const measureTemplate = ({
             ) : (
               <CMQ.MeasureStrat
                 coreset={coreset}
+                stratificationRequired={stratificationRequired}
                 calcTotal={custom?.calcTotal}
                 performanceMeasureArray={performanceMeasureArray}
                 qualifiers={performanceMeasure.qualifiers}
