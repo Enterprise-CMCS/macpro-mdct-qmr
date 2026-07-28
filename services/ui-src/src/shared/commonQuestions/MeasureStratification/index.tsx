@@ -225,7 +225,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
       version === "2024-omb" ||
       (shouldUseReportingMeasureStratification && version === "not-reporting"));
   const shouldShowStratificationReminderBanner =
-    featuresByYear.showStratificationReminderBanner &&
+    featuresByYear.showStratificationSectionBanner &&
     stratificationRequired?.includes(coreSet);
 
   return (

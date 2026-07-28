@@ -188,11 +188,11 @@ describe("stratification reminder banner", () => {
     ).toBeInTheDocument();
   });
 
-  it("does not render the banner before 2026", () => {
+  it("renders the banner in 2025 when stratification is required for the core set", () => {
     renderBanner(["ACSM"], "2025");
     expect(
-      screen.queryByText(/states are expected to report stratified/i)
-    ).not.toBeInTheDocument();
+      screen.getByText(/states are expected to report stratified/i)
+    ).toBeInTheDocument();
   });
 
   it("does not render the banner when stratification is not required", () => {
