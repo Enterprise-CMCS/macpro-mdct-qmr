@@ -34,6 +34,7 @@ export interface PrintableMeasureWrapperProps {
   name: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
@@ -46,6 +47,7 @@ interface MeasureProps {
   name: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
   handleSave: (data: any) => void;
 }
@@ -208,6 +210,7 @@ export const PrintableMeasureWrapper = ({
                     name={foundMeasureDescription || name}
                     year={year}
                     measureId={measureId}
+                    stratificationRequired={measureData?.stratificationRequired}
                     setValidationFunctions={() => {}}
                     handleSave={() => {}}
                   />
