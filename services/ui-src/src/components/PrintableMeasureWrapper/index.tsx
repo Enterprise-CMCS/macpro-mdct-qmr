@@ -20,7 +20,6 @@ import { measureDescriptions } from "measures/measureDescriptions";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { Alert } from "@cmsgov/design-system";
-import { featuresByYear } from "utils/featuresByYear";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -35,6 +34,7 @@ export interface PrintableMeasureWrapperProps {
   name: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
@@ -47,6 +47,7 @@ interface MeasureProps {
   name: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
   handleSave: (data: any) => void;
 }
@@ -156,7 +157,6 @@ export const PrintableMeasureWrapper = ({
     measureDescriptions[measureData?.year]?.[measureData?.measure] ||
     measureData?.description;
   const shouldShowStratificationReminderBanner =
-    featuresByYear.showStratificationReminderBanner &&
     measureData?.stratificationRequired?.includes(coreSet);
 
   return (
@@ -210,6 +210,7 @@ export const PrintableMeasureWrapper = ({
                     name={foundMeasureDescription || name}
                     year={year}
                     measureId={measureId}
+                    stratificationRequired={measureData?.stratificationRequired}
                     setValidationFunctions={() => {}}
                     handleSave={() => {}}
                   />

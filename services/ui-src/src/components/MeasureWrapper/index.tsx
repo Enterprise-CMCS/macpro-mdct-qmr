@@ -468,7 +468,6 @@ export const MeasureWrapper = ({
     featuresByYear.hasTailoredStratificationBanner
   );
   const shouldShowStratificationReminderBanner =
-    featuresByYear.showStratificationReminderBanner &&
     stratificationRequired?.includes(coreSet);
 
   return (
