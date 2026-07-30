@@ -224,13 +224,13 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     (version === "1997-omb" ||
       version === "2024-omb" ||
       (shouldUseReportingMeasureStratification && version === "not-reporting"));
-  const shouldShowStratificationReminderBanner =
-    featuresByYear.showStratificationReminderBanner &&
+  const shouldShowStratificationSectionBanner =
+    featuresByYear.showStratificationSectionBanner &&
     stratificationRequired?.includes(coreSet);
 
   return (
     <QMR.CoreQuestionWrapper testid="OMS" label="Measure Stratification">
-      {shouldShowStratificationReminderBanner && (
+      {shouldShowStratificationSectionBanner && (
         <CUI.Box mt="24px" mb="32px">
           <Alert
             heading="Reminder: Measure Stratification Required"

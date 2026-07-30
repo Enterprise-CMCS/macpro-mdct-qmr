@@ -209,12 +209,10 @@ export const featuresByYear = {
   },
 
   /**
-   * Prior to 2026, the measure stratification reminder banner was hidden.
-   *
-   * In 2026 and beyond, the reminder banner is displayed for reports where
-   * measure stratification is required.
+   * In 2026, a second reminder banner was added directly above the
+   * Measure Stratification section, in addition to the top-of-page banner.
    */
-  get showStratificationReminderBanner() {
+  get showStratificationSectionBanner() {
     return getMeasureYear() >= 2026;
   },
 

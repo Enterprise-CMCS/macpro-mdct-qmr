@@ -96,7 +96,7 @@ describe("Test PrintableMeasureWrapper Component", () => {
     ).toBeInTheDocument();
   });
 
-  it("does not render stratification reminder before 2026", () => {
+  it("renders stratification reminder in 2025", () => {
     mockGetMeasureYear.mockReturnValue(2025);
     mockUseParam.mockReturnValue({ coreSetId: "CCSM", state: "MA" });
     renderWithHookForm(
@@ -114,7 +114,7 @@ describe("Test PrintableMeasureWrapper Component", () => {
     );
 
     expect(
-      screen.queryByText("Reminder: Measure Stratification Required")
-    ).not.toBeInTheDocument();
+      screen.getByText("Reminder: Measure Stratification Required")
+    ).toBeInTheDocument();
   });
 });
