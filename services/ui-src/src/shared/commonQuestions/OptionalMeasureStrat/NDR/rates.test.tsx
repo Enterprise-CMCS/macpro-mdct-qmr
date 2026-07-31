@@ -173,6 +173,38 @@ describe("useRatesForCompletedPmQualifiers", () => {
     expect(result.current[1]).toHaveLength(0); // qual2 has no rate
   });
 
+  it("should keep the row uid for validation, without showing an extra label", () => {
+    (usePerformanceMeasureContext as jest.Mock).mockReturnValue({
+      ...mockContext,
+      qualifiers: [
+        { id: "qual1", label: "Influenza: Age 21 and Older" },
+        {
+          id: "qual2",
+          label:
+            "Tetanus, Diphtheria Toxoids and Acellular Pertussis (Tdap): Age 21 and Older",
+        },
+      ],
+      performanceMeasureArray: [
+        [
+          { rate: "85", uid: "cat1.qual1" },
+          { rate: "90", uid: "cat1.qual2" },
+        ],
+      ],
+    });
+
+    const { result } = renderHook(() =>
+      useRatesForCompletedPmQualifiers("testName")
+    );
+
+    const firstRateRow = result.current[0][0] as React.ReactElement;
+    const rateProps = firstRateRow.props as {
+      rates: { uid?: string; label?: string }[];
+    };
+
+    expect(rateProps.rates[0].uid).toBe("cat1.qual1");
+    expect(rateProps.rates[0].label).toBeUndefined();
+  });
+
   it("should handle single category default", () => {
     (usePerformanceMeasureContext as jest.Mock).mockReturnValue({
       ...mockContext,

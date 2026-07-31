@@ -5,7 +5,12 @@ import { ContextProps, usePerformanceMeasureContext } from "../context";
 
 type RateArrayBuilder = (name: string) => React.ReactElement[][];
 
-const RateComponent = (context: ContextProps, name: string, label?: string) => {
+const RateComponent = (
+  context: ContextProps,
+  name: string,
+  label?: string,
+  uid?: string
+) => {
   return (
     <QMR.Rate
       readOnly={context.rateReadOnly}
@@ -24,6 +29,7 @@ const RateComponent = (context: ContextProps, name: string, label?: string) => {
         {
           id: 0,
           label: label,
+          uid,
         },
       ]}
     />
@@ -132,8 +138,9 @@ export const useRatesForCompletedPmQualifiers: RateArrayBuilder = (name) => {
       (categories as LabelData[])?.[0]?.id || DC.SINGLE_CATEGORY;
 
     const cleanedName = `${name}.rates.${categoryID}.${singleQual.id}`;
+    const uid = `${categoryID}.${singleQual.id}`;
     if (completedQualifierIds?.includes(singleQual.id)) {
-      rateArrays.push([RateComponent(context, cleanedName)]);
+      rateArrays.push([RateComponent(context, cleanedName, undefined, uid)]);
     } else if (AIFHHPerformanceMeasureArray) {
       rateArrays.push(...AIFHHRateArray(context, cleanedName, qualIndex));
     } else {
@@ -158,8 +165,9 @@ export const useQualRateArray: RateArrayBuilder = (name) => {
 
   quals.forEach((singleQual, qualIndex) => {
     const cleanedName = `${name}.rates.${singleQual.id}.${DC.SINGLE_CATEGORY}`;
+    const uid = `${DC.SINGLE_CATEGORY}.${singleQual.id}`;
     if (performanceMeasureArray?.[0]?.[qualIndex]?.rate) {
-      rateArrays.push([RateComponent(context, cleanedName)]);
+      rateArrays.push([RateComponent(context, cleanedName, undefined, uid)]);
     } else if (AIFHHPerformanceMeasureArray) {
       rateArrays.push(...AIFHHRateArray(context, cleanedName, qualIndex));
     } else {
@@ -193,7 +201,7 @@ const StandardPerformanceMeasure = (
   unexcludedQuals?.forEach((qual) => {
     if (qual.rate) {
       const adjustedName = `${name}.rates.${qual.uid}`; //uid is both category id appended to qualifier id
-      ndrSets.push(RateComponent(context, adjustedName, qual.label));
+      ndrSets.push(RateComponent(context, adjustedName, qual.label, qual.uid));
     }
   });
   return ndrSets;
