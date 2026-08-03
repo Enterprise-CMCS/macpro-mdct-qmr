@@ -3,18 +3,29 @@ import {
   aws_apigateway as apigateway,
   aws_ec2 as ec2,
   aws_iam as iam,
+  aws_lambda as lambda,
   aws_logs as logs,
   aws_wafv2 as wafv2,
   CfnOutput,
   Duration,
   RemovalPolicy,
 } from "aws-cdk-lib";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { Lambda } from "../constructs/lambda.ts";
 import { WafConstruct } from "../constructs/waf.ts";
 import { LambdaDynamoEventSource } from "../constructs/lambda-dynamo-event.ts";
 import { DynamoDBTable } from "../constructs/dynamodb-table.ts";
 import { isDefined } from "../utils/misc.ts";
 import { isLocalStack } from "../local/util.ts";
+import { PRINCE_LOCAL_DIR_REL } from "../utils/prince-asset.ts";
+
+const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "../..");
+const PRINCE_GENERATED_LICENSE_PATH = join(
+  REPO_ROOT,
+  "services/app-api/bin/.generated/prince-license.dat"
+);
 
 interface CreateApiComponentsProps {
   scope: Construct;
@@ -25,8 +36,28 @@ interface CreateApiComponentsProps {
   kafkaAuthorizedSubnets: ec2.ISubnet[];
   tables: DynamoDBTable[];
   brokerString: string;
-  docraptorApiKey: string;
   kafkaClientId?: string;
+  /** Raw Prince license.dat XML; demo license used if absent. */
+  princeLicense?: string;
+  princePackageDir?: string;
+}
+
+/**
+ * Write the effective Prince license into a gitignored path so afterBundling we
+ * can write it into the Lambda zip without putting secret content in shell args.
+ */
+function writePrinceLicenseForBundling(
+  princePackageDir: string,
+  princeLicense?: string
+) {
+  const demoLicensePath = join(
+    REPO_ROOT,
+    princePackageDir,
+    "prince-engine/license/license.dat"
+  );
+  const licenseContent = princeLicense ?? readFileSync(demoLicensePath, "utf8");
+  mkdirSync(dirname(PRINCE_GENERATED_LICENSE_PATH), { recursive: true });
+  writeFileSync(PRINCE_GENERATED_LICENSE_PATH, licenseContent, "utf8");
 }
 
 export function createApiComponents(props: CreateApiComponentsProps) {
@@ -39,8 +70,9 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     kafkaAuthorizedSubnets,
     tables,
     brokerString,
-    docraptorApiKey,
     kafkaClientId,
+    princeLicense,
+    princePackageDir = isLocalStack ? PRINCE_LOCAL_DIR_REL : undefined,
   } = props;
 
   const service = "app-api";
@@ -97,7 +129,6 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   });
 
   const environment = {
-    docraptorApiKey,
     brokerString,
     STAGE: stage,
     KAFKA_CLIENT_ID: kafkaClientId ?? `qmr-${stage}`,
@@ -273,6 +304,27 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     ...commonProps,
   });
 
+  if (!princePackageDir) {
+    throw new Error(
+      "princePackageDir missing from deployment config. " +
+        (isLocalStack
+          ? "Run ./scripts/fetch-prince-linux.sh (local prerequisites)."
+          : "Publish with ./scripts/publish-prince-asset.sh and redeploy.")
+    );
+  }
+
+  const princeWrapperPath = join(REPO_ROOT, princePackageDir, "prince");
+  if (!existsSync(princeWrapperPath)) {
+    throw new Error(
+      `Missing Linux Prince at ${princeWrapperPath}. ` +
+        (isLocalStack
+          ? "Run: ./scripts/fetch-prince-linux.sh"
+          : "Publish with ./scripts/publish-prince-asset.sh and redeploy.")
+    );
+  }
+
+  writePrinceLicenseForBundling(princePackageDir, princeLicense);
+
   new Lambda(scope, "getPDF", {
     entry: "services/app-api/handlers/prince/pdf.ts",
     handler: "getPDF",
@@ -280,6 +332,19 @@ export function createApiComponents(props: CreateApiComponentsProps) {
     method: "POST",
     ...commonProps,
     timeout: Duration.seconds(30), // apigateway's max
+    memorySize: 2048,
+    architecture: lambda.Architecture.X86_64,
+    bundling: {
+      commandHooks: {
+        beforeBundling: () => [],
+        beforeInstall: () => [],
+        afterBundling: (inputDir, outputDir) => [
+          `cp -R ${inputDir}/${princePackageDir}/. ${outputDir}/`,
+          `cp ${inputDir}/services/app-api/bin/.generated/prince-license.dat ${outputDir}/prince-engine/license/license.dat`,
+          `chmod +x ${outputDir}/prince ${outputDir}/prince-engine/bin/prince*`,
+        ],
+      },
+    },
   });
 
   // Data Processor Lambda
