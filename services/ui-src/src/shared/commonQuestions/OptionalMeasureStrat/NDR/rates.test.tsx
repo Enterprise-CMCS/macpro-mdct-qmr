@@ -287,6 +287,13 @@ describe("useQualRateArray", () => {
     expect(result.current).toHaveLength(2);
     expect(result.current[0]).toHaveLength(1);
     expect(result.current[1]).toHaveLength(1);
+
+    const firstRateRow = result.current[0][0] as React.ReactElement;
+    const rateProps = firstRateRow.props as {
+      rates: { uid?: string }[];
+    };
+
+    expect(rateProps.rates[0].uid).toBe("singleCategory.qual1");
   });
 
   it("should return empty array for qualifiers without rates", () => {
