@@ -1,6 +1,7 @@
 import * as Types from "shared/types";
 import { DataSource } from "../../../types";
 import { featuresByYear } from "utils/featuresByYear";
+import * as DC from "dataConstants";
 
 const OPTIONAL_DATA_SOURCES = new Set([DataSource.EHR, DataSource.ECDS]);
 
@@ -10,10 +11,25 @@ export const validateAtLeastOneDataSourceType = (
 ) => {
   const errorArray: FormError[] = [];
   const dataSources = data.DataSourceSelections;
+  const selectedDataSources = data[DC.DATA_SOURCE] as string[] | undefined;
+  const dataSourceDescription = data[DC.DATA_SOURCE_DESCRIPTION]?.trim();
 
   const dataSourceLabel = featuresByYear.useDataCollectionMethod
     ? "Data Collection Method"
     : "Data Source";
+
+  if (
+    featuresByYear.useDataCollectionMethod &&
+    Array.isArray(selectedDataSources) &&
+    selectedDataSources.length >= 2 &&
+    !dataSourceDescription
+  ) {
+    errorArray.push({
+      errorLocation: "Data Collection Method",
+      errorMessage:
+        "Please describe which reporting entities used each selected data collection method",
+    });
+  }
 
   if (dataSources) {
     const getGeneratedMessage = (lookupKey: string, label: string) => {
