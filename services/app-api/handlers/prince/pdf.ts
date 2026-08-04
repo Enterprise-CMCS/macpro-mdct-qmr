@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { once } from "node:events";
 import { chmodSync, existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { gunzipSync } from "node:zlib";
@@ -95,93 +96,99 @@ function ensurePrinceExecutable(taskRoot: string) {
  * `--pdf-profile=PDF/UA-1` matches the DocRaptor prince_options profile.
  * `--media=screen` applies screen stylesheets so Chakra form/link chrome renders.
  */
-export function renderPdfWithPrince(html: string): Promise<Buffer> {
+export async function renderPdfWithPrince(html: string): Promise<Buffer> {
   const taskRoot = process.env.LAMBDA_TASK_ROOT ?? process.cwd();
   ensurePrinceExecutable(taskRoot);
 
-  return new Promise((resolve, reject) => {
-    const child = spawn("./prince", [...PRINCE_ARGS], {
-      cwd: taskRoot,
-      env: process.env,
-    });
+  const child = spawn("./prince", [...PRINCE_ARGS], {
+    cwd: taskRoot,
+    env: process.env,
+    timeout: PRINCE_TIMEOUT_MS,
+    killSignal: "SIGKILL",
+  });
 
-    const stdoutChunks: Buffer[] = [];
-    const stderrChunks: Buffer[] = [];
-    let settled = false;
+  const { stdin, stdout, stderr: stderrStream } = child;
+  if (!stdin || !stdout || !stderrStream) {
+    throw new Error("Failed to open Prince stdin");
+  }
 
-    const fail = (error: Error) => {
-      if (settled) return;
-      settled = true;
-      reject(error);
-    };
+  // Open up the stdout/err pipes before we send the html to stdin
+  const stdoutChunksPromise = (async () => {
+    const chunks: Buffer[] = [];
+    for await (const chunk of stdout) chunks.push(chunk);
+    return chunks;
+  })();
+  const stderrChunksPromise = (async () => {
+    const chunks: Buffer[] = [];
+    for await (const chunk of stderrStream) chunks.push(chunk);
+    return chunks;
+  })();
+  const closeOrError = Promise.race([
+    once(child, "close") as Promise<[number | null, NodeJS.Signals | null]>,
+    once(child, "error").then(([error]) => {
+      throw error;
+    }),
+  ]);
 
-    const timeout = setTimeout(() => {
-      child.kill("SIGKILL");
-      fail(new Error("Prince PDF generation timed out"));
-    }, PRINCE_TIMEOUT_MS);
-
-    child.stdout.on("data", (chunk: Buffer) => stdoutChunks.push(chunk));
-    child.stderr.on("data", (chunk: Buffer) => stderrChunks.push(chunk));
-    child.on("error", (error) => {
-      clearTimeout(timeout);
-      fail(
-        new Error(`Failed to spawn Prince in ${taskRoot}: ${error.message}. `)
-      );
-    });
-    child.on("close", (code, signal) => {
-      clearTimeout(timeout);
-      if (settled) return;
-
-      const pdfBuffer = Buffer.concat(stdoutChunks);
-      const stderr = Buffer.concat(stderrChunks).toString();
-      const hasPdf =
-        pdfBuffer.length > 0 && pdfBuffer.subarray(0, 4).toString() === "%PDF";
-
-      // DocRaptor-like soft-fail: Prince often still emits a PDF while logging
-      // PDF/UA-1 structure errors. Return the PDF and only fail when we got nothing usable.
-      if (stderr) {
-        console.warn(`Prince stderr (exit ${code ?? "unknown"}):\n${stderr}`);
-      }
-
-      if (hasPdf) {
-        settled = true;
-        resolve(pdfBuffer);
-        return;
-      }
-
-      const princeError = stderr.match(/prince:\s+error:\s+([^\n]+)/i);
-      const packageHint = describePrincePackageLayout(taskRoot);
-      const detail = princeError
-        ? princeError[1]
-        : stderr.trim() ||
-          `prince exited with code ${code ?? "unknown"}${
-            signal ? ` signal ${signal}` : ""
-          }`;
-      fail(
-        new Error(
-          `PDF generation failed - ${detail} (${packageHint} in ${taskRoot})`
-        )
-      );
-    });
-
-    if (!child.stdin) {
-      clearTimeout(timeout);
-      fail(new Error("Failed to open Prince stdin"));
+  // If Prince dies immediately (wrong arch binary, missing +x, bad license),
+  // stdin write emits EPIPE. Ignore it and let the 'close' handler report stderr.
+  stdin.on("error", (error: NodeJS.ErrnoException) => {
+    if (error.code === "EPIPE" || error.code === "ERR_STREAM_DESTROYED") {
       return;
     }
-
-    // If Prince dies immediately (wrong arch binary, missing +x, bad license),
-    // stdin write emits EPIPE. Ignore it and let the 'close' handler report stderr.
-    child.stdin.on("error", (error: NodeJS.ErrnoException) => {
-      if (error.code === "EPIPE" || error.code === "ERR_STREAM_DESTROYED") {
-        return;
-      }
-      clearTimeout(timeout);
-      fail(error);
-    });
-
-    child.stdin.end(html);
+    child.emit("error", error);
   });
+  stdin.end(html);
+
+  let pdfBuffer: Buffer;
+  let stderr: string;
+  let code: number | null;
+  let signal: NodeJS.Signals | null;
+  try {
+    const [closeResult, stdoutChunks, stderrChunks] = await Promise.all([
+      closeOrError,
+      stdoutChunksPromise,
+      stderrChunksPromise,
+    ]);
+    [code, signal] = closeResult;
+    pdfBuffer = Buffer.concat(stdoutChunks);
+    stderr = Buffer.concat(stderrChunks).toString();
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error("Prince PDF generation timed out");
+    }
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to spawn Prince in ${taskRoot}: ${message}. `);
+  }
+
+  if (signal === "SIGKILL") {
+    throw new Error("Prince PDF generation timed out");
+  }
+
+  const hasPdf =
+    pdfBuffer.length > 0 && pdfBuffer.subarray(0, 4).toString() === "%PDF";
+
+  // DocRaptor-like soft-fail: Prince often still emits a PDF while logging
+  // PDF/UA-1 structure errors. Return the PDF and only fail when we got nothing usable.
+  if (stderr) {
+    console.warn(`Prince stderr (exit ${code ?? "unknown"}):\n${stderr}`);
+  }
+
+  if (hasPdf) {
+    return pdfBuffer;
+  }
+
+  const princeError = stderr.match(/prince:\s+error:\s+([^\n]+)/i);
+  const packageHint = describePrincePackageLayout(taskRoot);
+  const detail = princeError
+    ? princeError[1]
+    : stderr.trim() ||
+      `prince exited with code ${code ?? "unknown"}${
+        signal ? ` signal ${signal}` : ""
+      }`;
+  throw new Error(
+    `PDF generation failed - ${detail} (${packageHint} in ${taskRoot})`
+  );
 }
 
 /*

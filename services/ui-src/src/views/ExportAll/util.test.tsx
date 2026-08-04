@@ -114,7 +114,7 @@ describe("ExportAll utils", () => {
       const css = document.body.querySelector("style")?.textContent ?? "";
       expect(css).toContain("height: auto !important");
       expect(css).toContain(".prince-measure-link-grid");
-      expect(css).toContain("grid-template-columns: repeat(6");
+      expect(css).toContain("grid-template-columns: repeat(5");
       expect(css).toContain("#skip-nav-main");
     });
   });

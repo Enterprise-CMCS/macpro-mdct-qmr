@@ -152,20 +152,23 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     }
     .prince-measure-link-grid {
       display: grid !important;
-      grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+      grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
       column-gap: 1.25rem !important;
-      row-gap: 1.5rem !important;
+      row-gap: 2rem !important;
       width: 100% !important;
       max-width: 100% !important;
       margin: 0 auto 1rem auto !important;
     }
     .prince-measure-link-grid > a.chakra-button {
-      display: block !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 2.5rem !important;
+      padding: 0.5rem 0.75rem !important;
       visibility: visible !important;
       width: auto !important;
       text-align: center !important;
-      text-decoration: none !important;
-      color: inherit !important;
+      color: #0000e5 !important;
       background: #edf2f7 !important;
       margin: 0 !important;
       page-break-inside: avoid;
