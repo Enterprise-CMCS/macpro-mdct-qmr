@@ -45,11 +45,13 @@ function createPrinceChild({
   stdout,
   stderr = "",
   code = 0,
+  signal = null,
   epipeOnWrite = false,
 }: {
   stdout?: Buffer;
   stderr?: string;
-  code?: number;
+  code?: number | null;
+  signal?: NodeJS.Signals | null;
   epipeOnWrite?: boolean;
 }): { child: MockChild; getStdin: () => string } {
   const chunks: Buffer[] = [];
@@ -70,7 +72,7 @@ function createPrinceChild({
           }
           child.stderr.push(null);
           child.stdout.push(null);
-          child.emit("close", code);
+          child.emit("close", code, signal);
         });
         return;
       }
@@ -88,7 +90,7 @@ function createPrinceChild({
       }
       child.stderr.push(null);
       process.nextTick(() => {
-        child.emit("close", code);
+        child.emit("close", code, signal);
         callback();
       });
     },
@@ -169,7 +171,11 @@ describe("Test GetPDF handler", () => {
     expect(mockSpawn).toHaveBeenCalledWith(
       "./prince",
       ["-", "--output=-", "--pdf-profile=PDF/UA-1", "--media=screen"],
-      expect.objectContaining({ cwd: "/var/task" })
+      expect.objectContaining({
+        cwd: "/var/task",
+        timeout: 10_000,
+        killSignal: "SIGKILL",
+      })
     );
   });
 
@@ -223,5 +229,19 @@ describe("Test GetPDF handler", () => {
     expect(res.statusCode).toBe(500);
     expect(res.body).toContain("PDF generation failed");
     expect(res.body).not.toContain("EPIPE");
+  });
+
+  it("should fail when Prince is killed by timeout", async () => {
+    const { child } = createPrinceChild({
+      code: null,
+      signal: "SIGKILL",
+    });
+    mockSpawn.mockReturnValue(child);
+    event.body = base64EncodedDangerousHtml;
+
+    const res = await getPDF(event, null);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toContain("Prince PDF generation timed out");
   });
 });

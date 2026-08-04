@@ -122,7 +122,9 @@ async function ensurePrinceFromS3(
 
   const bucket = princeAssetBucketName(project, account);
   const key = princeAssetObjectKey(meta.version);
-  console.log(`Fetching Prince AWS Lambda zip from s3://${bucket}/${key}`);
+  console.log(
+    "Fetching Prince AWS Lambda zip from configured S3 asset location"
+  );
 
   const client = new S3Client({ region: "us-east-1" });
   let response: GetObjectCommandOutput;

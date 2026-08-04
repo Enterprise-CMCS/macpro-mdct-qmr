@@ -1,4 +1,0 @@
-{
-  "gatewayEndpoint": "http://localhost:4566",
-  "apiBasePath": "/_aws/execute-api/390840a8/localstack"
-}
