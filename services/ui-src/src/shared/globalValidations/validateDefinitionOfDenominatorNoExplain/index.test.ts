@@ -30,6 +30,16 @@ describe("validateDefinitionOfDenominatorNoExplain", () => {
     expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([]);
   });
 
+  it("returns required-field error when total tech spec question is skipped", () => {
+    setValues("", "", "");
+    expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([
+      {
+        errorLocation: "Denominator Includes Total Measure-Eligible Population",
+        errorMessage: "You must complete this field",
+      },
+    ]);
+  });
+
   it("returns no errors when total tech spec is no and explanation is filled", () => {
     setValues(DC.NO, "Population A is excluded due to missing claims", "123");
     expect(validateDefinitionOfDenominatorNoExplain(formData)).toEqual([]);
