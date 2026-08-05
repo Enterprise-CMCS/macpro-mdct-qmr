@@ -1612,11 +1612,6 @@ export const measures: Measure = {
       type: "C",
       measure: "CIS-CH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: [
-        CoreSetAbbr.CCS,
-        CoreSetAbbr.CCSC,
-        CoreSetAbbr.CCSM,
-      ],
     },
     {
       type: "C",
@@ -1652,11 +1647,6 @@ export const measures: Measure = {
       type: "C",
       measure: "IMA-CH",
       measureType: MeasureType.MANDATORY,
-      stratificationRequired: [
-        CoreSetAbbr.CCS,
-        CoreSetAbbr.CCSC,
-        CoreSetAbbr.CCSM,
-      ],
     },
     {
       type: "C",
@@ -2080,6 +2070,7 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "CIS-CH",
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
@@ -2119,6 +2110,7 @@ export const measures: Measure = {
     {
       type: "C",
       measure: "IMA-CH",
+      measureType: MeasureType.MANDATORY,
     },
     {
       type: "C",
