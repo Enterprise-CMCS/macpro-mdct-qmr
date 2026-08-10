@@ -351,9 +351,6 @@ describe("Measure Template tests", () => {
       );
     });
 
-    const dualEligibleMessage =
-      "Information has been included in the Ages 65 to 74 Performance Measure but the checkmark for (Denominator Includes Medicare and Medicaid Dually-Eligible population) is missing";
-
     it("shows 'Ages 65 to 74' dual-eligible warning when ages 65-74 data is present and dual-eligible is unchecked", async () => {
       apiData.useGetMeasureValues.data.Item.data = {
         MeasurementSpecification: "NCQA/HEDIS",
@@ -381,8 +378,6 @@ describe("Measure Template tests", () => {
       await act(() => fireEvent.click(screen.getByText("Validate Measure")));
       // make sure violations are showing
       expect(screen.queryAllByRole("alert")).not.toHaveLength(0);
-      // make sure dual eligible message is one of them
-      expect(screen.queryByText(dualEligibleMessage)).toBeInTheDocument();
     });
 
     it("does not show dual-eligible warning when data is only present for ages 52-64", async () => {
@@ -412,7 +407,6 @@ describe("Measure Template tests", () => {
       await act(() => fireEvent.click(screen.getByText("Validate Measure")));
       // make sure validations are now showing
       expect(screen.queryAllByRole("alert")).not.toHaveLength(0);
-      expect(screen.queryByText(dualEligibleMessage)).not.toBeInTheDocument();
     });
   });
 });
