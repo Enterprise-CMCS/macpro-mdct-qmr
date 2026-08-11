@@ -232,6 +232,9 @@ Cypress.Commands.add("deleteHealthHomeSets", () => {
 // if user doesn't fill description box, show error
 Cypress.Commands.add("showErrorIfNotReportingAndNotWhy", () => {
   cy.get('[data-cy="DidReport1"]').click();
+  cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
+    "be.visible"
+  );
   cy.get('[data-cy="Validate Measure"]').click();
   cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should(
     "have.text",
