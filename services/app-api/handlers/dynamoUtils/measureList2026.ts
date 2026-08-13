@@ -1,5 +1,4 @@
-import { CoreSetAbbr, MeasureType } from "../../types";
-import type { MeasureMetaData } from "./measureList";
+import { CoreSetAbbr, MeasureType, type MeasureMetaData } from "../../types";
 
 export const measureList2026: MeasureMetaData[] = [
   {

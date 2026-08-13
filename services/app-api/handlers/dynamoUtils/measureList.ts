@@ -1,4 +1,4 @@
-import { CoreSetAbbr, MeasureType } from "../../types";
+import type { MeasureMetaData } from "../../types";
 import { measureList2021 } from "./measureList2021";
 import { measureList2022 } from "./measureList2022";
 import { measureList2023 } from "./measureList2023";
@@ -6,19 +6,8 @@ import { measureList2024 } from "./measureList2024";
 import { measureList2025 } from "./measureList2025";
 import { measureList2026 } from "./measureList2026";
 
-export interface Measure {
+interface Measure {
   [year: number]: MeasureMetaData[];
-}
-
-export interface MeasureMetaData {
-  type: "A" | "C" | "H";
-  measure: string;
-  autocompleteOnCreation?: boolean;
-  placeholder?: boolean;
-  measureType?: MeasureType;
-  /** For which core sets will the measureType be displayed? */
-  typeTagForCoreSets?: CoreSetAbbr[];
-  stratificationRequired?: CoreSetAbbr[];
 }
 
 export const measures: Measure = {

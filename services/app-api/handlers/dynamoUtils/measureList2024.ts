@@ -1,5 +1,4 @@
-import { MeasureType } from "../../types";
-import type { MeasureMetaData } from "./measureList";
+import { MeasureType, type MeasureMetaData } from "../../types";
 
 export const measureList2024: MeasureMetaData[] = [
   {

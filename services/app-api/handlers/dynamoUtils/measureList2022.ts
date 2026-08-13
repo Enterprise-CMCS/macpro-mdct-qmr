@@ -1,4 +1,4 @@
-import type { MeasureMetaData } from "./measureList";
+import type { MeasureMetaData } from "../../types";
 
 export const measureList2022: MeasureMetaData[] = [
   {
