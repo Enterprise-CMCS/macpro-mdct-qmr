@@ -3,7 +3,11 @@ import { CoreSetAbbr } from "types";
 const optionalStratificationByCoreSet: Partial<Record<CoreSetAbbr, string>> = {
   [CoreSetAbbr.CCSM]:
     "States are encouraged, but not required, to report stratified data for foster care.",
+  [CoreSetAbbr.CCS]:
+    "States are encouraged, but not required, to report stratified data for foster care.",
   [CoreSetAbbr.ACSM]:
+    "States are encouraged, but not required, to report stratified data for Medicaid expansion.",
+  [CoreSetAbbr.ACS]:
     "States are encouraged, but not required, to report stratified data for Medicaid expansion.",
   [CoreSetAbbr.HHCS]:
     "States are encouraged, but not required, to report stratified data for foster care and Medicaid expansion.",
