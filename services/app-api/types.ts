@@ -20,6 +20,17 @@ export enum MeasureType {
   PROVISIONAL = "Provisional",
 }
 
+export interface MeasureMetaData {
+  type: "A" | "C" | "H";
+  measure: string;
+  autocompleteOnCreation?: boolean;
+  placeholder?: boolean;
+  measureType?: MeasureType;
+  /** For which core sets will the measureType be displayed? */
+  typeTagForCoreSets?: CoreSetAbbr[];
+  stratificationRequired?: CoreSetAbbr[];
+}
+
 export type StandardRateShape = RateNDRShape | RateValueShape;
 
 export interface RateNDRShape {
