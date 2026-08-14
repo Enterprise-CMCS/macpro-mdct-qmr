@@ -22,7 +22,7 @@
     "@octokit/rest": "^22.0.1",
     "@types/adm-zip": "^0.5.7",
     "@types/node": "^22.19.0",
-    "adm-zip": "^0.5.16",
+    "adm-zip": "^0.6.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.22.4",
     "typescript": "^5.9.3"
