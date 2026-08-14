@@ -37,7 +37,7 @@
     "react-idle-timer": "^4.6.4",
     "react-router-dom": "6.30.4",
     "react-textarea-autosize": "^8.5.3",
-    "sanitize-html": "2.17.5",
+    "sanitize-html": "2.17.7",
     "sass": "^1.80.4",
     "uuid": "^11.1.1"
   },
@@ -119,7 +119,7 @@
     "testEnvironment": "jest-environment-jsdom",
     "testTimeout": 180000,
     "transformIgnorePatterns": [
-      "node_modules/(?!axios)"
+      "node_modules/(?!(axios|entities|htmlparser2|dom-serializer|domelementtype|domutils|domhandler|sanitize-html/node_modules))"
     ],
     "verbose": true
   }
