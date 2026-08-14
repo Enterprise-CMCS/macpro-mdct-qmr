@@ -67,7 +67,6 @@
     "jest": "^30.4.1",
     "jest-axe": "^10.0.0",
     "jest-environment-jsdom": "^30.4.1",
-    "jest-launchdarkly-mock": "^2.1.0",
     "patch-package": "^8.0.1",
     "ts-jest": "^29.4.11",
     "typescript": "^5.9.3",
