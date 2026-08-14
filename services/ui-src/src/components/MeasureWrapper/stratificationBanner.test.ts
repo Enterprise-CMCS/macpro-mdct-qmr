@@ -32,19 +32,18 @@ describe("getStratificationBannerDescription", () => {
       );
     });
 
-    it("appends no optional sentence for a core set without tailored text", () => {
-      const text = getStratificationBannerDescription(
-        "2026",
-        CoreSetAbbr.ACS,
-        true
-      );
-      expect(text).not.toContain("encouraged, but not required");
-    });
-
     it.each([
+      [
+        CoreSetAbbr.ACS,
+        "States are encouraged, but not required, to report stratified data for Medicaid expansion.",
+      ],
       [
         CoreSetAbbr.ACSM,
         "States are encouraged, but not required, to report stratified data for Medicaid expansion.",
+      ],
+      [
+        CoreSetAbbr.CCS,
+        "States are encouraged, but not required, to report stratified data for foster care.",
       ],
       [
         CoreSetAbbr.CCSM,
