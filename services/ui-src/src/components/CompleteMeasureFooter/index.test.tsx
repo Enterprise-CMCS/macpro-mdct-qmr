@@ -1,8 +1,19 @@
 import { render, screen } from "@testing-library/react";
 import { CompleteMeasureFooter } from "components/CompleteMeasureFooter";
 import config from "config";
+import { getMeasureYear } from "utils/getMeasureYear";
+
+jest.mock("utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn(),
+}));
+
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 describe("Test CompleteMeasureFooter", () => {
+  beforeEach(() => {
+    mockGetMeasureYear.mockReturnValue(2025);
+  });
+
   test("Check that the Contained Buttons in this footer component render", () => {
     config.BRANCH_NAME = "test";
 
@@ -115,5 +126,53 @@ describe("Test CompleteMeasureFooter", () => {
 
     screen.getByRole("button", { name: "Validate Measure" }).click();
     expect(mockValidate.mock.calls.length).toEqual(0);
+  });
+
+  test("renders updated copy for 2026", () => {
+    config.BRANCH_NAME = "test";
+    mockGetMeasureYear.mockReturnValue(2026);
+
+    render(
+      <CompleteMeasureFooter
+        handleClear={() => {}}
+        handleSubmit={() => {}}
+        handleValidation={() => {}}
+      />
+    );
+
+    expect(
+      screen.getByText(
+        "Select “Validate Measure” to check for any errors present in the measure prior to completion"
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Select “Complete Measure” to mark the measure as complete and ready for CMS review"
+      )
+    ).toBeInTheDocument();
+  });
+
+  test("renders legacy copy before 2026", () => {
+    config.BRANCH_NAME = "test";
+    mockGetMeasureYear.mockReturnValue(2025);
+
+    render(
+      <CompleteMeasureFooter
+        handleClear={() => {}}
+        handleSubmit={() => {}}
+        handleValidation={() => {}}
+      />
+    );
+
+    expect(
+      screen.getByText(
+        'Please select "Validate Measure" to check any error present on the measure prior to completion'
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Complete the measure and mark it for submission to CMS for review"
+      )
+    ).toBeInTheDocument();
   });
 });

@@ -21,4 +21,16 @@ describe("featuresByYear stratification banner flags", () => {
     expect(featuresByYear.showStratificationSectionBanner).toBe(true);
     expect(featuresByYear.hasTailoredStratificationBanner).toBe(true);
   });
+
+  it("uses updated complete measure copy in 2026 and later", () => {
+    mockGetMeasureYear.mockReturnValue(2026);
+
+    expect(featuresByYear.hasUpdatedCompleteMeasureCopy).toBe(true);
+  });
+
+  it("uses legacy complete measure copy before 2026", () => {
+    mockGetMeasureYear.mockReturnValue(2025);
+
+    expect(featuresByYear.hasUpdatedCompleteMeasureCopy).toBe(false);
+  });
 });

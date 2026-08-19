@@ -227,4 +227,14 @@ export const featuresByYear = {
   get hasTailoredStratificationBanner() {
     return getMeasureYear() >= 2026;
   },
+
+  /**
+   * Prior to 2026, the measure completion footer used legacy validation and
+   * completion guidance copy.
+   *
+   * In 2026 and beyond, CMS updated that footer copy.
+   */
+  get hasUpdatedCompleteMeasureCopy() {
+    return getMeasureYear() >= 2026;
+  },
 };
