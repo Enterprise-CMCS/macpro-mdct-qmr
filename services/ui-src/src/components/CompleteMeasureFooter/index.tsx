@@ -28,11 +28,12 @@ export const CompleteMeasureFooter = ({
           Complete the Measure
         </CUI.Heading>
         <CUI.Text data-cy="complete measure sub-1">
-          Please select "Validate Measure" to check any error present on the
+          Select “Validate Measure” to check for any errors present in the
           measure prior to completion
         </CUI.Text>
         <CUI.Text py="3" data-cy="complete measure sub-2">
-          Complete the measure and mark it for submission to CMS for review
+          Select “Complete Measure” to mark the measure as complete and ready
+          for CMS review
         </CUI.Text>
         <CUI.Stack
           zIndex={disabled ? 2 : 0}
