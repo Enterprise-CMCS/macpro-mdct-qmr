@@ -19,9 +19,9 @@ describe("Test CompleteMeasureFooter", () => {
 
     render(
       <CompleteMeasureFooter
-        handleClear={() => {}}
-        handleSubmit={() => {}}
-        handleValidation={() => {}}
+        handleClear={jest.fn()}
+        handleSubmit={jest.fn()}
+        handleValidation={jest.fn()}
       />
     );
 
@@ -41,9 +41,9 @@ describe("Test CompleteMeasureFooter", () => {
 
     render(
       <CompleteMeasureFooter
-        handleClear={() => {}}
-        handleSubmit={() => {}}
-        handleValidation={() => {}}
+        handleClear={jest.fn()}
+        handleSubmit={jest.fn()}
+        handleValidation={jest.fn()}
       />
     );
 
@@ -83,9 +83,9 @@ describe("Test CompleteMeasureFooter", () => {
 
     render(
       <CompleteMeasureFooter
-        handleClear={() => {}}
+        handleClear={jest.fn()}
         handleSubmit={mockSubmit}
-        handleValidation={() => {}}
+        handleValidation={jest.fn()}
         disabled={true}
       />
     );
@@ -134,9 +134,9 @@ describe("Test CompleteMeasureFooter", () => {
 
     render(
       <CompleteMeasureFooter
-        handleClear={() => {}}
-        handleSubmit={() => {}}
-        handleValidation={() => {}}
+        handleClear={jest.fn()}
+        handleSubmit={jest.fn()}
+        handleValidation={jest.fn()}
       />
     );
 
@@ -158,9 +158,9 @@ describe("Test CompleteMeasureFooter", () => {
 
     render(
       <CompleteMeasureFooter
-        handleClear={() => {}}
-        handleSubmit={() => {}}
-        handleValidation={() => {}}
+        handleClear={jest.fn()}
+        handleSubmit={jest.fn()}
+        handleValidation={jest.fn()}
       />
     );
 
