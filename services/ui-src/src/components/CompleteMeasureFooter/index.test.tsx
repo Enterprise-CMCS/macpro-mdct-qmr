@@ -1,29 +1,26 @@
 import { render, screen } from "@testing-library/react";
 import { CompleteMeasureFooter } from "components/CompleteMeasureFooter";
 import config from "config";
-import { getMeasureYear } from "utils/getMeasureYear";
+import { commonQuestionsLabel as commonQuestionsLabel2025 } from "labels/2025/commonQuestionsLabel";
+import { commonQuestionsLabel as commonQuestionsLabel2026 } from "labels/2026/commonQuestionsLabel";
+import SharedContext from "shared/SharedContext";
 
-jest.mock("utils/getMeasureYear", () => ({
-  getMeasureYear: jest.fn(),
-}));
-
-const mockGetMeasureYear = getMeasureYear as jest.Mock;
-
-describe("Test CompleteMeasureFooter", () => {
-  beforeEach(() => {
-    mockGetMeasureYear.mockReturnValue(2025);
-  });
-
-  test("Check that the Contained Buttons in this footer component render", () => {
-    config.BRANCH_NAME = "test";
-
-    render(
+const renderFooter = (labels: any = commonQuestionsLabel2025) =>
+  render(
+    <SharedContext.Provider value={labels}>
       <CompleteMeasureFooter
         handleClear={jest.fn()}
         handleSubmit={jest.fn()}
         handleValidation={jest.fn()}
       />
-    );
+    </SharedContext.Provider>
+  );
+
+describe("Test CompleteMeasureFooter", () => {
+  test("Check that the Contained Buttons in this footer component render", () => {
+    config.BRANCH_NAME = "test";
+
+    renderFooter();
 
     expect(
       screen.getByRole("button", { name: "Validate Measure" })
@@ -39,13 +36,7 @@ describe("Test CompleteMeasureFooter", () => {
   test("That the Clear Data button does not appear in production environment", () => {
     config.BRANCH_NAME = "production";
 
-    render(
-      <CompleteMeasureFooter
-        handleClear={jest.fn()}
-        handleSubmit={jest.fn()}
-        handleValidation={jest.fn()}
-      />
-    );
+    renderFooter();
 
     expect(
       screen.queryByRole("button", { name: "Clear Data" })
@@ -59,11 +50,13 @@ describe("Test CompleteMeasureFooter", () => {
     const mockValidate = jest.fn();
 
     render(
-      <CompleteMeasureFooter
-        handleClear={mockClear}
-        handleSubmit={mockSubmit}
-        handleValidation={mockValidate}
-      />
+      <SharedContext.Provider value={commonQuestionsLabel2025}>
+        <CompleteMeasureFooter
+          handleClear={mockClear}
+          handleSubmit={mockSubmit}
+          handleValidation={mockValidate}
+        />
+      </SharedContext.Provider>
     );
 
     screen.getByRole("button", { name: "Clear Data" }).click();
@@ -82,12 +75,14 @@ describe("Test CompleteMeasureFooter", () => {
     const mockSubmit = jest.fn;
 
     render(
-      <CompleteMeasureFooter
-        handleClear={jest.fn()}
-        handleSubmit={mockSubmit}
-        handleValidation={jest.fn()}
-        disabled={true}
-      />
+      <SharedContext.Provider value={commonQuestionsLabel2025}>
+        <CompleteMeasureFooter
+          handleClear={jest.fn()}
+          handleSubmit={mockSubmit}
+          handleValidation={jest.fn()}
+          disabled={true}
+        />
+      </SharedContext.Provider>
     );
 
     const renderedFooter = screen.getByTestId("complete-measure-footer");
@@ -110,12 +105,14 @@ describe("Test CompleteMeasureFooter", () => {
     const mockValidate = jest.fn();
 
     render(
-      <CompleteMeasureFooter
-        handleClear={mockClear}
-        handleSubmit={mockSubmit}
-        handleValidation={mockValidate}
-        disabled={true}
-      />
+      <SharedContext.Provider value={commonQuestionsLabel2025}>
+        <CompleteMeasureFooter
+          handleClear={mockClear}
+          handleSubmit={mockSubmit}
+          handleValidation={mockValidate}
+          disabled={true}
+        />
+      </SharedContext.Provider>
     );
 
     screen.getByRole("button", { name: "Clear Data" }).click();
@@ -130,15 +127,8 @@ describe("Test CompleteMeasureFooter", () => {
 
   test("renders updated copy for 2026", () => {
     config.BRANCH_NAME = "test";
-    mockGetMeasureYear.mockReturnValue(2026);
 
-    render(
-      <CompleteMeasureFooter
-        handleClear={jest.fn()}
-        handleSubmit={jest.fn()}
-        handleValidation={jest.fn()}
-      />
-    );
+    renderFooter(commonQuestionsLabel2026);
 
     expect(
       screen.getByText(
@@ -154,15 +144,8 @@ describe("Test CompleteMeasureFooter", () => {
 
   test("renders legacy copy before 2026", () => {
     config.BRANCH_NAME = "test";
-    mockGetMeasureYear.mockReturnValue(2025);
 
-    render(
-      <CompleteMeasureFooter
-        handleClear={jest.fn()}
-        handleSubmit={jest.fn()}
-        handleValidation={jest.fn()}
-      />
-    );
+    renderFooter(commonQuestionsLabel2025);
 
     expect(
       screen.getByText(

@@ -551,24 +551,28 @@ export const MeasureWrapper = ({
                       setValidationFunctions={setValidationFunctions}
                       handleSave={handleSave}
                     />
+                    {/* Core set qualifiers use a slightly different submission button layout */}
+                    {!!(!autocompleteOnCreation && !defaultData) && (
+                      <QMR.CompleteMeasureFooter
+                        handleClear={methods.handleSubmit(handleClear)}
+                        handleSubmit={methods.handleSubmit(handleSubmit)}
+                        handleValidation={methods.handleSubmit(
+                          handleValidation
+                        )}
+                        disabled={!isStateUser || mutationRunning}
+                        validating={validating}
+                      />
+                    )}
+                    {!!(!autocompleteOnCreation && defaultData) && (
+                      <CompleteCoreSets
+                        handleSubmit={methods.handleSubmit(handleSubmit)}
+                        handleValidation={methods.handleSubmit(
+                          handleValidation
+                        )}
+                        type={type}
+                      />
+                    )}
                   </SharedContext.Provider>
-                  {/* Core set qualifiers use a slightly different submission button layout */}
-                  {!!(!autocompleteOnCreation && !defaultData) && (
-                    <QMR.CompleteMeasureFooter
-                      handleClear={methods.handleSubmit(handleClear)}
-                      handleSubmit={methods.handleSubmit(handleSubmit)}
-                      handleValidation={methods.handleSubmit(handleValidation)}
-                      disabled={!isStateUser || mutationRunning}
-                      validating={validating}
-                    />
-                  )}
-                  {!!(!autocompleteOnCreation && defaultData) && (
-                    <CompleteCoreSets
-                      handleSubmit={methods.handleSubmit(handleSubmit)}
-                      handleValidation={methods.handleSubmit(handleValidation)}
-                      type={type}
-                    />
-                  )}
                 </CUI.Container>
                 {errors?.length === 0 && (
                   <QMR.Notification

@@ -12,6 +12,12 @@ export const commonQuestionsLabel = {
     upload:
       "If you need additional space to include comments or supplemental information, please attach further documentation below.",
   },
+  CompleteMeasureFooter: {
+    validateMeasureCopy:
+      'Please select "Validate Measure" to check any error present on the measure prior to completion',
+    completeMeasureCopy:
+      "Complete the measure and mark it for submission to CMS for review",
+  },
   CombinedRates: {
     header: "Combined Rate(s) from Multiple Reporting Units",
     healthHome: {

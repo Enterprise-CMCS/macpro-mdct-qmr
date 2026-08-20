@@ -1,7 +1,8 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
+import { useContext } from "react";
 import { isDevEnv } from "config";
-import { featuresByYear } from "utils/featuresByYear";
+import SharedContext from "shared/SharedContext";
 interface Props {
   // these functions do not return a value
   handleClear: () => void;
@@ -18,6 +19,8 @@ export const CompleteMeasureFooter = ({
   disabled = false,
   validating = false,
 }: Props) => {
+  const labels: any = useContext(SharedContext);
+
   return (
     <>
       <CUI.Stack
@@ -29,14 +32,10 @@ export const CompleteMeasureFooter = ({
           Complete the Measure
         </CUI.Heading>
         <CUI.Text data-cy="complete measure sub-1">
-          {featuresByYear.hasUpdatedCompleteMeasureCopy
-            ? "Select “Validate Measure” to check for any errors present in the measure prior to completion"
-            : 'Please select "Validate Measure" to check any error present on the measure prior to completion'}
+          {labels?.CompleteMeasureFooter?.validateMeasureCopy}
         </CUI.Text>
         <CUI.Text py="3" data-cy="complete measure sub-2">
-          {featuresByYear.hasUpdatedCompleteMeasureCopy
-            ? "Select “Complete Measure” to mark the measure as complete and ready for CMS review"
-            : "Complete the measure and mark it for submission to CMS for review"}
+          {labels?.CompleteMeasureFooter?.completeMeasureCopy}
         </CUI.Text>
         <CUI.Stack
           zIndex={disabled ? 2 : 0}
