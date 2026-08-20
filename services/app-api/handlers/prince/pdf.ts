@@ -139,6 +139,7 @@ const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
       ...Object.keys(extraAttributes),
       ...extraTags,
     ],
+    parser: { xmlMode: true },
   };
 };
 
