@@ -1,20 +1,28 @@
-import { getPDF } from "../pdf";
+import { EventEmitter } from "node:events";
+import { gzipSync } from "node:zlib";
+import { Readable, Writable } from "node:stream";
 import { testEvent } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
-import { gzipSync } from "node:zlib";
 
 jest.spyOn(console, "warn").mockImplementation();
 
-global.fetch = jest.fn().mockResolvedValue({
-  status: 200,
-  headers: {
-    get: jest.fn().mockReturnValue("3"),
-  },
-  arrayBuffer: jest.fn().mockResolvedValue(
-    // An ArrayBuffer containing `%PDF-1.7`
-    new Uint8Array([37, 80, 68, 70, 45, 49, 46, 55]).buffer
-  ),
+const mockSpawn = jest.fn();
+
+jest.mock("node:child_process", () => ({
+  spawn: (...args: unknown[]) => mockSpawn(...args),
+}));
+
+jest.mock("node:fs", () => {
+  const actual = jest.requireActual<typeof import("node:fs")>("node:fs");
+  return {
+    ...actual,
+    existsSync: jest.fn(() => false),
+    statSync: jest.fn(() => ({ mode: 0o100755 })),
+    chmodSync: jest.fn(),
+  };
 });
+
+import { getPDF } from "../pdf";
 
 const dangerousHtml =
   "<html><head></head><body><p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p></body></html>";
@@ -22,13 +30,82 @@ const compressedHtml = gzipSync(dangerousHtml);
 const sanitizedHtml = "<html><head></head><body><p>abcdef</p></body></html>";
 const base64EncodedDangerousHtml =
   Buffer.from(compressedHtml).toString("base64");
+const mockPdfBytes = Buffer.from("%PDF-1.7");
 
 const event = { ...testEvent };
+
+type MockChild = EventEmitter & {
+  stdout: Readable;
+  stderr: Readable;
+  stdin: Writable;
+  kill: jest.Mock;
+};
+
+function createPrinceChild({
+  stdout,
+  stderr = "",
+  code = 0,
+  signal = null,
+  epipeOnWrite = false,
+}: {
+  stdout?: Buffer;
+  stderr?: string;
+  code?: number | null;
+  signal?: NodeJS.Signals | null;
+  epipeOnWrite?: boolean;
+}): { child: MockChild; getStdin: () => string } {
+  const chunks: Buffer[] = [];
+  // oxlint-disable-next-line unicorn/prefer-event-target -- Node child_process mock
+  const child = new EventEmitter() as MockChild;
+  child.stdout = new Readable({ read() {} });
+  child.stderr = new Readable({ read() {} });
+  child.kill = jest.fn();
+  child.stdin = new Writable({
+    write(chunk, _encoding, callback) {
+      if (epipeOnWrite) {
+        const error = new Error("write EPIPE") as NodeJS.ErrnoException;
+        error.code = "EPIPE";
+        callback(error);
+        process.nextTick(() => {
+          if (stderr) {
+            child.stderr.push(Buffer.from(stderr));
+          }
+          child.stderr.push(null);
+          child.stdout.push(null);
+          child.emit("close", code, signal);
+        });
+        return;
+      }
+      chunks.push(Buffer.from(chunk));
+      callback();
+    },
+    final(callback) {
+      // Defer close so stdout/stderr data listeners run first
+      if (stdout) {
+        child.stdout.push(stdout);
+      }
+      child.stdout.push(null);
+      if (stderr) {
+        child.stderr.push(Buffer.from(stderr));
+      }
+      child.stderr.push(null);
+      process.nextTick(() => {
+        child.emit("close", code, signal);
+        callback();
+      });
+    },
+  });
+
+  return {
+    child,
+    getStdin: () => Buffer.concat(chunks).toString(),
+  };
+}
 
 describe("Test GetPDF handler", () => {
   beforeEach(() => {
     process.env = {
-      docraptorApiKey: "mock api key", // pragma: allowlist secret
+      LAMBDA_TASK_ROOT: "/var/task",
       STAGE: "dev",
     };
     event.pathParameters = {
@@ -36,6 +113,7 @@ describe("Test GetPDF handler", () => {
       year: "2023",
       coreSet: "CCSC",
     };
+    mockSpawn.mockReset();
   });
 
   afterEach(() => {
@@ -56,16 +134,6 @@ describe("Test GetPDF handler", () => {
 
     expect(res.statusCode).toBe(500);
     expect(res.body).toContain("must be base64-encoded HTML");
-  });
-
-  it("should throw error when config not defined", async () => {
-    delete process.env.docraptorApiKey;
-    event.body = base64EncodedDangerousHtml;
-
-    const res = await getPDF(event, null);
-
-    expect(res.statusCode).toBe(500);
-    expect(res.body).toContain("No config found to make request to PDF API");
   });
 
   it("should throw error when path params are missing", async () => {
@@ -90,48 +158,90 @@ describe("Test GetPDF handler", () => {
     expect(res.body).toContain(Errors.NO_KEY);
   });
 
-  it("should call PDF API with sanitized html", async () => {
+  it("should call Prince with sanitized html and PDF/UA-1 profile", async () => {
+    const { child, getStdin } = createPrinceChild({ stdout: mockPdfBytes });
+    mockSpawn.mockReturnValue(child);
     event.body = base64EncodedDangerousHtml;
-    const res = await getPDF(event, null);
-    expect(res.statusCode).toBe(200);
 
-    expect(fetch).toHaveBeenCalled();
-    const [url, request] = (fetch as jest.Mock).mock.calls[0];
-    const body = JSON.parse(request.body);
-    expect(url).toBe("https://docraptor.com/docs");
-    expect(request).toEqual({
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: expect.stringMatching(/^\{.*\}$/),
-    });
-    expect(body).toEqual({
-      user_credentials: "mock api key", // pragma: allowlist secret
-      doc: expect.objectContaining({
-        document_content: sanitizedHtml,
-        type: "pdf",
-        tag: "QMR",
-        test: true,
-        prince_options: expect.objectContaining({
-          profile: "PDF/UA-1",
-        }),
-      }),
-    });
+    const res = await getPDF(event, null);
+
+    expect(res.statusCode).toBe(200);
+    expect(JSON.parse(res.body)).toBe(mockPdfBytes.toString("base64"));
+    expect(getStdin()).toBe(sanitizedHtml);
+    expect(mockSpawn).toHaveBeenCalledWith(
+      "./prince",
+      ["-", "--output=-", "--pdf-profile=PDF/UA-1", "--media=screen"],
+      expect.objectContaining({
+        cwd: "/var/task",
+        timeout: 10_000,
+        killSignal: "SIGKILL",
+      })
+    );
   });
 
-  it("should handle an error response from the PDF API", async () => {
-    (fetch as jest.Mock).mockResolvedValueOnce({
-      status: 500,
-      text: jest.fn().mockResolvedValue("<error>It broke.</error>"),
+  it("should return PDF when Prince logs UA-1 errors but still emits PDF bytes", async () => {
+    const { child } = createPrinceChild({
+      stdout: mockPdfBytes,
+      stderr:
+        "prince: error: not identifying as PDF/UA-1 due to problems in structure tree\n",
+      code: 0,
     });
+    mockSpawn.mockReturnValue(child);
+    event.body = base64EncodedDangerousHtml;
 
+    const res = await getPDF(event, null);
+
+    expect(res.statusCode).toBe(200);
+    expect(JSON.parse(res.body)).toBe(mockPdfBytes.toString("base64"));
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringContaining("not identifying as PDF/UA-1")
+    );
+  });
+
+  it("should fail when Prince produces no PDF", async () => {
+    const { child } = createPrinceChild({
+      stderr: "prince: error: invalid document",
+      code: 1,
+    });
+    mockSpawn.mockReturnValue(child);
     event.body = base64EncodedDangerousHtml;
 
     const res = await getPDF(event, null);
 
     expect(res.statusCode).toBe(500);
-
+    expect(res.body).toContain("PDF generation failed - invalid document");
     expect(console.warn).toHaveBeenCalledWith(
-      expect.stringContaining("It broke.")
+      expect.stringContaining("invalid document")
     );
+  });
+
+  it("should not crash with uncaught EPIPE when Prince closes stdin early", async () => {
+    const { child } = createPrinceChild({
+      stderr: "exec format error",
+      code: 126,
+      epipeOnWrite: true,
+    });
+    mockSpawn.mockReturnValue(child);
+    event.body = base64EncodedDangerousHtml;
+
+    const res = await getPDF(event, null);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toContain("PDF generation failed");
+    expect(res.body).not.toContain("EPIPE");
+  });
+
+  it("should fail when Prince is killed by timeout", async () => {
+    const { child } = createPrinceChild({
+      code: null,
+      signal: "SIGKILL",
+    });
+    mockSpawn.mockReturnValue(child);
+    event.body = base64EncodedDangerousHtml;
+
+    const res = await getPDF(event, null);
+
+    expect(res.statusCode).toBe(500);
+    expect(res.body).toContain("Prince PDF generation timed out");
   });
 });

@@ -7,7 +7,7 @@ export const SkipNav = () => {
       id="skip-nav-main"
       sx={sx.skipNavLink}
       href={"#main-wrapper"}
-      className="ds-c-skip-nav"
+      className="ds-c-skip-nav hidden-print-items"
     >
       Skip to main content
     </Link>

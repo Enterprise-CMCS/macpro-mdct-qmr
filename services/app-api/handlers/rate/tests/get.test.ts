@@ -1,4 +1,4 @@
-import { getRate } from "./../get";
+import { getRate } from "../get";
 import { testEvent } from "../../../test-util/testEvents";
 import dynamodbLib from "../../../libs/dynamodb-lib";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
