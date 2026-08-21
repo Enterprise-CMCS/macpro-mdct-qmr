@@ -13,6 +13,12 @@ export const commonQuestionsLabel = {
         "Please add any additional notes or comments on the measure not otherwise captured above (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     },
   },
+  CompleteMeasureFooter: {
+    validateMeasureCopy:
+      "Select “Validate Measure” to check for any errors present in the measure prior to completion",
+    completeMeasureCopy:
+      "Select “Complete Measure” to mark the measure as complete and ready for CMS review",
+  },
   DataSource: {
     ehrSrc: "Optional - Describe the data source(s) used:",
     describeDataSrc:
