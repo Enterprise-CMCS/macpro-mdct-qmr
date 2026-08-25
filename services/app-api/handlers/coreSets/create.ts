@@ -1,7 +1,8 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
-import { MeasureMetaData, measures } from "../dynamoUtils/measureList";
+import { measures } from "../dynamoUtils/measureList";
+import type { MeasureMetaData } from "../../types";
 import {
   hasRolePermissions,
   hasStatePermissions,
