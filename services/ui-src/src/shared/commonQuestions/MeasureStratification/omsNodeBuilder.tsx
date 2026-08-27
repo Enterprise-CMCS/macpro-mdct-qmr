@@ -178,6 +178,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
       )}
       {checkboxOptions.map((options) => (
         <QMR.Accordion
+          key={options.value}
           externalControlled
           label={options.displayValue}
           overrideExpand={props.overrideAccordion?.(options.value)}
