@@ -19,7 +19,7 @@ export const AdminHome = () => {
 
   return (
     <>
-      <QMR.Title pageTitle={`Admin Home - ${releaseYearByFlag} QMR`} />
+      <QMR.Title tabTitle={`Admin Home - ${releaseYearByFlag} QMR`} />
       <CUI.Container maxW="7xl" py="4">
         <CUI.Box py="4">
           <BannerCard />

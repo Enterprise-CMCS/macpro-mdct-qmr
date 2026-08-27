@@ -130,6 +130,8 @@ describe("Test GetPDF handler", () => {
 
     expect(res.statusCode).toBe(500);
 
-    expect(console.warn).toBeCalledWith(expect.stringContaining("It broke."));
+    expect(console.warn).toHaveBeenCalledWith(
+      expect.stringContaining("It broke.")
+    );
   });
 });

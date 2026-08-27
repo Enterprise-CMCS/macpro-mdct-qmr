@@ -135,7 +135,7 @@ export const CombinedRatesPage = () => {
   return (
     <>
       <QMR.Title
-        pageTitle={`Combined Rates - Core Set Measures - ${year} QMR`}
+        tabTitle={`Combined Rates - Core Set Measures - ${year} QMR`}
       />
       <QMR.StateLayout
         breadcrumbItems={[

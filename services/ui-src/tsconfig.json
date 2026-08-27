@@ -2,7 +2,7 @@
   "compilerOptions": {
     "incremental": true,
     "target": "ES2023",
-    "types": ["vite/client", "@testing-library/jest-dom"],
+    "types": ["vite/client", "@testing-library/jest-dom", "node"],
     "lib": ["ES2023", "dom", "dom.iterable"],
     "jsx": "react-jsx",
     "sourceMap": true,

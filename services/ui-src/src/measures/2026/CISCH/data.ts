@@ -18,48 +18,20 @@ export const data: MeasureTemplateData = {
   },
   dataSource: {
     optionsLabel:
-      "If reporting entities (e.g., health plans) used different data collection methods, please select all that are applicable below.",
+      "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable below. If your state followed the 2026 Core Set technical specifications and used administrative data only, select ECDS > Administrative.",
     options: [
-      {
-        value: DC.ADMINISTRATIVE_DATA,
-        subOptions: [
-          {
-            label: "What is the Administrative Data Source?",
-            options: [
-              { value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM },
-              { value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM },
-              { value: DC.ADMINISTRATIVE_DATA_OTHER, description: true },
-            ],
-          },
-        ],
-      },
-      {
-        value: DC.HYBRID_DATA,
-        subOptions: [
-          {
-            label: "What is the Administrative Data Source?",
-            options: [
-              { value: DC.MEDICAID_MANAGEMENT_INFO_SYSTEM },
-              { value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM },
-              { value: DC.ADMINISTRATIVE_DATA_OTHER, description: true },
-            ],
-          },
-          {
-            label: "What is the Medical Records Data Source?",
-            options: [{ value: DC.EHR_DATA }, { value: DC.PAPER }],
-          },
-        ],
-      },
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
         description: true,
         subOptions: [
           {
             options: [
-              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
-              { value: DC.HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY },
-              { value: DC.CASE_MANAGEMENT_SYSTEM },
               { value: DC.ADMINISTRATIVE },
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM },
+              { value: DC.CLINICAL_REGISTRY_OTHER },
+              { value: DC.CASE_MANAGEMENT_SYSTEM },
             ],
           },
         ],

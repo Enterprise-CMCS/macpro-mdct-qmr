@@ -10,6 +10,7 @@ export const measureTemplate = ({
   name,
   year,
   measureId,
+  stratificationRequired,
   setValidationFunctions,
   isNotReportingData,
   isPrimaryMeasureSpecSelected,
@@ -59,7 +60,6 @@ export const measureTemplate = ({
 
       {!isNotReportingData && (
         <>
-          <CMQ.StatusOfData />
           <CMQ.MeasurementSpecification type={type} coreset={coreset} />
           {isPrimaryMeasureSpecSelected && <CMQ.DeviationFromMeasureSpec />}
           {custom?.dataSrcRadio ? (
@@ -108,6 +108,7 @@ export const measureTemplate = ({
             ) : (
               <CMQ.MeasureStrat
                 coreset={coreset}
+                stratificationRequired={stratificationRequired}
                 calcTotal={custom?.calcTotal}
                 performanceMeasureArray={performanceMeasureArray}
                 qualifiers={performanceMeasure.qualifiers}

@@ -59,12 +59,12 @@ describe("Test ndrFields Components", () => {
 
     const textboxIds = ["numerator", "denominator", "rate"];
 
-    textboxIds.forEach((id) => {
+    textboxIds.forEach(async (id) => {
       const textbox = screen.getByRole("textbox", {
         name: `test.rates.cat-1.qual-1.0.${id}`,
       });
       expect(textbox).toBeInTheDocument();
-      userEvent.type(textbox, "2");
+      await userEvent.type(textbox, "2");
       const expectedValue = id === "rate" ? "100.0" : "2";
       expect(textbox).toHaveValue(expectedValue);
     });
@@ -80,12 +80,12 @@ describe("Test ndrFields Components", () => {
 
     const textboxIds = ["numerator", "denominator", "rate"];
 
-    textboxIds.forEach((id) => {
+    textboxIds.forEach(async (id) => {
       const textbox = screen.getByRole("textbox", {
         name: `mock-checkbox.rates.OPM.OPM_mockrate.0.${id}`,
       });
       expect(textbox).toBeInTheDocument();
-      userEvent.type(textbox, "2");
+      await userEvent.type(textbox, "2");
       const expectedValue = id === "rate" ? "100.0" : "2";
       expect(textbox).toHaveValue(expectedValue);
     });

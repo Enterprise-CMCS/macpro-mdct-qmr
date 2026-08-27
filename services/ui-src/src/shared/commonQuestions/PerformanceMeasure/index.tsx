@@ -1,6 +1,5 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import * as Types from "../../types";
 import * as DC from "dataConstants";
 import { PerformanceMeasureData } from "./data";
 import { useWatch } from "react-hook-form";
@@ -9,7 +8,6 @@ import { ndrFormula } from "types";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
 import { featuresByYear } from "utils/featuresByYear";
-import { DataSourceSelections } from "../../types";
 
 interface Props {
   data: PerformanceMeasureData;
@@ -197,9 +195,9 @@ export const PerformanceMeasure = ({
   rateCalc,
   RateComponent = QMR.Rate, // Default to QMR.Rate
 }: Props) => {
-  const dataSourceWatch = useWatch<Types.DataSource>({
-    name: [DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS],
-  }) as [string[] | undefined, DataSourceSelections];
+  const dataSourceWatch = useWatch({ name: DC.DATA_SOURCE }) as
+    | string[]
+    | undefined;
 
   let readOnly = false;
   if (rateReadOnly !== undefined) {

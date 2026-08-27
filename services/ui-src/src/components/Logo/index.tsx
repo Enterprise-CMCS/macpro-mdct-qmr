@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export function Logo(): JSX.Element {
   return (
     <div data-testid="qmr-logo">

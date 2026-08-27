@@ -153,6 +153,10 @@ const omsValidations = (func: ValidationFunction, PMD: MeasureTemplateData) => {
         PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
         PMD.override?.validateOneQualRateHigherThanOtherQual?.lowerIndex
       );
+    case "validateOneQualRateLessThanOrEqualToOtherQualRatesOMS":
+      return GV.validateOneQualRateLessThanOrEqualToOtherQualRatesOMS(
+        PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
+      );
     case "validateSameDenominatorSetsOMS":
       return GV.validateSameDenominatorSetsOMS();
     case "validateEqualCategoryDenominatorsOMS":
@@ -198,7 +202,7 @@ export const validationTemplate = (
   const OPM = data[DC.OPM_RATES];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(2026, true),
+    OMSData(2026, true, data.OptionalMeasureStratification?.version, coreSetId),
     qualifiers,
     categories
   );
@@ -377,6 +381,12 @@ export const validationTemplate = (
           PMD.override?.validateOneQualRateHigherThanOtherQual?.higherIndex,
           PMD.override?.validateOneQualRateHigherThanOtherQual?.lowerIndex
         );
+      case "validateOneQualRateLessThanOrEqualToOtherQualRatesPM":
+        return GV.validateOneQualRateLessThanOrEqualToOtherQualRatesPM(
+          data,
+          PMD.performanceMeasure,
+          PMD.override?.validateOneQualRateLessThanOrEqualToOtherQualRates
+        );
       case "ComplexValueSameCrossCategory":
         return GV.ComplexValueSameCrossCategory({
           rateData: performanceMeasureArray,
@@ -468,6 +478,9 @@ export const validationTemplate = (
     errorArray.push(...(validationList(validation) ?? []));
   }
 
+  // Run for all measures: if the denominator does not represent the total measure-eligible population, require follow-up details.
+  errorArray.push(...GV.validateDefinitionOfDenominatorNoExplain(data));
+
   errorArray.push(
     ...GV.omsValidations({
       data,
@@ -476,11 +489,7 @@ export const validationTemplate = (
       dataSource: PMD.override?.omsValidations?.dataSource //used in validateRateZeroOMS
         ? data[DC.DATA_SOURCE]
         : undefined,
-      locationDictionary: GV.omsLocationDictionary(
-        OMSData(2026, true),
-        qualifiers,
-        categories
-      ),
+      locationDictionary,
       validationCallbacks: sortOMSValidations(OPM, PMD)!.flat(),
     })
   );

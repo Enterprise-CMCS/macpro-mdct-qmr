@@ -62,13 +62,7 @@ jest.mock("aws-amplify/auth", () => ({
 describe("API library", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    Object.defineProperty(window, "location", {
-      writable: true,
-      value: {
-        href: "href",
-        origin: "http://localhost",
-      },
-    });
+    window.history.pushState({}, "", "/");
   });
 
   test("listMeasures", async () => {
@@ -162,7 +156,7 @@ describe("API library", () => {
     });
     await expect(listMeasures(mockInputObj)).rejects.toThrow();
     expect(mockSignOut).toHaveBeenCalledTimes(1);
-    expect(window.location.href).toEqual(window.location.origin);
+    expect(window.location.href).toEqual(`${window.location.origin}/`);
   });
 
   test("should handle apiRequest error", async () => {

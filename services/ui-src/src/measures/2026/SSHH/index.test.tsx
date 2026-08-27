@@ -1,5 +1,5 @@
-import { screen, waitFor, act } from "@testing-library/react";
-import { createElement, Suspense } from "react";
+import { screen, waitFor, act, fireEvent } from "@testing-library/react";
+import { createElement, JSX, Suspense } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
 import { useApiMock } from "utils/testUtils/useApiMock";
@@ -11,7 +11,6 @@ import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { clearMocks } from "shared/util/validationsMock";
 import { useParams } from "react-router-dom";
-import userEvent from "@testing-library/user-event";
 
 expect.extend(toHaveNoViolations);
 
@@ -105,20 +104,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     });
   });
 
-  it("Always shows What is the status of the data being reported? question", async () => {
-    useApiMock(apiData);
-    renderWithHookForm(component);
-    const firstQuestion = screen.getByText(
-      "What is the status of the data being reported?"
-    );
-    expect(firstQuestion).toBeVisible();
-  });
-
   it("shows corresponding questions if yes to reporting then ", async () => {
     apiData.useGetMeasureValues.data.Item.data = completedMeasureData;
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.queryByText("Status of Data Reported")).toBeInTheDocument();
+    expect(screen.queryByTestId("status-of-data")).not.toBeInTheDocument();
     expect(screen.queryByText("Data Collection Method")).toBeInTheDocument();
     expect(screen.queryByText("Date Range")).toBeInTheDocument();
     expect(
@@ -135,13 +125,17 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
       screen.queryByRole("button", { name: "+ Add Another" })
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "+ Add Another" }));
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: "+ Add Another" }));
+    });
 
     expect(
       screen.getByRole("button", { name: "Delete Field" })
     ).toBeInTheDocument();
 
-    userEvent.click(screen.getByRole("button", { name: "Delete Field" }));
+    act(() => {
+      fireEvent.click(screen.getByRole("button", { name: "Delete Field" }));
+    });
 
     expect(
       screen.queryByRole("button", { name: "Delete Field" })

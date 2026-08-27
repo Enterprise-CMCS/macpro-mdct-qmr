@@ -58,7 +58,7 @@ export const CombinedRatesMeasure = ({
 
   return (
     <>
-      <QMR.Title pageTitle={`${measure} - Combined Rates - ${year} QMR`} />
+      <QMR.Title tabTitle={`${measure} - Combined Rates - ${year} QMR`} />
       <QMR.StateLayout
         breadcrumbItems={[
           {

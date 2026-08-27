@@ -19,6 +19,7 @@ import { CoreSetAbbr } from "types";
 import { measureDescriptions } from "measures/measureDescriptions";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
+import { Alert } from "@cmsgov/design-system";
 
 const LastModifiedBy = ({ user }: { user: string | undefined }) => {
   if (!user) return null;
@@ -33,6 +34,7 @@ export interface PrintableMeasureWrapperProps {
   name: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
@@ -45,6 +47,7 @@ interface MeasureProps {
   name: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions: Dispatch<SetStateAction<Function[]>>;
   handleSave: (data: any) => void;
 }
@@ -114,7 +117,6 @@ export const PrintableMeasureWrapper = ({
   const params = useParams();
 
   const methods = useForm({
-    shouldUnregister: true,
     mode: "all",
     defaultValues: measureData?.data ?? undefined,
     criteriaMode: "firstError",
@@ -136,10 +138,8 @@ export const PrintableMeasureWrapper = ({
     ) {
       methods.reset(
         params.coreSetId
-          ? defaultData?.[
-              (params.coreSetId?.split("_")?.[0] ??
-                params.coreSetId) as CoreSetAbbr
-            ]?.formData
+          ? defaultData?.[params.coreSetId.split("_")[0] as CoreSetAbbr]
+              ?.formData
           : undefined
       );
     }
@@ -151,9 +151,13 @@ export const PrintableMeasureWrapper = ({
     return null;
   }
 
+  const coreSet = params.coreSetId.split("_")[0] as CoreSetAbbr;
+
   const foundMeasureDescription =
     measureDescriptions[measureData?.year]?.[measureData?.measure] ||
     measureData?.description;
+  const shouldShowStratificationReminderBanner =
+    measureData?.stratificationRequired?.includes(coreSet);
 
   return (
     <CUI.VStack padding={10}>
@@ -187,6 +191,14 @@ export const PrintableMeasureWrapper = ({
           </CUI.Text>
         </CUI.Box>
       )}
+      {shouldShowStratificationReminderBanner && (
+        <CUI.Box mb="1rem">
+          <Alert heading="Reminder: Measure Stratification Required">
+            For {year} Core Sets reporting, states are expected to report
+            stratified data for this measure.
+          </Alert>
+        </CUI.Box>
+      )}
       <FormProvider {...methods}>
         <SharedContext.Provider value={shared}>
           <>
@@ -198,6 +210,7 @@ export const PrintableMeasureWrapper = ({
                     name={foundMeasureDescription || name}
                     year={year}
                     measureId={measureId}
+                    stratificationRequired={measureData?.stratificationRequired}
                     setValidationFunctions={() => {}}
                     handleSave={() => {}}
                   />

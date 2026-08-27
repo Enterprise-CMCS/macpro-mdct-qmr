@@ -9,7 +9,7 @@ export const data: MeasureTemplateData = {
   coreset: "child",
   performanceMeasure: {
     questionText: [
-      "The percentage of deliveries in which beneficiaries under age 21 were screened for clinical depression while pregnant, and if screened positive, received follow-up care.",
+      "The percentage of deliveries in which beneficiaries under age 21 were screened for clinical depression while pregnant and, if screened positive, received follow-up care.",
     ],
     questionListTitles: [
       "Depression Screening. ",
@@ -24,17 +24,18 @@ export const data: MeasureTemplateData = {
   },
   dataSource: {
     optionsLabel:
-      "If reporting entities (e.g., health plans) used different data sources, please select all applicable data sources used below.",
+      "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable below. If your state followed the 2026 Core Set technical specifications and used administrative data only, select ECDS > Administrative.",
     options: [
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
         subOptions: [
           {
             options: [
-              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
-              { value: DC.HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY },
-              { value: DC.CASE_MANAGEMENT_SYSTEM },
               { value: DC.ADMINISTRATIVE },
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.CLINICAL_REGISTRY },
+              { value: DC.CASE_MANAGEMENT_SYSTEM },
             ],
           },
         ],

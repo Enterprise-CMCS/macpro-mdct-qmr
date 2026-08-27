@@ -29,7 +29,11 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
       hasECDSDataSource: `These data were reported using the Electronic Clinical Data System (ECDS) Data Source
         (alone or in combination with other data sources).
         The data will not be used to calculate a combined rate below.`,
-      hasOtherDataSource: `These data were reported using “Other” Data Source
+      hasOtherDataSource: featuresByYear.useDataCollectionMethod
+        ? `These data were reported using an “Other” Data Collection Method or Data Source
+        (alone or in combination with other data collection methods or sources).
+        The data will not be used to calculate a combined rate below.`
+        : `These data were reported using “Other” Data Source
         (alone or in combination with other data sources).
         The data will not be used to calculate a combined rate below.`,
       hasOtherSpecification: `These data were reported using “Other” Specifications.
@@ -66,19 +70,21 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
         {DataSources?.[programType].DataSource.length ? (
           DataSources[programType].DataSource.map((dataSource: string) => {
             return (
-              <CUI.UnorderedList key={`${dataSource}-${idx}`}>
+              <CUI.Box key={`${dataSource}-${idx}`}>
                 <CUI.Heading tabIndex={0} pt={"1.25rem"} size="sm">
                   {getDataSourceDisplayName(dataSource)}
                 </CUI.Heading>
-                {dataSourceSelections(
-                  dataSource,
-                  DataSources[programType].DataSourceSelections
-                ).map((item, srcIdx) => (
-                  <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
-                    {item}
-                  </CUI.ListItem>
-                ))}
-              </CUI.UnorderedList>
+                <CUI.UnorderedList>
+                  {dataSourceSelections(
+                    dataSource,
+                    DataSources[programType].DataSourceSelections
+                  ).map((item, srcIdx) => (
+                    <CUI.ListItem tabIndex={0} key={`data-src-${idx}${srcIdx}`}>
+                      {item}
+                    </CUI.ListItem>
+                  ))}
+                </CUI.UnorderedList>
+              </CUI.Box>
             );
           })
         ) : (

@@ -6,6 +6,7 @@ export interface FormRateField {
   numerator?: string;
   label?: string;
   rate?: string;
+  uid?: string;
   category?: string;
   isTotal?: boolean;
 }

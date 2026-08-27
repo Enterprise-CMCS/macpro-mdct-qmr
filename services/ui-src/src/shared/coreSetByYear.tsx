@@ -76,9 +76,9 @@ export const coreSetSubTitles = (abbr: CoreSetAbbr) => {
   }
 };
 
-export const coreSetTitles = (abbr: string, type?: string) => {
+export const coreSetTitles = (abbr: string) => {
   const subTitle = coreSetSubTitles(abbr as CoreSetAbbr);
-  const subType = type || "Measures";
+  const subType = "Measures";
   let name = `${coreSetType(abbr)} Core Set ${subType}`;
   return subTitle ? `${name}: ${subTitle}` : name;
 };

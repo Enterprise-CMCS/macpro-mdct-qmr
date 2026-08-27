@@ -1,6 +1,7 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
 import * as Libs from "libs";
+import { JSX } from "react";
 
 const VerticalLogoFooter = () => {
   return (
@@ -109,7 +110,8 @@ export function Footer(): JSX.Element {
         <CUI.Container
           data-testid="help-section"
           className="help-section"
-          maxW="7xl"
+          maxW="1000px"
+          px="0"
         >
           <CUI.Box maxW="4xl">
             <CUI.Heading

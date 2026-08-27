@@ -71,11 +71,11 @@ describe("Test the MultiSelect component", () => {
     expect(checkAll.checked).toEqual(true);
   });
 
-  test("Check whether filter works", () => {
+  test("Check whether filter works", async () => {
     const filterInput = screen.getByPlaceholderText(
       "Search by Measure..."
     ) as HTMLInputElement;
-    userEvent.type(filterInput, "AMM");
+    await userEvent.type(filterInput, "AMM");
     expect(
       screen.getByText(/AMR/i).parentElement?.parentElement?.parentElement
     ).not.toBeVisible();

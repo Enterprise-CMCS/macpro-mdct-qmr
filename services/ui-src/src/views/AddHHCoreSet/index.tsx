@@ -84,7 +84,7 @@ export const AddHHCoreSet = () => {
 
   return (
     <>
-      <QMR.Title pageTitle={`Add Health Home Core Set - ${year} QMR`} />
+      <QMR.Title tabTitle={`Add Health Home Core Set - ${year} QMR`} />
       <QMR.StateLayout
         breadcrumbItems={[
           {

@@ -60,8 +60,7 @@ export const featuresByYear = {
    * In 2026, we renamed it to "Mandatory" again.
    */
   get displayMandatoryMeasuresColumn() {
-    const year = getMeasureYear();
-    return year >= 2024;
+    return getMeasureYear() >= 2024;
   },
   /**
    * In 2025 we changed the mandatory boolean into a measureType enum
@@ -168,7 +167,7 @@ export const featuresByYear = {
    *
    * In 2026 and beyond, we want to allow manual editing of rates
    * when multiple data sources are selected
-   * OR data source is either: Hybrid or Case Management
+   * OR data source is Hybrid.
    */
   get updatedReadOnlyRateCheck() {
     return getMeasureYear() >= 2026;
@@ -180,6 +179,52 @@ export const featuresByYear = {
    * In 2026 and beyond, in most cases, we say "Data Collection Method"
    */
   get useDataCollectionMethod() {
+    return getMeasureYear() >= 2026;
+  },
+
+  /**
+   * In 2026, we introduced a new measure stratification workflow:
+   * - Added a yes/no radio for "Are you reporting measure stratification?"
+   * - Changed the third standards option from "not-reporting" to "Not applicable"
+   * - "Not applicable" now renders stratification options (excluding Race/Ethnicity)
+   */
+  get useStratificationYesNo() {
+    return getMeasureYear() >= 2026;
+  },
+
+  /**
+   * In 2026, CMS removed the "External Contractor" question
+   * from the Child and Adult Qualifier forms.
+   */
+  get displayExternalContractor() {
+    return getMeasureYear() < 2026;
+  },
+
+  /**
+   * In 2026, CMS removed the "Audit or Validation of Measures" question
+   * from the Child, Adult, and Health Home Qualifier forms.
+   */
+  get displayAuditOrValidation() {
+    return getMeasureYear() < 2026;
+  },
+
+  /**
+   * In 2026, a second reminder banner was added directly above the
+   * Measure Stratification section, in addition to the top-of-page banner.
+   */
+  get showStratificationSectionBanner() {
+    return getMeasureYear() >= 2026;
+  },
+
+  /**
+   * Prior to 2026, the measure stratification reminder banner displayed a
+   * single generic message for every report.
+   *
+   * In 2026 and beyond, the banner language is tailored per report (core set),
+   * since the required/optional stratifications now differ by report
+   * (e.g. foster care for Child Medicaid, Medicaid expansion for Adult Medicaid).
+   */
+  get hasTailoredStratificationBanner() {
     return getMeasureYear() >= 2026;
   },
 };

@@ -4,6 +4,9 @@ before(() => {
 
 const emailForCognito = "input[name='email']";
 const passwordForCognito = "input[name='password']";
+const coresetListRoute = "**/coreset/**/list";
+const adminBannerRoute = "**/banners/admin-banner-id";
+const reportingYearsRoute = "**/coreset/reportingyears";
 
 const loginUser = (user: string) => {
   cy.session([user], () => {
@@ -45,7 +48,11 @@ Cypress.Commands.add(
 
 // Select the year
 Cypress.Commands.add("selectYear", (year) => {
+  cy.intercept("GET", coresetListRoute).as("coresetList");
+  cy.intercept("GET", adminBannerRoute).as("adminBanner");
+  cy.intercept("GET", reportingYearsRoute).as("reportingYears");
   cy.get('[data-cy="year-select"]').select(year);
+  cy.wait(["@coresetList", "@adminBanner", "@reportingYears"]);
 });
 
 // Visit Adult Core Set Measures
@@ -72,6 +79,7 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 
 // Visit Health Home Core Set Measures
 Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
+  cy.intercept("GET", "**/measures/list").as("measuresList");
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy^="HHCS"]').length === 0) {
       // adds first available HH core set if no healthhome was made
@@ -81,6 +89,7 @@ Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
     }
     cy.get('[data-cy^="HHCS"]').first().click();
   });
+  cy.wait("@measuresList");
 });
 
 // Visit Measures based on abbr
@@ -108,7 +117,9 @@ Cypress.Commands.add(
     );
 
     // these sections should be visible when a user selects they are reporting
-    cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
+    if (Number(year) < 2026) {
+      cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
+    }
     cy.get('[data-cy="Measurement Specification"]').should("be.visible");
     cy.get('[data-cy="Data Collection Method"]').should("be.visible");
     cy.get('[data-cy="Date Range"]').should("be.visible");
@@ -221,6 +232,9 @@ Cypress.Commands.add("deleteHealthHomeSets", () => {
 // if user doesn't fill description box, show error
 Cypress.Commands.add("showErrorIfNotReportingAndNotWhy", () => {
   cy.get('[data-cy="DidReport1"]').click();
+  cy.get('[data-cy="Why are you not reporting on this measure?"]').should(
+    "be.visible"
+  );
   cy.get('[data-cy="Validate Measure"]').click();
   cy.get('[data-cy="Why Are You Not Reporting On This Measure Error"]').should(
     "have.text",
@@ -321,7 +335,6 @@ Cypress.Commands.add("deleteStateSpecificMeasure", (description?) => {
 
 // Correct sections visible when user is reporting data on measure
 Cypress.Commands.add("SSHHdisplaysCorrectSections", () => {
-  cy.get('[data-cy="Status of Data Reported"]').should("be.visible");
   cy.get('[data-cy="Data Collection Method"]').should("be.visible");
   cy.get('[data-cy="Date Range"]').should("be.visible");
   cy.get('[data-cy="Definition of Population Included in the Measure"]').should(

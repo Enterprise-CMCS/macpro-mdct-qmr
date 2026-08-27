@@ -8,36 +8,38 @@ jest.mock("utils/getMeasureYear", () => ({
 describe("Test rateIsReadOnly()", () => {
   test("should return default false if nothing is selected in 2025", () => {
     mockGetMeasureYear.mockReturnValue(2025);
-    const isReadOnly = rateIsReadOnly([undefined, undefined]);
+    const isReadOnly = rateIsReadOnly(undefined);
     expect(isReadOnly).toBe(false);
   });
+
   test("should return true if AdministrativeData is selected in 2025", () => {
     mockGetMeasureYear.mockReturnValue(2025);
-    const isReadOnly = rateIsReadOnly([["AdministrativeData"], undefined]);
+    const isReadOnly = rateIsReadOnly(["AdministrativeData"]);
     expect(isReadOnly).toBe(true);
   });
 
   test("should return false if ElectronicHealthRecords is selected in 2025", () => {
     mockGetMeasureYear.mockReturnValue(2025);
-    const isReadOnly = rateIsReadOnly([["ElectronicHealthRecords"], undefined]);
+    const isReadOnly = rateIsReadOnly(["ElectronicHealthRecords"]);
     expect(isReadOnly).toBe(false);
   });
 
   test("should return default true if nothing is selected in 2026", () => {
     mockGetMeasureYear.mockReturnValue(2026);
-    const isReadOnly = rateIsReadOnly([undefined, undefined]);
+    const isReadOnly = rateIsReadOnly(undefined);
     expect(isReadOnly).toBe(true);
   });
+
   test("should return true if AdministrativeData is selected in 2026", () => {
     mockGetMeasureYear.mockReturnValue(2026);
-    const isReadOnly = rateIsReadOnly([["AdministrativeData"], undefined]);
+    const isReadOnly = rateIsReadOnly(["AdministrativeData"]);
     expect(isReadOnly).toBe(true);
   });
+
   test("should return false if HybridAdministrativeandMedicalRecordsData is selected in 2026", () => {
     mockGetMeasureYear.mockReturnValue(2026);
     const isReadOnly = rateIsReadOnly([
-      ["HybridAdministrativeandMedicalRecordsData"],
-      undefined,
+      "HybridAdministrativeandMedicalRecordsData",
     ]);
     expect(isReadOnly).toBe(false);
   });
@@ -45,21 +47,8 @@ describe("Test rateIsReadOnly()", () => {
   test("should return false if multiple Data Sources are selected in 2026", () => {
     mockGetMeasureYear.mockReturnValue(2026);
     const isReadOnly = rateIsReadOnly([
-      ["HybridAdministrativeandMedicalRecordsData", "AdministrativeData"],
-      undefined,
-    ]);
-    expect(isReadOnly).toBe(false);
-  });
-
-  test("should return false if multiple nested Data Sources are selected in 2026", () => {
-    mockGetMeasureYear.mockReturnValue(2026);
-    const isReadOnly = rateIsReadOnly([
-      ["AdministrativeData"],
-      {
-        AdministrativeData0: {
-          selected: ["AdministrativeData", "ElectronicHealthRecords"],
-        },
-      },
+      "AdministrativeData",
+      "ElectronicHealthRecords",
     ]);
     expect(isReadOnly).toBe(false);
   });

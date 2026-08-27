@@ -1,9 +1,8 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { AdminBannerView } from "../index";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
-import fireEvent from "@testing-library/user-event";
 import { CoreSetAbbr } from "types";
 expect.extend(toHaveNoViolations);
 
@@ -34,25 +33,25 @@ describe("Test AdminBannerView", () => {
     expect(screen.getByText("Banner Admin")).toBeInTheDocument();
   });
 
-  test("Test create banner", () => {
+  test("Test create banner", async () => {
     const titleTextbox = screen.getByRole("textbox", { name: "Title Text" });
-    fireEvent.type(titleTextbox, "banner title");
+    fireEvent.change(titleTextbox, { target: { value: "banner title" } });
     const descTextbox = screen.getByRole("textbox", {
       name: "Description text",
     });
-    fireEvent.type(descTextbox, "banner desc");
+    fireEvent.change(descTextbox, { target: { value: "banner desc" } });
 
     const startDateTextbox = screen.getByRole("textbox", {
       name: "Start Date",
     });
-    fireEvent.type(startDateTextbox, "01/01/2025");
+    fireEvent.change(startDateTextbox, { target: { value: "01/01/2025" } });
 
     const endDateTextbox = screen.getByRole("textbox", { name: "End Date" });
-    fireEvent.type(endDateTextbox, "12/01/2026");
+    fireEvent.change(endDateTextbox, { target: { value: "12/01/2026" } });
 
     const createBtn = screen.getByText("Replace Current Banner");
     fireEvent.click(createBtn);
-    expect(mockMutate).toHaveBeenCalled();
+    await waitFor(() => expect(mockMutate).toHaveBeenCalled());
   });
 
   test("Test delete banner", async () => {
@@ -79,25 +78,25 @@ describe("Test AdminBannerView errors", () => {
     useApiMock(apiData);
     render(testComponent);
   });
-  test("Test submit error", () => {
+  test("Test submit error", async () => {
     const titleTextbox = screen.getByRole("textbox", { name: "Title Text" });
-    fireEvent.type(titleTextbox, "banner title");
+    fireEvent.change(titleTextbox, { target: { value: "banner title" } });
     const descTextbox = screen.getByRole("textbox", {
       name: "Description text",
     });
-    fireEvent.type(descTextbox, "banner desc");
+    fireEvent.change(descTextbox, { target: { value: "banner desc" } });
 
     const startDateTextbox = screen.getByRole("textbox", {
       name: "Start Date",
     });
-    fireEvent.type(startDateTextbox, "01/01/2025");
+    fireEvent.change(startDateTextbox, { target: { value: "01/01/2025" } });
 
     const endDateTextbox = screen.getByRole("textbox", { name: "End Date" });
-    fireEvent.type(endDateTextbox, "12/01/2026");
+    fireEvent.change(endDateTextbox, { target: { value: "12/01/2026" } });
 
     const createBtn = screen.getByText("Replace Current Banner");
     fireEvent.click(createBtn);
-    expect(mockErrorMutate).toHaveBeenCalled();
+    await waitFor(() => expect(mockErrorMutate).toHaveBeenCalled());
   });
   test("test delete error", () => {
     const deleteBtn = screen.getByRole("button", {

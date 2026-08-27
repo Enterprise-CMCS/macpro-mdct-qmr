@@ -1,8 +1,8 @@
 import * as DC from "dataConstants";
 import { OtherRatesFields, RateFields } from "./TypeRateFields";
 import { Categories, Qualifiers } from ".";
+import { CoreSetAbbr, ndrFormula } from "types";
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
-import { ndrFormula } from "types";
 import { LabelData } from "utils";
 
 export interface MeasureStratificationLabels {
@@ -22,6 +22,7 @@ export interface OmsCheckboxProps {
 }
 
 export interface BaseProps extends Qualifiers, Categories {
+  stratificationRequired?: CoreSetAbbr[];
   measureName?: string;
   inputFieldNames?: LabelData[];
   ndrFormulas?: ndrFormula[];
@@ -81,6 +82,8 @@ export interface OmsNode {
   id: string;
   /** displayName value for option*/
   label?: string;
+  /** helper text displayed with this option */
+  helperText?: string;
   /** should additional category render? */
   addMore?: boolean;
   /** should this node have a subCatOption? */
@@ -208,6 +211,7 @@ export namespace OmsNodes {
 
 export interface OptionalMeasureStratification {
   [DC.OMS]: {
+    [DC.REPORTING_STRATIFICATION]?: string;
     [DC.VERSION]?: string;
     [DC.OPTIONS]: string[]; //checkbox
     [DC.SELECTIONS]: {

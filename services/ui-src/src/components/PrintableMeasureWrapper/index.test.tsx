@@ -2,6 +2,7 @@ import { screen } from "@testing-library/react";
 import { PrintableMeasureWrapper } from ".";
 import { renderWithHookForm } from "utils";
 import { useParams } from "react-router-dom";
+import { getMeasureYear } from "utils/getMeasureYear";
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -13,7 +14,11 @@ jest.mock("react-router-dom", () => ({
   }),
   useParams: jest.fn(),
 }));
+jest.mock("utils/getMeasureYear", () => ({
+  getMeasureYear: jest.fn(),
+}));
 const mockUseParam = useParams as jest.Mock;
+const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 const mockMeasure = <div>mock measure</div>;
 jest.mock("react", () => ({
@@ -38,6 +43,7 @@ const mockMeasureData = {
 describe("Test PrintableMeasureWrapper Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockGetMeasureYear.mockReturnValue(2026);
   });
 
   it("PrintableMeasureWrapper renders", () => {
@@ -68,5 +74,47 @@ describe("Test PrintableMeasureWrapper Component", () => {
     );
 
     expect(screen.queryByText("mock measure")).not.toBeInTheDocument();
+  });
+
+  it("renders stratification reminder when required for the core set", () => {
+    mockUseParam.mockReturnValue({ coreSetId: "CCSM", state: "MA" });
+    renderWithHookForm(
+      <PrintableMeasureWrapper
+        measure={mockMeasure}
+        name={"AAB-CH"}
+        year={"2026"}
+        measureId={"AAB-CH"}
+        measureData={{
+          ...mockMeasureData,
+          stratificationRequired: ["CCSM"],
+        }}
+      ></PrintableMeasureWrapper>
+    );
+
+    expect(
+      screen.getByText("Reminder: Measure Stratification Required")
+    ).toBeInTheDocument();
+  });
+
+  it("renders stratification reminder in 2025", () => {
+    mockGetMeasureYear.mockReturnValue(2025);
+    mockUseParam.mockReturnValue({ coreSetId: "CCSM", state: "MA" });
+    renderWithHookForm(
+      <PrintableMeasureWrapper
+        measure={mockMeasure}
+        name={"AAB-CH"}
+        year={"2025"}
+        measureId={"AAB-CH"}
+        measureData={{
+          ...mockMeasureData,
+          year: 2025,
+          stratificationRequired: ["CCSM"],
+        }}
+      ></PrintableMeasureWrapper>
+    );
+
+    expect(
+      screen.getByText("Reminder: Measure Stratification Required")
+    ).toBeInTheDocument();
   });
 });

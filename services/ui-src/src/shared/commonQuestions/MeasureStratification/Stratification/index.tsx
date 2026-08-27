@@ -38,6 +38,7 @@ export const buildOmsCheckboxes = ({
       const children = [
         <TopLevelOmsChildren
           options={lvlOneOption.options}
+          helperText={lvlOneOption.helperText}
           addMore={!!lvlOneOption.addMore}
           parentDisplayName={
             lvlOneOption.aggregateTitle! || lvlOneOption.label!
@@ -94,7 +95,7 @@ export const Stratification = ({
     useContext(SharedContext) as any
   ).MeasureStratification;
 
-  const dataSourceWatch = watch([DC.DATA_SOURCE, DC.DATA_SOURCE_SELECTIONS]);
+  const dataSourceWatch = watch(DC.DATA_SOURCE);
   const watchDataSourceSwitch = watch("MeasurementSpecification");
   const watchStratification = watch("OptionalMeasureStratification.selections");
   //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break

@@ -1,9 +1,23 @@
 import { OmsNode } from "shared/types";
 
+/**
+ * Select / generate the OMS data for a given year and core set context.
+ * - Early QMR years display one set of stratification categories.
+ * - Later the categories are updated, with 1997 standards for race & ethnicity.
+ * - Then the 2024 standards may be swapped in.
+ * - Then the race & ethnicity categories may be removed entirely.
+ * @param year - The measure reporting year.
+ * @param adultMeasure - `true` if the stratification should relate to adults.
+ *   In 2021-2022, this affects the ACA Expansion category.
+ * @param version - Indicates the race & ethnicity standards version.
+ * @param coreSetId - Indicates the specific core set.
+ *   In 2026+, this affects the Foster Care & Medicaid categories.
+ */
 export const OMSData = (
   year: number,
   adultMeasure?: boolean,
-  version?: string
+  version?: string,
+  coreSetId?: string
 ): OmsNode[] => {
   switch (Number(year)) {
     case 2021:
@@ -14,9 +28,25 @@ export const OMSData = (
       return omb1997();
     case 2025:
       return version === "1997-omb" ? omb1997() : omb2024();
-    default:
-      return modifyMissingLabel(version === "1997-omb" ? omb1997() : omb2024());
+    default: // 2026 and forward
+      if (version === "not-reporting") {
+        return modifyMissingLabel(removeRaceAndEthnicity(strat2026(coreSetId)));
+      }
+      return modifyMissingLabel(
+        version === "1997-omb"
+          ? strat2026(coreSetId, omb1997())
+          : strat2026(coreSetId)
+      );
   }
+};
+
+const removeRaceAndEthnicity = (data: OmsNode[]) => {
+  return data.filter(
+    (node) =>
+      node.label !== "Race" &&
+      node.label !== "Ethnicity" &&
+      node.label !== "Race and Ethnicity"
+  );
 };
 
 /** In 2026, we want the "Missing or not reported" label to be more specific so this function will turn it to "Missing or not reported (Race), etc"*/
@@ -35,7 +65,7 @@ const modifyMissingLabel = (data: OmsNode[]) => {
   });
 };
 
-const omb2024 = () => {
+const omb2024 = (): OmsNode[] => {
   return [
     {
       id: "3dpUZu",
@@ -176,7 +206,72 @@ const omb2024 = () => {
   ];
 };
 
-const omb1997 = () => {
+const strat2026 = (coreSetId?: string, baseData = omb2024()): OmsNode[] => {
+  const data: OmsNode[] = [...baseData];
+
+  // Foster Care: Child Core Set (CCS/CCSM) + Health Home only
+  // Includes both separated reports (CCSM) and combined reports (CCS, CC)
+  if (
+    coreSetId?.startsWith("HHCS") ||
+    coreSetId === "CCSM" ||
+    coreSetId === "CCS" ||
+    coreSetId === "CC"
+  ) {
+    data.push({
+      id: "ggYk0j",
+      label: "Foster Care",
+      options: [
+        {
+          id: "WwTFBg",
+          label: "In foster care during the measurement period",
+          helperText:
+            "Child was in foster care at any time during the measurement period, using enrollment data to identify that the beneficiary was either enrolled in Medicaid in the Title IV-E children eligibility category or in another eligibility category with a foster care indicator.",
+        },
+        {
+          id: "u0TFWg",
+          label: "Not in foster care during the measurement period",
+        },
+      ],
+      addMore: false,
+    });
+  }
+
+  // Medicaid Expansion: Adult Core Set (ACS/ACSM) + Health Home only
+  // Includes both separated reports (ACSM) and combined reports (ACS, AC)
+  if (
+    coreSetId?.startsWith("HHCS") ||
+    coreSetId === "ACSM" ||
+    coreSetId === "ACS" ||
+    coreSetId === "AC"
+  ) {
+    data.push({
+      id: "KSB26p",
+      label: "Medicaid Expansion",
+      aggregateTitle: "expansion group",
+      helperText:
+        "Skip the Medicaid expansion stratification if your state has not fully expanded Medicaid for the adult population.",
+      options: [
+        {
+          id: "34Bj90",
+          label: "Adult group – Full expansion",
+          helperText:
+            "Adults enrolled in Medicaid under the adult group at section 1902(a)(10)(A)(i)(VIII) of the Act, and in regulation at 42 C.F.R. § 435.119 or in a section 1115 demonstration that provides eligibility for the entire adult group population.",
+        },
+        {
+          id: "N8EWVa",
+          label: "Medicaid-Non-expansion beneficiaries",
+          helperText:
+            "Includes Adults enrolled in Medicaid that are not in the Adult group – Full expansion, as defined above.",
+        },
+      ],
+      addMore: true,
+    });
+  }
+
+  return data;
+};
+
+const omb1997 = (): OmsNode[] => {
   return [
     {
       id: "3dpUZu",

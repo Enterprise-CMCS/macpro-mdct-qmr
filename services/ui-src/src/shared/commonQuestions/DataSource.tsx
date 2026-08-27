@@ -141,6 +141,11 @@ const addHintLabel = (options: OptionNode[], labels: AnyObject) => {
         labels.describeOptionalECDSDataSrc
       ) {
         options.hint = labels.describeOptionalECDSDataSrc;
+      } else if (
+        options.value === DC.ADMINISTRATIVE_DATA_OTHER &&
+        labels.describeAdminDataOtherSrc
+      ) {
+        options.hint = labels.describeAdminDataOtherSrc;
       } else {
         options.hint = labels.describeDataSrc;
       }

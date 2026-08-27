@@ -9,7 +9,7 @@ export const data: MeasureTemplateData = {
   coreset: "adult",
   performanceMeasure: {
     questionText: [
-      "Percentage of women ages 21 to 24 who were identified as sexually active and who had at least one test for chlamydia during the measurement year.",
+      "Percentage of beneficiaries ages 21 to 24 who were recommended for routine chlamydia screening, were identified as sexually active, and had at least one test for chlamydia during the measurement year.",
     ],
     questionListItems: [],
     categories,

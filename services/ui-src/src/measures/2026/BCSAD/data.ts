@@ -9,7 +9,7 @@ export const data: MeasureTemplateData = {
   coreset: "adult",
   performanceMeasure: {
     questionText: [
-      "Percentage of beneficiaries ages 50 to 74 who were recommended for routine breast cancer screening and had a mammogram to screen for breast cancer.",
+      "The percentage of beneficiaries ages 40 to 74 who were recommended for routine breast cancer screening and had a mammogram to screen for breast cancer. This measure applies to beneficiaries ages 42 to 74 to account for the 2-year, 3-month look-back period.",
     ],
     questionListItems: [],
     categories,
@@ -17,17 +17,18 @@ export const data: MeasureTemplateData = {
   },
   dataSource: {
     optionsLabel:
-      "If reporting entities (e.g., health plans) used different data collection methods, please select all that are applicable below.",
+      "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable below. If your state followed the 2026 Core Set technical specifications and used administrative data only, select ECDS > Administrative.",
     options: [
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
         subOptions: [
           {
             options: [
-              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
-              { value: DC.HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY },
-              { value: DC.CASE_MANAGEMENT_SYSTEM },
               { value: DC.ADMINISTRATIVE },
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.CLINICAL_REGISTRY },
+              { value: DC.CASE_MANAGEMENT_SYSTEM },
             ],
           },
         ],
@@ -59,11 +60,5 @@ export const data: MeasureTemplateData = {
     "validateBothDatesCompleted",
     "validateAtLeastOneDefinitionOfPopulation",
     "validateYearFormat",
-    "validateDualPopInformationPM",
   ],
-  override: {
-    validateDualPopInformationPM: {
-      ageIndex: 1,
-    },
-  },
 };

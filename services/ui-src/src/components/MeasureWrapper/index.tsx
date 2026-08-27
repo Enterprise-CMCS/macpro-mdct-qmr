@@ -28,6 +28,7 @@ import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
 import { coreSetBreadCrumbTitle, coreSetTitles } from "shared/coreSetByYear";
 import { featuresByYear } from "utils/featuresByYear";
+import { getStratificationBannerDescription } from "./stratificationBanner";
 import { Alert } from "@cmsgov/design-system";
 import { MeasureTemplateData } from "shared/types/MeasureTemplate";
 import { SPA } from "libs/spaLib";
@@ -46,6 +47,7 @@ export interface MeasureWrapperProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions?: React.Dispatch<React.SetStateAction<any>>;
   isOtherMeasureSpecSelected?: boolean;
   isPrimaryMeasureSpecSelected?: boolean;
@@ -59,6 +61,7 @@ interface MeasureProps {
   detailedDescription?: string;
   year: string;
   measureId: string;
+  stratificationRequired?: CoreSetAbbr[];
   setValidationFunctions: Dispatch<
     SetStateAction<{
       functions: Function[];
@@ -422,7 +425,7 @@ export const MeasureWrapper = ({
     `- ${formatTitle(apiData?.Item?.description)}`;
 
   // Individual Measures -> "AAB-CH - Medicaid: Child Core Set Measures - 2025 QMR"
-  const pageTitle = (() => {
+  const tabTitle = (() => {
     const coreSetTitle = coreSetTitles(coreSet);
 
     // Qualifiers -> "Qualifiers - Child Core Set Measures: Medicaid - 2025 QMR"
@@ -459,9 +462,17 @@ export const MeasureWrapper = ({
     return `${measureId} - ${cleanTitle} - ${year} QMR`;
   })();
 
+  const stratificationBannerDescription = getStratificationBannerDescription(
+    year,
+    coreSet,
+    featuresByYear.hasTailoredStratificationBanner
+  );
+  const shouldShowStratificationReminderBanner =
+    stratificationRequired?.includes(coreSet);
+
   return (
     <FormProvider {...methods}>
-      <QMR.Title pageTitle={pageTitle} />
+      <QMR.Title tabTitle={tabTitle} />
       <QMR.YesNoModalDialog
         isOpen={showModal}
         headerText="Validation Error"
@@ -501,15 +512,13 @@ export const MeasureWrapper = ({
             <QMR.AdminMask />
             <form data-testid="measure-wrapper-form">
               <fieldset data-testid="fieldset" disabled={!isStateUser}>
-                <CUI.Container maxW="7xl" as="section" px="0">
+                <CUI.Container maxW="1000px" as="section" px="0">
                   <QMR.SessionTimeout handleSave={handleSave} />
                   <LastModifiedBy user={measureData?.lastAlteredBy} />
-                  {stratificationRequired?.includes(coreSet) && (
+                  {shouldShowStratificationReminderBanner && (
                     <CUI.Box mb="1rem">
                       <Alert heading="Reminder: Measure Stratification Required">
-                        <CUI.Text>
-                          {`For ${year} Core Sets reporting, states are expected to report stratified data for this measure.`}
-                        </CUI.Text>
+                        <CUI.Text>{stratificationBannerDescription}</CUI.Text>
                       </Alert>
                     </CUI.Box>
                   )}
@@ -518,7 +527,7 @@ export const MeasureWrapper = ({
                       {Object.keys(separatedCoreSet ?? []).includes(
                         params.coreSetId as CoreSetAbbr
                       ) && (
-                        <CUI.Heading size="md" mb={6}>
+                        <CUI.Heading as="h1" size="md" mb={6}>
                           {measureId}: {formatTitle()}
                         </CUI.Heading>
                       )}
@@ -538,27 +547,32 @@ export const MeasureWrapper = ({
                       detailedDescription={detailedDescription}
                       year={year}
                       measureId={measureId}
+                      stratificationRequired={stratificationRequired}
                       setValidationFunctions={setValidationFunctions}
                       handleSave={handleSave}
                     />
+                    {/* Core set qualifiers use a slightly different submission button layout */}
+                    {!!(!autocompleteOnCreation && !defaultData) && (
+                      <QMR.CompleteMeasureFooter
+                        handleClear={methods.handleSubmit(handleClear)}
+                        handleSubmit={methods.handleSubmit(handleSubmit)}
+                        handleValidation={methods.handleSubmit(
+                          handleValidation
+                        )}
+                        disabled={!isStateUser || mutationRunning}
+                        validating={validating}
+                      />
+                    )}
+                    {!!(!autocompleteOnCreation && defaultData) && (
+                      <CompleteCoreSets
+                        handleSubmit={methods.handleSubmit(handleSubmit)}
+                        handleValidation={methods.handleSubmit(
+                          handleValidation
+                        )}
+                        type={type}
+                      />
+                    )}
                   </SharedContext.Provider>
-                  {/* Core set qualifiers use a slightly different submission button layout */}
-                  {!!(!autocompleteOnCreation && !defaultData) && (
-                    <QMR.CompleteMeasureFooter
-                      handleClear={methods.handleSubmit(handleClear)}
-                      handleSubmit={methods.handleSubmit(handleSubmit)}
-                      handleValidation={methods.handleSubmit(handleValidation)}
-                      disabled={!isStateUser || mutationRunning}
-                      validating={validating}
-                    />
-                  )}
-                  {!!(!autocompleteOnCreation && defaultData) && (
-                    <CompleteCoreSets
-                      handleSubmit={methods.handleSubmit(handleSubmit)}
-                      handleValidation={methods.handleSubmit(handleValidation)}
-                      type={type}
-                    />
-                  )}
                 </CUI.Container>
                 {errors?.length === 0 && (
                   <QMR.Notification

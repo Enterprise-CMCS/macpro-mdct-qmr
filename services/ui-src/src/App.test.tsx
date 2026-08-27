@@ -19,7 +19,12 @@ jest.mock("utils", () => ({
 
 jest.mock("react-helmet-async", () => {
   const React = require("react");
-  const mockHelmet = ({ children, ...props }: { children: JSX.Element }) =>
+  const mockHelmet = ({
+    children,
+    ...props
+  }: {
+    children: React.JSX.Element;
+  }) =>
     React.createElement(
       "div",
       {

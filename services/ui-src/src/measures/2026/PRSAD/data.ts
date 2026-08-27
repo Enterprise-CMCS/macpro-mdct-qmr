@@ -9,24 +9,26 @@ export const data: MeasureTemplateData = {
   coreset: "adult",
   performanceMeasure: {
     questionText: [
-      "The percentage of deliveries in the measurement period in which beneficiaries had received influenza and tetanus, diphtheria toxoids and acellular pertussis (Tdap) vaccinations.",
+      "The percentage of deliveries in the measurement period in which beneficiaries age 21 and older had received influenza and tetanus, diphtheria toxoids and acellular pertussis (Tdap) vaccinations.",
     ],
     categories,
     qualifiers,
   },
   dataSource: {
     optionsLabel:
-      "If reporting entities (e.g., health plans) used different data collection methods, please select all that are applicable below.",
+      "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable below. If your state followed the 2026 Core Set technical specifications and used administrative data only, select ECDS > Administrative.",
     options: [
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
         subOptions: [
           {
             options: [
-              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
-              { value: DC.HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY },
-              { value: DC.CASE_MANAGEMENT_SYSTEM },
               { value: DC.ADMINISTRATIVE },
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM },
+              { value: DC.CLINICAL_REGISTRY_OTHER },
+              { value: DC.CASE_MANAGEMENT_SYSTEM },
             ],
           },
         ],
@@ -60,6 +62,8 @@ export const data: MeasureTemplateData = {
     "validateEqualCategoryDenominatorsOMS",
     "validateEqualCategoryDenominatorsPM",
     "validateYearFormat",
+    "validateOneQualRateLessThanOrEqualToOtherQualRatesOMS",
+    "validateOneQualRateLessThanOrEqualToOtherQualRatesPM",
   ],
   override: {
     validateEqualQualifierDenominatorsPM: {
@@ -68,6 +72,12 @@ export const data: MeasureTemplateData = {
     },
     validateEqualCategoryDenominatorsPM: {
       qualifiers,
+    },
+    validateOneQualRateLessThanOrEqualToOtherQualRates: {
+      qualId: "i5B6xM",
+      otherQualIds: ["DThCVU", "r1aUqr"],
+      errorMessage:
+        "Combination rate cannot be greater than the Influenza or Tdap rates",
     },
   },
 };

@@ -10,7 +10,7 @@ export const data: MeasureTemplateData = {
   hybridMeasure: true,
   performanceMeasure: {
     questionText: [
-      "The percentage of beneficiaries age 19 and older who are up to date on recommended routine vaccines for influenza, tetanus and diphtheria (Td) or tetanus, diphtheria and acellular pertussis (Tdap), zoster and pneumococcal.",
+      "The percentage of beneficiaries age 19 and older who are up to date on recommended routine vaccines for influenza, tetanus and diphtheria (Td) or tetanus, diphtheria and acellular pertussis (Tdap), zoster,  pneumococcal, and hepatitis B.",
     ],
     questionListItems: [],
     categories,
@@ -18,7 +18,7 @@ export const data: MeasureTemplateData = {
   },
   dataSource: {
     optionsLabel:
-      "If reporting entities (e.g., health plans) used different data collection methods, please select all that are applicable below.",
+      "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable below. If your state followed the 2026 Core Set technical specifications and used administrative data only, select ECDS > Administrative.",
     options: [
       {
         value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
@@ -26,10 +26,12 @@ export const data: MeasureTemplateData = {
         subOptions: [
           {
             options: [
-              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
-              { value: DC.HEALTH_INFORMATION_EXCHANGE_CLINICAL_REGISTRY },
-              { value: DC.CASE_MANAGEMENT_SYSTEM },
               { value: DC.ADMINISTRATIVE },
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM },
+              { value: DC.CLINICAL_REGISTRY_OTHER },
+              { value: DC.CASE_MANAGEMENT_SYSTEM },
             ],
           },
         ],

@@ -119,8 +119,13 @@ export function createUiComponents(props: CreateUiComponentsProps) {
   );
 
   const cachePolicy = new cloudfront.CachePolicy(scope, "CustomCachePolicy", {
-    queryStringBehavior: cloudfront.CacheQueryStringBehavior.all(),
+    minTtl: Duration.seconds(0),
+    defaultTtl: Duration.days(1),
+    maxTtl: Duration.days(365),
+    queryStringBehavior: cloudfront.CacheQueryStringBehavior.none(),
     cookieBehavior: cloudfront.CacheCookieBehavior.none(),
+    enableAcceptEncodingBrotli: true,
+    enableAcceptEncodingGzip: true,
   });
 
   const distribution = new cloudfront.Distribution(

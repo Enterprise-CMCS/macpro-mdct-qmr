@@ -15,6 +15,15 @@ interface Props {
 }
 
 const authenticateWithIDM = async () => {
+  // Clear any stale cached tokens before initiating the
+  // redirect. If a previous session left expired tokens or stale
+  // values in localStorage, signInWithRedirect can fail silently or
+  // produce an OAuth state mismatch when IDM redirects back.
+  try {
+    await signOut({ global: false });
+  } catch {
+    // Ignoring as we only care about clearing local tokens
+  }
   await signInWithRedirect({ provider: { custom: "Okta" } });
 };
 
@@ -67,7 +76,11 @@ export const UserProvider = ({ children }: Props) => {
       });
     } catch {
       if (isProduction) {
-        await authenticateWithIDM();
+        try {
+          await authenticateWithIDM();
+        } catch (error) {
+          console.log("Error initiating IDM sign-in:", error);
+        }
       } else {
         setShowLocalLogins(true);
       }
@@ -79,17 +92,33 @@ export const UserProvider = ({ children }: Props) => {
     checkAuthState();
   }, [location, checkAuthState]);
 
+  const loginWithIDM = useCallback(async () => {
+    try {
+      await authenticateWithIDM();
+    } catch (error) {
+      console.log("Error initiating IDM sign-in:", error);
+    }
+  }, []);
+
   const values: UserContextInterface = useMemo(
     () => ({
       user,
       logout,
       showLocalLogins,
-      loginWithIDM: authenticateWithIDM,
+      loginWithIDM,
       isStateUser,
       userState,
       userRole,
     }),
-    [user, logout, showLocalLogins, isStateUser, userState, userRole]
+    [
+      user,
+      logout,
+      showLocalLogins,
+      loginWithIDM,
+      isStateUser,
+      userState,
+      userRole,
+    ]
   );
 
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>;

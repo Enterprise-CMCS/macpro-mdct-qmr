@@ -1,5 +1,5 @@
 import { screen, waitFor, act } from "@testing-library/react";
-import { createElement, Suspense } from "react";
+import { createElement, JSX, Suspense } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "components/MeasureWrapper";
 import { useApiMock } from "utils/testUtils/useApiMock";
@@ -71,9 +71,11 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
   it("measure should render", async () => {
     useApiMock(apiData);
     renderWithHookForm(component);
-    expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
     await waitFor(() => {
-      expect(screen.getByText(measureAbbr + " - " + description));
+      expect(screen.getByTestId("measure-wrapper-form")).toBeInTheDocument();
+      expect(
+        screen.getByText(measureAbbr + " - " + description)
+      ).toBeInTheDocument();
     });
   });
 

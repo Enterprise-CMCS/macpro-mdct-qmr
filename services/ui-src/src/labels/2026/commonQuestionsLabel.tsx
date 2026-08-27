@@ -13,10 +13,18 @@ export const commonQuestionsLabel = {
         "Please add any additional notes or comments on the measure not otherwise captured above (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     },
   },
+  CompleteMeasureFooter: {
+    validateMeasureCopy:
+      "Select “Validate Measure” to check for any errors present in the measure prior to completion",
+    completeMeasureCopy:
+      "Select “Complete Measure” to mark the measure as complete and ready for CMS review",
+  },
   DataSource: {
     ehrSrc: "Optional - Describe the data source(s) used:",
     describeDataSrc:
       "Describe the data collection method or data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    describeAdminDataOtherSrc:
+      "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     describeOptionalECDSDataSrc:
       "Optional - Describe the ECDS data source(s) used:",
     srcExplanation: "Data Source Explanation",
@@ -27,7 +35,7 @@ export const commonQuestionsLabel = {
   },
   DataSourceCahps: {
     describeDataSrc:
-      "Describe the data collection method or data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+      "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
     otherDataSourceWarning:
       "If you report using an “Other” Data Collection Method or Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Collection Method field is accurate, please continue reporting this measure.",
   },
@@ -210,19 +218,28 @@ export const commonQuestionsLabel = {
   MeasureStratification: {
     subHeader: [
       "Do not select categories and detailed categories for which your state does not collect data.",
-      "For each category and detailed category, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
+      "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
+      "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields.",
     ],
     addAnotherType: "detailed categories",
     instructions: (
       <>
         <CUI.Text>
-          Enter data below to stratify this measure by race, ethnicity, sex,
-          and/or geography. Beginning with 2025 Core Sets reporting, states are
-          required to report stratified data for a specific subset of Child,
-          Adult, and Health Home Core Set measures. More information on
-          stratification reporting requirements, including the list of measures
-          and rates subject to mandatory stratification for 2026 Core Set
-          reporting, is included in the {GetLinks("strat-ta-resource")}.
+          Enter stratified data below. Beginning with 2025 Core Sets reporting,
+          states are required to report stratified data for a specific subset of
+          Child, Adult, and Health Home Core Set measures. For measures subject
+          to mandatory stratification for 2026 Core Sets reporting, states are
+          expected to report stratified data for each of the following required
+          stratification standards: race and ethnicity, sex, and geography. In
+          addition, states are encouraged, but not required, to report
+          stratified data for two new stratifications: 1{")"} children in foster
+          care at any time during the measurement period; and 2{")"} adults who
+          are eligible for Medicaid under Medicaid expansion programs, as
+          applicable for each QMR report. More information on stratification
+          reporting requirements, including the list of measures and rates
+          subject to mandatory stratification for 2026 Core Set reporting and
+          the stratification standards available in each QMR report, is included
+          in the {GetLinks("strat-ta-resource")}.
         </CUI.Text>
         <br />
         <CUI.Text>
@@ -230,7 +247,12 @@ export const commonQuestionsLabel = {
           and ethnicity data using either (1) the{" "}
           {GetLinks("1997-omb-for-2026")}, as specified in the{" "}
           {GetLinks("hss-standard")}, or (2) the {GetLinks("2024-omb")} for each
-          measure selected for stratification.
+          measure selected for stratification. Select the race and ethnicity
+          standard your state is using for 2026 Core Sets reporting to display
+          all the available stratifications for the measure. If your state is
+          not reporting race and ethnicity data for this measure but is
+          reporting other stratifications, select “Not applicable – our state is
+          not reporting race or ethnicity data.”
         </CUI.Text>
         <br />
         <CUI.Text>
