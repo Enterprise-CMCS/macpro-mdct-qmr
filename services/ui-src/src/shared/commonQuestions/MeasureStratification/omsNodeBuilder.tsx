@@ -128,7 +128,7 @@ const buildChildCheckboxOption = ({
     let options = renderRadioButtonOptions({ omsNode, name, label });
 
     children = [
-      <CUI.Box display="flex" flexDir="row">
+      <CUI.Box key={`${name}.aggregate`} display="flex" flexDir="row">
         <QMR.RadioButton
           name={`${name}.aggregate`}
           key={`${name}.aggregate`}
