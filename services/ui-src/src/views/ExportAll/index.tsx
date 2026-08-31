@@ -13,7 +13,7 @@ export const ExportAll = () => {
   const spaName = getSpaName({ state, year, coreSetId });
 
   const { data, isLoading } = useGetMeasures();
-  if (isLoading || !data.Items) {
+  if (isLoading || !data?.Items) {
     return <QMR.LoadingWave />;
   }
 
@@ -22,7 +22,7 @@ export const ExportAll = () => {
     // filter out non-created State Specific measures
     ?.filter((m: any) => !/SS-\d-HH/g.test(m.measure) || m?.userCreated)
     .toSorted((a: any, b: any) => a?.measure?.localeCompare(b?.measure));
-  const sortedData = [csqMeasure, ...regMeasures];
+  const sortedData = [...(csqMeasure ? [csqMeasure] : []), ...regMeasures];
 
   //build the data to render the measures
   const measures = sortedData
