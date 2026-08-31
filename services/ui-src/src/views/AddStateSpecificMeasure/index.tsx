@@ -1,12 +1,13 @@
 import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, MeasureData } from "types";
 import { CoreSetTableItem } from "components/Table/types";
 import { FormProvider, useForm } from "react-hook-form";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "hooks/authHooks";
 import { featuresByYear } from "utils/featuresByYear";
+import { useState, useEffect } from "react";
 
 interface NewMeasure {
   description: string;
@@ -17,16 +18,10 @@ interface NewSSMs {
   "add-ssm": NewMeasure[];
 }
 
-interface UserMeasuresLocationState {
-  userCreatedMeasureIds: string[];
-}
-
 export const AddStateSpecificMeasure = () => {
-  // Get the count of user-created SSMs (if any) from the location.state.
-  const location = useLocation();
-  const locationState = location.state as UserMeasuresLocationState;
-  const userCreatedMeasureIds = locationState?.userCreatedMeasureIds ?? [];
-  const userCreatedMeasuresCount = userCreatedMeasureIds.length;
+  const [existingMeasures, setExistingMeasures] = useState<MeasureData[]>([]);
+  const [existingIds, setExistingIds] = useState<number[]>([]);
+  const { isLoading, isError, data: allMeasureData } = Api.useGetMeasures();
   const userInfo = useUser();
 
   const mutation = Api.useAddMeasure();
@@ -43,20 +38,34 @@ export const AddStateSpecificMeasure = () => {
     },
   });
 
-  // Create an array of IDs for existing user-created SSMs for the core set (if any).
-  const existingIds: number[] = [];
-  userCreatedMeasureIds.forEach((id) => {
-    // Get the ID number from the string.
-    const matches = id.match(/\d+/) || [];
+  useEffect(() => {
+    if (isLoading || isError) return;
 
-    // Add it to the existingIDs array
-    if (matches.length > 0) {
-      existingIds.push(parseInt(matches[0]!));
-    }
-  });
+    // This filter matches the logic in CoreSet/index.tsx#useMeasureTableDataBuilder
+    const measures = allMeasureData!.Items!.filter(
+      (measureData) =>
+        measureData.userCreated &&
+        !measureData.placeholder &&
+        measureData.measure.startsWith("SS-")
+    );
+    const ids = measures
+      .map((measureData) => measureData.measure.match(/\d+/))
+      .filter((match) => !!match)
+      .map(Number);
+
+    setExistingMeasures(measures);
+    setExistingIds(ids);
+  }, [isLoading, isError, allMeasureData]);
 
   // Save each of the new SSMs
   const handleSubmit = (data: any) => {
+    if (isLoading || isError) {
+      console.error(
+        `Cannot create new measure without first loading existing measures! isLoading: ${isLoading}, isError: ${isError}`
+      );
+      return;
+    }
+
     const newMeasures = data["add-ssm"];
 
     if (!newMeasures || newMeasures.length === 0) {
@@ -72,17 +81,17 @@ export const AddStateSpecificMeasure = () => {
       // (For example, if a user creates SS-1-HH, SS-2-HH, and SS-3-HH and then
       // deletes SS-2-HH, we fill in the gap by assigning the next new SSM an ID
       // of SS-2-HH.)
-      if (existingIds.includes(measureIdNumber)) {
-        while (existingIds.includes(measureIdNumber) && measureIdNumber < 5) {
-          measureIdNumber++;
-        }
-      }
+      // if (existingIds.includes(measureIdNumber)) {
+      //   while (existingIds.includes(measureIdNumber) && measureIdNumber < 5) {
+      //     measureIdNumber++;
+      //   }
+      // }
 
       // Save the SSM with its corresponding ID (as the `measure` attribute).
       if (state && year) {
         // Add this measure ID to the existingIDs array so we don't overwrite
         // this SSM with the next one.
-        existingIds.push(measureIdNumber);
+        setExistingIds([...existingIds, measureIdNumber]);
 
         const requestData = {
           body: {
@@ -145,9 +154,7 @@ export const AddStateSpecificMeasure = () => {
             <CUI.Heading fontSize="2xl" fontWeight="600" my="2">
               Health Home State Specific Measure Details
             </CUI.Heading>
-            <QMR.AddSSM
-              userCreatedCount={userCreatedMeasuresCount}
-            ></QMR.AddSSM>
+            <QMR.AddSSM userCreatedCount={existingMeasures.length}></QMR.AddSSM>
           </CUI.Box>
           <CUI.HStack paddingTop="5" gap="1rem">
             <QMR.ContainedButton type="submit" buttonText="Create" />
