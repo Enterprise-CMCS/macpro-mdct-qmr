@@ -81,11 +81,11 @@ export const AddStateSpecificMeasure = () => {
       // (For example, if a user creates SS-1-HH, SS-2-HH, and SS-3-HH and then
       // deletes SS-2-HH, we fill in the gap by assigning the next new SSM an ID
       // of SS-2-HH.)
-      // if (existingIds.includes(measureIdNumber)) {
-      //   while (existingIds.includes(measureIdNumber) && measureIdNumber < 5) {
-      //     measureIdNumber++;
-      //   }
-      // }
+      if (existingIds.includes(measureIdNumber)) {
+        while (existingIds.includes(measureIdNumber) && measureIdNumber < 5) {
+          measureIdNumber++;
+        }
+      }
 
       // Save the SSM with its corresponding ID (as the `measure` attribute).
       if (state && year) {
