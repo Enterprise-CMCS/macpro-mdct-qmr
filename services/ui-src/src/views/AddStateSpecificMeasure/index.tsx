@@ -21,7 +21,7 @@ interface NewSSMs {
 export const AddStateSpecificMeasure = () => {
   const [existingMeasures, setExistingMeasures] = useState<MeasureData[]>([]);
   const [existingIds, setExistingIds] = useState<number[]>([]);
-  const { isLoading, isError, data: allMeasureData } = Api.useGetMeasures();
+  const { data: allMeasureData } = Api.useGetMeasures();
   const userInfo = useUser();
 
   const mutation = Api.useAddMeasure();
@@ -39,10 +39,8 @@ export const AddStateSpecificMeasure = () => {
   });
 
   useEffect(() => {
-    if (isLoading || isError) return;
-
     // This filter matches the logic in CoreSet/index.tsx#useMeasureTableDataBuilder
-    const measures = allMeasureData!.Items!.filter(
+    const measures = (allMeasureData?.Items ?? []).filter(
       (measureData) =>
         measureData.userCreated &&
         !measureData.placeholder &&
@@ -55,17 +53,10 @@ export const AddStateSpecificMeasure = () => {
 
     setExistingMeasures(measures);
     setExistingIds(ids);
-  }, [isLoading, isError, allMeasureData]);
+  }, [allMeasureData]);
 
   // Save each of the new SSMs
   const handleSubmit = (data: any) => {
-    if (isLoading || isError) {
-      console.error(
-        `Cannot create new measure without first loading existing measures! isLoading: ${isLoading}, isError: ${isError}`
-      );
-      return;
-    }
-
     const newMeasures = data["add-ssm"];
     const measureIds = [...existingIds];
 
