@@ -67,6 +67,7 @@ export const AddStateSpecificMeasure = () => {
     }
 
     const newMeasures = data["add-ssm"];
+    const measureIds = [...existingIds];
 
     if (!newMeasures || newMeasures.length === 0) {
       console.error("Error finding State Specific Measures data");
@@ -81,8 +82,8 @@ export const AddStateSpecificMeasure = () => {
       // (For example, if a user creates SS-1-HH, SS-2-HH, and SS-3-HH and then
       // deletes SS-2-HH, we fill in the gap by assigning the next new SSM an ID
       // of SS-2-HH.)
-      if (existingIds.includes(measureIdNumber)) {
-        while (existingIds.includes(measureIdNumber) && measureIdNumber < 5) {
+      if (measureIds.includes(measureIdNumber)) {
+        while (measureIds.includes(measureIdNumber) && measureIdNumber < 5) {
           measureIdNumber++;
         }
       }
@@ -91,7 +92,7 @@ export const AddStateSpecificMeasure = () => {
       if (state && year) {
         // Add this measure ID to the existingIDs array so we don't overwrite
         // this SSM with the next one.
-        setExistingIds([...existingIds, measureIdNumber]);
+        measureIds.push(measureIdNumber);
 
         const requestData = {
           body: {
@@ -133,6 +134,8 @@ export const AddStateSpecificMeasure = () => {
         });
       }
     });
+
+    setExistingIds(measureIds);
   };
 
   return (
