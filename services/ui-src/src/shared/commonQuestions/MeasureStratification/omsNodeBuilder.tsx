@@ -131,7 +131,6 @@ const buildChildCheckboxOption = ({
       <CUI.Box key={`${name}.aggregate`} display="flex" flexDir="row">
         <QMR.RadioButton
           name={`${name}.aggregate`}
-          key={`${name}.aggregate`}
           options={options}
           label={label?.checkboxOpt}
           formLabelProps={{ fontWeight: "bold" }}
