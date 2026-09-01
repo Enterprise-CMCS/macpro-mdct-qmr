@@ -36,7 +36,7 @@ export const DataSource = ({ type }: DataSourceProps) => {
               />,
               (type === "adult" || type === "child") &&
                 labels?.DataSourceCahps.otherDataSourceWarning && (
-                  <CUI.Box mt="8">
+                  <CUI.Box key="otherDataSourceWarning" mt="8">
                     <Alert heading="Please Note" variation="warn">
                       <CUI.Text>
                         {labels.DataSourceCahps.otherDataSourceWarning}

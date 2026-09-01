@@ -27,6 +27,7 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
         value: "Other",
         children: [
           <QMR.TextArea
+            key="define-the-other-survey-population"
             label="Define the other survey population:"
             name="define-the-other-survey-population"
           />,
@@ -52,6 +53,7 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
         value: "Other",
         children: [
           <QMR.TextArea
+            key="define-the-other-survey-population"
             label="Define the other survey population:"
             name="define-the-other-survey-population"
           />,
@@ -78,6 +80,7 @@ const defOfDenomOptions: CMQ.CoreSetSpecificOptions = {
         value: "Other",
         children: [
           <QMR.TextArea
+            key="define-the-other-survey-population"
             label="Define the other survey population:"
             name="define-the-other-survey-population"
           />,
