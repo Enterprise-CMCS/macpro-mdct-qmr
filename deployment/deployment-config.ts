@@ -1,4 +1,5 @@
 import { isLocalStack } from "./local/util.ts";
+import { resolvePrincePackageDir } from "./utils/prince-asset.ts";
 import { getSecret } from "./utils/secrets-manager.ts";
 
 export interface DeploymentConfigProperties {
@@ -13,7 +14,6 @@ export interface DeploymentConfigProperties {
   oktaMetadataUrl: string;
   launchDarklyClient: string;
   redirectSignout: string;
-  docraptorApiKey: string;
   bootstrapUsersPassword?: string;
   vpnIpSetArn?: string;
   vpnIpv6SetArn?: string;
@@ -24,6 +24,8 @@ export interface DeploymentConfigProperties {
   userPoolDomainPrefix?: string;
   kafkaClientId?: string;
   bucketPrefix?: string;
+  princeLicense?: string;
+  princePackageDir?: string;
 }
 
 export const determineDeploymentConfig = async (stage: string) => {
@@ -39,6 +41,10 @@ export const determineDeploymentConfig = async (stage: string) => {
     stage,
     isDev,
     ...secretConfigOptions,
+    princePackageDir:
+      stage === "bootstrap"
+        ? undefined
+        : await resolvePrincePackageDir(project),
   };
   if (config.cloudfrontDomainName) {
     config.secureCloudfrontDomainName = `https://${config.cloudfrontDomainName}/`;
@@ -85,7 +91,6 @@ function validateConfig(config: {
     "oktaMetadataUrl",
     "launchDarklyClient",
     "redirectSignout",
-    "docraptorApiKey",
   ];
 
   const invalidKeys = expectedKeys.filter(

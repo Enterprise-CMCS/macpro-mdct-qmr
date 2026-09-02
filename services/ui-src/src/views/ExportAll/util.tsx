@@ -73,11 +73,56 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     ${/* Globaly applied tag css */ ""}
     @page {}
     table { table-layout:fixed; width: 100%}
-    html, body, #root { height: 100%; font-size: 16px; }
-    button { display: none !important; visiblity: hidden; }
+    /* height:100% makes Prince treat the root as one page and leaves large blank regions */
+    html, body, #root, #app-wrapper, #main-wrapper {
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none !important;
+      font-size: 16px;
+    }
+    #app-wrapper, #main-wrapper { display: block !important; }
+    #skip-nav-main, .ds-c-skip-nav { display: none !important; }
+    button { display: none !important; visibility: hidden; }
     td { overflow-wrap: break-word; word-wrap:break-word; white-space: normal; }
     * { box-decoration-break: slice !important; box-sizing: border-box !important; }
     input { padding: 10px 10px 10px 10px !important; min-width: fit-content; word-wrap:break-word; white-space: normal; }
+    input:not([type="checkbox"]):not([type="radio"]),
+    .replaced-text-area {
+      border: 1px solid #718096 !important;
+      border-radius: 6px !important;
+      min-height: 2.5rem !important;
+      background-color: #fff !important;
+    }
+    .chakra-radio__control, .chakra-checkbox__control {
+      border: 1px solid #718096 !important;
+      background-color: #fff !important;
+      width: 1rem !important;
+      height: 1rem !important;
+      vertical-align: middle !important;
+      /* flex keeps Chakra's ::before check/dot centered; inline-block offset it */
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      border-radius: 9999px !important;
+    }
+    .chakra-checkbox__control {
+      border-radius: 2px !important;
+    }
+    .chakra-radio__control[data-checked], .chakra-checkbox__control[data-checked] {
+      background-color: #3182ce !important;
+      border-color: #3182ce !important;
+    }
+    /* Chakra's checked radio draws a white ::before "dot"; with our overrides
+       Prince often places it off-center so it looks like a bite out of the fill. */
+    .chakra-radio__control[data-checked]::before {
+      display: none !important;
+      content: none !important;
+    }
+    a, .chakra-link, .chakra-link * {
+      color: #2b6cb0 !important;
+      text-decoration: underline !important;
+    }
 
     ${/* Adjusted specific component css */ ""}
     .logos { width: 90px; }
@@ -93,15 +138,41 @@ export const applyPrinceSpecificCss = (): HTMLStyleElement => {
     .prince-input-bottom-spacer { margin-bottom: 10px !important; }
     .hidden-print-items { visibility: hidden; display: none !important; }
     .prince-option-label-wrapper { margin-top: 10px; margin: 0 0 10px 0 !important; }
-    .chakra-radio__control, .chakra-checkbox__control { vertical-align: middle !important; }
     .prince-logo-footer { flex-wrap: nowrap; align-content: flex-start; align-items: flex-start; }
     .prince-footer-smaller-text { font-size: var(--chakra-fontSizes-xs); text-align: left; max-width: 100% }
     .prince-flex-row-overwrite { display: flex; flex-direction: row; flex-wrap: nowrap; max-width: 100% !important; margin: 0 0 0 10px }
     .prince-upload-wrapper { text-align: center; display: flex !important; align-content: center; align-items: center; page-break-inside: avoid; }
-    .prince-top-link, .prince-supp-text, h1 { margin: auto !important; text-align: center !important; width: fitcontent !important; margin: 10px 0 !important; }
+    .prince-top-link, .prince-supp-text, h1 { text-align: center !important; width: fit-content !important; margin: 10px 0 !important; }
     .prince-upload-wrapper, .prince-file-item { border: 3px !important; border-style: dotted; background-color: var(--chakra-colors-blue-100); border-radius: var(--chakra-radii-md) }
     .replaced-text-area {border-radius: var(--chakra-radii-md); border-width: 1px; border-style: solid; border-color: inherit; padding: 15px; box-sizing: border-box; white-space: pre-wrap;}
 
+    ${
+      /* Measure TOC links: Emotion/Chakra grid CSS often never makes it into the
+      PDF payload (head styles dropped; :root sheets skipped). Force a fixed grid. */ ""
+    }
+    .prince-measure-link-grid {
+      display: grid !important;
+      grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+      column-gap: 1.25rem !important;
+      row-gap: 2rem !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin: 0 auto 1rem auto !important;
+    }
+    .prince-measure-link-grid > a.chakra-button {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 2.5rem !important;
+      padding: 0.5rem 0.75rem !important;
+      visibility: visible !important;
+      width: auto !important;
+      text-align: center !important;
+      color: #0000e5 !important;
+      background: #edf2f7 !important;
+      margin: 0 !important;
+      page-break-inside: avoid;
+    }
 
     ${
       /* ******* Prince doesn't support certain css elements like background colors or css grid out of the box. we have to brute force those styles here.
@@ -156,7 +227,7 @@ export const htmlStringCleanup = (html: string): string => {
   const doc = parser.parseFromString(html, "text/html");
 
   const nodesToRemove = doc.querySelectorAll(
-    `.hidden-print-items, [style*="display: none"], [style*="visibility: hidden"], script, noscript`
+    `#skip-nav-main, .ds-c-skip-nav, .hidden-print-items, [style*="display: none"], [style*="visibility: hidden"], script, noscript`
   );
   for (let node of nodesToRemove) {
     node.remove();
