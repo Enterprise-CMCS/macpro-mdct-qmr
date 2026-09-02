@@ -22,6 +22,7 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
       value: "Other",
       children: [
         <QMR.TextArea
+          key="define-the-other-survey-population"
           label="Define the Other survey population:"
           name="define-the-other-survey-population"
         />,
@@ -43,6 +44,7 @@ export const DefinitionOfPopulation = ({ coresetId }: any) => {
       value: "Other",
       children: [
         <QMR.TextArea
+          key="define-the-other-survey-population"
           label="Define the Other survey population:"
           name="define-the-other-survey-population"
         />,

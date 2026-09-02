@@ -4,7 +4,7 @@ import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import { MeasureStatus, UserRoles } from "../../types";
+import { Measure, MeasureStatus, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 
@@ -28,6 +28,20 @@ export const createMeasure = handler(async (event, _context) => {
       };
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
+
+  const existing = await dynamoDb.get<Measure>({
+    TableName: process.env.MeasuresTable!,
+    Key: {
+      compoundKey: `${state}${year}${coreSet}`,
+      measure: measure,
+    },
+  });
+  if (existing && !existing.placeholder && existing.userCreated) {
+    return {
+      status: StatusCodes.CONFLICT,
+      body: "Cannot overwrite existing measure",
+    };
+  }
 
   const body = JSON.parse(event!.body!);
   const params = {
