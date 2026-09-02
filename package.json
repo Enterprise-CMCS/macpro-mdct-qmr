@@ -70,6 +70,7 @@
   "resolutions": {
     "brace-expansion@^1.1.7": "1.1.18",
     "brace-expansion@^2.0.2": "5.0.9",
+    "htmlparser2": "10.1.0",
     "minimatch@^10.2.5": "10.2.6",
     "picomatch@^2.0.4": "4.0.4",
     "picomatch@^2.3.1": "4.0.4"
