@@ -37,7 +37,7 @@ describe("Test CoreSet.tsx", () => {
     mockUseLocation.mockReturnValue({ pathname: "/WA/2025/ACSM" });
   });
 
-  it("Check that the nav renders", () => {
+  it("should render navigation", () => {
     renderComponent({
       year: "2025",
       state: "DC",
@@ -46,7 +46,7 @@ describe("Test CoreSet.tsx", () => {
     expect(screen.getByTestId("state-layout-container")).toBeVisible();
   });
 
-  it("clears location state after showing the create-SSM banner, so a refresh won't redisplay it", () => {
+  it("should clear location state after showing the create-SSM banner, so a refresh won't redisplay it", () => {
     mockUseLocation.mockReturnValue({
       pathname: "/DC/2025/ACSM",
       state: { success: true },
@@ -66,7 +66,7 @@ describe("Test CoreSet.tsx", () => {
     ).toBeVisible();
   });
 
-  it("does not navigate when there is no location state to clear", () => {
+  it("should not navigate when there is no location state to clear", () => {
     renderComponent({
       year: "2025",
       state: "DC",
@@ -75,7 +75,7 @@ describe("Test CoreSet.tsx", () => {
     expect(mockedNavigate).not.toHaveBeenCalled();
   });
 
-  it("renders the adult measure table data components", () => {
+  it("should render the adult measure table data components", () => {
     renderComponent({
       year: "2025",
       state: "DC",
@@ -104,7 +104,7 @@ describe("Test CoreSet.tsx", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the child measure table data components", () => {
+  it("should render the child measure table data components", () => {
     renderComponent({
       year: "2025",
       state: "DC",
@@ -134,7 +134,7 @@ describe("Test CoreSet.tsx", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the child measure table data components", () => {
+  it("should render the child measure table data components", () => {
     renderComponent({
       year: "2025",
       state: "DC",
