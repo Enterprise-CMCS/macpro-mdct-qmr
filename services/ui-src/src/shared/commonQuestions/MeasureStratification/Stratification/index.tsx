@@ -189,7 +189,7 @@ export const Stratification = ({
         }}
       >
         {labels.subHeader.map((text: string) => (
-          <CUI.Text>{text}</CUI.Text>
+          <CUI.Text key={text}>{text}</CUI.Text>
         ))}
         <CUI.UnorderedList
           my={6}
@@ -208,6 +208,7 @@ export const Stratification = ({
         </CUI.UnorderedList>
         {checkBoxOptions.map((option) => (
           <QMR.Accordion
+            key={option.value}
             externalControlled
             label={option.displayValue}
             overrideExpand={overrideAccordion(option.value)}

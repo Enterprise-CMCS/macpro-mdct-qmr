@@ -529,7 +529,6 @@ export const CoreSet = () => {
                   }
                   title="Need to report on State Specific data?"
                   to={`/${state}/${year}/${coreSetId}/add-ssm`}
-                  userCreatedMeasureIds={userCreatedMeasureIds}
                 ></AddSSMCard>
               </CUI.HStack>
             )}

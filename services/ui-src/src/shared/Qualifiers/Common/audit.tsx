@@ -63,7 +63,7 @@ export const Audit = ({ type, year }: Props) => {
         };
       }) ?? [];
 
-  if (isLoading || !data.Items) {
+  if (isLoading || !data?.Items) {
     return <QMR.LoadingWave />;
   }
 
