@@ -37,13 +37,13 @@
     "react-idle-timer": "^4.6.4",
     "react-router-dom": "6.30.4",
     "react-textarea-autosize": "^8.5.3",
-    "sanitize-html": "2.17.5",
+    "sanitize-html": "2.17.7",
     "sass": "^1.80.4",
     "uuid": "^11.1.1"
   },
   "devDependencies": {
     "@aws-sdk/types": "~3.973.6",
-    "@babel/core": "^7.13.16",
+    "@babel/core": "^7.29.7",
     "@babel/plugin-transform-react-jsx": "^7.13.12",
     "@babel/preset-env": "^7.29.5",
     "@babel/preset-typescript": "^7.16.0",
@@ -67,7 +67,6 @@
     "jest": "^30.4.1",
     "jest-axe": "^10.0.0",
     "jest-environment-jsdom": "^30.4.1",
-    "jest-launchdarkly-mock": "^2.1.0",
     "patch-package": "^8.0.1",
     "ts-jest": "^29.4.11",
     "typescript": "^5.9.3",
