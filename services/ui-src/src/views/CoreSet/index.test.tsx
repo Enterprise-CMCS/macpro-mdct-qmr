@@ -5,12 +5,11 @@ import { useApiMock } from "utils/testUtils/useApiMock";
 import { BrowserRouter, useParams } from "react-router-dom";
 
 const mockedNavigate = jest.fn();
+const mockUseLocation = jest.fn();
 const queryClient = new QueryClient();
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
-  useLocation: () => ({
-    pathname: "/WA/2025/ACSM",
-  }),
+  useLocation: () => mockUseLocation(),
   useNavigate: () => mockedNavigate,
   useParams: jest.fn(),
 }));
@@ -35,8 +34,10 @@ const renderComponent = (mockParamValue: {
 describe("Test CoreSet.tsx", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockUseLocation.mockReturnValue({ pathname: "/WA/2025/ACSM" });
   });
-  test("Check that the nav renders", () => {
+
+  it("should render navigation", () => {
     renderComponent({
       year: "2025",
       state: "DC",
@@ -44,7 +45,37 @@ describe("Test CoreSet.tsx", () => {
     });
     expect(screen.getByTestId("state-layout-container")).toBeVisible();
   });
-  it("renders the adult measure table data components", () => {
+
+  it("should clear location state after showing the create-SSM banner, so a refresh won't redisplay it", () => {
+    mockUseLocation.mockReturnValue({
+      pathname: "/DC/2025/ACSM",
+      state: { success: true },
+    });
+    renderComponent({
+      year: "2025",
+      state: "DC",
+      coreSetId: "ACSM",
+    });
+    expect(mockedNavigate).toHaveBeenCalledWith("/DC/2025/ACSM", {
+      replace: true,
+      state: null,
+    });
+    // is the banner still visible? we hope so.
+    expect(
+      screen.getByText("New State Specific Measures created")
+    ).toBeVisible();
+  });
+
+  it("should not navigate when there is no location state to clear", () => {
+    renderComponent({
+      year: "2025",
+      state: "DC",
+      coreSetId: "ACSM",
+    });
+    expect(mockedNavigate).not.toHaveBeenCalled();
+  });
+
+  it("should render the adult measure table data components", () => {
     renderComponent({
       year: "2025",
       state: "DC",
@@ -72,7 +103,8 @@ describe("Test CoreSet.tsx", () => {
       screen.getByRole("button", { name: "Submit Core Set" })
     ).toBeInTheDocument();
   });
-  it("renders the child measure table data components", () => {
+
+  it("should render the child measure table data components", () => {
     renderComponent({
       year: "2025",
       state: "DC",
@@ -102,7 +134,7 @@ describe("Test CoreSet.tsx", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the child measure table data components", () => {
+  it("should render the child measure table data components", () => {
     renderComponent({
       year: "2025",
       state: "DC",

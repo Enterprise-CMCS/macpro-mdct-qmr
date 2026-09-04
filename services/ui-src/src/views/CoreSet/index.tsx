@@ -343,6 +343,7 @@ const useMeasureTableDataBuilder = () => {
 export const CoreSet = () => {
   const { state: locationState } = useLocation() as LocationState;
   const { isStateUser } = useUser();
+  const navigate = useNavigate();
 
   let { coreSetId, state, year } = useParams();
   coreSetId = coreSetId ?? "";
@@ -365,6 +366,21 @@ export const CoreSet = () => {
   // Or should we determine whether or not this is a HH Core Set another way,
   // like checking the coreSetId for "HH"?
   const isHHCoreSet = spaName.length > 0;
+
+  // Capture location.state once so the banner still renders even after we
+  // clear the history entry.
+  const [banner] = useState(locationState);
+
+  // Clear the one-time success/error banner state from history after it's
+  // captured once, so refreshing the page doesn't keep re-displaying it.
+  useEffect(() => {
+    if (locationState) {
+      navigate(`/${state}/${year}/${coreSetId}`, {
+        replace: true,
+        state: null,
+      });
+    }
+  }, []);
 
   const { data } = useGetCoreSet({ coreSetId, state, year });
   const {
@@ -477,7 +493,7 @@ export const CoreSet = () => {
           modalProps={modalProps}
         />
         {/* Show success banner after redirect from creating new SSMs */}
-        {locationState && locationState.success === true && (
+        {banner && banner.success === true && (
           <CUI.Box mb="6">
             <QMR.Notification
               alertDescription="The new State Specific Measures were successfully created and are ready for reporting."
@@ -487,7 +503,7 @@ export const CoreSet = () => {
           </CUI.Box>
         )}
         {/* Show success banner after redirect from creating new SSMs */}
-        {locationState && locationState.success === false && (
+        {banner && banner.success === false && (
           <CUI.Box mb="6">
             <QMR.Notification
               alertDescription="An error occurred. Unable to create State Specific Measures."
