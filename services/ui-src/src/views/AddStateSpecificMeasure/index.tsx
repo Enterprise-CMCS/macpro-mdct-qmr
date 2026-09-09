@@ -151,7 +151,11 @@ export const AddStateSpecificMeasure = () => {
             <QMR.AddSSM userCreatedCount={existingMeasures.length}></QMR.AddSSM>
           </CUI.Box>
           <CUI.HStack paddingTop="5" gap="1rem">
-            <QMR.ContainedButton type="submit" buttonText="Create" />
+            <QMR.ContainedButton
+              type="submit"
+              buttonText="Create"
+              disabledStatus={mutation.isPending}
+            />
             <QMR.ContainedButton
               variant="link"
               buttonText="Cancel"
