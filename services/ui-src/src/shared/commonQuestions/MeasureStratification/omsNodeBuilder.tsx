@@ -128,10 +128,9 @@ const buildChildCheckboxOption = ({
     let options = renderRadioButtonOptions({ omsNode, name, label });
 
     children = [
-      <CUI.Box display="flex" flexDir="row">
+      <CUI.Box key={`${name}.aggregate`} display="flex" flexDir="row">
         <QMR.RadioButton
           name={`${name}.aggregate`}
-          key={`${name}.aggregate`}
           options={options}
           label={label?.checkboxOpt}
           formLabelProps={{ fontWeight: "bold" }}
@@ -178,6 +177,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
       )}
       {checkboxOptions.map((options) => (
         <QMR.Accordion
+          key={options.value}
           externalControlled
           label={options.displayValue}
           overrideExpand={props.overrideAccordion?.(options.value)}

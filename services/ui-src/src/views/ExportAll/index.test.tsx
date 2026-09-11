@@ -38,17 +38,17 @@ describe("ExportAll", () => {
   it("should render measure components inside a wrapper", () => {
     const mockCsqData = {
       measure: "CSQ",
-      year: "2025",
+      year: 2025,
       description: "mockCsqDescription",
     };
     const mockAabData = {
       measure: "AAB-AD",
-      year: "2025",
+      year: 2025,
       description: "mockAabDescription",
     };
     const mockBcsData = {
       measure: "BCS-AD",
-      year: "2025",
+      year: 2025,
       description: "mockBcsDescription",
     };
     const mockMeasureData = {
@@ -65,7 +65,7 @@ describe("ExportAll", () => {
         measureData: mockCsqData,
         measureId: "CSQ",
         name: "mockCsqDescription",
-        year: "2025",
+        year: 2025,
         defaultData: QualifierData,
         spaName: undefined,
       },
@@ -78,7 +78,7 @@ describe("ExportAll", () => {
         measureData: mockAabData,
         measureId: "AAB-AD",
         name: "mockAabDescription",
-        year: "2025",
+        year: 2025,
         defaultData: undefined,
         spaName: undefined,
       },
@@ -91,7 +91,7 @@ describe("ExportAll", () => {
         measureData: mockBcsData,
         measureId: "BCS-AD",
         name: "mockBcsDescription",
-        year: "2025",
+        year: 2025,
         defaultData: undefined,
         spaName: undefined,
       },
@@ -106,15 +106,15 @@ describe("ExportAll", () => {
         Items: [
           {
             measure: "BCS-AD",
-            year: "2025",
+            year: 2025,
           },
           {
             measure: "CSQ",
-            year: "2025",
+            year: 2025,
           },
           {
             measure: "AAB-AD",
-            year: "2025",
+            year: 2025,
           },
         ],
       },
@@ -140,16 +140,16 @@ describe("ExportAll", () => {
           {
             // Note that the CSQ measure is required for the page to render.
             measure: "CSQ",
-            year: "2025",
+            year: 2025,
           },
           {
             measure: "SS-1-HH",
-            year: "2025",
+            year: 2025,
           },
           {
             measure: "SS-2-HH",
             userCreated: true,
-            year: "2025",
+            year: 2025,
           },
         ],
       },

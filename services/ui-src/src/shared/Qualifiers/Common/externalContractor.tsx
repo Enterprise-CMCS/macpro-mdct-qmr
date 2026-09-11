@@ -47,6 +47,7 @@ export const ExternalContractor = () => {
                           value: "Other",
                           children: [
                             <QMR.TextArea
+                              key="OtherContractorDetails"
                               label="Please explain:"
                               name="OtherContractorDetails"
                             />,

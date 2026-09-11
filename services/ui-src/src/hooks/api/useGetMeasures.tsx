@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { listMeasures } from "libs/api";
 import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router-dom";
+import { MeasureData } from "types";
 
 interface GetMeasures {
   state: string;
@@ -32,7 +33,7 @@ export const useGetMeasures = (coreSetAbbr?: string) => {
     (year || yearPath) &&
     (coreSetId || coreSetPath)
   ) {
-    return useQuery({
+    return useQuery<{ Items: MeasureData[] }>({
       queryKey: ["measures", state, year, coreSetId || coreSetPath],
       queryFn: () =>
         getMeasures({

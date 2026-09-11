@@ -7,7 +7,6 @@ interface AddSSMCardProps {
   enabled?: boolean;
   title: string;
   to: string;
-  userCreatedMeasureIds?: any[];
 }
 
 // "Add" card, used for adding a new State Specific Measure
@@ -16,7 +15,6 @@ export const AddSSMCard = ({
   enabled = true,
   title,
   to,
-  userCreatedMeasureIds = [],
 }: AddSSMCardProps) => {
   const navigate = useNavigate();
   // Create a unique testId for each card based on destination in link
@@ -42,9 +40,7 @@ export const AddSSMCard = ({
             rightIcon={<FaPlusCircle />}
             isDisabled={!enabled}
             href="#"
-            onClick={() => {
-              navigate(to, { state: { userCreatedMeasureIds } });
-            }}
+            onClick={() => navigate(to)}
             //because they button acts like a link, it can never truly be disabled so we have to swap it away from a link when it's disabled
             as={!enabled ? undefined : CUI.Link}
           >
