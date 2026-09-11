@@ -108,6 +108,15 @@ describe("ExportAll utils", () => {
       const countAfter = document.body.querySelectorAll("style").length;
       expect(countAfter).toBe(countBefore + 1);
     });
+
+    it("should include layout overrides for blank pages and measure link grid", () => {
+      applyPrinceSpecificCss();
+      const css = document.body.querySelector("style")?.textContent ?? "";
+      expect(css).toContain("height: auto !important");
+      expect(css).toContain(".prince-measure-link-grid");
+      expect(css).toContain("grid-template-columns: repeat(5");
+      expect(css).toContain("#skip-nav-main");
+    });
   });
 
   describe("cloneEmotionStyles", () => {
