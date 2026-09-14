@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { listMeasures } from "libs/api";
 import { usePathParams } from "./usePathParams";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { MeasureData } from "types";
 
 interface GetMeasures {

@@ -7,7 +7,7 @@ import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/commonQuestionsLabel";
 import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 import { getMeasureYear } from "utils/getMeasureYear";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { CoreSetAbbr } from "types";
 import { getStratificationBannerDescription } from "components/MeasureWrapper/stratificationBanner";
 
@@ -15,8 +15,8 @@ jest.mock("utils/getMeasureYear", () => ({
   getMeasureYear: jest.fn(),
 }));
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: jest.fn(),
 }));
 

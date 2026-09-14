@@ -7,7 +7,7 @@ import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { cleanString, rateIsReadOnly } from "utils";
 import SharedContext from "shared/SharedContext";
 

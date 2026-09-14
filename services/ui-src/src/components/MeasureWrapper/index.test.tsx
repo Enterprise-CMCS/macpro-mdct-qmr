@@ -39,7 +39,7 @@ jest.mock("utils/getMeasureYear", () => ({
   getMeasureYear: jest.fn(),
 }));
 
-const useParamsSpy = jest.spyOn(require("react-router-dom"), "useParams");
+const useParamsSpy = jest.spyOn(require("react-router"), "useParams");
 const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 const mockMutate = jest.fn((_variables: any, options?: any) => {

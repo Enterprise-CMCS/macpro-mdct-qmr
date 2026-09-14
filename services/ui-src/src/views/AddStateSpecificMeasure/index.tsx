@@ -4,7 +4,7 @@ import * as QMR from "components";
 import { CoreSetAbbr, MeasureData } from "types";
 import { CoreSetTableItem } from "components/Table/types";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { useUser } from "hooks/authHooks";
 import { featuresByYear } from "utils/featuresByYear";
 import { useState, useEffect } from "react";

@@ -1,12 +1,12 @@
 import { useGetCoreSets } from "./useGetCoreSets";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 const props = { state: "MA", year: 2026 };
 jest.mock("@tanstack/react-query", () => ({
   useQuery: jest.fn().mockImplementation((arg) => arg.queryFn(props)),
 }));
 
-jest.mock("react-router-dom");
+jest.mock("react-router");
 const mockUseParam = useParams as jest.Mock;
 
 const mockGetAllCoreSet = jest.fn();

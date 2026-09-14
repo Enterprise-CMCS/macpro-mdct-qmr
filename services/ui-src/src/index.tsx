@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import App from "App";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { Amplify } from "aws-amplify";
 import "aws-amplify/auth/enable-oauth-listener";
 import { QueryProvider } from "query";
@@ -62,7 +62,7 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
   const { ToastContainer } = createStandaloneToast();
 
   createRoot(document.getElementById("root")!).render(
-    <Router>
+    <BrowserRouter>
       <UserProvider>
         <ApiProvider>
           <QueryProvider>
@@ -76,8 +76,6 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
           </QueryProvider>
         </ApiProvider>
       </UserProvider>
-    </Router>
+    </BrowserRouter>
   );
-})().catch((error) => {
-  throw error;
-});
+})();
