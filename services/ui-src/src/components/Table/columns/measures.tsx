@@ -1,7 +1,7 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { BsCheck } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { format } from "date-fns";
 import { MeasureTableItem, TableColumn } from "../types";
 import { featuresByYear } from "utils/featuresByYear";

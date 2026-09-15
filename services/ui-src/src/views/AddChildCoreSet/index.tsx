@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Api from "hooks/api";
 import { useQueryClient } from "@tanstack/react-query";

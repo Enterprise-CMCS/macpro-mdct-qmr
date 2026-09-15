@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import App from "App";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 import { Amplify } from "aws-amplify";
 import "aws-amplify/auth/enable-oauth-listener";
 import { QueryProvider } from "query";
@@ -62,7 +62,12 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
   const { ToastContainer } = createStandaloneToast();
 
   createRoot(document.getElementById("root")!).render(
-    <Router>
+    <BrowserRouter
+      // We find that, due to some quirk of QMR's routing or rendering,
+      // `useTransitions` causes our e2e tests to fail.
+      // https://reactrouter.com/7.18.3/explanation/react-transitions#opt-out-via-usetransitionsfalse
+      useTransitions={false}
+    >
       <UserProvider>
         <ApiProvider>
           <QueryProvider>
@@ -76,8 +81,6 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
           </QueryProvider>
         </ApiProvider>
       </UserProvider>
-    </Router>
+    </BrowserRouter>
   );
-})().catch((error) => {
-  throw error;
-});
+})();

@@ -2,13 +2,13 @@ import { CoreSet } from "./index";
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
-import { BrowserRouter, useParams } from "react-router-dom";
+import { BrowserRouter, useParams } from "react-router";
 
 const mockedNavigate = jest.fn();
 const mockUseLocation = jest.fn();
 const queryClient = new QueryClient();
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useLocation: () => mockUseLocation(),
   useNavigate: () => mockedNavigate,
   useParams: jest.fn(),
