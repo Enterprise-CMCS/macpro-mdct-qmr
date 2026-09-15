@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { createCoreSet } from "libs/api";
 import { CoreSetAbbr } from "types";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 interface AddCoreSet {
   state: string;

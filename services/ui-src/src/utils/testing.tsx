@@ -1,9 +1,9 @@
 import { PropsWithChildren } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router";
 
-jest.mock("react-router-dom", () => {
+jest.mock("react-router", () => {
   // Require the original module to not be mocked...
-  const originalModule = jest.requireActual("react-router-dom");
+  const originalModule = jest.requireActual("react-router");
 
   return {
     __esModule: true,

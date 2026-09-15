@@ -1,11 +1,11 @@
 import { screen } from "@testing-library/react";
 import { PrintableMeasureWrapper } from ".";
 import { renderWithHookForm } from "utils";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { getMeasureYear } from "utils/getMeasureYear";
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useForm: jest.fn().mockReturnValue({
     formState: {
       isDirty: false,

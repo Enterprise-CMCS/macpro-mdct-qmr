@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllCoreSets } from "libs/api";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { featuresByYear } from "utils/featuresByYear";
 
 interface GetCoreSets {

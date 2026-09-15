@@ -1,6 +1,6 @@
 import * as QMR from "components";
 import * as CUI from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useGetRate } from "hooks/api";
 import { LoadingWrapper } from "components";
 import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInformationBanner/DataSourceInformationBanner";
