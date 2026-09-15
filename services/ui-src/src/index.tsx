@@ -62,7 +62,12 @@ const ldClientId = config.REACT_APP_LD_SDK_CLIENT;
   const { ToastContainer } = createStandaloneToast();
 
   createRoot(document.getElementById("root")!).render(
-    <BrowserRouter>
+    <BrowserRouter
+      // We find that, due to some quirk of QMR's routing or rendering,
+      // `useTransitions` causes our e2e tests to fail.
+      // https://reactrouter.com/7.18.3/explanation/react-transitions#opt-out-via-usetransitionsfalse
+      useTransitions={false}
+    >
       <UserProvider>
         <ApiProvider>
           <QueryProvider>
