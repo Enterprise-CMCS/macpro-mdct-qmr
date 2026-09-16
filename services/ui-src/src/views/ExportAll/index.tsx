@@ -88,6 +88,7 @@ export const ExportAll = () => {
       </CUI.Center>
       <CUI.Center key="buttonGridWrapper" mb="1rem">
         <CUI.SimpleGrid
+          className="prince-measure-link-grid"
           columns={{ base: 2, sm: 3, md: 4, lg: 6, xl: 8 }}
           spacingX={5}
           spacingY={10}
