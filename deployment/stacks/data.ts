@@ -7,7 +7,7 @@ interface CreateDataComponentsProps {
   stage: string;
   isDev: boolean;
 }
-
+//test
 export function createDataComponents(props: CreateDataComponentsProps) {
   const { scope, stage, isDev } = props;
 
