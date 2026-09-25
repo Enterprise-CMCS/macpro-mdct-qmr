@@ -4,7 +4,7 @@ import * as CUI from "@chakra-ui/react";
 import Measures, { QualifierData } from "measures";
 import { useGetMeasures } from "hooks/api";
 import "./../../styles/index.scss";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { getSpaName, generatePDF } from "./util";
 
 export const ExportAll = () => {

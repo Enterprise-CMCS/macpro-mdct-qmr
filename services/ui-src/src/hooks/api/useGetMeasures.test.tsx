@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useGetMeasures } from "./useGetMeasures";
 
 const props = { coreSetAbbr: "AC" };
@@ -6,7 +6,7 @@ jest.mock("@tanstack/react-query", () => ({
   useQuery: jest.fn().mockImplementation((arg) => arg.queryFn(props)),
 }));
 
-jest.mock("react-router-dom");
+jest.mock("react-router");
 const mockUseParam = useParams as jest.Mock;
 
 jest.mock("./usePathParams", () => ({
