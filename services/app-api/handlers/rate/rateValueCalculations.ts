@@ -22,12 +22,21 @@ export const calculateAdditionalValues = (
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
     .map((rateMap) => Object.values(rateMap).flat().filter(isRateValueShape));
 
+  const medicaidValuesByUid = Map.groupBy(
+    medicaidValues,
+    (value) => value.uid as string
+  );
+  const chipValuesByUid = Map.groupBy(
+    chipValues,
+    (value) => value.uid as string
+  );
+
   const findValues = (uid: string) => {
     const fieldObj = {
       uid,
     } as CombinedRatesPayload["AdditionalValues"][number];
-    const medicaidValue = medicaidValues.find((rate) => rate.uid === uid);
-    const chipValue = chipValues.find((rate) => rate.uid === uid);
+    const medicaidValue = medicaidValuesByUid.get(uid)?.[0];
+    const chipValue = chipValuesByUid.get(uid)?.[0];
 
     fieldObj.label = medicaidValue?.label ?? chipValue?.label ?? "";
     fieldObj.Medicaid = parseQmrNumber(medicaidValue?.value);
