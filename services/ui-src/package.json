@@ -117,9 +117,6 @@
     ],
     "testEnvironment": "jest-environment-jsdom",
     "testTimeout": 180000,
-    "transformIgnorePatterns": [
-      "node_modules/(?!axios)"
-    ],
     "verbose": true
   }
 }
