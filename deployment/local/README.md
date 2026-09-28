@@ -68,3 +68,20 @@ awslocal --version
 # example of something you'd pop in as YOUR_FUNCTION_NAME => app-api-localstack-getUserById
 awslocal lambda get-function-configuration --function-name YOUR_FUNCTION_NAME --query "Environment.Variables"
 ```
+
+### Prince PDF
+
+Local PDF export on Ministack with Apple Silicon uses the macOS Prince tree at `services/app-api/bin/prince-arm64/` (not the Linux AWS package under `bin/prince/`). Refresh with:
+
+```sh
+./scripts/fetch-prince-macos.sh
+```
+
+Real AWS deploys use the YesLogic AWS Lambda package under `services/app-api/bin/prince/`:
+
+```sh
+./scripts/fetch-prince-linux.sh
+# optional: PRINCE_VERSION=16.2 ./scripts/fetch-prince-linux.sh
+```
+
+Vendor binaries are large; run the fetch scripts after cloning if `bin/prince*` is missing.

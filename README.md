@@ -102,6 +102,10 @@ To run the project, run the following commands from the root of the directory:
 >
 > `./run local` writes UI runtime config to `services/ui-src/public/env-config.js` based on CloudFormation outputs and then starts the Vite dev server.
 
+LocalStack PDF export needs the YesLogic **Linux** AWS Lambda Prince package (gitignored under `services/app-api/bin/prince/`). CDK synth downloads it automatically on first local deploy (SHA-256 pinned in `deployment/utils/prince-asset.ts`); refresh manually with `./scripts/fetch-prince-linux.sh`.
+
+Cloud accounts (once per account): `./run deploy-prerequisites` to create the Prince assets bucket, then `PROJECT=qmr ./scripts/publish-prince-asset.sh` to upload the pinned zip. Optional paid license: add a `princeLicense` string (license.dat XML) to the `qmr-default` Secrets Manager secret; otherwise the demo license is used.
+
 To login, a number of test users are provisioned via `services/ui-auth/libs/users.json`. Check 1Password in the `qmr_secrets` section for the test user password.
 
 #### oxfmt and oxlint
