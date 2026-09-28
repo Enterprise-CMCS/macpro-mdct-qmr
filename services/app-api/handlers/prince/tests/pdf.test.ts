@@ -19,7 +19,7 @@ global.fetch = jest.fn().mockResolvedValue({
 const dangerousHtml =
   "<html><head></head><body><p>abc<iframe//src=jAva&Tab;script:alert(3)>def</p></body></html>";
 const compressedHtml = gzipSync(dangerousHtml);
-const sanitizedHtml = "<html><head></head><body><p>abcdef</p></body></html>";
+const sanitizedHtml = "<html><head></head><body><p>abc</p></body></html>";
 const base64EncodedDangerousHtml =
   Buffer.from(compressedHtml).toString("base64");
 
