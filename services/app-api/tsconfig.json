@@ -7,9 +7,10 @@
     "sourceMap": true,
     "strict": true,
     "allowJs": true,
-    "target": "ES2024",
+    "target": "ES2023",
+    "module": "NodeNext",
     "outDir": ".build",
-    "lib": ["ES2024", "es2024.collection", "DOM"],
+    "lib": ["ES2023"],
     "rootDir": "./",
     "skipLibCheck": true
   }

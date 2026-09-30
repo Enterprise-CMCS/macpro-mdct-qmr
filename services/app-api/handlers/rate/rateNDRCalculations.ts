@@ -2,6 +2,7 @@ import {
   CombinedRatesPayload,
   isRateNDRShape,
   Measure,
+  RateNDRShape,
   WeightedRateShape,
 } from "../../types";
 import { isDefined } from "../../utils/filters";
@@ -40,10 +41,20 @@ export const combineRates = (
       .map((rate) => ({ source: "CHIP" as const, rate })),
   ];
 
-  // Group rates by uid using Map.groupBy for O(n) lookup instead of repeated .find() scans
-  const sumRates = [
-    ...Map.groupBy(flattenRates, ({ rate }) => rate.uid as string).entries(),
-  ];
+  const rateUidMap = new Map<
+    string,
+    { medicaidRate?: RateNDRShape; chipRate?: RateNDRShape }
+  >();
+  for (const { source, rate } of flattenRates) {
+    const uid = rate.uid;
+    if (!isDefined(uid)) continue;
+
+    const rates = rateUidMap.get(uid) ?? {};
+    const rateKey = source === "Medicaid" ? "medicaidRate" : "chipRate";
+    rates[rateKey] ??= rate;
+    rateUidMap.set(uid, rates);
+  }
+  const sumRates = [...rateUidMap.entries()];
 
   if (
     DataSources.Medicaid.requiresWeightedCalc ||
@@ -51,14 +62,7 @@ export const combineRates = (
   ) {
     // If either measure has a Hybrid data source, we calculate the combined
     // rate, weighted by the individual measures' eligible populations.
-    return sumRates.map(([uid, groupedRates]) => {
-      const medicaidRate = groupedRates.find(
-        ({ source }) => source === "Medicaid"
-      )?.rate;
-      const chipRate = groupedRates.find(
-        ({ source }) => source === "CHIP"
-      )?.rate;
-
+    return sumRates.map(([uid, { medicaidRate, chipRate }]) => {
       const mNumerator = parseQmrNumber(medicaidRate?.numerator);
       const mDenominator = parseQmrNumber(medicaidRate?.denominator);
       const mRate = parseQmrNumber(medicaidRate?.rate);
@@ -159,14 +163,7 @@ export const combineRates = (
       };
     });
   } else {
-    return sumRates.map(([uid, groupedRates]) => {
-      const medicaidRate = groupedRates.find(
-        ({ source }) => source === "Medicaid"
-      )?.rate;
-      const chipRate = groupedRates.find(
-        ({ source }) => source === "CHIP"
-      )?.rate;
-
+    return sumRates.map(([uid, { medicaidRate, chipRate }]) => {
       const mNumerator = parseQmrNumber(medicaidRate?.numerator);
       const mDenominator = parseQmrNumber(medicaidRate?.denominator);
       const mRate = parseQmrNumber(medicaidRate?.rate);

@@ -1,4 +1,9 @@
-import { CombinedRatesPayload, isRateValueShape, Measure } from "../../types";
+import {
+  CombinedRatesPayload,
+  isRateValueShape,
+  Measure,
+  RateValueShape,
+} from "../../types";
 import {
   addSafely,
   divideSafely,
@@ -22,21 +27,24 @@ export const calculateAdditionalValues = (
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
     .map((rateMap) => Object.values(rateMap).flat().filter(isRateValueShape));
 
-  const medicaidValuesByUid = Map.groupBy(
-    medicaidValues,
-    (value) => value.uid as string
-  );
-  const chipValuesByUid = Map.groupBy(
-    chipValues,
-    (value) => value.uid as string
-  );
+  const indexValuesByUid = (values: RateValueShape[]) => {
+    const valuesByUid = new Map<string, RateValueShape>();
+    for (const value of values) {
+      if (value.uid && !valuesByUid.has(value.uid)) {
+        valuesByUid.set(value.uid, value);
+      }
+    }
+    return valuesByUid;
+  };
+  const medicaidValuesByUid = indexValuesByUid(medicaidValues);
+  const chipValuesByUid = indexValuesByUid(chipValues);
 
   const findValues = (uid: string) => {
     const fieldObj = {
       uid,
     } as CombinedRatesPayload["AdditionalValues"][number];
-    const medicaidValue = medicaidValuesByUid.get(uid)?.[0];
-    const chipValue = chipValuesByUid.get(uid)?.[0];
+    const medicaidValue = medicaidValuesByUid.get(uid);
+    const chipValue = chipValuesByUid.get(uid);
 
     fieldObj.label = medicaidValue?.label ?? chipValue?.label ?? "";
     fieldObj.Medicaid = parseQmrNumber(medicaidValue?.value);
