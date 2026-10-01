@@ -139,6 +139,9 @@ const buildSanitizationConfig = (): sanitizeHtml.IOptions => {
       ...Object.keys(extraAttributes),
       ...extraTags,
     ],
+    // Explicitly includes sanitize-html's own default nonTextTags (which this option otherwise replaces) plus "iframe".
+    // `...defaults.nonTextTags` is not currently supported by this version of sanitize-html.
+    nonTextTags: ["script", "style", "textarea", "option", "xmp", "iframe"],
   };
 };
 

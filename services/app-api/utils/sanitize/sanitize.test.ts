@@ -59,18 +59,18 @@ const cleanComplexObject = {
 };
 
 describe("Test sanitizeString", () => {
-  test("Test sanitizeString passes through empty strings and clean strings", () => {
+  it("should pass through empty strings and clean strings", () => {
     expect(sanitizeString("")).toEqual("");
     expect(sanitizeString(cleanString)).toEqual(cleanString);
   });
 
-  test("Test sanitizeString cleans dirty strings", () => {
+  it("should clean dirty strings", () => {
     expect(sanitizeString(dirtyLinkString)).toEqual(cleanLinkString);
   });
 });
 
 describe("Test sanitizeArray", () => {
-  test("Test sanitizeArray passes through empty arrays and clean arrays", () => {
+  it("should pass through empty arrays and clean arrays", () => {
     expect(sanitizeArray([])).toEqual([]);
     expect(sanitizeArray(cleanStringArray)).toEqual(cleanStringArray);
     expect(sanitizeArray(cleanNestedStringArray)).toEqual(
@@ -79,7 +79,7 @@ describe("Test sanitizeArray", () => {
     expect(sanitizeArray(cleanObjectArray)).toEqual(cleanObjectArray);
   });
 
-  test("Test sanitizeArray cleans dirty arrays", () => {
+  it("should clean dirty arrays", () => {
     expect(sanitizeArray(dirtyStringArray)).toEqual(cleanStringArray);
     expect(sanitizeArray(dirtyNestedStringArray)).toEqual(
       cleanNestedStringArray
@@ -89,7 +89,7 @@ describe("Test sanitizeArray", () => {
 });
 
 describe("Test sanitizeObject", () => {
-  test("Test sanitizeObject passes through safe types", () => {
+  it("should pass through safe types", () => {
     expect(sanitizeObject({ safeBoolean })).toEqual({ safeBoolean });
     expect(sanitizeObject({ safeNaN })).toEqual({ safeNaN });
     expect(sanitizeObject({ safeNumber })).toEqual({ safeNumber });
@@ -97,20 +97,20 @@ describe("Test sanitizeObject", () => {
     expect(sanitizeObject({ safeUndefined })).toEqual({ safeUndefined });
   });
 
-  test("Test sanitizeObject passes through empty object, clean object", () => {
+  it("should pass through empty object, clean object", () => {
     expect(sanitizeObject({})).toEqual({});
     expect(sanitizeObject(cleanObject)).toEqual(cleanObject);
     expect(sanitizeObject(cleanComplexObject)).toEqual(cleanComplexObject);
   });
 
-  test("Test sanitizeObject cleans dirty objects", () => {
+  it("should clean dirty objects", () => {
     expect(sanitizeObject(dirtyObject)).toEqual(cleanObject);
     expect(sanitizeObject(dirtyComplexObject)).toEqual(cleanComplexObject);
   });
 });
 
 describe("Test sanitizeString security", () => {
-  test("should strip script tags and their content entirely", () => {
+  it("should strip script tags and their content entirely", () => {
     expect(sanitizeString('<script>alert("xss")</script>')).toEqual("");
     expect(sanitizeString('<script src="evil.js"></script>')).toEqual("");
     expect(
@@ -118,7 +118,7 @@ describe("Test sanitizeString security", () => {
     ).toEqual("<ul><li>item</li></ul>");
   });
 
-  test("should strip event handlers from allowed tags", () => {
+  it("should strip event handlers from allowed tags", () => {
     expect(sanitizeString('<a href="/" onclick="evil()">click</a>')).toEqual(
       '<a href="/">click</a>'
     );
@@ -130,7 +130,7 @@ describe("Test sanitizeString security", () => {
     );
   });
 
-  test("should strip javascript:, data:, and vbscript: protocols from href", () => {
+  it("should strip javascript:, data:, and vbscript: protocols from href", () => {
     expect(sanitizeString('<a href="javascript:alert(1)">click</a>')).toEqual(
       "<a>click</a>"
     );
@@ -144,7 +144,7 @@ describe("Test sanitizeString security", () => {
     );
   });
 
-  test("should allow safe href schemes including protocol-relative", () => {
+  it("should allow safe href schemes including protocol-relative", () => {
     expect(sanitizeString('<a href="https://example.com">link</a>')).toEqual(
       '<a href="https://example.com">link</a>'
     );
@@ -156,13 +156,13 @@ describe("Test sanitizeString security", () => {
     );
   });
 
-  test("should allow http links", () => {
+  it("should allow http links", () => {
     expect(sanitizeString('<a href="http://example.com">link</a>')).toEqual(
       '<a href="http://example.com">link</a>'
     );
   });
 
-  test("should strip style attributes from allowed tags", () => {
+  it("should strip style attributes from allowed tags", () => {
     expect(
       sanitizeString('<a href="/" style="position:fixed;top:0">link</a>')
     ).toEqual('<a href="/">link</a>');
@@ -171,7 +171,7 @@ describe("Test sanitizeString security", () => {
     );
   });
 
-  test("should strip disallowed block/container tags and their text content entirely", () => {
+  it("should strip disallowed block/container tags and their text content entirely", () => {
     // Deception attack: styled overlay with fake content
     expect(
       sanitizeString('<div style="position:fixed;top:0">fake login</div>')
@@ -179,7 +179,7 @@ describe("Test sanitizeString security", () => {
     expect(sanitizeString("<span>inline text</span>")).toEqual("");
   });
 
-  test("should strip iframe, object, and embed and their content entirely", () => {
+  it("should strip iframe, object, and embed and their content entirely", () => {
     expect(
       sanitizeString('<iframe src="evil.com">phishing content</iframe>')
     ).toEqual("");
@@ -189,7 +189,7 @@ describe("Test sanitizeString security", () => {
     expect(sanitizeString('<embed src="evil.swf">')).toEqual("");
   });
 
-  test("should strip form elements and their content entirely", () => {
+  it("should strip form elements and their content entirely", () => {
     expect(
       sanitizeString(
         '<form action="https://evil.com"><input name="password"><button>Submit</button></form>'
@@ -197,23 +197,56 @@ describe("Test sanitizeString security", () => {
     ).toEqual("");
   });
 
-  test("should strip SVG and math elements and their content entirely", () => {
+  it("should strip SVG and math elements and their content entirely", () => {
     expect(
       sanitizeString('<svg onload="evil()"><script>evil()</script></svg>')
     ).toEqual("");
     expect(sanitizeString("<math><mo>x</mo></math>")).toEqual("");
   });
 
-  test("should strip img tags with dangerous attributes", () => {
+  it("should strip img tags with dangerous attributes", () => {
     expect(sanitizeString('<img src="x" onerror="evil()">')).toEqual("");
   });
 
-  test("should preserve plain text outside of any tags", () => {
+  it("should preserve plain text outside of any tags", () => {
     expect(sanitizeString("plain text with no tags")).toEqual(
       "plain text with no tags"
     );
     expect(sanitizeString("text &amp; more text")).toEqual(
       "text &amp; more text"
     );
+  });
+
+  // Regression test for htmlparser2's move to treating iframe as a raw-text
+  // tag (v12), which changed how malformed/unclosed <iframe> is parsed.
+  it.each([
+    [
+      "malformed attribute syntax with a closing tag",
+      "<ul><li>abc<iframe//src=jAva&Tab;script:alert(3)>def</iframe></li></ul>",
+    ],
+    [
+      "malformed attribute syntax without a closing tag",
+      "<ul><li>abc<iframe//src=jAva&Tab;script:alert(3)>def</li></ul>",
+    ],
+    [
+      "unclosed iframe with no closing tag at all",
+      '<ul><li>abc<iframe src="evil.com">payload',
+    ],
+  ])(
+    "should strip content of malformed/unclosed iframe tags: %s",
+    (_description, input) => {
+      expect(sanitizeString(input)).toEqual("<ul><li>abc</li></ul>");
+    }
+  );
+
+  // Regression test for https://github.com/advisories/GHSA-g8qq-57p8-ggw5
+  it("should strip SVG SMIL animate href-list XSS payloads (GHSA-g8qq-57p8-ggw5)", () => {
+    const svgAnimateHrefListPayload =
+      '<svg><a><animate attributeName="href" values="#safe;javascript:alert(1)" dur=".01s" fill="freeze"></animate><text y="30">Click me</text></a></svg>';
+    const sanitized = sanitizeString(svgAnimateHrefListPayload);
+
+    expect(sanitized).not.toContain("javascript:");
+    expect(sanitized).not.toContain("animate");
+    expect(sanitized).toEqual("");
   });
 });

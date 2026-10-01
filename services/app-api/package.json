@@ -65,8 +65,11 @@
     "setupFilesAfterEnv": [],
     "testTimeout": 33000,
     "transform": {
-      "^.+\\.tsx?$": "ts-jest"
+      "^.+\\.(t|j)sx?$": "ts-jest"
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(sanitize-html|htmlparser2|entities|domhandler|domelementtype|domutils|dom-serializer))"
+    ],
     "verbose": true
   }
 }
