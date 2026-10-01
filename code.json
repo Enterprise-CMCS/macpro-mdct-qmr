@@ -23,7 +23,7 @@
   "disclaimerURL": "",
   "disclaimerText": "",
   "vcs": "git",
-  "laborHours": 17541,
+  "laborHours": 17546,
   "reuseFrequency": {
     "forks": 0,
     "clones": 0
@@ -39,8 +39,8 @@
     "TypeScript",
     "JavaScript",
     "HTML",
-    "SCSS",
     "Shell",
+    "SCSS",
     "Smarty"
   ],
   "maintenance": "contract",
@@ -53,8 +53,8 @@
   "partners": [],
   "date": {
     "created": "2021-02-25T16:57:16Z",
-    "lastModified": "2026-08-21T20:45:45Z",
-    "metadataLastUpdated": "2026-09-01T00:05:15.686Z"
+    "lastModified": "2026-09-17T13:48:03Z",
+    "metadataLastUpdated": "2026-10-01T00:05:22.004Z"
   },
   "tags": [
     "mdct"
