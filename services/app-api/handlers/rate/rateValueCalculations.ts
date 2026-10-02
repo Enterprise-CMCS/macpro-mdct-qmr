@@ -1,9 +1,4 @@
-import {
-  CombinedRatesPayload,
-  isRateValueShape,
-  Measure,
-  RateValueShape,
-} from "../../types";
+import { CombinedRatesPayload, isRateValueShape, Measure } from "../../types";
 import {
   addSafely,
   divideSafely,
