@@ -16,6 +16,7 @@ import {
   useDeleteBanner,
 } from "hooks/api";
 import { CoreSetAbbr } from "types";
+import { bannerId } from "utils/constants";
 
 // TODO: Create interfaces for each of the hooks
 
@@ -110,6 +111,7 @@ export const defaultMockValues = {
     isError: undefined,
     isFetched: true,
     data: {
+      key: bannerId,
       title: "test banner",
       description: "test description",
       link: "https://www.mocklink.com",
