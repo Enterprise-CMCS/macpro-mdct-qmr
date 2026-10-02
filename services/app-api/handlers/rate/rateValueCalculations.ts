@@ -25,26 +25,20 @@ export const calculateAdditionalValues = (
 ): CombinedRatesPayload["AdditionalValues"] => {
   const [medicaidValues, chipValues] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
-    .map((rateMap) => Object.values(rateMap).flat().filter(isRateValueShape));
-
-  const indexValuesByUid = (values: RateValueShape[]) => {
-    const valuesByUid = new Map<string, RateValueShape>();
-    for (const value of values) {
-      if (value.uid && !valuesByUid.has(value.uid)) {
-        valuesByUid.set(value.uid, value);
-      }
-    }
-    return valuesByUid;
-  };
-  const medicaidValuesByUid = indexValuesByUid(medicaidValues);
-  const chipValuesByUid = indexValuesByUid(chipValues);
+    .map((rateMap) =>
+      Object.values(rateMap)
+        .flat()
+        .filter(isRateValueShape)
+        .filter((rate) => !!rate.uid)
+    )
+    .map((rateArray) => new Map(rateArray.map((rate) => [rate.uid!, rate])));
 
   const findValues = (uid: string) => {
     const fieldObj = {
       uid,
     } as CombinedRatesPayload["AdditionalValues"][number];
-    const medicaidValue = medicaidValuesByUid.get(uid);
-    const chipValue = chipValuesByUid.get(uid);
+    const medicaidValue = medicaidValues.get(uid);
+    const chipValue = chipValues.get(uid);
 
     fieldObj.label = medicaidValue?.label ?? chipValue?.label ?? "";
     fieldObj.Medicaid = parseQmrNumber(medicaidValue?.value);
