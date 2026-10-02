@@ -2,9 +2,9 @@ import {
   CombinedRatesPayload,
   isRateNDRShape,
   Measure,
+  RateNDRShape,
   WeightedRateShape,
 } from "../../types";
-import { isDefined } from "../../utils/filters";
 import {
   addSafely,
   divideSafely,
@@ -25,13 +25,24 @@ export const combineRates = (
 ): CombinedRatesPayload["Rates"] => {
   const [medicaidRates, chipRates] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
-    .map((rateMap) => Object.values(rateMap).flat().filter(isRateNDRShape));
+    .map((rateMap) =>
+      Object.values(rateMap)
+        .flat()
+        .filter(isRateNDRShape)
+        .filter((rate) => !!rate.uid)
+        .filter((rate) => !ratesToNeverShow.includes(rate.uid!))
+    );
 
-  let uniqueRateIds = [...medicaidRates, ...chipRates]
-    .map((rate) => rate.uid)
-    .filter(isDefined)
-    .filter((uid, i, arr) => i === arr.indexOf(uid))
-    .filter((uid) => !ratesToNeverShow.includes(uid));
+  type RatePair = { medicaidRate?: RateNDRShape; chipRate?: RateNDRShape };
+  const rateUidMap = new Map<string, RatePair>();
+  for (const medicaidRate of medicaidRates) {
+    rateUidMap.set(medicaidRate.uid!, { medicaidRate });
+  }
+  for (const chipRate of chipRates) {
+    const uid = chipRate.uid!;
+    rateUidMap.set(uid, { ...rateUidMap.get(uid), chipRate });
+  }
+  const ratePairs = [...rateUidMap.entries()];
 
   if (
     DataSources.Medicaid.requiresWeightedCalc ||
@@ -39,10 +50,7 @@ export const combineRates = (
   ) {
     // If either measure has a Hybrid data source, we calculate the combined
     // rate, weighted by the individual measures' eligible populations.
-    return uniqueRateIds.map((uid) => {
-      const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
-      const chipRate = chipRates.find((rate) => rate.uid === uid);
-
+    return ratePairs.map(([uid, { medicaidRate, chipRate }]) => {
       const mNumerator = parseQmrNumber(medicaidRate?.numerator);
       const mDenominator = parseQmrNumber(medicaidRate?.denominator);
       const mRate = parseQmrNumber(medicaidRate?.rate);
@@ -143,10 +151,7 @@ export const combineRates = (
       };
     });
   } else {
-    return uniqueRateIds.map((uid) => {
-      const medicaidRate = medicaidRates.find((rate) => rate.uid === uid);
-      const chipRate = chipRates.find((rate) => rate.uid === uid);
-
+    return ratePairs.map(([uid, { medicaidRate, chipRate }]) => {
       const mNumerator = parseQmrNumber(medicaidRate?.numerator);
       const mDenominator = parseQmrNumber(medicaidRate?.denominator);
       const mRate = parseQmrNumber(medicaidRate?.rate);
