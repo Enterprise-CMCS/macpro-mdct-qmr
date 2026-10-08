@@ -16,7 +16,8 @@ export const useWriteBanner = () => {
 
 const _getBanner = async (bannerKey: string) => {
   const banner = await getBanner(bannerKey);
-  return await banner?.Item;
+  // useQuery rejects undefined, so our "no banner" value is an empty object instead.
+  return (await banner?.Item) ?? {};
 };
 
 export const useGetBanner = (bannerKey: string) => {

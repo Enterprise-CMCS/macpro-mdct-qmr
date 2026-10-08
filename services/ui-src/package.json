@@ -118,7 +118,7 @@
     "testEnvironment": "jest-environment-jsdom",
     "testTimeout": 180000,
     "transformIgnorePatterns": [
-      "node_modules/(?!axios)"
+      "node_modules/(?!(sanitize-html|htmlparser2|entities|domhandler|domelementtype|domutils|dom-serializer))"
     ],
     "verbose": true
   }
