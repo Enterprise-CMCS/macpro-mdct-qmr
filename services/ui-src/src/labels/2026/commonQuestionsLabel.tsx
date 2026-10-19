@@ -243,19 +243,6 @@ export const commonQuestionsLabel = {
         </CUI.Text>
         <br />
         <CUI.Text>
-          For 2026 Core Sets reporting, states have the option to stratify race
-          and ethnicity data using either (1) the{" "}
-          {GetLinks("1997-omb-for-2026")}, as specified in the{" "}
-          {GetLinks("hss-standard")}, or (2) the {GetLinks("2024-omb")} for each
-          measure selected for stratification. Select the race and ethnicity
-          standard your state is using for 2026 Core Sets reporting to display
-          all the available stratifications for the measure. If your state is
-          not reporting race and ethnicity data for this measure but is
-          reporting other stratifications, select “Not applicable – our state is
-          not reporting race or ethnicity data.”
-        </CUI.Text>
-        <br />
-        <CUI.Text>
           CMS encourages states to report data in the QMR system for measures
           and rates with small cell sizes. For public reporting, data will be
           suppressed in accordance with the CMS cell-size suppression policy,
