@@ -217,7 +217,7 @@ export const commonQuestionsLabel = {
   },
   MeasureStratification: {
     subHeader: [
-      "Do not select categories and detailed categories for which your state does not collect data.",
+      "States should use their own stratification categories and sub-categories to enter race and ethnicity data. States may add new categories and sub-categories as needed (using the add another category) and should not select categories or sub-categories for which they will not be reporting any data.",
       "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
       "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields.",
     ],
