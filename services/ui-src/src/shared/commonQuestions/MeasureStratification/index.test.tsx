@@ -253,7 +253,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
@@ -272,7 +272,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
@@ -310,7 +310,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
@@ -329,7 +329,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
@@ -367,7 +367,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
