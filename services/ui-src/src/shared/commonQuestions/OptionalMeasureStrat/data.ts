@@ -70,6 +70,7 @@ const omb2024 = (): OmsNode[] => {
     {
       id: "3dpUZu",
       label: "Race and Ethnicity",
+      aggregateTitle: "Race Or Ethnicity",
       options: [
         {
           id: "ll9YP8",
@@ -180,7 +181,7 @@ const omb2024 = (): OmsNode[] => {
           label: "Missing or not reported",
         },
       ],
-      addMore: false,
+      addMore: true,
       addMoreSubCatFlag: false,
     },
     {

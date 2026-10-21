@@ -217,7 +217,7 @@ export const commonQuestionsLabel = {
   },
   MeasureStratification: {
     subHeader: [
-      "Do not select categories and detailed categories for which your state does not collect data.",
+      "States should use their own stratification categories and sub-categories to enter race and ethnicity data. States may add new categories and sub-categories as needed (using the add another category) and should not select categories or sub-categories for which they will not be reporting any data.",
       "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
       "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields.",
     ],
@@ -243,19 +243,6 @@ export const commonQuestionsLabel = {
         </CUI.Text>
         <br />
         <CUI.Text>
-          For 2026 Core Sets reporting, states have the option to stratify race
-          and ethnicity data using either (1) the{" "}
-          {GetLinks("1997-omb-for-2026")}, as specified in the{" "}
-          {GetLinks("hss-standard")}, or (2) the {GetLinks("2024-omb")} for each
-          measure selected for stratification. Select the race and ethnicity
-          standard your state is using for 2026 Core Sets reporting to display
-          all the available stratifications for the measure. If your state is
-          not reporting race and ethnicity data for this measure but is
-          reporting other stratifications, select “Not applicable – our state is
-          not reporting race or ethnicity data.”
-        </CUI.Text>
-        <br />
-        <CUI.Text>
           CMS encourages states to report data in the QMR system for measures
           and rates with small cell sizes. For public reporting, data will be
           suppressed in accordance with the CMS cell-size suppression policy,
@@ -272,21 +259,9 @@ export const commonQuestionsLabel = {
   StratificationOption: {
     subText: [
       <CUI.Text key="description" mb={2}>
-        A summary of the race and ethnicity categories and detailed categories
-        included in each standard is available in Boxes 1 and 2 of the{" "}
-        {GetLinks("strat-ta-resource")}.
+        More information about the 1997 race and ethnicity categories are
+        available at the {GetLinks("strat-ta-resource")}.
       </CUI.Text>,
-      <CUI.UnorderedList key="list" padding="0 0 1rem 2rem">
-        <CUI.ListItem key="1997-omb-item">
-          1997 Office of Management and Budget (OMB) minimum race and ethnicity
-          standards, as specified in the 2011 HHS standards
-        </CUI.ListItem>
-        <CUI.ListItem key="2024-omb-item" mb={2}>
-          2024 OMB Statistical Policy Directive No. 15 race and ethnicity
-          standards
-        </CUI.ListItem>
-        ,
-      </CUI.UnorderedList>,
       <CUI.Box key="alert" mb="1rem">
         <Alert
           heading="Entered data will not be saved if you switch race and ethnicity reporting standards."
@@ -301,8 +276,7 @@ export const commonQuestionsLabel = {
     options: {
       "1997-omb":
         "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
-      "2024-omb":
-        "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
+      "2024-omb": "State specific race and ethnicity stratification categories",
       "not-reporting": "I am not reporting stratified data for this measure",
     },
   },
