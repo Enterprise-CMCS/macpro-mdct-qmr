@@ -5,10 +5,15 @@ import { CoreSetAbbr, ndrFormula } from "types";
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { LabelData } from "utils";
 
-export interface MeasureStratificationLabels {
+export type MeasureStratificationLabels = {
   subHeader: string[];
   addAnotherType: string;
-}
+} & {
+  [coreSetAbbr: string]: {
+    subHeader?: string[];
+    addAnotherType?: string;
+  };
+};
 
 export interface OmsCheckboxProps {
   /** name for react-hook-form registration */
@@ -86,6 +91,12 @@ export interface OmsNode {
   helperText?: string;
   /** should additional category render? */
   addMore?: boolean;
+  /**
+   * If the "add another" button is present, where should it render?
+   * Default is "bottom", after the last standard subcategory.
+   * "top" renders under the category but above the first standard subcategory.
+   */
+  addMoreButtonPlacement?: "top" | "bottom";
   /** should this node have a subCatOption? */
   flagSubCat?: boolean;
   /** if this node have a a subCatOption does it have any label text */

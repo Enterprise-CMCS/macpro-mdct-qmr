@@ -34,13 +34,29 @@ export const OMSData = (version?: string, coreSetId?: string): OmsNode[] => {
     addMedicaidExpansion(data);
   }
 
+  if (version === "state-specific") {
+    allowAdditionalRaceOrEthnicityWithTopButton(data);
+  }
+
   if (version === "not-reporting") {
     data = removeRaceAndEthnicity(data);
   }
 
   modifyMissingLabel(data);
 
+  console.log({ mark: "OMSData return", data });
+
   return data;
+};
+
+const allowAdditionalRaceOrEthnicityWithTopButton = (data: OmsNode[]) => {
+  const raceAndEthnicityNode = data.find((node) => node.id === "3dpUZu");
+  if (!raceAndEthnicityNode) {
+    console.error("Cannot enable custom subcategorization: Node not found");
+    return;
+  }
+  raceAndEthnicityNode.addMore = true;
+  raceAndEthnicityNode.addMoreButtonPlacement = "top";
 };
 
 /** In 2026, users may choose to report stratification on all categories _except_ Race/Ethnicity */
@@ -181,7 +197,7 @@ export const get2024OmsData = (): OmsNode[] => {
           label: "Missing or not reported",
         },
       ],
-      addMore: true,
+      addMore: false,
       addMoreSubCatFlag: false,
     },
     {
