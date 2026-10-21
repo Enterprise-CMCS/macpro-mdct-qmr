@@ -6,7 +6,10 @@ import {
   generateOmsFormData,
 } from "utils/testUtils/validationHelpers";
 import { DefaultFormData } from "shared/types/FormData";
-import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+import {
+  get1997OmsData,
+  getLegacyOmsData,
+} from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { omsLocationDictionary } from "../dataDrivenTools";
 
 describe("Testing OMS validation processor", () => {
@@ -49,7 +52,7 @@ describe("Testing OMS validation processor", () => {
           simpleRate,
         ]),
         true,
-        OMSData(2023)
+        get1997OmsData()
       ) as DefaultFormData,
       validationCallbacks: [],
     });
@@ -81,7 +84,7 @@ describe("Testing OMS validation processor", () => {
       categories,
       qualifiers,
       locationDictionary: omsLocationDictionary(
-        OMSData(2021, true),
+        getLegacyOmsData(true),
         qualifiers,
         categories
       ),

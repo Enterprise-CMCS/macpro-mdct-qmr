@@ -20,7 +20,7 @@ jest.mock("libs/api", () => ({
 
 describe("Test useUpdateMeasure", () => {
   it("Test successful call to API", () => {
-    mockUseParam.mockReturnValue({ state: "MA", year: 2026, coreSetId: "AC" });
+    mockUseParam.mockReturnValue({ state: "MA", year: 2026, coreSetId: "ACS" });
     useUpdateMeasure();
     expect(mockFditMeasure).toHaveBeenCalled();
   });

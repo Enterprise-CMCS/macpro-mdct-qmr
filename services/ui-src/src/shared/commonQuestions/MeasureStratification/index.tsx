@@ -92,6 +92,8 @@ export const StratificationOption = ({ reset, year }: Props) => {
               },
               {
                 displayValue: notReportingLabel,
+                // In 2026+ this is not reporting RACE OR ETHNICITY stratification;
+                // they may still stratify by sex/geography/etc.
                 value: "not-reporting",
                 onClick: reset,
               },
@@ -106,7 +108,7 @@ export const StratificationOption = ({ reset, year }: Props) => {
 export const MeasureStrat = (props: Types.OMSProps) => {
   const labels: any = useContext(SharedContext);
   const year = labels.year;
-  const { coreset, stratificationRequired } = props;
+  const { stratificationRequired } = props;
   const { coreSetId } = useParams();
   const coreSet = (coreSetId?.split("_")?.[0] ??
     coreSetId ??
@@ -140,8 +142,8 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const version = liveOms?.[DC.VERSION] ?? defaultOms?.[DC.VERSION];
   const omsData = useMemo(() => {
     if (version == undefined) return undefined;
-    return OMSData(year, coreset === "adult", version, coreSetId);
-  }, [version, year, coreset, coreSetId]);
+    return OMSData(version, coreSetId);
+  }, [version, year, coreSetId]);
 
   const onReset = () => {
     if (!data.OptionalMeasureStratification?.selections) return;
