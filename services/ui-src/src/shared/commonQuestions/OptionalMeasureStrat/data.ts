@@ -44,8 +44,6 @@ export const OMSData = (version?: string, coreSetId?: string): OmsNode[] => {
 
   modifyMissingLabel(data);
 
-  console.log({ mark: "OMSData return", data });
-
   return data;
 };
 

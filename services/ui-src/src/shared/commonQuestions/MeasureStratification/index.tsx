@@ -236,8 +236,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
         </CUI.Box>
       )}
       <QMR.Accordion label="Instructions (Click to Expand)">
-        {labels.MeasureStratification[coreSet!]?.instructions ??
-          labels.MeasureStratification.instructions}
+        {labels.MeasureStratification.instructions}
       </QMR.Accordion>
       <StratificationOption reset={onReset} year={year}></StratificationOption>
       {shouldShowDetailsSection && detailsSection}

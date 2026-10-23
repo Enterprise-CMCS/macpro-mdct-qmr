@@ -216,60 +216,6 @@ export const commonQuestionsLabel = {
     },
   },
   MeasureStratification: {
-    HHCS: {
-      subHeader: [
-        "Do not select categories and detailed categories for which your state does not collect data.",
-        "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
-        "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields.",
-      ],
-      instructions: (
-        <>
-          <CUI.Text>
-            Enter stratified data below. Beginning with 2025 Core Sets
-            reporting, states are required to report stratified data for a
-            specific subset of Child, Adult, and Health Home Core Set measures.
-            For measures subject to mandatory stratification for 2026 Core Sets
-            reporting, states are expected to report stratified data for each of
-            the following required stratification standards: race and ethnicity,
-            sex, and geography. In addition, states are encouraged, but not
-            required, to report stratified data for two new stratifications: 1
-            {")"} children in foster care at any time during the measurement
-            period; and 2{")"} adults who are eligible for Medicaid under
-            Medicaid expansion programs, as applicable for each QMR report. More
-            information on stratification reporting requirements, including the
-            list of measures and rates subject to mandatory stratification for
-            2026 Core Set reporting and the stratification standards available
-            in each QMR report, is included in the{" "}
-            {GetLinks("strat-ta-resource")}.
-          </CUI.Text>
-          <br />
-          <CUI.Text>
-            For 2026 Core Sets reporting, states have the option to stratify
-            race and ethnicity data using either (1) the{" "}
-            {GetLinks("1997-omb-for-2026")}, as specified in the{" "}
-            {GetLinks("hss-standard")}, or (2) the {GetLinks("2024-omb")} for
-            each measure selected for stratification. Select the race and
-            ethnicity standard your state is using for 2026 Core Sets reporting
-            to display all the available stratifications for the measure. If
-            your state is not reporting race and ethnicity data for this measure
-            but is reporting other stratifications, select “Not applicable – our
-            state is not reporting race or ethnicity data.”
-          </CUI.Text>
-          <br />
-          <CUI.Text>
-            CMS encourages states to report data in the QMR system for measures
-            and rates with small cell sizes. For public reporting, data will be
-            suppressed in accordance with the CMS cell-size suppression policy,
-            which prohibits the direct reporting of beneficiary and record
-            counts of 1 to 10 and values from which users can derive values of 1
-            to 10. Furthermore, CMS will suppress rates with a denominator less
-            than 30 due to reliability concerns. If state policy prohibits
-            reporting certain cell counts, please adhere to state policies and
-            include a note in the stratification open text field.
-          </CUI.Text>
-        </>
-      ),
-    },
     subHeader: [
       "States should use their own stratification categories and sub-categories to enter race and ethnicity data. States may add new categories and sub-categories as needed (using the add another category) and should not select categories or sub-categories for which they will not be reporting any data.",
       "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
@@ -311,43 +257,6 @@ export const commonQuestionsLabel = {
     ),
   },
   StratificationOption: {
-    HHCS: {
-      subText: [
-        <CUI.Text key="description" mb={2}>
-          A summary of the race and ethnicity categories and detailed categories
-          included in each standard is available in Boxes 1 and 2 of the{" "}
-          {GetLinks("strat-ta-resource")}.
-        </CUI.Text>,
-        <CUI.UnorderedList key="list" padding="0 0 1rem 2rem">
-          <CUI.ListItem key="1997-omb-item">
-            1997 Office of Management and Budget (OMB) minimum race and
-            ethnicity standards, as specified in the 2011 HHS standards
-          </CUI.ListItem>
-          <CUI.ListItem key="2024-omb-item" mb={2}>
-            2024 OMB Statistical Policy Directive No. 15 race and ethnicity
-            standards
-          </CUI.ListItem>
-          ,
-        </CUI.UnorderedList>,
-        <CUI.Box key="alert" mb="1rem">
-          <Alert
-            heading="Entered data will not be saved if you switch race and ethnicity reporting standards."
-            variation="warn"
-          >
-            <CUI.Text>
-              Please confirm which standard you are using before entering data.
-            </CUI.Text>
-          </Alert>
-        </CUI.Box>,
-      ],
-      options: {
-        "1997-omb":
-          "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
-        "2024-omb":
-          "2024 OMB Statistical Policy Directive No. 15 race and ethnicity standards",
-        "not-reporting": "I am not reporting stratified data for this measure",
-      },
-    },
     subText: [
       <CUI.Text key="description" mb={2}>
         More information about the 1997 race and ethnicity categories are

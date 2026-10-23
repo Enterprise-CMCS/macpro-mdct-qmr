@@ -5,15 +5,10 @@ import { CoreSetAbbr, ndrFormula } from "types";
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { LabelData } from "utils";
 
-export type MeasureStratificationLabels = {
+export interface MeasureStratificationLabels {
   subHeader: string[];
   addAnotherType: string;
-} & {
-  [coreSetAbbr: string]: {
-    subHeader?: string[];
-    addAnotherType?: string;
-  };
-};
+}
 
 export interface OmsCheckboxProps {
   /** name for react-hook-form registration */

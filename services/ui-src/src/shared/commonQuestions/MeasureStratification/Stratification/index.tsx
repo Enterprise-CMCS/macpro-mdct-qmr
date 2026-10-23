@@ -11,7 +11,6 @@ import { useUser } from "hooks/authHooks";
 import { UserRoles } from "types";
 import { usePathParams } from "hooks/api/usePathParams";
 import SharedContext from "shared/SharedContext";
-import { useParams } from "react-router";
 
 /**
  * Builds out parent level checkboxes
@@ -92,8 +91,6 @@ export const Stratification = ({
   const values = getValues();
   const { userRole } = useUser();
   const { measureId } = usePathParams();
-  const { coreSetId } = useParams();
-  const coreSetAbbr = coreSetId?.split("_")[0];
   //WIP: using form context to get the labels for this component temporarily.
   const labels: Types.MeasureStratificationLabels = (
     useContext(SharedContext) as any
@@ -192,11 +189,9 @@ export const Stratification = ({
           rateCalculation: rateCalc,
         }}
       >
-        {(labels[coreSetAbbr!]?.subHeader ?? labels.subHeader).map(
-          (text: string) => (
-            <CUI.Text key={text}>{text}</CUI.Text>
-          )
-        )}
+        {labels.subHeader.map((text: string) => (
+          <CUI.Text key={text}>{text}</CUI.Text>
+        ))}
         <CUI.UnorderedList
           my={6}
           aria-label="accordion controls"
