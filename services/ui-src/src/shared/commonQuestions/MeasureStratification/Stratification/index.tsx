@@ -40,6 +40,7 @@ export const buildOmsCheckboxes = ({
           options={lvlOneOption.options}
           helperText={lvlOneOption.helperText}
           addMore={!!lvlOneOption.addMore}
+          addMoreButtonPlacement={lvlOneOption.addMoreButtonPlacement}
           parentDisplayName={
             lvlOneOption.aggregateTitle! || lvlOneOption.label!
           }

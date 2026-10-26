@@ -2,14 +2,14 @@ import * as DC from "dataConstants";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import * as Types from "./../../types";
-import { OMSData } from "./data";
+import { get1997OmsData, getLegacyOmsData } from "./data";
 import { PerformanceMeasureProvider } from "./context";
 import { TopLevelOmsChildren } from "./omsNodeBuilder";
 import { useContext, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { useParams } from "react-router";
 import { cleanString, rateIsReadOnly } from "utils";
 import SharedContext from "shared/SharedContext";
+import { featuresByYear } from "utils/featuresByYear";
 
 /**
  * Builds out parent level checkboxes
@@ -90,9 +90,10 @@ export const OptionalMeasureStrat = ({
   if (IUHHPerformanceMeasureArray || AIFHHPerformanceMeasureArray)
     performanceMeasureArray = undefined;
 
-  const { coreSetId } = useParams();
+  const isLegacy = featuresByYear.hasQualCatLabels;
   const omsData =
-    data ?? OMSData(year, coreset === "adult", undefined, coreSetId);
+    data ??
+    (isLegacy ? getLegacyOmsData(coreset === "adult") : get1997OmsData());
   const { control, watch, getValues, setValue, unregister } =
     useFormContext<Types.OMSType>();
   const values = getValues();

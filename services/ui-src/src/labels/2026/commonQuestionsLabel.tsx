@@ -276,7 +276,8 @@ export const commonQuestionsLabel = {
     options: {
       "1997-omb":
         "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
-      "2024-omb": "State specific race and ethnicity stratification categories",
+      "state-specific":
+        "State specific race and ethnicity stratification categories",
       "not-reporting": "I am not reporting stratified data for this measure",
     },
   },
