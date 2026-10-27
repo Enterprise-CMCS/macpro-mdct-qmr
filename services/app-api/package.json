@@ -19,6 +19,7 @@
     "@aws-sdk/client-dynamodb": "~3.1058.0",
     "@aws-sdk/lib-dynamodb": "~3.1058.0",
     "@aws-sdk/util-dynamodb": "~3.996.2",
+    "@qmr/shared": "workspace:*",
     "jwt-decode": "^3.1.2",
     "kafkajs": "^2.2.4",
     "prompt-sync": "^4.2.0",

@@ -1,0 +1,18 @@
+{
+  "name": "@qmr/shared",
+  "version": "1.0.0",
+  "description": "Shared types and utilities for MDCT-QMR frontend and backend",
+  "license": "CC0-1.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "default": "./index.ts"
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

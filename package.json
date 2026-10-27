@@ -22,6 +22,7 @@
     ".github/scanResources",
     "services/app-api",
     "services/database",
+    "services/shared",
     "services/topics",
     "services/ui",
     "services/ui-auth",

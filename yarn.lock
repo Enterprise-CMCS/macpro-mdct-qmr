@@ -5792,6 +5792,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@qmr/shared@workspace:*, @qmr/shared@workspace:services/shared":
+  version: 0.0.0-use.local
+  resolution: "@qmr/shared@workspace:services/shared"
+  dependencies:
+    typescript: "npm:^5.9.3"
+  languageName: unknown
+  linkType: soft
+
 "@react-aria/breadcrumbs@npm:^3.5.32":
   version: 3.5.32
   resolution: "@react-aria/breadcrumbs@npm:3.5.32"
@@ -8785,6 +8793,7 @@ __metadata:
     "@aws-sdk/client-dynamodb": "npm:~3.1058.0"
     "@aws-sdk/lib-dynamodb": "npm:~3.1058.0"
     "@aws-sdk/util-dynamodb": "npm:~3.996.2"
+    "@qmr/shared": "workspace:*"
     "@types/jest": "npm:^30.0.0"
     "@types/prompt-sync": "npm:^4.1.1"
     "@types/sanitize-html": "npm:^2.16.0"
@@ -15612,6 +15621,7 @@ __metadata:
     "@emotion/react": "npm:^11.13.3"
     "@emotion/styled": "npm:^11.13.0"
     "@hookform/resolvers": "npm:^2.9.11"
+    "@qmr/shared": "workspace:*"
     "@tanstack/react-query": "npm:^5"
     "@tanstack/react-query-devtools": "npm:^5"
     "@testing-library/dom": "npm:^10.4.1"
