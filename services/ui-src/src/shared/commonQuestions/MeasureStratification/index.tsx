@@ -32,7 +32,10 @@ export const StratificationAdditionalNotes = () => {
 
 export const StratificationOption = ({ reset, year }: Props) => {
   const labels: any = useContext(SharedContext);
-  const { subText, options } = labels.StratificationOption;
+  const { coreSetId } = useParams();
+  const coreSetAbbr = coreSetId?.split("_")[0];
+  const { subText, options } =
+    labels.StratificationOption[coreSetAbbr!] ?? labels.StratificationOption;
   const { watch } = useFormContext();
   const reportingMeasureStratification = watch(
     `OptionalMeasureStratification.${DC.REPORTING_STRATIFICATION}`
@@ -42,9 +45,18 @@ export const StratificationOption = ({ reset, year }: Props) => {
   const shouldShowStandardsQuestion =
     !shouldShowReportingMeasureStratification ||
     reportingMeasureStratification === "yes";
-  const notReportingLabel = shouldShowReportingMeasureStratification
-    ? "Not applicable – our state is not reporting race or ethnicity data"
-    : options["not-reporting"];
+
+  const radioButtonOptions = Object.entries(options).map(([value, label]) => {
+    if (value === "not-reporting" && shouldShowReportingMeasureStratification) {
+      label =
+        "Not applicable – our state is not reporting race or ethnicity data";
+    }
+    return {
+      displayValue: label as string,
+      value,
+      onClick: reset,
+    };
+  });
 
   return (
     <>
@@ -79,23 +91,7 @@ export const StratificationOption = ({ reset, year }: Props) => {
             formLabelProps={{ fontWeight: "700" }}
             label={`Which race and ethnicity standards would your state like to use for ${year} Core Sets reporting?`}
             subTextElement={subText}
-            options={[
-              {
-                displayValue: options["1997-omb"],
-                value: "1997-omb",
-                onClick: reset,
-              },
-              {
-                displayValue: options["2024-omb"],
-                value: "2024-omb",
-                onClick: reset,
-              },
-              {
-                displayValue: notReportingLabel,
-                value: "not-reporting",
-                onClick: reset,
-              },
-            ]}
+            options={radioButtonOptions}
           ></QMR.RadioButton>
         </CUI.Box>
       )}
@@ -106,11 +102,9 @@ export const StratificationOption = ({ reset, year }: Props) => {
 export const MeasureStrat = (props: Types.OMSProps) => {
   const labels: any = useContext(SharedContext);
   const year = labels.year;
-  const { coreset, stratificationRequired } = props;
+  const { stratificationRequired } = props;
   const { coreSetId } = useParams();
-  const coreSet = (coreSetId?.split("_")?.[0] ??
-    coreSetId ??
-    "ACS") as CoreSetAbbr;
+  const coreSet = (coreSetId?.split("_")[0] ?? "ACS") as CoreSetAbbr;
   const stratificationBannerDescription = getStratificationBannerDescription(
     String(year),
     coreSet,
@@ -140,8 +134,8 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const version = liveOms?.[DC.VERSION] ?? defaultOms?.[DC.VERSION];
   const omsData = useMemo(() => {
     if (version == undefined) return undefined;
-    return OMSData(year, coreset === "adult", version, coreSetId);
-  }, [version, year, coreset, coreSetId]);
+    return OMSData(version, coreSetId);
+  }, [version, year, coreSetId]);
 
   const onReset = () => {
     if (!data.OptionalMeasureStratification?.selections) return;
@@ -223,6 +217,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
     isReportingStratification &&
     (version === "1997-omb" ||
       version === "2024-omb" ||
+      version === "state-specific" ||
       (shouldUseReportingMeasureStratification && version === "not-reporting"));
   const shouldShowStratificationSectionBanner =
     featuresByYear.showStratificationSectionBanner &&
