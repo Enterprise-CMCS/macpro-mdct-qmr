@@ -54,7 +54,7 @@ const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
-  const releaseYearByFlag = useFlags()?.["release2026"];
+  const releaseYearByFlag = useFlags()?.["release2027"];
   // Certain states do not have separate chip and medicaid so we will not
   // display the Combined Rates button for those states
   const showCombinedRatesButton =
@@ -63,14 +63,14 @@ const ReportingYear = () => {
   let reportingyearOptions: IRepYear[] =
     reportingYears && reportingYears.length > 0
       ? reportingYears?.map((year: string) => ({
-          displayValue: year + " Core Set",
-          value: year,
-        }))
+        displayValue: year + " Core Set",
+        value: year,
+      }))
       : [{ displayValue: `${year} Core Set`, value: `${year}` }];
 
   if (!releaseYearByFlag) {
     reportingyearOptions = reportingyearOptions.filter(
-      (entry) => entry.value !== "2026"
+      (entry) => entry.value !== "2027"
     );
   }
 
@@ -125,9 +125,8 @@ const Heading = () => {
     <CUI.Box display={{ base: "block", md: "flex" }}>
       <CUI.Box maxW="3xl" pb="6" pr={{ md: "4rem" }}>
         <CUI.Heading size="lg" data-cy="reporting-year-heading">
-          {`${
-            featuresByYear.displayFFYLanguage ? "FFY" : ""
-          } ${year} Core Set Measures Reporting`}
+          {`${featuresByYear.displayFFYLanguage ? "FFY" : ""
+            } ${year} Core Set Measures Reporting`}
         </CUI.Heading>
         <CUI.Text fontWeight="bold" pt="6">
           Complete each group of Core Set Measures below. Once a group is
@@ -145,7 +144,7 @@ const StateHome = () => {
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
   const resetCoreSetMutation = useResetCoreSet();
-  const releaseYearByFlag = useFlags()?.["release2026"];
+  const releaseYearByFlag = useFlags()?.["release2027"];
   const { data, error, isLoading } = Api.useGetCoreSets(releaseYearByFlag);
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();
