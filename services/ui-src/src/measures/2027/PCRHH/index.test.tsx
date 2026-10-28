@@ -23,7 +23,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "PCR-HH";
 const coreSet = "HHCS";
 const state = "DC";
-const year = 2026;
+const year = 2027;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 

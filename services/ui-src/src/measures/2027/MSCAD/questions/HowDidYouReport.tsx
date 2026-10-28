@@ -25,7 +25,7 @@ export const HowDidYouReport = ({ reportingYear }: Props) => {
             value: DC.YES,
             children: [
               <QMR.CoreQuestionWrapper
-                key="did-report-wrapper-2026"
+                key="did-report-wrapper-2027"
                 testid="did-report"
                 label=""
               >

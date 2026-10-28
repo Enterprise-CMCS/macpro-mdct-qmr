@@ -16,7 +16,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "CPC-CH";
 const coreSet = "CCSC";
 const state = "AL";
-const year = 2026;
+const year = 2027;
 const description = measureDescriptions[`${year}`][measureAbbr];
 const apiData: any = {};
 

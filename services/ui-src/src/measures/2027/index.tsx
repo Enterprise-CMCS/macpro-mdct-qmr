@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { measureTemplate } from "./measureTemplate";
 import { Qualifier } from "shared/Qualifiers";
-import { Data } from "labels/2026/qualifierFormsData";
+import { Data } from "labels/2027/qualifierFormsData";
 import { AutocompletedMeasureTemplate } from "components";
 
 const CPAAD = lazy(() =>
@@ -22,7 +22,7 @@ const PCRHH = lazy(() =>
 const SSHH = lazy(() =>
   import("./SSHH").then((module) => ({ default: module.SSHH }))
 );
-const twentyTwentySixMeasures = {
+const twentyTwentySevenMeasures = {
   "AAB-AD": measureTemplate,
   "AAB-CH": measureTemplate,
   "ADD-CH": measureTemplate,
@@ -109,4 +109,4 @@ const twentyTwentySixMeasures = {
 };
 
 export const QualifierData = Data;
-export default twentyTwentySixMeasures;
+export default twentyTwentySevenMeasures;

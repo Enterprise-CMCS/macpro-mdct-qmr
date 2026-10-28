@@ -18,7 +18,7 @@ expect.extend(toHaveNoViolations);
 const measureAbbr = "SS-1-HH";
 const coreSet = "HHCS";
 const state = "CT";
-const year = 2026;
+const year = 2027;
 const description = "test";
 const apiData: any = {};
 
@@ -32,7 +32,7 @@ jest.mock("react-router", () => ({
 const mockUseParams = useParams as jest.Mock;
 
 jest.mock("../../../utils/getMeasureYear", () => ({
-  getMeasureYear: jest.fn().mockReturnValue(2026),
+  getMeasureYear: jest.fn().mockReturnValue(2027),
 }));
 
 describe(`Test FFY ${year} ${measureAbbr}`, () => {
@@ -41,7 +41,7 @@ describe(`Test FFY ${year} ${measureAbbr}`, () => {
     clearMocks();
 
     mockUseParams.mockReturnValue({
-      year: "2026",
+      year: "2027",
       state: "CT",
       coreSetId: "HHCS",
       measureId: measureAbbr,
