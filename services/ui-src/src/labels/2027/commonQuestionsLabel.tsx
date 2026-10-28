@@ -1,0 +1,289 @@
+import * as DC from "dataConstants";
+import * as CUI from "@chakra-ui/react";
+import { GetLinks } from "labels/CommonLinks";
+import { Alert } from "@cmsgov/design-system";
+
+export const commonQuestionsLabel = {
+  AdditionalNotes: {
+    header: "Additional Notes/Comments on the measure (optional)",
+    section: {
+      isNotReportingText:
+        "Please add any additional notes or comments on the measure not otherwise captured above:",
+      isReportingText:
+        "Please add any additional notes or comments on the measure not otherwise captured above (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    },
+  },
+  CompleteMeasureFooter: {
+    validateMeasureCopy:
+      "Select “Validate Measure” to check for any errors present in the measure prior to completion",
+    completeMeasureCopy:
+      "Select “Complete Measure” to mark the measure as complete and ready for CMS review",
+  },
+  DataSource: {
+    ehrSrc: "Optional - Describe the data source(s) used:",
+    describeDataSrc:
+      "Describe the data collection method or data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    describeAdminDataOtherSrc:
+      "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    describeOptionalECDSDataSrc:
+      "Optional - Describe the ECDS data source(s) used:",
+    srcExplanation: "Data Source Explanation",
+    srcExplanationText:
+      "For each data collection method selected above, describe which reporting entities used each (e.g., health plans, FFS). If the data collection methods differed across health plans or delivery systems, identify the number of plans or delivery systems that used each method (<em>text in this field is included in publicly-reported state-specific comments</em>).",
+    otherDataSourceWarning:
+      "If you report using an “Other” Data Collection Method or Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Collection Method field is accurate, please continue reporting this measure.",
+  },
+  DataSourceCahps: {
+    describeDataSrc:
+      "Describe the data source (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    otherDataSourceWarning:
+      "If you report using an “Other” Data Collection Method or Data Source, CMS will not be able to produce a combined Medicaid & CHIP rate for public reporting. If the information reported in the Data Collection Method field is accurate, please continue reporting this measure.",
+  },
+  DefinitionsOfPopulation: {
+    defineDenomOther:
+      "Define the other denominator population (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    measureEligiblePopDenom: {
+      question: {
+        default:
+          "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes beneficiaries who move between programs (Medicaid and CHIP), plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+        HHCS: "Does this denominator represent your total measure-eligible population as defined by the technical specifications for this measure? This includes enrollees who move between health home providers, plans, or delivery systems during the measurement year but met continuous enrollment requirements at the state level.",
+      },
+      optionYes:
+        "Yes, this denominator includes the total measure-eligible population as defined by the Technical Specifications for this measure.",
+      optionNo:
+        "No, this denominator does not include the total measure-eligible population as defined by the Technical Specifications for this measure.",
+    },
+    explainExcludedPop:
+      "Explain which populations are excluded and why (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    specSizeOfPop:
+      "Specify the size of the excluded measure-eligible population:",
+    deliverySysOther:
+      "Describe the Other Delivery System represented in the denominator (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+    coreSetSpecificOptions: {
+      ACSM: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue: "Title XXI-funded Medicaid Expansion CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+          },
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Medicaid",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include Medicaid (Title XIX) beneficiaries, Title XXI-funded Medicaid Expansion CHIP beneficiaries, and individuals dually eligible for Medicare and Medicaid, select:",
+      },
+      CCSM: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue: "Title XXI-funded Medicaid Expansion CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include both Medicaid (Title XIX) and Title XXI-funded Medicaid Expansion CHIP beneficiaries, select both:",
+      },
+      ACSC: {
+        options: [
+          {
+            displayValue: "Separate CHIP (Title XXI)",
+            value: DC.DENOMINATOR_INC_CHIP,
+          },
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Separate CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include both Separate CHIP (Title XXI) beneficiaries and individuals dually eligible for Medicare and Separate CHIP, select:",
+      },
+      CCSC: {
+        options: [
+          {
+            displayValue: "Separate CHIP (Title XXI)",
+            value: DC.DENOMINATOR_INC_CHIP,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator.",
+      },
+      ACS: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue: "Title XXI-funded Medicaid Expansion CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+          },
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Medicaid",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include Medicaid (Title XIX) beneficiaries, Title XXI-funded Medicaid Expansion CHIP beneficiaries, and individuals dually eligible for Medicare and Medicaid, select:",
+      },
+      CCS: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue: "Title XXI-funded Medicaid Expansion CHIP",
+            value: DC.DENOMINATOR_INC_MEDICAID_EXPANSION,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include both Medicaid (Title XIX) and Title XXI-funded Medicaid Expansion CHIP beneficiaries, select both:",
+      },
+      HHCS: {
+        options: [
+          {
+            displayValue: "Medicaid (Title XIX)",
+            value: DC.DENOMINATOR_INC_MEDICAID_POP,
+          },
+          {
+            displayValue:
+              "Individuals Dually Eligible for Medicare and Medicaid",
+            value: DC.DENOMINATOR_INC_MEDICAID_DUAL_ELIGIBLE,
+          },
+        ],
+        helpText:
+          "Please select all populations that are included in the denominator. For example, if your data include both Medicaid (Title XIX) enrollees and individuals dually eligible for Medicare and Medicaid, select:",
+      },
+    },
+  },
+  DateRange: {
+    header: "Date Range",
+    desc: "For all measures, states should report start and end dates to calculate the denominator. For some measures, the specifications require a “look-back period” before or after the measurement period to determine eligibility or utilization. The measurement period entered in the Start and End Date fields should not include the “look-back period.”",
+    link: [
+      "Information for each measure is available in the ",
+      "Measurement Period Table",
+      " resource.",
+    ],
+  },
+  DeviationFromMeasureSpecification: {
+    header: "Variations from Measure Specifications",
+    section:
+      "Did your calculation of the measure vary from the measure specification in any way?",
+    helper:
+      "For example: variation from measure specification might include different methodology, timeframe, or reported age groups.",
+    optionsText: "Select and explain the variation(s):",
+    options: [
+      {
+        displayValue:
+          "Yes, the calculation of the measure varies from the measure specification.",
+        value: DC.YES,
+      },
+      {
+        displayValue:
+          "No, the calculation of the measure does not vary from the measure specification in any way.",
+        value: DC.NO,
+      },
+    ],
+    deviationReason:
+      "Explain the variation(s) (<em>text in this field is included in publicly-reported state-specific comments</em>):",
+  },
+  MeasureSpecifications: {
+    measureSpecYesNo: true,
+    otherMeasurementSpecWarning:
+      "If you report using Other specifications, CMS will not be able to publicly report the performance rate. In addition, the rate will not be used to calculate a combined Medicaid and CHIP rate. If the information reported in the Specifications field is accurate, please continue reporting this measure.",
+  },
+  OptionalMeasureStratification: {
+    section:
+      "If this measure is also reported by additional classifications/sub-categories, e.g. racial, ethnic, sex, or geography, complete the following as applicable. If your state reported classifications/sub-categories other than those listed below, or reported different rate sets, please click on “Add Another Sub-Category” to add Additional/Alternative Classification/Sub-categories as needed. Please note that CMS may add in additional categories for language and disability status in future reporting years.",
+    additionalContext:
+      "If the state would like to provide additional context about the reported stratified data, including stratification categories, please add notes below (optional)",
+    addAnotherLabel: {
+      header: "Additional Detailed Category",
+      help: "Define the Additional Detailed Category",
+      button: "Detailed Category",
+    },
+  },
+  MeasureStratification: {
+    subHeader: [
+      "States should use their own stratification categories and sub-categories to enter race and ethnicity data. States may add new categories and sub-categories as needed (using the add another category) and should not select categories or sub-categories for which they will not be reporting any data.",
+      "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
+      "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields.",
+    ],
+    addAnotherType: "detailed categories",
+    instructions: (
+      <>
+        <CUI.Text>
+          Enter stratified data below. Beginning with 2025 Core Sets reporting,
+          states are required to report stratified data for a specific subset of
+          Child, Adult, and Health Home Core Set measures. For measures subject
+          to mandatory stratification for 2026 Core Sets reporting, states are
+          expected to report stratified data for each of the following required
+          stratification standards: race and ethnicity, sex, and geography. In
+          addition, states are encouraged, but not required, to report
+          stratified data for two new stratifications: 1{")"} children in foster
+          care at any time during the measurement period; and 2{")"} adults who
+          are eligible for Medicaid under Medicaid expansion programs, as
+          applicable for each QMR report. More information on stratification
+          reporting requirements, including the list of measures and rates
+          subject to mandatory stratification for 2026 Core Set reporting and
+          the stratification standards available in each QMR report, is included
+          in the {GetLinks("strat-ta-resource")}.
+        </CUI.Text>
+        <br />
+        <CUI.Text>
+          CMS encourages states to report data in the QMR system for measures
+          and rates with small cell sizes. For public reporting, data will be
+          suppressed in accordance with the CMS cell-size suppression policy,
+          which prohibits the direct reporting of beneficiary and record counts
+          of 1 to 10 and values from which users can derive values of 1 to 10.
+          Furthermore, CMS will suppress rates with a denominator less than 30
+          due to reliability concerns. If state policy prohibits reporting
+          certain cell counts, please adhere to state policies and include a
+          note in the stratification open text field.
+        </CUI.Text>
+      </>
+    ),
+  },
+  StratificationOption: {
+    subText: [
+      <CUI.Text key="description" mb={2}>
+        More information about the 1997 race and ethnicity categories are
+        available at the {GetLinks("strat-ta-resource")}.
+      </CUI.Text>,
+      <CUI.Box key="alert" mb="1rem">
+        <Alert
+          heading="Entered data will not be saved if you switch race and ethnicity reporting standards."
+          variation="warn"
+        >
+          <CUI.Text>
+            Please confirm which standard you are using before entering data.
+          </CUI.Text>
+        </Alert>
+      </CUI.Box>,
+    ],
+    options: {
+      "1997-omb":
+        "1997 OMB minimum race and ethnicity standards, as specified in the 2011 HHS standards",
+      "state-specific":
+        "State specific race and ethnicity stratification categories",
+      "not-reporting": "I am not reporting stratified data for this measure",
+    },
+  },
+  PerformanceMeasure: {
+    phe: "CMS recognizes that social distancing will make onsite medical chart reviews inadvisable during the COVID-19 pandemic. As such, hybrid measures that rely on such techniques will be particularly challenging during this time. CMS encourages states that can collect information safely to continue reporting the measures they have reported in the past.",
+  },
+};
+
+export default commonQuestionsLabel;
