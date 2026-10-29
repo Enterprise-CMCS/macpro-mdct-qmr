@@ -254,4 +254,27 @@ export const coreSets: CoreSetFields = {
       stateList: getHHStates("2026"),
     },
   ],
+  "2027": [
+    {
+      type: "coreSet",
+      label: "Adult",
+      path: "add-adult",
+      loaded: [],
+      abbr: ["ACS", "ACSC", "ACSM"],
+    },
+    {
+      type: "coreSet",
+      label: "Child",
+      path: "add-child",
+      loaded: [],
+      abbr: ["CCS", "CCSC", "CCSM"],
+    },
+    {
+      type: "coreSet",
+      label: "Health Home",
+      path: "add-hh",
+      abbr: ["HHCS"],
+      stateList: getHHStates("2026"),
+    },
+  ],
 };

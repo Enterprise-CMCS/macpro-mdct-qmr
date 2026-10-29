@@ -63,9 +63,9 @@ const ReportingYear = () => {
   let reportingyearOptions: IRepYear[] =
     reportingYears && reportingYears.length > 0
       ? reportingYears?.map((year: string) => ({
-        displayValue: year + " Core Set",
-        value: year,
-      }))
+          displayValue: year + " Core Set",
+          value: year,
+        }))
       : [{ displayValue: `${year} Core Set`, value: `${year}` }];
 
   if (!releaseYearByFlag) {
@@ -125,8 +125,9 @@ const Heading = () => {
     <CUI.Box display={{ base: "block", md: "flex" }}>
       <CUI.Box maxW="3xl" pb="6" pr={{ md: "4rem" }}>
         <CUI.Heading size="lg" data-cy="reporting-year-heading">
-          {`${featuresByYear.displayFFYLanguage ? "FFY" : ""
-            } ${year} Core Set Measures Reporting`}
+          {`${
+            featuresByYear.displayFFYLanguage ? "FFY" : ""
+          } ${year} Core Set Measures Reporting`}
         </CUI.Heading>
         <CUI.Text fontWeight="bold" pt="6">
           Complete each group of Core Set Measures below. Once a group is
