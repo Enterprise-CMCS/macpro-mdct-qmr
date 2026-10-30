@@ -186,4 +186,40 @@ export const coreSets: CoreSetFields = {
       abbr: ["HHCS"],
     },
   ],
+  "2027": [
+    {
+      type: "coreSet",
+      label: "Adult",
+      path: "add-adult",
+      loaded: stateCombinedLoadedList["2027"],
+      abbr: ["ACS"],
+    },
+    {
+      type: "coreSet",
+      label: "Adult",
+      path: "add-adult",
+      loaded: stateLoadedSeparateList("2027"),
+      abbr: ["ACSC", "ACSM"],
+    },
+    {
+      type: "coreSet",
+      label: "Child",
+      path: "add-child",
+      loaded: stateCombinedLoadedList["2027"],
+      abbr: ["CCS"],
+    },
+    {
+      type: "coreSet",
+      label: "Child",
+      path: "add-child",
+      loaded: stateLoadedSeparateList("2027"),
+      abbr: ["CCSC", "CCSM"],
+    },
+    {
+      type: "coreSet",
+      label: "Health Home",
+      path: "add-hh",
+      abbr: ["HHCS"],
+    },
+  ],
 };

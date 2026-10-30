@@ -4,3 +4,4 @@ export * as MeasureData2023 from "measures/2023/measureTemplateData";
 export * as MeasureData2024 from "measures/2024/measureTemplateData";
 export * as MeasureData2025 from "measures/2025/measureTemplateData";
 export * as MeasureData2026 from "measures/2026/measureTemplateData";
+export * as MeasureData2027 from "measures/2027/measureTemplateData";

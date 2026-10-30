@@ -1,4 +1,4 @@
-export const testingYear = "2026";
+export const testingYear = "2027";
 
 //should match the measures active in the testingYear
 export const measureAbbrList = {

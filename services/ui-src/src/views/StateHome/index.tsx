@@ -54,7 +54,7 @@ const ReportingYear = () => {
   const navigate = useNavigate();
   const { state, year } = useParams();
   const { data: reportingYears } = useGetReportingYears();
-  const releaseYearByFlag = useFlags()?.["release2026"];
+  const releaseYearByFlag = useFlags()?.["release2027"];
   // Certain states do not have separate chip and medicaid so we will not
   // display the Combined Rates button for those states
   const showCombinedRatesButton =
@@ -70,7 +70,7 @@ const ReportingYear = () => {
 
   if (!releaseYearByFlag) {
     reportingyearOptions = reportingyearOptions.filter(
-      (entry) => entry.value !== "2026"
+      (entry) => entry.value !== "2027"
     );
   }
 
@@ -145,7 +145,7 @@ const StateHome = () => {
   const queryClient = useQueryClient();
   const mutation = useUpdateAllMeasures();
   const resetCoreSetMutation = useResetCoreSet();
-  const releaseYearByFlag = useFlags()?.["release2026"];
+  const releaseYearByFlag = useFlags()?.["release2027"];
   const { data, error, isLoading } = Api.useGetCoreSets(releaseYearByFlag);
   const { userState, userRole } = useUser();
   const deleteCoreSet = Api.useDeleteCoreSet();

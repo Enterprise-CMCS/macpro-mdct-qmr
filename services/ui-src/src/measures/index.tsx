@@ -5,6 +5,7 @@ import twentyTwentyThreeMeasures, { QualifierData as data2023 } from "./2023";
 import twentyTwentyFourMeasures, { QualifierData as data2024 } from "./2024";
 import twentyTwentyFiveMeasures, { QualifierData as data2025 } from "./2025";
 import twentyTwentySixMeasures, { QualifierData as data2026 } from "./2026";
+import twentyTwentySevenMeasures, { QualifierData as data2027 } from "./2027";
 import * as QMR from "components";
 
 export type CustomValidator = (res: ResolverResult) => ResolverResult;
@@ -29,6 +30,7 @@ const measuresByYear: MeasuresByYear = {
   2024: twentyTwentyFourMeasures,
   2025: twentyTwentyFiveMeasures,
   2026: twentyTwentySixMeasures,
+  2027: twentyTwentySevenMeasures,
 };
 
 export default measuresByYear;
@@ -39,4 +41,5 @@ export const QualifierData: IQualifierData[] = [
   { year: "2024", data: data2024 },
   { year: "2025", data: data2025 },
   { year: "2026", data: data2026 },
+  { year: "2027", data: data2027 },
 ];

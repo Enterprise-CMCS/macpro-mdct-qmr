@@ -1,0 +1,75 @@
+import { getCatQualLabels } from "../rateLabelText";
+import { MeasureTemplateData } from "shared/types/MeasureTemplate";
+import * as DC from "dataConstants";
+
+export const { categories, qualifiers } = getCatQualLabels("CCS-AD");
+
+export const data: MeasureTemplateData = {
+  type: "HEDIS",
+  coreset: "adult",
+  hybridMeasure: true,
+  performanceMeasure: {
+    questionText: [
+      "Percentage of beneficiaries ages 21 to 64 who were recommended for routine cervical cancer screening and were screened using any of the following criteria:",
+    ],
+    questionListItems: [
+      "Beneficiaries ages 21 to 64 who were recommended for routine cervical cancer screening and had cervical cytology performed within the last 3 years",
+      "Beneficiaries ages 30 to 64 who were recommended for routine cervical cancer screening and had cervical high-risk human papillomavirus (hrHPV)  testing performed within the last 5 years",
+      "Beneficiaries ages 30 to 64 who were recommended for routine cervical cancer screening and had cervical cytology/high-risk human papillomavirus (hrHPV) cotesting within the last 5 years",
+    ],
+    categories,
+    qualifiers,
+  },
+  dataSource: {
+    optionsLabel:
+      "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable below. If your state followed the 2027 Core Set technical specifications and used administrative data only, select ECDS > Administrative.",
+    options: [
+      { value: DC.ELECTRONIC_HEALTH_RECORDS, description: true },
+      {
+        value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
+        subOptions: [
+          {
+            options: [
+              { value: DC.ADMINISTRATIVE },
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.CLINICAL_REGISTRY },
+              { value: DC.CASE_MANAGEMENT_SYSTEM },
+            ],
+          },
+        ],
+        description: true,
+      },
+      { value: DC.OTHER_DATA_SOURCE, description: true },
+    ],
+  },
+  opm: {
+    excludeOptions: ["O8BrOa"],
+  },
+  validations: [
+    "validateFfsRadioButtonCompletion",
+    "validateAtLeastOneDataSourceType",
+    "validateReasonForNotReporting",
+    "validateDateRangeRadioButtonCompletion",
+    "validateAtLeastOneDataSource",
+    "validateDeviationTextFieldFilled",
+    "validateAtLeastOneRateComplete",
+    "validateOPMRates",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateNumeratorsLessThanDenominatorsPM",
+    "validateAtLeastOneDeliverySystem",
+    "validateHybridMeasurePopulation",
+    "validateBothDatesCompleted",
+    "validateAtLeastOneDefinitionOfPopulation",
+    "validateYearFormat",
+  ],
+  override: {
+    omsValidations: {
+      dataSource: true,
+    },
+  },
+};
