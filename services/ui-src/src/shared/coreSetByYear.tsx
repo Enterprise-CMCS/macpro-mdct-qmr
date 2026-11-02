@@ -274,7 +274,7 @@ export const coreSets: CoreSetFields = {
       label: "Health Home",
       path: "add-hh",
       abbr: ["HHCS"],
-      stateList: getHHStates("2026"),
+      stateList: getHHStates("2027"),
     },
   ],
 };

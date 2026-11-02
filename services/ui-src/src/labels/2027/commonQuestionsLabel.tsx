@@ -228,7 +228,7 @@ export const commonQuestionsLabel = {
           Enter stratified data below. Beginning with 2025 Core Sets reporting,
           states are required to report stratified data for a specific subset of
           Child, Adult, and Health Home Core Set measures. For measures subject
-          to mandatory stratification for 2026 Core Sets reporting, states are
+          to mandatory stratification for 2027 Core Sets reporting, states are
           expected to report stratified data for each of the following required
           stratification standards: race and ethnicity, sex, and geography. In
           addition, states are encouraged, but not required, to report
@@ -237,7 +237,7 @@ export const commonQuestionsLabel = {
           are eligible for Medicaid under Medicaid expansion programs, as
           applicable for each QMR report. More information on stratification
           reporting requirements, including the list of measures and rates
-          subject to mandatory stratification for 2026 Core Set reporting and
+          subject to mandatory stratification for 2027 Core Set reporting and
           the stratification standards available in each QMR report, is included
           in the {GetLinks("strat-ta-resource")}.
         </CUI.Text>

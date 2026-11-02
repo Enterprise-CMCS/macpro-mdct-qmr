@@ -46,11 +46,11 @@ export const featuresByYear = {
     return getMeasureYear() >= 2023;
   },
   /**
-   * All years have been released except for 2026 so this checks to make sure
-   * the year is any year except 2026
+   * All years have been released except for 2027 so this checks to make sure
+   * the year is any year except 2027
    */
   get reportingYearReleased() {
-    return getMeasureYear() !== 2026;
+    return getMeasureYear() !== 2027;
   },
   /**
    * Prior to 2024, we didn't distinguish mandatory measures from optional ones.

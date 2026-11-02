@@ -90,7 +90,7 @@ In `services/ui-src/src/libs` directory, update the following files:
 
 ### Update the app-api libs directory files
 
-In `services/app-api/src/libs` directory, update the following files:
+In `services/app-api/libs` directory, update the following files:
 
 1. `coreSetByYearPreloaded.ts`
 
