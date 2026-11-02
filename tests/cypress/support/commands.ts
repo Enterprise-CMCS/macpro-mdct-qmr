@@ -7,6 +7,8 @@ const passwordForCognito = "input[name='password']";
 const coresetListRoute = "**/coreset/**/list";
 const adminBannerRoute = "**/banners/admin-banner-id";
 const reportingYearsRoute = "**/coreset/reportingyears";
+const ldEvalxRoute = "https://clientsdk.launchdarkly.us/sdk/evalx/**";
+const ldStreamRoute = "https://clientstream.launchdarkly.us/eval/**";
 
 const loginUser = (user: string) => {
   cy.session([user], () => {
@@ -43,6 +45,25 @@ Cypress.Commands.add(
     user = "stateuser4" // pragma: allowlist secret
   ) => {
     loginUser(user);
+  }
+);
+
+// Stub LaunchDarkly flag evaluation so tests don't depend on live flag values.
+// Must run before the page loads, since the LD client fetches flags on startup.
+Cypress.Commands.add(
+  "mockLaunchDarklyFlags",
+  (flags: Record<string, boolean | string | number>) => {
+    const body = Object.fromEntries(
+      Object.entries(flags).map(([key, value]) => [
+        key,
+        { value, variation: 0, version: 1 },
+      ])
+    );
+    // The SDK uses GET by default and REPORT when useReport is set
+    cy.intercept("GET", ldEvalxRoute, { statusCode: 200, body });
+    cy.intercept("REPORT", ldEvalxRoute, { statusCode: 200, body });
+    // Block streaming updates so they can't overwrite the stubbed flags
+    cy.intercept(ldStreamRoute, { forceNetworkError: true });
   }
 );
 
