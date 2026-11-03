@@ -29,15 +29,15 @@ const mockUseUser = useUser as jest.Mock;
 describe("Measure Template tests", () => {
   beforeEach(() => {
     clearMocks();
-    mockGetMeasureYear.mockReturnValue(2026);
+    mockGetMeasureYear.mockReturnValue(2027);
   });
 
-  describe(`Test FFY 2026 WCV-CH`, () => {
+  describe(`Test FFY 2027 WCV-CH`, () => {
     // Test Setup
     const measureAbbr = "WCV-CH";
     const coreSet = "CCSC";
     const state = "AL";
-    const year = 2026;
+    const year = 2027;
     const description = measureDescriptions[`${year}`][measureAbbr];
     const apiData: any = {};
 
@@ -300,11 +300,11 @@ describe("Measure Template tests", () => {
     DidReport: "yes",
   };
 
-  describe("Test FFY 2026 BCS-AD", () => {
+  describe("Test FFY 2027 BCS-AD", () => {
     const measureAbbr = "BCS-AD";
     const coreSet = "ACS";
     const state = "AL";
-    const year = 2026;
+    const year = 2027;
     const description = measureDescriptions[`${year}`][measureAbbr];
     const apiData: any = {};
 
