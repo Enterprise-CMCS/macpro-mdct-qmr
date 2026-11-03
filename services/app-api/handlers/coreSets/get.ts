@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
+import { getCoreSetFromTable, getCoreSetsFromTable } from "../../storage/table";
 import { updateCoreSetProgress } from "../../libs/updateCoreProgress";
 import { createCoreSet } from "./create";
 import {
@@ -34,20 +34,12 @@ export const getAllCoreSets = handler(async (event, context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const params = {
-    TableName: process.env.QualityCoreSetsTable!,
-    KeyConditionExpression: "compoundKey = :compoundKey",
-    ExpressionAttributeValues: {
-      ":compoundKey": `${state}${year}`,
-    },
-  };
-
   // using coreSetByYear to see if it's a year that should have coresets generated from login
   const coreSetsByYear = coreSets[
     year as keyof typeof coreSets
   ] as CoreSetField[];
 
-  let results = await dynamoDb.queryAll<CoreSet>(params);
+  let results = await getCoreSetsFromTable({ state, year });
 
   // Find all the coresets that exist in coreSetsByYear but do not exist in the db
   const missingCoreSets = coreSetsByYear.filter((coreSet) => {
@@ -84,7 +76,7 @@ export const getAllCoreSets = handler(async (event, context) => {
         }
       }
     }
-    results = await dynamoDb.queryAll<CoreSet>(params);
+    results = await getCoreSetsFromTable({ state, year });
   }
 
   // Update the progress measure numComplete
@@ -119,14 +111,7 @@ export const getCoreSet = handler(async (event, _context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const params = {
-    TableName: process.env.QualityCoreSetsTable!,
-    Key: {
-      compoundKey: `${state}${year}`,
-      coreSet: coreSet,
-    },
-  };
-  const queryValue = await dynamoDb.get(params);
+  const queryValue = await getCoreSetFromTable({ state, year, coreSet });
   return {
     status: StatusCodes.SUCCESS,
     body: {

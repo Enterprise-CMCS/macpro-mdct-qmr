@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
+import { deleteBannerFromTable } from "../../storage/table";
 import { hasRolePermissions } from "../../libs/authorization";
 import { UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
@@ -21,12 +21,6 @@ export const deleteBanner = handler(async (event, _context) => {
     };
   }
 
-  const params: any = {
-    TableName: process.env.BannersTable!,
-    Key: {
-      key: bannerId,
-    },
-  };
-  await dynamoDb.delete(params);
+  const params = await deleteBannerFromTable(bannerId);
   return { status: StatusCodes.SUCCESS, body: params };
 });

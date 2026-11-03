@@ -1,10 +1,10 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
+import { getMeasureFromTable, putMeasureToTable } from "../../storage/table";
 import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import { Measure, MeasureStatus, UserRoles } from "../../types";
+import { MeasureStatus, UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 
@@ -29,13 +29,7 @@ export const createMeasure = handler(async (event, _context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const existing = await dynamoDb.get<Measure>({
-    TableName: process.env.MeasuresTable!,
-    Key: {
-      compoundKey: `${state}${year}${coreSet}`,
-      measure: measure,
-    },
-  });
+  const existing = await getMeasureFromTable({ state, year, coreSet, measure });
   if (existing && !existing.placeholder && existing.userCreated) {
     return {
       status: StatusCodes.CONFLICT,
@@ -44,14 +38,9 @@ export const createMeasure = handler(async (event, _context) => {
   }
 
   const body = JSON.parse(event!.body!);
-  const params = {
-    TableName: process.env.MeasuresTable!,
-    Item: {
-      compoundKey: `${state}${year}${coreSet}`,
-      state: state,
-      year: year,
-      coreSet: coreSet,
-      measure: measure,
+  const params = await putMeasureToTable(
+    { state, year, coreSet, measure },
+    {
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
@@ -61,10 +50,8 @@ export const createMeasure = handler(async (event, _context) => {
       data: body.data,
       userCreated: body.userCreated,
       placeholder: body.placeholder,
-    },
-  };
-
-  await dynamoDb.put(params);
+    }
+  );
 
   return { status: StatusCodes.SUCCESS, body: params };
 });
