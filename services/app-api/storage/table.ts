@@ -35,9 +35,13 @@ type CoreSetUpdates = {
   lastAltered?: number;
   lastAlteredBy?: string;
 };
-type BannerFields = Omit<Types.Banner, "key" | "createdAt" | "lastAltered"> & {
+type BannerFields = Omit<
+  Types.Banner,
+  "key" | "createdAt" | "lastAltered" | "lastAlteredBy"
+> & {
   createdAt: number;
   lastAltered: number;
+  lastAlteredBy?: string;
 };
 
 // Mutations return their parameters to preserve the handlers' response bodies.
