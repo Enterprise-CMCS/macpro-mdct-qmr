@@ -69,11 +69,17 @@ Cypress.Commands.add(
 
 // Select the year
 Cypress.Commands.add("selectYear", (year) => {
-  cy.intercept("GET", coresetListRoute).as("coresetList");
-  cy.intercept("GET", adminBannerRoute).as("adminBanner");
-  cy.intercept("GET", reportingYearsRoute).as("reportingYears");
-  cy.get('[data-cy="year-select"]').select(year);
-  cy.wait(["@coresetList", "@adminBanner", "@reportingYears"]);
+  cy.get('[data-cy="year-select"]').then(($select) => {
+    if ($select.val() === year) {
+      return;
+    }
+
+    cy.intercept("GET", coresetListRoute).as("coresetList");
+    cy.intercept("GET", adminBannerRoute).as("adminBanner");
+    cy.intercept("GET", reportingYearsRoute).as("reportingYears");
+    cy.wrap($select).select(year);
+    cy.wait(["@coresetList", "@adminBanner", "@reportingYears"]);
+  });
 });
 
 // Visit Adult Core Set Measures
