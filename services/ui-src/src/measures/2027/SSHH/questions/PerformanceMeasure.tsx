@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
-  const { control, reset } = useFormContext();
+  const { control } = useFormContext();
 
   const { fields, remove, append } = useFieldArray({
     name: DC.OPM_RATES,
@@ -22,16 +22,9 @@ export const PerformanceMeasure = ({ rateAlwaysEditable }: Props) => {
 
   useEffect(() => {
     if (fields.length === 0) {
-      reset({
-        name: DC.OPM_RATES,
-        [DC.OPM_RATES]: [
-          {
-            [DC.DESCRIPTION]: "",
-          },
-        ],
-      });
+      append({ [DC.DESCRIPTION]: "" }, { shouldFocus: false });
     }
-  }, [fields, reset]);
+  }, [fields.length, append]);
 
   const { watch } = useFormContext<Types.DataSource>();
 
