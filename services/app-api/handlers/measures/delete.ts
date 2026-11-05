@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import { deleteMeasureFromTable } from "../../storage/table";
+import { deleteMeasureFromTable } from "../../storage/measures";
 import { hasStatePermissions } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";

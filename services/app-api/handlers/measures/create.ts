@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import { getMeasureFromTable, putMeasureToTable } from "../../storage/table";
+import { getMeasureFromTable, putMeasureToTable } from "../../storage/measures";
 import {
   hasRolePermissions,
   hasStatePermissions,

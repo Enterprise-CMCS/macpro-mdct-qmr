@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import { getBannerFromTable } from "../../storage/table";
+import { getBannerFromTable } from "../../storage/banners";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseBannerParameters } from "../../utils/parseParameters";
 

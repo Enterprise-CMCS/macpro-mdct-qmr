@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import { deleteBannerFromTable } from "../../storage/table";
+import { deleteBannerFromTable } from "../../storage/banners";
 import { hasRolePermissions } from "../../libs/authorization";
 import { UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";

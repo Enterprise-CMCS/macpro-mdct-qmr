@@ -1,5 +1,6 @@
 import handler from "../../libs/handler-lib";
-import { putCoreSetToTable, putMeasureToTable } from "../../storage/table";
+import { putCoreSetToTable } from "../../storage/coreSets";
+import { putMeasureToTable } from "../../storage/measures";
 import { getCoreSet } from "./get";
 import { measures } from "../dynamoUtils/measureList";
 import type { MeasureMetaData } from "../../types";

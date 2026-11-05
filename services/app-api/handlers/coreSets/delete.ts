@@ -1,9 +1,9 @@
 import handler from "../../libs/handler-lib";
+import { deleteCoreSetFromTable } from "../../storage/coreSets";
 import {
-  deleteCoreSetFromTable,
   deleteMeasureFromTable,
   getMeasuresFromTable,
-} from "../../storage/table";
+} from "../../storage/measures";
 import { hasStatePermissions } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";

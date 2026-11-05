@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import { updateCoreSetInTable } from "../../storage/table";
+import { updateCoreSetInTable } from "../../storage/coreSets";
 import {
   getUserNameFromJwt,
   hasStatePermissions,

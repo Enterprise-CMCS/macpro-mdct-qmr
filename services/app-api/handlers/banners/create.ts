@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import { putBannerToTable } from "../../storage/table";
+import { putBannerToTable } from "../../storage/banners";
 import { hasRolePermissions } from "../../libs/authorization";
 import { UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";

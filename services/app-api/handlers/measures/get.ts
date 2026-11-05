@@ -1,5 +1,8 @@
 import handler from "../../libs/handler-lib";
-import { getMeasureFromTable, getMeasuresFromTable } from "../../storage/table";
+import {
+  getMeasureFromTable,
+  getMeasuresFromTable,
+} from "../../storage/measures";
 import { measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,

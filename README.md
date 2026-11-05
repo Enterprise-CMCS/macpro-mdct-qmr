@@ -268,11 +268,14 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 The API service provides all backend endpoints for the application. It is deployed with CDK and depends on the database service.
 
 Measure, Core Set, and Banner handlers use
-[`services/app-api/storage/table.ts`](./services/app-api/storage/table.ts) to read
+[`services/app-api/storage/`](./services/app-api/storage/) to read
 and write data, just like Combined Rates. The storage functions handle the
 DynamoDB details, such as which table and record to use. The handlers still check
 permissions, validate requests, and manage related records, such as a Core Set's
 Measures. API responses remain unchanged.
+
+Each table has its own storage file and matching test file: `measures`,
+`coreSets`, `banners`, and `combinedRates`.
 
 #### Parameters
 

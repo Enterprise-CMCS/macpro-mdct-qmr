@@ -1,5 +1,8 @@
 import handler from "../../libs/handler-lib";
-import { getCoreSetFromTable, getCoreSetsFromTable } from "../../storage/table";
+import {
+  getCoreSetFromTable,
+  getCoreSetsFromTable,
+} from "../../storage/coreSets";
 import { updateCoreSetProgress } from "../../libs/updateCoreProgress";
 import { createCoreSet } from "./create";
 import {

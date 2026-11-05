@@ -2,8 +2,8 @@ import handler from "../../libs/handler-lib";
 import {
   getCoreSetFromTable,
   updateCoreSetInTable,
-  updateMeasureInTable,
-} from "../../storage/table";
+} from "../../storage/coreSets";
+import { updateMeasureInTable } from "../../storage/measures";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
