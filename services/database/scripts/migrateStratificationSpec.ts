@@ -1,0 +1,79 @@
+import { logger } from "./logger.js";
+import { batchWriteItems, iterateScan } from "./utils.js";
+
+/*
+ * This migration updates the stratification specification of existing measures.
+ *
+ * When we released the 2026 measures, the values of this radio button were
+ * "1997-omb", "2024-omb", and "not-reporting". After release, we renamed
+ * the second option from "2024-omb" to "state-specific". When we deploy that
+ * change, we will also run this migration, so that the appropriate option
+ * will stay selected for any states who have already filled out this section.
+ *
+ * Environment variables:
+ * - MeasuresTable: The name of the measures table in this environment
+ * - DRY_RUN: Set to any truthy string to prevent database writes.
+ *            Omit for the "live" invocation.
+ * - Anything needed for AWS auth
+ *
+ * Example invocation:
+ * MeasuresTable=production-measures DRY_RUN=true \
+ *   node migrateStratificationSpec.ts
+ */
+
+/** Abbreviated version of the real type defined in the app. */
+type Measure = {
+  compoundKey: string;
+  measure: string;
+  year: number;
+  data?: {
+    OptionalMeasureStratification?: {
+      version?: string;
+    };
+  };
+};
+
+const TableName = process.env.MeasuresTable!;
+const isDryRun = !!process.env.DRY_RUN;
+
+const modifyMeasure = (measure: Measure) => {
+  if (measure.year !== 2026) return false;
+
+  const oms = measure.data?.OptionalMeasureStratification;
+  if (oms?.version !== "2024-omb") return false;
+
+  oms.version = "state-specific";
+  return true;
+};
+
+const getModifiedMeasures = async function* () {
+  for await (const measure of iterateScan<Measure>({}, { TableName })) {
+    const didModify = modifyMeasure(measure);
+    if (didModify) {
+      yield measure;
+    }
+  }
+};
+
+const main = async () => {
+  logger.info("Beginning migration...");
+  const measureIterator = getModifiedMeasures();
+  if (isDryRun) {
+    logger.info(
+      "This is a DRY RUN. No changes will be saved. The following measures _would_ be modified:"
+    );
+    for await (const measure of measureIterator) {
+      logger.debug(measure.compoundKey + "#" + measure.measure);
+    }
+  } else {
+    logger.warn("This is a LIVE RUN. Changes will be saved to the database.");
+    await batchWriteItems({
+      itemIterator: measureIterator,
+      TableName,
+      keySelector: (measure) => measure.compoundKey + "#" + measure.measure,
+    });
+  }
+  logger.info("Complete!");
+};
+
+main();
