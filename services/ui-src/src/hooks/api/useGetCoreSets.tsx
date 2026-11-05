@@ -15,6 +15,7 @@ const getCoreSets = async ({ state, year }: GetCoreSets) => {
   });
 };
 
+// TODO: We're always loading the state and year from the URL no matter the releasedYear flag. Need to determine a proper fallback.
 export const useGetCoreSets = (releasedYear: boolean) => {
   const { state, year } = useParams();
   if (state && year && (releasedYear || featuresByYear.reportingYearReleased)) {
