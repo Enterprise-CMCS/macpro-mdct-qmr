@@ -1,5 +1,5 @@
 import { logger } from "./logger.js";
-import { batchWriteItems, iterateScan } from "./utils.js";
+import { batchWriteItems, iterateScan } from "./migrationUtils.js";
 
 /*
  * This migration updates the stratification specification of existing measures.
@@ -36,31 +36,12 @@ type Measure = {
 const TableName = process.env.MeasuresTable!;
 const isDryRun = !!process.env.DRY_RUN;
 
-const modifyMeasure = (measure: Measure) => {
-  if (measure.year !== 2026) return false;
-
-  const oms = measure.data?.OptionalMeasureStratification;
-  if (oms?.version !== "2024-omb") return false;
-
-  oms.version = "state-specific";
-  return true;
-};
-
-const getModifiedMeasures = async function* () {
-  for await (const measure of iterateScan<Measure>({}, { TableName })) {
-    const didModify = modifyMeasure(measure);
-    if (didModify) {
-      yield measure;
-    }
-  }
-};
-
 const main = async () => {
   logger.info("Beginning migration...");
   const measureIterator = getModifiedMeasures();
   if (isDryRun) {
     logger.info(
-      "This is a DRY RUN. No changes will be saved. The following measures _would_ be modified:"
+      "This is a DRY RUN. No changes will be saved. The following measures WOULD be modified:"
     );
     for await (const measure of measureIterator) {
       logger.debug(measure.compoundKey + "#" + measure.measure);
@@ -74,6 +55,33 @@ const main = async () => {
     });
   }
   logger.info("Complete!");
+};
+
+/**
+ * Pull all possibly-relevant measures from the database.
+ * Change any that need changing, and yield them up to be stored.
+ */
+const getModifiedMeasures = async function* () {
+  for await (const measure of iterateScan<Measure>({}, { TableName })) {
+    const didModify = modifyMeasure(measure);
+    if (didModify) {
+      yield measure;
+    }
+  }
+};
+
+/**
+ * Change the given measure, modifying the object in place.
+ * @returns `true` if a change was made, `false` otherwise.
+ */
+const modifyMeasure = (measure: Measure) => {
+  if (measure.year !== 2026) return false;
+
+  const oms = measure.data?.OptionalMeasureStratification;
+  if (oms?.version !== "2024-omb") return false;
+
+  oms.version = "state-specific";
+  return true;
 };
 
 main();

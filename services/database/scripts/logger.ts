@@ -22,6 +22,9 @@ const levels = ["trace", "debug", "log", "info", "warn", "error"] as const;
 export const logger = Object.fromEntries(
   levels.map((level) => [
     level,
-    (message: string) => console[level](addTimestamp(message)),
+    (...params: any[]) => {
+      const [message, ...rest] = params;
+      console[level](addTimestamp(message ?? ""), ...rest);
+    },
   ])
-) as Record<(typeof levels)[number], (message: string) => void>;
+) as Pick<typeof console, (typeof levels)[number]>;
