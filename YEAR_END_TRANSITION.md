@@ -11,6 +11,10 @@
 - `Home/index.tsx`
 - `StateHome/index.tsx`
 
+3. In `services/ui-src/src/views` directory, update the following to add a new entry for the new year in the JSON object and update associated language and links:
+
+- `CoreSet/index.tsx`
+
 ## Create New Report Year
 
 Find the `services/ui-src/src/measures` directory. You should see past years as folders (2021, 2022, etc.). Ideally, changes to measures would be made from the previous year to the next, so you make a copy of the folder of the most recent year and rename it to the next year (e.g. 2021 -> 2021 Copy -> 2022).
