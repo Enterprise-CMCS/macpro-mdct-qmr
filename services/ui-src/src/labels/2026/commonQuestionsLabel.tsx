@@ -217,7 +217,7 @@ export const commonQuestionsLabel = {
   },
   MeasureStratification: {
     subHeader: [
-      "States should use their own stratification categories and sub-categories to enter race and ethnicity data. States may add new categories and sub-categories as needed (using the add another category) and should not select categories or sub-categories for which they will not be reporting any data.",
+      "States should use their own stratification categories and detailed categories to enter race and ethnicity data. States may add new categories and detailed categories as needed (using the add another category) and should not select categories or detailed categories for which they will not be reporting any data.",
       "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed.",
       "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields.",
     ],
@@ -259,8 +259,8 @@ export const commonQuestionsLabel = {
   StratificationOption: {
     subText: [
       <CUI.Text key="description" mb={2}>
-        More information about the 1997 race and ethnicity categories are
-        available at the {GetLinks("strat-ta-resource")}.
+        More information about the 1997 race and ethnicity categories is
+        available in the {GetLinks("strat-ta-resource")}.
       </CUI.Text>,
       <CUI.Box key="alert" mb="1rem">
         <Alert

@@ -84,7 +84,7 @@ export const get2024OmsData = (): OmsNode[] => {
     {
       id: "3dpUZu",
       label: "Race and Ethnicity",
-      aggregateTitle: "Race Or Ethnicity",
+      aggregateTitle: "Race or Ethnicity",
       options: [
         {
           id: "ll9YP8",
