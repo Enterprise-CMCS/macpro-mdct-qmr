@@ -69,15 +69,13 @@ Cypress.Commands.add(
 
 // Select the year
 Cypress.Commands.add("selectYear", (year) => {
-  cy.get('[data-cy="year-select"]').then(($select) => {
-    if ($select.val() === year) {
-      return;
-    }
+  cy.get('[data-cy="year-select"]').then(($yearSelect) => {
+    if ($yearSelect.val() === year) return;
 
     cy.intercept("GET", coresetListRoute).as("coresetList");
     cy.intercept("GET", adminBannerRoute).as("adminBanner");
     cy.intercept("GET", reportingYearsRoute).as("reportingYears");
-    cy.wrap($select).select(year);
+    cy.wrap($yearSelect).select(year);
     cy.wait(["@coresetList", "@adminBanner", "@reportingYears"]);
   });
 });
