@@ -38,31 +38,34 @@ const isDryRun = !!process.env.DRY_RUN;
 
 const main = async () => {
   logger.info("Beginning migration...");
-  const measureIterator = getModifiedMeasures();
+  const itemIterator = getModifiedMeasures();
   if (isDryRun) {
     logger.info(
       "This is a DRY RUN. No changes will be saved. The following measures WOULD be modified:"
     );
-    for await (const measure of measureIterator) {
-      logger.debug(measure.compoundKey + "#" + measure.measure);
+    for await (const measure of itemIterator) {
+      logger.debug(keySelector(measure));
     }
   } else {
-    logger.warn("This is a LIVE RUN. Changes will be saved to the database.");
-    await batchWriteItems({
-      itemIterator: measureIterator,
-      TableName,
-      keySelector: (measure) => measure.compoundKey + "#" + measure.measure,
-    });
+    logger.warn("This is a LIVE RUN. Changes WILL be saved to the database.");
+    await batchWriteItems({ itemIterator, TableName, keySelector });
   }
   logger.info("Complete!");
 };
+
+const keySelector = (meas: Measure) => meas.compoundKey + "#" + meas.measure;
 
 /**
  * Pull all possibly-relevant measures from the database.
  * Change any that need changing, and yield them up to be stored.
  */
 const getModifiedMeasures = async function* () {
-  for await (const measure of iterateScan<Measure>({}, { TableName })) {
+  // The table structure does not allow us to query by year,
+  // so unfortunately we must scan the whole table.
+  // In 2026, napkin math says this will be fewer than 150k records.
+  // That's a lot, but it's not a disaster.
+  const measures = iterateScan<Measure>({}, { TableName });
+  for await (const measure of measures) {
     const didModify = modifyMeasure(measure);
     if (didModify) {
       yield measure;

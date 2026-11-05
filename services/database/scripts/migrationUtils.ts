@@ -25,6 +25,10 @@ const dynamoClient = DynamoDBDocumentClient.from(
   })
 );
 
+/**
+ * The type of the first argument to both `paginateScan` and `paginateQuery`,
+ * except that the `client` property is optional.
+ */
 type PaginationConfigWithOptionalClient = Omit<
   DynamoDBDocumentPaginationConfiguration,
   "client"
@@ -44,7 +48,7 @@ export const iterateScan = <T>(
   { client = dynamoClient, ...config }: PaginationConfigWithOptionalClient,
   input: ScanCommandInput
 ) => {
-  return iteratePageItems<T>(paginateScan({ ...config, client }, input));
+  return iteratePageItems<T>(paginateScan({ client, ...config }, input));
 };
 
 /**
@@ -60,7 +64,7 @@ export const iterateQuery = <T>(
   { client = dynamoClient, ...config }: PaginationConfigWithOptionalClient,
   input: QueryCommandInput
 ) => {
-  return iteratePageItems<T>(paginateQuery({ ...config, client }, input));
+  return iteratePageItems<T>(paginateQuery({ client, ...config }, input));
 };
 
 const iteratePageItems = async function* <T>(
