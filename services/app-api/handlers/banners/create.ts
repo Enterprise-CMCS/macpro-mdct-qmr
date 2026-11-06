@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
+import { putBannerToTable } from "../../storage/banners";
 import { hasRolePermissions } from "../../libs/authorization";
 import { UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
@@ -22,28 +22,29 @@ export const createBanner = handler(async (event, _context) => {
     };
   }
 
-  const validPayload = (payload: any) => {
-    return (
-      payload.title &&
-      payload.description &&
-      payload.startDate &&
-      payload.endDate
-    );
-  };
+  const payload: Record<string, unknown> | undefined = sanitizeObject(
+    JSON.parse(event!.body!)
+  );
+  const { title, description, startDate, endDate } = payload ?? {};
+  if (
+    typeof title !== "string" ||
+    typeof description !== "string" ||
+    typeof startDate !== "number" ||
+    typeof endDate !== "number" ||
+    !(title && description && startDate && endDate)
+  ) {
+    throw new Error(Errors.INVALID_DATA);
+  }
 
-  const payload = sanitizeObject(JSON.parse(event!.body!));
-  if (!validPayload(payload)) throw new Error(Errors.INVALID_DATA);
-  const params: any = {
-    TableName: process.env.BannersTable!,
-    Item: {
-      key: bannerId,
-      createdAt: Date.now(),
-      lastAltered: Date.now(),
-      lastAlteredBy: event?.headers["cognito-identity-id"],
-      ...payload,
-    },
-  };
-
-  await dynamoDb.put(params);
+  await putBannerToTable(bannerId, {
+    createdAt: Date.now(),
+    lastAltered: Date.now(),
+    lastAlteredBy: event?.headers["cognito-identity-id"],
+    ...payload,
+    title,
+    description,
+    startDate,
+    endDate,
+  });
   return { status: StatusCodes.CREATED };
 });

@@ -1,5 +1,6 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
+import { putCoreSetToTable } from "../../storage/coreSets";
+import { putMeasureToTable } from "../../storage/measures";
 import { getCoreSet } from "./get";
 import { measures } from "../dynamoUtils/measureList";
 import type { MeasureMetaData } from "../../types";
@@ -66,13 +67,9 @@ export const createCoreSet = handler(async (event, context) => {
     }
   ).length;
 
-  const params = {
-    TableName: process.env.QualityCoreSetsTable!,
-    Item: {
-      compoundKey: `${state}${year}`,
-      state: state,
-      year: year,
-      coreSet: coreSet,
+  const params = await putCoreSetToTable(
+    { state, year, coreSet },
+    {
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
@@ -81,10 +78,8 @@ export const createCoreSet = handler(async (event, context) => {
         numComplete: autoCompletedMeasures,
       },
       submitted: false,
-    },
-  };
-
-  await dynamoDb.put(params);
+    }
+  );
   return { status: StatusCodes.SUCCESS, body: params };
 });
 
@@ -103,24 +98,17 @@ const createDependentMeasures = async (
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
-    const params = {
-      TableName: process.env.MeasuresTable!,
-      Item: {
-        compoundKey: `${state}${year}${coreSet}`,
-        state: state,
-        year: year,
-        coreSet: coreSet,
-        measure: measureId,
+    const result = await putMeasureToTable(
+      { state, year, coreSet, measure: measureId },
+      {
         createdAt: Date.now(),
         lastAltered: Date.now(),
         status: measure.autocompleteOnCreation
           ? Types.MeasureStatus.COMPLETE
           : Types.MeasureStatus.INCOMPLETE,
         placeholder: measure.placeholder,
-      },
-    };
-
-    const result = await dynamoDb.put(params);
+      }
+    );
     dependentMeasures.push(result);
   }
 };

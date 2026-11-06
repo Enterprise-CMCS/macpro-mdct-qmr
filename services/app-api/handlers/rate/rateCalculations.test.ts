@@ -1,12 +1,13 @@
-import {
-  getMeasureFromTable,
-  putCombinedRatesToTable,
-} from "../../storage/table";
+import { getMeasureFromTable } from "../../storage/measures";
+import { putCombinedRatesToTable } from "../../storage/combinedRates";
 import { RateParameters } from "../../types";
 import { calculateAndPutRate } from "./rateCalculations";
 
-jest.mock("../../storage/table", () => ({
+jest.mock("../../storage/measures", () => ({
   getMeasureFromTable: jest.fn(),
+}));
+
+jest.mock("../../storage/combinedRates", () => ({
   putCombinedRatesToTable: jest.fn(),
 }));
 

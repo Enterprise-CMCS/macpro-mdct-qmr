@@ -1,6 +1,9 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
-import { createDynamoUpdateParams } from "../dynamoUtils/dynamoParams";
+import {
+  getCoreSetFromTable,
+  updateCoreSetInTable,
+} from "../../storage/coreSets";
+import { updateMeasureInTable } from "../../storage/measures";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
@@ -8,7 +11,6 @@ import {
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 import { calculateAndPutRate } from "../rate/rateCalculations";
-import { CoreSet } from "../../types";
 
 export const editMeasure = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet, measure } =
@@ -45,22 +47,17 @@ export const editMeasure = handler(async (event, _context) => {
           detailedDescription,
         }
       : {};
-  const params = {
-    TableName: process.env.MeasuresTable!,
-    Key: {
-      compoundKey: `${state}${year}${coreSet}`,
-      measure: measure,
-    },
-    ...createDynamoUpdateParams({
+  const params = await updateMeasureInTable(
+    { state, year, coreSet, measure },
+    {
       ...descriptionParams,
       status,
       reporting,
       lastAltered,
       lastAlteredBy,
       data,
-    }),
-  };
-  await dynamoDb.update(params);
+    }
+  );
 
   //in 2024 and onward, we added a new feature called combined rates which requires rate calculations to the rates table
   if (year >= 2024) {
@@ -75,10 +72,7 @@ export const editMeasure = handler(async (event, _context) => {
 
   // If the measure is incomplete, ensure its containing core set is incomplete.
   if (status === "incomplete") {
-    const TableName = process.env.QualityCoreSetsTable!;
-    const Key = { coreSet, compoundKey: `${state}${year}` };
-
-    const coreSetObject = await dynamoDb.get<CoreSet>({ TableName, Key });
+    const coreSetObject = await getCoreSetFromTable({ state, year, coreSet });
 
     if (!coreSetObject) {
       throw new Error(
@@ -87,17 +81,15 @@ export const editMeasure = handler(async (event, _context) => {
     }
 
     if (coreSetObject.status !== "in progress") {
-      const updateCoreSetParams = {
-        TableName,
-        Key,
-        ...createDynamoUpdateParams({
+      await updateCoreSetInTable(
+        { state, year, coreSet },
+        {
           submitted: false,
           status: "in progress",
           lastAltered,
           lastAlteredBy,
-        }),
-      };
-      await dynamoDb.update(updateCoreSetParams);
+        }
+      );
     }
   }
 

@@ -1,6 +1,5 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
-import { createDynamoUpdateParams } from "../dynamoUtils/dynamoParams";
+import { updateCoreSetInTable } from "../../storage/coreSets";
 import {
   getUserNameFromJwt,
   hasStatePermissions,
@@ -27,20 +26,14 @@ export const editCoreSet = handler(async (event, _context) => {
 
   const { submitted, status } = JSON.parse(event!.body!);
   const lastAlteredBy = getUserNameFromJwt(event);
-  const params = {
-    TableName: process.env.QualityCoreSetsTable!,
-    Key: {
-      compoundKey: `${state}${year}`,
-      coreSet: coreSet,
-    },
-    ...createDynamoUpdateParams({
+  const params = await updateCoreSetInTable(
+    { state, year, coreSet },
+    {
       submitted,
       status,
       lastAltered: Date.now(),
       lastAlteredBy,
-    }),
-  };
-
-  await dynamoDb.update(params);
+    }
+  );
   return { status: StatusCodes.SUCCESS, body: params };
 });
