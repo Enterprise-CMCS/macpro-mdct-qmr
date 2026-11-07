@@ -5,6 +5,7 @@ import { measureList2023 } from "./measureList2023";
 import { measureList2024 } from "./measureList2024";
 import { measureList2025 } from "./measureList2025";
 import { measureList2026 } from "./measureList2026";
+import { measureList2027 } from "./measureList2027";
 
 interface Measure {
   [year: number]: MeasureMetaData[];
@@ -17,4 +18,5 @@ export const measures: Measure = {
   2024: measureList2024,
   2025: measureList2025,
   2026: measureList2026,
+  2027: measureList2027,
 };
