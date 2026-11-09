@@ -25,26 +25,28 @@ export const createBanner = handler(async (event, _context) => {
   const payload: Record<string, unknown> | undefined = sanitizeObject(
     JSON.parse(event!.body!)
   );
-  const { title, description, startDate, endDate } = payload ?? {};
+  const { title, description, startDate, endDate, link } = payload ?? {};
   if (
     typeof title !== "string" ||
     typeof description !== "string" ||
     typeof startDate !== "number" ||
     typeof endDate !== "number" ||
-    !(title && description && startDate && endDate)
+    !(title && description && startDate && endDate) ||
+    (link !== undefined && typeof link !== "string")
   ) {
     throw new Error(Errors.INVALID_DATA);
   }
 
-  await putBannerToTable(bannerId, {
-    createdAt: Date.now(),
-    lastAltered: Date.now(),
-    lastAlteredBy: event?.headers["cognito-identity-id"],
-    ...payload,
+  await putBannerToTable({
+    ...(link !== undefined ? { link } : {}),
     title,
     description,
     startDate,
     endDate,
+    key: bannerId,
+    createdAt: Date.now(),
+    lastAltered: Date.now(),
+    lastAlteredBy: event?.headers["cognito-identity-id"],
   });
   return { status: StatusCodes.CREATED };
 });

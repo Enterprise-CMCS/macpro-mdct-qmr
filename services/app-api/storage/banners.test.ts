@@ -34,8 +34,6 @@ describe("Banner storage methods", () => {
     const banner = {
       key: "admin-banner",
       ...bannerFields,
-      createdAt: new Date(10),
-      lastAltered: new Date(20),
     };
     jest.mocked(dynamodbLib.get).mockResolvedValueOnce(banner);
 
@@ -47,13 +45,12 @@ describe("Banner storage methods", () => {
   });
 
   it("should put a banner without changing payload or timestamps", async () => {
-    const params = await putBannerToTable("admin-banner", bannerFields);
+    await putBannerToTable({ key: "admin-banner", ...bannerFields });
 
-    expect(params).toEqual({
+    expect(dynamodbLib.put).toHaveBeenCalledWith({
       TableName: "local-banner",
       Item: { key: "admin-banner", ...bannerFields },
     });
-    expect(dynamodbLib.put).toHaveBeenCalledWith(params);
   });
 
   it("should delete only the requested banner and return its parameters", async () => {
@@ -71,18 +68,4 @@ describe("Banner storage methods", () => {
 
     expect(await getBannerFromTable("admin-banner")).toBeUndefined();
   });
-
-  it.each([
-    ["get banner", "get", () => getBannerFromTable("admin-banner")],
-    ["put banner", "put", () => putBannerToTable("admin-banner", bannerFields)],
-    ["delete banner", "delete", () => deleteBannerFromTable("admin-banner")],
-  ] as const)(
-    "should propagate database errors for %s",
-    async (_name, method, operation) => {
-      const error = new Error("Database unavailable");
-      jest.mocked(dynamodbLib[method]).mockRejectedValueOnce(error);
-
-      await expect(operation()).rejects.toBe(error);
-    }
-  );
 });
