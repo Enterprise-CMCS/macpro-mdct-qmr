@@ -7,7 +7,12 @@
  * This list is also used to generate Types for Unit and Cypress tests.
  */
 
-export const featureFlags = {} as const;
+export const featureFlags = {
+  release2027: {
+    flag: "release2027",
+    default: false,
+  },
+} as const;
 
 export type FlagEnumType = keyof typeof featureFlags;
 
