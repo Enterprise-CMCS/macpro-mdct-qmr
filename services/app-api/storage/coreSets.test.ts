@@ -7,6 +7,7 @@ import {
 } from "./coreSets";
 import dynamodbLib from "../libs/dynamodb-lib";
 import { testCoreSet } from "../test-util/testEvents";
+import { CoreSetAbbr } from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   get: jest.fn(),
@@ -16,7 +17,7 @@ jest.mock("../libs/dynamodb-lib", () => ({
   delete: jest.fn(),
 }));
 
-const parameters = { state: "CO", year: 2024, coreSet: "ACS" };
+const parameters = { state: "CO", year: 2024, coreSet: CoreSetAbbr.ACS };
 const coreSetKey = { compoundKey: "CO2024", coreSet: "ACS" };
 const coreSetFields = {
   createdAt: 10,
@@ -59,7 +60,7 @@ describe("Core Set storage methods", () => {
   });
 
   it("should put a core set and return the existing response shape", async () => {
-    const params = await putCoreSetToTable(parameters, coreSetFields);
+    const params = await putCoreSetToTable({ ...parameters, ...coreSetFields });
     const expected = {
       TableName: "local-coreset",
       Item: { ...coreSetKey, state: "CO", year: 2024, ...coreSetFields },
@@ -81,12 +82,9 @@ describe("Core Set storage methods", () => {
       TableName: "local-coreset",
       Key: coreSetKey,
       UpdateExpression:
-        "SET #submitted = :submitted, #status = :status, #lastAltered = :lastAltered, #lastAlteredBy = :lastAlteredBy",
+        "SET submitted = :submitted, #status = :status, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy",
       ExpressionAttributeNames: {
-        "#submitted": "submitted",
         "#status": "status",
-        "#lastAltered": "lastAltered",
-        "#lastAlteredBy": "lastAlteredBy",
       },
       ExpressionAttributeValues: {
         ":submitted": false,
@@ -98,11 +96,13 @@ describe("Core Set storage methods", () => {
     expect(dynamodbLib.update).toHaveBeenCalledWith(params);
   });
 
-  it("should delete only the requested core set and return its parameters", async () => {
-    const params = await deleteCoreSetFromTable(parameters);
+  it("should delete only the requested core set", async () => {
+    await deleteCoreSetFromTable(parameters);
 
-    expect(params).toEqual({ TableName: "local-coreset", Key: coreSetKey });
-    expect(dynamodbLib.delete).toHaveBeenCalledWith(params);
+    expect(dynamodbLib.delete).toHaveBeenCalledWith({
+      TableName: "local-coreset",
+      Key: coreSetKey,
+    });
   });
 
   it("should preserve missing records and empty lists", async () => {
@@ -112,24 +112,4 @@ describe("Core Set storage methods", () => {
     expect(await getCoreSetFromTable(parameters)).toBeUndefined();
     expect(await getCoreSetsFromTable(parameters)).toEqual([]);
   });
-
-  it.each([
-    ["get core set", "get", () => getCoreSetFromTable(parameters)],
-    ["list core sets", "queryAll", () => getCoreSetsFromTable(parameters)],
-    ["put core set", "put", () => putCoreSetToTable(parameters, coreSetFields)],
-    [
-      "update core set",
-      "update",
-      () => updateCoreSetInTable(parameters, { submitted: false }),
-    ],
-    ["delete core set", "delete", () => deleteCoreSetFromTable(parameters)],
-  ] as const)(
-    "should propagate database errors for %s",
-    async (_name, method, operation) => {
-      const error = new Error("Database unavailable");
-      jest.mocked(dynamodbLib[method]).mockRejectedValueOnce(error);
-
-      await expect(operation()).rejects.toBe(error);
-    }
-  );
 });

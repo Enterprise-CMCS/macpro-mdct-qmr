@@ -67,8 +67,10 @@ describe("Testing Delete Core Set Functions", () => {
       testMeasure,
     ]);
 
-    await deleteCoreSet(event, null);
+    const res = await deleteCoreSet(event, null);
 
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
+    expect(res.body).toBeUndefined();
     expect(db.queryAll).toHaveBeenCalled();
     expect(db.delete).toHaveBeenCalledTimes(4);
   });
@@ -76,8 +78,10 @@ describe("Testing Delete Core Set Functions", () => {
   test("Test deleteCoreSet with no associated measures", async () => {
     (db.queryAll as jest.Mock).mockReturnValue([]);
 
-    await deleteCoreSet(event, null);
+    const res = await deleteCoreSet(event, null);
 
+    expect(res.statusCode).toBe(StatusCodes.SUCCESS);
+    expect(res.body).toBeUndefined();
     expect(db.queryAll).toHaveBeenCalled();
     expect(db.delete).toHaveBeenCalled();
   });

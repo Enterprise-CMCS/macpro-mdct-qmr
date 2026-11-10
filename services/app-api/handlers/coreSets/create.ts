@@ -67,19 +67,19 @@ export const createCoreSet = handler(async (event, context) => {
     }
   ).length;
 
-  const params = await putCoreSetToTable(
-    { state, year, coreSet },
-    {
-      createdAt: Date.now(),
-      lastAltered: Date.now(),
-      lastAlteredBy: event.headers["cognito-identity-id"],
-      progress: {
-        numAvailable: measuresLengthWithoutQualifiers,
-        numComplete: autoCompletedMeasures,
-      },
-      submitted: false,
-    }
-  );
+  const params = await putCoreSetToTable({
+    state,
+    year,
+    coreSet,
+    createdAt: Date.now(),
+    lastAltered: Date.now(),
+    lastAlteredBy: event.headers["cognito-identity-id"],
+    progress: {
+      numAvailable: measuresLengthWithoutQualifiers,
+      numComplete: autoCompletedMeasures,
+    },
+    submitted: false,
+  });
   return { status: StatusCodes.SUCCESS, body: params };
 });
 

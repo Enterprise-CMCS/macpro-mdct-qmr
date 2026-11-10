@@ -100,10 +100,8 @@ describe("Measure storage methods", () => {
       TableName: "local-measure",
       Key: measureKey,
       UpdateExpression:
-        "SET #status = :status, #reporting = :reporting, #data = :data, #description = :description, #detailedDescription = :detailedDescription, #lastAltered = :lastAltered, #lastAlteredBy = :lastAlteredBy",
-      ExpressionAttributeNames: Object.fromEntries(
-        Object.keys(fields).map((key) => [`#${key}`, key])
-      ),
+        "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data, description = :description, detailedDescription = :detailedDescription",
+      ExpressionAttributeNames: { "#status": "status", "#data": "data" },
       ExpressionAttributeValues: Object.fromEntries(
         Object.entries(fields).map(([key, value]) => [`:${key}`, value])
       ),
@@ -116,6 +114,25 @@ describe("Measure storage methods", () => {
 
     expect(params).toEqual({ TableName: "local-measure", Key: measureKey });
     expect(dynamodbLib.delete).toHaveBeenCalledWith(params);
+  });
+
+  it("should leave descriptions unchanged when they are not supplied", async () => {
+    const params = await updateMeasureInTable(parameters, {
+      status: MeasureStatus.INCOMPLETE,
+      reporting: null,
+      data: {},
+      lastAltered: 30,
+      lastAlteredBy: "state-user",
+    });
+
+    expect(params.UpdateExpression).toBe(
+      "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data"
+    );
+    expect(params.ExpressionAttributeValues).not.toHaveProperty(":description");
+    expect(params.ExpressionAttributeValues).not.toHaveProperty(
+      ":detailedDescription"
+    );
+    expect(dynamodbLib.update).toHaveBeenCalledWith(params);
   });
 
   it("should preserve missing records and empty lists", async () => {

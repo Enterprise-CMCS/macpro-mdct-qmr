@@ -22,5 +22,4 @@ export const deleteBannerFromTable = async (bannerId: string) => {
     Key: { key: bannerId },
   };
   await dynamoDb.delete(params);
-  return params;
 };

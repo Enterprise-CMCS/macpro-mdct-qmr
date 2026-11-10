@@ -53,14 +53,13 @@ describe("Banner storage methods", () => {
     });
   });
 
-  it("should delete only the requested banner and return its parameters", async () => {
-    const params = await deleteBannerFromTable("admin-banner");
+  it("should delete only the requested banner", async () => {
+    await deleteBannerFromTable("admin-banner");
 
-    expect(params).toEqual({
+    expect(dynamodbLib.delete).toHaveBeenCalledWith({
       TableName: "local-banner",
       Key: { key: "admin-banner" },
     });
-    expect(dynamodbLib.delete).toHaveBeenCalledWith(params);
   });
 
   it("should preserve missing records", async () => {

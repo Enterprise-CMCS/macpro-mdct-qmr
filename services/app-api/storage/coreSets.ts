@@ -1,6 +1,5 @@
 import dynamoDb from "../libs/dynamodb-lib";
 import { CoreSet } from "../types";
-import { createDynamoUpdateParams } from "../handlers/dynamoUtils/dynamoParams";
 
 type StateAndYearParameters = {
   state: string;
@@ -11,16 +10,10 @@ export type CoreSetParameters = {
   year: number;
   coreSet: string;
 };
-type CoreSetFields = Omit<
+type CoreSetUpdates = Pick<
   CoreSet,
-  "compoundKey" | "state" | "year" | "coreSet"
+  "submitted" | "status" | "lastAltered" | "lastAlteredBy"
 >;
-type CoreSetUpdates = {
-  submitted?: boolean;
-  status?: string;
-  lastAltered?: number;
-  lastAlteredBy?: string;
-};
 
 export const getCoreSetFromTable = async ({
   state,
@@ -46,17 +39,13 @@ export const getCoreSetsFromTable = async ({
 
 // Mutations return their parameters to preserve the handlers' response bodies.
 export const putCoreSetToTable = async (
-  { state, year, coreSet }: CoreSetParameters,
-  fields: CoreSetFields
+  coreSet: Omit<CoreSet, "compoundKey">
 ) => {
   const params = {
     TableName: process.env.QualityCoreSetsTable!,
     Item: {
-      compoundKey: `${state}${year}`,
-      state,
-      year,
-      coreSet,
-      ...fields,
+      compoundKey: `${coreSet.state}${coreSet.year}`,
+      ...coreSet,
     },
   };
   await dynamoDb.put(params);
@@ -70,7 +59,15 @@ export const updateCoreSetInTable = async (
   const params = {
     TableName: process.env.QualityCoreSetsTable!,
     Key: { compoundKey: `${state}${year}`, coreSet },
-    ...createDynamoUpdateParams(fields),
+    UpdateExpression:
+      "SET submitted = :submitted, #status = :status, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy",
+    ExpressionAttributeNames: { "#status": "status" },
+    ExpressionAttributeValues: {
+      ":submitted": fields.submitted,
+      ":status": fields.status,
+      ":lastAltered": fields.lastAltered,
+      ":lastAlteredBy": fields.lastAlteredBy,
+    },
   };
   await dynamoDb.update(params);
   return params;
@@ -86,5 +83,4 @@ export const deleteCoreSetFromTable = async ({
     Key: { compoundKey: `${state}${year}`, coreSet },
   };
   await dynamoDb.delete(params);
-  return params;
 };

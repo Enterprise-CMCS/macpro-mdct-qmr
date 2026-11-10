@@ -1,6 +1,5 @@
 import dynamoDb from "../libs/dynamodb-lib";
 import { Measure, MeasureStatus, RateParameters } from "../types";
-import { createDynamoUpdateParams } from "../handlers/dynamoUtils/dynamoParams";
 import type { CoreSetParameters } from "./coreSets";
 
 type MeasureFields = Omit<
@@ -67,10 +66,31 @@ export const updateMeasureInTable = async (
   { state, year, coreSet, measure }: RateParameters,
   fields: MeasureUpdates
 ) => {
+  const updateDescriptions =
+    fields.description !== undefined &&
+    fields.detailedDescription !== undefined;
   const params = {
     TableName: process.env.MeasuresTable!,
     Key: { compoundKey: `${state}${year}${coreSet}`, measure },
-    ...createDynamoUpdateParams(fields),
+    UpdateExpression:
+      "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data" +
+      (updateDescriptions
+        ? ", description = :description, detailedDescription = :detailedDescription"
+        : ""),
+    ExpressionAttributeNames: { "#status": "status", "#data": "data" },
+    ExpressionAttributeValues: {
+      ":status": fields.status,
+      ":reporting": fields.reporting,
+      ":lastAltered": fields.lastAltered,
+      ":lastAlteredBy": fields.lastAlteredBy,
+      ":data": fields.data,
+      ...(updateDescriptions
+        ? {
+            ":description": fields.description,
+            ":detailedDescription": fields.detailedDescription,
+          }
+        : {}),
+    },
   };
   await dynamoDb.update(params);
   return params;

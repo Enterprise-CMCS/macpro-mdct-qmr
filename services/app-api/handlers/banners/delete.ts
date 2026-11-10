@@ -21,6 +21,6 @@ export const deleteBanner = handler(async (event, _context) => {
     };
   }
 
-  const params = await deleteBannerFromTable(bannerId);
-  return { status: StatusCodes.SUCCESS, body: params };
+  await deleteBannerFromTable(bannerId);
+  return { status: StatusCodes.SUCCESS };
 });

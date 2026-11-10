@@ -25,12 +25,11 @@ export const deleteCoreSet = handler(async (event, _context) => {
     };
   }
 
-  const params = await deleteCoreSetFromTable({ state, year, coreSet });
+  await deleteCoreSetFromTable({ state, year, coreSet });
   await deleteDependentMeasures(state, year, coreSet);
 
   return {
     status: StatusCodes.SUCCESS,
-    body: params,
   };
 });
 
