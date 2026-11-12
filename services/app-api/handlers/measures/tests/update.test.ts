@@ -69,8 +69,7 @@ describe("Test Update Measure Handler", () => {
     const res = await editMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("IN2022ACS");
-    expect(res.body).toContain('"measure":"AAB-AD"');
+    expect(res.body).toBeUndefined();
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",
       Key: { compoundKey: "IN2022ACS", measure: "AAB-AD" },
@@ -93,8 +92,7 @@ describe("Test Update Measure Handler", () => {
     const res = await editMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("IN2022ACS");
-    expect(res.body).toContain('"measure":"AAB-AD"');
+    expect(res.body).toBeUndefined();
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",
       Key: { compoundKey: "IN2022ACS", measure: "AAB-AD" },

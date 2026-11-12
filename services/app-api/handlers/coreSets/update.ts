@@ -26,14 +26,13 @@ export const editCoreSet = handler(async (event, _context) => {
 
   const { submitted, status } = JSON.parse(event!.body!);
   const lastAlteredBy = getUserNameFromJwt(event);
-  const params = await updateCoreSetInTable(
-    { state, year, coreSet },
-    {
-      submitted,
-      status,
-      lastAltered: Date.now(),
-      lastAlteredBy,
-    }
-  );
-  return { status: StatusCodes.SUCCESS, body: params };
+  await updateCoreSetInTable({
+    compoundKey: `${state}${year}`,
+    coreSet,
+    submitted,
+    status,
+    lastAltered: Date.now(),
+    lastAlteredBy,
+  });
+  return { status: StatusCodes.SUCCESS };
 });

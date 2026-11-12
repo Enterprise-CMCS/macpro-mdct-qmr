@@ -21,12 +21,12 @@ export const deleteMeasure = handler(async (event, _context) => {
     };
   }
 
-  const params = await deleteMeasureFromTable({
+  await deleteMeasureFromTable({
     state,
     year,
     coreSet,
     measure,
   });
 
-  return { status: StatusCodes.SUCCESS, body: params };
+  return { status: StatusCodes.SUCCESS };
 });

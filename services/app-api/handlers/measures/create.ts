@@ -38,20 +38,22 @@ export const createMeasure = handler(async (event, _context) => {
   }
 
   const body = JSON.parse(event!.body!);
-  const params = await putMeasureToTable(
-    { state, year, coreSet, measure },
-    {
-      createdAt: Date.now(),
-      lastAltered: Date.now(),
-      lastAlteredBy: event.headers["cognito-identity-id"],
-      status: MeasureStatus.INCOMPLETE,
-      description: body.description ?? "",
-      detailedDescription: body.detailedDescription ?? "",
-      data: body.data,
-      userCreated: body.userCreated,
-      placeholder: body.placeholder,
-    }
-  );
+  const params = await putMeasureToTable({
+    compoundKey: `${state}${year}${coreSet}`,
+    state,
+    year,
+    coreSet,
+    measure,
+    createdAt: Date.now(),
+    lastAltered: Date.now(),
+    lastAlteredBy: event.headers["cognito-identity-id"],
+    status: MeasureStatus.INCOMPLETE,
+    description: body.description ?? "",
+    detailedDescription: body.detailedDescription ?? "",
+    data: body.data,
+    userCreated: body.userCreated,
+    placeholder: body.placeholder,
+  });
 
   return { status: StatusCodes.SUCCESS, body: params };
 });

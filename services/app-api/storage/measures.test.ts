@@ -6,7 +6,7 @@ import {
   deleteMeasureFromTable,
 } from "./measures";
 import dynamodbLib from "../libs/dynamodb-lib";
-import { MeasureStatus } from "../types";
+import { CoreSetAbbr, MeasureStatus } from "../types";
 import { testMeasure } from "../test-util/testEvents";
 
 jest.mock("../libs/dynamodb-lib", () => ({
@@ -20,7 +20,7 @@ jest.mock("../libs/dynamodb-lib", () => ({
 const parameters = {
   state: "CO",
   year: 2024,
-  coreSet: "ACS",
+  coreSet: CoreSetAbbr.ACS,
   measure: "ZZZ-AD",
 };
 const measureKey = { compoundKey: "CO2024ACS", measure: "ZZZ-AD" };
@@ -34,6 +34,13 @@ const measureFields = {
   data: {},
   userCreated: true,
   placeholder: false,
+};
+const measureItem = {
+  ...measureKey,
+  state: parameters.state,
+  year: parameters.year,
+  coreSet: parameters.coreSet,
+  ...measureFields,
 };
 
 describe("Measure storage methods", () => {
@@ -68,17 +75,11 @@ describe("Measure storage methods", () => {
   });
 
   it("should put a measure and return the existing response shape", async () => {
-    const params = await putMeasureToTable(parameters, measureFields);
     const expected = {
       TableName: "local-measure",
-      Item: {
-        ...measureKey,
-        state: "CO",
-        year: 2024,
-        coreSet: "ACS",
-        ...measureFields,
-      },
+      Item: measureItem,
     };
+    const params = await putMeasureToTable(expected.Item);
 
     expect(dynamodbLib.put).toHaveBeenCalledWith(expected);
     expect(params).toEqual(expected);
@@ -94,9 +95,9 @@ describe("Measure storage methods", () => {
       lastAltered: 30,
       lastAlteredBy: "state-user",
     };
-    const params = await updateMeasureInTable(parameters, fields);
+    await updateMeasureInTable(parameters, fields);
 
-    expect(params).toEqual({
+    expect(dynamodbLib.update).toHaveBeenCalledWith({
       TableName: "local-measure",
       Key: measureKey,
       UpdateExpression:
@@ -106,18 +107,19 @@ describe("Measure storage methods", () => {
         Object.entries(fields).map(([key, value]) => [`:${key}`, value])
       ),
     });
-    expect(dynamodbLib.update).toHaveBeenCalledWith(params);
   });
 
-  it("should delete only the requested measure and return its parameters", async () => {
-    const params = await deleteMeasureFromTable(parameters);
+  it("should delete only the requested measure", async () => {
+    await deleteMeasureFromTable(parameters);
 
-    expect(params).toEqual({ TableName: "local-measure", Key: measureKey });
-    expect(dynamodbLib.delete).toHaveBeenCalledWith(params);
+    expect(dynamodbLib.delete).toHaveBeenCalledWith({
+      TableName: "local-measure",
+      Key: measureKey,
+    });
   });
 
   it("should leave descriptions unchanged when they are not supplied", async () => {
-    const params = await updateMeasureInTable(parameters, {
+    await updateMeasureInTable(parameters, {
       status: MeasureStatus.INCOMPLETE,
       reporting: null,
       data: {},
@@ -125,14 +127,16 @@ describe("Measure storage methods", () => {
       lastAlteredBy: "state-user",
     });
 
-    expect(params.UpdateExpression).toBe(
-      "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data"
+    expect(dynamodbLib.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        UpdateExpression:
+          "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data",
+        ExpressionAttributeValues: expect.not.objectContaining({
+          ":description": expect.anything(),
+          ":detailedDescription": expect.anything(),
+        }),
+      })
     );
-    expect(params.ExpressionAttributeValues).not.toHaveProperty(":description");
-    expect(params.ExpressionAttributeValues).not.toHaveProperty(
-      ":detailedDescription"
-    );
-    expect(dynamodbLib.update).toHaveBeenCalledWith(params);
   });
 
   it("should preserve missing records and empty lists", async () => {
@@ -146,7 +150,7 @@ describe("Measure storage methods", () => {
   it.each([
     ["get measure", "get", () => getMeasureFromTable(parameters)],
     ["list measures", "queryAll", () => getMeasuresFromTable(parameters)],
-    ["put measure", "put", () => putMeasureToTable(parameters, measureFields)],
+    ["put measure", "put", () => putMeasureToTable(measureItem)],
     [
       "update measure",
       "update",

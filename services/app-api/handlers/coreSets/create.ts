@@ -67,7 +67,8 @@ export const createCoreSet = handler(async (event, context) => {
     }
   ).length;
 
-  const params = await putCoreSetToTable({
+  await putCoreSetToTable({
+    compoundKey: `${state}${year}`,
     state,
     year,
     coreSet,
@@ -80,7 +81,7 @@ export const createCoreSet = handler(async (event, context) => {
     },
     submitted: false,
   });
-  return { status: StatusCodes.SUCCESS, body: params };
+  return { status: StatusCodes.SUCCESS };
 });
 
 const createDependentMeasures = async (
@@ -98,17 +99,19 @@ const createDependentMeasures = async (
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
-    const result = await putMeasureToTable(
-      { state, year, coreSet, measure: measureId },
-      {
-        createdAt: Date.now(),
-        lastAltered: Date.now(),
-        status: measure.autocompleteOnCreation
-          ? Types.MeasureStatus.COMPLETE
-          : Types.MeasureStatus.INCOMPLETE,
-        placeholder: measure.placeholder,
-      }
-    );
+    const result = await putMeasureToTable({
+      compoundKey: `${state}${year}${coreSet}`,
+      state,
+      year,
+      coreSet,
+      measure: measureId,
+      createdAt: Date.now(),
+      lastAltered: Date.now(),
+      status: measure.autocompleteOnCreation
+        ? Types.MeasureStatus.COMPLETE
+        : Types.MeasureStatus.INCOMPLETE,
+      placeholder: measure.placeholder,
+    });
     dependentMeasures.push(result);
   }
 };

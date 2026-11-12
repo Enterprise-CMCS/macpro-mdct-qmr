@@ -18,7 +18,7 @@ jest.mock("../libs/dynamodb-lib", () => ({
 }));
 
 const parameters = { state: "CO", year: 2024, coreSet: CoreSetAbbr.ACS };
-const coreSetKey = { compoundKey: "CO2024", coreSet: "ACS" };
+const coreSetKey = { compoundKey: "CO2024", coreSet: CoreSetAbbr.ACS };
 const coreSetFields = {
   createdAt: 10,
   lastAltered: 20,
@@ -59,19 +59,19 @@ describe("Core Set storage methods", () => {
     });
   });
 
-  it("should put a core set and return the existing response shape", async () => {
-    const params = await putCoreSetToTable({ ...parameters, ...coreSetFields });
+  it("should put a core set", async () => {
     const expected = {
       TableName: "local-coreset",
       Item: { ...coreSetKey, state: "CO", year: 2024, ...coreSetFields },
     };
+    await putCoreSetToTable(expected.Item);
 
     expect(dynamodbLib.put).toHaveBeenCalledWith(expected);
-    expect(params).toEqual(expected);
   });
 
   it("should update a core set including submission status", async () => {
-    const params = await updateCoreSetInTable(parameters, {
+    const params = await updateCoreSetInTable({
+      ...coreSetKey,
       submitted: false,
       status: "in progress",
       lastAltered: 30,

@@ -47,7 +47,7 @@ export const editMeasure = handler(async (event, _context) => {
           detailedDescription,
         }
       : {};
-  const params = await updateMeasureInTable(
+  await updateMeasureInTable(
     { state, year, coreSet, measure },
     {
       ...descriptionParams,
@@ -81,17 +81,16 @@ export const editMeasure = handler(async (event, _context) => {
     }
 
     if (coreSetObject.status !== "in progress") {
-      await updateCoreSetInTable(
-        { state, year, coreSet },
-        {
-          submitted: false,
-          status: "in progress",
-          lastAltered,
-          lastAlteredBy,
-        }
-      );
+      await updateCoreSetInTable({
+        compoundKey: `${state}${year}`,
+        coreSet,
+        submitted: false,
+        status: "in progress",
+        lastAltered,
+        lastAlteredBy,
+      });
     }
   }
 
-  return { status: StatusCodes.SUCCESS, body: params };
+  return { status: StatusCodes.SUCCESS };
 });

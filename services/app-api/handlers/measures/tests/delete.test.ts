@@ -60,8 +60,7 @@ describe("Test Delete Measure Handler", () => {
     const res = await deleteMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("IN2022ACS");
-    expect(res.body).toContain('"measure":"AAB-AD"');
+    expect(res.body).toBeUndefined();
     expect(dbLib.delete).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       Key: {

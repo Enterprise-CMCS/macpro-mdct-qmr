@@ -1,11 +1,8 @@
+import type { UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
 import dynamoDb from "../libs/dynamodb-lib";
 import { Measure, MeasureStatus, RateParameters } from "../types";
 import type { CoreSetParameters } from "./coreSets";
 
-type MeasureFields = Omit<
-  Measure,
-  "compoundKey" | "state" | "year" | "coreSet" | "measure"
->;
 type MeasureUpdates = {
   description?: string;
   detailedDescription?: string;
@@ -42,21 +39,10 @@ export const getMeasuresFromTable = async ({
 };
 
 // Mutations return their parameters to preserve the handlers' response bodies.
-export const putMeasureToTable = async (
-  parameters: RateParameters,
-  fields: MeasureFields
-) => {
-  const { state, year, coreSet, measure } = parameters;
+export const putMeasureToTable = async (measure: Measure) => {
   const params = {
     TableName: process.env.MeasuresTable!,
-    Item: {
-      compoundKey: `${state}${year}${coreSet}`,
-      state,
-      year,
-      coreSet,
-      measure,
-      ...fields,
-    },
+    Item: measure,
   };
   await dynamoDb.put(params);
   return params;
@@ -66,17 +52,16 @@ export const updateMeasureInTable = async (
   { state, year, coreSet, measure }: RateParameters,
   fields: MeasureUpdates
 ) => {
-  const updateDescriptions =
-    fields.description !== undefined &&
-    fields.detailedDescription !== undefined;
-  const params = {
+  const params: UpdateCommandInput & {
+    UpdateExpression: string;
+    ExpressionAttributeValues: NonNullable<
+      UpdateCommandInput["ExpressionAttributeValues"]
+    >;
+  } = {
     TableName: process.env.MeasuresTable!,
     Key: { compoundKey: `${state}${year}${coreSet}`, measure },
     UpdateExpression:
-      "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data" +
-      (updateDescriptions
-        ? ", description = :description, detailedDescription = :detailedDescription"
-        : ""),
+      "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data",
     ExpressionAttributeNames: { "#status": "status", "#data": "data" },
     ExpressionAttributeValues: {
       ":status": fields.status,
@@ -84,16 +69,25 @@ export const updateMeasureInTable = async (
       ":lastAltered": fields.lastAltered,
       ":lastAlteredBy": fields.lastAlteredBy,
       ":data": fields.data,
-      ...(updateDescriptions
-        ? {
-            ":description": fields.description,
-            ":detailedDescription": fields.detailedDescription,
-          }
-        : {}),
     },
   };
+
+  // We include description fields only when saving from <UpdateInfoModal/>.
+  // It is only used to edit descriptions for State-Specific measures.
+  if (
+    fields.description !== undefined &&
+    fields.detailedDescription !== undefined
+  ) {
+    params.UpdateExpression +=
+      ", description = :description, detailedDescription = :detailedDescription";
+    params.ExpressionAttributeValues = {
+      ...params.ExpressionAttributeValues,
+      ":description": fields.description,
+      ":detailedDescription": fields.detailedDescription,
+    };
+  }
+
   await dynamoDb.update(params);
-  return params;
 };
 
 export const deleteMeasureFromTable = async ({
@@ -107,5 +101,4 @@ export const deleteMeasureFromTable = async ({
     Key: { compoundKey: `${state}${year}${coreSet}`, measure },
   };
   await dynamoDb.delete(params);
-  return params;
 };

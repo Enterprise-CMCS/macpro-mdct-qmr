@@ -10,11 +10,6 @@ export type CoreSetParameters = {
   year: number;
   coreSet: string;
 };
-type CoreSetUpdates = Pick<
-  CoreSet,
-  "submitted" | "status" | "lastAltered" | "lastAlteredBy"
->;
-
 export const getCoreSetFromTable = async ({
   state,
   year,
@@ -37,36 +32,40 @@ export const getCoreSetsFromTable = async ({
   });
 };
 
-// Mutations return their parameters to preserve the handlers' response bodies.
-export const putCoreSetToTable = async (
-  coreSet: Omit<CoreSet, "compoundKey">
-) => {
-  const params = {
+export const putCoreSetToTable = async (coreSet: CoreSet) => {
+  await dynamoDb.put({
     TableName: process.env.QualityCoreSetsTable!,
-    Item: {
-      compoundKey: `${coreSet.state}${coreSet.year}`,
-      ...coreSet,
-    },
-  };
-  await dynamoDb.put(params);
-  return params;
+    Item: coreSet,
+  });
 };
 
-export const updateCoreSetInTable = async (
-  { state, year, coreSet }: CoreSetParameters,
-  fields: CoreSetUpdates
-) => {
+export const updateCoreSetInTable = async ({
+  compoundKey,
+  coreSet,
+  submitted,
+  status,
+  lastAltered,
+  lastAlteredBy,
+}: Pick<
+  CoreSet,
+  | "compoundKey"
+  | "coreSet"
+  | "submitted"
+  | "status"
+  | "lastAltered"
+  | "lastAlteredBy"
+>) => {
   const params = {
     TableName: process.env.QualityCoreSetsTable!,
-    Key: { compoundKey: `${state}${year}`, coreSet },
+    Key: { compoundKey, coreSet },
     UpdateExpression:
       "SET submitted = :submitted, #status = :status, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy",
     ExpressionAttributeNames: { "#status": "status" },
     ExpressionAttributeValues: {
-      ":submitted": fields.submitted,
-      ":status": fields.status,
-      ":lastAltered": fields.lastAltered,
-      ":lastAlteredBy": fields.lastAlteredBy,
+      ":submitted": submitted,
+      ":status": status,
+      ":lastAltered": lastAltered,
+      ":lastAlteredBy": lastAlteredBy,
     },
   };
   await dynamoDb.update(params);
