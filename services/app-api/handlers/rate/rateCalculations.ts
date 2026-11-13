@@ -44,17 +44,6 @@ export const calculateAndPutRate = async (pathParameters: RateParameters) => {
   );
 };
 
-const AdultCoreSetGroup = {
-  combined: CoreSetAbbr.ACS,
-  medicaid: CoreSetAbbr.ACSM,
-  chip: CoreSetAbbr.ACSC,
-} as const;
-const ChildCoreSetGroup = {
-  combined: CoreSetAbbr.CCS,
-  medicaid: CoreSetAbbr.CCSM,
-  chip: CoreSetAbbr.CCSC,
-} as const;
-
 /**
  * Given the name of the core set whose measure just updated:
  * 1. Does it need to be combined? (that is, is it ACSM/ACSC/CCSM/CCSC?)
@@ -65,10 +54,18 @@ const coreSetsToCombine = (coreSet: CoreSetIdentifier) => {
   switch (coreSet) {
     case CoreSetAbbr.ACSM:
     case CoreSetAbbr.ACSC:
-      return AdultCoreSetGroup;
+      return {
+        combined: CoreSetAbbr.ACS,
+        medicaid: CoreSetAbbr.ACSM,
+        chip: CoreSetAbbr.ACSC,
+      } as const;
     case CoreSetAbbr.CCSM:
     case CoreSetAbbr.CCSC:
-      return ChildCoreSetGroup;
+      return {
+        combined: CoreSetAbbr.CCS,
+        medicaid: CoreSetAbbr.CCSM,
+        chip: CoreSetAbbr.CCSC,
+      } as const;
     default:
       // Rates in the ACS, CCS, and HHCS core sets are already combined
       return undefined;

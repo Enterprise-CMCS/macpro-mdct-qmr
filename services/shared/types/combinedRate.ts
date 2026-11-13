@@ -107,8 +107,11 @@ export type DataSourceInformation = {
    * Prior to 2025, data sourced from ECDS was also unusable for combined rates.
    * So in 2024, when this flag is true, `isUnusableForCalc` will also be true.
    * In 2025 and on, `isUnusableForCalc` may be false even when this is true.
+   *
+   * In fact, this field is _deleted_ by the frontend in 2025 and on.
+   * However, that change is not stored back; the DB still has it.
    */
-  hasECDSDataSource: boolean;
+  hasECDSDataSource?: boolean;
   hasOtherSpecification: boolean;
   /**
    * If a measure was reported with a hybrid data source,

@@ -1,9 +1,12 @@
 import * as Types from "shared/types";
-import { DataSources } from "@qmr/shared";
+import { DataSource, DataSources } from "@qmr/shared";
 import { featuresByYear } from "utils/featuresByYear";
 import * as DC from "dataConstants";
 
-const OPTIONAL_DATA_SOURCES = [DataSources.EHR, DataSources.ECDS];
+const OPTIONAL_DATA_SOURCES = new Set<DataSource>([
+  DataSources.EHR,
+  DataSources.ECDS,
+]);
 
 export const validateAtLeastOneDataSourceType = (
   data: Types.DataSource,
@@ -49,7 +52,7 @@ export const validateAtLeastOneDataSourceType = (
       (key) =>
         "description" in dataSources[key] &&
         !dataSources[key]["description"] &&
-        !OPTIONAL_DATA_SOURCES.includes(key as any)
+        !OPTIONAL_DATA_SOURCES.has(key as DataSource)
     );
     errorArray.push(
       ...unfilledDataSources.map((key) => {

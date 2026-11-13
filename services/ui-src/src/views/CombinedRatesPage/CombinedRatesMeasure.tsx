@@ -55,8 +55,8 @@ export const CombinedRatesMeasure = ({
   // TODO: Instead of deleting it here on the frontend,
   //       stop setting it on the backend during the actual calculations.
   if (Number(year) >= 2025) {
-    delete (combinedRateData?.DataSources.CHIP as any)?.hasECDSDataSource;
-    delete (combinedRateData?.DataSources.Medicaid as any)?.hasECDSDataSource;
+    delete combinedRateData?.DataSources.CHIP.hasECDSDataSource;
+    delete combinedRateData?.DataSources.Medicaid.hasECDSDataSource;
   }
 
   return (
