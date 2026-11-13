@@ -1,17 +1,5 @@
 import dynamoDb from "../libs/dynamodb-lib";
-import * as Types from "../types";
 import { RateParameters, CombinedRatesPayload } from "../types";
-
-export const getMeasureFromTable = async (parameters: RateParameters) => {
-  const { state, year, coreSet, measure } = parameters;
-  return await dynamoDb.get<Types.Measure>({
-    TableName: process.env.MeasuresTable,
-    Key: {
-      compoundKey: `${state}${year}${coreSet}`,
-      measure: measure,
-    },
-  });
-};
 
 export const putCombinedRatesToTable = async (
   parameters: RateParameters,

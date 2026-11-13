@@ -1,7 +1,10 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
+import { deleteCoreSetFromTable } from "../../storage/coreSets";
+import {
+  deleteMeasureFromTable,
+  getMeasuresFromTable,
+} from "../../storage/measures";
 import { hasStatePermissions } from "../../libs/authorization";
-import { Measure } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 
@@ -22,20 +25,11 @@ export const deleteCoreSet = handler(async (event, _context) => {
     };
   }
 
-  const params = {
-    TableName: process.env.QualityCoreSetsTable!,
-    Key: {
-      compoundKey: `${state}${year}`,
-      coreSet: coreSet,
-    },
-  };
-
-  await dynamoDb.delete(params);
+  await deleteCoreSetFromTable({ state, year, coreSet });
   await deleteDependentMeasures(state, year, coreSet);
 
   return {
     status: StatusCodes.SUCCESS,
-    body: params,
   };
 });
 
@@ -44,30 +38,10 @@ const deleteDependentMeasures = async (
   year: number,
   coreSet: string
 ) => {
-  const measures = await getMeasures(state, year, coreSet);
+  const measures = await getMeasuresFromTable({ state, year, coreSet });
   const Items = measures;
 
   for await (const { measure } of Items) {
-    const params = {
-      TableName: process.env.MeasuresTable!,
-      Key: {
-        compoundKey: `${state}${year}${coreSet}`,
-        measure: measure,
-      },
-    };
-
-    await dynamoDb.delete(params);
+    await deleteMeasureFromTable({ state, year, coreSet, measure });
   }
-};
-
-const getMeasures = async (state: string, year: number, coreSet: string) => {
-  const params = {
-    TableName: process.env.MeasuresTable!,
-    KeyConditionExpression: "compoundKey = :compoundKey",
-    ExpressionAttributeValues: {
-      ":compoundKey": `${state}${year}${coreSet}`,
-    },
-  };
-  const queryValue = await dynamoDb.queryAll<Measure>(params);
-  return queryValue;
 };
