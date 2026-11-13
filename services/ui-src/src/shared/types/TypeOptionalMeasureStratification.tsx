@@ -7,6 +7,7 @@ import { LabelData } from "utils";
 
 export interface MeasureStratificationLabels {
   subHeader: string[];
+  stateSpecificSubHeader?: string[];
   addAnotherType: string;
 }
 
@@ -86,6 +87,12 @@ export interface OmsNode {
   helperText?: string;
   /** should additional category render? */
   addMore?: boolean;
+  /**
+   * If the "add another" button is present, where should it render?
+   * Default is "bottom", after the last standard subcategory.
+   * "top" renders under the category but above the first standard subcategory.
+   */
+  addMoreButtonPlacement?: "top" | "bottom";
   /** should this node have a subCatOption? */
   flagSubCat?: boolean;
   /** if this node have a a subCatOption does it have any label text */

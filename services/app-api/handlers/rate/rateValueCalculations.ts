@@ -20,14 +20,20 @@ export const calculateAdditionalValues = (
 ): CombinedRatesPayload["AdditionalValues"] => {
   const [medicaidValues, chipValues] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
-    .map((rateMap) => Object.values(rateMap).flat().filter(isRateValueShape));
+    .map((rateMap) =>
+      Object.values(rateMap)
+        .flat()
+        .filter(isRateValueShape)
+        .filter((rate) => !!rate.uid)
+    )
+    .map((rateArray) => new Map(rateArray.map((rate) => [rate.uid!, rate])));
 
   const findValues = (uid: string) => {
     const fieldObj = {
       uid,
     } as CombinedRatesPayload["AdditionalValues"][number];
-    const medicaidValue = medicaidValues.find((rate) => rate.uid === uid);
-    const chipValue = chipValues.find((rate) => rate.uid === uid);
+    const medicaidValue = medicaidValues.get(uid);
+    const chipValue = chipValues.get(uid);
 
     fieldObj.label = medicaidValue?.label ?? chipValue?.label ?? "";
     fieldObj.Medicaid = parseQmrNumber(medicaidValue?.value);

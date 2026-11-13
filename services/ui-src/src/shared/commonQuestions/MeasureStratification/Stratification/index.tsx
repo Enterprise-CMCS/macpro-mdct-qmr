@@ -40,6 +40,7 @@ export const buildOmsCheckboxes = ({
           options={lvlOneOption.options}
           helperText={lvlOneOption.helperText}
           addMore={!!lvlOneOption.addMore}
+          addMoreButtonPlacement={lvlOneOption.addMoreButtonPlacement}
           parentDisplayName={
             lvlOneOption.aggregateTitle! || lvlOneOption.label!
           }
@@ -97,7 +98,12 @@ export const Stratification = ({
 
   const dataSourceWatch = watch(DC.DATA_SOURCE);
   const watchDataSourceSwitch = watch("MeasurementSpecification");
+  const version = watch(`OptionalMeasureStratification.${DC.VERSION}`);
   const watchStratification = watch("OptionalMeasureStratification.selections");
+  const subHeader =
+    version === "state-specific" && labels.stateSpecificSubHeader
+      ? labels.stateSpecificSubHeader
+      : labels.subHeader;
   //For some reason, this component grabs OPM data when it's showing OMS data. Removing OPM data directly causes things to break
   const OPM =
     watchDataSourceSwitch === "Other"
@@ -188,7 +194,7 @@ export const Stratification = ({
           rateCalculation: rateCalc,
         }}
       >
-        {labels.subHeader.map((text: string) => (
+        {subHeader.map((text: string) => (
           <CUI.Text key={text}>{text}</CUI.Text>
         ))}
         <CUI.UnorderedList

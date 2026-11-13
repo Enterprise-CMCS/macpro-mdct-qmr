@@ -1,6 +1,6 @@
 import * as DC from "dataConstants";
 import * as GV from "shared/globalValidations";
-import { OMSData } from "shared/commonQuestions/OptionalMeasureStrat/data";
+import { get1997OmsData } from "shared/commonQuestions/OptionalMeasureStrat/data";
 import { DefaultFormData as FormData } from "shared/types/FormData";
 import {
   MeasureTemplateData,
@@ -185,7 +185,7 @@ export const validationTemplate = (
   const OPM = data[DC.OPM_RATES];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(2023, true),
+    get1997OmsData(),
     qualifiers,
     categories
   );
@@ -428,7 +428,7 @@ export const validationTemplate = (
         ? data[DC.DATA_SOURCE]
         : undefined,
       locationDictionary: GV.omsLocationDictionary(
-        OMSData(2023, true),
+        get1997OmsData(),
         qualifiers,
         categories
       ),

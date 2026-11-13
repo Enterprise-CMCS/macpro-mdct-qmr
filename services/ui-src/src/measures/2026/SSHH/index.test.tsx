@@ -10,7 +10,7 @@ import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { clearMocks } from "shared/util/validationsMock";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 expect.extend(toHaveNoViolations);
 
@@ -25,8 +25,8 @@ const apiData: any = {};
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: jest.fn(),
 }));
 const mockUseParams = useParams as jest.Mock;

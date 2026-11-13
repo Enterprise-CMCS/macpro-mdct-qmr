@@ -1,20 +1,20 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { mockFlags, resetLDMocks } from "jest-launchdarkly-mock";
 
 global.React = React;
-Object.defineProperty(window, "matchMedia", {
-  writable: true,
-  value: jest.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // Deprecated
-    removeListener: jest.fn(), // Deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
+
+// See: https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
+Object.defineProperties(window, {
+  // jsdom does not provide a sufficient matchMedia implementation for our needs
+  matchMedia: {
+    value: jest.fn().mockReturnValue({
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+    }),
+  },
+  // jsdom does not provide TextEncoder/TextDecoder until v27.4
+  TextEncoder: { value: jest.fn() },
+  TextDecoder: { value: jest.fn() },
 });
 
 jest.mock("components/Title", () => ({
@@ -43,10 +43,3 @@ jest.mock("./src/utils/environmentVariables", () => ({
   MODE: "production",
   BASE_URL: "mdctqmrdev.cms.gov",
 }));
-
-/* Mock LaunchDarkly (see https://bit.ly/3QAeS7j) */
-export const mockLDFlags = {
-  setDefault: (baseline: any) => mockFlags(baseline),
-  clear: resetLDMocks,
-  set: mockFlags,
-};

@@ -1,7 +1,7 @@
 import { useGetCoreSet } from "./useGetCoreSet";
 
 const props = {
-  coreSetId: "AC",
+  coreSetId: "ACS",
   state: "MA",
   year: "2025",
 };

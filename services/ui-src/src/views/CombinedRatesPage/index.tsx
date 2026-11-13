@@ -4,7 +4,7 @@ import * as QMR from "components";
 import { useGetMeasures } from "hooks/api";
 import { AnyObject, CoreSetAbbr, MeasureData, coreSetType } from "types";
 import { measureDescriptions } from "measures/measureDescriptions";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router";
 import { MeasureTableItem } from "components/Table/types";
 import { useFlags } from "launchdarkly-react-client-sdk";
 import { statesWithoutCombinedRates } from "utils";

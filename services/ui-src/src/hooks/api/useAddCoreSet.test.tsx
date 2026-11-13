@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useAddCoreSet } from "./useAddCoreSet";
 
-jest.mock("react-router-dom");
+jest.mock("react-router");
 const mockUseParam = useParams as jest.Mock;
 
 jest.mock("@tanstack/react-query", () => ({

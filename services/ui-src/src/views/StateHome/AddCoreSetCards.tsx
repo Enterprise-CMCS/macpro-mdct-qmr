@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import * as CUI from "@chakra-ui/react";
 import { useUser } from "hooks/authHooks";
 import { CoreSetField } from "shared/coreSetByYear";

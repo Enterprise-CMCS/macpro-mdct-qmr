@@ -7,7 +7,7 @@ import SharedContext from "shared/SharedContext";
 import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/commonQuestionsLabel";
 import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 import { getMeasureYear } from "utils/getMeasureYear";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { CoreSetAbbr } from "types";
 import { getStratificationBannerDescription } from "components/MeasureWrapper/stratificationBanner";
 
@@ -15,8 +15,8 @@ jest.mock("utils/getMeasureYear", () => ({
   getMeasureYear: jest.fn(),
 }));
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: jest.fn(),
 }));
 
@@ -157,6 +157,11 @@ describe("Test MeasureStratification", () => {
     expect(
       screen.getByText("Enter Measure Stratification")
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Do not select categories and detailed categories for which your state does not collect data."
+      )
+    ).toBeInTheDocument();
     expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
     expect(screen.getByText("Sex")).toBeInTheDocument();
     expect(screen.getByText("Geography")).toBeInTheDocument();
@@ -253,16 +258,26 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
+    expect(
+      screen.getByText(
+        /States should use their own stratification categories and detailed categories/
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Do not select categories and detailed categories for which your state does not collect data."
+      )
+    ).not.toBeInTheDocument();
     expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
     expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
   });
 
-  test("Test 2026 AC (combined-only) shows Medicaid Expansion", async () => {
-    renderMeasureStratification(2026, "AC");
+  test("Test 2026 ACS shows Medicaid Expansion", async () => {
+    renderMeasureStratification(2026, "ACS");
 
     await userEvent.click(
       screen.getByRole("radio", {
@@ -272,7 +287,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
@@ -295,6 +310,21 @@ describe("Test MeasureStratification", () => {
       })
     );
 
+    expect(
+      screen.getByText(
+        "Do not select categories and detailed categories for which your state does not collect data."
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed."
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields."
+      )
+    ).toBeInTheDocument();
     expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
     expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
   });
@@ -310,7 +340,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
@@ -318,8 +348,8 @@ describe("Test MeasureStratification", () => {
     expect(screen.queryByText("Medicaid Expansion")).not.toBeInTheDocument();
   });
 
-  test("Test 2026 CC (combined-only) shows Foster Care", async () => {
-    renderMeasureStratification(2026, "CC");
+  test("Test 2026 CCS shows Foster Care", async () => {
+    renderMeasureStratification(2026, "CCS");
 
     await userEvent.click(
       screen.getByRole("radio", {
@@ -329,7 +359,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 
@@ -367,7 +397,7 @@ describe("Test MeasureStratification", () => {
 
     await userEvent.click(
       screen.getByRole("radio", {
-        name: /2024 OMB Statistical Policy Directive No\. 15 race and ethnicity standards/i,
+        name: "State specific race and ethnicity stratification categories",
       })
     );
 

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import * as API from "libs/api";
 import { Params } from "types";
 import { usePathParams } from "./usePathParams";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 interface GetMeasure {
   coreSet: string;

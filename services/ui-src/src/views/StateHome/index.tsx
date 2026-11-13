@@ -4,7 +4,7 @@ import * as QMR from "components";
 
 import { useQueryClient } from "@tanstack/react-query";
 import { TiArrowUnsorted } from "react-icons/ti";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router";
 
 import { SPA } from "libs/spaLib";
 import { AddCoreSetCards } from "./AddCoreSetCards";

@@ -2,13 +2,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { screen, render } from "@testing-library/react";
 import App from "App";
 import { useUser } from "hooks/authHooks";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useLocation: jest.fn().mockReturnValue({}),
 }));
 

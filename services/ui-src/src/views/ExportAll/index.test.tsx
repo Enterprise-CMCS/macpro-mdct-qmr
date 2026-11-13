@@ -11,8 +11,8 @@ const mockedGetMeasures = useGetMeasures as jest.MockedFunction<
   typeof useGetMeasures
 >;
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: jest.fn().mockReturnValue({
     state: "CO",
     year: "2025",

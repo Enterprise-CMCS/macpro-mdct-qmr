@@ -202,7 +202,7 @@ export const validationTemplate = (
   const OPM = data[DC.OPM_RATES];
 
   const locationDictionary = GV.omsLocationDictionary(
-    OMSData(2026, true, data.OptionalMeasureStratification?.version, coreSetId),
+    OMSData(data.OptionalMeasureStratification?.version, coreSetId),
     qualifiers,
     categories
   );

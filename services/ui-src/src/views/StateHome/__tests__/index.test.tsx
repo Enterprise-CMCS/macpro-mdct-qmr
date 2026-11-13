@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock, defaultMockValues } from "utils/testUtils/useApiMock";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import userEvent from "@testing-library/user-event";
 import { useUser } from "hooks/authHooks";
 import { CoreSetAbbr } from "types";
@@ -25,8 +25,8 @@ const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
   if (typeof options?.onSuccess === "function") return options.onSuccess();
 });
 
-jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"),
+jest.mock("react-router", () => ({
+  ...jest.requireActual("react-router"),
   useParams: jest.fn(),
   useNavigate: () => mockedNavigate,
 }));

@@ -1,12 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useGetMeasures } from "./useGetMeasures";
 
-const props = { coreSetAbbr: "AC" };
+const props = { coreSetAbbr: "ACS" };
 jest.mock("@tanstack/react-query", () => ({
   useQuery: jest.fn().mockImplementation((arg) => arg.queryFn(props)),
 }));
 
-jest.mock("react-router-dom");
+jest.mock("react-router");
 const mockUseParam = useParams as jest.Mock;
 
 jest.mock("./usePathParams", () => ({
@@ -21,11 +21,11 @@ jest.mock("libs/api", () => ({
 describe("Test useGetMeasures", () => {
   it("Test successful call to API", () => {
     mockUseParam.mockReturnValue({ state: "MA", year: 2026 });
-    useGetMeasures("AC");
+    useGetMeasures("ACS");
     expect(mockListMeasures).toHaveBeenCalled();
   });
   it("Test error", () => {
     mockUseParam.mockReturnValue({});
-    expect(() => useGetMeasures("AC")).toThrow("state or year unavailable");
+    expect(() => useGetMeasures("ACS")).toThrow("state or year unavailable");
   });
 });

@@ -1,6 +1,6 @@
 import { UsaBanner } from "@cmsgov/design-system";
 import { Logo } from "components";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import * as CUI from "@chakra-ui/react";
 
 interface Props {

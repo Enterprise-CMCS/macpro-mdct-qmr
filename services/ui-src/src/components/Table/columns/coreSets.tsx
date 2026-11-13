@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { CoreSetTableItem, TableColumn } from "../types";
 
 // Get status string from core set data

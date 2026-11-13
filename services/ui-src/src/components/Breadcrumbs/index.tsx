@@ -1,6 +1,6 @@
 import * as CUI from "@chakra-ui/react";
 import { HiOutlineChevronLeft } from "react-icons/hi";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 
 export type BreadCrumbItems = {
   path: string;

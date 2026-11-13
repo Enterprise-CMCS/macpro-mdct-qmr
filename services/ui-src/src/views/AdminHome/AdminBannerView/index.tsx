@@ -1,12 +1,13 @@
 import { Text } from "@chakra-ui/react";
 import { CurrentBanner } from "components/Banner/CurrentBanner";
 import { CreateBannerForm } from "components/Banner/CreateBannerForm";
-import { useEffect, useState } from "react";
-import { AdminBannerData, BannerData } from "types";
+import { useState } from "react";
+import { AdminBannerData } from "types";
 import { bannerId } from "utils";
 import { useGetBanner, useWriteBanner, useDeleteBanner } from "hooks/api";
 import { Alert } from "@cmsgov/design-system";
 import "@cmsgov/design-system/dist/css/index.css";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const BANNER_ERRORS = {
   GET_BANNER_FAILED: "Banner could not be fetched. Please contact support.",
@@ -17,9 +18,10 @@ export const BANNER_ERRORS = {
 };
 export const AdminBannerView = () => {
   const [error, setError] = useState<string | undefined>();
-  const [banner, setBanner] = useState<BannerData>();
 
+  const queryClient = useQueryClient();
   const bannerData = useGetBanner(bannerId);
+  const banner = bannerData.data;
   const writeMutation = useWriteBanner();
   const deleteMutation = useDeleteBanner();
 
@@ -34,7 +36,7 @@ export const AdminBannerView = () => {
     };
     writeMutation.mutate(bannerData, {
       onSuccess: () => {
-        setBanner(bannerData);
+        queryClient.setQueryData([bannerId], bannerData);
       },
       onError: () => {
         setError(BANNER_ERRORS.REPLACE_BANNER_FAILED);
@@ -45,7 +47,7 @@ export const AdminBannerView = () => {
   const onDeleteHandler = () => {
     deleteMutation.mutate(bannerId, {
       onSuccess: () => {
-        setBanner(undefined);
+        queryClient.setQueryData([bannerId], {});
       },
       onError: () => {
         setError(BANNER_ERRORS.DELETE_BANNER_FAILED);
@@ -56,12 +58,6 @@ export const AdminBannerView = () => {
   const onErrorHandler = (errorMessage: string) => {
     setError(errorMessage);
   };
-
-  useEffect(() => {
-    if (!banner && bannerData.isFetched) {
-      setBanner(bannerData.data as BannerData);
-    }
-  }, [banner, bannerData]);
 
   return (
     <div className="ds-u-border--1 ds-u-padding--6">
@@ -75,7 +71,7 @@ export const AdminBannerView = () => {
         <Text>Manage the announcement banner below.</Text>
         <Text className="ds-text-heading--2xl">Current Banner</Text>
         <CurrentBanner
-          bannerData={banner}
+          bannerData={banner?.key ? banner : undefined}
           onError={onErrorHandler}
           onDelete={onDeleteHandler}
         />

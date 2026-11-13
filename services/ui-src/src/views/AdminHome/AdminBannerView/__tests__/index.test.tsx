@@ -4,9 +4,20 @@ import { AdminBannerView } from "../index";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 import { CoreSetAbbr } from "types";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 expect.extend(toHaveNoViolations);
 
-const testComponent = <AdminBannerView />;
+function renderTestComponent() {
+  // A fresh query client for each test, to prevent weird cache stuff
+  const client = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
+  return render(
+    <QueryClientProvider client={client}>
+      <AdminBannerView />
+    </QueryClientProvider>
+  );
+}
 
 const mockMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
   if (typeof options?.onSuccess === "function") return options.onSuccess();
@@ -17,7 +28,7 @@ const mockErrorMutate = jest.fn((_variables: CoreSetAbbr, options?: any) => {
 });
 
 describe("Test AdminBannerView", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     const apiData: any = {
       useDeleteBannerValues: {
         mutate: mockMutate,
@@ -27,8 +38,9 @@ describe("Test AdminBannerView", () => {
       },
     };
     useApiMock(apiData);
-    render(testComponent);
+    renderTestComponent();
   });
+
   test("Check basic page rendering", () => {
     expect(screen.getByText("Banner Admin")).toBeInTheDocument();
   });
@@ -76,8 +88,9 @@ describe("Test AdminBannerView errors", () => {
       },
     };
     useApiMock(apiData);
-    render(testComponent);
+    renderTestComponent();
   });
+
   test("Test submit error", async () => {
     const titleTextbox = screen.getByRole("textbox", { name: "Title Text" });
     fireEvent.change(titleTextbox, { target: { value: "banner title" } });
@@ -98,6 +111,7 @@ describe("Test AdminBannerView errors", () => {
     fireEvent.click(createBtn);
     await waitFor(() => expect(mockErrorMutate).toHaveBeenCalled());
   });
+
   test("test delete error", () => {
     const deleteBtn = screen.getByRole("button", {
       name: "Delete Current Banner",
@@ -110,7 +124,7 @@ describe("Test AdminBannerView errors", () => {
 describe("Test AdminBannerView accessibility", () => {
   test("Should not have basic accessibility issues", async () => {
     useApiMock({});
-    const { container } = render(testComponent);
+    const { container } = renderTestComponent();
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });

@@ -7,7 +7,7 @@ import { getMeasureYear } from "utils/getMeasureYear";
 jest.mock("utils/getMeasureYear");
 const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
-jest.mock("react-router-dom", () => ({
+jest.mock("react-router", () => ({
   useParams: jest.fn().mockReturnValue({ coreSetId: "ACSC" }),
 }));
 

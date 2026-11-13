@@ -154,11 +154,6 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
   if (!props.options) {
     return <NDRSetsAccordion name={`${props.name}.rateData`} />;
   }
-  //a flag added in 2025, if it's turned off, it'll hide [+Add Another Sex] button
-  const sogiFlag =
-    useFlags()?.["sogi-stratification-options"] &&
-    props.id === "O8BrOa" &&
-    props.year! >= 2025;
 
   const checkboxOptions = props.options.map((lvlTwoOption) => {
     return buildChildCheckboxOption({
@@ -168,6 +163,24 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
     });
   });
 
+  //a flag added in 2025, if it's turned off, it'll hide [+Add Another Sex] button
+  const sogiFlag =
+    useFlags()?.["sogi-stratification-options"] &&
+    props.id === "O8BrOa" &&
+    props.year! >= 2025;
+
+  const addAnotherSection =
+    props.addMore && (props.id !== "O8BrOa" || sogiFlag) ? (
+      <AddAnotherSectionAccordian
+        name={props.name}
+        parentName={props.parentDisplayName}
+        key={`${props.name}.AdditionalCategorySection`}
+        overrideExpand={props.overrideAccordion}
+      />
+    ) : null;
+
+  const addAnotherPlacement = props.addMoreButtonPlacement ?? "bottom";
+
   return (
     <CUI.Box key={`${props.name}.topLevelCheckbox`}>
       {props.helperText && (
@@ -175,6 +188,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           {props.helperText}
         </CUI.Text>
       )}
+      {addAnotherPlacement === "top" ? addAnotherSection : null}
       {checkboxOptions.map((options) => (
         <QMR.Accordion
           key={options.value}
@@ -190,14 +204,7 @@ export const TopLevelOmsChildren = (props: CheckboxChildrenProps) => {
           {options.children}
         </QMR.Accordion>
       ))}
-      {props.addMore && (props.id !== "O8BrOa" || sogiFlag) && (
-        <AddAnotherSectionAccordian
-          name={props.name}
-          parentName={props.parentDisplayName}
-          key={`${props.name}.AdditionalCategorySection`}
-          overrideExpand={props.overrideAccordion}
-        />
-      )}
+      {addAnotherPlacement === "bottom" ? addAnotherSection : null}
     </CUI.Box>
   );
 };

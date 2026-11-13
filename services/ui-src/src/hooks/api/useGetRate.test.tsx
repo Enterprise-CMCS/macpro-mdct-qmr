@@ -1,6 +1,6 @@
 import { useGetRate } from "./useGetRate";
 
-const props = { coreSetAbbr: "AC" };
+const props = { coreSetAbbr: "ACS" };
 jest.mock("@tanstack/react-query", () => ({
   useQuery: jest.fn().mockImplementation((arg) => arg.queryFn(props)),
 }));
