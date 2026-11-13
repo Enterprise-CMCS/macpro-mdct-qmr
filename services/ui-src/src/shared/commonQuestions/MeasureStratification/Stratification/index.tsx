@@ -8,7 +8,7 @@ import { useFormContext } from "react-hook-form";
 import { cleanString, getFilledKeys, rateIsReadOnly } from "utils";
 import { PerformanceMeasureProvider } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { useUser } from "hooks/authHooks";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 import { usePathParams } from "hooks/api/usePathParams";
 import SharedContext from "shared/SharedContext";
 

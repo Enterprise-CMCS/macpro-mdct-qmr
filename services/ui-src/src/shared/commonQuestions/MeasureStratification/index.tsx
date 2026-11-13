@@ -9,7 +9,7 @@ import { Stratification } from "./Stratification";
 import SharedContext from "shared/SharedContext";
 import * as DC from "dataConstants";
 import { featuresByYear } from "utils/featuresByYear";
-import { CoreSetAbbr } from "types";
+import { abbreviationFor, CoreSetAbbr } from "@qmr/shared";
 import { getStratificationBannerDescription } from "components/MeasureWrapper/stratificationBanner";
 import { Alert } from "@cmsgov/design-system";
 
@@ -33,7 +33,7 @@ export const StratificationAdditionalNotes = () => {
 export const StratificationOption = ({ reset, year }: Props) => {
   const labels: any = useContext(SharedContext);
   const { coreSetId } = useParams();
-  const coreSetAbbr = coreSetId?.split("_")[0];
+  const coreSetAbbr = abbreviationFor(coreSetId);
   const { subText, options } =
     labels.StratificationOption[coreSetAbbr!] ?? labels.StratificationOption;
   const { watch } = useFormContext();
@@ -104,7 +104,7 @@ export const MeasureStrat = (props: Types.OMSProps) => {
   const year = labels.year;
   const { stratificationRequired } = props;
   const { coreSetId } = useParams();
-  const coreSet = (coreSetId?.split("_")[0] ?? "ACS") as CoreSetAbbr;
+  const coreSet = abbreviationFor(coreSetId) ?? CoreSetAbbr.ACS;
   const stratificationBannerDescription = getStratificationBannerDescription(
     String(year),
     coreSet,

@@ -3,7 +3,7 @@ import { defaultMockValues, useApiMock } from "./useApiMock";
 import * as CUI from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as Api from "hooks/api";
-import { CoreSetAbbr, MeasureStatus } from "types";
+import { CoreSetAbbr, MeasureStatuses } from "@qmr/shared";
 
 const useAddCoreSetFunction = () => {
   const mutation = Api.useAddCoreSet();
@@ -47,7 +47,7 @@ const useUpdateMeasuresFunction = () => {
   const mutation = Api.useUpdateMeasure();
   const results = mutation.mutate({
     data: { measure: "AAB-AD" },
-    status: MeasureStatus.COMPLETE,
+    status: MeasureStatuses.Complete,
   });
   expect(results).toEqual("mock update measure for AAB-AD");
 };

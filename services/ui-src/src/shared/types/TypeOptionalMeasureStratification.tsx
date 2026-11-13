@@ -1,7 +1,8 @@
 import * as DC from "dataConstants";
 import { OtherRatesFields, RateFields } from "./TypeRateFields";
-import { Categories, Qualifiers } from ".";
-import { CoreSetAbbr, ndrFormula } from "types";
+import { Categories, CoreSetKey, Qualifiers } from ".";
+import { CoreSetAbbr } from "@qmr/shared";
+import { ndrFormula } from "types";
 import { ComponentFlagType } from "shared/commonQuestions/OptionalMeasureStrat/context";
 import { LabelData } from "utils";
 
@@ -55,7 +56,7 @@ interface DataDrivenProp {
 /** default data is being used for this component */
 interface DefaultDataProp {
   /** is this an adult measure? Should this contain the ACA portion? */
-  coreset: string;
+  coreset: CoreSetKey;
   /** cannot set data if using default data */
   data?: never;
 }

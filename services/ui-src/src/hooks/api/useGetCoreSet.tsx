@@ -1,8 +1,9 @@
+import { CoreSetIdentifier } from "@qmr/shared";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreSet } from "libs/api";
 
 interface GetCoreSet {
-  coreSetId: string;
+  coreSetId: CoreSetIdentifier;
   state: string;
   year: string;
 }

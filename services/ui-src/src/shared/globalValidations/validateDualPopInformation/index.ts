@@ -1,9 +1,12 @@
 import * as DC from "dataConstants";
 import { FormRateField } from "shared/types/TypeValidations";
 import { featuresByYear } from "utils/featuresByYear";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, CoreSetIdentifier } from "@qmr/shared";
 
-export const getLabels = (errorReplacementText: string, coreSet?: string) => {
+export const getLabels = (
+  errorReplacementText: string,
+  coreSet?: CoreSetIdentifier
+) => {
   if (
     coreSet &&
     coreSet === CoreSetAbbr.ACSC &&
@@ -31,7 +34,7 @@ export const validateDualPopInformationPM = (
   age65PlusIndex: number,
   DefinitionOfDenominator: string[] | undefined,
   errorReplacementText: string = "Age 65 and Older",
-  coreSet?: string
+  coreSet?: CoreSetIdentifier
 ) => {
   if (OPM) {
     return [];

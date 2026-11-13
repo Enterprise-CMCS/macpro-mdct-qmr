@@ -1,10 +1,10 @@
 import dynamoDb from "../libs/dynamodb-lib";
-import * as Types from "../types";
-import { RateParameters, CombinedRatesPayload } from "../types";
+import { CombinedRateData, Measure } from "@qmr/shared";
+import { RateParameters } from "../types";
 
 export const getMeasureFromTable = async (parameters: RateParameters) => {
   const { state, year, coreSet, measure } = parameters;
-  return await dynamoDb.get<Types.Measure>({
+  return await dynamoDb.get<Measure>({
     TableName: process.env.MeasuresTable,
     Key: {
       compoundKey: `${state}${year}${coreSet}`,
@@ -15,7 +15,7 @@ export const getMeasureFromTable = async (parameters: RateParameters) => {
 
 export const putCombinedRatesToTable = async (
   parameters: RateParameters,
-  combinedRates: CombinedRatesPayload
+  combinedRates: CombinedRateData
 ) => {
   const { year, state, coreSet, measure } = parameters;
   await dynamoDb.update({
@@ -44,7 +44,7 @@ export const putCombinedRatesToTable = async (
 
 export const getCombinedRatesFromTable = async (
   parameters: RateParameters
-): Promise<CombinedRatesPayload> => {
+): Promise<CombinedRateData> => {
   const { year, state, coreSet, measure } = parameters;
   const queryValue = await dynamoDb.get({
     TableName: process.env.CombinedRatesTable!,
@@ -53,5 +53,5 @@ export const getCombinedRatesFromTable = async (
       measure,
     },
   });
-  return (queryValue as any | undefined)?.data as CombinedRatesPayload;
+  return (queryValue as any | undefined)?.data as CombinedRateData;
 };

@@ -11,7 +11,7 @@ import { AddAdultCoreSet } from ".";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
-import { CoreSetAbbr, UserRoles } from "types";
+import { CoreSetAbbr, UserRoles } from "@qmr/shared";
 
 jest.mock("hooks/authHooks");
 const mockUseUser = useUser as jest.Mock;

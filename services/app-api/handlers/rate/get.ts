@@ -4,7 +4,7 @@ import {
 } from "../../libs/authorization";
 import handler from "../../libs/handler-lib";
 import { getCombinedRatesFromTable } from "../../storage/table";
-import { UserRoles } from "../../types";
+import { UserRoles } from "@qmr/shared";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 

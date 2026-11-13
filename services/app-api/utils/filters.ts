@@ -1,3 +1,4 @@
+import { MeasureIdentifier } from "@qmr/shared";
 import { measures } from "../handlers/dynamoUtils/measureList";
 import { State } from "../types";
 import { states, bannerIds } from "./constants/constants";
@@ -27,7 +28,10 @@ export const isValidYear = (year: string) => {
   return reportingYears.includes(year);
 };
 
-export const isMeasure = (year: string, measure: string | undefined) => {
+export const isMeasure = (
+  year: string,
+  measure: MeasureIdentifier | undefined
+) => {
   return measures[parseInt(year)]?.some(
     (measureObject) => measureObject.measure === measure
   );

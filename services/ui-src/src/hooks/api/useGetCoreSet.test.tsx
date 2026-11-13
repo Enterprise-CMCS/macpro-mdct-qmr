@@ -1,13 +1,14 @@
+import { CoreSetAbbr } from "@qmr/shared";
 import { useGetCoreSet } from "./useGetCoreSet";
 
-const props = {
-  coreSetId: "ACS",
+const mockProps = {
+  coreSetId: CoreSetAbbr.ACS as const,
   state: "MA",
   year: "2025",
 };
 
 jest.mock("@tanstack/react-query", () => ({
-  useQuery: jest.fn().mockImplementation((arg) => arg.queryFn(props)),
+  useQuery: jest.fn().mockImplementation((arg) => arg.queryFn(mockProps)),
 }));
 
 const mockGetCoreSet = jest.fn();
@@ -17,12 +18,12 @@ jest.mock("libs/api", () => ({
 
 describe("Test useGetCoreSet", () => {
   it("Test successful call to API", () => {
-    useGetCoreSet(props);
+    useGetCoreSet(mockProps);
     expect(mockGetCoreSet).toHaveBeenCalled();
   });
   it("Test error", () => {
-    expect(() => useGetCoreSet({ coreSetId: "", state: "", year: "" })).toThrow(
-      "state or year unavailable"
-    );
+    expect(() =>
+      useGetCoreSet({ coreSetId: "" as any, state: "", year: "" })
+    ).toThrow("state or year unavailable");
   });
 });

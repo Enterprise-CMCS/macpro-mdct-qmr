@@ -1,4 +1,5 @@
 import { validationFunctions } from "./validationTemplate";
+import { MeasureIdentifier } from "@qmr/shared";
 
 //child
 import { data as ADDCH_Data } from "./ADDCH/data";
@@ -70,7 +71,7 @@ import { data as OUDHH_Data } from "./OUDHH/data";
 import { data as PCRHH_Data } from "./PCRHH/data";
 import { data as PQI92HH_Data } from "./PQI92HH/data";
 
-export const measureTemplateData: { [measure: string]: any } = {
+export const measureTemplateData: { [measure: MeasureIdentifier]: any } = {
   "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
   "AMB-CH": { data: AMBCH_Data, validationFunctions: validationFunctions },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: validationFunctions },
@@ -87,7 +88,10 @@ export const measureTemplateData: { [measure: string]: any } = {
   "IMA-CH": { data: IMACH_Data, validationFunctions: validationFunctions },
   "LBW-CH": { data: LBWCH_Data, validationFunctions: validationFunctions },
   "LRCD-CH": { data: LRCDCH_Data, validationFunctions: validationFunctions },
-  "PDENT-CH": { data: PDENTCH_Data, validationFunctions: validationFunctions },
+  "PDENT-CH": {
+    data: PDENTCH_Data,
+    validationFunctions: validationFunctions,
+  },
   "PPC-CH": { data: PPCCH_Data, validationFunctions: validationFunctions },
   "SFM-CH": { data: SFMCH_Data, validationFunctions: validationFunctions },
   "W30-CH": { data: W30CH_Data, validationFunctions: validationFunctions },
@@ -108,7 +112,10 @@ export const measureTemplateData: { [measure: string]: any } = {
   "FUM-AD": { data: FUMAD_Data, validationFunctions: validationFunctions },
   "FVA-AD": { data: FVAAD_Data, validationFunctions: validationFunctions },
   "HPC-AD": { data: HPCAD_Data, validationFunctions: validationFunctions },
-  "HPCMI-AD": { data: HPCMIAD_Data, validationFunctions: validationFunctions },
+  "HPCMI-AD": {
+    data: HPCMIAD_Data,
+    validationFunctions: validationFunctions,
+  },
   "HVL-AD": { data: HVLAD_Data, validationFunctions: validationFunctions },
   "IET-AD": { data: IETAD_Data, validationFunctions: validationFunctions },
   "MSC-AD": { data: MSCAD_Data, validationFunctions: validationFunctions },
@@ -121,10 +128,22 @@ export const measureTemplateData: { [measure: string]: any } = {
   "PC01-AD": { data: PC01AD_Data, validationFunctions: validationFunctions },
   "PCR-AD": { data: PCRAD_Data, validationFunctions: validationFunctions },
   "PPC-AD": { data: PPCAD_Data, validationFunctions: validationFunctions },
-  "PQI01-AD": { data: PQI01AD_Data, validationFunctions: validationFunctions },
-  "PQI05-AD": { data: PQI05AD_Data, validationFunctions: validationFunctions },
-  "PQI08-AD": { data: PQI08AD_Data, validationFunctions: validationFunctions },
-  "PQI15-AD": { data: PQI15AD_Data, validationFunctions: validationFunctions },
+  "PQI01-AD": {
+    data: PQI01AD_Data,
+    validationFunctions: validationFunctions,
+  },
+  "PQI05-AD": {
+    data: PQI05AD_Data,
+    validationFunctions: validationFunctions,
+  },
+  "PQI08-AD": {
+    data: PQI08AD_Data,
+    validationFunctions: validationFunctions,
+  },
+  "PQI15-AD": {
+    data: PQI15AD_Data,
+    validationFunctions: validationFunctions,
+  },
   "SAA-AD": { data: SAAAD_Data, validationFunctions: validationFunctions },
   "SSD-AD": { data: SSDAD_Data, validationFunctions: validationFunctions },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },
@@ -137,5 +156,8 @@ export const measureTemplateData: { [measure: string]: any } = {
   "IU-HH": { data: IUHH_Data, validationFunctions: validationFunctions },
   "OUD-HH": { data: OUDHH_Data, validationFunctions: validationFunctions },
   "PCR-HH": { data: PCRHH_Data, validationFunctions: validationFunctions },
-  "PQI92-HH": { data: PQI92HH_Data, validationFunctions: validationFunctions },
+  "PQI92-HH": {
+    data: PQI92HH_Data,
+    validationFunctions: validationFunctions,
+  },
 };

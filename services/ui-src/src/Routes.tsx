@@ -4,7 +4,7 @@ import Measures, { QualifierData } from "measures";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useUser } from "hooks/authHooks";
 import { measureDescriptions } from "measures/measureDescriptions";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 import { CombinedRatesPage, CombinedRatesMeasure } from "views";
 
 const Home = lazy(() =>

@@ -45,17 +45,17 @@ export type CombinedRate = {
    */
   lastAltered: number;
 
-  data: CombinedRatesPayload;
+  data: CombinedRateData;
 };
 
-export type CombinedRatesPayload = {
+export type CombinedRateData = {
   /**
    * Lists the data sources the user entered when completing the rate.
    * Also includes flags indicating how those sources affect the calculation.
    */
   DataSources: {
-    Medicaid: DataSourcePayload;
-    CHIP: DataSourcePayload;
+    Medicaid: DataSourceInformation;
+    CHIP: DataSourceInformation;
   };
   /**
    * Lists all of the rates completed in at least one core set.
@@ -78,6 +78,12 @@ export type CombinedRatesPayload = {
    */
   AdditionalValues: {
     uid: string;
+    /**
+     * NOTE: this label is included  for debugging purposes only.
+     *
+     * It is not guaranteed to be present! When displaying AdditionalValues,
+     * we must look up the labels from measures/[year]/rateLabelText.ts
+     */
     label: string;
     Medicaid?: number;
     CHIP?: number;
@@ -85,7 +91,11 @@ export type CombinedRatesPayload = {
   }[];
 };
 
-export type DataSourcePayload = {
+/**
+ * Includes a set of flags relevant for Combined Rates,
+ * plus the complete `DataSource` and `DataSourceSelections` for a measure.
+ */
+export type DataSourceInformation = {
   /**
    * If a measure was reported with "Other" as a data source,
    * or if it uses an alternative measure specification,
@@ -108,11 +118,11 @@ export type DataSourcePayload = {
   /**
    * Top-level data source selections. Same type as `Measure.data.DataSource`.
    */
-  DataSource: MeasureData["DataSource"];
+  DataSource: NonNullable<MeasureData["DataSource"]>;
   /**
    * Data source sub-selections and descriptions.
    */
-  DataSourceSelections: MeasureData["DataSourceSelections"];
+  DataSourceSelections: NonNullable<MeasureData["DataSourceSelections"]>;
 };
 
 export type WeightedRateShape = {

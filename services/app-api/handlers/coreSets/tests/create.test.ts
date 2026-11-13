@@ -3,7 +3,7 @@ import { createCoreSet } from "../create";
 import { testEvent } from "../../../test-util/testEvents";
 import dynamoDb from "../../../libs/dynamodb-lib";
 import { measures } from "../../dynamoUtils/measureList";
-import { CoreSetAbbr } from "../../../types";
+import { CoreSetAbbr } from "@qmr/shared";
 import { getCoreSet } from "../get";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 

@@ -8,7 +8,7 @@ import {
 import config from "config";
 
 import { UserContext, UserContextInterface } from "./userContext";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 
 interface Props {
   children?: ReactNode;

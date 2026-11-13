@@ -7,6 +7,7 @@ import { DataSourceInformationBanner } from "shared/commonQuestions/DataSouceInf
 import { CombinedRateNDR } from "shared/commonQuestions/CombinedRateNDR/CombinedRateNDR";
 import { AdditionalCombinedValues } from "shared/commonQuestions/AdditionalCombinedValues/AdditionalCombinedValues";
 import { featuresByYear } from "utils/featuresByYear";
+import { CoreSetAbbr, CoreSetIdentifier } from "@qmr/shared";
 
 interface Props {
   year: string;
@@ -14,19 +15,19 @@ interface Props {
   measureName: string;
 }
 
-const CoreSetSuffixRecord: Record<string, string> = {
-  AD: "ACS",
-  CH: "CCS",
+const CoreSetSuffixRecord: Record<string, CoreSetIdentifier> = {
+  AD: CoreSetAbbr.ACS,
+  CH: CoreSetAbbr.CCS,
 };
 
 const getPathToCombinedRatesTab = (
   state: string,
   year: string,
-  coreSetAbbr: string
+  coreSet: CoreSetIdentifier
 ) => {
-  if (coreSetAbbr === "ACS") {
+  if (coreSet === "ACS") {
     return `/${state}/${year}/combined-rates?tab=adult`;
-  } else if (coreSetAbbr === "CCS") {
+  } else if (coreSet === "CCS") {
     return `/${state}/${year}/combined-rates?tab=child`;
   } else {
     return `/${state}/${year}/combined-rates`;
@@ -40,20 +41,22 @@ export const CombinedRatesMeasure = ({
 }: Props) => {
   const { state } = useParams();
   const typeSuffix = measure?.slice(-2); // used to determine if measure is adult or child type
-  const combinedCoreSetAbbr = CoreSetSuffixRecord[typeSuffix] ?? "";
+  const combinedCoreSetId = CoreSetSuffixRecord[typeSuffix] ?? "";
 
   const queryResult = useGetRate({
     measure,
     state: state!,
-    coreSet: combinedCoreSetAbbr,
+    coreSet: combinedCoreSetId,
     year,
   });
   const combinedRateData = queryResult.data;
 
   // In 2025 and forward, ECDS is no longer tracked
+  // TODO: Instead of deleting it here on the frontend,
+  //       stop setting it on the backend during the actual calculations.
   if (Number(year) >= 2025) {
-    delete combinedRateData?.DataSources.CHIP.hasECDSDataSource;
-    delete combinedRateData?.DataSources.Medicaid.hasECDSDataSource;
+    delete (combinedRateData?.DataSources.CHIP as any)?.hasECDSDataSource;
+    delete (combinedRateData?.DataSources.Medicaid as any)?.hasECDSDataSource;
   }
 
   return (
@@ -62,7 +65,7 @@ export const CombinedRatesMeasure = ({
       <QMR.StateLayout
         breadcrumbItems={[
           {
-            path: getPathToCombinedRatesTab(state!, year, combinedCoreSetAbbr),
+            path: getPathToCombinedRatesTab(state!, year, combinedCoreSetId),
             name: `${featuresByYear.displayFFYLanguage ? "FFY" : ""} ${year}`,
           },
           {
@@ -112,7 +115,7 @@ export const CombinedRatesMeasure = ({
         <CUI.UnorderedList m="5" ml="10">
           <CUI.ListItem>
             <CUI.Link
-              href={`/${state}/${year}/${combinedCoreSetAbbr}M/${measure}`}
+              href={`/${state}/${year}/${combinedCoreSetId}M/${measure}`}
               aria-label="Link to Medicaid measure"
               target="_blank"
               color="blue.600"
@@ -122,7 +125,7 @@ export const CombinedRatesMeasure = ({
           </CUI.ListItem>
           <CUI.ListItem>
             <CUI.Link
-              href={`/${state}/${year}/${combinedCoreSetAbbr}C/${measure}`}
+              href={`/${state}/${year}/${combinedCoreSetId}C/${measure}`}
               aria-label="Link to CHIP measure"
               target="_blank"
               color="blue.600"

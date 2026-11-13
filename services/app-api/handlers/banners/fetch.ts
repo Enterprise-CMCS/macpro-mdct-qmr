@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { Banner } from "../../types";
+import { Banner } from "@qmr/shared";
 import { parseBannerParameters } from "../../utils/parseParameters";
 
 export const fetchBanner = handler(async (event, _context) => {

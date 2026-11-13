@@ -1,5 +1,6 @@
 import jwt_decode from "jwt-decode";
-import { APIGatewayProxyEvent, UserRoles } from "../types";
+import { UserRoles } from "@qmr/shared";
+import { APIGatewayProxyEvent } from "../types";
 import { logger } from "./debug-lib";
 
 interface DecodedToken {

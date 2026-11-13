@@ -5,6 +5,8 @@
  * 1 or 2 child core sets, and (historically) up to 3 health home core sets.
  *
  * A core set contains several dozen Measures.
+ *
+ * PLEASE NOTE the difference between `CoreSetIdentifier` and `CoreSetAbbr`!
  */
 export type CoreSet = {
   /** Includes state and year. The Dynamo partition key. @example "AK2021" */
@@ -27,6 +29,8 @@ export type CoreSet = {
    * @example "in progress"
    */
   status?: CoreSetStatus;
+
+  submitted?: boolean;
 
   /**
    * How many measures does this core set contain? How many are complete?
@@ -113,4 +117,111 @@ export function isCoreSetStatus(x: unknown): x is CoreSetStatus {
  * "HHCS_23-0014-BHH" // (Maine 2025)
  * "HHCS_22-0033-CCT" // (also Maine 2025)
  */
-export type CoreSetIdentifier = string;
+export type CoreSetIdentifier =
+  | Exclude<CoreSetAbbr, CoreSetAbbr.HHCS>
+  | `${CoreSetAbbr.HHCS}_${string}`;
+
+/**
+ * A CoreSetIdentifier is like a CoreSetAbbr, but includes the suffix for HHCS.
+ * @example
+ * isCoreSetIdentifer("ACS")          // true
+ * isCoreSetIdentifer("CCSC")         // true
+ * isCoreSetIdentifer("HHCS")         // FALSE!
+ * isCoreSetIdentifer("HHCS_22-0025") // true
+ */
+export const isCoreSetIdentifier = (x: string): x is CoreSetIdentifier => {
+  if (typeof x !== "string") {
+    return false;
+  }
+
+  const standalones = Object.values(CoreSetAbbr).filter((a) => a !== "HHCS");
+  if (standalones.includes(x as any)) {
+    return true;
+  }
+
+  return x.startsWith(CoreSetAbbr.HHCS + "_");
+};
+
+/**
+ * Convert a CoreSetIdentifier to a CoreSetAbbr.
+ *
+ * - If the input is a CoreSetIdentifier, the result is a CoreSetAbbr.
+ * - If the input is undefined, the result is undefined.
+ * - If the input is some other string, the result is undefined.
+ */
+export function abbreviationFor(coreSet: CoreSetIdentifier): CoreSetAbbr;
+export function abbreviationFor(
+  coreSet: CoreSetIdentifier | undefined
+): CoreSetAbbr | undefined;
+export function abbreviationFor(
+  coreSet: string | undefined
+): CoreSetAbbr | undefined;
+export function abbreviationFor(
+  coreSet: string | undefined
+): CoreSetAbbr | undefined {
+  if (coreSet === undefined) return undefined;
+  const abbr = coreSet.split("_")[0];
+  if (isCoreSetAbbr(abbr)) return abbr;
+  return undefined;
+}
+
+type CoreSetParseResult =
+  | [undefined, undefined]
+  | [Exclude<CoreSetAbbr, CoreSetAbbr.HHCS>, undefined]
+  | [CoreSetAbbr.HHCS, string];
+
+/**
+ * Split a CoreSetIdentifer into [CoreSetAbbr, spaId].
+ *
+ * The CoreSetAbbr is only provided if the input is a valid CoreSetIdentifier.
+ * The spaId is only provided if the CoreSetAbbr is HHCS.
+ * @example
+ * parseIdentifier(undefined) // [undefined, undefined]
+ * parseIdentifier("foo_bar") // [undefined, undefined]
+ * parseIdentifier("ACSC") // [CoreSetAbbr.ACSC, undefined]
+ * parseIdentifier("HHCS_32-0015") // [CoreSetAbbr.HHCS, "32-0015"]
+ */
+export const parseCoreSet = (
+  coreSet: string | undefined
+): CoreSetParseResult => {
+  if (coreSet === undefined) return [undefined, undefined];
+  const [abbr, spa] = coreSet.split("_");
+  if (!isCoreSetAbbr(abbr)) return [undefined, undefined];
+  if (abbr !== CoreSetAbbr.HHCS) return [abbr, undefined];
+  return [abbr, spa];
+};
+
+/**
+ * Indicates which kind of core set you're looking at.
+ * See `CoreSetIdentifier` for more information.
+ *
+ * Does NOT include the suffix for HHCS.
+ * This type is essentially `coreSet.split("_")[0]`.
+ */
+export enum CoreSetAbbr {
+  /** Adult (combined) */
+  ACS = "ACS",
+  /** Adult CHIP */
+  ACSC = "ACSC",
+  /** Adult Medicaid */
+  ACSM = "ACSM",
+  /** Child (combined) */
+  CCS = "CCS",
+  /** Child CHIP */
+  CCSC = "CCSC",
+  /** Child Medicaid */
+  CCSM = "CCSM",
+  /** Health Home */
+  HHCS = "HHCS",
+}
+
+/**
+ * A CoreSetAbbr is like a CoreSetIdentifier, but omits the suffix for HHCS.
+ * @example
+ * isCoreSetAbbr("ACS")          // true
+ * isCoreSetAbbr("CCSC")         // true
+ * isCoreSetAbbr("HHCS")         // true
+ * isCoreSetAbbr("HHCS_22-0025") // FALSE!
+ */
+export const isCoreSetAbbr = (x: unknown): x is CoreSetAbbr =>
+  Object.values(CoreSetAbbr).includes(x as any);

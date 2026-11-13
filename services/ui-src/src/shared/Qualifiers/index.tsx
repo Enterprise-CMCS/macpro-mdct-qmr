@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { validationFunctions } from "shared/Qualifiers/validationFunctions";
 import { DeliverySystems } from "shared/Qualifiers/deliverySystems";
 import { useParams } from "react-router";
-import * as Types from "types";
+import { abbreviationFor, CoreSetAbbr } from "@qmr/shared";
 import { featuresByYear } from "utils/featuresByYear";
 
 export const Qualifier = ({
@@ -16,7 +16,7 @@ export const Qualifier = ({
 }: QMR.MeasureWrapperProps) => {
   const { coreSetId } = useParams();
   const [type, setType] = useState<"CH" | "AD" | "HH">("AD");
-  const coreSetAbbr = coreSetId!.split("_")[0] as Types.CoreSetAbbr;
+  const coreSetAbbr = abbreviationFor(coreSetId)!;
 
   useEffect(() => {
     if (setValidationFunctions && coreSetId) {
@@ -25,12 +25,12 @@ export const Qualifier = ({
       });
     }
     if (
-      coreSetId === Types.CoreSetAbbr.CCS ||
-      coreSetId === Types.CoreSetAbbr.CCSC ||
-      coreSetId === Types.CoreSetAbbr.CCSM
+      coreSetId === CoreSetAbbr.CCS ||
+      coreSetId === CoreSetAbbr.CCSC ||
+      coreSetId === CoreSetAbbr.CCSM
     ) {
       setType("CH");
-    } else if (coreSetAbbr === Types.CoreSetAbbr.HHCS) {
+    } else if (coreSetAbbr === CoreSetAbbr.HHCS) {
       setType("HH");
     }
   }, [setValidationFunctions, coreSetId, setType, coreSetAbbr]);

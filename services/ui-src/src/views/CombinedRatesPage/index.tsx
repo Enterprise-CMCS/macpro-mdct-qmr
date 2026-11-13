@@ -2,7 +2,8 @@ import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useGetMeasures } from "hooks/api";
-import { AnyObject, CoreSetAbbr, MeasureData, coreSetType } from "types";
+import { CoreSet, CoreSetAbbr, CoreSetIdentifier, Measure } from "@qmr/shared";
+import { coreSetLabels } from "types";
 import { measureDescriptions } from "measures/measureDescriptions";
 import { Link, useParams, useSearchParams } from "react-router";
 import { MeasureTableItem } from "components/Table/types";
@@ -53,9 +54,13 @@ const GetColumns = () => {
   ];
 };
 
-const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
+const GetMeasuresByCoreSet = (
+  coreSet: CoreSetIdentifier | undefined,
+  state: string,
+  year: string
+) => {
   const { data } = useGetMeasures(coreSet);
-  const measures = data?.Items as MeasureData[];
+  const measures = data?.Items as Measure[];
   const formatted = measures
     ?.filter(
       // filter out all the measures that do not have combined rates:
@@ -77,16 +82,19 @@ const GetMeasuresByCoreSet = (coreSet: string, state: string, year: string) => {
   });
 };
 
-export const GetCoreSetTabs = (abbr: CoreSetAbbr[]) => {
+const GetCoreSetTabs = (coreSetIds: CoreSetIdentifier[] | undefined) => {
   //indicating which coreSet we want to look at, correctly we want adult & child but not health home
-  const coreSetToLoad: CoreSetAbbr[] = [CoreSetAbbr.CCS, CoreSetAbbr.ACS];
+  const coreSetToLoad = [CoreSetAbbr.CCS, CoreSetAbbr.ACS] as const;
 
-  const coreSetTabs: AnyObject[] = [];
-  coreSetToLoad.forEach((coreSet: CoreSetAbbr) => {
-    const title = `${coreSetType[coreSet]} Core Set`;
+  const coreSetTabs: {
+    coreSetId: CoreSetIdentifier | undefined;
+    title: string;
+  }[] = [];
+  coreSetToLoad.forEach((coreSet) => {
+    const title = `${coreSetLabels[coreSet]} Core Set`;
     //since the measures are the same for either combined or separated, we just the first result since we want to load only once
-    const coreSetAbbr = abbr?.find((item) => item.includes(coreSet));
-    coreSetTabs.push({ abbr: coreSetAbbr ?? "", title: title });
+    const coreSetId = coreSetIds?.find((item) => item.includes(coreSet));
+    coreSetTabs.push({ coreSetId: coreSetId, title: title });
   });
   return coreSetTabs;
 };
@@ -95,14 +103,12 @@ export const CombinedRatesPage = () => {
   //feature flag for the current year
   const releaseYearByFlag = useFlags()?.["release2026"];
   const { data, isLoading } = Api.useGetCoreSets(releaseYearByFlag);
-  const coreSetsAbbr = data?.Items?.map(
-    (coreSet: AnyObject) => coreSet.coreSet
-  );
-  const coreSetTabs = GetCoreSetTabs(coreSetsAbbr);
+  const coreSetIds = data?.Items?.map((coreSet: CoreSet) => coreSet.coreSet);
+  const coreSetTabs = GetCoreSetTabs(coreSetIds);
   const { state, year } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   let coreSetData = coreSetTabs.map((coreSet) =>
-    GetMeasuresByCoreSet(coreSet.abbr, state!, year!)
+    GetMeasuresByCoreSet(coreSet.coreSetId, state!, year!)
   );
 
   if (isLoading || !data.Items) {

@@ -2,7 +2,7 @@ import { createMeasure } from "../create";
 import { testEvent } from "../../../test-util/testEvents";
 import { StatusCodes, Errors } from "../../../utils/constants/constants";
 import dynamodbLib from "../../../libs/dynamodb-lib";
-import { Measure } from "../../../types";
+import { Measure } from "@qmr/shared";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   put: jest.fn(),

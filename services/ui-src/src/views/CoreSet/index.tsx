@@ -1,7 +1,13 @@
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { AddSSMCard } from "./AddSSMCard";
-import { CoreSetAbbr, MeasureStatus, MeasureData, coreSetType } from "types";
+import {
+  CoreSetAbbr,
+  CoreSetIdentifier,
+  MeasureIdentifier,
+  MeasureStatuses,
+  parseCoreSet,
+} from "@qmr/shared";
 import { CoreSetTableItem } from "components/Table/types";
 import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { measureDescriptions } from "measures/measureDescriptions";
@@ -23,14 +29,13 @@ import { featuresByYear } from "utils/featuresByYear";
 import { StatusIcon } from "components/StatusIcon";
 
 interface HandleDeleteMeasureData {
-  coreSet: CoreSetAbbr;
-  measure: string;
+  coreSet: CoreSetIdentifier;
+  measure: MeasureIdentifier;
   state: string;
   year: string;
 }
 
 interface MeasureTableItem {
-  Type: coreSetType;
   title: string;
   abbr: string;
   path: string;
@@ -40,9 +45,9 @@ interface MeasureTableItem {
   lastDateModified: number;
   id: string;
   userCreated?: boolean;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
   /** For which core sets will the measureType be displayed? */
-  typeTagForCoreSets: CoreSetAbbr[];
+  typeTagForCoreSets?: CoreSetAbbr[];
   actions: { itemText: string; handleSelect: () => void }[];
 }
 
@@ -72,7 +77,7 @@ const StepsAndProgressSection = ({
   submitted,
   year,
 }: {
-  coreSetId: CoreSetAbbr;
+  coreSetId: CoreSetIdentifier;
   coreSetStatus: CoreSetTableItem.Status;
   completedAmount: number;
   measures: MeasureTableItem[];
@@ -85,17 +90,18 @@ const StepsAndProgressSection = ({
   });
   let { state } = useParams();
 
-  const coreSetInfo = coreSetId?.split("_") ?? [coreSetId];
+  const [coreSetAbbr, spaId] = parseCoreSet(coreSetId);
+
   const tempSpa =
-    coreSetInfo.length > 1
-      ? SPA[year!].find((s) => s.id === coreSetInfo[1] && s.state === state)
+    coreSetAbbr === CoreSetAbbr.HHCS
+      ? SPA[year!].find((s) => s.id === spaId && s.state === state)
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
       ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
       : "";
 
-  const coreSetName = abbrToName(coreSetInfo[0] as CoreSetAbbr);
+  const coreSetName = abbrToName(coreSetAbbr!);
 
   const rows = [
     {
@@ -126,7 +132,7 @@ const StepsAndProgressSection = ({
       label: {
         title: "Complete the below measures",
         hintText: `Complete all ${
-          coreSetTitles(coreSetInfo[0]) + spaName
+          coreSetTitles(coreSetAbbr!) + spaName
         } to submit the Core Set report.`,
       },
       indicator: (
@@ -148,7 +154,7 @@ const StepsAndProgressSection = ({
         </CUI.Text>
       ) : (
         <QMR.SubmitCoreSetButton
-          coreSet={coreSetId}
+          coreSet={coreSetId!}
           coreSetStatus={coreSetStatus}
           year={year!}
         />
@@ -213,11 +219,9 @@ const useMeasureTableDataBuilder = () => {
   const navigate = useNavigate();
   const { isStateUser } = useUser();
 
-  interface ModalProps {
-    isOpen: boolean;
-    measure: MeasureData<any> | any;
-  }
-  const [modalProps, setModalProps] = useState<ModalProps>({
+  const [modalProps, setModalProps] = useState<
+    React.ComponentProps<typeof QMR.UpdateInfoModal>["modalProps"]
+  >({
     isOpen: false,
     measure: {},
   });
@@ -233,11 +237,11 @@ const useMeasureTableDataBuilder = () => {
         });
       };
 
-      const filteredItems = (data.Items as MeasureData[]).filter(
+      const filteredItems = data.Items.filter(
         // filter out the coreset qualifiers
         (item) => item.measure && item.measure !== "CSQ"
       );
-      const measureTableData = (filteredItems as MeasureData[])
+      const measureTableData = filteredItems
         .filter(
           (item) =>
             !item.measure.includes("SS-") ||
@@ -277,12 +281,11 @@ const useMeasureTableDataBuilder = () => {
             measureDescriptions[item.year]?.[item.measure] || item.description;
 
           return {
-            Type: coreSetType[item.coreSet],
             title: foundMeasureDescription || "",
             abbr: item.measure,
             path: `/${state}/${year}/${coreSetId}/${item.measure}`,
             reporting: item.reporting,
-            rateComplete: item.status === MeasureStatus.COMPLETE ? 1 : 0,
+            rateComplete: item.status === MeasureStatuses.Complete ? 1 : 0,
             lastDateModified: item.lastAltered,
             createdAt: item.createdAt,
             autoCompleted: item.autoCompleted,
@@ -298,8 +301,8 @@ const useMeasureTableDataBuilder = () => {
       mounted && setMeasures(measureTableData);
 
       // Edge case: Dev environments Complete All Button marks placeholders as complete.
-      const completeItems = (data.Items as MeasureData[]).filter(
-        (item) => !item.placeholder && item.status === MeasureStatus.COMPLETE
+      const completeItems = data.Items.filter(
+        (item) => !item.placeholder && item.status === MeasureStatuses.Complete
       );
       const numberOfCoreSets = 1; // Include qualifier in core set status check
 
@@ -345,17 +348,15 @@ export const CoreSet = () => {
   const { isStateUser } = useUser();
   const navigate = useNavigate();
 
-  let { coreSetId, state, year } = useParams();
-  coreSetId = coreSetId ?? "";
+  let { coreSetId: coreSetParam, state, year } = useParams();
+  const coreSetId = (coreSetParam ?? "") as CoreSetIdentifier;
   state = state ?? "";
   year = year ?? "";
 
-  const coreSet = coreSetId?.split("_") ?? [coreSetId];
-  const coreSetPrefix = coreSet[0] as CoreSetAbbr;
-
+  const [coreSetAbbr, spaId] = parseCoreSet(coreSetId);
   const tempSpa =
-    coreSet.length > 1
-      ? SPA[year].find((s) => s.id === coreSet[1] && s.state === state)
+    coreSetAbbr === CoreSetAbbr.HHCS
+      ? SPA[year].find((s) => s.id === spaId && s.state === state)
       : "";
   const spaName =
     tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
@@ -419,7 +420,9 @@ export const CoreSet = () => {
     (measure) => measure.id
   );
 
-  const coreSetInstructions: { [key: string]: { [key: string]: string } } = {
+  const coreSetInstructions: {
+    [key: string]: { [key in CoreSetAbbr]: string };
+  } = {
     "2024": {
       ACSM: "Beginning with FFY 2024 reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as mandatory in the measure list below. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
       ACSC: "Beginning with FFY 2024 reporting, states are required to report the behavioral health measures on the Adult Core Set. The behavioral health measures are denoted as mandatory in the measure list below. More information on mandatory reporting requirements is included in the <a href='https://www.medicaid.gov/sites/default/files/2023-12/sho23005_1.pdf' target='_blank'>Initial Core Set Mandatory Reporting Guidance for the Child and Adult Core Sets</a>.",
@@ -450,7 +453,10 @@ export const CoreSet = () => {
   };
 
   // i.e, "Child Core Set Measures: Medicaid - Core Set Measures - 2025 QMR"
-  const simplifiedTitle = coreSetTitles(coreSet[0]).replaceAll(/ \(.*?\)/g, ""); // Remove anything in parentheses
+  const simplifiedTitle = coreSetTitles(coreSetAbbr!).replaceAll(
+    / \(.*?\)/g,
+    ""
+  ); // Remove anything in parentheses
 
   // For Health Home Core Sets, format the SPA name to exclude the full name
   let formattedSpaName = spaName;
@@ -472,17 +478,17 @@ export const CoreSet = () => {
           },
           {
             path: `/${state}/${year}/${coreSetId}`,
-            name: coreSetTitles(coreSet[0]) + spaName,
+            name: coreSetTitles(coreSetAbbr!) + spaName,
           },
         ]}
       >
         {featuresByYear.hasMandatoryReporting &&
           coreSetInstructions[year] &&
-          coreSetInstructions[year][coreSetPrefix] && (
+          coreSetInstructions[year][coreSetAbbr!] && (
             <CUI.Box mb="8">
               <Alert heading="Mandatory Reporting">
                 <CUI.Box sx={{ "& a": { textDecoration: "underline" } }}>
-                  {parseLabelToHTML(coreSetInstructions[year][coreSetPrefix])}
+                  {parseLabelToHTML(coreSetInstructions[year][coreSetAbbr!])}
                 </CUI.Box>
               </Alert>
             </CUI.Box>
@@ -513,7 +519,7 @@ export const CoreSet = () => {
           </CUI.Box>
         )}
         <StepsAndProgressSection
-          coreSetId={coreSetId as CoreSetAbbr}
+          coreSetId={coreSetId as CoreSetIdentifier}
           coreSetStatus={coreSetStatus}
           completedAmount={completedAmount}
           measures={measures}
@@ -524,7 +530,7 @@ export const CoreSet = () => {
           <QMR.LoadingWrapper isLoaded={!isLoading && measures.length > 0}>
             <CUI.Divider my="2rem"></CUI.Divider>
             <CUI.Heading fontSize="lg">
-              {abbrToName(coreSetPrefix as CoreSetAbbr)} Core Set Measures
+              {abbrToName(coreSetAbbr as CoreSetAbbr)} Core Set Measures
             </CUI.Heading>
             {!isError && (
               <QMR.Table data={measures} columns={QMR.measuresColumns(year)} />

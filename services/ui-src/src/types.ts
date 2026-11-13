@@ -1,66 +1,19 @@
-export enum CoreSetAbbr {
-  ACS = "ACS",
-  ACSM = "ACSM",
-  ACSC = "ACSC",
-  CCS = "CCS",
-  CCSM = "CCSM",
-  CCSC = "CCSC",
-  HHCS = "HHCS",
-}
+import { CoreSetAbbr, CoreSetIdentifier } from "@qmr/shared";
 
-export enum coreSetType {
-  ACS = "Adult",
-  ACSM = "Adult - Medicaid",
-  ACSC = "Adult - CHIP",
-  CCS = "Child",
-  CCSM = "Child - Medicaid",
-  CCSC = "Child - CHIP",
-  HHCS = "Health Home",
-}
-
-export enum UserRoles {
-  ADMIN = "mdctqmr-bor", // "MDCT QMR ADMIN"
-  APPROVER = "mdctqmr-approver", // "MDCT QMR APPROVER"
-  INTERNAL = "mdctqmr-internal-user", // "MDCT QMR INTERNAL USER"
-  HELP_DESK = "mdctqmr-help-desk", // "MDCT QMR HELP DESK USER"
-  STATE_USER = "mdctqmr-state-user", // "MDCT QMR STATE USER"
-}
-
-export enum MeasureStatus {
-  COMPLETE = "complete",
-  INCOMPLETE = "incomplete",
-}
-
-export enum MeasureType {
-  MANDATORY = "Mandatory",
-  PROVISIONAL = "Provisional",
-}
+export const coreSetLabels = {
+  ACS: "Adult",
+  ACSM: "Adult - Medicaid",
+  ACSC: "Adult - CHIP",
+  CCS: "Child",
+  CCSM: "Child - Medicaid",
+  CCSC: "Child - CHIP",
+  HHCS: "Health Home",
+} as const satisfies { [key in CoreSetAbbr]: string };
 
 export interface Params {
   state?: string;
   year?: string;
-  coreSetId?: CoreSetAbbr;
-}
-
-export interface MeasureData<DataType = any> {
-  compoundKey: string;
-  coreSet: CoreSetAbbr;
-  /** For which core sets will the measureType be displayed? */
-  typeTagForCoreSets: CoreSetAbbr[];
-  createdAt: number;
-  description: string;
-  detailedDescription?: string;
-  lastAltered: number;
-  autoCompleted?: boolean;
-  measureType?: MeasureType;
-  measure: string;
-  state: string;
-  status: "incomplete" | "complete" | undefined;
-  reporting: "yes" | "no" | null | undefined;
-  year: number;
-  data: DataType;
-  userCreated?: boolean;
-  placeholder?: boolean;
+  coreSetId?: CoreSetIdentifier;
 }
 
 export interface ndrFormula {
@@ -111,83 +64,6 @@ export enum AlertTypes {
 export interface AnyObject {
   [key: string]: any;
 }
-
-// TIME
-
-export interface DateShape {
-  year: number;
-  month: number;
-  day: number;
-}
-
-export interface TimeShape {
-  hour: number;
-  minute: number;
-  second: number;
-}
-
-export enum DataSource {
-  Administrative = "AdministrativeData",
-  EHR = "ElectronicHealthRecords",
-  Hybrid = "HybridAdministrativeandMedicalRecordsData",
-  CaseMagementRecordReview = "Casemanagementrecordreview",
-  ECDS = "ElectronicClinicalDataSystemsECDS",
-  Other = "OtherDataSource",
-}
-
-/**
- * This is the shape of data saved to the Rates table
- */
-export type CombinedRatesPayload = {
-  DataSources: {
-    Medicaid: DataSourcePayload;
-    CHIP: DataSourcePayload;
-  };
-  Rates: {
-    uid: string;
-    category?: string;
-    label?: string;
-    Medicaid: WeightedRateShape;
-    CHIP: WeightedRateShape;
-    Combined: WeightedRateShape;
-  }[];
-  AdditionalValues: {
-    uid: string;
-    /**
-     * This label is included in the payload for debugging purposes only.
-     * It is not guaranteed to be present! When displaying AdditionalValues,
-     * we must look up the labels from measures/[year]/rateLabelText.ts
-     */
-    label: string;
-    Medicaid: number | undefined;
-    CHIP: number | undefined;
-    Combined: number | undefined;
-  }[];
-};
-
-export type DataSourcePayload = {
-  requiresWeightedCalc: boolean;
-  isUnusableForCalc: boolean;
-  hasOtherDataSource: boolean;
-  hasECDSDataSource?: boolean;
-  hasOtherSpecification: boolean;
-  DataSource: DataSource[];
-  /** Note: this is a simplified version of the typedef found in app-api. */
-  DataSourceSelections: {
-    [key: string]: {
-      selected?: string[];
-      description?: string;
-    };
-  };
-};
-
-export type WeightedRateShape = {
-  numerator?: number;
-  denominator?: number;
-  rate?: number;
-  population?: number;
-  weightedRate?: number;
-};
 
 export enum ProgramTypes {
   Medicaid = "Medicaid",

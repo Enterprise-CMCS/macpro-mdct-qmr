@@ -1,4 +1,4 @@
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "@qmr/shared";
 import { MeasureTableItem } from "./types";
 
 // Example Measures list data for testing and demo page.

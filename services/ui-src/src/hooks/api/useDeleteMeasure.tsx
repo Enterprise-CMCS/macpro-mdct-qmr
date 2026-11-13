@@ -1,10 +1,10 @@
 import * as Api from "libs/api";
-import { CoreSetAbbr } from "types";
+import { CoreSetIdentifier, MeasureIdentifier } from "@qmr/shared";
 import { useMutation } from "@tanstack/react-query";
 
 interface DeleteMeasure {
-  coreSet: CoreSetAbbr;
-  measure: string;
+  coreSet: CoreSetIdentifier;
+  measure: MeasureIdentifier;
   state: string;
   year: string;
 }

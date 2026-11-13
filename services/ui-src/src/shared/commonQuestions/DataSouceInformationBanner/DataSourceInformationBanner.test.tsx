@@ -3,7 +3,7 @@ import {
   dataSourceSelections,
 } from "./DataSourceInformationBanner";
 import { render, screen } from "@testing-library/react";
-import { CombinedRatesPayload } from "types";
+import { CombinedRateData } from "@qmr/shared";
 
 const emptyDataSource = {
   DataSource: [],
@@ -21,7 +21,7 @@ const emptyPayload = {
   },
   Rates: [],
   AdditionalValues: [],
-} as CombinedRatesPayload;
+} as CombinedRateData;
 
 describe("DataSourceInformationBanner", () => {
   it("should render data sources correctly", () => {
@@ -67,7 +67,7 @@ describe("DataSourceInformationBanner", () => {
       },
       Rates: [],
       AdditionalValues: [],
-    } as CombinedRatesPayload;
+    } as CombinedRateData;
     const props = { payload };
 
     const { container } = render(<DataSourceInformationBanner {...props} />);

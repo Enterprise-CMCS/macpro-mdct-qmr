@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUser } from "hooks/authHooks";
-import { CoreSetAbbr, UserRoles } from "types";
+import { CoreSetAbbr, CoreSetIdentifier, UserRoles } from "@qmr/shared";
 import { featuresByYear } from "utils/featuresByYear";
 import * as DC from "dataConstants";
 
@@ -68,10 +68,8 @@ export const AddHHCoreSet = () => {
 
   const handleSubmit = (data: HealthHome) => {
     if (data[DC.HEALTH_HOME_CORESET_SPA]) {
-      const coreset: unknown = `${CoreSetAbbr.HHCS}_${
-        data[DC.HEALTH_HOME_CORESET_SPA]
-      }`;
-      mutation.mutate(coreset as CoreSetAbbr, {
+      const coreset: CoreSetIdentifier = `${CoreSetAbbr.HHCS}_${data[DC.HEALTH_HOME_CORESET_SPA]}`;
+      mutation.mutate(coreset, {
         onSuccess: () => {
           queryClient.refetchQueries({
             queryKey: ["coreSets", state, year],

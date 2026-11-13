@@ -1,6 +1,6 @@
 import { IKebabMenuItem } from "components";
 import { ReactElement } from "react";
-import { CoreSetAbbr, MeasureType } from "types";
+import { CoreSetAbbr, CoreSetIdentifier, MandatoryTag } from "@qmr/shared";
 
 export namespace CoreSetTableItem {
   export interface Progress {
@@ -22,7 +22,7 @@ export namespace CoreSetTableItem {
   }
 
   export type Data = {
-    coreSet: CoreSetAbbr;
+    coreSet: CoreSetIdentifier;
     id: string;
     title: string;
     type: Type;
@@ -51,10 +51,10 @@ export namespace MeasureTableItem {
     actions: IKebabMenuItem[];
     reporting: string | undefined | null;
     autoCompleted?: boolean;
-    measureType?: MeasureType;
-    coreSet: CoreSetAbbr;
+    measureType?: MandatoryTag;
+    coreSet: CoreSetIdentifier;
     /** For which core sets will the measureType be displayed? */
-    typeTagForCoreSets: CoreSetAbbr[];
+    typeTagForCoreSets?: CoreSetAbbr[];
   };
 
   export interface StatusTextProps {

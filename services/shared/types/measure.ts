@@ -1,5 +1,5 @@
 import { Numeric, NumericString, UploadInfo, YesNo } from "./common";
-import { CoreSetIdentifier } from "./coreSet";
+import { CoreSetAbbr, CoreSetIdentifier } from "./coreSet";
 
 /**
  * The shape of an item in the measure table.
@@ -22,7 +22,7 @@ import { CoreSetIdentifier } from "./coreSet";
  * The exception is the CSQ measure, which contains data at a higher level:
  * How many patients are covered by a core set? Was this data audited? By whom?
  */
-export type Measure = {
+export type Measure<TData extends MeasureData | CsqData = MeasureData> = {
   /**
    * Includes state, year, and core set identifier. The Dynamo partition key.
    * @example "AK2021ACS" "CA2021HHCS_19-0037"
@@ -50,7 +50,7 @@ export type Measure = {
   status: MeasureStatus;
 
   /** Contains all of the user-entered data for this measure. */
-  data?: MeasureData | CsqMeasureData;
+  data?: TData;
 
   /**
    * When was the measure created? Milliseconds since epoch.
@@ -70,7 +70,8 @@ export type Measure = {
   lastAltered: number;
 
   lastAlteredBy?: string;
-} & StateSpecificMeasureFields;
+} & StateSpecificMeasureFields &
+  Partial<MeasureMetaDataFields>;
 
 /**
  * What is this Measure measuring?
@@ -128,9 +129,29 @@ type StateSpecificMeasureFields = {
 };
 
 /**
+ * These fields affect how the measure is generated and displayed.
+ *
+ * These are NOT stored in the database.
+ * They are copied onto measure objects at time of retrieval,
+ * from the lookups in app-api/handlers/dynamoUtils/measureListYYYY.ts
+ */
+export type MeasureMetaDataFields = {
+  autoCompleted?: boolean;
+  measureType?: MandatoryTag;
+  /** For which core sets will the measureType be displayed? */
+  typeTagForCoreSets?: CoreSetAbbr[];
+  stratificationRequired?: CoreSetAbbr[];
+};
+export const MandatoryTags = {
+  Mandatory: "Mandatory",
+  Provisional: "Provisional",
+} as const;
+export type MandatoryTag = (typeof MandatoryTags)[keyof typeof MandatoryTags];
+
+/**
  * The shape of the Core Set Quality measure data.
  */
-export type CsqMeasureData = {
+export type CsqData = {
   /** "Yes, some..." or "No, none..." */
   CoreSetMeasuresAuditedOrValidated?: string;
   CoreSetMeasuresAuditedOrValidatedDetails?: {
@@ -177,20 +198,208 @@ export type CsqMeasureData = {
   }[];
 };
 
-export type MeasureData = {
-  DateRange?: DateRange;
-  DataSourceSelections?: DataSourceSelections;
-  Deviations?: Deviations;
-  "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": UploadInfo[];
-  PerformanceMeasure?: PerformanceMeasure;
-  OptionalMeasureStratification?: MeasureStratification;
-  "OtherPerformanceMeasure-Rates"?: OtherPerformanceMeasureRate[];
-  "AdditionalNotes-AdditionalNotes": UploadInfo[];
-} & {
-  // There are MANY fields, varying from measure to measure and year to year,
-  // with string or string array values.
-  [key: string]: YesNo | NumericString | string | string[];
+type MeasureDataYesNoFields = {
+  [key in
+    | "CombinedRates"
+    | "DeliverySys-FeeForService"
+    | "DeliverySys-IntegratedCareModel"
+    | "DeliverySys-MCO_PIHP"
+    | "DeliverySys-PrimaryCareManagement"
+    | "DenominatorDefineHealthHome"
+    | "DenominatorDefineTotalTechSpec"
+    | "DidCalculationsDeviate"
+    | "DidCollect"
+    | "DidReport"
+    | "MeasurementPeriodAdhereToCoreSetSpecification"]?: YesNo;
 };
+
+type MeasureDataNumericStringFields = {
+  [key in
+    | "DeliverySys-FeeForService-No-Percent"
+    | "DeliverySys-IntegratedCareModel-No-Percent"
+    | "DeliverySys-IntegratedCareModel-No-Population"
+    | "DeliverySys-MCO_PIHP-No-Excluded"
+    | "DeliverySys-MCO_PIHP-No-Included"
+    | "DeliverySys-MCO_PIHP-NumberOfPlans"
+    | "DeliverySys-Other-NumberOfHealthPlans"
+    | "DeliverySys-Other-Percent"
+    | "DeliverySys-PrimaryCareManagement-No-Percent"
+    | "DenominatorDefineTotalTechSpec-No-Size"
+    | "HybridMeasurePopulationIncluded"
+    | "HybridMeasureSampleSize"
+    | "SmallSampleSizeLessThan30"]?: NumericString;
+};
+
+type MeasureDataFreeTextFields = {
+  [key in
+    | "AdditionalNotes-AdditionalNotes"
+    | "ChangeInPopulationExplanation"
+    | "CombinedRates-CombinedRates-Other-Explanation"
+    | "DataInconsistenciesAccuracyIssues"
+    | "DataSource-Admin-Protocol-Other"
+    | "DataSource-CAHPS-Version-Other"
+    | "DataSource-Included-ItemSets-Other"
+    | "DataSourceDescription"
+    | "DataSourceNotEasilyAccessible-Other"
+    | "DataStatus-ProvisionalExplanation"
+    | "DefinitionOfDenominator-Other"
+    | "DefinitionOfSurveySample-Changes"
+    | "DefinitionOfSurveySample-Other"
+    | "DeliverySys-Other"
+    | "DenominatorDefineHealthHome-No-Explanation"
+    | "DenominatorDefineTotalTechSpec-No-Explanation"
+    | "DeviationReason"
+    | "HowDidYouReport-Explanation"
+    | "InformationNotCollected-Other"
+    | "LimitationWithDatCollecitonReportAccuracyCovid"
+    | "MeasurementSpecification-OtherMeasurementSpecificationDescription"
+    | "OtherPerformanceMeasure-Explanation"
+    | "OtherPerformanceMeasure-HybridExplanation"
+    | "PartialPopulationNotCoveredExplanation"
+    | "WhyAreYouNotReporting-Other"
+    | "WhyDidYouNotCollect-Other"
+    | "WhyIsDataNotAvailable-Other"]?: string;
+};
+
+type MeasureDataRadioFields = {
+  AmountOfPopulationNotCovered:
+    | "EntirePopulationNotCovered"
+    | "PartialPopulationNotCovered";
+  "CombinedRates-CombinedRates":
+    | "Combined Weighted Rates Other"
+    | "Combined Weighted Rates"
+    | "Combined Not Weighted Rates";
+  "DataSource-Admin-Protocol":
+    | "AHRQ CAHPS administrative protocol"
+    | "NCQA/HEDIS CAHPS 5.1H administrative protocol"
+    | "Other administrative protocol";
+  "DataSource-CAHPS-Version": "CAHPS 5.1H" | "Other";
+  DataStatus: "ReportingFinalData" | "ReportingProvisionalData";
+  HowDidYouReport:
+    | "No, we did not submit our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period."
+    | "Other"
+    | "Submitted raw data to AHRQ (CAHPS Database)"
+    | "Yes, we submitted our CAHPS survey data to the AHRQ CAHPS Database during the June 2024 submission period."
+    | "yes";
+  MeasurementSpecification: MeasurementSpecification;
+  "MeasurementSpecification-HEDISVersion":
+    | "HEDIS 2020"
+    | "HEDIS MY 2020"
+    | "HEDIS MY 2021"
+    | "HEDIS MY 2022"
+    | "HEDIS MY 2023";
+};
+
+type MeasureDataCheckboxFields = {
+  /**
+   * Note that this type is only accurate for 2024 and later years.
+   * - Prior to 2024, FVA-AD could have a single string rather than an array.
+   *   It would be `"CAHPS 5.1H"` or `"Other"`.
+   * - Prior to 2022, AUD-CH could include in its array the string `"Other"`,
+   *   rather than the standard `"OtherDataSource"`.
+   */
+  DataSource: DataSource[];
+  DataSourceNotEasilyAccessible: (
+    | "Other"
+    | "RequireDataLinkage"
+    | "RequiresMedicalRecordReview"
+  )[];
+  DefinitionOfDenominator: (
+    | "DenominatorIncCHIP"
+    | "DenominatorIncCHIPPop"
+    | "DenominatorIncMedicaidAndCHIPPop"
+    | "DenominatorIncMedicaidPop"
+    | "DenominatorIncMedicareMedicaidDualEligible"
+    | "DenominatorIncMedicareMedicaidExpansion"
+    | "DenominatorIncOther"
+    | "Medicaid (Title XIX)"
+    | "Separate CHIP (Title XXI)"
+    | "SurveySampleIncCHIP"
+  )[];
+  DeliverySysRepresentationDenominator: (
+    | "FFS"
+    | "ICM"
+    | "MCO-PIHP"
+    | "Other"
+    | "PCCM"
+  )[];
+  DeviationOptions: ("denominator" | "numerator" | "other" | string)[];
+  InformationNotCollected: (
+    | "NotCollectedByProviderHospitalHealthPlan"
+    | "Other"
+  )[];
+  WhyAreYouNotReporting: (
+    | "ContinuousEnrollmentRequirementNotMetDueToStartDateOfSPA"
+    | "DataNotAvailable"
+    | "LimitationWithDatCollecitonReportAccuracyCovid"
+    | "Other"
+    | "PopulationNotCovered"
+    | "ServiceNotCovered"
+    | "SmallSampleSizeLessThan30"
+  )[];
+  WhyDidYouNotCollect: (
+    | "DataNotAvailable"
+    | "LimitationWithDatCollecitonReportAccuracyCovid"
+    | "Other"
+    | "PopulationNotCovered"
+  )[];
+  WhyIsDataNotAvailable: (
+    | "BudgetConstraints"
+    | "DataInconsistenciesAccuracyIssues"
+    | "DataNotSubmittedByProvidersToState"
+    | "DataSourceNotEasilyAccessible"
+    | "InformationNotCollected"
+    | "Other"
+    | "StaffConstraints"
+  )[];
+};
+
+type MeasureDataRadioOrCheckboxFields = {
+  "DataSource-Included-ItemSets":
+    | "No, we did not include the CAHPS Item Set for Children with Chronic Conditions in the survey."
+    | "Yes, we included the CAHPS Item Set for Children with Chronic Conditions in the survey."
+    | (
+        | "CAHPS Item Set for Children with Chronic Conditions"
+        | "No Supplemental Item Sets were included"
+        | "Other CAHPS Item Set"
+        | "Supplemental Items for Adult Survey 5.1H"
+      )[];
+  DefinitionOfSurveySample:
+    | "SurveySampleiIncludesCHIPOnly"
+    | "SurveySampleIncludesCHIPMedicaidCombined"
+    | "SurveySampleIncludesMedicaidOnly"
+    | "SurveySamplesIncludeCHIPAndMedicaidSeparately"
+    | (
+        | "DefOfPopulationOther"
+        | "MedicaidExpansionCHIP"
+        | "MedicaidTitleXIX"
+        | "SurveySampleIncCHIP"
+        | "SurveySampleIncMedicaidPop"
+        | "SurveySampleIncMedicareMedicaidDualEligible"
+        | "SurveySampleIncOther"
+      )[];
+};
+
+type MeasureDataComplexFields = {
+  DateRange: DateRange;
+  DataSourceSelections: DataSourceSelections;
+  Deviations: Deviations;
+  "MeasurementSpecification-OtherMeasurementSpecificationDescription-Upload": UploadInfo[];
+  PerformanceMeasure: PerformanceMeasure;
+  OptionalMeasureStratification: MeasureStratification;
+  "OtherPerformanceMeasure-Rates": OtherPerformanceMeasureRate[];
+  "AdditionalNotes-AdditionalNotes": UploadInfo[];
+};
+
+export type MeasureData = Partial<
+  MeasureDataYesNoFields &
+    MeasureDataNumericStringFields &
+    MeasureDataRadioFields &
+    MeasureDataCheckboxFields &
+    MeasureDataRadioOrCheckboxFields &
+    MeasureDataFreeTextFields &
+    MeasureDataComplexFields
+>;
 
 export type DateRange = {
   startDate?: DateRangeSelection;
@@ -326,13 +535,13 @@ export type PerformanceMeasure = {
 type RateShape =
   | NdrRateShape
   | FieldsRateShape
-  | IdRateShape
+  | ValueRateShape
   | LegacyNdrRateShape
   | LegacyFieldsRateShape
-  | LegacyIdRateShape;
+  | LegacyValueRateShape;
 
 /** Shape for most measures' rates */
-type NdrRateShape = {
+export type NdrRateShape = {
   uid: string;
   label: string;
   category?: string;
@@ -341,10 +550,14 @@ type NdrRateShape = {
   denominator?: NumericString;
   rate?: NumericString;
 };
+export const isNdrRateShape = (x: RateShape): x is NdrRateShape =>
+  isLegacyNdrRateShape(x) && "uid" in x;
 type LegacyNdrRateShape = Omit<NdrRateShape, "uid" | "category">;
+export const isLegacyNdrRateShape = (x: RateShape): x is LegacyNdrRateShape =>
+  !("fields" in x) && !("id" in x);
 
 /** Used for AIF-HH and IU-HH */
-type FieldsRateShape = {
+export type FieldsRateShape = {
   uid: string;
   label: string;
   category?: string;
@@ -355,19 +568,29 @@ type FieldsRateShape = {
     value?: Numeric;
   }[];
 };
+export const isFieldsRateShape = (x: RateShape): x is FieldsRateShape =>
+  isLegacyFieldsRateShape(x) && "uid" in x;
 type LegacyFieldsRateShape = Omit<
   FieldsRateShape,
   "uid" | "category" | "fields"
 > & { fields: Omit<FieldsRateShape["fields"], "uid">[] };
+export const isLegacyFieldsRateShape = (
+  x: RateShape
+): x is LegacyFieldsRateShape => "fields" in x;
 
 /** Used for PCR-AD and PCR-HH */
-type IdRateShape = {
+export type ValueRateShape = {
   uid: string;
   label: string;
   id: number;
   value?: NumericString;
 };
-type LegacyIdRateShape = Omit<IdRateShape, "uid">;
+export const isValueRateShape = (x: RateShape): x is ValueRateShape =>
+  isLegacyValueRateShape(x) && "uid" in x;
+type LegacyValueRateShape = Omit<ValueRateShape, "uid">;
+export const isLegacyValueRateShape = (
+  x: RateShape
+): x is LegacyValueRateShape => "value" in x;
 
 type OtherPerformanceMeasureRate = {
   rate: {
@@ -386,3 +609,33 @@ type MeasureStratification = {
     };
   };
 };
+
+export const DataSources = {
+  Administrative: "AdministrativeData",
+  EHR: "ElectronicHealthRecords",
+  Hybrid: "HybridAdministrativeandMedicalRecordsData",
+  CaseMagementRecordReview: "Casemanagementrecordreview",
+  ECDS: "ElectronicClinicalDataSystemsECDS",
+  Other: "OtherDataSource",
+} as const;
+export type DataSource = (typeof DataSources)[keyof typeof DataSources];
+
+export const MeasurementSpecifications = {
+  AHRQ: "AHRQ",
+  AHRQ_NCQA: "AHRQ-NCQA",
+  CMS: "CMS",
+  DQA: "ADA-DQA",
+  HRSA: "HRSA",
+  NCQA_HEDIS: "NCQA/HEDIS",
+  OHSU: "OHSU",
+  OPA: "OPA",
+  Other: "Other",
+  PQA: "PQA",
+  /** Only for AUD-CH (obsolete in 2022) */
+  CDC: "CDC",
+  /** Only for PC01-AD (obsolete in 2022) */
+  TheJointCommission: "TheJointCommission",
+  SAMHSA: "SAMHSA",
+} as const;
+export type MeasurementSpecification =
+  (typeof MeasurementSpecifications)[keyof typeof MeasurementSpecifications];

@@ -1,13 +1,13 @@
 import { AdditionalCombinedValues } from "./AdditionalCombinedValues";
 import { render, screen } from "@testing-library/react";
-import { DataSourcePayload } from "types";
+import { DataSourceInformation } from "@qmr/shared";
 
 describe("Combined Rates - Additional Values", () => {
   it("Should not render a table when a measure has no non-NDR values", () => {
     const payload = {
       DataSources: {
-        Medicaid: {} as DataSourcePayload,
-        CHIP: {} as DataSourcePayload,
+        Medicaid: {} as DataSourceInformation,
+        CHIP: {} as DataSourceInformation,
       },
       Rates: [],
       AdditionalValues: [],
@@ -29,8 +29,8 @@ describe("Combined Rates - Additional Values", () => {
   it("Should render additional values when present", () => {
     const payload = {
       DataSources: {
-        Medicaid: {} as DataSourcePayload,
-        CHIP: {} as DataSourcePayload,
+        Medicaid: {} as DataSourceInformation,
+        CHIP: {} as DataSourceInformation,
       },
       Rates: [],
       AdditionalValues: [
@@ -64,8 +64,8 @@ describe("Combined Rates - Additional Values", () => {
   it("Should render appropriate defaults for missing values", () => {
     const payload = {
       DataSources: {
-        Medicaid: {} as DataSourcePayload,
-        CHIP: { isUnusableForCalc: true } as DataSourcePayload,
+        Medicaid: {} as DataSourceInformation,
+        CHIP: { isUnusableForCalc: true } as DataSourceInformation,
       },
       Rates: [],
       AdditionalValues: [
@@ -95,8 +95,8 @@ describe("Combined Rates - Additional Values", () => {
   it("Should render certain values with trailing zeroes", () => {
     const payload = {
       DataSources: {
-        Medicaid: {} as DataSourcePayload,
-        CHIP: {} as DataSourcePayload,
+        Medicaid: {} as DataSourceInformation,
+        CHIP: {} as DataSourceInformation,
       },
       Rates: [],
       AdditionalValues: [
@@ -158,8 +158,8 @@ describe("Combined Rates - Additional Values", () => {
   it("should look up labels by UID", () => {
     const payload = {
       DataSources: {
-        Medicaid: {} as DataSourcePayload,
-        CHIP: {} as DataSourcePayload,
+        Medicaid: {} as DataSourceInformation,
+        CHIP: {} as DataSourceInformation,
       },
       Rates: [],
       AdditionalValues: [

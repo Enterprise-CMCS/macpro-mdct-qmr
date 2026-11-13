@@ -8,7 +8,7 @@ import { commonQuestionsLabel as commonQuestionsLabels2026 } from "labels/2026/c
 import { commonQuestionsLabel as commonQuestionsLabels2025 } from "labels/2025/commonQuestionsLabel";
 import { getMeasureYear } from "utils/getMeasureYear";
 import { useParams } from "react-router";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "@qmr/shared";
 import { getStratificationBannerDescription } from "components/MeasureWrapper/stratificationBanner";
 
 jest.mock("utils/getMeasureYear", () => ({

@@ -1,4 +1,5 @@
 import { validationFunctions } from "./validationTemplate";
+import { MeasureIdentifier } from "@qmr/shared";
 
 import { data as AABAD_Data } from "./AABAD/data";
 import { data as ADDCH_Data } from "./ADDCH/data";
@@ -67,7 +68,7 @@ import { data as W30CH_Data } from "./W30CH/data";
 import { data as WCCCH_Data } from "./WCCCH/data";
 import { data as WCVCH_Data } from "./WCVCH/data";
 
-export const measureTemplateData: { [measure: string]: any } = {
+export const measureTemplateData: { [measure: MeasureIdentifier]: any } = {
   "AAB-AD": { data: AABAD_Data, validationFunctions: validationFunctions },
   "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },

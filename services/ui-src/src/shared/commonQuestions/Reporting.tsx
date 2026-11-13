@@ -9,7 +9,7 @@ interface Props {
   measureName: string;
   measureAbbreviation: string;
   reportingYear: string;
-  coreset?: string;
+  coreset?: Types.CoreSetKey;
   removeLessThan30?: boolean;
 }
 

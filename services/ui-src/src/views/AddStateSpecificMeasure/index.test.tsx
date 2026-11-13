@@ -3,7 +3,7 @@ import { AddStateSpecificMeasure } from ".";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RouterWrappedComp } from "utils/testing";
 import { useApiMock } from "utils/testUtils/useApiMock";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "@qmr/shared";
 
 const queryClient = new QueryClient();
 

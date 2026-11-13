@@ -1,4 +1,4 @@
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "@qmr/shared";
 import { getStratificationBannerDescription } from "./stratificationBanner";
 
 describe("getStratificationBannerDescription", () => {

@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { listMeasures } from "libs/api";
 import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router";
-import { MeasureData } from "types";
+import { CoreSetIdentifier, Measure } from "@qmr/shared";
 
 interface GetMeasures {
   state: string;
   year: string;
-  coreSet: string;
+  coreSet: CoreSetIdentifier;
 }
 
 const getMeasures = async ({ state, year, coreSet }: GetMeasures) => {
@@ -18,7 +18,7 @@ const getMeasures = async ({ state, year, coreSet }: GetMeasures) => {
   });
 };
 
-export const useGetMeasures = (coreSetAbbr?: string) => {
+export const useGetMeasures = (coreSetIdentifier?: CoreSetIdentifier) => {
   const {
     state: statePath,
     year: yearPath,
@@ -26,20 +26,20 @@ export const useGetMeasures = (coreSetAbbr?: string) => {
   } = usePathParams();
   let { state, year, coreSetId } = useParams();
 
-  coreSetId = coreSetAbbr ?? coreSetId;
+  coreSetId = coreSetIdentifier ?? coreSetId;
 
   if (
     (state || statePath) &&
     (year || yearPath) &&
     (coreSetId || coreSetPath)
   ) {
-    return useQuery<{ Items: MeasureData[] }>({
+    return useQuery<{ Items: Measure[] }>({
       queryKey: ["measures", state, year, coreSetId || coreSetPath],
       queryFn: () =>
         getMeasures({
           state: state || statePath,
           year: year || yearPath,
-          coreSet: coreSetId || coreSetPath,
+          coreSet: (coreSetId || coreSetPath) as CoreSetIdentifier,
         }),
     });
   }

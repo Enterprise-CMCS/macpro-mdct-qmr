@@ -4,7 +4,7 @@ import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import { Measure, MeasureStatus, UserRoles } from "../../types";
+import { Measure, MeasureStatuses, UserRoles } from "@qmr/shared";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 
@@ -55,7 +55,7 @@ export const createMeasure = handler(async (event, _context) => {
       createdAt: Date.now(),
       lastAltered: Date.now(),
       lastAlteredBy: event.headers["cognito-identity-id"],
-      status: MeasureStatus.INCOMPLETE,
+      status: MeasureStatuses.Incomplete,
       description: body.description ?? "",
       detailedDescription: body.detailedDescription ?? "",
       data: body.data,

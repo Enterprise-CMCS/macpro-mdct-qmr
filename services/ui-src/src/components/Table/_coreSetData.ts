@@ -1,4 +1,4 @@
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "@qmr/shared";
 import { CoreSetTableItem } from "./types";
 
 // Example Core Set list data for testing and demo page.
@@ -34,7 +34,7 @@ export const exampleCoreSetData: CoreSetTableItem.Data[] = [
     year: "2021",
   },
   {
-    coreSet: CoreSetAbbr.HHCS,
+    coreSet: `${CoreSetAbbr.HHCS}_00-0001`,
     title: "Health Home Core Set Questions: SPA Name",
     type: CoreSetTableItem.Type.HEALTH_HOME,
     progress: { numAvailable: 12, numComplete: 4 },

@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router";
 import { FormProvider, useForm } from "react-hook-form";
 import * as Api from "hooks/api";
 import { useQueryClient } from "@tanstack/react-query";
-import { AnyObject, CoreSetAbbr, UserRoles } from "types";
+import { CoreSetAbbr, UserRoles } from "@qmr/shared";
 import { useUser } from "hooks/authHooks";
 import { featuresByYear } from "utils/featuresByYear";
 
@@ -40,7 +40,7 @@ export const AddAdultCoreSet = () => {
     );
   }
 
-  const onSubmit = (data: AnyObject) => {
+  const onSubmit = (data: { "AdultCoreSet-ReportType"?: ReportType }) => {
     switch (data["AdultCoreSet-ReportType"]) {
       case ReportType.SEPARATE:
         mutation.mutate(CoreSetAbbr.ACSM, {

@@ -4,7 +4,8 @@ import {
   hasRolePermissions,
   getUserNameFromJwt,
 } from "../authorization";
-import { APIGatewayProxyEvent, UserRoles } from "../../types";
+import { UserRoles } from "@qmr/shared";
+import { APIGatewayProxyEvent } from "../../types";
 import jwtDecode from "jwt-decode";
 
 jest.mock("jwt-decode", () => jest.fn());

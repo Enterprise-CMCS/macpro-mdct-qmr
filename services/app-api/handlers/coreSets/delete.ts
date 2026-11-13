@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { hasStatePermissions } from "../../libs/authorization";
-import { Measure } from "../../types";
+import { CoreSetIdentifier, Measure } from "@qmr/shared";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 
@@ -42,7 +42,7 @@ export const deleteCoreSet = handler(async (event, _context) => {
 const deleteDependentMeasures = async (
   state: string,
   year: number,
-  coreSet: string
+  coreSet: CoreSetIdentifier
 ) => {
   const measures = await getMeasures(state, year, coreSet);
   const Items = measures;
@@ -60,7 +60,11 @@ const deleteDependentMeasures = async (
   }
 };
 
-const getMeasures = async (state: string, year: number, coreSet: string) => {
+const getMeasures = async (
+  state: string,
+  year: number,
+  coreSet: CoreSetIdentifier
+) => {
   const params = {
     TableName: process.env.MeasuresTable!,
     KeyConditionExpression: "compoundKey = :compoundKey",

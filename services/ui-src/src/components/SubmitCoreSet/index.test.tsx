@@ -1,5 +1,5 @@
 import { CoreSetTableItem } from "components/Table/types";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, CoreSetIdentifier } from "@qmr/shared";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderWithHookForm } from "utils/testUtils/reactHookFormRenderer";
 import { screen } from "@testing-library/react";
@@ -15,7 +15,7 @@ jest.mock("utils/getMeasureYear");
 const mockGetMeasureYear = getMeasureYear as jest.Mock;
 
 interface Props {
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
   coreSetStatus: CoreSetTableItem.Status;
   isSubmitted: boolean;
   year: string;

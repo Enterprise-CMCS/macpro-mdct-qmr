@@ -4,7 +4,8 @@ import {
   getCombinedRatesFromTable,
 } from "./table";
 import dynamodbLib from "../libs/dynamodb-lib";
-import { CombinedRatesPayload, DataSourcePayload } from "../types";
+import { CombinedRateData, DataSourceInformation } from "@qmr/shared";
+import { RateParameters } from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   update: jest.fn(),
@@ -16,7 +17,7 @@ const mockMeasureParameters = {
   measure: "ZZZ-AD",
   coreSet: "ACS",
   year: 2024,
-};
+} as RateParameters;
 
 const mockMeasure = {
   coreSet: "ACSM",
@@ -40,8 +41,8 @@ const mockMeasure = {
 
 const mockCombinedRate = {
   DataSources: {
-    Medicaid: { DataSource: ["AdministrativeData"] } as DataSourcePayload,
-    CHIP: { DataSource: ["AdministrativeData"] } as DataSourcePayload,
+    Medicaid: { DataSource: ["AdministrativeData"] } as DataSourceInformation,
+    CHIP: { DataSource: ["AdministrativeData"] } as DataSourceInformation,
   },
   Rates: [
     {
@@ -57,7 +58,7 @@ const mockCombinedRate = {
     },
   ],
   AdditionalValues: [],
-} as CombinedRatesPayload;
+} as CombinedRateData;
 
 describe("Test database helper functions", () => {
   beforeAll(() => {

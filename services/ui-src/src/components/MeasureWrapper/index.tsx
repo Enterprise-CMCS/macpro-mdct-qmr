@@ -18,7 +18,14 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import * as QMR from "components";
 import { useGetMeasure, useUpdateMeasure } from "hooks/api";
-import { CoreSetAbbr, MeasureStatus } from "types";
+import {
+  abbreviationFor,
+  CoreSetAbbr,
+  CoreSetIdentifier,
+  MeasureStatus,
+  MeasureStatuses,
+  parseCoreSet,
+} from "@qmr/shared";
 import { areObjectsDifferent, areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
 import { useUser } from "hooks/authHooks";
@@ -167,14 +174,9 @@ export const MeasureWrapper = ({
   };
 
   // setup default values for core set, as delivery system uses this to pregen the labeled portion of the table
-  const coreSet = (params.coreSetId?.split("_")?.[0] ??
-    params.coreSetId ??
-    "ACS") as CoreSetAbbr;
-  const defaultVals = params.coreSetId
-    ? defaultData?.[
-        (params.coreSetId?.split("_")?.[0] ?? params.coreSetId) as CoreSetAbbr
-      ]
-    : undefined;
+  const [coreSetAbbr, spaId] = parseCoreSet(params.coreSetId);
+  const coreSet = coreSetAbbr ?? CoreSetAbbr.ACS;
+  const defaultVals = params.coreSetId ? defaultData?.[coreSet] : undefined;
   // check what type of core set we deal with for data driven rendering
   let type: "CH" | "AD" | "HH" = "AD";
   if (
@@ -215,7 +217,7 @@ export const MeasureWrapper = ({
     isLoading: loadingData,
     refetch,
   } = useGetMeasure({
-    coreSet: params.coreSetId as CoreSetAbbr,
+    coreSet: params.coreSetId as CoreSetIdentifier,
     measure: measureId,
   });
   const measureData = apiData?.Item;
@@ -238,12 +240,9 @@ export const MeasureWrapper = ({
       !apiData?.Item?.data &&
       apiData?.Item?.measure === "CSQ"
     ) {
+      const coreSetAbbr = abbreviationFor(coreSetId);
       methods.reset(
-        coreSetId
-          ? defaultData?.[
-              (coreSetId?.split("_")?.[0] ?? coreSetId) as CoreSetAbbr
-            ]?.formData
-          : undefined
+        coreSetAbbr ? defaultData?.[coreSetAbbr]?.formData : undefined
       );
     }
     // default loaded data reset
@@ -280,7 +279,7 @@ export const MeasureWrapper = ({
       updateMeasure(
         {
           data,
-          status: MeasureStatus.INCOMPLETE,
+          status: MeasureStatuses.Incomplete,
           reporting: handleReportingResponse(data),
         },
         {
@@ -305,7 +304,7 @@ export const MeasureWrapper = ({
   const handleClear = () => {
     submitDataToServer({
       data: {},
-      status: MeasureStatus.INCOMPLETE,
+      status: MeasureStatuses.Incomplete,
       reporting: undefined,
       callback: () => {
         navigate(-1);
@@ -340,7 +339,7 @@ export const MeasureWrapper = ({
 
   const submitDataToServer = ({
     data,
-    status = MeasureStatus.COMPLETE,
+    status = MeasureStatuses.Complete,
     callback,
     reporting,
   }: {
@@ -421,7 +420,7 @@ export const MeasureWrapper = ({
   };
 
   const breadCrumbName =
-    separatedCoreSet?.[params.coreSetId] ??
+    separatedCoreSet?.[params.coreSetId as keyof typeof separatedCoreSet] ??
     `- ${formatTitle(apiData?.Item?.description)}`;
 
   // Individual Measures -> "AAB-CH - Medicaid: Child Core Set Measures - 2025 QMR"
@@ -435,8 +434,7 @@ export const MeasureWrapper = ({
     }
 
     // For Health Home Core Sets, use SPA
-    if (coreSet === CoreSetAbbr.HHCS && params.coreSetId?.includes("_")) {
-      const spaId = params.coreSetId.split("_")[1];
+    if (coreSet === CoreSetAbbr.HHCS && spaId) {
       const spa = SPA[year]?.find(
         (s: any) => s.id === spaId && s.state === params.state
       );
@@ -502,7 +500,7 @@ export const MeasureWrapper = ({
             isLoading={mutationRunning}
             handleSave={methods.handleSubmit(handleSave)}
             lastAltered={measureData?.data && measureData?.lastAltered}
-            isSubmitted={measureData?.status === MeasureStatus.COMPLETE}
+            isSubmitted={measureData?.status === MeasureStatuses.Complete}
             isAutoCompletedMeasure={autocompleteOnCreation}
           />
         }
@@ -525,7 +523,7 @@ export const MeasureWrapper = ({
                   {measureId !== "CSQ" && (
                     <>
                       {Object.keys(separatedCoreSet ?? []).includes(
-                        params.coreSetId as CoreSetAbbr
+                        params.coreSetId as CoreSetIdentifier
                       ) && (
                         <CUI.Heading as="h1" size="md" mb={6}>
                           {measureId}: {formatTitle()}

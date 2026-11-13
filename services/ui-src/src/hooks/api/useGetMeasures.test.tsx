@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import { useGetMeasures } from "./useGetMeasures";
+import { CoreSetAbbr } from "@qmr/shared";
 
 const props = { coreSetAbbr: "ACS" };
 jest.mock("@tanstack/react-query", () => ({
@@ -21,11 +22,13 @@ jest.mock("libs/api", () => ({
 describe("Test useGetMeasures", () => {
   it("Test successful call to API", () => {
     mockUseParam.mockReturnValue({ state: "MA", year: 2026 });
-    useGetMeasures("ACS");
+    useGetMeasures(CoreSetAbbr.ACS);
     expect(mockListMeasures).toHaveBeenCalled();
   });
   it("Test error", () => {
     mockUseParam.mockReturnValue({});
-    expect(() => useGetMeasures("ACS")).toThrow("state or year unavailable");
+    expect(() => useGetMeasures(CoreSetAbbr.ACS)).toThrow(
+      "state or year unavailable"
+    );
   });
 });

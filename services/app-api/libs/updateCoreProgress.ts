@@ -1,9 +1,5 @@
-import {
-  APIGatewayProxyEvent,
-  CoreSet,
-  Measure,
-  MeasureStatus,
-} from "../types";
+import { CoreSet, Measure, MeasureStatuses } from "@qmr/shared";
+import { APIGatewayProxyEvent } from "../types";
 import { listMeasures } from "../handlers/measures/get";
 
 export const updateCoreSetProgress = async (
@@ -18,7 +14,7 @@ export const updateCoreSetProgress = async (
 
     const completedAmount = measuresList?.filter(
       (measure) =>
-        measure.status === MeasureStatus.COMPLETE &&
+        measure.status === MeasureStatuses.Complete &&
         measure.measure !== "CSQ" &&
         !measure.placeholder
     ).length;

@@ -12,7 +12,7 @@ jest.mock("../../storage/table", () => ({
 
 jest.mock("../../types", () => ({
   ...jest.requireActual("../../types"),
-  isCoreSetAbbr: jest.fn().mockReturnValue(true),
+  isCoreSetIdentifier: jest.fn().mockReturnValue(true),
 }));
 
 describe("Combined Rate Calculations", () => {
@@ -23,7 +23,9 @@ describe("Combined Rate Calculations", () => {
   it("Should not calculate a combined rate for core sets that are already combined", async () => {
     await calculateAndPutRate({ coreSet: "ACS" } as RateParameters);
     await calculateAndPutRate({ coreSet: "CCS" } as RateParameters);
-    await calculateAndPutRate({ coreSet: "HHCS" } as RateParameters);
+    await calculateAndPutRate({
+      coreSet: "HHCS_123",
+    } as unknown as RateParameters);
 
     expect(getMeasureFromTable).not.toHaveBeenCalled();
   });

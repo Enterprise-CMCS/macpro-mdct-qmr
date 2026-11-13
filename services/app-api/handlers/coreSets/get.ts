@@ -7,7 +7,7 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
-import { CoreSet, UserRoles } from "../../types";
+import { CoreSet, UserRoles } from "@qmr/shared";
 import { CoreSetField, coreSets } from "../../libs/coreSetByYearPreloaded";
 import {
   parseStateAndYearParameters,

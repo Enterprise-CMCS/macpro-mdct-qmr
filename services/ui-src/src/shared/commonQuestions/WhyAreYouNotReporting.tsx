@@ -2,10 +2,11 @@ import * as QMR from "components";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { CoreSetKey } from "shared/types";
 import { featuresByYear } from "utils/featuresByYear";
 
 interface Props {
-  coreset?: string;
+  coreset?: CoreSetKey;
   removeLessThan30?: boolean;
 }
 

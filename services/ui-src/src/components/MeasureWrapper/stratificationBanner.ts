@@ -1,4 +1,4 @@
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "@qmr/shared";
 
 const optionalStratificationByCoreSet: Partial<Record<CoreSetAbbr, string>> = {
   [CoreSetAbbr.CCSM]:

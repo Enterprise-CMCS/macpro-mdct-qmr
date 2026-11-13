@@ -1,5 +1,5 @@
 import * as Types from "shared/types";
-import { AnyObject, DataSource } from "types";
+import { DataSources } from "@qmr/shared";
 import { featuresByYear } from "utils/featuresByYear";
 
 /**
@@ -52,7 +52,10 @@ export const areSomeRatesCompleted = (data: any, measureId: string = "") => {
 };
 
 //compare two objects and return true if the values in them are different
-export const areObjectsDifferent = (objectA: AnyObject, objectB: AnyObject) => {
+export const areObjectsDifferent = (
+  objectA: Record<string, any>,
+  objectB: Record<string, any>
+) => {
   const uniqueKeys = [
     ...Object.keys(objectA ?? {}),
     ...Object.keys(objectB ?? {}),
@@ -96,11 +99,11 @@ export const rateIsReadOnly = (dataSources: string[] | undefined) => {
       // Multiple data sources are always editable
       if (dataSource.length > 1) return false;
 
-      if (dataSource.length === 1 && dataSource[0] === DataSource.Hybrid) {
+      if (dataSource.length === 1 && dataSource[0] === DataSources.Hybrid) {
         return false;
       }
     } else {
-      if (dataSource === DataSource.Hybrid) return false;
+      if (dataSource === DataSources.Hybrid) return false;
     }
 
     // Default to read-only if no conditions for editability are met

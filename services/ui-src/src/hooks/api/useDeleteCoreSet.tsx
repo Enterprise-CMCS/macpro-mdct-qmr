@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import * as Api from "libs/api";
-import { CoreSetAbbr } from "types";
+import { CoreSetIdentifier } from "@qmr/shared";
 
 interface DeleteCoreSet {
   state: string;
   year: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
 }
 
 const deleteCoreSet = async ({ state, year, coreSet }: DeleteCoreSet) => {

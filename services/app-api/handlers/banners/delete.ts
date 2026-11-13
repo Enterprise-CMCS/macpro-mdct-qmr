@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import dynamoDb from "../../libs/dynamodb-lib";
 import { hasRolePermissions } from "../../libs/authorization";
-import { UserRoles } from "../../types";
+import { UserRoles } from "@qmr/shared";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseBannerParameters } from "../../utils/parseParameters";
 

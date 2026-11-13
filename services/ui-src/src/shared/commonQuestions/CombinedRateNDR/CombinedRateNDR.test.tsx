@@ -1,9 +1,9 @@
 import { CombinedRateNDR } from "./CombinedRateNDR";
 import { render, screen } from "@testing-library/react";
-import { DataSource } from "types";
+import { DataSources } from "@qmr/shared";
 
 const adminDataSource = {
-  DataSource: [DataSource.Administrative],
+  DataSource: [DataSources.Administrative],
   DataSourceSelections: {
     AdministrativeData0: {
       selected: ["MedicaidManagementInformationSystemMMIS"],
@@ -17,7 +17,7 @@ const adminDataSource = {
 };
 
 const hybridDataSource = {
-  DataSource: [DataSource.Hybrid],
+  DataSource: [DataSources.Hybrid],
   DataSourceSelections: {
     HybridAdministrativeandMedicalRecordsData0: {
       selected: ["MedicaidManagementInformationSystemMMIS"],
@@ -34,7 +34,7 @@ const hybridDataSource = {
 };
 
 const nonApplicableDataSource = {
-  DataSource: [DataSource.Administrative],
+  DataSource: [DataSources.Administrative],
   DataSourceSelections: {
     AdministrativeData0: {
       selected: ["MedicaidManagementInformationSystemMMIS"],

@@ -1,10 +1,10 @@
 import {
-  CombinedRatesPayload,
-  isRateNDRShape,
+  CombinedRateData,
+  isNdrRateShape,
   Measure,
-  RateNDRShape,
+  NdrRateShape,
   WeightedRateShape,
-} from "../../types";
+} from "@qmr/shared";
 import {
   addSafely,
   divideSafely,
@@ -19,21 +19,21 @@ import {
  */
 export const combineRates = (
   measureAbbr: string,
-  DataSources: CombinedRatesPayload["DataSources"],
+  DataSources: CombinedRateData["DataSources"],
   medicaidMeasure: Measure | undefined,
   chipMeasure: Measure | undefined
-): CombinedRatesPayload["Rates"] => {
+): CombinedRateData["Rates"] => {
   const [medicaidRates, chipRates] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
     .map((rateMap) =>
       Object.values(rateMap)
         .flat()
-        .filter(isRateNDRShape)
+        .filter(isNdrRateShape)
         .filter((rate) => !!rate.uid)
         .filter((rate) => !ratesToNeverShow.includes(rate.uid!))
     );
 
-  type RatePair = { medicaidRate?: RateNDRShape; chipRate?: RateNDRShape };
+  type RatePair = { medicaidRate?: NdrRateShape; chipRate?: NdrRateShape };
   const rateUidMap = new Map<string, RatePair>();
   for (const medicaidRate of medicaidRates) {
     rateUidMap.set(medicaidRate.uid!, { medicaidRate });

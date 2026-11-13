@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { createMeasure } from "libs/api";
-import { CoreSetAbbr, Params } from "types";
+import { CoreSetIdentifier, MeasureIdentifier } from "@qmr/shared";
+import { Params } from "types";
 
 interface CreateMeasure {
   body: {
@@ -8,8 +9,8 @@ interface CreateMeasure {
     userCreated?: boolean;
     userState: string;
   };
-  coreSet: CoreSetAbbr;
-  measure: string;
+  coreSet: CoreSetIdentifier;
+  measure: MeasureIdentifier;
   state: string;
   year: string;
 }

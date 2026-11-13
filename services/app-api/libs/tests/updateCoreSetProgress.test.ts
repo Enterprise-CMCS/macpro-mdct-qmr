@@ -4,7 +4,7 @@ import {
   testCoreSet,
   testMeasure,
 } from "../../test-util/testEvents";
-import { MeasureStatus } from "../../types";
+import { MeasureStatuses } from "@qmr/shared";
 import { updateCoreSetProgress } from "../updateCoreProgress";
 
 jest.mock("../../handlers/measures/get", () => ({
@@ -26,7 +26,7 @@ describe("Test the Update Core Set Progress", () => {
           Items: [
             {
               ...testMeasure,
-              status: MeasureStatus.COMPLETE,
+              status: MeasureStatuses.Complete,
             },
           ],
         }),
@@ -49,7 +49,7 @@ describe("Test the Update Core Set Progress", () => {
           Items: [
             {
               ...testMeasure,
-              status: MeasureStatus.INCOMPLETE,
+              status: MeasureStatuses.Incomplete,
             },
           ],
         }),

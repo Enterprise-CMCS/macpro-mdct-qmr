@@ -1,9 +1,9 @@
 import * as Types from "shared/types";
-import { DataSource } from "../../../types";
+import { DataSources } from "@qmr/shared";
 import { featuresByYear } from "utils/featuresByYear";
 import * as DC from "dataConstants";
 
-const OPTIONAL_DATA_SOURCES = new Set([DataSource.EHR, DataSource.ECDS]);
+const OPTIONAL_DATA_SOURCES = [DataSources.EHR, DataSources.ECDS];
 
 export const validateAtLeastOneDataSourceType = (
   data: Types.DataSource,
@@ -35,7 +35,7 @@ export const validateAtLeastOneDataSourceType = (
     const getGeneratedMessage = (lookupKey: string, label: string) => {
       if (
         featuresByYear.useDataCollectionMethod &&
-        lookupKey === DataSource.Other
+        lookupKey === DataSources.Other
       ) {
         return "Please describe the Other Data Collection Method or Data Source";
       }
@@ -49,7 +49,7 @@ export const validateAtLeastOneDataSourceType = (
       (key) =>
         "description" in dataSources[key] &&
         !dataSources[key]["description"] &&
-        !OPTIONAL_DATA_SOURCES.has(key as DataSource)
+        !OPTIONAL_DATA_SOURCES.includes(key as any)
     );
     errorArray.push(
       ...unfilledDataSources.map((key) => {

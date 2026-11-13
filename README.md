@@ -346,12 +346,12 @@ We are using DynamoDB for our database solution for QMR. When looking for the da
 
 #### Tables
 
-| Table Name | Description                                                                                                                                                                                                                           |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `banners`  | Stores a single banner with the ID `admin-banner-id` that an admin can set to show on the home page for state users.                                                                                                                  |
-| `coreSet`  | Tracks the existence, status, and progress of core sets for each state and year. Each record has a compound key of `${stateAbbr}${year}`                                                                                              |
-| `measure`  | Primary storage for all individual measure records, capturing both metadata and user-supplied data for each measure within a state, year, and core set context. Each record has a compound key of `${stateAbbr}${year}${coreSetAbbr}` |
-| `rate`     | Record of calculated, cross-program rates for each measure, state, year, and core set. Each record has a compound key of `${stateAbbr}${year}${coreSetAbbr}`                                                                          |
+| Table Name | Description                                                                                                                                                                                                                         |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `banners`  | Stores a single banner with the ID `admin-banner-id` that an admin can set to show on the home page for state users.                                                                                                                |
+| `coreSet`  | Tracks the existence, status, and progress of core sets for each state and year. Each record has a compound key of `${stateAbbr}${year}`                                                                                            |
+| `measure`  | Primary storage for all individual measure records, capturing both metadata and user-supplied data for each measure within a state, year, and core set context. Each record has a compound key of `${stateAbbr}${year}${coreSetId}` |
+| `rate`     | Record of calculated, cross-program rates for each measure, state, year, and core set. Each record has a compound key of `${stateAbbr}${year}${coreSetId}`                                                                          |
 
 > [!NOTE]
 > [HCBS](https://github.com/Enterprise-CMCS/macpro-mdct-hcbs) recently expanded the banner functionality to enable multiple banners stored within the app; presumably, eventually this application will do the same.

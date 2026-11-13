@@ -1,25 +1,31 @@
 import { CoreSetTableItem } from "components/Table/types";
 import { getCoreSetActions } from "./actions";
-import { CoreSetAbbr, MeasureStatus } from "types";
+import {
+  CoreSetAbbr,
+  CoreSetIdentifier,
+  MeasureStatus,
+  MeasureStatuses,
+  parseCoreSet,
+} from "@qmr/shared";
 import { SPAi } from "libs/spaLib";
 import { coreSets, CoreSetField, coreSetTitles } from "shared/coreSetByYear";
 
 interface HandleDeleteData {
   state: string;
   year: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
 }
 
 interface UpdateAllMeasuresData {
   state: string;
   year: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
   measureStatus: MeasureStatus;
 }
 
 interface CoreSetDataItem {
   compoundKey: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
   createdAt: number;
   lastAltered: number;
   lastAlteredBy: string;
@@ -74,23 +80,21 @@ export const formatTableItems = ({
       submitted,
       compoundKey,
     }: CoreSetDataItem): CoreSetTableItem.Data => {
-      const tempSet = coreSet.split("_");
-      const tempSpa =
-        tempSet.length === 2 &&
-        filteredSpas!.find((s) => s.id === tempSet?.[1]);
+      const [coreSetAbbr, spaId] = parseCoreSet(coreSet);
+      const tempSpa = !!spaId && filteredSpas!.find((s) => s.id === spaId);
       const tempTitle =
         tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
           ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
           : "";
 
-      const type = getCoreSetType(tempSet[0] as CoreSetAbbr);
-      const title = coreSetTitles(tempSet[0]) + tempTitle;
+      const type = getCoreSetType(coreSetAbbr!);
+      const title = coreSetTitles(coreSetAbbr!) + tempTitle;
 
       const coreSetCards = coreSets[
         year as keyof typeof coreSets
       ] as CoreSetField[];
       const findCoreset = coreSetCards.find((coreSet) =>
-        coreSet.abbr?.find((key) => key === tempSet[0])
+        coreSet.abbr?.find((key) => key === coreSetAbbr!)
       );
       const deletable =
         !findCoreset?.loaded?.includes(state) &&
@@ -108,7 +112,7 @@ export const formatTableItems = ({
             state,
             year: year.toString(),
             coreSet,
-            measureStatus: MeasureStatus.COMPLETE,
+            measureStatus: MeasureStatuses.Complete,
           });
         },
         resetCoreSet: () => {

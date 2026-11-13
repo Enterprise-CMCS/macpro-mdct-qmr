@@ -3,11 +3,11 @@ import dynamoDb from "../../libs/dynamodb-lib";
 import { getCoreSet } from "./get";
 import { measures } from "../dynamoUtils/measureList";
 import type { MeasureMetaData } from "../../types";
+import { CoreSetIdentifier, MeasureStatuses, UserRoles } from "@qmr/shared";
 import {
   hasRolePermissions,
   hasStatePermissions,
 } from "../../libs/authorization";
-import * as Types from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 
@@ -21,7 +21,7 @@ export const createCoreSet = handler(async (event, context) => {
     };
   }
   // action limited to any admin type user and state users from corresponding state
-  const isStateUser = hasRolePermissions(event, [Types.UserRoles.STATE_USER]);
+  const isStateUser = hasRolePermissions(event, [UserRoles.STATE_USER]);
   if (isStateUser) {
     const isFromCorrespondingState = hasStatePermissions(event);
     if (!isFromCorrespondingState) {
@@ -43,12 +43,7 @@ export const createCoreSet = handler(async (event, context) => {
     };
   }
 
-  await createDependentMeasures(
-    state,
-    year,
-    coreSet as Types.CoreSetAbbr,
-    type
-  );
+  await createDependentMeasures(state, year, coreSet, type);
 
   // filter out qualifier and account for autocomplete measures on creation
   let autoCompletedMeasures = 0;
@@ -91,7 +86,7 @@ export const createCoreSet = handler(async (event, context) => {
 const createDependentMeasures = async (
   state: string,
   year: number,
-  coreSet: Types.CoreSetAbbr,
+  coreSet: CoreSetIdentifier,
   type: string
 ) => {
   const filteredMeasures = measures[year].filter(
@@ -114,8 +109,8 @@ const createDependentMeasures = async (
         createdAt: Date.now(),
         lastAltered: Date.now(),
         status: measure.autocompleteOnCreation
-          ? Types.MeasureStatus.COMPLETE
-          : Types.MeasureStatus.INCOMPLETE,
+          ? MeasureStatuses.Complete
+          : MeasureStatuses.Incomplete,
         placeholder: measure.placeholder,
       },
     };

@@ -8,7 +8,7 @@ import {
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
 import { calculateAndPutRate } from "../rate/rateCalculations";
-import { CoreSet } from "../../types";
+import { CoreSet } from "@qmr/shared";
 
 export const editMeasure = handler(async (event, _context) => {
   const { allParamsValid, state, year, coreSet, measure } =

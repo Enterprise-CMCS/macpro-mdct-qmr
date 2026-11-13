@@ -2,11 +2,13 @@ import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
 import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { MeasureData } from "types";
+import { Measure } from "@qmr/shared";
 
 interface Props {
-  modalProps: { isOpen: boolean; measure: MeasureData<any> };
-  handleModalResponse: (measure: MeasureData<any>) => void;
+  modalProps:
+    | { isOpen: true; measure: Measure }
+    | { isOpen: false; measure: {} };
+  handleModalResponse: (measure: Measure) => void;
   closeModal: () => void;
 }
 
@@ -22,12 +24,9 @@ interface UpdateSSM {
 export const UpdateInfoModal = ({
   handleModalResponse,
   closeModal,
-  modalProps: {
-    isOpen,
-    measure,
-    measure: { description, detailedDescription },
-  },
+  modalProps: { isOpen, measure },
 }: Props) => {
+  const { description, detailedDescription } = isOpen ? measure : {};
   const methods = useForm<UpdateSSM>({
     shouldUnregister: true,
     mode: "all",
@@ -47,6 +46,14 @@ export const UpdateInfoModal = ({
   const watchedDetailedDescription = watchedData?.detailedDescription;
 
   const updateMeasureInfo = () => {
+    if (!("coreSet" in measure)) {
+      // This can only happen if the `modalProps.isOpen` is set to `false`,
+      // because when we open the modal we also set `modalProps.measure`.
+      // But we're inside the modal right now, so that should be impossible.
+      console.error("Cannot update measure info: Missing measure data");
+      return;
+    }
+
     handleModalResponse({
       ...measure,
       description: watchedDescription!,

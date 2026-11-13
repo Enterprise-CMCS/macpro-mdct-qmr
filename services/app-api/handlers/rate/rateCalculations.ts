@@ -4,10 +4,11 @@ import {
 } from "../../storage/table";
 import {
   CoreSetAbbr,
-  isCoreSetAbbr,
+  CoreSetIdentifier,
+  isCoreSetIdentifier,
   Measure,
-  RateParameters,
-} from "../../types";
+} from "@qmr/shared";
+import { RateParameters } from "../../types";
 import { collectDataSources } from "./dataSourceAnalysis";
 import { combineRates } from "./rateNDRCalculations";
 import { calculateAdditionalValues } from "./rateValueCalculations";
@@ -21,7 +22,7 @@ import { calculateAdditionalValues } from "./rateValueCalculations";
  */
 export const calculateAndPutRate = async (pathParameters: RateParameters) => {
   const { coreSet, measure } = pathParameters;
-  if (!isCoreSetAbbr(coreSet)) {
+  if (!isCoreSetIdentifier(coreSet)) {
     return;
   }
 
@@ -43,28 +44,31 @@ export const calculateAndPutRate = async (pathParameters: RateParameters) => {
   );
 };
 
+const AdultCoreSetGroup = {
+  combined: CoreSetAbbr.ACS,
+  medicaid: CoreSetAbbr.ACSM,
+  chip: CoreSetAbbr.ACSC,
+} as const;
+const ChildCoreSetGroup = {
+  combined: CoreSetAbbr.CCS,
+  medicaid: CoreSetAbbr.CCSM,
+  chip: CoreSetAbbr.CCSC,
+} as const;
+
 /**
  * Given the name of the core set whose measure just updated:
  * 1. Does it need to be combined? (that is, is it ACSM/ACSC/CCSM/CCSC?)
  * 2. Which core sets will be combined? (ACSM+ACSC? or CCSM+CCSC?)
  * 3. What will the name of the combined core set be? (ACS? or CCS?)
  */
-const coreSetsToCombine = (coreSet: CoreSetAbbr) => {
+const coreSetsToCombine = (coreSet: CoreSetIdentifier) => {
   switch (coreSet) {
     case CoreSetAbbr.ACSM:
     case CoreSetAbbr.ACSC:
-      return {
-        combined: CoreSetAbbr.ACS,
-        medicaid: CoreSetAbbr.ACSM,
-        chip: CoreSetAbbr.ACSC,
-      };
+      return AdultCoreSetGroup;
     case CoreSetAbbr.CCSM:
     case CoreSetAbbr.CCSC:
-      return {
-        combined: CoreSetAbbr.CCS,
-        medicaid: CoreSetAbbr.CCSM,
-        chip: CoreSetAbbr.CCSC,
-      };
+      return ChildCoreSetGroup;
     default:
       // Rates in the ACS, CCS, and HHCS core sets are already combined
       return undefined;
