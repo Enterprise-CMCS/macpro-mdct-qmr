@@ -1229,5 +1229,266 @@
         "Value": "NC"
       }
     ]
+  },
+  {
+    "username": "NC.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "NC.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "NC"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "NC"
+      }
+    ]
+  },
+  {
+    "username": "OH.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "OH.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "OH"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "OH"
+      }
+    ]
+  },
+  {
+    "username": "SC.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "SC.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "SC"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "SC"
+      }
+    ]
+  },
+  {
+    "username": "TX.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "TX.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "TX"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "TX"
+      }
+    ]
+  },
+  {
+    "username": "UT.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "UT.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "UT"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "UT"
+      }
+    ]
+  },
+  {
+    "username": "CT.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "CT.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "CT"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "CT"
+      }
+    ]
+  },
+  {
+    "username": "TN.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "TN.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "TN"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "TN"
+      }
+    ]
+  },
+  {
+    "username": "WI.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "WI.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "WI"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "WI"
+      }
+    ]
+  },
+  {
+    "username": "WV.StateUser.Auto@test.com",
+    "attributes": [
+      {
+        "Name": "email",
+        "Value": "WV.StateUser.Auto@test.com"
+      },
+      {
+        "Name": "given_name",
+        "Value": "Auto"
+      },
+      {
+        "Name": "family_name",
+        "Value": "WV"
+      },
+      {
+        "Name": "email_verified",
+        "Value": "true"
+      },
+      {
+        "Name": "custom:cms_roles",
+        "Value": "mdctqmr-state-user"
+      },
+      {
+        "Name": "custom:cms_state",
+        "Value": "WV"
+      }
+    ]
   }
 ]
