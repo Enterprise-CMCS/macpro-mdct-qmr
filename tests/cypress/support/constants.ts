@@ -1,4 +1,9 @@
-export const testingYear = "2026";
+export const testingYear = "2027";
+
+// LaunchDarkly flag values stubbed for every test (see mockLaunchDarklyFlags in commands.ts)
+export const ldFlagOverrides: Record<string, boolean | string | number> = {
+  release2027: true,
+};
 
 //should match the measures active in the testingYear
 export const measureAbbrList = {
