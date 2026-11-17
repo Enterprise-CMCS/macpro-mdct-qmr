@@ -1,4 +1,4 @@
-export const testingYear = "2027";
+export const testingYear = Cypress.env("TESTING_YEAR") as string;
 
 // LaunchDarkly flag values stubbed for every test (see mockLaunchDarklyFlags in commands.ts)
 export const ldFlagOverrides: Record<string, boolean | string | number> = {
