@@ -1,3 +1,5 @@
+process.env.MeasuresTable = "SAMPLE TABLE";
+
 import { deleteMeasure } from "../delete";
 import dbLib from "../../../libs/dynamodb-lib";
 import { testEvent } from "../../../test-util/testEvents";
@@ -13,7 +15,6 @@ jest.mock("../../../libs/authorization", () => ({
 }));
 
 const event = { ...testEvent };
-process.env.MeasuresTable = "SAMPLE TABLE";
 
 describe("Test Delete Measure Handler", () => {
   beforeEach(() => {

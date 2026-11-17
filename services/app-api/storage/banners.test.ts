@@ -1,3 +1,5 @@
+process.env.BannersTable = "local-banner";
+
 import {
   getBannerFromTable,
   putBannerToTable,
@@ -22,10 +24,6 @@ const bannerFields = {
 };
 
 describe("Banner storage methods", () => {
-  beforeAll(() => {
-    process.env.BannersTable = "local-banner";
-  });
-
   beforeEach(() => {
     jest.resetAllMocks();
   });

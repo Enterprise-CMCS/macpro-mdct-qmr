@@ -1,3 +1,5 @@
+process.env.MeasuresTable = "local-measure";
+
 import {
   getMeasureFromTable,
   getMeasuresFromTable,
@@ -44,10 +46,6 @@ const measureItem = {
 };
 
 describe("Measure storage methods", () => {
-  beforeAll(() => {
-    process.env.MeasuresTable = "local-measure";
-  });
-
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -94,7 +92,7 @@ describe("Measure storage methods", () => {
       lastAltered: 30,
       lastAlteredBy: "state-user",
     };
-    await updateMeasureInTable(parameters, fields);
+    await updateMeasureInTable({ ...measureKey, ...fields });
 
     expect(dynamodbLib.update).toHaveBeenCalledWith({
       TableName: "local-measure",
@@ -118,7 +116,8 @@ describe("Measure storage methods", () => {
   });
 
   it("should leave descriptions unchanged when they are not supplied", async () => {
-    await updateMeasureInTable(parameters, {
+    await updateMeasureInTable({
+      ...measureKey,
       status: MeasureStatus.INCOMPLETE,
       reporting: null,
       data: {},

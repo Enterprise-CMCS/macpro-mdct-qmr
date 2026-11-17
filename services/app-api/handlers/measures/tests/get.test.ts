@@ -1,3 +1,5 @@
+process.env.MeasuresTable = "SAMPLE TABLE";
+
 import {
   getMeasure,
   listMeasures,
@@ -25,7 +27,6 @@ jest.mock("../../../libs/authorization", () => ({
 }));
 
 const event = { ...testEvent };
-process.env.MeasuresTable = "SAMPLE TABLE";
 
 describe("Test Get Measure Handlers", () => {
   beforeEach(() => {

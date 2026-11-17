@@ -1,6 +1,8 @@
 import dynamoDb from "../libs/dynamodb-lib";
 import { CoreSet } from "../types";
 
+const TableName = process.env.QualityCoreSetsTable!;
+
 type StateAndYearParameters = {
   state: string;
   year: number;
@@ -16,7 +18,7 @@ export const getCoreSetFromTable = async ({
   coreSet,
 }: CoreSetParameters) => {
   return await dynamoDb.get<CoreSet>({
-    TableName: process.env.QualityCoreSetsTable!,
+    TableName,
     Key: { compoundKey: `${state}${year}`, coreSet },
   });
 };
@@ -26,7 +28,7 @@ export const getCoreSetsFromTable = async ({
   year,
 }: StateAndYearParameters) => {
   return await dynamoDb.queryAll<CoreSet>({
-    TableName: process.env.QualityCoreSetsTable!,
+    TableName,
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: { ":compoundKey": `${state}${year}` },
   });
@@ -34,7 +36,7 @@ export const getCoreSetsFromTable = async ({
 
 export const putCoreSetToTable = async (coreSet: CoreSet) => {
   await dynamoDb.put({
-    TableName: process.env.QualityCoreSetsTable!,
+    TableName,
     Item: coreSet,
   });
 };
@@ -55,8 +57,8 @@ export const updateCoreSetInTable = async ({
   | "lastAltered"
   | "lastAlteredBy"
 >) => {
-  const params = {
-    TableName: process.env.QualityCoreSetsTable!,
+  await dynamoDb.update({
+    TableName,
     Key: { compoundKey, coreSet },
     UpdateExpression:
       "SET submitted = :submitted, #status = :status, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy",
@@ -67,9 +69,7 @@ export const updateCoreSetInTable = async ({
       ":lastAltered": lastAltered,
       ":lastAlteredBy": lastAlteredBy,
     },
-  };
-  await dynamoDb.update(params);
-  return params;
+  });
 };
 
 export const deleteCoreSetFromTable = async ({
@@ -77,9 +77,8 @@ export const deleteCoreSetFromTable = async ({
   year,
   coreSet,
 }: CoreSetParameters) => {
-  const params = {
-    TableName: process.env.QualityCoreSetsTable!,
+  await dynamoDb.delete({
+    TableName,
     Key: { compoundKey: `${state}${year}`, coreSet },
-  };
-  await dynamoDb.delete(params);
+  });
 };

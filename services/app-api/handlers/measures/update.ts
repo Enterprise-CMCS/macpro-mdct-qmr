@@ -47,17 +47,16 @@ export const editMeasure = handler(async (event, _context) => {
           detailedDescription,
         }
       : {};
-  await updateMeasureInTable(
-    { state, year, coreSet, measure },
-    {
-      ...descriptionParams,
-      status,
-      reporting,
-      lastAltered,
-      lastAlteredBy,
-      data,
-    }
-  );
+  await updateMeasureInTable({
+    compoundKey: `${state}${year}${coreSet}`,
+    measure,
+    ...descriptionParams,
+    status,
+    reporting,
+    lastAltered,
+    lastAlteredBy,
+    data,
+  });
 
   //in 2024 and onward, we added a new feature called combined rates which requires rate calculations to the rates table
   if (year >= 2024) {

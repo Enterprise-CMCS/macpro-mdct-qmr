@@ -1,13 +1,15 @@
 import dynamoDb from "../libs/dynamodb-lib";
 import { RateParameters, CombinedRatesPayload } from "../types";
 
+const TableName = process.env.CombinedRatesTable!;
+
 export const putCombinedRatesToTable = async (
   parameters: RateParameters,
   combinedRates: CombinedRatesPayload
 ) => {
   const { year, state, coreSet, measure } = parameters;
   await dynamoDb.update({
-    TableName: process.env.CombinedRatesTable!,
+    TableName,
     Key: {
       compoundKey: `${state}${year}${coreSet}`,
       measure,
@@ -35,7 +37,7 @@ export const getCombinedRatesFromTable = async (
 ): Promise<CombinedRatesPayload> => {
   const { year, state, coreSet, measure } = parameters;
   const queryValue = await dynamoDb.get({
-    TableName: process.env.CombinedRatesTable!,
+    TableName,
     Key: {
       compoundKey: `${state}${year}${coreSet}`,
       measure,

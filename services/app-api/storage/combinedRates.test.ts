@@ -1,3 +1,5 @@
+process.env.CombinedRatesTable = "local-rate";
+
 import {
   putCombinedRatesToTable,
   getCombinedRatesFromTable,
@@ -39,10 +41,6 @@ const mockCombinedRate = {
 } as CombinedRatesPayload;
 
 describe("Combined Rates storage methods", () => {
-  beforeAll(() => {
-    process.env.CombinedRatesTable = "local-rate";
-  });
-
   beforeEach(() => {
     jest.resetAllMocks();
   });

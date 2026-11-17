@@ -94,12 +94,10 @@ const createDependentMeasures = async (
     (measure: MeasureMetaData) => measure.type === type
   );
 
-  let dependentMeasures = [];
-
   for await (const measure of filteredMeasures) {
     // The State Year and ID are all part of the path
     const measureId = measure["measure"];
-    const result = await putMeasureToTable({
+    await putMeasureToTable({
       compoundKey: `${state}${year}${coreSet}`,
       state,
       year,
@@ -112,6 +110,5 @@ const createDependentMeasures = async (
         : Types.MeasureStatus.INCOMPLETE,
       placeholder: measure.placeholder,
     });
-    dependentMeasures.push(result);
   }
 };

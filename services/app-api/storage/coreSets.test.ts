@@ -1,3 +1,5 @@
+process.env.QualityCoreSetsTable = "local-coreset";
+
 import {
   getCoreSetFromTable,
   getCoreSetsFromTable,
@@ -28,10 +30,6 @@ const coreSetFields = {
 };
 
 describe("Core Set storage methods", () => {
-  beforeAll(() => {
-    process.env.QualityCoreSetsTable = "local-coreset";
-  });
-
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -70,7 +68,7 @@ describe("Core Set storage methods", () => {
   });
 
   it("should update a core set including submission status", async () => {
-    const params = await updateCoreSetInTable({
+    await updateCoreSetInTable({
       ...coreSetKey,
       submitted: false,
       status: "in progress",
@@ -78,7 +76,7 @@ describe("Core Set storage methods", () => {
       lastAlteredBy: "state-user",
     });
 
-    expect(params).toEqual({
+    expect(dynamodbLib.update).toHaveBeenCalledWith({
       TableName: "local-coreset",
       Key: coreSetKey,
       UpdateExpression:
@@ -93,7 +91,6 @@ describe("Core Set storage methods", () => {
         ":lastAlteredBy": "state-user",
       },
     });
-    expect(dynamodbLib.update).toHaveBeenCalledWith(params);
   });
 
   it("should delete only the requested core set", async () => {

@@ -3,7 +3,11 @@ import dynamoDb from "../libs/dynamodb-lib";
 import { Measure, MeasureStatus, RateParameters } from "../types";
 import type { CoreSetParameters } from "./coreSets";
 
+const TableName = process.env.MeasuresTable!;
+
 type MeasureUpdates = {
+  compoundKey: string;
+  measure: string;
   description?: string;
   detailedDescription?: string;
   status?: MeasureStatus;
@@ -16,7 +20,7 @@ type MeasureUpdates = {
 export const getMeasureFromTable = async (parameters: RateParameters) => {
   const { state, year, coreSet, measure } = parameters;
   return await dynamoDb.get<Measure>({
-    TableName: process.env.MeasuresTable,
+    TableName,
     Key: {
       compoundKey: `${state}${year}${coreSet}`,
       measure: measure,
@@ -30,7 +34,7 @@ export const getMeasuresFromTable = async ({
   coreSet,
 }: CoreSetParameters) => {
   return await dynamoDb.queryAll<Measure>({
-    TableName: process.env.MeasuresTable!,
+    TableName,
     KeyConditionExpression: "compoundKey = :compoundKey",
     ExpressionAttributeValues: {
       ":compoundKey": `${state}${year}${coreSet}`,
@@ -39,25 +43,21 @@ export const getMeasuresFromTable = async ({
 };
 
 export const putMeasureToTable = async (measure: Measure) => {
-  const params = {
-    TableName: process.env.MeasuresTable!,
+  await dynamoDb.put({
+    TableName,
     Item: measure,
-  };
-  await dynamoDb.put(params);
+  });
 };
 
-export const updateMeasureInTable = async (
-  { state, year, coreSet, measure }: RateParameters,
-  fields: MeasureUpdates
-) => {
+export const updateMeasureInTable = async (fields: MeasureUpdates) => {
   const params: UpdateCommandInput & {
     UpdateExpression: string;
     ExpressionAttributeValues: NonNullable<
       UpdateCommandInput["ExpressionAttributeValues"]
     >;
   } = {
-    TableName: process.env.MeasuresTable!,
-    Key: { compoundKey: `${state}${year}${coreSet}`, measure },
+    TableName,
+    Key: { compoundKey: fields.compoundKey, measure: fields.measure },
     UpdateExpression:
       "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data",
     ExpressionAttributeNames: { "#status": "status", "#data": "data" },
@@ -94,9 +94,8 @@ export const deleteMeasureFromTable = async ({
   coreSet,
   measure,
 }: RateParameters) => {
-  const params = {
-    TableName: process.env.MeasuresTable!,
+  await dynamoDb.delete({
+    TableName,
     Key: { compoundKey: `${state}${year}${coreSet}`, measure },
-  };
-  await dynamoDb.delete(params);
+  });
 };

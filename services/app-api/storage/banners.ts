@@ -1,25 +1,25 @@
 import dynamoDb from "../libs/dynamodb-lib";
 import { Banner } from "../types";
 
+const TableName = process.env.BannersTable!;
+
 export const getBannerFromTable = async (bannerId: string) => {
   return await dynamoDb.get<Banner>({
-    TableName: process.env.BannersTable!,
+    TableName,
     Key: { key: bannerId },
   });
 };
 
 export const putBannerToTable = async (banner: Banner) => {
-  const params = {
-    TableName: process.env.BannersTable!,
+  await dynamoDb.put({
+    TableName,
     Item: banner,
-  };
-  await dynamoDb.put(params);
+  });
 };
 
 export const deleteBannerFromTable = async (bannerId: string) => {
-  const params = {
-    TableName: process.env.BannersTable!,
+  await dynamoDb.delete({
+    TableName,
     Key: { key: bannerId },
-  };
-  await dynamoDb.delete(params);
+  });
 };
