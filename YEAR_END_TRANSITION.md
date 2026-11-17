@@ -4,20 +4,20 @@
 
 1. Create a new LaunchDarkly Flag named "releaseYEAR" for the new year, e.g. "release2027".
 
-2. In `services/ui-src/src/views` directory, update the following files with the new flag:
+2. Update the following files with the new flag:
 
-- `AdminHome/index.tsx`
-- `CombinedRatesPage/index.tsx`
-- `Home/index.tsx`
-- `StateHome/index.tsx`
+- `services/ui-src/src/utils/featureFlags.ts`
+- `services/ui-src/src/views/AdminHome/index.tsx`
+- `services/ui-src/src/views/CombinedRatesPage/index.tsx`
+- `services/ui-src/src/views/Home/index.tsx`
+- `services/ui-src/src/views/StateHome/index.tsx`
+- `tests/cypress/support/constants.ts`
 
-3. In `services/ui-src/src/views` directory, update the following to add a new entry for the new year in the JSON object and update associated language and links:
-
-- `CoreSet/index.tsx`
+3. In `services/ui-src/src/views/CoreSet/index.tsx`, add an entry for the new year in the `coreSetInstructions` object and update associated language and links.
 
 ## Create New Report Year
 
-Find the `services/ui-src/src/measures` directory. You should see past years as folders (2021, 2022, etc.). Ideally, changes to measures would be made from the previous year to the next, so you make a copy of the folder of the most recent year and rename it to the next year (e.g. 2021 -> 2021 Copy -> 2022).
+Find the `services/ui-src/src/measures` directory. You should see past years as folders (2021, 2022, etc.). Generally, changes to measures in one year are carried over to the next. So make a copy of the folder of the most recent year and rename it to the next year (e.g. 2021 -> 2021 Copy -> 2022).
 
 ### Update the measures directory files
 
