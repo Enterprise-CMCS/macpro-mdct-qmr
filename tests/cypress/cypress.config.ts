@@ -19,6 +19,7 @@ export default defineConfig({
     STATE_USER_4: process.env.CYPRESS_STATE_USER_4,
     ADMIN_USER: process.env.CYPRESS_ADMIN_USER,
     QMR_PASSWORD: process.env.CYPRESS_QMR_PASSWORD,
+    TESTING_YEAR: process.env.CYPRESS_TESTING_YEAR ?? "2027",
   },
   e2e: {
     setupNodeEvents,
