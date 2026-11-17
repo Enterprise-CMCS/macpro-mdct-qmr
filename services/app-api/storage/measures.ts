@@ -38,14 +38,12 @@ export const getMeasuresFromTable = async ({
   });
 };
 
-// Mutations return their parameters to preserve the handlers' response bodies.
 export const putMeasureToTable = async (measure: Measure) => {
   const params = {
     TableName: process.env.MeasuresTable!,
     Item: measure,
   };
   await dynamoDb.put(params);
-  return params;
 };
 
 export const updateMeasureInTable = async (

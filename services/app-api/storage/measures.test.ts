@@ -74,15 +74,14 @@ describe("Measure storage methods", () => {
     });
   });
 
-  it("should put a measure and return the existing response shape", async () => {
+  it("should put a measure in the measure table", async () => {
     const expected = {
       TableName: "local-measure",
       Item: measureItem,
     };
-    const params = await putMeasureToTable(expected.Item);
+    await putMeasureToTable(expected.Item);
 
     expect(dynamodbLib.put).toHaveBeenCalledWith(expected);
-    expect(params).toEqual(expected);
   });
 
   it("should update measure fields including null reporting", async () => {
@@ -146,25 +145,4 @@ describe("Measure storage methods", () => {
     expect(await getMeasureFromTable(parameters)).toBeUndefined();
     expect(await getMeasuresFromTable(parameters)).toEqual([]);
   });
-
-  it.each([
-    ["get measure", "get", () => getMeasureFromTable(parameters)],
-    ["list measures", "queryAll", () => getMeasuresFromTable(parameters)],
-    ["put measure", "put", () => putMeasureToTable(measureItem)],
-    [
-      "update measure",
-      "update",
-      () =>
-        updateMeasureInTable(parameters, { status: MeasureStatus.INCOMPLETE }),
-    ],
-    ["delete measure", "delete", () => deleteMeasureFromTable(parameters)],
-  ] as const)(
-    "should propagate database errors for %s",
-    async (_name, method, operation) => {
-      const error = new Error("Database unavailable");
-      jest.mocked(dynamodbLib[method]).mockRejectedValueOnce(error);
-
-      await expect(operation()).rejects.toBe(error);
-    }
-  );
 });

@@ -38,7 +38,7 @@ export const createMeasure = handler(async (event, _context) => {
   }
 
   const body = JSON.parse(event!.body!);
-  const params = await putMeasureToTable({
+  await putMeasureToTable({
     compoundKey: `${state}${year}${coreSet}`,
     state,
     year,
@@ -55,5 +55,5 @@ export const createMeasure = handler(async (event, _context) => {
     placeholder: body.placeholder,
   });
 
-  return { status: StatusCodes.SUCCESS, body: params };
+  return { status: StatusCodes.SUCCESS };
 });
