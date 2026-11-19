@@ -1,0 +1,83 @@
+import { getCatQualLabels } from "../rateLabelText";
+import { MeasureTemplateData } from "shared/types/MeasureTemplate";
+import * as DC from "dataConstants";
+
+export const { categories, qualifiers } = getCatQualLabels("PRS-AD");
+
+export const data: MeasureTemplateData = {
+  type: "HEDIS",
+  coreset: "adult",
+  performanceMeasure: {
+    questionText: [
+      "The percentage of deliveries in the measurement period in which beneficiaries age 21 and older had received influenza and tetanus, diphtheria toxoids and acellular pertussis (Tdap) vaccinations.",
+    ],
+    categories,
+    qualifiers,
+  },
+  dataSource: {
+    optionsLabel:
+      "If reporting entities (e.g., health plans) used different data collection methods or sources, please select all that are applicable below. If your state followed the 2027 Core Set technical specifications and used administrative data only, select ECDS > Administrative.",
+    options: [
+      {
+        value: DC.ELECTRONIC_CLINIC_DATA_SYSTEMS,
+        subOptions: [
+          {
+            options: [
+              { value: DC.ADMINISTRATIVE },
+              { value: DC.ELECTRONIC_HEALTH_RECORDS_PERSONAL_HEALTH_REGISTRY },
+              { value: DC.HEALTH_INFORMATION_EXCHANGE },
+              { value: DC.IMMUNIZATION_REGISTRY_INFORMATION_SYSTEM },
+              { value: DC.CLINICAL_REGISTRY_OTHER },
+              { value: DC.CASE_MANAGEMENT_SYSTEM },
+            ],
+          },
+        ],
+        description: true,
+      },
+      { value: DC.OTHER_DATA_SOURCE, description: true },
+    ],
+  },
+  opm: {
+    excludeOptions: ["O8BrOa"],
+  },
+  validations: [
+    "validateFfsRadioButtonCompletion",
+    "validateAtLeastOneDataSourceType",
+    "validateReasonForNotReporting",
+    "validateDateRangeRadioButtonCompletion",
+    "validateAtLeastOneDataSource",
+    "validateDeviationTextFieldFilled",
+    "validateAtLeastOneRateComplete",
+    "validateOPMRates",
+    "validateRateZeroOMS",
+    "validateRateZeroPM",
+    "validateRateNotZeroOMS",
+    "validateRateNotZeroPM",
+    "validateNumeratorLessThanDenominatorOMS",
+    "validateAtLeastOneDeliverySystem",
+    "validateBothDatesCompleted",
+    "validateAtLeastOneDefinitionOfPopulation",
+    "validateEqualQualifierDenominatorsOMS",
+    "validateEqualQualifierDenominatorsPM",
+    "validateEqualCategoryDenominatorsOMS",
+    "validateEqualCategoryDenominatorsPM",
+    "validateYearFormat",
+    "validateOneQualRateLessThanOrEqualToOtherQualRatesOMS",
+    "validateOneQualRateLessThanOrEqualToOtherQualRatesPM",
+  ],
+  override: {
+    validateEqualQualifierDenominatorsPM: {
+      category: true,
+      errorMessage: false,
+    },
+    validateEqualCategoryDenominatorsPM: {
+      qualifiers,
+    },
+    validateOneQualRateLessThanOrEqualToOtherQualRates: {
+      qualId: "i5B6xM",
+      otherQualIds: ["DThCVU", "r1aUqr"],
+      errorMessage:
+        "Combination rate cannot be greater than the Influenza or Tdap rates",
+    },
+  },
+};

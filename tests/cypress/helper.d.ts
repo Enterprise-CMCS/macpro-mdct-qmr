@@ -12,6 +12,11 @@ declare namespace Cypress {
     //Select Reporting Year
     selectYear(year: string): Chainable<Element>;
 
+    // Stub LaunchDarkly flag values for the current test
+    mockLaunchDarklyFlags(
+      flags: Record<string, boolean | string | number>
+    ): Chainable<Element>;
+
     // Visit Adult Core Set Measures
     goToAdultMeasures(): Chainable<Element>;
 

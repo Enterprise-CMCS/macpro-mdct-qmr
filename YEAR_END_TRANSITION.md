@@ -1,79 +1,117 @@
 # Year End Transition
 
-Go into the `services/ui-src/src/measures` directory and one should see past years as
-folders (2021, 2022, etc.). Ideally, changes to measures would be made from the previous
-year to the next so one would make a copy the folder of the most recent year and rename
-it to the next year (e.g. 2021 -> 2022). Then go into the folder and make any additions
-or removals of measures as needed per requirements.
+## LaunchDarkly Flag
 
-Once the directory for the new year has been made there are a couple of changes one needs
-to make in order to get that year working.
+1. Create a new LaunchDarkly Flag named "releaseYEAR" for the new year, e.g. "release2027".
 
-1. Go into the `index.tsx` file for the directory you just created
-   (`services/ui-src/src/measures/2022/index.tsx`) and update the name of the export
-   (`twentyTwentyOneMeasures` -> `twentyTwentyTwoMeasures`) and change the import year for `import { Data } from "labels/{year}/qualifierFormsData"` to the next year;
+2. Update the following files with the new flag:
 
-2. Go to the `services/ui-src/src/measures/index.tsx` file and add that new export
-   (before and after shown below)
+- `services/ui-src/src/utils/featureFlags.ts`
+- `services/ui-src/src/views/AdminHome/index.tsx`
+- `services/ui-src/src/views/CombinedRatesPage/index.tsx`
+- `services/ui-src/src/views/Home/index.tsx`
+- `services/ui-src/src/views/StateHome/index.tsx`
+- `tests/cypress/support/constants.ts`
 
-   Before
+3. In `services/ui-src/src/views/CoreSet/index.tsx`, add an entry for the new year in the `coreSetInstructions` object and update associated language and links.
 
-   ![Before](./.images/beforeCode.png?raw=true)
+## Create New Report Year
 
-   After
+Find the `services/ui-src/src/measures` directory. You should see past years as folders (2021, 2022, etc.). Generally, changes to measures in one year are carried over to the next. So make a copy of the folder of the most recent year and rename it to the next year (e.g. 2021 -> 2021 Copy -> 2022).
 
-   ![After](./.images/afterCode.png?raw=true)
+### Update the measures directory files
 
-3. Go to the `services/app-api/handlers/dynamoUtils/measureList.ts` and copy the array of
-   measures from the previous year and copy them into the new year. Make any additions or
-   removals of measures as needed per requirements.
+In the `services/ui-src/src/measures` directory, update the following files:
 
-4. Update any import names from the past year to the latest year (e.g. 2021 -> 2022)
+1. `index.tsx`
 
-   Before
+- update the name of the export (`twentyTwentyOneMeasures` -> `twentyTwentyTwoMeasures`)
+- change the import year for `import { Data } from "labels/{year}/qualifierFormsData"` to the next year
+- add the new export
+  (before and after shown below)
 
-   ![Before](./.images/beforeImportUpdate.png?raw=true)
+  Before
 
-   After
+  ![Before](./.images/beforeCode.png?raw=true)
 
-   ![After](./.images/afterImportUpdate.png?raw=true)
+  After
 
-5. Similar to Step 4, update import names from the previous year to the most recent year
+  ![After](./.images/afterCode.png?raw=true)
 
-   Before
+2. `measureDescriptions.ts`
 
-   ![Before](./.images/beforeCommonComponentUpdate.png?raw=true)
+- copy over the prior year's entry into the array
 
-   After
+3. For each of the measures described in the directory, ensure each associated file is updated to the new year as needed.
 
-   ![After](./.images/afterCommonComponentUpdate.png?raw=true)
+### Update the labels directory files
 
-6. In `services/ui-src/src/libs/spaLib.ts`, copy over the prior year's entry into the array.
+In the `services/ui-src/src/labels` directory, copy the past year's folder to create the new latest year, e.g. 2021 -> 2021 Copy -> 2022. Then update the following files:
 
-7. In `services/ui-src/src/measures/measureDescriptions.ts` , copy over the prior year's entry into the array.
+1. `QualifierFormsDatas.tsx`
 
-8. In `src/labels` copy the past year’s folder to the latest year (e.g. 2021 -> 2022)
+- add the newly created files from `src/labels/{year}/qualifierFormsData` as an import
 
-9. Go to the `src/labels/QualifierFormsDatas.tsx` and add the newly created files from `src/labels/{year}/qualifierFormsData` as an import
+2. `Labels.tsx`
 
-10. Go to the `src/labels/Labels.tsx` and add the newly created files from `src/labels/{year}/commonQuestionsLabel` as an import
+- add the newly created files from `src/labels/{year}/commonQuestionsLabel` as an import
 
-11. Go to the `src/labels/RateLabelTexts.tsx` and add the newly created files from `src/labels/{year}/rateLabelText` as an import
+3. `RateLabelTexts.tsx`
 
-12. In `services/app-api/libs/coreSetByYearPreloaded.ts` , copy over the prior year's entry into the array.
+- add the newly created files from `src/labels/{year}/rateLabelText` as an import
 
-13. In `services/app-api/libs/coreSetStatesList.ts` , copy over the prior year's entry into the array.
+4. `MeasureDatas.tsx`
 
-14. In `services/ui-src/src/config.ts` change `currentReportingYear` to the new reporting year.
+- add the newly created files from `src/labels/{year}/measureDatas` as an import
 
-### Cypress
+### Update the dynamoUtils directory files
+
+In the `services/app-api/handlers/dynamoUtils` directory, update the following files:
+
+1. Create the new year's `measureListYEAR.ts`
+
+- copy the array of measures from the previous year and paste them into the new year's file. Make any additions or removals of measures as needed per requirements.
+
+2. `measureList.ts`
+
+- import the new year's new `measureListYEAR.ts` file and include it in the list of interfaces
+
+### Update the ui-src shared directory files
+
+In `services/ui-src/src/shared` directory, update the following files:
+
+1. `coreSetByYear.ts`
+
+- copy over the prior year's entry into the array with the new year
+
+### Update the ui-src libs directory files
+
+In `services/ui-src/src/libs` directory, update the following files:
+
+1. `spaLib.ts`
+
+- copy over the prior year's entry into the array with the new year
+
+### Update the app-api libs directory files
+
+In `services/app-api/libs` directory, update the following files:
+
+1. `coreSetByYearPreloaded.ts`
+
+- copy over the prior year's entry into the array with the new year
+
+2. `coreSetStatesList.ts`
+
+- copy over the prior year's entry into the array with the new year
+
+### Update the config file
+
+In `services/ui-src/src/config.ts` change `currentReportingYear` to the new reporting year.
+
+## Cypress Updates
 
 1. In `test/cypress/support/constants.ts` change the value of `testingYear` to the new reporting year.
 
-### LaunchDarkly Flag
-
-1. In `services/ui-src/src/views/StateHome/index.tsx` look for the a line of code similar to this `const releaseYearByFlag = useFlags()?.["release2026"];` change the year to the latest year and do a quick search and replace with the new variable name.
-
-## Things to Look Out For (Gotchas)
+## Gotchas
 
 If you are creating a new shared component (e.g. files under `/globalValidations`) while editing the previous year's files, it is possible that merge conflicts will arise. Make sure these concurrent changes are not overwriting or removing necessary code.
