@@ -4,7 +4,7 @@ before(() => {
 
 const emailForCognito = "input[name='email']";
 const passwordForCognito = "input[name='password']";
-const coresetListRoute = "**/coreset/**/list";
+const coresetListRoute = "**/coreset/*/*";
 const adminBannerRoute = "**/banners/admin-banner-id";
 const reportingYearsRoute = "**/coreset/reportingyears";
 const ldEvalxRoute = "https://clientsdk.launchdarkly.us/sdk/evalx/**";
@@ -104,7 +104,7 @@ Cypress.Commands.add("goToChildCoreSetMeasures", () => {
 
 // Visit Health Home Core Set Measures
 Cypress.Commands.add("goToHealthHomeSetMeasures", () => {
-  cy.intercept("GET", "**/measures/list").as("measuresList");
+  cy.intercept("GET", "**/measures").as("measuresList");
   cy.get('[data-cy="tableBody"]').then(($tbody) => {
     if ($tbody.find('[data-cy^="HHCS"]').length === 0) {
       // adds first available HH core set if no healthhome was made

@@ -57,7 +57,7 @@ async function listMeasures(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.get(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/list`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures`,
     opts
   );
 }
@@ -78,7 +78,7 @@ async function getMeasure(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.get(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/get`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
     opts
   );
 }
@@ -87,7 +87,7 @@ async function createMeasure(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.post(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/create`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
     opts
   );
 }
@@ -95,7 +95,7 @@ async function editMeasure(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.put(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/edit`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
     opts
   );
 }
@@ -104,7 +104,7 @@ async function deleteMeasure(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.del(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}/delete`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/measures/${inputObj.measure}`,
     opts
   );
 }
@@ -112,17 +112,14 @@ async function deleteMeasure(inputObj: any) {
 async function getAllCoreSets(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
-  return await apiLib.get(
-    `/coreset/${inputObj.state}/${inputObj.year}/list`,
-    opts
-  );
+  return await apiLib.get(`/coreset/${inputObj.state}/${inputObj.year}`, opts);
 }
 
 async function getCoreSet(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.get(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}/get`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSetId}`,
     opts
   );
 }
@@ -131,7 +128,7 @@ async function createCoreSet(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.post(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/create`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
     opts
   );
 }
@@ -140,7 +137,7 @@ async function editCoreSet(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.put(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/edit`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
     opts
   );
 }
@@ -149,7 +146,7 @@ async function deleteCoreSet(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.del(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/delete`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}`,
     opts
   );
 }
@@ -158,7 +155,7 @@ async function getRate(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.get(
-    `/rate/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/${inputObj.measure}/get`,
+    `/rate/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/${inputObj.measure}`,
     opts
   );
 }
@@ -167,7 +164,7 @@ async function getPDF(inputObj: any) {
   const opts = await requestOptions();
   opts.body = inputObj.body;
   return await apiLib.post(
-    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/getPDF`,
+    `/coreset/${inputObj.state}/${inputObj.year}/${inputObj.coreSet}/pdf`,
     opts
   );
 }
