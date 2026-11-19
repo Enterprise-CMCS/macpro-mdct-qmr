@@ -1,7 +1,6 @@
 import { ComponentStyleConfig } from "@chakra-ui/react";
 
 const baseStyles = {
-  textTransform: "capitalize",
   fontWeight: "bold",
   borderRadius: "sm",
 };
@@ -41,7 +40,6 @@ const outlinePrimaryVariant = {
 const primaryVariant = {
   background: "blue.600",
   color: "white",
-  textTransform: "capitalize",
   fontWeight: "bold",
   borderRadius: "sm",
   "&:disabled, &:disabled:hover": {
