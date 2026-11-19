@@ -140,50 +140,6 @@ export const data = {
             "id": "8C1bKd",
         }]
     },
-    "AMR-AD": {
-        "qualifiers": [
-            {
-                "label": "Ages 19 to 50",
-                "text": "Ages 19 to 50",
-                "id": "uT3Ybg",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 51 to 64",
-                "text": "Ages 51 to 64",
-                "id": "pvkFnD",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Total (Ages 19 to 64)",
-                "text": "Total (Ages 19 to 64)",
-                "id": "Total"
-            }
-        ],
-        "categories": [{"id":"HRsQ7F", "label": "", "text":""}]
-    },
-    "AMR-CH": {
-        "qualifiers": [
-            {
-                "label": "Ages 5 to 11",
-                "text": "Ages 5 to 11",
-                "id": "kijL2T",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Ages 12 to 18",
-                "text": "Ages 12 to 18",
-                "id": "cteSKS",
-                "excludeFromOMS": true
-            },
-            {
-                "label": "Total (Ages 5 to 18)",
-                "text": "Total (Ages 5 to 18)",
-                "id": "Total"
-            }
-        ],
-        "categories": [{"id":"tMt8gW", "label": "", "text":""}]
-    },
     "APM-CH": {
         "qualifiers": [
             {
@@ -1181,42 +1137,6 @@ export const data = {
             }
         ],
         "categories": [{"id":"HOiTVZ", "label": "", "text":""}]
-    },
-    "MSC-AD": {
-        "qualifiers": [
-            {
-                "label": "Ages 18 to 64",
-                "text": "Ages 18 to 64",
-                "id": "wNVojQ"
-            },
-            {
-                "label": "Age 65 and older",
-                "text": "Age 65 and older",
-                "id": "SYlSVC"
-            }
-        ],
-        "categories": [
-            {
-                "label": "Percentage of Current Smokers and Tobacco Users",
-                "text": "Percentage of Current Smokers and Tobacco Users",
-                "id": "fF0COe"
-            },
-            {
-                "label": "Advising Smokers and Tobacco Users to Quit",
-                "text": "Advising Smokers and Tobacco Users to Quit",
-               "id": "S2ngC7"
-            },
-            {
-                "label": "Discussing Cessation Medications",
-                "text": "Discussing Cessation Medications",
-                "id": "Hk5dWm"
-            },
-            {
-                "label": "Discussing Cessation Strategies",
-                "text": "Discussing Cessation Strategies",
-                "id": "xiXN7R"
-            }
-        ]
     },
     "OEV-CH": {
         "qualifiers": [

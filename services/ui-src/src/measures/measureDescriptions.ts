@@ -613,7 +613,6 @@ export const measureDescriptions: MeasureList = {
     "AAB-AD":
       "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Age 18 And Older",
     "AIS-AD": "Adult Immunization Status",
-    "AMR-AD": "Asthma Medication Ratio: Ages 19 to 64",
     "BCS-AD": "Breast Cancer Screening",
     "CBP-AD": "Controlling High Blood Pressure",
     "CCP-AD": "Contraceptive Care - Postpartum Women Ages 21 to 44",
@@ -640,7 +639,6 @@ export const measureDescriptions: MeasureList = {
     "HVL-AD": "HIV Viral Load Suppression",
     "IET-AD": "Initiation and Engagement of Substance Use Disorder Treatment",
     "LRCD-AD": "Low-Risk Cesarean Delivery: Age 20 and Older",
-    "MSC-AD": "Medical Assistance with Smoking and Tobacco Use Cessation",
     "OEVP-AD": "Oral Evaluation During Pregnancy: Ages 21 to 44",
     "OUD-AD": "Use of Pharmacotherapy for Opioid Use Disorder",
     "PCR-AD": "Plan All-Cause Readmissions",
@@ -664,7 +662,6 @@ export const measureDescriptions: MeasureList = {
       "Avoidance of Antibiotic Treatment for Acute Bronchitis/Bronchiolitis: Ages 3 Months to 17 Years",
     "ADD-CH":
       "Follow-Up Care for Children Prescribed Attention-Deficit/Hyperactivity Disorder (ADHD) Medication",
-    "AMR-CH": "Asthma Medication Ratio: Ages 5 to 18",
     "APM-CH":
       "Metabolic Monitoring for Children and Adolescents on Antipsychotics",
     "APP-CH":
