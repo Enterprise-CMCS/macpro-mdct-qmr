@@ -57,7 +57,7 @@ const LocalLogin = () => {
           data-cy="login-with-cognito-button"
           type="submit"
         >
-          Login with Cognito
+          Login With Cognito
         </CUI.Button>
       </CUI.Stack>
     </form>
@@ -81,7 +81,7 @@ export const LocalLogins = ({ loginWithIDM }: Props) => {
           Log In with IDM
         </CUI.Heading>
         <CUI.Button colorScheme="teal" width="full" onClick={loginWithIDM}>
-          Login with IDM
+          Login With IDM
         </CUI.Button>
         <LocalLogin />
       </CUI.Stack>

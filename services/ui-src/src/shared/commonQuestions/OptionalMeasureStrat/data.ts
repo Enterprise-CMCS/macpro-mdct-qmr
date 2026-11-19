@@ -253,7 +253,7 @@ const addMedicaidExpansion = (data: OmsNode[]) => {
   data.push({
     id: "KSB26p",
     label: "Medicaid Expansion",
-    aggregateTitle: "expansion group",
+    aggregateTitle: "Expansion Group",
     helperText:
       "Skip the Medicaid expansion stratification if your state has not fully expanded Medicaid for the adult population.",
     options: [

@@ -204,11 +204,11 @@ export const Stratification = ({
           display="flex"
         >
           <CUI.ListItem>
-            <CUI.Button variant="outline-primary">Expand all</CUI.Button>
+            <CUI.Button variant="outline-primary">Expand All</CUI.Button>
           </CUI.ListItem>
           <CUI.ListItem>
             <CUI.Button variant="outline-primary" ml={6}>
-              Collapse all
+              Collapse All
             </CUI.Button>
           </CUI.ListItem>
         </CUI.UnorderedList>

@@ -24,12 +24,12 @@ describe("Test LocalLogins", () => {
       />
     );
     expect(
-      screen.getByRole("button", { name: "Login with IDM" })
+      screen.getByRole("button", { name: "Login With IDM" })
     ).toBeVisible();
     expect(screen.getByRole("heading", { name: "Email" })).toBeVisible();
     expect(screen.getByRole("heading", { name: "Password" })).toBeVisible();
     expect(
-      screen.getByRole("button", { name: "Login with Cognito" })
+      screen.getByRole("button", { name: "Login With Cognito" })
     ).toBeVisible();
   });
 
@@ -48,7 +48,7 @@ describe("Test LocalLogins", () => {
     if (passwordField) await userEvent.type(passwordField, "!@#$%");
 
     await userEvent.click(
-      screen.getByRole("button", { name: "Login with Cognito" })
+      screen.getByRole("button", { name: "Login With Cognito" })
     );
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalled());
   });
