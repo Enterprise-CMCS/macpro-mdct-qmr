@@ -20,7 +20,9 @@ export const measureAbbrList = {
     "COB-AD",
     "COL-AD",
     "CPA-AD",
+    // "DOE-AD", //TO-DO: turn on when measure has been added
     "EDV-AD",
+    // "EHBC-AD", //TO-DO: turn on when measure has been added
     "FUA-AD",
     "FUH-AD",
     "FUM-AD",

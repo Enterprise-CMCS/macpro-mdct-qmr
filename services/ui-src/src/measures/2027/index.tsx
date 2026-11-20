@@ -47,7 +47,9 @@ const twentyTwentySevenMeasures = {
   "CPA-AD": CPAAD,
   "CPC-CH": CPCCH,
   "DEV-CH": measureTemplate,
+  // "DOE-AD": measureTemplate, // TO DO: replace with real measure
   "EDV-AD": measureTemplate,
+  // "EHBC-AD": measureTemplate, // TO DO: replace with real measure
   "FUA-AD": measureTemplate,
   "FUA-CH": measureTemplate,
   "FUA-HH": measureTemplate,

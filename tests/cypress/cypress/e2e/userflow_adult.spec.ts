@@ -68,7 +68,7 @@ describe("submit coreset", () => {
     // confirm reset
     cy.get(`[data-cy="Status-AL${testingYear}"]`).should(
       "contain.text",
-      "in progress1 of 34 complete"
+      "in progress1 of 36 complete"
     );
   });
 
@@ -82,7 +82,7 @@ describe("submit coreset", () => {
     cy.wait(4000);
     cy.get(`[data-cy="Status-AL${testingYear}"]`).should(
       "contain.text",
-      "complete34 of 34 complete"
+      "complete36 of 36 complete"
     );
 
     // submit core set
@@ -97,7 +97,7 @@ describe("submit coreset", () => {
     cy.visit("/");
     cy.get(`[data-cy="Status-AL${testingYear}"]`).should(
       "contain.text",
-      "submitted34 of 34 complete"
+      "submitted36 of 36 complete"
     );
   });
 });
