@@ -625,8 +625,10 @@ export const measureDescriptions: MeasureList = {
     "COL-AD": "Colorectal Cancer Screening",
     "CPA-AD":
       "Consumer Assessment of Healthcare Providers and Systems (CAHPS®) Health Plan Survey 5.1H, Adult Version (Medicaid)",
+    "DOE-AD": "Adults with Diabetes - Oral Evaluation",
     "EDV-AD":
       "Ambulatory Care Sensitive Emergency Department Visits for Non-Traumatic Dental Conditions in Adults",
+    "EHBC-AD": "Evaluation of Hepatitis B and C",
     "FUA-AD":
       "Follow-Up After Emergency Department Visit for Substance Use: Age 18 and Older",
     "FUH-AD":
