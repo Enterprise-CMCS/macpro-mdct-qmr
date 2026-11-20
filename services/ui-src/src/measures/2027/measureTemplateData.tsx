@@ -5,8 +5,6 @@ import { data as AABCH_Data } from "./AABCH/data";
 import { data as ADDCH_Data } from "./ADDCH/data";
 import { data as AIFHH_Data } from "./AIFHH/data";
 import { data as AISAD_Data } from "./AISAD/data";
-import { data as AMRAD_Data } from "./AMRAD/data";
-import { data as AMRCH_Data } from "./AMRCH/data";
 import { data as APMCH_Data } from "./APMCH/data";
 import { data as APPCH_Data } from "./APPCH/data";
 import { data as BCSAD_Data } from "./BCSAD/data";
@@ -79,8 +77,6 @@ export const measureTemplateData: { [measure: string]: any } = {
   "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
   "AIF-HH": { data: AIFHH_Data, validationFunctions: validationFunctions },
   "AIS-AD": { data: AISAD_Data, validationFunctions: validationFunctions },
-  "AMR-CH": { data: AMRCH_Data, validationFunctions: validationFunctions },
-  "AMR-AD": { data: AMRAD_Data, validationFunctions: validationFunctions },
   "APM-CH": { data: APMCH_Data, validationFunctions: validationFunctions },
   "APP-CH": { data: APPCH_Data, validationFunctions: validationFunctions },
   "BCS-AD": { data: BCSAD_Data, validationFunctions: validationFunctions },

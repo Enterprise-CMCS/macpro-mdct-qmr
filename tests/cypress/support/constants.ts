@@ -10,7 +10,6 @@ export const measureAbbrList = {
   ADULT: [
     "AAB-AD",
     "AIS-AD",
-    "AMR-AD",
     "BCS-AD",
     "CBP-AD",
     "CCP-AD",
@@ -30,7 +29,6 @@ export const measureAbbrList = {
     "HVL-AD",
     "IET-AD",
     "LRCD-AD",
-    "MSC-AD",
     "OEVP-AD",
     "OUD-AD",
     "PCR-AD",
@@ -48,7 +46,6 @@ export const measureAbbrList = {
   CHILD: [
     "AAB-CH",
     "ADD-CH",
-    "AMR-CH",
     "APM-CH",
     "APP-CH",
     "CCP-CH",
