@@ -69,7 +69,15 @@ export const measureList2027: MeasureMetaData[] = [
   },
   {
     type: "A",
+    measure: "DOE-AD",
+  },
+  {
+    type: "A",
     measure: "EDV-AD",
+  },
+  {
+    type: "A",
+    measure: "EHBC-AD",
   },
   {
     type: "A",
