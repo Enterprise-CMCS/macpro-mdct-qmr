@@ -20,6 +20,10 @@ describe("Testing Updating Core Set Functions", () => {
   beforeEach(() => {
     mockHasStatePermissions.mockImplementation(() => true);
     ((event.headers = { "cognito-identity-id": "branchUser" }),
+      (event.body = JSON.stringify({
+        submitted: false,
+        status: "in progress",
+      })),
       (event.pathParameters = {
         state: "WA",
         year: "2021",
@@ -65,14 +69,14 @@ describe("Testing Updating Core Set Functions", () => {
       UpdateExpression: expect.any(String),
       ExpressionAttributeNames: expect.any(Object),
       ExpressionAttributeValues: {
-        ":submitted": undefined,
-        ":status": undefined,
+        ":submitted": false,
+        ":status": "in progress",
         ":lastAltered": 20,
         ":lastAlteredBy": "branchUser",
       },
     });
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("WA2021");
+    expect(res.body).toBeUndefined();
   });
 
   test("Test with no user id", async () => {
@@ -86,11 +90,11 @@ describe("Testing Updating Core Set Functions", () => {
       ExpressionAttributeValues: {
         ":lastAltered": 20,
         ":lastAlteredBy": "branchUser",
-        ":status": undefined,
-        ":submitted": undefined,
+        ":status": "in progress",
+        ":submitted": false,
       },
     });
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("WA2021");
+    expect(res.body).toBeUndefined();
   });
 });

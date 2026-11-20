@@ -1,5 +1,5 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
+import { deleteMeasureFromTable } from "../../storage/measures";
 import { hasStatePermissions } from "../../libs/authorization";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";
@@ -21,15 +21,12 @@ export const deleteMeasure = handler(async (event, _context) => {
     };
   }
 
-  const params = {
-    TableName: process.env.MeasuresTable!,
-    Key: {
-      compoundKey: `${state}${year}${coreSet}`,
-      measure: measure,
-    },
-  };
+  await deleteMeasureFromTable({
+    state,
+    year,
+    coreSet,
+    measure,
+  });
 
-  await dynamoDb.delete(params);
-
-  return { status: StatusCodes.SUCCESS, body: params };
+  return { status: StatusCodes.SUCCESS };
 });

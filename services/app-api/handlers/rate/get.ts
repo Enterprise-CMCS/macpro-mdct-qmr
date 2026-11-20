@@ -3,7 +3,7 @@ import {
   hasStatePermissions,
 } from "../../libs/authorization";
 import handler from "../../libs/handler-lib";
-import { getCombinedRatesFromTable } from "../../storage/table";
+import { getCombinedRatesFromTable } from "../../storage/combinedRates";
 import { UserRoles } from "../../types";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseMeasureParameters } from "../../utils/parseParameters";

@@ -267,6 +267,12 @@ In some circumstances you may want to remove all resources of a given branch. Oc
 
 The API service provides all backend endpoints for the application. It is deployed with CDK and depends on the database service.
 
+Each resource type (Core Set, Measure, Combined Rate, and Banner)
+has its own set of database access functions,
+in a dedicated file within `/services/app-api/storage`.
+All the details for building DynamoDB queries are hidden there,
+so that the handlers can stay focused on business logic.
+
 #### Parameters
 
 Parameters are passed in the URL in this order:
@@ -337,7 +343,6 @@ Kafka queues are linked to the BigMac account and are not currently used for dow
 
 #### Utilities
 
-- `createDynamoUpdateParams`: Utility to convert arguments into DynamoDB-compatible update parameters.
 - `measureList`: Utility providing a list of all measures and their associated coreset types, used when creating new coresets and measures.
 
 ### Database

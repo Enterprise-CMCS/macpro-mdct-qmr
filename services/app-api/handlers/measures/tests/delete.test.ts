@@ -1,3 +1,5 @@
+process.env.MeasuresTable = "SAMPLE TABLE";
+
 import { deleteMeasure } from "../delete";
 import dbLib from "../../../libs/dynamodb-lib";
 import { testEvent } from "../../../test-util/testEvents";
@@ -13,7 +15,6 @@ jest.mock("../../../libs/authorization", () => ({
 }));
 
 const event = { ...testEvent };
-process.env.MeasuresTable = "SAMPLE TABLE";
 
 describe("Test Delete Measure Handler", () => {
   beforeEach(() => {
@@ -60,8 +61,7 @@ describe("Test Delete Measure Handler", () => {
     const res = await deleteMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("IN2022ACS");
-    expect(res.body).toContain('"measure":"AAB-AD"');
+    expect(res.body).toBeUndefined();
     expect(dbLib.delete).toHaveBeenCalledWith({
       TableName: "SAMPLE TABLE",
       Key: {

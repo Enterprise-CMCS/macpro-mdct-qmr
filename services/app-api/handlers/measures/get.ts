@@ -1,5 +1,8 @@
 import handler from "../../libs/handler-lib";
-import dynamoDb from "../../libs/dynamodb-lib";
+import {
+  getMeasureFromTable,
+  getMeasuresFromTable,
+} from "../../storage/measures";
 import { measures } from "../dynamoUtils/measureList";
 import {
   hasRolePermissions,
@@ -32,15 +35,7 @@ export const listMeasures = handler(async (event, _context) => {
       };
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
-  const params = {
-    TableName: process.env.MeasuresTable!,
-    KeyConditionExpression: "compoundKey = :compoundKey",
-    ExpressionAttributeValues: {
-      ":compoundKey": `${state}${year}${coreSet}`,
-    },
-  };
-
-  const queriedMeasures = await dynamoDb.queryAll<Measure>(params);
+  const queriedMeasures = await getMeasuresFromTable({ state, year, coreSet });
   for (let v of queriedMeasures) {
     const measure = measures[year as number]?.find(
       (m) => m.measure === (v as Measure)?.measure
@@ -81,14 +76,12 @@ export const getMeasure = handler(async (event, _context) => {
     }
   } // if not state user, can safely assume admin type user due to baseline handler protections
 
-  const params = {
-    TableName: process.env.MeasuresTable!,
-    Key: {
-      compoundKey: `${state}${year}${coreSet}`,
-      measure: measure,
-    },
-  };
-  const queryValue = await dynamoDb.get<Measure>(params);
+  const queryValue = await getMeasureFromTable({
+    state,
+    year,
+    coreSet,
+    measure,
+  });
 
   // Add metadata from measureList
   if (queryValue) {

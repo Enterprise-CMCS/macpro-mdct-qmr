@@ -1,3 +1,6 @@
+process.env.MeasuresTable = "mock-measure-table";
+process.env.QualityCoreSetsTable = "mock-coreset-table";
+
 import { editMeasure } from "../update";
 import dbLib from "../../../libs/dynamodb-lib";
 import { testEvent } from "../../../test-util/testEvents";
@@ -18,8 +21,6 @@ jest.mock("../../../libs/authorization", () => ({
 }));
 
 const event = { ...testEvent };
-process.env.MeasuresTable = "mock-measure-table";
-process.env.QualityCoreSetsTable = "mock-coreset-table";
 
 describe("Test Update Measure Handler", () => {
   beforeEach(() => {
@@ -69,8 +70,7 @@ describe("Test Update Measure Handler", () => {
     const res = await editMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("IN2022ACS");
-    expect(res.body).toContain('"measure":"AAB-AD"');
+    expect(res.body).toBeUndefined();
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",
       Key: { compoundKey: "IN2022ACS", measure: "AAB-AD" },
@@ -93,8 +93,7 @@ describe("Test Update Measure Handler", () => {
     const res = await editMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("IN2022ACS");
-    expect(res.body).toContain('"measure":"AAB-AD"');
+    expect(res.body).toBeUndefined();
     expect(dbLib.update).toHaveBeenCalledWith({
       TableName: "mock-measure-table",
       Key: { compoundKey: "IN2022ACS", measure: "AAB-AD" },

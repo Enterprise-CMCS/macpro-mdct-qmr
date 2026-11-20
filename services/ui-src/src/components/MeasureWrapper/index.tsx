@@ -284,15 +284,15 @@ export const MeasureWrapper = ({
           reporting: handleReportingResponse(data),
         },
         {
-          onSettled: (data, error) => {
-            if (data && !error) {
+          onSettled: (_data, error) => {
+            if (!error) {
               refetch();
+              toastSaved();
             }
             //TODO: some form of error showcasing should display here
             if (error) console.log(error);
 
             setValidating(false);
-            toastSaved();
           },
           onError: () => {
             toastFailtoSave();
@@ -353,8 +353,8 @@ export const MeasureWrapper = ({
       updateMeasure(
         { data, status, reporting },
         {
-          onSettled: (data, error) => {
-            if (data && !error) {
+          onSettled: (_data, error) => {
+            if (!error) {
               refetch();
               if (callback) {
                 callback();

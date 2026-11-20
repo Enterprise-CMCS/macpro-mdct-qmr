@@ -1,7 +1,5 @@
-import {
-  getMeasureFromTable,
-  putCombinedRatesToTable,
-} from "../../storage/table";
+import { getMeasureFromTable } from "../../storage/measures";
+import { putCombinedRatesToTable } from "../../storage/combinedRates";
 import {
   CoreSetAbbr,
   isCoreSetAbbr,

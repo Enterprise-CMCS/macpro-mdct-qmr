@@ -203,12 +203,13 @@ export interface Banner {
   key: string;
   title: string;
   description: string;
+  link?: string;
   startDate: number;
   endDate: number;
 
-  createdAt: Date;
-  lastAltered: Date;
-  lastAlteredBy: string;
+  createdAt: number;
+  lastAltered: number;
+  lastAlteredBy?: string;
 }
 
 export enum CoreSetAbbr {
