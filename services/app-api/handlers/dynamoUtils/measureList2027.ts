@@ -369,6 +369,11 @@ export const measureList2027: MeasureMetaData[] = [
     type: "C",
     measure: "WCC-CH",
     measureType: MeasureType.MANDATORY,
+    stratificationRequired: [
+      CoreSetAbbr.CCS,
+      CoreSetAbbr.CCSC,
+      CoreSetAbbr.CCSM,
+    ],
   },
   {
     type: "C",
