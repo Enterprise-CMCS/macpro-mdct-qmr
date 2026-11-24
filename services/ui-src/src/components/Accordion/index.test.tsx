@@ -47,14 +47,14 @@ describe("Test Accordion Component", () => {
   it("Accordion expand/collapse all", async () => {
     renderWithHookForm(
       <>
-        <Button>Expand all</Button>
-        <Button>Collapse all</Button>
+        <Button>Expand All</Button>
+        <Button>Collapse All</Button>
         {accordionComponent}
       </>
     );
 
-    const expandBtn = screen.getByRole("button", { name: "Expand all" });
-    const collapseBtn = screen.getByRole("button", { name: "Collapse all" });
+    const expandBtn = screen.getByRole("button", { name: "Expand All" });
+    const collapseBtn = screen.getByRole("button", { name: "Collapse All" });
 
     expect(screen.getByText("mock child accordion")).not.toBeVisible();
     userEvent.click(expandBtn);

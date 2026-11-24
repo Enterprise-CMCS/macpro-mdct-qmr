@@ -157,6 +157,11 @@ describe("Test MeasureStratification", () => {
     expect(
       screen.getByText("Enter Measure Stratification")
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Do not select categories and detailed categories for which your state does not collect data."
+      )
+    ).toBeInTheDocument();
     expect(screen.queryByText("Race and Ethnicity")).not.toBeInTheDocument();
     expect(screen.getByText("Sex")).toBeInTheDocument();
     expect(screen.getByText("Geography")).toBeInTheDocument();
@@ -257,6 +262,16 @@ describe("Test MeasureStratification", () => {
       })
     );
 
+    expect(
+      screen.getByText(
+        /States should use their own stratification categories and detailed categories/
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        "Do not select categories and detailed categories for which your state does not collect data."
+      )
+    ).not.toBeInTheDocument();
     expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
     expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
   });
@@ -295,6 +310,21 @@ describe("Test MeasureStratification", () => {
       })
     );
 
+    expect(
+      screen.getByText(
+        "Do not select categories and detailed categories for which your state does not collect data."
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "For each category and detailed category for which your state collects data, enter a number for the numerator and denominator. The rate will auto-calculate but can be revised if needed."
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "If your state collects data for a category or detailed category but there are zero measure-eligible beneficiaries who fall into that category or detailed category, select the category and enter zero in the numerator and denominator fields."
+      )
+    ).toBeInTheDocument();
     expect(screen.getByText("Medicaid Expansion")).toBeInTheDocument();
     expect(screen.queryByText("Foster Care")).not.toBeInTheDocument();
   });

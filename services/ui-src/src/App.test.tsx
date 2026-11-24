@@ -60,7 +60,7 @@ describe("Test App", () => {
     expect(screen.getByText("Quality Measure Reporting")).toBeVisible();
     expect(screen.getByText("Log In with IDM")).toBeVisible();
     expect(
-      screen.getByRole("button", { name: "Login with Cognito" })
+      screen.getByRole("button", { name: "Login With Cognito" })
     ).toBeVisible();
   });
   it("Show dashboard when user is logged in", () => {

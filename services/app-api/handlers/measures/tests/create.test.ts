@@ -40,25 +40,41 @@ describe("Test Create Measure Handler", () => {
     expect(res.body).toContain(Errors.UNAUTHORIZED);
   });
 
-  test("Test Successful Run of Measure Creation with description", async () => {
+  test("should create a measure with descriptions", async () => {
     event.body = `{"data": {}, "description": "sample desc", "detailedDescription": "sample detailed desc"}`;
 
     const res = await createMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("sample desc");
-    expect(res.body).toContain("sample detailed desc");
-    expect(res.body).toContain("IA2026HHCS_20-0011");
+    expect(res.body).toBeUndefined();
+    expect(dynamodbLib.put).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        Item: expect.objectContaining({
+          compoundKey: "IA2026HHCS_20-0011",
+          description: "sample desc",
+          detailedDescription: "sample detailed desc",
+        }),
+      })
+    );
   });
 
-  test("Test Successful Run of Measure Creation without description", async () => {
+  test("should create a measure without descriptions", async () => {
     event.body = `{"data": {}}`;
 
     const res = await createMeasure(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toContain("test");
-    expect(res.body).toContain("IA2026HHCS_20-0011");
+    expect(res.body).toBeUndefined();
+    expect(dynamodbLib.put).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        Item: expect.objectContaining({
+          compoundKey: "IA2026HHCS_20-0011",
+          lastAlteredBy: "test",
+          description: "",
+          detailedDescription: "",
+        }),
+      })
+    );
   });
 
   test("Fails with bad request when path params are missing", async () => {

@@ -247,7 +247,6 @@ export const measureList2026: MeasureMetaData[] = [
   {
     type: "C",
     measure: "CIS-CH",
-    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
@@ -287,7 +286,6 @@ export const measureList2026: MeasureMetaData[] = [
   {
     type: "C",
     measure: "IMA-CH",
-    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",

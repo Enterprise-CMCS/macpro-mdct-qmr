@@ -101,7 +101,7 @@ const GetCoreSetTabs = (coreSetIds: CoreSetIdentifier[] | undefined) => {
 
 export const CombinedRatesPage = () => {
   //feature flag for the current year
-  const releaseYearByFlag = useFlags()?.["release2026"];
+  const releaseYearByFlag = useFlags()?.["release2027"];
   const { data, isLoading } = Api.useGetCoreSets(releaseYearByFlag);
   const coreSetIds = data?.Items?.map((coreSet: CoreSet) => coreSet.coreSet);
   const coreSetTabs = GetCoreSetTabs(coreSetIds);

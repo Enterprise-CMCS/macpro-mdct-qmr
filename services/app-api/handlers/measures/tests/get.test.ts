@@ -1,3 +1,5 @@
+process.env.MeasuresTable = "SAMPLE TABLE";
+
 import {
   getMeasure,
   listMeasures,
@@ -25,7 +27,6 @@ jest.mock("../../../libs/authorization", () => ({
 }));
 
 const event = { ...testEvent };
-process.env.MeasuresTable = "SAMPLE TABLE";
 
 describe("Test Get Measure Handlers", () => {
   beforeEach(() => {
@@ -143,7 +144,7 @@ describe("Test Get Measure Handlers", () => {
 
     const res = await getReportingYears(event, null);
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
-    expect(res.body).toBe('["2021","2022","2023","2024","2025","2026"]');
+    expect(res.body).toBe('["2021","2022","2023","2024","2025","2026","2027"]');
   });
 
   test("Test getMeasureListInfo works when called with an empty object", async () => {

@@ -8,6 +8,7 @@ import { LabelData } from "utils";
 
 export interface MeasureStratificationLabels {
   subHeader: string[];
+  stateSpecificSubHeader?: string[];
   addAnotherType: string;
 }
 

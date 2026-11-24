@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { RouterWrappedComp } from "utils/testing";
 import { MeasureWrapper } from "./";
-import { useApiMock } from "utils/testUtils/useApiMock";
+import { defaultMockValues, useApiMock } from "utils/testUtils/useApiMock";
 import { useUser } from "hooks/authHooks";
 import { CPUAD } from "measures/2024/CPUAD/index";
 import { getMeasureYear } from "utils/getMeasureYear";
@@ -228,6 +228,9 @@ describe("test auto-completed measures", () => {
 
 describe("test measure functions", () => {
   beforeEach(() => {
+    mockMutate.mockClear();
+    mockToast.mockClear();
+    defaultMockValues.useGetMeasureValues.refetch.mockClear();
     mockGetMeasureYear.mockReturnValue(2021);
     mockUseUser.mockImplementation(() => {
       return { isStateUser: true };
@@ -260,7 +263,10 @@ describe("test measure functions", () => {
     );
   });
 
-  test("should run save when clicking the save button and show success toast", async () => {
+  test("should refetch and show success when saving returns an empty response", async () => {
+    mockMutate.mockImplementationOnce((_variables, options) =>
+      options.onSettled(null, null)
+    );
     const textArea = await screen.findByLabelText(
       "I am reporting provisional data."
     );
@@ -268,7 +274,7 @@ describe("test measure functions", () => {
     const saveBtn = screen.getByText("Save");
     fireEvent.click(saveBtn);
     await waitFor(() => {
-      expect(mockMutate).toHaveBeenCalled();
+      expect(defaultMockValues.useGetMeasureValues.refetch).toHaveBeenCalled();
     });
     expect(mockToast).toHaveBeenCalledWith({
       status: "success",
@@ -304,7 +310,7 @@ describe("test measure functions", () => {
     await waitFor(() => {
       fireEvent.click(button);
     });
-    expect(screen.getByText("Data Source Error")).toBeInTheDocument();
+    expect(await screen.findByText("Data Source Error")).toBeInTheDocument();
     const closeBtn = screen.getAllByTestId("close");
     expect(closeBtn).toHaveLength(8);
     await waitFor(() => {
@@ -328,7 +334,7 @@ describe("test measure functions", () => {
     await waitFor(() => {
       fireEvent.click(button);
     });
-    expect(screen.getByText("Validation Error")).toBeInTheDocument();
+    expect(await screen.findByText("Validation Error")).toBeInTheDocument();
   });
 
   test("Validation modal comes up and is clickable", async () => {
@@ -339,11 +345,73 @@ describe("test measure functions", () => {
       fireEvent.click(completeButton);
     });
 
-    const yesButton = screen.getByText("Yes");
+    const yesButton = await screen.findByText("Yes");
     expect(yesButton).toBeInTheDocument();
     expect(yesButton).toBeEnabled();
     await waitFor(() => {
       fireEvent.click(yesButton);
     });
+  });
+});
+
+describe("measure updates with empty responses", () => {
+  const mockNavigate = jest.fn();
+  let navigateSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    mockNavigate.mockClear();
+    mockMutate
+      .mockReset()
+      .mockImplementation((_variables, options) =>
+        options.onSettled(null, null)
+      );
+    mockToast.mockClear();
+    defaultMockValues.useGetMeasureValues.refetch.mockClear();
+    navigateSpy = jest
+      .spyOn(require("react-router"), "useNavigate")
+      .mockReturnValue(mockNavigate);
+    mockUseUser.mockReturnValue({ isStateUser: true });
+    renderMeasureWrapper(
+      { measureId: "AMMAD", year: "2021" },
+      { useUpdateMeasureValues: { mutate: mockMutate } }
+    );
+  });
+
+  afterEach(() => {
+    navigateSpy.mockRestore();
+  });
+
+  test("should refetch and return to the measure list after clearing data with an empty response", async () => {
+    fireEvent.click(screen.getByText("Clear Data"));
+
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith(-1));
+    expect(defaultMockValues.useGetMeasureValues.refetch).toHaveBeenCalled();
+    expect(mockMutate).toHaveBeenCalledWith(
+      { data: {}, status: "incomplete", reporting: undefined },
+      expect.any(Object)
+    );
+  });
+
+  test("should not refetch or navigate when the measure update fails", async () => {
+    const error = new Error("Update failed");
+    const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+    mockMutate.mockImplementationOnce((_variables, options) => {
+      options.onSettled(undefined, error);
+      options.onError(error);
+    });
+
+    fireEvent.click(screen.getByText("Clear Data"));
+
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith(
+        expect.objectContaining({ status: "error" })
+      )
+    );
+    expect(mockNavigate).not.toHaveBeenCalled();
+    expect(
+      defaultMockValues.useGetMeasureValues.refetch
+    ).not.toHaveBeenCalled();
+    expect(logSpy).toHaveBeenCalledWith(error);
+    logSpy.mockRestore();
   });
 });

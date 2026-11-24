@@ -55,7 +55,18 @@ describe("Testing the Create CoreSet Functions", () => {
     const res = await createCoreSet(event, null);
 
     expect(res.statusCode).toBe(StatusCodes.SUCCESS);
+    expect(res.body).toBeUndefined();
     expect(dynamoDb.put).toHaveBeenCalledTimes(list.length + 1);
+    expect(dynamoDb.put).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        Item: expect.objectContaining({
+          compoundKey: "FL2021",
+          state: "FL",
+          year: 2021,
+          coreSet: CoreSetAbbr.ACS,
+        }),
+      })
+    );
   });
 
   test("Test createCoreSet but coreSet exists", async () => {

@@ -43,9 +43,9 @@ export const Accordion = ({
     //only way to really capture when the user has clicked expand all/ collapse all button for the measure stratification section
     addEventListener("click", (event) => {
       const label = (event.target as Element).innerHTML;
-      if (label === "Expand all") {
+      if (label === "Expand All") {
         setIndex(0);
-      } else if (label === "Collapse all") {
+      } else if (label === "Collapse All") {
         setIndex(1);
       }
     });
