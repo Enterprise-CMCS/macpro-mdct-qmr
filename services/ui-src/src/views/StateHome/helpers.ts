@@ -81,14 +81,14 @@ export const formatTableItems = ({
       compoundKey,
     }: CoreSetDataItem): CoreSetTableItem.Data => {
       const [coreSetAbbr, spaId] = parseCoreSet(coreSet);
-      const tempSpa = !!spaId && filteredSpas!.find((s) => s.id === spaId);
-      const tempTitle =
-        tempSpa && tempSpa?.id && tempSpa?.name && tempSpa.state
-          ? `: ${tempSpa.state} ${tempSpa.id} - ${tempSpa.name}`
+      const spa = !!spaId && filteredSpas!.find((s) => s.id === spaId);
+      const spaTitle =
+        spa && spa?.id && spa?.name && spa.state
+          ? `: ${spa.state} ${spa.id} - ${spa.name}`
           : "";
 
       const type = getCoreSetType(coreSetAbbr!);
-      const title = coreSetTitles(coreSetAbbr!) + tempTitle;
+      const title = coreSetTitles(coreSetAbbr!) + spaTitle;
 
       const coreSetCards = coreSets[
         year as keyof typeof coreSets
