@@ -20,10 +20,6 @@ export const measureList2027: MeasureMetaData[] = [
   },
   {
     type: "A",
-    measure: "AMR-AD",
-  },
-  {
-    type: "A",
     measure: "AIS-AD",
   },
   {
@@ -121,12 +117,6 @@ export const measureList2027: MeasureMetaData[] = [
   },
   {
     type: "A",
-    measure: "MSC-AD",
-    measureType: MandatoryTags.Mandatory,
-    typeTagForCoreSets: [CoreSetAbbr.ACSM, CoreSetAbbr.ACS],
-  },
-  {
-    type: "A",
     measure: "OEVP-AD",
   },
   {
@@ -197,16 +187,6 @@ export const measureList2027: MeasureMetaData[] = [
   {
     type: "C",
     measure: "ADD-CH",
-    measureType: MandatoryTags.Mandatory,
-    stratificationRequired: [
-      CoreSetAbbr.CCS,
-      CoreSetAbbr.CCSC,
-      CoreSetAbbr.CCSM,
-    ],
-  },
-  {
-    type: "C",
-    measure: "AMR-CH",
     measureType: MandatoryTags.Mandatory,
     stratificationRequired: [
       CoreSetAbbr.CCS,
@@ -370,6 +350,11 @@ export const measureList2027: MeasureMetaData[] = [
     type: "C",
     measure: "WCC-CH",
     measureType: MandatoryTags.Mandatory,
+    stratificationRequired: [
+      CoreSetAbbr.CCS,
+      CoreSetAbbr.CCSC,
+      CoreSetAbbr.CCSM,
+    ],
   },
   {
     type: "C",

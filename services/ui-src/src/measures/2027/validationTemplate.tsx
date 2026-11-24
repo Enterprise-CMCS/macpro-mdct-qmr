@@ -446,30 +446,8 @@ export const validationTemplate = (
   //if user selects no on "are you reporting on this measure?"
   const whyNotReporting = data[DC.WHY_ARE_YOU_NOT_REPORTING];
 
-  //MSCAD is the only one using validateCollecting
-  if (PMD.performanceMeasure.measureName === "MSCAD") {
-    if (data[DC.DID_COLLECT] === "no") {
-      errorArray = [...GV.validateReasonForNotReporting(whyNotReporting)];
-      return errorArray;
-    }
-
-    //if user didn't fill out collect this measure
-    if (
-      (data[DC.DID_COLLECT] === undefined || data[DC.DID_COLLECT] === null) &&
-      data[DC.DID_REPORT] === "no"
-    ) {
-      errorArray = [...GV.validateCollecting(data)];
-      return errorArray;
-    }
-
-    // this prevents all the errors for filling out form to show up
-    if (data[DC.DID_REPORT] === DC.NO) {
-      return [];
-    }
-  } else {
-    if (data[DC.DID_REPORT] === DC.NO) {
-      return [...GV.validateReasonForNotReporting(whyNotReporting)];
-    }
+  if (data[DC.DID_REPORT] === DC.NO) {
+    return [...GV.validateReasonForNotReporting(whyNotReporting)];
   }
 
   //run validation without oms validation functions as the returns are different
