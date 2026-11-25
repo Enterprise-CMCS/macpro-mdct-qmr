@@ -192,6 +192,13 @@ cd services/app-api/
 yarn workspace app-api test
 ```
 
+To run the `Jest` unit tests on the shared type utilities:
+
+```
+cd services/shared/
+yarn test
+```
+
 On the terminal, you will see the unit test results.
 
 For example:

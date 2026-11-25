@@ -12,7 +12,49 @@
       "default": "./index.ts"
     }
   },
+  "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
   "devDependencies": {
+    "jest": "^30.4.1",
     "typescript": "^5.9.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "handlers/**/*.{ts,tsx}",
+      "libs/**/*.{ts,tsx}",
+      "storage/**/*.{ts,tsx}"
+    ],
+    "coverageReporters": [
+      "json",
+      [
+        "lcov",
+        {
+          "projectRoot": "../../"
+        }
+      ],
+      "text",
+      "text-summary"
+    ],
+    "globals": {
+      "isolatedModules": true
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "handlers",
+      "libs",
+      "util",
+      "storage"
+    ],
+    "setupFilesAfterEnv": [],
+    "testTimeout": 33000,
+    "transform": {
+      "^.+\\.(t|j)sx?$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(sanitize-html|htmlparser2|entities|domhandler|domelementtype|domutils|dom-serializer))"
+    ],
+    "verbose": true
   }
 }

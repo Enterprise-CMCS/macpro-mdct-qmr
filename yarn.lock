@@ -5796,6 +5796,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@qmr/shared@workspace:services/shared"
   dependencies:
+    jest: "npm:^30.4.1"
     typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
