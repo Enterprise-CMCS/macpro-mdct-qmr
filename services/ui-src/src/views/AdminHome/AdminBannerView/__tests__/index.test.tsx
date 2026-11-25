@@ -3,7 +3,7 @@ import { useApiMock } from "utils/testUtils/useApiMock";
 import { AdminBannerView } from "../index";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "@qmr/shared";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 expect.extend(toHaveNoViolations);
 

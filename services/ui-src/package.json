@@ -18,6 +18,7 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^2.9.11",
+    "@qmr/shared": "workspace:*",
     "@tanstack/react-query": "^5",
     "@tanstack/react-query-devtools": "^5",
     "aws-amplify": "~6.17.0",

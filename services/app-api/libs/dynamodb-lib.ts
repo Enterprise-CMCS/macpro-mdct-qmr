@@ -14,14 +14,10 @@ import {
   paginateScan,
   paginateQuery,
 } from "@aws-sdk/lib-dynamodb";
-import { CoreSet, Measure, Banner, CombinedRatesTableEntry } from "../types";
+import { CoreSet, Measure, Banner, CombinedRate } from "@qmr/shared";
 import { logger } from "./debug-lib";
 
-export type QmrDynamoTableType =
-  | CoreSet
-  | Measure
-  | Banner
-  | CombinedRatesTableEntry;
+export type QmrDynamoTableType = CoreSet | Measure | Banner | CombinedRate;
 
 export const awsConfig = {
   region: "us-east-1",

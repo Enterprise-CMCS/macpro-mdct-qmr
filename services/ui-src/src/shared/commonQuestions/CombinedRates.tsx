@@ -3,9 +3,10 @@ import * as QMR from "components";
 import * as DC from "dataConstants";
 import { useContext } from "react";
 import SharedContext from "shared/SharedContext";
+import { CoreSetKey } from "shared/types";
 
 interface Props {
-  coreset?: string;
+  coreset?: CoreSetKey;
 }
 
 export const CombinedRates = ({ coreset }: Props) => {

@@ -1,11 +1,12 @@
 import * as CUI from "@chakra-ui/react";
 import { Alert } from "@cmsgov/design-system";
 import { getDataSourceDisplayName } from "shared/types";
-import { CombinedRatesPayload, DataSourcePayload, isDefined } from "types";
+import { CombinedRateData, DataSourceInformation } from "@qmr/shared";
+import { isDefined } from "types";
 import { featuresByYear } from "utils/featuresByYear";
 
 type Props = {
-  payload?: CombinedRatesPayload;
+  payload?: CombinedRateData;
 };
 
 const programDisplayNames = {
@@ -20,7 +21,9 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
     ? "Data Collection Method"
     : "Data Source";
 
-  const unusableExplanation = (dataSources: DataSourcePayload | undefined) => {
+  const unusableExplanation = (
+    dataSources: DataSourceInformation | undefined
+  ) => {
     if (!dataSources?.isUnusableForCalc) {
       // If we did do the calculation, do not attempt to explain why we didn't.
       return;
@@ -126,16 +129,18 @@ export const DataSourceInformationBanner = ({ payload }: Props) => {
 
 export const dataSourceSelections = (
   dataSource: string,
-  dataSourceSelections: DataSourcePayload["DataSourceSelections"]
+  dataSourceSelections: DataSourceInformation["DataSourceSelections"]
 ) => {
   let selected = [];
 
   //remapping the object to a more usable array
-  const dataSourceArray = Object.entries(dataSourceSelections).map(
-    (selection) => {
-      return { key: selection[0], ...selection?.[1] };
-    }
-  );
+  const dataSourceArray: {
+    key: string;
+    selected?: string[];
+    description?: string;
+  }[] = Object.entries(dataSourceSelections).map((selection) => {
+    return { key: selection[0], ...selection?.[1] };
+  });
 
   //we want only they key for the top layer checkboxes and the current dataSource
   const parentDataSource = dataSourceArray.filter(

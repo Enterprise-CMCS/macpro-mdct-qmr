@@ -1,7 +1,8 @@
 import type { UpdateCommandInput } from "@aws-sdk/lib-dynamodb";
 import dynamoDb from "../libs/dynamodb-lib";
-import { Measure, MeasureStatus, RateParameters } from "../types";
+import { Measure, MeasureStatus } from "@qmr/shared";
 import type { CoreSetParameters } from "./coreSets";
+import { RateParameters } from "../types";
 
 const TableName = process.env.MeasuresTable!;
 

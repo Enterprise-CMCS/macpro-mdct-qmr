@@ -4,7 +4,7 @@ import { testEvent } from "../../../test-util/testEvents";
 
 import dynamodbLib from "../../../libs/dynamodb-lib";
 import { updateCoreSetProgress } from "../../../libs/updateCoreProgress";
-import { CoreSetAbbr } from "../../../types";
+import { CoreSetAbbr } from "@qmr/shared";
 import { createCoreSet } from "../create";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
 

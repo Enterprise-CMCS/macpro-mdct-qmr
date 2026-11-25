@@ -3,10 +3,11 @@ import * as API from "libs/api";
 import { Params } from "types";
 import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router";
+import { CoreSetIdentifier, MeasureIdentifier } from "@qmr/shared";
 
 interface GetMeasure {
-  coreSet: string;
-  measure: string;
+  coreSet: CoreSetIdentifier;
+  measure: MeasureIdentifier;
 }
 
 const getMeasure = ({ state, year, coreSet, measure }: GetMeasure & Params) => {

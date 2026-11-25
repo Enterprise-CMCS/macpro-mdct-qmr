@@ -15,7 +15,7 @@ import {
   useWriteBanner,
   useDeleteBanner,
 } from "hooks/api";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr, MeasureIdentifier } from "@qmr/shared";
 import { bannerId } from "utils/constants";
 
 // TODO: Create interfaces for each of the hooks
@@ -27,7 +27,7 @@ export const defaultMockValues = {
     },
   },
   useAddMeasureValues: {
-    mutate: (variables: { measure: string }) => {
+    mutate: (variables: { measure: MeasureIdentifier }) => {
       return "mock add measure for " + variables.measure;
     },
   },
@@ -130,7 +130,7 @@ export const defaultMockValues = {
     },
   },
   useUpdateMeasureValues: {
-    mutate: (variables: { data: { measure: string } }) => {
+    mutate: (variables: { data: { measure: MeasureIdentifier } }) => {
       return "mock update measure for " + variables.data.measure;
     },
   },

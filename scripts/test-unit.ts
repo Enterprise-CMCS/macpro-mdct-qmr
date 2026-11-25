@@ -9,7 +9,7 @@ const yarnCommand =
   process.env.CI === "true" ? "yarn install --immutable" : "yarn install";
 
 execSync(yarnCommand, { stdio: "inherit" });
-for (const service of ["ui-src", "app-api"]) {
+for (const service of ["ui-src", "app-api", "shared"]) {
   const originalDir = cwd();
   chdir(`services/${service}`);
   execSync("yarn run coverage", { stdio: "inherit" });

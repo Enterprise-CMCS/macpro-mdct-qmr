@@ -1,4 +1,4 @@
-import { CombinedRatesPayload, Measure } from "../../types";
+import { CombinedRateData, Measure } from "@qmr/shared";
 import { calculateAdditionalValues } from "./rateValueCalculations";
 
 describe("Additional Value calculations for Combined Rates", () => {
@@ -6,7 +6,7 @@ describe("Additional Value calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -75,7 +75,7 @@ describe("Additional Value calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
     const measure = {
       data: {
         DataSource: ["ElectronicHealthRecords"],
@@ -117,7 +117,7 @@ describe("Additional Value calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -230,7 +230,7 @@ describe("Additional Value calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
     const measure = {
       data: {
         DataSource: ["ElectronicHealthRecords"],

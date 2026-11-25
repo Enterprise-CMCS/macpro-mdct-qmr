@@ -1,0 +1,60 @@
+{
+  "name": "@qmr/shared",
+  "version": "1.0.0",
+  "description": "Shared types and utilities for MDCT-QMR frontend and backend",
+  "license": "CC0-1.0",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "default": "./index.ts"
+    }
+  },
+  "scripts": {
+    "test": "jest",
+    "coverage": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^30.4.1",
+    "typescript": "^5.9.3"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "handlers/**/*.{ts,tsx}",
+      "libs/**/*.{ts,tsx}",
+      "storage/**/*.{ts,tsx}"
+    ],
+    "coverageReporters": [
+      "json",
+      [
+        "lcov",
+        {
+          "projectRoot": "../../"
+        }
+      ],
+      "text",
+      "text-summary"
+    ],
+    "globals": {
+      "isolatedModules": true
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "handlers",
+      "libs",
+      "util",
+      "storage"
+    ],
+    "setupFilesAfterEnv": [],
+    "testTimeout": 33000,
+    "transform": {
+      "^.+\\.(t|j)sx?$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(sanitize-html|htmlparser2|entities|domhandler|domelementtype|domutils|dom-serializer))"
+    ],
+    "verbose": true
+  }
+}

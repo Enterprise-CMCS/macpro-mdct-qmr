@@ -1,4 +1,4 @@
-import { CombinedRatesPayload, isRateValueShape, Measure } from "../../types";
+import { CombinedRateData, isValueRateShape, Measure } from "@qmr/shared";
 import {
   addSafely,
   divideSafely,
@@ -14,24 +14,19 @@ import {
  */
 export const calculateAdditionalValues = (
   measureAbbr: string,
-  DataSources: CombinedRatesPayload["DataSources"],
+  DataSources: CombinedRateData["DataSources"],
   medicaidMeasure: Measure | undefined,
   chipMeasure: Measure | undefined
-): CombinedRatesPayload["AdditionalValues"] => {
+): CombinedRateData["AdditionalValues"] => {
   const [medicaidValues, chipValues] = [medicaidMeasure, chipMeasure]
     .map((measure) => measure?.data?.PerformanceMeasure?.rates ?? {})
-    .map((rateMap) =>
-      Object.values(rateMap)
-        .flat()
-        .filter(isRateValueShape)
-        .filter((rate) => !!rate.uid)
-    )
-    .map((rateArray) => new Map(rateArray.map((rate) => [rate.uid!, rate])));
+    .map((rateMap) => Object.values(rateMap).flat().filter(isValueRateShape))
+    .map((rateArray) => new Map(rateArray.map((rate) => [rate.uid, rate])));
 
   const findValues = (uid: string) => {
     const fieldObj = {
       uid,
-    } as CombinedRatesPayload["AdditionalValues"][number];
+    } as CombinedRateData["AdditionalValues"][number];
     const medicaidValue = medicaidValues.get(uid);
     const chipValue = chipValues.get(uid);
 

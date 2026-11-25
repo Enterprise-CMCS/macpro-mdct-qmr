@@ -2,7 +2,7 @@ import { deleteCoreSet } from "../delete";
 import db from "../../../libs/dynamodb-lib";
 import { testEvent, testMeasure } from "../../../test-util/testEvents";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
-import { CoreSetAbbr } from "../../../types";
+import { CoreSetAbbr } from "@qmr/shared";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   delete: jest.fn(),

@@ -1,4 +1,5 @@
 import { validationFunctions } from "./validationTemplate";
+import { MeasureIdentifier } from "@qmr/shared";
 
 //child
 import { data as ADDCH_Data } from "./ADDCH/data";
@@ -70,7 +71,7 @@ import { data as OUDHH_Data } from "./OUDHH/data";
 import { data as PCRHH_Data } from "./PCRHH/data";
 import { data as PQI92HH_Data } from "./PQI92HH/data";
 
-export const measureTemplateData: { [measure: string]: any } = {
+export const measureTemplateData: { [measure: MeasureIdentifier]: any } = {
   "ADD-CH": { data: ADDCH_Data, validationFunctions: validationFunctions },
   "AMB-CH": { data: AMBCH_Data, validationFunctions: validationFunctions },
   "AMR-CH": { data: AMRCH_Data, validationFunctions: validationFunctions },

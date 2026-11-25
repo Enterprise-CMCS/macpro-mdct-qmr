@@ -3,7 +3,7 @@ import { RouterWrappedComp } from "utils/testing";
 import { AddChildCoreSet } from ".";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useApiMock } from "utils/testUtils/useApiMock";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 import { useUser } from "hooks/authHooks";
 import userEvent from "@testing-library/user-event";
 

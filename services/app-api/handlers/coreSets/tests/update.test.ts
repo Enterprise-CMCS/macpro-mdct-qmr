@@ -2,7 +2,7 @@ import dynamodbLib from "../../../libs/dynamodb-lib";
 import { testEvent } from "../../../test-util/testEvents";
 import { editCoreSet } from "../update";
 import { Errors, StatusCodes } from "../../../utils/constants/constants";
-import { CoreSetAbbr } from "../../../types";
+import { CoreSetAbbr } from "@qmr/shared";
 
 jest.mock("../../../libs/dynamodb-lib", () => ({
   update: jest.fn(),

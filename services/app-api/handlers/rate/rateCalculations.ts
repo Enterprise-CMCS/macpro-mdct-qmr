@@ -2,10 +2,11 @@ import { getMeasureFromTable } from "../../storage/measures";
 import { putCombinedRatesToTable } from "../../storage/combinedRates";
 import {
   CoreSetAbbr,
-  isCoreSetAbbr,
+  CoreSetIdentifier,
+  isCoreSetIdentifier,
   Measure,
-  RateParameters,
-} from "../../types";
+} from "@qmr/shared";
+import { RateParameters } from "../../types";
 import { collectDataSources } from "./dataSourceAnalysis";
 import { combineRates } from "./rateNDRCalculations";
 import { calculateAdditionalValues } from "./rateValueCalculations";
@@ -19,7 +20,7 @@ import { calculateAdditionalValues } from "./rateValueCalculations";
  */
 export const calculateAndPutRate = async (pathParameters: RateParameters) => {
   const { coreSet, measure } = pathParameters;
-  if (!isCoreSetAbbr(coreSet)) {
+  if (!isCoreSetIdentifier(coreSet)) {
     return;
   }
 
@@ -47,7 +48,7 @@ export const calculateAndPutRate = async (pathParameters: RateParameters) => {
  * 2. Which core sets will be combined? (ACSM+ACSC? or CCSM+CCSC?)
  * 3. What will the name of the combined core set be? (ACS? or CCS?)
  */
-const coreSetsToCombine = (coreSet: CoreSetAbbr) => {
+const coreSetsToCombine = (coreSet: CoreSetIdentifier) => {
   switch (coreSet) {
     case CoreSetAbbr.ACSM:
     case CoreSetAbbr.ACSC:
@@ -55,14 +56,14 @@ const coreSetsToCombine = (coreSet: CoreSetAbbr) => {
         combined: CoreSetAbbr.ACS,
         medicaid: CoreSetAbbr.ACSM,
         chip: CoreSetAbbr.ACSC,
-      };
+      } as const;
     case CoreSetAbbr.CCSM:
     case CoreSetAbbr.CCSC:
       return {
         combined: CoreSetAbbr.CCS,
         medicaid: CoreSetAbbr.CCSM,
         chip: CoreSetAbbr.CCSC,
-      };
+      } as const;
     default:
       // Rates in the ACS, CCS, and HHCS core sets are already combined
       return undefined;

@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
-import { CombinedRatesPayload, ProgramTypeList, ProgramTypes } from "types";
+import { CombinedRateData, MeasureIdentifier } from "@qmr/shared";
+import { ProgramTypeList, ProgramTypes } from "types";
 import * as Labels from "labels/RateLabelTexts";
 
 export const AdditionalCombinedValues = ({
@@ -100,7 +101,7 @@ export const AdditionalCombinedValues = ({
  * we will look up the appropriate label text from the same place
  * as the individual measure pages.
  */
-const lookUpLabel = (year: string, measure: string, uid: string) => {
+const lookUpLabel = (year: string, measure: MeasureIdentifier, uid: string) => {
   const rateTextLabel = Labels[`RateLabel${year}` as keyof typeof Labels];
   const { categories, qualifiers } = rateTextLabel.getCatQualLabels(
     measure as keyof typeof rateTextLabel.data
@@ -114,9 +115,9 @@ const lookUpLabel = (year: string, measure: string, uid: string) => {
 };
 
 type Props = {
-  payload: CombinedRatesPayload;
+  payload: CombinedRateData;
   year: string;
-  measure: string;
+  measure: MeasureIdentifier;
 };
 
 const programDisplayNames = {

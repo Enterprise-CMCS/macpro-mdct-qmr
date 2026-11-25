@@ -7,6 +7,7 @@ import {
   ValidationFunction,
 } from "shared/types/MeasureTemplate";
 import { OtherRatesFields } from "shared/types";
+import { CoreSetIdentifier } from "@qmr/shared";
 
 const sortOMSValidations = (
   OPM: OtherRatesFields[],
@@ -181,7 +182,7 @@ const validateTotalNDRErrorMessage = (qualifier: string, fieldType: string) => {
 export const validationTemplate = (
   data: FormData,
   PMD: MeasureTemplateData,
-  coreSetId?: string
+  coreSetId?: CoreSetIdentifier
 ) => {
   const categories = PMD.performanceMeasure.categories ?? [];
   const qualifiers = PMD.performanceMeasure.qualifiers ?? [];

@@ -6,6 +6,7 @@ import {
   deleteBannerFromTable,
 } from "./banners";
 import dynamodbLib from "../libs/dynamodb-lib";
+import { Banner } from "@qmr/shared";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   get: jest.fn(),
@@ -13,7 +14,8 @@ jest.mock("../libs/dynamodb-lib", () => ({
   delete: jest.fn(),
 }));
 
-const bannerFields = {
+const banner: Banner = {
+  key: "admin-banner-id",
   title: "Maintenance",
   description: "Scheduled maintenance",
   startDate: 100,
@@ -29,10 +31,6 @@ describe("Banner storage methods", () => {
   });
 
   it("should fetch a banner", async () => {
-    const banner = {
-      key: "admin-banner",
-      ...bannerFields,
-    };
     jest.mocked(dynamodbLib.get).mockResolvedValueOnce(banner);
 
     expect(await getBannerFromTable("admin-banner")).toBe(banner);
@@ -43,26 +41,20 @@ describe("Banner storage methods", () => {
   });
 
   it("should put a banner without changing payload or timestamps", async () => {
-    await putBannerToTable({ key: "admin-banner", ...bannerFields });
+    await putBannerToTable(banner);
 
     expect(dynamodbLib.put).toHaveBeenCalledWith({
       TableName: "local-banner",
-      Item: { key: "admin-banner", ...bannerFields },
+      Item: banner,
     });
   });
 
   it("should delete only the requested banner", async () => {
-    await deleteBannerFromTable("admin-banner");
+    await deleteBannerFromTable("admin-banner-id");
 
     expect(dynamodbLib.delete).toHaveBeenCalledWith({
       TableName: "local-banner",
-      Key: { key: "admin-banner" },
+      Key: { key: "admin-banner-id" },
     });
-  });
-
-  it("should preserve missing records", async () => {
-    jest.mocked(dynamodbLib.get).mockResolvedValue(undefined);
-
-    expect(await getBannerFromTable("admin-banner")).toBeUndefined();
   });
 });

@@ -8,7 +8,7 @@ import axe from "@ui-src/axe-helper";
 import { useParams } from "react-router";
 import userEvent from "@testing-library/user-event";
 import { useUser } from "hooks/authHooks";
-import { CoreSetAbbr } from "types";
+import { CoreSetAbbr } from "@qmr/shared";
 import { getMeasureYear } from "utils/getMeasureYear";
 expect.extend(toHaveNoViolations);
 

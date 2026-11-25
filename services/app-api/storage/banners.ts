@@ -1,5 +1,5 @@
 import dynamoDb from "../libs/dynamodb-lib";
-import { Banner } from "../types";
+import { Banner } from "@qmr/shared";
 
 const TableName = process.env.BannersTable!;
 

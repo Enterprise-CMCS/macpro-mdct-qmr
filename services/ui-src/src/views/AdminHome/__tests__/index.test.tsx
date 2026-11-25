@@ -3,7 +3,7 @@ import { AdminHome } from "../index";
 import { RouterWrappedComp } from "utils/testing";
 import { territoryList } from "libs";
 import { useUser } from "hooks/authHooks";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 import { toHaveNoViolations } from "jest-axe";
 import axe from "@ui-src/axe-helper";
 expect.extend(toHaveNoViolations);

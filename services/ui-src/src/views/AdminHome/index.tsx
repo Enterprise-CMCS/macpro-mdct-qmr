@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import config from "config";
 import { useUser } from "hooks/authHooks";
 import { BannerCard } from "components/Banner/BannerCard";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 import { useFlags } from "launchdarkly-react-client-sdk";
 
 export const AdminHome = () => {

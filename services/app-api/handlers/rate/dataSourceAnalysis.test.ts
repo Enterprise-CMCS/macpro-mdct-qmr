@@ -1,4 +1,4 @@
-import { Measure } from "../../types";
+import { Measure, MeasureData } from "@qmr/shared";
 import { collectDataSourcesForMeasure } from "./dataSourceAnalysis";
 
 describe("Data source analysis for Combined Rates", () => {
@@ -8,11 +8,11 @@ describe("Data source analysis for Combined Rates", () => {
         DataSource: ["AdministrativeData"],
         DataSourceSelections: {
           AdminstrativeData0: {
-            selections: ["MedicaidManagementInformationSystemMMIS"],
+            selected: ["MedicaidManagementInformationSystemMMIS"],
           },
         },
         MeasurementSpecification: "NCQA/HEDIS",
-      } as Measure["data"],
+      } as MeasureData,
     } as Measure;
 
     const dsPayload = collectDataSourcesForMeasure(measure);
@@ -21,7 +21,7 @@ describe("Data source analysis for Combined Rates", () => {
       DataSource: ["AdministrativeData"],
       DataSourceSelections: {
         AdminstrativeData0: {
-          selections: ["MedicaidManagementInformationSystemMMIS"],
+          selected: ["MedicaidManagementInformationSystemMMIS"],
         },
       },
       requiresWeightedCalc: false,

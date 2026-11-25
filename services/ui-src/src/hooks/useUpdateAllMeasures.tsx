@@ -1,11 +1,15 @@
-import { CoreSetAbbr, MeasureStatus } from "types";
+import {
+  CoreSetIdentifier,
+  MeasureIdentifier,
+  MeasureStatus,
+} from "@qmr/shared";
 import { useMutation } from "@tanstack/react-query";
 import { editMeasure, listMeasures } from "libs/api";
 
 interface GetMeasures {
   state?: string;
   year?: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
 }
 
 const getMeasures = async ({ state, year, coreSet }: GetMeasures) => {
@@ -19,9 +23,9 @@ const getMeasures = async ({ state, year, coreSet }: GetMeasures) => {
 interface UpdateMeasure<DataType = any> {
   state?: string;
   year?: string;
-  coreSet?: CoreSetAbbr;
+  coreSet?: CoreSetIdentifier;
   data: DataType;
-  measure?: string;
+  measure?: MeasureIdentifier;
   status: MeasureStatus;
   reporting?: string | undefined;
 }
@@ -51,7 +55,7 @@ const updateMeasure = ({
 interface Params {
   state?: string;
   year?: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
   measureStatus: MeasureStatus;
 }
 

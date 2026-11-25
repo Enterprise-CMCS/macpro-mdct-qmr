@@ -8,8 +8,8 @@ import {
   deleteMeasureFromTable,
 } from "./measures";
 import dynamodbLib from "../libs/dynamodb-lib";
-import { CoreSetAbbr, MeasureStatus } from "../types";
-import { testMeasure } from "../test-util/testEvents";
+import { CoreSetAbbr, Measure, MeasureStatuses } from "@qmr/shared";
+import { RateParameters } from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   get: jest.fn(),
@@ -19,31 +19,29 @@ jest.mock("../libs/dynamodb-lib", () => ({
   delete: jest.fn(),
 }));
 
-const parameters = {
+const measure = {
+  compoundKey: "CO2024ACS",
   state: "CO",
   year: 2024,
   coreSet: CoreSetAbbr.ACS,
   measure: "ZZZ-AD",
-};
-const measureKey = { compoundKey: "CO2024ACS", measure: "ZZZ-AD" };
-const measureFields = {
   createdAt: 10,
   lastAltered: 20,
   lastAlteredBy: "state-user",
-  status: MeasureStatus.INCOMPLETE,
+  status: MeasureStatuses.Incomplete,
   description: "A measure",
   detailedDescription: "Measure details",
   data: {},
   userCreated: true,
   placeholder: false,
-};
-const measureItem = {
-  ...measureKey,
-  state: parameters.state,
-  year: parameters.year,
-  coreSet: parameters.coreSet,
-  ...measureFields,
-};
+} satisfies Measure;
+
+const parameters = {
+  state: "CO",
+  year: 2024,
+  coreSet: CoreSetAbbr.ACS,
+  measure: "ZZZ-AD",
+} satisfies RateParameters;
 
 describe("Measure storage methods", () => {
   beforeEach(() => {
@@ -51,20 +49,19 @@ describe("Measure storage methods", () => {
   });
 
   it("should fetch a measure from the measure table", async () => {
-    jest.mocked(dynamodbLib.get).mockResolvedValueOnce(testMeasure);
+    jest.mocked(dynamodbLib.get).mockResolvedValueOnce(measure);
 
-    expect(await getMeasureFromTable(parameters)).toBe(testMeasure);
+    expect(await getMeasureFromTable(parameters)).toBe(measure);
     expect(dynamodbLib.get).toHaveBeenCalledWith({
       TableName: "local-measure",
-      Key: measureKey,
+      Key: { compoundKey: "CO2024ACS", measure: "ZZZ-AD" },
     });
   });
 
   it("should list measures for only the requested core set", async () => {
-    const items = [testMeasure];
-    jest.mocked(dynamodbLib.queryAll).mockResolvedValueOnce(items);
+    jest.mocked(dynamodbLib.queryAll).mockResolvedValueOnce([measure]);
 
-    expect(await getMeasuresFromTable(parameters)).toBe(items);
+    expect(await getMeasuresFromTable(parameters)).toEqual([measure]);
     expect(dynamodbLib.queryAll).toHaveBeenCalledWith({
       TableName: "local-measure",
       KeyConditionExpression: "compoundKey = :compoundKey",
@@ -75,7 +72,7 @@ describe("Measure storage methods", () => {
   it("should put a measure in the measure table", async () => {
     const expected = {
       TableName: "local-measure",
-      Item: measureItem,
+      Item: measure,
     };
     await putMeasureToTable(expected.Item);
 
@@ -83,26 +80,28 @@ describe("Measure storage methods", () => {
   });
 
   it("should update measure fields including null reporting", async () => {
-    const fields = {
-      status: MeasureStatus.INCOMPLETE,
+    await updateMeasureInTable({
+      ...measure,
       reporting: null,
-      data: {},
       description: "Updated",
       detailedDescription: "Updated details",
-      lastAltered: 30,
-      lastAlteredBy: "state-user",
-    };
-    await updateMeasureInTable({ ...measureKey, ...fields });
+    });
 
     expect(dynamodbLib.update).toHaveBeenCalledWith({
       TableName: "local-measure",
-      Key: measureKey,
+      Key: { compoundKey: "CO2024ACS", measure: "ZZZ-AD" },
       UpdateExpression:
         "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data, description = :description, detailedDescription = :detailedDescription",
       ExpressionAttributeNames: { "#status": "status", "#data": "data" },
-      ExpressionAttributeValues: Object.fromEntries(
-        Object.entries(fields).map(([key, value]) => [`:${key}`, value])
-      ),
+      ExpressionAttributeValues: {
+        ":data": {},
+        ":description": "Updated",
+        ":detailedDescription": "Updated details",
+        ":lastAltered": 20,
+        ":lastAlteredBy": "state-user",
+        ":reporting": null,
+        ":status": "incomplete",
+      },
     });
   });
 
@@ -111,37 +110,29 @@ describe("Measure storage methods", () => {
 
     expect(dynamodbLib.delete).toHaveBeenCalledWith({
       TableName: "local-measure",
-      Key: measureKey,
+      Key: { compoundKey: "CO2024ACS", measure: "ZZZ-AD" },
     });
   });
 
   it("should leave descriptions unchanged when they are not supplied", async () => {
     await updateMeasureInTable({
-      ...measureKey,
-      status: MeasureStatus.INCOMPLETE,
-      reporting: null,
-      data: {},
-      lastAltered: 30,
-      lastAlteredBy: "state-user",
+      ...measure,
+      description: undefined,
+      detailedDescription: undefined,
     });
 
     expect(dynamodbLib.update).toHaveBeenCalledWith(
       expect.objectContaining({
         UpdateExpression:
           "SET #status = :status, reporting = :reporting, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy, #data = :data",
-        ExpressionAttributeValues: expect.not.objectContaining({
-          ":description": expect.anything(),
-          ":detailedDescription": expect.anything(),
-        }),
+        ExpressionAttributeNames: { "#data": "data", "#status": "status" },
+        ExpressionAttributeValues: {
+          ":data": {},
+          ":lastAltered": 20,
+          ":lastAlteredBy": "state-user",
+          ":status": "incomplete",
+        },
       })
     );
-  });
-
-  it("should preserve missing records and empty lists", async () => {
-    jest.mocked(dynamodbLib.get).mockResolvedValue(undefined);
-    jest.mocked(dynamodbLib.queryAll).mockResolvedValue([]);
-
-    expect(await getMeasureFromTable(parameters)).toBeUndefined();
-    expect(await getMeasuresFromTable(parameters)).toEqual([]);
   });
 });

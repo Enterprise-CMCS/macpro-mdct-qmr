@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { format } from "date-fns";
 import { MeasureTableItem, TableColumn } from "../types";
 import { featuresByYear } from "utils/featuresByYear";
+import { abbreviationFor } from "@qmr/shared";
 
 // Get status string from measure data
 const getStatus = (data: MeasureTableItem.Data): MeasureTableItem.Status => {
@@ -105,7 +106,7 @@ export const measuresColumns = (
               }
               if (
                 data.typeTagForCoreSets &&
-                !data.typeTagForCoreSets.includes(data.coreSet)
+                !data.typeTagForCoreSets.includes(abbreviationFor(data.coreSet))
               ) {
                 // This coreset is explicitly excluded from tagging
                 return <></>;

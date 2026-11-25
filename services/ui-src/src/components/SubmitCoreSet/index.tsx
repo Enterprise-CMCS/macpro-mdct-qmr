@@ -1,6 +1,6 @@
 import { createStandaloneToast } from "@chakra-ui/toast";
 import { Button } from "@chakra-ui/react";
-import { CoreSetAbbr } from "types";
+import { CoreSetIdentifier } from "@qmr/shared";
 import { CoreSetTableItem } from "components/Table/types";
 import { useEditCoreSet } from "hooks/api";
 import { useParams } from "react-router";
@@ -8,7 +8,7 @@ import { useUser } from "hooks/authHooks";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
   coreSetStatus?: CoreSetTableItem.Status;
   year: string;
   styleProps?: { button?: {}; helperText?: {} };

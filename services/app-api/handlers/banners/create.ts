@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import { putBannerToTable } from "../../storage/banners";
 import { hasRolePermissions } from "../../libs/authorization";
-import { UserRoles } from "../../types";
+import { Banner, UserRoles } from "@qmr/shared";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseBannerParameters } from "../../utils/parseParameters";
 import { sanitizeObject } from "../../utils/sanitize/sanitize";
@@ -43,7 +43,7 @@ export const createBanner = handler(async (event, _context) => {
     description,
     startDate,
     endDate,
-    key: bannerId,
+    key: bannerId as Banner["key"],
     createdAt: Date.now(),
     lastAltered: Date.now(),
     lastAlteredBy: event?.headers["cognito-identity-id"],

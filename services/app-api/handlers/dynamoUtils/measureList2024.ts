@@ -1,4 +1,5 @@
-import { MeasureType, type MeasureMetaData } from "../../types";
+import { MandatoryTags } from "@qmr/shared";
+import { MeasureMetaData } from "../../types";
 
 export const measureList2024: MeasureMetaData[] = [
   {
@@ -20,7 +21,7 @@ export const measureList2024: MeasureMetaData[] = [
   {
     type: "A",
     measure: "AMM-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
@@ -49,7 +50,7 @@ export const measureList2024: MeasureMetaData[] = [
   {
     type: "A",
     measure: "CDF-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
@@ -74,17 +75,17 @@ export const measureList2024: MeasureMetaData[] = [
   {
     type: "A",
     measure: "FUA-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
     measure: "FUH-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
     measure: "FUM-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
@@ -93,7 +94,7 @@ export const measureList2024: MeasureMetaData[] = [
   {
     type: "A",
     measure: "HPCMI-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
@@ -102,12 +103,12 @@ export const measureList2024: MeasureMetaData[] = [
   {
     type: "A",
     measure: "IET-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
     measure: "MSC-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
@@ -121,7 +122,7 @@ export const measureList2024: MeasureMetaData[] = [
   {
     type: "A",
     measure: "OUD-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
@@ -150,243 +151,243 @@ export const measureList2024: MeasureMetaData[] = [
   {
     type: "A",
     measure: "SAA-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "A",
     measure: "SSD-AD",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "AAB-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "ADD-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "AMB-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "AMR-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "APM-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "APP-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "CCP-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "CCW-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "CDF-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "CHL-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "CIS-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "CPC-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "DEV-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "FUA-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "FUH-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "FUM-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "IMA-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "LSC-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "LBW-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
     autocompleteOnCreation: true,
   },
   {
     type: "C",
     measure: "LRCD-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
     autocompleteOnCreation: true,
   },
   {
     type: "C",
     measure: "OEV-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "PPC2-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "SFM-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "TFL-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "W30-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "WCC-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "C",
     measure: "WCV-CH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "AIF-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "AMB-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "CBP-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "CDF-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "COL-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "FUA-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "FUH-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "FUM-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "IET-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "IU-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "OUD-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "PCR-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "PQI92-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
   },
   {
     type: "H",
     measure: "SS-1-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
     placeholder: true,
   },
   {
     type: "H",
     measure: "SS-2-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
     placeholder: true,
   },
   {
     type: "H",
     measure: "SS-3-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
     placeholder: true,
   },
   {
     type: "H",
     measure: "SS-4-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
     placeholder: true,
   },
   {
     type: "H",
     measure: "SS-5-HH",
-    measureType: MeasureType.MANDATORY,
+    measureType: MandatoryTags.Mandatory,
     placeholder: true,
   },
 ];

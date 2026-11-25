@@ -79,6 +79,12 @@ repos:
         language: system
         pass_filenames: false
         stages: [pre-commit]
+      - id: typescript-check-shared
+        name: typescript-check-shared
+        entry: bash -c "cd services/shared && yarn tsc --noEmit"
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]
       - id: typescript-check-api
         name: typescript-check-api
         entry: bash -c "cd services/app-api && yarn tsc --noEmit"

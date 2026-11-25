@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { useMeasureRoutes, AppRoutes } from "./Routes";
 import { useGetMeasureListInfo } from "hooks/api/useGetMeasureListInfo";
 import { useUser } from "hooks/authHooks";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 
 jest.mock("hooks/api/useGetMeasureListInfo");
 jest.mock("hooks/authHooks");

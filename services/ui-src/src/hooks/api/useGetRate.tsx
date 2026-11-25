@@ -1,12 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRate } from "libs/api";
-import { CombinedRatesPayload } from "types";
+import {
+  CombinedRateData,
+  CoreSetIdentifier,
+  MeasureIdentifier,
+} from "@qmr/shared";
 
 interface GetRate {
-  measure: string;
+  measure: MeasureIdentifier;
   state: string;
   year: string;
-  coreSet: string;
+  coreSet: CoreSetIdentifier;
 }
 
 const _getRate = async ({ measure, state, coreSet, year }: GetRate) => {
@@ -15,7 +19,7 @@ const _getRate = async ({ measure, state, coreSet, year }: GetRate) => {
     state,
     coreSet,
     year,
-  })) as CombinedRatesPayload | undefined;
+  })) as CombinedRateData | undefined;
 };
 
 export const useGetRate = ({ measure, state, coreSet, year }: GetRate) => {

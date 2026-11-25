@@ -1,5 +1,6 @@
 import { logger } from "../libs/debug-lib";
-import { APIGatewayProxyEvent, isCoreSetAbbr } from "../types";
+import { isCoreSetIdentifier } from "@qmr/shared";
+import { APIGatewayProxyEvent } from "../types";
 import { isBannerId, isState, isValidYear, isMeasure } from "./filters";
 
 export const parseBannerParameters = (event: APIGatewayProxyEvent) => {
@@ -37,7 +38,7 @@ export const parseCoreSetParameters = (event: APIGatewayProxyEvent) => {
     logger.warn("Invalid or missing year in path");
     return { allParamsValid: false as const };
   }
-  if (!coreSet || !isCoreSetAbbr(coreSet)) {
+  if (!coreSet || !isCoreSetIdentifier(coreSet)) {
     logger.warn("Invalid or missing coreset in path");
     return { allParamsValid: false as const };
   }
@@ -60,7 +61,7 @@ export const parseMeasureParameters = (event: APIGatewayProxyEvent) => {
     logger.warn("Invalid or missing year in path");
     return { allParamsValid: false as const };
   }
-  if (!coreSet || !isCoreSetAbbr(coreSet)) {
+  if (!coreSet || !isCoreSetIdentifier(coreSet)) {
     logger.warn("Invalid or missing coreset in path");
     return { allParamsValid: false as const };
   }

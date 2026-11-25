@@ -1,7 +1,7 @@
 import handler from "../../libs/handler-lib";
 import { deleteBannerFromTable } from "../../storage/banners";
 import { hasRolePermissions } from "../../libs/authorization";
-import { UserRoles } from "../../types";
+import { UserRoles } from "@qmr/shared";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseBannerParameters } from "../../utils/parseParameters";
 

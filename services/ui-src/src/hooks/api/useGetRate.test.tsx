@@ -1,3 +1,4 @@
+import { CoreSetAbbr, CoreSetIdentifier } from "@qmr/shared";
 import { useGetRate } from "./useGetRate";
 
 const props = { coreSetAbbr: "ACS" };
@@ -15,14 +16,19 @@ describe("Test useGetRate", () => {
     useGetRate({
       measure: "BCS-AD",
       state: "MA",
-      coreSet: "ACSC",
+      coreSet: CoreSetAbbr.ACSC,
       year: "2026",
     });
     expect(mockGetRate).toHaveBeenCalled();
   });
   it("Test error", () => {
     expect(() =>
-      useGetRate({ measure: "", state: "", coreSet: "", year: "" })
+      useGetRate({
+        measure: "",
+        state: "",
+        coreSet: "" as CoreSetIdentifier,
+        year: "",
+      })
     ).toThrow("state or year unavailable");
   });
 });

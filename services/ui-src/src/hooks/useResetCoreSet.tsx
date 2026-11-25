@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import { CoreSetAbbr } from "types";
+import { CoreSetIdentifier } from "@qmr/shared";
 import { useAddCoreSet } from "./api/useAddCoreSet";
 import { useDeleteCoreSet } from "./api/useDeleteCoreSet";
 
 interface CoreSetData {
   state: string;
   year: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
 }
 
 export const useResetCoreSet = () => {

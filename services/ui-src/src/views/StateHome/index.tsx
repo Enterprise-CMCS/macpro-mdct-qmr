@@ -9,7 +9,12 @@ import { useParams, useNavigate } from "react-router";
 import { SPA } from "libs/spaLib";
 import { AddCoreSetCards } from "./AddCoreSetCards";
 import { formatTableItems } from "./helpers";
-import { CoreSetAbbr, MeasureStatus, UserRoles } from "types";
+import {
+  CoreSetAbbr,
+  CoreSetIdentifier,
+  MeasureStatus,
+  UserRoles,
+} from "@qmr/shared";
 
 import { useUser } from "hooks/authHooks";
 import { useGetReportingYears } from "hooks/api";
@@ -25,13 +30,13 @@ import { featuresByYear } from "utils/featuresByYear";
 interface HandleDeleteData {
   state: string;
   year: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
 }
 
 interface UpdateAllMeasuresData {
   state: string;
   year: string;
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
   measureStatus: MeasureStatus;
 }
 

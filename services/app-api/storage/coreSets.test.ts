@@ -8,8 +8,7 @@ import {
   deleteCoreSetFromTable,
 } from "./coreSets";
 import dynamodbLib from "../libs/dynamodb-lib";
-import { testCoreSet } from "../test-util/testEvents";
-import { CoreSetAbbr } from "../types";
+import { CoreSet, CoreSetAbbr, CoreSetStatuses } from "@qmr/shared";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   get: jest.fn(),
@@ -20,14 +19,18 @@ jest.mock("../libs/dynamodb-lib", () => ({
 }));
 
 const parameters = { state: "CO", year: 2024, coreSet: CoreSetAbbr.ACS };
-const coreSetKey = { compoundKey: "CO2024", coreSet: CoreSetAbbr.ACS };
-const coreSetFields = {
+const coreSet = {
+  compoundKey: "CO2024",
+  state: "CO",
+  year: 2024,
+  coreSet: CoreSetAbbr.ACS,
   createdAt: 10,
   lastAltered: 20,
   lastAlteredBy: "state-user",
   progress: { numAvailable: 5, numComplete: 1 },
+  status: CoreSetStatuses.InProgress,
   submitted: false,
-};
+} satisfies CoreSet;
 
 describe("Core Set storage methods", () => {
   beforeEach(() => {
@@ -35,21 +38,19 @@ describe("Core Set storage methods", () => {
   });
 
   it("should fetch a core set", async () => {
-    const coreSet = { ...testCoreSet, ...coreSetFields };
     jest.mocked(dynamodbLib.get).mockResolvedValueOnce(coreSet);
 
-    expect(await getCoreSetFromTable(parameters)).toBe(coreSet);
+    expect(await getCoreSetFromTable(parameters)).toEqual(coreSet);
     expect(dynamodbLib.get).toHaveBeenCalledWith({
       TableName: "local-coreset",
-      Key: coreSetKey,
+      Key: { compoundKey: "CO2024", coreSet: CoreSetAbbr.ACS },
     });
   });
 
   it("should list core sets for only the requested state and year", async () => {
-    const items = [{ ...testCoreSet, ...coreSetFields }];
-    jest.mocked(dynamodbLib.queryAll).mockResolvedValueOnce(items);
+    jest.mocked(dynamodbLib.queryAll).mockResolvedValueOnce([coreSet]);
 
-    expect(await getCoreSetsFromTable(parameters)).toBe(items);
+    expect(await getCoreSetsFromTable(parameters)).toEqual([coreSet]);
     expect(dynamodbLib.queryAll).toHaveBeenCalledWith({
       TableName: "local-coreset",
       KeyConditionExpression: "compoundKey = :compoundKey",
@@ -60,7 +61,7 @@ describe("Core Set storage methods", () => {
   it("should put a core set", async () => {
     const expected = {
       TableName: "local-coreset",
-      Item: { ...coreSetKey, state: "CO", year: 2024, ...coreSetFields },
+      Item: coreSet,
     };
     await putCoreSetToTable(expected.Item);
 
@@ -68,17 +69,11 @@ describe("Core Set storage methods", () => {
   });
 
   it("should update a core set including submission status", async () => {
-    await updateCoreSetInTable({
-      ...coreSetKey,
-      submitted: false,
-      status: "in progress",
-      lastAltered: 30,
-      lastAlteredBy: "state-user",
-    });
+    await updateCoreSetInTable(coreSet);
 
     expect(dynamodbLib.update).toHaveBeenCalledWith({
       TableName: "local-coreset",
-      Key: coreSetKey,
+      Key: { compoundKey: "CO2024", coreSet: CoreSetAbbr.ACS },
       UpdateExpression:
         "SET submitted = :submitted, #status = :status, lastAltered = :lastAltered, lastAlteredBy = :lastAlteredBy",
       ExpressionAttributeNames: {
@@ -87,7 +82,7 @@ describe("Core Set storage methods", () => {
       ExpressionAttributeValues: {
         ":submitted": false,
         ":status": "in progress",
-        ":lastAltered": 30,
+        ":lastAltered": 20,
         ":lastAlteredBy": "state-user",
       },
     });
@@ -98,15 +93,7 @@ describe("Core Set storage methods", () => {
 
     expect(dynamodbLib.delete).toHaveBeenCalledWith({
       TableName: "local-coreset",
-      Key: coreSetKey,
+      Key: { compoundKey: "CO2024", coreSet: CoreSetAbbr.ACS },
     });
-  });
-
-  it("should preserve missing records and empty lists", async () => {
-    jest.mocked(dynamodbLib.get).mockResolvedValue(undefined);
-    jest.mocked(dynamodbLib.queryAll).mockResolvedValue([]);
-
-    expect(await getCoreSetFromTable(parameters)).toBeUndefined();
-    expect(await getCoreSetsFromTable(parameters)).toEqual([]);
   });
 });

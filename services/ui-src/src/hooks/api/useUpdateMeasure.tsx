@@ -1,15 +1,20 @@
 import { useMutation } from "@tanstack/react-query";
 import { editMeasure } from "libs/api";
-import { CoreSetAbbr, Params, MeasureStatus } from "types";
+import {
+  CoreSetIdentifier,
+  MeasureIdentifier,
+  MeasureStatus,
+} from "@qmr/shared";
+import { Params } from "types";
 import { usePathParams } from "./usePathParams";
 import { useParams } from "react-router";
 
 interface UpdateMeasure<DataType = any> {
-  coreSet?: string;
+  coreSet?: CoreSetIdentifier;
   data: DataType;
   description?: string;
   detailedDescription?: string;
-  measure?: string;
+  measure?: MeasureIdentifier;
   status: MeasureStatus;
   reporting?: string | undefined;
 }
@@ -56,7 +61,7 @@ export const useUpdateMeasure = () => {
           measure: measureId,
           year: year || yearPath,
           state: state || statePath,
-          coreSet: (coreSetId as CoreSetAbbr) || (coreSet as CoreSetAbbr),
+          coreSet: (coreSetId || coreSet) as CoreSetIdentifier,
           ...data,
         }),
     });

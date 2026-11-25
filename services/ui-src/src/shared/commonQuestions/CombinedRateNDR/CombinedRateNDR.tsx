@@ -1,5 +1,6 @@
 import * as CUI from "@chakra-ui/react";
-import { CombinedRatesPayload, ProgramTypeList, ProgramTypes } from "types";
+import { CombinedRateData, MeasureIdentifier } from "@qmr/shared";
+import { ProgramTypeList, ProgramTypes } from "types";
 import * as Labels from "labels/RateLabelTexts";
 
 export const CombinedRateNDR = ({
@@ -128,9 +129,9 @@ export const CombinedRateNDR = ({
  * Sort the rates in-place, to match how they are displayed on individual measure pages.
  */
 const sortRates = (
-  tables: CombinedRatesPayload["Rates"],
+  tables: CombinedRateData["Rates"],
   year: string,
-  measure: string
+  measure: MeasureIdentifier
 ) => {
   // Dynamically pull the rateLabelText by combined rates year so that we can get the cat and qual info of the measure
   const rateTextLabel = Labels[`RateLabel${year}` as keyof typeof Labels];
@@ -159,9 +160,9 @@ const rateComponentDisplayNames = {
 } as const;
 
 type Props = {
-  payload: CombinedRatesPayload;
+  payload: CombinedRateData;
   year: string;
-  measure: string;
+  measure: MeasureIdentifier;
 };
 
 const sx = {

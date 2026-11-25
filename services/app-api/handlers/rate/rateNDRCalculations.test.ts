@@ -1,4 +1,4 @@
-import { CombinedRatesPayload, Measure } from "../../types";
+import { CombinedRateData, Measure } from "@qmr/shared";
 import { combineRates } from "./rateNDRCalculations";
 
 describe("NDR calculations for Combined Rates", () => {
@@ -6,7 +6,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -66,7 +66,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -115,7 +115,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -190,7 +190,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: { requiresWeightedCalc: true },
       CHIP: { requiresWeightedCalc: true },
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -267,7 +267,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: { requiresWeightedCalc: true },
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -321,7 +321,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -371,7 +371,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -431,7 +431,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: { requiresWeightedCalc: true },
       CHIP: { requiresWeightedCalc: true },
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -503,7 +503,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: {},
       CHIP: {},
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {
@@ -563,7 +563,7 @@ describe("NDR calculations for Combined Rates", () => {
     const dataSources = {
       Medicaid: { requiresWeightedCalc: true },
       CHIP: { requiresWeightedCalc: true },
-    } as CombinedRatesPayload["DataSources"];
+    } as CombinedRateData["DataSources"];
 
     const medicaidMeasure = {
       data: {

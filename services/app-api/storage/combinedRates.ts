@@ -1,11 +1,12 @@
 import dynamoDb from "../libs/dynamodb-lib";
-import { RateParameters, CombinedRatesPayload } from "../types";
+import { RateParameters } from "../types";
+import { CombinedRateData } from "@qmr/shared";
 
 const TableName = process.env.CombinedRatesTable!;
 
 export const putCombinedRatesToTable = async (
   parameters: RateParameters,
-  combinedRates: CombinedRatesPayload
+  combinedRates: CombinedRateData
 ) => {
   const { year, state, coreSet, measure } = parameters;
   await dynamoDb.update({
@@ -34,7 +35,7 @@ export const putCombinedRatesToTable = async (
 
 export const getCombinedRatesFromTable = async (
   parameters: RateParameters
-): Promise<CombinedRatesPayload> => {
+): Promise<CombinedRateData> => {
   const { year, state, coreSet, measure } = parameters;
   const queryValue = await dynamoDb.get({
     TableName,
@@ -43,5 +44,5 @@ export const getCombinedRatesFromTable = async (
       measure,
     },
   });
-  return (queryValue as any | undefined)?.data as CombinedRatesPayload;
+  return (queryValue as any | undefined)?.data as CombinedRateData;
 };

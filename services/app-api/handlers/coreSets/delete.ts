@@ -5,6 +5,7 @@ import {
   getMeasuresFromTable,
 } from "../../storage/measures";
 import { hasStatePermissions } from "../../libs/authorization";
+import { CoreSetIdentifier } from "@qmr/shared";
 import { Errors, StatusCodes } from "../../utils/constants/constants";
 import { parseCoreSetParameters } from "../../utils/parseParameters";
 
@@ -36,12 +37,11 @@ export const deleteCoreSet = handler(async (event, _context) => {
 const deleteDependentMeasures = async (
   state: string,
   year: number,
-  coreSet: string
+  coreSet: CoreSetIdentifier
 ) => {
   const measures = await getMeasuresFromTable({ state, year, coreSet });
-  const Items = measures;
 
-  for await (const { measure } of Items) {
+  for await (const { measure } of measures) {
     await deleteMeasureFromTable({ state, year, coreSet, measure });
   }
 };

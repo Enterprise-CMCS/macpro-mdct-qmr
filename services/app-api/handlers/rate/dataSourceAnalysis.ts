@@ -1,8 +1,8 @@
 import {
   Measure,
-  DataSource as DataSourceTypes,
-  MeasurementSpecificationType,
-} from "../../types";
+  DataSources as DataSourceTypes,
+  MeasurementSpecifications as MeasurementSpecificationType,
+} from "@qmr/shared";
 
 /**
  * Pull the data sources and sub-selections out of the measure,
@@ -39,7 +39,7 @@ export const collectDataSourcesForMeasure = (measure: Measure | undefined) => {
   const requiresWeightedCalc =
     !isUnusableForCalc &&
     (DataSource.includes(DataSourceTypes.Hybrid) ||
-      DataSource.includes(DataSourceTypes.CaseMagementRecordReview));
+      DataSource.includes(DataSourceTypes.CaseManagementRecordReview));
 
   return {
     isUnusableForCalc,

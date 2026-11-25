@@ -31,7 +31,7 @@ const props = {
       ],
     },
   ],
-  coreset: "Adult",
+  coreset: "adult" as const,
   qualifiers: [
     {
       id: "test-qualifier-id",

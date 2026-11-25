@@ -1,7 +1,7 @@
 import * as Api from "hooks/api";
 import * as CUI from "@chakra-ui/react";
 import * as QMR from "components";
-import { CoreSetAbbr, MeasureData } from "types";
+import { CoreSetIdentifier, Measure } from "@qmr/shared";
 import { CoreSetTableItem } from "components/Table/types";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router";
@@ -19,7 +19,7 @@ interface NewSSMs {
 }
 
 export const AddStateSpecificMeasure = () => {
-  const [existingMeasures, setExistingMeasures] = useState<MeasureData[]>([]);
+  const [existingMeasures, setExistingMeasures] = useState<Measure[]>([]);
   const [existingIds, setExistingIds] = useState<number[]>([]);
   const { data: allMeasureData } = Api.useGetMeasures();
   const userInfo = useUser();
@@ -93,7 +93,7 @@ export const AddStateSpecificMeasure = () => {
             userState: state,
             userCreated: true,
           },
-          coreSet: coreSetId as CoreSetAbbr,
+          coreSet: coreSetId as CoreSetIdentifier,
           measure: `SS-${measureIdNumber}-HH`,
           state,
           year,
@@ -102,7 +102,7 @@ export const AddStateSpecificMeasure = () => {
         mutation.mutate(requestData, {
           onSuccess: () => {
             updateCoreSet({
-              coreSet: coreSetId as CoreSetAbbr,
+              coreSet: coreSetId as CoreSetIdentifier,
               state: state ?? "",
               year,
               body: {

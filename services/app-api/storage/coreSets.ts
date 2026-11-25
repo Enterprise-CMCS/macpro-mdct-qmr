@@ -1,5 +1,5 @@
 import dynamoDb from "../libs/dynamodb-lib";
-import { CoreSet } from "../types";
+import { CoreSet } from "@qmr/shared";
 
 const TableName = process.env.QualityCoreSetsTable!;
 

@@ -1,10 +1,5 @@
-import {
-  APIGatewayProxyEvent,
-  CoreSet,
-  CoreSetAbbr,
-  Measure,
-  MeasureStatus,
-} from "../types";
+import { CoreSet, CoreSetAbbr, Measure, MeasureStatuses } from "@qmr/shared";
+import { APIGatewayProxyEvent } from "../types";
 
 export const testEvent: APIGatewayProxyEvent = {
   body: "{}",
@@ -43,7 +38,7 @@ export const testMeasure: Measure = {
   lastAltered: 0,
   measure: "",
   state: "",
-  status: MeasureStatus.INCOMPLETE,
+  status: MeasureStatuses.Incomplete,
   year: 2019,
   lastAlteredBy: "",
 };

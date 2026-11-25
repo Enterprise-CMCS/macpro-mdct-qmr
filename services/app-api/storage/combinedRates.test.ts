@@ -5,7 +5,8 @@ import {
   getCombinedRatesFromTable,
 } from "./combinedRates";
 import dynamodbLib from "../libs/dynamodb-lib";
-import { CombinedRatesPayload, DataSourcePayload } from "../types";
+import { CombinedRateData, DataSourceInformation } from "@qmr/shared";
+import { RateParameters } from "../types";
 
 jest.mock("../libs/dynamodb-lib", () => ({
   update: jest.fn(),
@@ -17,12 +18,12 @@ const parameters = {
   measure: "ZZZ-AD",
   coreSet: "ACS",
   year: 2024,
-};
+} as RateParameters;
 
 const mockCombinedRate = {
   DataSources: {
-    Medicaid: { DataSource: ["AdministrativeData"] } as DataSourcePayload,
-    CHIP: { DataSource: ["AdministrativeData"] } as DataSourcePayload,
+    Medicaid: { DataSource: ["AdministrativeData"] } as DataSourceInformation,
+    CHIP: { DataSource: ["AdministrativeData"] } as DataSourceInformation,
   },
   Rates: [
     {
@@ -38,7 +39,7 @@ const mockCombinedRate = {
     },
   ],
   AdditionalValues: [],
-} as CombinedRatesPayload;
+} as CombinedRateData;
 
 describe("Combined Rates storage methods", () => {
   beforeEach(() => {

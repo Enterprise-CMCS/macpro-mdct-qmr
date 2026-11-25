@@ -1,6 +1,7 @@
 import { SPA } from "libs/spaLib";
 import { getPDF } from "libs/api";
 import { gzip } from "pako";
+import { parseCoreSet } from "@qmr/shared";
 
 interface HookProps {
   coreSetId?: string;
@@ -234,7 +235,7 @@ export const getSpaName = ({ coreSetId, state, year }: HookProps) => {
     return undefined;
   }
 
-  const spaId = coreSetId.split("_")[1];
+  const [_, spaId] = parseCoreSet(coreSetId);
   const spa = SPA[year].find((s) => s.id === spaId && s.state === state);
   if (!spa) {
     return undefined;

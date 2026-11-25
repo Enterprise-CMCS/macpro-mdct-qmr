@@ -15,7 +15,7 @@ import {
 } from "react-hook-form";
 import { areSomeRatesCompleted } from "utils/form";
 import * as DC from "dataConstants";
-import { CoreSetAbbr } from "types";
+import { abbreviationFor, CoreSetAbbr } from "@qmr/shared";
 import { measureDescriptions } from "measures/measureDescriptions";
 import SharedContext from "shared/SharedContext";
 import * as Labels from "labels/Labels";
@@ -136,11 +136,9 @@ export const PrintableMeasureWrapper = ({
       !measureData?.data &&
       measureId === "CSQ"
     ) {
+      const coreSetAbbr = abbreviationFor(params.coreSetId);
       methods.reset(
-        params.coreSetId
-          ? defaultData?.[params.coreSetId.split("_")[0] as CoreSetAbbr]
-              ?.formData
-          : undefined
+        coreSetAbbr ? defaultData?.[coreSetAbbr]?.formData : undefined
       );
     }
     // default loaded data reset
@@ -151,7 +149,7 @@ export const PrintableMeasureWrapper = ({
     return null;
   }
 
-  const coreSet = params.coreSetId.split("_")[0] as CoreSetAbbr;
+  const coreSet = abbreviationFor(params.coreSetId);
 
   const foundMeasureDescription =
     measureDescriptions[measureData?.year]?.[measureData?.measure] ||

@@ -6,7 +6,7 @@ import { DataDriven, DeliverySystem } from "shared/types/TypeQualifierForm";
 import { BsPercent } from "react-icons/bs";
 import { percentageAllowOneDecimalMax } from "utils";
 import { useUser } from "hooks/authHooks";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 
 const initialDeliverySystemValue = {
   label: "",

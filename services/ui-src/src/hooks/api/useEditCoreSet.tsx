@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { editCoreSet } from "libs/api";
-import { CoreSetAbbr, Params } from "types";
+import { CoreSetIdentifier } from "@qmr/shared";
+import { Params } from "types";
 import { CoreSetTableItem } from "components/Table/types";
 
 interface EditCoreSet {
@@ -10,7 +11,7 @@ interface EditCoreSet {
     userState: string;
     userRole: string;
   };
-  coreSet: CoreSetAbbr;
+  coreSet: CoreSetIdentifier;
   state: string;
   year: string;
 }

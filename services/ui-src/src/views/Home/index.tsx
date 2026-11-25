@@ -1,5 +1,5 @@
 import { Navigate } from "react-router";
-import { UserRoles } from "types";
+import { UserRoles } from "@qmr/shared";
 import config from "config";
 import * as CUI from "@chakra-ui/react";
 import "./index.module.scss";
