@@ -1,5 +1,6 @@
 import { del, get, post, put } from "aws-amplify/api";
 import { fetchAuthSession } from "aws-amplify/auth";
+import { AdminBannerData } from "types";
 import {
   createCoreSet,
   createMeasure,
@@ -10,9 +11,14 @@ import {
   getAllCoreSets,
   getCoreSet,
   getMeasure,
+  getMeasureListInfo,
   getPDF,
   getRate,
+  getReportingYears,
+  getBanner,
   listMeasures,
+  deleteBanner,
+  writeBanner,
 } from "./api";
 
 jest.mock("aws-amplify/api", () => ({
@@ -36,6 +42,8 @@ const input = {
   body: { example: true },
 };
 
+const bannerData = { key: "test-banner" } as AdminBannerData;
+
 describe("API resource paths", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -48,37 +56,134 @@ describe("API resource paths", () => {
   });
 
   it.each([
-    ["getMeasure", getMeasure, get, "/coreset/AL/2027/ACS/measures/CDF-AD"],
+    [
+      "listMeasures",
+      () => listMeasures(input),
+      get,
+      "/coreset/AL/2027/ACS/measures",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "getReportingYears",
+      () => getReportingYears(input),
+      get,
+      "/coreset/reportingyears",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "getMeasureListInfo",
+      () => getMeasureListInfo(input),
+      get,
+      "/coreset/measureListInfo",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "getMeasure",
+      () => getMeasure(input),
+      get,
+      "/coreset/AL/2027/ACS/measures/CDF-AD",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
     [
       "createMeasure",
-      createMeasure,
+      () => createMeasure(input),
       post,
       "/coreset/AL/2027/ACS/measures/CDF-AD",
+      { headers: { "x-api-key": undefined }, body: input.body },
     ],
-    ["editMeasure", editMeasure, put, "/coreset/AL/2027/ACS/measures/CDF-AD"],
+    [
+      "editMeasure",
+      () => editMeasure(input),
+      put,
+      "/coreset/AL/2027/ACS/measures/CDF-AD",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
     [
       "deleteMeasure",
-      deleteMeasure,
+      () => deleteMeasure(input),
       del,
       "/coreset/AL/2027/ACS/measures/CDF-AD",
+      { headers: { "x-api-key": undefined }, body: input.body },
     ],
-    ["getCoreSet", getCoreSet, get, "/coreset/AL/2027/ACS-ID"],
-    ["createCoreSet", createCoreSet, post, "/coreset/AL/2027/ACS"],
-    ["editCoreSet", editCoreSet, put, "/coreset/AL/2027/ACS"],
-    ["deleteCoreSet", deleteCoreSet, del, "/coreset/AL/2027/ACS"],
-    ["getRate", getRate, get, "/rate/AL/2027/ACS/CDF-AD"],
-    ["listMeasures", listMeasures, get, "/coreset/AL/2027/ACS/measures"],
-    ["getAllCoreSets", getAllCoreSets, get, "/coreset/AL/2027"],
-    ["getPDF", getPDF, post, "/coreset/AL/2027/ACS/pdf"],
+    [
+      "getAllCoreSets",
+      () => getAllCoreSets(input),
+      get,
+      "/coreset/AL/2027",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "getCoreSet",
+      () => getCoreSet(input),
+      get,
+      "/coreset/AL/2027/ACS-ID",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "createCoreSet",
+      () => createCoreSet(input),
+      post,
+      "/coreset/AL/2027/ACS",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "editCoreSet",
+      () => editCoreSet(input),
+      put,
+      "/coreset/AL/2027/ACS",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "deleteCoreSet",
+      () => deleteCoreSet(input),
+      del,
+      "/coreset/AL/2027/ACS",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "getRate",
+      () => getRate(input),
+      get,
+      "/rate/AL/2027/ACS/CDF-AD",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "getPDF",
+      () => getPDF(input),
+      post,
+      "/coreset/AL/2027/ACS/pdf",
+      { headers: { "x-api-key": undefined }, body: input.body },
+    ],
+    [
+      "getBanner",
+      () => getBanner(bannerData.key),
+      get,
+      "/banners/test-banner",
+      { headers: { "x-api-key": undefined } },
+    ],
+    [
+      "writeBanner",
+      () => writeBanner(bannerData),
+      post,
+      "/banners/test-banner",
+      { headers: { "x-api-key": undefined }, body: bannerData },
+    ],
+    [
+      "deleteBanner",
+      () => deleteBanner(bannerData.key),
+      del,
+      "/banners/test-banner",
+      { headers: { "x-api-key": undefined } },
+    ],
   ])(
     "%s uses the resource path and HTTP method",
-    async (_name, operation, request, path) => {
-      await operation(input);
+    async (_name, operation, request, path, options) => {
+      await operation();
 
       expect(request).toHaveBeenCalledWith({
         apiName: "coreSet",
         path,
-        options: { headers: { "x-api-key": undefined }, body: input.body },
+        options,
       });
     }
   );
