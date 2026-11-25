@@ -124,10 +124,10 @@ export type CoreSetIdentifier =
 /**
  * A CoreSetIdentifier is like a CoreSetAbbr, but includes the suffix for HHCS.
  * @example
- * isCoreSetIdentifer("ACS")          // true
- * isCoreSetIdentifer("CCSC")         // true
- * isCoreSetIdentifer("HHCS")         // FALSE!
- * isCoreSetIdentifer("HHCS_22-0025") // true
+ * isCoreSetIdentifier("ACS")          // true
+ * isCoreSetIdentifier("CCSC")         // true
+ * isCoreSetIdentifier("HHCS")         // FALSE!
+ * isCoreSetIdentifier("HHCS_22-0025") // true
  */
 export const isCoreSetIdentifier = (x: string): x is CoreSetIdentifier => {
   if (typeof x !== "string") {
@@ -171,20 +171,20 @@ type CoreSetParseResult =
   | [CoreSetAbbr.HHCS, string];
 
 /**
- * Split a CoreSetIdentifer into [CoreSetAbbr, spaId].
+ * Split a CoreSetIdentifier into [CoreSetAbbr, spaId].
  *
  * The CoreSetAbbr is only provided if the input is a valid CoreSetIdentifier.
  * The spaId is only provided if the CoreSetAbbr is HHCS.
  * @example
- * parseIdentifier(undefined) // [undefined, undefined]
- * parseIdentifier("foo_bar") // [undefined, undefined]
- * parseIdentifier("ACSC") // [CoreSetAbbr.ACSC, undefined]
- * parseIdentifier("HHCS_32-0015") // [CoreSetAbbr.HHCS, "32-0015"]
+ * parseCoreSet(undefined) // [undefined, undefined]
+ * parseCoreSet("foo_bar") // [undefined, undefined]
+ * parseCoreSet("ACSC") // [CoreSetAbbr.ACSC, undefined]
+ * parseCoreSet("HHCS_32-0015") // [CoreSetAbbr.HHCS, "32-0015"]
  */
 export const parseCoreSet = (
   coreSet: string | undefined
 ): CoreSetParseResult => {
-  if (coreSet === undefined) return [undefined, undefined];
+  if (!coreSet) return [undefined, undefined];
   const [abbr, spa] = coreSet.split("_");
   if (!isCoreSetAbbr(abbr)) return [undefined, undefined];
   if (abbr !== CoreSetAbbr.HHCS) return [abbr, undefined];

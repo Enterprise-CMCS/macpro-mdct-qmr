@@ -554,7 +554,7 @@ export const isNdrRateShape = (x: RateShape): x is NdrRateShape =>
   isLegacyNdrRateShape(x) && "uid" in x;
 type LegacyNdrRateShape = Omit<NdrRateShape, "uid" | "category">;
 export const isLegacyNdrRateShape = (x: RateShape): x is LegacyNdrRateShape =>
-  !("fields" in x) && !("id" in x);
+  !("fields" in x) && !("value" in x);
 
 /** Used for AIF-HH and IU-HH */
 export type FieldsRateShape = {
@@ -573,7 +573,7 @@ export const isFieldsRateShape = (x: RateShape): x is FieldsRateShape =>
 type LegacyFieldsRateShape = Omit<
   FieldsRateShape,
   "uid" | "category" | "fields"
-> & { fields: Omit<FieldsRateShape["fields"], "uid">[] };
+> & { fields: Omit<FieldsRateShape["fields"][number], "uid">[] };
 export const isLegacyFieldsRateShape = (
   x: RateShape
 ): x is LegacyFieldsRateShape => "fields" in x;
@@ -614,7 +614,7 @@ export const DataSources = {
   Administrative: "AdministrativeData",
   EHR: "ElectronicHealthRecords",
   Hybrid: "HybridAdministrativeandMedicalRecordsData",
-  CaseMagementRecordReview: "Casemanagementrecordreview",
+  CaseManagementRecordReview: "Casemanagementrecordreview",
   ECDS: "ElectronicClinicalDataSystemsECDS",
   Other: "OtherDataSource",
 } as const;

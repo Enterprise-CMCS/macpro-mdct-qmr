@@ -39,7 +39,7 @@ export const collectDataSourcesForMeasure = (measure: Measure | undefined) => {
   const requiresWeightedCalc =
     !isUnusableForCalc &&
     (DataSource.includes(DataSourceTypes.Hybrid) ||
-      DataSource.includes(DataSourceTypes.CaseMagementRecordReview));
+      DataSource.includes(DataSourceTypes.CaseManagementRecordReview));
 
   return {
     isUnusableForCalc,

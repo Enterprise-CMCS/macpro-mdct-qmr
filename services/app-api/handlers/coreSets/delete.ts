@@ -40,9 +40,8 @@ const deleteDependentMeasures = async (
   coreSet: CoreSetIdentifier
 ) => {
   const measures = await getMeasuresFromTable({ state, year, coreSet });
-  const Items = measures;
 
-  for await (const { measure } of Items) {
+  for await (const { measure } of measures) {
     await deleteMeasureFromTable({ state, year, coreSet, measure });
   }
 };
