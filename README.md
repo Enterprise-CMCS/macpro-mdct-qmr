@@ -294,23 +294,23 @@ These are used to determine the unique ID of the DynamoDB record.
 
 ##### CoreSets
 
-| Method   | Path                                       | Description                                                           |
-| -------- | ------------------------------------------ | --------------------------------------------------------------------- |
-| `GET`    | `/coreset/{state}/{year}/list`             | Get all coresets for a state and year                                 |
-| `GET`    | `/coreset/{state}/{year}/{coreSet}/get`    | Get a specific coreset                                                |
-| `POST`   | `/coreset/{state}/{year}/{coreSet}/create` | Create a coreset (requires request body; also creates child measures) |
-| `PUT`    | `/coreset/{state}/{year}/{coreSet}/edit`   | Edit a coreset (body: `submitted` or `status`)                        |
-| `DELETE` | `/coreset/{state}/{year}/{coreSet}/delete` | Delete a coreset and its child measures                               |
+| Method   | Path                                | Description                                                           |
+| -------- | ----------------------------------- | --------------------------------------------------------------------- |
+| `GET`    | `/coreset/{state}/{year}`           | Get all coresets for a state and year                                 |
+| `GET`    | `/coreset/{state}/{year}/{coreSet}` | Get a specific coreset                                                |
+| `POST`   | `/coreset/{state}/{year}/{coreSet}` | Create a coreset (requires request body; also creates child measures) |
+| `PUT`    | `/coreset/{state}/{year}/{coreSet}` | Edit a coreset (body: `submitted` or `status`)                        |
+| `DELETE` | `/coreset/{state}/{year}/{coreSet}` | Delete a coreset and its child measures                               |
 
 ##### Measures
 
-| Method   | Path                                                          | Description                                                |
-| -------- | ------------------------------------------------------------- | ---------------------------------------------------------- |
-| `GET`    | `/coreset/{state}/{year}/{coreSet}/measures/list`             | Get all measures for a coreset                             |
-| `GET`    | `/coreset/{state}/{year}/{coreSet}/measures/{measure}/get`    | Get a specific measure                                     |
-| `POST`   | `/coreset/{state}/{year}/{coreSet}/measures/{measure}/create` | Create a measure (requires request body)                   |
-| `PUT`    | `/coreset/{state}/{year}/{coreSet}/measures/{measure}/edit`   | Edit a measure (body: `data`, `status`, `reporting`, etc.) |
-| `DELETE` | `/coreset/{state}/{year}/{coreSet}/measures/{measure}/delete` | Delete a measure                                           |
+| Method   | Path                                                   | Description                                                |
+| -------- | ------------------------------------------------------ | ---------------------------------------------------------- |
+| `GET`    | `/coreset/{state}/{year}/{coreSet}/measures`           | Get all measures for a coreset                             |
+| `GET`    | `/coreset/{state}/{year}/{coreSet}/measures/{measure}` | Get a specific measure                                     |
+| `POST`   | `/coreset/{state}/{year}/{coreSet}/measures/{measure}` | Create a measure (requires request body)                   |
+| `PUT`    | `/coreset/{state}/{year}/{coreSet}/measures/{measure}` | Edit a measure (body: `data`, `status`, `reporting`, etc.) |
+| `DELETE` | `/coreset/{state}/{year}/{coreSet}/measures/{measure}` | Delete a measure                                           |
 
 ##### Metadata & Utilities
 
@@ -321,15 +321,15 @@ These are used to determine the unique ID of the DynamoDB record.
 
 ##### Rates
 
-| Method | Path                                           | Description                      |
-| ------ | ---------------------------------------------- | -------------------------------- |
-| `GET`  | `/rate/{state}/{year}/{coreSet}/{measure}/get` | Get combined rates for a measure |
+| Method | Path                                       | Description                      |
+| ------ | ------------------------------------------ | -------------------------------- |
+| `GET`  | `/rate/{state}/{year}/{coreSet}/{measure}` | Get combined rates for a measure |
 
 ##### PDF Generation
 
-| Method | Path                                       | Description                                          |
-| ------ | ------------------------------------------ | ---------------------------------------------------- |
-| `POST` | `/coreset/{state}/{year}/{coreSet}/getPDF` | Generate a PDF for a coreset (requires request body) |
+| Method | Path                                    | Description                                          |
+| ------ | --------------------------------------- | ---------------------------------------------------- |
+| `POST` | `/coreset/{state}/{year}/{coreSet}/pdf` | Generate a PDF for a coreset (requires request body) |
 
 #### Kafka
 

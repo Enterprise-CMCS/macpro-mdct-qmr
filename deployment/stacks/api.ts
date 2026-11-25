@@ -172,7 +172,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "listMeasures", {
     entry: "services/app-api/handlers/measures/get.ts",
     handler: "listMeasures",
-    path: "coreset/{state}/{year}/{coreSet}/measures/list",
+    path: "coreset/{state}/{year}/{coreSet}/measures",
     method: "GET",
     ...commonProps,
   });
@@ -196,7 +196,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "getMeasure", {
     entry: "services/app-api/handlers/measures/get.ts",
     handler: "getMeasure",
-    path: "coreset/{state}/{year}/{coreSet}/measures/{measure}/get",
+    path: "coreset/{state}/{year}/{coreSet}/measures/{measure}",
     method: "GET",
     ...commonProps,
   });
@@ -204,7 +204,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "createMeasure", {
     entry: "services/app-api/handlers/measures/create.ts",
     handler: "createMeasure",
-    path: "coreset/{state}/{year}/{coreSet}/measures/{measure}/create",
+    path: "coreset/{state}/{year}/{coreSet}/measures/{measure}",
     method: "POST",
     ...commonProps,
   });
@@ -212,7 +212,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "editMeasure", {
     entry: "services/app-api/handlers/measures/update.ts",
     handler: "editMeasure",
-    path: "coreset/{state}/{year}/{coreSet}/measures/{measure}/edit",
+    path: "coreset/{state}/{year}/{coreSet}/measures/{measure}",
     method: "PUT",
     ...commonProps,
   });
@@ -220,7 +220,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "deleteMeasure", {
     entry: "services/app-api/handlers/measures/delete.ts",
     handler: "deleteMeasure",
-    path: "coreset/{state}/{year}/{coreSet}/measures/{measure}/delete",
+    path: "coreset/{state}/{year}/{coreSet}/measures/{measure}",
     method: "DELETE",
     ...commonProps,
   });
@@ -228,7 +228,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "getAllCoreSets", {
     entry: "services/app-api/handlers/coreSets/get.ts",
     handler: "getAllCoreSets",
-    path: "coreset/{state}/{year}/list",
+    path: "coreset/{state}/{year}",
     method: "GET",
     ...commonProps,
   });
@@ -236,7 +236,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "getCoreSet", {
     entry: "services/app-api/handlers/coreSets/get.ts",
     handler: "getCoreSet",
-    path: "coreset/{state}/{year}/{coreSet}/get",
+    path: "coreset/{state}/{year}/{coreSet}",
     method: "GET",
     ...commonProps,
   });
@@ -244,7 +244,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "createCoreSet", {
     entry: "services/app-api/handlers/coreSets/create.ts",
     handler: "createCoreSet",
-    path: "coreset/{state}/{year}/{coreSet}/create",
+    path: "coreset/{state}/{year}/{coreSet}",
     method: "POST",
     ...commonProps,
   });
@@ -252,7 +252,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "editCoreSet", {
     entry: "services/app-api/handlers/coreSets/update.ts",
     handler: "editCoreSet",
-    path: "coreset/{state}/{year}/{coreSet}/edit",
+    path: "coreset/{state}/{year}/{coreSet}",
     method: "PUT",
     ...commonProps,
   });
@@ -260,7 +260,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "deleteCoreSet", {
     entry: "services/app-api/handlers/coreSets/delete.ts",
     handler: "deleteCoreSet",
-    path: "coreset/{state}/{year}/{coreSet}/delete",
+    path: "coreset/{state}/{year}/{coreSet}",
     method: "DELETE",
     ...commonProps,
   });
@@ -268,7 +268,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "getRate", {
     entry: "services/app-api/handlers/rate/get.ts",
     handler: "getRate",
-    path: "rate/{state}/{year}/{coreSet}/{measure}/get",
+    path: "rate/{state}/{year}/{coreSet}/{measure}",
     method: "GET",
     ...commonProps,
   });
@@ -276,7 +276,7 @@ export function createApiComponents(props: CreateApiComponentsProps) {
   new Lambda(scope, "getPDF", {
     entry: "services/app-api/handlers/prince/pdf.ts",
     handler: "getPDF",
-    path: "coreset/{state}/{year}/{coreSet}/getPDF",
+    path: "coreset/{state}/{year}/{coreSet}/pdf",
     method: "POST",
     ...commonProps,
     timeout: Duration.seconds(30), // apigateway's max
